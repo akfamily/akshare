@@ -10,6 +10,7 @@ https://data.eastmoney.com/xg/xg/default_2.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.tqdm import get_tqdm
 
@@ -35,14 +36,16 @@ def stock_dxsyl_em() -> pd.DataFrame:
         "client": "WEB",
         "filter": """((APPLY_DATE>'2010-01-01')(|@APPLY_DATE="NULL"))((LISTING_DATE>'2010-01-01')(|@LISTING_DATE="NULL"))(TRADE_MARKET_CODE!="069001017")""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -137,14 +140,16 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             "source": "NEEQSELECT",
             "client": "WEB",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, 1 + int(total_page)), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -251,14 +256,16 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             "source": "WEB",
             "client": "WEB",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)

@@ -7,6 +7,7 @@ http://data.eastmoney.com/yzxdr/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 from akshare.utils import demjson
@@ -35,7 +36,8 @@ def stock_yzxdr_em(date: str = "20200930") -> pd.DataFrame:
         "filter": f"(enddate='{date}')",
         "rt": "53575609",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     total_pages = data_json["result"]["pages"]
@@ -53,7 +55,8 @@ def stock_yzxdr_em(date: str = "20200930") -> pd.DataFrame:
             "filter": f"(enddate='{date}')",
             "rt": "53575609",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(data_json["result"]["data"])

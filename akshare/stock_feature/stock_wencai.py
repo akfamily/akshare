@@ -7,6 +7,7 @@ https://www.iwencai.com/unifiedwap/home/index
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.tqdm import get_tqdm
 
@@ -55,7 +56,8 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
                 "page": page,
             }
         )
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["answer"]["components"][0]["data"]["datas"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)

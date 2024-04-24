@@ -7,6 +7,7 @@ https://data.eastmoney.com/zdht/mx.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -30,7 +31,8 @@ def stock_zdhtmx_em(
         "reportName": "RPTA_WEB_ZDHT_LIST",
         "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -40,7 +42,8 @@ def stock_zdhtmx_em(
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], axis=0, ignore_index=True)

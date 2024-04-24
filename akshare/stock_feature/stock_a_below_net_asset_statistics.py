@@ -7,6 +7,7 @@ https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFrame:
@@ -29,7 +30,8 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
         "marketId": symbol_map[symbol],
         "token": "325843825a2745a2a8f9b9e3355cb864",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date

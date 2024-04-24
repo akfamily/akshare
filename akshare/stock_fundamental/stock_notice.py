@@ -7,6 +7,7 @@ http://data.eastmoney.com/notices/hsa/5.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -43,7 +44,8 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
         "begin_time": "-".join([date[:4], date[4:6], date[6:]]),
         "end_time": "-".join([date[:4], date[4:6], date[6:]]),
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     import math
 
@@ -56,7 +58,8 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
                 "page_index": page,
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
         temp_codes_df = pd.DataFrame(

@@ -6,6 +6,7 @@ Desc: 百度股市通-港股-财务报表-估值数据
 https://gushitong.baidu.com/stock/hk-06969
 """
 import http.client
+from akshare.request_config_manager import get_headers_and_timeout
 import json
 import urllib
 
@@ -36,8 +37,9 @@ def stock_hk_valuation_baidu(
         "skip_industry": "0",
         "finClientType": "pc",
     }
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
-    conn.request("GET", f"/selfselect/openapi?{urllib.parse.urlencode(params)}")
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    conn = http.client.HTTPSConnection("finance.pae.baidu.com", timeout=timeout)
+    conn.request("GET", f"/selfselect/openapi?{urllib.parse.urlencode(params)}", headers=headers)
     r = conn.getresponse()
     data_json = json.loads(r.read())
     temp_df = pd.DataFrame(data_json["Result"]["chartInfo"][0]["body"])

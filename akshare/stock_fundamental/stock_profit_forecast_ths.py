@@ -7,6 +7,7 @@ https://basic.10jqka.com.cn/new/600519/worth.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_profit_forecast_ths(
@@ -26,7 +27,8 @@ def stock_profit_forecast_ths(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gbk"
     if indicator == "预测年报每股收益":
         temp_df = pd.read_html(r.text)[0]

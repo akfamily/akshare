@@ -8,6 +8,7 @@ https://basic.10jqka.com.cn/new/000066/operate.html
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -25,7 +26,8 @@ def stock_zyjs_ths(symbol: str = "000066") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/109.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, "lxml")
     content_list = [

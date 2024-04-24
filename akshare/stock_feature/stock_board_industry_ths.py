@@ -10,6 +10,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
@@ -381,7 +382,8 @@ def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.Data
         "Cookie": f"v={v_code}",
     }
     url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     try:
         page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
@@ -395,7 +397,8 @@ def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.Data
             "Cookie": f"v={v_code}",
         }
         url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
@@ -431,7 +434,8 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     name_list = [
         item.text.strip()
@@ -476,7 +480,8 @@ def stock_board_industry_index_ths(
             "Referer": "http://q.10jqka.com.cn",
             "Host": "d.10jqka.com.cn",
         }
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_text = r.text
         try:
             demjson.decode(data_text[data_text.find("{") : -1])
@@ -557,7 +562,8 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
         "hexin-v": v_code,
     }
     url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
@@ -569,7 +575,8 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
             "Cookie": f"v={v_code}",
             "hexin-v": v_code,
         }
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
@@ -610,13 +617,15 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/1/ajax/1/"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/{page}/ajax/1/"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 

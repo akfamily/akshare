@@ -7,6 +7,7 @@ https://f10.emoney.cn/f10/zbyz/1000001
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -20,7 +21,8 @@ def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://f10.emoney.cn/f10/zygc/{symbol}"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     year_list = [
         item.text.strip()

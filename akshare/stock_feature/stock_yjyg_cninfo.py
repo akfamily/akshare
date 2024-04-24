@@ -7,6 +7,7 @@ http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_report_disclosure(
@@ -51,7 +52,8 @@ def stock_report_disclosure(
         "pagesize": "10000",
         "pagenum": "1",
     }
-    r = requests.post(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     text_json = r.json()
     temp_df = pd.DataFrame(text_json["prbookinfos"])
     temp_df.columns = [

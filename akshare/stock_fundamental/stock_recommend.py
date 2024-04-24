@@ -7,6 +7,7 @@ http://stock.finance.sina.com.cn/stock/go.php/vIR_RatingNewest/index.phtml
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -24,7 +25,8 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "40",
         "p": "1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     indicator_map = {item.find("a").text: item.find("a")["href"] for item in soup.find(attrs={"id": "leftMenu"}).find_all("dd")[1].find_all("li")}
     url = indicator_map[symbol]
@@ -32,7 +34,8 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "10000",
         "p": "1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     if symbol == "股票综合评级":
         temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :9]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
@@ -83,7 +86,8 @@ def stock_institute_recommend_detail(symbol: str = "000001") -> pd.DataFrame:
         "num": "5000",
         "p": "1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :8]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})

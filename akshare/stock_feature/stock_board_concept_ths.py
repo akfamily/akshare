@@ -12,6 +12,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
@@ -40,7 +41,8 @@ def stock_board_concept_graph_ths(symbol: str = "通用航空") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     new_list = []
     for col in temp_df.columns:
@@ -89,7 +91,8 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
         "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     total_page = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
@@ -104,7 +107,8 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
             "Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, features="lxml")
         url_list = []
         for item in (
@@ -126,7 +130,8 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
 
     # 处理遗漏的板块
     url = "https://q.10jqka.com.cn/gn/detail/code/301558/"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     need_list = [
         item.find_all("a") for item in soup.find_all(attrs={"class": "cate_group"})
@@ -192,7 +197,8 @@ def stock_board_concept_cons_ths(symbol: str = "小米概念") -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     url = f"https://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     try:
         page_num = int(
@@ -209,7 +215,8 @@ def stock_board_concept_cons_ths(symbol: str = "小米概念") -> pd.DataFrame:
             "Cookie": f"v={v_code}",
         }
         url = f"https://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
@@ -248,7 +255,8 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     name_list = [
         item.text
@@ -282,7 +290,8 @@ def stock_board_concept_hist_ths(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(symbol_url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(symbol_url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     symbol_code = soup.find("div", attrs={"class": "board-hq"}).find("span").text
     big_df = pd.DataFrame()
@@ -295,7 +304,8 @@ def stock_board_concept_hist_ths(
             "Referer": "https://q.10jqka.com.cn",
             "Host": "d.10jqka.com.cn",
         }
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_text = r.text
         try:
             demjson.decode(data_text[data_text.find("{") : -1])
@@ -375,12 +385,14 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     url = f"https://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     url_flag = "thshy"
     if soup.find("td", attrs={"colspan": "14"}):
         url = f"https://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, "lxml")
         url_flag = "gn"
     try:
@@ -396,7 +408,8 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
             "Cookie": f"v={v_code}",
         }
         url = f"https://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(

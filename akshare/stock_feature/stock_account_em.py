@@ -8,6 +8,7 @@ http://data.eastmoney.com/cjsj/gpkhsj.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_account_statistics_em() -> pd.DataFrame:
@@ -32,7 +33,8 @@ def stock_account_statistics_em() -> pd.DataFrame:
         'pageNumber': '1',
         '_': '1640749656405',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['result']['data'])
     temp_df.columns = [

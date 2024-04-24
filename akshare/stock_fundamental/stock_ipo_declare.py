@@ -7,6 +7,7 @@ https://data.eastmoney.com/xg/xg/sbqy.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -30,7 +31,8 @@ def stock_ipo_declare() -> pd.DataFrame:
         "mkt": "1",
         "fd": "2021-04-02",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[1:-1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])

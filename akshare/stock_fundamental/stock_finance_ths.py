@@ -9,6 +9,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -31,7 +32,8 @@ def stock_financial_abstract_ths(
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("p", attrs={"id": "main"}).string
     data_json = json.loads(data_text)
@@ -76,7 +78,8 @@ def stock_financial_debt_ths(
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = json.loads(json.loads(r.text)['flashData'])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -115,7 +118,8 @@ def stock_financial_benefit_ths(
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = json.loads(json.loads(r.text)['flashData'])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -158,7 +162,8 @@ def stock_financial_cash_ths(
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = json.loads(json.loads(r.text)['flashData'])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]

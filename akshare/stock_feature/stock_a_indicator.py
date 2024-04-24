@@ -11,6 +11,7 @@ from hashlib import md5
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -21,7 +22,8 @@ def get_cookie_csrf(url: str = "") -> dict:
     :return: 指定市场的市盈率数据
     :rtype: pandas.DataFrame
     """
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     csrf_tag = soup.find(name="meta", attrs={"name": "_csrf"})
     csrf_token = csrf_tag.attrs["content"]
@@ -54,7 +56,8 @@ def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
     """
     if symbol == "all":
         url = "https://legulegu.com/stocklist"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, features="lxml")
         node_list = soup.find_all(attrs={"class": "col-xs-6"})
         href_list = [item.find("a")["href"] for item in node_list]
@@ -69,10 +72,12 @@ def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
         url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
         params = {"token": token, "id": symbol}
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         r = requests.post(
             url,
             params=params,
             **get_cookie_csrf(url="https://legulegu.com/"),
+            timeout=timeout
         )
         temp_json = r.json()
         temp_df = pd.DataFrame(
@@ -102,7 +107,8 @@ def stock_hk_indicator_eniu(
     """
     if indicator == "港股":
         url = "https://eniu.com/static/data/stock_list.json"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df = temp_df[temp_df["stock_id"].str.contains("hk")]
@@ -118,7 +124,8 @@ def stock_hk_indicator_eniu(
         url = f"https://eniu.com/chart/roeh/{symbol}"
     else:
         url = f"https://eniu.com/chart/marketvalueh/{symbol}"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     return temp_df

@@ -8,6 +8,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -24,7 +25,8 @@ def _stock_balance_sheet_by_report_ctype_em(symbol: str = "SH600519") -> str:
     """
     url = f"https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index"
     params = {"type": "web", "code": symbol.lower()}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     company_type = soup.find(attrs={"id": "hidctype"})["value"]
     return company_type
@@ -46,7 +48,8 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         "reportDateType": "0",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -63,7 +66,8 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -92,14 +96,16 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         "reportDateType": "1",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     try:
         temp_df = pd.DataFrame(data_json["data"])
     except:
         company_type = 3
         params.update({"companyType": company_type})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"], errors="coerce").dt.date
@@ -116,7 +122,8 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -145,7 +152,8 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         "reportDateType": "0",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -162,7 +170,8 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
             "code": symbol,
             "dates": item,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -191,7 +200,8 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
         "reportDateType": "1",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -208,7 +218,8 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -239,7 +250,8 @@ def stock_profit_sheet_by_quarterly_em(
         "reportDateType": "2",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -256,7 +268,8 @@ def stock_profit_sheet_by_quarterly_em(
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -287,7 +300,8 @@ def stock_cash_flow_sheet_by_report_em(
         "reportDateType": "0",
         "code": symbol,
     }
-    r = requests.get(url, params=params, timeout=10)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, timeout=10, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -304,7 +318,8 @@ def stock_cash_flow_sheet_by_report_em(
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -335,7 +350,8 @@ def stock_cash_flow_sheet_by_yearly_em(
         "reportDateType": "1",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -352,7 +368,8 @@ def stock_cash_flow_sheet_by_yearly_em(
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -383,7 +400,8 @@ def stock_cash_flow_sheet_by_quarterly_em(
         "reportDateType": "2",
         "code": symbol,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -400,7 +418,8 @@ def stock_cash_flow_sheet_by_quarterly_em(
             "dates": item,
             "code": symbol,
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
@@ -435,7 +454,8 @@ def __get_report_date_list_delisted_em(symbol: str = "SZ000013") -> list:
         'client': 'PC',
         'v': '05767841728614413'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['result']["data"])
     report_date_list = [item[0] for item in temp_df['REPORT_DATE'].str.split(" ")]
@@ -466,7 +486,8 @@ def stock_balance_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Da
         'client': 'PC',
         'v': '05767841728614413'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -497,7 +518,8 @@ def stock_profit_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Dat
         'client': 'PC',
         'v': '05767841728614413'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
@@ -528,7 +550,8 @@ def stock_cash_flow_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.
         'client': 'PC',
         'v': '05767841728614413'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date

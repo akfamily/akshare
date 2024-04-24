@@ -5,6 +5,7 @@ Date: 2022/4/7 17:36
 Desc: http://kcb.sse.com.cn/renewal/#
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 # TODO
@@ -47,7 +48,8 @@ def stock_kcb_renewal():
                 'pageHelp.endPage': page,
             }
         )
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result'])
         # 处理下 temp_df 里面的字段就可以了

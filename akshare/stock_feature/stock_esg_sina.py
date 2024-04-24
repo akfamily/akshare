@@ -10,6 +10,7 @@ import math
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -21,7 +22,8 @@ def stock_esg_msci_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p=1&num=100"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     page_num = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
     big_df = pd.DataFrame()
@@ -32,7 +34,8 @@ def stock_esg_msci_sina() -> pd.DataFrame:
             "Chrome/123.0.0.0 Safari/537.36",
         }
         url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p={page}&num=100"
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -111,7 +114,8 @@ def stock_esg_rft_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getRftEsgStocks?p=1&num=20000"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame(data_json["result"]["data"]["data"])
     big_df.rename(
@@ -175,13 +179,15 @@ def stock_esg_rate_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getEsgStocks?page=1&num=200"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     page_num = math.ceil(data_json["result"]["data"]["info"]["total"] / 200)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1), leave=False):
         url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getEsgStocks?page={page}&num=200"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_json = r.json()
         stock_num = len(data_json["result"]["data"]["info"]["stocks"])
         for num in range(stock_num):
@@ -228,7 +234,8 @@ def stock_esg_zd_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getZdEsgStocks?p=1&num=20000"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame(data_json["result"]["data"]["data"])
     big_df.rename(
@@ -264,7 +271,8 @@ def stock_esg_hz_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?p=1&num=20000"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame(data_json["result"]["data"]["data"])
     big_df.rename(

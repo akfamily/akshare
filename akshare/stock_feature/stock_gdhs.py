@@ -7,6 +7,7 @@ https://data.eastmoney.com/gdhs/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -45,7 +46,8 @@ def stock_zh_a_gdhs(symbol: str = "20230930") -> pd.DataFrame:
             "client": "WEB",
             'filter': f"(END_DATE='{symbol[:4] + '-' +  symbol[4:6] + '-' +  symbol[6:]}')",
         }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -54,7 +56,8 @@ def stock_zh_a_gdhs(symbol: str = "20230930") -> pd.DataFrame:
         params.update({
             "pageNumber": page_num,
         })
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -135,7 +138,8 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
         'source': 'WEB',
         'client': 'WEB',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -144,7 +148,8 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
         params.update({
             "pageNumber": page_num,
         })
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)

@@ -7,6 +7,7 @@ https://www.legulegu.com/stockdata/all-pb
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock_feature.stock_a_indicator import get_token_lg, get_cookie_csrf
 
@@ -23,10 +24,12 @@ def stock_a_all_pb() -> pd.DataFrame:
         "marketId": "ALL",
         "token": get_token_lg(),
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/all-pb")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/all-pb"),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])

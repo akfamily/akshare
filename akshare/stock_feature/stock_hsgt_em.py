@@ -9,6 +9,7 @@ https://data.eastmoney.com/hsgtcg/
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -37,7 +38,8 @@ def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
         "client": "WEB",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -111,7 +113,8 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
         "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1639974456250",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
@@ -186,7 +189,8 @@ def stock_hsgt_hold_stock_em(
     :rtype: pandas.DataFrame
     """
     url = "https://data.eastmoney.com/hsgtcg/list.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     date = (
         soup.find("div", attrs={"class": "title"})
@@ -228,13 +232,15 @@ def stock_hsgt_hold_stock_em(
         "client": "WEB",
         "filter": filter_str,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -376,13 +382,15 @@ def stock_hsgt_stock_statistics_em(
                 {"filter": f"""(INTERVAL_TYPE="1")(RN=1)(TRADE_DATE='{start_date}')"""}
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -470,13 +478,15 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -577,13 +587,15 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -683,13 +695,15 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -808,7 +822,8 @@ def stock_hsgt_institution_statistics_em(
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df.columns = [
@@ -866,13 +881,15 @@ def stock_hsgt_institution_statistics_em(
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -930,13 +947,15 @@ def stock_hsgt_institution_statistics_em(
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -994,13 +1013,15 @@ def stock_hsgt_institution_statistics_em(
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -1073,13 +1094,15 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
         "client": "WEB",
         "filter": f'(MUTUAL_TYPE="00{symbol_map[symbol]}")',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -1172,7 +1195,8 @@ def stock_hsgt_board_rank_em(
     :rtype: pandas.DataFrame
     """
     url = "https://data.eastmoney.com/hsgtcg/hy.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     current_date = soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
     symbol_map = {
@@ -1202,7 +1226,8 @@ def stock_hsgt_board_rank_em(
         "client": "WEB",
         "filter": f"""(BOARD_TYPE="{symbol_map[symbol]}")(TRADE_DATE='{current_date}')(INTERVAL_TYPE="{indicator_map[indicator]}")""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
@@ -1319,7 +1344,8 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
         "client": "WEB",
         "filter": f"""(SECURITY_CODE="{stock}")(TRADE_DATE>='2020-07-25')""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.rename(
@@ -1398,7 +1424,8 @@ def stock_hsgt_individual_detail_em(
         "client": "WEB",
         "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="003")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     try:
         data_json["result"]["pages"]
@@ -1408,13 +1435,15 @@ def stock_hsgt_individual_detail_em(
                 "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="001")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)

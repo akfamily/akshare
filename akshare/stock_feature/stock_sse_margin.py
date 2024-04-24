@@ -7,6 +7,7 @@ http://www.sse.com.cn/market/othersdata/margin/sum/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
@@ -32,7 +33,8 @@ def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
         "requestId": "194055910e2075c03e25fabf6ffc5a7f",
         "channel": "pa18",
     }
-    r = requests.post(url, json=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df.rename(
@@ -85,7 +87,8 @@ def stock_margin_sse(
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [
@@ -152,7 +155,8 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [

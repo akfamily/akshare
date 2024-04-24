@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利预测概览") -> pd.DataFrame:
@@ -26,7 +27,8 @@ def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利�
     params = {
         "code": str(int(symbol)),
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     if indicator == "评级总览":
         temp_df = pd.read_html(StringIO(r.text))[0]
         inner_list = [item for item in temp_df.iloc[0, 0].split(" ") if item != ""]

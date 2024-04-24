@@ -9,6 +9,7 @@ http://data.eastmoney.com/jgdy/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -34,13 +35,15 @@ def stock_jgdy_tj_em(date: str = "20220101") -> pd.DataFrame:
         'client': 'WEB',
         'filter': f"""(NUMBERNEW="1")(IS_SOURCE="1")(RECEIVE_START_DATE>'{'-'.join([date[:4], date[4:6], date[6:]])}')"""
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json['result']['pages']
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page+1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']['data'])
         big_df = pd.concat([big_df, temp_df])
@@ -126,13 +129,15 @@ def stock_jgdy_detail_em(date: str = "20220101") -> pd.DataFrame:
         'client': 'WEB',
         'filter': f"""(IS_SOURCE="1")(RECEIVE_START_DATE>'{'-'.join([date[:4], date[4:6], date[6:]])}')"""
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json['result']['pages']
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page+1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']['data'])
         big_df = pd.concat([big_df, temp_df])

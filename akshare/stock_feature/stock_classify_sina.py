@@ -9,6 +9,7 @@ import math
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -20,7 +21,8 @@ def stock_classify_board() -> dict:
     :rtype: dict
     """
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodes"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     big_dict = {}
     class_name_list = [
@@ -62,7 +64,8 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
     ):
         url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
         params = {"node": stock_classify_board_dict[symbol]["code"][num]}
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         page_num = math.ceil(int(r.json()) / 80)
         url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
         big_df = pd.DataFrame()
@@ -76,7 +79,8 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
                 "symbol": "",
                 "_s_r_a": "init",
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json)
             big_df = pd.concat([big_df, temp_df], ignore_index=True)

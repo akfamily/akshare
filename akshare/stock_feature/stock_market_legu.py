@@ -10,6 +10,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -21,7 +22,8 @@ def stock_market_activity_legu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/market-activity"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df_one = temp_df.iloc[:, :2]
     temp_df_one.columns = ["item", "value"]

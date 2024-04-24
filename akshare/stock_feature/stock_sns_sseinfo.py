@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -33,7 +34,8 @@ def _fetch_stock_uid() -> dict:
     code_list = list()
     for page in tqdm(range(1, 73), leave=False):
         data.update({"page": page})
-        r = requests.post(url, data=data)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, data=data, headers=headers, timeout=timeout)
         data_json = r.json()
         soup = BeautifulSoup(data_json["content"], "lxml")
         soup.find_all("a", attrs={"rel": "tag"})
@@ -73,12 +75,14 @@ def stock_sns_sseinfo(symbol: str = "603119") -> pd.DataFrame:
     warnings.warn("正在下载中")
     while True:
         params.update({"page": page})
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         if len(r.text) < 300:
             break
         else:
             page += 1
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, "lxml")
         content_list = [
             item.get_text().strip()

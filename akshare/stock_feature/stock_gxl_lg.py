@@ -7,6 +7,7 @@ https://legulegu.com/stockdata/guxilv
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock_feature.stock_a_indicator import get_token_lg, get_cookie_csrf
 
@@ -29,10 +30,12 @@ def stock_a_gxl_lg(symbol: str = "上证A股") -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/guxilv"
     token = get_token_lg()
     params = {"token": token}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/guxilv")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/guxilv"),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json[symbol_map[symbol]])
@@ -60,10 +63,12 @@ def stock_hk_gxl_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/hs"
     token = get_token_lg()
     params = {"token": token, "indexCode": "HSI"}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/market/hk/dv/hsi")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/market/hk/dv/hsi"),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)

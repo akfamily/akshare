@@ -7,6 +7,7 @@ https://www.legulegu.com/stockdata/high-low-statistics
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_a_high_low_statistics(symbol: str = "all") -> pd.DataFrame:
@@ -19,7 +20,8 @@ def stock_a_high_low_statistics(symbol: str = "all") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://www.legulegu.com/stockdata/member-ship/get-high-low-statistics/{symbol}"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     del temp_df["indexCode"]

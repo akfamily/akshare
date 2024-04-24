@@ -9,6 +9,7 @@ import datetime
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.index.index_stock_zh import get_tx_start_year
 from akshare.utils import demjson
@@ -55,7 +56,8 @@ def stock_zh_a_hist_tx(
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,{adjust}",
             "r": "0.8205512681390605",
         }
-        r = requests.get(url, params=params, timeout=timeout)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, timeout=timeout, headers=headers)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("={") + 1:])["data"][
             symbol

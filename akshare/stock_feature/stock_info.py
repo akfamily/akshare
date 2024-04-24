@@ -10,6 +10,7 @@ from datetime import datetime
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -35,7 +36,8 @@ def stock_info_cjzc_em() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in range(1, 3):
         params.update({"page_index": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -69,7 +71,8 @@ def stock_info_global_em() -> pd.DataFrame:
         "pageSize": "200",
         "req_trace": "1710315450384",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["fastNewsList"])
     temp_df = temp_df[["title", "summary", "showTime", "code"]]
@@ -106,7 +109,8 @@ def stock_info_global_sina() -> pd.DataFrame:
         "pagesize": "20",
         "type": "1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     time_list = [
         item["create_time"] for item in data_json["result"]["data"]["feed"]["list"]
@@ -134,7 +138,8 @@ def stock_info_global_futu() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
         " Chrome/111.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
 
     temp_df = pd.DataFrame(data_json["data"]["data"]["news"])
@@ -172,7 +177,8 @@ def stock_info_global_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
         " Chrome/111.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df = temp_df[["title", "digest", "rtime", "url"]]
@@ -203,7 +209,8 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     """
     session = requests.session()
     url = "https://m.cls.cn/telegraph"
-    session.get(url)  # 获取 cookies
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    session.get(url, headers=headers, timeout=timeout)  # 获取 cookies
     params = {
         "refresh_type": "1",
         "rn": "10",
@@ -215,7 +222,7 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     current_time = int(ts.timestamp())
     params.update({"last_time": current_time})
     url = "https://m.cls.cn/nodeapi/telegraphs"
-    r = session.get(url, params=params)
+    r = session.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
     next_time = temp_df["modified_time"].values[-1]
@@ -223,7 +230,7 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     big_df = temp_df.copy()
     while n < 15:
         params.update({"last_time": next_time})
-        r = session.get(url, params=params)
+        r = session.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["roll_data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -260,7 +267,8 @@ def stock_info_broker_sina(page: str = "1") -> pd.DataFrame:
     """
     url = "https://finance.sina.com.cn/roll/index.d.html?cid=221431"
     params = {"page": page}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     data_text = r.text
     soup = BeautifulSoup(data_text, features="lxml")

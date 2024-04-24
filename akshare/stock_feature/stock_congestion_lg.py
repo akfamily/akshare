@@ -7,6 +7,7 @@ https://legulegu.com/stockdata/ashares-congestion
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock_feature.stock_a_indicator import get_token_lg, get_cookie_csrf
 
@@ -21,10 +22,12 @@ def stock_a_congestion_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/ashares-congestion"
     token = get_token_lg()
     params = {"token": token}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/ashares-congestion")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/ashares-congestion"),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["items"])

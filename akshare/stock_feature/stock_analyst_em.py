@@ -7,6 +7,7 @@ https://data.eastmoney.com/invest/invest/list.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -36,13 +37,15 @@ def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
         "distinct": "ANALYST_CODE",
         "limit": "top100",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         data_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, data_df], ignore_index=True)
@@ -130,7 +133,8 @@ def stock_analyst_detail_em(
             "filter": f'(ANALYST_CODE="{analyst_id}")',
             "_": "1675744438197",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]['data'])
         temp_df.reset_index(inplace=True)
@@ -183,7 +187,8 @@ def stock_analyst_detail_em(
             "filter": f'(ANALYST_CODE="{analyst_id}")',
             "_": "1675744438197",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]['data'])
         temp_df.reset_index(inplace=True)
@@ -229,7 +234,8 @@ def stock_analyst_detail_em(
             "client": "WEB",
             "_": "1675744438200",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
            data_json['result']['data']

@@ -15,6 +15,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -41,7 +42,8 @@ def stock_financial_report_sina(
         "page": "1",
         "num": "100",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     df_columns = [
         item["date_value"] for item in data_json["result"]["data"]["report_date"]
@@ -104,7 +106,8 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
         "page": "1",
         "num": "100",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     key_list = list(data_json["result"]["data"]["report_list"].keys())
     temp_df = pd.DataFrame(
@@ -186,7 +189,8 @@ def stock_financial_analysis_indicator(
     :rtype: pandas.DataFrame
     """
     url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{symbol}/ctrl/2020/displaytype/4.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
@@ -195,7 +199,8 @@ def stock_financial_analysis_indicator(
     out_df = pd.DataFrame()
     for year_item in tqdm(year_list, leave=False):
         url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{symbol}/ctrl/{year_item}/displaytype/4.phtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[12].iloc[:, :-1]
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
@@ -239,7 +244,8 @@ def stock_history_dividend() -> pd.DataFrame:
     """
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml"
     params = {"p": "1", "num": "5000"}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["代码"] = temp_df["代码"].astype(str).str.zfill(6)
     temp_df.columns = ["代码", "名称", "上市日期", "累计股息", "年均股息", "分红次数", "融资总额", "融资次数", "详细"]
@@ -270,7 +276,8 @@ def stock_history_dividend_detail(
     """
     if indicator == "分红":
         url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/{symbol}.phtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[12]
         temp_df.columns = [item[2] for item in temp_df.columns.tolist()]
         temp_df.columns = [
@@ -307,7 +314,8 @@ def stock_history_dividend_detail(
                 "type": "1",
                 "end_date": date,
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             temp_df = pd.read_html(StringIO(r.text))[12]
             temp_df.columns = ["item", "value"]
             return temp_df
@@ -315,7 +323,8 @@ def stock_history_dividend_detail(
             return temp_df
     else:
         url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/{symbol}.phtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[13]
         temp_df.columns = [item[1] for item in temp_df.columns.tolist()]
         temp_df.columns = [
@@ -362,7 +371,8 @@ def stock_history_dividend_detail(
                 "type": "1",
                 "end_date": date,
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             temp_df = pd.read_html(StringIO(r.text))[12]
             temp_df.columns = ["item", "value"]
             return temp_df
@@ -380,7 +390,8 @@ def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/{stock}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[12]
     temp_df.columns = ["item", "value"]
     return temp_df
@@ -396,7 +407,8 @@ def stock_add_stock(symbol: str = "688166") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[12]
     if temp_df.at[0, 0] == "对不起，暂时没有相关增发记录":
         raise f"股票 {symbol} 无增发记录"
@@ -421,7 +433,8 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={symbol}"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = ["代码", "名称", "解禁日期", "解禁数量", "解禁股流通市值", "上市批次", "公告日期"]
     temp_df["解禁日期"] = pd.to_datetime(temp_df["解禁日期"], errors="coerce").dt.date
@@ -444,7 +457,8 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
@@ -497,7 +511,8 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :6]
     temp_df.columns = [*range(6)]
     big_df = pd.DataFrame()
@@ -547,7 +562,8 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/{stock}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()

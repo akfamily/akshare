@@ -6,6 +6,7 @@ Desc: 百度股市通- A 股或指数-股评-投票
 https://gushitong.baidu.com/index/ab-000001
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -34,7 +35,8 @@ def stock_zh_vote_baidu(symbol: str = "000001", indicator: str = "指数") -> pd
     temp_list = []
     for item_period in ["day", "week", "month", "year"]:
         params.update({"select_type": item_period})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_list.append(
             [

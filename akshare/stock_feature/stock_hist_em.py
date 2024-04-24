@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
@@ -34,7 +35,9 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -149,7 +152,9 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
         "f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -264,7 +269,9 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
         "f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -379,7 +386,9 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
         ",f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -495,7 +504,9 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "f25,f26,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -615,7 +626,9 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
         "f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -731,7 +744,9 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -846,7 +861,9 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
         ",f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
@@ -961,7 +978,9 @@ def code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -982,7 +1001,9 @@ def code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -1002,7 +1023,9 @@ def code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -1053,7 +1076,8 @@ def stock_zh_a_hist(
         "end": end_date,
         "_": "1623766962675",
     }
-    r = requests.get(url, params=params, timeout=timeout)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, timeout=timeout, headers=headers)
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
@@ -1125,7 +1149,9 @@ def stock_zh_a_hist_min_em(
             "secid": f"{code_id_dict[symbol]}.{symbol}",
             "_": "1623766962675",
         }
-        r = requests.get(url, timeout=15, params=params)
+        timeout = 15
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, timeout=timeout, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -1165,7 +1191,9 @@ def stock_zh_a_hist_min_em(
             "end": "20500000",
             "_": "1630930917857",
         }
-        r = requests.get(url, timeout=15, params=params)
+        timeout = 15
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, timeout=timeout, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -1244,7 +1272,9 @@ def stock_zh_a_hist_pre_min_em(
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "_": "1623766962675",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
@@ -1294,7 +1324,9 @@ def stock_hk_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [
@@ -1384,7 +1416,9 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [
@@ -1489,7 +1523,9 @@ def stock_hk_hist(
         "lmt": "1000000",
         "_": "1623766962675",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:
@@ -1565,7 +1601,9 @@ def stock_hk_hist_min_em(
             "secid": f"116.{symbol}",
             "_": "1623766962675",
         }
-        r = requests.get(url, timeout=15, params=params)
+        timeout = 15
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, timeout=timeout, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -1605,7 +1643,9 @@ def stock_hk_hist_min_em(
             "end": "20500000",
             "_": "1630930917857",
         }
-        r = requests.get(url, timeout=15, params=params)
+        timeout = 15
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, timeout=timeout, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -1677,7 +1717,9 @@ def stock_us_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [
@@ -1792,7 +1834,9 @@ def stock_us_hist(
         "lmt": "1000000",
         "_": "1623766962675",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["klines"]:
         return pd.DataFrame()
@@ -1854,7 +1898,9 @@ def stock_us_hist_min_em(
         "secid": f"{symbol.split('.')[0]}.{symbol.split('.')[1]}",
         "_": "1623766962675",
     }
-    r = requests.get(url, timeout=15, params=params)
+    timeout = 15
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, timeout=timeout, params=params, headers=headers)
     data_json = r.json()
     if not data_json["data"]["trends"]:
         return pd.DataFrame()

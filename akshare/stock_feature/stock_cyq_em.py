@@ -11,6 +11,7 @@ from datetime import datetime
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.stock_feature.stock_hist_em import code_id_map_em
@@ -235,7 +236,8 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
         "lmt": "210",
         "cb": "quote_jp1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.text.strip("quote_jp1(").strip(");")
     data_json = json.loads(data_json)
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])

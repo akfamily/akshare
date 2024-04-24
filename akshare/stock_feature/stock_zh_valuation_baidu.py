@@ -7,6 +7,7 @@ https://gushitong.baidu.com/stock/ab-002044
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_zh_valuation_baidu(
@@ -41,7 +42,8 @@ def stock_zh_valuation_baidu(
         "skip_industry": "1",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         data_json["Result"][0]["DisplayData"]["resultData"]["tplData"]["result"][

@@ -7,6 +7,7 @@ https://quote.eastmoney.com/changes/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
@@ -52,7 +53,8 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
         "dpt": "wzchanges",
         "_": "1624005264245",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["allstock"])
     temp_df["tm"] = pd.to_datetime(temp_df["tm"], format="%H%M%S").dt.time
@@ -93,7 +95,8 @@ def stock_board_change_em() -> pd.DataFrame:
         'pagesize': '5000',
         '_': '1671978840598',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     data_df = pd.DataFrame(data_json['data']['allbk'])
     data_df.columns = [
