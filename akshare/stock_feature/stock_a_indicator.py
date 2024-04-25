@@ -46,7 +46,7 @@ def get_token_lg() -> str:
     return token
 
 
-def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
+def stock_a_indicator_lg(symbol: str = "000001") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
     https://legulegu.com/stocklist
