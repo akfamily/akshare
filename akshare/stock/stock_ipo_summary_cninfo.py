@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/18 12:20
+Date: 2024/4/25 15:00
 Desc: 巨潮资讯-个股-上市相关
 https://webapi.cninfo.com.cn/#/company
 """
+
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
@@ -21,7 +22,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf8") as f:
         file_data = f.read()
     return file_data
 
@@ -77,19 +78,33 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "上网发行中签率",
         "主承销商",
     ]
-    temp_df["招股公告日期"] = pd.to_datetime(temp_df["招股公告日期"], errors="coerce").dt.date
-    temp_df["中签率公告日"] = pd.to_datetime(temp_df["中签率公告日"], errors="coerce").dt.date
-    temp_df["上网发行日期"] = pd.to_datetime(temp_df["上网发行日期"], errors="coerce").dt.date
+    temp_df["招股公告日期"] = pd.to_datetime(
+        temp_df["招股公告日期"], errors="coerce"
+    ).dt.date
+    temp_df["中签率公告日"] = pd.to_datetime(
+        temp_df["中签率公告日"], errors="coerce"
+    ).dt.date
+    temp_df["上网发行日期"] = pd.to_datetime(
+        temp_df["上网发行日期"], errors="coerce"
+    ).dt.date
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
     temp_df["每股面值"] = pd.to_numeric(temp_df["每股面值"], errors="coerce")
     temp_df["总发行数量"] = pd.to_numeric(temp_df["总发行数量"], errors="coerce")
-    temp_df["发行前每股净资产"] = pd.to_numeric(temp_df["发行前每股净资产"], errors="coerce")
-    temp_df["摊薄发行市盈率"] = pd.to_numeric(temp_df["摊薄发行市盈率"], errors="coerce")
+    temp_df["发行前每股净资产"] = pd.to_numeric(
+        temp_df["发行前每股净资产"], errors="coerce"
+    )
+    temp_df["摊薄发行市盈率"] = pd.to_numeric(
+        temp_df["摊薄发行市盈率"], errors="coerce"
+    )
     temp_df["募集资金净额"] = pd.to_numeric(temp_df["募集资金净额"], errors="coerce")
     temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
     temp_df["发行费用总额"] = pd.to_numeric(temp_df["发行费用总额"], errors="coerce")
-    temp_df["发行后每股净资产"] = pd.to_numeric(temp_df["发行后每股净资产"], errors="coerce")
-    temp_df["上网发行中签率"] = pd.to_numeric(temp_df["上网发行中签率"], errors="coerce")
+    temp_df["发行后每股净资产"] = pd.to_numeric(
+        temp_df["发行后每股净资产"], errors="coerce"
+    )
+    temp_df["上网发行中签率"] = pd.to_numeric(
+        temp_df["上网发行中签率"], errors="coerce"
+    )
     return temp_df
 
 

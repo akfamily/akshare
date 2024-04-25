@@ -8231,7 +8231,7 @@ print(stock_profile_cninfo_df)
 
 描述: 巨潮资讯-个股-上市相关
 
-限量: 单次获取指定 symbol 的上市相关
+限量: 单次获取指定 symbol 的上市相关数据
 
 输入参数
 
