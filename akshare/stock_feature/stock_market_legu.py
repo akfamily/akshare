@@ -12,6 +12,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from akshare.utils.cons import headers
+
 
 def stock_market_activity_legu() -> pd.DataFrame:
     """
@@ -21,8 +23,6 @@ def stock_market_activity_legu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/market-activity"
-    headers = {
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'}
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df_one = temp_df.iloc[:, :2]
