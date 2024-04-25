@@ -2786,6 +2786,11 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+代理设置
+"""
+from akshare.request_config_manager import start_config, stop_config, change_proxy
+
+"""
 数库-A股新闻情绪指数
 """
 from akshare.index.index_zh_a_scope import index_news_sentiment_scope
