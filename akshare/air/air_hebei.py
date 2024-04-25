@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/5 12:33
+Date: 2024/4/25 17:20
 Desc: 河北省空气质量预报信息发布系统
-http://110.249.223.67/publish/
+https://110.249.223.67/publish
 每日 17 时发布
 等级划分
 1. 空气污染指数为0－50，空气质量级别为一级，空气质量状况属于优。此时，空气质量令人满意，基本无空气污染，各类人群可正常活动。
@@ -14,6 +14,7 @@ http://110.249.223.67/publish/
 6. 空气污染指数大于300，空气质量级别为六级，空气质量状况属于严重污染。此时，健康人群运动耐受力降低，有明显强烈症状，提前出现某些疾病，建议儿童、老年人和病人应当留在室内，避免体力消耗，一般人群应避免户外活动。
 发布单位：河北省环境应急与重污染天气预警中心 技术支持：中国科学院大气物理研究所 中科三清科技有限公司
 """
+
 from datetime import datetime
 
 import pandas as pd
@@ -24,13 +25,15 @@ from tqdm import tqdm
 def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
     """
     河北省空气质量预报信息发布系统-空气质量预报, 未来 6 天
-    http://110.249.223.67/publish/
+    https://110.249.223.67/publish/
     :param symbol: choice of {'石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市', '辛集市', '定州市'}
     :type symbol: str
     :return: city = "", 返回所有地区的数据; city="唐山市", 返回唐山市的数据
     :rtype: pandas.DataFrame
     """
-    url = "http://110.249.223.67/server/api/CityPublishInfo/GetProvinceAndCityPublishData"
+    url = (
+        "http://110.249.223.67/server/api/CityPublishInfo/GetProvinceAndCityPublishData"
+    )
     params = {"publishDate": f"{datetime.today().strftime('%Y-%m-%d')} 16:00:00"}
     r = requests.get(url, params=params)
     json_data = r.json()
@@ -47,31 +50,31 @@ def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
     if symbol == "":
         temp_df = outer_df.reset_index()
         temp_df.columns = [
-            'city',
-            'date',
-            'pollutant',
-            'minAQI',
-            'maxAQI',
-            'level',
+            "city",
+            "date",
+            "pollutant",
+            "minAQI",
+            "maxAQI",
+            "level",
         ]
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-        temp_df['minaqi'] = pd.to_numeric(temp_df['minaqi'])
-        temp_df['maxaqi'] = pd.to_numeric(temp_df['maxaqi'])
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+        temp_df["minaqi"] = pd.to_numeric(temp_df["minaqi"])
+        temp_df["maxaqi"] = pd.to_numeric(temp_df["maxaqi"])
         return temp_df
     else:
         temp_df = outer_df.reset_index()
         temp_df.columns = [
-            'city',
-            'date',
-            'pollutant',
-            'minaqi',
-            'maxaqi',
-            'level',
+            "city",
+            "date",
+            "pollutant",
+            "minaqi",
+            "maxaqi",
+            "level",
         ]
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-        temp_df['minaqi'] = pd.to_numeric(temp_df['minaqi'])
-        temp_df['maxaqi'] = pd.to_numeric(temp_df['maxaqi'])
-        temp_df = temp_df[temp_df['city'] == symbol]
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+        temp_df["minaqi"] = pd.to_numeric(temp_df["minaqi"])
+        temp_df["maxaqi"] = pd.to_numeric(temp_df["maxaqi"])
+        temp_df = temp_df[temp_df["city"] == symbol]
         temp_df.reset_index(inplace=True, drop=True)
         return temp_df
 
