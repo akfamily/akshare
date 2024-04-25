@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/15 20:00
+Date: 2024/4/25 20:22
 Desc: 乐咕乐股网-赚钱效应分析
 https://www.legulegu.com/stockdata/market-activity
 """
@@ -21,7 +21,9 @@ def stock_market_activity_legu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/market-activity"
-    r = requests.get(url)
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'}
+    r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df_one = temp_df.iloc[:, :2]
     temp_df_one.columns = ["item", "value"]
