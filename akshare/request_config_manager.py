@@ -175,4 +175,8 @@ def get_headers_and_timeout(headers, timeout):
     return headers, timeout
 
 def change_proxy(proxy: str):
-    dotenv.set_key('.env', 'PROXY', proxy)
+    try:
+        dotenv.set_key('.env', 'PROXY', proxy)
+        print(f"Proxy has been changed to {proxy}.")
+    except Exception as e:
+        print(f"Change failed. Error: {e}")
