@@ -2764,9 +2764,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.50 fix: fix news_cctv interface
 1.13.51 fix: fix stock_market_activity_legu interface
 1.13.52 fix: fix stock_market_pb_lg interface
+1.13.53 fix: fix stock_index_pe_lg interface
 """
 
-__version__ = "1.13.52"
+__version__ = "1.13.53"
 __author__ = "AKFamily"
 
 import sys
