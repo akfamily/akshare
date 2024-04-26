@@ -598,6 +598,5 @@ if __name__ == "__main__":
         "中证100",
         "中证800",
     ]:
-        print(item)
         stock_index_pe_lg_df = stock_index_pb_lg(symbol=item)
         print(stock_index_pe_lg_df)
