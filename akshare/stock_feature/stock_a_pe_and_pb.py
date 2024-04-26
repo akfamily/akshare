@@ -11,7 +11,6 @@ from datetime import datetime
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
-from akshare.utils.cons import headers
 
 from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
 
@@ -476,9 +475,7 @@ def stock_market_pb_lg(symbol: str = "上证") -> pd.DataFrame:
         "科创版": "https://legulegu.com/stockdata/ke-chuang-ban-pb",
     }
     params = {"token": token, "indexCode": symbol_map[symbol]}
-    r = requests.get(
-        url, params=params, **get_cookie_csrf(url=url_map[symbol]), headers=headers
-    )
+    r = requests.get(url, params=params, **get_cookie_csrf(url=url_map[symbol]))
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
