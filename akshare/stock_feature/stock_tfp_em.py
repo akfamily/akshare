@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/4 18:00
+Date: 2024/4/28 22:00
 Desc: 东方财富网-数据中心-特色数据-停复牌信息
 https://data.eastmoney.com/tfpxx/
 """
+
 import pandas as pd
 import requests
 
 
-def stock_tfp_em(date: str = "20221109") -> pd.DataFrame:
+def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-停复牌信息
     https://data.eastmoney.com/tfpxx/
@@ -32,10 +33,17 @@ def stock_tfp_em(date: str = "20221109") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in range(1, total_page + 1):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df.columns = [
         "序号",
         "代码",
         "名称",
@@ -49,15 +57,29 @@ def stock_tfp_em(date: str = "20221109") -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df = temp_df[
-        ["序号", "代码", "名称", "停牌时间", "停牌截止时间", "停牌期限", "停牌原因", "所属市场", "预计复牌时间"]
+    big_df = big_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "停牌时间",
+            "停牌截止时间",
+            "停牌期限",
+            "停牌原因",
+            "所属市场",
+            "预计复牌时间",
+        ]
     ]
-    temp_df["停牌时间"] = pd.to_datetime(temp_df["停牌时间"]).dt.date
-    temp_df["停牌截止时间"] = pd.to_datetime(temp_df["停牌截止时间"]).dt.date
-    temp_df["预计复牌时间"] = pd.to_datetime(temp_df["预计复牌时间"]).dt.date
-    return temp_df
+    big_df["停牌时间"] = pd.to_datetime(big_df["停牌时间"], errors="coerce").dt.date
+    big_df["停牌截止时间"] = pd.to_datetime(
+        big_df["停牌截止时间"], errors="coerce"
+    ).dt.date
+    big_df["预计复牌时间"] = pd.to_datetime(
+        big_df["预计复牌时间"], errors="coerce"
+    ).dt.date
+    return big_df
 
 
 if __name__ == "__main__":
-    stock_tfp_em_df = stock_tfp_em(date="20220523")
+    stock_tfp_em_df = stock_tfp_em(date="20240426")
     print(stock_tfp_em_df)
