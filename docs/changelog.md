@@ -78,6 +78,10 @@
 
 ## 更新说明详情
 
+1.13.56 fix: fix currency_boc_safe interface
+
+    1. 修复 currency_boc_safe 接口
+
 1.13.55 fix: fix sunrise_monthly interface
 
     1. 修复 sunrise_monthly 接口
@@ -4007,6 +4011,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.56 fix: fix currency_boc_safe interface
 
 1.13.55 fix: fix sunrise_monthly interface
 
