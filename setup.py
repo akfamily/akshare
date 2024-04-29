@@ -43,7 +43,6 @@ setuptools.setup(
         "lxml>=4.2.1",
         "pandas>=0.25",
         "requests>=2.22.0",
-        "pypinyin>=0.35.0",
         "html5lib>=1.0.1",
         "xlrd>=1.2.0",
         "urllib3>=1.25.8",
