@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/10 15:30
+Date: 2024/4/30 10:30
 Desc: 破净股统计历史走势
 https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
+
 import pandas as pd
 import requests
+
+from akshare.utils.cons import headers
 
 
 def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFrame:
@@ -29,7 +32,7 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
         "marketId": symbol_map[symbol],
         "token": "325843825a2745a2a8f9b9e3355cb864",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
