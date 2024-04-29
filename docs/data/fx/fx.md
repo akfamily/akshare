@@ -59,7 +59,7 @@ print(currency_boc_sina_df)
 
 接口: currency_boc_safe
 
-目标地址: http://www.safe.gov.cn/safe/rmbhlzjj/index.html
+目标地址: https://www.safe.gov.cn/safe/rmbhlzjj/index.html
 
 描述: 外汇管理局-人民币汇率中间价
 
