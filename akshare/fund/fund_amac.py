@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/25 16:30
+Date: 2024/4/29 16:00
 Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: https://gs.amac.org.cn
 """
@@ -23,7 +23,7 @@ def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
     暂时不使用本函数, 直接可以获取所有数据
     """
-    res = requests.post(url=url, json=payload, headers=headers, verify=False)
+    res = requests.post(url=url, json=payload, headers=headers)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df["totalPages"]
@@ -33,7 +33,7 @@ def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
-    res = requests.post(url=url, json=payload, headers=headers, verify=False)
+    res = requests.post(url=url, json=payload, headers=headers)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df
@@ -52,16 +52,16 @@ def amac_member_info() -> pd.DataFrame:
     params = {
         "rand": "0.7665138514630696",
         "page": "1",
-        "size": "100",
+        "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -105,21 +105,44 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     :return: 基金从业人员资格注册信息
     :rtype: pandas.DataFrame
     """
-    from pypinyin import lazy_pinyin
-
-    pinyin_raw_list = lazy_pinyin(symbol)
-    symbol_trans = "".join([item[0] for item in pinyin_raw_list])
+    symbol_map = {
+        "保险公司子公司": "bxgszgs",
+        "期货公司资管子公司": "qhgszgzgs",
+        "公募基金管理公司资管子公司": "gmjjglgszgzgs",
+        "商业银行": "syyh",
+        "交易所": "jys",
+        "证券公司私募基金子公司": "zqgssmjjzgs",
+        "地方自律组织": "dfzlzz",
+        "证券公司": "zqgs",
+        "评价机构": "pjjg",
+        "独立第三方销售机构": "dldsfxsjg",
+        "证券投资咨询机构": "zqtzzxjg",
+        "外资私募证券基金管理人": "wzsmzqjjglr",
+        "境外机构": "jwjg",
+        "证券公司子公司": "zqgszgs",
+        "公募基金管理公司": "gmjjglgs",
+        "媒体机构": "mtjg",
+        "支付结算": "zfjs",
+        "证券公司资管子公司": "zqgszgzgs",
+        "会计师事务所": "kjssws",
+        "独立服务机构": "dlfwjg",
+        "律师事务所": "lssws",
+        "期货公司": "qhgs",
+        "保险公司": "bxgs",
+        "其他": "qt",
+        "外包服务机构": "wbfwjg",
+        "私募基金管理人": "smjjglr",
+    }
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg"
     params = {
         "rand": "0.7665138514630696",
         "page": "1",
-        "size": "100",
+        "size": "20",
     }
     r = requests.post(
         url,
         params=params,
-        json={"orgType": symbol_trans, "page": "1"},
-        verify=False,
+        json={"orgType": symbol_map[symbol], "page": "1"},
         headers=headers,
     )
     data_json = r.json()
@@ -131,7 +154,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
         r = requests.post(
             url,
             params=params,
-            json={"orgType": symbol_trans, "page": "1"},
+            json={"orgType": symbol_map[symbol], "page": "1"},
             verify=False,
             headers=headers,
         )
@@ -827,7 +850,7 @@ if __name__ == "__main__":
 
     # 中国证券投资基金业协会-信息公示-从业人员信息
     # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-    amac_person_fund_org_list_df = amac_person_fund_org_list()
+    amac_person_fund_org_list_df = amac_person_fund_org_list(symbol="公募基金管理公司")
     print(amac_person_fund_org_list_df)
 
     # 中国证券投资基金业协会-信息公示-从业人员信息
