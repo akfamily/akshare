@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/24 15:00
+Date: 2024/4/29 16:00
 Desc: 日出和日落数据
 https://www.timeanddate.com
 """
+
 from io import StringIO
 
 import pandas as pd
-import pypinyin
 import requests
 
 
@@ -31,11 +31,13 @@ def sunrise_city_list() -> list:
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 1].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 2].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 3].tolist()])
-    city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 4].dropna().tolist()])
+    city_list.extend(
+        [item.lower() for item in china_city_two_df.iloc[:, 4].dropna().tolist()]
+    )
     return city_list
 
 
-def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
+def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame:
     """
     每日日出日落数据
     https://www.timeanddate.com/astronomy/china/shaoxing
@@ -46,24 +48,29 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    import urllib3
+
+    urllib3.disable_warnings()
+    if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
-        url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
-        r = requests.get(url)
+        url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
+        r = requests.get(url, verify=False)
         table = pd.read_html(StringIO(r.text), header=2)[1]
-        month_df = table.iloc[:-1, ]
-        day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]].copy()
+        month_df = table.iloc[:-1,]
+        day_df = month_df[
+            month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]
+        ].copy()
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
         day_df.reset_index(inplace=True)
         day_df.rename(columns={"index": "date"}, inplace=True)
-        day_df['date'] = pd.to_datetime(day_df['date']).dt.date
+        day_df["date"] = pd.to_datetime(day_df["date"]).dt.date
         return day_df
     else:
         raise "请输入正确的城市名称"
 
 
-def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFrame:
+def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFrame:
     """
     每个指定 date 所在月份的每日日出日落数据, 如果当前月份未到月底, 则以预测值填充
     https://www.timeanddate.com/astronomy/china/shaoxing
@@ -74,24 +81,32 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    import urllib3
+
+    urllib3.disable_warnings()
+    if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
-        url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
+        url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
         r = requests.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
-        month_df = table.iloc[:-1, ].copy()
+        month_df = table.iloc[:-1,].copy()
         month_df.index = [date[:-2]] * len(month_df)
         month_df.reset_index(inplace=True)
-        month_df.rename(columns={"index": "date", }, inplace=True)
+        month_df.rename(
+            columns={
+                "index": "date",
+            },
+            inplace=True,
+        )
         return month_df
     else:
         raise "请输入正确的城市名称"
 
 
 if __name__ == "__main__":
-    sunrise_daily_df = sunrise_daily(date="20230220", city="北京")
+    sunrise_daily_df = sunrise_daily(date="20240428", city="beijing")
     print(sunrise_daily_df)
 
-    sunrise_monthly_df = sunrise_monthly(date="20230220", city="北京")
+    sunrise_monthly_df = sunrise_monthly(date="20240428", city="beijing")
     print(sunrise_monthly_df)
