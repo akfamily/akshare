@@ -8,7 +8,7 @@ https://www.timeanddate.com
 from io import StringIO
 
 import pandas as pd
-import pypinyin
+from xpinyin import Pinyin
 import requests
 
 
@@ -46,10 +46,10 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    if Pinyin().get_pinyin(city, '') in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
-        url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
+        url = f"https://www.timeanddate.com/sun/china/{Pinyin().get_pinyin(city, '')}?month={month}&year={year}"
         r = requests.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1, ]
@@ -74,10 +74,10 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    if Pinyin().get_pinyin(city, '') in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
-        url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
+        url = f"https://www.timeanddate.com/sun/china/{Pinyin().get_pinyin(city, '')}?month={month}&year={year}"
         r = requests.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1, ].copy()
