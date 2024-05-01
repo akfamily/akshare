@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/19 18:00
+Date: 2024/5/1 20:00
 Desc: 巨潮资讯-首页-公告查询-信息披露
 http://www.cninfo.com.cn/new/commonUrl/pageOfSearch?url=disclosure/list/search
 """
@@ -166,7 +166,12 @@ def stock_zh_a_disclosure_report_cninfo(
     big_df["公告时间"] = pd.to_datetime(
         big_df["公告时间"], unit="ms", utc=True, errors="coerce"
     )
-    big_df["公告时间"] = big_df["公告时间"].dt.tz_convert("Asia/Shanghai").dt.date
+    big_df["公告时间"] = (
+        big_df["公告时间"]
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.tz_localize(None)
+        .astype(str)
+    )
     url_list = []
     for item in zip(
         big_df["代码"], big_df["announcementId"], big_df["orgId"], big_df["公告时间"]
@@ -242,7 +247,7 @@ def stock_zh_a_disclosure_relation_cninfo(
         r = requests.post(url, data=payload)
         text_json = r.json()
         temp_df = pd.DataFrame(text_json["announcements"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
         columns={
             "secCode": "代码",
@@ -256,7 +261,12 @@ def stock_zh_a_disclosure_relation_cninfo(
     big_df["公告时间"] = pd.to_datetime(
         big_df["公告时间"], unit="ms", utc=True, errors="coerce"
     )
-    big_df["公告时间"] = big_df["公告时间"].dt.tz_convert("Asia/Shanghai").dt.date
+    big_df["公告时间"] = (
+        big_df["公告时间"]
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.tz_convert(None)
+        .astype(str)
+    )
     url_list = []
     for item in zip(
         big_df["代码"], big_df["announcementId"], big_df["orgId"], big_df["公告时间"]
@@ -278,7 +288,7 @@ if __name__ == "__main__":
         keyword="大模型",
         category="",
         start_date="20231003",
-        end_date="20240404",
+        end_date="20240430",
     )
     print(stock_zh_a_disclosure_report_cninfo_df)
 
