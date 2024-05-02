@@ -435,7 +435,7 @@ def stock_lhb_hyyyb_em(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-每日活跃营业部
-    https://data.eastmoney.com/stock/jgmmtj.html
+    https://data.eastmoney.com/stock/hyyyb.html
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
@@ -928,7 +928,7 @@ if __name__ == "__main__":
     print(stock_lhb_jgstatistic_em_df)
 
     stock_lhb_hyyyb_em_df = stock_lhb_hyyyb_em(
-        start_date="20220324", end_date="20220324"
+        start_date="20240401", end_date="20240430"
     )
     print(stock_lhb_hyyyb_em_df)
 
@@ -947,6 +947,6 @@ if __name__ == "__main__":
     print(stock_lhb_stock_detail_em_df)
 
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
-        symbol="600016", date="20220324", flag="买入"
+        symbol="600077", date="20070416", flag="买入"
     )
     print(stock_lhb_stock_detail_em_df)
