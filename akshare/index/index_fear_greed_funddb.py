@@ -35,7 +35,7 @@ def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     https://funddb.cn/tool/fear
     :param symbol: choice of {"上证指数", "沪深300"}
     :type symbol: str
-    :return: 股权质押
+    :return: 恐惧贪婪指数
     :rtype: pandas.DataFrame
     """
     symbol_map = {
