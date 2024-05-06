@@ -195,7 +195,7 @@ def stock_lrb_em(date: str = "20081231") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
