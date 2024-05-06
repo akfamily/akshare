@@ -2677,7 +2677,7 @@ print(stock_zh_a_new_em_df)
 
 接口: stock_ipo_benefit_ths
 
-目标地址: http://data.10jqka.com.cn/ipo/syg/
+目标地址: https://data.10jqka.com.cn/ipo/syg/
 
 描述: 同花顺-数据中心-新股数据-IPO受益股
 
@@ -19464,7 +19464,7 @@ print(stock_board_concept_hist_min_em_df)
 
 接口: stock_board_industry_cons_ths
 
-目标地址: http://q.10jqka.com.cn/thshy/
+目标地址: https://q.10jqka.com.cn/thshy/
 
 描述: 同花顺-板块-行业板块-成份股数据
 
@@ -19525,7 +19525,7 @@ print(stock_board_industry_cons_ths_df)
 
 接口: stock_board_industry_summary_ths
 
-目标地址: http://q.10jqka.com.cn/thshy/
+目标地址: https://q.10jqka.com.cn/thshy/
 
 描述: 同花顺-同花顺行业一览表
 
