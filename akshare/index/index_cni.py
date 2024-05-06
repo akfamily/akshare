@@ -178,10 +178,10 @@ def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFram
     """
     国证指数-样本详情-历史样本
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param date: 指数代码
-    :type date: str
-    :param symbol: 指数代码
+    :param symbol: 指数代码"399001"
     :type symbol: str
+    :param date: 指定月份"202201", 为空返回所有数据
+    :type date: str
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
