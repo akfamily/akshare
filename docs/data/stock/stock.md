@@ -17057,13 +17057,13 @@ print(stock_lhb_detail_daily_sina_df)
 
 描述: 新浪财经-龙虎榜-个股上榜统计
 
-限量: 单次返回指定 recent_day 的所有历史数据
+限量: 单次返回指定 symbol 的所有历史数据
 
 输入参数
 
-| 名称         | 类型  | 描述                                                                                    |
-|------------|-----|---------------------------------------------------------------------------------------|
-| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
+| 名称     | 类型  | 描述                                                                                |
+|--------|-----|-----------------------------------------------------------------------------------|
+| symbol | str | symbol="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
@@ -17083,7 +17083,7 @@ print(stock_lhb_detail_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_lhb_ggtj_sina_df = ak.stock_lhb_ggtj_sina(recent_day="5")
+stock_lhb_ggtj_sina_df = ak.stock_lhb_ggtj_sina(symbol="5")
 print(stock_lhb_ggtj_sina_df)
 ```
 
@@ -17113,13 +17113,13 @@ print(stock_lhb_ggtj_sina_df)
 
 描述: 新浪财经-龙虎榜-营业上榜统计
 
-限量: 单次返回指定 recent_day 的所有历史数据
+限量: 单次返回指定 symbol 的所有历史数据
 
 输入参数
 
-| 名称         | 类型  | 描述                                                                                    |
-|------------|-----|---------------------------------------------------------------------------------------|
-| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
+| 名称     | 类型  | 描述                                                                                |
+|--------|-----|-----------------------------------------------------------------------------------|
+| symbol | str | symbol="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
@@ -17138,7 +17138,7 @@ print(stock_lhb_ggtj_sina_df)
 ```python
 import akshare as ak
 
-stock_lhb_yytj_sina_df = ak.stock_lhb_yytj_sina(recent_day="5")
+stock_lhb_yytj_sina_df = ak.stock_lhb_yytj_sina(symbol="5")
 print(stock_lhb_yytj_sina_df)
 ```
 
@@ -17168,13 +17168,13 @@ print(stock_lhb_yytj_sina_df)
 
 描述: 新浪财经-龙虎榜-机构席位追踪
 
-限量: 单次返回指定 recent_day 的所有历史数据
+限量: 单次返回指定 symbol 的所有历史数据
 
 输入参数
 
-| 名称         | 类型  | 描述                                                                                    |
-|------------|-----|---------------------------------------------------------------------------------------|
-| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
+| 名称     | 类型  | 描述                                                                                |
+|--------|-----|-----------------------------------------------------------------------------------|
+| symbol | str | symbol="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
@@ -17193,7 +17193,7 @@ print(stock_lhb_yytj_sina_df)
 ```python
 import akshare as ak
 
-stock_lhb_jgzz_sina_df = ak.stock_lhb_jgzz_sina(recent_day="5")
+stock_lhb_jgzz_sina_df = ak.stock_lhb_jgzz_sina(symbol="5")
 print(stock_lhb_jgzz_sina_df)
 ```
 
