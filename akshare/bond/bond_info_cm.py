@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/9 18:08
+Date: 2024/5/10 14:00
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 https://www.chinamoney.com.cn/chinese/scsjzqxx/
 """
+
 import functools
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 @functools.lru_cache()
@@ -25,7 +26,8 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
     if symbol == "主承销商":
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/EntyFullNameSearchCondition"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/109.0.0.0 Safari/537.36"
         }
         r = requests.post(url, headers=headers)
         data_json = r.json()
@@ -42,7 +44,8 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         }
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/BondBaseInfoSearchCondition"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/109.0.0.0 Safari/537.36"
         }
         r = requests.post(url, headers=headers)
         data_json = r.json()
@@ -127,18 +130,20 @@ def bond_info_cm(
         "rtngShrt": grade,
     }
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/109.0.0.0 Safari/537.36"
     }
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     total_page = data_json["data"]["pageTotal"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         payload.update({"pageNo": page})
         r = requests.post(url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["resultList"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
         columns={
             "bondDefinedCode": "查询代码",
@@ -156,7 +161,17 @@ def bond_info_cm(
         },
         inplace=True,
     )
-    big_df = big_df[["债券简称", "债券代码", "发行人/受托机构", "债券类型", "发行日期", "最新债项评级", "查询代码"]]
+    big_df = big_df[
+        [
+            "债券简称",
+            "债券代码",
+            "发行人/受托机构",
+            "债券类型",
+            "发行日期",
+            "最新债项评级",
+            "查询代码",
+        ]
+    ]
     return big_df
 
 
@@ -175,7 +190,8 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     bond_code = inner_bond_info_cm_df["查询代码"].values[0]
     payload = {"bondDefinedCode": bond_code}
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/109.0.0.0 Safari/537.36"
     }
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
