@@ -5,6 +5,7 @@ Date: 2024/1/22 18:30
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
+
 from functools import lru_cache
 
 import pandas as pd
@@ -21,15 +22,14 @@ def __bond_register_service() -> requests.Session:
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-
     }
-    session.get(url="https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
-                headers=headers)
+    session.get(
+        url="https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
+        headers=headers,
+    )
     cookies_dict = session.cookies.get_dict()
-    cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
-    data = {
-        "key": "c3pTblpsYU5UMFg="
-    }
+    cookies_str = "; ".join(f"{k}={v}" for k, v in cookies_dict.items())
+    data = {"key": "c3pTblpsYU5UMFg="}
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate, br",
@@ -37,7 +37,7 @@ def __bond_register_service() -> requests.Session:
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
         "Content-Length": "22",
-        'Cookie': cookies_str,
+        "Cookie": cookies_str,
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "Host": "www.chinamoney.com.cn",
         "Origin": "https://www.chinamoney.com.cn",
@@ -47,20 +47,24 @@ def __bond_register_service() -> requests.Session:
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
     }
-    session.post(url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply", data=data, headers=headers)
+    session.post(
+        url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply",
+        data=data,
+        headers=headers,
+    )
 
     # 20231127 新增部分 https://github.com/akfamily/akshare/issues/4299
     cookies_dict = session.cookies.get_dict()
-    cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
+    cookies_str = "; ".join(f"{k}={v}" for k, v in cookies_dict.items())
     headers = {
         "Accept": "application/json, text/javascript, /; q=0.01",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "en",
         "Connection": "keep-alive",
         "Content-Length": "0",
-        'Cookie': cookies_str,
+        "Cookie": cookies_str,
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "Host": "www.chinamoney.com.cn",
         "Origin": "https://www.chinamoney.com.cn",
@@ -69,9 +73,12 @@ def __bond_register_service() -> requests.Session:
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
     }
-    session.post(url="https://www.chinamoney.com.cn/lss/rest/cm-s-account/getSessionUser", headers=headers)
+    session.post(
+        url="https://www.chinamoney.com.cn/lss/rest/cm-s-account/getSessionUser",
+        headers=headers,
+    )
     return session
 
 
@@ -94,14 +101,15 @@ def bond_china_close_return_map() -> pd.DataFrame:
         "Origin": "https://www.chinamoney.com.cn",
         "Pragma": "no-cache",
         "Referer": "https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/108.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
     }
-    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
+    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
     try:
         r = requests.get(url, headers=headers)
         data_json = r.json()
-    except:
+    except:  # noqa: E722
         session = __bond_register_service()
         r = session.get(url, headers=headers)
         data_json = r.json()
@@ -110,10 +118,10 @@ def bond_china_close_return_map() -> pd.DataFrame:
 
 
 def bond_china_close_return(
-        symbol: str = "国债",
-        period: str = "1",
-        start_date: str = "20231101",
-        end_date: str = "20231101",
+    symbol: str = "国债",
+    period: str = "1",
+    start_date: str = "20231101",
+    end_date: str = "20231101",
 ) -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
@@ -133,14 +141,15 @@ def bond_china_close_return(
     symbol_code = name_code_df[name_code_df["cnLabel"] == symbol]["value"].values[0]
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvHis"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/108.0.0.0 Safari/537.36",
     }
     params = {
         "lang": "CN",
         "reference": "1,2,3",
         "bondType": symbol_code,
-        "startDate": '-'.join([start_date[:4], start_date[4:6], start_date[6:]]),
-        "endDate": '-'.join([end_date[:4], end_date[4:6], end_date[6:]]),
+        "startDate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "endDate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "termId": period,
         "pageNum": "1",
         "pageSize": "15",
@@ -165,16 +174,16 @@ def bond_china_close_return(
             "远期收益率",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors='coerce').dt.date
-    temp_df['期限'] = pd.to_numeric(temp_df['期限'], errors='coerce')
-    temp_df['到期收益率'] = pd.to_numeric(temp_df['到期收益率'], errors='coerce')
-    temp_df['即期收益率'] = pd.to_numeric(temp_df['即期收益率'], errors='coerce')
-    temp_df['远期收益率'] = pd.to_numeric(temp_df['远期收益率'], errors='coerce')
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["期限"] = pd.to_numeric(temp_df["期限"], errors="coerce")
+    temp_df["到期收益率"] = pd.to_numeric(temp_df["到期收益率"], errors="coerce")
+    temp_df["即期收益率"] = pd.to_numeric(temp_df["即期收益率"], errors="coerce")
+    temp_df["远期收益率"] = pd.to_numeric(temp_df["远期收益率"], errors="coerce")
     return temp_df
 
 
 def macro_china_swap_rate(
-        start_date: str = "20231101", end_date: str = "20231204"
+    start_date: str = "20231101", end_date: str = "20231204"
 ) -> pd.DataFrame:
     """
     FR007 利率互换曲线历史数据; 只能获取近一年的数据
@@ -218,7 +227,8 @@ def macro_china_swap_rate(
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, data=params, headers=headers)
@@ -257,7 +267,7 @@ def macro_china_swap_rate(
         "7Y",
         "10Y",
     ]
-    big_df = pd.concat([temp_df, price_df], axis=1)
+    big_df = pd.concat(objs=[temp_df, price_df], axis=1)
     big_df = big_df[
         [
             "日期",
@@ -302,7 +312,8 @@ def macro_china_bond_public() -> pd.DataFrame:
     bond_china_close_return_map()
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
     }
     payload = {
         "enty": "",
@@ -350,12 +361,12 @@ def macro_china_bond_public() -> pd.DataFrame:
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="国债", period="1", start_date="20240101", end_date="20240112"
+        symbol="国债", period="1", start_date="20240501", end_date="20240511"
     )
     print(bond_china_close_return_df)
 
     macro_china_swap_rate_df = macro_china_swap_rate(
-        start_date="20240101", end_date="20240112"
+        start_date="20240501", end_date="20240511"
     )
     print(macro_china_swap_rate_df)
 
