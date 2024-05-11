@@ -11,6 +11,7 @@ import functools
 import pandas as pd
 import requests
 from akshare.utils.tqdm import get_tqdm
+from akshare.bond.bond_china import bond_china_close_return_map
 
 
 @functools.lru_cache()
@@ -23,6 +24,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
     :return: 查询相关指标的参数
     :rtype: pandas.DataFrame
     """
+    bond_china_close_return_map()
     if symbol == "主承销商":
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/EntyFullNameSearchCondition"
         headers = {
@@ -91,6 +93,7 @@ def bond_info_cm(
     :return: 信息查询结果
     :rtype: pandas.DataFrame
     """
+    bond_china_close_return_map()
     if bond_type:
         bond_type_df = bond_info_cm_query(symbol="债券类型")
         bond_type_df_value = bond_type_df[bond_type_df["name"] == bond_type][
@@ -185,6 +188,7 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     :return: 债券详情
     :rtype: pandas.DataFrame
     """
+    bond_china_close_return_map()
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/BondDetailInfo"
     inner_bond_info_cm_df = bond_info_cm(bond_name=symbol)
     bond_code = inner_bond_info_cm_df["查询代码"].values[0]
