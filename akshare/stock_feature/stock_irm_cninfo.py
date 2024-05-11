@@ -111,8 +111,8 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
     ]
     big_df["行业"] = [item[0] for item in big_df["行业"]]
     big_df["行业代码"] = [item[0] for item in big_df["行业代码"]]
-    big_df["提问时间"] = pd.to_datetime(big_df["提问时间"], unit="ms")
-    big_df["更新时间"] = pd.to_datetime(big_df["更新时间"], unit="ms")
+    big_df["提问时间"] = pd.to_datetime(big_df["提问时间"]/1000, unit='s').dt.tz_localize('UTC').dt.tz_convert('Asia/Shanghai').dt.strftime('%Y-%m-%d %H:%M:%S')
+    big_df["更新时间"] = pd.to_datetime(big_df["更新时间"]/1000, unit='s').dt.tz_localize('UTC').dt.tz_convert('Asia/Shanghai').dt.strftime('%Y-%m-%d %H:%M:%S')
     big_df["来源"] = big_df["来源"].map(
         {
             "2": "APP",
