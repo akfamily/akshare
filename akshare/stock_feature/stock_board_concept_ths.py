@@ -14,7 +14,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 from akshare.datasets import get_ths_js
 from akshare.utils import demjson
@@ -93,6 +93,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     soup = BeautifulSoup(r.text, features="lxml")
     total_page = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         url = f"https://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
         js_code = py_mini_racer.MiniRacer()
@@ -201,6 +202,7 @@ def stock_board_concept_cons_ths(symbol: str = "小米概念") -> pd.DataFrame:
     except IndexError:
         page_num = 1
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         v_code = js_code.call("v")
         headers = {
@@ -283,10 +285,11 @@ def stock_board_concept_hist_ths(
         "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(symbol_url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    symbol_code = soup.find("div", attrs={"class": "board-hq"}).find("span").text
+    soup = BeautifulSoup(r.text, features="lxml")
+    symbol_code = soup.find(name="div", attrs={"class": "board-hq"}).find("span").text
     big_df = pd.DataFrame()
     current_year = datetime.now().year
+    tqdm = get_tqdm()
     for year in tqdm(range(int(start_year), current_year + 1), leave=False):
         url = f"https://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js"
         headers = {
@@ -304,7 +307,7 @@ def stock_board_concept_hist_ths(
         temp_df = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))
         temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if big_df.columns.shape[0] == 12:
         big_df.columns = [
             "日期",
@@ -378,16 +381,19 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     url_flag = "thshy"
-    if soup.find("td", attrs={"colspan": "14"}):
+    if soup.find(name="td", attrs={"colspan": "14"}):
         url = f"https://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, features="lxml")
         url_flag = "gn"
     try:
-        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
+        page_num = int(
+            soup.find_all(name="a", attrs={"class": "changePage"})[-1]["page"]
+        )
     except IndexError:
         page_num = 1
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         v_code = js_code.call("v")
         headers = {
@@ -398,7 +404,7 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
         url = f"https://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
             "涨跌幅(%)": "涨跌幅",
@@ -421,7 +427,7 @@ if __name__ == "__main__":
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="小米概念")
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="'蒙脱石散")
     print(stock_board_concept_cons_ths_df)
 
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")

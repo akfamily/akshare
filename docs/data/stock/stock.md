@@ -18908,7 +18908,7 @@ print(stock_board_concept_name_ths_df)
 
 描述: 同花顺-板块-概念板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths** 返回该板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths()** 返回该板块信息
 
 输入参数
 
