@@ -452,7 +452,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
 def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
-    https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
     :type date: str or datetime.date
     :return: 上海期货交易所-日频率-量价数据
@@ -680,7 +680,7 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20240410", end_date="20240415", market="SHFE"
+        start_date="20240506", end_date="20240510", market="SHFE"
     )
     print(get_futures_daily_df)
 
@@ -696,7 +696,7 @@ if __name__ == "__main__":
     get_czce_daily_df = get_czce_daily(date="20210513")
     print(get_czce_daily_df)
 
-    get_shfe_daily_df = get_shfe_daily(date="20240415")
+    get_shfe_daily_df = get_shfe_daily(date="20240510")
     print(get_shfe_daily_df)
 
     get_gfex_daily_df = get_gfex_daily(date="20221228")
