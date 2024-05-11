@@ -300,14 +300,14 @@ def get_shfe_rank_table(
     date                        日期                        string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
-    if date < datetime.date(2002, 1, 7):
-        print("shfe数据源开始日期为20020107，跳过")
+    if date < datetime.date(year=2002, month=1, day=7):
+        print("shfe数据源开始日期为 20020107，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
     url = cons.SHFE_VOL_RANK_URL % (date.strftime("%Y%m%d"))
-    r = requests_link(url, "utf-8", headers=cons.shfe_headers)
+    r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = json.loads(r.text)
     except:  # noqa: E722
@@ -1338,7 +1338,7 @@ if __name__ == "__main__":
     print(get_cffex_rank_table_df)
 
     # 上海期货交易所
-    get_shfe_rank_table_df = get_shfe_rank_table(date="20230808")
+    get_shfe_rank_table_df = get_shfe_rank_table(date="20240509")
     print(get_shfe_rank_table_df)
 
     # 大连商品交易所-老接口
