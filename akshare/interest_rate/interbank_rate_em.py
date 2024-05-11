@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/24 20:13
+Date: 2024/5/11 22:00
 Desc: 东方财富网-经济数据-银行间拆借利率
+https://data.eastmoney.com/shibor/shibor.aspx
 """
+
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def rate_interbank(
@@ -16,7 +18,7 @@ def rate_interbank(
 ):
     """
     东方财富-拆借利率一览-具体市场的具体品种的具体指标的拆借利率数据
-    具体 market 和 symbol 参见: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
+    具体 market 和 symbol 参见: https://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: choice of {"上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"}
     :type market: str
     :param symbol: choice of {"Shibor人民币", "Chibor人民币", "Libor英镑", "***", "Sibor美元"}
@@ -69,9 +71,11 @@ def rate_interbank(
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "reportName": "RPT_IMP_INTRESTRATEN",
-        "columns": "REPORT_DATE,REPORT_PERIOD,IR_RATE,CHANGE_RATE,INDICATOR_ID,LATEST_RECORD,MARKET,MARKET_CODE,CURRENCY,CURRENCY_CODE",
+        "columns": "REPORT_DATE,REPORT_PERIOD,IR_RATE,CHANGE_RATE,INDICATOR_ID,"
+        "LATEST_RECORD,MARKET,MARKET_CODE,CURRENCY,CURRENCY_CODE",
         "quoteColumns": "",
-        "filter": f"""(MARKET_CODE="{market_map[market]}")(CURRENCY_CODE="{symbol_map[symbol]}")(INDICATOR_ID="{indicator_map[indicator]}")""",
+        "filter": f"""(MARKET_CODE="{market_map[market]}")(CURRENCY_CODE="{symbol_map[symbol]}")
+        (INDICATOR_ID="{indicator_map[indicator]}")""",
         "pageNumber": "1",
         "pageSize": "500",
         "sortTypes": "-1",
@@ -87,6 +91,7 @@ def rate_interbank(
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
@@ -99,7 +104,7 @@ def rate_interbank(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "报告日",
         "-",
@@ -119,9 +124,9 @@ def rate_interbank(
             "涨跌",
         ]
     ]
-    big_df["报告日"] = pd.to_datetime(big_df["报告日"]).dt.date
-    big_df["利率"] = pd.to_numeric(big_df["利率"])
-    big_df["涨跌"] = pd.to_numeric(big_df["涨跌"])
+    big_df["报告日"] = pd.to_datetime(big_df["报告日"], errors="coerce").dt.date
+    big_df["利率"] = pd.to_numeric(big_df["利率"], errors="coerce")
+    big_df["涨跌"] = pd.to_numeric(big_df["涨跌"], errors="coerce")
     big_df.sort_values(["报告日"], inplace=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
