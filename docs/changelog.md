@@ -78,6 +78,12 @@
 
 ## 更新说明详情
 
+1.13.68 fix: fix rate_interbank interface
+
+    1. 修复 rate_interbank 接口
+    2. 修复 bond_info_detail_cm 接口
+    3. 修复 bond_china_close_return 接口
+
 1.13.67 fix: fix bond_info_cm interface
 
     1. 修复 bond_info_cm 接口
@@ -4056,6 +4062,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.68 fix: fix rate_interbank interface
 
 1.13.67 fix: fix bond_info_cm interface
 
