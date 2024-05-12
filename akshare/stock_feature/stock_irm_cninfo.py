@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/4 19:20
+Date: 2024/5/12 22:20
 Desc: 互动易-提问与回答
 https://irm.cninfo.com.cn/
 """
+
 import pandas as pd
 import requests
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def _fetch_org_id(symbol: str = "000001") -> str:
@@ -51,12 +53,13 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
     total_page = int(data_json["totalPage"])
     total_page = 10 if total_page > 10 else total_page
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, 1 + total_page), leave=False):
         params.update({"pageNum": page})
         r = requests.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["rows"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
         columns={
             "indexId": "问题编号",
@@ -111,8 +114,18 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
     ]
     big_df["行业"] = [item[0] for item in big_df["行业"]]
     big_df["行业代码"] = [item[0] for item in big_df["行业代码"]]
-    big_df["提问时间"] = pd.to_datetime(big_df["提问时间"], unit="ms")
-    big_df["更新时间"] = pd.to_datetime(big_df["更新时间"], unit="ms")
+    big_df["提问时间"] = (
+        pd.to_datetime(big_df["提问时间"], unit="ms", errors="coerce")
+        .dt.tz_localize("UTC")
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.strftime("%Y-%m-%d %H:%M:%S")
+    )
+    big_df["更新时间"] = (
+        pd.to_datetime(big_df["更新时间"], unit="ms", errors="coerce")
+        .dt.tz_localize("UTC")
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.strftime("%Y-%m-%d %H:%M:%S")
+    )
     big_df["来源"] = big_df["来源"].map(
         {
             "2": "APP",
@@ -120,7 +133,7 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
             "4": "网站",
         }
     )
-    big_df["来源"].fillna("网站", inplace=True)
+    big_df["来源"] = big_df["来源"].fillna("网站")
     return big_df
 
 
@@ -163,8 +176,18 @@ def stock_irm_ans_cninfo(symbol: str = "1513586704097333248") -> pd.DataFrame:
             "回答时间",
         ]
     ]
-    temp_df["提问时间"] = pd.to_datetime(temp_df["提问时间"], unit="ms", errors="coerce")
-    temp_df["回答时间"] = pd.to_datetime(temp_df["回答时间"], unit="ms", errors="coerce")
+    temp_df["提问时间"] = (
+        pd.to_datetime(temp_df["提问时间"], unit="ms", errors="coerce")
+        .dt.tz_localize("UTC")
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.strftime("%Y-%m-%d %H:%M:%S")
+    )
+    temp_df["回答时间"] = (
+        pd.to_datetime(temp_df["回答时间"], unit="ms", errors="coerce")
+        .dt.tz_localize("UTC")
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.strftime("%Y-%m-%d %H:%M:%S")
+    )
     return temp_df
 
 
