@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/24 16:30
+Date: 2024/5/12 22:30
 Desc: 百度地图慧眼-百度迁徙数据
 """
+
 import json
 
 import pandas as pd
@@ -92,7 +93,7 @@ def migration_scale_baidu(
 
 if __name__ == "__main__":
     migration_area_baidu_df = migration_area_baidu(
-        area="上海市", indicator="move_in", date="20230922"
+        area="杭州市", indicator="move_out", date="20240401"
     )
     print(migration_area_baidu_df)
 
