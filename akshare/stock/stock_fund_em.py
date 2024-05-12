@@ -80,6 +80,7 @@ def stock_individual_fund_flow(
             "小单净流入-净占比",
         ]
     ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["主力净流入-净额"] = pd.to_numeric(
         temp_df["主力净流入-净额"], errors="coerce"
     )
