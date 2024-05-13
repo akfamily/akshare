@@ -2196,7 +2196,7 @@ print(option_commodity_hist_sina_df)
 
 接口: option_shfe_daily
 
-目标地址: http://www.shfe.com.cn/statements/dataview.html?paramid=kxQ
+目标地址: http://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
 
 描述: 上海期货交易所-商品期权数据
 
