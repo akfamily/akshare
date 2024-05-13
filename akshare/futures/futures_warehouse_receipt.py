@@ -4,7 +4,7 @@
 Date: 2024/4/2 22:30
 Desc: 期货-仓单日报
 上海期货交易所-仓单日报
-https://www.shfe.com.cn/statements/dataview.html?paramid=dailystock
+https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock
 郑州商品交易所-交易数据-仓单日报
 http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
 大连商品交易所-行情数据-统计数据-日统计-仓单日报
@@ -31,7 +31,8 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
     r = requests.get(url, verify=False, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
@@ -62,7 +63,8 @@ def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
     """
     url = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
     params = {
         "wbillWeeklyQuotes.variety": "all",
@@ -95,16 +97,17 @@ def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
 def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
     """
     上海期货交易所指定交割仓库期货仓单日报
-    https://www.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
     :param date: 交易日, e.g., "20200702"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
-    url = f"http://www.shfe.com.cn/data/dailydata/{date}dailystock.dat"
+    url = f"https://tsite.shfe.com.cn/data/dailydata/{date}dailystock.dat"
     if date >= "20140519":
         r = requests.get(url, headers=headers)
         data_json = r.json()
@@ -118,7 +121,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         for item in set(temp_df["VARNAME"]):
             big_dict[item] = temp_df[temp_df["VARNAME"] == item]
     else:
-        url = f"http://www.shfe.com.cn/data/dailydata/{date}dailystock.html"
+        url = f"https://tsite.shfe.com.cn/data/dailydata/{date}dailystock.html"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
@@ -155,7 +158,8 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     """
     url = "http://www.gfex.com.cn/u/interfacesWebTdWbillWeeklyQuotes/loadList"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
     r = requests.post(url=url, data=payload, headers=headers)
