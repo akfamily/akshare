@@ -4,6 +4,7 @@
 Date: 2024/1/22 20:30
 Desc: 期货-期转现-交割
 """
+
 from io import StringIO, BytesIO
 
 import pandas as pd
@@ -13,7 +14,7 @@ import requests
 def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     """
     上海期货交易所-期转现
-    https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
     1、铜、铜(BC)、铝、锌、铅、镍、锡、螺纹钢、线材、热轧卷板、天然橡胶、20号胶、低硫燃料油、燃料油、石油沥青、纸浆、不锈钢的数量单位为：吨；黄金的数量单位为：克；白银的数量单位为：千克；原油的数量单位为：桶。
     2、交割量、期转现量为单向计算。
     :param date: 年月
@@ -21,9 +22,10 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     :return: 上海期货交易所期转现
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.shfe.com.cn/data/instrument/ExchangeDelivery{date}.dat"
+    url = f"https://tsite.shfe.com.cn/data/instrument/ExchangeDelivery{date}.dat"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/100.0.4896.127 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_json = r.json()
@@ -46,9 +48,9 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
             "期转现量",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
-    temp_df['交割量'] = pd.to_numeric(temp_df['交割量'], errors="coerce")
-    temp_df['期转现量'] = pd.to_numeric(temp_df['期转现量'], errors="coerce")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["交割量"] = pd.to_numeric(temp_df["交割量"], errors="coerce")
+    temp_df["期转现量"] = pd.to_numeric(temp_df["期转现量"], errors="coerce")
     return temp_df
 
 
@@ -84,11 +86,11 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
     temp_df["交割日期"] = (
         temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
-    temp_df = temp_df[~temp_df['品种'].str.contains('小计|总计')]
+    temp_df = temp_df[~temp_df["品种"].str.contains("小计|总计")]
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df['交割日期'] = pd.to_datetime(temp_df['交割日期'], errors="coerce").dt.date
-    temp_df['交割量'] = pd.to_numeric(temp_df['交割量'], errors="coerce")
-    temp_df['交割金额'] = pd.to_numeric(temp_df['交割金额'], errors="coerce")
+    temp_df["交割日期"] = pd.to_datetime(temp_df["交割日期"], errors="coerce").dt.date
+    temp_df["交割量"] = pd.to_numeric(temp_df["交割量"], errors="coerce")
+    temp_df["交割金额"] = pd.to_numeric(temp_df["交割金额"], errors="coerce")
     return temp_df
 
 
@@ -114,10 +116,12 @@ def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
     temp_df["期转现发生日期"] = (
         temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
-    temp_df = temp_df[~temp_df['合约代码'].str.contains('小计|总计')]
+    temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|总计")]
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df['期转现发生日期'] = pd.to_datetime(temp_df['期转现发生日期'], errors="coerce").dt.date
-    temp_df['期转现数量'] = pd.to_numeric(temp_df['期转现数量'], errors="coerce")
+    temp_df["期转现发生日期"] = pd.to_datetime(
+        temp_df["期转现发生日期"], errors="coerce"
+    ).dt.date
+    temp_df["期转现数量"] = pd.to_numeric(temp_df["期转现数量"], errors="coerce")
     return temp_df
 
 
@@ -142,9 +146,9 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
         temp_df["配对日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
     temp_df = temp_df.iloc[:-1, :]
-    temp_df['配对日期'] = pd.to_datetime(temp_df['配对日期'], errors="coerce").dt.date
-    temp_df['配对手数'] = pd.to_numeric(temp_df['配对手数'], errors="coerce")
-    temp_df['交割结算价'] = pd.to_numeric(temp_df['交割结算价'], errors="coerce")
+    temp_df["配对日期"] = pd.to_datetime(temp_df["配对日期"], errors="coerce").dt.date
+    temp_df["配对手数"] = pd.to_numeric(temp_df["配对手数"], errors="coerce")
+    temp_df["交割结算价"] = pd.to_numeric(temp_df["交割结算价"], errors="coerce")
     return temp_df
 
 
@@ -186,7 +190,7 @@ def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
     ]
     temp_df["合约数量"] = temp_df["合约数量"].astype(str).str.replace(",", "")
     temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"], errors="coerce")
-    temp_df = temp_df[~temp_df['合约代码'].str.contains('小计|合计')]
+    temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|合计")]
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
@@ -208,16 +212,14 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for i, item in enumerate(index_flag):
         try:
-            temp_inner_df = temp_df[index_flag[i] + 1: index_flag[i + 1]]
-        except:
-            temp_inner_df = temp_df[index_flag[i] + 1:]
+            temp_inner_df = temp_df[index_flag[i] + 1 : index_flag[i + 1]]
+        except:  # noqa: E722
+            temp_inner_df = temp_df[index_flag[i] + 1 :]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]
         temp_inner_df.reset_index(drop=True, inplace=True)
         date_contract_str = (
-            temp_df[temp_df.iloc[:, 0].str.contains("配对日期")]
-            .iloc[:, 0]
-            .values[i]
+            temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
         )
         inner_date = date_contract_str.split("：")[1].split(" ")[0]
         symbol = date_contract_str.split("：")[-1]
@@ -268,16 +270,17 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
 def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
     """
     上海期货交易所-交割情况表
-    https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
     注意: 日期 -> 月度统计 -> 下拉到交割情况表
     :param date: 年月日
     :type date: str
     :return: 上海期货交易所-交割情况表
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.shfe.com.cn/data/dailydata/{date}monthvarietystatistics.dat"
+    url = f"https://tsite.shfe.com.cn/data/dailydata/{date}monthvarietystatistics.dat"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/100.0.4896.127 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     r.encoding = "utf-8"
@@ -301,10 +304,14 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
             "交割量-累计同比",
         ]
     ]
-    temp_df['交割量-本月'] = pd.to_numeric(temp_df['交割量-本月'], errors="coerce")
-    temp_df['交割量-比重'] = pd.to_numeric(temp_df['交割量-比重'], errors="coerce")
-    temp_df['交割量-本年累计'] = pd.to_numeric(temp_df['交割量-本年累计'], errors="coerce")
-    temp_df['交割量-累计同比'] = pd.to_numeric(temp_df['交割量-累计同比'], errors="coerce")
+    temp_df["交割量-本月"] = pd.to_numeric(temp_df["交割量-本月"], errors="coerce")
+    temp_df["交割量-比重"] = pd.to_numeric(temp_df["交割量-比重"], errors="coerce")
+    temp_df["交割量-本年累计"] = pd.to_numeric(
+        temp_df["交割量-本年累计"], errors="coerce"
+    )
+    temp_df["交割量-累计同比"] = pd.to_numeric(
+        temp_df["交割量-累计同比"], errors="coerce"
+    )
     return temp_df
 
 
@@ -330,7 +337,5 @@ if __name__ == "__main__":
     futures_delivery_match_dce_df = futures_delivery_match_dce(symbol="a")
     print(futures_delivery_match_dce_df)
 
-    futures_delivery_match_czce_df = futures_delivery_match_czce(
-        date="20210106"
-    )
+    futures_delivery_match_czce_df = futures_delivery_match_czce(date="20210106")
     print(futures_delivery_match_czce_df)
