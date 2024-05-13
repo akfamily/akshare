@@ -2782,9 +2782,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.68 fix: fix rate_interbank interface
 1.13.69 fix: fix get_shfe_rank_table interface
 1.13.70 fix: fix stock_irm_cninfo interface
+1.13.71 fix: fix stock_fhps_detail_ths interface
 """
 
-__version__ = "1.13.70"
+__version__ = "1.13.71"
 __author__ = "AKFamily"
 
 import sys
