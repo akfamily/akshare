@@ -6,14 +6,14 @@
 
 #### 期货交易所
 
-| 交易所名称                                 | 交易所代码 | 合约后缀  | 首页地址                     |
-|---------------------------------------|-------|-------|--------------------------|
-| [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX | .CFX  | http://www.cffex.com.cn/ |
-| [上海期货交易所](https://www.shfe.com.cn/)   | SHFE  | .SHF  | https://www.shfe.com.cn/ |
-| [上海国际能源交易中心](https://www.ine.cn/)     | INE   | .INE  | https://www.ine.cn/      |
-| [郑州商品交易所](http://www.czce.com.cn/)    | CZCE  | .ZCE  | http://www.czce.com.cn/  |
-| [大连商品交易所](http://www.dce.com.cn/)     | DCE   | .DCE  | http://www.dce.com.cn/   |
-| [广州期货交易所](http://www.gfex.com.cn/)    | GFEX  | .GFEX | http://www.gfex.com.cn/  |
+| 交易所名称                                | 交易所代码 | 合约后缀  | 首页地址                    |
+|--------------------------------------|-------|-------|-------------------------|
+| [中国金融期货交易所](http://www.cffex.com.cn) | CFFEX | .CFX  | http://www.cffex.com.cn |
+| [上海期货交易所](https://www.shfe.com.cn)   | SHFE  | .SHF  | https://www.shfe.com.cn |
+| [上海国际能源交易中心](https://www.ine.cn)     | INE   | .INE  | https://www.ine.cn      |
+| [郑州商品交易所](http://www.czce.com.cn)    | CZCE  | .ZCE  | http://www.czce.com.cn  |
+| [大连商品交易所](http://www.dce.com.cn)     | DCE   | .DCE  | http://www.dce.com.cn   |
+| [广州期货交易所](http://www.gfex.com.cn)    | GFEX  | .GFEX | http://www.gfex.com.cn  |
 
 #### 期货交易时间
 
@@ -1493,7 +1493,7 @@ print(futures_dce_warehouse_receipt_df)
 
 接口: futures_shfe_warehouse_receipt
 
-目标地址: https://www.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
+目标地址: https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
 
 描述: 提供上海期货交易所指定交割仓库期货仓单日报
 
@@ -1755,7 +1755,7 @@ print(futures_to_spot_czce_df)
 
 接口: futures_to_spot_shfe
 
-目标地址: https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+目标地址: https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
 
 描述: 上海期货交易所-期转现数据
 
@@ -1945,7 +1945,7 @@ print(futures_delivery_monthly_czce_df)
 
 接口: futures_delivery_shfe
 
-目标地址: https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+目标地址: https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
 
 描述: 上海期货交易所-交割统计
 
