@@ -38,7 +38,7 @@ def stock_info_cjzc_em() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df = big_df[["title", "summary", "showTime", "uniqueUrl"]]
     big_df.rename(
