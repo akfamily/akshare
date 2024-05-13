@@ -4,7 +4,7 @@
 Date: 2024/4/24 18:10
 Desc: 上海期货交易所指定交割仓库库存周报
 https://datacenter.jin10.com/reportType/dc_shfe_weekly_stock
-https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
 """
 
 import pandas as pd
