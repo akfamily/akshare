@@ -276,7 +276,7 @@ def get_shfe_rank_table(
     """
     上海期货交易所会员成交及持仓排名表
     https://www.shfe.com.cn/
-    https://www.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
     注：该交易所只公布每个品种内部的标的排名，没有公布品种的总排名
     数据从 20020107 开始，每交易日 16:30 左右更新数据
     :param date: 交易日
