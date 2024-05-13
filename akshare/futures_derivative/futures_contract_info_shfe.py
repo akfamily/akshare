@@ -1,25 +1,25 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/8 17:30
+Date: 2024/5/13 17:45
 Desc: 上海期货交易所-交易所服务-业务数据-交易参数汇总查询
-https://www.shfe.com.cn/bourseService/businessdata/summaryinquiry/
+https://tsite.shfe.com.cn/bourseService/businessdata/summaryinquiry/
 """
 
 import pandas as pd
 import requests
 
 
-def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
+def futures_contract_info_shfe(date: str = "20240513") -> pd.DataFrame:
     """
     上海期货交易所-交易所服务-业务数据-交易参数汇总查询
-    https://www.shfe.com.cn/bourseService/businessdata/summaryinquiry/
+    https://tsite.shfe.com.cn/bourseService/businessdata/summaryinquiry/
     :param date: 查询日期; 交易日
     :type date: str
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame
     """
-    url = f"https://www.shfe.com.cn/data/instrument/ContractBaseInfo{date}.dat"
+    url = f"https://tsite.shfe.com.cn/data/instrument/ContractBaseInfo{date}.dat"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
@@ -66,5 +66,5 @@ def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_contract_info_shfe_df = futures_contract_info_shfe(date="20240422")
+    futures_contract_info_shfe_df = futures_contract_info_shfe(date="20240513")
     print(futures_contract_info_shfe_df)
