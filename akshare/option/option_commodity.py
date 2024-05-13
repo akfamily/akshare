@@ -13,6 +13,7 @@ Desc: 商品期权数据
 (7) 合约系列：具有相同月份标的期货合约的所有期权合约的统称
 (8) 隐含波动率：根据期权市场价格，利用期权定价模型计算的标的期货合约价格波动率
 """
+
 import datetime
 import warnings
 from io import StringIO, BytesIO
@@ -32,7 +33,7 @@ from akshare.option.cons import (
 
 
 def option_dce_daily(
-        symbol: str = "聚乙烯期权", trade_date: str = "20210728"
+    symbol: str = "聚乙烯期权", trade_date: str = "20210728"
 ) -> Tuple[Any, Any]:
     """
     大连商品交易所-期权-日频行情数据
@@ -61,9 +62,9 @@ def option_dce_daily(
     res = requests.post(url, data=payload)
     table_df = pd.read_excel(BytesIO(res.content), header=1)
     another_df = table_df.iloc[
-                 table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:,
-                 [0, 1],
-                 ]
+        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :,
+        [0, 1],
+    ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
@@ -139,7 +140,7 @@ def option_dce_daily(
 
 
 def option_czce_daily(
-        symbol: str = "白糖期权", trade_date: str = "20191017"
+    symbol: str = "白糖期权", trade_date: str = "20191017"
 ) -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
@@ -218,15 +219,16 @@ def option_czce_daily(
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("AP")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
-        except:
+        except:  # noqa: E722
             return pd.DataFrame()
 
 
 def option_shfe_daily(
-        symbol: str = "铝期权", trade_date: str = "20200827"
+    symbol: str = "铝期权", trade_date: str = "20200827"
 ) -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
+    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"铜期权", "天胶期权", "黄金期权", "铝期权", "锌期权"}
@@ -249,14 +251,14 @@ def option_shfe_daily(
                     row
                     for row in json_data["o_curinstrument"]
                     if row["INSTRUMENTID"] not in ["小计", "合计"]
-                       and row["INSTRUMENTID"] != ""
+                    and row["INSTRUMENTID"] != ""
                 ]
             )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
-                ]
+            ]
             contract_df.columns = [
                 "_",
                 "_",
@@ -330,7 +332,7 @@ def option_shfe_daily(
             contract_df.reset_index(inplace=True, drop=True)
             volatility_df.reset_index(inplace=True, drop=True)
             return contract_df, volatility_df
-        except:
+        except:  # noqa: E722
             return
 
 
@@ -415,7 +417,7 @@ def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230724"):
             "隐含波动率",
         ]
     ]
-    temp_df = temp_df[temp_df['商品名称'].str.contains(symbol)]
+    temp_df = temp_df[temp_df["商品名称"].str.contains(symbol)]
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
@@ -475,7 +477,7 @@ def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724
             "隐含波动率",
         ]
     ]
-    temp_df = temp_df[temp_df['合约系列'].str.contains(symbol_code_map[symbol])]
+    temp_df = temp_df[temp_df["合约系列"].str.contains(symbol_code_map[symbol])]
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
@@ -511,7 +513,9 @@ if __name__ == "__main__":
     option_gfex_daily_df = option_gfex_daily(symbol="工业硅", trade_date="20240102")
     print(option_gfex_daily_df)
 
-    option_gfex_vol_daily_df = option_gfex_vol_daily(symbol="工业硅", trade_date="20230418")
+    option_gfex_vol_daily_df = option_gfex_vol_daily(
+        symbol="工业硅", trade_date="20230418"
+    )
     print(option_gfex_vol_daily_df)
 
     option_czce_daily_df = option_czce_daily(symbol="短纤期权", trade_date="20231116")
