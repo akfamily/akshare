@@ -12,21 +12,21 @@ broker_positions
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|broker |席位   |永安期货|
-|date |查询日期   |2018-08-08|
+| 参数名    | 说明   | 举例         |
+|:-------|:-----|------------|
+| broker | 席位   | 永安期货       |
+| date   | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|code |string   |合约代号  |
-|long |int   |多头持仓  |
-|short |int   |空头持仓  |
-|long_chge |int   |多头持仓变化量  |
-|short_chge |int   |空头持仓变化量  |
-|symbol |string   |品种编码  |
+| 参数名        | 类型     | 说明      |
+|:-----------|:-------|---------|
+| code       | string | 合约代号    |
+| long       | int    | 多头持仓    |
+| short      | int    | 空头持仓    |
+| long_chge  | int    | 多头持仓变化量 |
+| short_chge | int    | 空头持仓变化量 |
+| symbol     | string | 品种编码    |
 
 ### 示例代码
 
@@ -126,7 +126,7 @@ broker_calendar
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
+|trans_date | date  |查询日期  |
 |profit |float   |席位盈亏，单位元  |
 
 ### 示例代码
