@@ -1261,6 +1261,8 @@
  "stock_info_broker_sina"  # 新浪财经-证券-证券原创
  # 数库-A股新闻情绪指数
  "index_news_sentiment_scope"  # 数库-A股新闻情绪指数
+ # 华尔街见闻-日历-宏观
+ "macro_info_ws"  # 华尔街见闻-日历-宏观
 ```
 
 ## 案例演示
