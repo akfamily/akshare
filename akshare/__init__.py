@@ -2785,9 +2785,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.71 fix: fix stock_fhps_detail_ths interface
 1.13.72 fix: fix futures_contract_info_shfe interface
 1.13.73 fix: fix futures_shfe_warehouse_receipt interface
+1.13.74 add: add macro_info_ws interface
 """
 
-__version__ = "1.13.73"
+__version__ = "1.13.74"
 __author__ = "AKFamily"
 
 import sys
@@ -2808,6 +2809,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+华尔街见闻-日历-宏观
+"""
+from akshare.economic.macro_info_ws import macro_info_ws
 
 """
 数库-A股新闻情绪指数
