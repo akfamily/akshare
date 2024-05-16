@@ -2786,9 +2786,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.72 fix: fix futures_contract_info_shfe interface
 1.13.73 fix: fix futures_shfe_warehouse_receipt interface
 1.13.74 add: add macro_info_ws interface
+1.13.75 add: add spot_price_qh interface
 """
 
-__version__ = "1.13.74"
+__version__ = "1.13.75"
 __author__ = "AKFamily"
 
 import sys
@@ -2809,6 +2810,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+现货走势
+"""
+from akshare.spot.spot_price_qh import spot_price_qh, spot_price_table_qh
 
 """
 华尔街见闻-日历-宏观
