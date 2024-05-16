@@ -1263,6 +1263,8 @@
  "index_news_sentiment_scope"  # 数库-A股新闻情绪指数
  # 华尔街见闻-日历-宏观
  "macro_info_ws"  # 华尔街见闻-日历-宏观
+ # 现货走势
+ "spot_price_qh"  # 现货走势
 ```
 
 ## 案例演示
