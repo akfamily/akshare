@@ -180,7 +180,7 @@ print(macro_china_fdi_df)
 
 接口: macro_china_lpr
 
-目标地址: http://data.eastmoney.com/cjsj/globalRateLPR.html
+目标地址: https://data.eastmoney.com/cjsj/globalRateLPR.html
 
 描述: 中国 LPR 品种数据, 数据区间从 19910421-至今
 
