@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/3 15:20
+Date: 2024/5/17 16:20
 Desc: 宏观数据-中国
 """
 
@@ -12,12 +12,12 @@ import time
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_CHINA_ENERGY_DAILY_URL,
 )
 from akshare.utils import demjson
+from akshare.utils.tqdm import get_tqdm
 
 
 def __macro_china_base_func(symbol: str, params: dict) -> pd.DataFrame:
@@ -92,7 +92,9 @@ def macro_china_qyspjg() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "columns": "REPORT_DATE,TIME,BASE,BASE_SAME,BASE_SEQUENTIAL,FARM_BASE,FARM_BASE_SAME,FARM_BASE_SEQUENTIAL,MINERAL_BASE,MINERAL_BASE_SAME,MINERAL_BASE_SEQUENTIAL,ENERGY_BASE,ENERGY_BASE_SAME,ENERGY_BASE_SEQUENTIAL",
+        "columns": "REPORT_DATE,TIME,BASE,BASE_SAME,BASE_SEQUENTIAL,FARM_BASE,FARM_BASE_SAME,"
+        "FARM_BASE_SEQUENTIAL,MINERAL_BASE,MINERAL_BASE_SAME,MINERAL_BASE_SEQUENTIAL,"
+        "ENERGY_BASE,ENERGY_BASE_SAME,ENERGY_BASE_SEQUENTIAL",
         "pageNumber": "1",
         "pageSize": "2000",
         "sortColumns": "REPORT_DATE",
@@ -186,7 +188,8 @@ def macro_china_fdi() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "columns": "REPORT_DATE,TIME,ACTUAL_FOREIGN,ACTUAL_FOREIGN_SAME,ACTUAL_FOREIGN_SEQUENTIAL,ACTUAL_FOREIGN_ACCUMULATE,FOREIGN_ACCUMULATE_SAME",
+        "columns": "REPORT_DATE,TIME,ACTUAL_FOREIGN,ACTUAL_FOREIGN_SAME,ACTUAL_FOREIGN_SEQUENTIAL,"
+        "ACTUAL_FOREIGN_ACCUMULATE,FOREIGN_ACCUMULATE_SAME",
         "pageNumber": "1",
         "pageSize": "2000",
         "sortColumns": "REPORT_DATE",
@@ -963,6 +966,10 @@ def macro_china_lpr() -> pd.DataFrame:
     :return: LPR品种详细数据
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
+
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "reportName": "RPTA_WEB_RATE",
@@ -981,6 +988,7 @@ def macro_china_lpr() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1087,7 +1095,8 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "columns": "REPORT_DATE,TIME,BOOM_INDEX,FAITH_INDEX,BOOM_INDEX_SAME,BOOM_INDEX_SEQUENTIAL,FAITH_INDEX_SAME,FAITH_INDEX_SEQUENTIAL",
+        "columns": "REPORT_DATE,TIME,BOOM_INDEX,FAITH_INDEX,BOOM_INDEX_SAME,BOOM_INDEX_SEQUENTIAL,"
+        "FAITH_INDEX_SAME,FAITH_INDEX_SEQUENTIAL",
         "pageNumber": "1",
         "pageSize": "500",
         "sortColumns": "REPORT_DATE",
@@ -1196,7 +1205,8 @@ def macro_china_bank_financing() -> pd.DataFrame:
         "pageSize": "1000",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI01516267")',
         "source": "WEB",
         "client": "WEB",
@@ -1241,7 +1251,8 @@ def macro_china_insurance_income() -> pd.DataFrame:
         "pageSize": "1000",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMM00088870")',
         "source": "WEB",
         "client": "WEB",
@@ -1286,7 +1297,8 @@ def macro_china_mobile_number() -> pd.DataFrame:
         "pageSize": "1000",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00225823")',
         "source": "WEB",
         "client": "WEB",
@@ -1332,7 +1344,8 @@ def macro_china_vegetable_basket() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00009275")',
         "source": "WEB",
         "client": "WEB",
@@ -1341,6 +1354,7 @@ def macro_china_vegetable_basket() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1385,7 +1399,8 @@ def macro_china_agricultural_product() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00009274")',
         "source": "WEB",
         "client": "WEB",
@@ -1394,6 +1409,7 @@ def macro_china_agricultural_product() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1438,7 +1454,8 @@ def macro_china_agricultural_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00662543")',
         "source": "WEB",
         "client": "WEB",
@@ -1447,6 +1464,7 @@ def macro_china_agricultural_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1491,7 +1509,8 @@ def macro_china_energy_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00662539")',
         "source": "WEB",
         "client": "WEB",
@@ -1500,6 +1519,7 @@ def macro_china_energy_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1544,7 +1564,8 @@ def macro_china_commodity_price_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00662535")',
         "source": "WEB",
         "client": "WEB",
@@ -1553,6 +1574,7 @@ def macro_china_commodity_price_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1597,7 +1619,8 @@ def macro_global_sox_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00055562")',
         "source": "WEB",
         "client": "WEB",
@@ -1606,6 +1629,7 @@ def macro_global_sox_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1650,7 +1674,8 @@ def macro_china_yw_electronic_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00055551")',
         "source": "WEB",
         "client": "WEB",
@@ -1659,6 +1684,7 @@ def macro_china_yw_electronic_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1716,6 +1742,7 @@ def macro_china_construction_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1760,7 +1787,8 @@ def macro_china_construction_price_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00237146")',
         "source": "WEB",
         "client": "WEB",
@@ -1769,6 +1797,7 @@ def macro_china_construction_price_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1813,7 +1842,8 @@ def macro_china_lpi_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00352262")',
         "source": "WEB",
         "client": "WEB",
@@ -1822,6 +1852,7 @@ def macro_china_lpi_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1866,7 +1897,8 @@ def macro_china_bdti_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00107668")',
         "source": "WEB",
         "client": "WEB",
@@ -1875,6 +1907,7 @@ def macro_china_bdti_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1919,7 +1952,8 @@ def macro_china_bsi_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00107667")',
         "source": "WEB",
         "client": "WEB",
@@ -1928,6 +1962,7 @@ def macro_china_bsi_index() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -1982,6 +2017,7 @@ def _em_macro_1(em_id) -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -2902,7 +2938,9 @@ def macro_china_xfzxx() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "columns": "REPORT_DATE,TIME,CONSUMERS_FAITH_INDEX,FAITH_INDEX_SAME,FAITH_INDEX_SEQUENTIAL,CONSUMERS_ASTIS_INDEX,ASTIS_INDEX_SAME,ASTIS_INDEX_SEQUENTIAL,CONSUMERS_EXPECT_INDEX,EXPECT_INDEX_SAME,EXPECT_INDEX_SEQUENTIAL",
+        "columns": "REPORT_DATE,TIME,CONSUMERS_FAITH_INDEX,FAITH_INDEX_SAME,FAITH_INDEX_SEQUENTIAL,"
+        "CONSUMERS_ASTIS_INDEX,ASTIS_INDEX_SAME,ASTIS_INDEX_SEQUENTIAL,CONSUMERS_EXPECT_INDEX,"
+        "EXPECT_INDEX_SAME,EXPECT_INDEX_SEQUENTIAL",
         "pageNumber": "1",
         "pageSize": "2000",
         "sortColumns": "REPORT_DATE",
@@ -3032,7 +3070,8 @@ def macro_china_reserve_requirement_ratio() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "columns": "REPORT_DATE,PUBLISH_DATE,TRADE_DATE,INTEREST_RATE_BB,INTEREST_RATE_BA,CHANGE_RATE_B,INTEREST_RATE_SB,INTEREST_RATE_SA,CHANGE_RATE_S,NEXT_SH_RATE,NEXT_SZ_RATE,REMARK",
+        "columns": "REPORT_DATE,PUBLISH_DATE,TRADE_DATE,INTEREST_RATE_BB,INTEREST_RATE_BA,CHANGE_RATE_B,"
+        "INTEREST_RATE_SB,INTEREST_RATE_SA,CHANGE_RATE_S,NEXT_SH_RATE,NEXT_SZ_RATE,REMARK",
         "pageNumber": "1",
         "pageSize": "2000",
         "sortColumns": "PUBLISH_DATE,TRADE_DATE",
@@ -3116,10 +3155,12 @@ def macro_china_consumer_goods_retail() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
-        "columns": "REPORT_DATE,TIME,RETAIL_TOTAL,RETAIL_TOTAL_SAME,RETAIL_TOTAL_SEQUENTIAL,RETAIL_TOTAL_ACCUMULATE,RETAIL_ACCUMULATE_SAME",
+        "columns": "REPORT_DATE,TIME,RETAIL_TOTAL,RETAIL_TOTAL_SAME,RETAIL_TOTAL_SEQUENTIAL,"
+        "RETAIL_TOTAL_ACCUMULATE,RETAIL_ACCUMULATE_SAME",
         "pageNumber": "1",
         "pageSize": "1000",
         "sortColumns": "REPORT_DATE",
@@ -3237,6 +3278,7 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3295,13 +3337,14 @@ def macro_china_postal_telecommunicational() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
-    for i in tqdm(range(1, page_num)):
+    tqdm = get_tqdm()
+    for i in tqdm(range(1, page_num), leave=False):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     for item in big_df.columns[1:]:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
@@ -3329,6 +3372,7 @@ def macro_china_international_tourism_fx() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3363,13 +3407,14 @@ def macro_china_passenger_load_factor() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     big_df["客座率"] = pd.to_numeric(big_df["客座率"], errors="coerce")
     big_df["载运率"] = pd.to_numeric(big_df["载运率"], errors="coerce")
@@ -3397,6 +3442,7 @@ def _macro_china_freight_index() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3474,6 +3520,7 @@ def macro_china_central_bank_balance() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3508,6 +3555,7 @@ def macro_china_insurance() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3542,13 +3590,14 @@ def macro_china_supply_of_money() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     for item in big_df.columns[1:]:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
@@ -3576,6 +3625,7 @@ def macro_china_foreign_exchange_gold() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3611,6 +3661,7 @@ def macro_china_retail_price_index() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
@@ -3635,7 +3686,8 @@ def macro_china_real_estate() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
         "sortColumns": "REPORT_DATE",
@@ -3643,7 +3695,8 @@ def macro_china_real_estate() -> pd.DataFrame:
         "pageSize": "1000",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
+        "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMM00121987")',
         "source": "WEB",
         "client": "WEB",
@@ -3652,6 +3705,7 @@ def macro_china_real_estate() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params, headers=headers)
@@ -3668,15 +3722,15 @@ def macro_china_real_estate() -> pd.DataFrame:
         "近2年涨跌幅",
         "近3年涨跌幅",
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["最新值"] = pd.to_numeric(big_df["最新值"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"])
-    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"])
-    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"])
-    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"])
-    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"])
-    big_df.sort_values(["日期"], inplace=True)
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["最新值"] = pd.to_numeric(big_df["最新值"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"], errors="coerce")
+    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"], errors="coerce")
+    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"], errors="coerce")
+    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"], errors="coerce")
+    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"], errors="coerce")
+    big_df.sort_values(by=["日期"], inplace=True)
     big_df.drop_duplicates(inplace=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
