@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/4 15:19
+Date: 2024/5/19 15:30
 Desc: 南华期货-商品指数历史走势-收益率指数-波动率
 https://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: https://www.nanhua.net/ianalysis/volatility/20/NHCI.json?t=1574932291399
 """
+
 import time
 
 import pandas as pd
@@ -38,9 +39,10 @@ def futures_volatility_index_nh(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["date", "value"]
-        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms")
+        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms", errors="coerce")
         temp_df["date"] = temp_df["date"].dt.tz_localize("UTC")
         temp_df["date"] = temp_df["date"].dt.tz_convert("Asia/Shanghai").dt.date
+        temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
         return temp_df
 
 
