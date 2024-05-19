@@ -1313,7 +1313,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                 symbol=item.lower(), date=date
             )
         except:  # noqa: E722
-            return pd.DataFrame()
+            return {}
         for name in futures_contract_list:
             try:
                 temp_df = __futures_gfex_contract_data(
@@ -1321,7 +1321,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                 )
                 big_dict[name] = temp_df
             except:  # noqa: E722
-                return pd.DataFrame()
+                return {}
     return big_dict
 
 
