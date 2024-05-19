@@ -11,6 +11,7 @@ import re
 import zipfile
 from io import BytesIO, StringIO
 
+import numpy as np
 import pandas as pd
 import requests
 
@@ -512,10 +513,15 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
     df["VOLUME"] = df["VOLUME"].apply(lambda x: 0 if x == "" else x)
-    df["turnover"] = df["TURNOVER"].apply(lambda x: 0 if x == "" else x)
+    try:
+        df["turnover"] = df["TURNOVER"].apply(lambda x: 0 if x == "" else x)
+    except KeyError:
+        df["turnover"] = np.nan
     df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
     df = df[~df["symbol"].str.contains("efp")]
-    return df[cons.OUTPUT_COLUMNS]
+    df = df[cons.OUTPUT_COLUMNS]
+    df.reset_index(inplace=True)
+    return df
 
 
 def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
@@ -696,7 +702,7 @@ if __name__ == "__main__":
     get_czce_daily_df = get_czce_daily(date="20210513")
     print(get_czce_daily_df)
 
-    get_shfe_daily_df = get_shfe_daily(date="20240510")
+    get_shfe_daily_df = get_shfe_daily(date="20210517")
     print(get_shfe_daily_df)
 
     get_gfex_daily_df = get_gfex_daily(date="20221228")
