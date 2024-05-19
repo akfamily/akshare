@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/8 21:30
+Date: 2024/5/19 18:30
 Desc: 东方财富网-数据中心-特色数据-高管持股
 https://data.eastmoney.com/executive/list.html
 """
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -47,10 +48,10 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
                 "pageNum": page,
             }
         )
-        r = requests.post(url, params=params)
+        r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.rename(
         columns={
