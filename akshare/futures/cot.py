@@ -854,7 +854,7 @@ def futures_dce_position_rank(
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t")
                 if sum(data.iloc[:, 0].str.find("会员类别") == 0) > 0:
-                    data = data.iloc[:-6, :]
+                    data = data.iloc[:-6]
                 if len(data) < 12:  # 处理没有活跃合约的情况
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
@@ -872,7 +872,7 @@ def futures_dce_position_rank(
                 data.reset_index(inplace=True, drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 end_list = data[
-                    data.iloc[:, 0].str.contains(r"(?:总计|合计)", na=False) is True
+                    data.iloc[:, 0].str.contains(r"(?:总计|合计)", na=False)
                 ].index.tolist()
                 part_one = data[start_list[0] : end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1] : end_list[1]].iloc[1:, :]
@@ -1362,7 +1362,7 @@ if __name__ == "__main__":
     print(get_dce_rank_table_fourth_df)
 
     # 大连商品交易所-新接口
-    futures_dce_detail_dict = futures_dce_position_rank(date="20240520")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20240517")
     print(futures_dce_detail_dict)
 
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(
