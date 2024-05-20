@@ -846,13 +846,15 @@ def futures_dce_position_rank(
     }
     r = requests.post(url, payload, headers=headers)
     big_dict = dict()
-    with zipfile.ZipFile(BytesIO(r.content), "r") as z:
+    with zipfile.ZipFile(BytesIO(r.content), mode="r") as z:
         for i in z.namelist():
             file_name = i.encode("cp437").decode("GBK")
             if not file_name.startswith(date.strftime("%Y%m%d")):
                 continue
             try:
-                data = pd.read_table(z.open(i), header=None, sep="\t").iloc[:-6]
+                data = pd.read_table(z.open(i), header=None, sep="\t")
+                if sum(data.iloc[:, 0].str.find("会员类别") == 0) > 0:
+                    data = data.iloc[:-6, :]
                 if len(data) < 12:  # 处理没有活跃合约的情况
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
@@ -869,12 +871,14 @@ def futures_dce_position_rank(
                 ]
                 data.reset_index(inplace=True, drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
-                end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
+                end_list = data[
+                    data.iloc[:, 0].str.contains(r"(?:总计|合计)", na=False) is True
+                ].index.tolist()
                 part_one = data[start_list[0] : end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1] : end_list[1]].iloc[1:, :]
                 part_three = data[start_list[2] : end_list[2]].iloc[1:, :]
                 temp_df = pd.concat(
-                    [
+                    objs=[
                         part_one.reset_index(drop=True),
                         part_two.reset_index(drop=True),
                         part_three.reset_index(drop=True),
@@ -1073,7 +1077,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
         "contract": "",
     }
     r = requests.post(url, data=payload)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     symbol_list = [
         item["onclick"].strip("javascript:setVariety(").strip("');")
         for item in soup.find_all(attrs={"class": "selBox"})[-3].find_all("input")
@@ -1091,7 +1095,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
             "contract": "",
         }
         r = requests.post(url, data=payload)
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, features="lxml")
         contract_list = [
             item["onclick"].strip("javascript:setContract_id('").strip("');")
             for item in soup.find_all(attrs={"name": "contract"})
@@ -1342,31 +1346,29 @@ if __name__ == "__main__":
     print(get_shfe_rank_table_df)
 
     # 大连商品交易所-老接口
-    # get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
-    # print(get_dce_rank_table_first_df)
-    #
-    # get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
-    # print(get_dce_rank_table_second_df)
-    #
-    # get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
-    # print(get_dce_rank_table_third_df)
-    #
-    # get_dce_rank_table_third_df = get_dce_rank_table(date="20230706")
-    # print(get_dce_rank_table_third_df)
-    #
-    # get_dce_rank_table_fourth_df = get_dce_rank_table(
-    #     date="20210517", vars_list=["V"]
-    # )
-    # print(get_dce_rank_table_fourth_df)
+    get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
+    print(get_dce_rank_table_first_df)
+
+    get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
+    print(get_dce_rank_table_second_df)
+
+    get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
+    print(get_dce_rank_table_third_df)
+
+    get_dce_rank_table_third_df = get_dce_rank_table(date="20230706")
+    print(get_dce_rank_table_third_df)
+
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date="20210517", vars_list=["V"])
+    print(get_dce_rank_table_fourth_df)
 
     # 大连商品交易所-新接口
-    futures_dce_detail_dict = futures_dce_position_rank(date="20230706")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20240520")
     print(futures_dce_detail_dict)
 
-    # futures_dce_position_rank_other_df = futures_dce_position_rank_other(
-    #     date="20200727"
-    # )
-    # print(futures_dce_position_rank_other_df)
+    futures_dce_position_rank_other_df = futures_dce_position_rank_other(
+        date="20200727"
+    )
+    print(futures_dce_position_rank_other_df)
 
     # 广州期货交易所
     futures_gfex_position_rank_df = futures_gfex_position_rank(date="20231113")
