@@ -2793,9 +2793,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.79 fix: fix stock_industry_category_cninfo interface
 1.13.80 fix: fix stock_irm_cninfo interface
 1.13.81 fix: fix futures_dce_position_rank interface
+1.13.82 fix: fix futures_dce_position_rank interface
 """
 
-__version__ = "1.13.81"
+__version__ = "1.13.82"
 __author__ = "AKFamily"
 
 import sys
