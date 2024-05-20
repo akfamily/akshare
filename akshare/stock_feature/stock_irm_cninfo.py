@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/12 22:20
+Date: 2024/5/20 16:00
 Desc: 互动易-提问与回答
 https://irm.cninfo.com.cn/
 """
@@ -141,7 +141,7 @@ def stock_irm_ans_cninfo(symbol: str = "1513586704097333248") -> pd.DataFrame:
     """
     互动易-回答
     https://irm.cninfo.com.cn/ircs/question/questionDetail?questionId=1515236357817618432
-    :param symbol: 提问者编号; 通过 ak.stock_irm_cninfo 来获取具体的提问者编号
+    :param symbol: 提问者编号; 通过 ak.stock_irm_cninfo() 来获取具体的提问者编号
     :type symbol: str
     :return: 回答
     :rtype: str
