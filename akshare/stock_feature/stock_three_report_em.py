@@ -1,15 +1,17 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/11/13 23:00
+Date: 2024/5/21 22:00
 Desc: 东方财富-股票-财务分析
 """
+
 from functools import lru_cache
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -22,7 +24,7 @@ def _stock_balance_sheet_by_report_ctype_em(symbol: str = "SH600519") -> str:
     :return: 东方财富-股票-财务分析-资产负债表-按报告期-公司类型判断
     :rtype: str
     """
-    url = f"https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index"
+    url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index"
     params = {"type": "web", "code": symbol.lower()}
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -52,8 +54,9 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/zcfzbAjaxNew"
         params = {
@@ -68,7 +71,7 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -96,17 +99,20 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
     data_json = r.json()
     try:
         temp_df = pd.DataFrame(data_json["data"])
-    except:
+    except:  # noqa: E722
         company_type = 3
         params.update({"companyType": company_type})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-    temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"], errors="coerce").dt.date
+    temp_df["REPORT_DATE"] = pd.to_datetime(
+        temp_df["REPORT_DATE"], errors="coerce"
+    ).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/zcfzbAjaxNew"
         params = {
@@ -121,7 +127,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -151,8 +157,9 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbAjaxNew"
         params = {
@@ -167,7 +174,7 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -197,8 +204,9 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbAjaxNew"
         params = {
@@ -213,7 +221,7 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -222,7 +230,7 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
 
 
 def stock_profit_sheet_by_quarterly_em(
-        symbol: str = "SH600519",
+    symbol: str = "SH600519",
 ) -> pd.DataFrame:
     """
     东方财富-股票-财务分析-利润表-按单季度
@@ -245,8 +253,9 @@ def stock_profit_sheet_by_quarterly_em(
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbAjaxNew"
         params = {
@@ -261,7 +270,7 @@ def stock_profit_sheet_by_quarterly_em(
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -270,7 +279,7 @@ def stock_profit_sheet_by_quarterly_em(
 
 
 def stock_cash_flow_sheet_by_report_em(
-        symbol: str = "SH600519",
+    symbol: str = "SH600519",
 ) -> pd.DataFrame:
     """
     东方财富-股票-财务分析-现金流量表-按报告期
@@ -293,8 +302,9 @@ def stock_cash_flow_sheet_by_report_em(
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbAjaxNew"
         params = {
@@ -309,7 +319,7 @@ def stock_cash_flow_sheet_by_report_em(
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -318,7 +328,7 @@ def stock_cash_flow_sheet_by_report_em(
 
 
 def stock_cash_flow_sheet_by_yearly_em(
-        symbol: str = "SH600519",
+    symbol: str = "SH600519",
 ) -> pd.DataFrame:
     """
     东方财富-股票-财务分析-现金流量表-按年度
@@ -341,8 +351,9 @@ def stock_cash_flow_sheet_by_yearly_em(
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbAjaxNew"
         params = {
@@ -357,7 +368,7 @@ def stock_cash_flow_sheet_by_yearly_em(
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -366,7 +377,7 @@ def stock_cash_flow_sheet_by_yearly_em(
 
 
 def stock_cash_flow_sheet_by_quarterly_em(
-        symbol: str = "SH600519",
+    symbol: str = "SH600519",
 ) -> pd.DataFrame:
     """
     东方财富-股票-财务分析-现金流量表-按单季度
@@ -389,8 +400,9 @@ def stock_cash_flow_sheet_by_quarterly_em(
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
-    sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
+    sep_list = [",".join(need_date[i : i + 5]) for i in range(0, len(need_date), 5)]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbAjaxNew"
         params = {
@@ -405,7 +417,7 @@ def stock_cash_flow_sheet_by_quarterly_em(
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -424,21 +436,21 @@ def __get_report_date_list_delisted_em(symbol: str = "SZ000013") -> list:
     """
     url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
-        'type': 'RPT_F10_FINANCE_GINCOME',
-        'sty': 'SECURITY_CODE,REPORT_DATE,REPORT_TYPE,REPORT_DATE_NAME',
-        'filter': f'(SECURITY_CODE="{symbol[2:]}")',
-        'p': '1',
-        'ps': '200',
-        'sr': '-1',
-        'st': 'REPORT_DATE',
-        'source': 'HSF10',
-        'client': 'PC',
-        'v': '05767841728614413'
+        "type": "RPT_F10_FINANCE_GINCOME",
+        "sty": "SECURITY_CODE,REPORT_DATE,REPORT_TYPE,REPORT_DATE_NAME",
+        "filter": f'(SECURITY_CODE="{symbol[2:]}")',
+        "p": "1",
+        "ps": "200",
+        "sr": "-1",
+        "st": "REPORT_DATE",
+        "source": "HSF10",
+        "client": "PC",
+        "v": "05767841728614413",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']["data"])
-    report_date_list = [item[0] for item in temp_df['REPORT_DATE'].str.split(" ")]
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    report_date_list = [item[0] for item in temp_df["REPORT_DATE"].str.split(" ")]
     report_date_list = ["'" + item + "'" for item in report_date_list]
     return report_date_list
 
@@ -455,22 +467,24 @@ def stock_balance_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Da
     report_date_list = __get_report_date_list_delisted_em(symbol)
     url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
-        'type': 'RPT_F10_FINANCE_GBALANCE',
-        'sty': 'F10_FINANCE_GBALANCE',
-        'filter': f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
-        'p': '1',
-        'ps': '200',
-        'sr': '-1',
-        'st': 'REPORT_DATE',
-        'source': 'HSF10',
-        'client': 'PC',
-        'v': '05767841728614413'
+        "type": "RPT_F10_FINANCE_GBALANCE",
+        "sty": "F10_FINANCE_GBALANCE",
+        "filter": f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
+        "p": "1",
+        "ps": "200",
+        "sr": "-1",
+        "st": "REPORT_DATE",
+        "source": "HSF10",
+        "client": "PC",
+        "v": "05767841728614413",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']["data"])
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(by=['REPORT_DATE'], ascending=False, inplace=True, ignore_index=True)
+    temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    )
     return temp_df
 
 
@@ -486,26 +500,30 @@ def stock_profit_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Dat
     report_date_list = __get_report_date_list_delisted_em(symbol)
     url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
-        'type': 'RPT_F10_FINANCE_GINCOME',
-        'sty': 'APP_F10_GINCOME',
-        'filter': f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
-        'p': '1',
-        'ps': '200',
-        'sr': '-1',
-        'st': 'REPORT_DATE',
-        'source': 'HSF10',
-        'client': 'PC',
-        'v': '05767841728614413'
+        "type": "RPT_F10_FINANCE_GINCOME",
+        "sty": "APP_F10_GINCOME",
+        "filter": f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
+        "p": "1",
+        "ps": "200",
+        "sr": "-1",
+        "st": "REPORT_DATE",
+        "source": "HSF10",
+        "client": "PC",
+        "v": "05767841728614413",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']["data"])
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(by=['REPORT_DATE'], ascending=False, inplace=True, ignore_index=True)
+    temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    )
     return temp_df
 
 
-def stock_cash_flow_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.DataFrame:
+def stock_cash_flow_sheet_by_report_delisted_em(
+    symbol: str = "SZ000013",
+) -> pd.DataFrame:
     """
     东方财富-股票-财务分析-现金流量表-已退市股票-按报告期
     https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SZ000013#/cwfx/xjllb
@@ -517,22 +535,24 @@ def stock_cash_flow_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.
     report_date_list = __get_report_date_list_delisted_em(symbol)
     url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
-        'type': 'RPT_F10_FINANCE_GCASHFLOW',
-        'sty': 'APP_F10_GCASHFLOW',
-        'filter': f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
-        'p': '1',
-        'ps': '200',
-        'sr': '-1',
-        'st': 'REPORT_DATE',
-        'source': 'HSF10',
-        'client': 'PC',
-        'v': '05767841728614413'
+        "type": "RPT_F10_FINANCE_GCASHFLOW",
+        "sty": "APP_F10_GCASHFLOW",
+        "filter": f"""(SECUCODE="{symbol[2:]}.{symbol[:2]}")(REPORT_DATE in ({','.join(report_date_list)}))""",
+        "p": "1",
+        "ps": "200",
+        "sr": "-1",
+        "st": "REPORT_DATE",
+        "source": "HSF10",
+        "client": "PC",
+        "v": "05767841728614413",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']["data"])
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(by=['REPORT_DATE'], ascending=False, inplace=True, ignore_index=True)
+    temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    )
     return temp_df
 
 
@@ -577,11 +597,17 @@ if __name__ == "__main__":
     )
     print(stock_cash_flow_sheet_by_quarterly_em_df)
 
-    stock_balance_sheet_by_report_delisted_em_df = stock_balance_sheet_by_report_delisted_em(symbol="SZ000013")
+    stock_balance_sheet_by_report_delisted_em_df = (
+        stock_balance_sheet_by_report_delisted_em(symbol="SZ000013")
+    )
     print(stock_balance_sheet_by_report_delisted_em_df)
 
-    stock_profit_sheet_by_report_delisted_em_df = stock_profit_sheet_by_report_delisted_em(symbol="SZ000013")
+    stock_profit_sheet_by_report_delisted_em_df = (
+        stock_profit_sheet_by_report_delisted_em(symbol="SZ000013")
+    )
     print(stock_profit_sheet_by_report_delisted_em_df)
 
-    stock_cash_flow_sheet_by_report_delisted_em_df = stock_cash_flow_sheet_by_report_delisted_em(symbol="SZ000013")
+    stock_cash_flow_sheet_by_report_delisted_em_df = (
+        stock_cash_flow_sheet_by_report_delisted_em(symbol="SZ000013")
+    )
     print(stock_cash_flow_sheet_by_report_delisted_em_df)
