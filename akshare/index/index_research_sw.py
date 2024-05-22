@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/3 16:40
+Date: 2024/5/22 15:00
 Desc: 申万宏源研究-指数系列
 https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex
 """
@@ -30,7 +30,7 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
         "week": "WEEK",
         "month": "MONTH",
     }
-    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/trend/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_publish/trend/"
     params = {
         "swindexcode": symbol,
         "period": period_map[period],
@@ -88,7 +88,7 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = (
-        "https://www.swhyresearch.com/institute-sw/api/index_publish/details/timelines/"
+        "http://www.swhyresearch.com/institute-sw/api/index_publish/details/timelines/"
     )
     params = {
         "swindexcode": symbol,
@@ -133,7 +133,7 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
     :return: 成分股
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/component_stocks/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_publish/details/component_stocks/"
     params = {"swindexcode": symbol, "page": "1", "page_size": "10000"}
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -177,7 +177,7 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
     :return: 指数系列实时行情数据
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swsresearch.com/insWechatSw/dflgOrJcIndex/pageList"
+    url = "http://www.swsresearch.com/insWechatSw/dflgOrJcIndex/pageList"
     payload = {
         "pageNo": 1,
         "pageSize": 10,
@@ -230,7 +230,7 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     if symbol in {"大类风格指数", "金创指数"}:
         temp_df = __index_realtime_sw(symbol)
         return temp_df
-    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/current/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_publish/current/"
     params = {"page": "1", "page_size": "50", "indextype": symbol}
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -299,7 +299,7 @@ def index_analysis_daily_sw(
     :return: 指数分析
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_report/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_report/"
     params = {
         "page": "1",
         "page_size": "50",
@@ -369,7 +369,7 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
     :return: 日期序列
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_analysis/week_month_datetime/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_analysis/week_month_datetime/"
     params = {"type": symbol.upper()}
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -400,7 +400,7 @@ def index_analysis_weekly_sw(
     :return: 指数分析
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_reports/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_reports/"
     params = {
         "page": "1",
         "page_size": "50",
@@ -475,7 +475,7 @@ def index_analysis_monthly_sw(
     :return: 指数分析
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_reports/"
+    url = "http://www.swhyresearch.com/institute-sw/api/index_analysis/index_analysis_reports/"
     params = {
         "page": "1",
         "page_size": "50",
@@ -549,7 +549,7 @@ if __name__ == "__main__":
     print(index_realtime_sw_df)
 
     index_analysis_daily_sw_df = index_analysis_daily_sw(
-        symbol="市场表征", start_date="20240101", end_date="20240127"
+        symbol="市场表征", start_date="20240521", end_date="20240521"
     )
     print(index_analysis_daily_sw_df)
 
@@ -557,11 +557,11 @@ if __name__ == "__main__":
     print(index_analysis_week_month_sw_df)
 
     index_analysis_weekly_sw_df = index_analysis_weekly_sw(
-        symbol="市场表征", date="20221104"
+        symbol="市场表征", date="20240329"
     )
     print(index_analysis_weekly_sw_df)
 
     index_analysis_monthly_sw_df = index_analysis_monthly_sw(
-        symbol="市场表征", date="20221031"
+        symbol="市场表征", date="20240329"
     )
     print(index_analysis_monthly_sw_df)
