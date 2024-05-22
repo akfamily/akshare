@@ -5,6 +5,7 @@ Date: 2024/05/23 00:09
 Desc: 个股新闻数据
 https://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
 """
+
 import json
 
 import pandas as pd
@@ -25,7 +26,9 @@ def stock_news_em(symbol: str = "300059") -> pd.DataFrame:
         "cb": "jQuery3510875346244069884_1668256937995",
         "param": '{"uid":"",'
         + f'"keyword":"{symbol}"'
-        + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr","param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
+        + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr",'
+        '"param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,'
+        '"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
         "_": "1668256937996",
     }
     r = requests.get(url, params=params)

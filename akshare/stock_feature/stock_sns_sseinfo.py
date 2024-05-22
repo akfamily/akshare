@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/4 19:20
+Date: 2024/5/21 19:20
 Desc: 上证e互动-提问与回答
 https://sns.sseinfo.com/
 """
+
 import warnings
 from functools import lru_cache
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -31,19 +33,20 @@ def _fetch_stock_uid() -> dict:
     }
     uid_list = list()
     code_list = list()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, 73), leave=False):
         data.update({"page": page})
         r = requests.post(url, data=data)
         data_json = r.json()
-        soup = BeautifulSoup(data_json["content"], "lxml")
-        soup.find_all("a", attrs={"rel": "tag"})
+        soup = BeautifulSoup(data_json["content"], features="lxml")
+        soup.find_all(name="a", attrs={"rel": "tag"})
         uid_list.extend(
-            [item["uid"] for item in soup.find_all("a", attrs={"rel": "tag"})]
+            [item["uid"] for item in soup.find_all(name="a", attrs={"rel": "tag"})]
         )
         code_list.extend(
             [
                 item.find("img")["src"].split("?")[0].split("/")[-1].split(".")[0]
-                for item in soup.find_all("a", attrs={"rel": "tag"})
+                for item in soup.find_all(name="a", attrs={"rel": "tag"})
             ]
         )
     code_uid_map = dict(zip(code_list, uid_list))
@@ -79,18 +82,18 @@ def stock_sns_sseinfo(symbol: str = "603119") -> pd.DataFrame:
         else:
             page += 1
         r = requests.post(url, params=params)
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, features="lxml")
         content_list = [
             item.get_text().strip()
-            for item in soup.find_all("div", attrs={"class": "m_feed_txt"})
+            for item in soup.find_all(name="div", attrs={"class": "m_feed_txt"})
         ]
         date_list = [
             item.get_text().strip().split("\n")[0]
-            for item in soup.find_all("div", attrs={"class": "m_feed_from"})
+            for item in soup.find_all(name="div", attrs={"class": "m_feed_from"})
         ]
         source_list = [
             item.get_text().strip().split("\n")[2]
-            for item in soup.find_all("div", attrs={"class": "m_feed_from"})
+            for item in soup.find_all(name="div", attrs={"class": "m_feed_from"})
         ]
         q_list = [
             item.split(")")[1]
@@ -113,7 +116,7 @@ def stock_sns_sseinfo(symbol: str = "603119") -> pd.DataFrame:
         s_q_list = [item for index, item in enumerate(source_list) if index % 2 == 0]
         s_a_list = [item for index, item in enumerate(source_list) if index % 2 != 0]
         author_name = [
-            item["title"] for item in soup.find_all("a", attrs={"rel": "face"})
+            item["title"] for item in soup.find_all(name="a", attrs={"rel": "face"})
         ]
         temp_df = pd.DataFrame(
             [
@@ -139,7 +142,7 @@ def stock_sns_sseinfo(symbol: str = "603119") -> pd.DataFrame:
             "回答来源",
             "用户名",
         ]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
