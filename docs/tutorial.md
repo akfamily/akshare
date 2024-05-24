@@ -73,12 +73,12 @@
  # 期货-仓单有效期
  "get_receipt_date"  # 期货仓单有效期数据
  # 新浪财经-期货
- "futures_zh_spot"  # 获取新浪-国内期货实时行情数据
- "futures_zh_realtime"  # 获取新浪-国内期货实时行情数据(品种)
- "futures_foreign_commodity_realtime"  # 获取新浪-外盘期货实时行情数据
- "futures_foreign_hist"  # 获取新浪-外盘期货历史行情数据
- "futures_foreign_detail"  # 获取新浪-外盘期货合约详情
- "futures_zh_minute_sina"  # 获取新浪-内盘分时数据
+ "futures_zh_spot"  # 国内期货实时行情数据
+ "futures_zh_realtime"  # 国内期货实时行情数据(品种)
+ "futures_foreign_commodity_realtime"  # 外盘期货实时行情数据
+ "futures_foreign_hist"  # 外盘期货历史行情数据
+ "futures_foreign_detail"  # 外盘期货合约详情
+ "futures_zh_minute_sina"  # 内盘分时数据
  # 交易所金融期权数据
  "get_finance_option"  # 提供上海证券交易所期权数据
  # 加密货币行情
