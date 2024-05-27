@@ -164,11 +164,9 @@ def index_detail_cni(symbol: str = "399005", date: str = "202011") -> pd.DataFra
         "样本代码",
         "样本简称",
         "所属行业",
-        "自由流通市值",
         "总市值",
         "权重",
     ]
-    temp_df["自由流通市值"] = pd.to_numeric(temp_df["自由流通市值"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["权重"] = pd.to_numeric(temp_df["权重"], errors="coerce")
     return temp_df
@@ -204,7 +202,6 @@ def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFram
             "样本简称",
             "所属行业",
             "-",
-            "自由流通市值",
             "总市值",
             "权重",
             "-",
@@ -215,7 +212,6 @@ def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFram
                 "样本代码",
                 "样本简称",
                 "所属行业",
-                "自由流通市值",
                 "总市值",
                 "权重",
             ]
@@ -231,11 +227,9 @@ def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFram
         "样本代码",
         "样本简称",
         "所属行业",
-        "自由流通市值",
         "总市值",
         "权重",
     ]
-    temp_df["自由流通市值"] = pd.to_numeric(temp_df["自由流通市值"])
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"])
     temp_df["权重"] = pd.to_numeric(temp_df["权重"])
     return temp_df
