@@ -78,6 +78,11 @@
 
 ## 更新说明详情
 
+1.13.87 fix: fix index_detail_cni interface
+
+    1. 修复 index_detail_cni 接口
+    2. 修复 stock_info_sz_name_code 接口
+
 1.13.86 fix: fix futures_foreign_commodity_realtime interface
 
     1. 修复 futures_foreign_commodity_realtime 接口
@@ -4142,6 +4147,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.87 fix: fix index_detail_cni interface
 
 1.13.86 fix: fix futures_foreign_commodity_realtime interface
 
