@@ -13552,7 +13552,7 @@ print(stock_staq_net_stop_df)
 
 接口: stock_info_sh_delist
 
-目标地址: http://www.sse.com.cn/assortment/stock/list/delisting/
+目标地址: https://www.sse.com.cn/assortment/stock/list/delisting/
 
 描述: 上海证券交易所暂停/终止上市股票
 

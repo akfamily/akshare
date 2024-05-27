@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/29 18:50
+Date: 2024/5/27 15:30
 Desc: 股票基本信息
 """
+
 import json
 import warnings
 from functools import lru_cache
@@ -133,7 +134,8 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
         "Host": "query.sse.com.cn",
         "Pragma": "no-cache",
         "Referer": "https://www.sse.com.cn/assortment/stock/list/share/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
         "STOCK_TYPE": indicator_map[symbol],
@@ -194,11 +196,12 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         "sorttype": "asc",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/110.0.0.0 Safari/537.36"
     }
     r = requests.post(url, data=payload, headers=headers)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("["): -1])
+    data_json = json.loads(data_text[data_text.find("[") : -1])
     total_page = data_json[0]["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -206,7 +209,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         payload.update({"page": page})
         r = requests.post(url, data=payload, headers=headers)
         data_text = r.text
-        data_json = json.loads(data_text[data_text.find("["): -1])
+        data_json = json.loads(data_text[data_text.find("[") : -1])
         temp_df = data_json[0]["content"]
         temp_df = pd.DataFrame(temp_df)
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -280,7 +283,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
 def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
     """
     上海证券交易所-终止上市公司
-    http://www.sse.com.cn/assortment/stock/list/delisting/
+    https://www.sse.com.cn/assortment/stock/list/delisting/
     :param symbol: choice of {"全部", "沪市", "科创板"}
     :type symbol: str
     :return: 终止上市公司
@@ -300,8 +303,9 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
         "Connection": "keep-alive",
         "Host": "query.sse.com.cn",
         "Pragma": "no-cache",
-        "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
+        "Referer": "https://www.sse.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/97.0.4692.71 Safari/537.36",
     }
     params = {
         "sqlId": "COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L",
@@ -340,7 +344,9 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
         ]
     ]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
-    temp_df["暂停上市日期"] = pd.to_datetime(temp_df["暂停上市日期"], errors="coerce").dt.date
+    temp_df["暂停上市日期"] = pd.to_datetime(
+        temp_df["暂停上市日期"], errors="coerce"
+    ).dt.date
     return temp_df
 
 
@@ -416,13 +422,15 @@ def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
     temp_df.columns = ["item", "value"]
     temp_df["item"] = temp_df["item"].str.split("：", expand=True)[0]
     try:
-        name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
+        name_list = (
+            temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
+        )
         big_df = pd.DataFrame(name_list)
         big_df.reset_index(inplace=True)
         big_df["index"] = big_df.index + 1
         big_df.columns = ["index", "name"]
         return big_df
-    except IndexError as e:
+    except IndexError:
         return pd.DataFrame()
 
 
@@ -439,7 +447,9 @@ def stock_info_a_code_name() -> pd.DataFrame:
 
     stock_sz = stock_info_sz_name_code(symbol="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
-    big_df = pd.concat([big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True)
+    big_df = pd.concat(
+        objs=[big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True
+    )
     big_df.columns = ["证券代码", "证券简称"]
 
     stock_kcb = stock_info_sh_name_code(symbol="科创板")
@@ -449,9 +459,9 @@ def stock_info_a_code_name() -> pd.DataFrame:
     stock_bse = stock_bse[["证券代码", "证券简称"]]
     stock_bse.columns = ["证券代码", "证券简称"]
 
-    big_df = pd.concat([big_df, stock_sh], ignore_index=True)
-    big_df = pd.concat([big_df, stock_kcb], ignore_index=True)
-    big_df = pd.concat([big_df, stock_bse], ignore_index=True)
+    big_df = pd.concat(objs=[big_df, stock_sh], ignore_index=True)
+    big_df = pd.concat(objs=[big_df, stock_kcb], ignore_index=True)
+    big_df = pd.concat(objs=[big_df, stock_bse], ignore_index=True)
     big_df.columns = ["code", "name"]
     return big_df
 
