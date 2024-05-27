@@ -2799,9 +2799,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.85 fix: fix stock_news_em interface
 1.13.86 fix: fix futures_foreign_commodity_realtime interface
 1.13.87 fix: fix index_detail_cni interface
+1.13.88 fix: fix index_price_cflp interface
 """
 
-__version__ = "1.13.87"
+__version__ = "1.13.88"
 __author__ = "AKFamily"
 
 import sys
@@ -3891,7 +3892,7 @@ from akshare.other.other_car_cpca import (
 """
 中国公路物流运价、运量指数
 """
-from akshare.index.index_cflp import index_cflp_price, index_cflp_volume
+from akshare.index.index_cflp import index_price_cflp, index_volume_cflp
 
 """
 赚钱效应分析
