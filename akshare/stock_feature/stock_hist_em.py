@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/20 15:00
+Date: 2024/5/28 15:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
@@ -1058,6 +1058,7 @@ def stock_zh_a_hist(
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df["股票代码"] = symbol
     temp_df.columns = [
         "日期",
         "开盘",
@@ -1070,6 +1071,7 @@ def stock_zh_a_hist(
         "涨跌幅",
         "涨跌额",
         "换手率",
+        "股票代码",
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
@@ -1082,6 +1084,22 @@ def stock_zh_a_hist(
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df = temp_df[
+        [
+            "日期",
+            "股票代码",
+            "开盘",
+            "收盘",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+            "振幅",
+            "涨跌幅",
+            "涨跌额",
+            "换手率",
+        ]
+    ]
     return temp_df
 
 
@@ -1921,8 +1939,8 @@ if __name__ == "__main__":
         symbol="000001",
         period="daily",
         start_date="20170301",
-        end_date="20231030",
-        adjust="",
+        end_date="20240528",
+        adjust="hfq",
     )
     print(stock_zh_a_hist_df)
 
