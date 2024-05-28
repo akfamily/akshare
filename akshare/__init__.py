@@ -2800,9 +2800,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.86 fix: fix futures_foreign_commodity_realtime interface
 1.13.87 fix: fix index_detail_cni interface
 1.13.88 fix: fix index_price_cflp interface
+1.13.89 fix: fix stock_zh_index_daily interface
 """
 
-__version__ = "1.13.88"
+__version__ = "1.13.89"
 __author__ = "AKFamily"
 
 import sys
