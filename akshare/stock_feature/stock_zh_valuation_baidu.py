@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/14 15:00
+Date: 2024/5/29 23:00
 Desc: 百度股市通-A股-财务报表-估值数据
 https://gushitong.baidu.com/stock/ab-002044
 """
+
 import pandas as pd
 import requests
 
@@ -56,6 +57,6 @@ def stock_zh_valuation_baidu(
 
 if __name__ == "__main__":
     stock_zh_valuation_baidu_df = stock_zh_valuation_baidu(
-        symbol="002955", indicator="市净率", period="近一年"
+        symbol="002044", indicator="总市值", period="近一年"
     )
     print(stock_zh_valuation_baidu_df)
