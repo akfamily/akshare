@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.13.91 fix: fix stock_buffett_index_lg interface
+
+    1. 修复 stock_buffett_index_lg 接口
+    2. 修复 futures_hold_pos_sina 接口
+
 1.13.90 fix: fix stock_zh_valuation_baidu interface
 
     1. 修复 stock_zh_valuation_baidu 接口
@@ -4163,6 +4168,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.91 fix: fix stock_buffett_index_lg interface
 
 1.13.90 fix: fix stock_zh_valuation_baidu interface
 
