@@ -2204,7 +2204,7 @@ print(futures_stock_shfe_js_df)
 
 目标地址: https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php
 
-描述: 新浪财经-商品期货-成交持仓
+描述: 新浪财经-期货-成交持仓
 
 限量: 单次返回指定合约的成交持仓数据
 
@@ -2213,7 +2213,7 @@ print(futures_stock_shfe_js_df)
 | 名称       | 类型  | 描述                                              |
 |----------|-----|-------------------------------------------------|
 | symbol   | str | symbol="成交量"; choice of {"成交量", "多单持仓", "空单持仓"} |
-| contract | str | contract="IC2403"                               |
+| contract | str | contract="IC2403"; 包括金融期货和商品期货                  |
 | date     | str | date="20240223"                                 |
 
 输出参数
