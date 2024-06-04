@@ -5,6 +5,7 @@ Date: 2023/7/6 17:00
 Desc: 中证指数-所有指数-历史行情数据
 https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/list?index_series=1
 """
+
 import hashlib
 import time
 from functools import lru_cache
@@ -53,7 +54,7 @@ def __create_encode(
     """
     input_string = f"{act_time}{authtoken}{gu_code}{pe_category}{type}{ver}{version}{year}EWf45rlv#kfsr@k#gfksgkr"
     hash_value = __md5_hash(input_string)
-    l = hash_value
+    l = hash_value  # noqa: E741
     c = l[29:31]
     d = l[2:4]
     f = l[5:6]
@@ -69,7 +70,7 @@ def __create_encode(
     j = l[2:5]
     q = l[9:11]
     H = l[23:25]
-    O = l[31:32]
+    O = l[31:32]  # noqa: E741
     C = l[25:27]
     E = l[9:11]
     A = l[27:29]
@@ -79,7 +80,7 @@ def __create_encode(
     S = l[25:26]
     R = l[16:19]
     K = l[17:21]
-    I = l[18:19]
+    I = l[18:19]  # noqa: E741
     D = l[21:23]
     _ = l[
         14:16
@@ -97,7 +98,7 @@ def __create_encode(
         a,
         r,
         o,
-        l,
+        l,  # noqa: E741
         u,
         c,
         s,
@@ -119,7 +120,7 @@ def __create_encode(
         j,
         q,
         H,
-        O,
+        O,  # noqa: E741
         C,
         E,
         A,
@@ -200,7 +201,7 @@ def __create_encode(
 def stock_zh_index_hist_csindex(
     symbol: str = "000928",
     start_date: str = "20180526",
-    end_date: str = "20230525",
+    end_date: str = "20240604",
 ) -> pd.DataFrame:
     """
     中证指数-具体指数-历史行情数据
@@ -265,7 +266,10 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     :return: 指数估值数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
+    url = (
+        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/"
+        f"html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
+    )
     temp_df = pd.read_excel(url)
     temp_df.columns = [
         "日期",
@@ -279,11 +283,13 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
         "股息率1",
         "股息率2",
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y%m%d").dt.date
-    temp_df["市盈率1"] = pd.to_numeric(temp_df["市盈率1"])
-    temp_df["市盈率2"] = pd.to_numeric(temp_df["市盈率2"])
-    temp_df["股息率1"] = pd.to_numeric(temp_df["股息率1"])
-    temp_df["股息率2"] = pd.to_numeric(temp_df["股息率2"])
+    temp_df["日期"] = pd.to_datetime(
+        temp_df["日期"], format="%Y%m%d", errors="coerce"
+    ).dt.date
+    temp_df["市盈率1"] = pd.to_numeric(temp_df["市盈率1"], errors="coerce")
+    temp_df["市盈率2"] = pd.to_numeric(temp_df["市盈率2"], errors="coerce")
+    temp_df["股息率1"] = pd.to_numeric(temp_df["股息率1"], errors="coerce")
+    temp_df["股息率2"] = pd.to_numeric(temp_df["股息率2"], errors="coerce")
     return temp_df
 
 
@@ -311,7 +317,7 @@ def index_value_name_funddb() -> pd.DataFrame:
         "type": "pc",
         "version": "2.2.7",
         "authtoken": "",
-        "act_time": str(get_current_timestamp_ms_str)
+        "act_time": str(get_current_timestamp_ms_str),
     }
     payload.update(encode_params)
     r = requests.post(url, json=payload)
@@ -363,7 +369,9 @@ def index_value_name_funddb() -> pd.DataFrame:
             "更新时间",
         ]
     ]
-    temp_df["指数开始时间"] = pd.to_datetime(temp_df["指数开始时间"]).dt.date
+    temp_df["指数开始时间"] = pd.to_datetime(
+        temp_df["指数开始时间"], errors="coerce"
+    ).dt.date
     temp_df["最新PE"] = pd.to_numeric(temp_df["最新PE"], errors="coerce")
     temp_df["PE分位"] = pd.to_numeric(temp_df["PE分位"], errors="coerce")
     temp_df["最新PB"] = pd.to_numeric(temp_df["最新PB"], errors="coerce")
@@ -419,7 +427,7 @@ def index_value_hist_funddb(
         "type": "pc",
         "version": "2.2.7",
         "authtoken": "",
-        "act_time": str(get_current_timestamp_ms_str)
+        "act_time": str(get_current_timestamp_ms_str),
     }
     payload.update(encode_params)
     r = requests.post(url, json=payload)
@@ -455,7 +463,7 @@ def index_value_hist_funddb(
 
 if __name__ == "__main__":
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
-        symbol="H30374", start_date="20100101", end_date="20230525"
+        symbol="000928", start_date="20100101", end_date="20240604"
     )
     print(stock_zh_index_hist_csindex_df)
 
@@ -465,5 +473,7 @@ if __name__ == "__main__":
     index_value_name_funddb_df = index_value_name_funddb()
     print(index_value_name_funddb_df)
 
-    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
+    index_value_hist_funddb_df = index_value_hist_funddb(
+        symbol="大盘成长", indicator="市盈率"
+    )
     print(index_value_hist_funddb_df)
