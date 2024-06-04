@@ -2805,9 +2805,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.91 fix: fix stock_buffett_index_lg interface
 1.13.92 fix: fix bond_china_close_return interface
 1.13.93 add: add index_neei_cx interface
+1.13.94 fix: fix stock_share_change_cninfo interface
 """
 
-__version__ = "1.13.93"
+__version__ = "1.13.94"
 __author__ = "AKFamily"
 
 import sys
