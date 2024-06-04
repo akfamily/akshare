@@ -100,7 +100,6 @@ QHKC_FUND_BIG_CHANGE_URL = "https://qhkch.com/ajax/fund_big_chge.php"
 QHKC_TOOL_FOREIGN_URL = "https://qhkch.com/ajax/toolbox_foreign.php"
 QHKC_TOOL_GDP_URL = "https://qhkch.com/dist/views/toolbox/gdp.html?v=1.10.7.1"
 
-
 # 键值对: 键为交易所代码, 值为具体合约代码
 market_exchange_symbols = {
     "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS", "TL"],
@@ -478,7 +477,7 @@ def get_calendar():
     """
     setting_file_name = "calendar.json"
     setting_file_path = get_json_path(setting_file_name, __file__)
-    with open(setting_file_path, "r") as f:
+    with open(setting_file_path, "r", encoding="utf-8") as f:
         data_json = json.load(f)
     return data_json
 
