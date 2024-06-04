@@ -2804,9 +2804,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.90 fix: fix stock_zh_valuation_baidu interface
 1.13.91 fix: fix stock_buffett_index_lg interface
 1.13.92 fix: fix bond_china_close_return interface
+1.13.93 add: add index_neei_cx interface
 """
 
-__version__ = "1.13.92"
+__version__ = "1.13.93"
 __author__ = "AKFamily"
 
 import sys
@@ -3377,6 +3378,10 @@ from akshare.index.index_cx import (
     index_neaw_cx,
     index_nei_cx,
     index_ti_cx,
+    index_ai_cx,
+    index_neei_cx,
+    index_bei_cx,
+    index_qli_cx,
 )
 
 """

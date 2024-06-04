@@ -80,6 +80,13 @@
 
 ## 更新说明详情
 
+1.13.93 add: add index_neei_cx interface
+
+    1. 新增 index_qli_cx 接口
+    2. 新增 index_ai_cx 接口
+    3. 新增 index_bei_cx 接口
+    4. 新增 index_neei_cx 接口
+
 1.13.92 fix: fix bond_china_close_return interface
 
     1. 修复 bond_china_close_return 接口
@@ -4172,6 +4179,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.93 add: add index_neei_cx interface
 
 1.13.92 fix: fix bond_china_close_return interface
 
