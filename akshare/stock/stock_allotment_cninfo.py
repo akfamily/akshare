@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/9 18:11
+Date: 2024/6/5 15:00
 Desc: 巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
 http://webapi.cninfo.com.cn/#/dataBrowse
 """
+
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
@@ -21,7 +22,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
