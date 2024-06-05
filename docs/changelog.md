@@ -84,6 +84,7 @@
 
     1. 修复 stock_allotment_cninfo 接口
     2. 修复 stock_profile_cninfo 接口
+    3. 修复 stock_fhps_detail_em 接口
 
 1.13.94 fix: fix stock_share_change_cninfo interface
 
