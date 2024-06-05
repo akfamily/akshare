@@ -4068,7 +4068,7 @@ print(index_cci_cx_df)
 
 #### 高质量因子
 
-接口: index_cci_cx
+接口: index_qli_cx
 
 目标地址: https://yun.ccxe.com.cn/indices/qli
 
