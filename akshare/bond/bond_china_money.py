@@ -155,7 +155,7 @@ def bond_china_close_return(
         "endDate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "termId": period,
         "pageNum": "1",
-        "pageSize": "15",
+        "pageSize": "50",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -302,6 +302,7 @@ def macro_china_swap_rate(
     big_df["5Y"] = pd.to_numeric(big_df["5Y"], errors="coerce")
     big_df["7Y"] = pd.to_numeric(big_df["7Y"], errors="coerce")
     big_df["10Y"] = pd.to_numeric(big_df["10Y"], errors="coerce")
+    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
     return big_df
 
 
@@ -364,12 +365,12 @@ def macro_china_bond_public() -> pd.DataFrame:
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="国债", period="1", start_date="20240501", end_date="20240511"
+        symbol="同业存单(AAA)", period="1", start_date="20240607", end_date="20240607"
     )
     print(bond_china_close_return_df)
 
     macro_china_swap_rate_df = macro_china_swap_rate(
-        start_date="20240501", end_date="20240511"
+        start_date="20240501", end_date="20240531"
     )
     print(macro_china_swap_rate_df)
 
