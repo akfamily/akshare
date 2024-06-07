@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.13.99 fix: fix macro_china_swap_rate interface
+
+    1. 修复 macro_china_swap_rate 接口
+
 1.13.98 fix: fix stock_financial_analysis_indicator interface
 
     1. 修复 stock_financial_analysis_indicator 接口
@@ -4201,6 +4205,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.99 fix: fix macro_china_swap_rate interface
 
 1.13.98 fix: fix stock_financial_analysis_indicator interface
 
