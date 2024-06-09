@@ -2811,9 +2811,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.97 fix: fix fund_portfolio_hold_em interface
 1.13.98 fix: fix stock_financial_analysis_indicator interface
 1.13.99 fix: fix macro_china_swap_rate interface
+1.14.1 fix: fix energy_carbon_hb interface
 """
 
-__version__ = "1.13.99"
+__version__ = "1.14.1"
 __author__ = "AKFamily"
 
 import sys
