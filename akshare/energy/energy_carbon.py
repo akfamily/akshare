@@ -217,8 +217,6 @@ def energy_carbon_hb() -> pd.DataFrame:
     )
     start_pos = data_text.find("cjj = '[") + 7  # 找到 JSON 数组开始的位置
     end_pos = data_text.rfind("cjj =") - 31  # 找到 JSON 数组结束的位置
-    from akshare.utils import demjson
-
     data_json = demjson.decode(data_text[start_pos:end_pos])
     temp_df = pd.DataFrame.from_dict(data_json)
     temp_df.rename(
