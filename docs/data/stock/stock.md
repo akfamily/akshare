@@ -10106,7 +10106,7 @@ print(stock_research_report_em_df)
 
 接口: stock_notice_report
 
-目标地址: http://data.eastmoney.com/notices/hsa/5.html
+目标地址: https://data.eastmoney.com/notices/hsa/5.html
 
 描述: 东方财富网-数据中心-公告大全-沪深 A 股公告
 
@@ -10128,31 +10128,33 @@ print(stock_research_report_em_df)
 | 公告标题 | object | -   |
 | 公告类型 | object | -   |
 | 公告日期 | object | -   |
+| 网址   | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_notice_report_df = ak.stock_notice_report(symbol='财务报告', date="20220511")
+stock_notice_report_df = ak.stock_notice_report(symbol='财务报告', date="20240613")
 print(stock_notice_report_df)
 ```
 
 数据示例
 
 ```
-      代码    名称                                   公告标题      公告类型        公告日期
-0    301219  腾远钴业                   腾远钴业:2021年年度股东大会决议公告  分配方案决议公告  2022-05-11
-1    300492  华图山鼎                 华图山鼎:2021年年度报告(更新后)(2)    年度报告全文  2022-05-11
-2    300492  华图山鼎                  华图山鼎:关于2021年年度报告更正的公告  年度报告更正公告  2022-05-11
-3    300492  华图山鼎                 华图山鼎:2021年年度报告(更新后)(1)    年度报告全文  2022-05-11
-4    831445  龙竹科技                   龙竹科技:2021年年度股东大会决议公告  分配方案决议公告  2022-05-11
-..      ...   ...                                    ...       ...         ...
-195  600882  妙可蓝多                 600882:2021年年度股东大会决议公告  分配方案决议公告  2022-05-11
-196  002438  江苏神通                   江苏神通:2021年年度股东大会决议公告  分配方案决议公告  2022-05-11
-197  000573  粤宏远A                    粤宏远A:2021年度股东大会决议公告  分配方案决议公告  2022-05-11
-198  000727  冠捷科技                   冠捷科技:2021年年度股东大会决议公告  分配方案决议公告  2022-05-11
-199  688670   金迪克  688670:江苏金迪克生物技术股份有限公司2021年年度权益分派实施公告    分配方案实施  2022-05-11
+      代码  ...                                       网址
+0    123122  ...  https://data.eastmoney.com/notices/detail/1231...
+1    123107  ...  https://data.eastmoney.com/notices/detail/1231...
+2    300941  ...  https://data.eastmoney.com/notices/detail/3009...
+3    300689  ...  https://data.eastmoney.com/notices/detail/3006...
+4    300854  ...  https://data.eastmoney.com/notices/detail/3008...
+..      ...  ...                                                ...
+134  000159  ...  https://data.eastmoney.com/notices/detail/0001...
+135  688478  ...  https://data.eastmoney.com/notices/detail/6884...
+136  688513  ...  https://data.eastmoney.com/notices/detail/6885...
+137  600583  ...  https://data.eastmoney.com/notices/detail/6005...
+138  001301  ...  https://data.eastmoney.com/notices/detail/0013...
+[139 rows x 6 columns]
 ```
 
 #### 财务报表-新浪
