@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/15 18:00
+Date: 2024/6/13 13:00
 Desc: 同花顺-板块-概念板块
 https://q.10jqka.com.cn/gn/detail/code/301558/
 """
@@ -14,10 +14,10 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
-from akshare.utils.tqdm import get_tqdm
 
 from akshare.datasets import get_ths_js
 from akshare.utils import demjson
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_board_concept_graph_ths(symbol: str = "通用航空") -> pd.DataFrame:
@@ -66,7 +66,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -128,7 +128,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     # 处理遗漏的板块
     url = "https://q.10jqka.com.cn/gn/detail/code/301558/"
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     need_list = [
         item.find_all("a") for item in soup.find_all(attrs={"class": "cate_group"})
     ]
@@ -406,7 +406,7 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
-        {
+        columns={
             "涨跌幅(%)": "涨跌幅",
             "涨速(%)": "涨速",
             "换手(%)": "换手",
