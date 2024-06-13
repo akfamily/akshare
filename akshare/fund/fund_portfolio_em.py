@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import demjson
 
 
-def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2023") -> pd.DataFrame:
+def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
     https://fundf10.eastmoney.com/ccmx_000001.html
@@ -85,11 +85,14 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2023") -> pd.Dat
                 "季度",
             ]
         ]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[temp_df, big_df], ignore_index=True)
     big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
     big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
     big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
-    big_df["序号"] = range(1, len(big_df) + 1)
+    del big_df["序号"]
+    big_df.reset_index(inplace=True, drop=False)
+    big_df["index"] = big_df["index"] + 1
+    big_df.rename(columns={"index": "序号"}, inplace=True)
     return big_df
 
 
@@ -303,7 +306,7 @@ def fund_portfolio_change_em(
 
 
 if __name__ == "__main__":
-    fund_portfolio_hold_em_df = fund_portfolio_hold_em(symbol="011934", date="2023")
+    fund_portfolio_hold_em_df = fund_portfolio_hold_em(symbol="000001", date="2024")
     print(fund_portfolio_hold_em_df)
 
     fund_portfolio_bond_hold_em_df = fund_portfolio_bond_hold_em(
