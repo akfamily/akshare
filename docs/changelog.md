@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.4 add: add stock_margin_account_info interface
+
+    1. 新增 stock_margin_account_info 接口
+    2. 修复 bond_china_close_return 接口
+
 1.14.3 fix: fix stock_industry_clf_hist_sw interface
 
     1. 修复 stock_industry_clf_hist_sw 接口
@@ -4218,6 +4223,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.4 add: add stock_margin_account_info interface
 
 1.14.3 fix: fix stock_industry_clf_hist_sw interface
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/13 18:00
+Date: 2024/6/14 17:00
 Desc: 深圳证券交易所-融资融券数据
 https://www.szse.cn/disclosure/margin/object/index.html
 """
@@ -76,17 +76,17 @@ def stock_margin_szse(date: str = "20240411") -> pd.DataFrame:
         "融资融券余额",
     ]
     temp_df["融资买入额"] = temp_df["融资买入额"].str.replace(",", "")
-    temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"])
+    temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
     temp_df["融资余额"] = temp_df["融资余额"].str.replace(",", "")
-    temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"])
+    temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
     temp_df["融券卖出量"] = temp_df["融券卖出量"].str.replace(",", "")
-    temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"])
+    temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
     temp_df["融券余量"] = temp_df["融券余量"].str.replace(",", "")
-    temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"])
+    temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
     temp_df["融券余额"] = temp_df["融券余额"].str.replace(",", "")
-    temp_df["融券余额"] = pd.to_numeric(temp_df["融券余额"])
+    temp_df["融券余额"] = pd.to_numeric(temp_df["融券余额"], errors="coerce")
     temp_df["融资融券余额"] = temp_df["融资融券余额"].str.replace(",", "")
-    temp_df["融资融券余额"] = pd.to_numeric(temp_df["融资融券余额"])
+    temp_df["融资融券余额"] = pd.to_numeric(temp_df["融资融券余额"], errors="coerce")
     return temp_df
 
 

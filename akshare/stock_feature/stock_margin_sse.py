@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/24 15:30
+Date: 2024/6/14 17:20
 Desc: 上海证券交易所-融资融券数据
-http://www.sse.com.cn/market/othersdata/margin/sum/
+https://www.sse.com.cn/market/othersdata/margin/sum/
 """
+
 import pandas as pd
 import requests
 
@@ -41,16 +42,19 @@ def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
             "secuCode": "证券代码",
             "secuName": "证券简称",
             "slMarginRatio": "融券比例",
-        }, inplace=True
+        },
+        inplace=True,
     )
-    temp_df = temp_df[[
+    temp_df = temp_df[
+        [
             "证券代码",
             "证券简称",
             "融资比例",
             "融券比例",
-    ]]
-    temp_df['融资比例'] = pd.to_numeric(temp_df['融资比例'], errors="coerce")
-    temp_df['融券比例'] = pd.to_numeric(temp_df['融券比例'], errors="coerce")
+        ]
+    ]
+    temp_df["融资比例"] = pd.to_numeric(temp_df["融资比例"], errors="coerce")
+    temp_df["融券比例"] = pd.to_numeric(temp_df["融券比例"], errors="coerce")
     return temp_df
 
 
@@ -59,7 +63,7 @@ def stock_margin_sse(
 ) -> pd.DataFrame:
     """
     上海证券交易所-融资融券数据-融资融券汇总
-    http://www.sse.com.cn/market/othersdata/margin/sum/
+    https://www.sse.com.cn/market/othersdata/margin/sum/
     :param start_date: 交易开始日期
     :type start_date: str
     :param end_date: 交易结束日期
@@ -67,7 +71,7 @@ def stock_margin_sse(
     :return: 融资融券汇总
     :rtype: pandas.DataFrame
     """
-    url = "http://query.sse.com.cn/marketdata/tradedata/queryMargin.do"
+    url = "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do"
     params = {
         "isPagination": "true",
         "beginDate": start_date,
@@ -82,8 +86,9 @@ def stock_margin_sse(
         "_": "1612773448860",
     }
     headers = {
-        "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
+        "Referer": "https://www.sse.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -126,13 +131,13 @@ def stock_margin_sse(
 def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
     """
     上海证券交易所-融资融券数据-融资融券明细
-    http://www.sse.com.cn/market/othersdata/margin/detail/
+    https://www.sse.com.cn/market/othersdata/margin/detail/
     :param date: 交易日期
     :type date: str
     :return: 融资融券明细
     :rtype: pandas.DataFrame
     """
-    url = "http://query.sse.com.cn/marketdata/tradedata/queryMargin.do"
+    url = "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do"
     params = {
         "isPagination": "true",
         "tabType": "mxtype",
@@ -149,8 +154,9 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
         "_": "1612773448860",
     }
     headers = {
-        "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
+        "Referer": "https://www.sse.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
