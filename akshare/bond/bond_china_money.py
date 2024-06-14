@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/4 18:30
+Date: 2024/6/14 18:20
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
@@ -30,7 +30,10 @@ def __bond_register_service() -> requests.Session:
     )
     cookies_dict = session.cookies.get_dict()
     cookies_str = "; ".join(f"{k}={v}" for k, v in cookies_dict.items())
-    data = {"key": "WjlTdFhsNU5UNVo="}
+    # 此处需要通过未访问的游览器，首次打开
+    # https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
+    # 页面进行人工获取
+    data = {"key": "WjlTdFhsNU5UOVo="}
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate, br",

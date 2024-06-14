@@ -2814,9 +2814,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.1 fix: fix energy_carbon_hb interface
 1.14.2 fix: fix fund_portfolio_hold_em interface
 1.14.3 fix: fix stock_industry_clf_hist_sw interface
+1.14.4 add: add stock_margin_account_info interface
 """
 
-__version__ = "1.14.3"
+__version__ = "1.14.4"
 __author__ = "AKFamily"
 
 import sys
@@ -2837,6 +2838,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富网-数据中心-融资融券-融资融券账户统计-两融账户信息
+"""
+from akshare.stock_feature.stock_margin_em import stock_margin_account_info
 
 """
 现货走势
@@ -3719,7 +3725,7 @@ from akshare.economic.macro_australia import (
 """
 融资融券-深圳
 """
-from akshare.stock_feature.stock_szse_margin import (
+from akshare.stock_feature.stock_margin_szse import (
     stock_margin_underlying_info_szse,
     stock_margin_detail_szse,
     stock_margin_szse,
@@ -4054,7 +4060,7 @@ from akshare.fund.fund_rating import (
 """
 融资融券数据
 """
-from akshare.stock_feature.stock_sse_margin import (
+from akshare.stock_feature.stock_margin_sse import (
     stock_margin_detail_sse,
     stock_margin_sse,
     stock_margin_ratio_pa,
