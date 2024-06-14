@@ -19483,7 +19483,7 @@ print(stock_board_concept_hist_min_em_df)
 
 #### 同花顺-成份股-行业名称
 
-接口: stock_board_industry_cons_ths
+接口: stock_board_industry_cons_ths；该接口暂不可用
 
 目标地址: https://q.10jqka.com.cn/thshy/
 
@@ -19603,7 +19603,7 @@ print(stock_board_industry_summary_ths_df)
 
 #### 同花顺-成份股-行业代码
 
-接口: stock_board_cons_ths
+接口: stock_board_cons_ths；该接口暂不可用
 
 目标地址: https://q.10jqka.com.cn/thshy/detail/code/881121/
 
@@ -19665,7 +19665,7 @@ print(stock_board_cons_ths_df)
 
 #### 同花顺-指数
 
-接口: stock_board_industry_index_ths
+接口: stock_board_industry_index_ths；该接口暂不可用
 
 目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
