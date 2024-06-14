@@ -18310,7 +18310,7 @@ print(stock_margin_ratio_pa_df)
 [1807 rows x 4 columns]
 ```
 
-#### 标的证券名单及保证金比例查询
+#### 两融账户信息
 
 接口: stock_margin_account_info
 
