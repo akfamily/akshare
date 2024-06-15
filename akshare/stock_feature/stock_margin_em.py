@@ -19,6 +19,9 @@ def stock_margin_account_info() -> pd.DataFrame:
     :return: 融资融券账户统计
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "reportName": "RPTA_WEB_MARGIN_DAILYTRADE",
