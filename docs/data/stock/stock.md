@@ -18980,7 +18980,7 @@ print(stock_profit_forecast_ths_df)
 
 #### 同花顺-概念时间表
 
-接口: stock_board_concept_name_ths
+接口: stock_board_concept_name_ths; 该接口暂时不可用
 
 目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
@@ -19033,7 +19033,7 @@ print(stock_board_concept_name_ths_df)
 
 #### 同花顺-成份股-概念名称
 
-接口: stock_board_concept_cons_ths
+接口: stock_board_concept_cons_ths; 该接口暂时不可用
 
 目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
@@ -19095,7 +19095,7 @@ print(stock_board_concept_cons_ths_df)
 
 #### 同花顺-板块-概念板块-概念图谱
 
-接口: stock_board_concept_graph_ths
+接口: stock_board_concept_graph_ths; 该接口暂时不可用
 
 目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
@@ -19150,7 +19150,7 @@ print(stock_board_concept_graph_ths_df)
 
 #### 同花顺-成份股-行业板块和概念板块
 
-接口: stock_board_cons_ths
+接口: stock_board_cons_ths; 该接口暂时不可用
 
 目标地址: https://q.10jqka.com.cn/gn/
 
@@ -19211,7 +19211,7 @@ print(stock_board_cons_ths_df)
 
 #### 同花顺-指数
 
-接口: stock_board_concept_hist_ths
+接口: stock_board_concept_hist_ths; 该接口暂时不可用
 
 目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
