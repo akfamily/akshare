@@ -2816,9 +2816,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.3 fix: fix stock_industry_clf_hist_sw interface
 1.14.4 add: add stock_margin_account_info interface
 1.14.5 fix: fix stock_margin_account_info interface
+1.14.6 fix: fix stock_register_kcb interface
 """
 
-__version__ = "1.14.5"
+__version__ = "1.14.6"
 __author__ = "AKFamily"
 
 import sys
@@ -4239,7 +4240,7 @@ from akshare.stock.stock_zh_a_special import (
 """
 东方财富-注册制审核
 """
-from akshare.stock_fundamental.stock_register import (
+from akshare.stock_fundamental.stock_register_em import (
     stock_register_kcb,
     stock_register_cyb,
     stock_register_db,
