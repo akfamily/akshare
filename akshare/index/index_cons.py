@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/5 17:00
+Date: 2024/6/17 14:00
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
+
 import math
 from io import BytesIO, StringIO
 
@@ -27,7 +28,10 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
     """
     if symbol == "000300":
         symbol = "hs300"
-        url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
+        url = (
+            "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php"
+            "/Market_Center.getHQNodeStockCountSimple"
+        )
         params = {"node": f"{symbol}"}
         r = requests.get(url, params=params)
         page_num = math.ceil(int(r.json()) / 80) + 1
@@ -45,7 +49,7 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
             }
             r = requests.get(url, params=params)
             temp_df = pd.concat(
-                [temp_df, pd.DataFrame(demjson.decode(r.text))], ignore_index=True
+                objs=[temp_df, pd.DataFrame(demjson.decode(r.text))], ignore_index=True
             )
         return temp_df
 
@@ -59,7 +63,8 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
         "_s_r_a": "setlen",
     }
     r = requests.get(url, params=params)
-    return pd.DataFrame(demjson.decode(r.text))
+    temp = pd.DataFrame(demjson.decode(r.text))
+    return temp
 
 
 def index_stock_info() -> pd.DataFrame:
@@ -110,7 +115,8 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
         r = requests.get(url)
         r.encoding = "gb2312"
         temp_df = pd.concat(
-            [temp_df, pd.read_html(StringIO(r.text), header=1)[3]], ignore_index=True
+            objs=[temp_df, pd.read_html(StringIO(r.text), header=1)[3]],
+            ignore_index=True,
         )
     temp_df = temp_df.iloc[:, :3]
     temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
@@ -126,7 +132,10 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
     :return: 最新指数的成份股
     :rtype: pandas.DataFrame
     """
-    url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/cons/{symbol}cons.xls"
+    url = (
+        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/"
+        f"html/csindex/public/uploads/file/autofile/cons/{symbol}cons.xls"
+    )
     r = requests.get(url)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df.columns = [
@@ -140,7 +149,9 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
         "交易所",
         "交易所英文名称",
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y%m%d").dt.date
+    temp_df["日期"] = pd.to_datetime(
+        temp_df["日期"], format="%Y%m%d", errors="coerce"
+    ).dt.date
     temp_df["指数代码"] = temp_df["指数代码"].astype(str).str.zfill(6)
     temp_df["成分券代码"] = temp_df["成分券代码"].astype(str).str.zfill(6)
     return temp_df
@@ -155,7 +166,10 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     :return: 最新指数的成份股权重
     :rtype: pandas.DataFrame
     """
-    url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/{symbol}closeweight.xls"
+    url = (
+        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/"
+        f"public/uploads/file/autofile/closeweight/{symbol}closeweight.xls"
+    )
     r = requests.get(url)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df.columns = [
@@ -170,10 +184,12 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
         "交易所英文名称",
         "权重",
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y%m%d").dt.date
+    temp_df["日期"] = pd.to_datetime(
+        temp_df["日期"], format="%Y%m%d", errors="coerce"
+    ).dt.date
     temp_df["指数代码"] = temp_df["指数代码"].astype(str).str.zfill(6)
     temp_df["成分券代码"] = temp_df["成分券代码"].astype(str).str.zfill(6)
-    temp_df["权重"] = pd.to_numeric(temp_df["权重"])
+    temp_df["权重"] = pd.to_numeric(temp_df["权重"], errors="coerce")
     return temp_df
 
 
