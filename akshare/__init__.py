@@ -2818,9 +2818,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.5 fix: fix stock_margin_account_info interface
 1.14.6 fix: fix stock_register_kcb interface
 1.14.7 fix: fix index_stock_info interface
+1.14.8 add: add stock_register_sz interface
 """
 
-__version__ = "1.14.7"
+__version__ = "1.14.8"
 __author__ = "AKFamily"
 
 import sys
@@ -4244,7 +4245,10 @@ from akshare.stock.stock_zh_a_special import (
 from akshare.stock_fundamental.stock_register_em import (
     stock_register_kcb,
     stock_register_cyb,
+    stock_register_bj,
     stock_register_db,
+    stock_register_sh,
+    stock_register_sz
 )
 
 """
