@@ -529,6 +529,8 @@
  "stock_register_kcb"  # IPO审核信息-科创板
  "stock_register_cyb"  # IPO审核信息-创业板
  "stock_register_bj"  # IPO审核信息-北交所
+ "stock_register_sh"  # IPO审核信息-上海主板
+ "stock_register_sz"  # IPO审核信息-深圳主板
  "stock_register_db"  # 注册制审核-达标企业
  # 次新股
  "stock_zh_a_new"  # 股票数据-次新股
