@@ -526,8 +526,9 @@
  "stock_lhb_jgzz_sina"  # 龙虎榜-机构席位追踪
  "stock_lhb_jgmx_sina"  # 龙虎榜-机构席位成交明细
  # 注册制审核
- "stock_register_kcb"  # 注册制审核-科创板
- "stock_register_cyb"  # 注册制审核-创业板
+ "stock_register_kcb"  # IPO审核信息-科创板
+ "stock_register_cyb"  # IPO审核信息-创业板
+ "stock_register_bj"  # IPO审核信息-北交所
  "stock_register_db"  # 注册制审核-达标企业
  # 次新股
  "stock_zh_a_new"  # 股票数据-次新股
