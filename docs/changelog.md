@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.9 fix: fix bond_zh_hs_spot interface
+
+    1. 修复 bond_zh_hs_spot 接口
+    2. 修复 stock_industry_pe_ratio_cninfo 接口
+
 1.14.8 add: add stock_register_sz interface
 
     1. 新增 stock_register_sz 接口
@@ -4243,6 +4248,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.9 fix: fix bond_zh_hs_spot interface
 
 1.14.8 add: add stock_register_sz interface
 
