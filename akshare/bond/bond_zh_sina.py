@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/28 23:00
+Date: 2024/6/18 18:30
 Desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
 https://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
+
 import datetime
 import re
 
@@ -41,7 +42,7 @@ def get_zh_bond_hs_page_count() -> int:
         return int(page_count) + 1
 
 
-def bond_zh_hs_spot() -> pd.DataFrame:
+def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame:
     """
     新浪财经-债券-沪深债券-实时行情数据, 大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -49,59 +50,64 @@ def bond_zh_hs_spot() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     page_count = get_zh_bond_hs_page_count()
+    page_count = int(page_count)
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_payload.copy()
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_count + 1), leave=False):
+    start_page = int(start_page)
+    end_page = int(end_page) + 1 if int(end_page) + 1 <= page_count else page_count
+    for page in tqdm(range(start_page, end_page), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         r = requests.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(r.text)
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [
-        '代码',
-        '-',
-        '名称',
-        '最新价',
-        '涨跌额',
-        '涨跌幅',
-        '买入',
-        '卖出',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-        '-',
-        '-',
-        '-',
-        '-',
-        '-',
-        '-',
+        "代码",
+        "-",
+        "名称",
+        "最新价",
+        "涨跌额",
+        "涨跌幅",
+        "买入",
+        "卖出",
+        "昨收",
+        "今开",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
     ]
-    big_df = big_df[[
-        '代码',
-        '名称',
-        '最新价',
-        '涨跌额',
-        '涨跌幅',
-        '买入',
-        '卖出',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-    ]]
-    big_df['买入'] = pd.to_numeric(big_df['买入'], errors="coerce")
-    big_df['卖出'] = pd.to_numeric(big_df['卖出'], errors="coerce")
-    big_df['昨收'] = pd.to_numeric(big_df['昨收'], errors="coerce")
-    big_df['今开'] = pd.to_numeric(big_df['今开'], errors="coerce")
-    big_df['最高'] = pd.to_numeric(big_df['最高'], errors="coerce")
-    big_df['最低'] = pd.to_numeric(big_df['最低'], errors="coerce")
-    big_df['最新价'] = pd.to_numeric(big_df['最新价'], errors="coerce")
+    big_df = big_df[
+        [
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "买入",
+            "卖出",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+        ]
+    ]
+    big_df["买入"] = pd.to_numeric(big_df["买入"], errors="coerce")
+    big_df["卖出"] = pd.to_numeric(big_df["卖出"], errors="coerce")
+    big_df["昨收"] = pd.to_numeric(big_df["昨收"], errors="coerce")
+    big_df["今开"] = pd.to_numeric(big_df["今开"], errors="coerce")
+    big_df["最高"] = pd.to_numeric(big_df["最高"], errors="coerce")
+    big_df["最低"] = pd.to_numeric(big_df["最低"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
     return big_df
 
 
@@ -126,15 +132,15 @@ def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
     )  # 执行 js 解密代码
     data_df = pd.DataFrame(dict_list)
     data_df["date"] = pd.to_datetime(data_df["date"], errors="coerce").dt.date
-    data_df['open'] = pd.to_numeric(data_df['open'], errors="coerce")
-    data_df['high'] = pd.to_numeric(data_df['high'], errors="coerce")
-    data_df['low'] = pd.to_numeric(data_df['low'], errors="coerce")
-    data_df['close'] = pd.to_numeric(data_df['close'], errors="coerce")
+    data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
+    data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
+    data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
+    data_df["close"] = pd.to_numeric(data_df["close"], errors="coerce")
     return data_df
 
 
 if __name__ == "__main__":
-    bond_zh_hs_spot_df = bond_zh_hs_spot()
+    bond_zh_hs_spot_df = bond_zh_hs_spot(start_page="1", end_page="5")
     print(bond_zh_hs_spot_df)
 
     bond_zh_hs_daily_df = bond_zh_hs_daily(symbol="sh010107")
