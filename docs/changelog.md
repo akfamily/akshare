@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.14.12 fix: fix get_tqdm function
+
+    1. 修复 get_tqdm 函数
+
 1.14.11 fix: fix bond_treasure_issue_cninfo interface
 
     1. 修复 bond_treasure_issue_cninfo 接口
@@ -4256,6 +4260,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.12 fix: fix get_tqdm function
 
 1.14.11 fix: fix bond_treasure_issue_cninfo interface
 
