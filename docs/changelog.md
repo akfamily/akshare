@@ -83,6 +83,7 @@
 1.14.12 fix: fix get_tqdm function
 
     1. 修复 get_tqdm 函数
+    2. 新增 fund_etf_spot_ths 接口
 
 1.14.11 fix: fix bond_treasure_issue_cninfo interface
 
