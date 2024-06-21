@@ -2848,6 +2848,11 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+同花顺理财-基金数据-每日净值-ETF
+"""
+from akshare.fund.fund_etf_ths import fund_etf_spot_ths
+
+"""
 东方财富网-数据中心-融资融券-融资融券账户统计-两融账户信息
 """
 from akshare.stock_feature.stock_margin_em import stock_margin_account_info
