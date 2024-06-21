@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Date: 2024/4/7 15:30
+Date: 2024/6/21 18:00
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深 300 指数
@@ -430,7 +430,7 @@ def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[
     :return: 合约到期时间
     :rtype: list
     """
-    url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName"
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName"
     params = {"exchange": f"{exchange}", "cate": f"{symbol}"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -452,7 +452,7 @@ def option_sse_expire_day_sina(
     :return: (到期时间, 剩余时间)
     :rtype: tuple
     """
-    url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
     params = {
         "exchange": f"{exchange}",
         "cate": f"{symbol}",
@@ -462,7 +462,7 @@ def option_sse_expire_day_sina(
     data_json = r.json()
     data = data_json["result"]["data"]
     if int(data["remainderDays"]) < 0:
-        url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
+        url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
         params = {
             "exchange": f"{exchange}",
             "cate": f"{'XD' + symbol}",
@@ -494,7 +494,7 @@ def option_sse_codes_sina(
     if symbol == "看涨期权":
         url = "".join(
             [
-                "http://hq.sinajs.cn/list=OP_UP_",
+                "https://hq.sinajs.cn/list=OP_UP_",
                 underlying,
                 str(trade_date)[-4:],
             ]
@@ -502,7 +502,7 @@ def option_sse_codes_sina(
     else:
         url = "".join(
             [
-                "http://hq.sinajs.cn/list=OP_DOWN_",
+                "https://hq.sinajs.cn/list=OP_DOWN_",
                 underlying,
                 str(trade_date)[-4:],
             ]
@@ -547,7 +547,7 @@ def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
     :return: 期权量价数据
     :rtype: pandas.DataFrame
     """
-    url = f"http://hq.sinajs.cn/list=CON_OP_{symbol}"
+    url = f"https://hq.sinajs.cn/list=CON_OP_{symbol}"
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -628,7 +628,7 @@ def option_sse_underlying_spot_price_sina(
     :return: 期权标的物的信息
     :rtype: pandas.DataFrame
     """
-    url = f"http://hq.sinajs.cn/list={symbol}"
+    url = f"https://hq.sinajs.cn/list={symbol}"
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -637,7 +637,7 @@ def option_sse_underlying_spot_price_sina(
         "Host": "hq.sinajs.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://vip.stock.finance.sina.com.cn/",
+        "Referer": "https://vip.stock.finance.sina.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
@@ -691,7 +691,7 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
     :return: 期权基本信息表
     :rtype: pandas.DataFrame
     """
-    url = f"http://hq.sinajs.cn/list=CON_SO_{symbol}"
+    url = f"https://hq.sinajs.cn/list=CON_SO_{symbol}"
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -700,7 +700,7 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
         "Host": "hq.sinajs.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://vip.stock.finance.sina.com.cn/",
+        "Referer": "https://vip.stock.finance.sina.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
@@ -781,7 +781,7 @@ def option_sse_daily_sina(symbol: str = "10003889") -> pd.DataFrame:
     :return: 指定期权的所有日频率历史数据
     :rtype: pandas.DataFrame
     """
-    url = "http://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo"
+    url = "https://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo"
     params = {"symbol": f"CON_OP_{symbol}"}
     headers = {
         "accept": "*/*",
@@ -858,8 +858,8 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
 
 @lru_cache()
 def __option_current_em() -> pd.DataFrame:
-    option_current_em_df = option_current_em()
-    return option_current_em_df
+    inner_option_current_em_df = option_current_em()
+    return inner_option_current_em_df
 
 
 def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
@@ -871,13 +871,15 @@ def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
     :return: 指定期权的分钟频率数据
     :rtype: pandas.DataFrame
     """
-    option_current_em_df = __option_current_em()
-    option_current_em_df["标识"] = (
-        option_current_em_df["市场标识"].astype(str)
+    inner_option_current_em_df = __option_current_em()
+    inner_option_current_em_df["标识"] = (
+        inner_option_current_em_df["市场标识"].astype(str)
         + "."
-        + option_current_em_df["代码"]
+        + inner_option_current_em_df["代码"]
     )
-    id_ = option_current_em_df[option_current_em_df["代码"] == symbol]["标识"].values[0]
+    id_ = inner_option_current_em_df[inner_option_current_em_df["代码"] == symbol][
+        "标识"
+    ].values[0]
     url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
     params = {
         "secid": id_,
@@ -973,5 +975,5 @@ if __name__ == "__main__":
     option_current_em_df = option_current_em()
     print(option_current_em_df)
 
-    option_minute_em_df = option_minute_em(symbol="MO2404-P-4450")
+    option_minute_em_df = option_minute_em(symbol="IO2406-C-3500")
     print(option_minute_em_df)
