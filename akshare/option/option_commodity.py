@@ -240,7 +240,7 @@ def option_shfe_daily(
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return
+        return pd.DataFrame()
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
@@ -366,7 +366,8 @@ def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230724"):
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
         "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
@@ -456,7 +457,8 @@ def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
         "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
