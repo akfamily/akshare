@@ -2824,9 +2824,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.11 fix: fix bond_treasure_issue_cninfo interface
 1.14.12 fix: fix get_tqdm function
 1.14.13 fix: fix option_minute_em interface
+1.14.14 fix: fix option_shfe_daily interface
 """
 
-__version__ = "1.14.13"
+__version__ = "1.14.14"
 __author__ = "AKFamily"
 
 import sys
