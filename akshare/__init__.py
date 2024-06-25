@@ -2826,9 +2826,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.13 fix: fix option_minute_em interface
 1.14.14 fix: fix option_shfe_daily interface
 1.14.15 fix: fix energy_carbon_domestic interface
+1.14.16 fix: fix index_hist_sw interface
 """
 
-__version__ = "1.14.15"
+__version__ = "1.14.16"
 __author__ = "AKFamily"
 
 import sys
