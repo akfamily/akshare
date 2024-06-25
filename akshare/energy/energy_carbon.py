@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/9 16:00
+Date: 2024/6/25 15:00
 Desc: 碳排放交易
 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
@@ -19,7 +19,6 @@ http://www.cerx.cn/dailynewsOuter/index.htm
 http://www.cnemission.com/article/hqxx/
 """
 
-from functools import lru_cache
 from io import StringIO
 
 import pandas as pd
@@ -31,7 +30,6 @@ from akshare.utils import demjson
 from akshare.utils.cons import headers
 
 
-@lru_cache()
 def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     """
     碳交易网-行情信息
@@ -76,7 +74,6 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     return temp_df
 
 
-@lru_cache()
 def energy_carbon_bj() -> pd.DataFrame:
     """
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
@@ -135,7 +132,6 @@ def energy_carbon_bj() -> pd.DataFrame:
     return temp_df
 
 
-@lru_cache()
 def energy_carbon_sz() -> pd.DataFrame:
     """
     深圳碳排放交易所-国内碳情
@@ -168,7 +164,6 @@ def energy_carbon_sz() -> pd.DataFrame:
     return big_df
 
 
-@lru_cache()
 def energy_carbon_eu() -> pd.DataFrame:
     """
     深圳碳排放交易所-国际碳情
@@ -201,7 +196,6 @@ def energy_carbon_eu() -> pd.DataFrame:
     return big_df
 
 
-@lru_cache()
 def energy_carbon_hb() -> pd.DataFrame:
     """
     湖北碳排放权交易中心-现货交易数据-配额-每日概况
@@ -246,7 +240,6 @@ def energy_carbon_hb() -> pd.DataFrame:
     return temp_df
 
 
-@lru_cache()
 def energy_carbon_gz() -> pd.DataFrame:
     """
     广州碳排放权交易中心-行情信息
