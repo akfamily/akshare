@@ -80,6 +80,17 @@
 
 ## 更新说明详情
 
+1.14.17 fix: fix stock_board_industry_summary_ths interface
+
+    1. 修复 stock_board_industry_summary_ths 接口
+    2. 移除 stock_board_concept_name_ths 接口
+    3. 移除 stock_board_concept_graph_ths 接口
+    4. 移除 stock_board_concept_name_ths 接口
+    5. 移除 stock_board_concept_cons_ths 接口
+    5. 移除 stock_board_concept_info_ths 接口
+    5. 移除 stock_board_concept_hist_ths 接口
+    5. 移除 stock_board_cons_ths 接口
+
 1.14.16 fix: fix index_hist_sw interface
 
     1. 修复 index_hist_sw 接口
@@ -4277,6 +4288,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.17 fix: fix stock_board_industry_summary_ths interface
 
 1.14.16 fix: fix index_hist_sw interface
 
