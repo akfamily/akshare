@@ -662,10 +662,6 @@
  "stock_fhps_em"  # 分红配送
  # 业绩快报
  "stock_yjkb_em"  # 业绩快报
- # 概念板块
- "stock_board_concept_cons_ths"  # 同花顺-概念板块-成份股
- "stock_board_concept_hist_ths"  # 同花顺-概念板块-指数日频数据
- "stock_board_cons_ths"  # 同花顺-成份股
  # 业绩报告
  "stock_yjbb_em"  # 业绩报告
  # 三大表报
@@ -675,7 +671,6 @@
  # 首发企业申报
  "stock_ipo_declare"  # 首发企业申报
  # 行业板块
- "stock_board_industry_cons_ths"  # 同花顺-行业板块-成份股
  "stock_board_industry_index_ths"  # 同花顺-行业板块-指数日频数据
  # 营业部
  "stock_lh_yyb_most"  # 营业部排名-上榜次数最多
@@ -1225,8 +1220,6 @@
  "stock_intraday_em"  # 东财财富-日内分时数据
  # 新浪财经-日内分时数据
  "stock_intraday_sina"  # 新浪财经-日内分时数据
- # 同花顺-板块-概念板块-概念图谱
- "stock_board_concept_graph_ths"  # 同花顺-板块-概念板块-概念图谱
  # 恐惧贪婪指数
  "index_fear_greed_funddb"  # 恐惧贪婪指数
  # 筹码分布
