@@ -360,66 +360,6 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.DataFrame:
-    """
-    同花顺-板块-行业板块-成份股
-    https://q.10jqka.com.cn/thshy/detail/code/881121/
-    :param symbol: 板块名称
-    :type symbol: str
-    :return: 成份股
-    :rtype: pandas.DataFrame
-    """
-    stock_board_ths_map_df = stock_board_industry_name_ths()
-    symbol = stock_board_ths_map_df[stock_board_ths_map_df["name"] == symbol][
-        "code"
-    ].values[0]
-    js_code = py_mini_racer.MiniRacer()
-    js_content = _get_file_content_ths("ths.js")
-    js_code.eval(js_content)
-    v_code = js_code.call("v")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/89.0.4389.90 Safari/537.36",
-        "Cookie": f"v={v_code}",
-    }
-    url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    try:
-        page_num = int(
-            soup.find_all(name="a", attrs={"class": "changePage"})[-1]["page"]
-        )
-    except IndexError:
-        page_num = 1
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, page_num + 1), leave=False):
-        v_code = js_code.call("v")
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/89.0.4389.90 Safari/537.36",
-            "Cookie": f"v={v_code}",
-        }
-        url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
-        r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df.rename(
-        mapper={
-            "涨跌幅(%)": "涨跌幅",
-            "涨速(%)": "涨速",
-            "换手(%)": "换手",
-            "振幅(%)": "振幅",
-        },
-        inplace=True,
-        axis=1,
-    )
-    del big_df["加自选"]
-    big_df["代码"] = big_df["代码"].astype(str).str.zfill(6)
-    return big_df
-
-
 def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.DataFrame:
     """
     同花顺-板块-行业板块-板块简介
@@ -663,9 +603,6 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
 if __name__ == "__main__":
     stock_board_industry_name_ths_df = stock_board_industry_name_ths()
     print(stock_board_industry_name_ths_df)
-
-    stock_board_industry_cons_ths_df = stock_board_industry_cons_ths(symbol="涂料油墨")
-    print(stock_board_industry_cons_ths_df)
 
     stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="小家电")
     print(stock_board_industry_info_ths_df)
