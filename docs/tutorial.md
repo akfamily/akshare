@@ -380,9 +380,7 @@
  "currency_time_series"  # 指定日期间的时间序列数据-需要权限
  "currency_currencies"  # 查询所支持的货币信息
  "currency_convert"  # 货币换算
- "currency_hist"  # 指定历史日期的货币对的历史报价
  "currency_pair_map"  # 指定货币的所有可货币对的数据
- "currency_name_code"  # 当前所有可兑换货币对
  # 公募基金
  "fund_name_em",  # 基金基本信息
  "fund_info_index_em",  # 指数型基金-基本信息
