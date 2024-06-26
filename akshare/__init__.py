@@ -2828,9 +2828,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.15 fix: fix energy_carbon_domestic interface
 1.14.16 fix: fix index_hist_sw interface
 1.14.17 fix: fix stock_board_industry_summary_ths interface
+1.14.18 fix: fix currency_pair_map interface
 """
 
-__version__ = "1.14.17"
+__version__ = "1.14.18"
 __author__ = "AKFamily"
 
 import sys
@@ -4658,8 +4659,6 @@ from akshare.event.migration import (
 英为财情-外汇-货币对历史数据
 """
 from akshare.fx.currency_investing import (
-    currency_hist,
-    currency_name_code,
     currency_pair_map,
 )
 
