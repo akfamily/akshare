@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.14.19 fix: fix bond_china_close_return interface
+
+    1. 修复 bond_china_close_return 接口
+
 1.14.18 fix: fix currency_pair_map interface
 
     1. 修复 currency_pair_map 接口
@@ -4292,6 +4296,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.19 fix: fix bond_china_close_return interface
 
 1.14.18 fix: fix currency_pair_map interface
 
