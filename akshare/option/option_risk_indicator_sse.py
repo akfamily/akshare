@@ -1,14 +1,15 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/5/18 20:40
+Date: 2024/6/27 22:20
 Desc: 上海证券交易所-产品-股票期权-期权风险指标
 """
+
 import requests
 import pandas as pd
 
 
-def option_risk_indicator_sse(date: str = "20220516") -> pd.DataFrame:
+def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
     """
     上海证券交易所-产品-股票期权-期权风险指标
     http://www.sse.com.cn/assortment/options/risk/
@@ -34,7 +35,8 @@ def option_risk_indicator_sse(date: str = "20220516") -> pd.DataFrame:
         "Host": "query.sse.com.cn",
         "Pragma": "no-cache",
         "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/101.0.4951.67 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -53,19 +55,20 @@ def option_risk_indicator_sse(date: str = "20220516") -> pd.DataFrame:
             "IMPLC_VOLATLTY",
         ]
     ]
-    temp_df["TRADE_DATE"] = pd.to_datetime(temp_df["TRADE_DATE"]).dt.date
-    temp_df["DELTA_VALUE"] = pd.to_numeric(temp_df["DELTA_VALUE"])
-    temp_df["THETA_VALUE"] = pd.to_numeric(temp_df["THETA_VALUE"])
-    temp_df["GAMMA_VALUE"] = pd.to_numeric(temp_df["GAMMA_VALUE"])
-    temp_df["VEGA_VALUE"] = pd.to_numeric(temp_df["VEGA_VALUE"])
-    temp_df["RHO_VALUE"] = pd.to_numeric(temp_df["RHO_VALUE"])
-    temp_df["IMPLC_VOLATLTY"] = pd.to_numeric(temp_df["IMPLC_VOLATLTY"])
+    temp_df["TRADE_DATE"] = pd.to_datetime(
+        temp_df["TRADE_DATE"], errors="coerce"
+    ).dt.date
+    temp_df["DELTA_VALUE"] = pd.to_numeric(temp_df["DELTA_VALUE"], errors="coerce")
+    temp_df["THETA_VALUE"] = pd.to_numeric(temp_df["THETA_VALUE"], errors="coerce")
+    temp_df["GAMMA_VALUE"] = pd.to_numeric(temp_df["GAMMA_VALUE"], errors="coerce")
+    temp_df["VEGA_VALUE"] = pd.to_numeric(temp_df["VEGA_VALUE"], errors="coerce")
+    temp_df["RHO_VALUE"] = pd.to_numeric(temp_df["RHO_VALUE"], errors="coerce")
+    temp_df["IMPLC_VOLATLTY"] = pd.to_numeric(
+        temp_df["IMPLC_VOLATLTY"], errors="coerce"
+    )
     return temp_df
 
 
 if __name__ == "__main__":
-    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220516")
-    print(option_risk_indicator_sse_df)
-
-    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220623")
+    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20240626")
     print(option_risk_indicator_sse_df)
