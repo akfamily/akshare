@@ -2830,9 +2830,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.17 fix: fix stock_board_industry_summary_ths interface
 1.14.18 fix: fix currency_pair_map interface
 1.14.19 fix: fix bond_china_close_return interface
+1.14.20 fix: fix option_risk_indicator_sse interface
 """
 
-__version__ = "1.14.19"
+__version__ = "1.14.20"
 __author__ = "AKFamily"
 
 import sys
@@ -2853,6 +2854,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+上海证券交易所-产品-股票期权-每日统计
+"""
+from akshare.option.option_daily_stats_sse_szse import option_daily_stats_sse, option_daily_stats_szse
 
 """
 同花顺理财-基金数据-每日净值-ETF
