@@ -22,18 +22,19 @@ Welcome to AKShare's Online Documentation!
    introduction
    learn
    installation
-   contributing
+   data/index
+   data_tips
+   trade
    answer
    tutorial
    articles
-   data/index
-   data_tips
    anaconda
    special
    platform
    topic/index
    demo
    changelog
+   contributing
    dependency
    deploy_http
    akdocker/akdocker
