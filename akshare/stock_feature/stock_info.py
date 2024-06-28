@@ -218,7 +218,7 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     r = session.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
-    next_time = temp_df["modified_time"].values[-1]
+    next_time = temp_df["ctime"].values[-1]
     n = 1
     big_df = temp_df.copy()
     while n < 15:
