@@ -2831,9 +2831,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.18 fix: fix currency_pair_map interface
 1.14.19 fix: fix bond_china_close_return interface
 1.14.20 fix: fix option_risk_indicator_sse interface
+1.14.21 fix: fix stock_info_global_cls interface
 """
 
-__version__ = "1.14.20"
+__version__ = "1.14.21"
 __author__ = "AKFamily"
 
 import sys
