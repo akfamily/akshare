@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/14 18:00
+Date: 2024/6/30 22:00
 Desc: 中国-国家统计局-宏观数据
 https://data.stats.gov.cn/easyquery.htm
 """
@@ -55,7 +55,8 @@ def _get_nbs_wds_tree(idcode: str, dbcode: str, rowcode: str) -> List[Dict]:
         "k1": str(time.time_ns())[:13],
     }
     r = requests.post(url, params=params, verify=False, allow_redirects=True)
-    data_json = r.json()["returndata"][0]["nodes"]
+    data_json = r.json()
+    data_json = data_json["returndata"][0]["nodes"]
     return data_json
 
 
@@ -79,7 +80,7 @@ def macro_china_nbs_nation(
 ) -> pd.DataFrame:
     """
     国家统计局全国数据通用接口
-    http://data.stats.gov.cn/easyquery.htm
+    https://data.stats.gov.cn/easyquery.htm
     :param kind: 数据类别
     :param path: 数据路径
     :param period: 时间区间，例如'LAST10', '2016-2023', '2016-'等
