@@ -2833,9 +2833,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.20 fix: fix option_risk_indicator_sse interface
 1.14.21 fix: fix stock_info_global_cls interface
 1.14.22 fix: fix macro_china_nbs_nation interface
+1.14.23 fix: fix macro_china_nbs_nation interface
 """
 
-__version__ = "1.14.22"
+__version__ = "1.14.23"
 __author__ = "AKFamily"
 
 import sys
