@@ -3,7 +3,7 @@
 """
 Date: 2024/6/27 22:20
 Desc: 上海证券交易所-产品-股票期权-每日统计
-http://www.sse.com.cn/assortment/options/date/
+https://www.sse.com.cn/assortment/options/date/
 深圳证券交易所-市场数据-期权数据-日度概况
 https://investor.szse.cn/market/option/day/index.html
 """
@@ -15,7 +15,7 @@ import requests
 def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
     """
     上海证券交易所-产品-股票期权-每日统计
-    http://www.sse.com.cn/assortment/options/date/
+    https://www.sse.com.cn/assortment/options/date/
     :param date: 交易日
     :type date: str
     :return: 每日统计
@@ -36,7 +36,7 @@ def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
         "Connection": "keep-alive",
         "Host": "query.sse.com.cn",
         "Pragma": "no-cache",
-        "Referer": "http://www.sse.com.cn/",
+        "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/101.0.4951.67 Safari/537.36",
     }
