@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.utils.tqdm import get_tqdm
 
 
 def __bond_register_service() -> requests.Session:
@@ -33,7 +34,7 @@ def __bond_register_service() -> requests.Session:
     # 此处需要通过未访问的游览器，首次打开
     # https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
     # 页面进行人工获取
-    data = {"key": "VjU2TDlpeno5VGE3"}
+    data = {"key": "TThwSjc2NWkzV0VSOVRzOA=="}
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate, br",
@@ -320,7 +321,7 @@ def macro_china_bond_public() -> pd.DataFrame:
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/81.0.4044.138 Safari/537.36",
+        "Chrome/107.0.0.0 Safari/537.36",
     }
     payload = {
         "enty": "",
@@ -328,13 +329,21 @@ def macro_china_bond_public() -> pd.DataFrame:
         "bondNameCode": "",
         "leadUnderwriter": "",
         "pageNo": "1",
-        "pageSize": "1000",
+        "pageSize": "10",
         "limit": "1",
     }
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
-    temp_df.columns = [
+    total_page = int(data_json["data"]["pageTotalSize"]) + 1
+    big_df = pd.DataFrame()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page), leave=False):
+        payload.update({"pageNo": page})
+        r = requests.post(url, data=payload, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["records"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    big_df.columns = [
         "债券全称",
         "债券类型",
         "-",
@@ -349,7 +358,7 @@ def macro_china_bond_public() -> pd.DataFrame:
         "价格",
         "计划发行量",
     ]
-    temp_df = temp_df[
+    big_df = big_df[
         [
             "债券全称",
             "债券类型",
@@ -361,9 +370,9 @@ def macro_china_bond_public() -> pd.DataFrame:
             "债券评级",
         ]
     ]
-    temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df["计划发行量"] = pd.to_numeric(temp_df["计划发行量"], errors="coerce")
-    return temp_df
+    big_df["价格"] = pd.to_numeric(big_df["价格"], errors="coerce")
+    big_df["计划发行量"] = pd.to_numeric(big_df["计划发行量"], errors="coerce")
+    return big_df
 
 
 if __name__ == "__main__":
