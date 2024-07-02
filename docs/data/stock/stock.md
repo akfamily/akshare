@@ -14111,6 +14111,8 @@ print(stock_rank_forecast_cninfo_df)
 
 ##### 申万个股行业分类变动历史
 
+P.S. 该接口暂时无法访问
+
 接口: stock_industry_clf_hist_sw
 
 目标地址: https://www.swhyresearch.com/institute_sw/allIndex/downloadCenter/industryType
