@@ -80,6 +80,12 @@
 
 ## 更新说明详情
 
+1.14.25 add: add option_comm_info interface
+
+    1. 新增 option_comm_info 接口
+    2. 新增 option_comm_symbol 接口
+    3. 修复 futures_fees_info 接口
+
 1.14.24 fix: fix macro_china_bond_public interface
 
     1. 修复 macro_china_bond_public 接口
