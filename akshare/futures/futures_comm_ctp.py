@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/30 17:00
+Date: 2024/7/5 16:00
 Desc: openctp 期货交易费用参照表
 http://openctp.cn/fees.html
 """
 
+from datetime import datetime
+from io import StringIO
+
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 
 def futures_fees_info() -> pd.DataFrame:
@@ -17,7 +22,13 @@ def futures_fees_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://openctp.cn/fees.html"
-    temp_df = pd.read_html(url)[0]
+    r = requests.get(url)
+    r.encoding = "gb2312"
+    soup = BeautifulSoup(r.text, features="lxml")
+    datetime_str = soup.find("p").string.strip("Generated at ").strip(".")
+    datetime_raw = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S.%f")
+    temp_df = pd.read_html(StringIO(r.text))[0]
+    temp_df["更新时间"] = datetime_raw.strftime("%Y-%m-%d %H:%M:%S")
     return temp_df
 
 
