@@ -1269,6 +1269,8 @@
  # 股票期权-每日统计
  "option_daily_stats_sse"  # 上海证券交易所-产品-股票期权-每日统计
  "option_daily_stats_szse"  # 深圳证券交易所-市场数据-期权数据-日度概况
+ # 商品期权手续费
+ "option_comm_info"  # 商品期权手续费
 ```
 
 ## 案例演示
