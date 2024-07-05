@@ -2835,9 +2835,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.22 fix: fix macro_china_nbs_nation interface
 1.14.23 fix: fix macro_china_nbs_nation interface
 1.14.24 fix: fix macro_china_bond_public interface
+1.14.25 add: add option_comm_info interface
 """
 
-__version__ = "1.14.24"
+__version__ = "1.14.25"
 __author__ = "AKFamily"
 
 import sys
@@ -2858,6 +2859,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+商品期权手续费
+"""
+from akshare.option.option_comm_qihuo import option_comm_info, option_comm_symbol
 
 """
 上海证券交易所-产品-股票期权-每日统计
