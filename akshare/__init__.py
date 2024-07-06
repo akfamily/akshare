@@ -2836,9 +2836,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.23 fix: fix macro_china_nbs_nation interface
 1.14.24 fix: fix macro_china_bond_public interface
 1.14.25 add: add option_comm_info interface
+1.14.26 fix: fix futures_fees_info interface
 """
 
-__version__ = "1.14.25"
+__version__ = "1.14.26"
 __author__ = "AKFamily"
 
 import sys
