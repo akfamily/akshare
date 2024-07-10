@@ -134,7 +134,7 @@ def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
     return big_df
 
 
-def news_trade_notify_dividend_baidu(date: str = "20220513") -> pd.DataFrame:
+def news_trade_notify_dividend_baidu(date: str = "20240621") -> pd.DataFrame:
     """
     百度股市通-交易提醒-分红派息
     https://gushitong.baidu.com/calendar
@@ -151,6 +151,8 @@ def news_trade_notify_dividend_baidu(date: str = "20220513") -> pd.DataFrame:
         "end_date": end_date,
         "market": "",
         "cate": "notify_divide",
+        "rn": 500,
+        "pn": 0,
     }
     query_string = urlencode(params)
     url = "/api/financecalendar" + "?" + query_string
@@ -262,7 +264,7 @@ if __name__ == "__main__":
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20220916"
+        date="20240621"
     )
     print(news_trade_notify_dividend_baidu_df)
 
