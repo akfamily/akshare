@@ -6,10 +6,30 @@ Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
 
+from datetime import datetime
 import re
 
 import pandas as pd
 import requests
+
+
+def _convert_timestamp(timestamp_ms):
+    """
+    将以毫秒为单位的时间戳转换为日期和时间，并保留到秒。
+
+    参数:
+    timestamp_ms (int): 以毫秒为单位的时间戳
+
+    返回:
+    datetime: 对应的日期和时间，保留到秒
+    """
+    # 将毫秒转换为秒
+    timestamp_s = timestamp_ms / 1000
+
+    # 使用 fromtimestamp 方法将时间戳转换为 datetime 对象
+    datetime_obj = datetime.fromtimestamp(timestamp_s)
+
+    return datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def stock_individual_spot_xq(
@@ -78,9 +98,10 @@ def stock_individual_spot_xq(
         "turnover_rate": "周转率",
         "unit_nav": "单位净值",
         "volume": "成交量",
+        "time": "时间",
     }
-    json_data = r.json()["data"]["quote"]
-    temp_df = pd.json_normalize(json_data)
+    json_data = r.json()
+    temp_df = pd.json_normalize(json_data["data"]["quote"])
     temp_df.columns = [
         *map(
             lambda x: column_name_map[x] if x in column_name_map.keys() else x,
@@ -97,6 +118,10 @@ def stock_individual_spot_xq(
     ]
     temp_df = temp_df.T.reset_index()
     temp_df.columns = ["item", "value"]
+    temp_df.loc[temp_df["item"] == "时间", "value"] = temp_df.loc[
+        temp_df["item"] == "时间", "value"
+    ].apply(lambda x: _convert_timestamp(int(x)))
+
     return temp_df
 
 
