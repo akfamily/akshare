@@ -2840,9 +2840,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.27 fix: fix nlp_ownthink interface
 1.14.28 fix: fix news_trade_notify_dividend_baidu interface
 1.14.29 fix: fix stock_individual_spot_xq interface
+1.14.30 fix: fix stock_us_hist_min_em interface
 """
 
-__version__ = "1.14.29"
+__version__ = "1.14.30"
 __author__ = "AKFamily"
 
 import sys
