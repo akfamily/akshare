@@ -17,7 +17,7 @@ Desc: 商品期权数据
 import datetime
 import warnings
 from io import StringIO, BytesIO
-from typing import Tuple, Any
+from typing import Tuple, Any, Optional
 
 import pandas as pd
 import requests
@@ -34,7 +34,7 @@ from akshare.option.cons import (
 
 def option_dce_daily(
     symbol: str = "聚乙烯期权", trade_date: str = "20210728"
-) -> Tuple[Any, Any]:
+) -> Optional[Tuple[Any, Any]]:
     """
     大连商品交易所-期权-日频行情数据
     http://www.dce.com.cn/
@@ -225,7 +225,7 @@ def option_czce_daily(
 
 def option_shfe_daily(
     symbol: str = "铝期权", trade_date: str = "20200827"
-) -> pd.DataFrame:
+) -> Optional[pd.DataFrame]:
     """
     上海期货交易所-期权-日频行情数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
