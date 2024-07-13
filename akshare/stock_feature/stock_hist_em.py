@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/28 15:00
+Date: 2024/7/13 18:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
@@ -1872,7 +1872,7 @@ def stock_us_hist_min_em(
         "secid": f"{symbol.split('.')[0]}.{symbol.split('.')[1]}",
         "_": "1623766962675",
     }
-    r = requests.get(url, timeout=15, params=params)
+    r = requests.get(url, params=params, timeout=15)
     data_json = r.json()
     if not data_json["data"]["trends"]:
         return pd.DataFrame()
@@ -1897,7 +1897,7 @@ def stock_us_hist_min_em(
     temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
+    temp_df["时间"] = pd.to_datetime(temp_df["时间"], errors="coerce").astype(str)
     return temp_df
 
 
