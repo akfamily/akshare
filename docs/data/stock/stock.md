@@ -22908,17 +22908,13 @@ print(stock_esg_rate_sina_df)
 
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
-| 股票名称   | object  | -  |
 | 股票代码   | object  | -  |
 | ESG评分  | object  | -  |
 | 环境总评   | float64 | -  |
 | 社会责任总评 | float64 | -  |
 | 治理总评   | float64 | -  |
 | 评级日期   | object  | -  |
-| 评级机构   | object  | -  |
 | 交易市场   | object  | -  |
-| 行业名称   | object  | -  |
-| 评级季度   | object  | -  |
 
 接口示例
 
@@ -22932,19 +22928,19 @@ print(stock_esg_msci_sina_df)
 数据示例
 
 ```
-                股票名称        股票代码 ESG评分  环境总评  ...  评级机构  交易市场          行业名称    评级季度
-0              太古股份公司A    00019.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
-1                 丽珠集团   000513.SZ   AAA   6.9  ...  MSCI    CN  制药、生物科技和生命科学  2024Q2
-2                 港铁公司    00066.HK   AAA   7.2  ...  MSCI    HK            运输  2024Q2
-3              太古股份公司B    00087.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
-4                 联想集团    00992.HK   AAA   5.1  ...  MSCI    HK       技术硬件与设备  2024Q2
-                ...         ...   ...   ...  ...   ...   ...           ...     ...
-4546              VNOM  GB_VNOM.US   CCC   4.0  ...  MSCI    US            --  2024Q2
-4547               VTS   GB_VTS.US   CCC   0.5  ...  MSCI    US            --  2024Q2
-4548  W&T Offshore Inc   GB_WTI.US   CCC   2.6  ...  MSCI    US            --  2024Q2
-4549              WULF  GB_WULF.US   CCC   0.3  ...  MSCI    US            --  2024Q2
-4550              ZETA  GB_ZETA.US   CCC   6.7  ...  MSCI    US            --  2024Q2
-[4551 rows x 11 columns]
+        股票代码 ESG评分 环境总评 社会责任总评 治理总评 评级日期 交易市场
+0      00019.HK   AAA   7.0     7.3   6.3  2024-04-24   HK
+1     000513.SZ   AAA   6.8     6.4   6.1  2024-06-25   CN
+2      00066.HK   AAA   7.2     5.6   6.5  2024-07-11   HK
+3      00087.HK   AAA   7.0     7.3   6.3  2024-04-24   HK
+4      00992.HK   AAA   5.1     6.2   5.5  2024-07-08   HK
+...         ...   ...   ...     ...   ...         ...  ...
+4619   UONEK.US   CCC   7.0     3.2   1.0  2024-06-24   US
+4620     UVE.US   CCC   1.9     2.0   5.4  2024-07-08   US
+4621     VTS.US   CCC   1.1     2.4   6.8  2024-04-24   US
+4622    WULF.US   CCC   0.3     1.3   3.9  2024-05-20   US
+4623    ZETA.US   CCC   6.7     3.1   2.0  2024-06-24   US
+[4624 rows x 7 columns]
 ```
 
 #### 路孚特
