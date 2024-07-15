@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.31 fix: fix option_shfe_daily interface
+
+    1. 修复 option_shfe_daily 接口
+    2. 修复 stock_esg_msci_sina 接口
+
 1.14.30 fix: fix stock_us_hist_min_em interface
 
     1. 修复 stock_us_hist_min_em 接口
@@ -4345,6 +4350,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.31 fix: fix option_shfe_daily interface
 
 1.14.30 fix: fix stock_us_hist_min_em interface
 
