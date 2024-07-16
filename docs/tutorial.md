@@ -1271,6 +1271,8 @@
  "option_daily_stats_szse"  # 深圳证券交易所-市场数据-期权数据-日度概况
  # 商品期权手续费
  "option_comm_info"  # 商品期权手续费
+ # 富途牛牛-主题投资-概念板块-成分股
+ "stock_concept_cons_futu"  # 富途牛牛-主题投资-概念板块-成分股
 ```
 
 ## 案例演示
