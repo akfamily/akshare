@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.33 fix: fix stock_concept_cons_futu interface
+
+    1. 修复 stock_concept_cons_futu 接口
+    2. 修复 stock_board_industry_index_ths 接口
+
 1.14.32 add: add stock_concept_cons_futu interface
 
     1. 新增 stock_concept_cons_futu 接口
@@ -4354,6 +4359,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.33 fix: fix stock_concept_cons_futu interface
 
 1.14.32 add: add stock_concept_cons_futu interface
 
