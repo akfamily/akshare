@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2024/7/16 22:00
+Desc: 富途牛牛-主题投资-概念板块-成分股
+https://www.futunn.com/quote/sparks-us
+"""
+
 import json
 
 import pandas as pd
@@ -8,7 +16,7 @@ from bs4 import BeautifulSoup
 def _stock_concept_cons_futu(symbol: str = "巴菲特持仓") -> pd.DataFrame:
     """
     富途牛牛-主题投资-概念板块-成分股
-    https://www.futunn.com/quote/sparks-us?global_content=%7B%22promote_id%22%3A13766,%22sub_promote_id%22%3A24%7D
+    https://www.futunn.com/quote/sparks-us
     :param symbol: 板块名称; choice of {"巴菲特持仓", "佩洛西持仓"}
     :type symbol: str
     :return: 概念板块
