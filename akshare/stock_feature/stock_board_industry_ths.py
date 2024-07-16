@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/6 17:30
+Date: 2024/7/16 22:30
 Desc: 同花顺-板块-行业板块
 https://q.10jqka.com.cn/thshy/
 """
