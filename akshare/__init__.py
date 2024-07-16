@@ -2870,7 +2870,7 @@ del sys
 """
 富途牛牛-主题投资-概念板块-成分股
 """
-from akshare.stock_feature.stock_concept_futu import stock_concept_cons_futu_df
+from akshare.stock_feature.stock_concept_futu import stock_concept_cons_futu
 
 """
 商品期权手续费
