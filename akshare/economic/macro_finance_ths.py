@@ -46,6 +46,40 @@ def macro_stock_finance() -> pd.DataFrame:
     return temp_df
 
 
+def macro_rmb_loan() -> pd.DataFrame:
+    """
+    同花顺-数据中心-宏观数据-新增人民币贷款
+    https://data.10jqka.com.cn/macro/loan/
+    :return: 新增人民币贷款
+    :rtype: pandas.DataFrame
+    """
+    url = "https://data.10jqka.com.cn/macro/loan/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, headers=headers)
+    temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
+    temp_df.columns = [
+        "月份",
+        "新增人民币贷款-总额",
+        "新增人民币贷款-同比",
+        "新增人民币贷款-环比",
+        "累计人民币贷款-总额",
+        "累计人民币贷款-同比",
+    ]
+    temp_df["新增人民币贷款-总额"] = pd.to_numeric(
+        temp_df["新增人民币贷款-总额"], errors="coerce"
+    )
+    temp_df["累计人民币贷款-总额"] = pd.to_numeric(
+        temp_df["累计人民币贷款-总额"], errors="coerce"
+    )
+    return temp_df
+
+
 if __name__ == "__main__":
     macro_stock_finance_df = macro_stock_finance()
     print(macro_stock_finance_df)
+
+    macro_rmb_loan_df = macro_rmb_loan()
+    print(macro_rmb_loan_df)
