@@ -2844,10 +2844,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.31 fix: fix option_shfe_daily interface
 1.14.32 add: add stock_concept_cons_futu interface
 1.14.33 fix: fix stock_concept_cons_futu interface
-1.14.34 fix: fix macro_rmb_loan interface
+1.14.34 add: add macro_rmb_loan interface
+1.14.35 add: add macro_rmb_deposit interface
 """
 
-__version__ = "1.14.34"
+__version__ = "1.14.35"
 __author__ = "AKFamily"
 
 import sys
@@ -2872,7 +2873,7 @@ del sys
 """
 同花顺-数据中心-宏观数据-股票筹资
 """
-from akshare.economic.macro_finance_ths import macro_stock_finance, macro_rmb_loan
+from akshare.economic.macro_finance_ths import macro_stock_finance, macro_rmb_loan, macro_rmb_deposit
 
 """
 富途牛牛-主题投资-概念板块-成分股
