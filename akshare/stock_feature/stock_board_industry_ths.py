@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/7/16 22:30
+Date: 2024/7/19 14:20
 Desc: 同花顺-板块-行业板块
 https://q.10jqka.com.cn/thshy/
 """
@@ -117,6 +117,8 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
         "881180": "石油加工贸易",
         "881181": "环保",
         "881182": "美容护理",
+        "881207": "元件",  # 20240719
+        "881266": "橡胶制品",  # 20240719
         "884001": "种子生产",
         "884002": "粮食种植",
         "884003": "其他种植业",
@@ -572,7 +574,7 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/{page}/ajax/1/"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
         "序号",
@@ -604,7 +606,7 @@ if __name__ == "__main__":
     stock_board_industry_name_ths_df = stock_board_industry_name_ths()
     print(stock_board_industry_name_ths_df)
 
-    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="小家电")
+    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="橡胶制品")
     print(stock_board_industry_info_ths_df)
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(
