@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.14.36 fix: fix option_czce_daily interface
+
+    1. 修复 option_czce_daily 接口
+
 1.14.35 add: add macro_rmb_deposit interface
 
     1. 新增 macro_rmb_deposit 接口
@@ -4367,6 +4371,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.36 fix: fix option_czce_daily interface
 
 1.14.35 add: add macro_rmb_deposit interface
 
