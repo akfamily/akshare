@@ -83,6 +83,7 @@
 1.14.36 fix: fix option_czce_daily interface
 
     1. 修复 option_czce_daily 接口
+    2. 修复 stock_board_industry_name_ths 接口
 
 1.14.35 add: add macro_rmb_deposit interface
 
