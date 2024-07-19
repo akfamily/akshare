@@ -76,7 +76,7 @@ def stock_zh_kcb_report_em(from_page: int = 1, to_page: int = 100) -> pd.DataFra
                 [item["art_code"] for item in data_json["data"]["list"]],
             ]
         ).T
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "代码",
         "名称",
