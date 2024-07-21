@@ -15,7 +15,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+from py_mini_racer import MiniRacer
 
 from akshare.utils import demjson
 
@@ -116,7 +116,7 @@ def air_quality_watch_point(
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://www.zq12369.com/api/zhenqiapi.php"
     file_data = _get_file_content(file_name="crypto.js")
-    ctx = py_mini_racer.MiniRacer()
+    ctx = MiniRacer()
     ctx.eval(file_data)
     method = "GETCITYPOINTAVG"
     ctx.call("encode_param", method)
@@ -167,7 +167,7 @@ def air_quality_hist(
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://www.zq12369.com/api/newzhenqiapi.php"
     file_data = _get_file_content(file_name="outcrypto.js")
-    ctx = py_mini_racer.MiniRacer()
+    ctx = MiniRacer()
     ctx.eval(file_data)
     app_id = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
     method = "CETCITYPERIOD"

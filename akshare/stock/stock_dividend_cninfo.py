@@ -8,7 +8,7 @@ https://webapi.cninfo.com.cn/#/company?companyid=600009
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 

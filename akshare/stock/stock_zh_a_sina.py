@@ -11,7 +11,7 @@ import re
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 from tqdm import tqdm
 
 from akshare.stock.cons import (

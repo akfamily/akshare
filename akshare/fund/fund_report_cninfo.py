@@ -5,9 +5,10 @@ Date: 2023/6/13 16:12
 Desc: 巨潮资讯-数据中心-专题统计-基金报表
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 
@@ -128,23 +129,23 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
         columns={
-            'F004N': '行业规模',
-            'F003N': '基金覆盖家数',
-            'F002V': '证监会行业名称',
-            'F001V': '行业编码',
-            'ENDDATE': '报告期',
-            'F005N': '占净资产比例'
+            "F004N": "行业规模",
+            "F003N": "基金覆盖家数",
+            "F002V": "证监会行业名称",
+            "F001V": "行业编码",
+            "ENDDATE": "报告期",
+            "F005N": "占净资产比例",
         },
         inplace=True,
     )
     temp_df = temp_df[
         [
-            '行业编码',
-            '证监会行业名称',
-            '报告期',
-            '基金覆盖家数',
-            '行业规模',
-            '占净资产比例',
+            "行业编码",
+            "证监会行业名称",
+            "报告期",
+            "基金覆盖家数",
+            "行业规模",
+            "占净资产比例",
         ]
     ]
     temp_df["报告期"] = pd.to_datetime(temp_df["报告期"], errors="coerce").dt.date
@@ -186,31 +187,39 @@ def fund_report_asset_allocation_cninfo() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
         columns={
-            'F001N': '基金覆盖家数',
-            'F008N': '现金货币类占净资产比例',
-            'F007N': '债券固定收益类占净资产比例',
-            'F006N': '股票权益类占净资产比例',
-            'ENDDATE': '报告期',
-            'F005N': '基金市场净资产规模'
+            "F001N": "基金覆盖家数",
+            "F008N": "现金货币类占净资产比例",
+            "F007N": "债券固定收益类占净资产比例",
+            "F006N": "股票权益类占净资产比例",
+            "ENDDATE": "报告期",
+            "F005N": "基金市场净资产规模",
         },
         inplace=True,
     )
     temp_df = temp_df[
         [
-            '报告期',
-            '基金覆盖家数',
-            '股票权益类占净资产比例',
-            '债券固定收益类占净资产比例',
-            '现金货币类占净资产比例',
-            '基金市场净资产规模',
+            "报告期",
+            "基金覆盖家数",
+            "股票权益类占净资产比例",
+            "债券固定收益类占净资产比例",
+            "现金货币类占净资产比例",
+            "基金市场净资产规模",
         ]
     ]
     temp_df["报告期"] = pd.to_datetime(temp_df["报告期"], errors="coerce").dt.date
     temp_df["基金覆盖家数"] = pd.to_numeric(temp_df["基金覆盖家数"], errors="coerce")
-    temp_df["股票权益类占净资产比例"] = pd.to_numeric(temp_df["股票权益类占净资产比例"], errors="coerce")
-    temp_df["债券固定收益类占净资产比例"] = pd.to_numeric(temp_df["债券固定收益类占净资产比例"], errors="coerce")
-    temp_df["现金货币类占净资产比例"] = pd.to_numeric(temp_df["现金货币类占净资产比例"], errors="coerce")
-    temp_df["基金市场净资产规模"] = pd.to_numeric(temp_df["基金市场净资产规模"], errors="coerce")
+    temp_df["股票权益类占净资产比例"] = pd.to_numeric(
+        temp_df["股票权益类占净资产比例"], errors="coerce"
+    )
+    temp_df["债券固定收益类占净资产比例"] = pd.to_numeric(
+        temp_df["债券固定收益类占净资产比例"], errors="coerce"
+    )
+    temp_df["现金货币类占净资产比例"] = pd.to_numeric(
+        temp_df["现金货币类占净资产比例"], errors="coerce"
+    )
+    temp_df["基金市场净资产规模"] = pd.to_numeric(
+        temp_df["基金市场净资产规模"], errors="coerce"
+    )
     return temp_df
 
 
@@ -218,7 +227,9 @@ if __name__ == "__main__":
     fund_report_stock_cninfo_df = fund_report_stock_cninfo(date="20210630")
     print(fund_report_stock_cninfo_df)
 
-    fund_report_industry_allocation_cninfo_df = fund_report_industry_allocation_cninfo(date="20210930")
+    fund_report_industry_allocation_cninfo_df = fund_report_industry_allocation_cninfo(
+        date="20210930"
+    )
     print(fund_report_industry_allocation_cninfo_df)
 
     fund_report_asset_allocation_cninfo_df = fund_report_asset_allocation_cninfo()

@@ -8,11 +8,12 @@ http://webapi.cninfo.com.cn/#/thematicStatistics
 巨潮资讯-数据中心-专题统计-股东股本-高管持股变动明细
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
+
 import datetime
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 

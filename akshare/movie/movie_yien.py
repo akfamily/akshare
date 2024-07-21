@@ -12,7 +12,7 @@ import os
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:

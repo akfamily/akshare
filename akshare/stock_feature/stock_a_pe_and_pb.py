@@ -10,7 +10,7 @@ from datetime import datetime
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
 

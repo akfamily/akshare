@@ -11,7 +11,7 @@ import re
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.bond.cons import (
     zh_sina_bond_hs_cov_count_url,

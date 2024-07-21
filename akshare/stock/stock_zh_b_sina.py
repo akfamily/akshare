@@ -5,13 +5,14 @@ Date: 2023/7/20 13:28
 Desc: 新浪财经-B股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
+
 import json
 import re
 from functools import lru_cache
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.stock.cons import (
     zh_sina_a_stock_url,
@@ -188,12 +189,12 @@ def stock_zh_b_daily(
     try:
         # try for pandas >= 2.1.0
         temp_df.ffill(inplace=True)
-    except Exception as e:
+    except Exception:
         try:
-        # try for pandas < 2.1.0          
+            # try for pandas < 2.1.0
             temp_df.fillna(method="ffill", inplace=True)
         except Exception as e:
-                print("Error:", e)
+            print("Error:", e)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
@@ -234,9 +235,9 @@ def stock_zh_b_daily(
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
-            # try for pandas < 2.1.0          
+                # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
                 print("Error:", e)
@@ -274,9 +275,9 @@ def stock_zh_b_daily(
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
-            # try for pandas < 2.1.0          
+                # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
                 print("Error:", e)
@@ -330,7 +331,7 @@ def stock_zh_b_minute(
         return None
     try:
         stock_zh_b_daily(symbol=symbol, adjust="qfq")
-    except:
+    except:  # noqa: E722
         return temp_df
 
     if adjust == "":

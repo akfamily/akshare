@@ -5,9 +5,10 @@ Date: 2022/2/15 17:33
 Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import demjson

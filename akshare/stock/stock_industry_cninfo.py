@@ -10,7 +10,7 @@ https://webapi.cninfo.com.cn/api/stock/p_stock2110
 import numpy as np
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 

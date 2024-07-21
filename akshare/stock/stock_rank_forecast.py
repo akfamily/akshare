@@ -5,9 +5,10 @@ Date: 2023/8/18 15:29
 Desc: 巨潮资讯-数据中心-评级预测-投资评级
 http://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 
