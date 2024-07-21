@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/26 17:30
+Date: 2024/7/21 18:00
 Desc: AKShare's PYPI info file
 """
 
@@ -51,8 +51,7 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "py-mini-racer>=0.6.0",
-        "akracer>=0.0.11",
+        "mini-racer>=0.12.4",
     ],
     extras_require={
         # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
