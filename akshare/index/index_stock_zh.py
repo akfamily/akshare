@@ -12,7 +12,7 @@ import re
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.index.cons import (
     zh_sina_index_stock_payload,

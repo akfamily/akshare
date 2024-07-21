@@ -5,9 +5,10 @@ Date: 2023/9/2 19:00
 Desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 http://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.stock.cons import (
     hk_js_decode,
@@ -95,7 +96,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
                 data_df.reset_index(inplace=True)
                 data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
                 return data_df
-        except SyntaxError as e:
+        except SyntaxError:
             data_df.reset_index(inplace=True)
             data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
             return data_df
@@ -114,7 +115,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             new_range.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 new_range.fillna(method="ffill", inplace=True)
             except Exception as e:
@@ -127,7 +128,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
@@ -160,7 +161,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
                 data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
                 return data_df
 
-        except SyntaxError as e:
+        except SyntaxError:
             data_df.reset_index(inplace=True)
             data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
             return data_df
@@ -178,7 +179,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             new_range.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 new_range.fillna(method="ffill", inplace=True)
@@ -192,7 +193,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)

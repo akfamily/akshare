@@ -5,9 +5,10 @@ Date: 2023/5/29 23:34
 Desc: 巨潮资讯-数据中心-专题统计-公司治理-股权质押
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 
@@ -91,7 +92,9 @@ def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
     temp_df["质押数量"] = pd.to_numeric(temp_df["质押数量"], errors="coerce")
     temp_df["占总股本比例"] = pd.to_numeric(temp_df["占总股本比例"], errors="coerce")
     temp_df["质押解除数量"] = pd.to_numeric(temp_df["质押解除数量"], errors="coerce")
-    temp_df["累计质押占总股本比例"] = pd.to_numeric(temp_df["累计质押占总股本比例"], errors="coerce")
+    temp_df["累计质押占总股本比例"] = pd.to_numeric(
+        temp_df["累计质押占总股本比例"], errors="coerce"
+    )
     return temp_df
 
 

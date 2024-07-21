@@ -13,7 +13,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.futures.cons import (
     zh_subscribe_exchange_symbol_url,

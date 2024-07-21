@@ -5,45 +5,46 @@ Date: 2021/9/29 16:19
 Desc: 巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
+
 import time
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
+    function mcode(input) {
+                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";
+                var output = "";
+                var chr1, chr2, chr3 = "";
+                var enc1, enc2, enc3, enc4 = "";
+                var i = 0;
+                do {
+                    chr1 = input.charCodeAt(i++);
+                    chr2 = input.charCodeAt(i++);
+                    chr3 = input.charCodeAt(i++);
+                    enc1 = chr1 >> 2;
+                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                    enc4 = chr3 & 63;
+                    if (isNaN(chr2)) {
+                        enc3 = enc4 = 64;
+                    } else if (isNaN(chr3)) {
+                        enc4 = 64;
+                    }
+                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)
+                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);
+                    chr1 = chr2 = chr3 = "";
+                    enc1 = enc2 = enc3 = enc4 = "";
+                } while (i < input.length);
+
+                return output;
+            }
 """
 
 
 def stock_cg_lawsuit_cninfo(
-        symbol: str = "全部", start_date: str = "20180630", end_date: str = "20210927"
+    symbol: str = "全部", start_date: str = "20180630", end_date: str = "20210927"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
@@ -58,11 +59,11 @@ def stock_cg_lawsuit_cninfo(
     :rtype: pandas.DataFrame
     """
     symbol_map = {
-        "全部": '',
-        "深市主板": '012002',
-        "沪市": '012001',
-        "创业板": '012015',
-        "科创板": '012029',
+        "全部": "",
+        "深市主板": "012002",
+        "沪市": "012001",
+        "创业板": "012015",
+        "科创板": "012029",
     }
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1055"
     random_time_str = str(int(time.time()))

@@ -5,9 +5,10 @@ Date: 2023/6/12 17:29
 Desc: 巨潮资讯-数据中心-新股数据
 http://webapi.cninfo.com.cn/#/xinguList
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 
@@ -65,7 +66,9 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
         "审核公告日",
     ]
     temp_df["上会日期"] = pd.to_datetime(temp_df["上会日期"], errors="coerce").dt.date
-    temp_df["审核公告日"] = pd.to_datetime(temp_df["审核公告日"], errors="coerce").dt.date
+    temp_df["审核公告日"] = pd.to_datetime(
+        temp_df["审核公告日"], errors="coerce"
+    ).dt.date
     return temp_df
 
 
@@ -135,13 +138,21 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
             "上网发行数量",
         ]
     ]
-    temp_df["摇号结果公告日"] = pd.to_datetime(temp_df["摇号结果公告日"], errors="coerce").dt.date
-    temp_df["中签公告日"] = pd.to_datetime(temp_df["中签公告日"], errors="coerce").dt.date
+    temp_df["摇号结果公告日"] = pd.to_datetime(
+        temp_df["摇号结果公告日"], errors="coerce"
+    ).dt.date
+    temp_df["中签公告日"] = pd.to_datetime(
+        temp_df["中签公告日"], errors="coerce"
+    ).dt.date
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
-    temp_df["中签缴款日"] = pd.to_datetime(temp_df["中签缴款日"], errors="coerce").dt.date
+    temp_df["中签缴款日"] = pd.to_datetime(
+        temp_df["中签缴款日"], errors="coerce"
+    ).dt.date
     temp_df["申购日期"] = pd.to_datetime(temp_df["申购日期"], errors="coerce").dt.date
     temp_df["发行价"] = pd.to_numeric(temp_df["发行价"], errors="coerce")
-    temp_df["上网发行中签率"] = pd.to_numeric(temp_df["上网发行中签率"], errors="coerce")
+    temp_df["上网发行中签率"] = pd.to_numeric(
+        temp_df["上网发行中签率"], errors="coerce"
+    )
     temp_df["总发行数量"] = pd.to_numeric(temp_df["总发行数量"], errors="coerce")
     temp_df["发行市盈率"] = pd.to_numeric(temp_df["发行市盈率"], errors="coerce")
     temp_df["上网发行数量"] = pd.to_numeric(temp_df["上网发行数量"], errors="coerce")

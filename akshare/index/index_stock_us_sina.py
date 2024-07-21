@@ -8,7 +8,7 @@ https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.stock.cons import (
     zh_js_decode,

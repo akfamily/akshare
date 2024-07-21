@@ -7,13 +7,14 @@ Desc: 艺恩-艺人
 艺人流量价值
 https://www.endata.com.cn/Marketing/Artist/business.html
 """
+
 import datetime
 import json
 import os
 
 import pandas as pd  # type: ignore
 import requests
-from py_mini_racer import py_mini_racer  # type: ignore
+import py_mini_racer  # type: ignore
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:
@@ -80,8 +81,21 @@ def business_value_artist() -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排名", "-", "艺人", "商业价值", "-", "专业热度", "关注热度", "预测热度", "美誉度", "-"]
-    temp_df = temp_df[["排名", "艺人", "商业价值", "专业热度", "关注热度", "预测热度", "美誉度"]]
+    temp_df.columns = [
+        "排名",
+        "-",
+        "艺人",
+        "商业价值",
+        "-",
+        "专业热度",
+        "关注热度",
+        "预测热度",
+        "美誉度",
+        "-",
+    ]
+    temp_df = temp_df[
+        ["排名", "艺人", "商业价值", "专业热度", "关注热度", "预测热度", "美誉度"]
+    ]
     temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 
@@ -105,8 +119,21 @@ def online_value_artist() -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排名", "-", "艺人", "-", "流量价值", "专业热度", "关注热度", "预测热度", "-", "带货力"]
-    temp_df = temp_df[["排名", "艺人", "流量价值", "专业热度", "关注热度", "预测热度", "带货力"]]
+    temp_df.columns = [
+        "排名",
+        "-",
+        "艺人",
+        "-",
+        "流量价值",
+        "专业热度",
+        "关注热度",
+        "预测热度",
+        "-",
+        "带货力",
+    ]
+    temp_df = temp_df[
+        ["排名", "艺人", "流量价值", "专业热度", "关注热度", "预测热度", "带货力"]
+    ]
     temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 

@@ -12,12 +12,13 @@ https://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-打单追踪
 https://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
 """
+
 from io import StringIO
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 from akshare.utils.tqdm import get_tqdm
 
 from akshare.datasets import get_ths_js
@@ -218,7 +219,9 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
         big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
         big_df["行业-涨跌幅"] = pd.to_numeric(big_df["行业-涨跌幅"], errors="coerce")
-        big_df["领涨股-涨跌幅"] = pd.to_numeric(big_df["领涨股-涨跌幅"], errors="coerce")
+        big_df["领涨股-涨跌幅"] = pd.to_numeric(
+            big_df["领涨股-涨跌幅"], errors="coerce"
+        )
     else:
         big_df.columns = [
             "序号",
@@ -320,7 +323,9 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
         big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
         big_df["行业-涨跌幅"] = pd.to_numeric(big_df["行业-涨跌幅"], errors="coerce")
-        big_df["领涨股-涨跌幅"] = pd.to_numeric(big_df["领涨股-涨跌幅"], errors="coerce")
+        big_df["领涨股-涨跌幅"] = pd.to_numeric(
+            big_df["领涨股-涨跌幅"], errors="coerce"
+        )
     else:
         big_df.columns = [
             "序号",

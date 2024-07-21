@@ -5,12 +5,13 @@ Date: 2023/12/7 15:30
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 https://finance.sina.com.cn/stock/usstock/sector.shtml
 """
+
 import json
 from functools import lru_cache
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 from tqdm import tqdm
 
 from akshare.stock.cons import (
@@ -42,7 +43,7 @@ def __get_us_page_count() -> int:
         us_sina_stock_list_url.format(dict_list),
         params=us_sina_stock_dict_payload,
     )
-    data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+    data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
     if not isinstance(int(data_json["count"]) / 20, int):
         page_count = int(int(data_json["count"]) / 20) + 1
     else:
@@ -75,7 +76,7 @@ def get_us_stock_name() -> pd.DataFrame:
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
         big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
     return big_df[["name", "cname", "symbol"]]
 
@@ -104,7 +105,7 @@ def stock_us_spot() -> pd.DataFrame:
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
         big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
     return big_df
 
@@ -127,9 +128,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     res = requests.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
-    dict_list = js_code.call(
-        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
-    )
+    dict_list = js_code.call("d", res.text.split("=")[1].split(";")[0].replace('"', ""))
     data_df = pd.DataFrame(dict_list)
     data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
     data_df.index = pd.to_datetime(data_df["date"])
@@ -168,7 +167,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
@@ -177,7 +176,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         try:
             # try for pandas >= 2.1.0
             temp_df.bfill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="bfill", inplace=True)

@@ -5,9 +5,10 @@ Date: 2023/5/30 00:19
 Desc: 巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
+
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 
@@ -92,8 +93,12 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
     temp_df["股东人数增幅"] = pd.to_numeric(temp_df["股东人数增幅"], errors="coerce")
     temp_df["上期股东人数"] = pd.to_numeric(temp_df["上期股东人数"], errors="coerce")
     temp_df["本期股东人数"] = pd.to_numeric(temp_df["本期股东人数"], errors="coerce")
-    temp_df["人均持股数量增幅"] = pd.to_numeric(temp_df["人均持股数量增幅"], errors="coerce")
-    temp_df["上期人均持股数量"] = pd.to_numeric(temp_df["上期人均持股数量"], errors="coerce")
+    temp_df["人均持股数量增幅"] = pd.to_numeric(
+        temp_df["人均持股数量增幅"], errors="coerce"
+    )
+    temp_df["上期人均持股数量"] = pd.to_numeric(
+        temp_df["上期人均持股数量"], errors="coerce"
+    )
     return temp_df
 
 

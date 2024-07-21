@@ -5,12 +5,13 @@ Date: 2024/2/7 23:00
 Desc: 同花顺-数据中心-技术选股
 https://data.10jqka.com.cn/rank/cxg/
 """
+
 from io import StringIO
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
 from akshare.datasets import get_ths_js
 from akshare.utils.tqdm import get_tqdm
@@ -57,10 +58,8 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -87,7 +86,9 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].str.strip("%")
     big_df["换手率"] = big_df["换手率"].str.strip("%")
-    big_df["前期高点日期"] = pd.to_datetime(big_df["前期高点日期"], errors="coerce").dt.date
+    big_df["前期高点日期"] = pd.to_datetime(
+        big_df["前期高点日期"], errors="coerce"
+    ).dt.date
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
     big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
@@ -122,10 +123,8 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -152,7 +151,9 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].str.strip("%")
     big_df["换手率"] = big_df["换手率"].str.strip("%")
-    big_df["前期低点日期"] = pd.to_datetime(big_df["前期低点日期"], errors="coerce").dt.date
+    big_df["前期低点日期"] = pd.to_datetime(
+        big_df["前期低点日期"], errors="coerce"
+    ).dt.date
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
     big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
@@ -175,14 +176,12 @@ def stock_rank_lxsz_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/lxsz/field/lxts/order/desc/page/1/ajax/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/lxsz/field/lxts/order/desc/page/1/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -234,14 +233,12 @@ def stock_rank_lxxd_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/lxxd/field/lxts/order/desc/page/1/ajax/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/lxxd/field/lxts/order/desc/page/1/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -293,14 +290,12 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/cxfl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/cxfl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -351,14 +346,12 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/cxsl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/cxsl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -425,10 +418,8 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -492,10 +483,8 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -543,14 +532,12 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -599,14 +586,12 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    url = "http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -655,14 +640,12 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://data.10jqka.com.cn/ajax/xzjp/field/DECLAREDATE/order/desc/ajax/1/free/1/"
+    url = "http://data.10jqka.com.cn/ajax/xzjp/field/DECLAREDATE/order/desc/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        total_page = soup.find(
-            "span", attrs={"class": "page_info"}
-        ).text.split("/")[1]
-    except AttributeError as e:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError:
         total_page = 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -672,7 +655,7 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
-        url = f"http://data.10jqka.com.cn/ajax/xzjp/field/DECLAREDATE/order/desc/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/ajax/xzjp/field/DECLAREDATE/order/desc/ajax/1/free/1/"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text), converters={"股票代码": str})[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -692,10 +675,14 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
         "历史数据",
     ]
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.zfill(6)
-    big_df["增持数量占总股本比例"] = big_df["增持数量占总股本比例"].astype(str).str.strip("%")
+    big_df["增持数量占总股本比例"] = (
+        big_df["增持数量占总股本比例"].astype(str).str.strip("%")
+    )
     big_df["变动后持股比例"] = big_df["变动后持股比例"].astype(str).str.strip("%")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
-    big_df["增持数量占总股本比例"] = pd.to_numeric(big_df["增持数量占总股本比例"], errors="coerce")
+    big_df["增持数量占总股本比例"] = pd.to_numeric(
+        big_df["增持数量占总股本比例"], errors="coerce"
+    )
     big_df["变动后持股比例"] = pd.to_numeric(big_df["变动后持股比例"], errors="coerce")
     big_df["举牌公告日"] = pd.to_datetime(big_df["举牌公告日"], errors="coerce").dt.date
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
