@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/20 13:28
+Date: 2024/7/22 18:30
 Desc: 新浪财经-B股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -33,7 +33,10 @@ def _get_zh_b_page_count() -> int:
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_b"
+    url = (
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"
+        "Market_Center.getHQNodeStockCount?node=hs_b"
+    )
     r = requests.get(url)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
@@ -45,7 +48,7 @@ def _get_zh_b_page_count() -> int:
 def stock_zh_b_spot() -> pd.DataFrame:
     """
     新浪财经-所有 B 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
-    https://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
+    https://vip.stock.finance.sina.com.cn/mkt/#hs_b
     :return: 所有股票的实时行情数据
     :rtype: pandas.DataFrame
     """
@@ -64,7 +67,7 @@ def stock_zh_b_spot() -> pd.DataFrame:
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
-        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
         "代码",
         "_",
@@ -126,7 +129,7 @@ def stock_zh_b_daily(
 ) -> pd.DataFrame:
     """
     新浪财经-B 股-个股的历史行情数据, 大量抓取容易封 IP
-    https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    https://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
     :param start_date: 20201103; 开始日期
     :type start_date: str
     :param end_date: 20201103; 结束日期
@@ -141,9 +144,9 @@ def stock_zh_b_daily(
 
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
-            res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
             hfq_factor_df = pd.DataFrame(
-                eval(res.text.split("=")[1].split("\n")[0])["data"]
+                eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if hfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
@@ -153,9 +156,9 @@ def stock_zh_b_daily(
             hfq_factor_df.reset_index(inplace=True)
             return hfq_factor_df
         else:
-            res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
             qfq_factor_df = pd.DataFrame(
-                eval(res.text.split("=")[1].split("\n")[0])["data"]
+                eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if qfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
@@ -168,15 +171,18 @@ def stock_zh_b_daily(
     if adjust in ("hfq-factor", "qfq-factor"):
         return _fq_factor(adjust.split("-")[0])
 
-    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
-        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
+        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
     data_df.index = pd.to_datetime(data_df["date"]).dt.date
     del data_df["date"]
+    del data_df["amount"]
+    del data_df["prevclose"]
+
     data_df = data_df.astype("float")
     r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
     amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
@@ -186,15 +192,7 @@ def stock_zh_b_daily(
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="outer"
     )
-    try:
-        # try for pandas >= 2.1.0
-        temp_df.ffill(inplace=True)
-    except Exception:
-        try:
-            # try for pandas < 2.1.0
-            temp_df.fillna(method="ffill", inplace=True)
-        except Exception as e:
-            print("Error:", e)
+    temp_df.ffill(inplace=True)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
@@ -222,25 +220,15 @@ def stock_zh_b_daily(
         return temp_df
 
     if adjust == "hfq":
-        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
-        hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
-        )
+        r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+        hfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
         temp_df = pd.merge(
             temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        try:
-            # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
-        except Exception:
-            try:
-                # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
-            except Exception as e:
-                print("Error:", e)
+        temp_df.ffill(inplace=True)
         temp_df = temp_df.astype(float)
         temp_df.dropna(inplace=True)
         temp_df.drop_duplicates(
@@ -261,26 +249,15 @@ def stock_zh_b_daily(
         return temp_df
 
     if adjust == "qfq":
-        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
-        qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
-        )
+        r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+        qfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
-
         temp_df = pd.merge(
             temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        try:
-            # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
-        except Exception:
-            try:
-                # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
-            except Exception as e:
-                print("Error:", e)
+        temp_df.ffill(inplace=True)
         temp_df = temp_df.astype(float)
         temp_df.dropna(inplace=True)
         temp_df.drop_duplicates(
@@ -322,13 +299,12 @@ def stock_zh_b_minute(
     params = {
         "symbol": symbol,
         "scale": period,
-        "datalen": "20000",
+        "datalen": "1970",
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
     if temp_df.empty:
-        print(f"{symbol} 股票数据不存在，请检查是否已退市")
-        return None
+        return pd.DataFrame()
     try:
         stock_zh_b_daily(symbol=symbol, adjust="qfq")
     except:  # noqa: E722
@@ -396,7 +372,7 @@ if __name__ == "__main__":
     print(stock_zh_b_daily_hfq_df_one)
 
     stock_zh_b_daily_hfq_df_three = stock_zh_b_daily(
-        symbol="sh900901", start_date="19900103", end_date="20210118", adjust="qfq"
+        symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq"
     )
     print(stock_zh_b_daily_hfq_df_three)
 
