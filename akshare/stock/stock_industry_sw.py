@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/14 16:20
+Date: 2024/7/22 17:30
 Desc: 申万宏源研究-行业分类
-https://www.swhyresearch.com/institute_sw/allIndex/downloadCenter/industryType
+http://www.swhyresearch.com/institute_sw/allIndex/downloadCenter/industryType
 """
 
 import io
@@ -21,9 +21,7 @@ def stock_industry_clf_hist_sw() -> pd.DataFrame:
     :return: 个股行业分类变动历史
     :rtype: pandas.DataFrame
     """
-    url = (
-        "http://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls"
-    )
+    url = "https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls"  # 此处为 https
     r = requests.get(url, headers=headers)
     temp_df = pd.read_excel(
         io.BytesIO(r.content), dtype={"股票代码": "str", "行业代码": "str"}
