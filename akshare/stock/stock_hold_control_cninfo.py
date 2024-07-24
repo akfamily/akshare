@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/23 8:30
+Date: 2024/7/24 23:30
 Desc: 巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 
 巨潮资讯-数据中心-专题统计-股东股本-高管持股变动明细
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import datetime
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -27,7 +27,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -35,7 +35,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
 def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param symbol: choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}; 从 2010 开始
     :type symbol: str
     :return: 实际控制人持股变动
@@ -48,7 +48,7 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
         "家族控制": "069004",
         "全部": "",
     }
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1033"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1033"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -61,11 +61,12 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -105,7 +106,7 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
 def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-高管持股变动明细
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param symbol: choice of {"增持", "减持"}
     :type symbol: str
     :return: 高管持股变动明细
@@ -116,7 +117,7 @@ def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
         "减持": "S",
     }
     current_date = datetime.datetime.now().date().isoformat()
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1030"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1030"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -129,11 +130,12 @@ def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
         "Accept-Enckey": mcode,
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
