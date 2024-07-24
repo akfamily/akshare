@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/6/13 16:12
+Date: 2024/7/24 23:30
 Desc: 巨潮资讯-数据中心-专题统计-基金报表
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -22,7 +22,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -30,13 +30,13 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
 def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金重仓股
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param date: 报告时间; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}
     :type date: str
     :return: 基金重仓股
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1112"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1112"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -49,11 +49,12 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -89,19 +90,20 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
     temp_df["持股总数"] = pd.to_numeric(temp_df["持股总数"], errors="coerce")
     temp_df["持股总市值"] = pd.to_numeric(temp_df["持股总市值"], errors="coerce")
     temp_df["基金覆盖家数"] = pd.to_numeric(temp_df["基金覆盖家数"], errors="coerce")
+    temp_df["序号"] = range(1, len(temp_df) + 1)
     return temp_df
 
 
 def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金行业配置
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param date: 报告时间; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}, 从 2017 年开始
     :type date: str
     :return: 基金行业配置
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1113"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1113"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -114,11 +116,12 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -158,11 +161,11 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
 def fund_report_asset_allocation_cninfo() -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金资产配置
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :return: 基金资产配置
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1114"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1114"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -175,11 +178,12 @@ def fund_report_asset_allocation_cninfo() -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, headers=headers)
