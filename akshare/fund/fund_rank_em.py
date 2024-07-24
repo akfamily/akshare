@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/29 18:00
+Date: 2024/7/24 13:00
 Desc: 东方财富网-数据中心-开放基金排行
 https://fund.eastmoney.com/data/fundranking.html
 名词解释
 https://help.1234567.com.cn/list_236.html
 """
+
 from datetime import datetime, date
 
 import pandas as pd
@@ -33,7 +34,7 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-开放基金排行
     https://fund.eastmoney.com/data/fundranking.html
-    :param symbol: choice of {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}
+    :param symbol: choice of {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "FOF"}
     :type symbol: str
     :return: 开放基金排行
     :rtype: pandas.DataFrame
@@ -69,12 +70,13 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
         "v": "0.1591891419018292",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"): -1])
+    data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df.reset_index(inplace=True)
@@ -129,20 +131,20 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
             "手续费",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
-    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
-    temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'], errors="coerce")
-    temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'], errors="coerce")
-    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
-    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
-    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
-    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
-    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
-    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
-    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
-    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
-    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
-    temp_df['自定义'] = pd.to_numeric(temp_df['自定义'], errors="coerce")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
+    temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"], errors="coerce")
+    temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"], errors="coerce")
+    temp_df["近1周"] = pd.to_numeric(temp_df["近1周"], errors="coerce")
+    temp_df["近1月"] = pd.to_numeric(temp_df["近1月"], errors="coerce")
+    temp_df["近3月"] = pd.to_numeric(temp_df["近3月"], errors="coerce")
+    temp_df["近6月"] = pd.to_numeric(temp_df["近6月"], errors="coerce")
+    temp_df["近1年"] = pd.to_numeric(temp_df["近1年"], errors="coerce")
+    temp_df["近2年"] = pd.to_numeric(temp_df["近2年"], errors="coerce")
+    temp_df["近3年"] = pd.to_numeric(temp_df["近3年"], errors="coerce")
+    temp_df["今年来"] = pd.to_numeric(temp_df["今年来"], errors="coerce")
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
+    temp_df["自定义"] = pd.to_numeric(temp_df["自定义"], errors="coerce")
     return temp_df
 
 
@@ -167,12 +169,13 @@ def fund_exchange_rank_em() -> pd.DataFrame:
         "v": "0.1591891419018292",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{"): -1])
+    json_data = demjson.decode(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df.reset_index(inplace=True)
@@ -224,19 +227,19 @@ def fund_exchange_rank_em() -> pd.DataFrame:
             "成立日期",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['成立日期'] = pd.to_datetime(temp_df['成立日期']).dt.date
-    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
-    temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'], errors="coerce")
-    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
-    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
-    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
-    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
-    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
-    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
-    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
-    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
-    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["成立日期"] = pd.to_datetime(temp_df["成立日期"]).dt.date
+    temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
+    temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"], errors="coerce")
+    temp_df["近1周"] = pd.to_numeric(temp_df["近1周"], errors="coerce")
+    temp_df["近1月"] = pd.to_numeric(temp_df["近1月"], errors="coerce")
+    temp_df["近3月"] = pd.to_numeric(temp_df["近3月"], errors="coerce")
+    temp_df["近6月"] = pd.to_numeric(temp_df["近6月"], errors="coerce")
+    temp_df["近1年"] = pd.to_numeric(temp_df["近1年"], errors="coerce")
+    temp_df["近2年"] = pd.to_numeric(temp_df["近2年"], errors="coerce")
+    temp_df["近3年"] = pd.to_numeric(temp_df["近3年"], errors="coerce")
+    temp_df["今年来"] = pd.to_numeric(temp_df["今年来"], errors="coerce")
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
     return temp_df
 
 
@@ -259,7 +262,8 @@ def fund_money_rank_em() -> pd.DataFrame:
         "_": "1603867224251",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
@@ -319,20 +323,24 @@ def fund_money_rank_em() -> pd.DataFrame:
             "手续费",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['万份收益'] = pd.to_numeric(temp_df['万份收益'], errors="coerce")
-    temp_df['年化收益率7日'] = pd.to_numeric(temp_df['年化收益率7日'], errors="coerce")
-    temp_df['年化收益率14日'] = pd.to_numeric(temp_df['年化收益率14日'], errors="coerce")
-    temp_df['年化收益率28日'] = pd.to_numeric(temp_df['年化收益率28日'], errors="coerce")
-    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
-    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
-    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
-    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
-    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
-    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
-    temp_df['近5年'] = pd.to_numeric(temp_df['近5年'], errors="coerce")
-    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
-    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["万份收益"] = pd.to_numeric(temp_df["万份收益"], errors="coerce")
+    temp_df["年化收益率7日"] = pd.to_numeric(temp_df["年化收益率7日"], errors="coerce")
+    temp_df["年化收益率14日"] = pd.to_numeric(
+        temp_df["年化收益率14日"], errors="coerce"
+    )
+    temp_df["年化收益率28日"] = pd.to_numeric(
+        temp_df["年化收益率28日"], errors="coerce"
+    )
+    temp_df["近1月"] = pd.to_numeric(temp_df["近1月"], errors="coerce")
+    temp_df["近3月"] = pd.to_numeric(temp_df["近3月"], errors="coerce")
+    temp_df["近6月"] = pd.to_numeric(temp_df["近6月"], errors="coerce")
+    temp_df["近1年"] = pd.to_numeric(temp_df["近1年"], errors="coerce")
+    temp_df["近2年"] = pd.to_numeric(temp_df["近2年"], errors="coerce")
+    temp_df["近3年"] = pd.to_numeric(temp_df["近3年"], errors="coerce")
+    temp_df["近5年"] = pd.to_numeric(temp_df["近5年"], errors="coerce")
+    temp_df["今年来"] = pd.to_numeric(temp_df["今年来"], errors="coerce")
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
     return temp_df
 
 
@@ -358,13 +366,14 @@ def fund_lcx_rank_em() -> pd.DataFrame:
         "_": "1603867224251",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     try:
         data_json = r.json()
-    except:
+    except:  # noqa: E722
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)
@@ -427,21 +436,22 @@ def fund_hk_rank_em() -> pd.DataFrame:
     format_date = datetime.now().date().isoformat()
     url = "https://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
     params = {
-        'api': 'HKFDApi',
-        'm': 'MethodFundList',
-        'action': '1',
-        'pageindex': '0',
-        'pagesize': '5000',
-        'dy': '1',
-        'date1': format_date,
-        'date2': format_date,
-        'sortfield': 'Y',
-        'sorttype': '-1',
-        'isbuy': '0',
-        '_': '1610790553848',
+        "api": "HKFDApi",
+        "m": "MethodFundList",
+        "action": "1",
+        "pageindex": "0",
+        "pagesize": "5000",
+        "dy": "1",
+        "date1": format_date,
+        "date2": format_date,
+        "sortfield": "Y",
+        "sorttype": "-1",
+        "isbuy": "0",
+        "_": "1610790553848",
     }
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
@@ -494,20 +504,22 @@ def fund_hk_rank_em() -> pd.DataFrame:
             "香港基金代码",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
-    temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'], errors="coerce")
-    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
-    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
-    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
-    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
-    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
-    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
-    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
-    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
-    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
-    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
-    temp_df['可购买'] = temp_df['可购买'].map(lambda x: "可购买" if x == "1" else "不可购买")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
+    temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"], errors="coerce")
+    temp_df["近1周"] = pd.to_numeric(temp_df["近1周"], errors="coerce")
+    temp_df["近1月"] = pd.to_numeric(temp_df["近1月"], errors="coerce")
+    temp_df["近3月"] = pd.to_numeric(temp_df["近3月"], errors="coerce")
+    temp_df["近6月"] = pd.to_numeric(temp_df["近6月"], errors="coerce")
+    temp_df["近1年"] = pd.to_numeric(temp_df["近1年"], errors="coerce")
+    temp_df["近2年"] = pd.to_numeric(temp_df["近2年"], errors="coerce")
+    temp_df["近3年"] = pd.to_numeric(temp_df["近3年"], errors="coerce")
+    temp_df["今年来"] = pd.to_numeric(temp_df["今年来"], errors="coerce")
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
+    temp_df["可购买"] = temp_df["可购买"].map(
+        lambda x: "可购买" if x == "1" else "不可购买"
+    )
     return temp_df
 
 
@@ -528,9 +540,6 @@ if __name__ == "__main__":
     print(fund_open_fund_rank_em_df)
 
     fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="QDII")
-    print(fund_open_fund_rank_em_df)
-
-    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="LOF")
     print(fund_open_fund_rank_em_df)
 
     fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="FOF")
