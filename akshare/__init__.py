@@ -2876,6 +2876,11 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+知名港股
+"""
+from akshare.stock.stock_hk_famous import stock_hk_famous_spot_em
+
+"""
 同花顺-数据中心-宏观数据-股票筹资
 """
 from akshare.economic.macro_finance_ths import macro_stock_finance, macro_rmb_loan, macro_rmb_deposit
