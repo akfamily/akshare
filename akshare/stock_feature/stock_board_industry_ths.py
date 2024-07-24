@@ -338,7 +338,7 @@ if __name__ == "__main__":
     print(stock_board_industry_info_ths_df)
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(
-        symbol="元件", start_date="20240101", end_date="20240718"
+        symbol="消费电子", start_date="20240101", end_date="20240724"
     )
     print(stock_board_industry_index_ths_df)
 
