@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/29 23:34
+Date: 2024/7/24 23:30
 Desc: 巨潮资讯-数据中心-专题统计-公司治理-股权质押
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -22,7 +22,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -30,13 +30,13 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-股权质押
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param date: 开始统计时间
     :type date: str
     :return: 股权质押
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1094"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1094"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("cninfo.js")
     js_code.eval(js_content)
@@ -49,11 +49,12 @@ def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -88,7 +89,7 @@ def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
             "累计质押占总股本比例",
         ]
     ]
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     temp_df["质押数量"] = pd.to_numeric(temp_df["质押数量"], errors="coerce")
     temp_df["占总股本比例"] = pd.to_numeric(temp_df["占总股本比例"], errors="coerce")
     temp_df["质押解除数量"] = pd.to_numeric(temp_df["质押解除数量"], errors="coerce")
