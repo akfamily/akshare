@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/9/28 17:02
+Date: 2024/7/24 13:30
 Desc: 东方财富网-行情中心-美股市场-知名美股
-http://quote.eastmoney.com/center/gridlist.html#us_wellknown
+https://quote.eastmoney.com/center/gridlist.html#us_wellknown
 """
+
 import pandas as pd
 import requests
 
@@ -12,7 +13,7 @@ import requests
 def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
     """
     东方财富网-行情中心-美股市场-知名美股
-    http://quote.eastmoney.com/center/gridlist.html#us_wellknown
+    https://quote.eastmoney.com/center/gridlist.html#us_wellknown
     :symbol: choice of {'科技类', '金融类', '医药食品类', '媒体类', '汽车能源类', '制造零售类'}
     :type: str
     :return: 知名美股实时行情
@@ -26,7 +27,7 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
         "汽车能源类": "0219",
         "制造零售类": "0221",
     }
-    url = "http://69.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://69.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "2000",
@@ -37,7 +38,8 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": f"b:MK{market_map[symbol]}",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
+        "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1631271634231",
     }
     r = requests.get(url, params=params)
@@ -111,6 +113,13 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    for item in {"科技类", "金融类", "医药食品类", "媒体类", "汽车能源类", "制造零售类"}:
+    for item in {
+        "科技类",
+        "金融类",
+        "医药食品类",
+        "媒体类",
+        "汽车能源类",
+        "制造零售类",
+    }:
         stock_us_famous_spot_em_df = stock_us_famous_spot_em(symbol=item)
         print(stock_us_famous_spot_em_df)
