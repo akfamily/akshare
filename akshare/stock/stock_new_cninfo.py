@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/12 17:29
+Date: 2024/7/25 14:30
 Desc: 巨潮资讯-数据中心-新股数据
-http://webapi.cninfo.com.cn/#/xinguList
+https://webapi.cninfo.com.cn/#/xinguList
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -22,7 +22,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -30,11 +30,11 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
 def stock_new_gh_cninfo() -> pd.DataFrame:
     """
     巨潮资讯-数据中心-新股数据-新股过会
-    http://webapi.cninfo.com.cn/#/xinguList
+    https://webapi.cninfo.com.cn/#/xinguList
     :return: 新股过会
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1098"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1098"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -47,11 +47,12 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, headers=headers)
@@ -75,11 +76,11 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
 def stock_new_ipo_cninfo() -> pd.DataFrame:
     """
     巨潮资讯-数据中心-新股数据-新股发行
-    http://webapi.cninfo.com.cn/#/xinguList
+    https://webapi.cninfo.com.cn/#/xinguList
     :return: 新股发行
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1097"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1097"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
@@ -92,11 +93,12 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
