@@ -2853,9 +2853,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.40 fix: fix fund_open_fund_rank_em interface
 1.14.41 fix: fix fund_report_asset_allocation_cninfo interface
 1.14.42 fix: fix stock_new_gh_cninfo interface
+1.14.43 fix: fix stock_share_change_cninfo interface
 """
 
-__version__ = "1.14.42"
+__version__ = "1.14.43"
 __author__ = "AKFamily"
 
 import sys
@@ -4821,15 +4822,6 @@ from akshare.stock_feature.stock_gpzy_em import (
 from akshare.stock_feature.stock_jgdy_em import (
     stock_jgdy_tj_em,
     stock_jgdy_detail_em,
-)
-
-"""
-IT桔子
-"""
-from akshare.fortune.fortune_it_juzi import (
-    death_company,
-    maxima_company,
-    nicorn_company,
 )
 
 """
