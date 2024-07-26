@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/4 19:20
+Date: 2024/7/26 18:20
 Desc: 巨潮资讯-股本股东-公司股本变动
-http://webapi.cninfo.com.cn/api/stock/p_stock2215
+https://webapi.cninfo.com.cn/api/stock/p_stock2215
 """
 
 import pandas as pd
@@ -34,7 +34,7 @@ def stock_share_change_cninfo(
 ) -> pd.DataFrame:
     """
     巨潮资讯-股本股东-公司股本变动
-    http://webapi.cninfo.com.cn/#/apiDoc
+    https://webapi.cninfo.com.cn/#/apiDoc
     查询 p_stock2215 接口
     :param symbol: 股票代码
     :type symbol: str
@@ -45,7 +45,7 @@ def stock_share_change_cninfo(
     :return: 公司股本变动
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/stock/p_stock2215"
+    url = "https://webapi.cninfo.com.cn/api/stock/p_stock2215"
     params = {
         "scode": symbol,
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
@@ -63,10 +63,10 @@ def stock_share_change_cninfo(
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
+        "Referer": "https://webapi.cninfo.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
@@ -125,8 +125,8 @@ def stock_share_change_cninfo(
     ignore_cols = ["最新记录标识", "其他"]
     temp_df.rename(columns=cols_map, inplace=True)
     temp_df.fillna(pd.NA, inplace=True)
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"]).dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]
     return data_df
 
@@ -135,6 +135,6 @@ if __name__ == "__main__":
     stock_share_change_cninfo_df = stock_share_change_cninfo(
         symbol="002594",
         start_date="20091227",
-        end_date="20220713",
+        end_date="20240726",
     )
     print(stock_share_change_cninfo_df)
