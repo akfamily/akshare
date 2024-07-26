@@ -187,12 +187,6 @@
  "option_finance_board"  # 金融期权数据
  # 期货连续合约
  "futures_main_sina"  # 新浪期货连续合约的历史数据
- # 倒闭公司数据
- "death_company"  # 2014至今倒闭公司名单
- # 独角兽公司数据
- "nicorn_company"  # 独角兽公司名单
- # 千里马公司数据
- "maxima_company"  # 千里马公司名单
  # 机构调研数据
  "stock_jgdy_tj_em"  # 机构调研数据-统计
  "stock_jgdy_detail_em"  # 机构调研数据-详细
