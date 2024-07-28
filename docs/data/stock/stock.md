@@ -4340,7 +4340,7 @@ print(stock_hk_daily_hfq_factor_df)
 ```python
 import akshare as ak
 
-stock_hk_famous_spot_em_df = ak.stock_hk_famous_spot_em(symbol='科技类')
+stock_hk_famous_spot_em_df = ak.stock_hk_famous_spot_em()
 print(stock_hk_famous_spot_em_df)
 ```
 
