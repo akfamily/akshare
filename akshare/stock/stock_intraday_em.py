@@ -5,6 +5,7 @@ Date: 2023/10/14 22:00
 Desc: 东财财富-日内分时数据
 https://quote.eastmoney.com/f1.html?newcode=0.000001
 """
+
 import json
 from functools import lru_cache
 
@@ -130,11 +131,13 @@ def stock_intraday_em(symbol: str = "000001") -> pd.DataFrame:
         temp_df = pd.DataFrame(
             [item.split(",") for item in event_json["data"]["details"]]
         )
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         break
 
     big_df.columns = ["时间", "成交价", "手数", "-", "买卖盘性质"]
-    big_df['买卖盘性质'] = big_df['买卖盘性质'].map({'2': '买盘', '1': '卖盘', '4': '中性盘'})
+    big_df["买卖盘性质"] = big_df["买卖盘性质"].map(
+        {"2": "买盘", "1": "卖盘", "4": "中性盘"}
+    )
     big_df = big_df[["时间", "成交价", "手数", "买卖盘性质"]]
     big_df["成交价"] = pd.to_numeric(big_df["成交价"], errors="coerce")
     big_df["手数"] = pd.to_numeric(big_df["手数"], errors="coerce")
