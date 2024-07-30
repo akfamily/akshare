@@ -2855,9 +2855,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.42 fix: fix stock_new_gh_cninfo interface
 1.14.43 fix: fix stock_share_change_cninfo interface
 1.14.44 fix: fix stock_hk_famous_spot_em interface
+1.14.45 fix: fix option_lhb_em interface
 """
 
-__version__ = "1.14.44"
+__version__ = "1.14.45"
 __author__ = "AKFamily"
 
 import sys
