@@ -2856,9 +2856,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.43 fix: fix stock_share_change_cninfo interface
 1.14.44 fix: fix stock_hk_famous_spot_em interface
 1.14.45 fix: fix option_lhb_em interface
+1.14.46 add: add spot_hog_soozhu interface
 """
 
-__version__ = "1.14.45"
+__version__ = "1.14.46"
 __author__ = "AKFamily"
 
 import sys
@@ -2879,6 +2880,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+搜猪-生猪大数据-各省均价实时排行榜
+"""
+from akshare.spot.spot_hog_soozhu import spot_hog_soozhu
 
 """
 知名港股
