@@ -19,7 +19,8 @@ def spot_hog_soozhu() -> pd.DataFrame:
     :rtype: pd.DataFrame
     """
     session = requests.session()
-    r = session.get("https://www.soozhu.com/price/data/center/")
+    url = "https://www.soozhu.com/price/data/center/"
+    r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     token = soup.find(name="input", attrs={"name": "csrfmiddlewaretoken"})["value"]
     url = "https://www.soozhu.com/price/data/center/"
