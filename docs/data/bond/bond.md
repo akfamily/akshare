@@ -1349,7 +1349,8 @@ print(bond_zh_cov_value_analysis_df)
 | cookie | str | cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条 |
 
 1. 需要查看的链接为：https://app.jisilu.cn/data/cbnew/
-2. 需要复制的 Cookie 为：![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_jsl/jsl_cookie.png)
+2. 需要复制的 Cookie 为：![](https://pic2.zhimg.com/80/v2-c66f56a334e2c5642a9c8e2975b2f871_1440w.webp)
+3. 参考文章：[如何拿到集思录的可转债实时数据](https://zhuanlan.zhihu.com/p/607755294)
 
 输出参数
 
