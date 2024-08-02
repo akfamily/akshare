@@ -985,8 +985,6 @@
  "index_ai_cx"  # 财新数据-指数报告-AI策略指数
  "index_bei_cx"  # 财新数据-指数报告-基石经济指数
  "index_neei_cx"  # 财新数据-指数报告-新动能指数
- # 冬奥会
- "sport_olympic_winter_hist"  # 冬奥会-历届奖牌榜
  # 指数历史数据
  "index_zh_a_hist"  # 中国股票指数历史数据
  # 指数分时数据
@@ -1277,6 +1275,7 @@
  "stock_us_famous_spot_em"  # 知名港股
  # 搜猪-生猪大数据-各省均价实时排行榜
  "spot_hog_soozhu"  # 搜猪-生猪大数据-各省均价实时排行榜
+ "spot_hog_year_trend_soozhu"  # 搜猪-生猪大数据-今年以来全国出栏均价走势
 ```
 
 ## 案例演示
