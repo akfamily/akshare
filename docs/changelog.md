@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.49 fix: fix fortune_rank interface
+
+    1. 修复 fortune_rank 接口
+    2. 修复 car_market_fuel_cpca 接口
+
 1.14.48 add: add spot_hog_year_trend_soozhu interface
 
     1. 新增 spot_hog_year_trend_soozhu 接口
@@ -4427,6 +4432,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.49 fix: fix fortune_rank interface
 
 1.14.48 add: add spot_hog_year_trend_soozhu interface
 
