@@ -92,7 +92,7 @@ print(sport_olympic_hist_df)
 
 接口: car_market_total_cpca
 
-目标地址: http://data.cpcaauto.com/TotalMarket
+目标地址: http://data.cpcadata.com/TotalMarket
 
 描述: 乘联会-统计数据-总体市场
 
@@ -144,7 +144,7 @@ print(car_market_total_cpca_df)
 
 接口: car_market_man_rank_cpca
 
-目标地址: http://data.cpcaauto.com/ManRank
+目标地址: http://data.cpcadata.com/ManRank
 
 描述: 乘联会-统计数据-厂商排名
 
@@ -194,7 +194,7 @@ print(car_market_man_rank_cpca_df)
 
 接口: car_market_cate_cpca
 
-目标地址: http://data.cpcaauto.com/CategoryMarket
+目标地址: http://data.cpcadata.com/CategoryMarket
 
 描述: 乘联会-统计数据-车型大类
 
@@ -246,7 +246,7 @@ print(car_market_cate_cpca_df)
 
 接口: car_market_country_cpca
 
-目标地址: http://data.cpcaauto.com/CountryMarket
+目标地址: http://data.cpcadata.com/CountryMarket
 
 描述: 乘联会-统计数据-国别细分市场
 
@@ -303,7 +303,7 @@ print(car_market_country_cpca_df)
 
 接口: car_market_segment_cpca
 
-目标地址: http://data.cpcaauto.com/SegmentMarket
+目标地址: http://data.cpcadata.com/SegmentMarket
 
 描述: 乘联会-统计数据-级别细分市场
 
@@ -357,7 +357,7 @@ print(car_market_segment_cpca_df)
 
 接口: car_market_fuel_cpca
 
-目标地址: http://data.cpcaauto.com/FuelMarket
+目标地址: http://data.cpcadata.com/FuelMarket
 
 描述: 乘联会-统计数据-车型大类
 
