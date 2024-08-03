@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/31 19:00
+Date: 2024/8/3 20:00
 Desc: 乘联会
-http://data.cpcaauto.com/FuelMarket
+http://data.cpcadata.com/FuelMarket
 """
 
 import pandas as pd
@@ -15,7 +15,7 @@ def car_market_total_cpca(
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-总体市场
-    http://data.cpcaauto.com/TotalMarket
+    http://data.cpcadata.com/TotalMarket
     :param symbol: choice of {"狭义乘用车", "广义乘用车"}
     :type symbol: str
     :param indicator: choice of {"产量", "批发", "零售", "出口"}
@@ -23,7 +23,7 @@ def car_market_total_cpca(
     :return: 统计数据-总体市场
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "1"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -163,13 +163,13 @@ def car_market_total_cpca(
 def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> pd.DataFrame:
     """
     乘联会-统计数据-厂商排名
-    http://data.cpcaauto.com/ManRank
+    http://data.cpcadata.com/ManRank
     :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
     :type symbol: str
     :return: 统计数据-厂商排名
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "2"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -278,13 +278,13 @@ def __car_market_man_rank_cpca_lingshou(
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-厂商排名
-    http://data.cpcaauto.com/ManRank
+    http://data.cpcadata.com/ManRank
     :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
     :type symbol: str
     :return: 统计数据-厂商排名
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist_2"
+    url = "http://data.cpcadata.com/api/chartlist_2"
     params = {"charttype": "2"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -393,7 +393,7 @@ def car_market_man_rank_cpca(
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-厂商排名
-    http://data.cpcaauto.com/ManRank
+    http://data.cpcadata.com/ManRank
     :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
     :type symbol: str
     :param indicator: choice of {"批发", "零售"}
@@ -412,13 +412,13 @@ def car_market_man_rank_cpca(
 def __car_market_cate_cpca_pifa(symbol: str = "MPV") -> pd.DataFrame:
     """
     乘联会-统计数据-车型大类
-    http://data.cpcaauto.com/CategoryMarket
+    http://data.cpcadata.com/CategoryMarket
     :param symbol: choice of {"轿车", "MPV", "SUV", "占比"}
     :type symbol: str
     :return: 统计数据-车型大类
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "3"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -530,13 +530,13 @@ def __car_market_cate_cpca_lingshou(
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-车型大类
-    http://data.cpcaauto.com/CategoryMarket
+    http://data.cpcadata.com/CategoryMarket
     :param symbol: choice of {"轿车", "MPV", "SUV", "占比"}
     :type symbol: str
     :return: 统计数据-车型大类
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "3"}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -646,7 +646,7 @@ def __car_market_cate_cpca_lingshou(
 def car_market_cate_cpca(symbol: str = "轿车", indicator: str = "批发") -> pd.DataFrame:
     """
     乘联会-统计数据-车型大类
-    http://data.cpcaauto.com/CategoryMarket
+    http://data.cpcadata.com/CategoryMarket
     :param symbol: choice of {"轿车", "MPV", "SUV", "占比"}
     :type symbol: str
     :param indicator: choice of {"批发", "零售"}
@@ -665,11 +665,11 @@ def car_market_cate_cpca(symbol: str = "轿车", indicator: str = "批发") -> p
 def car_market_country_cpca() -> pd.DataFrame:
     """
     乘联会-统计数据-国别细分市场
-    http://data.cpcaauto.com/CountryMarket
+    http://data.cpcadata.com/CountryMarket
     :return: 统计数据-车型大类
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "4"}
     r = requests.get(url=url, params=params)
     data_json = r.json()
@@ -685,13 +685,13 @@ def car_market_country_cpca() -> pd.DataFrame:
 def car_market_segment_cpca(symbol: str = "轿车") -> pd.DataFrame:
     """
     乘联会-统计数据-级别细分市场
-    http://data.cpcaauto.com/SegmentMarket
+    http://data.cpcadata.com/SegmentMarket
     :param symbol: choice of {"轿车", "MPV", "SUV"}
     :type symbol: str
     :return: 统计数据-车型大类
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "5"}
     r = requests.get(url=url, params=params)
     data_json = r.json()
@@ -724,11 +724,11 @@ def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
     乘联会-统计数据-新能源细分市场
     :param symbol: choice of {"整体市场", "销量占比-PHEV-BEV", "销量占比-ICE-NEV"}
     :type symbol: str
-    https://data.cpcaauto.com/FuelMarket
+    https://data.cpcadata.com/FuelMarket
     :return: 新能源细分市场
     :rtype: pandas.DataFrame
     """
-    url = "http://data.cpcaauto.com/api/chartlist"
+    url = "http://data.cpcadata.com/api/chartlist"
     params = {"charttype": "6"}
     r = requests.get(url, params=params)
     data_json = r.json()
