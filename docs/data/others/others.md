@@ -1347,54 +1347,6 @@ print(fortune_rank_df)
 [500 rows x 6 columns]
 ```
 
-### 财富排行榜-英文
-
-接口: fortune_rank_eng
-
-目标地址: https://fortune.com/global500/
-
-描述: 指定年份财富世界 500 强公司排行榜-英文版本, 从 1995 年开始, 数据和格式较中文版本完整
-
-限量: 单次返回某一个年份的所有历史数据, 早期数据可能不足 500 家公司
-
-输入参数
-
-| 名称   | 类型  | 描述                |
-|------|-----|-------------------|
-| year | str | year="2022"; 指定年份 |
-
-输出参数
-
-| 名称  | 类型  | 描述                |
-|-----|-----|-------------------|
-| -   | -   | 以当年的数据为准, 输出的字段不一 |
-
-接口示例
-
-```python
-import akshare as ak
-
-fortune_rank_eng_df = ak.fortune_rank_eng(year="2022")
-print(fortune_rank_eng_df)
-```
-
-数据示例
-
-```
-     rank fg500_revenues  ... non-us-cos-y-n                     title
-0       1         572754  ...             no                   Walmart
-1       2         469822  ...             no                    Amazon
-2       3       460616.9  ...            yes                State Grid
-3       4       411692.9  ...            yes  China National Petroleum
-4       5       401313.5  ...            yes             Sinopec Group
-..    ...            ...  ...            ...                       ...
-495   496        28987.6  ...            yes                       DSV
-496   497          28945  ...            yes                       ABB
-497   498          28720  ...             no    Mondelez International
-498   499        28708.2  ...            yes                    Danone
-499   500        28649.5  ...            yes                   Umicore
-```
-
 ### 福布斯中国榜单
 
 接口: forbes_rank

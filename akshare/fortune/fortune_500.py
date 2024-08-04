@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/11 17:22
+Date: 2024/8/4 17:22
 Desc: 历年世界 500 强榜单数据
 https://www.fortunechina.com/fortune500/index.htm
 特殊情况说明：
 2010年由于网页端没有公布公司所属的国家, 故 2010 年数据没有国家这列
 """
 
-import json
 from functools import lru_cache
 from io import StringIO
 
@@ -69,42 +68,7 @@ def fortune_rank(year: str = "2015") -> pd.DataFrame:
         return df
 
 
-def fortune_rank_eng(year: str = "2023") -> pd.DataFrame:
-    """
-    注意你的网速
-    https://fortune.com/ranking/global500/
-    https://fortune.com/global500/2012/search/
-    :param year: "1995"
-    :type year: str
-    :return: 历年排名
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://fortune.com/ranking/global500/{year}/search/"
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, features="lxml")
-    code = json.loads(
-        soup.find(name="script", attrs={"type": "application/ld+json"}).string
-    )["identifier"]
-    url = "https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results"
-    params = {
-        "list_id": code,
-        "token": "Zm9ydHVuZTpCcHNyZmtNZCN5SndjWkkhNHFqMndEOTM=",
-    }
-    r = requests.get(url, params=params)
-    big_df = pd.DataFrame()
-    for i in range(len(r.json()[1]["items"][0]["fields"])):
-        temp_df = pd.DataFrame([item["fields"][i] for item in r.json()[1]["items"]])
-        big_df[temp_df["key"].values[0]] = temp_df["value"]
-    big_df["rank"] = big_df["rank"].astype(int)
-    big_df.sort_values(by="rank", inplace=True)
-    big_df.reset_index(drop=True, inplace=True)
-    return big_df
-
-
 if __name__ == "__main__":
-    fortune_rank_eng_df = fortune_rank_eng(year="2022")
-    print(fortune_rank_eng_df)
-
     fortune_rank_df = fortune_rank(year="2023")  # 2010 不一样
     print(fortune_rank_df)
 
