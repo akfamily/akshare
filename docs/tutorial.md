@@ -1276,6 +1276,7 @@
  # 搜猪-生猪大数据-各省均价实时排行榜
  "spot_hog_soozhu"  # 搜猪-生猪大数据-各省均价实时排行榜
  "spot_hog_year_trend_soozhu"  # 搜猪-生猪大数据-今年以来全国出栏均价走势
+ "spot_hog_lean_price_soozhu"  # 搜猪-生猪大数据-全国瘦肉型肉猪
 ```
 
 ## 案例演示
