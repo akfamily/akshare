@@ -2860,9 +2860,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.47 fix: fix spot_hog_soozhu interface
 1.14.48 add: add spot_hog_year_trend_soozhu interface
 1.14.49 fix: fix fortune_rank interface
+1.14.50 add: add spot_hog_lean_price_soozhu interface
 """
 
-__version__ = "1.14.49"
+__version__ = "1.14.50"
 __author__ = "AKFamily"
 
 import sys
@@ -2887,7 +2888,7 @@ del sys
 """
 搜猪-生猪大数据-各省均价实时排行榜
 """
-from akshare.spot.spot_hog_soozhu import spot_hog_soozhu, spot_hog_year_trend_soozhu
+from akshare.spot.spot_hog_soozhu import spot_hog_soozhu, spot_hog_year_trend_soozhu, spot_hog_lean_price_soozhu
 
 """
 知名港股
@@ -4884,11 +4885,6 @@ from akshare.fund.fund_amac import (
     amac_person_fund_org_list,
     amac_person_bond_org_list,
 )
-
-"""
-世界五百强公司排名接口
-"""
-from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 
 """
 申万行业一级
