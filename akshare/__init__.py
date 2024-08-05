@@ -2861,9 +2861,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.48 add: add spot_hog_year_trend_soozhu interface
 1.14.49 fix: fix fortune_rank interface
 1.14.50 add: add spot_hog_lean_price_soozhu interface
+1.14.51 add: add stock_news_main_cx interface
 """
 
-__version__ = "1.14.50"
+__version__ = "1.14.51"
 __author__ = "AKFamily"
 
 import sys
@@ -2884,6 +2885,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+财新网-财新数据通
+"""
+from akshare.stock.stock_news_cx import stock_news_main_cx
 
 """
 搜猪-生猪大数据-各省均价实时排行榜
