@@ -259,10 +259,19 @@ def stock_esg_hz_sina() -> pd.DataFrame:
     :return: 华证指数
     :rtype: pandas.DataFrame
     """
-    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?p=1&num=20000"
-    r = requests.get(url)
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks"
+    params = {"p": 1, "num": "100"}
+    r = requests.get(url, params=params)
     data_json = r.json()
-    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    total_page = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params = {"p": str(page), "num": "100"}
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
     big_df.rename(
         columns={
             "date": "日期",
