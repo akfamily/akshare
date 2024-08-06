@@ -2863,9 +2863,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.50 add: add spot_hog_lean_price_soozhu interface
 1.14.51 add: add stock_news_main_cx interface
 1.14.52 fix: fix stock_esg_hz_sina interface
+1.14.53 add: add spot_hog_three_way_soozhu interface
 """
 
-__version__ = "1.14.52"
+__version__ = "1.14.53"
 __author__ = "AKFamily"
 
 import sys
@@ -2895,7 +2896,12 @@ from akshare.stock.stock_news_cx import stock_news_main_cx
 """
 搜猪-生猪大数据-各省均价实时排行榜
 """
-from akshare.spot.spot_hog_soozhu import spot_hog_soozhu, spot_hog_year_trend_soozhu, spot_hog_lean_price_soozhu
+from akshare.spot.spot_hog_soozhu import (
+    spot_hog_soozhu,
+    spot_hog_year_trend_soozhu,
+    spot_hog_lean_price_soozhu,
+    spot_hog_three_way_soozhu,
+)
 
 """
 知名港股
