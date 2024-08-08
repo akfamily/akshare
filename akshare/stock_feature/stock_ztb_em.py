@@ -508,7 +508,7 @@ def stock_zt_pool_dtgc_em(date: str = "20231129") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zt_pool_em_df = stock_zt_pool_em(date="20240411")
+    stock_zt_pool_em_df = stock_zt_pool_em(date="20240801")
     print(stock_zt_pool_em_df)
 
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
