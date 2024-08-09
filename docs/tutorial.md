@@ -1278,6 +1278,7 @@
  "spot_hog_year_trend_soozhu"  # 搜猪-生猪大数据-今年以来全国出栏均价走势
  "spot_hog_lean_price_soozhu"  # 搜猪-生猪大数据-全国瘦肉型肉猪
  "spot_hog_three_way_soozhu"  # 搜猪-生猪大数据-全国三元仔猪
+ "spot_hog_crossbred_soozhu"  # 搜猪-生猪大数据-全国后备二元母猪
  # 财新网-财新数据通
  "stock_news_main_cx"  # 财新网-财新数据通
 ```
