@@ -158,6 +158,30 @@ def spot_corn_price_soozhu() -> pd.DataFrame:
     return temp_df
 
 
+def spot_soybean_price_soozhu() -> pd.DataFrame:
+    """
+    搜猪-生猪大数据-全国豆粕价格走势
+    https://www.soozhu.com/price/data/center/
+    :return: 全国豆粕价格走势
+    :rtype: pandas.DataFrame
+    """
+    session = requests.session()
+    url = "https://www.soozhu.com/price/data/center/"
+    r = session.get(url)
+    soup = BeautifulSoup(r.text, features="lxml")
+    token = soup.find(name="input", attrs={"name": "csrfmiddlewaretoken"})["value"]
+    url = "https://www.soozhu.com/price/data/center/"
+    payload = {"act": "pricetrend", "indid": "9", "csrfmiddlewaretoken": token}
+    r = session.post(url, data=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["datalist"])
+    temp_df.columns = ["日期", "价格"]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
+    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    return temp_df
+
+
 if __name__ == "__main__":
     spot_hog_soozhu_df = spot_hog_soozhu()
     print(spot_hog_soozhu_df)
@@ -176,3 +200,6 @@ if __name__ == "__main__":
 
     spot_corn_price_soozhu_df = spot_corn_price_soozhu()
     print(spot_corn_price_soozhu_df)
+
+    spot_soybean_price_soozhu_df = spot_soybean_price_soozhu()
+    print(spot_soybean_price_soozhu_df)
