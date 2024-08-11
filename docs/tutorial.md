@@ -527,8 +527,6 @@
  "stock_register_db"  # 注册制审核-达标企业
  # 次新股
  "stock_zh_a_new"  # 股票数据-次新股
- # 国债期货可交割券相关指标
- "bond_futures_deliverable_coupons"  # 国债期货可交割券相关指标
  # COMEX库存数据
  "futures_comex_inventory"  # COMEX库存数据
  # 消费者信心指数
@@ -1280,6 +1278,7 @@
  "spot_hog_three_way_soozhu"  # 搜猪-生猪大数据-全国三元仔猪
  "spot_hog_crossbred_soozhu"  # 搜猪-生猪大数据-全国后备二元母猪
  "spot_corn_price_soozhu"  # 搜猪-生猪大数据-全国玉米价格走势
+ "spot_soybean_price_soozhu"  # 搜猪-生猪大数据-全国豆粕价格走势
  # 财新网-财新数据通
  "stock_news_main_cx"  # 财新网-财新数据通
 ```
