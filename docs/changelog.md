@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.14.58 add: add spot_mixed_feed_soozhu interface
+
+    1. 新增 spot_mixed_feed_soozhu 接口
+
 1.14.57 add: add spot_soybean_price_soozhu interface
 
     1. 新增 spot_soybean_price_soozhu 接口
@@ -4465,6 +4469,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.58 add: add spot_mixed_feed_soozhu interface
 
 1.14.57 add: add spot_soybean_price_soozhu interface
 
