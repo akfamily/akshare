@@ -2868,9 +2868,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.55 add: add spot_hog_crossbred_soozhu interface
 1.14.56 add: add spot_corn_price_soozhu interface
 1.14.57 add: add spot_soybean_price_soozhu interface
+1.14.58 add: add spot_mixed_feed_soozhu interface
 """
 
-__version__ = "1.14.57"
+__version__ = "1.14.58"
 __author__ = "AKFamily"
 
 import sys
@@ -2908,6 +2909,7 @@ from akshare.spot.spot_hog_soozhu import (
     spot_hog_crossbred_soozhu,
     spot_corn_price_soozhu,
     spot_soybean_price_soozhu,
+    spot_mixed_feed_soozhu,
 )
 
 """
