@@ -1279,6 +1279,7 @@
  "spot_hog_crossbred_soozhu"  # 搜猪-生猪大数据-全国后备二元母猪
  "spot_corn_price_soozhu"  # 搜猪-生猪大数据-全国玉米价格走势
  "spot_soybean_price_soozhu"  # 搜猪-生猪大数据-全国豆粕价格走势
+ "spot_mixed_feed_soozhu"  # 搜猪-生猪大数据-全国育肥猪合料（含自配料）半月走势
  # 财新网-财新数据通
  "stock_news_main_cx"  # 财新网-财新数据通
 ```
