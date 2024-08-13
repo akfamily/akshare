@@ -68,7 +68,9 @@ def bond_zh_cov_info_ths() -> pd.DataFrame:
         ]
     ]
     temp_df["申购日期"] = pd.to_datetime(temp_df["申购日期"], format="%Y-%m-%d").dt.date
-    temp_df["中签公布日"] = pd.to_datetime(temp_df["中签公布日"], format="%Y-%m-%d").dt.date
+    temp_df["中签公布日"] = pd.to_datetime(
+        temp_df["中签公布日"], format="%Y-%m-%d", errors="coerce"
+    ).dt.date
     temp_df["上市日期"] = pd.to_datetime(
         temp_df["上市日期"], format="%Y-%m-%d", errors="coerce"
     ).dt.date
