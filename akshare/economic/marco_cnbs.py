@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/19 18:20
+Date: 2023/8/14 11:10
 Desc: 国家金融与发展实验室-中国宏观杠杆率数据
 http://114.115.232.154:8080/
 """
+
 import pandas as pd
 
 
@@ -50,16 +51,20 @@ def macro_cnbs() -> pd.DataFrame:
         "金融部门负债方",
     ]
     temp_df = temp_df.reindex(columns=column_order)
-
     temp_df["居民部门"] = pd.to_numeric(temp_df["居民部门"], errors="coerce")
-    temp_df["非金融企业部门"] = pd.to_numeric(temp_df["非金融企业部门"], errors="coerce")
+    temp_df["非金融企业部门"] = pd.to_numeric(
+        temp_df["非金融企业部门"], errors="coerce"
+    )
     temp_df["政府部门"] = pd.to_numeric(temp_df["政府部门"], errors="coerce")
     temp_df["中央政府"] = pd.to_numeric(temp_df["中央政府"], errors="coerce")
     temp_df["地方政府"] = pd.to_numeric(temp_df["地方政府"], errors="coerce")
     temp_df["实体经济部门"] = pd.to_numeric(temp_df["实体经济部门"], errors="coerce")
-    temp_df["金融部门资产方"] = pd.to_numeric(temp_df["金融部门资产方"], errors="coerce")
-    temp_df["金融部门负债方"] = pd.to_numeric(temp_df["金融部门负债方"], errors="coerce")
-
+    temp_df["金融部门资产方"] = pd.to_numeric(
+        temp_df["金融部门资产方"], errors="coerce"
+    )
+    temp_df["金融部门负债方"] = pd.to_numeric(
+        temp_df["金融部门负债方"], errors="coerce"
+    )
     return temp_df
 
 
