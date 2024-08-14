@@ -2869,9 +2869,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.56 add: add spot_corn_price_soozhu interface
 1.14.57 add: add spot_soybean_price_soozhu interface
 1.14.58 add: add spot_mixed_feed_soozhu interface
+1.14.59 fix: fix macro_cnbs interface
 """
 
-__version__ = "1.14.58"
+__version__ = "1.14.59"
 __author__ = "AKFamily"
 
 import sys

@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.14.59 fix: fix macro_cnbs interface
+
+    1. 修复 macro_cnbs 接口
+
 1.14.58 add: add spot_mixed_feed_soozhu interface
 
     1. 新增 spot_mixed_feed_soozhu 接口
@@ -4469,6 +4473,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.59 fix: fix macro_cnbs interface
 
 1.14.58 add: add spot_mixed_feed_soozhu interface
 
