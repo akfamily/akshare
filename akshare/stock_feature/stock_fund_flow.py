@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/21 11:00
+Date: 2024/8/15 18:00
 Desc: 同花顺-数据中心-资金流向
 同花顺-数据中心-资金流向-个股资金流
 https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
@@ -33,7 +33,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -61,13 +61,14 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
         "Host": "data.10jqka.com.cn",
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = "http://data.10jqka.com.cn/funds/ggzjl/field/code/order/desc/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    soup = BeautifulSoup(r.text, features="lxml")
+    raw_page = soup.find(name="span", attrs={"class": "page_info"}).text
     page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/ggzjl/board/3/field/zdf/order/desc/page/{}/ajax/1/free/1/"
@@ -96,12 +97,13 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
             "Host": "data.10jqka.com.cn",
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
     big_df.reset_index(inplace=True)
@@ -155,15 +157,16 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         "Host": "data.10jqka.com.cn",
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/gnzjl/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = (
         "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/ajax/1/free/1/"
     )
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    soup = BeautifulSoup(r.text, features="lxml")
+    raw_page = soup.find(name="span", attrs={"class": "page_info"}).text
     page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/gnzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
@@ -192,12 +195,13 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "Host": "data.10jqka.com.cn",
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/gnzjl/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
     big_df.reset_index(inplace=True)
@@ -259,15 +263,16 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         "Host": "data.10jqka.com.cn",
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = (
         "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/ajax/1/free/1/"
     )
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    soup = BeautifulSoup(r.text, features="lxml")
+    raw_page = soup.find(name="span", attrs={"class": "page_info"}).text
     page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/hyzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
@@ -296,12 +301,13 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "Host": "data.10jqka.com.cn",
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
     big_df.reset_index(inplace=True)
@@ -361,13 +367,14 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
         "Host": "data.10jqka.com.cn",
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = "http://data.10jqka.com.cn/funds/ddzz/order/desc/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    soup = BeautifulSoup(r.text, features="lxml")
+    raw_page = soup.find(name="span", attrs={"class": "page_info"}).text
     page_num = raw_page.split("/")[1]
     url = "http://data.10jqka.com.cn/funds/ddzz/order/asc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
@@ -387,12 +394,13 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
             "Host": "data.10jqka.com.cn",
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
         "成交时间",
