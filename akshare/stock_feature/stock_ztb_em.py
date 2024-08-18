@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/25 20:00
+Date: 2024/8/18 17:30
 Desc: 首页-行情中心-涨停板行情-涨停股池
 https://quote.eastmoney.com/ztb/detail#type=ztgc
 
