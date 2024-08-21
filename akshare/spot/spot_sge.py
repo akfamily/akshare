@@ -45,6 +45,49 @@ def spot_symbol_table_sge() -> pd.DataFrame:
     return temp_df
 
 
+def spot_sge_quotations(symbol: str = "Au99.99") -> pd.DataFrame:
+    """
+    上海黄金交易所-行情数据（实时）
+    https://www.sge.com.cn/graph/quotations
+    :param symbol: choice of {'Au99.99', 'Au99.95', 'Au100g', 'Pt99.95', 'Ag(T+D)', 'Au(T+D)', 'mAu(T+D)', 'Au(T+N1)', 'Au(T+N2)', 'Ag99.99', 'iAu99.99', 'Au99.5', 'iAu100g', 'iAu99.5', 'PGC30g', 'NYAuTN06', 'NYAuTN12'}; 可以通过 ak.spot_symbol_table_sge() 获取品种表
+    :type symbol: str
+    :return: 行情数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.sge.com.cn/graph/quotations"
+    payload = {"instid": symbol}
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "15",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Host": "www.sge.com.cn",
+        "Origin": "https://www.sge.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://www.sge.com.cn/",
+        "sec-ch-ua": '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    r = requests.get(url, data=payload, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(
+        {
+            "时间": data_json["times"],
+            "现价": data_json["data"],
+        }
+    )
+    return temp_df
+
+
 def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     """
     上海黄金交易所-数据资讯-行情走势-历史数据
@@ -165,18 +208,21 @@ def spot_silver_benchmark_sge() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    spot_symbol_table_sge_df = spot_symbol_table_sge()
-    print(spot_symbol_table_sge_df)
+    # spot_symbol_table_sge_df = spot_symbol_table_sge()
+    # print(spot_symbol_table_sge_df)
 
-    spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
-    print(spot_hist_sge_df)
+    # spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
+    # print(spot_hist_sge_df)
 
-    spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
-    print(spot_golden_benchmark_sge_df)
+    # spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
+    # print(spot_golden_benchmark_sge_df)
 
-    spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
-    print(spot_silver_benchmark_sge_df)
+    # spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
+    # print(spot_silver_benchmark_sge_df)
 
-    for spot in spot_symbol_table_sge_df["品种"].tolist():
-        spot_hist_sge_df = spot_hist_sge(symbol=spot)
-        print(spot_hist_sge_df)
+    # for spot in spot_symbol_table_sge_df["品种"].tolist():
+    #     spot_hist_sge_df = spot_hist_sge(symbol=spot)
+    #     print(spot_hist_sge_df)
+
+    spot_sge_quotations_df = spot_sge_quotations()
+    print(spot_sge_quotations_df)
