@@ -208,21 +208,21 @@ def spot_silver_benchmark_sge() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # spot_symbol_table_sge_df = spot_symbol_table_sge()
-    # print(spot_symbol_table_sge_df)
+    spot_symbol_table_sge_df = spot_symbol_table_sge()
+    print(spot_symbol_table_sge_df)
 
-    # spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
-    # print(spot_hist_sge_df)
+    spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
+    print(spot_hist_sge_df)
 
-    # spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
-    # print(spot_golden_benchmark_sge_df)
+    spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
+    print(spot_golden_benchmark_sge_df)
 
-    # spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
-    # print(spot_silver_benchmark_sge_df)
+    spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
+    print(spot_silver_benchmark_sge_df)
 
-    # for spot in spot_symbol_table_sge_df["品种"].tolist():
-    #     spot_hist_sge_df = spot_hist_sge(symbol=spot)
-    #     print(spot_hist_sge_df)
+    for spot in spot_symbol_table_sge_df["品种"].tolist():
+        spot_hist_sge_df = spot_hist_sge(symbol=spot)
+        print(spot_hist_sge_df)
 
     spot_sge_quotations_df = spot_sge_quotations()
     print(spot_sge_quotations_df)
