@@ -935,8 +935,10 @@
  "futures_hq_subscribe_exchange_symbol"  # 期货品种字典
  # 上海黄金交易所
  "spot_hist_sge"  # 上海黄金交易所-历史行情走势
+ "spot_quotations_sge"  # 上海黄金交易所-实时行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
  "spot_silver_benchmark_sge"  # 上海银基准价
+
  # 个股信息查询
  "stock_individual_info_em"  # 个股信息查询
  # 中国食糖指数
