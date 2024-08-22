@@ -1371,7 +1371,7 @@ if __name__ == "__main__":
     print(futures_dce_position_rank_other_df)
 
     # 广州期货交易所
-    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20231113")
+    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20240805")
     print(futures_gfex_position_rank_df)
 
     # 总接口
