@@ -605,12 +605,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
             "variety",
         ]
     ]
-    # TODO pandas 2.1.0 change
-    try:
-        data_df = data_df.map(lambda x: x.replace(",", ""))
-    except:  # noqa: E722
-        data_df = data_df.applymap(lambda x: x.replace(",", ""))
-
+    data_df = data_df.map(lambda x: x.replace(",", ""))
     data_df = data_df.astype(
         {
             "open": "float",
@@ -690,7 +685,7 @@ if __name__ == "__main__":
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20230810")
+    get_dce_daily_df = get_dce_daily(date="20140812")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20230810")
