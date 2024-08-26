@@ -40,7 +40,9 @@ def option_dce_daily(
     http://www.dce.com.cn/
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权"}
+    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权",
+    "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权",
+    "鸡蛋期权", "玉米淀粉期权", "生猪期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -68,6 +70,8 @@ def option_dce_daily(
     another_df.reset_index(inplace=True, drop=True)
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
+    result_one_df = pd.DataFrame()
+    result_two_df = pd.DataFrame()
     if symbol == "豆粕期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "豆粕"],
@@ -133,6 +137,21 @@ def option_dce_daily(
             table_df[table_df["商品名称"] == "苯乙烯"],
             another_df[another_df.iloc[:, 0].str.contains("eb")],
         )
+    elif symbol == "鸡蛋期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "鸡蛋"],
+            another_df[another_df.iloc[:, 0].str.contains("eb")],
+        )
+    elif symbol == "玉米淀粉期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "玉米淀粉"],
+            another_df[another_df.iloc[:, 0].str.contains("eb")],
+        )
+    elif symbol == "生猪期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "生猪"],
+            another_df[another_df.iloc[:, 0].str.contains("eb")],
+        )
     result_one_df.reset_index(inplace=True, drop=True)
     result_two_df.reset_index(inplace=True, drop=True)
     result_two_df.columns.name = None
@@ -148,7 +167,8 @@ def option_czce_daily(
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权",  "菜籽粕期权", "动力煤期权", "短纤期权",
-    "菜籽油期权", "花生期权", "棉花期权", "短纤期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权", "烧碱期权", "玻璃期权"}
+    "菜籽油期权", "花生期权", "棉花期权", "短纤期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权",
+    "烧碱期权", "玻璃期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -506,7 +526,7 @@ if __name__ == "__main__":
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="黄大豆2号期权", trade_date="20220808"
+        symbol="鸡蛋期权", trade_date="20240823"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
