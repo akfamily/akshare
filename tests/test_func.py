@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/14 18:00
+Date: 2024/8/28 15:00
 Desc: To test intention, just write test code here!
 """
 
@@ -42,6 +42,6 @@ def test_zipfile_func():
 
 
 if __name__ == "__main__":
-    test_cost_living()
+    # test_cost_living()
     test_path_func()
     test_zipfile_func()
