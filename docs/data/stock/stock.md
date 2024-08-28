@@ -14190,7 +14190,7 @@ print(stock_institute_recommend_detail_df)
 
 接口: stock_rank_forecast_cninfo
 
-目标地址: http://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
+目标地址: https://webapi.cninfo.com.cn/#/thematicStatistics
 
 描述: 巨潮资讯-数据中心-评级预测-投资评级
 
