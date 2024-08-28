@@ -83,6 +83,7 @@
 1.14.66 fix: fix stock_profit_forecast_ths interface
 
     1. 修复 stock_profit_forecast_ths 接口
+    2. 修复 stock_rank_forecast_cninfo 接口
 
 1.14.65 fix: fix option_dce_daily interface
 
