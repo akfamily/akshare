@@ -10,7 +10,7 @@
 
 为了满足不同的客户需求，我们还提供策略编写、个性化工具开发等定制服务，确保不同阶段的量化投资者都能得到有效的支持。
 
-当下由**国金证券**专业量化服务团队提供支持，微信：cmdtzz168
+当下由**上市证券**专业量化服务团队提供支持，微信：cmdtzz168
 
 ![gj_wechat](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/ad/gj_wechat.png)
 
