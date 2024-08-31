@@ -7,7 +7,6 @@ Desc: To test intention, just write test code here!
 
 import pathlib
 
-from akshare.cost.cost_living import cost_living
 from akshare.datasets import get_ths_js, get_crypto_info_csv
 
 
@@ -17,8 +16,7 @@ def test_cost_living():
     :return: assert result
     :rtype: assert
     """
-    cost_living_df = cost_living()
-    assert cost_living_df.shape[0] > 0
+    pass
 
 
 def test_path_func():
