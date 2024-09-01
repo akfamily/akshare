@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.14.68 fix: fix fund_scale_open_sina interface
+
+    1. 修复 fund_scale_open_sina 接口
+    2. 修复 stock_szse_summary 接口
+
 1.14.67 fix: fix futures_foreign_commodity_realtime interface
 
     1. 修复 futures_foreign_commodity_realtime 接口
@@ -4506,6 +4511,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.68 fix: fix fund_scale_open_sina interface
 
 1.14.67 fix: fix futures_foreign_commodity_realtime interface
 

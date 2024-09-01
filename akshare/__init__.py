@@ -2878,9 +2878,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.65 fix: fix option_dce_daily interface
 1.14.66 fix: fix stock_profit_forecast_ths interface
 1.14.67 fix: fix futures_foreign_commodity_realtime interface
+1.14.68 fix: fix fund_scale_open_sina interface
 """
 
-__version__ = "1.14.67"
+__version__ = "1.14.68"
 __author__ = "AKFamily"
 
 import sys
