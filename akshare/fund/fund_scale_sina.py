@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/11/7 18:30
+Date: 2024/9/1 16:20
 Desc: 新浪财经-基金规模
 https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 """
+
 import pandas as pd
 import requests
 
@@ -27,7 +28,10 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
         "货币型基金": "5",
         "QDII基金": "6",
     }
-    url = "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2.CallbackList['J2cW8KXheoWKdSHc']/NetValueReturn_Service.NetValueReturnOpen"
+    url = (
+        "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2."
+        "CallbackList['J2cW8KXheoWKdSHc']/NetValueReturn_Service.NetValueReturnOpen"
+    )
     params = {
         "page": "1",
         "num": "10000",
@@ -39,7 +43,7 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1: -2])
+    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -95,19 +99,22 @@ def fund_scale_close_sina() -> pd.DataFrame:
     :return: 基金规模
     :rtype: pandas.DataFrame
     """
-    url = "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2.CallbackList['_bjN6KvXOkfPy2Bu']/NetValueReturn_Service.NetValueReturnClose"
+    url = (
+        "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2."
+        "CallbackList['_bjN6KvXOkfPy2Bu']/NetValueReturn_Service.NetValueReturnClose"
+    )
     params = {
         "page": "1",
         "num": "1000",
         "sort": "zmjgm",
         "asc": "0",
         "ccode": "",
-        "type2": '',
+        "type2": "",
         "type3": "",
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1: -2])
+    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -163,19 +170,22 @@ def fund_scale_structured_sina() -> pd.DataFrame:
     :return: 基金规模
     :rtype: pandas.DataFrame
     """
-    url = "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2.CallbackList['cRrwseM7NWX68rDa']/NetValueReturn_Service.NetValueReturnCX"
+    url = (
+        "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2."
+        "CallbackList['cRrwseM7NWX68rDa']/NetValueReturn_Service.NetValueReturnCX"
+    )
     params = {
         "page": "1",
         "num": "1000",
         "sort": "zmjgm",
         "asc": "0",
         "ccode": "",
-        "type2": '',
+        "type2": "",
         "type3": "",
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1: -2])
+    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -234,5 +244,5 @@ if __name__ == "__main__":
     fund_scale_structured_sina_df = fund_scale_structured_sina()
     print(fund_scale_structured_sina_df)
 
-    fund_scale_open_sina_df = fund_scale_open_sina(symbol='股票型基金')
+    fund_scale_open_sina_df = fund_scale_open_sina(symbol="股票型基金")
     print(fund_scale_open_sina_df)
