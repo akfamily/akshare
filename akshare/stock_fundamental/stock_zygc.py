@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/11/27 16:30
+Date: 2024/9/3 16:30
 Desc: 主营构成
 https://emweb.securities.eastmoney.com/PC_HSF10/BusinessAnalysis/Index?type=web&code=SH688041#
-http://f10.emoney.cn/f10/zbyz/1000001
+https://f10.emoney.cn/f10/zbyz/1000001
 """
+
 from io import StringIO
 
 import pandas as pd
@@ -16,7 +17,7 @@ from bs4 import BeautifulSoup
 def stock_zygc_ym(symbol: str = "000001") -> pd.DataFrame:
     """
     益盟-F10-主营构成
-    http://f10.emoney.cn/f10/zbyz/1000001
+    https://f10.emoney.cn/f10/zbyz/1000001
     :param symbol: 股票代码
     :type symbol: str
     :return: 主营构成
@@ -24,12 +25,11 @@ def stock_zygc_ym(symbol: str = "000001") -> pd.DataFrame:
     """
     url = f"http://f10.emoney.cn/f10/zygc/{symbol}"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     year_list = [
         item.text.strip()
         for item in soup.find(attrs={"class": "swlab_t"}).find_all("li")
     ]
-
     big_df = pd.DataFrame()
     for i, item in enumerate(year_list, 2):
         temp_df = pd.read_html(StringIO(r.text), header=0)[i]
@@ -113,8 +113,10 @@ def stock_zygc_em(symbol: str = "SH688041") -> pd.DataFrame:
             "毛利率",
         ]
     ]
-    temp_df["报告日期"] = pd.to_datetime(temp_df["报告日期"]).dt.date
-    temp_df["分类类型"] = temp_df["分类类型"].map({"2": "按产品分类", "3": "按地区分类"})
+    temp_df["报告日期"] = pd.to_datetime(temp_df["报告日期"], errors="coerce").dt.date
+    temp_df["分类类型"] = temp_df["分类类型"].map(
+        {"2": "按产品分类", "3": "按地区分类"}
+    )
     temp_df["主营收入"] = pd.to_numeric(temp_df["主营收入"], errors="coerce")
     temp_df["收入比例"] = pd.to_numeric(temp_df["收入比例"], errors="coerce")
     temp_df["主营成本"] = pd.to_numeric(temp_df["主营成本"], errors="coerce")
