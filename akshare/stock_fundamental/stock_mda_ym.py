@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/2/14 12:30
+Date: 2024/9/3 21:00
 Desc: 益盟-F10-管理层讨论与分析
 https://f10.emoney.cn/f10/zbyz/1000001
 """
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -21,7 +22,7 @@ def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
     """
     url = f"http://f10.emoney.cn/f10/zygc/{symbol}"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     year_list = [
         item.text.strip()
         for item in soup.find(attrs={"class": "swlab_t"}).find_all("li")
@@ -36,5 +37,5 @@ def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_mda_ym_df = stock_mda_ym(symbol="000002")
+    stock_mda_ym_df = stock_mda_ym(symbol="000001")
     print(stock_mda_ym_df)
