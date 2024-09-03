@@ -1,43 +1,32 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/9/24 16:08
+Date: 2024/9/3 15:30
 Desc: 导入文件工具，可以正确处理路径问题
 """
+
 import pathlib
 from importlib import resources
 
 
 def get_ths_js(file: str = "ths.js") -> pathlib.Path:
-    """Get path to data "ths.js" text file.
-
-    Returns
-    -------
-    pathlib.PosixPath
-        Path to file.
-
-    References
-    ----------
-    .. [1] E.A.Abbott, ”Flatland”, Seeley & Co., 1884.
     """
-    with resources.path("akshare.data", file) as f:
+    get path to data "ths.js" text file.
+    :return: 文件路径
+    :rtype: pathlib.Path
+    """
+    with resources.path(package="akshare.data", resource=file) as f:
         data_file_path = f
         return data_file_path
 
 
 def get_crypto_info_csv(file: str = "crypto_info.zip") -> pathlib.Path:
-    """Get path to data "ths.js" text file.
-
-    Returns
-    -------
-    pathlib.PosixPath
-        Path to file.
-
-    References
-    ----------
-    .. [1] E.A.Abbott, ”Flatland”, Seeley & Co., 1884.
     """
-    with resources.path("akshare.data", file) as f:
+    get path to data "ths.js" text file.
+    :return: 文件路径
+    :rtype: pathlib.Path
+    """
+    with resources.path(package="akshare.data", resource=file) as f:
         data_file_path = f
         return data_file_path
 
