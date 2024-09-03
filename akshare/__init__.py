@@ -2881,9 +2881,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.68 fix: fix fund_scale_open_sina interface
 1.14.69 fix: fix stock_zygc_ym interface
 1.14.70 fix: fix setup.py
+1.14.71 fix: fix stock_mda_ym interface
 """
 
-__version__ = "1.14.70"
+__version__ = "1.14.71"
 __author__ = "AKFamily"
 
 import sys
