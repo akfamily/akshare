@@ -1,13 +1,13 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/9 16:30
+Date: 2024/9/4 19:30
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
 
-from datetime import datetime
 import re
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -48,8 +48,9 @@ def stock_individual_spot_xq(
     """
     session = requests.Session()
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/78.0.3904.108 Safari/537.36"
+        "cookie": "xq_a_token=49c5e355d2fc1b871fde601c659cf9ae1457a889; ",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
+        "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
     }
     session.get(url="https://xueqiu.com", headers=headers)
     url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
