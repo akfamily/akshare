@@ -337,6 +337,7 @@ def fund_etf_hist_min_em(
             "159985": "0",
             "511090": "1",
             "511220": "1",
+            "511380": "1",
         }
     )
     adjust_map = {
@@ -477,10 +478,10 @@ if __name__ == "__main__":
     print(fund_etf_hist_em_df)
 
     fund_etf_hist_min_em_df = fund_etf_hist_min_em(
-        symbol="511220",
+        symbol="511380",
         period="1",
         adjust="",
-        start_date="2024-03-20 09:30:00",
-        end_date="2024-03-20 17:40:00",
+        start_date="2024-09-04 09:30:00",
+        end_date="2024-09-04 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
