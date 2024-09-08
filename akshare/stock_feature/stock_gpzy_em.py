@@ -85,7 +85,7 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
     return big_df
 
 
-def stock_gpzy_pledge_ratio_em(date: str = "20231020") -> pd.DataFrame:
+def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     https://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -470,13 +470,11 @@ def stock_gpzy_industry_data_em() -> pd.DataFrame:
         ]
     ]
     temp_df["统计时间"] = pd.to_datetime(temp_df["统计时间"]).dt.date
-
     temp_df["平均质押比例"] = pd.to_numeric(temp_df["平均质押比例"])
     temp_df["公司家数"] = pd.to_numeric(temp_df["公司家数"])
     temp_df["质押总笔数"] = pd.to_numeric(temp_df["质押总笔数"])
     temp_df["质押总股本"] = pd.to_numeric(temp_df["质押总股本"])
     temp_df["最新质押市值"] = pd.to_numeric(temp_df["最新质押市值"])
-
     return temp_df
 
 
@@ -484,7 +482,7 @@ if __name__ == "__main__":
     stock_gpzy_profile_em_df = stock_gpzy_profile_em()
     print(stock_gpzy_profile_em_df)
 
-    stock_em_gpzy_pledge_ratio_df = stock_gpzy_pledge_ratio_em(date="20230303")
+    stock_em_gpzy_pledge_ratio_df = stock_gpzy_pledge_ratio_em(date="20240906")
     print(stock_em_gpzy_pledge_ratio_df)
 
     stock_gpzy_pledge_ratio_detail_em_df = stock_gpzy_pledge_ratio_detail_em()
