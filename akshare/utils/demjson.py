@@ -117,7 +117,7 @@ def determine_float_limits(number_type=float):
     else:
         numeric_exceptions = (ValueError,)
 
-    if decimal and number_type == decimal.Decimal:
+    if decimal and number_type is decimal.Decimal:
         number_type = decimal.DefaultContext
 
     if decimal and isinstance(number_type, decimal.Context):
@@ -125,7 +125,7 @@ def determine_float_limits(number_type=float):
         create_num = number_type.create_decimal
         decimal_ctx = decimal.localcontext(number_type)
         is_zero_or_subnormal = lambda n: n.is_zero() or n.is_subnormal()
-    elif number_type == float:
+    elif number_type is float:
         create_num = number_type
         decimal_ctx = _dummy_context_manager
         is_zero_or_subnormal = lambda n: n == 0
