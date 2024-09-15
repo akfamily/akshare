@@ -2886,9 +2886,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.73 fix: fix stock_gpzy_profile_em interface
 1.14.74 fix: fix stock_gpzy_pledge_ratio_em interface
 1.14.75 fix: fix stock_sy_hy_em interface
+1.14.76 fix: fix stock_sy_em interface
 """
 
-__version__ = "1.14.75"
+__version__ = "1.14.76"
 __author__ = "AKFamily"
 
 import sys
