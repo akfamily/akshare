@@ -12,7 +12,8 @@ Desc: 东方财富网-数据中心-特色数据-商誉
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_sy_profile_em() -> pd.DataFrame:
@@ -104,6 +105,7 @@ def stock_sy_yq_em(date: str = "20240630") -> pd.DataFrame:
     data_json = r.json()
     big_df = pd.DataFrame()
     total_page = int(data_json["result"]["pages"])
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -188,7 +190,7 @@ def stock_sy_yq_em(date: str = "20240630") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_jz_em(date: str = "20230331") -> pd.DataFrame:
+def stock_sy_jz_em(date: str = "20240630") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉减值明细
     https://data.eastmoney.com/sy/jzlist.html
@@ -212,6 +214,7 @@ def stock_sy_jz_em(date: str = "20230331") -> pd.DataFrame:
     data_json = r.json()
     big_df = pd.DataFrame()
     total_page = int(data_json["result"]["pages"])
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -312,6 +315,7 @@ def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
     data_json = r.json()
     big_df = pd.DataFrame()
     total_page = int(data_json["result"]["pages"])
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -403,6 +407,7 @@ def stock_sy_hy_em(date: str = "20231231") -> pd.DataFrame:
     data_json = r.json()
     big_df = pd.DataFrame()
     total_page = int(data_json["result"]["pages"])
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -453,10 +458,10 @@ if __name__ == "__main__":
     stock_sy_yq_em_df = stock_sy_yq_em(date="20240630")
     print(stock_sy_yq_em_df)
 
-    stock_sy_jz_em_df = stock_sy_jz_em(date="20230630")
+    stock_sy_jz_em_df = stock_sy_jz_em(date="20240630")
     print(stock_sy_jz_em_df)
 
-    stock_sy_em_df = stock_sy_em(date="20231231")
+    stock_sy_em_df = stock_sy_em(date="20240630")
     print(stock_sy_em_df)
 
     stock_sy_hy_em_df = stock_sy_hy_em(date="20231231")
