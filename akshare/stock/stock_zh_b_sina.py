@@ -367,7 +367,7 @@ def stock_zh_b_minute(
 
 if __name__ == "__main__":
     stock_zh_b_daily_hfq_df_one = stock_zh_b_daily(
-        symbol="sh900901", start_date="20171103", end_date="20210908", adjust=""
+        symbol="sh900901", start_date="20071103", end_date="20240916", adjust=""
     )
     print(stock_zh_b_daily_hfq_df_one)
 
