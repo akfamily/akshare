@@ -48,7 +48,7 @@ def stock_individual_spot_xq(
     """
     session = requests.Session()
     headers = {
-        "cookie": "xq_a_token=49c5e355d2fc1b871fde601c659cf9ae1457a889; ",
+        "cookie": "xq_a_token=927886df384cbb16c88673ae7f519c76650c54b9;",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
         "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
     }
