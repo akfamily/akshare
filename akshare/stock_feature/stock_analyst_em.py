@@ -5,12 +5,14 @@ Date: 2023/8/20 20:00
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
 https://data.eastmoney.com/invest/invest/list.html
 """
+
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
+from akshare.utils.cons import headers
 
 
-def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
+def stock_analyst_rank_em(year: str = "2024") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数
     https://data.eastmoney.com/invest/invest/list.html
@@ -20,9 +22,6 @@ def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://data.eastmoney.com/dataapi/invest/list"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
-    }
     params = {
         "sortColumns": "YEAR_YIELD",
         "sortTypes": "-1",
@@ -40,12 +39,13 @@ def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         data_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, data_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, data_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = list(range(1, len(big_df) + 1))
@@ -92,7 +92,9 @@ def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
     ]
     big_df["更新日期"] = pd.to_datetime(big_df["更新日期"], errors="coerce").dt.date
     big_df["年度指数"] = pd.to_numeric(big_df["年度指数"], errors="coerce")
-    big_df[f"{year}年收益率"] = pd.to_numeric(big_df[f"{year}年收益率"], errors="coerce")
+    big_df[f"{year}年收益率"] = pd.to_numeric(
+        big_df[f"{year}年收益率"], errors="coerce"
+    )
     big_df["3个月收益率"] = pd.to_numeric(big_df["3个月收益率"], errors="coerce")
     big_df["6个月收益率"] = pd.to_numeric(big_df["6个月收益率"], errors="coerce")
     big_df["12个月收益率"] = pd.to_numeric(big_df["12个月收益率"], errors="coerce")
@@ -114,9 +116,6 @@ def stock_analyst_detail_em(
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter.eastmoney.com/special/api/data/v1/get"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
-    }
     if indicator == "最新跟踪成分股":
         params = {
             "reportName": "RPT_RESEARCHER_NTCSTOCK",
@@ -132,7 +131,7 @@ def stock_analyst_detail_em(
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]['data'])
+        temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df.reset_index(inplace=True)
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
@@ -164,9 +163,15 @@ def stock_analyst_detail_em(
                 "阶段涨跌幅",
             ]
         ]
-        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"], errors="coerce").dt.date
-        temp_df["最新评级日期"] = pd.to_datetime(temp_df["最新评级日期"], errors="coerce").dt.date
-        temp_df["成交价格(前复权)"] = pd.to_numeric(temp_df["成交价格(前复权)"], errors="coerce")
+        temp_df["调入日期"] = pd.to_datetime(
+            temp_df["调入日期"], errors="coerce"
+        ).dt.date
+        temp_df["最新评级日期"] = pd.to_datetime(
+            temp_df["最新评级日期"], errors="coerce"
+        ).dt.date
+        temp_df["成交价格(前复权)"] = pd.to_numeric(
+            temp_df["成交价格(前复权)"], errors="coerce"
+        )
         temp_df["最新价格"] = pd.to_numeric(temp_df["最新价格"], errors="coerce")
         temp_df["阶段涨跌幅"] = pd.to_numeric(temp_df["阶段涨跌幅"], errors="coerce")
         return temp_df
@@ -185,7 +190,7 @@ def stock_analyst_detail_em(
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]['data'])
+        temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df.reset_index(inplace=True)
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
@@ -214,8 +219,12 @@ def stock_analyst_detail_em(
                 "累计涨跌幅",
             ]
         ]
-        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"], errors="coerce").dt.date
-        temp_df["调出日期"] = pd.to_datetime(temp_df["调出日期"], errors="coerce").dt.date
+        temp_df["调入日期"] = pd.to_datetime(
+            temp_df["调入日期"], errors="coerce"
+        ).dt.date
+        temp_df["调出日期"] = pd.to_datetime(
+            temp_df["调出日期"], errors="coerce"
+        ).dt.date
         temp_df["累计涨跌幅"] = pd.to_numeric(temp_df["累计涨跌幅"], errors="coerce")
         return temp_df
     elif indicator == "历史指数":
@@ -231,22 +240,22 @@ def stock_analyst_detail_em(
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(
-           data_json['result']['data']
-        )
-        temp_df = temp_df[[
-            "TRADE_DATE",
-            "INDEX_HVALUE",
-        ]]
-        temp_df.columns = ['date', 'value']
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        temp_df = temp_df[
+            [
+                "TRADE_DATE",
+                "INDEX_HVALUE",
+            ]
+        ]
+        temp_df.columns = ["date", "value"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
-        temp_df.sort_values(['date'], inplace=True, ignore_index=True)
+        temp_df.sort_values(["date"], inplace=True, ignore_index=True)
         return temp_df
 
 
 if __name__ == "__main__":
-    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2023")
+    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2024")
     print(stock_analyst_rank_em_df)
 
     stock_analyst_detail_em_df = stock_analyst_detail_em(
