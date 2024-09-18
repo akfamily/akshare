@@ -83,6 +83,7 @@
 1.14.78 fix: fix stock_analyst_rank_em interface
 
     1. 修复 stock_analyst_rank_em 接口
+    2. 修复 stock_individual_spot_xq 接口
 
 1.14.77 fix: fix stock_zh_b_daily interface
 
