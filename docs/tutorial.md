@@ -656,6 +656,7 @@
  "stock_yjbb_em"  # 业绩报告
  # 三大表报
  "stock_zcfz_em"  # 三大表报-资产负债表
+ "stock_zcfz_bj_em"  # 三大表报-资产负债表-北交所
  "stock_lrb_em"  # 三大表报-利润表
  "stock_xjll_em"  # 三大表报-现金流量表
  # 首发企业申报
