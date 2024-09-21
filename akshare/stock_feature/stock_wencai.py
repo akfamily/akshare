@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/27 17:00
+Date: 2024/9/21 18:00
 Desc: 问财-热门股票排名
 https://www.iwencai.com/unifiedwap/home/index
 """
+
 import pandas as pd
 import requests
 
+from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
+def stock_hot_rank_wc(date: str = "20240920") -> pd.DataFrame:
     """
     问财-热门股票排名
     https://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
@@ -28,7 +30,20 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
         "page": "1",
         "perpage": "100",
         "addheaderindexes": "",
-        "condition": '[{"chunkedResult":"热门5000股票","opName":"and","opProperty":"","uiText":"个股热度排名<=5000且个股热度从大到小排名","sonSize":3,"queryText":"个股热度排名<=5000且个股热度从大到小排名","relatedSize":3},{"reportType":"NATURAL_DAILY","dateType":"+区间","indexName":"个股热度排名","indexProperties":["nodate 1","交易日期 20230817","<=5000"],"valueType":"_整型数值","domain":"abs_股票领域","sonSize":0,"relatedSize":0,"source":"new_parser","tag":"个股热度排名","type":"index","indexPropertiesMap":{"<=":"5000","交易日期":"20230817","nodate":"1"}},{"opName":"sort","opProperty":"从大到小排名","sonSize":1,"relatedSize":0},{"reportType":"NATURAL_DAILY","dateType":"+区间","indexName":"个股热度","indexProperties":["nodate 1","起始交易日期 20230817","截止交易日期 20230817"],"valueType":"_浮点型数值","domain":"abs_股票领域","sonSize":0,"relatedSize":0,"source":"new_parser","tag":"个股热度","type":"index","indexPropertiesMap":{"起始交易日期":"20230817","截止交易日期":"20230817","nodate":"1"}}]'.replace(
+        "condition": '[{"chunkedResult":"热门5000股票","opName":"and","opProperty":"","uiText":'
+        '"个股热度排名<=5000且个股热度从大到小排名","sonSize":3,"queryText":'
+        '"个股热度排名<=5000且个股热度从大到小排名","relatedSize":3},'
+        '{"reportType":"NATURAL_DAILY","dateType":"+区间","indexName":'
+        '"个股热度排名","indexProperties":["nodate 1","交易日期 20230817",'
+        '"<=5000"],"valueType":"_整型数值","domain":"abs_股票领域","sonSize"'
+        ':0,"relatedSize":0,"source":"new_parser","tag":"个股热度排名","type"'
+        ':"index","indexPropertiesMap":{"<=":"5000","交易日期":"20230817","nodate":"1"}},'
+        '{"opName":"sort","opProperty":"从大到小排名","sonSize":1,"relatedSize":0},'
+        '{"reportType":"NATURAL_DAILY","dateType":"+区间","indexName":"个股热度",'
+        '"indexProperties":["nodate 1","起始交易日期 20230817","截止交易日期 20230817"],'
+        '"valueType":"_浮点型数值","domain":"abs_股票领域","sonSize":0,"relatedSize":0,'
+        '"source":"new_parser","tag":"个股热度","type":"index","indexPropertiesMap":'
+        '{"起始交易日期":"20230817","截止交易日期":"20230817","nodate":"1"}}]'.replace(
             "20230817", date
         ),
         "codelist": "",
@@ -43,9 +58,6 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
         "comp_id": "6836372",
         "business_cat": "soniu",
         "uuid": "24087",
-    }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
     }
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -64,10 +76,10 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
     big_df["index"] = range(1, len(big_df) + 1)
     try:
         rank_date_str = big_df.columns[1].split("[")[1].strip("]")
-    except:
+    except:  # noqa: E722
         try:
             rank_date_str = big_df.columns[2].split("[")[1].strip("]")
-        except:
+        except:  # noqa: E722
             rank_date_str = date
     big_df.rename(
         columns={
@@ -100,5 +112,5 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20240227")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20240920")
     print(stock_hot_rank_wc_df)
