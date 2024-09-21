@@ -299,7 +299,7 @@ def stock_zcfz_bj_em(date: str = "20240331") -> pd.DataFrame:
     return big_df
 
 
-def stock_lrb_em(date: str = "20081231") -> pd.DataFrame:
+def stock_lrb_em(date: str = "20240331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-利润表
     https://data.eastmoney.com/bbsj/202003/lrb.html
@@ -435,7 +435,7 @@ def stock_lrb_em(date: str = "20081231") -> pd.DataFrame:
     return big_df
 
 
-def stock_xjll_em(date: str = "20220331") -> pd.DataFrame:
+def stock_xjll_em(date: str = "20240331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-现金流量表
     https://data.eastmoney.com/bbsj/202003/xjll.html
@@ -579,8 +579,8 @@ if __name__ == "__main__":
     stock_zcfz_bj_em_df = stock_zcfz_bj_em(date="20240331")
     print(stock_zcfz_bj_em_df)
 
-    stock_lrb_em_df = stock_lrb_em(date="20220331")
+    stock_lrb_em_df = stock_lrb_em(date="20240331")
     print(stock_lrb_em_df)
 
-    stock_xjll_em_df = stock_xjll_em(date="20220331")
+    stock_xjll_em_df = stock_xjll_em(date="20240331")
     print(stock_xjll_em_df)
