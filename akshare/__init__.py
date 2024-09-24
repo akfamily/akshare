@@ -2891,9 +2891,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.78 fix: fix stock_analyst_rank_em interface
 1.14.79 add: add stock_zcfz_bj_em interface
 1.14.80 fix: fix stock_hot_rank_wc interface
+1.14.81 fix: fix stock_hsgt_hist_em interface
 """
 
-__version__ = "1.14.80"
+__version__ = "1.14.81"
 __author__ = "AKFamily"
 
 import sys
