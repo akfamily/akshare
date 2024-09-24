@@ -1533,7 +1533,7 @@ if __name__ == "__main__":
     )
     print(stock_hsgt_institution_statistics_em_df)
 
-    stock_hsgt_hist_em_df = stock_hsgt_hist_em(symbol="港股通沪")
+    stock_hsgt_hist_em_df = stock_hsgt_hist_em(symbol="北向资金")
     print(stock_hsgt_hist_em_df)
 
     stock_hsgt_board_rank_em_df = stock_hsgt_board_rank_em(
