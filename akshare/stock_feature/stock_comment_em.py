@@ -28,7 +28,8 @@ def stock_comment_em() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_DMSK_TS_STOCKNEW",
-        "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE,f8~01~SECURITY_CODE~TURNOVERRATE,f3~01~SECURITY_CODE~CHANGE_RATE,f9~01~SECURITY_CODE~PE_DYNAMIC",
+        "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE,f8~01~SECURITY_CODE~TURNOVERRATE,"
+        "f3~01~SECURITY_CODE~CHANGE_RATE,f9~01~SECURITY_CODE~PE_DYNAMIC",
         "columns": "ALL",
         "filter": "",
         "token": "894050c76af8597a853f5b408b759f5d",
@@ -137,11 +138,11 @@ def stock_comment_detail_zlkp_jgcyd_em(symbol: str = "600000") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df[["TRADE_DATE", "ORG_PARTICIPATE"]]
-    temp_df.columns = ["date", "value"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.sort_values(["date"], inplace=True)
+    temp_df.columns = ["交易日", "机构参与度"]
+    temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
+    temp_df.sort_values(["交易日"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce") * 100
+    temp_df["机构参与度"] = pd.to_numeric(temp_df["机构参与度"], errors="coerce") * 100
     return temp_df
 
 
@@ -154,36 +155,31 @@ def stock_comment_detail_zhpj_lspf_em(symbol: str = "600000") -> pd.DataFrame:
     :return: 综合评价-历史评分
     :rtype: pandas.DataFrame
     """
-    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
-    try_count = 10
-    data_json = None
-    while try_count:
-        try:
-            r = requests.get(url)
-            data_json = r.json()
-            break
-        except requests.exceptions.JSONDecodeError:
-            try_count -= 1
-            time.sleep(1)
-            continue
-    current_year = data_json["ApiResults"]["zhpj"]["ComprehensiveScoreRank1"][0][0][
-        "TradeDate"
-    ].split("/")[0]
-
-    temp_df = pd.DataFrame(
-        [
-            data_json["ApiResults"]["zhpj"]["HistoryScore"]["XData"],
-            data_json["ApiResults"]["zhpj"]["HistoryScore"]["Ydata"]["Score"],
-            data_json["ApiResults"]["zhpj"]["HistoryScore"]["Ydata"]["Price"],
-        ]
-    ).T
-    temp_df.columns = ["日期", "评分", "股价"]
-    temp_df["日期"] = current_year + "-" + temp_df["日期"]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.sort_values(by=["日期"], inplace=True)
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "filter": f'(SECURITY_CODE="{symbol}")',
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_STOCK_HISTORYMARK",
+        "sortColumns": "DIAGNOSE_DATE",
+        "sortTypes": "1",
+    }
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.rename(
+        columns={
+            "TOTAL_SCORE": "评分",
+            "DIAGNOSE_DATE": "交易日",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[["交易日", "评分"]]
+    temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
+    temp_df.sort_values(by=["交易日"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
     temp_df["评分"] = pd.to_numeric(temp_df["评分"], errors="coerce")
-    temp_df["股价"] = pd.to_numeric(temp_df["股价"], errors="coerce")
     return temp_df
 
 
