@@ -5,6 +5,7 @@ Date: 2024/1/6 15:00
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 https://data.eastmoney.com/report/profitforecast.jshtml
 """
+
 import pandas as pd
 import requests
 
@@ -15,7 +16,8 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-盈利预测
     https://data.eastmoney.com/report/profitforecast.jshtml
-    :param symbol: "", 默认为获取全部数据; symbol="船舶制造", 则获取具体行业板块的数据; 行业板块可以通过 ak.stock_board_industry_name_em() 接口获取
+    :param symbol: "", 默认为获取全部数据; symbol="船舶制造", 则获取具体行业板块的数据;
+    行业板块可以通过 ak.stock_board_industry_name_em() 接口获取
     :type symbol: str
     :return: 盈利预测
     :rtype: pandas.DataFrame
@@ -34,7 +36,6 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     }
     if symbol:
         params.update({"filter": f'(INDUSTRY_BOARD="{symbol}")'})
-
     r = requests.get(url, params=params)
     data_json = r.json()
     page_num = int(data_json["result"]["pages"])
@@ -52,7 +53,7 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
@@ -94,7 +95,6 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
         "_",
         "_",
     ]
-
     big_df = big_df[
         [
             "序号",
@@ -112,11 +112,12 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
             f"{year4}预测每股收益",
         ]
     ]
-    big_df["机构投资评级(近六个月)-买入"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-增持"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-中性"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-减持"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-卖出"].fillna(0, inplace=True)
+    big_df["机构投资评级(近六个月)-买入"] = big_df[
+        "机构投资评级(近六个月)-买入"
+    ].fillna(0)
+    big_df["机构投资评级(近六个月)-增持"] = big_df[
+        "机构投资评级(近六个月)-增持"
+    ].fillna(0)
     big_df["研报数"] = pd.to_numeric(big_df["研报数"], errors="coerce")
     big_df["机构投资评级(近六个月)-买入"] = pd.to_numeric(
         big_df["机构投资评级(近六个月)-买入"], errors="coerce"
@@ -133,10 +134,27 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     big_df["机构投资评级(近六个月)-卖出"] = pd.to_numeric(
         big_df["机构投资评级(近六个月)-卖出"], errors="coerce"
     )
-    big_df[f"{year1}预测每股收益"] = pd.to_numeric(big_df[f"{year1}预测每股收益"], errors="coerce")
-    big_df[f"{year2}预测每股收益"] = pd.to_numeric(big_df[f"{year2}预测每股收益"], errors="coerce")
-    big_df[f"{year3}预测每股收益"] = pd.to_numeric(big_df[f"{year3}预测每股收益"], errors="coerce")
-    big_df[f"{year4}预测每股收益"] = pd.to_numeric(big_df[f"{year4}预测每股收益"], errors="coerce")
+    big_df["机构投资评级(近六个月)-中性"] = big_df[
+        "机构投资评级(近六个月)-中性"
+    ].fillna(0)
+    big_df["机构投资评级(近六个月)-减持"] = big_df[
+        "机构投资评级(近六个月)-减持"
+    ].fillna(0)
+    big_df["机构投资评级(近六个月)-卖出"] = big_df[
+        "机构投资评级(近六个月)-卖出"
+    ].fillna(0)
+    big_df[f"{year1}预测每股收益"] = pd.to_numeric(
+        big_df[f"{year1}预测每股收益"], errors="coerce"
+    )
+    big_df[f"{year2}预测每股收益"] = pd.to_numeric(
+        big_df[f"{year2}预测每股收益"], errors="coerce"
+    )
+    big_df[f"{year3}预测每股收益"] = pd.to_numeric(
+        big_df[f"{year3}预测每股收益"], errors="coerce"
+    )
+    big_df[f"{year4}预测每股收益"] = pd.to_numeric(
+        big_df[f"{year4}预测每股收益"], errors="coerce"
+    )
     big_df.sort_values(["研报数"], ascending=False, inplace=True, ignore_index=True)
     big_df["序号"] = range(1, len(big_df) + 1)
     return big_df
