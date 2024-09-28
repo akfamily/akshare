@@ -192,36 +192,32 @@ def stock_comment_detail_scrd_focus_em(symbol: str = "600000") -> pd.DataFrame:
     :return: 市场热度-用户关注指数
     :rtype: pandas.DataFrame
     """
-    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
-    try_count = 10
-    data_json = None
-    while try_count:
-        try:
-            r = requests.get(url)
-            data_json = r.json()
-            break
-        except requests.exceptions.JSONDecodeError:
-            try_count -= 1
-            time.sleep(1)
-            continue
-
-    current_year = data_json["ApiResults"]["scrd"]["focus"][0][0]["UpdateDate"].split(
-        "/"
-    )[0]
-    temp_df = pd.DataFrame(
-        [
-            data_json["ApiResults"]["scrd"]["focus"][1]["XData"],
-            data_json["ApiResults"]["scrd"]["focus"][1]["Ydata"]["StockFocus"],
-            data_json["ApiResults"]["scrd"]["focus"][1]["Ydata"]["ClosePrice"],
-        ]
-    ).T
-    temp_df.columns = ["日期", "用户关注指数", "收盘价"]
-    temp_df["日期"] = current_year + "-" + temp_df["日期"]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.sort_values(by=["日期"], inplace=True)
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "filter": f'(SECURITY_CODE="{symbol}")',
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_STOCK_MARKETFOCUS",
+        "sortColumns": "TRADE_DATE",
+        "sortTypes": "-1",
+        "pageSize": "30",
+    }
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.rename(
+        columns={
+            "MARKET_FOCUS": "用户关注指数",
+            "TRADE_DATE": "交易日",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[["交易日", "用户关注指数"]]
+    temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
+    temp_df.sort_values(by=["交易日"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
     temp_df["用户关注指数"] = pd.to_numeric(temp_df["用户关注指数"], errors="coerce")
-    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     return temp_df
 
 
