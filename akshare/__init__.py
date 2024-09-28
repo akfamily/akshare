@@ -2896,9 +2896,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.83 fix: fix stock_comment_detail_zhpj_lspf_em interface
 1.14.84 fix: fix drewry_wci_index interface
 1.14.85 fix: fix stock_profit_forecast_em interface
+1.14.86 fix: fix stock_comment_detail_scrd_focus_em interface
 """
 
-__version__ = "1.14.85"
+__version__ = "1.14.86"
 __author__ = "AKFamily"
 
 import sys
