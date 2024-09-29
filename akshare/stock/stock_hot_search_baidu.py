@@ -5,12 +5,15 @@ Date: 2023/4/21 14:19
 Desc: 百度股市通-热搜股票
 https://gushitong.baidu.com/expressnews
 """
+
 import pandas as pd
 import requests
 from datetime import datetime
 
 
-def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230428", time: str = "今日"):
+def stock_hot_search_baidu(
+    symbol: str = "A股", date: str = "20240929", time: str = "今日"
+):
     """
     百度股市通-热搜股票
     https://gushitong.baidu.com/expressnews
@@ -55,6 +58,6 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230428", time: s
 
 if __name__ == "__main__":
     stock_hot_search_baidu_df = stock_hot_search_baidu(
-        symbol="A股", date="20230428", time="今日"
+        symbol="A股", date="20240929", time="今日"
     )
     print(stock_hot_search_baidu_df)
