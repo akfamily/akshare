@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/7 22:00
+Date: 2024/10/2 9:00
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -17,6 +17,7 @@ from io import StringIO
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -257,12 +258,12 @@ def stock_financial_analysis_indicator(
 def stock_history_dividend() -> pd.DataFrame:
     """
     新浪财经-发行与分配-历史分红
-    https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml?p=1&num=5000
+    https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml
     :return: 所有股票的历史分红数据
     :rtype: pandas.DataFrame
     """
     url = "https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml"
-    params = {"p": "1", "num": "5000"}
+    params = {"p": "1", "num": "50000"}
     r = requests.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["代码"] = temp_df["代码"].astype(str).str.zfill(6)
