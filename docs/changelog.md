@@ -80,6 +80,14 @@
 
 ## 更新说明详情
 
+1.14.92 add: add qdii_a_index_jsl interface
+
+    1. 新增 qdii_a_index_jsl 接口
+    2. 新增 qdii_e_index_jsl 接口
+    3. 新增 qdii_e_comm_jsl 接口
+    4. 修复 stock_individual_spot_xq 接口
+    5. 修复 option_czce_daily 接口
+
 1.14.91 fix: fix stock_history_dividend interface
 
     1. 修复 stock_history_dividend 接口
@@ -4606,6 +4614,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.14.92 add: add qdii_a_index_jsl interface
 
 1.14.91 fix: fix stock_history_dividend interface
 

@@ -2902,9 +2902,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.89 fix: fix bond_spot_deal interface
 1.14.90 fix: fix stock_board_change_em interface
 1.14.91 fix: fix stock_history_dividend interface
+1.14.92 add: add qdii_a_index_jsl interface
 """
 
-__version__ = "1.14.91"
+__version__ = "1.14.92"
 __author__ = "AKFamily"
 
 import sys
@@ -2925,6 +2926,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+QDII
+"""
+from akshare.qdii.qdii_jsl import qdii_a_index_jsl, qdii_e_index_jsl, qdii_e_comm_jsl
 
 """
 财新网-财新数据通
