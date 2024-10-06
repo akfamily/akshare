@@ -1285,6 +1285,10 @@
  "spot_mixed_feed_soozhu"  # 搜猪-生猪大数据-全国育肥猪合料（含自配料）半月走势
  # 财新网-财新数据通
  "stock_news_main_cx"  # 财新网-财新数据通
+ # QDII
+ "qdii_e_index_jsl"  # 集思录-T+0 QDII-欧美市场-欧美指数
+ "qdii_e_comm_jsl"  # 集思录-T+0 QDII-欧美市场-商品
+ "qdii_a_index_jsl"  # 集思录-T+0 QDII-亚洲市场-亚洲指数
 ```
 
 ## 案例演示
