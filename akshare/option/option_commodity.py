@@ -167,7 +167,7 @@ def option_czce_daily(
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权",  "菜籽粕期权", "动力煤期权", "短纤期权",
-    "菜籽油期权", "花生期权", "棉花期权", "短纤期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权",
+    "菜籽油期权", "花生期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权", "苹果期权", "红枣期权"
     "烧碱期权", "玻璃期权"}
     :type symbol: str
     :return: 日频行情数据
@@ -188,12 +188,16 @@ def option_czce_daily(
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SR")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
-            elif symbol == "PTA期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("TA")]
+            elif symbol == "棉花期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             elif symbol == "甲醇期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("MA")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "PTA期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("TA")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             elif symbol == "菜籽粕期权":
@@ -204,20 +208,16 @@ def option_czce_daily(
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("ZC")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
+            elif symbol == "短纤期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
             elif symbol == "菜籽油期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("OI")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             elif symbol == "花生期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PK")]
-                temp_df.reset_index(inplace=True, drop=True)
-                return temp_df.iloc[:-1, :]
-            elif symbol == "棉花期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
-                temp_df.reset_index(inplace=True, drop=True)
-                return temp_df.iloc[:-1, :]
-            elif symbol == "短纤期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             elif symbol == "纯碱期权":
@@ -236,6 +236,14 @@ def option_czce_daily(
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("UR")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
+            elif symbol == "苹果期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("AP")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "红枣期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("CJ")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
             elif symbol == "对二甲苯期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PX")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -246,14 +254,6 @@ def option_czce_daily(
                 return temp_df.iloc[:-1, :]
             elif symbol == "玻璃期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("FG")]
-                temp_df.reset_index(inplace=True, drop=True)
-                return temp_df.iloc[:-1, :]
-            elif symbol == "短纤期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
-                temp_df.reset_index(inplace=True, drop=True)
-                return temp_df.iloc[:-1, :]
-            else:
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("AP")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
         except:  # noqa: E722
@@ -557,5 +557,5 @@ if __name__ == "__main__":
     )
     print(option_gfex_vol_daily_df)
 
-    option_czce_daily_df = option_czce_daily(symbol="短纤期权", trade_date="20231116")
+    option_czce_daily_df = option_czce_daily(symbol="苹果期权", trade_date="20240930")
     print(option_czce_daily_df)
