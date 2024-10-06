@@ -48,7 +48,7 @@ def stock_individual_spot_xq(
     """
     session = requests.Session()
     headers = {
-        "cookie": "xq_a_token=927886df384cbb16c88673ae7f519c76650c54b9;",
+        "cookie": "xq_a_token=dbc1dc6d13bd101dd06f18c5b7f2fb2eb276fb5a;",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
         "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
     }
@@ -127,7 +127,7 @@ def stock_individual_spot_xq(
 
 
 if __name__ == "__main__":
-    stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH600000")
+    stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="BJ430139")
     print(stock_individual_spot_xq_df)
 
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH000001")
