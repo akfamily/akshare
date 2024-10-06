@@ -108,13 +108,13 @@ print(qdii_e_index_jsl_df)
 [51 rows x 18 columns]
 ```
 
-#### 商品
+#### 欧美商品
 
 接口: qdii_e_comm_jsl
 
 目标地址: https://www.jisilu.cn/data/qdii/#qdiia
 
-描述: 集思录-T+0 QDII-欧美市场-商品
+描述: 集思录-T+0 QDII-欧美市场-欧美商品
 
 限量: 单次返回所有数据
 
