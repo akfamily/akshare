@@ -21,7 +21,7 @@ import pandas as pd
 import requests
 
 
-def stock_zt_pool_em(date: str = "20231129") -> pd.DataFrame:
+def stock_zt_pool_em(date: str = "20241008") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     https://quote.eastmoney.com/ztb/detail#type=ztgc
@@ -516,7 +516,7 @@ def stock_zt_pool_dtgc_em(date: str = "20231129") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zt_pool_em_df = stock_zt_pool_em(date="20240801")
+    stock_zt_pool_em_df = stock_zt_pool_em(date="20241008")
     print(stock_zt_pool_em_df)
 
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
