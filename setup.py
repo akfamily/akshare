@@ -1,24 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/7/21 18:00
+Date: 2024/10/8 17:00
 Desc: AKShare's PYPI info file
 """
 
-# import sys
 import ast
 import re
 
-# import subprocess
 import setuptools
-
 
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
-
-
-# def install(package):
-#     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 
 def get_version_string() -> str:
@@ -33,12 +26,6 @@ def get_version_string() -> str:
         ).group(1)
         return str(ast.literal_eval(version_line))
 
-
-# try:
-#     install('mini-racer')
-# except subprocess.CalledProcessError:
-#     print("Failed to install mini-racer, trying to install py-mini-racer instead.")
-#     install('py-mini-racer')
 
 setuptools.setup(
     name="akshare",
@@ -102,6 +89,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
