@@ -186,7 +186,7 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_strong_em(date: str = "20231129") -> pd.DataFrame:
+def stock_zt_pool_strong_em(date: str = "20241009") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-强势股池
     https://quote.eastmoney.com/ztb/detail#type=qsgc
@@ -522,7 +522,7 @@ if __name__ == "__main__":
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20240424")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241009")
     print(stock_zt_pool_strong_em_df)
 
     stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20240424")
