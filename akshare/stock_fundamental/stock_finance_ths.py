@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/20 13:20
+Date: 2024/10/11 17:20
 Desc: 同花顺-财务指标-主要指标
 https://basic.10jqka.com.cn/new/000063/finance.html
 """
+
 import json
 
 import pandas as pd
@@ -13,7 +14,7 @@ from bs4 import BeautifulSoup
 
 
 def stock_financial_abstract_ths(
-        symbol: str = "000063", indicator: str = "按报告期"
+    symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-主要指标
@@ -28,12 +29,12 @@ def stock_financial_abstract_ths(
     url = f"https://basic.10jqka.com.cn/new/{symbol}/finance.html"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    data_text = soup.find("p", attrs={"id": "main"}).string
+    soup = BeautifulSoup(r.text, features="lxml")
+    data_text = soup.find(name="p", attrs={"id": "main"}).string
     data_json = json.loads(data_text)
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -57,7 +58,7 @@ def stock_financial_abstract_ths(
 
 
 def stock_financial_debt_ths(
-        symbol: str = "000063", indicator: str = "按报告期"
+    symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-资产负债表
@@ -73,11 +74,11 @@ def stock_financial_debt_ths(
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_debt.json"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)['flashData'])
+    data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
     ]
@@ -96,7 +97,7 @@ def stock_financial_debt_ths(
 
 
 def stock_financial_benefit_ths(
-        symbol: str = "000063", indicator: str = "按报告期"
+    symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-利润表
@@ -112,11 +113,11 @@ def stock_financial_benefit_ths(
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_benefit.json"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)['flashData'])
+    data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
     ]
@@ -139,7 +140,7 @@ def stock_financial_benefit_ths(
 
 
 def stock_financial_cash_ths(
-        symbol: str = "000063", indicator: str = "按报告期"
+    symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-现金流量表
@@ -155,11 +156,11 @@ def stock_financial_cash_ths(
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_cash.json"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)['flashData'])
+    data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
     ]
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_ths_df)
 
     stock_financial_debt_ths_df = stock_financial_debt_ths(
-        symbol="000063", indicator="按报告期"
+        symbol="002004", indicator="按报告期"
     )
     print(stock_financial_debt_ths_df)
 
