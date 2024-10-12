@@ -565,7 +565,6 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     }
     r = requests.post(url, data=params, headers=headers)
     data_df = pd.read_excel(BytesIO(r.content), header=1)
-
     data_df = data_df[~data_df["商品名称"].str.contains("小计")]
     data_df = data_df[~data_df["商品名称"].str.contains("总计")]
     data_df["variety"] = data_df["商品名称"].map(lambda x: cons.DCE_MAP[x])
@@ -681,11 +680,11 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20240506", end_date="20240510", market="SHFE"
+        start_date="20240701", end_date="20240720", market="DCE"
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20140812")
+    get_dce_daily_df = get_dce_daily(date="20240702")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20230810")
