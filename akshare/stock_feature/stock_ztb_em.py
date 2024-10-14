@@ -345,7 +345,7 @@ def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_zbgc_em(date: str = "20231129") -> pd.DataFrame:
+def stock_zt_pool_zbgc_em(date: str = "20241011") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-炸板股池
     https://quote.eastmoney.com/ztb/detail#type=zbgc
@@ -428,7 +428,7 @@ def stock_zt_pool_zbgc_em(date: str = "20231129") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_dtgc_em(date: str = "20231129") -> pd.DataFrame:
+def stock_zt_pool_dtgc_em(date: str = "20241011") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     https://quote.eastmoney.com/ztb/detail#type=dtgc
@@ -528,8 +528,8 @@ if __name__ == "__main__":
     stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241011")
     print(stock_zt_pool_sub_new_em_df)
 
-    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20240424")
+    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20241011")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20240424")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20241011")
     print(stock_zt_pool_dtgc_em_df)
