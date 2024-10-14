@@ -897,6 +897,7 @@
  "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
  # IPO 受益股
  "stock_ipo_benefit_ths"  # IPO 受益股
+ "stock_xgsr_ths"  # 新股上市首日
  # 同花顺-数据中心-技术选股-创新高
  "stock_rank_cxg_ths"  # 创新高
  "stock_rank_cxd_ths"  # 创新低
