@@ -219,6 +219,58 @@ def stock_board_industry_index_ths(
     return big_df
 
 
+def stock_xgsr_ths() -> pd.DataFrame:
+    """
+    同花顺-数据中心-新股数据-新股上市首日
+    https://data.10jqka.com.cn/ipo/xgsr/
+    :return: 新股上市首日
+    :rtype: pandas.DataFrame
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
+        "Cookie": f"v={v_code}",
+        "hexin-v": v_code,
+    }
+    url = "https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/1/ajax/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, features="lxml")
+    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
+    big_df = pd.DataFrame()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, int(page_num) + 1), leave=False):
+        url = f"https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/{page}/ajax/1/free/1/"
+        v_code = js_code.call("v")
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
+            "Cookie": f"v={v_code}",
+            "hexin-v": v_code,
+        }
+        r = requests.get(url, headers=headers)
+        temp_df = pd.read_html(StringIO(r.text))[0]
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
+    big_df.rename(columns={"发行价(元)": "发行价"}, inplace=True)
+    big_df["序号"] = pd.to_numeric(big_df["序号"], errors="coerce")
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
+    big_df["发行价"] = pd.to_numeric(big_df["发行价"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["首日开盘价"] = pd.to_numeric(big_df["首日开盘价"], errors="coerce")
+    big_df["首日收盘价"] = pd.to_numeric(big_df["首日收盘价"], errors="coerce")
+    big_df["首日最高价"] = pd.to_numeric(big_df["首日最高价"], errors="coerce")
+    big_df["首日最低价"] = pd.to_numeric(big_df["首日最低价"], errors="coerce")
+    big_df["首日涨跌幅"] = (
+        pd.to_numeric(big_df["首日涨跌幅"].str.strip("%"), errors="coerce") / 100
+    )
+    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"], errors="coerce").dt.date
+    return big_df
+
+
 def stock_ipo_benefit_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-新股数据-IPO受益股
@@ -349,6 +401,9 @@ if __name__ == "__main__":
         print(stock)
         stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=stock)
         print(stock_board_industry_index_ths_df)
+
+    stock_xgsr_ths_df = stock_xgsr_ths()
+    print(stock_xgsr_ths_df)
 
     stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
     print(stock_ipo_benefit_ths_df)
