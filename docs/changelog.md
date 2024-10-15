@@ -83,6 +83,7 @@
 1.14.97 fix: fix stock_profile_cninfo interface
 
     1. 修复 stock_profile_cninfo 接口
+    2. 移除南华指数相关接口
 
 1.14.96 fix: fix stock_zt_pool_sub_new_em interface
 
