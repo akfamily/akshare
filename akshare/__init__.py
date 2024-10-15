@@ -3459,17 +3459,6 @@ from akshare.stock_feature.stock_hot_xq import (
 )
 
 """
-南华期货-板块指数涨跌
-南华期货-品种指数涨跌
-南华期货-相关系数矩阵
-"""
-from akshare.futures_derivative.futures_other_index_nh import (
-    futures_correlation_nh,
-    futures_board_index_nh,
-    futures_variety_index_nh,
-)
-
-"""
 东方财富-股票数据-龙虎榜
 """
 from akshare.stock_feature.stock_lhb_em import (
@@ -4964,20 +4953,6 @@ from akshare.index.index_sw import (
 经济政策不确定性指数
 """
 from akshare.article.epu_index import article_epu_index
-
-"""
-南华期货-南华指数
-"""
-from akshare.futures_derivative.futures_index_return_nh import (
-    futures_return_index_nh,
-)
-from akshare.futures_derivative.futures_index_price_nh import (
-    futures_price_index_nh,
-    futures_index_symbol_table_nh,
-)
-from akshare.futures_derivative.futures_index_volatility_nh import (
-    futures_volatility_index_nh,
-)
 
 """
 空气-河北
