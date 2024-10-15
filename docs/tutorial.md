@@ -133,12 +133,6 @@
  "weather_monthly"  # 每月日出和日落数据
  # 河北空气质量数据(期货-钢铁)
  "air_quality_hebei"  # 河北空气质量数据
- # 南华期货-南华指数-波动率指数
- "futures_volatility_index_nh"  # 波动率指数
- # 南华期货-南华指数-价格指数
- "futures_price_index_nh"  # 价格指数
- # 南华期货-南华指数-收益率指数
- "futures_return_index_nh"  # 收益率指数
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
  # 申万行业指数
@@ -1037,10 +1031,6 @@
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
- # 南华期货
- "futures_correlation_nh"  # 相关系数矩阵
- "futures_board_index_nh"  # 板块指数涨跌
- "futures_variety_index_nh"  # 品种指数涨跌
  # 股票热度-雪球
  "stock_hot_follow_xq"  # 雪球-沪深股市-热度排行榜-关注排行榜
  "stock_hot_tweet_xq"  # 雪球-沪深股市-热度排行榜-讨论排行榜
