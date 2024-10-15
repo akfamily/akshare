@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/5 15:00
+Date: 2024/10/14 22:00
 Desc: 巨潮资讯-个股-公司概况
-http://webapi.cninfo.com.cn/#/company
+https://webapi.cninfo.com.cn/#/company
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -30,14 +30,14 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 def stock_profile_cninfo(symbol: str = "600030") -> pd.DataFrame:
     """
     巨潮资讯-个股-公司概况
-    http://webapi.cninfo.com.cn/#/company
+    https://webapi.cninfo.com.cn/#/company
     :param symbol: 股票代码
     :type symbol: str
     :return: 公司概况
     :rtype: pandas.DataFrame
     :raise: Exception，如果服务器返回的数据无法被解析
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1133"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1133"
     params = {
         "scode": symbol,
     }
@@ -53,10 +53,10 @@ def stock_profile_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
         "Accept-Enckey": mcode,
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
+        "Referer": "https://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, params=params, headers=headers)
