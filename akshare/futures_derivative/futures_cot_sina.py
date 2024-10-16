@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/3 15:30
+Date: 2024/10/16 21:30
 Desc: 新浪财经-期货-成交持仓
 https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php
 """
@@ -29,7 +29,7 @@ def futures_hold_pos_sina(
     """
     date = "-".join([date[:4], date[4:6], date[6:]])
     url = "https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php"
-    params = {"symbol": contract, "date": date}
+    params = {"t_breed": contract, "t_date": date}
     r = requests.get(url, params=params)
     if symbol == "成交量":
         temp_df = pd.read_html(StringIO(r.text))[2].iloc[:-1, :]
@@ -59,16 +59,16 @@ def futures_hold_pos_sina(
 
 if __name__ == "__main__":
     futures_hold_pos_sina_df = futures_hold_pos_sina(
-        symbol="成交量", contract="PTA2407", date="20240531"
+        symbol="成交量", contract="OI2501", date="20241016"
     )
     print(futures_hold_pos_sina_df)
 
     futures_hold_pos_sina_df = futures_hold_pos_sina(
-        symbol="多单持仓", contract="IC2403", date="20240223"
+        symbol="多单持仓", contract="OI2501", date="20241016"
     )
     print(futures_hold_pos_sina_df)
 
     futures_hold_pos_sina_df = futures_hold_pos_sina(
-        symbol="空单持仓", contract="IC2403", date="20240223"
+        symbol="空单持仓", contract="OI2501", date="20241016"
     )
     print(futures_hold_pos_sina_df)
