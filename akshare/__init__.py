@@ -2908,9 +2908,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.14.95 fix: fix stock_zt_pool_sub_new_em interface
 1.14.96 fix: fix stock_zt_pool_sub_new_em interface
 1.14.97 fix: fix stock_profile_cninfo interface
+1.14.98 fix: fix futures_hold_pos_sina interface
 """
 
-__version__ = "1.14.97"
+__version__ = "1.14.98"
 __author__ = "AKFamily"
 
 import sys
