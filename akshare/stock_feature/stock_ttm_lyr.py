@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/11 20:40
+Date: 2024/10/18 15:00
 Desc: 全部A股-等权重市盈率、中位数市盈率
 https://www.legulegu.com/stockdata/a-ttm-lyr
 """
