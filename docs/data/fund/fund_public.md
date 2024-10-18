@@ -2981,55 +2981,6 @@ print(fund_portfolio_industry_allocation_em_df)
 36  37     水利、环境和公共设施管理业   0.00      10.346959  2023-03-31
 ```
 
-### 基金交易规则
-
-接口: fund_individual_detail_info_xq
-
-目标地址: https://danjuanfunds.com/rn/trade-rules/funds?code=000001&name=%E5%8D%8E%E5%A4%8F%E6%88%90%E9%95%BF%E6%B7%B7%E5%90%88
-
-描述: 雪球基金-基金详情-交易规则-详情
-
-限量: 单次返回单只基金的购买费用
-
-输入参数
-
-| 名称        | 类型    | 描述                      |
-|-----------|-------|-------------------------|
-| symbol    | str   | symbol="000001"; 基金代码   |
-| indicator | str   | indicator="交易规则"        |
-| timeout   | float | timeout=None; 默认不设置超时参数 |
-
-输出参数
-
-| 名称    | 类型      | 描述                                               |
-|-------|---------|--------------------------------------------------|
-| 费用类型  | object  | -                                                |
-| 条件或名称 | object  | -                                                |
-| 费用    | float64 | 一般最后一条买入规则对应的是具体金额，而非百分比；买入费用为官方费率，而非渠道费率；注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-fund_individual_detail_info_xq_df = ak.fund_individual_detail_info_xq(symbol="000001")
-print(fund_individual_detail_info_xq_df)
-```
-
-数据示例
-
-```
-   费用类型                 条件或名称      费用
-0  买入规则      0.0万<买入金额<100.0万     1.5
-1  买入规则   100.0万<=买入金额<500.0万     1.2
-2  买入规则  500.0万<=买入金额<1000.0万     0.8
-3  买入规则         1000.0万<=买入金额  1000.0
-4  卖出规则        0.0天<持有期限<7.0天     1.5
-5  卖出规则            7.0天<=持有期限     0.5
-6  其他费用                 基金管理费     1.2
-7  其他费用                 基金托管费     0.2
-```
-
 ### 重大变动
 
 接口: fund_portfolio_change_em
