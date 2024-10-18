@@ -5,6 +5,7 @@ Date: 2023/4/11 20:40
 Desc: 全部A股-等权重市盈率、中位数市盈率
 https://www.legulegu.com/stockdata/a-ttm-lyr
 """
+
 import pandas as pd
 import requests
 
@@ -26,15 +27,11 @@ def stock_a_ttm_lyr() -> pd.DataFrame:
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://www.legulegu.com/stockdata/a-ttm-lyr")
+        **get_cookie_csrf(url="https://www.legulegu.com/stockdata/a-ttm-lyr"),
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
 
 
