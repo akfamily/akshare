@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/25 22:30
+Date: 2024/10/19 21:30
 Desc: 乐咕乐股-A 股市盈率和市净率
 https://legulegu.com/stockdata/shanghaiPE
 """
@@ -9,8 +9,8 @@ https://legulegu.com/stockdata/shanghaiPE
 from datetime import datetime
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
 
@@ -559,9 +559,18 @@ def stock_index_pb_lg(symbol: str = "上证50") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    stock_market_pe_lg_df = stock_market_pe_lg(symbol="上证")
+    print(stock_market_pe_lg_df)
+
+    stock_market_pe_lg_df = stock_market_pe_lg(symbol="科创版")
+    print(stock_market_pe_lg_df)
+
     for item in {"上证", "深证", "创业板", "科创版"}:
         stock_market_pe_lg_df = stock_market_pe_lg(symbol=item)
         print(stock_market_pe_lg_df)
+
+    stock_index_pe_lg_df = stock_index_pe_lg(symbol="上证50")
+    print(stock_index_pe_lg_df)
 
     for item in [
         "上证50",
