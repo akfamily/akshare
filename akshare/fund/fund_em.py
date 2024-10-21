@@ -1188,7 +1188,7 @@ if __name__ == "__main__":
     time.sleep(3)
 
     fund_open_fund_info_em_df = fund_open_fund_info_em(
-        symbol="710001", indicator="累计净值走势"
+        symbol="502010", indicator="累计净值走势", period="成立来"
     )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
