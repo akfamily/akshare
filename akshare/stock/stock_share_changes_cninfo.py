@@ -1,14 +1,15 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/7/26 18:20
+Date: 2024/10/21 22:20
 Desc: 巨潮资讯-股本股东-公司股本变动
 https://webapi.cninfo.com.cn/api/stock/p_stock2215
 """
 
+import numpy as np
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -30,7 +31,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
 def stock_share_change_cninfo(
     symbol: str = "002594",
     start_date: str = "20091227",
-    end_date: str = "20220713",
+    end_date: str = "20241021",
 ) -> pd.DataFrame:
     """
     巨潮资讯-股本股东-公司股本变动
@@ -124,7 +125,8 @@ def stock_share_change_cninfo(
     }
     ignore_cols = ["最新记录标识", "其他"]
     temp_df.rename(columns=cols_map, inplace=True)
-    temp_df.fillna(pd.NA, inplace=True)
+    pd.set_option("future.no_silent_downcasting", True)
+    temp_df.fillna(np.nan, inplace=True)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]
@@ -135,6 +137,6 @@ if __name__ == "__main__":
     stock_share_change_cninfo_df = stock_share_change_cninfo(
         symbol="002594",
         start_date="20091227",
-        end_date="20240726",
+        end_date="20241021",
     )
     print(stock_share_change_cninfo_df)
