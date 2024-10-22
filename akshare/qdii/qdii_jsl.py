@@ -7,7 +7,8 @@ Desc: 集思录-T+0 QDII
 """
 
 import pandas as pd
-import requests
+
+from akshare.request import make_request_with_retry_json
 
 
 def qdii_e_index_jsl() -> pd.DataFrame:
@@ -22,8 +23,7 @@ def qdii_e_index_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
+    data_json = make_request_with_retry_json(url, params)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={
@@ -94,8 +94,7 @@ def qdii_e_comm_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
+    data_json = make_request_with_retry_json(url, params=params)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={
@@ -166,8 +165,7 @@ def qdii_a_index_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728206439242",
         "rp": "22",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
+    data_json = make_request_with_retry_json(url, params=params)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={
