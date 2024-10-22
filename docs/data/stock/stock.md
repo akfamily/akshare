@@ -8397,15 +8397,16 @@ print(stock_share_change_cninfo_df)
 ```python
 import akshare as ak
 
-stock_allotment_cninfo_df = ak.stock_allotment_cninfo(symbol="600030", start_date="19900101", end_date="20221008")
+stock_allotment_cninfo_df = ak.stock_allotment_cninfo(symbol="600030", start_date="19900101", end_date="20241022")
 print(stock_allotment_cninfo_df)
 ```
 
 数据示例
 
 ```
-    记录标识  证券简称       停牌起始日  ...     配股前流通股本  股票类别编码  公众配售代码
+    记录标识  证券简称     停牌起始日  ...  配股前流通股本  股票类别编码 公众配售代码
 0  4475575959  中信证券  2022-01-19  ...  1209298.94  001001  700030
+[1 rows x 57 columns]
 ```
 
 #### 公司概况-巨潮资讯

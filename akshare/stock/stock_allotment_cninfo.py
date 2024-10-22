@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/5 15:00
+Date: 2024/10/22 15:00
 Desc: 巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
-http://webapi.cninfo.com.cn/#/dataBrowse
+https://webapi.cninfo.com.cn/#/dataBrowse
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -32,7 +32,7 @@ def stock_allotment_cninfo(
 ) -> pd.DataFrame:
     """
     巨潮资讯-个股-配股实施方案
-    http://webapi.cninfo.com.cn/#/dataBrowse
+    https://webapi.cninfo.com.cn/#/dataBrowse
     :param symbol: 股票代码
     :type symbol: str
     :param start_date: 开始查询的日期
@@ -42,7 +42,7 @@ def stock_allotment_cninfo(
     :return: 配股实施方案
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/stock/p_stock2232"
+    url = "https://webapi.cninfo.com.cn/api/stock/p_stock2232"
     params = {
         "scode": symbol,
         "sdate": start_date
@@ -64,10 +64,10 @@ def stock_allotment_cninfo(
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
+        "Referer": "https://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, params=params, headers=headers)
@@ -192,6 +192,6 @@ def stock_allotment_cninfo(
 
 if __name__ == "__main__":
     stock_allotment_cninfo_df = stock_allotment_cninfo(
-        symbol="600030", start_date="19900101", end_date="20221008"
+        symbol="600030", start_date="19900101", end_date="20241022"
     )
     print(stock_allotment_cninfo_df)
