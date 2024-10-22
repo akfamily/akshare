@@ -2915,9 +2915,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.3 fix: fix stock_share_change_cninfo interface
 1.15.4 fix: fix stock_allotment_cninfo interface
 1.15.5 fix: fix stock_individual_spot_xq interface
+1.15.6 fix: fix qdii_e_index_jsl interface
 """
 
-__version__ = "1.15.5"
+__version__ = "1.15.6"
 __author__ = "AKFamily"
 
 import sys
@@ -5379,6 +5380,18 @@ from akshare.fund.fund_xq import (
     fund_individual_profit_probability_xq,
     fund_individual_detail_info_xq,
     fund_individual_detail_hold_xq,
+)
+
+"""
+异常处理模块
+"""
+from .exceptions import (
+    AkshareException,
+    APIError,
+    DataParsingError,
+    InvalidParameterError,
+    NetworkError,
+    RateLimitError,
 )
 
 """
