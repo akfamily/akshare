@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.6 fix: fix qdii_e_index_jsl interface
+
+    1. 修复 qdii_e_index_jsl 接口
+
 1.15.5 fix: fix stock_individual_spot_xq interface
 
     1. 修复 stock_individual_spot_xq 接口
@@ -4665,6 +4669,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.6 fix: fix qdii_e_index_jsl interface
 
 1.15.5 fix: fix stock_individual_spot_xq interface
 
