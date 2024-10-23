@@ -4624,7 +4624,7 @@ print(index_hist_fund_sw_df)
 
 接口: index_realtime_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex
+目标地址: https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
 描述: 申万宏源研究-指数系列; 注意其中大类风格指数和金创指数的字段
 
@@ -4679,7 +4679,7 @@ print(index_realtime_sw_df)
 
 接口: index_hist_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801002&name=申万中小
+目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801002&name=申万中小
 
 描述: 申万宏源研究-指数发布-指数详情-指数历史数据
 
@@ -4736,7 +4736,7 @@ print(index_hist_sw_df)
 
 接口: index_min_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
+目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
 
 描述: 申万宏源研究-指数发布-指数详情-指数分时数据
 
@@ -4789,7 +4789,7 @@ print(index_min_sw_df)
 
 接口: index_component_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
+目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
 
 描述: 申万宏源研究-指数发布-指数详情-成分股
 
@@ -4842,7 +4842,7 @@ print(index_component_sw_df)
 
 接口: index_analysis_daily_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/analysisIndex
+目标地址: https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
 
 描述: 申万宏源研究-指数分析-日报表
 
@@ -4904,7 +4904,7 @@ print(index_analysis_daily_sw_df)
 
 接口: index_analysis_weekly_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/analysisIndex
+目标地址: https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
 
 描述: 申万宏源研究-指数分析-周报表
 
@@ -4965,7 +4965,7 @@ print(index_analysis_weekly_sw_df)
 
 接口: index_analysis_monthly_sw
 
-目标地址: https://www.swhyresearch.com/institute_sw/allIndex/analysisIndex
+目标地址: https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
 
 描述: 申万宏源研究-指数分析-月报表
 
