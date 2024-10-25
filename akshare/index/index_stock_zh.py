@@ -380,13 +380,13 @@ def stock_zh_index_daily_em(
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399905")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000510")
     print(stock_zh_index_daily_df)
 
     stock_zh_index_spot_sina_df = stock_zh_index_spot_sina()
     print(stock_zh_index_spot_sina_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="上证系列指数")
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="中证系列指数")
     print(stock_zh_index_spot_em_df)
 
     stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919")
