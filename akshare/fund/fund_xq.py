@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/01/16 23:40
+Date: 2024/10/27 22:30
 Desc: 雪球基金-基金详情
 https://danjuanfunds.com/funding/003545
 """
@@ -25,7 +25,8 @@ def fund_individual_basic_info_xq(
     """
     url = f"https://danjuanfunds.com/djapi/fund/{symbol}"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36"
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
