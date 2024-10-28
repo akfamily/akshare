@@ -273,6 +273,18 @@ def index_zh_a_hist_min_em(
                 "secid": f"1.{symbol}",
                 "_": "1623766962675",
             }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if data_json["data"] is None:
+            params = {
+                "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+                "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+                "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+                "iscr": "0",
+                "ndays": "5",
+                "secid": f"0.{symbol}",
+                "_": "1623766962675",
+            }
             r = requests.get(url, params=params)
             data_json = r.json()
             if data_json["data"] is None:
@@ -282,21 +294,9 @@ def index_zh_a_hist_min_em(
                     "ut": "fa5fd1943c7b386f172d6893dbfba10b",
                     "iscr": "0",
                     "ndays": "5",
-                    "secid": f"0.{symbol}",
+                    "secid": f"47.{symbol}",
                     "_": "1623766962675",
                 }
-                r = requests.get(url, params=params)
-                data_json = r.json()
-                if data_json["data"] is None:
-                    params = {
-                        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
-                        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-                        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
-                        "iscr": "0",
-                        "ndays": "5",
-                        "secid": f"47.{symbol}",
-                        "_": "1623766962675",
-                    }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
