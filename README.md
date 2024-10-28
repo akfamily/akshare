@@ -300,6 +300,6 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 
 ## Backer and Sponsor
 
-<a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/main/assets/images/jetbrains.svg" width="100px" height="100px">
+<a href="https://www.jetbrains.com/?from=albertandking/akshare" target="_blank">
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo.">
 </a>
