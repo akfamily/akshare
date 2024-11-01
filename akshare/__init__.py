@@ -2919,9 +2919,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.7 fix: fix index_hist_sw interface
 1.15.8 fix: fix fund_individual_basic_info_xq interface
 1.15.9 fix: fix index_analysis_weekly_sw interface
+1.15.10 add: add volatility_yz_rv indicator
 """
 
-__version__ = "1.15.9"
+__version__ = "1.15.10"
 __author__ = "AKFamily"
 
 import sys
@@ -2942,6 +2943,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+已实现波动率
+"""
+from akshare.cal.rv import volatility_yz_rv, rv_from_futures_zh_minute_sina, rv_from_stock_zh_a_hist_min_em
 
 """
 QDII
