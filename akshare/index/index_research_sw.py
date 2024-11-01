@@ -562,6 +562,6 @@ if __name__ == "__main__":
     print(index_analysis_weekly_sw_df)
 
     index_analysis_monthly_sw_df = index_analysis_monthly_sw(
-        symbol="市场表征", date="20240329"
+        symbol="市场表征", date="20240930"
     )
     print(index_analysis_monthly_sw_df)
