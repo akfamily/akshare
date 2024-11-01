@@ -23,6 +23,7 @@ Welcome to AKShare's Online Documentation!
    learn
    installation
    data/index
+   indicator
    data_tips
    trade
    answer
