@@ -203,20 +203,23 @@ def stock_shareholder_change_ths(
     r.encoding = 'gb2312'
     soup = BeautifulSoup(r.text, features="lxml")
 
-    content_list = [
-        item.text.strip()
-        for item in soup.find("table", attrs={"class": "m_table data_table_1 m_hl"})
-    ]
-    column_names = content_list[1].split('\n')
-    row = content_list[3].replace("\t", "").replace("\n\n", "").replace("   ","\n").replace(" ","").replace("\n\n", "\n").split("\n")
+    soup_find = soup.find("table", attrs={"class": "m_table data_table_1 m_hl"})
 
-    new_rows = []
-    step = len(column_names)
-    for i in range(0, len(row), step):
-        new_rows.append(row[i:i + step])
-    df = pd.DataFrame(new_rows, columns=column_names)
+    if soup_find is not None:
+        content_list = [item.text.strip() for item in soup_find]
+        column_names = content_list[1].split("\n")
+        row = content_list[3].replace("\t", "").replace("\n\n", "").replace("   ", "\n").replace(" ", "").replace("\n\n", "\n").split("\n")
+        row = [item for item in row if item!=""]
 
-    return df
+        new_rows = []
+        step = len(column_names)
+        for i in range(0, len(row), step):
+            new_rows.append(row[i : i + step])
+
+        df = pd.DataFrame(new_rows, columns=column_names)
+
+        return df
+    return pd.DataFrame()
 
 
 if __name__ == "__main__":
@@ -274,3 +277,6 @@ if __name__ == "__main__":
         symbol="000063", indicator="按单季度"
     )
     print(stock_financial_cash_ths_df)
+
+    stock_shareholder_change_ths_df = stock_shareholder_change_ths()
+    print(stock_shareholder_change_ths_df)
