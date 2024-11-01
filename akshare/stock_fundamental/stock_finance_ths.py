@@ -182,6 +182,43 @@ def stock_financial_cash_ths(
     return temp_df
 
 
+def stock_shareholder_change_ths(
+    symbol: str = "688981"
+) -> pd.DataFrame:
+    """
+    同花顺-公司大事-股东持股变动
+    https://basic.10jqka.com.cn/new/688981/event.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 同花顺-财务指标-主要指标
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://basic.10jqka.com.cn/new/{symbol}/event.html"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/109.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, headers=headers)
+    r.encoding = 'gb2312'
+    soup = BeautifulSoup(r.text, features="lxml")
+
+    content_list = [
+        item.text.strip()
+        for item in soup.find("table", attrs={"class": "m_table data_table_1 m_hl"})
+    ]
+    column_names = content_list[1].split('\n')
+    row = content_list[3].replace("\t", "").replace("\n\n", "").replace("   ","\n").replace(" ","").replace("\n\n", "\n").split("\n")
+
+    new_rows = []
+    step = len(column_names)
+    for i in range(0, len(row), step):
+        new_rows.append(row[i:i + step])
+    df = pd.DataFrame(new_rows, columns=column_names)
+
+    return df
+
+
 if __name__ == "__main__":
     stock_financial_abstract_ths_df = stock_financial_abstract_ths(
         symbol="000063", indicator="按报告期"
