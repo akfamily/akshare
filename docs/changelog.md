@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.10 add: add volatility_yz_rv indicator
+
+    1. 新增 volatility_yz_rv 指标
+
 1.15.9 fix: fix index_analysis_weekly_sw interface
 
     1. 修复 index_analysis_weekly_sw 接口
@@ -4681,6 +4685,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.10 add: add volatility_yz_rv indicator
 
 1.15.9 fix: fix index_analysis_weekly_sw interface
 
