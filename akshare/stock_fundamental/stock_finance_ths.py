@@ -199,6 +199,14 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
         temp_df["公告日期"] = pd.to_datetime(
             temp_df["公告日期"], errors="coerce"
         ).dt.date
+        temp_df.rename(
+            columns={
+                "变动数量(股)": "变动数量",
+                "交易均价(元)": "交易均价",
+                "剩余股份总数(股)": "剩余股份总数",
+            },
+            inplace=True,
+        )
         return temp_df
     return pd.DataFrame()
 
