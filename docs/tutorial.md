@@ -1280,6 +1280,8 @@
  "qdii_e_index_jsl"  # 集思录-T+0 QDII-欧美市场-欧美指数
  "qdii_e_comm_jsl"  # 集思录-T+0 QDII-欧美市场-商品
  "qdii_a_index_jsl"  # 集思录-T+0 QDII-亚洲市场-亚洲指数
+ # 同花顺-公司大事-股东持股变动
+ "stock_shareholder_change_ths"  # 同花顺-公司大事-股东持股变动
 
  # 计算指标
  "volatility_yz_rv"  # 已实现波动率计算
