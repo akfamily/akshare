@@ -80,6 +80,15 @@
 
 ## 更新说明详情
 
+1.15.12 fix: fix stock_shareholder_change_ths indicator
+
+    1. 修复 stock_shareholder_change_ths 接口
+
+1.15.11 fix: fix stock_individual_spot_xq indicator
+
+    1. 修复 stock_individual_spot_xq 接口
+    2. 新增 stock_shareholder_change_ths 接口
+
 1.15.10 add: add volatility_yz_rv indicator
 
     1. 新增 volatility_yz_rv 指标
@@ -4685,6 +4694,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.12 fix: fix stock_shareholder_change_ths indicator
+
+1.15.11 fix: fix stock_individual_spot_xq indicator
 
 1.15.10 add: add volatility_yz_rv indicator
 
