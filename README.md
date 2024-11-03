@@ -1,6 +1,9 @@
 **欢迎加入专注于财经数据和量化投资的知识社区，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**
 
-**相关视频教程已经发布：《AKShare-初阶-使用教学》、《AKShare-初阶-实战应用》、《AKShare-源码解析》、《开源项目巡礼》**，详情请访问[课程](https://app3rqjh1z21630.h5.xiaoeknow.com)查看更多课程信息！
+**首门量化投资教程：《PyBroker-入门及实战》已经录制完成，目前已经上架！**
+
+**更多视频教程已经发布：《AKShare-初阶-使用教学》、《AKShare-初阶-实战应用》、《AKShare-源码解析》、《开源项目巡礼》**，
+详情请关注【数据科学实战】公众号，查看更多课程信息！
 
 **AKQuant 量化教程请访问：[利用 PyBroker 进行量化投资](https://akquant.akfamily.xyz/)**
 
