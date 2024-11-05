@@ -4418,10 +4418,11 @@ print(index_value_name_funddb_df)
 
 输入参数
 
-| 名称        | 类型  | 描述                                                         |
-|-----------|-----|------------------------------------------------------------|
-| symbol    | str | symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb() 来获取 |
-| indicator | str | indicator="市盈率"; choice of {'市盈率', '市净率', '股息率', '风险溢价'}   |
+| 名称        | 类型  | 描述                                                                      |
+|-----------|-----|-------------------------------------------------------------------------|
+| symbol    | str | symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb() 来获取              |
+| indicator | str | indicator="市盈率"; choice of {'市盈率', '市净率', '股息率', '风险溢价'}                |
+| year      | str | year="-1"; choice of {'-1': "所有", '3': "近3年", '5': "近5年", '10': "近10年"} |
 
 输出参数
 
@@ -4440,26 +4441,26 @@ print(index_value_name_funddb_df)
 ```python
 import akshare as ak
 
-index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
+index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="大盘成长", indicator="市盈率", year="-1")
 print(index_value_hist_funddb_df)
 ```
 
 数据示例
 
 ```
-      日期    平均值    市盈率  最低30  最低10   最高30  最高10
-0     2010-01-04  18.47  30.88   NaN   NaN  30.88   NaN
-1     2010-01-05  18.47  31.06   NaN   NaN  31.06   NaN
-2     2010-01-06  18.47  30.85   NaN   NaN  30.85   NaN
-3     2010-01-07  18.47  29.86   NaN   NaN  29.86   NaN
-4     2010-01-08  18.47  29.85   NaN   NaN  29.85   NaN
-          ...    ...    ...   ...   ...    ...   ...
-3269  2023-06-29  18.47  15.57   NaN   NaN    NaN   NaN
-3270  2023-06-30  18.47  15.70   NaN   NaN    NaN   NaN
-3271  2023-07-03  18.47  15.96   NaN   NaN    NaN   NaN
-3272  2023-07-04  18.47  16.01   NaN   NaN    NaN   NaN
-3273  2023-07-05  18.47  15.89   NaN   NaN    NaN   NaN
-[3274 rows x 7 columns]
+      日期         平均值  市盈率  最低30 最低10 最高30  最高10
+0     2010-01-04  18.38  30.88   NaN   NaN  30.88   NaN
+1     2010-01-05  18.38  31.06   NaN   NaN  31.06   NaN
+2     2010-01-06  18.38  30.85   NaN   NaN  30.85   NaN
+3     2010-01-07  18.38  29.86   NaN   NaN  29.86   NaN
+4     2010-01-08  18.38  29.85   NaN   NaN  29.85   NaN
+...          ...    ...    ...   ...   ...    ...   ...
+3597  2024-10-29  18.38  21.68   NaN   NaN  21.68   NaN
+3598  2024-10-30  18.38  21.54   NaN   NaN  21.54   NaN
+3599  2024-10-31  18.38  21.64   NaN   NaN  21.64   NaN
+3600  2024-11-01  18.38  21.67   NaN   NaN  21.67   NaN
+3601  2024-11-04  18.38  21.99   NaN   NaN  21.99   NaN
+[3602 rows x 7 columns]
 ```
 
 #### 估值情绪

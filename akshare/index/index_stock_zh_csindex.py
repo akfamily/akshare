@@ -382,7 +382,7 @@ def index_value_name_funddb() -> pd.DataFrame:
 
 
 def index_value_hist_funddb(
-    symbol: str = "大盘成长", indicator: str = "市盈率"
+    symbol: str = "大盘成长", indicator: str = "市盈率", year: str = "-1"
 ) -> pd.DataFrame:
     """
     funddb-指数估值-估值信息
@@ -391,6 +391,8 @@ def index_value_hist_funddb(
     :type symbol: str
     :param indicator: choice of {'市盈率', '市净率', '股息率', '风险溢价'}
     :type indicator: str
+    :param year: choice of {'-1': "所有", '3': "近3年", '5': "近5年", '10': "近10年"}
+    :type year: str
     :return: 估值信息
     :rtype: pandas.DataFrame
     """
@@ -417,12 +419,12 @@ def index_value_hist_funddb(
         type="pc",
         ver="new",
         version="2.2.7",
-        year=-1,
+        year=int(year),
     )
     payload = {
         "gu_code": name_code_map[symbol],
         "pe_category": indicator_map[indicator],
-        "year": -1,
+        "year": int(year),
         "ver": "new",
         "type": "pc",
         "version": "2.2.7",
@@ -474,6 +476,6 @@ if __name__ == "__main__":
     print(index_value_name_funddb_df)
 
     index_value_hist_funddb_df = index_value_hist_funddb(
-        symbol="大盘成长", indicator="市盈率"
+        symbol="大盘成长", indicator="市盈率", year="-1"
     )
     print(index_value_hist_funddb_df)
