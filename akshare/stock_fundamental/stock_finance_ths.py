@@ -163,13 +163,53 @@ def stock_financial_cash_ths(
     return temp_df
 
 
+def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
+    """
+    同花顺-公司大事-高管持股变动
+    https://basic.10jqka.com.cn/new/688981/event.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 同花顺-公司大事-高管持股变动
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://basic.10jqka.com.cn/new/{symbol}/event.html"
+    r = requests.get(url, headers=headers)
+    r.encoding = "gb2312"
+    soup = BeautifulSoup(r.text, features="lxml")
+    soup_find = soup.find(name="table", attrs={"class": "data_table_1 m_table m_hl"})
+    if soup_find is not None:
+        content_list = [item.text.strip() for item in soup_find]
+        column_names = content_list[1].split("\n")
+        row = content_list[3].replace(" ", "").replace("\t", "").replace("\n\n", "").replace("   ", "\n").replace("\n\n", "\n").split("\n")
+        row = [item for item in row if item != ""]
+        new_rows = []
+        step = len(column_names)
+        for i in range(0, len(row), step):
+            new_rows.append(row[i : i + step])
+        temp_df = pd.DataFrame(new_rows, columns=column_names)
+        temp_df.sort_values(by="变动日期", ignore_index=True, inplace=True)
+        temp_df["变动日期"] = pd.to_datetime(
+            temp_df["变动日期"], errors="coerce"
+        ).dt.date
+        temp_df.rename(
+            columns={
+                "变动数量（股）": "变动数量",
+                "交易均价（元）": "交易均价",
+                "剩余股数（股）": "剩余股数",
+            },
+            inplace=True,
+        )
+        return temp_df
+    return pd.DataFrame()
+
+
 def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
     """
     同花顺-公司大事-股东持股变动
     https://basic.10jqka.com.cn/new/688981/event.html
     :param symbol: 股票代码
     :type symbol: str
-    :return: 同花顺-财务指标-主要指标
+    :return: 同花顺-公司大事-股东持股变动
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/event.html"
@@ -266,6 +306,9 @@ if __name__ == "__main__":
         symbol="000063", indicator="按单季度"
     )
     print(stock_financial_cash_ths_df)
+
+    stock_management_change_ths_df = stock_management_change_ths(symbol="688981")
+    print(stock_management_change_ths_df)
 
     stock_shareholder_change_ths_df = stock_shareholder_change_ths(symbol="688981")
     print(stock_shareholder_change_ths_df)

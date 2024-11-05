@@ -67,7 +67,10 @@ def stock_inner_trade_xq() -> pd.DataFrame:
         '与董监高关系',
         '董监高职务',
     ]]
-    temp_df['变动日期'] = pd.to_datetime(temp_df['变动日期'], unit="ms").dt.date
+    # bugfix (congcong009) 2024-10-05 由于从毫秒时间戳转换为日期时间对象时，默认的时区可能导致了日期的偏差，转换后比实际的天数少了 1 天
+    # temp_df['变动日期'] = pd.to_datetime(temp_df['变动日期'], unit="ms").dt.date
+    temp_df['变动日期'] = pd.to_datetime(temp_df['变动日期'], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai').dt.date
+    # bugfix -- end
     temp_df['变动股数'] = pd.to_numeric(temp_df['变动股数'], errors="coerce")
     temp_df['成交均价'] = pd.to_numeric(temp_df['成交均价'], errors="coerce")
     temp_df['变动后持股数'] = pd.to_numeric(temp_df['变动后持股数'], errors="coerce")
