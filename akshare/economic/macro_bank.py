@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/25 21:11
+Date: 2024/11/5 17:11
 Desc: 金十数据中心-经济指标-央行利率-主要央行利率
 https://datacenter.jin10.com/economic
 输出数据格式为 float64
@@ -17,6 +17,7 @@ https://datacenter.jin10.com/economic
 印度央行决议报告
 巴西央行决议报告
 """
+
 import datetime
 import time
 
@@ -24,80 +25,87 @@ import pandas as pd
 import requests
 
 
+def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame:
+    """
+    利率决议报告公共函数
+    https://datacenter.jin10.com/reportType/dc_usa_interest_rate_decision
+    :param attr_id: 内置属性
+    :type attr_id: str
+    :param name: 利率报告名称
+    :type name: str
+    :return: 利率决议报告数据
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    headers = {
+        "Accept": "*/*",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36",
+        "Origin": "https://datacenter.jin10.com",
+        "Referer": "https://datacenter.jin10.com/",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-version": "1.0.0",
+    }
+    base_url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": attr_id,
+        "_": str(int(round(t * 1000))),
+    }
+    interest_rate_data = []
+    try:
+        while True:
+            response = requests.get(
+                url=base_url, params=params, headers=headers, timeout=10
+            )
+            data = response.json()
+            if not data.get("data", {}).get("values"):
+                break
+            interest_rate_data.extend(data["data"]["values"])
+
+            # Update max_date for pagination
+            last_date = data["data"]["values"][-1][0]
+            next_date = (
+                datetime.datetime.strptime(last_date, "%Y-%m-%d").date()
+                - datetime.timedelta(days=1)
+            ).isoformat()
+            params["max_date"] = next_date
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return pd.DataFrame()
+
+    # Convert to DataFrame
+    big_df = pd.DataFrame(interest_rate_data)
+
+    if big_df.empty:
+        return pd.DataFrame()
+
+    # Process DataFrame
+    big_df["商品"] = name
+    big_df.columns = ["日期", "今值", "预测值", "前值", "商品"]
+    big_df = big_df[["商品", "日期", "今值", "预测值", "前值"]]
+
+    # Convert data types
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    numeric_columns = ["今值", "预测值", "前值"]
+    for col in numeric_columns:
+        big_df[col] = pd.to_numeric(big_df[col], errors="coerce")
+
+    return big_df.sort_values("日期").reset_index(drop=True)
+
+
 # 金十数据中心-经济指标-央行利率-主要央行利率-美联储利率决议报告
 def macro_bank_usa_interest_rate() -> pd.DataFrame:
     """
     美联储利率决议报告, 数据区间从 19820927-至今
     https://datacenter.jin10.com/reportType/dc_usa_interest_rate_decision
-    https://cdn.jin10.com/dc/reports/dc_usa_interest_rate_decision_all.js?v=1578581921
     :return: 美联储利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "24",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "美联储利率决议"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="24", name="美联储利率决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-欧洲央行决议报告
@@ -109,71 +117,7 @@ def macro_bank_euro_interest_rate() -> pd.DataFrame:
     :return: 欧洲央行决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "21",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "欧元区利率决议"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="21", name="欧洲央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-新西兰联储决议报告
@@ -185,71 +129,7 @@ def macro_bank_newzealand_interest_rate() -> pd.DataFrame:
     :return: 新西兰联储决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "23",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "新西兰利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="23", name="新西兰利率决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-瑞士央行决议报告
@@ -261,71 +141,7 @@ def macro_bank_switzerland_interest_rate() -> pd.DataFrame:
     :return: 瑞士央行利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "25",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "瑞士央行利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="25", name="瑞士央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-英国央行决议报告
@@ -337,71 +153,7 @@ def macro_bank_english_interest_rate() -> pd.DataFrame:
     :return: 英国央行决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "26",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "英国利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="26", name="英国央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-澳洲联储决议报告
@@ -413,71 +165,7 @@ def macro_bank_australia_interest_rate() -> pd.DataFrame:
     :return: 澳洲联储决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "27",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "澳大利亚利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="27", name="澳洲联储决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-日本央行决议报告
@@ -489,71 +177,7 @@ def macro_bank_japan_interest_rate() -> pd.DataFrame:
     :return: 日本利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "22",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "日本利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="22", name="日本央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-俄罗斯央行决议报告
@@ -565,71 +189,7 @@ def macro_bank_russia_interest_rate() -> pd.DataFrame:
     :return: 俄罗斯利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "64",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "俄罗斯利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="64", name="俄罗斯央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-印度央行决议报告
@@ -641,71 +201,7 @@ def macro_bank_india_interest_rate() -> pd.DataFrame:
     :return: 印度利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "68",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "印度利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="68", name="印度央行决议报告")
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-巴西央行决议报告
@@ -717,71 +213,7 @@ def macro_bank_brazil_interest_rate() -> pd.DataFrame:
     :return: 巴西利率决议报告-今值(%)
     :rtype: pandas.Series
     """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "55",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "巴西利率决议报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    return __get_interest_rate_data(attr_id="55", name="巴西央行决议报告")
 
 
 if __name__ == "__main__":
@@ -794,15 +226,11 @@ if __name__ == "__main__":
     print(macro_bank_euro_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-新西兰联储决议报告
-    macro_bank_newzealand_interest_rate_df = (
-        macro_bank_newzealand_interest_rate()
-    )
+    macro_bank_newzealand_interest_rate_df = macro_bank_newzealand_interest_rate()
     print(macro_bank_newzealand_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-瑞士央行决议报告
-    macro_bank_switzerland_interest_rate_df = (
-        macro_bank_switzerland_interest_rate()
-    )
+    macro_bank_switzerland_interest_rate_df = macro_bank_switzerland_interest_rate()
     print(macro_bank_switzerland_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-英国央行决议报告
@@ -810,9 +238,7 @@ if __name__ == "__main__":
     print(macro_bank_english_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-澳洲联储决议报告
-    macro_bank_australia_interest_rate_df = (
-        macro_bank_australia_interest_rate()
-    )
+    macro_bank_australia_interest_rate_df = macro_bank_australia_interest_rate()
     print(macro_bank_australia_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-日本央行决议报告
