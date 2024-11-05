@@ -11998,7 +11998,6 @@ print(stock_gdfx_holding_change_em_df)
 33900  33901  ...                            000761|本钢板材,200761|本钢板B
 ```
 
-
 #### 高管持股变动统计
 
 接口: stock_management_change_ths
@@ -12051,7 +12050,6 @@ print(stock_management_change_ths_df)
 13  2024-09-30   金达  核心技术人员  减持4.00万  54.87   4.00万  二级市场买卖
 [13 rows x 7 columns]
 ```
-
 
 #### 股东持股变动统计
 
