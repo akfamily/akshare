@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.15 add: add macro_bank_china_interest_rate indicator
+
+    1. 新增 macro_bank_china_interest_rate 接口
+
 1.15.14 fix: fix macro_bank_usa_interest_rate indicator
 
     1. 修复 macro_bank_usa_interest_rate 接口
@@ -4713,6 +4717,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.15 add: add macro_bank_china_interest_rate indicator
 
 1.15.14 fix: fix macro_bank_usa_interest_rate indicator
 
