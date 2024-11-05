@@ -11,6 +11,7 @@ import json
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 from akshare.utils.cons import headers
 
 
@@ -180,7 +181,15 @@ def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
     if soup_find is not None:
         content_list = [item.text.strip() for item in soup_find]
         column_names = content_list[1].split("\n")
-        row = content_list[3].replace(" ", "").replace("\t", "").replace("\n\n", "").replace("   ", "\n").replace("\n\n", "\n").split("\n")
+        row = (
+            content_list[3]
+            .replace(" ", "")
+            .replace("\t", "")
+            .replace("\n\n", "")
+            .replace("   ", "\n")
+            .replace("\n\n", "\n")
+            .split("\n")
+        )
         row = [item for item in row if item != ""]
         new_rows = []
         step = len(column_names)
