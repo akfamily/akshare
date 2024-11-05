@@ -80,6 +80,20 @@
 
 ## 更新说明详情
 
+1.15.14 fix: fix macro_bank_usa_interest_rate indicator
+
+    1. 修复 macro_bank_usa_interest_rate 接口
+    2. 修复 macro_bank_euro_interest_rate 接口
+    3. 修复 macro_bank_newzealand_interest_rate 接口
+    4. 修复 macro_bank_switzerland_interest_rate 接口
+    5. 修复 macro_bank_english_interest_rate 接口
+    6. 修复 macro_bank_australia_interest_rate 接口
+    7. 修复 macro_bank_japan_interest_rate 接口
+    8. 修复 macro_bank_russia_interest_rate 接口
+    9. 修复 macro_bank_india_interest_rate 接口
+    10. 修复 macro_bank_brazil_interest_rate 接口
+    11. 修复 index_value_hist_funddb 接口
+
 1.15.13 fix: fix stock_inner_trade_xq indicator
 
     1. 修复 stock_inner_trade_xq 接口
@@ -4699,6 +4713,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.14 fix: fix macro_bank_usa_interest_rate indicator
 
 1.15.13 fix: fix stock_inner_trade_xq indicator
 

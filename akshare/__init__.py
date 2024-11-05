@@ -2923,9 +2923,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.11 fix: fix stock_individual_spot_xq indicator
 1.15.12 fix: fix stock_shareholder_change_ths indicator
 1.15.13 fix: fix stock_inner_trade_xq indicator
+1.15.14 fix: fix macro_bank_usa_interest_rate indicator
 """
 
-__version__ = "1.15.13"
+__version__ = "1.15.14"
 __author__ = "AKFamily"
 
 import sys
