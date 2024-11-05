@@ -3206,6 +3206,7 @@ from akshare.stock_fundamental.stock_finance_ths import (
     stock_financial_debt_ths,
     stock_financial_benefit_ths,
     stock_financial_cash_ths,
+    stock_management_change_ths,
     stock_shareholder_change_ths,
 )
 
