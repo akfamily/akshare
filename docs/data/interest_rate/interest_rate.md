@@ -161,13 +161,13 @@ print(macro_bank_newzealand_interest_rate_df)
 [235 rows x 5 columns]
 ```
 
-#### 新西兰联储决议报告
+#### 中国央行决议报告
 
 接口: macro_bank_china_interest_rate
 
 目标地址: https://datacenter.jin10.com/reportType/dc_china_interest_rate_decision
 
-描述: 新西兰联储决议报告, 数据区间从 19910501-至今
+描述: 中国央行决议报告, 数据区间从 19910105-至今
 
 限量: 单次返回所有历史数据
 
@@ -220,7 +220,7 @@ print(macro_bank_china_interest_rate_df)
 
 目标地址: https://datacenter.jin10.com/reportType/dc_switzerland_interest_rate_decision
 
-描述: 瑞士央行利率决议报告, 数据区间从20080313-至今
+描述: 瑞士央行利率决议报告, 数据区间从 20080313-至今
 
 限量: 单次返回所有历史数据
 
