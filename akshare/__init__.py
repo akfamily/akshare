@@ -2926,9 +2926,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.14 fix: fix macro_bank_usa_interest_rate indicator
 1.15.15 add: add macro_bank_china_interest_rate indicator
 1.15.16 fix: fix macro_bank_usa_interest_rate indicator
+1.15.17 fix: fix news_trade_notify_dividend_baidu indicator
 """
 
-__version__ = "1.15.16"
+__version__ = "1.15.17"
 __author__ = "AKFamily"
 
 import sys
