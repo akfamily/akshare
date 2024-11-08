@@ -51,9 +51,7 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "mini-racer>=0.12.4;platform_system!='Linux'",
-        "py-mini-racer>=0.6.0;platform_system=='Linux'",
-        "akracer>=0.0.13;platform_system=='Linux'",
+        "mini-racer>=0.12.4",
     ],
     extras_require={
         # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
