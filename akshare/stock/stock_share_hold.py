@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/23 8:30
+Date: 2024/11/8 17:00
 Desc: 董监高及相关人员持股变动
 
 北京证券交易所-信息披露-监管信息-董监高及相关人员持股变动
 https://www.bse.cn/disclosure/djg_sharehold_change.html
 
 深圳证券交易所-信息披露-监管信息公开-董监高人员股份变动
-http://www.szse.cn/disclosure/supervision/change/index.html
+https://www.szse.cn/disclosure/supervision/change/index.html
 
 上海证券交易所-披露-监管信息公开-公司监管-董董监高人员股份变动
-http://www.sse.com.cn/disclosure/credibility/supervision/change/
+https://www.sse.com.cn/disclosure/credibility/supervision/change/
 """
+
 import json
 
 import pandas as pd
@@ -23,13 +24,13 @@ from tqdm import tqdm
 def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
     """
     上海证券交易所-披露-监管信息公开-公司监管-董董监高人员股份变动
-    http://www.sse.com.cn/disclosure/credibility/supervision/change/
+    https://www.sse.com.cn/disclosure/credibility/supervision/change/
     :param symbol: choice of {"全部", "具体股票代码"}
     :type symbol: str
     :return: 董监高人员股份变动
     :rtype: pandas.DataFrame
     """
-    url = "http://query.sse.com.cn/commonQuery.do"
+    url = "https://query.sse.com.cn/commonQuery.do"
     params = {
         "isPagination": "true",
         "pageHelp.pageSize": "100",
@@ -48,8 +49,9 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
     params if symbol == "全部" else params.update({"COMPANY_CODE": symbol})
     headers = {
         "Host": "query.sse.com.cn",
-        "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://www.sse.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
@@ -106,9 +108,13 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
     big_df["变动日期"] = pd.to_datetime(big_df["变动日期"], errors="coerce").dt.date
     big_df["填报日期"] = pd.to_datetime(big_df["填报日期"], errors="coerce").dt.date
 
-    big_df["本次变动前持股数"] = pd.to_numeric(big_df["本次变动前持股数"], errors="coerce")
+    big_df["本次变动前持股数"] = pd.to_numeric(
+        big_df["本次变动前持股数"], errors="coerce"
+    )
     big_df["变动数"] = pd.to_numeric(big_df["变动数"], errors="coerce")
-    big_df["本次变动平均价格"] = pd.to_numeric(big_df["本次变动平均价格"], errors="coerce")
+    big_df["本次变动平均价格"] = pd.to_numeric(
+        big_df["本次变动平均价格"], errors="coerce"
+    )
     big_df["变动后持股数"] = pd.to_numeric(big_df["变动后持股数"], errors="coerce")
     return big_df
 
@@ -116,7 +122,7 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
 def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
     """
     深圳证券交易所-信息披露-监管信息公开-董监高人员股份变动
-    http://www.szse.cn/disclosure/supervision/change/index.html
+    https://www.szse.cn/disclosure/supervision/change/index.html
     :param symbol: choice of {"全部", "具体股票代码"}
     :type symbol: str
     :return: 董监高人员股份变动
@@ -130,15 +136,16 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
         "random": "0.7874198771222201",
     }
     params if symbol == "全部" else params.update({"txtDMorJC": symbol})
-    url = "http://www.szse.cn/api/report/ShowReport/data"
+    url = "https://www.szse.cn/api/report/ShowReport/data"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     total_page = data_json[0]["metadata"]["pagecount"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page+1), leave=False):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
                 "PAGENO": page,
@@ -212,7 +219,8 @@ def stock_share_hold_change_bse(symbol: str = "430489") -> pd.DataFrame:
     }
     url = "https://www.bse.cn/djgCgbdController/getDjgCgbdList.do"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
     }
     r = requests.get(url, headers=headers, params=params)
     data_text = r.text
