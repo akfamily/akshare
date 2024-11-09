@@ -3,13 +3,10 @@
 """
 Date: 2024/11/8 17:00
 Desc: 董监高及相关人员持股变动
-
 北京证券交易所-信息披露-监管信息-董监高及相关人员持股变动
 https://www.bse.cn/disclosure/djg_sharehold_change.html
-
 深圳证券交易所-信息披露-监管信息公开-董监高人员股份变动
 https://www.szse.cn/disclosure/supervision/change/index.html
-
 上海证券交易所-披露-监管信息公开-公司监管-董董监高人员股份变动
 https://www.sse.com.cn/disclosure/credibility/supervision/change/
 """
@@ -128,6 +125,11 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
     :return: 董监高人员股份变动
     :rtype: pandas.DataFrame
     """
+    url = "https://www.szse.cn/api/report/ShowReport/data"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
+    }
     params = {
         "SHOWTYPE": "JSON",
         "CATALOGID": "1801_cxda",
@@ -136,11 +138,6 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
         "random": "0.7874198771222201",
     }
     params if symbol == "全部" else params.update({"txtDMorJC": symbol})
-    url = "https://www.szse.cn/api/report/ShowReport/data"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/93.0.4577.63 Safari/537.36",
-    }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     total_page = data_json[0]["metadata"]["pagecount"]
