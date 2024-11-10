@@ -2929,9 +2929,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.17 fix: fix news_trade_notify_dividend_baidu indicator
 1.15.18 fix: fix stock_share_hold_change_sse indicator
 1.15.19 fix: fix stock_share_hold_change_szse indicator
+1.15.20 fix: fix rv_from_stock_zh_a_hist_min_em indicator
 """
 
-__version__ = "1.15.19"
+__version__ = "1.15.20"
 __author__ = "AKFamily"
 
 import sys
