@@ -1,6 +1,7 @@
 """
 Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
 https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
+论文地址：https://www.jstor.org/stable/10.1086/209650
 """
 
 import warnings
@@ -92,6 +93,7 @@ def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     """
     波动率-已实现波动率-Yang-Zhang 已实现波动率(Yang-Zhang Realized Volatility)
     https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
+    论文地址：https://www.jstor.org/stable/10.1086/209650
     基于以下公式计算:
     RV^2 = Vo + k*Vc + (1-k)*Vrs
     其中:
