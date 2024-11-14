@@ -668,11 +668,13 @@ def get_futures_daily(
     df_list = list()
     while start_date <= end_date:
         df = f(date=str(start_date).replace("-", ""))
-        if df is not None:
+        if not df.empty:
             df_list.append(df)
         start_date += datetime.timedelta(days=1)
 
-    if len(df_list) > 0:
+    if len(df_list) == 0:
+        return pd.DataFrame()
+    elif len(df_list) > 0:
         temp_df = pd.concat(df_list).reset_index(drop=True)
         temp_df = temp_df[~temp_df["symbol"].str.contains("efp")]
         return temp_df
@@ -680,7 +682,7 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20240701", end_date="20240720", market="DCE"
+        start_date="20240101", end_date="20240102", market="DCE"
     )
     print(get_futures_daily_df)
 
