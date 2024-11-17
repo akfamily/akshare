@@ -37,6 +37,9 @@ P.S. 可以通过调用 ak.option_finance_sse_underlying(symbol="华夏上证50E
 | 华夏科创50ETF期权    | 金融期权 | 上海证券交易所   | 2023-06-05 |
 | 易方达科创50ETF期权   | 金融期权 | 上海证券交易所   | 2023-06-05 |
 | 嘉实沪深300ETF期权   | 金融期权 | 深圳证券交易所   | 2019-12-23 |
+| 嘉实中证500ETF期权   | 金融期权 | 深圳证券交易所   | 2022-09-19 |
+| 易方达创业板ETF期权    | 金融期权 | 深圳证券交易所   | 2022-09-19 |
+| 易方达深证100ETF    | 金融期权 | 深圳证券交易所   | 2022-12-12 |
 | 沪深300股指期权      | 金融期权 | 中国金融期货交易所 | 2019-12-23 |
 | 中证1000股指期权     | 金融期权 | 中国金融期货交易所 | 2022-07-22 |
 | 上证50股指期权       | 金融期权 | 中国金融期货交易所 | 2022-12-19 |
@@ -2786,7 +2789,7 @@ print(option_czce_daily_df)
 import akshare as ak
 
 option_gfex_daily_df = ak.option_gfex_daily(symbol="工业硅", trade_date="20230418")
-print(option_gfex_daily_df.dtypes)
+print(option_gfex_daily_df)
 ```
 
 数据示例-广州期货交易所期权合约行情(工业硅)
