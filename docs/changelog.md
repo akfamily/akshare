@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.24 fix: fix get_dce_daily interface
+
+    1. 修复 get_dce_daily 接口
+
 1.15.23 fix: fix stock_sector_fund_flow_summary interface
 
     1. 修复 stock_sector_fund_flow_summary 接口
@@ -4749,6 +4753,12 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.24 fix: fix get_dce_daily interface
+
+1.15.23 fix: fix stock_sector_fund_flow_summary interface
+
+1.15.24 fix: fix get_dce_daily interface
 
 1.15.22 fix: fix air_quality_hebei interface
 
