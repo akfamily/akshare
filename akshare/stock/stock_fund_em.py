@@ -353,7 +353,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"): -2])
+    json_data = json.loads(text_data[text_data.find("{") : -2])
     content_list = json_data["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
@@ -484,7 +484,7 @@ def stock_sector_fund_flow_rank(
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"): -2])
+    json_data = json.loads(text_data[text_data.find("{") : -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
     if indicator == "今日":
         temp_df.columns = [
@@ -675,7 +675,7 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f62",
             "po": "1",
-            "pz": "50",
+            "pz": "500",
             "pn": "1",
             "np": "1",
             "fltt": "2",
@@ -764,7 +764,7 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f164",
             "po": "1",
-            "pz": "50",
+            "pz": "500",
             "pn": "1",
             "np": "1",
             "fltt": "2",
@@ -853,7 +853,7 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f174",
             "po": "1",
-            "pz": "50",
+            "pz": "500",
             "pn": "1",
             "np": "1",
             "fltt": "2",
@@ -1296,7 +1296,7 @@ if __name__ == "__main__":
     print(stock_sector_fund_flow_rank_df)
 
     stock_sector_fund_flow_summary_df = stock_sector_fund_flow_summary(
-        symbol="电源设备", indicator="今日"
+        symbol="文化传媒", indicator="今日"
     )
     print(stock_sector_fund_flow_summary_df)
 
