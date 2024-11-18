@@ -140,17 +140,22 @@ def option_dce_daily(
     elif symbol == "鸡蛋期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "鸡蛋"],
-            another_df[another_df.iloc[:, 0].str.contains("eb")],
+            another_df[another_df.iloc[:, 0].str.contains("jd")],
         )
     elif symbol == "玉米淀粉期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "玉米淀粉"],
-            another_df[another_df.iloc[:, 0].str.contains("eb")],
+            another_df[another_df.iloc[:, 0].str.contains("cs")],
         )
     elif symbol == "生猪期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "生猪"],
-            another_df[another_df.iloc[:, 0].str.contains("eb")],
+            another_df[another_df.iloc[:, 0].str.contains("lh")],
+        )
+    elif symbol == "原木期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "原木"],
+            another_df[another_df.iloc[:, 0].str.contains("lg")],
         )
     result_one_df.reset_index(inplace=True, drop=True)
     result_two_df.reset_index(inplace=True, drop=True)
@@ -526,7 +531,7 @@ if __name__ == "__main__":
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="鸡蛋期权", trade_date="20240823"
+        symbol="鸡蛋期权", trade_date="20241118"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
