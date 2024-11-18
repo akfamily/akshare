@@ -2920,21 +2920,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.8 fix: fix fund_individual_basic_info_xq interface
 1.15.9 fix: fix index_analysis_weekly_sw interface
 1.15.10 add: add volatility_yz_rv indicator
-1.15.11 fix: fix stock_individual_spot_xq indicator
-1.15.12 fix: fix stock_shareholder_change_ths indicator
-1.15.13 fix: fix stock_inner_trade_xq indicator
-1.15.14 fix: fix macro_bank_usa_interest_rate indicator
-1.15.15 add: add macro_bank_china_interest_rate indicator
-1.15.16 fix: fix macro_bank_usa_interest_rate indicator
-1.15.17 fix: fix news_trade_notify_dividend_baidu indicator
-1.15.18 fix: fix stock_share_hold_change_sse indicator
-1.15.19 fix: fix stock_share_hold_change_szse indicator
-1.15.20 fix: fix rv_from_stock_zh_a_hist_min_em indicator
-1.15.21 fix: fix get_futures_daily indicator
-1.15.22 fix: fix air_quality_hebei indicator
+1.15.11 fix: fix stock_individual_spot_xq interface
+1.15.12 fix: fix stock_shareholder_change_ths interface
+1.15.13 fix: fix stock_inner_trade_xq interface
+1.15.14 fix: fix macro_bank_usa_interest_rate interface
+1.15.15 add: add macro_bank_china_interest_rate interface
+1.15.16 fix: fix macro_bank_usa_interest_rate interface
+1.15.17 fix: fix news_trade_notify_dividend_baidu interface
+1.15.18 fix: fix stock_share_hold_change_sse interface
+1.15.19 fix: fix stock_share_hold_change_szse interface
+1.15.20 fix: fix rv_from_stock_zh_a_hist_min_em interface
+1.15.21 fix: fix get_futures_daily interface
+1.15.22 fix: fix air_quality_hebei interface
+1.15.23 fix: fix stock_sector_fund_flow_summary interface
 """
 
-__version__ = "1.15.22"
+__version__ = "1.15.23"
 __author__ = "AKFamily"
 
 import sys
