@@ -2935,9 +2935,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.23 fix: fix stock_sector_fund_flow_summary interface
 1.15.24 fix: fix get_dce_daily interface
 1.15.25 fix: fix stock_news_main_cx interface
+1.15.26 fix: fix option_dce_daily interface
 """
 
-__version__ = "1.15.25"
+__version__ = "1.15.26"
 __author__ = "AKFamily"
 
 import sys
