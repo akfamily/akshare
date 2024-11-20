@@ -604,7 +604,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
             "variety",
         ]
     ]
-    data_df = data_df.map(lambda x: x.replace(",", ""))
+    data_df = data_df.applymap(lambda x: x.replace(",", ""))
     data_df = data_df.astype(
         {
             "open": "float",
