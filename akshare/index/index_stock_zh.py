@@ -216,6 +216,7 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
     """
     if symbol == "沪深重要指数":
         return __stock_zh_main_spot_em()
+
     url = "https://48.push2.eastmoney.com/api/qt/clist/get"
     symbol_map = {
         "上证系列指数": "m:1 s:2",
