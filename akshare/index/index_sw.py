@@ -95,6 +95,9 @@ def sw_index_second_info() -> pd.DataFrame:
     )
     code = [item.get_text() for item in code_raw]
     name = [item.get_text().split("(")[0] for item in name_raw]
+    parent_name = [
+        item.find("span").get_text().split("(")[0][1:-1] for item in name_raw
+    ]
     num = [item.get_text().split("(")[1].split(")")[0] for item in name_raw]
     num_1 = [
         item.find_all("span", attrs={"class": "value"})[0].get_text().strip()
@@ -112,10 +115,11 @@ def sw_index_second_info() -> pd.DataFrame:
         item.find_all("span", attrs={"class": "value"})[3].get_text().strip()
         for item in value_raw
     ]
-    temp_df = pd.DataFrame([code, name, num, num_1, num_2, num_3, num_4]).T
+    temp_df = pd.DataFrame([code, name, parent_name, num, num_1, num_2, num_3, num_4]).T
     temp_df.columns = [
         "行业代码",
         "行业名称",
+        "上级行业",
         "成份个数",
         "静态市盈率",
         "TTM(滚动)市盈率",
@@ -153,6 +157,9 @@ def sw_index_third_info() -> pd.DataFrame:
     )
     code = [item.get_text() for item in code_raw]
     name = [item.get_text().split("(")[0] for item in name_raw]
+    parent_name = [
+        item.find("span").get_text().split("(")[0][1:-1] for item in name_raw
+    ]
     num = [item.get_text().split("(")[1].split(")")[0] for item in name_raw]
     num_1 = [
         item.find_all("span", attrs={"class": "value"})[0].get_text().strip()
@@ -170,10 +177,11 @@ def sw_index_third_info() -> pd.DataFrame:
         item.find_all("span", attrs={"class": "value"})[3].get_text().strip()
         for item in value_raw
     ]
-    temp_df = pd.DataFrame([code, name, num, num_1, num_2, num_3, num_4]).T
+    temp_df = pd.DataFrame([code, name, parent_name, num, num_1, num_2, num_3, num_4]).T
     temp_df.columns = [
         "行业代码",
         "行业名称",
+        "上级行业",
         "成份个数",
         "静态市盈率",
         "TTM(滚动)市盈率",
