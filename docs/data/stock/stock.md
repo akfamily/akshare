@@ -16417,7 +16417,7 @@ print(stock_hk_indicator_eniu_df)
 |-----------|-----|------------------------------------------------------------------------|
 | symbol    | str | symbol="02358"; 港股代码                                                   |
 | indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
-| period    | str | period="近一年"; choice of {"近一年", "近三年", "近五年", "近十年", "全部"}             |
+| period    | str | period="近一年"; choice of {"近一年", "近三年", "全部"}                           |
 
 输出参数
 
@@ -16431,25 +16431,26 @@ print(stock_hk_indicator_eniu_df)
 ```python
 import akshare as ak
 
-stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(symbol="02358", indicator="总市值", period="近一年")
+stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(symbol="06969", indicator="总市值", period="近一年")
 print(stock_hk_valuation_baidu_df)
 ```
 
 数据示例
 
 ```
-           date     value
-0    2022-01-13  45661.68
-1    2022-01-14  45488.72
-2    2022-01-17  44739.66
-3    2022-01-18  43509.82
-4    2022-01-19  43798.16
-..          ...       ...
-242  2023-01-09  34623.04
-243  2023-01-10  34661.30
-244  2023-01-11  35751.63
-245  2023-01-12  34827.16
-246  2023-01-13  35535.28
+           date   value
+0    2023-11-21  427.15
+1    2023-11-22  428.99
+2    2023-11-23  441.88
+3    2023-11-24  430.83
+4    2023-11-25  430.83
+..          ...     ...
+362  2024-11-17  602.46
+363  2024-11-18  632.73
+364  2024-11-19  679.69
+365  2024-11-20  713.06
+366  2024-11-21  688.35
+[367 rows x 2 columns]
 ```
 
 #### 创新高和新低的股票数量
