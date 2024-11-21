@@ -61,6 +61,6 @@ def stock_hk_valuation_baidu(
 
 if __name__ == "__main__":
     stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(
-        symbol="06969", indicator="总市值", period="近一年"
+        symbol="06969", indicator="总市值", period="近三年"
     )
     print(stock_hk_valuation_baidu_df)
