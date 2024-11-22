@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/15 17:33
+Date: 2024/11/22 14:00
 Desc: 新浪财经-基金行情
-http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
+https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import demjson
@@ -28,10 +28,13 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
         "ETF基金": "etf_hq_fund",
         "LOF基金": "lof_hq_fund",
     }
-    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/jsonp.php/IO.XSRV2.CallbackList['da_yPT46_Ll7K6WD']/Market_Center.getHQNodeDataSimple"
+    url = (
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/jsonp.php/"
+        "IO.XSRV2.CallbackList['da_yPT46_Ll7K6WD']/Market_Center.getHQNodeDataSimple"
+    )
     params = {
         "page": "1",
-        "num": "1000",
+        "num": "5000",
         "sort": "symbol",
         "asc": "0",
         "node": fund_map[symbol],
@@ -96,21 +99,21 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
             "成交额",
         ]
     ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["买入"] = pd.to_numeric(temp_df["买入"])
-    temp_df["卖出"] = pd.to_numeric(temp_df["卖出"])
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"])
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["买入"] = pd.to_numeric(temp_df["买入"], errors="coerce")
+    temp_df["卖出"] = pd.to_numeric(temp_df["卖出"], errors="coerce")
+    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
+    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     return temp_df
 
 
-def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
+def fund_etf_hist_sina(symbol: str = "sh510050") -> pd.DataFrame:
     """
     新浪财经-基金-ETF 基金-日行情数据
     https://finance.sina.com.cn/fund/quotes/159996/bc.shtml
@@ -129,12 +132,12 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     temp_df = pd.DataFrame(dict_list)
     if temp_df.empty:  # 处理获取数据为空的问题
         return pd.DataFrame()
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
     return temp_df
 
 
