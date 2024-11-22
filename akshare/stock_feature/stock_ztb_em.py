@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/8/18 17:30
+Date: 2024/11/22 21:30
 Desc: 首页-行情中心-涨停板行情-涨停股池
 https://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -122,7 +122,7 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wz.ztzt",
         "Pageindex": "0",
-        "pagesize": "170",
+        "pagesize": "5000",
         "sort": "zs:desc",
         "date": date,
         "_": "1621590489736",
@@ -200,7 +200,7 @@ def stock_zt_pool_strong_em(date: str = "20241009") -> pd.DataFrame:
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wz.ztzt",
         "Pageindex": "0",
-        "pagesize": "170",
+        "pagesize": "5000",
         "sort": "zdp:desc",
         "date": date,
         "_": "1621590489736",
@@ -278,7 +278,7 @@ def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wz.ztzt",
         "Pageindex": "0",
-        "pagesize": "170",
+        "pagesize": "5000",
         "sort": "ods:asc",
         "date": date,
         "_": "1621590489736",
@@ -364,7 +364,7 @@ def stock_zt_pool_zbgc_em(date: str = "20241011") -> pd.DataFrame:
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wz.ztzt",
         "Pageindex": "0",
-        "pagesize": "170",
+        "pagesize": "5000",
         "sort": "fbt:asc",
         "date": date,
         "_": "1621590489736",
@@ -522,7 +522,7 @@ if __name__ == "__main__":
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241009")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241122")
     print(stock_zt_pool_strong_em_df)
 
     stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241011")
