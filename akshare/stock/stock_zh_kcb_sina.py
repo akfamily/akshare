@@ -4,6 +4,7 @@
 Date: 2023/7/6 19:28
 Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
+
 import datetime
 import re
 
@@ -61,59 +62,61 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
         "最新价",
         "涨跌额",
         "涨跌幅",
-        '买入',
-        '卖出',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-        '时点',
-        '市盈率',
-        '市净率',
-        '流通市值',
-        '总市值',
-        '换手率',
+        "买入",
+        "卖出",
+        "昨收",
+        "今开",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "时点",
+        "市盈率",
+        "市净率",
+        "流通市值",
+        "总市值",
+        "换手率",
     ]
-    big_df = big_df[[
-        "代码",
-        "名称",
-        "最新价",
-        "涨跌额",
-        "涨跌幅",
-        '买入',
-        '卖出',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-        '时点',
-        '市盈率',
-        '市净率',
-        '流通市值',
-        '总市值',
-        '换手率',
-    ]]
+    big_df = big_df[
+        [
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "买入",
+            "卖出",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+            "时点",
+            "市盈率",
+            "市净率",
+            "流通市值",
+            "总市值",
+            "换手率",
+        ]
+    ]
 
-    big_df['最新价'] = pd.to_numeric(big_df['最新价'])
-    big_df['涨跌额'] = pd.to_numeric(big_df['涨跌额'])
-    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'])
-    big_df['买入'] = pd.to_numeric(big_df['买入'])
-    big_df['卖出'] = pd.to_numeric(big_df['卖出'])
-    big_df['昨收'] = pd.to_numeric(big_df['昨收'])
-    big_df['今开'] = pd.to_numeric(big_df['今开'])
-    big_df['最高'] = pd.to_numeric(big_df['最高'])
-    big_df['最低'] = pd.to_numeric(big_df['最低'])
-    big_df['成交量'] = pd.to_numeric(big_df['成交量'])
-    big_df['成交额'] = pd.to_numeric(big_df['成交额'])
-    big_df['市盈率'] = pd.to_numeric(big_df['市盈率'])
-    big_df['市净率'] = pd.to_numeric(big_df['市净率'])
-    big_df['流通市值'] = pd.to_numeric(big_df['流通市值'])
-    big_df['总市值'] = pd.to_numeric(big_df['总市值'])
-    big_df['换手率'] = pd.to_numeric(big_df['换手率'])
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
+    big_df["涨跌额"] = pd.to_numeric(big_df["涨跌额"])
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
+    big_df["买入"] = pd.to_numeric(big_df["买入"])
+    big_df["卖出"] = pd.to_numeric(big_df["卖出"])
+    big_df["昨收"] = pd.to_numeric(big_df["昨收"])
+    big_df["今开"] = pd.to_numeric(big_df["今开"])
+    big_df["最高"] = pd.to_numeric(big_df["最高"])
+    big_df["最低"] = pd.to_numeric(big_df["最低"])
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"])
+    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"])
+    big_df["市净率"] = pd.to_numeric(big_df["市净率"])
+    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"])
+    big_df["总市值"] = pd.to_numeric(big_df["总市值"])
+    big_df["换手率"] = pd.to_numeric(big_df["换手率"])
     return big_df
 
 
@@ -123,7 +126,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     https://finance.sina.com.cn/realstock/company/sh688005/nc.shtml
     :param symbol: 股票代码; 带市场标识的股票代码
     :type symbol: str
-    :param adjust: 默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
+    :param adjust: 默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子
     :type adjust: str
     :return: 科创板股票的历史行情数据
     :rtype: pandas.DataFrame
@@ -150,12 +153,12 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     try:
         # try for pandas >= 2.1.0
         temp_df.ffill(inplace=True)
-    except Exception as e:
+    except Exception:
         try:
-        # try for pandas < 2.1.0          
+            # try for pandas < 2.1.0
             temp_df.fillna(method="ffill", inplace=True)
         except Exception as e:
-                print("Error:", e)
+            print("Error:", e)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
@@ -173,7 +176,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
 
     if not adjust:
         temp_df.reset_index(inplace=True)
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
     if adjust == "hfq":
@@ -191,9 +194,9 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
-            # try for pandas < 2.1.0          
+                # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
                 print("Error:", e)
@@ -204,7 +207,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
         temp_df = temp_df.iloc[:, :-1]
         temp_df.reset_index(inplace=True)
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
     if adjust == "qfq":
@@ -222,9 +225,9 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         try:
             # try for pandas >= 2.1.0
             temp_df.ffill(inplace=True)
-        except Exception as e:
+        except Exception:
             try:
-            # try for pandas < 2.1.0          
+                # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
                 print("Error:", e)
@@ -235,7 +238,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
         temp_df = temp_df.iloc[:, :-1]
         temp_df.reset_index(inplace=True)
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
     if adjust == "hfq-factor":
@@ -247,7 +250,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
         hfq_factor_df.reset_index(inplace=True)
-        hfq_factor_df['date'] = pd.to_datetime(hfq_factor_df['date']).dt.date
+        hfq_factor_df["date"] = pd.to_datetime(hfq_factor_df["date"]).dt.date
         return hfq_factor_df
 
     if adjust == "qfq-factor":
@@ -259,7 +262,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
         qfq_factor_df.reset_index(inplace=True)
-        qfq_factor_df['date'] = pd.to_datetime(qfq_factor_df['date']).dt.date
+        qfq_factor_df["date"] = pd.to_datetime(qfq_factor_df["date"]).dt.date
         return qfq_factor_df
 
 
