@@ -138,7 +138,7 @@ def stock_zh_a_daily(
     :type start_date: str
     :param end_date: 20201103; 结束日期
     :type end_date: str
-    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
+    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子
     :type adjust: str
     :return: 行情数据
     :rtype: pandas.DataFrame
