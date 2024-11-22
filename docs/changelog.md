@@ -80,6 +80,12 @@
 
 ## 更新说明详情
 
+1.15.30 fix: fix fund_etf_category_sina interface
+
+    1. 修复 fund_etf_category_sina 接口
+    2. 修复 fund_etf_hist_sina 接口
+    3. 修复 stock_zh_b_daily 接口
+
 1.15.29 fix: fix option_dce_daily interface
 
     1. 修复 option_dce_daily 接口
