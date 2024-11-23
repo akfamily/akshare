@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/13 15:00
+Date: 2024/11/23 17:00
 Desc: 东方财富-财经早餐
 https://stock.eastmoney.com/a/czpnc.html
 """
@@ -11,6 +11,8 @@ from datetime import datetime
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+from akshare.request import make_request_with_retry_json
 
 
 def stock_info_cjzc_em() -> pd.DataFrame:
@@ -201,34 +203,10 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     :return: 财联社-电报
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
-    url = "https://m.cls.cn/telegraph"
-    session.get(url)  # 获取 cookies
-    params = {
-        "refresh_type": "1",
-        "rn": "10",
-        "last_time": "",
-        "app": "CailianpressWap",
-        "sv": "1",
-    }
-    ts = pd.Timestamp(pd.Timestamp.now())
-    current_time = int(ts.timestamp())
-    params.update({"last_time": current_time})
-    url = "https://m.cls.cn/nodeapi/telegraphs"
-    r = session.get(url, params=params)
-    data_json = r.json()
+    url = "https://www.cls.cn/nodeapi/telegraphList"
+    data_json = make_request_with_retry_json(url, max_retries=10)
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
-    next_time = temp_df["ctime"].values[-1]
-    n = 1
     big_df = temp_df.copy()
-    while n < 15:
-        params.update({"last_time": next_time})
-        r = session.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["roll_data"])
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-        next_time = temp_df["modified_time"].values[-1]
-        n += 1
     big_df = big_df[["title", "content", "ctime", "level"]]
     big_df["ctime"] = pd.to_datetime(big_df["ctime"], unit="s", utc=True).dt.tz_convert(
         "Asia/Shanghai"
@@ -238,7 +216,6 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     big_df.reset_index(inplace=True, drop=True)
     big_df["发布日期"] = big_df["发布时间"].dt.date
     big_df["发布时间"] = big_df["发布时间"].dt.time
-
     if symbol == "重点":
         big_df = big_df[(big_df["等级"] == "B") | (big_df["等级"] == "A")]
         big_df.reset_index(inplace=True, drop=True)
