@@ -1283,9 +1283,10 @@
  # 同花顺-公司大事-股东持股变动
  "stock_shareholder_change_ths"  # 同花顺-公司大事-股东持股变动
  "stock_management_change_ths"  # 同花顺-公司大事-高管持股变动
-
  # 计算指标
  "volatility_yz_rv"  # 已实现波动率计算
+ # 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
+ "stock_value_em"  # 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
 ```
 
 ## 案例演示
