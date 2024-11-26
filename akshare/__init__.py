@@ -2942,9 +2942,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.30 fix: fix fund_etf_category_sina interface
 1.15.31 fix: fix stock_zt_pool_strong_em interface
 1.15.32 fix: fix stock_info_global_cls interface
+1.15.33 add: add stock_value_em interface
 """
 
-__version__ = "1.15.32"
+__version__ = "1.15.33"
 __author__ = "AKFamily"
 
 import sys
@@ -2965,6 +2966,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
+"""
+from akshare.stock_feature.stock_value_em import stock_value_em
 
 """
 已实现波动率
