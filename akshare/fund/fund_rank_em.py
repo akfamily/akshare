@@ -65,7 +65,7 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
         "qdii": "",
         "tabSubtype": ",,,,,",
         "pi": "1",
-        "pn": "20000",
+        "pn": "30000",
         "dx": "1",
         "v": "0.1591891419018292",
     }
