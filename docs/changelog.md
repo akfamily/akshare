@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.35 fix: fix futures_spot_price_daily interface
+
+	1. 修复 futures_spot_price_daily 接口
+	2. 修复 futures_global_em 接口
+
 1.15.34 fix: fix fund_open_fund_rank_em interface
 
 	1. 修复 fund_open_fund_rank_em 接口
