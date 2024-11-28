@@ -169,10 +169,17 @@ def _check_information(df_data, date):
     ]
     records = pd.DataFrame()
     for string in df_data["symbol"].tolist():
+        news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
+        if news == "" :
+            news = string.strip()
+        
+        '''
         if string == "PTA":
             news = "PTA"
         else:
             news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
+            '''  
+        
         if news != "" and news not in [
             "商品",
             "价格",
@@ -193,6 +200,10 @@ def _check_information(df_data, date):
                 symbol == "FG"
             ):  # 上表中现货单位为元/平方米, 期货单位为元/吨. 换算公式：元/平方米*80=元/吨(http://www.100ppi.com/sf/959.html)
                 record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 80
+            elif (
+                symbol == "LH"
+            ):  # 上表中现货单位为元/公斤, 期货单位为元/吨. 换算公式：元/公斤*1000=元/吨(http://www.100ppi.com/sf/959.html)
+                record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 1000
             records = pd.concat([records, record])
 
     records.loc[:, ["near_contract_price", "dominant_contract_price", "spot_price"]] = (
@@ -208,9 +219,11 @@ def _check_information(df_data, date):
         r"[^0-9]*(\d*)$", r"\g<1>", regex=True
     )
 
+    records.loc[:, "near_month"] = records.loc[:, "near_contract"]
     records.loc[:, "near_contract"] = records["symbol"] + records.loc[
         :, "near_contract"
     ].astype("int").astype("str")
+    records.loc[:, "dominant_month"] = records.loc[:, "dominant_contract"]
     records.loc[:, "dominant_contract"] = records["symbol"] + records.loc[
         :, "dominant_contract"
     ].astype("int").astype("str")
@@ -246,7 +259,8 @@ def _check_information(df_data, date):
     records["dom_basis_rate"] = (
         records["dominant_contract_price"] / records["spot_price"] - 1
     )
-    records.loc[:, "date"] = date.strftime("%Y%m%d")
+    # records.loc[:, "date"] = date.strftime("%Y%m%d")
+    records.insert(0, 'date', date.strftime("%Y%m%d"))
     return records
 
 
@@ -289,20 +303,21 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     # Basis
     basis = pd.concat(content[2:-1])
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
-    basis["商品"] = values["商品"].tolist()
+    ### 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
+    # basis["商品"] = values["商品"].tolist()
+    basis.index = values.index
     basis = pd.merge(
-        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis
+        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis,left_index=True, right_index=True
     )
     basis = pd.merge(
         basis,
         values[
             [
-                "商品",
                 "180日内主力基差最高",
                 "180日内主力基差最低",
                 "180日内主力基差平均",
             ]
-        ],
+        ],left_index=True, right_index=True
     )
     basis.columns = [
         "商品",
