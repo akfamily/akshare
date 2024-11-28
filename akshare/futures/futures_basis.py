@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/3 16:30
+Date: 2024/11/28 22:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -170,16 +170,16 @@ def _check_information(df_data, date):
     records = pd.DataFrame()
     for string in df_data["symbol"].tolist():
         news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-        if news == "" :
+        if news == "":
             news = string.strip()
-        
-        '''
+
+        """
         if string == "PTA":
             news = "PTA"
         else:
             news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-            '''  
-        
+            """
+
         if news != "" and news not in [
             "商品",
             "价格",
@@ -259,8 +259,7 @@ def _check_information(df_data, date):
     records["dom_basis_rate"] = (
         records["dominant_contract_price"] / records["spot_price"] - 1
     )
-    # records.loc[:, "date"] = date.strftime("%Y%m%d")
-    records.insert(0, 'date', date.strftime("%Y%m%d"))
+    records.insert(0, "date", date.strftime("%Y%m%d"))
     return records
 
 
@@ -303,11 +302,12 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     # Basis
     basis = pd.concat(content[2:-1])
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
-    ### 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
-    # basis["商品"] = values["商品"].tolist()
     basis.index = values.index
     basis = pd.merge(
-        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis,left_index=True, right_index=True
+        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]],
+        basis,
+        left_index=True,
+        right_index=True,
     )
     basis = pd.merge(
         basis,
@@ -317,7 +317,9 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
                 "180日内主力基差最低",
                 "180日内主力基差平均",
             ]
-        ],left_index=True, right_index=True
+        ],
+        left_index=True,
+        right_index=True,
     )
     basis.columns = [
         "商品",
@@ -336,12 +338,12 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20240415", end_day="20240418", vars_list=["CU", "RB"]
+        start_day="20241028", end_day="20241128", vars_list=["CU", "RB"]
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price(date="20240430")
+    futures_spot_price_df = futures_spot_price(date="20241128")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous(date="20240430")
+    futures_spot_price_previous_df = futures_spot_price_previous(date="20241128")
     print(futures_spot_price_previous_df)
