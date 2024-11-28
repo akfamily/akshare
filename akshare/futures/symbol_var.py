@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/8 20:58
+Date: 2024/11/28 22:00
 Desc: 期货品种映射表
 """
+
 import re
 
 from akshare.futures import cons
@@ -151,20 +152,20 @@ def chinese_to_english(chinese_var: str):
         "低硫燃料油仓库",
         "低硫燃料油厂库",
         "短纤",
-        '涤纶短纤',
-        '生猪',
-        '花生',
-        '工业硅',
-        '氧化铝',
-        '丁二烯橡胶',
-        '碳酸锂',
-        '氧化铝仓库',
-        '氧化铝厂库',
-        '烧碱',
-        '丁二烯橡胶仓库',
-        '丁二烯橡胶厂库',
-        'PX',                  #20241123:jason新增
-        '原木',                 #20241123:jason新增
+        "涤纶短纤",
+        "生猪",
+        "花生",
+        "工业硅",
+        "氧化铝",
+        "丁二烯橡胶",
+        "碳酸锂",
+        "氧化铝仓库",
+        "氧化铝厂库",
+        "烧碱",
+        "丁二烯橡胶仓库",
+        "丁二烯橡胶厂库",
+        "PX",
+        "原木",
     ]
     english_list = [
         "RU",
@@ -279,8 +280,8 @@ def chinese_to_english(chinese_var: str):
         "SH",
         "BR",
         "BR",
-        "PX", #20241123:jason新增
-        "LG", #20241123:jason新增
+        "PX",
+        "LG",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
