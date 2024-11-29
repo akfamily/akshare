@@ -165,7 +165,7 @@ def fund_exchange_rank_em() -> pd.DataFrame:
         "sc": "1nzf",
         "st": "desc",
         "pi": "1",
-        "pn": "10000",
+        "pn": "30000",
         "v": "0.1591891419018292",
     }
     headers = {
