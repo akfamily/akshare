@@ -14,7 +14,7 @@ import requests
 from akshare.utils.tqdm import get_tqdm
 
 
-def futures_global_em():
+def futures_global_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-期货市场-国际期货
     https://quote.eastmoney.com/center/gridlist.html#futures_global
