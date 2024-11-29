@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.36 fix: fix futures_global_em interface
+
+	1. 修复 futures_global_em 接口
+
 1.15.35 fix: fix futures_spot_price_daily interface
 
 	1. 修复 futures_spot_price_daily 接口
@@ -4804,6 +4808,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.36 fix: fix futures_global_em interface
+
+1.15.35 fix: fix futures_spot_price_daily interface
 
 1.15.34 fix: fix fund_open_fund_rank_em interface
 
