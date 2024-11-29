@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/14 21:20
+Date: 2024/11/29 21:20
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
@@ -21,9 +21,7 @@ def _convert_timestamp(timestamp_ms: int) -> str:
     :return: 字符串
     :rtype: str
     """
-    # 将毫秒转换为秒
     timestamp_s = timestamp_ms / 1000
-    # 使用 fromtimestamp 方法将时间戳转换为 datetime 对象
     datetime_obj = datetime.fromtimestamp(timestamp_s)
     return datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -44,7 +42,7 @@ def stock_individual_spot_xq(
     """
     session = requests.Session()
     headers = {
-        "cookie": "xq_a_token=7716f523735d1e47a3dd5ec748923068ab8198a8;",
+        "cookie": "xq_a_token=691d6f0a678b98a172affb89759b9c46fd23b4e2;",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
         "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
     }
