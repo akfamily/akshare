@@ -127,7 +127,7 @@ print(macro_china_qyspjg_df)
 
 接口: macro_china_fdi
 
-目标地址: https://data.eastmoney.com/cjsj/qyspjg.html
+目标地址: https://data.eastmoney.com/cjsj/fdi.html
 
 描述: 东方财富-经济数据一览-中国-外商直接投资数据, 数据区间从 200801-202012
 
