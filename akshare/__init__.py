@@ -2948,9 +2948,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.36 fix: fix futures_global_em interface
 1.15.37 fix: fix stock_individual_spot_xq interface
 1.15.38 fix: fix futures_contract_info_ine interface
+1.15.39 fix: fix macro_china_new_house_price interface
 """
 
-__version__ = "1.15.38"
+__version__ = "1.15.39"
 __author__ = "AKFamily"
 
 import sys
