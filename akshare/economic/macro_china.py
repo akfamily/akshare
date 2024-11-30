@@ -1082,6 +1082,7 @@ def macro_china_new_house_price(
     temp_df["二手住宅价格指数-定基"] = pd.to_numeric(
         temp_df["二手住宅价格指数-定基"], errors="coerce"
     )
+    temp_df.sort_values(["日期"], ignore_index=True, inplace=True)
     return temp_df
 
 
