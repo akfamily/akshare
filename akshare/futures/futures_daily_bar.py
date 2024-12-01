@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/11 22:00
+Date: 2024/11/30 18:00
 Desc: 期货日线行情
 """
 
@@ -272,12 +272,12 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     return result_df
 
 
-def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
+def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
-    trade_price: http://www.ine.cn/statements/daily/?paramid=kx
-    trade_note: http://www.ine.cn/data/datanote.dat
+    trade_price: https://www.ine.cn/statements/daily/?paramid=kx
+    trade_note: https://www.ine.cn/data/datanote.dat
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 上海国际能源交易中心-日频率-量价数据
@@ -287,7 +287,7 @@ def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
-    url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
+    url = f"https://www.ine.cn/data/tradedata/future/dailydata/kx{day.strftime('%Y%m%d')}.dat"
     r = requests.get(url, headers=cons.shfe_headers)
     result_df = pd.DataFrame()
     try:
