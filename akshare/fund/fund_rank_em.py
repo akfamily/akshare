@@ -65,7 +65,7 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
         "qdii": "",
         "tabSubtype": ",,,,,",
         "pi": "1",
-        "pn": "20000",
+        "pn": "30000",
         "dx": "1",
         "v": "0.1591891419018292",
     }
@@ -165,7 +165,7 @@ def fund_exchange_rank_em() -> pd.DataFrame:
         "sc": "1nzf",
         "st": "desc",
         "pi": "1",
-        "pn": "10000",
+        "pn": "30000",
         "v": "0.1591891419018292",
     }
     headers = {

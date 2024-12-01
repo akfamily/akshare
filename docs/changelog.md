@@ -80,6 +80,33 @@
 
 ## 更新说明详情
 
+1.15.39 fix: fix macro_china_new_house_price interface
+
+	1. 修复 macro_china_new_house_price 接口
+
+1.15.38 fix: fix futures_contract_info_ine interface
+
+	1. 修复 futures_contract_info_ine 接口
+	2. 修复 get_ine_daily 接口
+
+1.15.37 fix: fix stock_individual_spot_xq interface
+
+	1. 修复 stock_individual_spot_xq 接口
+
+1.15.36 fix: fix futures_global_em interface
+
+	1. 修复 futures_global_em 接口
+
+1.15.35 fix: fix futures_spot_price_daily interface
+
+	1. 修复 futures_spot_price_daily 接口
+	2. 修复 futures_global_em 接口
+
+1.15.34 fix: fix fund_open_fund_rank_em interface
+
+	1. 修复 fund_open_fund_rank_em 接口
+	2. 移除 crypto_hist 接口
+
 1.15.33 add: add stock_value_em interface
 
 	1. 修复 stock_value_em 接口
@@ -4794,6 +4821,18 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.39 fix: fix macro_china_new_house_price interface
+
+1.15.38 fix: fix futures_contract_info_ine interface
+
+1.15.37 fix: fix stock_individual_spot_xq interface
+
+1.15.36 fix: fix futures_global_em interface
+
+1.15.35 fix: fix futures_spot_price_daily interface
+
+1.15.34 fix: fix fund_open_fund_rank_em interface
 
 1.15.33 add: add stock_value_em interface
 

@@ -2943,9 +2943,15 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.31 fix: fix stock_zt_pool_strong_em interface
 1.15.32 fix: fix stock_info_global_cls interface
 1.15.33 add: add stock_value_em interface
+1.15.34 fix: fix fund_open_fund_rank_em interface
+1.15.35 fix: fix futures_spot_price_daily interface
+1.15.36 fix: fix futures_global_em interface
+1.15.37 fix: fix stock_individual_spot_xq interface
+1.15.38 fix: fix futures_contract_info_ine interface
+1.15.39 fix: fix macro_china_new_house_price interface
 """
 
-__version__ = "1.15.33"
+__version__ = "1.15.39"
 __author__ = "AKFamily"
 
 import sys
@@ -4343,14 +4349,6 @@ from akshare.fund.fund_rank_em import (
     fund_open_fund_rank_em,
     fund_hk_rank_em,
     fund_lcx_rank_em,
-)
-
-"""
-英为财情-加密货币
-"""
-from akshare.crypto.crypto_hist_investing import (
-    crypto_hist,
-    crypto_name_url_table,
 )
 
 """
