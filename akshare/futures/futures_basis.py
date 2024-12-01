@@ -124,9 +124,9 @@ def futures_spot_price(
                     return temp_df
                 else:
                     time.sleep(3)
-            except:  # noqa: E722
+            except Exception as e:  # noqa: E722
                 print(
-                    f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，第{str(i)}次尝试，最多5次"
+                    f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败[错误信息:{e}]，第{str(i)}次尝试，最多5次"
                 )
                 i += 1
                 if i > 5:
@@ -187,6 +187,8 @@ def _check_information(df_data, date):
             "郑州商品交易所",
             "大连商品交易所",
             "广州期货交易所",
+            ### 某些天网站没有数据，比如20180912，此时返回"暂无数据"，但并不是网站被墙了
+            "暂无数据",
         ]:
             symbol = chinese_to_english(news)
             record = pd.DataFrame(df_data[df_data["symbol"] == string])
@@ -205,6 +207,16 @@ def _check_information(df_data, date):
             ):  # 上表中现货单位为元/公斤, 期货单位为元/吨. 换算公式：元/公斤*1000=元/吨(http://www.100ppi.com/sf/959.html)
                 record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 1000
             records = pd.concat([records, record])
+
+    # 20241129:如果某日没有数据，直接返回返回空表
+    if records.empty:
+        records = df_data.iloc[0:0]
+        records['near_basis'] = pd.Series(dtype='float') 
+        records['dom_basis'] = pd.Series(dtype='float') 
+        records['near_basis_rate'] = pd.Series(dtype='float') 
+        records['dom_basis_rate'] = pd.Series(dtype='float')     
+        records['date'] = pd.Series(dtype='object')    
+        return records
 
     records.loc[:, ["near_contract_price", "dominant_contract_price", "spot_price"]] = (
         records.loc[
@@ -300,8 +312,13 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     # Values
     values = main[main[4].str.endswith("%")]
     values.columns = header
-    # Basis
-    basis = pd.concat(content[2:-1])
+    # Basis  
+    #对于没有数据的天，xml文件中没有数据，所以content[2:-1]可能为空
+    if len(content[2:-1]) > 0:
+        basis = pd.concat(content[2:-1])
+    else:
+        basis = pd.DataFrame(columns=["主力合约基差", "主力合约基差(%)"])
+    
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
     ### 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
     # basis["商品"] = values["商品"].tolist()
