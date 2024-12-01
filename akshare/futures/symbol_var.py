@@ -280,13 +280,8 @@ def chinese_to_english(chinese_var: str):
         "SH",
         "BR",
         "BR",
-<<<<<<< HEAD
-        "PX", #20241123:jason新增
-        "LG", #20241123:jason新增
-=======
         "PX",
         "LG",
->>>>>>> 97ca3c5c68a377c9343a5aef1fde05deecc4521b
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
