@@ -178,7 +178,7 @@ def _check_information(df_data, date):
             news = "PTA"
         else:
             news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-            """
+        """
 
         if news != "" and news not in [
             "商品",
