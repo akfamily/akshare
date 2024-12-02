@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/17 16:20
+Date: 2024/12/2 15:20
 Desc: 宏观数据-中国
 """
 
@@ -237,7 +237,7 @@ def macro_china_fdi() -> pd.DataFrame:
 def macro_china_shrzgm() -> pd.DataFrame:
     """
     商务数据中心-国内贸易-社会融资规模增量统计
-    http://data.mofcom.gov.cn/gnmy/shrzgm.shtml
+    https://data.mofcom.gov.cn/gnmy/shrzgm.shtml
     :return: 社会融资规模增量统计
     :rtype: pandas.DataFrame
     """
