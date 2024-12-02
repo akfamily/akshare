@@ -128,7 +128,7 @@ def stock_zygc_em(symbol: str = "SH688041") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zygc_ym_df = stock_zygc_ym(symbol="000001")
+    stock_zygc_ym_df = stock_zygc_ym(symbol="000338")
     print(stock_zygc_ym_df)
 
     stock_zygc_em_df = stock_zygc_em(symbol="SH688041")
