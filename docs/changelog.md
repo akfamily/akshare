@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.43 fix: fix macro_china_urban_unemployment interface
+
+	1. 修复 macro_china_urban_unemployment 接口
+
 1.15.42 fix: fix get_roll_yield_bar interface
 
 	1. 修复 get_roll_yield_bar 接口
@@ -4833,6 +4837,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.43 fix: fix macro_china_urban_unemployment interface
 
 1.15.42 fix: fix get_roll_yield_bar interface
 
