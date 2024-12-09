@@ -46,9 +46,6 @@
  "get_qhkc_tool_gdp"  # 奇货可查-工具-各地区经济数据
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
- # 提供英为财情数据接口
- "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
- "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
  "option_dce_daily"  # 提供大连商品交易所商品期权数据
  "option_czce_daily"  # 提供郑州商品交易所商品期权数据
@@ -62,8 +59,6 @@
  "get_fx_spot_quote"  # 人民币外汇即期报价数据
  "get_fx_swap_quote"  # 人民币外汇远掉报价数据
  "get_fx_pair_quote"  # 外币对即期报价数据
- # 全球大宗商品
- "futures_global_commodity_hist"  # 全球大宗商品数据
  # 宏观-欧洲
  "macro_euro_interest_rate"  # 欧洲央行决议报告
  # 宏观-主要机构
