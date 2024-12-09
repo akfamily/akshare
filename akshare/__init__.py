@@ -2953,9 +2953,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.41 fix: fix macro_china_fdi interface
 1.15.42 fix: fix get_roll_yield_bar interface
 1.15.43 fix: fix macro_china_urban_unemployment interface
+1.15.44 fix: fix index_detail_hist_adjust_cni interface
 """
 
-__version__ = "1.15.43"
+__version__ = "1.15.44"
 __author__ = "AKFamily"
 
 import sys
@@ -5275,14 +5276,6 @@ from akshare.economic.macro_china_nbs import (
 )
 
 """
-全球期货
-"""
-from akshare.futures.futures_international import (
-    futures_global_commodity_hist,
-    futures_global_commodity_name_url_map,
-)
-
-"""
 外汇
 """
 from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
@@ -5305,23 +5298,6 @@ from akshare.option.option_commodity import (
     option_shfe_daily,
     option_gfex_vol_daily,
     option_gfex_daily,
-)
-
-"""
-英为财情-债券
-"""
-from akshare.bond.bond_investing import (
-    bond_investing_global,
-    bond_investing_global_country_name_url,
-)
-
-"""
-英为财情-指数
-"""
-from akshare.index.index_investing import (
-    index_investing_global,
-    index_investing_global_area_index_name_code,
-    index_investing_global_area_index_name_url,
 )
 
 """

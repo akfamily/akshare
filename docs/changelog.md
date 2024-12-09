@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.44 fix: fix index_detail_hist_adjust_cni interface
+
+	1. 修复 index_detail_hist_adjust_cni 接口
+	2. 移除 英为财情 相关接口
+
 1.15.43 fix: fix macro_china_urban_unemployment interface
 
 	1. 修复 macro_china_urban_unemployment 接口
@@ -4837,6 +4842,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.44 fix: fix index_detail_hist_adjust_cni interface
 
 1.15.43 fix: fix macro_china_urban_unemployment interface
 
