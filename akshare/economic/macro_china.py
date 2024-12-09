@@ -230,6 +230,7 @@ def macro_china_fdi() -> pd.DataFrame:
     temp_df["当月-环比增长"] = pd.to_numeric(temp_df["当月-环比增长"], errors="coerce")
     temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
     temp_df["累计-同比增长"] = pd.to_numeric(temp_df["累计-同比增长"], errors="coerce")
+    temp_df.sort_values(["月份"], ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -326,6 +327,7 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
     temp_df.columns = ["date", "item", "value"]
     temp_df["item"] = temp_df["item"].map(code_item_map)
     temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
+    temp_df.sort_values(by=["date"], ignore_index=True, inplace=True)
     return temp_df
 
 
