@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/3 16:30
+Date: 2024/12/12 17:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -170,16 +170,16 @@ def _check_information(df_data, date):
     records = pd.DataFrame()
     for string in df_data["symbol"].tolist():
         news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-        if news == "" :
+        if news == "":
             news = string.strip()
-        
-        '''
+
+        """
         if string == "PTA":
             news = "PTA"
         else:
             news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-            '''  
-        
+        """
+
         if news != "" and news not in [
             "商品",
             "价格",
@@ -187,7 +187,7 @@ def _check_information(df_data, date):
             "郑州商品交易所",
             "大连商品交易所",
             "广州期货交易所",
-            ### 某些天网站没有数据，比如20180912，此时返回"暂无数据"，但并不是网站被墙了
+            # 某些天网站没有数据，比如 20180912，此时返回"暂无数据"，但并不是网站被墙了
             "暂无数据",
         ]:
             symbol = chinese_to_english(news)
@@ -211,11 +211,11 @@ def _check_information(df_data, date):
     # 20241129:如果某日没有数据，直接返回返回空表
     if records.empty:
         records = df_data.iloc[0:0]
-        records['near_basis'] = pd.Series(dtype='float') 
-        records['dom_basis'] = pd.Series(dtype='float') 
-        records['near_basis_rate'] = pd.Series(dtype='float') 
-        records['dom_basis_rate'] = pd.Series(dtype='float')     
-        records['date'] = pd.Series(dtype='object')    
+        records["near_basis"] = pd.Series(dtype="float")
+        records["dom_basis"] = pd.Series(dtype="float")
+        records["near_basis_rate"] = pd.Series(dtype="float")
+        records["dom_basis_rate"] = pd.Series(dtype="float")
+        records["date"] = pd.Series(dtype="object")
         return records
 
     records.loc[:, ["near_contract_price", "dominant_contract_price", "spot_price"]] = (
@@ -272,7 +272,7 @@ def _check_information(df_data, date):
         records["dominant_contract_price"] / records["spot_price"] - 1
     )
     # records.loc[:, "date"] = date.strftime("%Y%m%d")
-    records.insert(0, 'date', date.strftime("%Y%m%d"))
+    records.insert(0, "date", date.strftime("%Y%m%d"))
     return records
 
 
@@ -312,19 +312,22 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     # Values
     values = main[main[4].str.endswith("%")]
     values.columns = header
-    # Basis  
-    #对于没有数据的天，xml文件中没有数据，所以content[2:-1]可能为空
+    # Basis
+    # 对于没有数据的天，xml文件中没有数据，所以content[2:-1]可能为空
     if len(content[2:-1]) > 0:
         basis = pd.concat(content[2:-1])
     else:
         basis = pd.DataFrame(columns=["主力合约基差", "主力合约基差(%)"])
-    
+
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
-    ### 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
+    # 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
     # basis["商品"] = values["商品"].tolist()
     basis.index = values.index
     basis = pd.merge(
-        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis,left_index=True, right_index=True
+        values[["商品", "现货价格", "主力合约代码", "主力合约价格"]],
+        basis,
+        left_index=True,
+        right_index=True,
     )
     basis = pd.merge(
         basis,
@@ -334,7 +337,9 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
                 "180日内主力基差最低",
                 "180日内主力基差平均",
             ]
-        ],left_index=True, right_index=True
+        ],
+        left_index=True,
+        right_index=True,
     )
     basis.columns = [
         "商品",
