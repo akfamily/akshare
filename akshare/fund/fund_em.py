@@ -16,6 +16,7 @@ https://fundf10.eastmoney.com/jjjl_001810.html
 """
 
 import json
+import math
 import time
 from io import StringIO
 
@@ -945,17 +946,29 @@ def fund_etf_fund_info_em(
         "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
     }
+    page_size = 20
     params = {
         "fundCode": fund,
-        "pageIndex": "1",
-        "pageSize": "10000",
+        "pageSize": page_size,
         "startDate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "endDate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "_": round(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
+    page = 1
+    result_dfs = []
+
+    while True:
+        params["pageIndex"] = page
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        result_dfs.append(pd.DataFrame(data_json["Data"]["LSJZList"]))
+        total_count = data_json["TotalCount"]
+        total_page = math.ceil(total_count / page_size)
+        page += 1
+        if page > total_page:
+            break
+
+    temp_df = pd.concat(result_dfs)
     temp_df.columns = [
         "净值日期",
         "单位净值",
