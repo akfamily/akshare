@@ -21,6 +21,7 @@ import time
 from io import StringIO
 
 import pandas as pd
+import py_mini_racer
 import requests
 
 from akshare.utils import demjson
@@ -353,19 +354,12 @@ def fund_open_fund_info_em(
     r = requests.get(url, headers=headers)
     data_text = r.text
 
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(data_text)
+
     # 单位净值走势
     if indicator == "单位净值走势":
-        try:
-            data_json = demjson.decode(
-                data_text[
-                    data_text.find("Data_netWorthTrend") + 21 : data_text.find(
-                        "Data_ACWorthTrend"
-                    )
-                    - 15
-                ]
-            )
-        except:  # noqa: E722
-            return pd.DataFrame()
+        data_json = js_code.execute("Data_netWorthTrend")
         temp_df = pd.DataFrame(data_json)
         if temp_df.empty:
             return pd.DataFrame()
@@ -395,17 +389,7 @@ def fund_open_fund_info_em(
 
     # 累计净值走势
     if indicator == "累计净值走势":
-        try:
-            data_json = demjson.decode(
-                data_text[
-                    data_text.find("Data_ACWorthTrend") + 20 : data_text.find(
-                        "Data_grandTotal"
-                    )
-                    - 16
-                ]
-            )
-        except:  # noqa: E722
-            return pd.DataFrame()
+        data_json = js_code.execute("Data_ACWorthTrend")
         temp_df = pd.DataFrame(data_json)
         if temp_df.empty:
             return pd.DataFrame()
@@ -463,14 +447,7 @@ def fund_open_fund_info_em(
 
     # 同类排名走势
     if indicator == "同类排名走势":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_rateInSimilarType") + 25 : data_text.find(
-                    "Data_rateInSimilarPersent"
-                )
-                - 16
-            ]
-        )
+        data_json = js_code.execute("Data_rateInSimilarType")
         temp_df = pd.DataFrame(data_json)
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
             "Asia/Shanghai"
@@ -501,14 +478,7 @@ def fund_open_fund_info_em(
 
     # 同类排名百分比
     if indicator == "同类排名百分比":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_rateInSimilarPersent") + 26 : data_text.find(
-                    "Data_fluctuationScale"
-                )
-                - 23
-            ]
-        )
+        data_json = js_code.execute("Data_rateInSimilarPersent")
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
