@@ -946,7 +946,7 @@ def fund_etf_fund_info_em(
         "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
     }
-    page_size = 20
+    page_size = 20  # 预留，现阶段天天基金网貌似限制了每次只能获取20条，调大该值也没用，还是只返回20条数据，超过200甚至返回空的结果
     params = {
         "fundCode": fund,
         "pageSize": page_size,
@@ -956,6 +956,7 @@ def fund_etf_fund_info_em(
     }
     page = 1
     result_dfs = []
+    total_count = None
 
     while True:
         params["pageIndex"] = page
@@ -969,6 +970,9 @@ def fund_etf_fund_info_em(
             break
 
     temp_df = pd.concat(result_dfs)
+    if len(temp_df) != total_count:
+        raise "获取的记录条数和总条数不符，请重试"
+
     temp_df.columns = [
         "净值日期",
         "单位净值",
