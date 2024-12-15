@@ -682,7 +682,7 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20241118", end_date="20241118", market="DCE"
+        start_date="20180326", end_date="20180331", market="INE"
     )
     print(get_futures_daily_df)
 
