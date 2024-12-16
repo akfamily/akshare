@@ -33,6 +33,7 @@ def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
     ]
     big_df = pd.DataFrame([year_list, talk_list]).T
     big_df.columns = ["报告期", "内容"]
+    big_df.sort_values(by=["报告期"], ignore_index=True, inplace=True)
     return big_df
 
 
