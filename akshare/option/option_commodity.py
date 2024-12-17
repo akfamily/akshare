@@ -340,7 +340,7 @@ def option_czce_daily(
 
 def option_shfe_daily(
     symbol: str = "铝期权", trade_date: str = "20200827"
-) -> Optional[tuple[pd.DataFrame, pd.DataFrame]]:
+) -> Optional[Tuple[pd.DataFrame, pd.DataFrame]]:
     """
     上海期货交易所-期权-日频行情数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
@@ -355,7 +355,7 @@ def option_shfe_daily(
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
