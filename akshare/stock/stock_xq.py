@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/11/29 21:20
+Date: 2024/12/18 17:50
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
@@ -29,7 +29,7 @@ def _convert_timestamp(timestamp_ms: int) -> str:
 def stock_individual_spot_xq(
     symbol: str = "SH600000",
     timeout: float = None,
-    xq_a_token: str = None,
+    token: str = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
@@ -38,13 +38,13 @@ def stock_individual_spot_xq(
     :type symbol: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
-    :param xq_a_token: set xueqiu token
-    :type xq_a_token: str
+    :param token: set xueqiu token
+    :type token: str
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
     session = requests.Session()
-    xq_a_token = xq_a_token or '220b0abef0fac476d076c9f7a3938b7edac35f48'
+    xq_a_token = token or "cccb558956c11f5aaf8b9a30bcf1f214117e8d67"
     headers = {
         "cookie": f"xq_a_token={xq_a_token};",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
