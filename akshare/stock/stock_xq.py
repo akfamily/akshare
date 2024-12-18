@@ -29,6 +29,7 @@ def _convert_timestamp(timestamp_ms: int) -> str:
 def stock_individual_spot_xq(
     symbol: str = "SH600000",
     timeout: float = None,
+    xq_a_token: str = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
@@ -37,12 +38,15 @@ def stock_individual_spot_xq(
     :type symbol: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
+    :param xq_a_token: set xueqiu token
+    :type xq_a_token: str
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
     session = requests.Session()
+    xq_a_token = xq_a_token or '220b0abef0fac476d076c9f7a3938b7edac35f48'
     headers = {
-        "cookie": "xq_a_token=220b0abef0fac476d076c9f7a3938b7edac35f48;",
+        "cookie": f"xq_a_token={xq_a_token};",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
         "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
     }
