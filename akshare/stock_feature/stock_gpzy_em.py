@@ -492,7 +492,7 @@ if __name__ == "__main__":
     stock_gpzy_profile_em_df = stock_gpzy_profile_em()
     print(stock_gpzy_profile_em_df)
 
-    stock_em_gpzy_pledge_ratio_df = stock_gpzy_pledge_ratio_em(date="20240906")
+    stock_em_gpzy_pledge_ratio_df = stock_gpzy_pledge_ratio_em(date="20241220")
     print(stock_em_gpzy_pledge_ratio_df)
 
     stock_gpzy_pledge_ratio_detail_em_df = stock_gpzy_pledge_ratio_detail_em()
