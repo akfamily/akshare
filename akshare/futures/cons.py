@@ -64,30 +64,6 @@ inventory_temp_headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
 }
 
-sample_headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-    "Host": "service.99qh.com",
-    "Origin": "http://service.99qh.com",
-    "Referer": "http://www.99qh.com/d/store.aspx",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
-}
-
-qh_headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Cache-Control": "no-cache",
-    "Connection": "keep-alive",
-    "Content-Length": "8429",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Host": "service.99qh.com",
-    "Origin": "http://service.99qh.com",
-    "Pragma": "no-cache",
-    "Cookie": "__utma=181566328.985082941.1656754961.1656754961.1656754961.1; __utmc=181566328; __utmz=181566328.1656754961.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); ASP.NET_SessionId=42k0mpzfu3fv5cxqmtrwc20y; tgw_l7_route=b26adbec28f4b4e1f7290033d59c43a7; __utmt=1; __utmb=181566328.2.10.1656754961",
-    "Referer": "http://service.99qh.com/Storage/Storage.aspx?page=99qh",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
-}
 # 奇货可查
 QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
 QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
