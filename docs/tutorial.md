@@ -878,8 +878,6 @@
  "fund_scale_open_sina"  # 基金规模-开放式基金
  "fund_scale_close_sina"  # 基金规模-封闭式基金
  "fund_scale_structured_sina"  # 基金规模-分级子基金
- # 指数估值
- "index_value_hist_funddb"  # 指数估值
  # 沪深港通持股
  "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
  "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
@@ -1196,8 +1194,6 @@
  "stock_intraday_em"  # 东财财富-日内分时数据
  # 新浪财经-日内分时数据
  "stock_intraday_sina"  # 新浪财经-日内分时数据
- # 恐惧贪婪指数
- "index_fear_greed_funddb"  # 恐惧贪婪指数
  # 筹码分布
  "stock_cyq_em"  # 筹码分布
  # 雪球基金-基金详情
