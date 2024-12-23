@@ -2961,9 +2961,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.49 fix: fix option_dce_daily interface
 1.15.50 fix: fix stock_gpzy_profile_em interface
 1.15.51 fix: fix stock_gpzy_pledge_ratio_em interface
+1.15.52 fix: fix stock_zh_index_hist_csindex interface
 """
 
-__version__ = "1.15.51"
+__version__ = "1.15.52"
 __author__ = "AKFamily"
 
 import sys
@@ -3146,11 +3147,6 @@ from akshare.stock_feature.stock_hist_tx import stock_zh_a_hist_tx
 筹码分布
 """
 from akshare.stock_feature.stock_cyq_em import stock_cyq_em
-
-"""
-funddb-工具-估值情绪-恐贪指数
-"""
-from akshare.index.index_fear_greed_funddb import index_fear_greed_funddb
 
 """
 东财财富-分时数据
@@ -3726,14 +3722,6 @@ from akshare.stock_feature.stock_hsgt_em import (
     stock_hsgt_individual_em,
     stock_hsgt_individual_detail_em,
     stock_hsgt_fund_flow_summary_em,
-)
-
-"""
-指数估值
-"""
-from akshare.index.index_stock_zh_csindex import (
-    index_value_hist_funddb,
-    index_value_name_funddb,
 )
 
 """
