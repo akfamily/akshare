@@ -452,8 +452,8 @@ def stock_sy_hy_em(date: str = "20231231") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_sy_profile_df = stock_sy_profile_em()
-    print(stock_em_sy_profile_df)
+    stock_sy_profile_em_df = stock_sy_profile_em()
+    print(stock_sy_profile_em_df)
 
     stock_sy_yq_em_df = stock_sy_yq_em(date="20240630")
     print(stock_sy_yq_em_df)
