@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.58 fix: fix futures_hold_pos_sina interface
+
+	1. 修复 futures_hold_pos_sina 接口
+
 1.15.57 fix: fix add 2025 trade date
 
 	1. 新增 2025 年交易日历
@@ -4898,6 +4902,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.58 fix: fix futures_hold_pos_sina interface
 
 1.15.57 fix: fix add 2025 trade date
 

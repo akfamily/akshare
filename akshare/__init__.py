@@ -2967,9 +2967,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.55 fix: fix fund_etf_spot_em interface
 1.15.56 fix: fix spot_goods interface
 1.15.57 fix: fix add 2025 trade date
+1.15.58 fix: fix futures_hold_pos_sina interface
 """
 
-__version__ = "1.15.57"
+__version__ = "1.15.58"
 __author__ = "AKFamily"
 
 import sys
@@ -3404,11 +3405,6 @@ from akshare.stock_feature.stock_buffett_index_lg import stock_buffett_index_lg
 百度股市通-热搜股票
 """
 from akshare.stock.stock_hot_search_baidu import stock_hot_search_baidu
-
-"""
-百度股市通-期货-新闻
-"""
-from akshare.futures.futures_news_baidu import futures_news_baidu
 
 """
 百度股市通- A 股或指数-股评-投票
