@@ -1947,7 +1947,7 @@ print(futures_stock_shfe_js_df)
 | 名称       | 类型  | 描述                                              |
 |----------|-----|-------------------------------------------------|
 | symbol   | str | symbol="成交量"; choice of {"成交量", "多单持仓", "空单持仓"} |
-| contract | str | contract="IC2403"; 包括金融期货和商品期货                  |
+| contract | str | contract="OI2501"; 只限于商品期货                      |
 | date     | str | date="20240223"                                 |
 
 输出参数
@@ -4167,55 +4167,4 @@ print(futures_news_shmet_df)
 998 2024-03-21 11:39:32+08:00  【电工合金：2023年净利润1.36亿元，同比增19.98%】近日，电工合金发布2023年年...
 999 2024-03-21 12:10:40+08:00  【SHMET铜现货报价】上海金属网讯：截止11:30分，上海金属网1#电解铜报72700-7...
 [1000 rows x 2 columns]
-```
-
-### 期货新闻
-
-接口: futures_news_baidu
-
-目标地址: https://gushitong.baidu.com/futures/ab-CJ888
-
-描述: 百度股市通-期货-新闻
-
-限量: 指定 symbol 的近期新闻数据
-
-输入参数
-
-| 名称     | 类型  | 描述                  |
-|--------|-----|---------------------|
-| symbol | str | symbol="AL"; 期货品种代码 |
-
-输出参数
-
-| 名称   | 类型     | 描述  |
-|------|--------|-----|
-| 标题   | object | -   |
-| 发布时间 | object | -   |
-| 新闻链接 | object | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-futures_news_baidu_df = ak.futures_news_baidu(symbol="AL")
-print(futures_news_baidu_df)
-```
-
-数据示例
-
-```
-                                                标题  ...                                               新闻链接
-0       中信建投期货：待高温退去下游消费恢复速度将明显快于供给端，届时铝价将具备较强反弹动能  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-1                                SMM：限电影响持续 沪铝震荡运行  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-2                             【持仓分析】沪铝前20期商净空头持仓上升  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-3                    【LME库存】8月25日LME铝库存较上一日减少1950吨  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-4                          伦敦金属交易所（LME）：铝库存减少1950吨  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-..                                             ...  ...                                                ...
-755                  【仓单】11月23日上期所沪铝期货仓单较上一日减少976吨  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-756                     国信期货：氧化铝及电解铝价格将相对其他板块保持抗跌性  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-757  【观点】国投安信期货：氧化铝现货指数在3000元附近波动 期货核心区间2900-3000元  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-758                 【观点】国投安信期货：氧化铝期货核心区间2900-3000元  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-759                                      沪铝 弱势振荡运行  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
-[760 rows x 3 columns]
 ```
