@@ -2968,9 +2968,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.56 fix: fix spot_goods interface
 1.15.57 fix: fix add 2025 trade date
 1.15.58 fix: fix futures_hold_pos_sina interface
+1.15.59 fix: fix stock_sy_hy_em interface
 """
 
-__version__ = "1.15.58"
+__version__ = "1.15.59"
 __author__ = "AKFamily"
 
 import sys
