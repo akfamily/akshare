@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/9/3 15:30
+Date: 2024/12/30 15:30
 Desc: 导入文件工具，可以正确处理路径问题
 """
 
@@ -15,7 +15,7 @@ def get_ths_js(file: str = "ths.js") -> pathlib.Path:
     :return: 文件路径
     :rtype: pathlib.Path
     """
-    with resources.path(package="akshare.data", resource=file) as f:
+    with resources.path("akshare.data", file) as f:
         data_file_path = f
         return data_file_path
 
@@ -26,7 +26,7 @@ def get_crypto_info_csv(file: str = "crypto_info.zip") -> pathlib.Path:
     :return: 文件路径
     :rtype: pathlib.Path
     """
-    with resources.path(package="akshare.data", resource=file) as f:
+    with resources.path("akshare.data", file) as f:
         data_file_path = f
         return data_file_path
 
