@@ -247,7 +247,7 @@ print(stock_zh_index_daily_tx_df)
 
 | 名称         | 类型  | 描述                                                             |
 |------------|-----|----------------------------------------------------------------|
-| symbol     | str | symbol="sz399552"; 支持 sz: 深交所, sh: 上交所, csi: 中信指数 + id(000905) |
+| symbol     | str | symbol="sz399552"; 支持 sz: 深交所, sh: 上交所, csi: 中证指数 + id(000905) |
 | start_date | str | start_date="19900101"                                          |
 | end_date   | str | end_date="20500101"                                            |
 
