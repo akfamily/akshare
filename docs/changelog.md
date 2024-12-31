@@ -80,6 +80,24 @@
 
 ## 更新说明详情
 
+1.15.61 fix: fix stock_zt_pool_strong_em interface
+
+	1. 修复 stock_zt_pool_strong_em 接口
+	2. 新增 index_option_1000index_min_qvix 接口
+	3. 新增 index_option_1000index_qvix 接口
+	4. 新增 index_option_100etf_min_qvix 接口
+	5. 新增 index_option_100etf_qvix 接口
+	6. 新增 index_option_300index_min_qvix 接口
+	7. 新增 index_option_300index_qvix 接口
+	8. 新增 index_option_500etf_min_qvix 接口
+	9. 新增 index_option_500etf_qvix 接口
+	10. 新增 index_option_50index_min_qvix 接口
+	11. 新增 index_option_50index_qvix 接口
+	12. 新增 index_option_cyb_min_qvix 接口
+	13. 新增 index_option_cyb_qvix 接口
+	14. 新增 index_option_kcb_min_qvix 接口
+	15. 新增 index_option_kcb_qvix 接口
+
 1.15.60 fix: fix stock_hot_keyword_em interface
 
 	1. 修复 stock_hot_keyword_em 接口
@@ -4910,6 +4928,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.61 fix: fix stock_zt_pool_strong_em interface
 
 1.15.60 fix: fix stock_hot_keyword_em interface
 
