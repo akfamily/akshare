@@ -3391,6 +3391,20 @@ from akshare.index.index_option_qvix import (
     index_option_300etf_min_qvix,
     index_option_300etf_qvix,
     index_option_50etf_min_qvix,
+    index_option_1000index_min_qvix,
+    index_option_1000index_qvix,
+    index_option_100etf_min_qvix,
+    index_option_100etf_qvix,
+    index_option_300index_min_qvix,
+    index_option_300index_qvix,
+    index_option_500etf_min_qvix,
+    index_option_500etf_qvix,
+    index_option_50index_min_qvix,
+    index_option_50index_qvix,
+    index_option_cyb_min_qvix,
+    index_option_cyb_qvix,
+    index_option_kcb_min_qvix,
+    index_option_kcb_qvix,
 )
 
 """

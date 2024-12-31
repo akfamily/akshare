@@ -1100,6 +1100,34 @@
  "index_option_300etf_qvix"  # 300 ETF 期权波动率指数
  # 300 ETF 期权波动率指数 QVIX-分时
  "index_option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
+ # 500 ETF 期权波动率指数
+ "index_option_500etf_qvix"  # 500 ETF 期权波动率指数
+ # 500 ETF 期权波动率指数 QVIX-分时
+ "index_option_500etf_min_qvix"  # 500 ETF 期权波动率指数 QVIX-分时
+ # 创业板 期权波动率指数
+ "index_option_cyb_qvix"  # 创业板 期权波动率指数
+ # 创业板 期权波动率指数 QVIX-分时
+ "index_option_cyb_min_qvix"  # 创业板 期权波动率指数 QVIX-分时
+ # 科创板 期权波动率指数
+ "index_option_kcb_qvix"  # 科创板 期权波动率指数
+ # 科创板 期权波动率指数 QVIX-分时
+ "index_option_kcb_min_qvix"  # 科创板 期权波动率指数 QVIX-分时
+ # 深证100ETF 期权波动率指数
+ "index_option_100etf_qvix"  # 深证100ETF 期权波动率指数
+ # 深证100ETF 期权波动率指数 QVIX-分时
+ "index_option_100etf_min_qvix"  # 深证100ETF 期权波动率指数 QVIX-分时
+ # 中证300股指 期权波动率指数
+ "index_option_300index_qvix"  # 中证300股指 期权波动率指数
+ # 中证300股指 期权波动率指数 QVIX-分时
+ "index_option_300index_min_qvix"  # 中证300股指 期权波动率指数 QVIX-分时
+ # 中证1000股指 期权波动率指数
+ "index_option_1000index_qvix"  # 中证1000股指 期权波动率指数
+ # 中证1000股指 期权波动率指数 QVIX-分时
+ "index_option_1000index_min_qvix"  # 中证1000股指 期权波动率指数 QVIX-分时
+ # 上证50股指 期权波动率指数
+ "index_option_50index_qvix"  # 上证50股指 期权波动率指数
+ # 上证50股指 期权波动率指数 QVIX-分时
+ "index_option_50index_min_qvix"  # 上证50股指 期权波动率指数 QVIX-分时
  # 申万指数实时行情
  "index_realtime_sw"  # 申万指数实时行情
  # 申万指数历史行情
