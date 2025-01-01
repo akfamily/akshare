@@ -276,7 +276,7 @@ def stock_zt_pool_strong_em(date: str = "20241231") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
+def stock_zt_pool_sub_new_em(date: str = "20241231") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-次新股池
     https://quote.eastmoney.com/ztb/detail#type=cxgc
@@ -351,9 +351,10 @@ def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["涨停价"] = temp_df["涨停价"] / 1000
     temp_df.loc[temp_df["涨停价"] > 100000, "涨停价"] = pd.NA
-    temp_df["开板日期"] = pd.to_datetime(temp_df["开板日期"], format="%Y%m%d")
-    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d")
+    temp_df["开板日期"] = pd.to_datetime(temp_df["开板日期"], format="%Y%m%d").dt.date
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d").dt.date
     temp_df.loc[temp_df["上市日期"] == 0, "上市日期"] = pd.NaT
+    temp_df["是否新高"] = temp_df["是否新高"].apply(lambda x: "是" if x == 1 else "否")
     return temp_df
 
 
@@ -537,7 +538,7 @@ if __name__ == "__main__":
     stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241231")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241011")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241231")
     print(stock_zt_pool_sub_new_em_df)
 
     stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20241011")
