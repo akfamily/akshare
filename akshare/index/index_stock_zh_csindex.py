@@ -79,7 +79,7 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = (
-        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/"
+        f"https://oss-ch.csindex.com.cn/static/"
         f"html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
     )
     temp_df = pd.read_excel(url)
