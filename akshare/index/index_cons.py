@@ -133,7 +133,7 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = (
-        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/"
+        f"https://oss-ch.csindex.com.cn/static/"
         f"html/csindex/public/uploads/file/autofile/cons/{symbol}cons.xls"
     )
     r = requests.get(url)
@@ -167,7 +167,7 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = (
-        f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/"
+        f"https://oss-ch.csindex.com.cn/static/html/csindex/"
         f"public/uploads/file/autofile/closeweight/{symbol}closeweight.xls"
     )
     r = requests.get(url)
