@@ -2974,9 +2974,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.62 fix: fix stock_zt_pool_sub_new_em interface
 1.15.63 fix: fix stock_financial_abstract interface
 1.15.64 fix: fix stock_zh_index_value_csindex interface
+1.15.65 fix: fix option_czce_daily interface
 """
 
-__version__ = "1.15.64"
+__version__ = "1.15.65"
 __author__ = "AKFamily"
 
 import sys
@@ -2997,6 +2998,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+基金费率
+"""
+from akshare.fund.fund_fee_em import fund_fee_em
 
 """
 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
