@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.65 fix: fix option_czce_daily interface
+
+	1. 修复 option_czce_daily 接口
+	2. 新增 fund_fee_em 接口
+
 1.15.64 fix: fix stock_zh_index_value_csindex interface
 
 	1. 修复 stock_zh_index_value_csindex 接口
