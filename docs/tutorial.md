@@ -489,6 +489,7 @@
  # 基金行情
  "fund_etf_category_sina"  # 基金实时行情-新浪
  "fund_etf_hist_sina"  # 基金行情-新浪
+ "fund_etf_dividend_sina"  # 新浪财经-基金-ETF 基金-累计分红
  "fund_etf_hist_em"  # 基金历史行情-东财
  "fund_etf_hist_min_em"  # 基金分时行情-东财
  "fund_etf_spot_em"  # 基金实时行情-东财
