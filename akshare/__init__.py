@@ -2975,9 +2975,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.63 fix: fix stock_financial_abstract interface
 1.15.64 fix: fix stock_zh_index_value_csindex interface
 1.15.65 fix: fix option_czce_daily interface
+1.15.66 fix: fix fund_etf_dividend_sina interface
 """
 
-__version__ = "1.15.65"
+__version__ = "1.15.66"
 __author__ = "AKFamily"
 
 import sys
@@ -4485,6 +4486,7 @@ from akshare.stock_feature.stock_yjyg_cninfo import stock_report_disclosure
 from akshare.fund.fund_etf_sina import (
     fund_etf_hist_sina,
     fund_etf_category_sina,
+    fund_etf_dividend_sina,
 )
 
 """
