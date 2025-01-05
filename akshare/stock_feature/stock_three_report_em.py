@@ -68,6 +68,8 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -124,6 +126,8 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -171,6 +175,8 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -218,6 +224,8 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -267,6 +275,8 @@ def stock_profit_sheet_by_quarterly_em(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -316,6 +326,8 @@ def stock_cash_flow_sheet_by_report_em(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -365,6 +377,8 @@ def stock_cash_flow_sheet_by_yearly_em(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
@@ -414,6 +428,8 @@ def stock_cash_flow_sheet_by_quarterly_em(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
+        if "data" not in data_json.keys():
+            break
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN

@@ -210,7 +210,7 @@ def option_czce_daily(
     :type trade_date: str
     :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权",  "菜籽粕期权", "动力煤期权", "短纤期权",
     "菜籽油期权", "花生期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权", "苹果期权", "红枣期权"
-    "烧碱期权", "玻璃期权"}
+    "烧碱期权", "玻璃期权", "瓶片期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -334,13 +334,19 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
+            elif symbol == "瓶片期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("FG")]
+                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.iloc[:-1, :].copy()
+                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
+                return new_df
         except:  # noqa: E722
             return pd.DataFrame()
 
 
 def option_shfe_daily(
     symbol: str = "铝期权", trade_date: str = "20200827"
-) -> Optional[tuple[pd.DataFrame, pd.DataFrame]]:
+) -> Optional[Tuple[pd.DataFrame, pd.DataFrame]]:
     """
     上海期货交易所-期权-日频行情数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
@@ -355,7 +361,7 @@ def option_shfe_daily(
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
@@ -635,5 +641,5 @@ if __name__ == "__main__":
     )
     print(option_gfex_vol_daily_df)
 
-    option_czce_daily_df = option_czce_daily(symbol="苹果期权", trade_date="20240930")
+    option_czce_daily_df = option_czce_daily(symbol="瓶片期权", trade_date="20250103")
     print(option_czce_daily_df)

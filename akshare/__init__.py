@@ -2950,9 +2950,34 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.38 fix: fix futures_contract_info_ine interface
 1.15.39 fix: fix macro_china_new_house_price interface
 1.15.40 fix: fix macro_china_fdi interface
+1.15.41 fix: fix macro_china_fdi interface
+1.15.42 fix: fix get_roll_yield_bar interface
+1.15.43 fix: fix macro_china_urban_unemployment interface
+1.15.44 fix: fix index_detail_hist_adjust_cni interface
+1.15.45 fix: fix stock_jgdy_detail_em interface
+1.15.46 fix: fix fund_etf_fund_info_em interface
+1.15.47 fix: fix stock_individual_spot_xq interface
+1.15.48 fix: fix stock_mda_ym interface
+1.15.49 fix: fix option_dce_daily interface
+1.15.50 fix: fix stock_gpzy_profile_em interface
+1.15.51 fix: fix stock_gpzy_pledge_ratio_em interface
+1.15.52 fix: fix stock_zh_index_hist_csindex interface
+1.15.53 fix: fix futures_inventory_99 interface
+1.15.54 fix: fix stock_sy_profile_em interface
+1.15.55 fix: fix fund_etf_spot_em interface
+1.15.56 fix: fix spot_goods interface
+1.15.57 fix: fix add 2025 trade date
+1.15.58 fix: fix futures_hold_pos_sina interface
+1.15.59 fix: fix stock_sy_hy_em interface
+1.15.60 fix: fix stock_hot_keyword_em interface
+1.15.61 fix: fix stock_zt_pool_strong_em interface
+1.15.62 fix: fix stock_zt_pool_sub_new_em interface
+1.15.63 fix: fix stock_financial_abstract interface
+1.15.64 fix: fix stock_zh_index_value_csindex interface
+1.15.65 fix: fix option_czce_daily interface
 """
 
-__version__ = "1.15.40"
+__version__ = "1.15.65"
 __author__ = "AKFamily"
 
 import sys
@@ -2973,6 +2998,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+基金费率
+"""
+from akshare.fund.fund_fee_em import fund_fee_em
 
 """
 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
@@ -3135,11 +3165,6 @@ from akshare.stock_feature.stock_hist_tx import stock_zh_a_hist_tx
 筹码分布
 """
 from akshare.stock_feature.stock_cyq_em import stock_cyq_em
-
-"""
-funddb-工具-估值情绪-恐贪指数
-"""
-from akshare.index.index_fear_greed_funddb import index_fear_greed_funddb
 
 """
 东财财富-分时数据
@@ -3376,6 +3401,20 @@ from akshare.index.index_option_qvix import (
     index_option_300etf_min_qvix,
     index_option_300etf_qvix,
     index_option_50etf_min_qvix,
+    index_option_1000index_min_qvix,
+    index_option_1000index_qvix,
+    index_option_100etf_min_qvix,
+    index_option_100etf_qvix,
+    index_option_300index_min_qvix,
+    index_option_300index_qvix,
+    index_option_500etf_min_qvix,
+    index_option_500etf_qvix,
+    index_option_50index_min_qvix,
+    index_option_50index_qvix,
+    index_option_cyb_min_qvix,
+    index_option_cyb_qvix,
+    index_option_kcb_min_qvix,
+    index_option_kcb_qvix,
 )
 
 """
@@ -3392,11 +3431,6 @@ from akshare.stock_feature.stock_buffett_index_lg import stock_buffett_index_lg
 百度股市通-热搜股票
 """
 from akshare.stock.stock_hot_search_baidu import stock_hot_search_baidu
-
-"""
-百度股市通-期货-新闻
-"""
-from akshare.futures.futures_news_baidu import futures_news_baidu
 
 """
 百度股市通- A 股或指数-股评-投票
@@ -3715,14 +3749,6 @@ from akshare.stock_feature.stock_hsgt_em import (
     stock_hsgt_individual_em,
     stock_hsgt_individual_detail_em,
     stock_hsgt_fund_flow_summary_em,
-)
-
-"""
-指数估值
-"""
-from akshare.index.index_stock_zh_csindex import (
-    index_value_hist_funddb,
-    index_value_name_funddb,
 )
 
 """
@@ -5272,14 +5298,6 @@ from akshare.economic.macro_china_nbs import (
 )
 
 """
-全球期货
-"""
-from akshare.futures.futures_international import (
-    futures_global_commodity_hist,
-    futures_global_commodity_name_url_map,
-)
-
-"""
 外汇
 """
 from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
@@ -5302,23 +5320,6 @@ from akshare.option.option_commodity import (
     option_shfe_daily,
     option_gfex_vol_daily,
     option_gfex_daily,
-)
-
-"""
-英为财情-债券
-"""
-from akshare.bond.bond_investing import (
-    bond_investing_global,
-    bond_investing_global_country_name_url,
-)
-
-"""
-英为财情-指数
-"""
-from akshare.index.index_investing import (
-    index_investing_global,
-    index_investing_global_area_index_name_code,
-    index_investing_global_area_index_name_url,
 )
 
 """

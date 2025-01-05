@@ -46,9 +46,6 @@
  "get_qhkc_tool_gdp"  # 奇货可查-工具-各地区经济数据
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
- # 提供英为财情数据接口
- "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
- "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
  "option_dce_daily"  # 提供大连商品交易所商品期权数据
  "option_czce_daily"  # 提供郑州商品交易所商品期权数据
@@ -62,8 +59,6 @@
  "get_fx_spot_quote"  # 人民币外汇即期报价数据
  "get_fx_swap_quote"  # 人民币外汇远掉报价数据
  "get_fx_pair_quote"  # 外币对即期报价数据
- # 全球大宗商品
- "futures_global_commodity_hist"  # 全球大宗商品数据
  # 宏观-欧洲
  "macro_euro_interest_rate"  # 欧洲央行决议报告
  # 宏观-主要机构
@@ -883,8 +878,6 @@
  "fund_scale_open_sina"  # 基金规模-开放式基金
  "fund_scale_close_sina"  # 基金规模-封闭式基金
  "fund_scale_structured_sina"  # 基金规模-分级子基金
- # 指数估值
- "index_value_hist_funddb"  # 指数估值
  # 沪深港通持股
  "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
  "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
@@ -1093,8 +1086,6 @@
  "stock_zh_valuation_baidu"  # 百度股市通-A 股-财务报表-估值数据
  # 百度股市通- A 股或指数-股评-投票
  "stock_zh_vote_baidu"  # 百度股市通- A 股或指数-股评-投票
- # 百度股市通-期货-新闻
- "futures_news_baidu"  # 百度股市通-期货-新闻
  # 百度股市通-热搜股票
  "stock_hot_search_baidu"  # 百度股市通-热搜股票
  # 乐估乐股-底部研究-巴菲特指标
@@ -1109,6 +1100,34 @@
  "index_option_300etf_qvix"  # 300 ETF 期权波动率指数
  # 300 ETF 期权波动率指数 QVIX-分时
  "index_option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
+ # 500 ETF 期权波动率指数
+ "index_option_500etf_qvix"  # 500 ETF 期权波动率指数
+ # 500 ETF 期权波动率指数 QVIX-分时
+ "index_option_500etf_min_qvix"  # 500 ETF 期权波动率指数 QVIX-分时
+ # 创业板 期权波动率指数
+ "index_option_cyb_qvix"  # 创业板 期权波动率指数
+ # 创业板 期权波动率指数 QVIX-分时
+ "index_option_cyb_min_qvix"  # 创业板 期权波动率指数 QVIX-分时
+ # 科创板 期权波动率指数
+ "index_option_kcb_qvix"  # 科创板 期权波动率指数
+ # 科创板 期权波动率指数 QVIX-分时
+ "index_option_kcb_min_qvix"  # 科创板 期权波动率指数 QVIX-分时
+ # 深证100ETF 期权波动率指数
+ "index_option_100etf_qvix"  # 深证100ETF 期权波动率指数
+ # 深证100ETF 期权波动率指数 QVIX-分时
+ "index_option_100etf_min_qvix"  # 深证100ETF 期权波动率指数 QVIX-分时
+ # 中证300股指 期权波动率指数
+ "index_option_300index_qvix"  # 中证300股指 期权波动率指数
+ # 中证300股指 期权波动率指数 QVIX-分时
+ "index_option_300index_min_qvix"  # 中证300股指 期权波动率指数 QVIX-分时
+ # 中证1000股指 期权波动率指数
+ "index_option_1000index_qvix"  # 中证1000股指 期权波动率指数
+ # 中证1000股指 期权波动率指数 QVIX-分时
+ "index_option_1000index_min_qvix"  # 中证1000股指 期权波动率指数 QVIX-分时
+ # 上证50股指 期权波动率指数
+ "index_option_50index_qvix"  # 上证50股指 期权波动率指数
+ # 上证50股指 期权波动率指数 QVIX-分时
+ "index_option_50index_min_qvix"  # 上证50股指 期权波动率指数 QVIX-分时
  # 申万指数实时行情
  "index_realtime_sw"  # 申万指数实时行情
  # 申万指数历史行情
@@ -1201,8 +1220,6 @@
  "stock_intraday_em"  # 东财财富-日内分时数据
  # 新浪财经-日内分时数据
  "stock_intraday_sina"  # 新浪财经-日内分时数据
- # 恐惧贪婪指数
- "index_fear_greed_funddb"  # 恐惧贪婪指数
  # 筹码分布
  "stock_cyq_em"  # 筹码分布
  # 雪球基金-基金详情
@@ -1286,6 +1303,8 @@
  "volatility_yz_rv"  # 已实现波动率计算
  # 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
  "stock_value_em"  # 东方财富网-数据中心-估值分析-每日互动-每日互动-估值分析
+ # 基金费率
+ "fund_fee_em"  # 基金费率
 ```
 
 ## 案例演示

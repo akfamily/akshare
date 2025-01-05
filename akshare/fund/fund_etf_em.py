@@ -60,7 +60,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
         "invt": "2",
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
-        "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
+        "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024,b:MK0827",
         "fields": (
             "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,"
             "f12,f13,f14,f15,f16,f17,f18,f20,f21,"

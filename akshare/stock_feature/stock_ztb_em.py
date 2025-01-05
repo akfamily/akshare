@@ -186,7 +186,7 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_strong_em(date: str = "20241009") -> pd.DataFrame:
+def stock_zt_pool_strong_em(date: str = "20241231") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-强势股池
     https://quote.eastmoney.com/ztb/detail#type=qsgc
@@ -261,10 +261,22 @@ def stock_zt_pool_strong_em(date: str = "20241009") -> pd.DataFrame:
     ]
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["涨停价"] = temp_df["涨停价"] / 1000
+    explained_map = {1: "60日新高", 2: "近期多次涨停", 3: "60日新高且近期多次涨停"}
+    temp_df["入选理由"] = temp_df["入选理由"].apply(lambda x: explained_map[x])
+    temp_df["是否新高"] = temp_df["是否新高"].apply(lambda x: "是" if x == 1 else "否")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨停价"] = pd.to_numeric(temp_df["涨停价"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df["涨速"] = pd.to_numeric(temp_df["涨速"], errors="coerce")
+    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
     return temp_df
 
 
-def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
+def stock_zt_pool_sub_new_em(date: str = "20241231") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-次新股池
     https://quote.eastmoney.com/ztb/detail#type=cxgc
@@ -339,9 +351,10 @@ def stock_zt_pool_sub_new_em(date: str = "20241011") -> pd.DataFrame:
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["涨停价"] = temp_df["涨停价"] / 1000
     temp_df.loc[temp_df["涨停价"] > 100000, "涨停价"] = pd.NA
-    temp_df["开板日期"] = pd.to_datetime(temp_df["开板日期"], format="%Y%m%d")
-    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d")
+    temp_df["开板日期"] = pd.to_datetime(temp_df["开板日期"], format="%Y%m%d").dt.date
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d").dt.date
     temp_df.loc[temp_df["上市日期"] == 0, "上市日期"] = pd.NaT
+    temp_df["是否新高"] = temp_df["是否新高"].apply(lambda x: "是" if x == 1 else "否")
     return temp_df
 
 
@@ -522,10 +535,10 @@ if __name__ == "__main__":
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241122")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20241231")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241011")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20241231")
     print(stock_zt_pool_sub_new_em_df)
 
     stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20241011")

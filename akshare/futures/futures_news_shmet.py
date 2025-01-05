@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/3/21 12:00
+Date: 2024/12/26 18:00
 Desc: 上海金属网-快讯
 https://www.shmet.com/newsFlash/newsFlash.html?searchKeyword=
 """
@@ -38,7 +38,7 @@ def futures_news_shmet(symbol: str = "全部") -> pd.DataFrame:
         }
         payload = {
             "currentPage": 1,
-            "pageSize": 1000,
+            "pageSize": 2000,
             "content": "",
             "flashTag": symbol_map[symbol],
         }

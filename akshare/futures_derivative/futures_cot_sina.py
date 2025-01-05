@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/16 21:30
+Date: 2024/12/27 21:00
 Desc: 新浪财经-期货-成交持仓
 https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php
 """
@@ -13,7 +13,7 @@ import requests
 
 
 def futures_hold_pos_sina(
-    symbol: str = "成交量", contract: str = "IC2403", date: str = "20240223"
+    symbol: str = "成交量", contract: str = "OI2501", date: str = "20240223"
 ) -> pd.DataFrame:
     """
     新浪财经-期货-成交持仓
@@ -59,7 +59,7 @@ def futures_hold_pos_sina(
 
 if __name__ == "__main__":
     futures_hold_pos_sina_df = futures_hold_pos_sina(
-        symbol="成交量", contract="OI2501", date="20241016"
+        symbol="成交量", contract="IC2403", date="20240203"
     )
     print(futures_hold_pos_sina_df)
 
