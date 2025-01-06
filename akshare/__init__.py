@@ -2976,9 +2976,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.64 fix: fix stock_zh_index_value_csindex interface
 1.15.65 fix: fix option_czce_daily interface
 1.15.66 fix: fix fund_etf_dividend_sina interface
+1.15.67 fix: fix stock_hold_change_cninfo interface
 """
 
-__version__ = "1.15.66"
+__version__ = "1.15.67"
 __author__ = "AKFamily"
 
 import sys
@@ -2999,6 +3000,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+巨潮资讯-数据中心-专题统计-股东股本-股本变动
+"""
+from akshare.stock.stock_hold_control_cninfo import stock_hold_change_cninfo
 
 """
 基金费率
