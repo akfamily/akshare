@@ -845,6 +845,8 @@
  "stock_hold_control_cninfo"  # 实际控制人持股变动
  # 高管持股变动明细
  "stock_hold_management_detail_cninfo"  # 高管持股变动明细
+ # 巨潮资讯-数据中心-专题统计-股东股本-股本变动
+ "stock_hold_change_cninfo"  # 巨潮资讯-数据中心-专题统计-股东股本-股本变动
  # 期货手续费
  "futures_comm_info"  # 期货手续费
  "futures_fees_info"  # 期货交易费用参照表
