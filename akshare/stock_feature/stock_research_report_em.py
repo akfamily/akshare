@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/20 20:00
+Date: 2025/1/9 21:30
 Desc: 东方财富网-数据中心-研究报告-个股研报
 https://data.eastmoney.com/report/stock.jshtml
 """
+
 import pandas as pd
 import requests
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
@@ -40,7 +42,9 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["TotalPage"]
+    current_year = data_json["currentYear"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
@@ -53,9 +57,15 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], axis=0, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df["index"] + 1
+    predict_this_year_eps_title = f"{current_year}-盈利预测-收益"
+    predict_this_year_pe_title = f"{current_year}-盈利预测-市盈率"
+    predict_next_year_eps_title = f"{current_year + 1}-盈利预测-收益"
+    predict_next_year_pe_title = f"{current_year + 1}-盈利预测-市盈率"
+    predict_next_two_year_eps_title = f"{current_year + 2}-盈利预测-收益"
+    predict_next_two_year_pe_title = f"{current_year + 2}-盈利预测-市盈率"
     big_df.rename(
         columns={
             "index": "序号",
@@ -68,12 +78,12 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
             "publishDate": "日期",
             "infoCode": "-",
             "column": "-",
-            "predictNextTwoYearEps": "-",
-            "predictNextTwoYearPe": "-",
-            "predictNextYearEps": "2024-盈利预测-收益",
-            "predictNextYearPe": "2024-盈利预测-市盈率",
-            "predictThisYearEps": "2023-盈利预测-收益",
-            "predictThisYearPe": "2023-盈利预测-市盈率",
+            "predictNextTwoYearEps": predict_next_two_year_eps_title,
+            "predictNextTwoYearPe": predict_next_two_year_pe_title,
+            "predictNextYearEps": predict_next_year_eps_title,
+            "predictNextYearPe": predict_next_year_pe_title,
+            "predictThisYearEps": predict_this_year_eps_title,
+            "predictThisYearPe": predict_this_year_pe_title,
             "predictLastYearEps": "-",
             "predictLastYearPe": "-",
             "actualLastTwoYearEps": "-",
@@ -122,20 +132,38 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
             "东财评级",
             "机构",
             "近一月个股研报数",
-            "2023-盈利预测-收益",
-            "2023-盈利预测-市盈率",
-            "2024-盈利预测-收益",
-            "2024-盈利预测-市盈率",
+            predict_this_year_eps_title,
+            predict_this_year_pe_title,
+            predict_next_year_eps_title,
+            predict_next_year_pe_title,
+            predict_next_two_year_eps_title,
+            predict_next_two_year_pe_title,
             "行业",
             "日期",
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    big_df["近一月个股研报数"] = pd.to_numeric(big_df["近一月个股研报数"], errors="coerce")
-    big_df["2023-盈利预测-收益"] = pd.to_numeric(big_df["2023-盈利预测-收益"], errors="coerce")
-    big_df["2023-盈利预测-市盈率"] = pd.to_numeric(big_df["2023-盈利预测-市盈率"], errors="coerce")
-    big_df["2024-盈利预测-收益"] = pd.to_numeric(big_df["2024-盈利预测-收益"], errors="coerce")
-    big_df["2024-盈利预测-市盈率"] = pd.to_numeric(big_df["2024-盈利预测-市盈率"], errors="coerce")
+    big_df["近一月个股研报数"] = pd.to_numeric(
+        big_df["近一月个股研报数"], errors="coerce"
+    )
+    big_df[predict_this_year_eps_title] = pd.to_numeric(
+        big_df[predict_this_year_eps_title], errors="coerce"
+    )
+    big_df[predict_this_year_pe_title] = pd.to_numeric(
+        big_df[predict_this_year_pe_title], errors="coerce"
+    )
+    big_df[predict_next_year_eps_title] = pd.to_numeric(
+        big_df[predict_next_year_eps_title], errors="coerce"
+    )
+    big_df[predict_next_year_pe_title] = pd.to_numeric(
+        big_df[predict_next_year_pe_title], errors="coerce"
+    )
+    big_df[predict_next_two_year_eps_title] = pd.to_numeric(
+        big_df[predict_next_two_year_eps_title], errors="coerce"
+    )
+    big_df[predict_next_two_year_pe_title] = pd.to_numeric(
+        big_df[predict_next_two_year_pe_title], errors="coerce"
+    )
     return big_df
 
 
