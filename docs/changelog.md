@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.68 fix: fix stock_research_report_em interface
+
+	1. 修复 stock_research_report_em 接口
+
 1.15.67 fix: fix stock_hold_change_cninfo interface
 
 	1. 修复 stock_hold_change_cninfo 接口
@@ -4956,6 +4960,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.68 fix: fix stock_research_report_em interface
 
 1.15.67 fix: fix stock_hold_change_cninfo interface
 
