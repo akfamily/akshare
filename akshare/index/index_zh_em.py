@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/11 20:20
+Date: 2025/1/10 18:10
 Desc: 东方财富网-指数行情数据
 """
 
@@ -85,6 +85,8 @@ def index_code_id_map_em() -> dict:
         key: value - 1 if value == 1 else value + 1
         for key, value in code_id_dict.items()
     }
+    # 单独增加品种
+    code_id_dict.update({"932000": 2})
     return code_id_dict
 
 
@@ -438,9 +440,9 @@ if __name__ == "__main__":
     print(index_zh_a_hist_df)
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
-        symbol="000001",
+        symbol="932000",
         period="1",
-        start_date="2024-03-20 09:30:00",
-        end_date="2024-03-20 19:00:00",
+        start_date="2025-01-10 09:30:00",
+        end_date="2025-01-10 19:00:00",
     )
     print(index_zh_a_hist_min_em_df)
