@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/15 19:30
+Date: 2025/1/10 18:30
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所
 采集前 20 会员持仓数据;
@@ -1171,7 +1171,7 @@ def __futures_gfex_vars_list() -> list:
     return var_list
 
 
-def __futures_gfex_contract_list(symbol: str = "si", date: str = "20231113") -> list:
+def __futures_gfex_contract_list(symbol: str = "si", date: str = "20240729") -> list:
     """
     广州期货交易所-合约具体名称列表
     http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
@@ -1194,6 +1194,8 @@ def __futures_gfex_contract_list(symbol: str = "si", date: str = "20231113") -> 
     r = requests.post(url=url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
+    if temp_df.empty:
+        return []
     contract_list = temp_df.iloc[:, 0].tolist()
     return contract_list
 
@@ -1317,7 +1319,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                 symbol=item.lower(), date=date
             )
         except:  # noqa: E722
-            return {}
+            return big_dict
         for name in futures_contract_list:
             try:
                 temp_df = __futures_gfex_contract_data(
@@ -1325,7 +1327,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                 )
                 big_dict[name] = temp_df
             except:  # noqa: E722
-                return {}
+                return big_dict
     return big_dict
 
 
@@ -1371,7 +1373,7 @@ if __name__ == "__main__":
     print(futures_dce_position_rank_other_df)
 
     # 广州期货交易所
-    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20240805")
+    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20240729")
     print(futures_gfex_position_rank_df)
 
     # 总接口
