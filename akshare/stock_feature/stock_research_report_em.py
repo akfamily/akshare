@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/1/9 21:35
+Date: 2025/1/13 22:00
 Desc: 东方财富网-数据中心-研究报告-个股研报
 https://data.eastmoney.com/report/stock.jshtml
 """
 
+import datetime
 import pandas as pd
 import requests
 
@@ -27,7 +28,7 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
         "rating": "*",
         "ratingChange": "*",
         "beginTime": "2000-01-01",
-        "endTime": "2025-01-01",
+        "endTime": f"{datetime.datetime.now().year + 1}-01-01",
         "pageNo": "1",
         "fields": "",
         "qType": "0",
