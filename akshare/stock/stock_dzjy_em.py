@@ -609,7 +609,7 @@ if __name__ == "__main__":
     )
     print(stock_dzjy_mrmx_df)
 
-    stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date="20201204", end_date="20201204")
+    stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date="20220105", end_date="20220105")
     print(stock_dzjy_mrtj_df)
 
     stock_dzjy_hygtj_df = stock_dzjy_hygtj(symbol="近三月")
