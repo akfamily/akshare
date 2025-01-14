@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/7 15:30
+Date: 2025/1/14 17:00
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 https://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -77,7 +77,9 @@ def get_us_stock_name() -> pd.DataFrame:
             params=us_sina_stock_dict_payload,
         )
         data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
-        big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
+        big_df = pd.concat(
+            objs=[big_df, pd.DataFrame(data_json["data"])], ignore_index=True
+        )
     return big_df[["name", "cname", "symbol"]]
 
 
@@ -106,7 +108,9 @@ def stock_us_spot() -> pd.DataFrame:
             params=us_sina_stock_dict_payload,
         )
         data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
-        big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
+        big_df = pd.concat(
+            objs=[big_df, pd.DataFrame(data_json["data"])], ignore_index=True
+        )
     return big_df
 
 
