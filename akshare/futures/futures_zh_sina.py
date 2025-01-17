@@ -612,7 +612,7 @@ def futures_zh_spot(
             return data_df
 
 
-def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.DataFrame:
+def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.DataFrame:
     """
     中国各品种期货分钟频率数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
@@ -704,7 +704,7 @@ if __name__ == "__main__":
     futures_zh_realtime_df = futures_zh_realtime(symbol="工业硅")
     print(futures_zh_realtime_df)
 
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="SI2406", period="1")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="RB0", period="1")
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB0")
