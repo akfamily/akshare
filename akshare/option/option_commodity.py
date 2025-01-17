@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/7/19 14:00
+Date: 2025/1/17 23:00
 Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -335,7 +335,7 @@ def option_czce_daily(
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "瓶片期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("FG")]
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PR")]
                 temp_df.reset_index(inplace=True, drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
