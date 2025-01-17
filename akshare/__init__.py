@@ -2986,9 +2986,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.74 fix: fix macro_australia_retail_rate_monthly interface
 1.15.75 feat: add futures_hist_em interface
 1.15.76 fix: fix futures_zh_minute_sina interface
+1.15.77 fix: fix option_czce_daily interface
 """
 
-__version__ = "1.15.76"
+__version__ = "1.15.77"
 __author__ = "AKFamily"
 
 import sys
