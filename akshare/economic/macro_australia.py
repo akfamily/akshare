@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/27 20:26
+Date: 2025/1/17 15:30
 Desc: 东方财富-经济数据-澳大利亚
 https://data.eastmoney.com/cjsj/foreign_5_0.html
 """
+
 import pandas as pd
 import requests
-
-from akshare.utils import demjson
 
 
 # 零售销售月率
@@ -47,18 +46,19 @@ def macro_australia_retail_rate_monthly() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -98,17 +98,19 @@ def macro_australia_trade() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -148,17 +150,19 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -198,17 +202,19 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -216,7 +222,7 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
 def macro_australia_cpi_quarterly() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-消费者物价指数季率
-    http://data.eastmoney.com/cjsj/foreign_5_4.html
+    https://data.eastmoney.com/cjsj/foreign_5_4.html
     :return: 消费者物价指数季率
     :rtype: pandas.DataFrame
     """
@@ -248,17 +254,19 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -298,17 +306,19 @@ def macro_australia_cpi_yearly() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
@@ -348,21 +358,23 @@ def macro_australia_bank_rate() -> pd.DataFrame:
         "发布日期",
         "现值",
         "前值",
-
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_australia_retail_rate_monthly_df = macro_australia_retail_rate_monthly()
     print(macro_australia_retail_rate_monthly_df)
 
