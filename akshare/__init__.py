@@ -2984,9 +2984,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.72 fix: fix stock_us_spot interface
 1.15.73 fix: fix stock_dzjy_hygtj interface
 1.15.74 fix: fix macro_australia_retail_rate_monthly interface
+1.15.75 feat: add futures_hist_em interface
 """
 
-__version__ = "1.15.74"
+__version__ = "1.15.75"
 __author__ = "AKFamily"
 
 import sys
@@ -3007,6 +3008,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+期货行情-内盘-历史行情数据-东财
+"""
+from akshare.futures.futures_hist_em import futures_hist_table_em, futures_hist_em
 
 """
 巨潮资讯-数据中心-专题统计-股东股本-股本变动
