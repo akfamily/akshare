@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.75 feat: add futures_hist_em interface
+
+	1. 新增 futures_hist_em 接口
+
 1.15.74 fix: fix macro_australia_retail_rate_monthly interface
 
 	1. 修复 macro_australia_retail_rate_monthly 接口
@@ -4986,6 +4990,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.75 feat: add futures_hist_em interface
 
 1.15.74 fix: fix macro_australia_retail_rate_monthly interface
 
