@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.74 fix: fix macro_australia_retail_rate_monthly interface
+
+	1. 修复 macro_australia_retail_rate_monthly 接口
+	2. 修复 index_option_50etf_qvix 接口
+
 1.15.73 fix: fix stock_dzjy_hygtj interface
 
 	1. 修复 stock_dzjy_hygtj 接口
@@ -4981,6 +4986,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.74 fix: fix macro_australia_retail_rate_monthly interface
 
 1.15.73 fix: fix stock_dzjy_hygtj interface
 

@@ -2983,9 +2983,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.71 fix: fix stock_dzjy_sctj interface
 1.15.72 fix: fix stock_us_spot interface
 1.15.73 fix: fix stock_dzjy_hygtj interface
+1.15.74 fix: fix macro_australia_retail_rate_monthly interface
 """
 
-__version__ = "1.15.73"
+__version__ = "1.15.74"
 __author__ = "AKFamily"
 
 import sys
