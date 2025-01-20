@@ -225,10 +225,10 @@ def stock_sse_summary() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
+def stock_sse_deal_daily(date: str = "20060712") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
-    http://www.sse.com.cn/market/stockdata/overview/day/
+    https://www.sse.com.cn/market/stockdata/overview/day/
     :return: 每日股票情况
     :rtype: pandas.DataFrame
     """
@@ -242,7 +242,8 @@ def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
         }
         headers = {
             "Referer": "http://www.sse.com.cn/",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
