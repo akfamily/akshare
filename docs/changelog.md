@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.80 fix: fix option_gfex_vol_daily interface
+
+	1. 修复 option_gfex_vol_daily 接口
+	2. 修复 option_czce_daily 接口
+
 1.15.79 fix: fix stock_new_a_spot_em interface
 
 	1. 修复 stock_new_a_spot_em 接口
@@ -5006,6 +5011,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.80 fix: fix option_gfex_vol_daily interface
 
 1.15.79 fix: fix stock_new_a_spot_em interface
 
