@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/1/17 23:00
+Date: 2025/1/24 23:00
 Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -42,7 +42,7 @@ def option_dce_daily(
     :type trade_date: str
     :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权",
     "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权",
-    "鸡蛋期权", "玉米淀粉期权", "生猪期权"}
+    "鸡蛋期权", "玉米淀粉期权", "生猪期权", "原木期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -558,6 +558,7 @@ def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724
     symbol_code_map = {
         "工业硅": "si",
         "碳酸锂": "lc",
+        "多晶硅": "ps",
     }
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
@@ -610,7 +611,7 @@ if __name__ == "__main__":
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="玉米期权", trade_date="20241121"
+        symbol="原木期权", trade_date="20250122"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
@@ -637,7 +638,7 @@ if __name__ == "__main__":
     print(option_gfex_daily_df)
 
     option_gfex_vol_daily_df = option_gfex_vol_daily(
-        symbol="工业硅", trade_date="20230418"
+        symbol="多晶硅", trade_date="20250123"
     )
     print(option_gfex_vol_daily_df)
 
