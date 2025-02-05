@@ -2991,9 +2991,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.79 fix: fix stock_new_a_spot_em interface
 1.15.80 fix: fix option_gfex_vol_daily interface
 1.15.81 fix: fix bank_fjcf_table_detail interface
+1.15.82 fix: fix stock_individual_spot_xq interface
 """
 
-__version__ = "1.15.81"
+__version__ = "1.15.82"
 __author__ = "AKFamily"
 
 import sys
