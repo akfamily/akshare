@@ -56,7 +56,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     :return: 地区交易排序
     :rtype: pandas.DataFrame
     """
-    url = "http://www.szse.cn/api/report/ShowReport"
+    url = "https://www.szse.cn/api/report/ShowReport"
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "1803_sczm",
@@ -78,8 +78,8 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
         "债券交易额",
     ]
     temp_df["总交易额"] = temp_df["总交易额"].str.replace(",", "")
-    temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"])
-    temp_df["占市场"] = pd.to_numeric(temp_df["占市场"])
+    temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"], errors="coerce")
+    temp_df["占市场"] = pd.to_numeric(temp_df["占市场"], errors="coerce")
     temp_df["股票交易额"] = temp_df["股票交易额"].str.replace(",", "")
     temp_df["股票交易额"] = pd.to_numeric(temp_df["股票交易额"], errors="coerce")
     temp_df["基金交易额"] = temp_df["基金交易额"].str.replace(",", "")
@@ -633,7 +633,7 @@ if __name__ == "__main__":
     stock_szse_summary_df = stock_szse_summary(date="20240901")
     print(stock_szse_summary_df)
 
-    stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
+    stock_szse_area_summary_df = stock_szse_area_summary(date="202412")
     print(stock_szse_area_summary_df)
 
     stock_szse_sector_summary_df = stock_szse_sector_summary(
