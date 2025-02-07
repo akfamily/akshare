@@ -90,7 +90,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
 
 
 def stock_szse_sector_summary(
-    symbol: str = "当月", date: str = "202303"
+    symbol: str = "当月", date: str = "202501"
 ) -> pd.DataFrame:
     """
     深圳证券交易所-统计资料-股票行业成交数据
@@ -126,7 +126,7 @@ def stock_szse_sector_summary(
         )
     )
     date_format = "-".join([date[:4], date[4:]])
-    url = f"http://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
+    url = f"https://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
     r = requests.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, features="lxml")
@@ -637,7 +637,7 @@ if __name__ == "__main__":
     print(stock_szse_area_summary_df)
 
     stock_szse_sector_summary_df = stock_szse_sector_summary(
-        symbol="当月", date="202303"
+        symbol="当月", date="202501"
     )
     print(stock_szse_sector_summary_df)
 

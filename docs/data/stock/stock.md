@@ -202,7 +202,7 @@ print(stock_szse_area_summary_df)
 | 名称     | 类型  | 描述                                  |
 |--------|-----|-------------------------------------|
 | symbol | str | symbol="当月"; choice of {"当月", "当年"} |
-| date   | str | date="202203"; 年月                   |
+| date   | str | date="202501"; 年月                   |
 
 输出参数
 
@@ -223,34 +223,35 @@ print(stock_szse_area_summary_df)
 ```python
 import akshare as ak
 
-stock_szse_sector_summary_df = ak.stock_szse_sector_summary(symbol="当年", date="202204")
+stock_szse_sector_summary_df = ak.stock_szse_sector_summary(symbol="当年", date="202501")
 print(stock_szse_sector_summary_df)
 ```
 
 数据示例
 
 ```
-    项目名称                   项目名称-英文  交易天数  ...  成交股数-占总计      成交笔数-笔  成交笔数-占总计
-0     合计                     Total    77  ...    100.00  3816547870    100.00
-1   农林牧渔               Agriculture    77  ...      1.51    60126514      1.58
-2    采矿业                    Mining    77  ...      2.10    72850554      1.91
-3    制造业             Manufacturing    77  ...     55.08  2404587520     63.00
-4   水电煤气                 Utilities    77  ...      2.27    68543100      1.80
-5    建筑业              Construction    77  ...      3.13    87826462      2.30
-6   批发零售        Wholesale & Retail    77  ...      3.29   102688643      2.69
-7   运输仓储            Transportation    77  ...      1.13    46450606      1.22
-8   住宿餐饮         Hotels & Catering    77  ...      0.25     6348476      0.17
-9   信息技术                        IT    77  ...     12.11   429609907     11.26
-10   金融业                   Finance    77  ...      3.36   102223897      2.68
-11   房地产               Real Estate    77  ...      6.47   132471503      3.47
-12  商务服务          Business Support    77  ...      2.72    73174343      1.92
-13  科研服务    Research & Development    77  ...      1.06    58211379      1.53
-14  公共环保  Environmental Protection    77  ...      1.90    59623129      1.56
-15  居民服务         Resident Services    77  ...      0.00      280137      0.01
-16    教育                 Education    77  ...      0.39    11672172      0.31
-17    卫生             Public Health    77  ...      0.55    20643720      0.54
-18  文化传播                     Media    77  ...      2.42    70405699      1.84
-19    综合             Conglomerates    77  ...      0.26     8810109      0.23
+    项目名称            项目名称-英文 交易天数  ... 成交股数-占总计 成交笔数-笔 成交笔数-占总计
+0     合计                     Total    18  ...    100.00  1072706301    100.00
+1   农林牧渔               Agriculture    18  ...      0.85     7661044      0.71
+2    采矿业                    Mining    18  ...      0.90     9355248      0.87
+3    制造业             Manufacturing    18  ...     59.75   715973899     66.74
+4   水电煤气                 Utilities    18  ...      1.47    12802444      1.19
+5    建筑业              Construction    18  ...      1.39    10222345      0.95
+6   批发零售        Wholesale & Retail    18  ...      4.73    40706994      3.79
+7   运输仓储            Transportation    18  ...      0.99    11426446      1.07
+8   住宿餐饮         Hotels & Catering    18  ...      0.19     1728478      0.16
+9   信息技术                        IT    18  ...     11.73   137478307     12.82
+10   金融业                   Finance    18  ...      3.76    31633210      2.95
+11   房地产               Real Estate    18  ...      2.88    13878880      1.29
+12  商务服务          Business Support    18  ...      6.48    38310245      3.57
+13  科研服务    Research & Development    18  ...      0.63    10972681      1.02
+14  公共环保  Environmental Protection    18  ...      1.61    10919804      1.02
+15  居民服务         Resident Services    18  ...      0.01      217920      0.02
+16    教育                 Education    18  ...      0.64     3040949      0.28
+17    卫生             Public Health    18  ...      0.51     4706600      0.44
+18  文化传播                     Media    18  ...      1.33    10017645      0.93
+19    综合             Conglomerates    18  ...      0.14     1653162      0.15
+[20 rows x 9 columns]
 ```
 
 ##### 上海证券交易所-每日概况
@@ -9858,7 +9859,7 @@ print(stock_sector_fund_flow_rank_df)
 
 描述: 东方财富网-数据中心-资金流向-主力净流入排名
 
-限量: 单次获取指定板块的主力净流入排名数据
+限量: 单次获取指定 symbol 的主力净流入排名数据
 
 输入参数
 
@@ -9921,7 +9922,7 @@ print(stock_main_fund_flow_df)
 
 描述: 东方财富网-数据中心-资金流向-行业资金流-xx行业个股资金流
 
-限量: 单次获取指定行业的个股资金流
+限量: 单次获取指定 symbol 的个股资金流
 
 输入参数
 
