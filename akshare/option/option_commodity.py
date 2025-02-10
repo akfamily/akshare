@@ -51,7 +51,7 @@ def option_dce_daily(
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return
+        return pd.DataFrame(), pd.DataFrame()
     url = DCE_DAILY_OPTION_URL
     payload = {
         "dayQuotes.variety": "all",
@@ -120,7 +120,7 @@ def option_dce_daily(
     elif symbol == "黄大豆2号期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "豆二"],
-            another_df[another_df.iloc[:, 0].str.contains("b")],
+            another_df[another_df.iloc[:, 0].str.contains(r"^b\d")],
         )
     elif symbol == "豆油期权":
         result_one_df, result_two_df = (
@@ -623,7 +623,7 @@ if __name__ == "__main__":
     print(option_dce_daily_two)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="乙二醇期权", trade_date="20230516"
+        symbol="黄大豆2号期权", trade_date="20250207"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
