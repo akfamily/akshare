@@ -95,7 +95,7 @@ def option_dce_daily(
     elif symbol == "聚乙烯期权":
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "聚乙烯"],
-            another_df[another_df.iloc[:, 0].str.contains("l")],
+            another_df[another_df.iloc[:, 0].str.contains(r"^l\d")],
         )
     elif symbol == "聚氯乙烯期权":
         result_one_df, result_two_df = (
@@ -623,7 +623,7 @@ if __name__ == "__main__":
     print(option_dce_daily_two)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="黄大豆2号期权", trade_date="20250207"
+        symbol="聚乙烯期权", trade_date="20250210"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
