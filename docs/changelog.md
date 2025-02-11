@@ -83,6 +83,7 @@
 1.15.85 fix: fix stock_gddh_em interface
 
 	1. 修复 stock_gddh_em 接口
+	2. 修复 option_dce_daily 接口
 
 1.15.84 fix: fix option_dce_daily interface
 
