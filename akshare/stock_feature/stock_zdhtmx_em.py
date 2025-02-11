@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/19 20:32
+Date: 2025/2/11 20:32
 Desc: 东方财富网-数据中心-重大合同-重大合同明细
 https://data.eastmoney.com/zdht/mx.html
 """
+
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_zdhtmx_em(
@@ -19,6 +20,9 @@ def stock_zdhtmx_em(
     :return: 股东大会
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "DIM_RDATE",
@@ -28,12 +32,14 @@ def stock_zdhtmx_em(
         "columns": "ALL",
         "token": "894050c76af8597a853f5b408b759f5d",
         "reportName": "RPTA_WEB_ZDHT_LIST",
-        "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')
+        (DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
@@ -43,7 +49,7 @@ def stock_zdhtmx_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], axis=0, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df["index"] + 1
     big_df.rename(
@@ -101,8 +107,12 @@ def stock_zdhtmx_em(
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
     big_df["合同金额"] = pd.to_numeric(big_df["合同金额"], errors="coerce")
     big_df["上年度营业收入"] = pd.to_numeric(big_df["上年度营业收入"], errors="coerce")
-    big_df["占上年度营业收入比例"] = pd.to_numeric(big_df["占上年度营业收入比例"], errors="coerce")
-    big_df["最新财务报表的营业收入"] = pd.to_numeric(big_df["最新财务报表的营业收入"], errors="coerce")
+    big_df["占上年度营业收入比例"] = pd.to_numeric(
+        big_df["占上年度营业收入比例"], errors="coerce"
+    )
+    big_df["最新财务报表的营业收入"] = pd.to_numeric(
+        big_df["最新财务报表的营业收入"], errors="coerce"
+    )
     return big_df
 
 
