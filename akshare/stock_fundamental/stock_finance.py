@@ -201,6 +201,8 @@ def stock_financial_analysis_indicator(
     year_list = [item.text for item in year_context]
     if start_year in year_list:
         year_list = year_list[: year_list.index(start_year) + 1]
+    else:
+        return pd.DataFrame()
     out_df = pd.DataFrame()
     tqdm = get_tqdm()
     for year_item in tqdm(year_list, leave=False):
@@ -717,7 +719,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
-        symbol="600004", start_year="2020"
+        symbol="600004", start_year="2024"
     )
     print(stock_financial_analysis_indicator_df)
 
