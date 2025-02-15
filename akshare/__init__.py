@@ -2999,9 +2999,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.87 fix: fix futures_index_ccidx interface
 1.15.88 fix: fix stock_zh_a_spot_em interface
 1.15.89 fix: fix stock_individual_info_em interface
+1.15.90 fix: fix stock_financial_analysis_indicator interface
 """
 
-__version__ = "1.15.89"
+__version__ = "1.15.90"
 __author__ = "AKFamily"
 
 import sys
