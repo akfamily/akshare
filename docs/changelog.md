@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.15.92 fix: fix stock_main_fund_flow interface
+
+	1. 修复 stock_main_fund_flow 接口
+	2. 修复 stock_individual_fund_flow_rank 接口
+
 1.15.91 fix: fix stock_board_concept_cons_em interface
 
 	1. 修复 stock_board_concept_cons_em 接口
@@ -5060,6 +5065,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.92 fix: fix stock_individual_fund_flow_rank interface
 
 1.15.91 fix: fix stock_board_concept_cons_em interface
 
