@@ -295,7 +295,7 @@ def stock_board_concept_hist_min_em(
         return temp_df
 
 
-def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
+def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     """
     东方财富-沪深板块-概念板块-板块成份
     https://quote.eastmoney.com/center/boardlist.html#boards-BK06551
