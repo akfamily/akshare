@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.15.90 fix: fix stock_financial_analysis_indicator interface
+
+	1. 修复 stock_financial_analysis_indicator 接口
+
 1.15.89 fix: fix stock_individual_info_em interface
 
 	1. 修复 stock_individual_info_em 接口
@@ -5051,6 +5055,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.15.90 fix: fix stock_financial_analysis_indicator interface
 
 1.15.89 fix: fix stock_individual_info_em interface
 
