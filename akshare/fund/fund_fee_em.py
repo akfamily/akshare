@@ -6,9 +6,10 @@ Desc: 天天基金-基金档案
 https://fundf10.eastmoney.com/jjfl_015641.html
 """
 
-import requests
-import pandas as pd
 from io import StringIO
+
+import pandas as pd
+import requests
 
 
 def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.DataFrame:
