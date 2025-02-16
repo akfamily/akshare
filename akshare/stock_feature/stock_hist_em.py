@@ -1732,7 +1732,7 @@ def stock_us_spot_em() -> pd.DataFrame:
     url = "https://72.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "20000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -1746,7 +1746,20 @@ def stock_us_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, timeout=15, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.columns = [
         "_",
         "最新价",
@@ -2054,9 +2067,9 @@ if __name__ == "__main__":
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
-        symbol="000001",
-        start_date="2024-03-20 09:30:00",
-        end_date="2024-03-20 15:00:00",
+        symbol="002881",
+        start_date="2025-02-14 09:30:00",
+        end_date="2025-02-14 15:00:00",
         period="5",
         adjust="hfq",
     )
