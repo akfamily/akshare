@@ -6,10 +6,12 @@ Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
 
-from functools import lru_cache
 import math
+from functools import lru_cache
+
 import pandas as pd
 import requests
+
 from akshare.utils.tqdm import get_tqdm
 
 
