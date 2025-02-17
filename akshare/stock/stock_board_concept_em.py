@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/29 17:13
+Date: 2025/2/17 14:10
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
 
-import requests
+import math
+from functools import lru_cache
+
 import pandas as pd
+import requests
+
+from akshare.utils.tqdm import get_tqdm
 
 
+@lru_cache()
 def stock_board_concept_name_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深京板块-概念板块-名称
@@ -20,20 +26,33 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     url = "https://79.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "2000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
         "_": "1626075887768",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
@@ -311,7 +330,7 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     url = "https://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -325,7 +344,20 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
