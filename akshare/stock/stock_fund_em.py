@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/25 12:30
+Date: 2025/2/17 14:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -654,7 +654,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
@@ -667,7 +667,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
     return name_code_map
 
@@ -1061,7 +1061,7 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "fields": "f12,f13,f14,f62",
         "fid": "f62",
         "fs": "m:90+t:3",
@@ -1070,7 +1070,7 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
     return name_code_map
 
@@ -1332,7 +1332,7 @@ if __name__ == "__main__":
     stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="电源设备")
     print(stock_sector_fund_flow_hist_df)
 
-    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="锂电池")
+    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="电源设备")
     print(stock_concept_fund_flow_hist_df)
 
     stock_main_fund_flow_df = stock_main_fund_flow(symbol="全部股票")
