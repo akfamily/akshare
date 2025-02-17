@@ -6,15 +6,12 @@ Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
 
-import math
 import json
 import time
 from functools import lru_cache
 
 import pandas as pd
 import requests
-
-from akshare.utils.tqdm import get_tqdm
 
 
 def stock_individual_fund_flow(
@@ -150,9 +147,9 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     params = {
         "fid": indicator_map[indicator][0],
         "po": "1",
-        "pz": "200",
+        "pz": "50000",
         "pn": "1",
-        "np": "1",
+        "np": "2",
         "fltt": "2",
         "invt": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -161,20 +158,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     if indicator == "今日":
@@ -954,6 +938,8 @@ def stock_sector_fund_flow_summary(
             temp_df["10日小单净流入-净占比"], errors="coerce"
         )
         return temp_df
+    else:
+        return pd.DataFrame()
 
 
 def stock_sector_fund_flow_hist(symbol: str = "电源设备") -> pd.DataFrame:
@@ -1186,9 +1172,9 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
     params = {
         "fid": "f184",
         "po": "1",
-        "pz": "200",
+        "pz": "50000",
         "pn": "1",
-        "np": "1",
+        "np": "2",
         "fltt": "2",
         "invt": "2",
         "fields": "f2,f3,f12,f13,f14,f62,f184,f225,f165,f263,f109,f175,f264,f160,f100,f124,f265,f1",
@@ -1197,20 +1183,7 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, timeout=15)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df["序号"] = range(1, len(temp_df) + 1)
     temp_df.rename(
         columns={
