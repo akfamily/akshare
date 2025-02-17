@@ -247,7 +247,7 @@ def stock_zh_index_spot_em(symbol: str = "沪深重要指数") -> pd.DataFrame:
         "fltt": "2",
         "invt": "2",
         "wbp2u": "|0|0|0|web",
-        "fid": "f3",
+        "fid": "f12",
         "fs": symbol_map[symbol],
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
