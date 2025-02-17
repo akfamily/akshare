@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.16.2 fix: fix stock_board_industry_hist_em interface
+
+	1. 修复 stock_board_industry_hist_em 接口
+
 1.16.1 fix: fix stock_main_fund_flow interface
 
 	1. 修复 stock_main_fund_flow 接口
@@ -5106,6 +5110,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.2 fix: fix stock_board_industry_hist_em interface
+
+1.16.1 fix: fix stock_main_fund_flow interface
 
 1.15.99 fix: fix stock_esg_zd_sina interface
 
