@@ -22,9 +22,9 @@ def stock_board_industry_name_em() -> pd.DataFrame:
     url = "https://17.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "2000",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -37,7 +37,7 @@ def stock_board_industry_name_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
@@ -385,9 +385,9 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     url = "http://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "2000",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -399,7 +399,7 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
