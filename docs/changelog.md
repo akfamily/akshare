@@ -84,6 +84,7 @@
 
 	1. 修复 bond_cov_comparison 接口
 	2. 修复 stock_bid_ask_em 接口
+	3. 修复 stock_hk_spot_em 接口
 
 1.15.95 fix: fix stock_us_spot_em interface
 
