@@ -80,6 +80,11 @@
 
 ## 更新说明详情
 
+1.16.1 fix: fix stock_main_fund_flow interface
+
+	1. 修复 stock_main_fund_flow 接口
+	2. 修复 stock_individual_spot_xq 接口
+
 1.15.99 fix: fix stock_esg_zd_sina interface
 
 	1. 修复 stock_esg_zd_sina 接口
