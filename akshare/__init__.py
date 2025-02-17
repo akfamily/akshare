@@ -3007,9 +3007,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.15.95 fix: fix stock_us_spot_em interface
 1.15.96 fix: fix bond_cov_comparison interface
 1.15.97 fix: fix stock_intraday_em interface
+1.15.98 fix: fix stock_board_concept_name_em interface
 """
 
-__version__ = "1.15.97"
+__version__ = "1.15.98"
 __author__ = "AKFamily"
 
 import sys
