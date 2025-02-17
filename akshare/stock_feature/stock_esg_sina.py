@@ -7,10 +7,10 @@ https://finance.sina.com.cn/esg/
 """
 
 import math
+from akshare.utils.tqdm import get_tqdm
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
 
 def stock_esg_msci_sina() -> pd.DataFrame:
@@ -25,6 +25,7 @@ def stock_esg_msci_sina() -> pd.DataFrame:
     data_json = r.json()
     page_num = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         headers = {
             "Referer": "https://finance.sina.com.cn/",
@@ -175,6 +176,7 @@ def stock_esg_rate_sina() -> pd.DataFrame:
     data_json = r.json()
     page_num = math.ceil(int(data_json["result"]["data"]["info"]["total"]) / 200)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getEsgStocks?page={page}&num=200"
         r = requests.get(url)
@@ -223,10 +225,20 @@ def stock_esg_zd_sina() -> pd.DataFrame:
     :return: 秩鼎
     :rtype: pandas.DataFrame
     """
-    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getZdEsgStocks?p=1&num=20000"
-    r = requests.get(url)
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getZdEsgStocks"
+    params = {"p": "1", "num": "100"}
+    r = requests.get(url, params=params)
     data_json = r.json()
-    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    tqdm = get_tqdm()
+    total_page = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
+    temp_list = []
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params = {"p": str(page), "num": "100"}
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
+        temp_list.append(temp_df)
+    big_df = pd.concat(temp_list, ignore_index=True)
     big_df.rename(
         columns={
             "ticker": "股票代码",
@@ -265,6 +277,7 @@ def stock_esg_hz_sina() -> pd.DataFrame:
     data_json = r.json()
     total_page = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params = {"p": str(page), "num": "100"}
         r = requests.get(url, params=params)
