@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/5/28 15:30
+Date: 2025/2/17 20:30
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
 
-import math
 import datetime
 import re
 
@@ -136,9 +135,9 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     url = "https://33.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -152,22 +151,9 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"] + 1
+    temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.rename(
         columns={
             "index": "序号",
@@ -240,14 +226,14 @@ def stock_zh_index_spot_em(symbol: str = "沪深重要指数") -> pd.DataFrame:
     }
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "20000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "wbp2u": "|0|0|0|web",
-        "fid": "f12",
+        "fid": "f3",
         "fs": symbol_map[symbol],
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
@@ -255,22 +241,9 @@ def stock_zh_index_spot_em(symbol: str = "沪深重要指数") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"] + 1
+    temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.rename(
         columns={
             "index": "序号",
