@@ -2007,7 +2007,7 @@ if __name__ == "__main__":
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
-        symbol="002881",
+        symbol="300364",
         start_date="2025-02-14 09:30:00",
         end_date="2025-02-14 15:00:00",
         period="5",
