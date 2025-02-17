@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/15 21:00
+Date: 2025/2/17 14:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
@@ -151,7 +151,7 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -167,7 +167,20 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.columns = [
         "_",
         "最新价",
@@ -266,7 +279,7 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -282,7 +295,20 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.columns = [
         "_",
         "最新价",
