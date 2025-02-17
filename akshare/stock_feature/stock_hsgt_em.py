@@ -24,19 +24,26 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
     url = "https://33.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "fid": "f3",
         "fs": "b:DLMK0146,b:DLMK0144",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,"
+        "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1639974456250",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    data_diff = []
+    while True:
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        data_diff += data_json["data"]["diff"]
+        if len(data_diff) >= data_json["data"]["total"]:
+            break
+        params.update({"pn": str(int(params["pn"]) + 1)})
+    temp_df = pd.DataFrame(data_diff)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
