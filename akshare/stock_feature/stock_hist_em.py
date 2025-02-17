@@ -1681,99 +1681,106 @@ def stock_us_spot_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://72.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "50000",
-        "po": "1",
-        "np": "2",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:105,m:106,m:107",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
-        "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
-        "_": "1624010056945",
-    }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.columns = [
-        "_",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "成交量",
-        "成交额",
-        "振幅",
-        "换手率",
-        "_",
-        "_",
-        "_",
-        "简称",
-        "编码",
-        "名称",
-        "最高价",
-        "最低价",
-        "开盘价",
-        "昨收价",
-        "总市值",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "市盈率",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
-    temp_df["代码"] = temp_df["编码"].astype(str) + "." + temp_df["简称"]
-    temp_df = temp_df[
-        [
-            "序号",
-            "名称",
+    result = []
+    page_size = 200
+    for start_idx in range(0,50000,page_size):
+        pn = start_idx / page_size  + 1
+        params = {
+            "pn": str(pn),
+            "pz": "200",
+            "po": "1",
+            "np": "1",
+            "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+            "fltt": "2",
+            "invt": "2",
+            "fid": "f3",
+            "fs": "m:105,m:106,m:107",
+            "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
+            "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+            "_": "1624010056945",
+        }
+        r = requests.get(url, timeout=15, params=params)
+        data_json = r.json()
+        if data_json["data"] is None:
+            return pd.concat(result)
+        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df.columns = [
+            "_",
             "最新价",
-            "涨跌额",
             "涨跌幅",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "昨收价",
-            "总市值",
-            "市盈率",
+            "涨跌额",
             "成交量",
             "成交额",
             "振幅",
             "换手率",
-            "代码",
+            "_",
+            "_",
+            "_",
+            "简称",
+            "编码",
+            "名称",
+            "最高价",
+            "最低价",
+            "开盘价",
+            "昨收价",
+            "总市值",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "市盈率",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
         ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
-    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
-    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
-    temp_df["昨收价"] = pd.to_numeric(temp_df["昨收价"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["市盈率"] = pd.to_numeric(temp_df["市盈率"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    return temp_df
-
+        temp_df.reset_index(inplace=True)
+        temp_df["index"] = range(1, len(temp_df) + 1)
+        temp_df.rename(columns={"index": "序号"}, inplace=True)
+        temp_df["代码"] = temp_df["编码"].astype(str) + "." + temp_df["简称"]
+        temp_df = temp_df[
+            [
+                "序号",
+                "名称",
+                "最新价",
+                "涨跌额",
+                "涨跌幅",
+                "开盘价",
+                "最高价",
+                "最低价",
+                "昨收价",
+                "总市值",
+                "市盈率",
+                "成交量",
+                "成交额",
+                "振幅",
+                "换手率",
+                "代码",
+            ]
+        ]
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+        temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+        temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+        temp_df["昨收价"] = pd.to_numeric(temp_df["昨收价"], errors="coerce")
+        temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+        temp_df["市盈率"] = pd.to_numeric(temp_df["市盈率"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+        result.append(temp_df)
+    if len(result) > 0:
+        return pd.concat(result)
+    else:
+        return pd.DataFrame()
 
 def stock_us_hist(
     symbol: str = "105.MSFT",
