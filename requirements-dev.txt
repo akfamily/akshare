@@ -1,0 +1,26 @@
+akqmt>=0.1.0
+beautifulsoup4>=4.9.1
+lxml>=4.2.1
+pandas>=0.25
+requests>=2.22.0
+urllib3>=1.25.8
+html5lib>=1.0.1
+tqdm>=4.43.0
+xlrd>=1.2.0
+openpyxl>=3.0.3
+jsonpath>=0.82
+tabulate>=0.8.6
+decorator>=4.4.2
+mini-racer>=0.12.4
+commitizen>=2.35.0
+pre-commit>=2.20.0
+sphinx>=7.4.3
+recommonmark>=0.7.1
+sphinx_markdown_tables>=0.0.17
+sphinx_rtd_theme>=1.0.0
+mplfinance>=0.12.10b0
+ruff>=0.3.3
+ruff-lsp>=0.0.53
+pre-commit>=3.6.2
+# backtrader>=1.9.78.123  # just for test
+# lib-pybroker # just for demo.md

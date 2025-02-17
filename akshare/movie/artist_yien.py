@@ -7,13 +7,14 @@ Desc: 艺恩-艺人
 艺人流量价值
 https://www.endata.com.cn/Marketing/Artist/business.html
 """
+
+import datetime
 import json
 import os
-import datetime
 
 import pandas as pd  # type: ignore
 import requests
-from py_mini_racer import py_mini_racer  # type: ignore
+import py_mini_racer  # type: ignore
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:
@@ -70,18 +71,31 @@ def business_value_artist() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {
-            "Order": "BusinessValueIndex_L1",
-            "OrderType": "DESC",
-            "PageIndex": '1',
-            "PageSize": '100',
-            "MethodName": "Data_GetList_Star"
+        "Order": "BusinessValueIndex_L1",
+        "OrderType": "DESC",
+        "PageIndex": "1",
+        "PageSize": "100",
+        "MethodName": "Data_GetList_Star",
     }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排名", "-", "艺人", "商业价值", "-", "专业热度", "关注热度", "预测热度", "美誉度", "-"]
-    temp_df = temp_df[["排名", "艺人", "商业价值", "专业热度", "关注热度", "预测热度", "美誉度"]]
+    temp_df.columns = [
+        "排名",
+        "-",
+        "艺人",
+        "商业价值",
+        "-",
+        "专业热度",
+        "关注热度",
+        "预测热度",
+        "美誉度",
+        "-",
+    ]
+    temp_df = temp_df[
+        ["排名", "艺人", "商业价值", "专业热度", "关注热度", "预测热度", "美誉度"]
+    ]
     temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 
@@ -99,14 +113,27 @@ def online_value_artist() -> pd.DataFrame:
         "OrderType": "DESC",
         "PageIndex": 1,
         "PageSize": 100,
-        "MethodName": "Data_GetList_Star"
+        "MethodName": "Data_GetList_Star",
     }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排名", "-", "艺人", "-", "流量价值", "专业热度", "关注热度", "预测热度", "-", "带货力"]
-    temp_df = temp_df[["排名", "艺人", "流量价值", "专业热度", "关注热度", "预测热度", "带货力"]]
+    temp_df.columns = [
+        "排名",
+        "-",
+        "艺人",
+        "-",
+        "流量价值",
+        "专业热度",
+        "关注热度",
+        "预测热度",
+        "-",
+        "带货力",
+    ]
+    temp_df = temp_df[
+        ["排名", "艺人", "流量价值", "专业热度", "关注热度", "预测热度", "带货力"]
+    ]
     temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 

@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/19 13:24
+Date: 2024/10/19 21:30
 Desc: 乐咕乐股-A 股市盈率和市净率
-https://legulegu.com/stockdata/hs300-ttm-lyr
-https://legulegu.com/stockdata/hs300-pb
-此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
+https://legulegu.com/stockdata/shanghaiPE
 """
+
 from datetime import datetime
-from os import replace
 
 import pandas as pd
+import py_mini_racer
 import requests
-from py_mini_racer import py_mini_racer
+
+from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
 
 hash_code = """
 function e(n) {
@@ -322,46 +322,290 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pe_and_pb(symbol: str = "sz") -> pd.DataFrame:
+def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
     """
-    乐咕乐股-A 股市盈率和市净率
-    https://legulegu.com/stockdata/hs300-ttm-lyr
-    https://legulegu.com/stockdata/hs300-pb
-    两个网页分别展示市盈率和市净率，但实际上是来自同一个API的数据
-    :param symbol: choice of {"sh", "sz", "cy", "zx", "000300.SH" ...}
+    乐咕乐股-主板市盈率
+    https://legulegu.com/stockdata/shanghaiPE
+    :param symbol: choice of {"上证", "深证", "创业板", "科创版"}
     :type symbol: str
-    :return: 指定市场的 A 股的市盈率和市净率，包括等权和加权
+    :return: 指定市场的市盈率数据
     :rtype: pandas.DataFrame
     """
-    url = "https://legulegu.com/api/stockdata/index-basic"
-    params = {
-        "token": token,
-        "indexCode": symbol
+    if symbol in {"上证", "深证", "创业板"}:
+        url = "https://legulegu.com/api/stock-data/market-pe"
+        symbol_map = {
+            "上证": "1",
+            "深证": "2",
+            "创业板": "4",
+        }
+        url_map = {
+            "上证": "https://legulegu.com/stockdata/shanghaiPE",
+            "深证": "https://legulegu.com/stockdata/shenzhenPE",
+            "创业板": "https://legulegu.com/stockdata/cybPE",
+        }
+        params = {"token": token, "marketId": symbol_map[symbol]}
+        r = requests.get(url, params=params, **get_cookie_csrf(url=url_map[symbol]))
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df["date"] = (
+            pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+            .dt.tz_convert("Asia/Shanghai")
+            .dt.date
+        )
+        temp_df = temp_df[
+            [
+                "date",
+                "close",
+                "pe",
+            ]
+        ]
+        temp_df.columns = [
+            "日期",
+            "指数",
+            "平均市盈率",
+        ]
+        return temp_df
+    else:
+        url = "https://legulegu.com/api/stockdata/get-ke-chuang-ban-pe"
+        params = {"token": token}
+        r = requests.get(
+            url,
+            params=params,
+            **get_cookie_csrf(url="https://legulegu.com/stockdata/ke-chuang-ban-pe"),
+        )
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df["date"] = (
+            pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+            .dt.tz_convert("Asia/Shanghai")
+            .dt.date
+        )
+        temp_df = temp_df[
+            [
+                "date",
+                "close",
+                "pe",
+            ]
+        ]
+        temp_df.columns = [
+            "日期",
+            "总市值",
+            "市盈率",
+        ]
+        return temp_df
+
+
+def stock_index_pe_lg(symbol: str = "沪深300") -> pd.DataFrame:
+    """
+    乐咕乐股-指数市盈率
+    https://legulegu.com/stockdata/sz50-ttm-lyr
+    :param symbol: choice of {"上证50", "沪深300", "上证380", "创业板50", "中证500", "上证180", "深证红利", "深证100", "中证1000", "上证红利", "中证100", "中证800"}
+    :type symbol: str
+    :return: 指定指数的市盈率数据
+    :rtype: pandas.DataFrame
+    """
+    symbol_map = {
+        "上证50": "000016.SH",
+        "沪深300": "000300.SH",
+        "上证380": "000009.SH",
+        "创业板50": "399673.SZ",
+        "中证500": "000905.SH",
+        "上证180": "000010.SH",
+        "深证红利": "399324.SZ",
+        "深证100": "399330.SZ",
+        "中证1000": "000852.SH",
+        "上证红利": "000015.SH",
+        "中证100": "000903.SH",
+        "中证800": "000906.SH",
     }
-    if symbol == "sh":
-        params["indexCode"] = "1"
-    if symbol == "sz":
-        params["indexCode"] = "2"
-    if symbol == "cy":
-        params["indexCode"] = "4"
-    if symbol == "kc":
-        params["indexCode"] = "7"
-    r = requests.get(url, params=params)
+    url = "https://legulegu.com/api/stockdata/index-basic-pe"
+    params = {"token": token, "indexCode": symbol_map[symbol]}
+    r = requests.get(
+        url,
+        params=params,
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/sz50-ttm-lyr"),
+    )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.index = pd.to_datetime(
-        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    index_df = temp_df[["addTtmPe", "middleTtmPe", "addLyrPe", "middleLyrPe", "addPb",
-                        "ttmPe", "lyrPe", "pb", "middlePb", "close"]]
-    index_df.columns = ["addTtmPe", "middleAddTtmPe", "addLyrPe", "middleAddLyrPe", "addPb",
-                        "averageTtmPe", "averageLyr", "averagePb", "middleAveragePb", "close"]
-    index_df.reset_index(inplace=True)
-    return index_df
+    temp_df["date"] = (
+        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.date
+    )
+    temp_df = temp_df[
+        [
+            "date",
+            "close",
+            "lyrPe",
+            "addLyrPe",
+            "middleLyrPe",
+            "ttmPe",
+            "addTtmPe",
+            "middleTtmPe",
+        ]
+    ]
+    temp_df.columns = [
+        "日期",
+        "指数",
+        "等权静态市盈率",
+        "静态市盈率",
+        "静态市盈率中位数",
+        "等权滚动市盈率",
+        "滚动市盈率",
+        "滚动市盈率中位数",
+    ]
+    return temp_df
 
 
-if __name__ == '__main__':
-    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="sh")
-    print(stock_a_pe_and_pb_df)
+def stock_market_pb_lg(symbol: str = "上证") -> pd.DataFrame:
+    """
+    乐咕乐股-主板市净率
+    https://legulegu.com/stockdata/shanghaiPB
+    :param symbol: choice of {"上证", "深证", "创业板", "科创版"}
+    :type symbol: str
+    :return: 指定市场的市净率数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://legulegu.com/api/stockdata/index-basic-pb"
+    symbol_map = {"上证": "1", "深证": "2", "创业板": "4", "科创版": "7"}
+    url_map = {
+        "上证": "https://legulegu.com/stockdata/shanghaiPB",
+        "深证": "https://legulegu.com/stockdata/shenzhenPB",
+        "创业板": "https://legulegu.com/stockdata/cybPB",
+        "科创版": "https://legulegu.com/stockdata/ke-chuang-ban-pb",
+    }
+    params = {"token": token, "indexCode": symbol_map[symbol]}
+    r = requests.get(url, params=params, **get_cookie_csrf(url=url_map[symbol]))
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df["date"] = (
+        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.date
+    )
+    temp_df = temp_df[
+        [
+            "date",
+            "close",
+            "addPb",
+            "pb",
+            "middlePb",
+        ]
+    ]
+    temp_df.columns = [
+        "日期",
+        "指数",
+        "市净率",
+        "等权市净率",
+        "市净率中位数",
+    ]
+    return temp_df
 
-    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="000300.SH")
-    print(stock_a_pe_and_pb_df)
+
+def stock_index_pb_lg(symbol: str = "上证50") -> pd.DataFrame:
+    """
+    乐咕乐股-指数市净率
+    https://legulegu.com/stockdata/sz50-pb
+    :param symbol: choice of {"上证50", "沪深300", "上证380", "创业板50", "中证500", "上证180", "深证红利", "深证100", "中证1000", "上证红利", "中证100", "中证800"}
+    :type symbol: str
+    :return: 指定指数的市净率数据
+    :rtype: pandas.DataFrame
+    """
+    symbol_map = {
+        "上证50": "000016.SH",
+        "沪深300": "000300.SH",
+        "上证380": "000009.SH",
+        "创业板50": "399673.SZ",
+        "中证500": "000905.SH",
+        "上证180": "000010.SH",
+        "深证红利": "399324.SZ",
+        "深证100": "399330.SZ",
+        "中证1000": "000852.SH",
+        "上证红利": "000015.SH",
+        "中证100": "000903.SH",
+        "中证800": "000906.SH",
+    }
+    url = "https://legulegu.com/api/stockdata/index-basic-pb"
+    params = {"token": token, "indexCode": symbol_map[symbol]}
+    r = requests.get(
+        url,
+        params=params,
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/zz500-ttm-lyr"),
+    )
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df["date"] = (
+        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.date
+    )
+    temp_df = temp_df[
+        [
+            "date",
+            "close",
+            "addPb",
+            "pb",
+            "middlePb",
+        ]
+    ]
+    temp_df.columns = [
+        "日期",
+        "指数",
+        "市净率",
+        "等权市净率",
+        "市净率中位数",
+    ]
+    return temp_df
+
+
+if __name__ == "__main__":
+    stock_market_pe_lg_df = stock_market_pe_lg(symbol="上证")
+    print(stock_market_pe_lg_df)
+
+    stock_market_pe_lg_df = stock_market_pe_lg(symbol="科创版")
+    print(stock_market_pe_lg_df)
+
+    for item in {"上证", "深证", "创业板", "科创版"}:
+        stock_market_pe_lg_df = stock_market_pe_lg(symbol=item)
+        print(stock_market_pe_lg_df)
+
+    stock_index_pe_lg_df = stock_index_pe_lg(symbol="上证50")
+    print(stock_index_pe_lg_df)
+
+    for item in [
+        "上证50",
+        "沪深300",
+        "上证380",
+        "创业板50",
+        "中证500",
+        "上证180",
+        "深证红利",
+        "深证100",
+        "中证1000",
+        "上证红利",
+        "中证100",
+        "中证800",
+    ]:
+        stock_index_pe_lg_df = stock_index_pe_lg(symbol=item)
+        print(stock_index_pe_lg_df)
+
+    for item in {"上证", "深证", "创业板", "科创版"}:
+        stock_market_pb_lg_df = stock_market_pb_lg(symbol=item)
+        print(stock_market_pb_lg_df)
+
+    for item in [
+        "上证50",
+        "沪深300",
+        "上证380",
+        "创业板50",
+        "中证500",
+        "上证180",
+        "深证红利",
+        "深证100",
+        "中证1000",
+        "上证红利",
+        "中证100",
+        "中证800",
+    ]:
+        stock_index_pe_lg_df = stock_index_pb_lg(symbol=item)
+        print(stock_index_pe_lg_df)

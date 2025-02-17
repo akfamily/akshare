@@ -117,7 +117,7 @@ def determine_float_limits(number_type=float):
     else:
         numeric_exceptions = (ValueError,)
 
-    if decimal and number_type == decimal.Decimal:
+    if decimal and number_type is decimal.Decimal:
         number_type = decimal.DefaultContext
 
     if decimal and isinstance(number_type, decimal.Context):
@@ -125,7 +125,7 @@ def determine_float_limits(number_type=float):
         create_num = number_type.create_decimal
         decimal_ctx = decimal.localcontext(number_type)
         is_zero_or_subnormal = lambda n: n.is_zero() or n.is_subnormal()
-    elif number_type == float:
+    elif number_type is float:
         create_num = number_type
         decimal_ctx = _dummy_context_manager
         is_zero_or_subnormal = lambda n: n == 0
@@ -4690,7 +4690,7 @@ class JSON(object):
                     break  # will report error futher down because done==False
                 elif c == ',':
                     if not saw_value:
-                        # no preceeding value, an elided (omitted) element
+                        # no preceding value, an elided (omitted) element
                         if isdict:
                             state.push_error('Can not omit elements of an object (dictionary)',
                                              outer_position=start_position,
@@ -5930,7 +5930,7 @@ MORE INFORMATION:
 
           * program_name  - the name of the program, usually sys.argv[0]
           * stdin   - the file object to use for input, default sys.stdin
-          * stdout  - the file object to use for outut, default sys.stdout
+          * stdout  - the file object to use for output, default sys.stdout
           * stderr  - the file object to use for error output, default sys.stderr
 
         After creating an instance, you typically call the main() method.

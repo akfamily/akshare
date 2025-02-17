@@ -46,7 +46,7 @@ Anaconda 是集成上千个常用库的 Python 发行版本, 通过安装 Anacon
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_1.png)
 
-创建虚拟环境命令, 此处指定 Python 版本为 3.8.5, AKShare 支持 Python 3.7 以上的版本:
+创建虚拟环境命令, 此处指定 Python 版本为 3.8.5, AKShare 支持 Python 3.8 以上的版本:
 
 ```
 conda create -n ak_test python=3.8.5
@@ -89,7 +89,7 @@ python
 ```python
 import akshare as ak
 
-ak.__doc__
+print(ak.__doc__)
 ```
 
 显示出如下图则虚拟环境和 [AKShare](https://github.com/akfamily/akshare) 安装成功:
@@ -101,5 +101,5 @@ ak.__doc__
 ```python
 import akshare as ak
 
-ak.__version__
+print(ak.__version__)
 ```

@@ -1,13 +1,70 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/23 16:50
+Date: 2022/11/8 10:00
 Desc: 东方财富-经济数据-瑞士
 http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
 import pandas as pd
 import requests
 from akshare.utils import demjson
+
+
+def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
+    """
+    东方财富-数据中心-经济数据一览-宏观经济-瑞士-核心代码
+    https://data.eastmoney.com/cjsj/foreign_1_0.html
+    :param symbol: 代码
+    :type symbol: str
+    :return: 指定 symbol 的数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "reportName": "RPT_ECONOMICVALUE_CH",
+        "columns": "ALL",
+        "filter": f'(INDICATOR_ID="{symbol}")',
+        "pageNumber": "1",
+        "pageSize": "5000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1667639896816",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.rename(
+        columns={
+            "COUNTRY": "-",
+            "INDICATOR_ID": "-",
+            "INDICATOR_NAME": "-",
+            "REPORT_DATE_CH": "时间",
+            "REPORT_DATE": "-",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+            "INDICATOR_IDOLD": "-",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
+    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
+    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    return temp_df
 
 
 # SVME采购经理人指数
@@ -18,31 +75,7 @@ def macro_swiss_svme():
     :return: SVME采购经理人指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "0",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341602")
     return temp_df
 
 
@@ -54,31 +87,7 @@ def macro_swiss_trade():
     :return: 贸易帐
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "1",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341603")
     return temp_df
 
 
@@ -90,29 +99,7 @@ def macro_swiss_cpi_yearly():
     :return: 消费者物价指数年率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "2",
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341604")
     return temp_df
 
 
@@ -124,31 +111,7 @@ def macro_swiss_gdp_quarterly():
     :return: GDP季率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "3",
-        'pageNo': '1',
-        'pageNum': '1',
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341600")
     return temp_df
 
 
@@ -160,29 +123,7 @@ def macro_swiss_gbd_yearly():
     :return: GDP年率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "4",
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341601")
     return temp_df
 
 
@@ -194,31 +135,7 @@ def macro_swiss_gbd_bank_rate():
     :return: 央行公布利率决议
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "2",
-        "stat": "5",
-        'pageNo': '1',
-        'pageNum': '1',
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_swiss_core(symbol="EMG00341606")
     return temp_df
 
 

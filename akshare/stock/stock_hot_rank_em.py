@@ -1,18 +1,19 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
-Date: 2022/2/11 14:15
+Date: 2023/7/8 17:15
 Desc: 东方财富个股人气榜
-http://guba.eastmoney.com/rank/
+https://guba.eastmoney.com/rank/
 """
-import requests
+
 import pandas as pd
+import requests
 
 
 def stock_hot_rank_em() -> pd.DataFrame:
     """
     东方财富-个股人气榜-人气榜
-    http://guba.eastmoney.com/rank/
+    https://guba.eastmoney.com/rank/
     :return: 人气榜
     :rtype: pandas.DataFrame
     """
@@ -45,6 +46,9 @@ def stock_hot_rank_em() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = ["最新价", "涨跌幅", "代码", "股票名称"]
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = temp_df["最新价"] * temp_df["涨跌幅"] / 100
     temp_df["当前排名"] = temp_rank_df["rk"]
     temp_df["代码"] = temp_rank_df["sc"]
     temp_df = temp_df[
@@ -53,18 +57,18 @@ def stock_hot_rank_em() -> pd.DataFrame:
             "代码",
             "股票名称",
             "最新价",
+            "涨跌额",
             "涨跌幅",
         ]
     ]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df["当前排名"] = pd.to_numeric(temp_df["当前排名"], errors="coerce")
     return temp_df
 
 
 def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-历史趋势及粉丝特征
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 个股的历史趋势及粉丝特征
@@ -99,7 +103,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
 def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-实时变动
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 实时变动
@@ -114,18 +118,18 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    temp_df.columns = ['时间', '排名']
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["时间", "排名"]
     return temp_df
 
 
 def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富-个股人气榜-关键词
-    http://guba.eastmoney.com/rank/stock?code=000665
+    东方财富-个股人气榜-热门关键词
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
-    :return: 关键词
+    :return: 热门关键词
     :rtype: pandas.DataFrame
     """
     url = "https://emappdata.eastmoney.com/stockrank/getHotStockRankList"
@@ -136,16 +140,16 @@ def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    del temp_df['flag']
-    temp_df.columns = ['时间', '股票代码', '概念名称', '概念代码', '热度']
+    temp_df = pd.DataFrame(data_json["data"])
+    del temp_df["flag"]
+    temp_df.columns = ["时间", "股票代码", "概念名称", "概念代码", "热度"]
     return temp_df
 
 
 def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-最新排名
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 最新排名
@@ -155,21 +159,21 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     payload = {
         "appId": "appId01",
         "globalId": "786e4c21-70dc-435a-93bb-38",
-        'marketType': "",
+        "marketType": "",
         "srcSecurityCode": symbol,
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame.from_dict(data_json['data'], orient="index")
+    temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
     temp_df.reset_index(inplace=True)
-    temp_df.columns = ['item', 'value']
+    temp_df.columns = ["item", "value"]
     return temp_df
 
 
 def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-相关股票
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 相关股票
@@ -183,11 +187,11 @@ def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame.from_dict(data_json['data'])
-    temp_df.columns = ['时间', '-', '股票代码', '-', '相关股票代码', '涨跌幅', '-']
-    temp_df = temp_df[['时间', '股票代码', '相关股票代码', '涨跌幅']]
-    temp_df['涨跌幅'] = temp_df['涨跌幅'].str.strip('%')
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df = pd.DataFrame.from_dict(data_json["data"])
+    temp_df.columns = ["时间", "-", "股票代码", "-", "相关股票代码", "涨跌幅", "-"]
+    temp_df = temp_df[["时间", "股票代码", "相关股票代码", "涨跌幅"]]
+    temp_df["涨跌幅"] = temp_df["涨跌幅"].str.strip("%")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     return temp_df
 
 
@@ -195,10 +199,12 @@ if __name__ == "__main__":
     stock_hot_rank_em_df = stock_hot_rank_em()
     print(stock_hot_rank_em_df)
 
-    stock_hot_rank_detail_em_df = stock_hot_rank_detail_em(symbol="SZ000665")
+    stock_hot_rank_detail_em_df = stock_hot_rank_detail_em(symbol="SZ871245")
     print(stock_hot_rank_detail_em_df)
 
-    stock_hot_rank_detail_realtime_em_df = stock_hot_rank_detail_realtime_em(symbol="SZ000665")
+    stock_hot_rank_detail_realtime_em_df = stock_hot_rank_detail_realtime_em(
+        symbol="SZ000665"
+    )
     print(stock_hot_rank_detail_realtime_em_df)
 
     stock_hot_keyword_em_df = stock_hot_keyword_em(symbol="SZ000665")

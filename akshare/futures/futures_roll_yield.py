@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/20 19:58
+Date: 2024/12/6 13:58
 Desc: 中国期货各合约展期收益率
 日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
+
 import datetime
 import re
 import warnings
 
-import numpy as np
+import math
 import pandas as pd
 
 from akshare.futures import cons
@@ -52,8 +53,8 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         symbol1 = df["symbol"].tolist()[0]
         symbol2 = df["symbol"].tolist()[1]
 
-    close1 = df["close"][df["symbol"] == symbol1.upper()].tolist()[0]
-    close2 = df["close"][df["symbol"] == symbol2.upper()].tolist()[0]
+    close1 = df["close"][df["symbol"] == symbol1].tolist()[0]
+    close2 = df["close"][df["symbol"] == symbol2].tolist()[0]
 
     a = re.sub(r"\D", "", symbol1)
     a_1 = int(a[:-2])
@@ -65,9 +66,9 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     if close1 == 0 or close2 == 0:
         return False
     if c > 0:
-        return np.log(close2 / close1) / c * 12, symbol2, symbol1
+        return math.log(close1 / close2) / c * 12, symbol2, symbol1
     else:
-        return np.log(close2 / close1) / c * 12, symbol1, symbol2
+        return math.log(close2 / close1) / c * 12, symbol1, symbol2
 
 
 def get_roll_yield_bar(
@@ -108,21 +109,30 @@ def get_roll_yield_bar(
 
     if type_method == "var":
         df = pd.DataFrame()
-        for market in ["dce", "cffex", "shfe", "czce"]:
-            df = df.append(
-                get_futures_daily(start_date=date, end_date=date, market=market)
+        for market in ["dce", "cffex", "shfe", "czce", "gfex"]:
+            df = pd.concat(
+                [
+                    df,
+                    get_futures_daily(start_date=date, end_date=date, market=market),
+                ]
             )
         var_list = list(set(df["variety"]))
-        if "IO" in var_list:
-            var_list.remove("IO")  # IO 为期权
+        for i_remove in ["IO", "MO", "HO"]:
+            if i_remove in var_list:
+                var_list.remove(i_remove)
         df_l = pd.DataFrame()
         for var in var_list:
             ry = get_roll_yield(date, var, df=df)
             if ry:
-                df_l = df_l.append(
-                    pd.DataFrame(
-                        [ry], index=[var], columns=["roll_yield", "near_by", "deferred"]
-                    )
+                df_l = pd.concat(
+                    [
+                        df_l,
+                        pd.DataFrame(
+                            [ry],
+                            index=[var],
+                            columns=["roll_yield", "near_by", "deferred"],
+                        ),
+                    ]
                 )
         df_l["date"] = date
         df_l = df_l.sort_values("roll_yield")
@@ -134,14 +144,17 @@ def get_roll_yield_bar(
             try:
                 ry = get_roll_yield(start_day, var)
                 if ry:
-                    df_l = df_l.append(
-                        pd.DataFrame(
-                            [ry],
-                            index=[start_day],
-                            columns=["roll_yield", "near_by", "deferred"],
-                        )
+                    df_l = pd.concat(
+                        [
+                            df_l,
+                            pd.DataFrame(
+                                [ry],
+                                index=[start_day],
+                                columns=["roll_yield", "near_by", "deferred"],
+                            ),
+                        ]
                     )
-            except:
+            except:  # noqa: E722
                 pass
             start_day += datetime.timedelta(days=1)
         return df_l
@@ -150,9 +163,9 @@ def get_roll_yield_bar(
 if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
-        var="CF",
-        start_day="20201212",
-        end_day="20210104",
+        var="RB",
+        start_day="20230801",
+        end_day="20230810",
     )
     print(get_roll_yield_bar_range_df)
 

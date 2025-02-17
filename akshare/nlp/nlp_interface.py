@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/11/27 14:02
+Date: 2024/7/6 14:02
 Desc: ownthink-knowledge graph
 https://ownthink.com/
 https://www.ownthink.com/docs/kg/
 """
+
 import pandas as pd
 import requests
 
@@ -28,7 +29,7 @@ def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> pd.Da
     r = requests.post(url, data=payload)
     if not r.json()["data"]:
         print("Can not find the resource, please type into the correct word")
-        return None
+        return pd.DataFrame()
     if indicator == "entity":
         return r.json()["data"]["entity"]
     if indicator == "desc":
@@ -48,18 +49,16 @@ def nlp_answer(question: str = "人工智能") -> str:
     :return: indicator data
     :rtype: list or dict or pandas.DataFrame
     """
-    url = 'https://api.ownthink.com/bot'
-    params = {
-        'spoken': question
-    }
+    url = "https://api.ownthink.com/bot"
+    params = {"spoken": question}
     r = requests.get(url, params=params)
     json_data = r.json()
-    answer = json_data['data']['info']['text']
+    answer = json_data["data"]["info"]["text"]
     return answer
 
 
 if __name__ == "__main__":
-    nlp_ownthink_df = nlp_ownthink(word="人工智能", indicator="tag")
+    nlp_ownthink_df = nlp_ownthink(word="人工智能", indicator="entity")
     print(nlp_ownthink_df)
 
     nlp_answer_df = nlp_answer(question="姚明的身高")

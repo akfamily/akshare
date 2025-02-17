@@ -4,6 +4,7 @@
 Date: 2019/9/30 13:58
 Desc: 期权配置文件
 """
+
 import datetime
 import json
 import os
@@ -25,23 +26,35 @@ SH_OPTION_URL_KING_50 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510050
 SH_OPTION_URL_300 = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510300"
 SH_OPTION_URL_KING_300 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510300_{}"
 
+SH_OPTION_URL_500 = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510500"
+SH_OPTION_URL_KING_500 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510500_{}"
+
+SH_OPTION_URL_KC_50 = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/588000"
+SH_OPTION_URL_KC_KING_50 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/588000_{}"
+
+SH_OPTION_URL_KC_50_YFD = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/588080"
+SH_OPTION_URL_KING_50_YFD = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/588080_{}"
+
 SH_OPTION_PAYLOAD = {
     "select": "select: code,name,last,change,chg_rate,amp_rate,volume,amount,prev_close"
 }
 
-SH_OPTION_PAYLOAD_OTHER = {
-    "select": "contractid,last,chg_rate,presetpx,exepx"
-}
+SH_OPTION_PAYLOAD_OTHER = {"select": "contractid,last,chg_rate,presetpx,exepx"}
+
 
 # 大连商品交易所
 DCE_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
-DCE_DAILY_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
+DCE_DAILY_OPTION_URL = (
+    "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
+)
 
 # 上海期货交易所
-SHFE_OPTION_URL = "http://www.shfe.com.cn/data/dailydata/option/kx/kx{}.dat"
+SHFE_OPTION_URL = "https://tsite.shfe.com.cn/data/dailydata/option/kx/kx{}.dat"
 
 # 郑州商品交易所
-CZCE_DAILY_OPTION_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Option/{}/{}/OptionDataDaily.txt"
+CZCE_DAILY_OPTION_URL_3 = (
+    "http://www.czce.com.cn/cn/DFSStaticFiles/Option/{}/{}/OptionDataDaily.txt"
+)
 
 # PAYLOAD
 SHFE_HEADERS = {"User-Agent": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"}
@@ -63,10 +76,8 @@ def convert_date(date):
             groups = match.groups()
             if len(groups) == 3:
                 return datetime.date(
-                    year=int(
-                        groups[0]), month=int(
-                        groups[1]), day=int(
-                        groups[2]))
+                    year=int(groups[0]), month=int(groups[1]), day=int(groups[2])
+                )
     return None
 
 

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/5 23:50
+Date: 2024/1/14 18:00
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
+
 import zipfile
+from io import BytesIO
 
 import pandas as pd
 import requests
@@ -67,27 +69,35 @@ def index_all_cni() -> pd.DataFrame:
             "自由流通市值",
         ]
     ]
-    temp_df['成交量'] = temp_df['成交量'] / 100000
-    temp_df['成交额'] = temp_df['成交额'] / 100000000
-    temp_df['总市值'] = temp_df['总市值'] / 100000000
-    temp_df['自由流通市值'] = temp_df['自由流通市值'] / 100000000
+    temp_df["成交量"] = temp_df["成交量"] / 100000
+    temp_df["成交额"] = temp_df["成交额"] / 100000000
+    temp_df["总市值"] = temp_df["总市值"] / 100000000
+    temp_df["自由流通市值"] = temp_df["自由流通市值"] / 100000000
     return temp_df
 
 
-def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
+def index_hist_cni(
+    symbol: str = "399001", start_date: str = "20230114", end_date: str = "20240114"
+) -> pd.DataFrame:
     """
     指数历史行情数据
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码
     :type symbol: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
     :return: 指数历史行情数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://hq.cnindex.com.cn/market/market/getIndexDailyDataWithDataFormat"
     params = {
         "indexCode": symbol,
-        "startDate": "",
-        "endDate": "",
+        "startDate": start_date,
+        "endDate": end_date,
         "frequency": "day",
     }
     r = requests.get(url, params=params)
@@ -121,10 +131,19 @@ def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     temp_df["涨跌幅"] = temp_df["涨跌幅"].str.replace("%", "")
     temp_df["涨跌幅"] = temp_df["涨跌幅"].astype("float")
     temp_df["涨跌幅"] = temp_df["涨跌幅"] / 100
+    temp_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     return temp_df
 
 
-def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFrame:
+def index_detail_cni(symbol: str = "399001", date: str = "202404") -> pd.DataFrame:
     """
     国证指数-样本详情-指定日期的样本成份
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
@@ -135,97 +154,88 @@ def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFra
     :return: 指定日期的样本成份
     :rtype: pandas.DataFrame
     """
-    url = 'http://www.cnindex.com.cn/sample-detail/download'
-    params = {
-        'indexcode': symbol,
-        'dateStr': '-'.join([date[:4], date[4:]])
-    }
+    url = "http://www.cnindex.com.cn/sample-detail/download"
+    params = {"indexcode": symbol, "dateStr": "-".join([date[:4], date[4:]])}
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
-    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+    temp_df = pd.read_excel(BytesIO(r.content))
+    temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
     temp_df.columns = [
-        '日期',
-        '样本代码',
-        '样本简称',
-        '所属行业',
-        '自由流通市值',
-        '总市值',
-        '权重',
+        "日期",
+        "样本代码",
+        "样本简称",
+        "所属行业",
+        "总市值",
+        "权重",
     ]
-    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'])
-    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
-    temp_df['权重'] = pd.to_numeric(temp_df['权重'])
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+    temp_df["权重"] = pd.to_numeric(temp_df["权重"], errors="coerce")
     return temp_df
 
 
-def index_detail_hist_cni(symbol: str = '399001', date: str = "") -> pd.DataFrame:
+def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param date: 指数代码
-    :type date: str
-    :param symbol: 指数代码
+    :param symbol: 指数代码; "399001"
     :type symbol: str
+    :param date: 指定月份; "202201", 为空返回所有数据
+    :type date: str
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
     if date:
-        url = 'http://www.cnindex.com.cn/sample-detail/detail'
+        url = "http://www.cnindex.com.cn/sample-detail/detail"
         params = {
-            'indexcode': symbol,
-            'dateStr': '-'.join([date[:4], date[4:]]),
-            'pageNum': '1',
-            'rows': '50000',
+            "indexcode": symbol,
+            "dateStr": "-".join([date[:4], date[4:]]),
+            "pageNum": "1",
+            "rows": "50000",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json['data']['rows'])
+        temp_df = pd.DataFrame(data_json["data"]["rows"])
         temp_df.columns = [
-            '-',
-            '-',
-            '日期',
-            '样本代码',
-            '样本简称',
-            '所属行业',
-            '-',
-            '自由流通市值',
-            '总市值',
-            '权重',
-            '-',
+            "-",
+            "-",
+            "日期",
+            "样本代码",
+            "样本简称",
+            "所属行业",
+            "-",
+            "总市值",
+            "权重",
+            "-",
         ]
-        temp_df = temp_df[[
-            '日期',
-            '样本代码',
-            '样本简称',
-            '所属行业',
-            '自由流通市值',
-            '总市值',
-            '权重',
-        ]]
+        temp_df = temp_df[
+            [
+                "日期",
+                "样本代码",
+                "样本简称",
+                "所属行业",
+                "总市值",
+                "权重",
+            ]
+        ]
     else:
-        url = 'http://www.cnindex.com.cn/sample-detail/download-history'
-        params = {
-            'indexcode': symbol
-        }
+        url = "http://www.cnindex.com.cn/sample-detail/download-history"
+        params = {"indexcode": symbol}
         r = requests.get(url, params=params)
-        temp_df = pd.read_excel(r.content)
-    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+        temp_df = pd.read_excel(BytesIO(r.content))
+    temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
     temp_df.columns = [
-        '日期',
-        '样本代码',
-        '样本简称',
-        '所属行业',
-        '自由流通市值',
-        '总市值',
-        '权重',
+        "日期",
+        "样本代码",
+        "样本简称",
+        "所属行业",
+        "总市值",
+        "权重",
     ]
-    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'])
-    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
-    temp_df['权重'] = pd.to_numeric(temp_df['权重'])
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"])
+    temp_df["权重"] = pd.to_numeric(temp_df["权重"])
     return temp_df
 
 
-def index_detail_hist_adjust_cni(symbol: str = '399005') -> pd.DataFrame:
+def index_detail_hist_adjust_cni(symbol: str = "399005") -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399005
@@ -234,16 +244,18 @@ def index_detail_hist_adjust_cni(symbol: str = '399005') -> pd.DataFrame:
     :return: 历史调样
     :rtype: pandas.DataFrame
     """
-    url = 'http://www.cnindex.com.cn/sample-detail/download-adjustment'
-    params = {
-        'indexcode': symbol
-    }
+    url = "http://www.cnindex.com.cn/sample-detail/download-adjustment"
+    params = {"indexcode": symbol}
     r = requests.get(url, params=params)
     try:
-        temp_df = pd.read_excel(r.content, engine="openpyxl")
-    except zipfile.BadZipFile as e:
+        import warnings
+
+        with warnings.catch_warnings():
+            warnings.simplefilter(action="ignore", category=UserWarning)
+            temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
+    except zipfile.BadZipFile:
         return pd.DataFrame()
-    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+    temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
     return temp_df
 
 
@@ -251,14 +263,16 @@ if __name__ == "__main__":
     index_all_cni_df = index_all_cni()
     print(index_all_cni_df)
 
-    index_hist_cni_df = index_hist_cni(symbol="399005")
+    index_hist_cni_df = index_hist_cni(
+        symbol="399005", start_date="20230114", end_date="20240114"
+    )
     print(index_hist_cni_df)
 
-    index_detail_cni_df = index_detail_cni(symbol='399005', date='2020-11')
+    index_detail_cni_df = index_detail_cni(symbol="399001", date="202404")
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005', date='202201')
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101", date="202404")
     print(index_detail_hist_cni_df)
 
-    index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
+    index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol="399005")
     print(index_detail_hist_adjust_cni_df)

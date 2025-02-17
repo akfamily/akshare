@@ -8,12 +8,13 @@ Desc: 艺恩
 综艺节目
 https://www.endata.com.cn/Video/index.html
 """
+
 import json
 import os
 
-import pandas as pd  # type: ignore
+import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer  # type: ignore
+import py_mini_racer
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:
@@ -75,8 +76,19 @@ def video_tv() -> pd.DataFrame:
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
     report_date = data_json["Data"]["Table1"][0]["MaxDate"]
-    temp_df.columns = ["排序", "名称", "类型", "播映指数", "用户热度", "媒体热度", "观看度", "好评度"]
-    temp_df = temp_df[["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]]
+    temp_df.columns = [
+        "排序",
+        "名称",
+        "类型",
+        "播映指数",
+        "用户热度",
+        "媒体热度",
+        "观看度",
+        "好评度",
+    ]
+    temp_df = temp_df[
+        ["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]
+    ]
     temp_df["统计日期"] = report_date
     return temp_df
 
@@ -95,8 +107,19 @@ def video_variety_show() -> pd.DataFrame:
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
     report_date = data_json["Data"]["Table1"][0]["MaxDate"]
-    temp_df.columns = ["排序", "名称", "类型", "播映指数", "用户热度", "媒体热度", "观看度", "好评度"]
-    temp_df = temp_df[["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]]
+    temp_df.columns = [
+        "排序",
+        "名称",
+        "类型",
+        "播映指数",
+        "用户热度",
+        "媒体热度",
+        "观看度",
+        "好评度",
+    ]
+    temp_df = temp_df[
+        ["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]
+    ]
     temp_df["统计日期"] = report_date
     return temp_df
 

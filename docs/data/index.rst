@@ -21,11 +21,11 @@ AKShare 数据字典
     dc/dc
     bank/bank
     article/article
-    ws/ws
     energy/energy
     event/event
     hf/hf
     nlp/nlp
+    qdii/qdii
     others/others
     qhkc/index
     tool/tool

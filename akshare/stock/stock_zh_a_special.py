@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/9/8 18:36
+Date: 2023/10/11 15:30
 Desc: 新股和风险警示股
 新浪-行情中心-沪深股市-次新股
 http://vip.stock.finance.sina.com.cn/mkt/#new_stock
 东方财富网-行情中心-沪深个股-风险警示板
-http://quote.eastmoney.com/center/gridlist.html#st_board
+https://quote.eastmoney.com/center/gridlist.html#st_board
 """
 import math
 
@@ -17,7 +17,7 @@ import requests
 def stock_zh_a_st_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深个股-风险警示板
-    http://quote.eastmoney.com/center/gridlist.html#st_board
+    https://quote.eastmoney.com/center/gridlist.html#st_board
     :return: 风险警示板
     :rtype: pandas.DataFrame
     """
@@ -109,7 +109,7 @@ def stock_zh_a_st_em() -> pd.DataFrame:
 def stock_zh_a_new_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深个股-新股
-    http://quote.eastmoney.com/center/gridlist.html#newshares
+    https://quote.eastmoney.com/center/gridlist.html#newshares
     :return: 新股
     :rtype: pandas.DataFrame
     """
@@ -317,7 +317,7 @@ def stock_zh_a_new() -> pd.DataFrame:
         r.encoding = "gb2312"
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df[
         [
             "symbol",

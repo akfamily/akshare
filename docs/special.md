@@ -2,7 +2,7 @@
 
 ## 致谢
 
-特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 和 [OpenData](https://github.com/PKUJohnson/OpenData) 项目提供借鉴学习的机会;
+特别感谢 [FuShare](https://github.com/LowinLi/fushare), [TuShare](https://github.com/waditu/tushare) 和 [OpenData](https://github.com/PKUJohnson/OpenData) 项目提供借鉴学习的机会;
 
 感谢[生意社网站](http://www.100ppi.com)提供的相关数据;
 
@@ -70,27 +70,13 @@
 
 感谢[北京市碳排放权电子交易平台网站](https://www.bjets.com.cn)提供的碳排放行情数据;
 
-感谢[IT桔子网站](https://www.itjuzi.com)提供的数据;
-
 感谢[东方财富网站](http://data.eastmoney.com)提供的数据;
 
 感谢[义乌小商品指数网站](http://www.ywindex.com)提供的相关数据;
 
 感谢[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn)提供的相关数据;
 
-感谢[163 网站](https://news.163.com)提供的相关数据;
-
-感谢[丁香园网站](http://3g.dxy.cn)提供的相关数据;
-
 感谢[百度网站](https://voice.baidu.com)提供的相关数据;
-
-感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip)相关数据;
-
-感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
-
-感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的相关数据;
-
-感谢[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的相关数据;
 
 感谢[思知网站](https://www.ownthink.com/)提供的相关数据;
 
@@ -103,10 +89,10 @@
 欢迎关注 **数据科学实战** 微信公众号获取更新信息:
 
 <div>
-    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
+    <img alt="数据科学实战二维码" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
-想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
+想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学实战】** 高质量社区，里面有丰富的视频课程、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 
 ## 声明
 

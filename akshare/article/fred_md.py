@@ -36,7 +36,8 @@ def fred_qd(date: str = "2020-01") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fred_md_df = fred_md(date="2020-03")
+    fred_md_df = fred_md(date="2023-03")
     print(fred_md_df)
-    fred_qd_df = fred_qd(date="2020-03")
+
+    fred_qd_df = fred_qd(date="2023-03")
     print(fred_qd_df)

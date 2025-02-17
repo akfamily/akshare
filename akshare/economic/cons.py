@@ -4,28 +4,6 @@
 Date: 2019/10/21 21:11
 Desc: 宏观经济配置文件
 """
-# bitcoin
-bitcoin_url = "https://datacenter-api.jin10.com/crypto_currency/list"
-bitcoin_payload = {
-    "_": "1572857040275",
-}
-bitcoin_headers = {
-    "accept": "*/*",
-    "accept-encoding": "gzip, deflate, br",
-    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "cache-control": "no-cache",
-    "origin": "https://datacenter.jin10.com",
-    "pragma": "no-cache",
-    "referer": "https://datacenter.jin10.com/reportType/dc_bitcoin_current",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-site",
-    "x-app-id": "rU6QIu7JHe2gOUeR",
-    "x-csrf-token": "",
-    "x-version": "1.0.0",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
-}
-
 # urls-china
 JS_CHINA_CPI_YEARLY_URL = (
     "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_yoy_all.js?v={}&_={}"

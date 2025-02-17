@@ -1,98 +1,141 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/2 23:26
-Desc: 东方财富网-行情首页-沪深京 A 股
+Date: 2025/2/16 18:10
+Desc: 东方财富网-指数行情数据
 """
-import requests
+
+import math
+from functools import lru_cache
+
 import pandas as pd
+import requests
+
+from akshare.utils.tqdm import get_tqdm
 
 
+@lru_cache()
 def index_code_id_map_em() -> dict:
     """
     东方财富-股票和市场代码
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 股票和市场代码
     :rtype: dict
     """
-    url = "http://80.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:0 t:6,m:0 t:80",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df_sz = pd.concat(temp_list, ignore_index=True)
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
+
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:0 t:81 s:2048",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df_sz = pd.concat(temp_list, ignore_index=True)
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     code_id_dict = {
         key: value - 1 if value == 1 else value + 1
         for key, value in code_id_dict.items()
     }
+    # 单独增加品种
+    code_id_dict.update({"932000": 2})
     return code_id_dict
 
 
 def index_zh_a_hist(
-    symbol: str = "399282",
+    symbol: str = "000859",
     period: str = "daily",
     start_date: str = "19700101",
     end_date: str = "22220101",
 ) -> pd.DataFrame:
     """
     东方财富网-中国股票指数-行情数据
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    https://quote.eastmoney.com/zz/2.000859.html
     :param symbol: 指数代码
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
@@ -106,7 +149,7 @@ def index_zh_a_hist(
     """
     code_id_dict = index_code_id_map_em()
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
-    url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+    url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     try:
         params = {
             "secid": f"{code_id_dict[symbol]}.{symbol}",
@@ -145,10 +188,58 @@ def index_zh_a_hist(
                 "end": "20500000",
                 "_": "1623766962675",
             }
-
+            r = requests.get(url, params=params)
+            data_json = r.json()
+            if data_json["data"] is None:
+                params = {
+                    "secid": f"2.{symbol}",
+                    "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                    "fields1": "f1,f2,f3,f4,f5,f6",
+                    "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                    "klt": period_dict[period],
+                    "fqt": "0",
+                    "beg": "0",
+                    "end": "20500000",
+                    "_": "1623766962675",
+                }
+                r = requests.get(url, params=params)
+                data_json = r.json()
+                if data_json["data"] is None:
+                    params = {
+                        "secid": f"47.{symbol}",
+                        "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                        "fields1": "f1,f2,f3,f4,f5,f6",
+                        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                        "klt": period_dict[period],
+                        "fqt": "0",
+                        "beg": "0",
+                        "end": "20500000",
+                        "_": "1623766962675",
+                    }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    try:
+        temp_df = pd.DataFrame(
+            [item.split(",") for item in data_json["data"]["klines"]]
+        )
+    except:  # noqa: E722
+        # 兼容 000859(中证国企一路一带) 和 000861(中证央企创新)
+        params = {
+            "secid": f"2.{symbol}",
+            "ut": "7eea3edcaed734bea9cbfc24409ed989",
+            "fields1": "f1,f2,f3,f4,f5,f6",
+            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+            "klt": period_dict[period],
+            "fqt": "0",
+            "beg": "0",
+            "end": "20500000",
+            "_": "1623766962675",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(
+            [item.split(",") for item in data_json["data"]["klines"]]
+        )
     temp_df.columns = [
         "日期",
         "开盘",
@@ -162,19 +253,19 @@ def index_zh_a_hist(
         "涨跌额",
         "换手率",
     ]
-    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     return temp_df
 
 
@@ -186,7 +277,7 @@ def index_zh_a_hist_min_em(
 ) -> pd.DataFrame:
     """
     东方财富网-指数数据-每日分时行情
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    https://quote.eastmoney.com/center/hszs.html
     :param symbol: 指数代码
     :type symbol: str
     :param period: choice of {'1', '5', '15', '30', '60'}
@@ -200,7 +291,7 @@ def index_zh_a_hist_min_em(
     """
     code_id_dict = index_code_id_map_em()
     if period == "1":
-        url = "http://push2his.eastmoney.com/api/qt/stock/trends2/get"
+        url = "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
         try:
             params = {
                 "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
@@ -233,6 +324,18 @@ def index_zh_a_hist_min_em(
                     "secid": f"0.{symbol}",
                     "_": "1623766962675",
                 }
+                r = requests.get(url, params=params)
+                data_json = r.json()
+                if data_json["data"] is None:
+                    params = {
+                        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+                        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+                        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+                        "iscr": "0",
+                        "ndays": "5",
+                        "secid": f"47.{symbol}",
+                        "_": "1623766962675",
+                    }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
@@ -248,16 +351,16 @@ def index_zh_a_hist_min_em(
             "成交额",
             "最新价",
         ]
-        temp_df.index = pd.to_datetime(temp_df["时间"])
+        temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
@@ -274,7 +377,7 @@ def index_zh_a_hist_min_em(
                 "end": "20500000",
                 "_": "1630930917857",
             }
-        except:
+        except:  # noqa: E722
             params = {
                 "secid": f"0.{symbol}",
                 "ut": "7eea3edcaed734bea9cbfc24409ed989",
@@ -286,6 +389,34 @@ def index_zh_a_hist_min_em(
                 "end": "20500000",
                 "_": "1630930917857",
             }
+            r = requests.get(url, params=params)
+            data_json = r.json()
+            if data_json["data"] is None:
+                params = {
+                    "secid": f"1.{symbol}",
+                    "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                    "fields1": "f1,f2,f3,f4,f5,f6",
+                    "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                    "klt": period,
+                    "fqt": "1",
+                    "beg": "0",
+                    "end": "20500000",
+                    "_": "1630930917857",
+                }
+                r = requests.get(url, params=params)
+                data_json = r.json()
+                if data_json["data"] is None:
+                    params = {
+                        "secid": f"47.{symbol}",
+                        "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                        "fields1": "f1,f2,f3,f4,f5,f6",
+                        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                        "klt": period,
+                        "fqt": "1",
+                        "beg": "0",
+                        "end": "20500000",
+                        "_": "1630930917857",
+                    }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
@@ -304,20 +435,20 @@ def index_zh_a_hist_min_em(
             "涨跌额",
             "换手率",
         ]
-        temp_df.index = pd.to_datetime(temp_df["时间"])
+        temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
-        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+        temp_df["时间"] = pd.to_datetime(temp_df["时间"], errors="coerce").astype(str)
         temp_df = temp_df[
             [
                 "时间",
@@ -338,7 +469,7 @@ def index_zh_a_hist_min_em(
 
 if __name__ == "__main__":
     index_zh_a_hist_df = index_zh_a_hist(
-        symbol="000003",
+        symbol="800000",
         period="daily",
         start_date="19700101",
         end_date="22220101",
@@ -346,9 +477,9 @@ if __name__ == "__main__":
     print(index_zh_a_hist_df)
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
-        symbol="399006",
-        period="1",
-        start_date="1979-09-01 09:32:00",
-        end_date="2222-01-01 09:32:00",
+        symbol="000001",
+        period="5",
+        start_date="2025-02-14 09:30:00",
+        end_date="2025-02-14 19:00:00",
     )
     print(index_zh_a_hist_min_em_df)

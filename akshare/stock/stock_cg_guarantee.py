@@ -1,45 +1,30 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/26 23:19
+Date: 2024/5/19 18:34
 Desc: 巨潮资讯-数据中心-专题统计-公司治理-对外担保
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 """
-import time
 
 import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer
+import py_mini_racer
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+from akshare.datasets import get_ths_js
+
+
+def _get_file_content_ths(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path, encoding="utf-8") as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_cg_guarantee_cninfo(
@@ -47,7 +32,7 @@ def stock_cg_guarantee_cninfo(
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-对外担保
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
     :param symbol: choice of {"全部", "深市主板", "沪市", "创业板", "科创板"}
     :type symbol: str
     :param start_date: 开始统计时间
@@ -58,17 +43,17 @@ def stock_cg_guarantee_cninfo(
     :rtype: pandas.DataFrame
     """
     symbol_map = {
-        "全部": '',
-        "深市主板": '012002',
-        "沪市": '012001',
-        "创业板": '012015',
-        "科创板": '012029',
+        "全部": "",
+        "深市主板": "012002",
+        "沪市": "012001",
+        "创业板": "012015",
+        "科创板": "012029",
     }
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1054"
-    random_time_str = str(int(time.time()))
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1054"
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_ths("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -76,12 +61,13 @@ def stock_cg_guarantee_cninfo(
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Accept-Enckey": mcode,
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "Referer": "https://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -112,10 +98,14 @@ def stock_cg_guarantee_cninfo(
             "担保金融占净资产比例",
         ]
     ]
-    temp_df["担保笔数"] = pd.to_numeric(temp_df["担保笔数"])
-    temp_df["担保金额"] = pd.to_numeric(temp_df["担保金额"])
-    temp_df["归属于母公司所有者权益"] = pd.to_numeric(temp_df["归属于母公司所有者权益"])
-    temp_df["担保金融占净资产比例"] = pd.to_numeric(temp_df["担保金融占净资产比例"])
+    temp_df["担保笔数"] = pd.to_numeric(temp_df["担保笔数"], errors="coerce")
+    temp_df["担保金额"] = pd.to_numeric(temp_df["担保金额"], errors="coerce")
+    temp_df["归属于母公司所有者权益"] = pd.to_numeric(
+        temp_df["归属于母公司所有者权益"], errors="coerce"
+    )
+    temp_df["担保金融占净资产比例"] = pd.to_numeric(
+        temp_df["担保金融占净资产比例"], errors="coerce"
+    )
     return temp_df
 
 

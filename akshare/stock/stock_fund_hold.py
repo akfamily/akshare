@@ -11,7 +11,9 @@ import requests
 from akshare.utils import demjson
 
 
-def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20210331") -> pd.DataFrame:
+def stock_report_fund_hold(
+    symbol: str = "基金持仓", date: str = "20210331"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓
     http://data.eastmoney.com/zlsj/2020-12-31-1-2.html
@@ -45,9 +47,9 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20210331")
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = data_json['pages']
+    total_page = data_json["pages"]
     big_df = pd.DataFrame()
-    for page in range(1, total_page+1):
+    for page in range(1, total_page + 1):
         params = {
             "date": date,
             "type": symbol_map[symbol],
@@ -62,9 +64,9 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20210331")
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
-    big_df["index"] = list(range(1, len(big_df)+1))
+    big_df["index"] = list(range(1, len(big_df) + 1))
     big_df.columns = [
         "序号",
         "_",
@@ -90,21 +92,25 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20210331")
         "_",
         "_",
     ]
-    big_df = big_df[[
-        "序号",
-        "股票代码",
-        "股票简称",
-        "持有基金家数",
-        "持股总数",
-        "持股市值",
-        "持股变化",
-        "持股变动数值",
-        "持股变动比例",
-    ]]
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "持有基金家数",
+            "持股总数",
+            "持股市值",
+            "持股变化",
+            "持股变动数值",
+            "持股变动比例",
+        ]
+    ]
     return big_df
 
 
-def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231") -> pd.DataFrame:
+def stock_report_fund_hold_detail(
+    symbol: str = "008286", date: str = "20220331"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓-明细
     http://data.eastmoney.com/zlsj/ccjj/2020-12-31-008286.html
@@ -116,32 +122,31 @@ def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231"
     :rtype: pandas.DataFrame
     """
     date = "-".join([date[:4], date[4:6], date[6:]])
-    url = "http://datainterface3.eastmoney.com/EM_DataCenter_V3/api/ZLCCMX/GetZLCCMX"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "js": "datatable8848106",
-        "tkn": "eastmoney",
-        "SHType": "1",
-        "SHCode": symbol,
-        "SCode": "",
-        "ReportDate": date,
-        "sortField": "SCode",
-        "sortDirec": "1",
-        "pageNum": "1",
+        "sortColumns": "SECURITY_CODE",
+        "sortTypes": "-1",
         "pageSize": "500",
-        "cfg": "ZLCCMX",
-        "_": "1611579153269",
+        "pageNumber": "1",
+        "reportName": "RPT_MAINDATA_MAIN_POSITIONDETAILS",
+        "columns": "ALL",
+        "quoteColumns": "",
+        "filter": f"""(HOLDER_CODE="{symbol}")(REPORT_DATE='{date}')""",
+        "source": "WEB",
+        "client": "WEB",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):-1])
-    temp_df = pd.DataFrame(data_json["Data"][0])
-    temp_df = temp_df["Data"].str.split("|", expand=True)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df)+1)
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
+        "-",
         "股票代码",
+        "-",
         "股票简称",
+        "_",
         "_",
         "_",
         "_",
@@ -153,37 +158,59 @@ def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231"
         "持股市值",
         "占总股本比例",
         "占流通股本比例",
+        "_",
+        "_",
     ]
-    temp_df = temp_df[[
-        "序号",
-        "股票代码",
-        "股票简称",
-        "持股数",
-        "持股市值",
-        "占总股本比例",
-        "占流通股本比例",
-    ]]
+    temp_df = temp_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "持股数",
+            "持股市值",
+            "占总股本比例",
+            "占流通股本比例",
+        ]
+    ]
+    temp_df["持股数"] = pd.to_numeric(temp_df["持股数"])
+    temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"])
+    temp_df["占总股本比例"] = pd.to_numeric(temp_df["占总股本比例"])
+    temp_df["占流通股本比例"] = pd.to_numeric(temp_df["占流通股本比例"])
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20200630")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="基金持仓", date="20200630"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="QFII持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="QFII持仓", date="20210331"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="社保持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="社保持仓", date="20210331"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="券商持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="券商持仓", date="20210331"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="保险持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="保险持仓", date="20210331"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="信托持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(
+        symbol="信托持仓", date="20210331"
+    )
     print(stock_report_fund_hold_df)
 
-    stock_report_fund_hold_detail_df = stock_report_fund_hold_detail(symbol="005827", date="20210331")
+    stock_report_fund_hold_detail_df = stock_report_fund_hold_detail(
+        symbol="005827", date="20210331"
+    )
     print(stock_report_fund_hold_detail_df)

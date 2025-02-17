@@ -1,15 +1,19 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/4/27 17:01
+Date: 2024/1/7 17:00
 Desc: 雪球-沪深股市-热度排行榜
 https://xueqiu.com/hq
 """
+import math
+
 import pandas as pd
 import requests
 
+from akshare.utils.tqdm import get_tqdm
 
-def stock_hot_follow_xq(symbol: str = "本周新增") -> pd.DataFrame:
+
+def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
     """
     雪球-沪深股市-热度排行榜-关注排行榜
     https://xueqiu.com/hq
@@ -25,7 +29,7 @@ def stock_hot_follow_xq(symbol: str = "本周新增") -> pd.DataFrame:
     url = "https://xueqiu.com/service/v5/stock/screener/screen"
     params = {
         "category": "CN",
-        "size": "10000",
+        "size": "200",
         "order": "desc",
         "order_by": symbol_map[symbol],
         "only_count": "0",
@@ -52,9 +56,21 @@ def stock_hot_follow_xq(symbol: str = "本周新增") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["list"])
+    total_num = data_json["data"]['count']
+    total_page = math.ceil(total_num / 200)
+    tqdm = get_tqdm()
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"page": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -63,7 +79,7 @@ def stock_hot_follow_xq(symbol: str = "本周新增") -> pd.DataFrame:
             ]
         ]
     else:
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -71,18 +87,18 @@ def stock_hot_follow_xq(symbol: str = "本周新增") -> pd.DataFrame:
                 "current",
             ]
         ]
-    temp_df.columns = [
+    big_df.columns = [
         "股票代码",
         "股票简称",
         "关注",
         "最新价",
     ]
-    temp_df["关注"] = pd.to_numeric(temp_df["关注"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    return temp_df
+    big_df["关注"] = pd.to_numeric(big_df["关注"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    return big_df
 
 
-def stock_hot_tweet_xq(symbol: str = "本周新增") -> pd.DataFrame:
+def stock_hot_tweet_xq(symbol: str = "最热门") -> pd.DataFrame:
     """
     雪球-沪深股市-热度排行榜-讨论排行榜
     https://xueqiu.com/hq
@@ -98,7 +114,7 @@ def stock_hot_tweet_xq(symbol: str = "本周新增") -> pd.DataFrame:
     url = "https://xueqiu.com/service/v5/stock/screener/screen"
     params = {
         "category": "CN",
-        "size": "10000",
+        "size": "200",
         "order": "desc",
         "order_by": symbol_map[symbol],
         "only_count": "0",
@@ -125,9 +141,21 @@ def stock_hot_tweet_xq(symbol: str = "本周新增") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["list"])
+    total_num = data_json["data"]['count']
+    total_page = math.ceil(total_num / 200)
+    tqdm = get_tqdm()
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"page": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -136,7 +164,7 @@ def stock_hot_tweet_xq(symbol: str = "本周新增") -> pd.DataFrame:
             ]
         ]
     else:
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -144,18 +172,18 @@ def stock_hot_tweet_xq(symbol: str = "本周新增") -> pd.DataFrame:
                 "current",
             ]
         ]
-    temp_df.columns = [
+    big_df.columns = [
         "股票代码",
         "股票简称",
         "关注",
         "最新价",
     ]
-    temp_df["关注"] = pd.to_numeric(temp_df["关注"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    return temp_df
+    big_df["关注"] = pd.to_numeric(big_df["关注"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    return big_df
 
 
-def stock_hot_deal_xq(symbol: str = "本周新增") -> pd.DataFrame:
+def stock_hot_deal_xq(symbol: str = "最热门") -> pd.DataFrame:
     """
     雪球-沪深股市-热度排行榜-分享交易排行榜
     https://xueqiu.com/hq
@@ -198,9 +226,21 @@ def stock_hot_deal_xq(symbol: str = "本周新增") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["list"])
+    total_num = data_json["data"]['count']
+    total_page = math.ceil(total_num / 200)
+    tqdm = get_tqdm()
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"page": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -209,7 +249,7 @@ def stock_hot_deal_xq(symbol: str = "本周新增") -> pd.DataFrame:
             ]
         ]
     else:
-        temp_df = temp_df[
+        big_df = big_df[
             [
                 "symbol",
                 "name",
@@ -217,15 +257,15 @@ def stock_hot_deal_xq(symbol: str = "本周新增") -> pd.DataFrame:
                 "current",
             ]
         ]
-    temp_df.columns = [
+    big_df.columns = [
         "股票代码",
         "股票简称",
         "关注",
         "最新价",
     ]
-    temp_df["关注"] = pd.to_numeric(temp_df["关注"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    return temp_df
+    big_df["关注"] = pd.to_numeric(big_df["关注"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    return big_df
 
 
 if __name__ == "__main__":

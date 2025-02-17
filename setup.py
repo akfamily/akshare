@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/8 17:09
+Date: 2024/10/8 17:00
 Desc: AKShare's PYPI info file
 """
-import re
+
 import ast
+import re
 
 import setuptools
 
@@ -15,13 +16,13 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 def get_version_string() -> str:
     """
-    Get the akshare version number
+    get the version of akshare
     :return: version number
     :rtype: str, e.g. '0.6.24'
     """
     with open("akshare/__init__.py", "rb") as _f:
         version_line = re.search(
-            r"__version__\s+=\s+(.*)", _f.read().decode("utf-8")
+            pattern=r"__version__\s+=\s+(.*)", string=_f.read().decode("utf-8")
         ).group(1)
         return str(ast.literal_eval(version_line))
 
@@ -30,7 +31,7 @@ setuptools.setup(
     name="akshare",
     version=get_version_string(),
     author="AKFamily",
-    author_email="akfamily.akshare@gmail.com",
+    author_email="albertandking@gmail.com",
     license="MIT",
     description="AKShare is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,
@@ -40,11 +41,8 @@ setuptools.setup(
     install_requires=[
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
-        "numpy>=1.15.4",
         "pandas>=0.25",
         "requests>=2.22.0",
-        "pypinyin>=0.35.0",
-        "websocket-client>=0.56.0",
         "html5lib>=1.0.1",
         "xlrd>=1.2.0",
         "urllib3>=1.25.8",
@@ -53,10 +51,21 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "py_mini_racer>=0.6.0",
-        "requests-cache>=0.9.3",
+        "mini-racer>=0.12.4;platform_system!='Linux'",
+        "py-mini-racer>=0.6.0;platform_system=='Linux'",
+        "akracer[py-mini-racer]>=0.0.13;platform_system=='Linux'",
     ],
-    package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
+    extras_require={
+        # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
+        "full": [
+            "akqmt",
+        ],
+        # 这些是额外的依赖集合，可以通过 'pip install akshare[qmt]' 安装
+        "qmt": [
+            "akqmt",
+        ],
+    },
+    package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
         "stock",
         "option",
@@ -75,12 +84,14 @@ setuptools.setup(
         "data",
     ],
     classifiers=[
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
 )

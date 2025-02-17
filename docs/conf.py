@@ -1,5 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-# sphinx-build -b html . bulid
+# sphinx-build -b html . build
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -10,47 +10,48 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-# sys.path.insert(0, os.path.abspath('.'))
-import recommonmark
-from datetime import datetime
-from recommonmark.transform import AutoStructify
-import sphinx_rtd_theme
 import ast
 import re
+from datetime import datetime
+
+from recommonmark.transform import AutoStructify
 
 
 def get_version_string():
     """
-    Get the akshare version number
+    get the version of akshare
     :return: version number
     :rtype: str, e.g. '0.6.24'
     """
     with open("../akshare/__init__.py", "rb") as _f:
         version_line = re.search(
-            r"__version__\s+=\s+(.*)", _f.read().decode("utf-8")
+            pattern=r"__version__\s+=\s+(.*)", string=_f.read().decode("utf-8")
         ).group(1)
         return str(ast.literal_eval(version_line))
 
 
-latex_engine = 'xelatex'
+latex_engine = "xelatex"
 latex_use_xindy = False
 latex_elements = {
-    'preamble': '\\usepackage[UTF8]{ctex}\n',
+    "preamble": "\\usepackage[UTF8]{ctex}\n",
 }
 
+source_parsers = {
+    ".md": "recommonmark.parser.CommonMarkParser",
+}
 
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 
-github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
+github_doc_root = "https://github.com/rtfd/recommonmark/tree/master/doc/"
 
 # -- Project information -----------------------------------------------------
 
-project = 'AKShare'
-copyright = f'2019–{datetime.now().year}, AKShare Developers'
-author = 'Albert King'
+project = "AKShare"
+copyright = f"2019–{datetime.now().year}, AKShare Developers"
+author = "Albert King"
 version = get_version_string()
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The full version, including alpha/beta/rc tags
 release = get_version_string()
@@ -60,7 +61,7 @@ release = get_version_string()
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["recommonmark", 'sphinx_markdown_tables', "sphinx_rtd_theme"]
+extensions = ["recommonmark", "sphinx_markdown_tables", "sphinx_rtd_theme"]
 
 # Add any paths that contain templates here, relative to this directory.
 
@@ -70,31 +71,35 @@ extensions = ["recommonmark", 'sphinx_markdown_tables', "sphinx_rtd_theme"]
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'zh_CN'
+language = "zh_CN"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', '**.ipynb_checkpoints']
+exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 
 
-master_doc = 'index'
+master_doc = "index"
 
 
 def setup(app):
-    app.add_config_value('recommonmark_config', {
-        'url_resolver': lambda url: github_doc_root + url,
-        'auto_toc_tree_section': 'Contents',
-    }, True)
+    app.add_config_value(
+        "recommonmark_config",
+        {
+            "url_resolver": lambda url: github_doc_root + url,
+            "auto_toc_tree_section": "Contents",
+        },
+        True,
+    )
     app.add_transform(AutoStructify)

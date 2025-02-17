@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/11/12 14:51
+Date: 2024/1/20 20:51
 Desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quantitative Finance Realized Library
 """
 import json
@@ -64,7 +64,7 @@ def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2") -> pd.DataFrame
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
     soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("};") + 1])
+    data_json = json.loads(soup_text[soup_text.find("{"): soup_text.rfind("};") + 1])
     date_list = data_json[f".{symbol}"]["dates"]
     title_fore = data_json[f".{symbol}"][index]["name"]
     title_last = data_json[f".{symbol}"][index]["measure"]
@@ -104,10 +104,10 @@ def article_oman_rv_short(symbol: str = "FTSE") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
     }
 
-    res = requests.get(url, headers=headers)
+    res = requests.get(url, headers=headers, verify=False)
     soup = BeautifulSoup(res.text, "lxml")
     soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("}") + 1])
+    data_json = json.loads(soup_text[soup_text.find("{"): soup_text.rfind("}") + 1])
     title_fore = data_json[f".{symbol}"]["name"]
     title_last = data_json[f".{symbol}"]["measure"]
     title_list = title_fore + "-" + title_last
