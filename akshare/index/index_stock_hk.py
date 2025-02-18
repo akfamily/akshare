@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/14 16:00
+Date: 2025/2/18 16:00
 Desc: 港股股票指数数据-新浪-东财
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -156,7 +156,7 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
         "pn": "1",
         "pz": "20000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -169,9 +169,9 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"] + 1
+    temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.rename(
         columns={
             "index": "序号",
