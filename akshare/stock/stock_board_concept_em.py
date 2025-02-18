@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 14:10
+Date: 2025/2/18 14:10
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
 
-import math
 from functools import lru_cache
 
 import pandas as pd
 import requests
-
-from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -26,9 +23,9 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     url = "https://79.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -39,20 +36,7 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
@@ -330,9 +314,9 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     url = "https://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -344,20 +328,7 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
