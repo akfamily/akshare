@@ -102,7 +102,7 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "fid": "f3",
@@ -113,7 +113,7 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
