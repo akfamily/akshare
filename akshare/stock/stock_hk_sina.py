@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/2 19:00
+Date: 2025/2/18 16:00
 Desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复权和后复权因子)
-http://stock.finance.sina.com.cn/hkstock/quotes/00700.html
+https://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 
 import pandas as pd
@@ -24,7 +24,7 @@ from akshare.utils import demjson
 def stock_hk_spot() -> pd.DataFrame:
     """
     新浪财经-港股的所有港股的实时行情数据
-    http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
+    https://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: 实时行情数据
     :rtype: pandas.DataFrame
     """
