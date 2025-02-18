@@ -975,5 +975,5 @@ if __name__ == "__main__":
     option_current_em_df = option_current_em()
     print(option_current_em_df)
 
-    option_minute_em_df = option_minute_em(symbol="IO2406-C-3500")
+    option_minute_em_df = option_minute_em(symbol="10008594")
     print(option_minute_em_df)
