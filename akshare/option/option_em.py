@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/31 16:30
+Date: 2025/2/18 16:30
 Desc: 东方财富网-行情中心-期权市场
 https://quote.eastmoney.com/center/qqsc.html
 """
@@ -22,7 +22,7 @@ def option_current_em() -> pd.DataFrame:
         "pn": "1",
         "pz": "200000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -34,9 +34,9 @@ def option_current_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"] + 1
+    temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.columns = [
         "序号",
         "_",
