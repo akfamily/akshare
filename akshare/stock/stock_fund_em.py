@@ -470,7 +470,7 @@ def stock_sector_fund_flow_rank(
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
@@ -483,9 +483,9 @@ def stock_sector_fund_flow_rank(
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
-    temp_df = pd.DataFrame(json_data["data"]["diff"])
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("{") : -2])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     if indicator == "今日":
         temp_df.columns = [
             "-",
