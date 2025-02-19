@@ -249,6 +249,9 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
     symbol_code_dict.update(
         {
             "HSAHP": "100",
+            "HSSCNE": "124",
+            "HSIII": "124",
+            "HSSCT": "124",
         }
     )
     symbol_str = f"{symbol_code_dict[symbol]}.{symbol}"
