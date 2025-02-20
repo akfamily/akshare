@@ -26,7 +26,7 @@ def _fund_lof_code_id_map_em() -> dict:
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -38,7 +38,7 @@ def _fund_lof_code_id_map_em() -> dict:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return temp_dict
 
@@ -55,7 +55,7 @@ def fund_lof_spot_em() -> pd.DataFrame:
         "pn": "1",
         "pz": "5000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -68,7 +68,7 @@ def fund_lof_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.rename(
         columns={
             "f12": "代码",
