@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/17 19:30
+Date: 2024/2/20 17:00
 Desc: 东方财富网-期货行情
 https://qhweb.eastmoney.com/quote
 """
 
 import re
 from functools import lru_cache
+from typing import Tuple, Dict
 
 import pandas as pd
 import requests
@@ -53,7 +54,7 @@ def __fetch_exchange_symbol_raw_em() -> list:
 
 
 @lru_cache()
-def __get_exchange_symbol_map() -> tuple[dict, dict, dict, dict]:
+def __get_exchange_symbol_map() -> Tuple[Dict, Dict, Dict, Dict]:
     """
     东方财富网-期货行情-交易所品种映射
     https://quote.eastmoney.com/qihuo/al2505.html
