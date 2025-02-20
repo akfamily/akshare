@@ -190,7 +190,7 @@ def __option_czce_daily_convert_numeric_columns(df):
         except:  # noqa: E722
             return x
 
-    # 创建DataFrame的副本以避免SettingWithCopyWarning
+    # 创建 DataFrame 的副本以避免 SettingWithCopyWarning
     df_copy = df.copy()
     df_copy.columns = [item.strip() for item in df_copy]
     # 应用转换
@@ -208,9 +208,9 @@ def option_czce_daily(
     http://www.czce.com.cn/cn/sspz/dejbqhqq/H770227index_1.htm#tabs-2
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权",  "菜籽粕期权", "动力煤期权", "短纤期权",
-    "菜籽油期权", "花生期权", "纯碱期权", "锰硅期权", "硅铁期权", "尿素期权", "对二甲苯期权", "苹果期权", "红枣期权"
-    "烧碱期权", "玻璃期权", "瓶片期权"}
+    :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权", "动力煤期权", "菜籽粕期权", "菜籽油期权",
+    "花生期权", "对二甲苯期权", "烧碱期权", "纯碱期权", "短纤期权", "锰硅期权", "硅铁期权", "尿素期权", "苹果期权", "红枣期权",
+    "玻璃期权", "瓶片期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -226,6 +226,24 @@ def option_czce_daily(
             r = requests.get(url)
             f = StringIO(r.text)
             table_df = pd.read_table(f, encoding="utf-8", skiprows=1, sep="|")
+            table_df.columns = [
+                "合约代码",
+                "昨结算",
+                "今开盘",
+                "最高价",
+                "最低价",
+                "今收盘",
+                "今结算",
+                "涨跌1",
+                "涨跌2",
+                "成交量(手)",
+                "持仓量",
+                "增减量",
+                "成交额(万元)",
+                "DELTA",
+                "隐含波动率",
+                "行权量",
+            ]
             if symbol == "白糖期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SR")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -250,20 +268,14 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
-            elif symbol == "菜籽粕期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("RM")]
-                temp_df.reset_index(inplace=True, drop=True)
-                temp_df = temp_df.iloc[:-1, :].copy()
-                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
-                return new_df
             elif symbol == "动力煤期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("ZC")]
                 temp_df.reset_index(inplace=True, drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
-            elif symbol == "短纤期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
+            elif symbol == "菜籽粕期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("RM")]
                 temp_df.reset_index(inplace=True, drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
@@ -280,8 +292,32 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
+            elif symbol == "短纤期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
+                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.iloc[:-1, :].copy()
+                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
+                return new_df
+            elif symbol == "对二甲苯期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PX")]
+                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.iloc[:-1, :].copy()
+                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
+                return new_df
+            elif symbol == "烧碱期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("SH")]
+                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.iloc[:-1, :].copy()
+                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
+                return new_df
             elif symbol == "纯碱期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SA")]
+                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.iloc[:-1, :].copy()
+                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
+                return new_df
+            elif symbol == "短纤期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
                 temp_df.reset_index(inplace=True, drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
@@ -316,18 +352,6 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
-            elif symbol == "对二甲苯期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("PX")]
-                temp_df.reset_index(inplace=True, drop=True)
-                temp_df = temp_df.iloc[:-1, :].copy()
-                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
-                return new_df
-            elif symbol == "烧碱期权":
-                temp_df = table_df[table_df.iloc[:, 0].str.contains("SH")]
-                temp_df.reset_index(inplace=True, drop=True)
-                temp_df = temp_df.iloc[:-1, :].copy()
-                new_df = __option_czce_daily_convert_numeric_columns(temp_df)
-                return new_df
             elif symbol == "玻璃期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("FG")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -340,8 +364,12 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
+            else:
+                return pd.DataFrame()
         except:  # noqa: E722
             return pd.DataFrame()
+    else:
+        return pd.DataFrame()
 
 
 def option_shfe_daily(
@@ -607,7 +635,7 @@ def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724
 
 
 if __name__ == "__main__":
-    option_czce_daily_df = option_czce_daily(symbol="白糖期权", trade_date="20240711")
+    option_czce_daily_df = option_czce_daily(symbol="白糖期权", trade_date="20170419")
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
