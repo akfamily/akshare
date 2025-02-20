@@ -7,10 +7,9 @@ https://quote.eastmoney.com/sh513500.html
 """
 
 from functools import lru_cache
-import math
+
 import pandas as pd
 import requests
-from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -24,9 +23,9 @@ def _fund_etf_code_id_map_em() -> dict:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -38,20 +37,7 @@ def _fund_etf_code_id_map_em() -> dict:
     }
     r = requests.get(url, params=params, timeout=15)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return temp_dict
 
@@ -66,9 +52,9 @@ def fund_etf_spot_em() -> pd.DataFrame:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -87,20 +73,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, timeout=15, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.rename(
         columns={
             "f12": "代码",
