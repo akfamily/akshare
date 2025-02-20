@@ -22,24 +22,33 @@ def _fund_lof_code_id_map_em() -> dict:
     :rtype: pandas.DataFrame
     """
     url = "https://2.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "5000",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "wbp2u": "|0|0|0|web",
-        "fid": "f3",
-        "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
-        "fields": "f12,f13",
-        "_": "1672806290972",
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
+    page_number = 1
+    page_size = 200
+    temp_df_list = []
+    while True:
+        params = {
+            "pn": page_number,
+            "pz": page_size,
+            "po": "1",
+            "np": "1",
+            "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+            "fltt": "2",
+            "invt": "2",
+            "wbp2u": "|0|0|0|web",
+            "fid": "f3",
+            "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
+            "fields": "f12,f13",
+            "_": "1672806290972",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df_list.append(temp_df)
+        if data_json["data"]["total"] < page_number * page_size:
+            break
+        page_number += 1
+    df = pd.concat(temp_df_list)
+    temp_dict = dict(zip(df["f12"], df["f13"]))
     return temp_dict
 
 
@@ -51,74 +60,84 @@ def fund_lof_spot_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "5000",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "wbp2u": "|0|0|0|web",
-        "fid": "f3",
-        "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,"
-        "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1672806290972",
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.rename(
-        columns={
-            "f12": "代码",
-            "f14": "名称",
-            "f2": "最新价",
-            "f4": "涨跌额",
-            "f3": "涨跌幅",
-            "f5": "成交量",
-            "f6": "成交额",
-            "f17": "开盘价",
-            "f15": "最高价",
-            "f16": "最低价",
-            "f18": "昨收",
-            "f8": "换手率",
-            "f21": "流通市值",
-            "f20": "总市值",
-        },
-        inplace=True,
-    )
-    temp_df = temp_df[
-        [
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌额",
-            "涨跌幅",
-            "成交量",
-            "成交额",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "昨收",
-            "换手率",
-            "流通市值",
-            "总市值",
+    page_number = 1
+    page_size = 200
+    temp_df_list = []
+    while True:
+        params = {
+            "pn": page_number,
+            "pz": page_size,
+            "po": "1",
+            "np": "1",
+            "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+            "fltt": "2",
+            "invt": "2",
+            "wbp2u": "|0|0|0|web",
+            "fid": "f3",
+            "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
+            "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,"
+            "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+            "_": "1672806290972",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df.rename(
+            columns={
+                "f12": "代码",
+                "f14": "名称",
+                "f2": "最新价",
+                "f4": "涨跌额",
+                "f3": "涨跌幅",
+                "f5": "成交量",
+                "f6": "成交额",
+                "f17": "开盘价",
+                "f15": "最高价",
+                "f16": "最低价",
+                "f18": "昨收",
+                "f8": "换手率",
+                "f21": "流通市值",
+                "f20": "总市值",
+            },
+            inplace=True,
+        )
+        temp_df = temp_df[
+            [
+                "代码",
+                "名称",
+                "最新价",
+                "涨跌额",
+                "涨跌幅",
+                "成交量",
+                "成交额",
+                "开盘价",
+                "最高价",
+                "最低价",
+                "昨收",
+                "换手率",
+                "流通市值",
+                "总市值",
+            ]
         ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
-    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
-    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    return temp_df
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+        temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+        temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+        temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+        temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
+        temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+
+        temp_df_list.append(temp_df)
+        if data_json["data"]["total"] < page_number * page_size:
+            break
+        page_number += 1
+    df = pd.concat(temp_df_list, ignore_index=True)
+    return df
 
 
 def fund_lof_hist_em(
