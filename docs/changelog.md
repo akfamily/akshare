@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.16.9 fix: fix stock_sse_deal_daily interface
+
+	1. 修复 stock_sse_deal_daily 接口
+
 1.16.8 fix: fix option_czce_daily interface
 
 	1. 修复 option_czce_daily 接口
@@ -5141,6 +5145,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.9 fix: fix stock_sse_deal_daily interface
 
 1.16.8 fix: fix option_czce_daily interface
 
