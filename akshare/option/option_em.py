@@ -20,7 +20,7 @@ def option_current_em() -> pd.DataFrame:
     url = "https://23.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200000",
+        "pz": "50000",
         "po": "1",
         "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
