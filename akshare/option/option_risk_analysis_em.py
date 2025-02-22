@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/3/20 15:20
+Date: 2025/2/22 21:00
 Desc: 东方财富网-数据中心-特色数据-期权风险分析
 https://data.eastmoney.com/other/riskanal.html
 """
+
 import requests
 import pandas as pd
 
@@ -20,9 +21,9 @@ def option_risk_analysis_em() -> pd.DataFrame:
     params = {
         "fid": "f3",
         "po": "1",
-        "pz": "5000",
+        "pz": "50000",
         "pn": "1",
-        "np": "1",
+        "np": "2",
         "fltt": "2",
         "invt": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -31,7 +32,7 @@ def option_risk_analysis_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.columns = [
         "-",
         "最新价",
