@@ -3021,9 +3021,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.10 fix: fix option_risk_analysis_em interface
 1.16.11 fix: fix stock_intraday_em interface
 1.16.12 fix: fix bond_zh_hs_cov_daily interface
+1.16.13 fix: fix futures_inventory_99 interface
 """
 
-__version__ = "1.16.12"
+__version__ = "1.16.13"
 __author__ = "AKFamily"
 
 import sys
