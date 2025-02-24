@@ -636,7 +636,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -675,9 +675,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f62",
             "po": "1",
-            "pz": "500",
+            "pz": "5000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -685,9 +685,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -764,9 +764,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f164",
             "po": "1",
-            "pz": "500",
+            "pz": "50000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -774,9 +774,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -853,9 +853,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f174",
             "po": "1",
-            "pz": "500",
+            "pz": "50000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -863,9 +863,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -942,7 +942,7 @@ def stock_sector_fund_flow_summary(
         return pd.DataFrame()
 
 
-def stock_sector_fund_flow_hist(symbol: str = "电源设备") -> pd.DataFrame:
+def stock_sector_fund_flow_hist(symbol: str = "汽车服务") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-行业资金流-行业历史资金流
     https://data.eastmoney.com/bkzj/BK1034.html
@@ -1045,7 +1045,7 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "2",
         "fields": "f12,f13,f14,f62",
@@ -1061,7 +1061,7 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     return name_code_map
 
 
-def stock_concept_fund_flow_hist(symbol: str = "锂电池") -> pd.DataFrame:
+def stock_concept_fund_flow_hist(symbol: str = "数据要素") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-概念资金流-概念历史资金流
     https://data.eastmoney.com/bkzj/BK0574.html
@@ -1302,10 +1302,10 @@ if __name__ == "__main__":
     )
     print(stock_sector_fund_flow_summary_df)
 
-    stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="电源设备")
+    stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="汽车服务")
     print(stock_sector_fund_flow_hist_df)
 
-    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="电源设备")
+    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="数据要素")
     print(stock_concept_fund_flow_hist_df)
 
     stock_main_fund_flow_df = stock_main_fund_flow(symbol="全部股票")
