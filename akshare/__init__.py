@@ -3019,9 +3019,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.8 fix: fix option_czce_daily interface
 1.16.9 fix: fix stock_sse_deal_daily interface
 1.16.10 fix: fix option_risk_analysis_em interface
+1.16.11 fix: fix stock_intraday_em interface
 """
 
-__version__ = "1.16.10"
+__version__ = "1.16.11"
 __author__ = "AKFamily"
 
 import sys
