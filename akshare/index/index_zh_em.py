@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/16 18:10
+Date: 2025/2/24 18:20
 Desc: 东方财富网-指数行情数据
 """
 
-import math
 from functools import lru_cache
 
 import pandas as pd
 import requests
-
-from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -25,105 +22,69 @@ def index_code_id_map_em() -> dict:
     url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    if not data_json["data"]["diff"]:
+        return dict()
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "10000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df_sz = pd.concat(temp_list, ignore_index=True)
+    if not data_json["data"]["diff"]:
+        return dict()
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
-
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "10000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:0 t:81 s:2048",
         "fields": "f12",
         "_": "1623833739532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df_sz = pd.concat(temp_list, ignore_index=True)
+    if not data_json["data"]["diff"]:
+        return dict()
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     code_id_dict = {
         key: value - 1 if value == 1 else value + 1
         for key, value in code_id_dict.items()
     }
-    # 单独增加品种
-    code_id_dict.update({"932000": 2})
     return code_id_dict
 
 
@@ -364,7 +325,7 @@ def index_zh_a_hist_min_em(
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
-        url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+        url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
         try:
             params = {
                 "secid": f"{code_id_dict[symbol]}.{symbol}",
@@ -478,8 +439,8 @@ if __name__ == "__main__":
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
         symbol="000001",
-        period="5",
-        start_date="2025-02-14 09:30:00",
-        end_date="2025-02-14 19:00:00",
+        period="1",
+        start_date="2025-02-24 09:30:00",
+        end_date="2025-02-24 19:00:00",
     )
     print(index_zh_a_hist_min_em_df)
