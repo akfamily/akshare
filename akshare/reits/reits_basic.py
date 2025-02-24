@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/3 17:00
+Date: 2025/2/24 18:00
 Desc: REITs 行情及信息
 https://quote.eastmoney.com/center/gridlist.html#fund_reits_all
 https://www.jisilu.cn/data/cnreits/#CnReits
 """
+
 import pandas as pd
 import requests
 
@@ -17,12 +18,12 @@ def reits_realtime_em() -> pd.DataFrame:
     :return: 沪深 REITs-实时行情
     :rtype: pandas.DataFrame
     """
-    url = "http://95.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://95.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "500",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -33,7 +34,7 @@ def reits_realtime_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.rename(
@@ -69,15 +70,15 @@ def reits_realtime_em() -> pd.DataFrame:
             "昨收",
         ]
     ]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors="coerce")
-    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'], errors="coerce")
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors="coerce")
-    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors="coerce")
-    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'], errors="coerce")
-    temp_df['开盘价'] = pd.to_numeric(temp_df['开盘价'], errors="coerce")
-    temp_df['最高价'] = pd.to_numeric(temp_df['最高价'], errors="coerce")
-    temp_df['最低价'] = pd.to_numeric(temp_df['最低价'], errors="coerce")
-    temp_df['昨收'] = pd.to_numeric(temp_df['昨收'], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
     return temp_df
 
 
