@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 12:50
+Date: 2025/2/24 18:50
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
 
-import math
 import datetime
 import re
 
@@ -96,9 +95,9 @@ def _code_id_map() -> dict:
     url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -109,28 +108,15 @@ def _code_id_map() -> dict:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -141,20 +127,7 @@ def _code_id_map() -> dict:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df_sz = pd.concat(temp_list, ignore_index=True)
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     return code_id_dict
@@ -505,9 +478,9 @@ def bond_cov_comparison() -> pd.DataFrame:
     url = "https://16.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -519,21 +492,8 @@ def bond_cov_comparison() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    data_json = demjson.decode(text_data)
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    json_data = demjson.decode(text_data)
+    temp_df = pd.DataFrame(json_data["data"]["diff"]).T
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
@@ -673,6 +633,8 @@ def bond_zh_cov_info(
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
+    else:
+        return pd.DataFrame()
 
 
 def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
