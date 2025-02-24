@@ -80,6 +80,14 @@
 
 ## 更新说明详情
 
+1.16.11 fix: fix stock_intraday_em interface
+
+	1. 修复 stock_intraday_em 接口
+	2. 修复 stock_hk_famous_spot_em 接口
+	3. 修复 stock_new_a_spot_em 接口
+	4. 修复 stock_us_famous_spot_em 接口
+	5. 修复 index_zh_a_hist_min_em 接口
+
 1.16.10 fix: fix option_risk_analysis_em interface
 
 	1. 修复 option_risk_analysis_em 接口
@@ -5151,6 +5159,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.11 fix: fix stock_intraday_em interface
 
 1.16.10 fix: fix option_risk_analysis_em interface
 
