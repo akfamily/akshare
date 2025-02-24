@@ -482,7 +482,7 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "pn": "1",
         "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -497,7 +497,7 @@ def stock_new_a_spot_em() -> pd.DataFrame:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.columns = [
         "_",
         "最新价",
