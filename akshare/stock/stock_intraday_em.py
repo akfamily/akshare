@@ -1,19 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 14:00
+Date: 2025/2/24 18:00
 Desc: 东财财富-日内分时数据
 https://quote.eastmoney.com/f1.html?newcode=0.000001
 """
 
 import json
-import math
 from functools import lru_cache
 
 import pandas as pd
 import requests
-
-from akshare.utils.tqdm import get_tqdm
 
 
 @lru_cache()
@@ -24,16 +21,16 @@ def __code_id_map_em() -> dict:
     :return: 股票和市场代码
     :rtype: dict
     """
-    url = "http://80.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f12",
         "_": "1623833739532",
@@ -42,32 +39,19 @@ def __code_id_map_em() -> dict:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
         "fields": "f12",
         "_": "1623833739532",
@@ -76,31 +60,18 @@ def __code_id_map_em() -> dict:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df_sz = pd.concat(temp_list, ignore_index=True)
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     params = {
         "pn": "1",
-        "pz": "200",
+        "pz": "50000",
         "po": "1",
-        "np": "1",
+        "np": "2",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:0 t:81 s:2048",
         "fields": "f12",
         "_": "1623833739532",
@@ -109,20 +80,7 @@ def __code_id_map_em() -> dict:
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df_sz = pd.concat(temp_list, ignore_index=True)
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     return code_id_dict
@@ -163,7 +121,9 @@ def stock_intraday_em(symbol: str = "000001") -> pd.DataFrame:
         "secid": f"{code_id_map_em_dict[symbol]}.{symbol}",
         "wbp2u": "|0|0|0|web",
     }
+
     big_df = pd.DataFrame()  # 创建一个空的 DataFrame
+
     for event in __event_stream(url, params):
         # 从每个事件的数据行中删除 "data: "，然后解析 JSON
         event_json = json.loads(event.replace("data: ", ""))
