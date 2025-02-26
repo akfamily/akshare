@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/18 14:10
+Date: 2025/2/26 17:00
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
@@ -29,7 +29,7 @@ def stock_board_concept_name_em() -> pd.DataFrame:
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f12",
+        "fid": "f3",
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
         "_": "1626075887768",
