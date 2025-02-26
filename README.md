@@ -1,4 +1,4 @@
-**欢迎加入专注于财经数据和量化投资的知识社区，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**
+**欢迎加入专注于财经数据和量化投资的知识社区，获取《AKShare-财经数据宝典》，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**
 
 **量化投研视频课程：《PyBroker-入门及实战》已经上架！《PyBroker-进阶及实战》正在更新！**
 
