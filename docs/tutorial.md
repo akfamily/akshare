@@ -747,6 +747,7 @@
  "macro_germany_zew"  # ZEW经济景气指数
  # 东方财富-概念板块
  "stock_board_concept_name_em"  # 概念板块-名称
+ "stock_board_concept_spot_em"  # 概念板块-实时行情
  "stock_board_concept_hist_em"  # 概念板块-历史行情
  "stock_board_concept_hist_min_em"  # 概念板块-分时历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
