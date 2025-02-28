@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/8/23 17:50
+Date: 2025/2/28 13:50
 Desc: 东方财富-沪深板块-行业板块
 https://quote.eastmoney.com/center/boardlist.html#industry_board
 """
 
 import re
+from functools import lru_cache
 
 import pandas as pd
 import requests
 
 
+@lru_cache()
 def stock_board_industry_name_em() -> pd.DataFrame:
     """
     东方财富网-沪深板块-行业板块-名称
