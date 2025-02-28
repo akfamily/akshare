@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2025/2/28 13:20
-Desc: 同花顺-板块-同花顺行业
+Desc: 同花顺-板块-概念板块
 https://q.10jqka.com.cn/thshy/
 """
 
@@ -35,10 +35,10 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
 
 
 @lru_cache()
-def _get_stock_board_industry_name_ths() -> dict:
+def _get_stock_board_concept_name_ths() -> dict:
     """
-    获取同花顺行业代码和名称字典
-    :return: 获取同花顺行业代码和名称字典
+    获取同花顺概念板块代码和名称字典
+    :return: 获取同花顺概念板块代码和名称字典
     :rtype: dict
     """
     js_code = py_mini_racer.MiniRacer()
@@ -50,7 +50,7 @@ def _get_stock_board_industry_name_ths() -> dict:
         "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = "https://q.10jqka.com.cn/thshy/detail/code/881272/"
+    url = "https://q.10jqka.com.cn/gn/detail/code/307822/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     code_list = [
@@ -65,14 +65,14 @@ def _get_stock_board_industry_name_ths() -> dict:
     return name_code_map
 
 
-def stock_board_industry_name_ths() -> pd.DataFrame:
+def stock_board_concept_name_ths() -> pd.DataFrame:
     """
-    同花顺-板块-行业板块-行业
+    同花顺-板块-概念板块-概念
     http://q.10jqka.com.cn/thshy/
-    :return: 所有行业板块的名称和链接
+    :return: 所有概念板块的名称和链接
     :rtype: pandas.DataFrame
     """
-    code_name_ths_map = _get_stock_board_industry_name_ths()
+    code_name_ths_map = _get_stock_board_concept_name_ths()
     temp_df = pd.DataFrame.from_dict(code_name_ths_map, orient="index")
     temp_df.reset_index(inplace=True)
     temp_df.columns = ["name", "code"]
@@ -85,20 +85,20 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_industry_info_ths(symbol: str = "半导体") -> pd.DataFrame:
+def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
     """
-    同花顺-板块-行业板块-板块简介
+    同花顺-板块-概念板块-板块简介
     http://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 板块简介
     :type symbol: str
     :return: 板块简介
     :rtype: pandas.DataFrame
     """
-    stock_board_ths_map_df = stock_board_industry_name_ths()
+    stock_board_ths_map_df = stock_board_concept_name_ths()
     symbol_code = stock_board_ths_map_df[stock_board_ths_map_df["name"] == symbol][
         "code"
     ].values[0]
-    url = f"http://q.10jqka.com.cn/thshy/detail/code/{symbol_code}/"
+    url = f"http://q.10jqka.com.cn/gn/detail/code/{symbol_code}/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
@@ -118,14 +118,14 @@ def stock_board_industry_info_ths(symbol: str = "半导体") -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_industry_index_ths(
-    symbol: str = "元件",
+def stock_board_concept_index_ths(
+    symbol: str = "阿里巴巴概念",
     start_date: str = "20200101",
-    end_date: str = "20240108",
+    end_date: str = "20250228",
 ) -> pd.DataFrame:
     """
-    同花顺-板块-行业板块-指数数据
-    https://q.10jqka.com.cn/thshy/detail/code/881270/
+    同花顺-板块-概念板块-指数数据
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
@@ -135,18 +135,27 @@ def stock_board_industry_index_ths(
     :return: 指数数据
     :rtype: pandas.DataFrame
     """
-    code_map = _get_stock_board_industry_name_ths()
-    symbol_code = code_map[symbol]
-    big_df = pd.DataFrame()
-    current_year = datetime.now().year
-    begin_year = int(start_date[:4])
-    tqdm = get_tqdm()
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
     v_code = js_code.call("v")
+
+    code_map = _get_stock_board_concept_name_ths()
+    symbol_code = code_map[symbol]
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
+    }
+    url = f"https://q.10jqka.com.cn/gn/detail/code/{symbol_code}"
+    r = requests.get(url=url, headers=headers)
+    soup = BeautifulSoup(r.text, features="lxml")
+    inner_code = soup.find(name="input", attrs={"id": "clid"})["value"]
+    big_df = pd.DataFrame()
+    current_year = datetime.now().year
+    begin_year = int(start_date[:4])
+    tqdm = get_tqdm()
     for year in tqdm(range(begin_year, current_year + 1), leave=False):
-        url = f"https://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js"
+        url = f"https://d.10jqka.com.cn/v4/line/bk_{inner_code}/01/{year}.js"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/89.0.4389.90 Safari/537.36",
@@ -219,120 +228,11 @@ def stock_board_industry_index_ths(
     return big_df
 
 
-def stock_xgsr_ths() -> pd.DataFrame:
+def stock_board_concept_summary_ths() -> pd.DataFrame:
     """
-    同花顺-数据中心-新股数据-新股上市首日
-    https://data.10jqka.com.cn/ipo/xgsr/
-    :return: 新股上市首日
-    :rtype: pandas.DataFrame
-    """
-    js_code = py_mini_racer.MiniRacer()
-    js_content = _get_file_content_ths("ths.js")
-    js_code.eval(js_content)
-    v_code = js_code.call("v")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/89.0.4389.90 Safari/537.36",
-        "Cookie": f"v={v_code}",
-        "hexin-v": v_code,
-    }
-    url = "https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, int(page_num) + 1), leave=False):
-        url = f"https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/{page}/ajax/1/free/1/"
-        v_code = js_code.call("v")
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/89.0.4389.90 Safari/537.36",
-            "Cookie": f"v={v_code}",
-            "hexin-v": v_code,
-        }
-        r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df.rename(columns={"发行价(元)": "发行价"}, inplace=True)
-    big_df["序号"] = pd.to_numeric(big_df["序号"], errors="coerce")
-    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
-    big_df["发行价"] = pd.to_numeric(big_df["发行价"], errors="coerce")
-    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
-    big_df["首日开盘价"] = pd.to_numeric(big_df["首日开盘价"], errors="coerce")
-    big_df["首日收盘价"] = pd.to_numeric(big_df["首日收盘价"], errors="coerce")
-    big_df["首日最高价"] = pd.to_numeric(big_df["首日最高价"], errors="coerce")
-    big_df["首日最低价"] = pd.to_numeric(big_df["首日最低价"], errors="coerce")
-    big_df["首日涨跌幅"] = (
-        pd.to_numeric(big_df["首日涨跌幅"].str.strip("%"), errors="coerce") / 100
-    )
-    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"], errors="coerce").dt.date
-    return big_df
-
-
-def stock_ipo_benefit_ths() -> pd.DataFrame:
-    """
-    同花顺-数据中心-新股数据-IPO受益股
-    https://data.10jqka.com.cn/ipo/syg/
-    :return: IPO受益股
-    :rtype: pandas.DataFrame
-    """
-    js_code = py_mini_racer.MiniRacer()
-    js_content = _get_file_content_ths("ths.js")
-    js_code.eval(js_content)
-    v_code = js_code.call("v")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/89.0.4389.90 Safari/537.36",
-        "Cookie": f"v={v_code}",
-        "hexin-v": v_code,
-    }
-    url = "https://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, int(page_num) + 1), leave=False):
-        url = f"https://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/{page}/ajax/1/free/1/"
-        v_code = js_code.call("v")
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/89.0.4389.90 Safari/537.36",
-            "Cookie": f"v={v_code}",
-            "hexin-v": v_code,
-        }
-        r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "收盘价",
-        "涨跌幅",
-        "市值",
-        "参股家数",
-        "投资总额",
-        "投资占市值比",
-        "参股对象",
-    ]
-    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
-    big_df["序号"] = pd.to_numeric(big_df["序号"], errors="coerce")
-    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
-    big_df["参股家数"] = pd.to_numeric(big_df["参股家数"], errors="coerce")
-    big_df["投资占市值比"] = pd.to_numeric(big_df["投资占市值比"], errors="coerce")
-    return big_df
-
-
-def stock_board_industry_summary_ths() -> pd.DataFrame:
-    """
-    同花顺-数据中心-行业板块-同花顺行业一览表
-    https://q.10jqka.com.cn/thshy/
-    :return: 同花顺行业一览表
+    同花顺-数据中心-概念板块-概念时间表
+    https://q.10jqka.com.cn/gn/
+    :return: 概念时间表
     :rtype: pandas.DataFrame
     """
     js_code = py_mini_racer.MiniRacer()
@@ -344,66 +244,43 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = "http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/1/ajax/1/"
+    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
-        url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/{page}/ajax/1/"
+        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df.columns = [
-        "序号",
-        "板块",
-        "涨跌幅",
-        "总成交量",
-        "总成交额",
-        "净流入",
-        "上涨家数",
-        "下跌家数",
-        "均价",
-        "领涨股",
-        "领涨股-最新价",
-        "领涨股-涨跌幅",
-    ]
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
-    big_df["总成交量"] = pd.to_numeric(big_df["总成交量"], errors="coerce")
-    big_df["总成交额"] = pd.to_numeric(big_df["总成交额"], errors="coerce")
-    big_df["净流入"] = pd.to_numeric(big_df["净流入"], errors="coerce")
-    big_df["上涨家数"] = pd.to_numeric(big_df["上涨家数"], errors="coerce")
-    big_df["下跌家数"] = pd.to_numeric(big_df["下跌家数"], errors="coerce")
-    big_df["均价"] = pd.to_numeric(big_df["均价"], errors="coerce")
-    big_df["领涨股-最新价"] = pd.to_numeric(big_df["领涨股-最新价"], errors="coerce")
-    big_df["领涨股-涨跌幅"] = pd.to_numeric(big_df["领涨股-涨跌幅"], errors="coerce")
+        try:
+            temp_df = pd.read_html(StringIO(r.text))[0]
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        except ValueError:
+            break
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["成分股数量"] = pd.to_numeric(big_df["成分股数量"], errors="coerce")
     return big_df
 
 
 if __name__ == "__main__":
-    stock_board_industry_name_ths_df = stock_board_industry_name_ths()
-    print(stock_board_industry_name_ths_df)
+    stock_board_concept_name_ths_df = stock_board_concept_name_ths()
+    print(stock_board_concept_name_ths_df)
 
-    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="橡胶制品")
-    print(stock_board_industry_info_ths_df)
-
-    stock_board_industry_index_ths_df = stock_board_industry_index_ths(
-        symbol="消费电子", start_date="20240101", end_date="20240724"
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(
+        symbol="阿里巴巴概念"
     )
-    print(stock_board_industry_index_ths_df)
+    print(stock_board_concept_info_ths_df)
 
-    stock_board_industry_summary_ths_df = stock_board_industry_summary_ths()
-    print(stock_board_industry_summary_ths_df)
+    stock_board_concept_index_ths_df = stock_board_concept_index_ths(
+        symbol="阿里巴巴概念", start_date="20200101", end_date="20250228"
+    )
+    print(stock_board_concept_index_ths_df)
 
-    for stock in stock_board_industry_name_ths_df["name"]:
+    stock_board_concept_summary_ths_df = stock_board_concept_summary_ths()
+    print(stock_board_concept_summary_ths_df)
+
+    for stock in stock_board_concept_name_ths_df["name"]:
         print(stock)
-        stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=stock)
+        stock_board_industry_index_ths_df = stock_board_concept_index_ths(symbol=stock)
         print(stock_board_industry_index_ths_df)
-
-    stock_xgsr_ths_df = stock_xgsr_ths()
-    print(stock_xgsr_ths_df)
-
-    stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
-    print(stock_ipo_benefit_ths_df)
