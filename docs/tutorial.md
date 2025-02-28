@@ -652,6 +652,8 @@
  "stock_ipo_declare"  # 首发企业申报
  # 行业板块
  "stock_board_industry_index_ths"  # 同花顺-行业板块-指数日频数据
+ # 概念板块
+ "stock_board_concept_index_ths"  # 同花顺-概念板块-指数日频数据
  # 营业部
  "stock_lh_yyb_most"  # 营业部排名-上榜次数最多
  "stock_lh_yyb_capital"  # 营业部排名-资金实力最强
