@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/28 13:50
+Date: 2025/2/28 16:30
 Desc: 东方财富-沪深板块-行业板块
 https://quote.eastmoney.com/center/boardlist.html#industry_board
 """
@@ -14,6 +14,107 @@ import requests
 
 
 @lru_cache()
+def __stock_board_industry_name_em() -> pd.DataFrame:
+    """
+    东方财富网-沪深板块-行业板块-名称
+    https://quote.eastmoney.com/center/boardlist.html#industry_board
+    :return: 行业板块-名称
+    :rtype: pandas.DataFrame
+    """
+    url = "https://17.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        "pn": "1",
+        "pz": "50000",
+        "po": "1",
+        "np": "2",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fid": "f3",
+        "fs": "m:90 t:2 f:!50",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
+        "f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,"
+        "f140,f141,f207,f208,f209,f222",
+        "_": "1626075887768",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = temp_df.index + 1
+    temp_df.columns = [
+        "排名",
+        "-",
+        "最新价",
+        "涨跌幅",
+        "涨跌额",
+        "-",
+        "_",
+        "-",
+        "换手率",
+        "-",
+        "-",
+        "-",
+        "板块代码",
+        "-",
+        "板块名称",
+        "-",
+        "-",
+        "-",
+        "-",
+        "总市值",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "上涨家数",
+        "下跌家数",
+        "-",
+        "-",
+        "-",
+        "领涨股票",
+        "-",
+        "-",
+        "领涨股票-涨跌幅",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "排名",
+            "板块名称",
+            "板块代码",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "总市值",
+            "换手率",
+            "上涨家数",
+            "下跌家数",
+            "领涨股票",
+            "领涨股票-涨跌幅",
+        ]
+    ]
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df["上涨家数"] = pd.to_numeric(temp_df["上涨家数"], errors="coerce")
+    temp_df["下跌家数"] = pd.to_numeric(temp_df["下跌家数"], errors="coerce")
+    temp_df["领涨股票-涨跌幅"] = pd.to_numeric(
+        temp_df["领涨股票-涨跌幅"], errors="coerce"
+    )
+    return temp_df
+
+
 def stock_board_industry_name_em() -> pd.DataFrame:
     """
     东方财富网-沪深板块-行业板块-名称
@@ -141,9 +242,8 @@ def stock_board_industry_spot_em(symbol: str = "小金属") -> pd.DataFrame:
     if re.match(pattern=r"^BK\d+", string=symbol):
         em_code = symbol
     else:
-        industry_listing = stock_board_industry_name_em()
+        industry_listing = __stock_board_industry_name_em()
         em_code = industry_listing.query("板块名称 == @symbol")["板块代码"].values[0]
-
     params = dict(
         fields=",".join(field_map.keys()),
         mpi="1000",
@@ -195,7 +295,7 @@ def stock_board_industry_hist_em(
         "周k": "102",
         "月k": "103",
     }
-    stock_board_concept_em_map = stock_board_industry_name_em()
+    stock_board_concept_em_map = __stock_board_industry_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
@@ -271,7 +371,7 @@ def stock_board_industry_hist_min_em(
     :return: 分时历史行情
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = stock_board_industry_name_em()
+    stock_board_concept_em_map = __stock_board_industry_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
@@ -380,11 +480,11 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     :return: 板块成份
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = stock_board_industry_name_em()
+    stock_board_concept_em_map = __stock_board_industry_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
-    url = "http://29.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "50000",
