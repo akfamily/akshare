@@ -67,6 +67,9 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
     predict_next_year_pe_title = f"{current_year + 1}-盈利预测-市盈率"
     predict_next_two_year_eps_title = f"{current_year + 2}-盈利预测-收益"
     predict_next_two_year_pe_title = f"{current_year + 2}-盈利预测-市盈率"
+    big_df["pdfUrl"] = big_df["infoCode"].apply(
+        lambda x: f"https://pdf.dfcfw.com/pdf/H3_{x}_1.pdf"
+    )
     big_df.rename(
         columns={
             "index": "序号",
@@ -121,6 +124,7 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
             "authorID": "-",
             "count": "近一月个股研报数",
             "orgType": "-",
+            "pdfUrl": "报告PDF链接",
         },
         inplace=True,
     )
@@ -141,6 +145,7 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
             predict_next_two_year_pe_title,
             "行业",
             "日期",
+            "报告PDF链接",
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
