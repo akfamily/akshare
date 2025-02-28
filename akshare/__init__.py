@@ -3025,9 +3025,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.14 fix: fix stock_info_global_cls interface
 1.16.15 fix: fix stock_board_concept_name_em interface
 1.16.16 fix: fix stock_board_concept_spot_em interface
+1.16.17 fix: fix stock_research_report_em interface
 """
 
-__version__ = "1.16.16"
+__version__ = "1.16.17"
 __author__ = "AKFamily"
 
 import sys
@@ -4275,6 +4276,16 @@ from akshare.stock_feature.stock_report_em import (
 业绩报告
 """
 from akshare.stock_feature.stock_yjbb_em import stock_yjbb_em
+
+"""
+同花顺-概念板块
+"""
+from akshare.stock_feature.stock_board_concept_ths import (
+    stock_board_concept_info_ths,
+    stock_board_concept_summary_ths,
+    stock_board_concept_index_ths,
+    stock_board_concept_name_ths,
+)
 
 """
 同花顺-行业板块
