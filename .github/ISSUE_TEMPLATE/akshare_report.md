@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-> 欢迎加入《数据科学实战》知识星球，交流财经数据与量化投资相关内容 |
+> 欢迎加入【数据科学实战】知识社区获取《AKShare-财经数据宝典》，交流财经数据与量化投研相关内容 |
 > Welcome to join "Data Science in Practice" Knowledge
 > Community for discussions on financial data and quantitative investment.
 >
@@ -19,7 +19,7 @@ assignees: ''
 your AKShare to the **latest version** using the following command:：
 
 ```
-pip install akshare --upgrade  # Python 版本需要大于等于 3.8 | Python version requirement ≥ 3.8
+pip install akshare --upgrade  # Python 版本需要大于等于 3.9 | Python version requirement ≥ 3.9
 ```
 
 ## 如何提交问题 | How to Submit an Issue
@@ -34,7 +34,7 @@ submitting an issue for more accurate problem resolution.
 1. 请先详细阅读文档对应接口的使用方式 | Please read the documentation thoroughly for the
 relevant interface：https://akshare.akfamily.xyz
 2. 操作系统版本，目前只支持 64 位操作系统 | Operating system version (64-bit only supported)
-3. Python 版本，目前只支持 3.8 以上的版本 | Python version (must be 3.8 or above)
+3. Python 版本，目前只支持 3.9 以上的版本 | Python version (must be 3.9 or above)
 4. AKShare 版本，请升级到最新版 | AKShare version (please upgrade to latest)
 5. 接口的名称和相应的调用代码 | Interface name and corresponding code
 6. 接口报错的截图或描述 | Screenshot or description of the error
