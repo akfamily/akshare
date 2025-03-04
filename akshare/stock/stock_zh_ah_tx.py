@@ -5,6 +5,7 @@ Date: 2024/2/26 15:10
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
 https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
 """
+
 import random
 
 import pandas as pd
@@ -31,9 +32,7 @@ def _get_zh_stock_ah_page_count() -> int:
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
     r = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
-    data_json = demjson.decode(
-        r.text[r.text.find("{"): r.text.rfind("}") + 1]
-    )
+    data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
     page_count = data_json["data"]["page_count"]
     return page_count
 
@@ -45,15 +44,13 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     :return: 腾讯财经-港股-AH-实时行情
     :rtype: pandas.DataFrame
     """
-    big_df = pd.DataFrame()
     page_count = _get_zh_stock_ah_page_count()
+    big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
-        data_json = demjson.decode(
-            r.text[r.text.find("{"): r.text.rfind("}") + 1]
-        )
+        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         big_df = pd.concat(
             objs=[
                 big_df,
@@ -123,9 +120,7 @@ def stock_zh_ah_name() -> pd.DataFrame:
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
-        data_json = demjson.decode(
-            r.text[r.text.find("{"): r.text.rfind("}") + 1]
-        )
+        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         big_df = pd.concat(
             objs=[
                 big_df,
@@ -160,10 +155,10 @@ def stock_zh_ah_name() -> pd.DataFrame:
 
 
 def stock_zh_ah_daily(
-        symbol: str = "02318",
-        start_year: str = "2000",
-        end_year: str = "2019",
-        adjust: str = "",
+    symbol: str = "02318",
+    start_year: str = "2000",
+    end_year: str = "2019",
+    adjust: str = "",
 ) -> pd.DataFrame:
     """
     腾讯财经-港股-AH-股票历史行情
@@ -187,9 +182,7 @@ def stock_zh_ah_daily(
         hk_stock_payload_copy.update({"_var": f"kline_day{adjust}{year}"})
         if adjust == "":
             hk_stock_payload_copy.update(
-                {
-                    "param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,"
-                }
+                {"param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,"}
             )
         else:
             hk_stock_payload_copy.update(
@@ -221,17 +214,13 @@ def stock_zh_ah_daily(
                 params=hk_stock_payload_copy,
                 headers=hk_stock_headers,
             )
-        data_json = demjson.decode(
-            r.text[r.text.find("{"): r.text.rfind("}") + 1]
-        )
+        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         try:
             if adjust == "":
                 temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"]["day"])
             else:
-                temp_df = pd.DataFrame(
-                    data_json["data"][f"hk{symbol}"][f"{adjust}day"]
-                )
-        except:
+                temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"][f"{adjust}day"])
+        except:  # noqa
             continue
         if adjust != "" and not temp_df.empty:
             temp_df.columns = [
@@ -248,8 +237,16 @@ def stock_zh_ah_daily(
             temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
         elif not temp_df.empty:
             try:
-                temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量", "_"]
-            except:
+                temp_df.columns = [
+                    "日期",
+                    "开盘",
+                    "收盘",
+                    "最高",
+                    "最低",
+                    "成交量",
+                    "_",
+                ]
+            except:  # noqa
                 temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量"]
             temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
