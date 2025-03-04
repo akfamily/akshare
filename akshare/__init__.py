@@ -3032,9 +3032,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.21 fix: fix stock_hk_index_daily_em interface
 1.16.22 fix: fix fund_money_fund_info_em interface
 1.16.23 fix: fix stock_board_industry_cons_em interface
+1.16.24 fix: fix stock_financial_hk_report_em interface
 """
 
-__version__ = "1.16.23"
+__version__ = "1.16.24"
 __author__ = "AKFamily"
 
 import sys
@@ -3055,6 +3056,14 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富-美股-财务分析-三大报表
+"""
+from akshare.stock_fundamental.stock_finance_us_em import (
+    stock_financial_us_report_em,
+    stock_financial_us_analysis_indicator_em,
+)
 
 """
 期货行情-内盘-历史行情数据-东财
@@ -4675,7 +4684,7 @@ from akshare.stock.stock_industry import stock_sector_spot, stock_sector_detail
 """
 stock-fundamental
 """
-from akshare.stock_fundamental.stock_finance import (
+from akshare.stock_fundamental.stock_finance_sina import (
     stock_financial_abstract,
     stock_financial_report_sina,
     stock_financial_analysis_indicator,
@@ -4692,7 +4701,7 @@ from akshare.stock_fundamental.stock_finance import (
 """
 stock-HK-fundamental
 """
-from akshare.stock_fundamental.stock_finance_hk import (
+from akshare.stock_fundamental.stock_finance_hk_em import (
     stock_financial_hk_analysis_indicator_em,
     stock_financial_hk_report_em,
 )
