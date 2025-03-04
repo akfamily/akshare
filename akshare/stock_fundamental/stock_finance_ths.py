@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/11/2 15:20
+Date: 2025/3/4 20:00
 Desc: 同花顺-财务指标-主要指标
 https://basic.10jqka.com.cn/new/000063/finance.html
 """
@@ -51,6 +51,7 @@ def stock_financial_abstract_ths(
     temp_df = temp_df.T
     temp_df.reset_index(inplace=True)
     temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df.sort_values(by="报告期", ignore_index=True, inplace=True)
     return temp_df
 
 
