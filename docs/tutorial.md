@@ -1316,6 +1316,9 @@
  # 美股财报
  "stock_financial_us_report_em"  # 东方财富-美股-财务报表-三大报表
  "stock_financial_us_analysis_indicator_em"  # 东方财富-美股-财务分析-主要指标
+ # 东方财富网-行情中心-沪深港通
+ "stock_zh_ah_spot_em"  # 东方财富网-行情中心-沪深港通-AH股比价-实时行情
+ "stock_hsgt_sh_hk_spot_em"  # 东方财富网-行情中心-沪深港通-港股通(沪>港)-股票
 ```
 
 ## 案例演示

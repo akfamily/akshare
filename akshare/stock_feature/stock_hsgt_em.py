@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/4/14 15:00
+Date: 2025/3/4 23:00
 Desc: 东方财富网-数据中心-沪深港通持股
 https://data.eastmoney.com/hsgtcg/
 沪深港通详情: https://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -10,7 +10,8 @@ https://data.eastmoney.com/hsgtcg/
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
@@ -187,9 +188,9 @@ def stock_hsgt_hold_stock_em(
     """
     url = "https://data.eastmoney.com/hsgtcg/list.html"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     date = (
-        soup.find("div", attrs={"class": "title"})
+        soup.find(name="div", attrs={"class": "title"})
         .find("span")
         .text.strip("（")
         .strip("）")
@@ -232,12 +233,13 @@ def stock_hsgt_hold_stock_em(
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
@@ -375,17 +377,18 @@ def stock_hsgt_stock_statistics_em(
             params.update(
                 {"filter": f"""(INTERVAL_TYPE="1")(RN=1)(TRADE_DATE='{start_date}')"""}
             )
-        url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+        url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
         big_df.columns = [
             "-",
@@ -474,12 +477,13 @@ def stock_hsgt_stock_statistics_em(
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
         big_df.columns = [
             "-",
@@ -576,17 +580,18 @@ def stock_hsgt_stock_statistics_em(
                     "filter": f"""(INTERVAL_TYPE="1")(MUTUAL_TYPE="001")(TRADE_DATE='{start_date}')"""
                 }
             )
-        url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+        url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "-",
             "-",
@@ -673,7 +678,8 @@ def stock_hsgt_stock_statistics_em(
             "columns": "ALL",
             "source": "WEB",
             "client": "WEB",
-            "filter": f"""(INTERVAL_TYPE="1")(MUTUAL_TYPE="003")(TRADE_DATE>='{start_date}')(TRADE_DATE<='{end_date}')""",
+            "filter": f"""(INTERVAL_TYPE="1")(MUTUAL_TYPE="003")(TRADE_DATE
+            >='{start_date}')(TRADE_DATE<='{end_date}')""",
             "reportName": "RPT_MUTUAL_STOCK_NORTHSTA",
         }
         if start_date == end_date:
@@ -682,17 +688,18 @@ def stock_hsgt_stock_statistics_em(
                     "filter": f"""(INTERVAL_TYPE="1")(MUTUAL_TYPE="003")(TRADE_DATE='{start_date}')"""
                 }
             )
-        url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+        url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "-",
             "-",
@@ -792,6 +799,10 @@ def stock_hsgt_institution_statistics_em(
     """
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/114.0.0.0 Safari/537.36"
+    }
     if market == "南向持股":
         params = {
             "sortColumns": "HOLD_DATE",
@@ -803,9 +814,6 @@ def stock_hsgt_institution_statistics_em(
             "source": "WEB",
             "client": "WEB",
             "filter": f"""(MARKET_TYPE="S")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
-        }
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params, headers=headers)
@@ -842,12 +850,20 @@ def stock_hsgt_institution_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        temp_df["持股日期"] = pd.to_datetime(temp_df["持股日期"]).dt.date
-        temp_df["持股只数"] = pd.to_numeric(temp_df["持股只数"])
-        temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"])
-        temp_df["持股市值变化-1日"] = pd.to_numeric(temp_df["持股市值变化-1日"])
-        temp_df["持股市值变化-5日"] = pd.to_numeric(temp_df["持股市值变化-5日"])
-        temp_df["持股市值变化-10日"] = pd.to_numeric(temp_df["持股市值变化-10日"])
+        temp_df["持股日期"] = pd.to_datetime(
+            temp_df["持股日期"], errors="coerce"
+        ).dt.date
+        temp_df["持股只数"] = pd.to_numeric(temp_df["持股只数"], errors="coerce")
+        temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"], errors="coerce")
+        temp_df["持股市值变化-1日"] = pd.to_numeric(
+            temp_df["持股市值变化-1日"], errors="coerce"
+        )
+        temp_df["持股市值变化-5日"] = pd.to_numeric(
+            temp_df["持股市值变化-5日"], errors="coerce"
+        )
+        temp_df["持股市值变化-10日"] = pd.to_numeric(
+            temp_df["持股市值变化-10日"], errors="coerce"
+        )
         return temp_df
 
     elif market == "北向持股":
@@ -862,20 +878,18 @@ def stock_hsgt_institution_statistics_em(
             "client": "WEB",
             "filter": f"""(MARKET_TYPE="N")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
-        }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "持股日期",
             "_",
@@ -907,12 +921,18 @@ def stock_hsgt_institution_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(
+            big_df["持股市值变化-1日"], errors="coerce"
+        )
+        big_df["持股市值变化-5日"] = pd.to_numeric(
+            big_df["持股市值变化-5日"], errors="coerce"
+        )
+        big_df["持股市值变化-10日"] = pd.to_numeric(
+            big_df["持股市值变化-10日"], errors="coerce"
+        )
         return big_df
     elif market == "沪股通持股":
         params = {
@@ -926,20 +946,18 @@ def stock_hsgt_institution_statistics_em(
             "client": "WEB",
             "filter": f"""(MARKET_TYPE="001")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
-        }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "持股日期",
             "_",
@@ -971,12 +989,18 @@ def stock_hsgt_institution_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(
+            big_df["持股市值变化-1日"], errors="coerce"
+        )
+        big_df["持股市值变化-5日"] = pd.to_numeric(
+            big_df["持股市值变化-5日"], errors="coerce"
+        )
+        big_df["持股市值变化-10日"] = pd.to_numeric(
+            big_df["持股市值变化-10日"], errors="coerce"
+        )
         return big_df
     elif market == "深股通持股":
         params = {
@@ -990,20 +1014,18 @@ def stock_hsgt_institution_statistics_em(
             "client": "WEB",
             "filter": f"""(MARKET_TYPE="003")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
-        }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "持股日期",
             "_",
@@ -1035,12 +1057,18 @@ def stock_hsgt_institution_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["持股只数"] = pd.to_numeric(big_df["持股只数"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(
+            big_df["持股市值变化-1日"], errors="coerce"
+        )
+        big_df["持股市值变化-5日"] = pd.to_numeric(
+            big_df["持股市值变化-5日"], errors="coerce"
+        )
+        big_df["持股市值变化-10日"] = pd.to_numeric(
+            big_df["持股市值变化-10日"], errors="coerce"
+        )
         return big_df
 
 
@@ -1053,6 +1081,10 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
     :return: 沪深港通历史数据
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     symbol_map = {
         "北向资金": "5",
         "沪股通": "1",
@@ -1061,7 +1093,6 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
         "港股通沪": "2",
         "港股通深": "4",
     }
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
@@ -1076,13 +1107,16 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
-    big_df = pd.DataFrame()
+    temp_list = []
+    tqdm = get_tqdm()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        temp_list.append(temp_df)
+
+    big_df = pd.concat(objs=temp_list, ignore_index=True)
     if symbol == "北向资金":
         index_name = "沪深300"
     elif symbol == "沪股通":
@@ -1173,7 +1207,7 @@ def stock_hsgt_board_rank_em(
     """
     url = "https://data.eastmoney.com/hsgtcg/hy.html"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     current_date = soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
     symbol_map = {
         "北向资金增持行业板块排行": "5",
@@ -1307,7 +1341,7 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
     :return: 具体股票-沪深港通持股
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
@@ -1357,15 +1391,23 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
             "持股市值变化-10日",
         ]
     ]
-    temp_df["持股日期"] = pd.to_datetime(temp_df["持股日期"]).dt.date
-    temp_df["当日收盘价"] = pd.to_numeric(temp_df["当日收盘价"])
-    temp_df["当日涨跌幅"] = pd.to_numeric(temp_df["当日涨跌幅"])
-    temp_df["持股数量"] = pd.to_numeric(temp_df["持股数量"])
-    temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"])
-    temp_df["持股数量占A股百分比"] = pd.to_numeric(temp_df["持股数量占A股百分比"])
-    temp_df["持股市值变化-1日"] = pd.to_numeric(temp_df["持股市值变化-1日"])
-    temp_df["持股市值变化-5日"] = pd.to_numeric(temp_df["持股市值变化-5日"])
-    temp_df["持股市值变化-10日"] = pd.to_numeric(temp_df["持股市值变化-10日"])
+    temp_df["持股日期"] = pd.to_datetime(temp_df["持股日期"], errors="coerce").dt.date
+    temp_df["当日收盘价"] = pd.to_numeric(temp_df["当日收盘价"], errors="coerce")
+    temp_df["当日涨跌幅"] = pd.to_numeric(temp_df["当日涨跌幅"], errors="coerce")
+    temp_df["持股数量"] = pd.to_numeric(temp_df["持股数量"], errors="coerce")
+    temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"], errors="coerce")
+    temp_df["持股数量占A股百分比"] = pd.to_numeric(
+        temp_df["持股数量占A股百分比"], errors="coerce"
+    )
+    temp_df["持股市值变化-1日"] = pd.to_numeric(
+        temp_df["持股市值变化-1日"], errors="coerce"
+    )
+    temp_df["持股市值变化-5日"] = pd.to_numeric(
+        temp_df["持股市值变化-5日"], errors="coerce"
+    )
+    temp_df["持股市值变化-10日"] = pd.to_numeric(
+        temp_df["持股市值变化-10日"], errors="coerce"
+    )
     return temp_df
 
 
@@ -1386,7 +1428,7 @@ def stock_hsgt_individual_detail_em(
     :return: 沪深港通持股-具体股票详情
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "HOLD_DATE",
         "sortTypes": "-1",
@@ -1396,7 +1438,9 @@ def stock_hsgt_individual_detail_em(
         "columns": "ALL",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="003")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="003")(HOLD_DATE
+        >='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
+        <='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1405,19 +1449,22 @@ def stock_hsgt_individual_detail_em(
     except TypeError:
         params.update(
             {
-                "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="001")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+                "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="001")(HOLD_DATE
+                >='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
+                <='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
             }
         )
         r = requests.get(url, params=params)
         data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
         columns={
             "SECUCODE": "-",
@@ -1454,15 +1501,23 @@ def stock_hsgt_individual_detail_em(
             "持股市值变化-10日",
         ]
     ]
-    big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-    big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"])
-    big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"])
-    big_df["持股数量"] = pd.to_numeric(big_df["持股数量"])
-    big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-    big_df["持股数量占A股百分比"] = pd.to_numeric(big_df["持股数量占A股百分比"])
-    big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-    big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-    big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+    big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+    big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"], errors="coerce")
+    big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"], errors="coerce")
+    big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+    big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+    big_df["持股数量占A股百分比"] = pd.to_numeric(
+        big_df["持股数量占A股百分比"], errors="coerce"
+    )
+    big_df["持股市值变化-1日"] = pd.to_numeric(
+        big_df["持股市值变化-1日"], errors="coerce"
+    )
+    big_df["持股市值变化-5日"] = pd.to_numeric(
+        big_df["持股市值变化-5日"], errors="coerce"
+    )
+    big_df["持股市值变化-10日"] = pd.to_numeric(
+        big_df["持股市值变化-10日"], errors="coerce"
+    )
     return big_df
 
 
@@ -1533,7 +1588,7 @@ if __name__ == "__main__":
     )
     print(stock_hsgt_institution_statistics_em_df)
 
-    stock_hsgt_hist_em_df = stock_hsgt_hist_em(symbol="北向资金")
+    stock_hsgt_hist_em_df = stock_hsgt_hist_em(symbol="港股通沪")
     print(stock_hsgt_hist_em_df)
 
     stock_hsgt_board_rank_em_df = stock_hsgt_board_rank_em(
