@@ -3034,9 +3034,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.23 fix: fix stock_board_industry_cons_em interface
 1.16.24 fix: fix stock_financial_hk_report_em interface
 1.16.25 fix: fix stock_financial_abstract_ths interface
+1.16.26 add: add stock_hsgt_sh_hk_spot_em interface
 """
 
-__version__ = "1.16.25"
+__version__ = "1.16.26"
 __author__ = "AKFamily"
 
 import sys
@@ -3057,6 +3058,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富网-行情中心-沪深港通
+"""
+from akshare.stock.stock_hsgt_em import stock_zh_ah_spot_em, stock_hsgt_sh_hk_spot_em
 
 """
 东方财富-美股-财务分析-三大报表
