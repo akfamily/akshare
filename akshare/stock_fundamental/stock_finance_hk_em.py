@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/31 12:00
+Date: 2025/3/4 17:00
 Desc: 港股-基本面数据
 https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 """
+
 import pandas as pd
 import requests
 
@@ -20,32 +21,34 @@ def stock_financial_hk_report_em(
     :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
     :type symbol: str
     :param indicator: choice of {"年度", "报告期"}
-    :type indicator:
+    :type indicator: str
     :return: 东方财富-港股-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
     params = {
-        'reportName': 'RPT_CUSTOM_HKSK_APPFN_CASHFLOW_SUMMARY',
-        'columns': 'SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,START_DATE,REPORT_DATE,FISCAL_YEAR,CURRENCY,ACCOUNT_STANDARD,REPORT_TYPE',
-        'quoteColumns': '',
-        'filter': f'(SECUCODE="{stock}.HK")',
-        'source': 'F10',
-        'client': 'PC',
-        'v': '02092616586970355',
+        "reportName": "RPT_CUSTOM_HKSK_APPFN_CASHFLOW_SUMMARY",
+        "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,START_DATE,REPORT_DATE,FISCAL_YEAR,"
+        "CURRENCY,ACCOUNT_STANDARD,REPORT_TYPE",
+        "quoteColumns": "",
+        "filter": f'(SECUCODE="{stock}.HK")',
+        "source": "F10",
+        "client": "PC",
+        "v": "02092616586970355",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']['data'][0]['REPORT_LIST'])
+    temp_df = pd.DataFrame(data_json["result"]["data"][0]["REPORT_LIST"])
     if indicator == "年度":
-        temp_df = temp_df[temp_df['REPORT_TYPE'] == "年报"]
+        temp_df = temp_df[temp_df["REPORT_TYPE"] == "年报"]
     else:
         temp_df = temp_df
-    year_list = [item.split(" ")[0] for item in temp_df['REPORT_DATE']]
+    year_list = [item.split(" ")[0] for item in temp_df["REPORT_DATE"]]
     if symbol == "资产负债表":
         params = {
             "reportName": "RPT_HKF10_FN_BALANCE_PC",
-            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT,STD_REPORT_DATE",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
+            "FISCAL_YEAR,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT,STD_REPORT_DATE",
             "quoteColumns": "",
             "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
@@ -63,7 +66,8 @@ def stock_financial_hk_report_em(
     elif symbol == "利润表":
         params = {
             "reportName": "RPT_HKF10_FN_INCOME_PC",
-            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
+            "FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
             "quoteColumns": "",
             "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
@@ -81,7 +85,8 @@ def stock_financial_hk_report_em(
     elif symbol == "现金流量表":
         params = {
             "reportName": "RPT_HKF10_FN_CASHFLOW_PC",
-            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
+            "FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
             "quoteColumns": "",
             "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
@@ -96,6 +101,8 @@ def stock_financial_hk_report_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
+    else:
+        return pd.DataFrame()
 
 
 def stock_financial_hk_analysis_indicator_em(
