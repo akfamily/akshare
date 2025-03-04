@@ -80,6 +80,12 @@
 
 ## 更新说明详情
 
+1.16.24 fix: fix stock_financial_hk_report_em interface
+
+	1. 修复 stock_financial_hk_report_em 接口
+	2. 新增 stock_financial_us_report_em 接口
+	3. 新增 stock_financial_us_analysis_indicator_em 接口
+
 1.16.23 fix: fix stock_board_industry_cons_em interface
 
 	1. 修复 stock_board_industry_cons_em 接口
@@ -5217,6 +5223,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.24 fix: fix stock_financial_hk_report_em interface
 
 1.16.23 fix: fix stock_board_industry_cons_em interface
 
