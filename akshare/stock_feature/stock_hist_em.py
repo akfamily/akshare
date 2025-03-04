@@ -1938,10 +1938,10 @@ if __name__ == "__main__":
     print(stock_hk_main_board_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001",
+        symbol="600734",
         period="daily",
-        start_date="20170301",
-        end_date="20240528",
+        start_date="20050501",
+        end_date="20250304",
         adjust="hfq",
     )
     print(stock_zh_a_hist_df)
