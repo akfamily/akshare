@@ -475,15 +475,18 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     """
     东方财富网-沪深板块-行业板块-板块成份
     https://data.eastmoney.com/bkzj/BK1027.html
-    :param symbol: 板块名称
+    :param symbol: 板块名称或者板块代码
     :type symbol: str
     :return: 板块成份
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = __stock_board_industry_name_em()
-    stock_board_code = stock_board_concept_em_map[
-        stock_board_concept_em_map["板块名称"] == symbol
-    ]["板块代码"].values[0]
+    if re.match(pattern=r"^BK\d+", string=symbol):
+        stock_board_code = symbol
+    else:
+        stock_board_concept_em_map = __stock_board_industry_name_em()
+        stock_board_code = stock_board_concept_em_map[
+            stock_board_concept_em_map["板块名称"] == symbol
+        ]["板块代码"].values[0]
     url = "https://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
