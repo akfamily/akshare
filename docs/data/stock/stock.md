@@ -11257,7 +11257,7 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 
 描述: 东方财富-港股-财务报表-三大报表
 
-限量: 单次获取指定报表的所有年份数据
+限量: 单次获取指定股票、指定报告且指定报告期的数据
 
 输入参数
 
@@ -11265,7 +11265,7 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 |-----------|-----|-----------------------------------------------------|
 | stock     | str | stock="00700"; 股票代码                                 |
 | symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
-| indicator | str | symbol="年度"; choice of {"年度", "报告期"}                |
+| indicator | str | indicator="年度"; choice of {"年度", "报告期"}             |
 
 输出参数
 
@@ -11306,6 +11306,64 @@ print(stock_financial_hk_report_em_df)
 968  00700.HK         00700  ...  4.832400e+07  2001-12-31 00:00:00
 969  00700.HK         00700  ...  6.554200e+07  2001-12-31 00:00:00
 [970 rows x 11 columns]
+```
+
+#### 美股财务报表
+
+接口: stock_financial_us_report_em
+
+目标地址: https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w#/cwfx/zyzb
+
+描述: 东方财富-美股-财务分析-三大报表
+
+限量: 单次获取指定股票、指定报告且指定报告期的数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                    |
+|-----------|-----|-------------------------------------------------------|
+| stock     | str | stock="TSLA"; 股票代码                                    |
+| symbol    | str | symbol="资产负债表"; choice of {"资产负债表", "综合损益表", "现金流量表"} |
+| indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"}       |
+
+输出参数
+
+| 名称                 | 类型      | 描述 |
+|--------------------|---------|----|
+| SECUCODE           | object  | -  |
+| SECURITY_CODE      | object  | -  |
+| SECURITY_NAME_ABBR | object  | -  |
+| REPORT_DATE        | object  | -  |
+| REPORT_TYPE        | object  | -  |
+| REPORT             | object  | -  |
+| STD_ITEM_CODE      | object  | -  |
+| AMOUNT             | float64 | -  |
+| ITEM_NAME          | object  | -  |
+
+
+```python
+import akshare as ak
+
+stock_financial_us_report_em_df = ak.stock_financial_us_report_em(stock="TSLA", symbol="资产负债表", indicator="年报")
+print(stock_financial_us_report_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ...        AMOUNT ITEM_NAME
+0     TSLA.O          TSLA  ...  1.613900e+10  现金及现金等价物
+1     TSLA.O          TSLA  ...  1.639800e+10  现金及现金等价物
+2     TSLA.O          TSLA  ...  1.625300e+10  现金及现金等价物
+3     TSLA.O          TSLA  ...  1.757600e+10  现金及现金等价物
+4     TSLA.O          TSLA  ...  1.938400e+10  现金及现金等价物
+..       ...           ...  ...           ...       ...
+619   TSLA.O          TSLA  ...  3.670390e+08     非运算项目
+620   TSLA.O          TSLA  ...           NaN     非运算项目
+621   TSLA.O          TSLA  ...  3.192250e+08     非运算项目
+622   TSLA.O          TSLA  ...  1.011780e+08     非运算项目
+623   TSLA.O          TSLA  ...  1.011780e+08     非运算项目
+[624 rows x 9 columns]
 ```
 
 #### 关键指标-新浪
@@ -11653,6 +11711,112 @@ print(stock_financial_hk_analysis_indicator_em_df)
 7  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
 8  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
 [9 rows x 36 columns]
+```
+
+#### 美股财务指标
+
+接口: stock_financial_us_analysis_indicator_em
+
+目标地址: https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w#/cwfx/zyzb
+
+描述: 东方财富-美股-财务分析-主要指标
+
+限量: 单次获取指定股票的所有历史数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                              |
+|-----------|-----|-------------------------------------------------|
+| symbol    | str | symbol="TSLA"; 股票代码                             |
+| indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"} |
+
+输出参数
+
+| 名称                          | 类型      | 描述 |
+|-----------------------------|---------|----|
+| SECUCODE                    | object  | -  |
+| SECURITY_CODE               | object  | -  |
+| SECURITY_NAME_ABBR          | object  | -  |
+| ORG_CODE                    | object  | -  |
+| SECURITY_INNER_CODE         | object  | -  |
+| ACCOUNTING_STANDARDS        | object  | -  |
+| NOTICE_DATE                 | object  | -  |
+| START_DATE                  | object  | -  |
+| REPORT_DATE                 | object  | -  |
+| FINANCIAL_DATE              | object  | -  |
+| STD_REPORT_DATE             | object  | -  |
+| CURRENCY                    | object  | -  |
+| DATE_TYPE                   | object  | -  |
+| DATE_TYPE_CODE              | object  | -  |
+| REPORT_TYPE                 | object  | -  |
+| REPORT_DATA_TYPE            | object  | -  |
+| ORGTYPE                     | object  | -  |
+| OPERATE_INCOME              | float64 | -  |
+| OPERATE_INCOME_YOY          | float64 | -  |
+| GROSS_PROFIT                | float64 | -  |
+| GROSS_PROFIT_YOY            | float64 | -  |
+| PARENT_HOLDER_NETPROFIT     | int64   | -  |
+| PARENT_HOLDER_NETPROFIT_YOY | float64 | -  |
+| BASIC_EPS                   | float64 | -  |
+| DILUTED_EPS                 | float64 | -  |
+| GROSS_PROFIT_RATIO          | float64 | -  |
+| NET_PROFIT_RATIO            | float64 | -  |
+| ACCOUNTS_RECE_TR            | float64 | -  |
+| INVENTORY_TR                | float64 | -  |
+| TOTAL_ASSETS_TR             | float64 | -  |
+| ACCOUNTS_RECE_TDAYS         | float64 | -  |
+| INVENTORY_TDAYS             | float64 | -  |
+| TOTAL_ASSETS_TDAYS          | float64 | -  |
+| ROE_AVG                     | float64 | -  |
+| ROA                         | float64 | -  |
+| CURRENT_RATIO               | float64 | -  |
+| SPEED_RATIO                 | float64 | -  |
+| OCF_LIQDEBT                 | float64 | -  |
+| DEBT_ASSET_RATIO            | float64 | -  |
+| EQUITY_RATIO                | float64 | -  |
+| BASIC_EPS_YOY               | float64 | -  |
+| GROSS_PROFIT_RATIO_YOY      | float64 | -  |
+| NET_PROFIT_RATIO_YOY        | float64 | -  |
+| ROE_AVG_YOY                 | float64 | -  |
+| ROA_YOY                     | float64 | -  |
+| DEBT_ASSET_RATIO_YOY        | float64 | -  |
+| CURRENT_RATIO_YOY           | float64 | -  |
+| SPEED_RATIO_YOY             | float64 | -  |
+
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_financial_us_analysis_indicator_em_df = ak.stock_financial_us_analysis_indicator_em(symbol="TSLA", indicator="年报")
+print(stock_financial_us_analysis_indicator_em_df)
+```
+
+数据示例
+
+```
+   SECUCODE SECURITY_CODE  ... CURRENT_RATIO_YOY SPEED_RATIO_YOY
+0    TSLA.O          TSLA  ...         17.325422       28.440175
+1    TSLA.O          TSLA  ...         12.659536       19.087360
+2    TSLA.O          TSLA  ...         11.391821       -2.942407
+3    TSLA.O          TSLA  ...        -26.656933      -31.763438
+4    TSLA.O          TSLA  ...         65.265821       98.010070
+5    TSLA.O          TSLA  ...         36.490497       54.229892
+6    TSLA.O          TSLA  ...         -2.902445       -7.382595
+7    TSLA.O          TSLA  ...        -20.306070      -21.998647
+8    TSLA.O          TSLA  ...          8.548288       34.456320
+9    TSLA.O          TSLA  ...        -34.422709      -49.356229
+10   TSLA.O          TSLA  ...        -19.511791      -22.928303
+11   TSLA.O          TSLA  ...         92.625823      188.401364
+12   TSLA.O          TSLA  ...        -50.045468      -71.819999
+13   TSLA.O          TSLA  ...        -29.317702      -24.315460
+14   TSLA.O          TSLA  ...         57.604938       65.676565
+15   TSLA.O          TSLA  ...        389.435012      700.530829
+16   TSLA.O          TSLA  ...        -17.820400      -57.326660
+17   TSLA.O          TSLA  ...               NaN             NaN
+18   TSLA.O          TSLA  ...               NaN             NaN
+[19 rows x 48 columns]
 ```
 
 #### 历史分红
