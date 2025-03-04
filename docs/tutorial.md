@@ -1313,6 +1313,9 @@
  "fund_fee_em"  # 基金费率
  # 期货行情-东方财富
  "futures_hist_em"  # 期货行情-东方财富
+ # 美股财报
+ "stock_financial_us_report_em"  # 东方财富-美股-财务报表-三大报表
+ "stock_financial_us_analysis_indicator_em"  # 东方财富-美股-财务分析-主要指标
 ```
 
 ## 案例演示
