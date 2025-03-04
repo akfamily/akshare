@@ -436,15 +436,18 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
     """
     东方财富-沪深板块-概念板块-板块成份
     https://quote.eastmoney.com/center/boardlist.html#boards-BK06551
-    :param symbol: 板块名称
+    :param symbol: 板块名称或者板块代码
     :type symbol: str
     :return: 板块成份
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = __stock_board_concept_name_em()
-    stock_board_code = stock_board_concept_em_map[
-        stock_board_concept_em_map["板块名称"] == symbol
-    ]["板块代码"].values[0]
+    if re.match(pattern=r"^BK\d+", string=symbol):
+        stock_board_code = symbol
+    else:
+        stock_board_concept_em_map = __stock_board_concept_name_em()
+        stock_board_code = stock_board_concept_em_map[
+            stock_board_concept_em_map["板块名称"] == symbol
+        ]["板块代码"].values[0]
     url = "https://29.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
@@ -557,5 +560,5 @@ if __name__ == "__main__":
     )
     print(stock_board_concept_hist_min_em_df)
 
-    stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="融资融券")
+    stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="BK0655")
     print(stock_board_concept_cons_em_df)
