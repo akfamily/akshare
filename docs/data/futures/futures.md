@@ -1098,8 +1098,8 @@ print(futures_gfex_position_rank_dict)
 ```python
 import akshare as ak
 
-czce_warehouse_receipt_df = ak.futures_czce_warehouse_receipt(date="20200702")
-print(czce_warehouse_receipt_df)
+futures_czce_warehouse_receipt_df = ak.futures_czce_warehouse_receipt(date="20200702")
+print(futures_czce_warehouse_receipt_df)
 ```
 
 数据示例
