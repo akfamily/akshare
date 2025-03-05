@@ -100,9 +100,9 @@ def futures_global_em() -> pd.DataFrame:
 
 def futures_global_hist_em(symbol: str = "HG00Y") -> pd.DataFrame:
     """
-    东方财富网-行情中心-期货市场-国际期货
+    东方财富网-行情中心-期货市场-国际期货-历史行情数据
     https://quote.eastmoney.com/center/gridlist.html#futures_global
-    :return: 行情数据
+    :return: 历史行情数据
     :rtype: pandas.DataFrame
     """
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
