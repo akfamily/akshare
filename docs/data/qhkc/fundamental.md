@@ -117,15 +117,16 @@ inventory
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|trans_date |date   |查询日期  |
-|vol |float   |库存数据量  |
+| 参数名        | 类型    | 说明    |
+|:-----------|:------|-------|
+| trans_date | date  | 查询日期  |
+| vol        | float | 库存数据量 |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 inventory_df = pro.inventory(variety="RB", date="2018-08-08")
 print(inventory_df)
@@ -151,23 +152,24 @@ inventory
 
 #### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----                           |
-|variety |品种编码   |RB|
-|year |查询年份   |2019|
-|week_number |该年第几周   |10|
+| 参数名         | 说明    | 举例   |
+|:------------|:------|------|
+| variety     | 品种编码  | RB   |
+| year        | 查询年份  | 2019 |
+| week_number | 该年第几周 | 10   |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|trans_date |date   |查询日期  |
-|vol |float   |库存数据量  |
+| 参数名        | 类型    | 说明    |
+|:-----------|:------|-------|
+| trans_date | date  | 查询日期  |
+| vol        | float | 库存数据量 |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 inventory_df = pro.inventory(variety="RB", year="2019", week_number="10")
 print(inventory_df)
@@ -491,16 +493,17 @@ warehouse_receipt
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|symbol |string   |品种编码  |
-|total_vol |float   |仓单数据  |
-|total_chge |float   |仓单变化量  |
+| 参数名        | 类型     | 说明    |
+|:-----------|:-------|-------|
+| symbol     | string | 品种编码  |
+| total_vol  | float  | 仓单数据  |
+| total_chge | float  | 仓单变化量 |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 warehouse_receipt_sum_df = pro.warehouse_receipt(date="2018-08-08")
 print(warehouse_receipt_sum_df)
