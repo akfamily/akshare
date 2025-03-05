@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/24 23:00
+Date: 2025/3/5 17:30
 Desc: 99 期货网-大宗商品库存数据
 https://www.99qh.com/
 """
@@ -73,7 +73,7 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
         "productId": product_id,
         "type": "1",
         "pageNo": "1",
-        "pageSize": "4000",
+        "pageSize": "5000",
         "startDate": "",
         "endDate": f"{datetime.now().date().isoformat()}",
         "appCategory": "web",
@@ -90,5 +90,5 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_inventory_99_df = futures_inventory_99(symbol="pg")
+    futures_inventory_99_df = futures_inventory_99(symbol="a")
     print(futures_inventory_99_df)
