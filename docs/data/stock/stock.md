@@ -4390,7 +4390,7 @@ print(stock_hk_daily_hfq_factor_df)
 
 #### 知名港股
 
-接口: stock_us_famous_spot_em
+接口: stock_hk_famous_spot_em
 
 目标地址: https://quote.eastmoney.com/center/gridlist.html#hk_wellknown
 

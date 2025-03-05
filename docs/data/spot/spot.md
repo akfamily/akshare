@@ -434,7 +434,7 @@ print(spot_hog_lean_price_soozhu_df)
 
 #### 全国三元仔猪
 
-接口: spot_hog_lean_price_soozhu
+接口: spot_hog_three_way_soozhu
 
 目标地址: https://www.soozhu.com/price/data/center/
 
