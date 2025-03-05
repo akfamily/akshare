@@ -80,6 +80,15 @@
 
 ## 更新说明详情
 
+1.16.27 fix: fix futures_global_em interface
+
+	1. 修复 futures_global_em 接口
+	2. 修复 futures_foreign_commodity_realtime 接口
+	3. 修复 futures_foreign_hist 接口
+	4. 修复 futures_inventory_99 接口
+	5. 修复 futures_inventory_em 接口
+	6. 修复 futures_hold_pos_sina 接口
+
 1.16.26 add: add stock_hsgt_sh_hk_spot_em interface
 
 	1. 新增 stock_hsgt_sh_hk_spot_em 接口
@@ -5232,6 +5241,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.27 fix: fix futures_global_em interface
 
 1.16.26 add: add stock_hsgt_sh_hk_spot_em interface
 
