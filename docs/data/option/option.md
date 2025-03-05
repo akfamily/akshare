@@ -1406,7 +1406,7 @@ print(option_cffex_hs300_daily_sina_df)
 
 ##### 日频行情-中证1000指数
 
-接口: option_cffex_zz1000_spot_sina
+接口: option_cffex_zz1000_daily_sina
 
 目标地址: https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
