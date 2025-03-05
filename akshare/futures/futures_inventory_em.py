@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/27 17:00
+Date: 2025/3/5 17:30
 Desc: 东方财富网-数据中心-期货库存数据
 https://data.eastmoney.com/ifdata/kcsj.html
 """
 
 import pandas as pd
 import requests
+from akshare.futures.cons import futures_inventory_em_symbol_dict
 
 
-def futures_inventory_em(symbol: str = "A") -> pd.DataFrame:
+def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
     """
     东方财富网-数据中心-期货库存数据
     https://data.eastmoney.com/ifdata/kcsj.html
@@ -36,11 +37,10 @@ def futures_inventory_em(symbol: str = "A") -> pd.DataFrame:
     symbol_dict = dict(zip(temp_df["TRADE_TYPE"], temp_df["TRADE_CODE"]))
     if symbol in symbol_dict.keys():
         product_id = symbol_dict[symbol]
-    elif symbol in symbol_dict.values():  # 如果输入的是代码
-        product_id = symbol
+    elif symbol in futures_inventory_em_symbol_dict.keys():  # 如果输入的是代码
+        product_id = futures_inventory_em_symbol_dict[symbol]
     else:
         raise ValueError(f"请输入正确的 symbol, 可选项为: {symbol_dict}")
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "reportName": "RPT_FUTU_STOCKDATA",
         "columns": "SECURITY_CODE,TRADE_DATE,ON_WARRANT_NUM,ADDCHANGE",
@@ -67,5 +67,5 @@ def futures_inventory_em(symbol: str = "A") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_inventory_em_df = futures_inventory_em(symbol="A")
+    futures_inventory_em_df = futures_inventory_em(symbol="a")
     print(futures_inventory_em_df)
