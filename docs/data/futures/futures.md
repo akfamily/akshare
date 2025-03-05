@@ -3209,13 +3209,13 @@ while True:
 
 #### 外盘-实时行情数据-东财
 
-接口: futures_global_em
+接口: futures_global_spot_em
 
 目标地址: https://quote.eastmoney.com/center/gridlist.html#futures_global
 
-描述: 东方财富网-行情中心-期货市场-国际期货
+描述: 东方财富网-行情中心-期货市场-国际期货-实时行情数据
 
-限量: 单次返回所有期货品种的行情数据
+限量: 单次返回所有期货品种的实时行情数据
 
 输入参数
 
@@ -3247,8 +3247,8 @@ while True:
 ```python
 import akshare as ak
 
-futures_global_em_df = ak.futures_global_em()
-print(futures_global_em_df)
+futures_global_spot_em_df = ak.futures_global_spot_em()
+print(futures_global_spot_em_df)
 ```
 
 数据示例
@@ -3269,7 +3269,66 @@ print(futures_global_em_df)
 [620 rows x 14 columns]
 ```
 
-#### 外盘-历史行情数据
+#### 外盘-历史行情数据-东财
+
+接口: futures_global_hist_em
+
+目标地址: https://quote.eastmoney.com/globalfuture/HG25J.html
+
+描述: 东方财富网-行情中心-期货市场-国际期货-历史行情数据
+
+限量: 单次返回指定品种的历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                        |
+|--------|-----|---------------------------------------------------------------------------|
+| symbol | str | symbol="HG00Y"; 品种代码；可以通过 ak.futures_global_spot_em() 来获取所有可获取历史行情数据的品种代码 |
+
+输出参数
+
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 日期  | object  | -       |
+| 代码  | object  | -       |
+| 名称  | object  | -       |
+| 开盘  | float64 | -       |
+| 最新价 | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 总量  | int64   | -       |
+| 涨幅  | float64 | 注意单位: % |
+| 持仓  | object  | -       |
+| 日增  | int64   | -       |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_global_hist_em_df = ak.futures_global_hist_em(symbol="HG00Y")
+print(futures_global_hist_em_df)
+```
+
+数据示例
+
+```
+         日期     代码      名称     开盘  ...     总量    涨幅      持仓      日增
+0     2011-07-15  HG00Y  COMEX铜  4.3740  ...      1  0.00       0           0
+1     2011-07-21  HG00Y  COMEX铜  4.4330  ...      2  1.35       0           0
+2     2011-07-29  HG00Y  COMEX铜  4.4580  ...    114  1.04       0           0
+3     2011-08-03  HG00Y  COMEX铜  4.3600  ...    167 -3.42       0           0
+4     2011-08-12  HG00Y  COMEX铜  4.0240  ...      6 -7.49       0           0
+...          ...    ...     ...     ...  ...    ...   ...     ...         ...
+3480  2025-02-27  HG00Y  COMEX铜  4.5835  ...  50367  0.17  122084        1306
+3481  2025-02-28  HG00Y  COMEX铜  4.5955  ...  42115 -1.19  123553        1469
+3482  2025-03-03  HG00Y  COMEX铜  4.5765  ...  48192  0.93  122627  4294966370
+3483  2025-03-04  HG00Y  COMEX铜  4.5880  ...  47016 -0.56  122610  4294967279
+3484  2025-03-05  HG00Y  COMEX铜  4.5800  ...  57782  5.25  123815        1205
+[3485 rows x 11 columns]
+```
+
+#### 外盘-历史行情数据-新浪
 
 接口: futures_foreign_hist
 
