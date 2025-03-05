@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/12/27 21:00
+Date: 2025/3/5 18:00
 Desc: 新浪财经-期货-成交持仓
 https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php
 """
@@ -55,6 +55,8 @@ def futures_hold_pos_sina(
             temp_df["比上交易增减"], errors="coerce"
         )
         return temp_df
+    else:
+        raise ValueError("请输入正确的 symbol 参数")
 
 
 if __name__ == "__main__":
