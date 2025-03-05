@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/12 16:58
+Date: 2025/3/5 18:00
 Desc: 期货配置文件
 """
 
@@ -11,8 +11,92 @@ import os
 import pickle
 import re
 
+
+futures_inventory_em_symbol_dict = {
+    "a": "A",  # 豆一
+    "ag": "AG",  # 沪银
+    "al": "AL",  # 沪铝
+    "ao": "AO",  # 氧化铝
+    "AP": "AP",  # 苹果
+    "au": "AU",  # 沪金
+    "b": "B",  # 豆二
+    "bb": None,  # 胶合板 (new中没有对应)
+    "bc": None,  # 国际铜 (new中没有对应)
+    "br": "BR",  # BR橡胶
+    "bu": "BU",  # 沥青
+    "c": "C",  # 玉米
+    "CF": "CF",  # 棉花/郑棉
+    "CJ": "CJ",  # 红枣
+    "cs": "CS",  # 淀粉/玉米淀粉
+    "cu": "CU",  # 沪铜
+    "CY": "CY",  # 棉纱
+    "eb": "EB",  # 苯乙烯
+    "ec": "ec",  # 集运欧线/集运指数(欧线)
+    "eg": "EG",  # 乙二醇
+    "fb": None,  # 纤维板 (new中没有对应)
+    "FG": "FG",  # 玻璃
+    "fu": "FU",  # 燃料油/燃油
+    "hc": "HC",  # 热卷
+    "i": "I",  # 铁矿石
+    "IC": "IC",  # 中证500
+    "IF": "IF",  # 沪深300
+    "IH": "IH",  # 上证50
+    "IM": "IM",  # 中证1000
+    "j": "J",  # 焦炭
+    "jd": "JD",  # 鸡蛋
+    "jm": "JM",  # 焦煤
+    "JR": None,  # 粳稻 (new中没有对应)
+    "l": "L",  # 塑料
+    "lc": "lc",  # 碳酸锂
+    "lh": "LH",  # 生猪
+    "LR": None,  # 晚籼稻 (new中没有对应)
+    "lu": "lu",  # LU燃油/低硫燃料油
+    "m": "M",  # 豆粕
+    "MA": "MA",  # 甲醇
+    "ni": "NI",  # 沪镍/镍
+    "nr": "nr",  # 20号胶
+    "OI": "OI",  # 菜籽油/菜油
+    "p": "P",  # 棕榈油/棕榈
+    "pb": "PB",  # 沪铅
+    "PF": "PF",  # 短纤
+    "pg": "PG",  # 液化气/液化石油气
+    "PK": "PK",  # 花生
+    "PM": None,  # 普麦 (new中没有对应)
+    "pp": "PP",  # 聚丙烯
+    "PX": "PX",  # 对二甲苯
+    "rb": "RB",  # 螺纹钢
+    "RI": None,  # 早籼稻 (new中没有对应)
+    "RM": "RM",  # 菜籽粕/菜粕
+    "rr": None,  # 粳米 (new中没有对应)
+    "RS": "RS",  # 油菜籽/菜籽
+    "ru": "RU",  # 橡胶
+    "SA": "SA",  # 纯碱
+    "sc": None,  # 原油 (new中没有对应)
+    "SF": "SF",  # 硅铁
+    "SH": "SH",  # 烧碱
+    "si": "si",  # 工业硅
+    "SM": "SM",  # 锰硅
+    "sn": "SN",  # 沪锡/锡
+    "sp": "SP",  # 纸浆
+    "SR": "SR",  # 白糖
+    "ss": "SS",  # 不锈钢
+    "T": "T",  # 十年国债/10年期国债
+    "TA": "TA",  # PTA
+    "TF": "TF",  # 五年国债/5年期国债
+    "TL": "TL",  # 三十年国债/30年期国债期货
+    "TS": "TS",  # 二年国债/2年期国债
+    "UR": "UR",  # 尿素
+    "v": "V",  # PVC
+    "WH": None,  # 强麦 (new中没有对应)
+    "wr": None,  # 线材 (new中没有对应)
+    "y": "Y",  # 豆油
+    "ZC": None,  # 动力煤 (new中没有对应)
+    "zn": "ZN",  # 沪锌
+}
+
 hq_sina_spot_headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,"
+    "image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     "Cache-Control": "no-cache",
@@ -21,14 +105,18 @@ hq_sina_spot_headers = {
     "Pragma": "no-cache",
     "Referer": "https://finance.sina.com.cn/futuremarket/",
     "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
 }
 
 # zh_sina_spot
 zh_subscribe_exchange_symbol_url = (
     "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
 )
-zh_match_main_contract_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
+zh_match_main_contract_url = (
+    "http://vip.stock.finance.sina.com.cn/quotes_service/"
+    "api/json_v2.php/Market_Center.getHQFuturesData"
+)
 zh_match_main_contract_payload = {
     "page": "1",
     "num": "5",
@@ -48,7 +136,8 @@ zh_sina_spot_headers = {
     "Referer": "https://finance.sina.com.cn/futuremarket/",
     "Sec-Fetch-Mode": "no-cors",
     "Sec-Fetch-Site": "cross-site",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/78.0.3904.97 Safari/537.36",
 }
 
 # 99 期货
@@ -58,10 +147,18 @@ inventory_temp_headers = {
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     "Connection": "keep-alive",
     "Content-Type": "application/x-www-form-urlencoded",
-    "Cookie": "UM_distinctid=16c378978de5cc-02cfeac5f7869b-c343162-1fa400-16c378978df8d7; __utmz=181566328.1570520149.3.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; ASP.NET_SessionId=wj5gxuzl3fvvr25503tquq55; __utmc=181566328; _fxaid=1D9A634AB9F5D0265856F7E85E7BC196%1D%2BOOl1inxPE7181fmKs5HCs%2BdLO%2Fq%2FbSvf46UVjo%2BE7w%3D%1DPYphpUa9OlzWUzatrOQTXLPOVillbwMhTIJas%2ByfkyVL2Hd5XA1GOSslksqDkMTccXvQ2duLNsc0CHT4789JrYNbakJrpzrxLnwtBC5GCTssKHGEpor6EwAZfWJgBUlCs4JYFcGUnh3jIO69A4LsOlRMOGf4c9cd%2FbohSjTx3VA%3D; __utma=181566328.1348268634.1564299852.1571066568.1571068391.7; tgw_l7_route=eb1311426274fc07631b2135a6431f7d; __utmt=1; __utmb=181566328.7.10.1571068391",
+    "Cookie": "UM_distinctid=16c378978de5cc-02cfeac5f7869b-c343162-1fa400-16c378978df8d7; "
+    "__utmz=181566328.1570520149.3.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; "
+    "ASP.NET_SessionId=wj5gxuzl3fvvr25503tquq55; __utmc=181566328; _fxaid=1D9A634AB9F5D026585"
+    "6F7E85E7BC196%1D%2BOOl1inxPE7181fmKs5HCs%2BdLO%2Fq%2FbSvf46UVjo%2BE7w%3D%1DPYphpUa9OlzW"
+    "UzatrOQTXLPOVillbwMhTIJas%2ByfkyVL2Hd5XA1GOSslksqDkMTccXvQ2duLNsc0CHT4789JrYNbakJrpzrxL"
+    "nwtBC5GCTssKHGEpor6EwAZfWJgBUlCs4JYFcGUnh3jIO69A4LsOlRMOGf4c9cd%2FbohSjTx3VA%3D; __utma"
+    "=181566328.1348268634.1564299852.1571066568.1571068391.7; tgw_l7_route=eb1311426274fc07"
+    "631b2135a6431f7d; __utmt=1; __utmb=181566328.7.10.1571068391",
     "Host": "service.99qh.com",
     "Referer": "http://service.99qh.com/Storage/Storage.aspx?page=99qh",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
 }
 
 # 奇货可查
@@ -177,7 +274,8 @@ headers = {
     "Cache-Control": "max-age=0",
     "Accept": "text/html, */*; q=0.01",
     "X-Requested-With": "XMLHttpRequest",
-    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/56.0.2924.87 Safari/537.36",
     "DNT": "1",
     "Referer": "http://www.super-ping.com/?ping=www.google.com&locale=sc",
     "Accept-Encoding": "gzip, deflate, sdch",
@@ -187,7 +285,8 @@ headers = {
 shfe_headers = {"User-Agent": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"}
 
 dce_headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,"
+    "*/*;q=0.8,application/signed-exchange;v=b3",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     "Cache-Control": "max-age=0",
@@ -198,7 +297,8 @@ dce_headers = {
     "Proxy-Connection": "keep-alive",
     "Referer": "http://www.dce.com.cn/publicweb/quotesdata/weekQuotesCh.html",
     "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/77.0.3865.90 Safari/537.36",
 }
 
 SYS_SPOT_PRICE_URL = "http://www.100ppi.com/sf/day-{}.html"
@@ -206,8 +306,16 @@ SYS_SPOT_PRICE_LATEST_URL = "http://www.100ppi.com/sf/"
 
 SHFE_VOL_RANK_URL = "https://tsite.shfe.com.cn/data/dailydata/kx/pm%s.dat"
 CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/sj/ccpm/%s/%s/%s_1.csv"
-DCE_VOL_RANK_URL_1 = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=%s&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
-DCE_VOL_RANK_URL_2 = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=all&contract.variety_id=%s&year=%s&month=%s&day=%s"
+DCE_VOL_RANK_URL_1 = (
+    "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?"
+    "memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.cont"
+    "ract_id=%s&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
+)
+DCE_VOL_RANK_URL_2 = (
+    "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDeal"
+    "PosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id="
+    "all&contract.variety_id=%s&year=%s&month=%s&day=%s"
+)
 CZCE_VOL_RANK_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/pm/pm%s.html"
 CZCE_VOL_RANK_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm"
 CZCE_VOL_RANK_URL_3 = (
