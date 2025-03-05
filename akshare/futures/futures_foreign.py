@@ -1,30 +1,36 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/19 23:10
+Date: 2025/3/5 18:00
 Desc: 外盘期货-历史行情数据-日频率
 https://finance.sina.com.cn/money/future/hf.html
 """
+
 from datetime import datetime
 from io import StringIO
 
 import pandas as pd
 import requests
 
-from akshare.futures.futures_hq_sina import futures_foreign_commodity_subscribe_exchange_symbol
+from akshare.futures.futures_hq_sina import (
+    futures_foreign_commodity_subscribe_exchange_symbol,
+)
 
 
 def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     """
     外盘期货-历史行情数据-日频率
     https://finance.sina.com.cn/money/future/hf.html
-    :param symbol: futures symbol, you can get it from futures_foreign_commodity_subscribe_exchange_symbol
+    :param symbol: 外盘期货代码, 可以通过 ak.futures_foreign_commodity_subscribe_exchange_symbol() 来获取所有品种代码
     :type symbol: str
-    :return: historical data from 2010
+    :return: 历史行情数据-日频率
     :rtype: pandas.DataFrame
     """
-    today = f'{datetime.today().year}_{datetime.today().month}_{datetime.today().day}'
-    url = f"https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_S{today}=/GlobalFuturesService.getGlobalFuturesDailyKLine"
+    today = f"{datetime.today().year}_{datetime.today().month}_{datetime.today().day}"
+    url = (
+        f"https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_S{today}=/"
+        f"GlobalFuturesService.getGlobalFuturesDailyKLine"
+    )
     params = {
         "symbol": symbol,
         "_": today,
@@ -32,7 +38,7 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_df = pd.read_json(StringIO(data_text[data_text.find("["):-2]))
+    data_df = pd.read_json(StringIO(data_text[data_text.find("[") : -2]))
     return data_df
 
 
@@ -52,7 +58,7 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
     return data_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     futures_foreign_hist_df = futures_foreign_hist(symbol="ZSD")
     print(futures_foreign_hist_df)
 
