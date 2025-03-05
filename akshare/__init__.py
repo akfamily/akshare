@@ -3037,9 +3037,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.26 add: add stock_hsgt_sh_hk_spot_em interface
 1.16.27 fix: fix futures_global_em interface
 1.16.28 fix: fix futures_global_hist_em interface
+1.16.29 fix: fix futures_global_hist_em interface
 """
 
-__version__ = "1.16.28"
+__version__ = "1.16.29"
 __author__ = "AKFamily"
 
 import sys
@@ -3214,7 +3215,7 @@ from akshare.stock_feature.stock_hsgt_min_em import stock_hsgt_fund_min_em
 """
 东方财富网-行情中心-期货市场-国际期货
 """
-from akshare.futures.futures_hf_em import futures_global_em
+from akshare.futures.futures_hf_em import futures_global_spot_em, futures_global_hist_em
 
 """
 雪球行情数据
