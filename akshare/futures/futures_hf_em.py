@@ -98,6 +98,37 @@ def futures_global_em() -> pd.DataFrame:
     return big_df
 
 
+def futures_global_hist_em(symbol: str = "HG00Y") -> pd.DataFrame:
+    """
+    东方财富网-行情中心-期货市场-国际期货
+    https://quote.eastmoney.com/center/gridlist.html#futures_global
+    :return: 行情数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
+    params = {
+        "secid": f"101.{symbol}",
+        "klt": "101",
+        "fqt": "1",
+        "lmt": "66",
+        "end": "20500000",
+        "iscca": "1",
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64",
+        "ut": "f057cbcbce2a86e2866ab8877db1d059",
+        "forcect": "1",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df["code"] = data_json["data"]["code"]
+    temp_df["name"] = data_json["data"]["name"]
+    return temp_df
+
+
 if __name__ == "__main__":
     futures_global_em_df = futures_global_em()
     print(futures_global_em_df)
+
+    futures_global_hist_em_df = futures_global_hist_em(symbol="HG25M")
+    print(futures_global_hist_em_df)
