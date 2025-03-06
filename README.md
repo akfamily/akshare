@@ -7,7 +7,7 @@
 详情请关注【数据科学实战】公众号，查看更多课程信息！
 
 **广告推广**：期魔方是一款非常专业本地化期货量化终端，无需部署或搭建环境，可直接调用及时和历史数据做回测实盘，
-支持开箱即用的机器学习训练，策略投研、回测均免费，详情请[访问期魔方官网](https://qmfquant.com)
+支持开箱即用的机器学习训练，策略投研、回测均免费，详情请[访问期魔方官网](https://qmfquant.com)。
 
 ![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 
