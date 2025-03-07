@@ -81,6 +81,13 @@
 
 ## 更新说明详情
 
+1.16.32 fix: fix news_economic_baidu interface
+
+	1. 修复 news_economic_baidu 接口
+	2. 修复 news_trade_notify_suspend_baidu 接口
+	3. 修复 news_trade_notify_dividend_baidu 接口
+	4. 修复 news_report_time_baidu 接口
+
 1.16.31 add: add index_global_hist_em interface
 
 	1. 新增 index_global_hist_em 接口
@@ -5263,6 +5270,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.32 fix: fix news_economic_baidu interface
 
 1.16.31 add: add index_global_hist_em interface
 
