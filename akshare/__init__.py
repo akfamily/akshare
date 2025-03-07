@@ -3040,9 +3040,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.29 fix: fix futures_global_hist_em interface
 1.16.30 add: add forex_hist_em interface
 1.16.31 add: add index_global_hist_em interface
+1.16.32 fix: fix news_economic_baidu interface
 """
 
-__version__ = "1.16.31"
+__version__ = "1.16.32"
 __author__ = "AKFamily"
 
 import sys
