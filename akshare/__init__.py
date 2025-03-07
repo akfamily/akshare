@@ -3039,9 +3039,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.28 fix: fix futures_global_hist_em interface
 1.16.29 fix: fix futures_global_hist_em interface
 1.16.30 add: add forex_hist_em interface
+1.16.31 add: add index_global_hist_em interface
 """
 
-__version__ = "1.16.30"
+__version__ = "1.16.31"
 __author__ = "AKFamily"
 
 import sys
@@ -3062,6 +3063,16 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+新浪财经-行情中心-环球市场
+"""
+from akshare.index.index_global_sina import index_global_hist_sina, index_global_name_table
+
+"""
+东方财富网-行情中心-全球指数
+"""
+from akshare.index.index_global_em import index_global_hist_em, index_global_spot_em
 
 """
 东方财富网-行情中心-外汇市场-所有汇率
