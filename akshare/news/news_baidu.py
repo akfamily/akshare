@@ -1,16 +1,13 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/11/07 17:00
+Date: 2025/3/7 20:30
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
 
-import http.client
-import json
-from urllib.parse import urlencode
-
 import pandas as pd
+import requests
 
 
 def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
@@ -24,7 +21,7 @@ def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    url = "https://finance.pae.baidu.com/api/financecalendar"
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -32,12 +29,8 @@ def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "economic_data",
         "finClientType": "pc",
     }
-    query_string = urlencode(params)
-    url = "/api/financecalendar" + "?" + query_string
-    conn.request(method="GET", url=url)
-    r = conn.getresponse()
-    data = r.read()
-    data_json = json.loads(data)
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
         if not item["list"] == []:
@@ -90,7 +83,7 @@ def news_trade_notify_suspend_baidu(date: str = "20241107") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    url = "https://finance.pae.baidu.com/api/financecalendar"
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -98,12 +91,8 @@ def news_trade_notify_suspend_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "notify_suspend",
         "finClientType": "pc",
     }
-    query_string = urlencode(params)
-    url = "/api/financecalendar" + "?" + query_string
-    conn.request(method="GET", url=url)
-    r = conn.getresponse()
-    data = r.read()
-    data_json = json.loads(data)
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
         if not item["list"] == []:
@@ -151,7 +140,7 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    url = "https://finance.pae.baidu.com/api/financecalendar"
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -160,12 +149,8 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
         "rn": 500,
         "pn": 0,
     }
-    query_string = urlencode(params)
-    url = "/api/financecalendar" + "?" + query_string
-    conn.request(method="GET", url=url)
-    r = conn.getresponse()
-    data = r.read()
-    data_json = json.loads(data)
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
         if not item["list"] == []:
@@ -223,7 +208,7 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    url = "https://finance.pae.baidu.com/api/financecalendar"
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -231,12 +216,8 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "report_time",
         "finClientType": "pc",
     }
-    query_string = urlencode(params)
-    url = "/api/financecalendar" + "?" + query_string
-    conn.request(method="GET", url=url)
-    r = conn.getresponse()
-    data = r.read()
-    data_json = json.loads(data)
+    r = requests.get(url=url, params=params)
+    data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
         if not item["list"] == []:
@@ -265,7 +246,7 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20241107")
+    news_economic_baidu_df = news_economic_baidu(date="20250307")
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(
