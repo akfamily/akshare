@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 14:00
+Date: 2025/3/9 18:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
 
-from functools import lru_cache
+import math
 
 import pandas as pd
 import requests
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
@@ -22,13 +23,13 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "20000",
+        "pz": "200",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
         "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
@@ -36,7 +37,20 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, timeout=15)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.columns = [
         "_",
         "最新价",
@@ -937,79 +951,6 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-@lru_cache()
-def code_id_map_em() -> dict:
-    """
-    东方财富-股票和市场代码
-    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
-    :return: 股票和市场代码
-    :rtype: dict
-    """
-    url = "https://80.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "50000",
-        "po": "1",
-        "np": "2",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f12",
-        "_": "1623833739532",
-    }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df["market_id"] = 1
-    temp_df.columns = ["sh_code", "sh_id"]
-    code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
-    params = {
-        "pn": "1",
-        "pz": "50000",
-        "po": "1",
-        "np": "2",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f12",
-        "_": "1623833739532",
-    }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df_sz["sz_id"] = 0
-    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
-    params = {
-        "pn": "1",
-        "pz": "50000",
-        "po": "1",
-        "np": "2",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:0 t:81 s:2048",
-        "fields": "f12",
-        "_": "1623833739532",
-    }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df_sz["bj_id"] = 0
-    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
-    return code_id_dict
-
-
 def stock_zh_a_hist(
     symbol: str = "000001",
     period: str = "daily",
@@ -1036,7 +977,7 @@ def stock_zh_a_hist(
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = code_id_map_em()
+    market_code = 1 if symbol.startswith("6") else 0
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
@@ -1046,7 +987,7 @@ def stock_zh_a_hist(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "secid": f"{market_code}.{symbol}",
         "beg": start_date,
         "end": end_date,
         "_": "1623766962675",
@@ -1124,7 +1065,7 @@ def stock_zh_a_hist_min_em(
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = code_id_map_em()
+    market_code = 1 if symbol.startswith("6") else 0
     adjust_map = {
         "": "0",
         "qfq": "1",
@@ -1138,7 +1079,7 @@ def stock_zh_a_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "ndays": "5",
             "iscr": "0",
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
+            "secid": f"{market_code}.{symbol}",
             "_": "1623766962675",
         }
         r = requests.get(url, timeout=15, params=params)
@@ -1176,7 +1117,7 @@ def stock_zh_a_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "klt": period,
             "fqt": adjust_map[adjust],
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
+            "secid": f"{market_code}.{symbol}",
             "beg": "0",
             "end": "20500000",
             "_": "1630930917857",
@@ -1248,7 +1189,7 @@ def stock_zh_a_hist_pre_min_em(
     :return: 每日分时行情包含盘前数据
     :rtype: pandas.DataFrame
     """
-    code_id_dict = code_id_map_em()
+    market_code = 1 if symbol.startswith("6") else 0
     url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
@@ -1257,7 +1198,7 @@ def stock_zh_a_hist_pre_min_em(
         "ndays": "1",
         "iscr": "1",
         "iscca": "0",
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "secid": f"{market_code}.{symbol}",
         "_": "1623766962675",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -1928,9 +1869,6 @@ if __name__ == "__main__":
     stock_zh_b_spot_em_df = stock_zh_b_spot_em()
     print(stock_zh_b_spot_em_df)
 
-    code_id_map_em_df = code_id_map_em()
-    print(code_id_map_em_df)
-
     stock_hk_spot_em_df = stock_hk_spot_em()
     print(stock_hk_spot_em_df)
 
@@ -2008,8 +1946,8 @@ if __name__ == "__main__":
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
         symbol="300364",
-        start_date="2025-02-14 09:30:00",
-        end_date="2025-02-14 15:00:00",
+        start_date="2025-03-07 09:30:00",
+        end_date="2025-03-07 15:00:00",
         period="5",
         adjust="hfq",
     )
@@ -2028,8 +1966,8 @@ if __name__ == "__main__":
         symbol="01611",
         period="1",
         adjust="",
-        start_date="2024-04-12 09:30:00",
-        end_date="2024-04-12 18:32:00",
+        start_date="2025-03-07 09:30:00",
+        end_date="2025-03-07 18:32:00",
     )
     print(stock_hk_hist_min_em_df)
 
