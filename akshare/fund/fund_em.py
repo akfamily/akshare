@@ -282,7 +282,7 @@ def fund_open_fund_daily_em() -> pd.DataFrame:
         "gsid": "",
         "text": "",
         "sort": "zdf,desc",
-        "page": "1,20000",
+        "page": "1,50000",
         "dt": "1580914040623",
         "atfc": "",
         "onlySale": "0",
