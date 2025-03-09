@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/5 19:00
+Date: 2025/3/9 22:00
 Desc: 东方财富网-行情中心-期货市场-国际期货
 https://quote.eastmoney.com/center/gridlist.html#futures_global
 """
@@ -93,7 +93,7 @@ def futures_global_spot_em() -> pd.DataFrame:
     """
     url = "https://futsseapi.eastmoney.com/list/COMEX,NYMEX,COBOT,SGX,NYBOT,LME,MDEX,TOCOM,IPE"
     params = {
-        "orderBy": "zdf",
+        "orderBy": "dm",
         "sort": "desc",
         "pageSize": "20",
         "pageIndex": "0",
