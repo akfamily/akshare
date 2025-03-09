@@ -81,6 +81,16 @@
 
 ## 更新说明详情
 
+1.16.33 fix: fix fund_open_fund_daily_em interface
+
+	1. 修复 fund_open_fund_daily_em 接口
+	2. 修复 stock_zh_a_spot_em 接口
+	3. 修复 stock_zh_a_hist 接口
+	4. 修复 stock_zh_a_hist_min_em 接口
+	5. 修复 stock_zh_a_hist_pre_min_em 接口
+	6. 修复 stock_bid_ask_em 接口
+	7. 修复 stock_individual_info_em 接口
+
 1.16.32 fix: fix news_economic_baidu interface
 
 	1. 修复 news_economic_baidu 接口
@@ -5270,6 +5280,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.33 fix: fix fund_open_fund_daily_em interface
 
 1.16.32 fix: fix news_economic_baidu interface
 
