@@ -9,8 +9,6 @@ https://quote.eastmoney.com/sz000001.html
 import pandas as pd
 import requests
 
-from akshare.stock_feature.stock_hist_em import code_id_map_em
-
 
 def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
     """
@@ -22,7 +20,7 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://push2.eastmoney.com/api/qt/stock/get"
-    code_id_map_em_dict = code_id_map_em()
+    market_code = 1 if symbol.startswith("6") else 0
     params = {
         "fltt": "2",
         "invt": "2",
@@ -34,7 +32,7 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
         "f268,f255,f256,f257,f258,f127,f199,f128,f198,f259,f260,f261,f171,f277,f278,"
         "f279,f288,f152,f250,f251,f252,f253,f254,f269,f270,f271,f272,f273,f274,f275,"
         "f276,f265,f266,f289,f290,f286,f285,f292,f293,f294,f295",
-        "secid": f"{code_id_map_em_dict[symbol]}.{symbol}",
+        "secid": f"{market_code}.{symbol}",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
