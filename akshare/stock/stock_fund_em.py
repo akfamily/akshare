@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 14:30
+Date: 2025/3/9 19:00
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
 
-import json
+import math
 import time
 from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_individual_fund_flow(
@@ -43,8 +44,8 @@ def stock_individual_fund_flow(
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    json_data = r.json()
-    content_list = json_data["data"]["klines"]
+    data_json = r.json()
+    content_list = data_json["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
         "日期",
@@ -147,9 +148,9 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     params = {
         "fid": indicator_map[indicator][0],
         "po": "1",
-        "pz": "50000",
+        "pz": "200",
         "pn": "1",
-        "np": "2",
+        "np": "1",
         "fltt": "2",
         "invt": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -158,7 +159,20 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     if indicator == "今日":
@@ -348,13 +362,11 @@ def stock_market_fund_flow() -> pd.DataFrame:
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
-        "cb": "jQuery183003743205523325188_1589197499471",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
-    content_list = json_data["data"]["klines"]
+    data_json = r.json()
+    content_list = data_json["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
         "日期",
@@ -468,9 +480,9 @@ def stock_sector_fund_flow_rank(
     }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "200",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
@@ -479,13 +491,25 @@ def stock_sector_fund_flow_rank(
         "stat": indicator_map[indicator][1],
         "fields": indicator_map[indicator][2],
         "rt": "52975239",
-        "cb": "jQuery18308357908311220152_1589256588824",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    data_json = r.json()
+    total_page = math.ceil(data_json["data"]["total"] / 200)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
+
     if indicator == "今日":
         temp_df.columns = [
             "-",
