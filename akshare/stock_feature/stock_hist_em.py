@@ -1009,6 +1009,11 @@ def code_id_map_em() -> dict:
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     return code_id_dict
 
+def get_code_market(code):
+    if code[0] < '6' and code[:2] not in ['11']:
+        return 0
+    else:
+        return 1
 
 def stock_zh_a_hist(
     symbol: str = "000001",
@@ -1046,7 +1051,7 @@ def stock_zh_a_hist(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "secid": f"{get_code_market(symbol)}.{symbol}",
         "beg": start_date,
         "end": end_date,
         "_": "1623766962675",
@@ -1138,7 +1143,7 @@ def stock_zh_a_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "ndays": "5",
             "iscr": "0",
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
+            "secid": f"{get_code_market(symbol)}.{symbol}",
             "_": "1623766962675",
         }
         r = requests.get(url, timeout=15, params=params)
@@ -1176,7 +1181,7 @@ def stock_zh_a_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "klt": period,
             "fqt": adjust_map[adjust],
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
+            "secid": f"{get_code_market(symbol)}.{symbol}",
             "beg": "0",
             "end": "20500000",
             "_": "1630930917857",
@@ -1257,7 +1262,7 @@ def stock_zh_a_hist_pre_min_em(
         "ndays": "1",
         "iscr": "1",
         "iscca": "0",
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "secid": f"{get_code_market(symbol)}.{symbol}",
         "_": "1623766962675",
     }
     r = requests.get(url, timeout=15, params=params)
