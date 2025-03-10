@@ -81,6 +81,11 @@
 
 ## 更新说明详情
 
+1.16.42 fix: fix stock_concept_fund_flow_hist interface
+
+	1. 修复 stock_concept_fund_flow_hist 接口
+	2. 修复 stock_board_industry_cons_em 接口
+
 1.16.41 fix: fix stock_individual_fund_flow_rank interface
 
 	1. 修复 stock_individual_fund_flow_rank 接口
@@ -5319,6 +5324,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.42 fix: fix stock_concept_fund_flow_hist interface
 
 1.16.41 fix: fix stock_individual_fund_flow_rank interface
 
