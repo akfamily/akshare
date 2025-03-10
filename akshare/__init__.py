@@ -3048,9 +3048,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.37 fix: fix stock_board_concept_hist_em interface
 1.16.38 fix: fix fund_etf_hist_em interface
 1.16.39 fix: fix option_current_em interface
+1.16.40 add: add stock_individual_basic_info_xq interface
 """
 
-__version__ = "1.16.39"
+__version__ = "1.16.40"
 __author__ = "AKFamily"
 
 import sys
@@ -3071,6 +3072,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+雪球-个股-公司概况-公司简介
+"""
+from akshare.stock_fundamental.stock_basic_info_xq import stock_individual_basic_info_xq
 
 """
 新浪财经-行情中心-环球市场
