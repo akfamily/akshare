@@ -28,18 +28,18 @@ def _convert_timestamp(timestamp_ms: int) -> str:
 
 def stock_individual_spot_xq(
     symbol: str = "SH600000",
-    timeout: float = None,
     token: str = None,
+    timeout: float = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
     https://xueqiu.com/S/SH600000
     :param symbol: 证券代码，可以是 A 股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :param token: set xueqiu token
     :type token: str
+    :param timeout: choice of None or a positive float number
+    :type timeout: float
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
