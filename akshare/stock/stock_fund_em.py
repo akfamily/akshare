@@ -1059,24 +1059,18 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     :rtype: dict
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
-        "fields": "f12,f13,f14,f62",
+        "np": "1",
+        "fields": "f3,f12,f13,f14,f62",
         "fid": "f62",
         "fs": "m:90+t:3",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "_": int(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
     return name_code_map
 
@@ -1322,7 +1316,7 @@ if __name__ == "__main__":
     stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="汽车服务")
     print(stock_sector_fund_flow_hist_df)
 
-    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="数据要素")
+    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="半导体概念")
     print(stock_concept_fund_flow_hist_df)
 
     stock_main_fund_flow_df = stock_main_fund_flow(symbol="全部股票")
