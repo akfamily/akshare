@@ -109,7 +109,7 @@ def stock_intraday_em(symbol: str = "000001") -> pd.DataFrame:
     :return: 分时数据
     :rtype: pandas.DataFrame
     """
-    code_id_map_em_dict = __code_id_map_em()
+    market_code = 1 if symbol.startswith("6") else 0
     url = "https://70.push2.eastmoney.com/api/qt/stock/details/sse"
     params = {
         "fields1": "f1,f2,f3,f4",
@@ -118,7 +118,7 @@ def stock_intraday_em(symbol: str = "000001") -> pd.DataFrame:
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "pos": "-0",
-        "secid": f"{code_id_map_em_dict[symbol]}.{symbol}",
+        "secid": f"{market_code}.{symbol}",
         "wbp2u": "|0|0|0|web",
     }
 
