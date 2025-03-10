@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 20:30
+Date: 2025/3/10 18:30
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -11,8 +11,8 @@ import datetime
 import re
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.index.cons import (
     zh_sina_index_stock_payload,
@@ -22,6 +22,7 @@ from akshare.index.cons import (
 )
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import demjson
+from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -135,9 +136,9 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     url = "https://33.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -151,7 +152,7 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.rename(
@@ -205,7 +206,7 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_zh_index_spot_em(symbol: str = "沪深重要指数") -> pd.DataFrame:
+def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深京指数
     https://quote.eastmoney.com/center/gridlist.html#index_sz
@@ -219,31 +220,27 @@ def stock_zh_index_spot_em(symbol: str = "沪深重要指数") -> pd.DataFrame:
 
     url = "https://48.push2.eastmoney.com/api/qt/clist/get"
     symbol_map = {
-        "上证系列指数": "m:1 s:2",
+        "上证系列指数": "m:1+t:1",
         "深证系列指数": "m:0 t:5",
-        "指数成份": "m:1 s:3,m:0 t:5",
+        "指数成份": "m:1+s:3,m:0+t:5",
         "中证系列指数": "m:2",
     }
     params = {
         "pn": "1",
-        "pz": "20000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "wbp2u": "|0|0|0|web",
-        "fid": "f3",
+        "fid": "f12",
         "fs": symbol_map[symbol],
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1704327268532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"].astype(int) + 1
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "index": "序号",
