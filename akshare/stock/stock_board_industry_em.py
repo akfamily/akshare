@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/28 16:30
+Date: 2025/3/10 19:30
 Desc: 东方财富-沪深板块-行业板块
 https://quote.eastmoney.com/center/boardlist.html#industry_board
 """
@@ -11,6 +11,8 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+
+from akshare.utils.func import fetch_paginated_data
 
 
 @lru_cache()
@@ -24,9 +26,9 @@ def __stock_board_industry_name_em() -> pd.DataFrame:
     url = "https://17.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -37,11 +39,7 @@ def __stock_board_industry_name_em() -> pd.DataFrame:
         "f140,f141,f207,f208,f209,f222",
         "_": "1626075887768",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
         "排名",
         "-",
@@ -125,9 +123,9 @@ def stock_board_industry_name_em() -> pd.DataFrame:
     url = "https://17.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -138,11 +136,7 @@ def stock_board_industry_name_em() -> pd.DataFrame:
         "f140,f141,f207,f208,f209,f222",
         "_": "1626075887768",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
         "排名",
         "-",
