@@ -22,6 +22,7 @@ from akshare.bond.cons import (
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
+from akshare.utils.func import fetch_paginated_data
 
 
 def _get_zh_bond_hs_cov_page_count() -> int:
@@ -57,7 +58,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
-        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     return big_df
 
 
@@ -95,39 +96,35 @@ def _code_id_map() -> dict:
     url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f12",
+        "fields": "f3,f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df["market_id"] = 1
-    temp_df.columns = ["sh_code", "sh_id"]
+    temp_df.rename(columns={"f12": "sh_code", "market_id": "sh_id"}, inplace=True)
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f12",
+        "fields": "f3,f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df_sz = fetch_paginated_data(url, params)
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     return code_id_dict
@@ -478,9 +475,9 @@ def bond_cov_comparison() -> pd.DataFrame:
     url = "https://16.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -490,12 +487,7 @@ def bond_cov_comparison() -> pd.DataFrame:
         "f235,f236,f237,f238,f239,f240,f241,f242,f26,f243",
         "_": "1590386857527",
     }
-    r = requests.get(url, params=params)
-    text_data = r.text
-    json_data = demjson.decode(text_data)
-    temp_df = pd.DataFrame(json_data["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
         "序号",
         "_",
