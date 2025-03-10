@@ -81,6 +81,12 @@
 
 ## 更新说明详情
 
+1.16.37 fix: fix stock_board_concept_hist_em interface
+
+	1. 修复 stock_board_concept_hist_em 接口
+	2. 修复 stock_zh_index_spot_em 接口
+	3. 修复 stock_zh_a_spot_em 接口
+
 1.16.36 fix: fix stock_intraday_em interface
 
 	1. 修复 stock_intraday_em 接口
