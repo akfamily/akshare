@@ -1753,7 +1753,7 @@ print(stock_zh_a_hist_min_em_df)
 
 目标地址: https://quote.eastmoney.com/f1.html?newcode=0.000001
 
-描述: 东财财富-分时数据
+描述: 东方财富-分时数据
 
 限量: 单次返回指定股票最近一个交易日的分时数据, 包含盘前数据
 
