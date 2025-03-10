@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/9 18:00
+Date: 2025/3/10 18:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
 
-import math
-
 import pandas as pd
 import requests
-from akshare.utils.tqdm import get_tqdm
+
+from akshare.utils.func import fetch_paginated_data
 
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
@@ -35,24 +34,9 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    per_page_num = len(data_json["data"]["diff"])
-    total_page = math.ceil(data_json["data"]["total"] / per_page_num)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "index",
         "_",
         "最新价",
         "涨跌幅",
@@ -85,8 +69,6 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
     temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
@@ -150,24 +132,21 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,"
         "f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -200,9 +179,6 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -265,9 +241,9 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -277,12 +253,9 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
         "f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -315,9 +288,6 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -380,9 +350,9 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -392,12 +362,9 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
         ",f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -430,9 +397,6 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -495,9 +459,9 @@ def stock_new_a_spot_em() -> pd.DataFrame:
     url = "https://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -508,12 +472,9 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "f25,f26,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -547,9 +508,6 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -615,9 +573,9 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
     url = "https://7.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -628,12 +586,9 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
         "f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -666,9 +621,6 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -731,9 +683,9 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
     url = "https://7.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -744,12 +696,9 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -782,9 +731,6 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -847,9 +793,9 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     url = "https://28.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -859,12 +805,9 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
         ",f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -897,9 +840,6 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -1240,9 +1180,9 @@ def stock_hk_spot_em() -> pd.DataFrame:
     url = "https://72.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -1252,12 +1192,9 @@ def stock_hk_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -1290,9 +1227,6 @@ def stock_hk_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -1332,9 +1266,9 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
     url = "https://81.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -1344,10 +1278,9 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -1380,9 +1313,6 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df = temp_df[
         [
             "序号",
@@ -1625,9 +1555,9 @@ def stock_us_spot_em() -> pd.DataFrame:
     url = "https://72.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -1637,12 +1567,9 @@ def stock_us_spot_em() -> pd.DataFrame:
         "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
+        "序号",
         "_",
         "最新价",
         "涨跌幅",
@@ -1677,9 +1604,6 @@ def stock_us_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
     temp_df["代码"] = temp_df["编码"].astype(str) + "." + temp_df["简称"]
     temp_df = temp_df[
         [
