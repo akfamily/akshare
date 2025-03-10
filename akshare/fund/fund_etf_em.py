@@ -11,6 +11,8 @@ from functools import lru_cache
 import pandas as pd
 import requests
 
+from akshare.utils.func import fetch_paginated_data
+
 
 @lru_cache()
 def _fund_etf_code_id_map_em() -> dict:
@@ -23,21 +25,19 @@ def _fund_etf_code_id_map_em() -> dict:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
-        "fields": "f12,f13",
+        "fields": "f3,f12,f13",
         "_": "1672806290972",
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return temp_dict
 
@@ -52,9 +52,9 @@ def fund_etf_spot_em() -> pd.DataFrame:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -71,9 +71,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
         ),
         "_": "1672806290972",
     }
-    r = requests.get(url, timeout=15, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "f12": "代码",
@@ -218,7 +216,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
         .dt.tz_localize("UTC")
         .dt.tz_convert("Asia/Shanghai")
     )
-
     return temp_df
 
 
@@ -481,7 +478,7 @@ if __name__ == "__main__":
         symbol="511380",
         period="1",
         adjust="",
-        start_date="2024-09-04 09:30:00",
-        end_date="2024-09-04 17:40:00",
+        start_date="2025-03-10 09:30:00",
+        end_date="2025-03-10 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
