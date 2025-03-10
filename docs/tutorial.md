@@ -932,9 +932,9 @@
  "spot_quotations_sge"  # 上海黄金交易所-实时行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
  "spot_silver_benchmark_sge"  # 上海银基准价
-
  # 个股信息查询
- "stock_individual_info_em"  # 个股信息查询
+ "stock_individual_info_em"  # 个股信息查询-东财
+ "stock_individual_basic_info_xq"  # 个股信息查询-雪球
  # 中国食糖指数
  "index_sugar_msweet"  # 中国食糖指数
  # 配额内进口糖估算指数
