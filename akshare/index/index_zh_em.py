@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/24 18:20
+Date: 2025/3/11 17:00
 Desc: 东方财富网-指数行情数据
 """
 
@@ -9,6 +9,8 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+
+from akshare.utils.func import fetch_paginated_data
 
 
 @lru_cache()
@@ -22,63 +24,50 @@ def index_code_id_map_em() -> dict:
     url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "50000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
         "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f12",
+        "fields": "f3,f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df["market_id"] = 1
-    temp_df.columns = ["sh_code", "sh_id"]
-    code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
+    code_id_dict = dict(zip(temp_df["f12"], temp_df["market_id"]))
     params = {
         "pn": "1",
-        "pz": "10000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f12",
+        "fields": "f3,f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df_sz = fetch_paginated_data(url, params)
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     params = {
         "pn": "1",
-        "pz": "10000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:81 s:2048",
-        "fields": "f12",
+        "fields": "f3,f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    if not data_json["data"]["diff"]:
-        return dict()
-    temp_df_sz = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df_sz = fetch_paginated_data(url, params)
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     code_id_dict = {
@@ -440,7 +429,7 @@ if __name__ == "__main__":
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
         symbol="000001",
         period="1",
-        start_date="2025-02-24 09:30:00",
-        end_date="2025-02-24 19:00:00",
+        start_date="2025-03-11 09:30:00",
+        end_date="2025-03-11 19:00:00",
     )
     print(index_zh_a_hist_min_em_df)
