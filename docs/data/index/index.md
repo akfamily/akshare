@@ -880,7 +880,7 @@ print(index_global_hist_em_df)
 
 #### 全球指数-历史行情数据-新浪
 
-接口: index_global_hist_em
+接口: index_global_hist_sina
 
 目标地址: https://finance.sina.com.cn/stock/globalindex/quotes/UKX
 
