@@ -466,15 +466,20 @@ if __name__ == "__main__":
     stock_zh_index_spot_sina_df = stock_zh_index_spot_sina()
     print(stock_zh_index_spot_sina_df)
 
-    for item in [
-        "沪深重要指数",
-        "上证系列指数",
-        "深证系列指数",
-        "指数成份",
-        "中证系列指数",
-    ]:
-        stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol=item)
-        print(stock_zh_index_spot_em_df)
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="沪深重要指数")
+    print(stock_zh_index_spot_em_df)
+
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="上证系列指数")
+    print(stock_zh_index_spot_em_df)
+
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="深证系列指数")
+    print(stock_zh_index_spot_em_df)
+
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="指数成份")
+    print(stock_zh_index_spot_em_df)
+
+    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="中证系列指数")
+    print(stock_zh_index_spot_em_df)
 
     stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919")
     print(stock_zh_index_daily_tx_df)
