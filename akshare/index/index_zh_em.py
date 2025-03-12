@@ -428,7 +428,7 @@ if __name__ == "__main__":
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
         symbol="000001",
-        period="1",
+        period="5",
         start_date="2025-03-11 09:30:00",
         end_date="2025-03-11 19:00:00",
     )
