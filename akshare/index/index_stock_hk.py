@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/18 16:00
+Date: 2025/3/15 22:30
 Desc: 港股股票指数数据-新浪-东财
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -17,6 +17,7 @@ import py_mini_racer
 from functools import lru_cache
 
 from akshare.stock.cons import hk_js_decode
+from akshare.utils.func import fetch_paginated_data
 
 
 def _replace_comma(x) -> str:
@@ -154,9 +155,9 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
     url = "https://15.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "20000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -167,11 +168,7 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1683800547682",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"].astype(int) + 1
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "index": "序号",
@@ -302,5 +299,5 @@ if __name__ == "__main__":
     stock_hk_index_spot_em_df = stock_hk_index_spot_em()
     print(stock_hk_index_spot_em_df)
 
-    stock_hk_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
+    stock_hk_index_daily_em_df = stock_hk_index_daily_em(symbol="HSTECH")
     print(stock_hk_index_daily_em_df)
