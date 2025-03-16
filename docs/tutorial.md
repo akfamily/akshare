@@ -935,6 +935,8 @@
  # 个股信息查询
  "stock_individual_info_em"  # 个股信息查询-东财
  "stock_individual_basic_info_xq"  # 个股信息查询-雪球
+ "stock_individual_basic_info_us_xq"  # 个股信息查询-雪球-美股
+ "stock_individual_basic_info_hk_xq"  # 个股信息查询-雪球-港股
  # 中国食糖指数
  "index_sugar_msweet"  # 中国食糖指数
  # 配额内进口糖估算指数
