@@ -398,8 +398,8 @@ def stock_hsgt_stock_statistics_em(
             "-",
             "-",
             "-",
-            "持股数量",
             "持股市值",
+            "持股数量",
             "-",
             "-",
             "-",
@@ -1551,7 +1551,7 @@ if __name__ == "__main__":
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="南向持股", start_date="20240110", end_date="20240110"
+        symbol="南向持股", start_date="20250314", end_date="20250314"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
