@@ -155,7 +155,7 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
     url = "https://15.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "100",
+        "pz": "1000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
