@@ -3055,9 +3055,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.44 fix: fix stock_board_concept_hist_em interface
 1.16.45 fix: fix option_risk_analysis_em interface
 1.16.46 fix: fix stock_hk_index_spot_em interface
+1.16.47 fix: fix stock_hsgt_stock_statistics_em interface
 """
 
-__version__ = "1.16.46"
+__version__ = "1.16.47"
 __author__ = "AKFamily"
 
 import sys
@@ -3080,9 +3081,18 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+异步接口
+"""
+from akshare.stock_a.stock_zh_a_spot import stock_zh_a_spot_em
+
+"""
 雪球-个股-公司概况-公司简介
 """
-from akshare.stock_fundamental.stock_basic_info_xq import stock_individual_basic_info_xq
+from akshare.stock_fundamental.stock_basic_info_xq import (
+    stock_individual_basic_info_xq,
+    stock_individual_basic_info_hk_xq,
+    stock_individual_basic_info_us_xq,
+)
 
 """
 新浪财经-行情中心-环球市场
@@ -4161,7 +4171,7 @@ from akshare.stock_feature.stock_pankou_em import (
 A 股东方财富
 """
 from akshare.stock_feature.stock_hist_em import (
-    stock_zh_a_spot_em,
+    # stock_zh_a_spot_em,
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
     stock_kc_a_spot_em,
