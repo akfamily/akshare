@@ -39,6 +39,7 @@ setuptools.setup(
     url="https://github.com/akfamily/akshare",
     packages=setuptools.find_packages(),
     install_requires=[
+        "aiohttp>=3.11.13",
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
         "pandas>=0.25",
