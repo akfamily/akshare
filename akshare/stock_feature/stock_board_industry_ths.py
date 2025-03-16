@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/7/21 18:20
+Date: 2025/2/28 13:20
 Desc: 同花顺-板块-同花顺行业
 https://q.10jqka.com.cn/thshy/
 """
@@ -29,7 +29,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 

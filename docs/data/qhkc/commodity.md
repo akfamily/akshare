@@ -12,23 +12,23 @@ variety_positions
 
 ### 请求参数
 
-|参数名|说明|举例|
-|-----  |-----|-----|
-|fields |多头/空头   |longs: 返回多头数据; shorts: 返回空头数据  |
-|code |合约代号   |rb1810  |
-|date |查询日期   |2018-08-08  |
+| 参数名    | 说明    | 举例                            |
+|--------|-------|-------------------------------|
+| fields | 多头/空头 | longs: 返回多头数据; shorts: 返回空头数据 |
+| code   | 合约代号  | rb1810                        |
+| date   | 查询日期  | 2018-08-08                    |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|:-----|
-|longs |array   |多头龙虎榜  |
-|shorts |array   |空头龙虎榜  |
-|broker |string   |席位  |
-|long |int   |该席位多头持仓量  |
-|long_chge |int   |该席位多头持仓变化量  |
-|short |int   |该席位空头持仓量  |
-|short_chge |int   |该席位空头持仓变化量  |
+| 参数名        | 类型     | 说明         |
+|:-----------|:-------|:-----------|
+| longs      | array  | 多头龙虎榜      |
+| shorts     | array  | 空头龙虎榜      |
+| broker     | string | 席位         |
+| long       | int    | 该席位多头持仓量   |
+| long_chge  | int    | 该席位多头持仓变化量 |
+| short      | int    | 该席位空头持仓量   |
+| short_chge | int    | 该席位空头持仓变化量 |
 
 ### 示例代码
 
@@ -79,24 +79,24 @@ variety_all_positions
 
 #### 请求参数
 
-|参数名|说明|举例|
-|-----  |-----|-----|
-|fields |多头/空头   |longs: 返回多头数据; shorts: 返回空头数据  |
-|symbol |合约代号   |RB  |
-|date |查询日期   |2018-08-08  |
+| 参数名    | 说明    | 举例                            |
+|--------|-------|-------------------------------|
+| fields | 多头/空头 | longs: 返回多头数据; shorts: 返回空头数据 |
+| symbol | 合约代号  | RB                            |
+| date   | 查询日期  | 2018-08-08                    |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|:-----|
-|longs |array   |多头龙虎榜  |
-|shorts |array   |空头龙虎榜  |
-|broker |string   |席位  |
-|long |int   |该席位多头持仓量  |
-|long_chge |int   |该席位多头持仓变化量  |
-|short |int   |该席位空头持仓量  |
-|short_chge |int   |该席位空头持仓变化量  |
-|code |string   |具体合约  |
+| 参数名        | 类型     | 说明         |
+|:-----------|:-------|:-----------|
+| longs      | array  | 多头龙虎榜      |
+| shorts     | array  | 空头龙虎榜      |
+| broker     | string | 席位         |
+| long       | int    | 该席位多头持仓量   |
+| long_chge  | int    | 该席位多头持仓变化量 |
+| short      | int    | 该席位空头持仓量   |
+| short_chge | int    | 该席位空头持仓变化量 |
+| code       | string | 具体合约       |
 
 #### 示例代码
 
@@ -170,18 +170,18 @@ variety_net_positions
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|symbol |查询品种编码   |RB|
-|broker |席位   |永安期货|
-|date |查询日期   |2018-08-08|
+| 参数名    | 说明     | 举例         |
+|:-------|:-------|------------|
+| symbol | 查询品种编码 | RB         |
+| broker | 席位     | 永安期货       |
+| date   | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
-|net_position |int   |净持仓数据  |
+| 参数名          | 类型   | 说明    |
+|:-------------|:-----|-------|
+| trans_date   | date | 查询日期  |
+| net_position | int  | 净持仓数据 |
 
 ### 示例代码
 
@@ -212,21 +212,21 @@ variety_quotes
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |具体合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明     | 举例         |
+|:-----|:-------|------------|
+| code | 具体合约代号 | rb1810     |
+| date | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|open |float   |开盘价  |
-|close |float   |收盘价  |
-|high |float   |最高价  |
-|low |float   |最低价  |
-|volume |int   |成交量  |
-|openint |int   |持仓量  |
+| 参数名     | 类型    | 说明  |
+|:--------|:------|-----|
+| open    | float | 开盘价 |
+| close   | float | 收盘价 |
+| high    | float | 最高价 |
+| low     | float | 最低价 |
+| volume  | int   | 成交量 |
+| openint | int   | 持仓量 |
 
 ### 示例代码
 
@@ -262,17 +262,17 @@ variety_money
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|symbol |品种编码   |RB|
-|date |查询日期   |2018-08-08|
+| 参数名    | 说明   | 举例         |
+|:-------|:-----|------------|
+| symbol | 品种编码 | RB         |
+| date   | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
-|total_value |float   |沉淀资金量，单位元  |
+| 参数名         | 类型    | 说明        |
+|:------------|:------|-----------|
+| trans_date  | date  | 查询日期      |
+| total_value | float | 沉淀资金量，单位元 |
 
 ### 示例代码
 
@@ -303,17 +303,17 @@ variety_bbr
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |具体合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明     | 举例         |
+|:-----|:-------|------------|
+| code | 具体合约代号 | rb1810     |
+| date | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
-|bbr |float   |多空比  |
+| 参数名        | 类型    | 说明   |
+|:-----------|:------|------|
+| trans_date | date  | 查询日期 |
+| bbr        | float | 多空比  |
 
 ### 示例代码
 
@@ -344,22 +344,23 @@ variety_net_money_chge
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |具体合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明     | 举例         |
+|:-----|:-------|------------|
+| code | 具体合约代号 | rb1810     |
+| date | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|broker |string   |席位  |
-|value |float   |沉淀资金变化量，正数为向多，负数为向空，单位元  |
+| 参数名    | 类型     | 说明                      |
+|:-------|:-------|-------------------------|
+| broker | string | 席位                      |
+| value  | float  | 沉淀资金变化量，正数为向多，负数为向空，单位元 |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_net_money_chge_df = pro.variety_net_money_chge(code="rb1810", date="2018-08-08")
 print(variety_net_money_chge_df)
@@ -410,17 +411,17 @@ variety_net_money
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |具体合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明     | 举例         |
+|:-----|:-------|------------|
+| code | 具体合约代号 | rb1810     |
+| date | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|broker |string   |席位  |
-|value |float   |净持仓保证金数据，正数为净多，负数为净空，单位元  |
+| 参数名    | 类型     | 说明                       |
+|:-------|:-------|--------------------------|
+| broker | string | 席位                       |
+| value  | float  | 净持仓保证金数据，正数为净多，负数为净空，单位元 |
 
 ### 示例代码
 
@@ -476,22 +477,23 @@ variety_total_money
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |具体合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明     | 举例         |
+|:-----|:-------|------------|
+| code | 具体合约代号 | rb1810     |
+| date | 查询日期   | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|broker |string   |席位  |
-|value |float   |总持仓保证金数据，单位元  |
+| 参数名    | 类型     | 说明           |
+|:-------|:-------|--------------|
+| broker | string | 席位           |
+| value  | float  | 总持仓保证金数据，单位元 |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_total_money_df = pro.variety_total_money(code="rb1810", date="2018-08-08")
 print(variety_total_money_df)
@@ -542,23 +544,24 @@ variety_profit
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|symbol |品种编码   |RB|
-|start_date |查询开始日期   |2018-02-08|
-|end_date |查询结束日期   |2018-08-08|
+| 参数名        | 说明     | 举例         |
+|:-----------|:-------|------------|
+| symbol     | 品种编码   | RB         |
+| start_date | 查询开始日期 | 2018-02-08 |
+| end_date   | 查询结束日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|broker |string   |席位  |
-|total_profit |float   |盈亏数据，单位元  |
+| 参数名          | 类型     | 说明       |
+|:-------------|:-------|----------|
+| broker       | string | 席位       |
+| total_profit | float  | 盈亏数据，单位元 |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_profit_df = pro.variety_profit(symbol="RB", start_date="2018-02-08", end_date="2018-08-08")
 print(variety_profit_df)
@@ -643,23 +646,24 @@ variety_strategies
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|code |合约代号   |rb1810|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| code | 合约代号 | rb1810     |
+| date | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
-|longhu |float   |龙虎比  |
-|niuxiong |float   |牛熊线  |
+| 参数名        | 类型    | 说明   |
+|:-----------|:------|------|
+| trans_date | date  | 查询日期 |
+| longhu     | float | 龙虎比  |
+| niuxiong   | float | 牛熊线  |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_strategies_df = pro.variety_strategies(code="rb1810", date="2018-08-08")
 print(variety_strategies_df)
@@ -688,22 +692,23 @@ variety_longhu_top
 
 #### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| date | 查询日期 | 2018-08-08 |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|symbol |string   |品种编码  |
-|code |string   |具体合约代号  |
-|value |float   |龙虎比  |
+| 参数名    | 类型     | 说明     |
+|:-------|:-------|--------|
+| symbol | string | 品种编码   |
+| code   | string | 具体合约代号 |
+| value  | float  | 龙虎比    |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_longhu_long_top_df = pro.variety_longhu_top(fields="long", date="2018-08-08")
 print(variety_longhu_long_top_df)
@@ -737,22 +742,23 @@ variety_longhu_top
 
 #### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| date | 查询日期 | 2018-08-08 |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|symbol |string   |品种编码  |
-|code |string   |具体合约代号  |
-|value |float   |龙虎比  |
+| 参数名    | 类型     | 说明     |
+|:-------|:-------|--------|
+| symbol | string | 品种编码   |
+| code   | string | 具体合约代号 |
+| value  | float  | 龙虎比    |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_longhu_short_top_df = pro.variety_longhu_top(fields="short", date="2018-08-08")
 print(variety_longhu_short_top_df)
@@ -788,22 +794,23 @@ variety_niuxiong_top
 
 #### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| date | 查询日期 | 2018-08-08 |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|symbol |string   |品种编码  |
-|code |string   |合约代号  |
-|value |float   |牛熊线  |
+| 参数名    | 类型     | 说明   |
+|:-------|:-------|------|
+| symbol | string | 品种编码 |
+| code   | string | 合约代号 |
+| value  | float  | 牛熊线  |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_niuxiong_long_top_df = pro.variety_niuxiong_top(fields="long", date="2018-08-08")
 print(variety_niuxiong_long_top_df)
@@ -837,22 +844,23 @@ variety_niuxiong_top
 
 #### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| date | 查询日期 | 2018-08-08 |
 
 #### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|symbol |string   |品种编码  |
-|code |string   |合约代号  |
-|value |float   |牛熊线  |
+| 参数名    | 类型     | 说明   |
+|:-------|:-------|------|
+| symbol | string | 品种编码 |
+| code   | string | 合约代号 |
+| value  | float  | 牛熊线  |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_niuxiong_short_top_df = pro.variety_niuxiong_top(fields="short", date="2018-08-08")
 print(variety_niuxiong_short_top_df)
@@ -886,24 +894,25 @@ variety_reports
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|csymbolode |品种编码   |RB|
-|date |查询日期   |2018-08-08|
+| 参数名        | 说明   | 举例         |
+|:-----------|:-----|------------|
+| csymbolode | 品种编码 | RB         |
+| date       | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|title |string   |研报标题  |
-|pub |string   |研报发布人  |
-|time |datetime   |发布时间  |
-|url |string   |研报地址  |
+| 参数名   | 类型       | 说明    |
+|:------|:---------|-------|
+| title | string   | 研报标题  |
+| pub   | string   | 研报发布人 |
+| time  | datetime | 发布时间  |
+| url   | string   | 研报地址  |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_reports_df = pro.variety_reports(csymbolode="RB", date="2018-08-08")
 print(variety_reports_df)
@@ -934,23 +943,24 @@ variety_all
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|csymbolode |品种编码   |RB|
-|date |查询日期   |2018-08-08|
+| 参数名        | 说明   | 举例         |
+|:-----------|:-----|------------|
+| csymbolode | 品种编码 | RB         |
+| date       | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|name |string   |品种名称  |
-|symbol |string   |品种编码  |
-|market |string   |所在市场  |
+| 参数名    | 类型     | 说明   |
+|:-------|:-------|------|
+| name   | string | 品种名称 |
+| symbol | string | 品种编码 |
+| market | string | 所在市场 |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_all_df = pro.variety_all()
 print(variety_all_df)
@@ -1035,15 +1045,15 @@ variety_list
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|date |查询日期   |2018-08-08|
+| 参数名  | 说明   | 举例         |
+|:-----|:-----|------------|
+| date | 查询日期 | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|- |string   | 合约  |
+| 参数名 | 类型     | 说明 |
+|:----|:-------|----|
+| -   | string | 合约 |
 
 ### 示例代码
 
@@ -1083,17 +1093,17 @@ variety_no_futures
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|symbol |品种编码	   |RB|
-|date |查询日期   |2018-08-08|
+| 参数名    | 说明    | 举例         |
+|:-------|:------|------------|
+| symbol | 品种编码	 | RB         |
+| date   | 查询日期  | 2018-08-08 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   | 查询日期  |
-|net_value |int   | 非期货公司净持仓数据  |
+| 参数名        | 类型   | 说明         |
+|:-----------|:-----|------------|
+| trans_date | date | 查询日期       |
+| net_value  | int  | 非期货公司净持仓数据 |
 
 ### 示例代码
 

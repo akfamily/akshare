@@ -3017,9 +3017,49 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.6 fix: fix stock_sgt_reference_exchange_rate_sse interface
 1.16.7 fix: fix fund_lof_hist_em interface
 1.16.8 fix: fix option_czce_daily interface
+1.16.9 fix: fix stock_sse_deal_daily interface
+1.16.10 fix: fix option_risk_analysis_em interface
+1.16.11 fix: fix stock_intraday_em interface
+1.16.12 fix: fix bond_zh_hs_cov_daily interface
+1.16.13 fix: fix futures_inventory_99 interface
+1.16.14 fix: fix stock_info_global_cls interface
+1.16.15 fix: fix stock_board_concept_name_em interface
+1.16.16 fix: fix stock_board_concept_spot_em interface
+1.16.17 fix: fix stock_research_report_em interface
+1.16.18 fix: fix stock_board_concept_spot_em interface
+1.16.19 fix: fix stock_profit_forecast_ths interface
+1.16.20 fix: fix stock_lhb_detail_em interface
+1.16.21 fix: fix stock_hk_index_daily_em interface
+1.16.22 fix: fix fund_money_fund_info_em interface
+1.16.23 fix: fix stock_board_industry_cons_em interface
+1.16.24 fix: fix stock_financial_hk_report_em interface
+1.16.25 fix: fix stock_financial_abstract_ths interface
+1.16.26 add: add stock_hsgt_sh_hk_spot_em interface
+1.16.27 fix: fix futures_global_em interface
+1.16.28 fix: fix futures_global_hist_em interface
+1.16.29 fix: fix futures_global_hist_em interface
+1.16.30 add: add forex_hist_em interface
+1.16.31 add: add index_global_hist_em interface
+1.16.32 fix: fix news_economic_baidu interface
+1.16.33 fix: fix fund_open_fund_daily_em interface
+1.16.34 fix: fix stock_individual_fund_flow_rank interface
+1.16.35 fix: fix futures_global_spot_em interface
+1.16.36 fix: fix stock_intraday_em interface
+1.16.37 fix: fix stock_board_concept_hist_em interface
+1.16.38 fix: fix fund_etf_hist_em interface
+1.16.39 fix: fix option_current_em interface
+1.16.40 add: add stock_individual_basic_info_xq interface
+1.16.41 fix: fix stock_individual_fund_flow_rank interface
+1.16.42 fix: fix stock_concept_fund_flow_hist interface
+1.16.43 fix: fix option_value_analysis_em interface
+1.16.44 fix: fix stock_board_concept_hist_em interface
+1.16.45 fix: fix option_risk_analysis_em interface
+1.16.46 fix: fix stock_hk_index_spot_em interface
+1.16.47 fix: fix stock_hsgt_stock_statistics_em interface
+1.16.48 fix: fix stock_individual_basic_info_xq interface
 """
 
-__version__ = "1.16.8"
+__version__ = "1.16.48"
 __author__ = "AKFamily"
 
 import sys
@@ -3040,6 +3080,48 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+异步接口
+"""
+from akshare.stock_a.stock_zh_a_spot import stock_zh_a_spot_em
+
+"""
+雪球-个股-公司概况-公司简介
+"""
+from akshare.stock_fundamental.stock_basic_info_xq import (
+    stock_individual_basic_info_xq,
+    stock_individual_basic_info_hk_xq,
+    stock_individual_basic_info_us_xq,
+)
+
+"""
+新浪财经-行情中心-环球市场
+"""
+from akshare.index.index_global_sina import index_global_hist_sina, index_global_name_table
+
+"""
+东方财富网-行情中心-全球指数
+"""
+from akshare.index.index_global_em import index_global_hist_em, index_global_spot_em
+
+"""
+东方财富网-行情中心-外汇市场-所有汇率
+"""
+from akshare.forex.forex_em import forex_hist_em, forex_spot_em
+
+"""
+东方财富网-行情中心-沪深港通
+"""
+from akshare.stock.stock_hsgt_em import stock_zh_ah_spot_em, stock_hsgt_sh_hk_spot_em
+
+"""
+东方财富-美股-财务分析-三大报表
+"""
+from akshare.stock_fundamental.stock_finance_us_em import (
+    stock_financial_us_report_em,
+    stock_financial_us_analysis_indicator_em,
+)
 
 """
 期货行情-内盘-历史行情数据-东财
@@ -3181,7 +3263,7 @@ from akshare.stock_feature.stock_hsgt_min_em import stock_hsgt_fund_min_em
 """
 东方财富网-行情中心-期货市场-国际期货
 """
-from akshare.futures.futures_hf_em import futures_global_em
+from akshare.futures.futures_hf_em import futures_global_spot_em, futures_global_hist_em
 
 """
 雪球行情数据
@@ -4047,6 +4129,7 @@ from akshare.stock.stock_board_concept_em import (
     stock_board_concept_hist_em,
     stock_board_concept_hist_min_em,
     stock_board_concept_name_em,
+    stock_board_concept_spot_em,
 )
 
 """
@@ -4089,7 +4172,7 @@ from akshare.stock_feature.stock_pankou_em import (
 A 股东方财富
 """
 from akshare.stock_feature.stock_hist_em import (
-    stock_zh_a_spot_em,
+    # stock_zh_a_spot_em,
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
     stock_kc_a_spot_em,
@@ -4266,6 +4349,16 @@ from akshare.stock_feature.stock_report_em import (
 业绩报告
 """
 from akshare.stock_feature.stock_yjbb_em import stock_yjbb_em
+
+"""
+同花顺-概念板块
+"""
+from akshare.stock_feature.stock_board_concept_ths import (
+    stock_board_concept_info_ths,
+    stock_board_concept_summary_ths,
+    stock_board_concept_index_ths,
+    stock_board_concept_name_ths,
+)
 
 """
 同花顺-行业板块
@@ -4649,7 +4742,7 @@ from akshare.stock.stock_industry import stock_sector_spot, stock_sector_detail
 """
 stock-fundamental
 """
-from akshare.stock_fundamental.stock_finance import (
+from akshare.stock_fundamental.stock_finance_sina import (
     stock_financial_abstract,
     stock_financial_report_sina,
     stock_financial_analysis_indicator,
@@ -4666,7 +4759,7 @@ from akshare.stock_fundamental.stock_finance import (
 """
 stock-HK-fundamental
 """
-from akshare.stock_fundamental.stock_finance_hk import (
+from akshare.stock_fundamental.stock_finance_hk_em import (
     stock_financial_hk_analysis_indicator_em,
     stock_financial_hk_report_em,
 )

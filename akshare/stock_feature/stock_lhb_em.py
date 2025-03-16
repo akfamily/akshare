@@ -903,7 +903,7 @@ def stock_lhb_stock_detail_em(
 
 if __name__ == "__main__":
     stock_lhb_detail_em_df = stock_lhb_detail_em(
-        start_date="20230403", end_date="20230417"
+        start_date="20250201", end_date="20250228"
     )
     print(stock_lhb_detail_em_df)
 

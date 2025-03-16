@@ -282,7 +282,7 @@ def fund_open_fund_daily_em() -> pd.DataFrame:
         "gsid": "",
         "text": "",
         "sort": "zdf,desc",
-        "page": "1,20000",
+        "page": "1,50000",
         "dt": "1580914040623",
         "atfc": "",
         "onlySale": "0",
@@ -558,12 +558,12 @@ def fund_money_fund_daily_em() -> pd.DataFrame:
     return temp_df
 
 
-def fund_money_fund_info_em(fund: str = "000009") -> pd.DataFrame:
+def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-货币型基金收益-历史净值数据
     https://fundf10.eastmoney.com/jjjz_004186.html
-    :param fund: 货币型基金代码, 可以通过 fund_money_fund_daily_em 来获取
-    :type fund: str
+    :param symbol: 货币型基金代码, 可以通过 fund_money_fund_daily_em 来获取
+    :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-货币型基金收益-历史净值数据
     :rtype: pandas.DataFrame
     """
@@ -571,22 +571,30 @@ def fund_money_fund_info_em(fund: str = "000009") -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
+        "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
+        "Host": "api.fund.eastmoney.com",
     }
     params = {
-        "callback": "jQuery18306461675574671744_1588245122574",
-        "fundCode": fund,
+        "fundCode": symbol,
         "pageIndex": "1",
-        "pageSize": "10000",
+        "pageSize": "20",
         "startDate": "",
         "endDate": "",
         "_": round(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = math.ceil(int(data_json["TotalCount"]) / 20)
+    tqdm = get_tqdm()
+    big_list = []
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageIndex": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
+        big_list.append(temp_df)
+    big_df = pd.concat(big_list, ignore_index=True)
+    big_df.columns = [
         "净值日期",
         "每万份收益",
         "7日年化收益率",
@@ -601,10 +609,12 @@ def fund_money_fund_info_em(fund: str = "000009") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df = temp_df[
-        ["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]
-    ]
-    return temp_df
+    big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
+    big_df = big_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
+    big_df["净值日期"] = pd.to_datetime(big_df["净值日期"], errors="coerce").dt.date
+    big_df["每万份收益"] = pd.to_numeric(big_df["每万份收益"], errors="coerce")
+    big_df["7日年化收益率"] = pd.to_numeric(big_df["7日年化收益率"], errors="coerce")
+    return big_df
 
 
 def fund_financial_fund_daily_em() -> pd.DataFrame:
@@ -812,12 +822,12 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
     return data_df
 
 
-def fund_graded_fund_info_em(fund: str = "150232") -> pd.DataFrame:
+def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     https://fundf10.eastmoney.com/jjjz_150232.html
-    :param fund: 分级基金代码, 可以通过 fund_money_fund_daily_em 来获取
-    :type fund: str
+    :param symbol: 分级基金代码, 可以通过 ak.fund_money_fund_daily_em() 来获取
+    :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     :rtype: pandas.DataFrame
     """
@@ -825,22 +835,29 @@ def fund_graded_fund_info_em(fund: str = "150232") -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
+        "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
-        "callback": "jQuery18309549480723031107_1588250168187",
-        "fundCode": fund,
+        "fundCode": symbol,
         "pageIndex": "1",
-        "pageSize": "10000",
+        "pageSize": "20",
         "startDate": "",
         "endDate": "",
         "_": round(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = math.ceil(int(data_json["TotalCount"]) / 20)
+    tqdm = get_tqdm()
+    big_list = []
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageIndex": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
+        big_list.append(temp_df)
+    big_df = pd.concat(big_list, ignore_index=True)
+    big_df.columns = [
         "净值日期",
         "单位净值",
         "累计净值",
@@ -855,10 +872,15 @@ def fund_graded_fund_info_em(fund: str = "150232") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df = temp_df[
+    big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
+    big_df = big_df[
         ["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]
     ]
-    return temp_df
+    big_df["净值日期"] = pd.to_datetime(big_df["净值日期"], errors="coerce").dt.date
+    big_df["单位净值"] = pd.to_numeric(big_df["单位净值"], errors="coerce")
+    big_df["累计净值"] = pd.to_numeric(big_df["累计净值"], errors="coerce")
+    big_df["日增长率"] = pd.to_numeric(big_df["日增长率"], errors="coerce")
+    return big_df
 
 
 def fund_etf_fund_daily_em() -> pd.DataFrame:
@@ -1206,7 +1228,7 @@ if __name__ == "__main__":
     fund_money_fund_daily_em_df = fund_money_fund_daily_em()
     print(fund_money_fund_daily_em_df)
 
-    fund_money_fund_info_em_df = fund_money_fund_info_em(fund="162411")
+    fund_money_fund_info_em_df = fund_money_fund_info_em(symbol="000009")
     print(fund_money_fund_info_em_df)
 
     fund_financial_fund_daily_em_df = fund_financial_fund_daily_em()
@@ -1218,7 +1240,7 @@ if __name__ == "__main__":
     fund_graded_fund_daily_em_df = fund_graded_fund_daily_em()
     print(fund_graded_fund_daily_em_df)
 
-    fund_graded_fund_info_em_df = fund_graded_fund_info_em(fund="150232")
+    fund_graded_fund_info_em_df = fund_graded_fund_info_em(symbol="150232")
     print(fund_graded_fund_info_em_df)
 
     fund_etf_fund_daily_em_df = fund_etf_fund_daily_em()

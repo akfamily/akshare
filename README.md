@@ -1,15 +1,13 @@
-**欢迎加入专注于财经数据和量化投资的知识社区，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**
+**欢迎加入专注于财经数据和量化投资的知识社区，获取《AKShare-财经数据宝典》，其汇集了财经数据的使用经验和指南，还独家分享了
+众多国内外财经数据源的使用和注意事项，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**。
 
 **量化投研视频课程：《PyBroker-入门及实战》已经上架！《PyBroker-进阶及实战》正在更新！**
 
 **更多视频教程已经发布：《AKShare-初阶-使用教学》、《AKShare-初阶-实战应用》、《AKShare-源码解析》、《开源项目巡礼》**，
 详情请关注【数据科学实战】公众号，查看更多课程信息！
 
-**AKQuant 量化教程请访问：[利用 PyBroker 进行量化投资](https://akquant.akfamily.xyz/)**
-
-**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，
-突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
-点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
+**广告推广**：期魔方是一款非常专业本地化期货量化终端，无需部署或搭建环境，可直接调用及时和历史数据做回测实盘，
+支持开箱即用的机器学习训练，策略投研、回测均免费，详情请[访问期魔方官网](https://qmfquant.com)。
 
 ![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 

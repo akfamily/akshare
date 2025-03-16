@@ -652,6 +652,8 @@
  "stock_ipo_declare"  # 首发企业申报
  # 行业板块
  "stock_board_industry_index_ths"  # 同花顺-行业板块-指数日频数据
+ # 概念板块
+ "stock_board_concept_index_ths"  # 同花顺-概念板块-指数日频数据
  # 营业部
  "stock_lh_yyb_most"  # 营业部排名-上榜次数最多
  "stock_lh_yyb_capital"  # 营业部排名-资金实力最强
@@ -747,6 +749,7 @@
  "macro_germany_zew"  # ZEW经济景气指数
  # 东方财富-概念板块
  "stock_board_concept_name_em"  # 概念板块-名称
+ "stock_board_concept_spot_em"  # 概念板块-实时行情
  "stock_board_concept_hist_em"  # 概念板块-历史行情
  "stock_board_concept_hist_min_em"  # 概念板块-分时历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
@@ -929,9 +932,11 @@
  "spot_quotations_sge"  # 上海黄金交易所-实时行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
  "spot_silver_benchmark_sge"  # 上海银基准价
-
  # 个股信息查询
- "stock_individual_info_em"  # 个股信息查询
+ "stock_individual_info_em"  # 个股信息查询-东财
+ "stock_individual_basic_info_xq"  # 个股信息查询-雪球
+ "stock_individual_basic_info_us_xq"  # 个股信息查询-雪球-美股
+ "stock_individual_basic_info_hk_xq"  # 个股信息查询-雪球-港股
  # 中国食糖指数
  "index_sugar_msweet"  # 中国食糖指数
  # 配额内进口糖估算指数
@@ -1237,7 +1242,8 @@
  # 雪球-行情中心-个股
  "stock_individual_spot_xq"  # 雪球-行情中心-个股
  # 东方财富网-行情中心-期货市场-国际期货
- "futures_global_em"  # 东方财富网-行情中心-期货市场-国际期货
+ "futures_global_spot_em"  # 东方财富网-行情中心-期货市场-国际期货-实时行情
+ "futures_global_hist_em"  # 东方财富网-行情中心-期货市场-国际期货-历史行情
  # 东方财富-数据中心-沪深港通-市场概括-分时数据
  "stock_hsgt_fund_min_em"  # 东方财富-数据中心-沪深港通-市场概括-分时数据
  # 新浪财经-商品期货-成交持仓
@@ -1310,6 +1316,21 @@
  "fund_fee_em"  # 基金费率
  # 期货行情-东方财富
  "futures_hist_em"  # 期货行情-东方财富
+ # 美股财报
+ "stock_financial_us_report_em"  # 东方财富-美股-财务报表-三大报表
+ "stock_financial_us_analysis_indicator_em"  # 东方财富-美股-财务分析-主要指标
+ # 东方财富网-行情中心-沪深港通
+ "stock_zh_ah_spot_em"  # 东方财富网-行情中心-沪深港通-AH股比价-实时行情
+ "stock_hsgt_sh_hk_spot_em"  # 东方财富网-行情中心-沪深港通-港股通(沪>港)-股票
+ # 东方财富网-行情中心-外汇市场-所有汇率
+ "forex_spot_em"  # 东方财富网-行情中心-外汇市场-所有汇率-实时行情数据
+ "forex_hist_em"  # 东方财富网-行情中心-外汇市场-所有汇率-历史行情数据
+ # 东方财富网-行情中心-全球指数
+ "index_global_spot_em"  # 东方财富网-行情中心-全球指数-实时行情数据
+ "index_global_hist_em"  # 东方财富网-行情中心-全球指数-历史行情数据
+ # 新浪财经-行情中心-环球市场
+ "index_global_name_table"  # 新浪财经-行情中心-环球市场-名称代码映射表
+ "index_global_hist_em"  # 新浪财经-行情中心-环球市场-历史行情
 ```
 
 ## 案例演示

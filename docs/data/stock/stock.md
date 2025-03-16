@@ -262,15 +262,15 @@ print(stock_szse_sector_summary_df)
 
 描述: 上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
 
-限量: 单次返回指定日期的每日概况数据, 当前交易日数据需要在收盘后获取; 注意在 20211227（包含）之后输出格式变化
+限量: 单次返回指定日期的每日概况数据, 当前交易日数据需要在收盘后获取; 注意仅支持获取在 20211227（包含）之后的数据
 
-输入参数-20211224(之前)
+输入参数
 
-| 名称   | 类型  | 描述                                                            |
-|------|-----|---------------------------------------------------------------|
-| date | str | date="20200619"; 当前交易日的数据需要交易所收盘后统计; 注意在 20211227（包含）之后输出格式变化 |
+| 名称   | 类型  | 描述                                                              |
+|------|-----|-----------------------------------------------------------------|
+| date | str | date="20250221"; 当前交易日的数据需要交易所收盘后统计; 注意仅支持获取在 20211227（包含）之后的数据 |
 
-输出参数-20211224(之前)
+输出参数
 
 | 名称   | 类型      | 描述        |
 |------|---------|-----------|
@@ -281,71 +281,30 @@ print(stock_szse_sector_summary_df)
 | 科创板  | float64 | -         |
 | 股票回购 | float64 | -         |
 
-接口示例-20211224(之前)
+接口示例
 
 ```python
 import akshare as ak
 
-stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date="20201111")
+stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date="20250221")
 print(stock_sse_deal_daily_df)
 ```
 
-数据示例-20211224(之前)
+数据示例
 
 ```
-     单日情况                 股票  ...              科创板    股票回购
-0     挂牌数               1808  ...              194       -
-1    市价总值          434197.88  ...         30472.53       -
-2    流通市值  359472.4374635267  ...  8417.6080896016       -
-3    成交金额      3568.31165366  ...     327.99216384     0.4
-4     成交量             271.81  ...             5.66    0.02
-5    成交笔数          1954.6333  ...          97.0169  0.0002
-6   平均市盈率              15.99  ...            91.48       0
-7     换手率             0.8217  ...           1.0764       0
-8  次新股换手率             1.1002  ...           1.0568       -
-9   流通换手率             0.9925  ...           3.8965       0
+    单日情况           股票          主板A       主板B         科创板  股票回购
+0    挂牌数    2321.0000    1693.0000   43.0000    585.0000   0.0
+1   市价总值  529981.4800  456997.7000  942.6300  72041.1500   0.0
+2   流通市值  501613.5100  445348.4700  713.7700  55551.2700   0.0
+3   成交金额    8561.3100    6413.6300    4.3000   2143.3700   0.3
+4    成交量     608.5800     556.5800    0.7200     51.2900   0.1
+5  平均市盈率      14.3200      13.2000    7.1600     45.7800   NaN
+6    换手率       1.6154       1.4034    0.4565      2.9752   0.0
+7  流通换手率       1.7068       1.4401    0.6029      3.8584   0.0
 ```
 
-输入参数-20211227(之后)
-
-| 名称   | 类型  | 描述                                                            |
-|------|-----|---------------------------------------------------------------|
-| date | str | date="20211227"; 当前交易日的数据需要交易所收盘后统计; 注意在 20211227（包含）之后输出格式变化 |
-
-输出参数-20211227(之后)
-
-| 名称   | 类型      | 描述        |
-|------|---------|-----------|
-| 单日情况 | object  | 包含了网页所有字段 |
-| 主板A  | float64 | -         |
-| 主板B  | float64 | -         |
-| 科创板  | float64 | -         |
-
-接口示例-20211227(之后)
-
-```python
-import akshare as ak
-
-stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date="20211227")
-print(stock_sse_deal_daily_df)
-```
-
-数据示例-20211227(之后)
-
-```
-    单日情况      主板A           主板B           科创板
-0   市价总值  4.602654e+05  8.936800e+02  5.425756e+04
-1  平均市盈率  1.654000e+01  1.085000e+01  6.935000e+01
-2    成交量  3.239300e+02  3.000000e-01  6.450000e+00
-3   成交金额  3.713660e+03  1.360000e+00  3.782300e+02
-4   报告日期  2.021123e+07  2.021123e+07  2.021123e+07
-5    挂牌数  1.654000e+03  4.700000e+01  3.730000e+02
-6    换手率  8.069000e-01  1.519000e-01  6.971000e-01
-7   流通市值  4.097216e+05  7.776200e+02  2.170117e+04
-8  流通换手率  9.064000e-01  1.745000e-01  1.742900e+00
-```
-
-#### 个股信息查询
+#### 个股信息查询-东财
 
 接口: stock_individual_info_em
 
@@ -390,6 +349,85 @@ print(stock_individual_info_em_df)
 5  股票简称                 平安银行
 6   总股本        19405918198.0
 7   流通股        19405754475.0
+```
+
+#### 个股信息查询-雪球
+
+接口: stock_individual_basic_info_xq
+
+目标地址: https://xueqiu.com/snowman/S/SH601127/detail#/GSJJ
+
+描述: 雪球财经-个股-公司概况-公司简介
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="SH601127"; 股票代码 |
+| token   | str   | token=None;             |
+| timeout | float | timeout=None; 默认不设置超时参数 |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_individual_basic_info_xq_df = ak.stock_individual_basic_info_xq(symbol="SH601127")
+print(stock_individual_basic_info_xq_df)
+```
+
+数据示例
+
+```
+                            item                                              value
+0                         org_id                                         T000071215
+1                    org_name_cn                                        赛力斯集团股份有限公司
+2              org_short_name_cn                                                赛力斯
+3                    org_name_en                               Seres Group Co.,Ltd.
+4              org_short_name_en                                              SERES
+5        main_operation_business      新能源汽车及核心三电(电池、电驱、电控)、传统汽车及核心部件总成的研发、制造、销售及服务。
+6                operating_scope  　　一般项目：制造、销售：汽车零部件、机动车辆零部件、普通机械、电器机械、电器、电子产品（不...
+7                district_encode                                             500106
+8            org_cn_introduction  赛力斯始创于1986年，是以新能源汽车为核心业务的技术科技型汽车企业。现有员工1.6万人，A...
+9           legal_representative                                                张正萍
+10               general_manager                                                张正萍
+11                     secretary                                                 申薇
+12              established_date                                      1178812800000
+13                     reg_asset                                       1509782193.0
+14                     staff_num                                              16102
+15                     telephone                                     86-23-65179666
+16                      postcode                                             401335
+17                           fax                                     86-23-65179777
+18                         email                                    601127@seres.cn
+19                   org_website                                   www.seres.com.cn
+20                reg_address_cn                                      重庆市沙坪坝区五云湖路7号
+21                reg_address_en                                               None
+22             office_address_cn                                      重庆市沙坪坝区五云湖路7号
+23             office_address_en                                               None
+24               currency_encode                                             019001
+25                      currency                                                CNY
+26                   listed_date                                      1465920000000
+27               provincial_name                                                重庆市
+28             actual_controller                                       张兴海 (13.79%)
+29                   classi_name                                               民营企业
+30                   pre_name_cn                                     重庆小康工业集团股份有限公司
+31                      chairman                                                张正萍
+32               executives_nums                                                 20
+33              actual_issue_vol                                        142500000.0
+34                   issue_price                                               5.81
+35             actual_rc_net_amt                                        738451000.0
+36              pe_after_issuing                                              18.19
+37  online_success_rate_of_issue                                           0.110176
+38            affiliate_industry         {'ind_code': 'BK0025', 'ind_name': '汽车整车'}
 ```
 
 #### 行情报价
@@ -1045,8 +1083,8 @@ print(stock_zh_a_spot_df)
 | 名称      | 类型    | 描述                                                             |
 |---------|-------|----------------------------------------------------------------|
 | symbol  | str   | symbol="SH600000"; 证券代码，可以是 A 股个股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数 |
-| timeout | float | timeout=None; 默认不设置超时参数                                        |
 | token   | float | token=None; 默认不设置token                                         |
+| timeout | float | timeout=None; 默认不设置超时参数                                        |
 
 输出参数
 
@@ -1794,7 +1832,7 @@ print(stock_zh_a_hist_min_em_df)
 
 目标地址: https://quote.eastmoney.com/f1.html?newcode=0.000001
 
-描述: 东财财富-分时数据
+描述: 东方财富-分时数据
 
 限量: 单次返回指定股票最近一个交易日的分时数据, 包含盘前数据
 
@@ -3073,7 +3111,65 @@ print(stock_zh_kcb_report_em_df)
 
 ### A+H股
 
-#### 实时行情数据
+#### 实时行情数据-东财
+
+接口: stock_zh_ah_spot_em
+
+目标地址: https://quote.eastmoney.com/center/gridlist.html#ah_comparison
+
+描述: 东方财富网-行情中心-沪深港通-AH股比价-实时行情, 延迟 15 分钟更新
+
+限量: 单次返回所有 A+H 上市公司的实时行情数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称      | 类型      | 描述        |
+|---------|---------|-----------|
+| 序号      | int64   | -         |
+| 名称      | object  | -         |
+| H股代码    | object  | -         |
+| 最新价-HKD | float64 | 注意单位: HKD |
+| H股-涨跌幅  | float64 | 注意单位: %   |
+| A股代码    | object  | -         |
+| 最新价-RMB | float64 | 注意单位: RMB |
+| A股-涨跌幅  | float64 | 注意单位: %   |
+| 比价      | float64 | -         |
+| 溢价      | float64 | 注意单位: %   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_ah_spot_em_df = ak.stock_zh_ah_spot_em()
+print(stock_zh_ah_spot_em_df)
+```
+
+数据示例
+
+```
+      序号    名称   H股代码  最新价-HKD  H股-涨跌幅 A股代码  最新价-RMB  A股-涨跌幅 比价 溢价
+0      1    复旦微电  01385    25.65    4.27  688385    47.60    8.92  1.98   98.26
+1      2    长飞光纤  06869    18.40    3.95  601869    36.90    3.19  2.14  114.26
+2      3    山东黄金  01787    15.24    3.67  600547    23.96    2.00  1.68   67.97
+3      4   亿华通-U  02402    27.20    3.62  688339    24.23    0.00  0.95   -4.83
+4      5    南京熊猫  00553     3.28    3.47  600775    10.29    3.31  3.35  235.17
+..   ...     ...    ...      ...     ...     ...      ...     ...   ...     ...
+145  146   万  科Ａ  02202     6.26   -4.13  000002     7.64   -1.93  1.30   30.39
+146  147  百济神州-U  06160   152.10   -4.70  688235   226.35   -4.49  1.59   58.99
+147  148    荣昌生物  09995    16.64   -5.45  688331    32.11   -1.11  2.06  106.16
+148  149     比亚迪  01211   339.00   -6.77  002594   344.84   -4.27  1.09    8.68
+149  150    龙蟠科技  02465     6.16  -13.60  603906    12.13  -10.01  2.10  110.38
+[150 rows x 10 columns]
+```
+
+#### 实时行情数据-腾讯
 
 接口: stock_zh_ah_spot
 
@@ -3452,6 +3548,80 @@ print(stock_us_hist_df)
 671  2024-02-12  64.40  64.63  64.82  ...  0.98  0.50  0.32  0.14
 672  2024-02-13  65.21  64.43  65.28  ...  1.81 -0.31 -0.20  0.14
 [673 rows x 11 columns]
+```
+
+#### 个股信息查询-雪球
+
+接口: stock_individual_basic_info_us_xq
+
+目标地址: https://xueqiu.com/snowman/S/NVDA/detail#/GSJJ
+
+描述: 雪球-个股-公司概况-公司简介
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="NVDA"; 股票代码     |
+| token   | str   | token=None;             |
+| timeout | float | timeout=None; 默认不设置超时参数 |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_individual_basic_info_us_xq_df = ak.stock_individual_basic_info_us_xq(symbol="SH601127")
+print(stock_individual_basic_info_us_xq_df)
+```
+
+数据示例
+
+```
+                             item                                              value
+0                          org_id                                         T000040433
+1                     org_name_cn                                              英伟达公司
+2               org_short_name_cn                                                英伟达
+3                     org_name_en                                 Nvidia Corporation
+4               org_short_name_en                                             Nvidia
+5         main_operation_business                                           图形和通信处理器
+6                 operating_scope  公司的图形和通信处理器已被多种多样的计算平台采用，包括个人数字媒体PC、商用PC、专业工作站...
+7                 district_encode                                             001008
+8             org_cn_introduction  英伟达公司于1993年4月在加利福尼亚州注册成立，并于1998年4月在特拉华州重新注册成立。...
+9            legal_representative                                               None
+10                general_manager                                               None
+11                      secretary                                               None
+12               established_date                                               None
+13                      reg_asset                                               None
+14                      staff_num                                              36000
+15                      telephone                                      1-408-4862000
+16                       postcode                                              95051
+17                            fax                                               None
+18                          email                                               None
+19                    org_website                                     www.nvidia.com
+20                 reg_address_cn                                               特拉华州
+21                 reg_address_en                                               特拉华州
+22              office_address_cn                                               None
+23              office_address_en  2788 San Tomas Expressway\r\nSanta Clara\r\nCa...
+24                currency_encode                                               None
+25                       currency
+26                    listed_date                                       916981200000
+27                         td_mkt                                      美国NASDAQ证券交易所
+28                       chairman                                               None
+29                executives_nums                                                  6
+30  actual_issue_total_shares_num                                               None
+31             actual_issue_price                                               None
+32            total_raise_capital                                               None
+33                     mainholder                                       领航集团 (8.30%)
 ```
 
 #### 分时数据-东财
@@ -3982,6 +4152,66 @@ print(stock_hk_spot_df)
 2435   0.166   0.169       0.000     0.0000000
 ```
 
+#### 个股信息查询-雪球
+
+接口: stock_individual_basic_info_hk_xq
+
+目标地址: https://xueqiu.com/S/00700
+
+描述: 雪球-个股-公司概况-公司简介
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="02097"; 股票代码    |
+| token   | str   | token=None;             |
+| timeout | float | timeout=None; 默认不设置超时参数 |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_individual_basic_info_hk_xq_df = ak.stock_individual_basic_info_hk_xq(symbol="02097")
+print(stock_individual_basic_info_hk_xq_df)
+```
+
+数据示例
+
+```
+           item                                              value
+0       comunic                                        231269720.0
+1     comcnname                                         蜜雪冰城股份有限公司
+2     comenname                                        MIXUE Group
+3       incdate                                    1209484800000.0
+4        rgiofc                 中国河南省郑州市金水区北三环南、文化路东瀚海北金商业中心16004室
+5    hofclctmbu                 中国河南省郑州市金水区北三环南、文化路东瀚海北金商业中心16004室
+6      chairman                                                张红超
+7           mbu                                             现制饮品企业
+8       comintr  我们是一家领先的现制饮品企业,聚焦为广大消费者提供单价约6元人民币(约1美元)的高质平价的现...
+9     refccomty                                                1.0
+10     numtissh                                         17059900.0
+11         ispr                                              202.5
+12         nrfd                                       3291000000.0
+13  nation_name                                                 中国
+14          tel                                      0371-89834090
+15          fax                                      0371-89916887
+16        email                                dongshihui@mxbc.com
+17     web_site                                http://www.mxbc.com
+18    lsdateipo                                    1740931200000.0
+19   mainholder                                                张红超
+```
+
 #### 分时数据-东财
 
 接口: stock_hk_hist_min_em
@@ -4373,7 +4603,7 @@ print(stock_hk_daily_hfq_factor_df)
 
 #### 知名港股
 
-接口: stock_us_famous_spot_em
+接口: stock_hk_famous_spot_em
 
 目标地址: https://quote.eastmoney.com/center/gridlist.html#hk_wellknown
 
@@ -4416,18 +4646,18 @@ print(stock_hk_famous_spot_em_df)
 数据示例
 
 ```
-      序号   代码   名称      最新价  ...      最低      昨收      成交量          成交额
-0      1  01816  中广核电力    3.600  ...    3.360    3.350  100799000.0  357437360.0
-1      2  09999   网易-S  150.000  ...  145.100  142.300    4211756.0  625969664.0
-2      3  00991   大唐发电    1.610  ...    1.540    1.550   31686000.0   50407680.0
-3      4  01288   农业银行    3.550  ...    3.460    3.460  125943805.0  442855984.0
-4      5  01398   工商银行    4.440  ...    4.350    4.340  196167740.0  865045376.0
-..   ...    ...    ...      ...  ...      ...      ...          ...          ...
-113  114  01929    周大福    7.480  ...    7.300    7.910   16455733.0  122587110.0
-114  115  02333   长城汽车   11.080  ...   10.880   11.840   27065600.0  301474528.0
-115  116  09633   农夫山泉   30.650  ...   30.400   33.100   16904258.0  527739648.0
-116  117  00493   国美零售    0.024  ...    0.024    0.026    8691237.0     214999.0
-117  118  00291   华润啤酒   24.800  ...   24.500   27.000   33654328.0  857086144.0
+      序号 代码       名称    最新价  ...    最低     昨收    成交量           成交额
+0      1  01918      融创中国   2.04  ...   1.91   1.91  633638656.0  1.295074e+09
+1      2  00763      中兴通讯  34.65  ...  31.50  32.85   90643056.0  3.088137e+09
+2      3  00753      中国国航   4.56  ...   4.25   4.33   34639744.0  1.560062e+08
+3      4  01928  金沙中国有限公司  18.08  ...  17.20  17.18   37260253.0  6.721171e+08
+4      5  03900      绿城中国  10.38  ...   9.89   9.91   33031905.0  3.421672e+08
+..   ...    ...       ...    ...  ...    ...    ...          ...           ...
+113  114  02400      心动公司  32.15  ...  31.60  34.20    4769000.0  1.544492e+08
+114  115  01833     平安好医生   8.68  ...   8.55   9.31   53910271.0  4.845739e+08
+115  116  02269      药明生物  23.65  ...  23.10  26.00  170040773.0  4.052070e+09
+116  117  02359      药明康德  62.90  ...  62.40  70.00   20403989.0  1.314193e+09
+117  118  09698   万国数据-SW  42.70  ...  41.30  48.30   24768786.0  1.068253e+09
 [118 rows x 12 columns]
 ```
 
@@ -6831,6 +7061,66 @@ print(stock_hsgt_institution_statistics_em_df)
 157  2020-12-18  ...                  -94
 ```
 
+#### 沪深港通-港股通(沪>港)实时行情
+
+接口: stock_hsgt_sh_hk_spot_em
+
+目标地址: https://quote.eastmoney.com/center/gridlist.html#hk_sh_stocks
+
+描述: 东方财富网-行情中心-沪深港通-港股通(沪>港)-股票；按股票代码排序
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称  | 类型      | 描述        |
+|-----|---------|-----------|
+| 序号  | int64   | -         |
+| 代码  | object  | -         |
+| 名称  | object  | -         |
+| 最新价 | float64 | 注意单位: HKD |
+| 涨跌额 | float64 | -         |
+| 涨跌幅 | float64 | 注意单位: %   |
+| 今开  | float64 | -         |
+| 最高  | float64 | -         |
+| 最低  | float64 | -         |
+| 昨收  | float64 | -         |
+| 成交量 | float64 | 注意单位: 亿股  |
+| 成交额 | float64 | 注意单位: 亿港元 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hsgt_sh_hk_spot_em_df = ak.stock_hsgt_sh_hk_spot_em()
+print(stock_hsgt_sh_hk_spot_em_df)
+```
+
+数据示例
+
+```
+     序号  代码      名称     最新价  ...    最低    昨收     成交量       成交额
+0      1  00001      长和   49.50  ...   49.40   51.55  0.453758  22.712456
+1      2  00002    中电控股   64.25  ...   64.15   64.99  0.054139   3.488916
+2      3  00003  香港中华煤气    6.25  ...    6.17    6.27  0.343850   2.151922
+3      4  00004   九龙仓集团   19.38  ...   19.24   19.70  0.016805   0.327002
+4      5  00005    汇丰控股   87.95  ...   87.95   90.00  0.374613  33.070786
+..   ...    ...     ...     ...  ...     ...     ...       ...        ...
+540  541  09989     海普瑞    4.48  ...    4.43    4.50  0.023235   0.103881
+541  542  09992    泡泡玛特  116.40  ...  114.10  116.20  0.061158   7.172251
+542  543  09993    金辉控股    2.70  ...    2.69    2.80  0.007670   0.020909
+543  544  09995    荣昌生物   17.80  ...   17.42   17.90  0.031735   0.566258
+544  545  09997    康基医疗    7.53  ...    7.32    7.40  0.040656   0.303262
+[545 rows x 12 columns]
+```
+
 #### 沪深港通历史数据
 
 接口: stock_hsgt_hist_em
@@ -7074,8 +7364,11 @@ print(stock_hsgt_individual_em_df)
 ```python
 import akshare as ak
 
-stock_hsgt_individual_detail_em_df = ak.stock_hsgt_individual_detail_em(symbol="002008", start_date="20210830",
-                                                                        end_date="20211026")
+stock_hsgt_individual_detail_em_df = ak.stock_hsgt_individual_detail_em(
+	symbol="002008",
+	start_date="20210830",
+	end_date="20211026"
+)
 print(stock_hsgt_individual_detail_em_df)
 ```
 
@@ -10012,7 +10305,7 @@ print(stock_sector_fund_flow_summary_df)
 
 | 名称     | 类型  | 描述            |
 |--------|-----|---------------|
-| symbol | str | symbol="电源设备" |
+| symbol | str | symbol="汽车服务" |
 
 输出参数
 
@@ -10035,26 +10328,26 @@ print(stock_sector_fund_flow_summary_df)
 ```python
 import akshare as ak
 
-stock_sector_fund_flow_hist_df = ak.stock_sector_fund_flow_hist(symbol="电源设备")
+stock_sector_fund_flow_hist_df = ak.stock_sector_fund_flow_hist(symbol="汽车服务")
 print(stock_sector_fund_flow_hist_df)
 ```
 
 数据示例
 
 ```
-      日期     主力净流入-净额  主力净流入-净占比  ...  中单净流入-净占比  小单净流入-净额  小单净流入-净占比
-0    2023-10-11 -102529996.0      -3.17  ...      -0.53  119604464.0       3.70
-1    2023-10-12  135629409.0       3.74  ...      -0.56 -115324800.0      -3.18
-2    2023-10-13  -16672316.0      -0.48  ...      -1.97   84843424.0       2.45
-3    2023-10-16 -318777178.0      -8.54  ...       3.13  201998448.0       5.41
-4    2023-10-17 -118229568.0      -3.98  ...       0.16  113391728.0       3.82
-..          ...          ...        ...  ...        ...          ...        ...
-97   2024-03-05 -429671443.0      -7.91  ...       0.52  401177872.0       7.39
-98   2024-03-06   78110709.0       1.54  ...      -0.44  -55658368.0      -1.10
-99   2024-03-07 -378574340.0      -8.29  ...      -0.45  398917040.0       8.73
-100  2024-03-08   42494425.0       1.08  ...      -1.22    5429760.0       0.14
-101  2024-03-11  263688896.0       3.98  ...      -1.48 -165804304.0      -2.50
-[102 rows x 11 columns]
+      日期    主力净流入-净额  主力净流入-净占比  ...  中单净流入-净占比 小单净流入-净额  小单净流入-净占比
+0    2024-08-20 -54471010.0     -10.09  ...       2.28  37641239.0       6.97
+1    2024-08-21  10178690.0       1.91  ...      -0.79 -10308872.0      -1.94
+2    2024-08-22 -44754582.0      -8.39  ...       1.49  32534534.0       6.10
+3    2024-08-23 -27649222.0      -6.52  ...      -0.86  29341810.0       6.92
+4    2024-08-26 -42767862.0     -10.11  ...      -2.63  53748702.0      12.70
+..          ...         ...        ...  ...        ...         ...        ...
+116  2025-02-18 -93269892.0      -6.56  ...       1.78  58625760.0       4.12
+117  2025-02-19  21681328.0       1.51  ...       1.97 -32209872.0      -2.25
+118  2025-02-20  11260284.0       0.89  ...       0.43  -6260576.0      -0.50
+119  2025-02-21 -81443762.0      -5.66  ...       3.29  47217792.0       3.28
+120  2025-02-24  20329299.0       1.44  ...       1.47 -58079088.0      -4.12
+[121 rows x 11 columns]
 ```
 
 ##### 概念历史资金流
@@ -10071,7 +10364,7 @@ print(stock_sector_fund_flow_hist_df)
 
 | 名称     | 类型  | 描述            |
 |--------|-----|---------------|
-| symbol | str | symbol="电源设备" |
+| symbol | str | symbol="数据要素" |
 
 输出参数
 
@@ -10094,25 +10387,25 @@ print(stock_sector_fund_flow_hist_df)
 ```python
 import akshare as ak
 
-stock_concept_fund_flow_hist_df = ak.stock_concept_fund_flow_hist(symbol="电源设备")
+stock_concept_fund_flow_hist_df = ak.stock_concept_fund_flow_hist(symbol="数据要素")
 print(stock_concept_fund_flow_hist_df)
 ```
 
 数据示例
 
 ```
-     日期     主力净流入-净额  主力净流入-净占比  ...  中单净流入-净占比 小单净流入-净额  小单净流入-净占比
-0    2024-08-06  -44622119.0      -1.94  ...       0.69   28784880.0       1.25
-1    2024-08-07  -43471970.0      -2.07  ...       1.85    4492960.0       0.21
-2    2024-08-08  -92673385.0      -5.12  ...      -1.36  117191392.0       6.48
-3    2024-08-09   17086324.0       1.06  ...       0.78  -29550896.0      -1.84
-4    2024-08-12    1230634.0       0.07  ...       1.17  -20933712.0      -1.25
-..          ...          ...        ...  ...        ...          ...        ...
-116  2025-01-27 -558692256.0      -4.40  ...       3.07  168522032.0       1.33
-117  2025-02-05 -178419888.0      -2.09  ...      -0.98  262444816.0       3.07
-118  2025-02-06  168535488.0       1.44  ...      -2.66  141573744.0       1.21
-119  2025-02-07  228153552.0       1.53  ...      -0.43 -164379392.0      -1.10
-120  2025-02-10  -46675856.0      -0.31  ...       0.04   40053536.0       0.27
+      日期      主力净流入-净额  主力净流入-净占比  ... 中单净流入-净占比 小单净流入-净额  小单净流入-净占比
+0    2024-08-20 -6.313736e+08      -4.65  ...      -1.32  8.085588e+08       5.96
+1    2024-08-21 -3.658787e+08      -2.77  ...      -0.68  4.585833e+08       3.47
+2    2024-08-22 -8.680331e+08      -6.05  ...      -1.09  1.004540e+09       7.00
+3    2024-08-23 -1.840573e+08      -1.41  ...      -2.69  5.319882e+08       4.07
+4    2024-08-26 -1.560898e+08      -1.42  ...      -2.13  3.791972e+08       3.44
+..          ...           ...        ...  ...        ...           ...        ...
+116  2025-02-18 -1.405755e+10      -8.92  ...       1.16  1.216662e+10       7.72
+117  2025-02-19 -9.526664e+08      -0.73  ...      -0.99  2.248251e+09       1.71
+118  2025-02-20 -5.894632e+09      -4.55  ...       0.36  5.343512e+09       4.12
+119  2025-02-21  2.832990e+09       1.60  ...      -1.23 -5.548521e+08      -0.31
+120  2025-02-24 -1.108665e+10      -7.88  ...       1.80  8.521074e+09       6.06
 [121 rows x 11 columns]
 ```
 
@@ -10335,6 +10628,7 @@ print(stock_zdhtmx_em_df)
 | 2026-盈利预测-市盈率 | float64 | -  |
 | 行业            | object  | -  |
 | 日期            | object  | -  |
+| 报告PDF链接       | object  | -  |
 
 接口示例
 
@@ -10348,19 +10642,19 @@ print(stock_research_report_em_df)
 数据示例
 
 ```
-     序号    股票代码  股票简称  ... 2026-盈利预测-市盈率  行业 日期
-0      1  000001  平安银行  ...          4.54  银行  2024-10-22
-1      2  000001  平安银行  ...          4.54  银行  2024-10-22
-2      3  000001  平安银行  ...          4.90  银行  2024-10-20
-3      4  000001  平安银行  ...           NaN  银行  2024-10-19
-4      5  000001  平安银行  ...          3.90  银行  2024-08-30
-..   ...     ...   ...  ...           ...  ..         ...
-271  272  000001  平安银行  ...           NaN  银行  2017-03-22
-272  273  000001  平安银行  ...           NaN  银行  2017-03-20
-273  274  000001  平安银行  ...           NaN  银行  2017-03-17
-274  275  000001  平安银行  ...           NaN  银行  2017-03-07
-275  276  000001  平安银行  ...           NaN  银行  2017-02-03
-[276 rows x 15 columns]
+    序号    股票代码  ...  日期                           报告PDF链接
+0      1  000001  ...  2025-01-10  https://pdf.dfcfw.com/pdf/H3_AP202501101641890...
+1      2  000001  ...  2024-10-22  https://pdf.dfcfw.com/pdf/H3_AP202410221640400...
+2      3  000001  ...  2024-10-22  https://pdf.dfcfw.com/pdf/H3_AP202410221640398...
+3      4  000001  ...  2024-10-20  https://pdf.dfcfw.com/pdf/H3_AP202410201640374...
+4      5  000001  ...  2024-10-19  https://pdf.dfcfw.com/pdf/H3_AP202410191640373...
+..   ...     ...  ...         ...                                                ...
+272  273  000001  ...  2017-03-22  https://pdf.dfcfw.com/pdf/H3_AP201703220427468...
+273  274  000001  ...  2017-03-20  https://pdf.dfcfw.com/pdf/H3_AP201703200421759...
+274  275  000001  ...  2017-03-17  https://pdf.dfcfw.com/pdf/H3_AP201703170415156...
+275  276  000001  ...  2017-03-07  https://pdf.dfcfw.com/pdf/H3_AP201705190591661...
+276  277  000001  ...  2017-02-03  https://pdf.dfcfw.com/pdf/H3_AP201702030311575...
+[277 rows x 16 columns]
 ```
 
 #### 沪深京 A 股公告
@@ -11297,7 +11591,7 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 
 描述: 东方财富-港股-财务报表-三大报表
 
-限量: 单次获取指定报表的所有年份数据
+限量: 单次获取指定股票、指定报告且指定报告期的数据
 
 输入参数
 
@@ -11305,7 +11599,7 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 |-----------|-----|-----------------------------------------------------|
 | stock     | str | stock="00700"; 股票代码                                 |
 | symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
-| indicator | str | symbol="年度"; choice of {"年度", "报告期"}                |
+| indicator | str | indicator="年度"; choice of {"年度", "报告期"}             |
 
 输出参数
 
@@ -11346,6 +11640,64 @@ print(stock_financial_hk_report_em_df)
 968  00700.HK         00700  ...  4.832400e+07  2001-12-31 00:00:00
 969  00700.HK         00700  ...  6.554200e+07  2001-12-31 00:00:00
 [970 rows x 11 columns]
+```
+
+#### 美股财务报表
+
+接口: stock_financial_us_report_em
+
+目标地址: https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w#/cwfx/zyzb
+
+描述: 东方财富-美股-财务分析-三大报表
+
+限量: 单次获取指定股票、指定报告且指定报告期的数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                    |
+|-----------|-----|-------------------------------------------------------|
+| stock     | str | stock="TSLA"; 股票代码                                    |
+| symbol    | str | symbol="资产负债表"; choice of {"资产负债表", "综合损益表", "现金流量表"} |
+| indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"}       |
+
+输出参数
+
+| 名称                 | 类型      | 描述 |
+|--------------------|---------|----|
+| SECUCODE           | object  | -  |
+| SECURITY_CODE      | object  | -  |
+| SECURITY_NAME_ABBR | object  | -  |
+| REPORT_DATE        | object  | -  |
+| REPORT_TYPE        | object  | -  |
+| REPORT             | object  | -  |
+| STD_ITEM_CODE      | object  | -  |
+| AMOUNT             | float64 | -  |
+| ITEM_NAME          | object  | -  |
+
+
+```python
+import akshare as ak
+
+stock_financial_us_report_em_df = ak.stock_financial_us_report_em(stock="TSLA", symbol="资产负债表", indicator="年报")
+print(stock_financial_us_report_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ...        AMOUNT ITEM_NAME
+0     TSLA.O          TSLA  ...  1.613900e+10  现金及现金等价物
+1     TSLA.O          TSLA  ...  1.639800e+10  现金及现金等价物
+2     TSLA.O          TSLA  ...  1.625300e+10  现金及现金等价物
+3     TSLA.O          TSLA  ...  1.757600e+10  现金及现金等价物
+4     TSLA.O          TSLA  ...  1.938400e+10  现金及现金等价物
+..       ...           ...  ...           ...       ...
+619   TSLA.O          TSLA  ...  3.670390e+08     非运算项目
+620   TSLA.O          TSLA  ...           NaN     非运算项目
+621   TSLA.O          TSLA  ...  3.192250e+08     非运算项目
+622   TSLA.O          TSLA  ...  1.011780e+08     非运算项目
+623   TSLA.O          TSLA  ...  1.011780e+08     非运算项目
+[624 rows x 9 columns]
 ```
 
 #### 关键指标-新浪
@@ -11406,7 +11758,7 @@ print(stock_financial_abstract_df)
 
 描述: 同花顺-财务指标-主要指标
 
-限量: 单次获取主要指标所有历史数据
+限量: 单次获取指定 symbol 的所有数据
 
 输入参数
 
@@ -11457,18 +11809,19 @@ print(stock_financial_abstract_ths_df)
 数据示例
 
 ```
-    报告期       净利润 净利润同比增长率   扣非净利润  ...   速动比率 保守速动比率   产权比率   资产负债率
-0   2023-03-31    26.42亿   19.20%  24.55亿  ...   1.15   1.07   2.00  66.34%
-1   2022-12-31    80.80亿   18.60%  61.67亿  ...   1.08   0.97   2.07  67.09%
-2   2022-09-30    68.20亿   16.52%  55.51亿  ...   1.03   0.89   2.14  67.73%
-3   2022-06-30    45.66亿   11.95%  37.25亿  ...   1.05   0.89   2.24  68.44%
-4   2022-03-31    22.17亿    1.60%  19.52亿  ...   1.09   0.96   2.31  69.14%
-..         ...       ...      ...     ...  ...    ...    ...    ...     ...
-93  1997-12-31     1.17亿   18.17%   False  ...   1.31   1.21   0.94  48.33%
-94  1997-06-30  4101.36万    False   False  ...  False  False  False   False
-95  1996-12-31  9905.67万   35.42%   False  ...   0.72   0.66   1.95  66.06%
-96  1995-12-31  7314.86万   -9.37%   False  ...   0.67   0.61   2.02  66.84%
-97  1994-12-31  8071.26万    False   False  ...   0.74   0.68   2.42  70.75%
+     报告期     净利润 净利润同比增长率  扣非净利润  ... 速动比率 保守速动比率 产权比率 资产负债率
+0    1994-12-31  8071.26万    False   False  ...   0.74   0.68   2.42  70.75%
+1    1995-12-31  7314.86万   -9.37%   False  ...   0.67   0.61   2.02  66.84%
+2    1996-12-31  9905.67万   35.42%   False  ...   0.72   0.66   1.95  66.06%
+3    1997-06-30  4101.36万    False   False  ...  False  False  False   False
+4    1997-12-31     1.17亿   18.17%   False  ...   1.31   1.21   0.94  48.33%
+..          ...       ...      ...     ...  ...    ...    ...    ...     ...
+100  2023-12-31    93.26亿   15.41%  74.00亿  ...   1.32   1.21   1.95  66.00%
+101  2024-03-31    27.41亿    3.74%  26.49亿  ...   1.37   1.27   1.94  65.82%
+102  2024-06-30    57.32亿    4.76%  49.64亿  ...   1.28   1.21   1.91  65.57%
+103  2024-09-30    79.06亿    0.83%  68.98亿  ...   1.22   1.13   1.76  63.63%
+104  2024-12-31    84.25亿   -9.66%  61.79亿  ...   1.10   0.99   1.84  64.74%
+[105 rows x 25 columns]
 ```
 
 #### 财务指标
@@ -11693,6 +12046,111 @@ print(stock_financial_hk_analysis_indicator_em_df)
 7  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
 8  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
 [9 rows x 36 columns]
+```
+
+#### 美股财务指标
+
+接口: stock_financial_us_analysis_indicator_em
+
+目标地址: https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w#/cwfx/zyzb
+
+描述: 东方财富-美股-财务分析-主要指标
+
+限量: 单次获取指定股票的所有历史数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                              |
+|-----------|-----|-------------------------------------------------|
+| symbol    | str | symbol="TSLA"; 股票代码                             |
+| indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"} |
+
+输出参数
+
+| 名称                          | 类型      | 描述 |
+|-----------------------------|---------|----|
+| SECUCODE                    | object  | -  |
+| SECURITY_CODE               | object  | -  |
+| SECURITY_NAME_ABBR          | object  | -  |
+| ORG_CODE                    | object  | -  |
+| SECURITY_INNER_CODE         | object  | -  |
+| ACCOUNTING_STANDARDS        | object  | -  |
+| NOTICE_DATE                 | object  | -  |
+| START_DATE                  | object  | -  |
+| REPORT_DATE                 | object  | -  |
+| FINANCIAL_DATE              | object  | -  |
+| STD_REPORT_DATE             | object  | -  |
+| CURRENCY                    | object  | -  |
+| DATE_TYPE                   | object  | -  |
+| DATE_TYPE_CODE              | object  | -  |
+| REPORT_TYPE                 | object  | -  |
+| REPORT_DATA_TYPE            | object  | -  |
+| ORGTYPE                     | object  | -  |
+| OPERATE_INCOME              | float64 | -  |
+| OPERATE_INCOME_YOY          | float64 | -  |
+| GROSS_PROFIT                | float64 | -  |
+| GROSS_PROFIT_YOY            | float64 | -  |
+| PARENT_HOLDER_NETPROFIT     | int64   | -  |
+| PARENT_HOLDER_NETPROFIT_YOY | float64 | -  |
+| BASIC_EPS                   | float64 | -  |
+| DILUTED_EPS                 | float64 | -  |
+| GROSS_PROFIT_RATIO          | float64 | -  |
+| NET_PROFIT_RATIO            | float64 | -  |
+| ACCOUNTS_RECE_TR            | float64 | -  |
+| INVENTORY_TR                | float64 | -  |
+| TOTAL_ASSETS_TR             | float64 | -  |
+| ACCOUNTS_RECE_TDAYS         | float64 | -  |
+| INVENTORY_TDAYS             | float64 | -  |
+| TOTAL_ASSETS_TDAYS          | float64 | -  |
+| ROE_AVG                     | float64 | -  |
+| ROA                         | float64 | -  |
+| CURRENT_RATIO               | float64 | -  |
+| SPEED_RATIO                 | float64 | -  |
+| OCF_LIQDEBT                 | float64 | -  |
+| DEBT_ASSET_RATIO            | float64 | -  |
+| EQUITY_RATIO                | float64 | -  |
+| BASIC_EPS_YOY               | float64 | -  |
+| GROSS_PROFIT_RATIO_YOY      | float64 | -  |
+| NET_PROFIT_RATIO_YOY        | float64 | -  |
+| ROE_AVG_YOY                 | float64 | -  |
+| ROA_YOY                     | float64 | -  |
+| DEBT_ASSET_RATIO_YOY        | float64 | -  |
+| CURRENT_RATIO_YOY           | float64 | -  |
+| SPEED_RATIO_YOY             | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_financial_us_analysis_indicator_em_df = ak.stock_financial_us_analysis_indicator_em(symbol="TSLA", indicator="年报")
+print(stock_financial_us_analysis_indicator_em_df)
+```
+
+数据示例
+
+```
+   SECUCODE SECURITY_CODE  ... CURRENT_RATIO_YOY SPEED_RATIO_YOY
+0    TSLA.O          TSLA  ...         17.325422       28.440175
+1    TSLA.O          TSLA  ...         12.659536       19.087360
+2    TSLA.O          TSLA  ...         11.391821       -2.942407
+3    TSLA.O          TSLA  ...        -26.656933      -31.763438
+4    TSLA.O          TSLA  ...         65.265821       98.010070
+5    TSLA.O          TSLA  ...         36.490497       54.229892
+6    TSLA.O          TSLA  ...         -2.902445       -7.382595
+7    TSLA.O          TSLA  ...        -20.306070      -21.998647
+8    TSLA.O          TSLA  ...          8.548288       34.456320
+9    TSLA.O          TSLA  ...        -34.422709      -49.356229
+10   TSLA.O          TSLA  ...        -19.511791      -22.928303
+11   TSLA.O          TSLA  ...         92.625823      188.401364
+12   TSLA.O          TSLA  ...        -50.045468      -71.819999
+13   TSLA.O          TSLA  ...        -29.317702      -24.315460
+14   TSLA.O          TSLA  ...         57.604938       65.676565
+15   TSLA.O          TSLA  ...        389.435012      700.530829
+16   TSLA.O          TSLA  ...        -17.820400      -57.326660
+17   TSLA.O          TSLA  ...               NaN             NaN
+18   TSLA.O          TSLA  ...               NaN             NaN
+[19 rows x 48 columns]
 ```
 
 #### 历史分红
@@ -19704,6 +20162,111 @@ print(stock_profit_forecast_ths_df)
 
 ### 概念板块
 
+#### 同花顺-概念板块指数
+
+接口: stock_board_concept_index_ths
+
+目标地址: https://q.10jqka.com.cn/gn/detail/code/301558
+
+描述: 同花顺-板块-概念板块-指数日频率数据
+
+限量: 单次返回所有日频指数数据
+
+输入参数
+
+| 名称         | 类型  | 描述                                                                         |
+|------------|-----|----------------------------------------------------------------------------|
+| symbol     | str | symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths()** 查看同花顺的所有概念名称 |
+| start_date | str | start_date="20200101"; 开始时间                                                |
+| end_date   | str | end_date="20250228"; 结束时间                                                  |
+
+输出参数
+
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  | -   |
+| 开盘价 | float64 | -   |
+| 最高价 | float64 | -   |
+| 最低价 | float64 | -   |
+| 收盘价 | float64 | -   |
+| 成交量 | int64   | -   |
+| 成交额 | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_board_industry_index_ths_df = ak.stock_board_industry_index_ths(symbol="阿里巴巴概念", start_date="20200101", end_date="20250228")
+print(stock_board_industry_index_ths_df)
+```
+
+数据示例
+
+```
+       日期       开盘价       最高价  ...    收盘价        成交量           成交额
+0     2020-01-02  1105.430  1133.391  ...  1130.280   1867106700  2.270406e+10
+1     2020-01-03  1133.673  1143.881  ...  1140.087   1734555400  2.049213e+10
+2     2020-01-06  1132.865  1160.416  ...  1152.178   1926283700  2.349216e+10
+3     2020-01-07  1154.766  1173.157  ...  1173.068   1750895500  2.130472e+10
+4     2020-01-08  1163.282  1165.660  ...  1145.718   1803020900  2.088292e+10
+...          ...       ...       ...  ...       ...          ...           ...
+1243  2025-02-24  1863.806  1878.155  ...  1861.602  15264005000  2.925278e+11
+1244  2025-02-25  1810.802  1867.696  ...  1841.722  13808811000  2.679426e+11
+1245  2025-02-26  1850.068  1863.424  ...  1858.920  12255662600  2.370736e+11
+1246  2025-02-27  1856.049  1869.277  ...  1844.177  13536135000  2.491938e+11
+1247  2025-02-28  1825.706  1827.989  ...  1801.832   6594539400  1.185183e+11
+[1248 rows x 7 columns]
+```
+
+#### 同花顺-概念板块简介
+
+接口: stock_board_concept_info_ths
+
+目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
+
+描述: 同花顺-板块-概念板块-板块简介
+
+限量: 单次返回所有数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                                |
+|--------|-----|-----------------------------------------------------------------------------------|
+| symbol | str | symbol: str = "阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths()** 查看同花顺的所有概念名称 |
+
+输出参数
+
+| 名称 | 类型      | 描述 |
+|----|---------|----|
+| 项目 | object  | -  |
+| 值  | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_board_concept_info_ths_df = ak.stock_board_concept_info_ths(symbol="阿里巴巴概念")
+print(stock_board_concept_info_ths_df)
+```
+
+数据示例
+
+```
+         项目         值
+0        今开   1825.71
+1        昨收   1844.18
+2        最低   1752.74
+3        最高   1827.99
+4   成交量(万手)  12324.70
+5      板块涨幅    -4.96%
+6      涨幅排名   317/396
+7      涨跌家数    25/222
+8  资金净流入(亿)   -251.00
+9    成交额(亿)   2167.43
+```
+
 #### 东方财富-概念板块
 
 接口: stock_board_concept_name_em
@@ -19712,7 +20275,7 @@ print(stock_profit_forecast_ths_df)
 
 描述: 东方财富网-行情中心-沪深京板块-概念板块
 
-限量: 单次返回当前时刻所有概念板块数据
+限量: 单次返回当前时刻所有概念板块的实时行情数据
 
 输入参数
 
@@ -19749,25 +20312,74 @@ print(stock_board_concept_name_em_df)
 数据示例
 
 ```
-      排名     板块名称    板块代码      最新价    涨跌额  ...   换手率  上涨家数  下跌家数  领涨股票  领涨股票-涨跌幅
-0      1     华为欧拉  BK1013   937.03  31.67  ...  3.03    11     0  中国软件     10.01
-1      2      CRO  BK0899  1989.05  64.89  ...  0.95    29     0  药石科技      9.27
-2      3  DRG/DIP  BK1054   884.57  27.04  ...  1.22    12     0  久远银海      9.99
-3      4     数字哨兵  BK1084  1359.01  35.78  ...  3.39    13     0  盛视科技      6.29
-4      5     千金藤素  BK1083  1059.82  26.72  ...  0.64     5     0  皓元医药      6.96
-..   ...      ...     ...      ...    ...  ...   ...   ...   ...   ...       ...
-404  405     社区团购  BK0965   805.92  -7.89  ...  1.59     6    23   煌上煌      0.73
-405  406     昨日涨停  BK0815  1750.34 -20.65  ...  5.47    10    24  中远海科     10.02
-406  407     托育服务  BK1074   859.48 -10.91  ...  2.25     7     9  威创股份      2.32
-407  408     昨日连板  BK0816    57.09  -0.86  ...  4.59     2     5  弘业期货     10.02
-408  409     昨日触板  BK0817     2.87  -0.07  ...  2.65     2    13  皖通科技     10.03
+      排名  板块名称    板块代码  最新价    涨跌额  ...  换手率  上涨家数  下跌家数  领涨股票  领涨股票-涨跌幅
+0      1        乳业  BK0892  1045.53   42.05  ...   2.85    26     3  庄园牧场     10.04
+1      2      免税概念  BK0927  1308.35   48.13  ...   2.58    30     1  海南发展     10.01
+2      3      退税商店  BK0933  1214.86   40.97  ...   2.33    10     0  广百股份      9.97
+3      4  昨日连板_含一字  BK1051  3886.96  110.94  ...  16.32    13     7  广聚能源     10.01
+4      5      社区团购  BK0965   890.88   25.13  ...   5.56    36     3  宏辉果蔬      9.95
+..   ...       ...     ...      ...     ...  ...    ...   ...   ...   ...       ...
+457  458      商汤概念  BK0942  1309.35  -37.91  ...   3.60     1    13  上海临港      0.20
+458  459      数字哨兵  BK1084  1581.94  -45.94  ...   6.93     1    11  雄帝科技      1.21
+459  460     CPO概念  BK1128  2681.19  -79.49  ...   4.25     2    41  奥飞数据     11.02
+460  461   MLOps概念  BK1132  1171.08  -36.92  ...   5.50     1     9  安恒信息      2.16
+461  462     国资云概念  BK1008  1769.93  -60.23  ...  11.46     3    16  杭钢股份     10.01
+[462 rows x 12 columns]
+```
+
+#### 东方财富-概念板块-实时行情
+
+接口: stock_board_concept_spot_em
+
+目标地址: https://quote.eastmoney.com/bk/90.BK0818.html
+
+描述: 东方财富网-行情中心-沪深京板块-概念板块-实时行情
+
+限量: 单次返回指定概念板块的实时行情数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| item  | object  | -  |
+| value | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_board_concept_spot_em_df = ak.stock_board_concept_spot_em(symbol="可燃冰")
+print(stock_board_concept_spot_em_df)
+```
+
+数据示例
+
+```
+  item         value
+0   最新  1.138760e+03
+1   最高  1.149370e+03
+2   最低  1.119960e+03
+3   开盘  1.119960e+03
+4  成交量  4.543638e+06
+5  成交额  2.916916e+09
+6  换手率  1.190000e+00
+7  涨跌额  2.487000e+01
+8  涨跌幅  2.230000e+00
+9   振幅  2.640000e+00
 ```
 
 #### 东方财富-成份股
 
 接口: stock_board_concept_cons_em
 
-目标地址: http://quote.eastmoney.com/center/boardlist.html#boards-BK06551(示例)
+目标地址: http://quote.eastmoney.com/center/boardlist.html#boards-BK06551
 
 描述: 东方财富-沪深板块-概念板块-板块成份
 
@@ -19775,9 +20387,9 @@ print(stock_board_concept_name_em_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                                                                            |
-|--------|-----|-------------------------------------------------------------------------------|
-| symbol | str | symbol="融资融券"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有行业名称 |
+| 名称     | 类型  | 描述                                                                                              |
+|--------|-----|-------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="融资融券"; 支持传入板块代码比如：BK0655，可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有行业名称 |
 
 输出参数
 
@@ -19812,19 +20424,19 @@ print(stock_board_concept_cons_em_df)
 数据示例
 
 ```
-      序号  代码    名称    最新价    涨跌幅  ... 今开   昨收  换手率  市盈率-动态  市净率
-0      1  873167   新赣江  28.08  30.00  ...  22.00  21.60  26.94   73.62   4.22
-1      2  835305  云创数据  45.13  29.98  ...  36.20  34.72  32.62 -148.35   7.70
-2      3  430300  辰光医疗  16.70  29.96  ...  12.95  12.85  32.84  -67.73   5.25
-3      4  300287   飞利信   7.19  20.03  ...   5.88   5.99  27.73  -62.39   8.20
-4      5  688393   安必平  25.60  20.02  ...  21.80  21.33   7.71   60.63   1.88
-..   ...     ...   ...    ...    ...  ...    ...    ...    ...     ...    ...
-195  196  300876  蒙泰高新  28.10   5.36  ...  26.67  26.67   4.26  -68.55   3.47
-196  197  301238  瑞泰新材  19.85   5.36  ...  19.50  18.84  37.03   73.03   2.02
-197  198  688051  佳华科技  25.27   5.29  ...  23.98  24.00   2.44  -46.73   2.47
-198  199  300657  弘信电子  32.28   5.28  ...  31.04  30.66  26.95  216.14  11.88
-199  200  000815   美利云  12.23   5.25  ...  11.99  11.62  13.62 -641.52   4.58
-[200 rows x 16 columns]
+       序号  代码    名称    最新价     涨跌幅  ...     今开      昨收    换手率  市盈率-动态    市净率
+0        1  301557   N常友  89.99  211.60  ...  80.23   28.88  83.66   37.89   4.00
+1        2  603409   N汇通  50.81  110.13  ...  48.50   24.18  75.43   38.13   4.44
+2        3  832149   利尔达  17.29   30.00  ...  13.01   13.30  37.53  -49.74  10.49
+3        4  837006  晟楠科技  31.39   29.98  ...  24.24   24.15  47.44 -195.48   8.85
+4        5  831167   鑫汇科  33.87   29.97  ...  29.90   26.06  15.82   59.27   6.26
+...    ...     ...   ...    ...     ...  ...    ...     ...    ...     ...    ...
+3669  3670  603663  三祥新材  24.75  -10.00  ...  24.75   27.50  14.56  102.19   8.02
+3670  3671  603906  龙蟠科技  12.13  -10.01  ...  13.01   13.48   9.35  -19.98   2.73
+3671  3672  000042  中洲控股   6.71  -10.05  ...   7.45    7.46   3.17   -6.45   0.86
+3672  3673  870436  大地电气  25.53  -10.20  ...  26.72   28.43  11.62  -32.46   6.16
+3673  3674  920106  林泰新材  93.35  -11.93  ...  98.00  106.00  25.92   34.45   8.44
+[3674 rows x 16 columns]
 ```
 
 #### 东方财富-指数
@@ -19841,7 +20453,7 @@ print(stock_board_concept_cons_em_df)
 
 | 名称         | 类型  | 描述                                                                            |
 |------------|-----|-------------------------------------------------------------------------------|
-| symbol     | str | symbol="网络安全"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有概念代码 |
+| symbol     | str | symbol="绿色电力"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有概念代码 |
 | period     | str | period="daily"; choice of {"daily", "weekly", "monthly"}                      |
 | start_date | str | start_date="20220101"                                                         |
 | end_date   | str | end_date="20221128"                                                           |
@@ -19868,25 +20480,26 @@ print(stock_board_concept_cons_em_df)
 ```python
 import akshare as ak
 
-stock_board_concept_hist_em_df = ak.stock_board_concept_hist_em(symbol="车联网", period="daily", start_date="20220101", end_date="20221128", adjust="")
+stock_board_concept_hist_em_df = ak.stock_board_concept_hist_em(symbol="绿色电力", period="daily", start_date="20220101", end_date="20250227", adjust="")
 print(stock_board_concept_hist_em_df)
 ```
 
 数据示例
 
 ```
-             日期       开盘       收盘       最高  ...       成交量           成交额    振幅   换手率
-0    2022-01-04  1148.82  1159.59  1161.29  ...  23988595  4.145125e+10  1.28  2.14
-1    2022-01-05  1157.33  1141.84  1158.64  ...  23743839  4.269546e+10  2.33  2.12
-2    2022-01-06  1134.52  1141.12  1146.77  ...  20393590  3.542075e+10  1.52  1.82
-3    2022-01-07  1143.19  1112.72  1149.17  ...  20794252  3.330893e+10  3.20  1.85
-4    2022-01-10  1110.36  1123.51  1126.83  ...  18111449  3.118377e+10  2.82  1.61
+      日期        开盘      收盘      最高  ...     成交量       成交额    振幅   换手率
+0    2022-01-04  1151.48  1143.13  1155.59  ...  57503811  4.502800e+10  1.22  1.42
+1    2022-01-05  1141.91  1106.74  1141.91  ...  54859005  4.212589e+10  3.74  1.35
+2    2022-01-06  1100.52  1115.16  1122.27  ...  42174619  3.282551e+10  2.25  1.04
+3    2022-01-07  1115.49  1089.20  1118.08  ...  44604672  3.478526e+10  2.61  1.10
+4    2022-01-10  1083.43  1082.51  1088.21  ...  36095282  2.706919e+10  1.23  0.89
 ..          ...      ...      ...      ...  ...       ...           ...   ...   ...
-213  2022-11-22   993.70   983.63  1000.86  ...  18363822  2.483028e+10  2.11  1.64
-214  2022-11-23   981.88   973.02   982.52  ...  18250499  2.352907e+10  2.06  1.63
-215  2022-11-24   973.50   965.67   979.01  ...  15611341  1.998162e+10  1.55  1.39
-216  2022-11-25   965.18   952.83   966.95  ...  15075562  1.950651e+10  1.46  1.34
-217  2022-11-28   940.60   946.95   949.74  ...  14977193  1.961750e+10  1.37  1.34
+756  2025-02-21   985.80   986.71   987.88  ...  42772223  2.825437e+10  0.91  1.06
+757  2025-02-24   986.75   996.56   997.62  ...  43658453  3.027056e+10  1.13  1.08
+758  2025-02-25   990.79   990.51   997.28  ...  38009252  2.627609e+10  1.00  0.94
+759  2025-02-26   991.87  1002.54  1002.57  ...  39788170  2.634823e+10  1.08  0.98
+760  2025-02-27  1002.54   995.28  1003.97  ...  38629884  2.581886e+10  1.89  0.95
+[761 rows x 11 columns]
 ```
 
 #### 东方财富-指数-分时
@@ -20195,7 +20808,7 @@ print(stock_board_industry_index_ths_df)
 
 描述: 东方财富-沪深京板块-行业板块
 
-限量: 单次返回当前时刻所有行业板块数据
+限量: 单次返回当前时刻所有行业板的实时行情数据
 
 输入参数
 
@@ -20247,6 +20860,54 @@ print(stock_board_industry_name_em_df)
 [86 rows x 12 columns]
 ```
 
+#### 东方财富-行业板块-实时行情
+
+接口: stock_board_industry_spot_em
+
+目标地址: https://quote.eastmoney.com/bk/90.BK1027.html
+
+描述: 东方财富网-沪深板块-行业板块-实时行情
+
+限量: 单次返回指定板块的实时行情数据
+
+输入参数
+
+| 名称     | 类型  | 描述           |
+|--------|-----|--------------|
+| symbol | str | symbol="小金属" |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| item  | object  | -  |
+| value | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_board_industry_spot_em_df = ak.stock_board_industry_spot_em(symbol="小金属")
+print(stock_board_industry_spot_em_df)
+```
+
+数据示例
+
+```
+  item         value
+0   最新  1.957370e+03
+1   最高  1.990130e+03
+2   最低  1.953700e+03
+3   开盘  1.964160e+03
+4  成交量  1.386981e+07
+5  成交额  2.165428e+10
+6  换手率  2.970000e+00
+7  涨跌额 -1.791000e+01
+8  涨跌幅 -9.100000e-01
+9   振幅  1.840000e+00
+```
+
 #### 东方财富-成份股
 
 接口: stock_board_industry_cons_em
@@ -20259,9 +20920,9 @@ print(stock_board_industry_name_em_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                                                                            |
-|--------|-----|-------------------------------------------------------------------------------|
-| symbol | str | symbol="小金属"; 可以通过调用 **ak.stock_board_industry_name_em()** 查看东方财富-行业板块的所有行业代码 |
+| 名称     | 类型  | 描述                                                                                              |
+|--------|-----|-------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="小金属"; 支持传入板块代码比如：BK1027，可以通过调用 **ak.stock_board_industry_name_em()** 查看东方财富-行业板块的所有行业代码 |
 
 输出参数
 

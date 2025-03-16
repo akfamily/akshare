@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/11/23 17:00
+Date: 2025/2/25 17:00
 Desc: 东方财富-财经早餐
 https://stock.eastmoney.com/a/czpnc.html
 """
@@ -13,6 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from akshare.request import make_request_with_retry_json
+from akshare.utils.cons import headers
 
 
 def stock_info_cjzc_em() -> pd.DataFrame:
@@ -170,10 +171,6 @@ def stock_info_global_ths() -> pd.DataFrame:
         "tag": "",
         "track": "website",
     }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
-        " Chrome/111.0.0.0 Safari/537.36"
-    }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -204,7 +201,7 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.cls.cn/nodeapi/telegraphList"
-    data_json = make_request_with_retry_json(url, max_retries=10)
+    data_json = make_request_with_retry_json(url, max_retries=10, headers=headers)
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
     big_df = temp_df.copy()
     big_df = big_df[["title", "content", "ctime", "level"]]
@@ -242,8 +239,6 @@ def stock_info_broker_sina(page: str = "1") -> pd.DataFrame:
     data_text = r.text
     soup = BeautifulSoup(data_text, features="lxml")
     data = []
-    from datetime import datetime
-
     current_year = datetime.now().year
     for ul_index in range(0, 11):
         for li_index in range(0, 6):

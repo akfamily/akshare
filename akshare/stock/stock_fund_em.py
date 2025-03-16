@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/17 14:30
+Date: 2025/3/10 19:00
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
 
-import json
+import math
 import time
 from functools import lru_cache
 
 import pandas as pd
 import requests
+
+from akshare.utils.func import fetch_paginated_data
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_individual_fund_flow(
@@ -43,8 +46,8 @@ def stock_individual_fund_flow(
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    json_data = r.json()
-    content_list = json_data["data"]["klines"]
+    data_json = r.json()
+    content_list = data_json["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
         "日期",
@@ -147,9 +150,9 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     params = {
         "fid": indicator_map[indicator][0],
         "po": "1",
-        "pz": "50000",
+        "pz": "100",
         "pn": "1",
-        "np": "2",
+        "np": "1",
         "fltt": "2",
         "invt": "2",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -158,7 +161,20 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    total_page = math.ceil(data_json["data"]["total"] / 100)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     if indicator == "今日":
@@ -348,13 +364,11 @@ def stock_market_fund_flow() -> pd.DataFrame:
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
-        "cb": "jQuery183003743205523325188_1589197499471",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
-    content_list = json_data["data"]["klines"]
+    data_json = r.json()
+    content_list = data_json["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
         "日期",
@@ -468,9 +482,9 @@ def stock_sector_fund_flow_rank(
     }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
@@ -479,13 +493,25 @@ def stock_sector_fund_flow_rank(
         "stat": indicator_map[indicator][1],
         "fields": indicator_map[indicator][2],
         "rt": "52975239",
-        "cb": "jQuery18308357908311220152_1589256588824",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    data_json = r.json()
+    total_page = math.ceil(data_json["data"]["total"] / 100)
+    temp_list = []
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pn": page,
+            }
+        )
+        r = requests.get(url, params=params, timeout=15)
+        data_json = r.json()
+        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_list.append(inner_temp_df)
+    temp_df = pd.concat(temp_list, ignore_index=True)
+
     if indicator == "今日":
         temp_df.columns = [
             "-",
@@ -630,15 +656,11 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     :rtype: dict
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
@@ -649,9 +671,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
         "rt": "52975239",
         "_": int(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
     return name_code_map
 
@@ -675,9 +695,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f62",
             "po": "1",
-            "pz": "500",
+            "pz": "5000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -685,9 +705,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -764,9 +784,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f164",
             "po": "1",
-            "pz": "500",
+            "pz": "50000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -774,9 +794,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -853,9 +873,9 @@ def stock_sector_fund_flow_summary(
         params = {
             "fid": "f174",
             "po": "1",
-            "pz": "500",
+            "pz": "50000",
             "pn": "1",
-            "np": "1",
+            "np": "2",
             "fltt": "2",
             "invt": "2",
             "fs": f"b:{code_name_map[symbol]}",
@@ -863,9 +883,9 @@ def stock_sector_fund_flow_summary(
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["diff"])
+        temp_df = pd.DataFrame(data_json["data"]["diff"]).T
         temp_df.reset_index(inplace=True)
-        temp_df["index"] = temp_df["index"] + 1
+        temp_df["index"] = temp_df["index"].astype(int) + 1
         temp_df.rename(
             columns={
                 "index": "序号",
@@ -942,7 +962,7 @@ def stock_sector_fund_flow_summary(
         return pd.DataFrame()
 
 
-def stock_sector_fund_flow_hist(symbol: str = "电源设备") -> pd.DataFrame:
+def stock_sector_fund_flow_hist(symbol: str = "汽车服务") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-行业资金流-行业历史资金流
     https://data.eastmoney.com/bkzj/BK1034.html
@@ -1039,29 +1059,23 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     :rtype: dict
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
-        "fields": "f12,f13,f14,f62",
+        "np": "1",
+        "fields": "f3,f12,f13,f14,f62",
         "fid": "f62",
         "fs": "m:90+t:3",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "_": int(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
     return name_code_map
 
 
-def stock_concept_fund_flow_hist(symbol: str = "锂电池") -> pd.DataFrame:
+def stock_concept_fund_flow_hist(symbol: str = "数据要素") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-概念资金流-概念历史资金流
     https://data.eastmoney.com/bkzj/BK0574.html
@@ -1172,19 +1186,16 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
     params = {
         "fid": "f184",
         "po": "1",
-        "pz": "50000",
+        "pz": "100",
         "pn": "1",
-        "np": "2",
+        "np": "1",
         "fltt": "2",
         "invt": "2",
         "fields": "f2,f3,f12,f13,f14,f62,f184,f225,f165,f263,f109,f175,f264,f160,f100,f124,f265,f1",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fs": symbol_map[symbol],
     }
-    r = requests.get(url, params=params, timeout=15)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df["序号"] = range(1, len(temp_df) + 1)
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "index": "序号",
@@ -1302,10 +1313,10 @@ if __name__ == "__main__":
     )
     print(stock_sector_fund_flow_summary_df)
 
-    stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="电源设备")
+    stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="汽车服务")
     print(stock_sector_fund_flow_hist_df)
 
-    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="电源设备")
+    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="半导体概念")
     print(stock_concept_fund_flow_hist_df)
 
     stock_main_fund_flow_df = stock_main_fund_flow(symbol="全部股票")

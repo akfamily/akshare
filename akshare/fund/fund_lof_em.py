@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/20 15:00
+Date: 2025/3/11 17:00
 Desc: 东方财富-LOF 行情
 https://quote.eastmoney.com/center/gridlist.html#fund_lof
 https://quote.eastmoney.com/sz166009.html
@@ -11,6 +11,8 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+
+from akshare.utils.func import fetch_paginated_data
 
 
 @lru_cache()
@@ -24,21 +26,19 @@ def _fund_lof_code_id_map_em() -> dict:
     url = "https://2.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
         "wbp2u": "|0|0|0|web",
-        "fid": "f3",
+        "fid": "f12",
         "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
-        "fields": "f12,f13",
+        "fields": "f3,f12,f13",
         "_": "1672806290972",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return temp_dict
 
@@ -53,9 +53,9 @@ def fund_lof_spot_em() -> pd.DataFrame:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "100",
         "po": "1",
-        "np": "2",
+        "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
         "fltt": "2",
         "invt": "2",
@@ -66,9 +66,7 @@ def fund_lof_spot_em() -> pd.DataFrame:
         "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1672806290972",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "f12": "代码",
@@ -348,7 +346,7 @@ if __name__ == "__main__":
         symbol="166009",
         period="daily",
         start_date="20000101",
-        end_date="20230703",
+        end_date="20250311",
         adjust="hfq",
     )
     print(fund_lof_hist_em_df)
@@ -357,7 +355,7 @@ if __name__ == "__main__":
         symbol="166009",
         period="1",
         adjust="",
-        start_date="2024-03-20 09:30:00",
-        end_date="2024-03-20 14:40:00",
+        start_date="2025-03-11 09:30:00",
+        end_date="2025-03-11 14:40:00",
     )
     print(fund_lof_hist_min_em_df)
