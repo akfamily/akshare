@@ -75,7 +75,7 @@ def stock_individual_basic_info_hk_xq(
 ) -> pd.DataFrame:
     """
     雪球-个股-公司概况-公司简介
-    https://xueqiu.com/snowman/S/NVDA/detail#/GSJJ
+    https://xueqiu.com/S/00700
     :param symbol: 证券代码
     :type symbol: str
     :param token: 雪球财经的 token
