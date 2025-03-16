@@ -3550,6 +3550,80 @@ print(stock_us_hist_df)
 [673 rows x 11 columns]
 ```
 
+#### 个股信息查询-雪球
+
+接口: stock_individual_basic_info_us_xq
+
+目标地址: https://xueqiu.com/snowman/S/NVDA/detail#/GSJJ
+
+描述: 雪球-个股-公司概况-公司简介
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="NVDA"; 股票代码     |
+| token   | str   | token=None;             |
+| timeout | float | timeout=None; 默认不设置超时参数 |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_individual_basic_info_us_xq_df = ak.stock_individual_basic_info_us_xq(symbol="SH601127")
+print(stock_individual_basic_info_us_xq_df)
+```
+
+数据示例
+
+```
+                             item                                              value
+0                          org_id                                         T000040433
+1                     org_name_cn                                              英伟达公司
+2               org_short_name_cn                                                英伟达
+3                     org_name_en                                 Nvidia Corporation
+4               org_short_name_en                                             Nvidia
+5         main_operation_business                                           图形和通信处理器
+6                 operating_scope  公司的图形和通信处理器已被多种多样的计算平台采用，包括个人数字媒体PC、商用PC、专业工作站...
+7                 district_encode                                             001008
+8             org_cn_introduction  英伟达公司于1993年4月在加利福尼亚州注册成立，并于1998年4月在特拉华州重新注册成立。...
+9            legal_representative                                               None
+10                general_manager                                               None
+11                      secretary                                               None
+12               established_date                                               None
+13                      reg_asset                                               None
+14                      staff_num                                              36000
+15                      telephone                                      1-408-4862000
+16                       postcode                                              95051
+17                            fax                                               None
+18                          email                                               None
+19                    org_website                                     www.nvidia.com
+20                 reg_address_cn                                               特拉华州
+21                 reg_address_en                                               特拉华州
+22              office_address_cn                                               None
+23              office_address_en  2788 San Tomas Expressway\r\nSanta Clara\r\nCa...
+24                currency_encode                                               None
+25                       currency
+26                    listed_date                                       916981200000
+27                         td_mkt                                      美国NASDAQ证券交易所
+28                       chairman                                               None
+29                executives_nums                                                  6
+30  actual_issue_total_shares_num                                               None
+31             actual_issue_price                                               None
+32            total_raise_capital                                               None
+33                     mainholder                                       领航集团 (8.30%)
+```
+
 #### 分时数据-东财
 
 接口: stock_us_hist_min_em
@@ -4076,6 +4150,66 @@ print(stock_hk_spot_df)
 2433   0.153   0.160       0.000     0.0000000
 2434   0.141   0.144      -0.003    -2.0833333
 2435   0.166   0.169       0.000     0.0000000
+```
+
+#### 个股信息查询-雪球
+
+接口: stock_individual_basic_info_hk_xq
+
+目标地址: https://xueqiu.com/S/00700
+
+描述: 雪球-个股-公司概况-公司简介
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="02097"; 股票代码    |
+| token   | str   | token=None;             |
+| timeout | float | timeout=None; 默认不设置超时参数 |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_individual_basic_info_hk_xq_df = ak.stock_individual_basic_info_hk_xq(symbol="02097")
+print(stock_individual_basic_info_hk_xq_df)
+```
+
+数据示例
+
+```
+           item                                              value
+0       comunic                                        231269720.0
+1     comcnname                                         蜜雪冰城股份有限公司
+2     comenname                                        MIXUE Group
+3       incdate                                    1209484800000.0
+4        rgiofc                 中国河南省郑州市金水区北三环南、文化路东瀚海北金商业中心16004室
+5    hofclctmbu                 中国河南省郑州市金水区北三环南、文化路东瀚海北金商业中心16004室
+6      chairman                                                张红超
+7           mbu                                             现制饮品企业
+8       comintr  我们是一家领先的现制饮品企业,聚焦为广大消费者提供单价约6元人民币(约1美元)的高质平价的现...
+9     refccomty                                                1.0
+10     numtissh                                         17059900.0
+11         ispr                                              202.5
+12         nrfd                                       3291000000.0
+13  nation_name                                                 中国
+14          tel                                      0371-89834090
+15          fax                                      0371-89916887
+16        email                                dongshihui@mxbc.com
+17     web_site                                http://www.mxbc.com
+18    lsdateipo                                    1740931200000.0
+19   mainholder                                                张红超
 ```
 
 #### 分时数据-东财
