@@ -31,49 +31,12 @@ def index_code_id_map_em() -> dict:
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
-        "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f3,f12",
+        "fs": "b:MK0010,m:1+t:1,m:0 t:5,m:1+s:3,m:0+t:5,m:2",
+        "fields": "f3,f12,f13",
         "_": "1623833739532",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df["market_id"] = 1
-    code_id_dict = dict(zip(temp_df["f12"], temp_df["market_id"]))
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f3,f12",
-        "_": "1623833739532",
-    }
-    temp_df_sz = fetch_paginated_data(url, params)
-    temp_df_sz["sz_id"] = 0
-    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f3",
-        "fs": "m:0 t:81 s:2048",
-        "fields": "f3,f12",
-        "_": "1623833739532",
-    }
-    temp_df_sz = fetch_paginated_data(url, params)
-    temp_df_sz["bj_id"] = 0
-    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
-    code_id_dict = {
-        key: value - 1 if value == 1 else value + 1
-        for key, value in code_id_dict.items()
-    }
+    code_id_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return code_id_dict
 
 
@@ -419,7 +382,7 @@ def index_zh_a_hist_min_em(
 
 if __name__ == "__main__":
     index_zh_a_hist_df = index_zh_a_hist(
-        symbol="800000",
+        symbol="932000",
         period="daily",
         start_date="19700101",
         end_date="22220101",
@@ -427,9 +390,9 @@ if __name__ == "__main__":
     print(index_zh_a_hist_df)
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
-        symbol="000001",
-        period="5",
-        start_date="2025-03-11 09:30:00",
-        end_date="2025-03-11 19:00:00",
+        symbol="000003",
+        period="1",
+        start_date="2025-03-17 09:30:00",
+        end_date="2025-03-17 19:00:00",
     )
     print(index_zh_a_hist_min_em_df)
