@@ -63,11 +63,12 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     url = "https://centerapi.fx168api.com/app/qh/api/stock/trend"
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        "_pcc": "UA0+njHjAu6S+x0zm3/mS0dfA/bI6hXykkXo+zcU0fnYA3BDzyOhtyzP6rhHrxGHJHbC5PReeQsE0mUqas"
-        "osFnO5vMV+esXjRG/PpE7ob4ghzm8A+qNd0MC+mag1ov+aHMrbmfzRn0poqRHG2X7Cm+BfDMtWRU7P//2QvlbDtLg=",
+        "_pcc": "hETmls1NpL1IyIXZ9gvqY6OlNkEbubzrds3DFH3FsVji+P68lhdgcwW/nIksenplYqUWWqpFigd2ZZMDE/8gDnFthohx"
+        "w9cQHAfT2LLYZbuvxS+Zb23EolKGY8/C5pGMcNaW34IVrjVX6ppreh7ARBHYLGxcrCU2rZZCyY4W3HU=",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/58.0.3029.110 Safari/537.3",
         "referer": "https://www.99qh.com",
+        "origin": "https://www.99qh.com",
     }
     params = {
         "productId": product_id,
@@ -90,5 +91,5 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_inventory_99_df = futures_inventory_99(symbol="a")
+    futures_inventory_99_df = futures_inventory_99(symbol="ag")
     print(futures_inventory_99_df)
