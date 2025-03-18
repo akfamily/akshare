@@ -81,6 +81,12 @@
 
 ## 更新说明详情
 
+1.16.50 fix: fix futures_inventory_99 interface
+
+	1. 修复 futures_inventory_99 接口
+	2. 修复 stock_individual_spot_xq 接口
+	3. 修复 stock_fhps_em 接口
+
 1.16.49 fix: fix index_zh_a_hist_min_em interface
 
 	1. 修复 index_zh_a_hist_min_em 接口
@@ -5359,6 +5365,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.50 fix: fix futures_inventory_99 interface
 
 1.16.49 fix: fix index_zh_a_hist_min_em interface
 
