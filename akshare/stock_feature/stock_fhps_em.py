@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/7 15:22
+Date: 2025/3/18 15:00
 Desc: 东方财富网-数据中心-年报季报-分红送配
 https://data.eastmoney.com/yjfp/
 """
 
 import pandas as pd
 import requests
+
 from akshare.utils.tqdm import get_tqdm
 
 
