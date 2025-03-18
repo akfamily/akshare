@@ -44,7 +44,7 @@ def stock_individual_spot_xq(
     :rtype: pandas.DataFrame
     """
     session = requests.Session()
-    xq_a_token = token or "afb2d000c59b0e6fa5539ff13798ca8e64330985"
+    xq_a_token = token or "cc9943aa6d41f0ae420f49b428f2f90a472b070a"
     headers = {
         "cookie": f"xq_a_token={xq_a_token};",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
