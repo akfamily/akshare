@@ -410,7 +410,7 @@ def stock_zh_index_daily_em(
     """
     东方财富网-股票指数数据
     https://quote.eastmoney.com/center/hszs.html
-    :param symbol: 带市场标识的指数代码; sz: 深交所, sh: 上交所, csi: 中信指数 + id(000905)
+    :param symbol: 带市场标识的指数代码; sz: 深交所, sh: 上交所, csi: 中信指数 + id(000905)，hk：香港指数
     :type symbol: str
     :param start_date: 开始时间
     :type start_date: str
@@ -419,7 +419,7 @@ def stock_zh_index_daily_em(
     :return: 指数数据
     :rtype: pandas.DataFrame
     """
-    market_map = {"sz": "0", "sh": "1", "csi": "2"}
+    market_map = {"sz": "0", "sh": "1", "csi": "2", "hk": "124"}
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     if symbol.find("sz") != -1:
         secid = "{}.{}".format(market_map["sz"], symbol.replace("sz", ""))
@@ -427,6 +427,8 @@ def stock_zh_index_daily_em(
         secid = "{}.{}".format(market_map["sh"], symbol.replace("sh", ""))
     elif symbol.find("csi") != -1:
         secid = "{}.{}".format(market_map["csi"], symbol.replace("csi", ""))
+    elif symbol.find("hk") != -1:
+        secid = "{}.{}".format(market_map["hk"], symbol.replace("hk", ""))
     else:
         return pd.DataFrame()
     params = {
