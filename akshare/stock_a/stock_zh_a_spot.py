@@ -18,7 +18,7 @@ async def fetch_single_page(
     session: aiohttp.ClientSession, url: str, params: Dict
 ) -> Dict:
     """异步获取单页数据"""
-    async with session.get(url, params=params) as response:
+    async with session.get(url, params=params, ssl=False) as response:
         return await response.json()
 
 
