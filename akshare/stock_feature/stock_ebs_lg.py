@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/5 22:05
+Date: 2025/3/19 15:30
 Desc: 乐咕乐股-股债利差
 https://legulegu.com/stockdata/equity-bond-spread
 """
+
 import pandas as pd
 import requests
 
@@ -24,11 +25,11 @@ def stock_ebs_lg() -> pd.DataFrame:
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/equity-bond-spread")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/equity-bond-spread"),
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df.rename(
         columns={
             "date": "日期",
@@ -46,7 +47,7 @@ def stock_ebs_lg() -> pd.DataFrame:
             "股债利差均线",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["沪深300指数"] = pd.to_numeric(temp_df["沪深300指数"], errors="coerce")
     temp_df["股债利差"] = pd.to_numeric(temp_df["股债利差"], errors="coerce")
     temp_df["股债利差均线"] = pd.to_numeric(temp_df["股债利差均线"], errors="coerce")
