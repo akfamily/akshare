@@ -81,6 +81,17 @@
 
 ## 更新说明详情
 
+1.16.51 fix: fix stock_individual_basic_info_xq interface
+
+	1. 修复 stock_individual_basic_info_xq 接口
+	2. 修复 stock_individual_basic_info_us_xq 接口
+	3. 修复 stock_individual_basic_info_hk_xq 接口
+	4. 修复 stock_ebs_lg 接口
+	5. 修复 stock_zh_a_st_em 接口
+	6. 修复 stock_zh_a_new_em 接口
+	7. 修复 stock_zh_a_stop_em 接口
+	8. 修复 stock_zh_a_new 接口
+
 1.16.50 fix: fix futures_inventory_99 interface
 
 	1. 修复 futures_inventory_99 接口
@@ -5365,6 +5376,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.51 fix: fix stock_individual_basic_info_xq interface
 
 1.16.50 fix: fix futures_inventory_99 interface
 
