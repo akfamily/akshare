@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/19 21:30
+Date: 2025/3/20 20:00
 Desc: 乐咕乐股-A 股市盈率和市净率
 https://legulegu.com/stockdata/shanghaiPE
 """
@@ -317,9 +317,6 @@ function E(n, e, t, r, o, f, i) {
     return A(t ^ (e | ~r), n, e, o, f, i)
 }
 """
-js_functions = py_mini_racer.MiniRacer()
-js_functions.eval(hash_code)
-token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
 def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
@@ -331,6 +328,9 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
     :return: 指定市场的市盈率数据
     :rtype: pandas.DataFrame
     """
+    js_functions = py_mini_racer.MiniRacer()
+    js_functions.eval(hash_code)
+    token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
     if symbol in {"上证", "深证", "创业板"}:
         url = "https://legulegu.com/api/stock-data/market-pe"
         symbol_map = {
@@ -404,6 +404,9 @@ def stock_index_pe_lg(symbol: str = "沪深300") -> pd.DataFrame:
     :return: 指定指数的市盈率数据
     :rtype: pandas.DataFrame
     """
+    js_functions = py_mini_racer.MiniRacer()
+    js_functions.eval(hash_code)
+    token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
     symbol_map = {
         "上证50": "000016.SH",
         "沪深300": "000300.SH",
@@ -466,6 +469,9 @@ def stock_market_pb_lg(symbol: str = "上证") -> pd.DataFrame:
     :return: 指定市场的市净率数据
     :rtype: pandas.DataFrame
     """
+    js_functions = py_mini_racer.MiniRacer()
+    js_functions.eval(hash_code)
+    token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
     url = "https://legulegu.com/api/stockdata/index-basic-pb"
     symbol_map = {"上证": "1", "深证": "2", "创业板": "4", "科创版": "7"}
     url_map = {
@@ -511,6 +517,9 @@ def stock_index_pb_lg(symbol: str = "上证50") -> pd.DataFrame:
     :return: 指定指数的市净率数据
     :rtype: pandas.DataFrame
     """
+    js_functions = py_mini_racer.MiniRacer()
+    js_functions.eval(hash_code)
+    token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
     symbol_map = {
         "上证50": "000016.SH",
         "沪深300": "000300.SH",
