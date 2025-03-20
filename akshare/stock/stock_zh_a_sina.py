@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/5 19:20
+Date: 2025/3/20 19:00
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -11,8 +11,6 @@ import re
 
 import pandas as pd
 import requests
-import py_mini_racer
-from tqdm import tqdm
 
 from akshare.stock.cons import (
     zh_sina_a_stock_payload,
@@ -25,6 +23,8 @@ from akshare.stock.cons import (
     zh_sina_a_stock_amount_url,
 )
 from akshare.utils import demjson
+from akshare.utils.multi_decrypt import execute_js_in_executor
+from akshare.utils.tqdm import get_tqdm
 
 
 def _get_zh_a_page_count() -> int:
@@ -52,13 +52,14 @@ def stock_zh_a_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
+    tqdm = get_tqdm()
     for page in tqdm(
         range(1, page_count + 1), leave=False, desc="Please wait for a moment"
     ):
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
-        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
 
     big_df = big_df.astype(
         {
@@ -174,13 +175,15 @@ def stock_zh_a_daily(
         return _fq_factor(adjust.split("-")[0])
 
     r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
-    js_code = py_mini_racer.MiniRacer()
-    js_code.eval(hk_js_decode)
-    dict_list = js_code.call(
-        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
-    )  # 执行js解密代码
+    # 使用示例
+    dict_list = execute_js_in_executor(
+        hk_js_decode,  # JS 代码
+        "call",  # 方法类型
+        "d",  # 函数名
+        r.text.split("=")[1].split(";")[0].replace('"', ""),  # 函数参数
+    )
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"]).dt.date
+    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.date
     del data_df["date"]
     try:
         del data_df["prevclose"]
@@ -343,12 +346,13 @@ def stock_zh_a_cdr_daily(
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
-    js_code = py_mini_racer.MiniRacer()
-    js_code.eval(hk_js_decode)
-    dict_list = js_code.call(
-        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
-    )  # 执行js解密代码
+    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    dict_list = execute_js_in_executor(
+        hk_js_decode,  # JS 代码
+        "call",  # 方法类型
+        "d",  # 函数名
+        r.text.split("=")[1].split(";")[0].replace('"', ""),  # 函数参数
+    )
     data_df = pd.DataFrame(dict_list)
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
@@ -393,7 +397,10 @@ def stock_zh_a_minute(
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :6]
     except:  # noqa: E722
-        url = f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203=/CN_MarketDataService.getKLineData"
+        url = (
+            f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203="
+            f"/CN_MarketDataService.getKLineData"
+        )
         params = {
             "symbol": symbol,
             "scale": period,
