@@ -226,6 +226,9 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
+    import nest_asyncio
+
+    nest_asyncio.apply()
     return asyncio.run(stock_zh_a_spot_em_async())
 
 
