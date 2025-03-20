@@ -52,7 +52,7 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "mini-racer>=0.12.4;platform_system!='Linux'",
+        "nest_asyncio>=1.6.0" "mini-racer>=0.12.4;platform_system!='Linux'",
         "py-mini-racer>=0.6.0;platform_system=='Linux'",
         "akracer[py-mini-racer]>=0.0.13;platform_system=='Linux'",
     ],

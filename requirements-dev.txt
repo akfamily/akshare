@@ -17,6 +17,7 @@ commitizen>=2.35.0
 pre-commit>=2.20.0
 sphinx>=7.4.3
 recommonmark>=0.7.1
+nest_asyncio>=1.6.0
 sphinx_markdown_tables>=0.0.17
 sphinx_rtd_theme>=1.0.0
 mplfinance>=0.12.10b0
