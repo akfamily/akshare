@@ -10,6 +10,7 @@ import json
 import re
 
 import pandas as pd
+import py_mini_racer
 import requests
 
 from akshare.stock.cons import (
@@ -23,7 +24,6 @@ from akshare.stock.cons import (
     zh_sina_a_stock_amount_url,
 )
 from akshare.utils import demjson
-from akshare.utils.multi_decrypt import execute_js_in_executor
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -175,15 +175,13 @@ def stock_zh_a_daily(
         return _fq_factor(adjust.split("-")[0])
 
     r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
-    # 使用示例
-    dict_list = execute_js_in_executor(
-        hk_js_decode,  # JS 代码
-        "call",  # 方法类型
-        "d",  # 函数名
-        r.text.split("=")[1].split(";")[0].replace('"', ""),  # 函数参数
-    )
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
+    dict_list = js_code.call(
+        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
+    )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.date
+    data_df.index = pd.to_datetime(data_df["date"]).dt.date
     del data_df["date"]
     try:
         del data_df["prevclose"]
@@ -346,13 +344,12 @@ def stock_zh_a_cdr_daily(
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
-    dict_list = execute_js_in_executor(
-        hk_js_decode,  # JS 代码
-        "call",  # 方法类型
-        "d",  # 函数名
-        r.text.split("=")[1].split(";")[0].replace('"', ""),  # 函数参数
-    )
+    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
+    dict_list = js_code.call(
+        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
+    )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
@@ -397,10 +394,7 @@ def stock_zh_a_minute(
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :6]
     except:  # noqa: E722
-        url = (
-            f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203="
-            f"/CN_MarketDataService.getKLineData"
-        )
+        url = f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203=/CN_MarketDataService.getKLineData"
         params = {
             "symbol": symbol,
             "scale": period,
