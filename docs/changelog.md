@@ -81,6 +81,10 @@
 
 ## 更新说明详情
 
+1.16.59 fix: fix option_czce_hist interface
+
+	1. 修复 option_czce_hist 接口
+
 1.16.58 fix: fix stock_zh_a_spot interface
 
 	1. 修复 stock_zh_a_spot 接口
@@ -5405,6 +5409,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.59 fix: fix option_czce_hist interface
 
 1.16.58 fix: fix stock_zh_a_spot interface
 
