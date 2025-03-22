@@ -3068,9 +3068,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.57 fix: fix stock_market_pe_lg interface
 1.16.58 fix: fix stock_zh_a_spot interface
 1.16.59 fix: fix option_czce_hist interface
+1.16.60 fix: fix stock_individual_fund_flow_rank interface
 """
 
-__version__ = "1.16.59"
+__version__ = "1.16.60"
 __author__ = "AKFamily"
 
 import sys
@@ -3096,6 +3097,8 @@ del sys
 异步接口
 """
 from akshare.stock_a.stock_zh_a_spot import stock_zh_a_spot_em
+from akshare.stock_a.stock_individual_fund_flow_rank import stock_individual_fund_flow_rank
+from akshare.stock_a.stock_board_concept_name_em import stock_board_concept_name_em
 
 """
 雪球-个股-公司概况-公司简介
@@ -4139,7 +4142,7 @@ from akshare.stock.stock_board_concept_em import (
     stock_board_concept_cons_em,
     stock_board_concept_hist_em,
     stock_board_concept_hist_min_em,
-    stock_board_concept_name_em,
+    # stock_board_concept_name_em,
     stock_board_concept_spot_em,
 )
 
@@ -4782,7 +4785,7 @@ from akshare.stock.stock_fund_em import (
     stock_individual_fund_flow,
     stock_market_fund_flow,
     stock_sector_fund_flow_rank,
-    stock_individual_fund_flow_rank,
+    # stock_individual_fund_flow_rank,
     stock_sector_fund_flow_summary,
     stock_sector_fund_flow_hist,
     stock_concept_fund_flow_hist,
