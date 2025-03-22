@@ -3067,9 +3067,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.56 fix: fix stock_zh_a_daily interface
 1.16.57 fix: fix stock_market_pe_lg interface
 1.16.58 fix: fix stock_zh_a_spot interface
+1.16.59 fix: fix option_czce_hist interface
 """
 
-__version__ = "1.16.58"
+__version__ = "1.16.59"
 __author__ = "AKFamily"
 
 import sys
