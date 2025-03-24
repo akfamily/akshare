@@ -320,7 +320,7 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20240901")
+    stock_szse_summary_df = stock_szse_summary(date="20200619")
     print(stock_szse_summary_df)
 
     stock_szse_area_summary_df = stock_szse_area_summary(date="202412")
