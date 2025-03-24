@@ -273,7 +273,7 @@ if __name__ == "__main__":
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_index_ths_df = stock_board_concept_index_ths(
-        symbol="阿里巴巴概念", start_date="20200101", end_date="20250228"
+        symbol="阿里巴巴概念", start_date="20200101", end_date="20250321"
     )
     print(stock_board_concept_index_ths_df)
 
