@@ -167,7 +167,7 @@ def stock_financial_us_analysis_indicator_em(
 
 if __name__ == "__main__":
     stock_financial_us_analysis_indicator_em_df = (
-        stock_financial_us_analysis_indicator_em(symbol="TSLA", indicator="年报")
+        stock_financial_us_analysis_indicator_em(symbol="BABA", indicator="年报")
     )
     print(stock_financial_us_analysis_indicator_em_df)
 
