@@ -251,24 +251,25 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "股东名称",
-        "-",
-        "股东类型",
-        "-",
-        "-",
-        "-",
-        "期末持股只数统计-总持有",
-        "期末持股只数统计-新进",
-        "期末持股只数统计-增加",
-        "期末持股只数统计-减少",
-        "期末持股只数统计-不变",
-        "-",
-        "流通市值统计",
-        "持有个股",
-        "-",
+        "序号",     # index
+        "-",       # HOLDER_NEW
+        "-",       # END_DATE
+        "股东名称", # HOLDER_NAME
+        "-",       # HOLDER_CODE
+        "股东类型", # HOLDER_TYPE
+        "-",      # REPORT_DATE_NAME
+        "-",      # HOLDER_SOURCE_CODE
+        "-",      # HOLDER_SOURCE
+        "期末持股只数统计-总持有", # HOLDER_NUM
+        "期末持股只数统计-新进",  # HOLDADD_NUM
+        "期末持股只数统计-增加",  # HOLDUP_NUM
+        "期末持股只数统计-减少",  # HOLDDOWN_NUM
+        "期末持股只数统计-不变",  # HOLDUNCHANGED_NUM
+        "-",  # IS_REPORT
+        "流通市值统计",  # HOLDER_MARKET_CAP
+        "持有个股",  # SEAB_JOIN
+        "-",  # CLOSE_PRICE
+        "-",  # SECURITY_INFO
     ]
     big_df = big_df[
         [
