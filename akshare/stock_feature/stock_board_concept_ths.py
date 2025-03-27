@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/28 13:20
+Date: 2025/3/27 14:20
 Desc: 同花顺-板块-概念板块
 https://q.10jqka.com.cn/thshy/
 """
 
+from typing import Dict
 from datetime import datetime
 from functools import lru_cache
 from io import StringIO
@@ -62,6 +63,8 @@ def _get_stock_board_concept_name_ths() -> dict:
         for item in soup.find(name="div", attrs={"class": "cate_inner"}).find_all("a")
     ]
     name_code_map = dict(zip(name_list, code_list))
+    temp_dict = __stock_board_concept_summary_ths()
+    name_code_map.update(temp_dict)
     return name_code_map
 
 
@@ -228,6 +231,44 @@ def stock_board_concept_index_ths(
     return big_df
 
 
+def __stock_board_concept_summary_ths() -> Dict:
+    """
+    同花顺-数据中心-概念板块-概念时间表
+    https://q.10jqka.com.cn/gn/
+    :return: 概念时间表
+    :rtype: pandas.DataFrame
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
+        "Cookie": f"v={v_code}",
+    }
+    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, features="lxml")
+    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
+    big_dict = dict()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, int(page_num) + 1), leave=False):
+        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
+        r = requests.get(url, headers=headers)
+        try:
+            soup = BeautifulSoup(r.text, features="lxml")
+            temp_dict = {
+                item.get_text(): item["href"].rsplit("/")[-2]
+                for item in soup.find_all(name="a")
+                if "detail" in item["href"]
+            }
+            big_dict.update(temp_dict)
+        except ValueError:
+            break
+    return big_dict
+
+
 def stock_board_concept_summary_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-概念板块-概念时间表
@@ -273,7 +314,7 @@ if __name__ == "__main__":
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_index_ths_df = stock_board_concept_index_ths(
-        symbol="阿里巴巴概念", start_date="20200101", end_date="20250321"
+        symbol="DeepSeek概念", start_date="20200101", end_date="20250321"
     )
     print(stock_board_concept_index_ths_df)
 
