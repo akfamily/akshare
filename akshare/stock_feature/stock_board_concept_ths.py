@@ -231,12 +231,13 @@ def stock_board_concept_index_ths(
     return big_df
 
 
+@lru_cache()
 def __stock_board_concept_summary_ths() -> Dict:
     """
-    同花顺-数据中心-概念板块-概念时间表
+    同花顺-数据中心-概念板块-概念时间表-辅助函数
     https://q.10jqka.com.cn/gn/
     :return: 概念时间表
-    :rtype: pandas.DataFrame
+    :rtype: dict
     """
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
