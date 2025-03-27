@@ -818,7 +818,8 @@
  "stock_a_ttm_lyr"  # 全部 A 股-等权重市盈率、中位数市盈率
  "stock_a_all_pb"  # 全部 A 股-等权重市净率、中位数市净率
  # REITs
- "reits_realtime_em"  #  REITs-行情
+ "reits_realtime_em"  #  REITs-实时行情
+ "reits_hist_em"  #  REITs-历史行情
  # A 股分时数据
  "stock_zh_a_hist_min_em"  # 东财-股票分时
  "stock_zh_a_hist_pre_min_em"  # 东财-股票盘前分时
