@@ -81,6 +81,12 @@
 
 ## 更新说明详情
 
+1.16.63 fix: fix stock_board_concept_name_ths interface
+
+	1. 修复 stock_board_concept_name_ths 接口
+	2. 修复 stock_financial_us_report_em 接口
+	3. 修复 stock_financial_us_analysis_indicator_em 接口
+
 1.16.62 fix: fix stock_gdfx_free_holding_change_em interface
 
 	1. 修复 stock_gdfx_free_holding_change_em 接口
@@ -5422,6 +5428,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.63 fix: fix stock_board_concept_name_ths interface
 
 1.16.62 fix: fix stock_gdfx_free_holding_change_em interface
 

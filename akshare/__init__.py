@@ -3071,9 +3071,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.60 fix: fix stock_individual_fund_flow_rank interface
 1.16.61 fix: fix stock_board_concept_index_ths interface
 1.16.62 fix: fix stock_gdfx_free_holding_change_em interface
+1.16.63 fix: fix stock_board_concept_name_ths interface
 """
 
-__version__ = "1.16.62"
+__version__ = "1.16.63"
 __author__ = "AKFamily"
 
 import sys
