@@ -171,9 +171,53 @@ def reits_hist_em(symbol: str = "508097") -> pd.DataFrame:
     return temp_df
 
 
+def reits_hist_min_em(symbol: str = "508097") -> pd.DataFrame:
+    """
+    东方财富网-行情中心-REITs-沪深 REITs-历史行情
+    https://quote.eastmoney.com/sh508097.html
+    :param symbol: REITs 代码
+    :type symbol: str
+    :return: 沪深 REITs-历史行情
+    :rtype: pandas.DataFrame
+    """
+    url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
+    code_market_dict = __reits_code_market_map()
+    params = {
+        "secid": f"{code_market_dict[symbol]}.{symbol}",
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f17",
+        "fields2": "f51,f53,f54,f55,f56,f57,f58",
+        "iscr": "0",
+        "iscca": "0",
+        "ut": "f057cbcbce2a86e2866ab8877db1d059",
+        "ndays": "5",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
+    temp_df.columns = [
+        "时间",
+        "最新价",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "昨收",
+    ]
+
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    return temp_df
+
+
 if __name__ == "__main__":
     reits_realtime_em_df = reits_realtime_em()
     print(reits_realtime_em_df)
 
     reits_hist_em_df = reits_hist_em(symbol="508097")
     print(reits_hist_em_df)
+
+    reits_hist_min_em_df = reits_hist_min_em(symbol="508097")
+    print(reits_hist_min_em_df)
