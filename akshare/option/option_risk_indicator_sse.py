@@ -24,7 +24,6 @@ def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
         "trade_date": date,
         "sqlId": "SSE_ZQPZ_YSP_GGQQZSXT_YSHQ_QQFXZB_DATE_L",
         "contractSymbol": "",
-        "_": "1652877575590",
     }
     headers = {
         "Accept": "*/*",

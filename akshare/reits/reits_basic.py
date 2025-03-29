@@ -33,7 +33,6 @@ def __reits_code_market_map() -> Dict:
         "fid": "f3",
         "fs": "m:1 t:9 e:97,m:0 t:10 e:97",
         "fields": "f12,f13",
-        "_": "1630048369992",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -61,7 +60,6 @@ def reits_realtime_em() -> pd.DataFrame:
         "fid": "f3",
         "fs": "m:1 t:9 e:97,m:0 t:10 e:97",
         "fields": "f2,f3,f4,f5,f6,f12,f14,f15,f16,f17,f18",
-        "_": "1630048369992",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
