@@ -1,0 +1,7 @@
+sphinx>=7.4.3
+sphinx_rtd_theme>=2.0.0
+readthedocs-sphinx-search>=0.3.2
+sphinx-markdown-tables>=0.0.17
+setuptools>=69.2.0
+recommonmark>=0.7.1
+markdown>=3.6
