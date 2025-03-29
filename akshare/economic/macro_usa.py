@@ -97,7 +97,6 @@ def macro_usa_phs() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -143,7 +142,6 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
         "sortTypes": "-1",
         "source": "WEB",
         "client": "WEB",
-        "_": "1689320600161",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

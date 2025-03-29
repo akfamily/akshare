@@ -5,9 +5,9 @@ Date: 2022/11/8 10:00
 Desc: 东方财富-经济数据-瑞士
 http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
+
 import pandas as pd
 import requests
-from akshare.utils import demjson
 
 
 def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
@@ -33,7 +33,6 @@ def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1667639896816",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -139,7 +138,7 @@ def macro_swiss_gbd_bank_rate():
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_swiss_svme_df = macro_swiss_svme()
     print(macro_swiss_svme_df)
 

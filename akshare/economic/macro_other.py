@@ -5,7 +5,6 @@ Date: 2024/4/3 16:36
 Desc: 金十数据-其他-加密货币实时行情
 """
 
-import time
 from datetime import datetime
 
 import pandas as pd
@@ -19,9 +18,6 @@ def crypto_js_spot() -> pd.DataFrame:
     :return: pandas.DataFrame
     """
     url = "https://datacenter-api.jin10.com/crypto_currency/list"
-    params = {
-        "_": "1672141224307",
-    }
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/107.0.0.0 Safari/537.36",
@@ -29,7 +25,7 @@ def crypto_js_spot() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = requests.get(url, headers=headers)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
     data_df["reported_at"] = pd.to_datetime(data_df["reported_at"])
@@ -79,7 +75,6 @@ def macro_fx_sentiment(
         "start_date": start_date,
         "end_date": end_date,
         "currency_pair": "",
-        "_": int(time.time() * 1000),
     }
     headers = {
         "accept": "*/*",
