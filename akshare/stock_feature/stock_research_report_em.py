@@ -38,7 +38,6 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
         "p": "1",
         "pageNum": "1",
         "pageNumber": "1",
-        "_": "1692533168153",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
