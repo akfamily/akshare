@@ -148,7 +148,6 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
         "fs": "b:MK0010",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
         "f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1704327268532",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -238,7 +237,6 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
         "fs": symbol_map[symbol],
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
-        "_": "1704327268532",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
@@ -439,7 +437,6 @@ def stock_zh_index_daily_em(
         "fqt": "0",
         "beg": start_date,
         "end": end_date,
-        "_": "1596700547039",
     }
     r = requests.get(url, params=params)
     data_text = r.text

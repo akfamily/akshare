@@ -33,7 +33,6 @@ def index_code_id_map_em() -> dict:
         "fid": "f3",
         "fs": "b:MK0010,m:1+t:1,m:0 t:5,m:1+s:3,m:0+t:5,m:2",
         "fields": "f3,f12,f13",
-        "_": "1623833739532",
     }
     temp_df = fetch_paginated_data(url, params)
     code_id_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
@@ -73,7 +72,6 @@ def index_zh_a_hist(
             "fqt": "0",
             "beg": "0",
             "end": "20500000",
-            "_": "1623766962675",
         }
     except KeyError:
         params = {
@@ -85,7 +83,6 @@ def index_zh_a_hist(
             "fqt": "0",
             "beg": "0",
             "end": "20500000",
-            "_": "1623766962675",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -99,7 +96,6 @@ def index_zh_a_hist(
                 "fqt": "0",
                 "beg": "0",
                 "end": "20500000",
-                "_": "1623766962675",
             }
             r = requests.get(url, params=params)
             data_json = r.json()
@@ -113,7 +109,6 @@ def index_zh_a_hist(
                     "fqt": "0",
                     "beg": "0",
                     "end": "20500000",
-                    "_": "1623766962675",
                 }
                 r = requests.get(url, params=params)
                 data_json = r.json()
@@ -127,7 +122,6 @@ def index_zh_a_hist(
                         "fqt": "0",
                         "beg": "0",
                         "end": "20500000",
-                        "_": "1623766962675",
                     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -146,7 +140,6 @@ def index_zh_a_hist(
             "fqt": "0",
             "beg": "0",
             "end": "20500000",
-            "_": "1623766962675",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -213,7 +206,6 @@ def index_zh_a_hist_min_em(
                 "iscr": "0",
                 "ndays": "5",
                 "secid": f"{code_id_dict[symbol]}.{symbol}",
-                "_": "1623766962675",
             }
         except KeyError:
             params = {
@@ -223,7 +215,6 @@ def index_zh_a_hist_min_em(
                 "iscr": "0",
                 "ndays": "5",
                 "secid": f"1.{symbol}",
-                "_": "1623766962675",
             }
             r = requests.get(url, params=params)
             data_json = r.json()
@@ -235,7 +226,6 @@ def index_zh_a_hist_min_em(
                     "iscr": "0",
                     "ndays": "5",
                     "secid": f"0.{symbol}",
-                    "_": "1623766962675",
                 }
                 r = requests.get(url, params=params)
                 data_json = r.json()
@@ -247,7 +237,6 @@ def index_zh_a_hist_min_em(
                         "iscr": "0",
                         "ndays": "5",
                         "secid": f"47.{symbol}",
-                        "_": "1623766962675",
                     }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -288,7 +277,6 @@ def index_zh_a_hist_min_em(
                 "fqt": "1",
                 "beg": "0",
                 "end": "20500000",
-                "_": "1630930917857",
             }
         except:  # noqa: E722
             params = {
@@ -300,7 +288,6 @@ def index_zh_a_hist_min_em(
                 "fqt": "1",
                 "beg": "0",
                 "end": "20500000",
-                "_": "1630930917857",
             }
             r = requests.get(url, params=params)
             data_json = r.json()
@@ -314,7 +301,6 @@ def index_zh_a_hist_min_em(
                     "fqt": "1",
                     "beg": "0",
                     "end": "20500000",
-                    "_": "1630930917857",
                 }
                 r = requests.get(url, params=params)
                 data_json = r.json()
@@ -328,7 +314,6 @@ def index_zh_a_hist_min_em(
                         "fqt": "1",
                         "beg": "0",
                         "end": "20500000",
-                        "_": "1630930917857",
                     }
         r = requests.get(url, params=params)
         data_json = r.json()
