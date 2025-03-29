@@ -33,7 +33,6 @@ def stock_margin_account_info() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1718357149317",
     }
     r = requests.get(url=url, params=params)
     data_json = r.json()

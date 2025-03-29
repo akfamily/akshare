@@ -796,7 +796,6 @@ def stock_lhb_stock_detail_em(
         "sortColumns": flag_map[flag],
         "source": "WEB",
         "client": "WEB",
-        "_": "1647338693644",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

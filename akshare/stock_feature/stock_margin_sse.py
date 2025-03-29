@@ -83,7 +83,6 @@ def stock_margin_sse(
         "pageHelp.beginPage": "1",
         "pageHelp.cacheSize": "1",
         "pageHelp.endPage": "5",
-        "_": "1612773448860",
     }
     headers = {
         "Referer": "https://www.sse.com.cn/",
@@ -151,7 +150,6 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
         "pageHelp.beginPage": "1",
         "pageHelp.cacheSize": "1",
         "pageHelp.endPage": "21",
-        "_": "1612773448860",
     }
     headers = {
         "Referer": "https://www.sse.com.cn/",
