@@ -92,7 +92,6 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
         "pageHelp.pageNo": "1",
         "pageHelp.beginPage": "1",
         "pageHelp.endPage": "1",
-        "_": "1664523262778",
     }
     headers = {
         "Host": "query.sse.com.cn",
@@ -151,7 +150,6 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
         "pageHelp.pageNo": "1",
         "pageHelp.beginPage": "1",
         "pageHelp.endPage": "1",
-        "_": "1664523262778",
     }
     headers = {
         "Host": "query.sse.com.cn",

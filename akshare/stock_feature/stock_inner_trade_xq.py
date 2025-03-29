@@ -22,7 +22,6 @@ def stock_inner_trade_xq() -> pd.DataFrame:
         "size": "100000",
         "page": "1",
         "extend": "true",
-        "_": "1651223013040",
     }
     headers = {
         "Accept": "*/*",

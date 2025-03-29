@@ -37,7 +37,6 @@ def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
         "sortColumns": "MUTUAL_TYPE",
         "source": "WEB",
         "client": "WEB",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -111,7 +110,6 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
         "fs": "b:DLMK0146,b:DLMK0144",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,"
         "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
-        "_": "1639974456250",
     }
     temp_df = fetch_paginated_data(url=url, base_params=params)
     temp_df.columns = [
