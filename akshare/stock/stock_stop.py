@@ -29,7 +29,6 @@ def stock_staq_net_stop() -> pd.DataFrame:
         "fid": "f3",
         "fs": "m:0 s:3",
         "fields": "f12,f14",
-        "_": "1622622663841",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

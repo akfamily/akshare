@@ -41,7 +41,6 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
         "BEGIN_DATE": "1990-01-01",
         "END_DATE": "2050-01-01",
         "BOARDTYPE": "",
-        "_": "1692750843592",
     }
     params if symbol == "全部" else params.update({"COMPANY_CODE": symbol})
     headers = {

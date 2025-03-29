@@ -37,7 +37,6 @@ def stock_individual_info_em(
         "f171,f277,f278,f279,f288,f152,f250,f251,f252,f253,f254,f269,f270,f271,f272,f273,f274,"
         "f275,f276,f265,f266,f289,f290,f286,f285,f292,f293,f294,f295",
         "secid": f"{market_code}.{symbol}",
-        "_": "1640157544804",
     }
     r = requests.get(url, params=params, timeout=timeout)
     data_json = r.json()
