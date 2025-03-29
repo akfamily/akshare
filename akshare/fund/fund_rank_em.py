@@ -259,7 +259,6 @@ def fund_money_rank_em() -> pd.DataFrame:
         "orderType": "desc",
         "pageIndex": "1",
         "pageSize": "10000",
-        "_": "1603867224251",
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -363,7 +362,6 @@ def fund_lcx_rank_em() -> pd.DataFrame:
         "pageSize": "50",
         "FBQ": "",
         "callback": "jQuery18303264654966943197_1603867158043",
-        "_": "1603867224251",
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -447,7 +445,6 @@ def fund_hk_rank_em() -> pd.DataFrame:
         "sortfield": "Y",
         "sorttype": "-1",
         "isbuy": "0",
-        "_": "1610790553848",
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "

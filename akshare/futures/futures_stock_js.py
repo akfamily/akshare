@@ -32,7 +32,6 @@ def futures_stock_shfe_js(date: str = "20240419") -> pd.DataFrame:
         "category": "stock",
         "date": "-".join([date[:4], date[4:6], date[6:]]),
         "attr_id": "1",
-        "_": "1708761356458",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

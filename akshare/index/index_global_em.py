@@ -39,7 +39,6 @@ def index_global_spot_em() -> pd.DataFrame:
         "dect": "1",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
-        "_": "1741340608118",
     }
     r = requests.get(url=url, params=params)
     data_json = r.json()

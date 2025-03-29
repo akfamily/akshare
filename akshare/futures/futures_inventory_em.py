@@ -29,7 +29,6 @@ def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
         "pageSize": "500",
         "source": "WEB",
         "client": "WEB",
-        "_": "1669352163467",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -51,7 +50,6 @@ def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
         "sortColumns": "TRADE_DATE",
         "source": "WEB",
         "client": "WEB",
-        "_": "1669352163467",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
