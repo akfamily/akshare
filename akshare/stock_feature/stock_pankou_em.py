@@ -53,7 +53,6 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
         "pagesize": "5000",
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wzchanges",
-        "_": "1624005264245",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -94,7 +93,6 @@ def stock_board_change_em() -> pd.DataFrame:
         "dpt": "wzchanges",
         "pageindex": "0",
         "pagesize": "5000",
-        "_": "1671978840598",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
