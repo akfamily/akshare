@@ -29,7 +29,6 @@ def stock_news_em(symbol: str = "300059") -> pd.DataFrame:
         + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr",'
         '"param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,'
         '"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
-        "_": "1668256937996",
     }
     r = requests.get(url, params=params)
     data_text = r.text

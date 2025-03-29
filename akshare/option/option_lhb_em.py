@@ -38,7 +38,6 @@ def option_lhb_em(
         "source": "IFBILLBOARD",
         "client": "WEB",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
-        "_": "1642904215146",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

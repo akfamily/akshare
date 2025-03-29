@@ -85,7 +85,6 @@ def rate_interbank(
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1653376974939",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

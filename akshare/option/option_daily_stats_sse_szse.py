@@ -26,7 +26,6 @@ def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
         "isPagination": "false",
         "sqlId": "COMMON_SSE_ZQPZ_YSP_QQ_SJTJ_MRTJ_CX",
         "tradeDate": date,
-        "_": "1652877575590",
     }
     headers = {
         "Accept": "*/*",
