@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/15 22:30
+Date: 2024/4/14 16:00
 Desc: 港股股票指数数据-新浪-东财
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -17,7 +17,6 @@ import py_mini_racer
 from functools import lru_cache
 
 from akshare.stock.cons import hk_js_decode
-from akshare.utils.func import fetch_paginated_data
 
 
 def _replace_comma(x) -> str:
@@ -153,22 +152,59 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://15.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "wbp2u": "|0|0|0|web",
-        "fid": "f3",
-        "fs": "m:124,m:125,m:305",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
-        "f26,f22,f33,f11,f62,f128,f136,f115,f152",
-        "_": "1683800547682",
-    }
-    temp_df = fetch_paginated_data(url, params)
+    all_data = []
+    page = 1
+    
+    while True:
+        params = {
+            "pn": str(page),  # 页码
+            "pz": "100",      # 每页100条
+            "po": "1",
+            "np": "1",
+            "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+            "fltt": "2",
+            "invt": "2",
+            "wbp2u": "|0|0|0|web",
+            "fid": "f3",
+            "fs": "m:124,m:125,m:305",
+            "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        }
+        
+        try:
+            r = requests.get(url, params=params)
+            data_json = r.json()
+            
+            # 检查返回数据的完整性
+            if not data_json or "data" not in data_json or not data_json["data"]:
+                print(f"页面 {page} 获取失败或无数据")
+                break
+                
+            if not data_json["data"].get("diff"):
+                print(f"页面 {page} 没有更多数据")
+                break
+                
+            current_data = data_json["data"]["diff"]
+            if not current_data:  # 如果当前页没有数据
+                break
+                
+            all_data.extend(current_data)
+            print(f"成功获取第 {page} 页数据，当前总数据量: {len(all_data)}")
+            
+            if len(current_data) < 100:  # 如果获取的数据少于100条，说明是最后一页
+                break
+                
+            page += 1
+            
+        except Exception as e:
+            print(f"获取数据时发生错误: {e}")
+            break
+    
+    if not all_data:
+        raise ValueError("未能获取到任何数据")
+    
+    temp_df = pd.DataFrame(all_data)
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = temp_df["index"] + 1
     temp_df.rename(
         columns={
             "index": "序号",
