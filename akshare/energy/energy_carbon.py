@@ -43,7 +43,6 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     params = {
         "lcnK": "53f75bfcefff58e4046ccfa42171636c",
         "brand": "TAN",
-        "_": "1626773022063",
     }
     r = requests.get(url, params=params)
     data_text = r.text

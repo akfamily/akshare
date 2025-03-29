@@ -5,6 +5,7 @@ Date: 2024/1/20 23:00
 Desc: 东方财富-数据中心-中国油价
 https://data.eastmoney.com/cjsj/oil_default.html
 """
+
 import pandas as pd
 import requests
 
@@ -29,7 +30,6 @@ def energy_oil_hist() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1652959763351",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -66,7 +66,6 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
         "pageNumber": "1",
         "pageSize": "1000",
         "source": "WEB",
-        "_": "1652959763351",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
