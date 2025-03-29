@@ -979,7 +979,6 @@ def stock_sector_fund_flow_hist(symbol: str = "汽车服务") -> pd.DataFrame:
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "secid": f"90.{code_name_map[symbol]}",
-        "_": "1678954135116",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1092,7 +1091,6 @@ def stock_concept_fund_flow_hist(symbol: str = "数据要素") -> pd.DataFrame:
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "secid": f"90.{code_name_map[symbol]}",
-        "_": "1678954135116",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

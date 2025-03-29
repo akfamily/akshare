@@ -35,7 +35,6 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
-        "_": "1626075887768",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -115,7 +114,6 @@ def stock_board_concept_name_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
-        "_": "1626075887768",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -270,7 +268,6 @@ def stock_board_concept_hist_em(
         "end": end_date,
         "smplmt": "10000",
         "lmt": "1000000",
-        "_": "1626079488673",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -342,7 +339,6 @@ def stock_board_concept_hist_min_em(
             "iscr": "0",
             "ndays": "1",
             "secid": f"90.{stock_board_code}",
-            "_": "1687852931312",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -378,7 +374,6 @@ def stock_board_concept_hist_min_em(
             "fqt": "1",
             "end": "20500101",
             "lmt": "1000000",
-            "_": "1647760607065",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -455,7 +450,6 @@ def stock_board_concept_cons_em(symbol: str = "融资融券") -> pd.DataFrame:
         "fs": f"b:{stock_board_code} f:!50",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,"
         "f24,f25,f22,f11,f62,f128,f136,f115,f152,f45",
-        "_": "1626081702127",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
