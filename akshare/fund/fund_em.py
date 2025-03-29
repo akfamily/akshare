@@ -42,7 +42,6 @@ def fund_purchase_em() -> pd.DataFrame:
         "page": "1,50000",
         "js": "reData",
         "sort": "fcode,asc",
-        "_": "1641528557742",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
@@ -160,7 +159,6 @@ def fund_info_index_em(
             "fr1": indicator_map[indicator],
             "fl": "0",
             "isab": "1",
-            "_": "1658888335885",
         }
     else:
         params = {
@@ -180,7 +178,6 @@ def fund_info_index_em(
             "fr1": indicator_map[indicator],
             "fl": "0",
             "isab": "1",
-            "_": "1658888335885",
         }
     headers = {
         "Accept": "*/*",
@@ -432,7 +429,6 @@ def fund_open_fund_info_em(
             "fundCode": symbol,
             "indexcode": "000300",
             "type": period_map[period],
-            "_": "1704012866899",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
@@ -640,7 +636,6 @@ def fund_financial_fund_daily_em() -> pd.DataFrame:
         "AttentionCodes": "",
         "cycle": "",
         "OnlySale": "1",
-        "_": "1588248310234",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -1099,7 +1094,6 @@ def fund_hk_fund_hist_em(
             "pagesize": "1000",
             "date1": "",
             "date2": "",
-            "_": "1611131371333",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
@@ -1136,7 +1130,6 @@ def fund_hk_fund_hist_em(
             "pagesize": "1000",
             "date1": "",
             "date2": "",
-            "_": "1611131371333",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()

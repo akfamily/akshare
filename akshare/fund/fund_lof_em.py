@@ -36,7 +36,6 @@ def _fund_lof_code_id_map_em() -> dict:
         "fid": "f12",
         "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
         "fields": "f3,f12,f13",
-        "_": "1672806290972",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
@@ -64,7 +63,6 @@ def fund_lof_spot_em() -> pd.DataFrame:
         "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,"
         "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1672806290972",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
@@ -155,7 +153,6 @@ def fund_lof_hist_em(
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "beg": start_date,
         "end": end_date,
-        "_": "1623766962675",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -228,7 +225,6 @@ def fund_lof_hist_min_em(
             "ndays": "5",
             "iscr": "0",
             "secid": f"{code_id_dict[symbol]}.{symbol}",
-            "_": "1623766962675",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -268,7 +264,6 @@ def fund_lof_hist_min_em(
             "secid": f"{code_id_dict[symbol]}.{symbol}",
             "beg": "0",
             "end": "20500000",
-            "_": "1630930917857",
         }
         r = requests.get(url, params=params)
         data_json = r.json()

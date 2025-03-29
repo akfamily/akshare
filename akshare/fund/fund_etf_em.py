@@ -35,7 +35,6 @@ def _fund_etf_code_id_map_em() -> dict:
         "fid": "f3",
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
         "fields": "f3,f12,f13",
-        "_": "1672806290972",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
@@ -69,7 +68,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f72,f75,f78,f81,f84,f87,f115,f124,f128,"
             "f136,f152,f184,f297,f402,f441"
         ),
-        "_": "1672806290972",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
@@ -254,7 +252,6 @@ def fund_etf_hist_em(
         "fqt": adjust_dict[adjust],
         "beg": start_date,
         "end": end_date,
-        "_": "1623766962675",
     }
     try:
         market_id = code_id_dict[symbol]
@@ -351,7 +348,6 @@ def fund_etf_hist_min_em(
             "ndays": "5",
             "iscr": "0",
             "secid": f"{code_id_dict[symbol]}.{symbol}",
-            "_": "1623766962675",
         }
         r = requests.get(url, timeout=15, params=params)
         data_json = r.json()
@@ -391,7 +387,6 @@ def fund_etf_hist_min_em(
             "secid": f"{code_id_dict[symbol]}.{symbol}",
             "beg": "0",
             "end": "20500000",
-            "_": "1630930917857",
         }
         r = requests.get(url, timeout=15, params=params)
         data_json = r.json()

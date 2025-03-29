@@ -181,7 +181,6 @@ def fund_portfolio_industry_allocation_em(
         "fundCode": symbol,
         "year": date,
         "callback": "jQuery183006997159478989867_1648016188499",
-        "_": "1648016377955",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
