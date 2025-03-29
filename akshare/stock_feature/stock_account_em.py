@@ -31,7 +31,6 @@ def stock_account_statistics_em() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
         "pageNumber": "1",
-        "_": "1640749656405",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
