@@ -5,6 +5,7 @@ Date: 2024/1/7 17:00
 Desc: 雪球-沪深股市-热度排行榜
 https://xueqiu.com/hq
 """
+
 import math
 
 import pandas as pd
@@ -34,7 +35,6 @@ def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
         "order_by": symbol_map[symbol],
         "only_count": "0",
         "page": "1",
-        "_": "1651050034006",
     }
     headers = {
         "Accept": "*/*",
@@ -56,7 +56,7 @@ def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    total_num = data_json["data"]['count']
+    total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
@@ -119,7 +119,6 @@ def stock_hot_tweet_xq(symbol: str = "最热门") -> pd.DataFrame:
         "order_by": symbol_map[symbol],
         "only_count": "0",
         "page": "1",
-        "_": "1651050034006",
     }
     headers = {
         "Accept": "*/*",
@@ -141,7 +140,7 @@ def stock_hot_tweet_xq(symbol: str = "最热门") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    total_num = data_json["data"]['count']
+    total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
@@ -204,7 +203,6 @@ def stock_hot_deal_xq(symbol: str = "最热门") -> pd.DataFrame:
         "order_by": symbol_map[symbol],
         "only_count": "0",
         "page": "1",
-        "_": "1651050034006",
     }
     headers = {
         "Accept": "*/*",
@@ -226,7 +224,7 @@ def stock_hot_deal_xq(symbol: str = "最热门") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    total_num = data_json["data"]['count']
+    total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()

@@ -132,7 +132,6 @@ def stock_comment_detail_zlkp_jgcyd_em(symbol: str = "600000") -> pd.DataFrame:
         "client": "WEB",
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
-        "_": "1655387358195",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -291,7 +290,6 @@ def stock_comment_detail_scrd_desire_daily_em(
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
         "pageSize": "30",
-        "_": "1727189719991",
     }
     r = requests.get(url=url, params=params)
     data_json = r.json()
