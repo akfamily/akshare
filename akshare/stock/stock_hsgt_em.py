@@ -35,7 +35,6 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
         "dect": "1",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
-        "_": "1741100627371",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -101,7 +100,6 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
         "dect": "1",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
-        "_": "1741100627371",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

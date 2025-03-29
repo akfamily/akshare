@@ -151,7 +151,6 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
         "pageHelp.pageSize": "10000",
         "pageHelp.pageNo": "1",
         "pageHelp.endPage": "1",
-        "_": "1653291270045",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -321,7 +320,6 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
         "pageHelp.pageSize": "500",
         "pageHelp.pageNo": "1",
         "pageHelp.endPage": "1",
-        "_": "1643035608183",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

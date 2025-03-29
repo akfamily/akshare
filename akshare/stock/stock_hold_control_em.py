@@ -33,7 +33,6 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1691501763413",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -134,7 +133,6 @@ def stock_hold_management_person_em(
         "sortColumns": "CHANGE_DATE,SECURITY_CODE,PERSON_NAME",
         "source": "WEB",
         "client": "WEB",
-        "_": "1691503078611",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
