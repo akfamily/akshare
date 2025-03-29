@@ -105,7 +105,6 @@ def _code_id_map() -> dict:
         "fid": "f12",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f3,f12",
-        "_": "1623833739532",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df["market_id"] = 1
@@ -122,7 +121,6 @@ def _code_id_map() -> dict:
         "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
         "fields": "f3,f12",
-        "_": "1623833739532",
     }
     temp_df_sz = fetch_paginated_data(url, params)
     temp_df_sz["sz_id"] = 0
@@ -282,7 +280,6 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
         "iscr": "1",
         "iscca": "0",
         "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
-        "_": "1623766962675",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -485,7 +482,6 @@ def bond_cov_comparison() -> pd.DataFrame:
         "fs": "b:MK0354",
         "fields": "f1,f152,f2,f3,f12,f13,f14,f227,f228,f229,f230,f231,f232,f233,f234,"
         "f235,f236,f237,f238,f239,f240,f241,f242,f26,f243",
-        "_": "1590386857527",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -574,7 +570,6 @@ def bond_zh_cov_info(
         "source": "WEB",
         "client": "WEB",
         "filter": f'(SECURITY_CODE="{symbol}")',
-        "_": "1654952140613",
     }
     if indicator == "基本信息":
         params.update(
@@ -647,7 +642,6 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "filter": f'(zcode="{symbol}")',
         "p": "1",
         "ps": "8000",
-        "_": "1648629088839",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

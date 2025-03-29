@@ -5,6 +5,7 @@ Date: 2023/12/4 14:00
 Desc: 东方财富网-数据中心-经济数据-中美国债收益率
 https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -30,7 +31,6 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         "ps": "500",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1615791534490",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -47,14 +47,13 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
             "ps": "500",
             "pageNo": page,
             "pageNum": page,
-            "_": "1615791534490",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         for col in temp_df.columns:
             if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
-                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         if big_df.empty:
             big_df = temp_df
         else:
@@ -62,7 +61,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
 
         temp_date_list = pd.to_datetime(big_df["SOLAR_DATE"]).dt.date.to_list()
         if pd.to_datetime(start_date) in pd.date_range(
-                temp_date_list[-1], temp_date_list[0]
+            temp_date_list[-1], temp_date_list[0]
         ):
             break
 
@@ -102,21 +101,41 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce")
-    big_df["中国国债收益率2年"] = pd.to_numeric(big_df["中国国债收益率2年"], errors="coerce")
-    big_df["中国国债收益率5年"] = pd.to_numeric(big_df["中国国债收益率5年"], errors="coerce")
-    big_df["中国国债收益率10年"] = pd.to_numeric(big_df["中国国债收益率10年"], errors="coerce")
-    big_df["中国国债收益率30年"] = pd.to_numeric(big_df["中国国债收益率30年"], errors="coerce")
-    big_df["中国国债收益率10年-2年"] = pd.to_numeric(big_df["中国国债收益率10年-2年"], errors="coerce")
+    big_df["中国国债收益率2年"] = pd.to_numeric(
+        big_df["中国国债收益率2年"], errors="coerce"
+    )
+    big_df["中国国债收益率5年"] = pd.to_numeric(
+        big_df["中国国债收益率5年"], errors="coerce"
+    )
+    big_df["中国国债收益率10年"] = pd.to_numeric(
+        big_df["中国国债收益率10年"], errors="coerce"
+    )
+    big_df["中国国债收益率30年"] = pd.to_numeric(
+        big_df["中国国债收益率30年"], errors="coerce"
+    )
+    big_df["中国国债收益率10年-2年"] = pd.to_numeric(
+        big_df["中国国债收益率10年-2年"], errors="coerce"
+    )
     big_df["中国GDP年增率"] = pd.to_numeric(big_df["中国GDP年增率"], errors="coerce")
-    big_df["美国国债收益率2年"] = pd.to_numeric(big_df["美国国债收益率2年"], errors="coerce")
-    big_df["美国国债收益率5年"] = pd.to_numeric(big_df["美国国债收益率5年"], errors="coerce")
-    big_df["美国国债收益率10年"] = pd.to_numeric(big_df["美国国债收益率10年"], errors="coerce")
-    big_df["美国国债收益率30年"] = pd.to_numeric(big_df["美国国债收益率30年"], errors="coerce")
-    big_df["美国国债收益率10年-2年"] = pd.to_numeric(big_df["美国国债收益率10年-2年"], errors="coerce")
+    big_df["美国国债收益率2年"] = pd.to_numeric(
+        big_df["美国国债收益率2年"], errors="coerce"
+    )
+    big_df["美国国债收益率5年"] = pd.to_numeric(
+        big_df["美国国债收益率5年"], errors="coerce"
+    )
+    big_df["美国国债收益率10年"] = pd.to_numeric(
+        big_df["美国国债收益率10年"], errors="coerce"
+    )
+    big_df["美国国债收益率30年"] = pd.to_numeric(
+        big_df["美国国债收益率30年"], errors="coerce"
+    )
+    big_df["美国国债收益率10年-2年"] = pd.to_numeric(
+        big_df["美国国债收益率10年-2年"], errors="coerce"
+    )
     big_df["美国GDP年增率"] = pd.to_numeric(big_df["美国GDP年增率"], errors="coerce")
     big_df.sort_values("日期", inplace=True)
     big_df.set_index(["日期"], inplace=True)
-    big_df = big_df[pd.to_datetime(start_date):]
+    big_df = big_df[pd.to_datetime(start_date) :]
     big_df.reset_index(inplace=True)
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     return big_df

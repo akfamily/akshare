@@ -32,7 +32,6 @@ def macro_australia_retail_rate_monthly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -84,7 +83,6 @@ def macro_australia_trade() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -136,7 +134,6 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -188,7 +185,6 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -240,7 +236,6 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -292,7 +287,6 @@ def macro_australia_cpi_yearly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -344,7 +338,6 @@ def macro_australia_bank_rate() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

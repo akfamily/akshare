@@ -5,6 +5,7 @@ Date: 2022/11/27 20:30
 Desc: 东方财富-经济数据-加拿大
 https://data.eastmoney.com/cjsj/foreign_5_0.html
 """
+
 import pandas as pd
 import requests
 
@@ -31,7 +32,6 @@ def macro_canada_new_house_rate() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -47,15 +47,17 @@ def macro_canada_new_house_rate() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -81,7 +83,6 @@ def macro_canada_unemployment_rate() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -97,15 +98,17 @@ def macro_canada_unemployment_rate() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -131,7 +134,6 @@ def macro_canada_trade() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -147,15 +149,17 @@ def macro_canada_trade() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -181,7 +185,6 @@ def macro_canada_retail_rate_monthly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -197,15 +200,17 @@ def macro_canada_retail_rate_monthly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -231,7 +236,6 @@ def macro_canada_bank_rate() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -247,15 +251,17 @@ def macro_canada_bank_rate() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -281,7 +287,6 @@ def macro_canada_core_cpi_yearly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -297,15 +302,17 @@ def macro_canada_core_cpi_yearly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -331,7 +338,6 @@ def macro_canada_core_cpi_monthly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -347,15 +353,17 @@ def macro_canada_core_cpi_monthly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -381,7 +389,6 @@ def macro_canada_cpi_yearly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -397,15 +404,17 @@ def macro_canada_cpi_yearly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -431,7 +440,6 @@ def macro_canada_cpi_monthly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -447,15 +455,17 @@ def macro_canada_cpi_monthly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
@@ -481,7 +491,6 @@ def macro_canada_gdp_monthly() -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -497,19 +506,21 @@ def macro_canada_gdp_monthly() -> pd.DataFrame:
         "现值",
         "前值",
     ]
-    temp_df = temp_df[[
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]]
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
+    ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_canada_new_house_rate_df = macro_canada_new_house_rate()
     print(macro_canada_new_house_rate_df)
 

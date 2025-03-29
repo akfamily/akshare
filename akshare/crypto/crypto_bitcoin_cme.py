@@ -5,6 +5,7 @@ Date: 2023/9/5 15:41
 Desc: 芝加哥商业交易所-比特币成交量报告
 https://datacenter.jin10.com/reportType/dc_cme_btc_report
 """
+
 import pandas as pd
 import requests
 
@@ -21,7 +22,6 @@ def crypto_bitcoin_cme(date: str = "20230830") -> pd.DataFrame:
         "category": "cme",
         "date": "-".join([date[:4], date[4:6], date[6:]]),
         "attr_id": "4",
-        "_": "1624354777843",
     }
     headers = {
         "accept": "*/*",
@@ -47,12 +47,12 @@ def crypto_bitcoin_cme(date: str = "20230830") -> pd.DataFrame:
         [item for item in data_json["data"]["values"]],
         columns=[item["name"] for item in data_json["data"]["keys"]],
     )
-    temp_df['电子交易合约'] = pd.to_numeric(temp_df['电子交易合约'], errors="coerce")
-    temp_df['场内成交合约'] = pd.to_numeric(temp_df['场内成交合约'], errors="coerce")
-    temp_df['场外成交合约'] = pd.to_numeric(temp_df['场外成交合约'], errors="coerce")
-    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors="coerce")
-    temp_df['未平仓合约'] = pd.to_numeric(temp_df['未平仓合约'], errors="coerce")
-    temp_df['持仓变化'] = pd.to_numeric(temp_df['持仓变化'], errors="coerce")
+    temp_df["电子交易合约"] = pd.to_numeric(temp_df["电子交易合约"], errors="coerce")
+    temp_df["场内成交合约"] = pd.to_numeric(temp_df["场内成交合约"], errors="coerce")
+    temp_df["场外成交合约"] = pd.to_numeric(temp_df["场外成交合约"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["未平仓合约"] = pd.to_numeric(temp_df["未平仓合约"], errors="coerce")
+    temp_df["持仓变化"] = pd.to_numeric(temp_df["持仓变化"], errors="coerce")
     return temp_df
 
 
