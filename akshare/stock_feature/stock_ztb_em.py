@@ -38,7 +38,6 @@ def stock_zt_pool_em(date: str = "20241008") -> pd.DataFrame:
         "pagesize": "10000",
         "sort": "fbt:asc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -125,7 +124,6 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
         "pagesize": "5000",
         "sort": "zs:desc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -203,7 +201,6 @@ def stock_zt_pool_strong_em(date: str = "20241231") -> pd.DataFrame:
         "pagesize": "5000",
         "sort": "zdp:desc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -293,7 +290,6 @@ def stock_zt_pool_sub_new_em(date: str = "20241231") -> pd.DataFrame:
         "pagesize": "5000",
         "sort": "ods:asc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -380,7 +376,6 @@ def stock_zt_pool_zbgc_em(date: str = "20241011") -> pd.DataFrame:
         "pagesize": "5000",
         "sort": "fbt:asc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -463,7 +458,6 @@ def stock_zt_pool_dtgc_em(date: str = "20241011") -> pd.DataFrame:
         "pagesize": "10000",
         "sort": "fund:asc",
         "date": date,
-        "_": "1621590489736",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
