@@ -493,7 +493,7 @@ def stock_dzjy_yybph(symbol: str = "近三月") -> pd.DataFrame:
     period_map = {
         "近一月": "30",
         "近三月": "90",
-        "近六月": "120",
+        "近六月": "180",
         "近一年": "360",
     }
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
