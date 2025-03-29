@@ -145,7 +145,6 @@ async def stock_board_concept_name_em_async() -> pd.DataFrame:
         "fid": "f3",  # 按涨跌幅排序
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
-        "_": "1626075887768",
     }
 
     results = await fetch_all_pages_async(url, params)

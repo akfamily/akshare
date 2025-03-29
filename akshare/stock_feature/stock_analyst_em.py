@@ -127,7 +127,6 @@ def stock_analyst_detail_em(
             "pageNumber": "1",
             "pageSize": "1000",
             "filter": f'(ANALYST_CODE="{analyst_id}")',
-            "_": "1675744438197",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
@@ -186,7 +185,6 @@ def stock_analyst_detail_em(
             "pageNumber": "1",
             "pageSize": "1000",
             "filter": f'(ANALYST_CODE="{analyst_id}")',
-            "_": "1675744438197",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
@@ -236,7 +234,6 @@ def stock_analyst_detail_em(
             "filter": f'(ANALYST_CODE="{analyst_id}")',
             "source": "WEB",
             "client": "WEB",
-            "_": "1675744438200",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()

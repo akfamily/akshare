@@ -37,7 +37,6 @@ def stock_zh_a_st_em() -> pd.DataFrame:
         "fs": "m:0 f:4,m:1 f:4",
         "fields": "f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
         "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1631107510188",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -128,7 +127,6 @@ def stock_zh_a_new_em() -> pd.DataFrame:
         "fs": "m:0 f:8,m:1 f:8",
         "fields": "f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
         "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1631107510188",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -219,7 +217,6 @@ def stock_zh_a_stop_em() -> pd.DataFrame:
         "fs": "m:0 s:3",
         "fields": "f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,"
         "f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-        "_": "1631107510188",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
