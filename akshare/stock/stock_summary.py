@@ -192,7 +192,6 @@ def stock_sse_summary() -> pd.DataFrame:
         "sqlId": "COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L",
         "PRODUCT_NAME": "股票,主板,科创板",
         "type": "inParams",
-        "_": "1640855495128",
     }
     headers = {
         "Referer": "http://www.sse.com.cn/",
@@ -238,7 +237,6 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
         "PRODUCT_CODE": "01,02,03,11,17",
         "type": "inParams",
         "SEARCH_DATE": "-".join([date[:4], date[4:6], date[6:]]),
-        "_": "1640836561673",
     }
     headers = {
         "Referer": "https://www.sse.com.cn/",
