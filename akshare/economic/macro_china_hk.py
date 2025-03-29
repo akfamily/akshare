@@ -33,7 +33,6 @@ def macro_china_hk_core(symbol: str = "EMG00341602") -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1667639896816",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

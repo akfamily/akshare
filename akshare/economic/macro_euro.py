@@ -30,9 +30,10 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
     """
     ec = 84
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {"category": "ec", "attr_id": ec}
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -49,10 +50,10 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -87,9 +88,10 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
     """
     ec = 84
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {"category": "ec", "attr_id": ec}
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -106,10 +108,10 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -142,9 +144,13 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
     """
     ec = 8
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -161,10 +167,10 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -197,9 +203,13 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
     """
     ec = 36
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -215,10 +225,10 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -251,9 +261,13 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
     """
     ec = 38
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -270,10 +284,10 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -306,9 +320,10 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
     """
     ec = 14
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {"category": "ec", "attr_id": ec}
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -325,10 +340,10 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -361,9 +376,13 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
     """
     ec = 46
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -380,10 +399,10 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -416,9 +435,13 @@ def macro_euro_trade_balance() -> pd.DataFrame:
     """
     ec = 43
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -435,10 +458,10 @@ def macro_euro_trade_balance() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -471,9 +494,13 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
     """
     ec = 11
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -490,10 +517,10 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -526,9 +553,13 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
     """
     ec = 19
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -545,10 +576,10 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -581,9 +612,13 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
     """
     ec = 30
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -600,10 +635,10 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -636,9 +671,13 @@ def macro_euro_services_pmi() -> pd.DataFrame:
     """
     ec = 41
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -655,10 +694,10 @@ def macro_euro_services_pmi() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -691,9 +730,13 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
     """
     ec = 48
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -709,10 +752,10 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
@@ -745,9 +788,13 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
     """
     ec = 40
     url = "https://datacenter-api.jin10.com/reports/dates"
-    params = {"category": "ec", "attr_id": ec, "_": "1667473128417"}
+    params = {
+        "category": "ec",
+        "attr_id": ec,
+    }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -763,10 +810,10 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
             "max_date": f"{date}",
             "category": "ec",
             "attr_id": ec,
-            "_": "1667475232449",
         }
         headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/107.0.0.0 Safari/537.36",
             "x-app-id": "rU6QIu7JHe2gOUeR",
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",

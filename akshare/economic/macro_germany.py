@@ -4,6 +4,7 @@
 Date: 2022/11/5 17:08
 Desc: 东方财富-德国-经济数据
 """
+
 import pandas as pd
 import requests
 
@@ -31,7 +32,6 @@ def macro_germany_core(symbol: str = "EMG00179154") -> pd.DataFrame:
         "p": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1667639896816",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
