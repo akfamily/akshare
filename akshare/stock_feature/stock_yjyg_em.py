@@ -361,7 +361,7 @@ if __name__ == "__main__":
     stock_yjkb_em_df = stock_yjkb_em(date="20200331")
     print(stock_yjkb_em_df)
 
-    stock_yjyg_em_df = stock_yjyg_em(date="20191231")
+    stock_yjyg_em_df = stock_yjyg_em(date="20250331")
     print(stock_yjyg_em_df)
 
     stock_yysj_em_df = stock_yysj_em(symbol="沪深A股", date="20211231")
