@@ -4445,7 +4445,7 @@ class JSON(object):
                 state.append(s)
             return
 
-        global nan, inf, neginf
+        global nan, inf, neginf  # noqa: F824
         if n is nan:
             state.append("NaN")
         elif n is inf:
@@ -6574,7 +6574,7 @@ MORE INFORMATION:
         pfx="",
         jsonopts=None,
     ):
-        global decode, encode
+        global decode, encode  # noqa: F824
         success = self.SUCCESS_FAIL
         reformatted = None
         if show_stats:
