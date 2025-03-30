@@ -1,8 +1,9 @@
-**广告推广**：欢迎加入专注于财经数据和量化投研的知识社区，获取《财经数据宝典》和《量化投研宝典》，其汇集了财经数据和量化投研的多年经验，
-还独家分享了众多国内外财经数据源的使用和注意事项，请点击[了解更多](https://t.zsxq.com/ZCxUG)。
+**资源分享**：对于想了解更多财经数据与量化投研的小伙伴，推荐一个专注于财经数据和量化研究的知识社区。
+该社区提供相关文档和视频学习资源，汇集了各类财经数据源和量化投研工具的使用经验。
+有兴趣深入学习的朋友可点此[了解更多](https://t.zsxq.com/ZCxUG)，也推荐大家关注微信公众号【数据科学实战】。
 
-**广告推广**：期魔方是一款非常专业本地化期货量化终端，无需部署或搭建环境，可直接调用及时和历史数据做回测实盘，
-支持开箱即用的机器学习训练，策略投研、回测均免费，详情请[访问期魔方官网](https://qmfquant.com)。
+**工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
+如需了解更多信息可访问[期魔方](https://qmfquant.com/)。
 
 ![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 
@@ -118,21 +119,6 @@ Output:
 
 ![KLine](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/AAPL_candle.png)
 
-## Communication
-
-Welcome to join the **数据科学实战** knowledge planet to learn more about quantitative investment,
-please visit [数据科学实战](https://akshare.akfamily.xyz/learn.html) for more information:
-
-<div>
-    <img alt="data science" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
-</div>
-
-Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
-
-<div>
-    <img alt="ds" src="https://github.com/akfamily/akshare/blob/main/assets/images/ds.png">
-</div>
-
 ## Features
 
 - **Easy of use**: Just one line code to fetch the data;
@@ -208,6 +194,12 @@ Special thanks [FuShare](https://github.com/LowinLi/fushare) for the opportunity
 
 Special thanks [TuShare](https://github.com/waditu/tushare) for the opportunity of learning from the project;
 
+Thanks for the data provided by [东方财富网站](http://data.eastmoney.com);
+
+Thanks for the data provided by [新浪财经网站](https://finance.sina.com.cn);
+
+Thanks for the data provided by [金十数据网站](https://www.jin10.com/);
+
 Thanks for the data provided by [生意社网站](http://www.100ppi.com/);
 
 Thanks for the data provided by [中国银行间市场交易商协会网站](http://www.nafmii.org.cn/);
@@ -216,11 +208,7 @@ Thanks for the data provided by [99期货网站](http://www.99qh.com/);
 
 Thanks for the data provided by [中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/);
 
-Thanks for the data provided by [金十数据网站](https://www.jin10.com/);
-
 Thanks for the data provided by [和讯财经网站](http://www.hexun.com/);
-
-Thanks for the data provided by [新浪财经网站](https://finance.sina.com.cn/);
 
 Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagobooth.edu/);
 
@@ -244,8 +232,6 @@ Thanks for the data provided by [Timeanddate 网站](https://www.timeanddate.com
 
 Thanks for the data provided by [河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/);
 
-Thanks for the data provided by [南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html);
-
 Thanks for the data provided by [Economic Policy Uncertainty 网站](http://www.nanhua.net/nhzc/varietytrend.html);
 
 Thanks for the data provided by [申万指数网站](http://www.swsindex.com/idx0120.aspx?columnid=8832);
@@ -262,8 +248,6 @@ Thanks for the data provided by [北京市碳排放权电子交易平台网站](
 
 Thanks for the data provided by [国家金融与发展实验室网站](http://www.nifd.cn/);
 
-Thanks for the data provided by [东方财富网站](http://data.eastmoney.com/jgdy/);
-
 Thanks for the data provided by [义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/);
 
 Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
@@ -273,8 +257,6 @@ Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 Thanks for the data provided by [Currencyscoop 网站](https://currencyscoop.com/);
 
 Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);
-
-Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png).
 
 ## Backer and Sponsor
 
