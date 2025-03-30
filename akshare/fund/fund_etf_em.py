@@ -270,7 +270,8 @@ def fund_etf_hist_em(
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame([item.split(",")
+                           for item in data_json["data"]["klines"]])
     temp_df.columns = [
         "日期",
         "开盘",
@@ -347,10 +348,22 @@ def fund_etf_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "ndays": "5",
             "iscr": "0",
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
         }
-        r = requests.get(url, timeout=15, params=params)
-        data_json = r.json()
+        try:
+            market_id = code_id_dict[symbol]
+            params.update({"secid": f"{market_id}.{symbol}"})
+            r = requests.get(url, timeout=15, params=params)
+            data_json = r.json()
+        except KeyError:
+            market_id = 1
+            params.update({"secid": f"{market_id}.{symbol}"})
+            r = requests.get(url, timeout=15, params=params)
+            data_json = r.json()
+            if not data_json["data"]:
+                market_id = 0
+                params.update({"secid": f"{market_id}.{symbol}"})
+                r = requests.get(url, timeout=15, params=params)
+                data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
         )
@@ -384,12 +397,24 @@ def fund_etf_hist_min_em(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "klt": period,
             "fqt": adjust_map[adjust],
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, timeout=15, params=params)
-        data_json = r.json()
+        try:
+            market_id = code_id_dict[symbol]
+            params.update({"secid": f"{market_id}.{symbol}"})
+            r = requests.get(url, timeout=15, params=params)
+            data_json = r.json()
+        except KeyError:
+            market_id = 1
+            params.update({"secid": f"{market_id}.{symbol}"})
+            r = requests.get(url, timeout=15, params=params)
+            data_json = r.json()
+            if not data_json["data"]:
+                market_id = 0
+                params.update({"secid": f"{market_id}.{symbol}"})
+                r = requests.get(url, timeout=15, params=params)
+                data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
         )
