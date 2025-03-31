@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/5 19:00
+Date: 2025/3/31 18:00
 Desc: 国泰君安期货-交易日历数据表
 https://www.gtjaqh.com/pc/calendar.html
 """
@@ -41,5 +41,5 @@ def futures_rule(date: str = "20231205") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_rule_df = futures_rule(date="20231205")
+    futures_rule_df = futures_rule(date="20250328")
     print(futures_rule_df)
