@@ -63,13 +63,13 @@ def option_dce_daily(
     }
     res = requests.post(url, data=payload)
     table_df = pd.read_excel(BytesIO(res.content), header=1)
-    another_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :,
-        [0, 1],
-    ]
-    another_df.reset_index(inplace=True, drop=True)
-    another_df.columns = another_df.iloc[0]
-    another_df = another_df.iloc[1:, :]
+    # 从合约名称中提取合约系列, 例如: "c2001-C-1680" -> "c2001". 然后去重, 保留隐含波动率.
+    another_df = table_df["合约名称"].str.extract(r"([a-zA-Z]+[0-9]+)")
+    another_df.columns = ["合约系列"]
+    another_df["隐含波动率(%)"] = table_df["隐含波动率(%)"]
+    another_df.dropna(inplace=True)
+    another_df.drop_duplicates(subset="合约系列", inplace=True)
+
     result_one_df = pd.DataFrame()
     result_two_df = pd.DataFrame()
     if symbol == "豆粕期权":
