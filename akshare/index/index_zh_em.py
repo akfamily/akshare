@@ -251,7 +251,7 @@ def index_zh_a_hist_min_em(
             "最低",
             "成交量",
             "成交额",
-            "最新价",
+            "均价",
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
         temp_df = temp_df[start_date:end_date]
@@ -262,7 +262,7 @@ def index_zh_a_hist_min_em(
         temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
         temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
         temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["均价"] = pd.to_numeric(temp_df["均价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
