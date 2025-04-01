@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/12/18 17:50
+Date: 2025/4/1 19:20
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
@@ -44,7 +44,7 @@ def stock_individual_spot_xq(
     :rtype: pandas.DataFrame
     """
     session = requests.Session()
-    xq_a_token = token or "cc9943aa6d41f0ae420f49b428f2f90a472b070a"
+    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
     headers = {
         "cookie": f"xq_a_token={xq_a_token};",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
