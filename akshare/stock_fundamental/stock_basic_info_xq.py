@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/19 15:00
+Date: 2025/4/1 19:20
 Desc: 雪球-个股-公司概况-公司简介
 https://xueqiu.com/snowman/S/SH601127/detail#/GSJJ
 """
@@ -27,7 +27,7 @@ def stock_individual_basic_info_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "cc9943aa6d41f0ae420f49b428f2f90a472b070a"
+    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
     url = "https://stock.xueqiu.com/v5/stock/f10/cn/company.json"
     params = {
         "symbol": symbol,
@@ -56,7 +56,7 @@ def stock_individual_basic_info_us_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "cc9943aa6d41f0ae420f49b428f2f90a472b070a"
+    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
     url = "https://stock.xueqiu.com/v5/stock/f10/us/company.json"
     params = {
         "symbol": symbol,
@@ -85,7 +85,7 @@ def stock_individual_basic_info_hk_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "cc9943aa6d41f0ae420f49b428f2f90a472b070a"
+    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
     url = "https://stock.xueqiu.com/v5/stock/f10/hk/company.json"
     params = {
         "symbol": symbol,
