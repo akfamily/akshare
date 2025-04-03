@@ -1332,6 +1332,8 @@
  # 新浪财经-行情中心-环球市场
  "index_global_name_table"  # 新浪财经-行情中心-环球市场-名称代码映射表
  "index_global_hist_em"  # 新浪财经-行情中心-环球市场-历史行情
+ # 股本结构
+ "stock_zh_a_gbjg_em"  # 股本结构
 ```
 
 ## 案例演示
