@@ -12,6 +12,7 @@ import pandas as pd
 import requests
 
 from akshare.utils.tqdm import get_tqdm
+from akshare.utils.func import fetch_paginated_data
 
 
 def stock_zh_ah_spot_em() -> pd.DataFrame:
@@ -30,15 +31,13 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
         "fields": "f193,f191,f192,f12,f13,f14,f1,f2,f4,f3,f152,f186,f190,f187,f189,f188",
         "fid": "f3",
         "pn": "1",
-        "pz": "200",
+        "pz": "100",
         "po": "1",
         "dect": "1",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df = fetch_paginated_data(url, params)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df["index"].astype(int) + 1
     temp_df.rename(
@@ -95,28 +94,13 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
         "fields": "f12,f13,f14,f19,f1,f2,f4,f3,f152,f17,f18,f15,f16,f5,f6",
         "fid": "f12",
         "pn": "1",
-        "pz": "200",
+        "pz": "100",
         "po": "1",
         "dect": "1",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 200)
-    temp_list = []
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update(
-            {
-                "pn": page,
-            }
-        )
-        r = requests.get(url, params=params, timeout=15)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
-    temp_df = pd.concat(temp_list, ignore_index=True)
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "f12": "代码",
