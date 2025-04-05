@@ -1124,7 +1124,6 @@ def stock_zh_a_hist_pre_min_em(
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "ndays": "1",
         "iscr": "1",
         "iscca": "0",
@@ -1356,7 +1355,6 @@ def stock_hk_hist(
     url = "https://33.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "secid": f"116.{symbol}",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
         "klt": period_dict[period],
@@ -1434,7 +1432,6 @@ def stock_hk_hist_min_em(
         params = {
             "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
             "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-            "ut": "fa5fd1943c7b386f172d6893dbfba10b",
             "iscr": "0",
             "ndays": "5",
             "secid": f"116.{symbol}",
@@ -1651,7 +1648,6 @@ def stock_us_hist(
     url = "https://63.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "secid": f"{symbol}",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
         "klt": period_dict[period],
@@ -1715,7 +1711,6 @@ def stock_us_hist_min_em(
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "iscr": "0",
         "ndays": "5",
         "secid": f"{symbol.split('.')[0]}.{symbol.split('.')[1]}",

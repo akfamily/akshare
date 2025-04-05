@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/4 14:00
+Date: 2025/4/5 17:00
 Desc: 东方财富网-数据中心-经济数据-中美国债收益率
 https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
@@ -36,6 +36,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params = {
             "type": "RPTA_WEB_TREASURYYIELD",

@@ -275,7 +275,6 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "ndays": "1",
         "iscr": "1",
         "iscca": "0",

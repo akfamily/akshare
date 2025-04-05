@@ -37,7 +37,6 @@ def index_global_spot_em() -> pd.DataFrame:
         "pz": "200",
         "po": "1",
         "dect": "1",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
     r = requests.get(url=url, params=params)

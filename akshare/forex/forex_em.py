@@ -31,7 +31,6 @@ def forex_spot_em() -> pd.DataFrame:
         "pz": "20000",
         "po": "1",
         "dect": "1",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
     r = requests.get(url, params=params)
