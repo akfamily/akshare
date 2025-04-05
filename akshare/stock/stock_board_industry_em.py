@@ -281,19 +281,20 @@ def stock_board_industry_hist_em(
     :return: 历史行情
     :rtype: pandas.DataFrame
     """
+    if re.match(pattern=r"^BK\d+", string=symbol):
+        em_code = symbol
+    else:
+        industry_listing = __stock_board_industry_name_em()
+        em_code = industry_listing.query("板块名称 == @symbol")["板块代码"].values[0]
     period_map = {
         "日k": "101",
         "周k": "102",
         "月k": "103",
     }
-    stock_board_concept_em_map = __stock_board_industry_name_em()
-    stock_board_code = stock_board_concept_em_map[
-        stock_board_concept_em_map["板块名称"] == symbol
-    ]["板块代码"].values[0]
     adjust_map = {"": "0", "qfq": "1", "hfq": "2"}
     url = "http://7.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
-        "secid": f"90.{stock_board_code}",
+        "secid": f"90.{em_code}",
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
         "klt": period_map[period],
@@ -360,10 +361,11 @@ def stock_board_industry_hist_min_em(
     :return: 分时历史行情
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = __stock_board_industry_name_em()
-    stock_board_code = stock_board_concept_em_map[
-        stock_board_concept_em_map["板块名称"] == symbol
-    ]["板块代码"].values[0]
+    if re.match(pattern=r"^BK\d+", string=symbol):
+        em_code = symbol
+    else:
+        industry_listing = __stock_board_industry_name_em()
+        em_code = industry_listing.query("板块名称 == @symbol")["板块代码"].values[0]
     if period == "1":
         url = "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
         params = {
@@ -371,7 +373,7 @@ def stock_board_industry_hist_min_em(
             "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
             "iscr": "0",
             "ndays": "1",
-            "secid": f"90.{stock_board_code}",
+            "secid": f"90.{em_code}",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
