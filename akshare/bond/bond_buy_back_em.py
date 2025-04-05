@@ -43,7 +43,7 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
             "f2": "最新价",
             "f3": "涨跌幅",
             "f4": "涨跌额",
-            "f5": "成交量(手)",
+            "f5": "成交量",
             "f6": "成交额",
             "f12": "代码",
             "f14": "名称",
@@ -66,7 +66,7 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
         "最高",
         "最低",
         "昨收",
-        "成交量(手)",
+        "成交量",
         "成交额",
     ]]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce") / 1000
@@ -76,8 +76,8 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce") / 1000
     temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce") / 1000
     temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce") / 1000
-    temp_df["成交量(手)"] = pd.to_numeric(temp_df["成交量(手)"], errors="coerce") / 10000
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce") / 10000
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     return temp_df
 
 
@@ -113,7 +113,7 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
             "f2": "最新价",
             "f3": "涨跌幅",
             "f4": "涨跌额",
-            "f5": "成交量(手)",
+            "f5": "成交量",
             "f6": "成交额",
             "f12": "代码",
             "f14": "名称",
@@ -136,7 +136,7 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
         "最高",
         "最低",
         "昨收",
-        "成交量(手)",
+        "成交量",
         "成交额",
     ]]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce") / 1000
@@ -146,8 +146,71 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce") / 1000
     temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce") / 1000
     temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce") / 1000
-    temp_df["成交量(手)"] = pd.to_numeric(temp_df["成交量(手)"], errors="coerce") / 10000
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce") / 10000
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    return temp_df
+
+
+def bond_buy_back_hist_em(symbol: str = "204001"):
+    """
+    东方财富网-行情中心-债券市场-质押式回购-历史数据
+    https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback
+    :param symbol: 质押式回购代码
+    :type symbol: str
+    :return: 历史数据
+    :rtype: pandas.DataFrame
+    """
+    if symbol.startswith("1"):
+        market_id = "0"
+    else:
+        market_id = "1"
+    url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
+    params = {
+        "secid": f"{market_id}.{symbol}",
+        "klt": "101",
+        "fqt": "1",
+        "lmt": "10000",
+        "end": "20500000",
+        "iscca": "1",
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64",
+        "forcect": "1"
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']['klines']])
+    temp_df.columns = [
+            "日期",
+            "开盘",
+            "收盘",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+    ]
+    temp_df = temp_df[[
+        "日期",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+    ]]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     return temp_df
 
 
@@ -157,3 +220,9 @@ if __name__ == "__main__":
 
     bond_sz_buy_back_em_df = bond_sz_buy_back_em()
     print(bond_sz_buy_back_em_df)
+
+    bond_buy_back_hist_em_df = bond_buy_back_hist_em(symbol="204001")
+    print(bond_buy_back_hist_em_df)
+
+    bond_buy_back_hist_em_df = bond_buy_back_hist_em(symbol="131810")
+    print(bond_buy_back_hist_em_df)

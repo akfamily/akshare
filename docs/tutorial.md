@@ -1334,6 +1334,10 @@
  "index_global_hist_em"  # 新浪财经-行情中心-环球市场-历史行情
  # 股本结构
  "stock_zh_a_gbjg_em"  # 股本结构
+ # 质押式回购
+ "bond_sh_buy_back_em"  # 上证质押式回购
+ "bond_sz_buy_back_em"  # 深证质押式回购
+ "bond_buy_back_hist_em"  # 质押式回购-历史数据
 ```
 
 ## 案例演示
