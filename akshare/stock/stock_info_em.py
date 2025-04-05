@@ -26,7 +26,6 @@ def stock_individual_info_em(
     url = "https://push2.eastmoney.com/api/qt/stock/get"
     market_code = 1 if symbol.startswith("6") else 0
     params = {
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fltt": "2",
         "invt": "2",
         "fields": "f120,f121,f122,f174,f175,f59,f163,f43,f57,f58,f169,f170,f46,f44,f51,f168,f47,"

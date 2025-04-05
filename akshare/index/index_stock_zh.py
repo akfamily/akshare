@@ -430,7 +430,6 @@ def stock_zh_index_daily_em(
     params = {
         "cb": "jQuery1124033485574041163946_1596700547000",
         "secid": secid,
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fields1": "f1,f2,f3,f4,f5",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
         "klt": "101",  # 日频率

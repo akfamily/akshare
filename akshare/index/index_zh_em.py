@@ -202,7 +202,6 @@ def index_zh_a_hist_min_em(
             params = {
                 "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
                 "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-                "ut": "fa5fd1943c7b386f172d6893dbfba10b",
                 "iscr": "0",
                 "ndays": "5",
                 "secid": f"{code_id_dict[symbol]}.{symbol}",
@@ -211,7 +210,6 @@ def index_zh_a_hist_min_em(
             params = {
                 "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
                 "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-                "ut": "fa5fd1943c7b386f172d6893dbfba10b",
                 "iscr": "0",
                 "ndays": "5",
                 "secid": f"1.{symbol}",
@@ -222,7 +220,6 @@ def index_zh_a_hist_min_em(
                 params = {
                     "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
                     "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-                    "ut": "fa5fd1943c7b386f172d6893dbfba10b",
                     "iscr": "0",
                     "ndays": "5",
                     "secid": f"0.{symbol}",
@@ -233,7 +230,6 @@ def index_zh_a_hist_min_em(
                     params = {
                         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
                         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-                        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
                         "iscr": "0",
                         "ndays": "5",
                         "secid": f"47.{symbol}",

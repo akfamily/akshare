@@ -34,7 +34,6 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
         "pz": "100",
         "po": "1",
         "dect": "1",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
     temp_df = fetch_paginated_data(url, params)
@@ -97,7 +96,6 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
         "pz": "100",
         "po": "1",
         "dect": "1",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "wbp2u": "|0|0|0|web",
     }
     temp_df = fetch_paginated_data(url, params)
