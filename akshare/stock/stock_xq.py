@@ -105,21 +105,24 @@ def stock_individual_spot_xq(
         *map(
             lambda x: column_name_map[x] if x in column_name_map.keys() else x,
             temp_df.columns,
-        )  # 由于传入的symbol可能是个股，可能是指数，也可能是基金，所以这里取列的最大公约数，没有数据的列内容为None
+        )  # 由于传入的 symbol 可能是个股，可能是指数，也可能是基金，所以这里取列的最大公约数，没有数据的列内容为 None
     ]
     temp_df = temp_df[
         list(
             filter(
                 lambda x: re.search(pattern="[\u4e00-\u9fa5]", string=x),
                 temp_df.columns,
-            )  # 过滤temp_df，留下包含汉字的列
+            )  # 过滤 temp_df，留下包含汉字的列
         )
     ]
     temp_df = temp_df.T.reset_index()
     temp_df.columns = ["item", "value"]
     temp_df.loc[temp_df["item"] == "时间", "value"] = temp_df.loc[
         temp_df["item"] == "时间", "value"
-    ].apply(lambda x: _convert_timestamp(int(x)))
+    ].apply(lambda x: _convert_timestamp(int(x)) if x and not pd.isna(x) else None)
+    temp_df.loc[temp_df["item"] == "发行日期", "value"] = temp_df.loc[
+        temp_df["item"] == "发行日期", "value"
+    ].apply(lambda x: _convert_timestamp(int(x)) if x and not pd.isna(x) else None)
     return temp_df
 
 
@@ -127,7 +130,7 @@ if __name__ == "__main__":
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="BJ430139")
     print(stock_individual_spot_xq_df)
 
-    stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH000001")
+    stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH600000")
     print(stock_individual_spot_xq_df)
 
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SPY")
