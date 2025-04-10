@@ -10,6 +10,11 @@ Welcome to AKShare's Online Documentation!
 
    推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
 
+.. image:: assets/images/ds.png
+   :width: 400px
+   :align: center
+   :alt: AKShare Logo
+
 .. toctree::
    :maxdepth: 2
    :glob:
