@@ -1063,8 +1063,8 @@ if __name__ == "__main__":
     )
 
     # 测试新增的营业部详情接口
-    stock_lhb_yyb_detail_em_df = stock_lhb_yyb_detail_em(dept_code="10026729")
-    print(stock_lhb_yyb_detail_em_df)
+    #stock_lhb_yyb_detail_em_df = stock_lhb_yyb_detail_em(dept_code="10026729")
+    #print(stock_lhb_yyb_detail_em_df)
     print(stock_lhb_stock_detail_em_df)
 
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
