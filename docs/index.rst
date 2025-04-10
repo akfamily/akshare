@@ -10,10 +10,10 @@ Welcome to AKShare's Online Documentation!
 
    推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
 
-.. image:: https://github.com/akfamily/akshare/blob/main/assets/images/ds.png
+.. image:: https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png
    :width: 400px
    :align: center
-   :alt: AKShare Logo
+   :alt: WeChat QR code
 
 .. toctree::
    :maxdepth: 2
