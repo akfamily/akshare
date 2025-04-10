@@ -8,11 +8,7 @@ Welcome to AKShare's Online Documentation!
 
 .. note::
 
-   Please visit `AKShare's Github`_ for source code or visit `Github Issues`_ if you have any question!
-
-.. _AkShare's Github: https://github.com/akfamily/akshare
-
-.. _Github Issues: https://github.com/akfamily/akshare/issues
+   推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
 
 .. toctree::
    :maxdepth: 2
