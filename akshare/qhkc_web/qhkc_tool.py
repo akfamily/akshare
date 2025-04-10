@@ -172,7 +172,8 @@ def qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP_URL):
 
 
 if __name__ == "__main__":
-    df = qhkc_tool_foreign()
-    print(df)
-    df = qhkc_tool_gdp()
-    print(df)
+    qhkc_tool_foreign_df = qhkc_tool_foreign()
+    print(qhkc_tool_foreign_df)
+
+    qhkc_tool_gdp_df = qhkc_tool_gdp()
+    print(qhkc_tool_gdp_df)

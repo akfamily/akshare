@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/9/30 13:58
+Date: 2025/4/10 18:00
 Desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-指数数据接口, 方便您程序化调用
 注：期货价格为收盘价; 现货价格来自网络; 基差=现货价格-期货价格; 基差率=(现货价格-期货价格)/现货价格 * 100 %.
 """
@@ -132,7 +132,7 @@ def get_qhkc_index_trend(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX
         money = item["money"]
         order_money = item["order_money"]
         variety = item["variety"]
-        df_temp = df_temp.append(
+        df_temp = df_temp._append(
             pd.DataFrame([broker, grade, money, order_money, variety]).T
         )
     df_temp.columns = ["broker", "grade", "money", "open_order", "variety"]
@@ -187,9 +187,11 @@ def get_qhkc_index_profit_loss(
 
 
 if __name__ == "__main__":
-    data = get_qhkc_index("奇货谷物")
-    print(data)
-    data = get_qhkc_index_trend("奇货贵金属")
-    print(data)
-    data = get_qhkc_index_profit_loss("奇货贵金属", end_date="20211207")
-    print(data)
+    get_qhkc_index_df = get_qhkc_index("奇货谷物")
+    print(get_qhkc_index_df)
+
+    get_qhkc_index_trend_df = get_qhkc_index_trend("奇货贵金属")
+    print(get_qhkc_index_trend_df)
+
+    get_qhkc_index_profit_loss_df = get_qhkc_index_profit_loss("奇货贵金属", end_date="20250410")
+    print(get_qhkc_index_profit_loss_df)
