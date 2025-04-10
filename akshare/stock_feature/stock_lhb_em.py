@@ -900,6 +900,124 @@ def stock_lhb_stock_detail_em(
     return temp_df
 
 
+def stock_lhb_yyb_detail_em(
+    dept_code: str = "10026729",
+    page_size: int = 50,
+) -> pd.DataFrame:
+    """
+    东方财富网-数据中心-龙虎榜单-营业部详情
+    获取特定营业部的交易明细数据
+    :param dept_code: 营业部代码, 如 "10026729"
+    :type dept_code: str
+    :param page_size: 每页显示的数据条数
+    :type page_size: int
+    :return: 营业部交易明细数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "TRADE_DATE,SECURITY_CODE",
+        "sortTypes": "-1,1",
+        "pageSize": str(page_size),
+        "pageNumber": "1",
+        "reportName": "RPT_OPERATEDEPT_TRADE_DETAILSNEW",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f'(OPERATEDEPT_CODE="{dept_code}")',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
+    # 检查DataFrame是否为空
+    if big_df.empty:
+        return pd.DataFrame()
+
+    # 确保列名与实际返回的JSON数据结构一致
+    column_map = {
+        "OPERATEDEPT_CODE": "营业部代码",
+        "OPERATEDEPT_NAME": "营业部名称",
+        "TRADE_DATE": "交易日期",
+        "D1_CLOSE_ADJCHRATE": "1日后涨跌幅",
+        "D2_CLOSE_ADJCHRATE": "2日后涨跌幅",
+        "D3_CLOSE_ADJCHRATE": "3日后涨跌幅",
+        "D5_CLOSE_ADJCHRATE": "5日后涨跌幅",
+        "D10_CLOSE_ADJCHRATE": "10日后涨跌幅",
+        "SECURITY_CODE": "股票代码",
+        "SECURITY_NAME_ABBR": "股票名称",
+        "ACT_BUY": "买入金额",
+        "ACT_SELL": "卖出金额",
+        "NET_AMT": "净额",
+        "EXPLANATION": "上榜原因",
+        "D20_CLOSE_ADJCHRATE": "20日后涨跌幅",
+        "D30_CLOSE_ADJCHRATE": "30日后涨跌幅",
+        "SECUCODE": "证券代码",
+        "OPERATEDEPT_CODE_OLD": "营业部旧代码",
+        "ORG_NAME_ABBR": "营业部简称",
+        "CHANGE_RATE": "涨跌幅"
+    }
+
+    # 重命名列
+    big_df.rename(columns=column_map, inplace=True)
+
+    # 添加序号列
+    big_df.reset_index(inplace=True)
+    big_df["序号"] = big_df.index + 1
+
+    # 选择需要的列并排序
+    result_columns = [
+        "序号",
+        "营业部代码",
+        "营业部名称",
+        "营业部简称",
+        "交易日期",
+        "股票代码",
+        "股票名称",
+        "涨跌幅",
+        "买入金额",
+        "卖出金额",
+        "净额",
+        "上榜原因",
+        "1日后涨跌幅",
+        "2日后涨跌幅",
+        "3日后涨跌幅",
+        "5日后涨跌幅",
+        "10日后涨跌幅",
+        "20日后涨跌幅",
+        "30日后涨跌幅",
+    ]
+
+    # 确保所有列都存在
+    for col in result_columns:
+        if col not in big_df.columns and col != "序号":
+            big_df[col] = None
+
+    big_df = big_df[result_columns]
+
+    # 处理日期格式
+    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
+
+    # 处理数值列
+    numeric_cols = [
+        "涨跌幅", "买入金额", "卖出金额", "净额",
+        "1日后涨跌幅", "2日后涨跌幅", "3日后涨跌幅",
+        "5日后涨跌幅", "10日后涨跌幅", "20日后涨跌幅", "30日后涨跌幅"
+    ]
+    for col in numeric_cols:
+        big_df[col] = pd.to_numeric(big_df[col], errors="coerce")
+
+    return big_df
+
+
 if __name__ == "__main__":
     stock_lhb_detail_em_df = stock_lhb_detail_em(
         start_date="20250201", end_date="20250228"
@@ -943,6 +1061,10 @@ if __name__ == "__main__":
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
         symbol="002901", date="20221012", flag="买入"
     )
+
+    # 测试新增的营业部详情接口
+    stock_lhb_yyb_detail_em_df = stock_lhb_yyb_detail_em(dept_code="10026729")
+    print(stock_lhb_yyb_detail_em_df)
     print(stock_lhb_stock_detail_em_df)
 
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
