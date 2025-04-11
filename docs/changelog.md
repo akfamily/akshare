@@ -81,6 +81,10 @@
 
 ## 更新说明详情
 
+1.16.76 fix: fix spot_quotations_sge interface
+
+	1. 修复 spot_quotations_sge 接口
+
 1.16.75 fix: fix get_qhkc_index interface
 
 	1. 修复 get_qhkc_index 接口
@@ -5480,6 +5484,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.76 fix: fix spot_quotations_sge interface
 
 1.16.75 fix: fix get_qhkc_index interface
 

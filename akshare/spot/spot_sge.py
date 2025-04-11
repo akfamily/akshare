@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/8/22 10:00
+Date: 2025/4/11 22:00
 Desc: 上海黄金交易所-数据资讯-行情走势
 https://www.sge.com.cn/sjzx/mrhq
 上海黄金交易所-数据资讯-上海金基准价-历史数据
@@ -94,6 +94,15 @@ def spot_quotations_sge(symbol: str = "Au99.99") -> pd.DataFrame:
         }
     )
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    # 将更新时间中的时间部分提取出来
+    update_time = temp_df["更新时间"].iloc[0].split()[1]
+    # 将时间列转换为时间格式以便排序
+    temp_df["时间"] = pd.to_datetime(temp_df["时间"], format="%H:%M").dt.time
+    # 过滤掉大于等于更新时间的数据
+    temp_df = temp_df[temp_df["时间"].astype(str) < update_time]
+    # 按时间排序
+    temp_df = temp_df.sort_values(by=["时间"])
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
