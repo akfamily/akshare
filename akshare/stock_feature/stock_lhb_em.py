@@ -900,6 +900,102 @@ def stock_lhb_stock_detail_em(
     return temp_df
 
 
+def stock_lhb_hyyyb_date_em(date: str = "20250411", page_size: int = 50) -> pd.DataFrame:
+    """
+    东方财富网-数据中心-龙虎榜单-每日活跃营业部
+    https://data.eastmoney.com/stock/hyyyb.html
+    :param date: 查询日期
+    :type date: str
+    :param page_size: 每页显示的数据条数
+    :type page_size: int
+    :return: 每日活跃营业部数据
+    :rtype: pandas.DataFrame
+    """
+    date_str = "-".join([date[:4], date[4:6], date[6:]])
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "TOTAL_NETAMT,ONLIST_DATE,OPERATEDEPT_CODE",
+        "sortTypes": "-1,-1,1",
+        "pageSize": str(page_size),
+        "pageNumber": "1",
+        "reportName": "RPT_OPERATEDEPT_ACTIVE",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"(ONLIST_DATE>='{date_str}')",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
+    if big_df.empty:
+        return pd.DataFrame()
+
+    # 重命名列
+    column_map = {
+        "OPERATEDEPT_NAME": "营业部名称",
+        "ONLIST_DATE": "上榜日",
+        "BUYER_APPEAR_NUM": "买入个股数",
+        "SELLER_APPEAR_NUM": "卖出个股数",
+        "TOTAL_BUYAMT": "买入总金额",
+        "TOTAL_SELLAMT": "卖出总金额",
+        "TOTAL_NETAMT": "总买卖净额",
+        "BUY_STOCK": "买入股票代码",
+        "OPERATEDEPT_CODE": "营业部代码",
+        "SECURITY_NAME_ABBR": "买入股票名称",
+        "OPERATEDEPT_CODE_OLD": "营业部旧代码",
+        "ORG_NAME_ABBR": "营业部简称"
+    }
+
+    # 重命名列
+    big_df.rename(columns=column_map, inplace=True)
+
+    # 添加序号列
+    big_df.reset_index(inplace=True)
+    big_df["序号"] = big_df.index + 1
+
+    # 选择需要的列并排序
+    result_columns = [
+        "序号",
+        "营业部名称",
+        "营业部简称",
+        "营业部代码",
+        "上榜日",
+        "买入个股数",
+        "卖出个股数",
+        "买入总金额",
+        "卖出总金额",
+        "总买卖净额",
+        "买入股票代码",
+        "买入股票名称"
+    ]
+
+    # 确保所有列都存在
+    for col in result_columns:
+        if col not in big_df.columns and col != "序号":
+            big_df[col] = None
+
+    big_df = big_df[result_columns]
+
+    # 处理日期格式
+    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"], errors="coerce").dt.date
+
+    # 处理数值列
+    numeric_cols = ["买入个股数", "卖出个股数", "买入总金额", "卖出总金额", "总买卖净额"]
+    for col in numeric_cols:
+        big_df[col] = pd.to_numeric(big_df[col], errors="coerce")
+
+    return big_df
+
+
 def stock_lhb_yyb_detail_em(
     dept_code: str = "10026729",
     page_size: int = 50,
@@ -1049,6 +1145,10 @@ if __name__ == "__main__":
     )
     print(stock_lhb_hyyyb_em_df)
 
+    # 测试新增的每日活跃营业部接口（单日查询）
+    stock_lhb_hyyyb_date_em_df = stock_lhb_hyyyb_date_em(date="20250411", page_size=50)
+    print(stock_lhb_hyyyb_date_em_df)
+
     stock_lhb_yybph_em_df = stock_lhb_yybph_em(symbol="近一月")
     print(stock_lhb_yybph_em_df)
 
@@ -1062,7 +1162,7 @@ if __name__ == "__main__":
         symbol="002901", date="20221012", flag="买入"
     )
 
-    # 测试新增的营业部详情接口
+    # 测试营业部详情接口
     #stock_lhb_yyb_detail_em_df = stock_lhb_yyb_detail_em(dept_code="10026729")
     #print(stock_lhb_yyb_detail_em_df)
     print(stock_lhb_stock_detail_em_df)
