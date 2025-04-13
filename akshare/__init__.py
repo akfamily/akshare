@@ -3085,9 +3085,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.74 fix: fix stock_individual_spot_xq interface
 1.16.75 fix: fix get_qhkc_index interface
 1.16.76 fix: fix spot_quotations_sge interface
+1.16.77 add: add stock_lhb_yyb_detail_em interface
 """
 
-__version__ = "1.16.76"
+__version__ = "1.16.77"
 __author__ = "AKFamily"
 
 import sys
@@ -3733,6 +3734,7 @@ from akshare.stock_feature.stock_lhb_em import (
     stock_lhb_yybph_em,
     stock_lhb_jgstatistic_em,
     stock_lhb_traderstatistic_em,
+    stock_lhb_yyb_detail_em,
 )
 
 """
