@@ -8,12 +8,7 @@ Welcome to AKShare's Online Documentation!
 
 .. note::
 
-   推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
-
-.. image:: https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png
-   :width: 400px
-   :align: center
-   :alt: WeChat QR code
+   请升级到最新版本使用
 
 .. toctree::
    :maxdepth: 2
@@ -25,7 +20,6 @@ Welcome to AKShare's Online Documentation!
    data/index
    indicator
    data_tips
-   trade
    answer
    tutorial
    articles

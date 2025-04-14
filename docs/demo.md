@@ -4,10 +4,7 @@
 调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
 
 本策略示例是基于 Python 编程语言的开源投研和交易框架 [PyBroker](https://www.pybroker.com) 和
-[Backtrader](https://www.backtrader.com) 来演示，有兴趣
-想深入了解该框架的小伙伴，可以参考官网文档学习，同时也可以关注知识星球【数据科学实战】进一步学习：
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
-
+[Backtrader](https://www.backtrader.com) 来演示！
 注意：本教程的开发是基于：Python (64 位) 3.12.4 来进行的
 
 ### PyBroker 介绍
