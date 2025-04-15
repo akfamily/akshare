@@ -306,7 +306,6 @@ https://cn.investing.com/rates-bonds/
 更新说明文档
 0.2.39
 更新说明文档目录结构
-增加专题教程-pandas专题-连载
 0.2.40
 更新专题板块
 0.2.41
