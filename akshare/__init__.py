@@ -3086,9 +3086,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.75 fix: fix get_qhkc_index interface
 1.16.76 fix: fix spot_quotations_sge interface
 1.16.77 add: add stock_lhb_yyb_detail_em interface
+1.16.78 fix: fix stock_zh_a_spot_em interface
 """
 
-__version__ = "1.16.77"
+__version__ = "1.16.78"
 __author__ = "AKFamily"
 
 import sys
@@ -3123,9 +3124,11 @@ from akshare.stock_fundamental.stock_gbjg_em import stock_zh_a_gbjg_em
 """
 异步接口
 """
-from akshare.stock_a.stock_zh_a_spot import stock_zh_a_spot_em
-from akshare.stock_a.stock_individual_fund_flow_rank import stock_individual_fund_flow_rank
-from akshare.stock_a.stock_board_concept_name_em import stock_board_concept_name_em
+from akshare.stock_a.stock_zh_a_spot import stock_zh_a_spot_em as stock_zh_a_spot_em_async
+from akshare.stock_a.stock_individual_fund_flow_rank import (
+    stock_individual_fund_flow_rank as stock_individual_fund_flow_rank_async
+)
+from akshare.stock_a.stock_board_concept_name_em import stock_board_concept_name_em as stock_board_concept_name_em_async
 
 """
 雪球-个股-公司概况-公司简介
@@ -4170,7 +4173,7 @@ from akshare.stock.stock_board_concept_em import (
     stock_board_concept_cons_em,
     stock_board_concept_hist_em,
     stock_board_concept_hist_min_em,
-    # stock_board_concept_name_em,
+    stock_board_concept_name_em,
     stock_board_concept_spot_em,
 )
 
@@ -4214,7 +4217,7 @@ from akshare.stock_feature.stock_pankou_em import (
 A 股东方财富
 """
 from akshare.stock_feature.stock_hist_em import (
-    # stock_zh_a_spot_em,
+    stock_zh_a_spot_em,
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
     stock_kc_a_spot_em,
@@ -4813,7 +4816,7 @@ from akshare.stock.stock_fund_em import (
     stock_individual_fund_flow,
     stock_market_fund_flow,
     stock_sector_fund_flow_rank,
-    # stock_individual_fund_flow_rank,
+    stock_individual_fund_flow_rank,
     stock_sector_fund_flow_summary,
     stock_sector_fund_flow_hist,
     stock_concept_fund_flow_hist,
