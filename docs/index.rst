@@ -24,7 +24,6 @@ Welcome to AKShare's Online Documentation!
    tutorial
    articles
    anaconda
-   special
    platform
    demo
    changelog
@@ -32,3 +31,4 @@ Welcome to AKShare's Online Documentation!
    dependency
    deploy_http
    akdocker/akdocker
+   special
