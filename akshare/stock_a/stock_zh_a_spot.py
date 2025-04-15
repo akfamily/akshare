@@ -65,30 +65,19 @@ def process_data(page_results: List[Dict]) -> pd.DataFrame:
     for result in page_results:
         if result.get("rc") == 0 and result.get("data") and result["data"].get("diff"):
             page_data = result["data"]["diff"]
-
-            # 添加页面信息以便后续计算序号
             for item in page_data:
                 item["page_number"] = page_number
                 item["page_index"] = page_data.index(item)
-
             all_data.extend(page_data)
             page_number += 1
-
     if not all_data:
         return pd.DataFrame()
-
     df = pd.DataFrame(all_data)
-
-    # 计算正确的序号
     df["序号"] = df.apply(
         lambda row: (row["page_number"] - 1) * items_per_page + row["page_index"] + 1,
         axis=1,
     )
-
-    # 删除临时列
     df.drop(columns=["page_number", "page_index"], inplace=True, errors="ignore")
-
-    # 设置列名 - 修正了5分钟涨跌的映射 (f11 是正确的5分钟涨跌字段)
     column_map = {
         "f1": "原序号",
         "f2": "最新价",
@@ -122,8 +111,6 @@ def process_data(page_results: List[Dict]) -> pd.DataFrame:
     }
 
     df.rename(columns=column_map, inplace=True)
-
-    # 选择需要的列并确保所有需要的列都存在
     desired_columns = [
         "序号",
         "代码",
@@ -149,12 +136,8 @@ def process_data(page_results: List[Dict]) -> pd.DataFrame:
         "60日涨跌幅",
         "年初至今涨跌幅",
     ]
-
-    # 过滤出存在的列
     available_columns = [col for col in desired_columns if col in df.columns]
     df = df[available_columns]
-
-    # 转换数值类型
     numeric_columns = [
         "最新价",
         "涨跌幅",
@@ -177,18 +160,12 @@ def process_data(page_results: List[Dict]) -> pd.DataFrame:
         "60日涨跌幅",
         "年初至今涨跌幅",
     ]
-
     for col in numeric_columns:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
-
-    # 按涨跌幅降序排序
     df.sort_values(by="涨跌幅", ascending=False, inplace=True)
-
-    # 重新生成序号
     df.reset_index(drop=True, inplace=True)
     df["序号"] = df.index + 1
-
     return df
 
 
@@ -213,7 +190,6 @@ async def stock_zh_a_spot_em_async() -> pd.DataFrame:
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
         "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
-
     results = await fetch_all_pages_async(url, params)
     return process_data(results)
 
