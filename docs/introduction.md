@@ -46,8 +46,6 @@
 6. 提供完善的接口文档，提高 [AKShare](https://github.com/akfamily/akshare) 的易用性；
 7. 对于非 Python 用户，提供 HTTP API 接口工具 [AKTools](https://aktools.akfamily.xyz/)。
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AKShare.svg)
-
 ## [AKShare](https://github.com/akfamily/akshare) 的初衷
 
 [AKShare](https://github.com/akfamily/akshare) 主要是用于财经研究，解决在财经研究中数据获取的问题。目前的版本主要是基于 Python
