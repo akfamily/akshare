@@ -43,8 +43,9 @@ def stock_individual_spot_xq(
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
+    from akshare.stock.cons import xq_a_token
     session = requests.Session()
-    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
+    xq_a_token = token or xq_a_token
     headers = {
         "cookie": f"xq_a_token={xq_a_token};",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
