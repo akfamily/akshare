@@ -27,7 +27,8 @@ def stock_individual_basic_info_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
+    from akshare.stock.cons import xq_a_token
+    xq_a_token = token or xq_a_token
     url = "https://stock.xueqiu.com/v5/stock/f10/cn/company.json"
     params = {
         "symbol": symbol,
@@ -56,7 +57,8 @@ def stock_individual_basic_info_us_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
+    from akshare.stock.cons import xq_a_token
+    xq_a_token = token or xq_a_token
     url = "https://stock.xueqiu.com/v5/stock/f10/us/company.json"
     params = {
         "symbol": symbol,
@@ -85,7 +87,8 @@ def stock_individual_basic_info_hk_xq(
     :return: 公司简介
     :rtype: pandas.DataFrame
     """
-    xq_a_token = token or "8227a6f1f070ca10a573ea273e25da157b017b89"
+    from akshare.stock.cons import xq_a_token
+    xq_a_token = token or xq_a_token
     url = "https://stock.xueqiu.com/v5/stock/f10/hk/company.json"
     params = {
         "symbol": symbol,
