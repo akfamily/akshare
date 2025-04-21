@@ -81,6 +81,10 @@
 
 ## 更新说明详情
 
+1.16.80 fix: fix stock_zh_a_disclosure_report_cninfo interface
+
+	1. 修复 stock_zh_a_disclosure_report_cninfo 接口
+
 1.16.79 fix: fix stock_individual_basic_info_xq interface
 
 	1. 修复 stock_individual_basic_info_xq 接口
@@ -5496,6 +5500,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.16.80 fix: fix stock_zh_a_disclosure_report_cninfo interface
 
 1.16.79 fix: fix stock_individual_basic_info_xq interface
 
