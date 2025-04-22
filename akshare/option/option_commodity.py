@@ -373,11 +373,11 @@ def option_czce_daily(
 
 
 def option_shfe_daily(
-    symbol: str = "铝期权", trade_date: str = "20200827"
+    symbol: str = "铝期权", trade_date: str = "20250418"
 ) -> Optional[Tuple[pd.DataFrame, pd.DataFrame]]:
     """
     上海期货交易所-期权-日频行情数据
-    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kxQ
+    https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"铜期权", "天胶期权", "黄金期权", "铝期权", "锌期权"}
@@ -390,8 +390,8 @@ def option_shfe_daily(
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame(), pd.DataFrame()
-    if day > datetime.date(2010, 8, 24):
-        url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
+    if day > datetime.date(year=2010, month=8, day=24):
+        url = f"""https://www.shfe.com.cn/data/tradedata/option/dailydata/kx{day.strftime("%Y%m%d")}.dat"""
         try:
             r = requests.get(url, headers=SHFE_HEADERS)
             json_data = r.json()
@@ -408,31 +408,25 @@ def option_shfe_daily(
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
             ]
-            contract_df.columns = [
-                "_",
-                "_",
-                "_",
-                "合约代码",
-                "前结算价",
-                "开盘价",
-                "最高价",
-                "最低价",
-                "收盘价",
-                "结算价",
-                "涨跌1",
-                "涨跌2",
-                "成交量",
-                "持仓量",
-                "持仓量变化",
-                "_",
-                "行权量",
-                "成交额",
-                "德尔塔",
-                "_",
-                "_",
-                "_",
-                "_",
-            ]
+            contract_df.rename(
+                columns={
+                    "INSTRUMENTID": "合约代码",
+                    "OPENPRICE": "开盘价",
+                    "HIGHESTPRICE": "最高价",
+                    "LOWESTPRICE": "最低价",
+                    "CLOSEPRICE": "收盘价",
+                    "PRESETTLEMENTPRICE": "前结算价",
+                    "SETTLEMENTPRICE": "结算价",
+                    "ZD1_CHG": "涨跌1",
+                    "ZD2_CHG": "涨跌2",
+                    "VOLUME": "成交量",
+                    "OPENINTEREST": "持仓量",
+                    "OPENINTERESTCHG": "持仓量变化",
+                    "TURNOVER": "成交额",
+                    "DELTA": "德尔塔",
+                    "EXECVOLUME": "行权量"
+                }, inplace=True
+            )
             contract_df = contract_df[
                 [
                     "合约代码",
@@ -452,21 +446,15 @@ def option_shfe_daily(
                     "行权量",
                 ]
             ]
-
-            volatility_df.columns = [
-                "_",
-                "_",
-                "_",
-                "合约系列",
-                "成交量",
-                "持仓量",
-                "持仓量变化",
-                "行权量",
-                "成交额",
-                "隐含波动率",
-                "_",
-            ]
-
+            volatility_df.rename(columns={
+                "INSTRUMENTID": "合约系列",
+                "VOLUME": "成交量",
+                "OPENINTEREST": "持仓量",
+                "OPENINTERESTCHG": "持仓量变化",
+                "TURNOVER": "成交额",
+                "EXECVOLUME": "行权量",
+                "SIGMA": "隐含波动率"
+            }, inplace=True)
             volatility_df = volatility_df[
                 [
                     "合约系列",
@@ -482,7 +470,9 @@ def option_shfe_daily(
             volatility_df.reset_index(inplace=True, drop=True)
             return contract_df, volatility_df
         except:  # noqa: E722
-            return
+            return pd.DataFrame(), pd.DataFrame()
+    else:
+        return pd.DataFrame(), pd.DataFrame()
 
 
 def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230724"):
@@ -657,7 +647,7 @@ if __name__ == "__main__":
     print(option_dce_daily_two)
 
     option_shfe_daily_one, option_shfe_daily_two = option_shfe_daily(
-        symbol="天胶期权", trade_date="20210312"
+        symbol="天胶期权", trade_date="20250418"
     )
     print(option_shfe_daily_one)
     print(option_shfe_daily_two)
