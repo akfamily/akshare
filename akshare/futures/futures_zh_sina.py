@@ -494,9 +494,7 @@ def futures_zh_spot(
                         "_",
                     ]
                 except:
-                    # Fix: 20250427 先用 match_main_contract(symbol="cffex") 接口获取中金所的主力合约，
-                    # 然后调用 futures_zh_spot(symbol="IF2506，TF2506,IH2506,IC2506,TS2506,IM2506", market="CF", adjust='0')接口
-                    # 传入任意中金所的主力合约作为参数时报错,其他交易所主力合约不报错，预期参数的数量不对
+                    # Fix: #6219
                     data_df.columns = [
                         "symbol",
                         "time",
