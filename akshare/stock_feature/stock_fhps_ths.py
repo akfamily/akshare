@@ -39,16 +39,24 @@ def stock_fhps_detail_ths(symbol: str = "603444") -> pd.DataFrame:
     temp_df["实施公告日"] = pd.to_datetime(
         temp_df["实施公告日"], format="%Y-%m-%d", errors="coerce"
     ).dt.date
-    temp_df["A股股权登记日"] = pd.to_datetime(
-        temp_df["A股股权登记日"], format="%Y-%m-%d", errors="coerce"
-    ).dt.date
-    temp_df["A股除权除息日"] = pd.to_datetime(
-        temp_df["A股除权除息日"], format="%Y-%m-%d", errors="coerce"
-    ).dt.date
+    if "A股股权登记日" in temp_df.columns:
+        temp_df["A股股权登记日"] = pd.to_datetime(
+            temp_df["A股股权登记日"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
+        temp_df["A股除权除息日"] = pd.to_datetime(
+            temp_df["A股除权除息日"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
+    else:
+        temp_df["B股股权登记日"] = pd.to_datetime(
+            temp_df["B股股权登记日"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
+        temp_df["B股除权除息日"] = pd.to_datetime(
+            temp_df["B股除权除息日"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
     temp_df.sort_values(by=["董事会日期"], ignore_index=True, inplace=True)
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_fhps_detail_ths_df = stock_fhps_detail_ths(symbol="603444")
+    stock_fhps_detail_ths_df = stock_fhps_detail_ths(symbol="200596")
     print(stock_fhps_detail_ths_df)
