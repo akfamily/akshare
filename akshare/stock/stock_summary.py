@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/9/1 16:00
+Date: 2025/5/5 00:00
 Desc: 股票数据-总貌-市场总貌
 股票数据-总貌-成交概括
 https://www.szse.cn/market/overview/index.html
@@ -228,6 +228,8 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
     https://www.sse.com.cn/market/stockdata/overview/day/
+    :param date: 交易日
+    :type date: str
     :return: 每日股票情况
     :rtype: pandas.DataFrame
     """
@@ -257,6 +259,16 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
             "主板B",
             "科创板",
         ]
+        temp_df["股票回购"] = "-"
+    elif len(temp_df.columns) == 4:
+        # 20220104
+        temp_df.columns = [
+            "单日情况",
+            "主板A",
+            "主板B",
+            "科创板",
+        ]
+        temp_df["股票"] = "-"
         temp_df["股票回购"] = "-"
     else:
         temp_df.columns = [
@@ -332,5 +344,5 @@ if __name__ == "__main__":
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20250228")
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20220104")
     print(stock_sse_deal_daily_df)
