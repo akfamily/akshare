@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/5 17:00
+Date: 2025/5/4 22:00
 Desc: 巨潮资讯-个股-历史分红
 https://webapi.cninfo.com.cn/#/company?companyid=600009
 """
@@ -72,6 +72,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "F023D": "派息日",
         "F025D": "股份到账日",
         "F007V": "实施方案分红说明",
+        "F001V": "报告时间",
     }, inplace=True)
 
     temp_df["实施方案公告日期"] = pd.to_datetime(
@@ -97,6 +98,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "派息日",
         "股份到账日",
         "实施方案分红说明",
+        "报告时间",
     ]]
     return temp_df
 
