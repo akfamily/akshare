@@ -18,9 +18,6 @@
 
 ## 量化策略
 
-[掘金量化策略文档](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/classic_strategy_myquant.pdf)
-
-目录
 - 双均线策略(期货)
 - alpha对冲(股票+期货)
 - 集合竞价选股(股票)
