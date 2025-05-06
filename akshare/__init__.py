@@ -3094,9 +3094,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.84 fix: fix stock_fhps_detail_ths interface
 1.16.85 fix: fix stock_dividend_cninfo interface
 1.16.86 fix: fix index_yw interface
+1.16.87 fix: fix stock_zygc_em interface
 """
 
-__version__ = "1.16.86"
+__version__ = "1.16.87"
 __author__ = "AKFamily"
 
 import sys
@@ -3671,14 +3672,9 @@ from akshare.bond.bond_cbond import (
 from akshare.stock_feature.stock_classify_sina import stock_classify_sina
 
 """
-管理层讨论与分析
-"""
-from akshare.stock_fundamental.stock_mda_ym import stock_mda_ym
-
-"""
 主营构成
 """
-from akshare.stock_fundamental.stock_zygc import stock_zygc_ym, stock_zygc_em
+from akshare.stock_fundamental.stock_zygc import stock_zygc_em
 
 """
 人民币汇率中间价
