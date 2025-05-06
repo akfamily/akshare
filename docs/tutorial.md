@@ -1060,10 +1060,7 @@
  # 人民币汇率中间价
  "currency_boc_safe"  # 人民币汇率中间价
  # 主营构成
- "stock_zygc_ym"  # 主营构成-益盟
  "stock_zygc_em"  # 主营构成-东财
- # 管理层讨论与分析
- "stock_mda_ym"  # 管理层讨论与分析
  # 行业分类数据
  "stock_industry_category_cninfo"  # 巨潮资讯-行业分类数据
  # 上市公司行业归属的变动情况
