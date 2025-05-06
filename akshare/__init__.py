@@ -4078,11 +4078,6 @@ from akshare.stock_feature.stock_ttm_lyr import stock_a_ttm_lyr
 from akshare.stock_feature.stock_all_pb import stock_a_all_pb
 
 """
-奥运奖牌
-"""
-from akshare.sport.sport_olympic import sport_olympic_hist
-
-"""
 宏观-加拿大
 """
 from akshare.economic.macro_canada import (
