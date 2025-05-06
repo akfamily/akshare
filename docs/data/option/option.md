@@ -3051,7 +3051,3 @@ print(option_czce_hist_df)
 16071  2025-03-21  RM601P2800  ...  22.90  0
 [16072 rows x 17 columns]
 ```
-
-#### 全景图
-
-[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
