@@ -255,7 +255,7 @@ if __name__ == "__main__":
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20241107"
+        date="20250506"
     )
     print(news_trade_notify_dividend_baidu_df)
 

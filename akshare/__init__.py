@@ -3095,9 +3095,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.85 fix: fix stock_dividend_cninfo interface
 1.16.86 fix: fix index_yw interface
 1.16.87 fix: fix stock_zygc_em interface
+1.16.88 fix: fix futures_inventory_99 interface
 """
 
-__version__ = "1.16.87"
+__version__ = "1.16.88"
 __author__ = "AKFamily"
 
 import sys
@@ -4328,11 +4329,6 @@ from akshare.index.index_drewry import drewry_wci_index
 """
 from akshare.index.index_kq_fz import index_kq_fz
 from akshare.index.index_kq_ss import index_kq_fashion
-
-"""
-问财-热门股票
-"""
-from akshare.stock_feature.stock_wencai import stock_hot_rank_wc
 
 """
 新发基金
