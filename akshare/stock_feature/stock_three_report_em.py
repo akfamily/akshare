@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/5/21 22:00
+Date: 2025/5/8 20:00
 Desc: 东方财富-股票-财务分析
 """
 
@@ -102,7 +102,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
     try:
         temp_df = pd.DataFrame(data_json["data"])
     except:  # noqa: E722
-        company_type = 3
+        company_type = '3'
         params.update({"companyType": company_type})
         r = requests.get(url, params=params)
         data_json = r.json()
