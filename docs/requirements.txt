@@ -5,3 +5,4 @@ sphinx-markdown-tables>=0.0.17
 setuptools>=69.2.0
 recommonmark>=0.7.1
 markdown>=3.6
+snowballstemmer==2.2.0
