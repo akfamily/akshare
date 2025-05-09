@@ -91,5 +91,5 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_inventory_99_df = futures_inventory_99(symbol="ag")
+    futures_inventory_99_df = futures_inventory_99(symbol="豆一")
     print(futures_inventory_99_df)
