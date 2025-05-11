@@ -4666,6 +4666,111 @@ print(stock_hk_famous_spot_em_df)
 [118 rows x 12 columns]
 ```
 
+#### 证券资料
+
+接口: stock_hk_security_profile_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CompanyProfile
+
+描述: 东方财富-港股-证券资料
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="03900" |
+
+输出参数
+
+| 名称             | 类型      | 描述 |
+|----------------|---------|----|
+| 证券代码           | object  | -  |
+| 证券简称           | object  | -  |
+| 上市日期           | object  | -  |
+| 证券类型           | object  | -  |
+| 发行价            | float64 | -  |
+| 发行量(股)         | int64   | -  |
+| 每手股数           | int64   | -  |
+| 每股面值           | object  | -  |
+| 交易所            | object  | -  |
+| 板块             | object  | -  |
+| 年结日            | object  | -  |
+| ISIN（国际证券识别编码） | object  | -  |
+| 是否沪港通标的        | object  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_security_profile_em_df = ak.stock_hk_security_profile_em(symbol="03900")
+print(stock_hk_security_profile_em_df)
+```
+
+数据示例
+
+```
+       证券代码  证券简称                 上市日期  ... ISIN（国际证券识别编码）  是否沪港通标的  是否深港通标的
+0  03900.HK  绿城中国  2006-07-13 00:00:00  ...   KYG4100M1050        是        是
+[1 rows x 14 columns]
+```
+
+#### 公司资料
+
+接口: stock_hk_company_profile_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CompanyProfile
+
+描述: 东方财富-港股-公司资料
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="03900" |
+
+输出参数
+
+| 名称     | 类型     | 描述 |
+|--------|--------|----|
+| 公司名称   | object | -  |
+| 英文名称   | object | -  |
+| 注册地    | object | -  |
+| 公司成立日期 | object | -  |
+| 所属行业   | object | -  |
+| 董事长    | object | -  |
+| 公司秘书   | object | -  |
+| 员工人数   | int64  | -  |
+| 办公地址   | object | -  |
+| 公司网址   | object | -  |
+| E-MAIL | object | -  |
+| 年结日    | object | -  |
+| 联系电话   | object | -  |
+| 核数师    | object | -  |
+| 传真     | object | -  |
+| 公司介绍   | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_company_profile_em_df = ak.stock_hk_company_profile_em(symbol="03900")
+print(stock_hk_company_profile_em_df)
+```
+
+数据示例
+
+```
+         公司名称  ...                                               公司介绍
+0  绿城中国控股有限公司  ...      绿城中国控股有限公司(以下简称“绿城中国”)(股票代码03900.HK),1995年...
+[1 rows x 17 columns]
+```
+
 ### 机构调研
 
 #### 机构调研-统计
