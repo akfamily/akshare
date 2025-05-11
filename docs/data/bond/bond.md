@@ -1,12 +1,5 @@
 ## [AKShare](https://github.com/akfamily/akshare) 债券数据
 
-### 债券基础信息
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/bond_stock_index.png)
-
-上图是利用 [AKShare](https://github.com/akfamily/akshare) 的 **ak.bond_debt_nafmii()** 函数获取的中国银行间
-交易商协会发布的债券数据来绘制的，可以在上面明确看出近几个月发债规模急速上升。
-
 #### 债券查询
 
 接口: bond_info_cm
