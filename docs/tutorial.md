@@ -1332,6 +1332,9 @@
  "bond_sh_buy_back_em"  # 上证质押式回购
  "bond_sz_buy_back_em"  # 深证质押式回购
  "bond_buy_back_hist_em"  # 质押式回购-历史数据
+ # 东方财富-港股-公司资料
+ "stock_hk_security_profile_em"  # 港股-证券资料
+ "stock_hk_company_profile_em"  # 港股-公司资料
 ```
 
 ## 案例演示
