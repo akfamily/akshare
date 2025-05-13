@@ -254,10 +254,10 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
         # 20250228
         temp_df.columns = [
             "单日情况",
-            "股票",
             "主板A",
             "主板B",
             "科创板",
+            "股票",
         ]
         temp_df["股票回购"] = "-"
     elif len(temp_df.columns) == 4:
@@ -344,5 +344,5 @@ if __name__ == "__main__":
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20220104")
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20250228")
     print(stock_sse_deal_daily_df)

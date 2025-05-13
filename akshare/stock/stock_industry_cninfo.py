@@ -126,7 +126,6 @@ def stock_industry_change_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("cninfo.js")
     js_code.eval(js_content)
@@ -167,7 +166,7 @@ def stock_industry_change_cninfo(
     ignore_cols = ["最新记录标识"]
     temp_df.rename(columns=cols_map, inplace=True)
     temp_df.fillna(np.nan, inplace=True)
-    temp_df["变更日期"] = pd.to_datetime(temp_df["变更日期"]).dt.date
+    temp_df["变更日期"] = pd.to_datetime(temp_df["变更日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]
     return data_df
 
