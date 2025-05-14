@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2024/2/21 15:30
+Desc: 数据接口源代码
+"""
+import logging
+from time import perf_counter
+
+import pandas as pd
+
+from akqmt.xtquant import xtdatacenter, xtdata
+
+# 配置日志记录系统
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+class SingletonMeta(type):
+    """
+    这是一个单例元类，所有继承这个元类的类将成为单例类。
+    """
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+
+class DataApi(metaclass=SingletonMeta):
+
+    def __init__(self, token, show: bool = True):
+        """
+        初始化函数
+        :param token: API接口TOKEN，用于用户认证
+        :type token: str
+        """
+        if not hasattr(self, 'initialized'):  # 只初始化一次
+            start_time = perf_counter()  # 记录开始时间
+            logging.info("迅投数据初始化进行中...")
+            xtdatacenter.set_token(token)
+            xtdatacenter.init()
+            xtdata.enable_hello = show
+            logging.info("迅投数据初始化完成")
+            end_time = perf_counter()  # 记录结束时间
+            logging.info("初始化耗时: {:.2f}秒".format(end_time - start_time))
+            self.initialized = True
+
+    @staticmethod
+    def get_instrument_detail(stock_code) -> pd.DataFrame:
+        """
+        :param stock_code: 需要调取的接口
+        :type stock_code: str
+        :return: 指定的数据
+        :rtype: dict or pandas.DataFrame
+        """
+        temp_dict = xtdata.get_instrument_detail(stock_code=stock_code)
+        temp_df = pd.DataFrame.from_dict(temp_dict, orient="index")
+        temp_df.reset_index(inplace=True)
+        temp_df.columns = ['item', 'value']
+        return temp_df
+
+    @staticmethod
+    def download_sector_data():
+        return xtdata.download_sector_data()
+
+    @staticmethod
+    def get_main_contract(code_market):
+        return xtdata.get_main_contract(code_market)
+
+
+if __name__ == '__main__':
+    pass

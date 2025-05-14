@@ -1,0 +1,29 @@
+"""
+导入文件
+0.1.0 init: init akqmt package
+"""
+__version__ = "0.1.0"
+__author__ = "AKFamily"
+
+import sys
+import warnings
+
+import pandas as pd
+
+pd_main_version = int(pd.__version__.split('.')[0])
+
+if pd_main_version < 2:
+    warnings.warn(
+        "为了支持更多特性，请将 Pandas 升级到 2.1.0 及以上版本！"
+    )
+
+if sys.version_info < (3, 9):
+    warnings.warn(
+        "为了支持更多特性，请将 Python 升级到 3.9.0 及以上版本！"
+    )
+
+del sys
+
+
+from akqmt.pro.data_pro import pro_api as xt_api
+from akqmt.utils.token_process import set_token, get_token

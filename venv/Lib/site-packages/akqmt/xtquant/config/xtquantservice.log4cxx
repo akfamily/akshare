@@ -1,0 +1,19 @@
+log4j.logger.TTConsole=INFO,ca
+log4j.logger.TTStdFile=INFO,fa1
+log4j.logger.TTDbgFile=INFO,fa1
+log4j.logger.datasource=INFO,fa1
+log4j.logger.TTPerformanceFile=INFO,fa1
+
+# 文件输出1
+log4j.appender.fa1=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.fa1.MaxFileSize=500MB
+log4j.appender.fa1.MaxBackupIndex=10
+log4j.appender.fa1.DatePattern='{{XTQAUNT_LOG_DATEPATTERN}}'
+log4j.appender.fa1.Append=true
+log4j.appender.fa1.layout=org.apache.log4j.PatternLayout
+log4j.appender.fa1.layout.ConversionPattern=%d [%p] [%t] %m%n
+
+# 控制台输出
+log4j.appender.ca=org.apache.log4j.ConsoleAppender
+log4j.appender.ca.layout=org.apache.log4j.PatternLayout
+log4j.appender.ca.layout.ConversionPattern=%d [%p] [%t] %m%n

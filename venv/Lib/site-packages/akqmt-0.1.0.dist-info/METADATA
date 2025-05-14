@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: akqmt
+Version: 0.1.0
+Summary: akqmt is lite version of xtdata
+Project-URL: Documentation, https://github.com/akfamily/akqmt#readme
+Project-URL: Issues, https://github.com/akfamily/akqmt/issues
+Project-URL: Source, https://github.com/akfamily/akqmt
+Author-email: Alert King <albertandking@gmail.com>
+License-Expression: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# 项目说明
+
+此项目主要用于测试迅投研的数据模型
+
+## 改进
+
+1. 优化代码结构
+2. 减小压缩包体积
+3. 便于使用
+4. 单例模式，免得重复导入
+5. 一次性设置 token
+
+## 项目地址
+
+数据字典：https://dict.thinktrader.net/dictionary

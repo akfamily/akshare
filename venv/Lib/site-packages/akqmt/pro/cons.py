@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2024/2/21 15:00
+Desc: API 常量文件
+"""
+TOKEN_F_P = 'tk.csv'
+TOKEN_ERR_MSG = '请设置 AKShare pro 的 token 凭证码，如果没有权限，请访问 https://qhkch.com/ 注册申请'

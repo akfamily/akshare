@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2024/2/21 15:00
+Desc: 数据接口初始化
+"""
+from akqmt.pro import client
+from akqmt.utils import token_process
+
+
+def pro_api(token: str = ''):
+    """
+    初始化 pro API,第一次可以通过 akqmt.set_token('your token') 来记录自己的 token 凭证，临时 token 可以通过本参数传入
+    """
+    if token == '' or token is None:
+        token = token_process.get_token()
+    if token is not None and token != '':
+        pro = client.DataApi(token)
+        return pro
+    else:
+        raise Exception('api init error.')
+
+
+if __name__ == '__main__':
+    pro_test = pro_api()

@@ -1,0 +1,2806 @@
+{
+    u"1008" : {
+        u"desc" : u"主买单",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"type" : u"int",
+                },
+            },
+        
+        },
+    u"1009" : {
+        u"desc" : u"主卖单",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"type" : u"int",
+                },
+            },
+        },
+    u"1010" : {
+        u"desc" : u"实时行情（L2）",
+        u"isLevel2" : 1,
+        u"periods" : [0, 86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"当前价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"成交总量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"成交总额",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"持仓量",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"昨结算",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"成交笔数",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"市盈率1",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"市盈率2",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"开盘价",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"最高价",
+                u"type" : u"double",
+                },
+            u"a" : {
+                u"desc" : u"最低价",
+                u"type" : u"double",
+                },
+            u"b" : {
+                u"desc" : u"今结算",
+                u"type" : u"double",
+                },
+            u"c" : {
+                u"desc" : u"前收盘",
+                u"type" : u"double",
+                },
+            u"d" : {
+                u"desc" : u"多档委买价",
+                u"type" : u"vdouble",
+                },
+            u"e" : {
+                u"desc" : u"多档委买量",
+                u"type" : u"vint",
+                },
+            u"f" : {
+                u"desc" : u"多档委卖价",
+                u"type" : u"vdouble",
+                },
+            u"g" : {
+                u"desc" : u"多档委卖量",
+                u"type" : u"vint",
+                },
+            u"h" : {
+                u"desc" : u"证券状态",
+                u"type" : u"int",
+                },
+            u"v" : {
+                u"desc" : u"原始成交总量",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"1011" : {
+        u"desc" : u"实时行情补充（L2）",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"委买均价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"委买总量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"委卖均价",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"委卖总量",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"买入撤单总量",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"买入撤单总额",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"卖出撤单总量",
+                u"type" : u"long",
+                },
+            u"7" : {
+                u"desc" : u"卖出撤单总额",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"1801" : {
+        u"desc" : u"逐笔成交（L2）",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"成交价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"成交量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"成交额",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"买方订单号",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"卖方订单号",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"成交标志：0:未知；1:外盘；2:内盘; 3:撤单",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"成交类型：对应委托类型",
+                u"type" : u"int",
+                },
+            u"7" : {
+                u"desc" : u"成交记录号",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"1802" : {
+        u"desc" : u"逐笔委托（L2）",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"委托价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"委托量",
+                u"type" : u"int",
+                },
+            u"2" : {
+                u"desc" : u"委托订单号",
+                u"type" : u"long",
+                },
+            u"3" : {
+                u"desc" : u"委托类型：参考深交所OrderKind字段",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"委托方向：1:买入；2:卖出；3:撤单",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"1803" : {
+        u"desc" : u"委买委卖千档盘口（L2）",
+        u"isLevel2" : 1,
+        u"periods" : [60000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"委买价",
+                u"type" : u"vdouble",
+                },
+            u"1" : {
+                u"desc" : u"委买量",
+                u"type" : u"vint",
+                },
+            u"2" : {
+                u"desc" : u"委卖价",
+                u"type" : u"vdouble",
+                },
+            u"3" : {
+                u"desc" : u"委卖量",
+                u"type" : u"vint",
+                },
+            },
+        },
+    u"1804" : {
+        u"desc" : u"委买委卖一档委托队列",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"委买价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"委买明细",
+                u"type" : u"vint",
+                },
+            u"2" : {
+                u"desc" : u"委卖价",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"委卖明细",
+                u"type" : u"vint",
+                },
+            u"4" : {
+                u"desc" : u"委买总笔数",
+                u"type" : u"int",
+                },
+            u"5" : {
+                u"desc" : u"委卖总笔数",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"1806" : {
+        u"desc" : u"逐笔成交统计",
+        u"isLevel2" : 1,
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"主买单总单数",
+                u"type" : u"int",
+                },
+            u"1" : {
+                u"desc" : u"主买特大单成交量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"主买大单成交量",
+                u"type" : u"long",
+                },
+            u"3" : {
+                u"desc" : u"主买中单成交量",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"主买小单成交量",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"主卖单总单数",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"主卖特大单成交量",
+                u"type" : u"long",
+                },
+            u"7" : {
+                u"desc" : u"主卖大单成交量",
+                u"type" : u"long",
+                },
+            u"8" : {
+                u"desc" : u"主卖中单成交量",
+                u"type" : u"long",
+                },
+            u"9" : {
+                u"desc" : u"主卖小单成交量",
+                u"type" : u"long",
+                },
+            u"a" : {
+                u"desc" : u"主买特大单成交额",
+                u"type" : u"double",
+                },
+            u"b" : {
+                u"desc" : u"主买大单成交额",
+                u"type" : u"double",
+                },
+            u"c" : {
+                u"desc" : u"主买中单成交额",
+                u"type" : u"double",
+                },
+            u"d" : {
+                u"desc" : u"主买小单成交额",
+                u"type" : u"double",
+                },
+            u"e" : {
+                u"desc" : u"主卖特大单成交额",
+                u"type" : u"double",
+                },
+            u"f" : {
+                u"desc" : u"主卖大单成交额",
+                u"type" : u"double",
+                },
+            u"g" : {
+                u"desc" : u"主卖中单成交额",
+                u"type" : u"double",
+                },
+            u"h" : {
+                u"desc" : u"主卖小单成交额",
+                u"type" : u"double",
+                },
+            u"i" : {
+                u"desc" : u"大单动向",
+                u"type" : u"double",
+                },
+            u"j" : {
+                u"desc" : u"涨跌动因",
+                u"type" : u"double",
+                },
+            u"k" : {
+                u"desc" : u"大单差分",
+                u"type" : u"double",
+                },
+            u"l" : {
+                u"desc" : u"资金博弈 净流入",
+                u"type" : u"long",
+                },
+            u"m" : {
+                u"desc" : u"资金博弈 超大单",
+                u"type" : u"long",
+                },
+            u"n" : {
+                u"desc" : u"资金博弈 大单",
+                u"type" : u"long",
+                },
+            u"o" : {
+                u"desc" : u"资金博弈 中单",
+                u"type" : u"long",
+                },
+            u"p" : {
+                u"desc" : u"资金博弈 小单",
+                u"type" : u"long",
+                },
+            u"q" : {
+                u"desc" : u"净挂",
+                u"type" : u"long",
+                },
+            u"r" : {
+                u"desc" : u"净撤",
+                u"type" : u"long",
+                },
+            u"s" : {
+                u"desc" : u"总撤买",
+                u"type" : u"long",
+                },
+            u"t" : {
+                u"desc" : u"总撤卖",
+                u"type" : u"long",
+                },
+            u"u" : {
+                u"desc" : u"被动买特大单成交量",
+                u"type" : u"long",
+                },
+            u"v" : {
+                u"desc" : u"被动买大单成交量",
+                u"type" : u"long",
+                },
+            u"w" : {
+                u"desc" : u"被动买中单成交量",
+                u"type" : u"long",
+                },
+            u"x" : {
+                u"desc" : u"被动买小单成交量",
+                u"type" : u"long",
+                },
+            u"y" : {
+                u"desc" : u"被动卖特大单成交量",
+                u"type" : u"long",
+                },
+            u"z" : {
+                u"desc" : u"被动卖大单成交量",
+                u"type" : u"long",
+                },
+            u"00" : {
+                u"desc" : u"被动卖中单成交量",
+                u"type" : u"long",
+                },
+            u"01" : {
+                u"desc" : u"被动卖小单成交量",
+                u"type" : u"long",
+                },
+            u"02" : {
+                u"desc" : u"被动买特大单成交额",
+                u"type" : u"double",
+                },
+            u"03" : {
+                u"desc" : u"被动买大单成交额",
+                u"type" : u"double",
+                },
+            u"04" : {
+                u"desc" : u"被动买中单成交额",
+                u"type" : u"double",
+                },
+            u"05" : {
+                u"desc" : u"被动买小单成交额",
+                u"type" : u"double",
+                },
+            u"06" : {
+                u"desc" : u"被动卖特大单成交额",
+                u"type" : u"double",
+                },
+            u"07" : {
+                u"desc" : u"被动卖大单成交额",
+                u"type" : u"double",
+                },
+            u"08" : {
+                u"desc" : u"被动卖中单成交额",
+                u"type" : u"double",
+                },
+            u"09" : {
+                u"desc" : u"被动卖小单成交额",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"2" : {
+        u"desc" : u"市场交易日信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"交易日",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"2000" : {
+        u"desc" : u"股票列表",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"股票代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"股票名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"昨日收盘价",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"昨日结算价",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"昨日持仓量",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"涨停价",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"跌停价",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"总股本",
+                u"type" : u"long",
+                },
+            u"8" : {
+                u"desc" : u"流通盘",
+                u"type" : u"long",
+                },
+            u"9" : {
+                u"desc" : u"合约数量乘数",
+                u"type" : u"int",
+                },
+            u"10" : {
+                u"desc" : u"产品代码",
+                u"type" : u"string",
+                },
+            u"11" : {
+                u"desc" : u"产品类型",
+                u"type" : u"string",
+                },
+            u"12" : {
+                u"desc" : u"交割年份",
+                u"type" : u"int",
+                },
+            u"13" : {
+                u"desc" : u"交割月",
+                u"type" : u"int",
+                },
+            u"14" : {
+                u"desc" : u"市价单最大下单量（买）",
+                u"type" : u"int",
+                },
+            u"15" : {
+                u"desc" : u"市价单最小下单量（买）",
+                u"type" : u"int",
+                },
+            u"16" : {
+                u"desc" : u"限价单最大下单量（买）",
+                u"type" : u"int",
+                },
+            u"17" : {
+                u"desc" : u"限价单最小下单量（买）",
+                u"type" : u"int",
+                },
+            u"18" : {
+                u"desc" : u"最小变动价位",
+                u"type" : u"double",
+                },
+            u"19" : {
+                u"desc" : u"创建日",
+                u"type" : u"int",
+                },
+            u"20" : {
+                u"desc" : u"上市日",
+                u"type" : u"int",
+                },
+            u"21" : {
+                u"desc" : u"到期日",
+                u"type" : u"string",
+                },
+            u"22" : {
+                u"desc" : u"开始交割日",
+                u"type" : u"int",
+                },
+            u"23" : {
+                u"desc" : u"结束交割日",
+                u"type" : u"int",
+                },
+            u"24" : {
+                u"desc" : u"合约生命周期状态",
+                u"type" : u"int",
+                },
+            u"25" : {
+                u"desc" : u"当前是否交易",
+                u"type" : u"int",
+                },
+            u"26" : {
+                u"desc" : u"持仓类型",
+                u"type" : u"int",
+                },
+            u"27" : {
+                u"desc" : u"持仓日期类型",
+                u"type" : u"int",
+                },
+            u"28" : {
+                u"desc" : u"多头保证金率",
+                u"type" : u"double",
+                },
+            u"29" : {
+                u"desc" : u"空头保证金率",
+                u"type" : u"double",
+                },
+            u"30" : {
+                u"desc" : u"是否主力合约",
+                u"type" : u"int",
+                },
+            u"31" : {
+                u"desc" : u"是否近月合约",
+                u"type" : u"int",
+                },
+            u"32" : {
+                u"desc" : u"合约在RZRK的代码",
+                u"type" : u"string",
+                },
+            u"33" : {
+                u"desc" : u"合约在交易所的代码",
+                u"type" : u"string",
+                },
+            u"34" : {
+                u"desc" : u"是否夜盘合约",
+                u"type" : u"int",
+                },
+            u"35" : {
+                u"desc" : u"利息额",
+                u"type" : u"double",
+                },
+            u"36" : {
+                u"desc" : u"除权除息",
+                u"type" : u"double",
+                },
+            u"37" : {
+                u"desc" : u"停牌",
+                u"type" : u"int",
+                },
+            u"38" : {
+                u"desc" : u"履行方式",
+                u"type" : u"int",
+                },
+            u"39" : {
+                u"desc" : u"单位保证金",
+                u"type" : u"double",
+                },
+            u"40" : {
+                u"desc" : u"行权价",
+                u"type" : u"double",
+                },
+            u"41" : {
+                u"desc" : u"期权行权日",
+                u"type" : u"int",
+                },
+            u"42" : {
+                u"desc" : u"期权到期日",
+                u"type" : u"int",
+                },
+            u"43" : {
+                u"desc" : u"整手数",
+                u"type" : u"int",
+                },
+            u"44" : {
+                u"desc" : u"币种",
+                u"type" : u"int",
+                },
+            u"45" : {
+                u"desc" : u"市场代码",
+                u"type" : u"string",
+                },
+            u"46" : {
+                u"desc" : u"前日成交量",
+                u"type" : u"long",
+                },
+            u"47" : {
+                u"desc" : u"无风险收益率",
+                u"type" : u"double",
+                },
+            u"48" : {
+                u"desc" : u"历史收益率",
+                u"type" : u"double",
+                },
+            u"49" : {
+                u"desc" : u"标的合约",
+                u"type" : u"string",
+                },
+            u"50" : {
+                u"desc" : u"投资者适当性管理分类",
+                u"type" : u"int",
+                },
+            u"51" : {
+                u"desc" : u"标识港股是否为标的证券",
+                u"type" : u"int",
+                },
+            u"52" : {
+                u"desc" : u"最小回购天数",
+                u"type" : u"int",
+                },
+            u"53" : {
+                u"desc" : u"最大回购天数",
+                u"type" : u"int",
+                },
+            u"54" : {
+                u"desc" : u"参考汇率买入价",
+                u"type" : u"double",
+                },
+            u"55" : {
+                u"desc" : u"参考汇率卖出价",
+                u"type" : u"double",
+                },
+            u"56" : {
+                u"desc" : u"每百元应计利息额",
+                u"type" : u"double",
+                },
+            u"57" : {
+                u"desc" : u"证券类型 1.全国股转：标识分层信息",
+                u"type" : u"string",
+                },
+            u"58" : {
+                u"desc" : u"持仓主力合约",
+                u"type" : u"int",
+                },
+            u"59" : {
+                u"desc" : u"单票估值",
+                u"type" : u"double",
+                },
+            u"60" : {
+                u"desc" : u"到期收益率",
+                u"type" : u"double",
+                },
+            u"61" : {
+                u"desc" : u"注册资本",
+                u"type" : u"int",
+                },
+            u"62" : {
+                u"desc" : u"最大有效申报范围",
+                u"type" : u"double",
+                },
+            u"63" : {
+                u"desc" : u"最小有效申报范围",
+                u"type" : u"double",
+                },
+            u"64" : {
+                u"desc" : u"同股同权比例",
+                u"type" : u"double",
+                },
+            u"65" : {
+                u"desc" : u"证券种类",
+                u"type" : u"long",
+                },
+            u"66" : {
+                u"desc" : u"转换比例",
+                u"type" : u"double",
+                },
+            u"67" : {
+                u"desc" : u"原因",
+                u"type" : u"string",
+                },
+            u"68" : {
+                u"desc" : u"要约收购信息",
+                u"type" : u"string",
+                },
+            u"69" : {
+                u"desc" : u"证券种类和属性高位",
+                u"type" : u"int",
+                },
+            u"70" : {
+                u"desc" : u"证券种类和属性低位",
+                u"type" : u"int",
+                },
+            u"71" : {
+                u"desc" : u"市价单最大下单量（卖）",
+                u"type" : u"int",
+                },
+            u"72" : {
+                u"desc" : u"市价单最小下单量（卖）",
+                u"type" : u"int",
+                },
+            u"73" : {
+                u"desc" : u"限价单最大下单量（卖）",
+                u"type" : u"int",
+                },
+            u"74" : {
+                u"desc" : u"限价单最小下单量（卖）",
+                u"type" : u"int",
+                },
+            u"75" : {
+                u"desc" : u"收费方式",
+                u"type" : u"int",
+                },
+            u"76" : {
+                u"desc" : u"分红方式",
+                u"type" : u"int",
+                },
+            u"77" : {
+                u"desc" : u"投资期限",
+                u"type" : u"int",
+                },
+            u"78" : {
+                u"desc" : u"投资品种",
+                u"type" : u"int",
+                },
+            u"79" : {
+                u"desc" : u"风险等级",
+                u"type" : u"int",
+                },
+            u"80" : {
+                u"desc" : u"起息日",
+                u"type" : u"int",
+                },
+            u"81" : {
+                u"desc" : u"交易状态",
+                u"type" : u"string",
+                },
+            u"82" : {
+                u"desc" : u"交易类型",
+                u"type" : u"int",
+                },
+            u"83" : {
+                u"desc" : u"证券级别",
+                u"type" : u"string",
+                },
+            u"84" : {
+                u"desc" : u"可购买额度",
+                u"type" : u"double",
+                },
+            u"85" : {
+                u"desc" : u"净值",
+                u"type" : u"double",
+                },
+            u"86" : {
+                u"desc" : u"预计年化收益率",
+                u"type" : u"double",
+                },
+            u"87" : {
+                u"desc" : u"发行机构简称",
+                u"type" : u"string",
+                },
+            u"88" : {
+                u"desc" : u"认购开始日期",
+                u"type" : u"int",
+                },
+            u"89" : {
+                u"desc" : u"认购结束日期",
+                u"type" : u"int",
+                },
+            u"90" : {
+                u"desc" : u"发行机构编号",
+                u"type" : u"string",
+                },
+            u"91" : {
+                u"desc" : u"是否逐笔签约",
+                u"type" : u"int",
+                },
+            u"92" : {
+                u"desc" : u"面值",
+                u"type" : u"double",
+                },
+            u"95" : {
+                u"desc" : u"盘后定价委托数量上限（买）",
+                u"type" : u"int",
+                },
+            u"96" : {
+                u"desc" : u"盘后定价委托数量下限（买）",
+                u"type" : u"int",
+                },
+            u"97" : {
+                u"desc" : u"盘后定价委托数量上限（卖）",
+                u"type" : u"int",
+                },
+            u"98" : {
+                u"desc" : u"盘后定价委托数量下限（卖）",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"2001" : {
+        u"desc" : u"指数板块信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2002" : {
+        u"desc" : u"行业板块信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"板块名称",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"成分股市场代码",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"成分股股票代码",
+                u"type" : u"string",
+                },
+            u"5" : {
+                u"desc" : u"板块类别",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"板块代码",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2004" : {
+        u"desc" : u"ETF申赎清单信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"基金代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"基金名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"现金差额",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"最小申购、赎回单位净值",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"基金份额净值",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"预估现金差额",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"现金替代比例上限",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"是否需要公布IOPV",
+                u"type" : u"int",
+                },
+            u"8" : {
+                u"desc" : u"最小申购、赎回单位",
+                u"type" : u"int",
+                },
+            u"9" : {
+                u"desc" : u"申购的允许情况",
+                u"type" : u"int",
+                },
+            u"10" : {
+                u"desc" : u"赎回的允许情况",
+                u"type" : u"int",
+                },
+            u"11" : {
+                u"desc" : u"申购上限",
+                u"type" : u"double",
+                },
+            u"12" : {
+                u"desc" : u"赎回上限",
+                u"type" : u"double",
+                },
+            u"13" : {
+                u"desc" : u"成份股信息",
+                u"type" : u"string",
+                },
+            u"14" : {
+                u"desc" : u"成份股代码",
+                u"type" : u"string",
+                },
+            u"15" : {
+                u"desc" : u"成份股名称",
+                u"type" : u"string",
+                },
+            u"16" : {
+                u"desc" : u"成份股数量",
+                u"type" : u"int",
+                },
+            u"17" : {
+                u"desc" : u"现金替代标志",
+                u"type" : u"int",
+                },
+            u"18" : {
+                u"desc" : u"申购现金替代溢价比率",
+                u"type" : u"double",
+                },
+            u"19" : {
+                u"desc" : u"申购替代金额",
+                u"type" : u"double",
+                },
+            u"20" : {
+                u"desc" : u"赎回现金替代折价比率",
+                u"type" : u"double",
+                },
+            u"21" : {
+                u"desc" : u"赎回替代金额",
+                u"type" : u"double",
+                },
+            u"22" : {
+                u"desc" : u"成份股所属市场",
+                u"type" : u"int",
+                },
+            u"23" : {
+                u"desc" : u"映射代码",
+                u"type" : u"string",
+                },
+            u"24" : {
+                u"desc" : u"是否实物对价申赎",
+                u"type" : u"int",
+                },
+            u"25" : {
+                u"desc" : u"占净值比例",
+                u"type" : u"double",
+                },
+            u"26" : {
+                u"desc" : u"持股数",
+                u"type" : u"int",
+                },
+            u"27" : {
+                u"desc" : u"持仓市值",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"2005" : {
+        u"desc" : u"概念板块信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"板块代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"板块名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"板块成分股",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2006" : {
+        u"desc" : u"债券信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"2007" : {
+        u"desc" : u"期权组合策略信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"组合策略编码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"组合策略名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"组合自动解除日设置",
+                u"type" : u"int",
+                },
+            u"3" : {
+                u"desc" : u"成份合约到期日要求",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"成份合约标的要求",
+                u"type" : u"int",
+                },
+            u"5" : {
+                u"desc" : u"是否适用非标合约",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"适用标的清单",
+                u"type" : u"string",
+                },
+            u"9" : {
+                u"desc" : u"成分合约个数",
+                u"type" : u"int",
+                },
+            u"10" : {
+                u"desc" : u"成份合约信息",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2008" : {
+        u"desc" : u"地域板块信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"板块代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"板块名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"板块成分股",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2009" : {
+        u"desc" : u"板块信息(所有)",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"板块代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"板块名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"板块类别",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"分类等级",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"板块成分股",
+                u"type" : u"string",
+                },
+            u"5" : {
+                u"desc" : u"成分板块",
+                u"type" : u"string",
+                },
+            u"6" : {
+                u"desc" : u"板块原始代码",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2010" : {
+        u"desc" : u"转融通证券出借业务",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"S" : {
+                u"desc" : u"证券代码",
+                u"type" : u"string",
+                },
+            u"0" : {
+                u"desc" : u"期限费率信息",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"2011" : {
+        u"desc" : u"ST变更历史",
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"2012" : {
+        u"desc" : u"板块成分股变动历史",
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"2013" : {
+        u"desc" : u"港股通持股统计",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"1" : {
+                u"desc" : u"持股量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"持股市值",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"持股数量占比",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"净买入",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"2014" : {
+        u"desc" : u"港股通持股明细",
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"持股机构名称",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"持股量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"持股市值",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"持股数量占比",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"净买入",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"2015" : {
+        u"desc" : u"新股申购信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"证券代码",
+                u"type" : u"string",
+                },
+			u"1" : {
+                u"desc" : u"代码简称",
+                u"type" : u"string",
+                },
+			u"2" : {
+                u"desc" : u"所属市场",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"发行总量(股)",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"网上发行量(股)",
+                u"type" : u"long",
+                },
+			u"5" : {
+                u"desc" : u"申购代码",
+                u"type" : u"string",
+                },
+            u"6" : {
+                u"desc" : u"申购上限(股)",
+                u"type" : u"long",
+                },
+            u"7" : {
+                u"desc" : u"发行价格",
+                u"type" : u"double",
+                },
+			u"8" : {
+                u"desc" : u"产品类型: 1-股票 2-债券 3-基金 4-科创板",
+                u"type" : u"int",
+                },
+            u"9" : {
+                u"desc" : u"申购开始日期",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"2016" : {
+        u"desc" : u"融资融券交易信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"融资买入额",
+                u"type" : u"long",
+                },
+            u"1" : {
+                u"desc" : u"融资余额",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"融资偿还额",
+                u"type" : u"long",
+                },
+            u"3" : {
+                u"desc" : u"融券卖出量",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"融券余量",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"融券偿还量",
+                u"type" : u"long",
+                },
+            u"6" : {
+                u"desc" : u"融券余额",
+                u"type" : u"long",
+                },
+            u"7" : {
+                u"desc" : u"融资融券余额",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"2017" : {
+        u"desc" : u"市场涨跌停相关数据统计",
+        u"periods" : [60000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"昨日涨停股今日平均涨幅",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"涨停股数",
+                u"type" : u"int",
+                },
+            u"2" : {
+                u"desc" : u"跌停股数",
+                u"type" : u"int",
+                },
+            u"3" : {
+                u"desc" : u"非一字涨停股数",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"2018" : {
+        u"desc" : u"实时行情委买卖统计",
+        u"periods" : [60000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"委买均价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"委买总量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"委卖均价",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"委卖总量",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"2025" : {
+        u"desc" : u"红利分配方案信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"公告日期",
+                },
+            u"1" : {
+                u"desc" : u"分红方案",
+                },
+            u"2" : {
+                u"desc" : u"方案内容",
+                },
+            u"3" : {
+                u"desc" : u"股票代码",
+                },
+            u"4" : {
+                u"desc" : u"股票市场",
+                },
+            u"5" : {
+                u"desc" : u"每股股利",
+                },
+            u"6" : {
+                u"desc" : u"每股红股",
+                },
+            u"7" : {
+                u"desc" : u"每股转增股本",
+                },
+            u"8" : {
+                u"desc" : u"每股配股数",
+                },
+            u"9" : {
+                u"desc" : u"配股价格",
+                },
+            u"a" : {
+                u"desc" : u"股权登记日",
+                },
+            u"b" : {
+                u"desc" : u"除权除息日",
+                },
+            u"c" : {
+                u"desc" : u"派息日",
+                },
+            u"d" : {
+                u"desc" : u"红股/转增股上市日",
+                },
+            u"e" : {
+                u"desc" : u"分红年度",
+                },
+            },
+        },
+    u"2999" : {
+        u"desc" : u"实时行情（全市场L1)",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"当前价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"成交总量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"成交总额",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"持仓量",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"昨结算",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"成交笔数",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"市盈率1",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"市盈率2",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"开盘价",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"最高价",
+                u"type" : u"double",
+                },
+            u"a" : {
+                u"desc" : u"最低价",
+                u"type" : u"double",
+                },
+            u"b" : {
+                u"desc" : u"今结算",
+                u"type" : u"double",
+                },
+            u"c" : {
+                u"desc" : u"前收盘",
+                u"type" : u"double",
+                },
+            u"d" : {
+                u"desc" : u"多档委买价",
+                u"type" : u"vdouble",
+                },
+            u"e" : {
+                u"desc" : u"多档委买量",
+                u"type" : u"vint",
+                },
+            u"f" : {
+                u"desc" : u"多档委卖价",
+                u"type" : u"vdouble",
+                },
+            u"g" : {
+                u"desc" : u"多档委卖量",
+                u"type" : u"vint",
+                },
+            u"h" : {
+                u"desc" : u"证券状态",
+                u"type" : u"int",
+                },
+            u"v" : {
+                u"desc" : u"原始成交总量",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"3000" : {
+        u"desc" : u"实时行情(L1)",
+        u"periods" : [0],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"当前价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"成交总量",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"成交总额",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"持仓量",
+                u"type" : u"int",
+                },
+            u"4" : {
+                u"desc" : u"昨结算",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"成交笔数",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"市盈率1",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"市盈率2",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"开盘价",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"最高价",
+                u"type" : u"double",
+                },
+            u"a" : {
+                u"desc" : u"最低价",
+                u"type" : u"double",
+                },
+            u"b" : {
+                u"desc" : u"今结算",
+                u"type" : u"double",
+                },
+            u"c" : {
+                u"desc" : u"前收盘",
+                u"type" : u"double",
+                },
+            u"d" : {
+                u"desc" : u"多档委买价",
+                u"type" : u"vdouble",
+                },
+            u"e" : {
+                u"desc" : u"多档委买量",
+                u"type" : u"vint",
+                },
+            u"f" : {
+                u"desc" : u"多档委卖价",
+                u"type" : u"vdouble",
+                },
+            u"g" : {
+                u"desc" : u"多档委卖量",
+                u"type" : u"vint",
+                },
+            u"h" : {
+                u"desc" : u"证券状态",
+                u"type" : u"int",
+                },
+            u"v" : {
+                u"desc" : u"原始成交总量",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"3001" : {
+        u"desc" : u"K线",
+        u"periods" : [60000, 300000, 3600000, 86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"开盘价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"最高价",
+                u"type" : u"double",
+                },
+            u"2" : {
+                u"desc" : u"最低价",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"收盘价",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"前收盘价",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"成交量",
+                u"type" : u"long",
+                },
+            u"6" : {
+                u"desc" : u"成交额",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"持仓量",
+                u"type" : u"int",
+                },
+            u"8" : {
+                u"desc" : u"流通盘",
+                u"type" : u"long",
+                },
+            u"9" : {
+                u"desc" : u"总股本",
+                u"type" : u"long",
+                },
+            u"a" : {
+                u"desc" : u"当日除权系数",
+                u"type" : u"double",
+                },
+            u"b" : {
+                u"desc" : u"总的除权系数",
+                u"type" : u"double",
+                },
+            u"c" : {
+                u"desc" : u"停牌标志",
+                u"type" : u"int",
+                },
+            u"d" : {
+                u"desc" : u"今结算",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"3002" : {
+        u"desc" : u"分时行情",
+        u"periods" : [60000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"价格",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"成交量",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"3004" : {
+        u"desc" : u"快照指标",
+        u"periods" : [60000],
+        u"fields" : {
+            u"z" : {
+                u"desc" : u"量比",
+                u"type" : u"double",
+                },
+            u"y" : {
+                u"desc" : u"1分钟涨速",
+                u"type" : u"double",
+                },
+            u"x" : {
+                u"desc" : u"5分钟涨速",
+                u"type" : u"double",
+                },
+            u"w" : {
+                u"desc" : u"3日涨幅",
+                u"type" : u"double",
+                },
+            u"v" : {
+                u"desc" : u"5日涨幅",
+                u"type" : u"double",
+                },
+            u"u" : {
+                u"desc" : u"10日涨幅",
+                u"type" : u"double",
+                },
+            u"t" : {
+                u"desc" : u"3日换手",
+                u"type" : u"double",
+                },
+            u"s" : {
+                u"desc" : u"5日换手",
+                u"type" : u"double",
+                },
+            u"r" : {
+                u"desc" : u"10日换手",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"4" : {
+        u"desc" : u"节假日信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"日期",
+                u"type" : u"long",
+                },
+            u"1" : {
+                u"desc" : u"节假日说明",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"3005" : {
+        u"desc" : u"港股盘前价格优化(集合竞价阶段价格限制)",
+        u"periods" : [0, 86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"参考价",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"买盘价格下限",
+                u"type" : u"double",
+                },
+            u"2" : {
+                u"desc" : u"买盘价格上限",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"卖盘价格下限",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"卖盘价格上限",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"市场状态",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"3006" : {
+        u"desc" : u"港股通资金流向",
+        u"periods" : [60000, 86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"HGT北向买入资金",
+                u"type" : u"long",
+                },
+            u"1" : {
+                u"desc" : u"HGT北向卖出资金",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"HGT南向买入资金",
+                u"type" : u"long",
+                },
+            u"3" : {
+                u"desc" : u"HGT南向卖出资金",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"SGT北向买入资金",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"SGT北向卖出资金",
+                u"type" : u"long",
+                },
+            u"6" : {
+                u"desc" : u"SGT南向买入资金",
+                u"type" : u"long",
+                },
+            u"7" : {
+                u"desc" : u"SGT南向卖出资金",
+                u"type" : u"long",
+                },
+			u"8" : {
+                u"desc" : u"HGT北向资金净流入",
+                u"type" : u"long",
+                },
+            u"9" : {
+                u"desc" : u"HGT北向当日资金余额",
+                u"type" : u"long",
+                },
+            u"a" : {
+                u"desc" : u"HGT南向资金净流入",
+                u"type" : u"long",
+                },
+            u"b" : {
+                u"desc" : u"HGT南向当日资金余额",
+                u"type" : u"long",
+                },
+            u"c" : {
+                u"desc" : u"SGT北向资金净流入",
+                u"type" : u"long",
+                },
+            u"d" : {
+                u"desc" : u"SGT北向当日资金余额",
+                u"type" : u"long",
+                },
+            u"e" : {
+                u"desc" : u"SGT南向资金净流入",
+                u"type" : u"long",
+                },
+            u"f" : {
+                u"desc" : u"SGT南向当日资金余额",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"4000" : {
+        u"desc" : u"除权除息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"每股股利（税前，元）",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"每股红股（股）",
+                u"type" : u"double",
+                },
+            u"2" : {
+                u"desc" : u"每股转增股本（股）",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"每股配股数（股）",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"配股价格（元）",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"是否股改",
+                u"type" : u"int",
+                },
+            u"d" : {
+                u"desc" : u"除权系数 * 10^12",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"4002" : {
+        u"desc" : u"内外盘",
+        u"periods" : [60000, 300000, 3600000, 86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"内盘",
+                u"type" : u"long",
+                },
+            u"1" : {
+                u"desc" : u"外盘",
+                u"type" : u"long",
+                },
+            u"2" : {
+                u"desc" : u"委买总量",
+                u"type" : u"long",
+                },
+            u"3" : {
+                u"desc" : u"委买均价",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"委卖总量",
+                u"type" : u"long",
+                },
+            u"5" : {
+                u"desc" : u"委卖均价",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"成交笔数",
+                u"type" : u"int",
+                },
+            u"7" : {
+                u"desc" : u"委买量变化值",
+                u"type" : u"long",
+                },
+            u"8" : {
+                u"desc" : u"委卖量变化值",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"4003" : {
+        u"periods" : [60000,86400000],
+        u"fields" : {
+            },
+        },
+    u"4004" : {
+        u"desc" : u"可转债基础信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"可转债代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"可转债简称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"正股代码",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"正股简称",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"发行年限",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"面值",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"发行价格",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"发行总额（元）",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"债券余额（元）",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"起息日期",
+                u"type" : u"int",
+                },
+            u"10" : {
+                u"desc" : u"到期日期",
+                u"type" : u"int",
+                },
+            u"11" : {
+                u"desc" : u"利率类型",
+                u"type" : u"string",
+                },
+            u"12" : {
+                u"desc" : u"票面利率",
+                u"type" : u"double",
+                },
+            u"13" : {
+                u"desc" : u"补偿利率",
+                u"type" : u"double",
+                },
+            u"14" : {
+                u"desc" : u"年付息次数",
+                u"type" : u"int",
+                },
+            u"15" : {
+                u"desc" : u"上市日期",
+                u"type" : u"int",
+                },
+            u"16" : {
+                u"desc" : u"摘牌日",
+                u"type" : u"int",
+                },
+            u"17" : {
+                u"desc" : u"上市地点",
+                u"type" : u"string",
+                },
+            u"18" : {
+                u"desc" : u"转股起始日",
+                u"type" : u"int",
+                },
+            u"19" : {
+                u"desc" : u"转股截止日",
+                u"type" : u"int",
+                },
+            u"20" : {
+                u"desc" : u"初始转股价",
+                u"type" : u"double",
+                },
+            u"21" : {
+                u"desc" : u"最新转股价",
+                u"type" : u"double",
+                },
+            u"22" : {
+                u"desc" : u"利率说明",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"4005" : {
+        u"desc" : u"可转债转股价格历史变动",			 
+        u"periods" : [86400000],
+        u"fields" : {
+            u"S" : {
+                u"desc" : u"股票",
+                u"type" : u"string",
+                },
+            u"C" : {
+                u"desc" : u"转股价历史变动信息",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"4015" : {
+        u"desc" : u"期货仓单",			 
+        u"periods" : [86400000],
+        u"fields" : {
+            u"1" : {
+                u"desc" : u"仓库",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"仓单",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"4020" : {
+        u"desc" : u"退市可转债信息", 
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"可转债代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"可转债简称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"正股代码",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"正股名称",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"上市首日收盘价",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"最后交易价格",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"最低收盘价",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"最高收盘价",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"发行规模(亿)",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"回售规模(亿)",
+                u"type" : u"double",
+                },
+            u"10" : {
+                u"desc" : u"剩余规模(亿)",
+                u"type" : u"double",
+                },
+            u"11" : {
+                u"desc" : u"发行日期",
+                u"type" : u"int",
+                },
+            u"12" : {
+                u"desc" : u"上市日期",
+                u"type" : u"int",
+                },
+            u"13" : {
+                u"desc" : u"最后交易日",
+                u"type" : u"int",
+                },
+            u"14" : {
+                u"desc" : u"到期日期",
+                u"type" : u"int",
+                },
+            u"15" : {
+                u"desc" : u"存续年限(年)",
+                u"type" : u"double",
+                },
+            u"16" : {
+                u"desc" : u"退市原因",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"4021" : {
+        u"desc" : u"代发可转债信息", 
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"正股代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"正股名称",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"可转债代码",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"可转债简称",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"方案进展",
+                u"type" : u"int",
+                },
+            u"5" : {
+                u"desc" : u"进展公告日",
+                u"type" : u"int",
+                },
+            u"6" : {
+                u"desc" : u"总发行规模(亿元)",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"评级",
+                u"type" : u"string",
+                },
+            u"8" : {
+                u"desc" : u"股东配售率(%)",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"转股价",
+                u"type" : u"double",
+                },
+            u"10" : {
+                u"desc" : u"正股每股净资产",
+                u"type" : u"double",
+                },
+            u"11" : {
+                u"desc" : u"每股配售(元)",
+                u"type" : u"double",
+                },
+            u"12" : {
+                u"desc" : u"股权登记日",
+                u"type" : u"int",
+                },
+            u"13" : {
+                u"desc" : u"网上发行规模(亿元)",
+                u"type" : u"double",
+                },
+            u"14" : {
+                u"desc" : u"中签率(%)",
+                u"type" : u"double",
+                },
+            u"15" : {
+                u"desc" : u"单账户中签(顶格)",
+                u"type" : u"double",
+                },
+            u"16" : {
+                u"desc" : u"申购户数(万户)",
+                u"type" : u"double",
+                },
+            u"17" : {
+                u"desc" : u"网下顶格(亿元)",
+                u"type" : u"double",
+                },
+            u"18" : {
+                u"desc" : u"顶格获配(万元)",
+                u"type" : u"double",
+                },
+            u"19" : {
+                u"desc" : u"网下户数(户)",
+                u"type" : u"double",
+                },
+            u"20" : {
+                u"desc" : u"包销比例(%)",
+                u"type" : u"double",
+                },
+            u"21" : {
+                u"desc" : u"网上申购代码",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"4999" : {
+        u"desc" : u"除权除息(所有股票)",
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"5001" : {
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"5002" : {
+        u"desc" : u"龙虎榜",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"5" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"6" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"7" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B10" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B11" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B12" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B13" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B14" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B15" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B20" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B21" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B22" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B23" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B24" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B25" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B30" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B31" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B32" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B33" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B34" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B35" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B40" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B41" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B42" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B43" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B44" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B45" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B50" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B51" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B52" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B53" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B54" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"B55" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S10" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S11" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S12" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S13" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S14" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S15" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S20" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S21" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S22" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S23" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S24" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S25" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S30" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S31" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S32" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S33" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S34" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S35" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S40" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S41" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S42" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S43" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S44" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S45" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S50" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S51" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S52" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S53" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S54" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            u"S55" : {
+                u"desc" : u"",
+                u"type" : u"string",
+                },
+            },
+        },
+    u"5003" : {
+        u"desc" : u"分级基金",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"1" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"2" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"5004" : {
+        u"desc" : u"历史主力合约",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"33" : {
+                u"desc" : u"合约在交易所的代码", 
+                u"type" : u"string",
+                },   
+            u"S" : {
+                u"desc" : u"主力合约代码",
+                u"type" : u"string",
+                },
+            u"G" : {
+                u"desc" : u"所属日期",
+                u"type" : u"long",
+                },
+            },
+        },
+    u"5008" : {
+        u"desc" : u"期货日持仓成交排名",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"1" : {
+                u"desc" : u"当日成交量排名", 
+                },
+            u"2" : {
+                u"desc" : u"持买单量排名", 
+                },
+            u"3" : {
+                u"desc" : u"持卖单量排名", 
+                },
+            u"4" : {
+                u"desc" : u"会员名称", 
+                },
+            u"5" : {
+                u"desc" : u"当日总量", 
+                },
+            u"6" : {
+                u"desc" : u"相比上日增减量", 
+                },
+            },
+        },
+    u"5100" : {
+        u"desc" : u"大宗交易",
+        u"periods" : [86400000],
+        u"fields" : {
+            },
+        },
+    u"6" : {
+        u"desc" : u"汇率",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"外国货币代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"本国货币代码",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"汇率",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"汇率日期",
+                u"type" : u"long",
+                },
+            u"4" : {
+                u"desc" : u"汇率买入价",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"汇率卖出价",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"汇率买入浮动比例",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"汇率卖出浮动比例",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"6000" : {
+        u"desc" : u"板块指数信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"turn" : {
+                u"desc" : u"",
+                u"type" : u"double",
+                },
+            },
+        },
+    u"7" : {
+        u"desc" : u"个股交易日信息",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"交易日",
+                u"type" : u"long",
+                },
+            u"1" : {
+                u"desc" : u"停牌状态",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"7000" : {
+        u"desc" : u"财务数据",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"股票代码",
+                u"type" : u"string",
+                },
+            u"1" : {
+                u"desc" : u"股东人数",
+                u"type" : u"double",
+                },
+            u"2" : {
+                u"desc" : u"净利润(元)",
+                u"type" : u"double",
+                },
+            u"3" : {
+                u"desc" : u"经营现金流量净额",
+                u"type" : u"double",
+                },
+            u"4" : {
+                u"desc" : u"投资现金流量净额",
+                u"type" : u"double",
+                },
+            u"5" : {
+                u"desc" : u"筹资现金流量净额",
+                u"type" : u"double",
+                },
+            u"6" : {
+                u"desc" : u"资产总计",
+                u"type" : u"double",
+                },
+            u"7" : {
+                u"desc" : u"负债总计",
+                u"type" : u"double",
+                },
+            u"8" : {
+                u"desc" : u"资产负债比率",
+                u"type" : u"double",
+                },
+            u"9" : {
+                u"desc" : u"净利润增长率",
+                u"type" : u"double",
+                },
+            u"10" : {
+                u"desc" : u"主营业务利润",
+                u"type" : u"double",
+                },
+            u"11" : {
+                u"desc" : u"主营增长率",
+                u"type" : u"double",
+                },
+            u"12" : {
+                u"desc" : u"流通A/B股",
+                u"type" : u"double",
+                },
+            u"13" : {
+                u"desc" : u"人均持股数",
+                u"type" : u"double",
+                },
+            u"14" : {
+                u"desc" : u"上年度每股净收益",
+                u"type" : u"double",
+                },
+            u"15" : {
+                u"desc" : u"全年预估每股净收益",
+                u"type" : u"double",
+                },
+            u"16" : {
+                u"desc" : u"每股收益",
+                u"type" : u"double",
+                },
+            u"17" : {
+                u"desc" : u"每股资本公积金",
+                u"type" : u"double",
+                },
+            u"18" : {
+                u"desc" : u"每股未分配利润",
+                u"type" : u"double",
+                },
+            u"19" : {
+                u"desc" : u"解禁数量",
+                u"type" : u"double",
+                },
+            u"20" : {
+                u"desc" : u"解禁日期",
+                u"type" : u"long",
+                },
+            u"21" : {
+                u"desc" : u"总质押股份数量",
+                u"type" : u"double",
+                },
+            u"22" : {
+                u"desc" : u"质押股份占A股总股本比例",
+                u"type" : u"double",
+                },
+            u"23" : {
+                u"desc" : u"发布日期",
+                u"type" : u"int",
+                },
+            u"24" : {
+                u"desc" : u"报表年份",
+                u"type" : u"int",
+                },
+            u"25" : {
+                u"desc" : u"报表季度",
+                u"type" : u"int",
+                },
+            },
+        },
+    u"7011" : {
+        u"desc" : u"问答",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"0" : {
+                u"desc" : u"问答编号",
+                },
+            u"1" : {
+                u"desc" : u"问题时间",
+                },
+            u"2" : {
+                u"desc" : u"问题内容",
+                },
+            u"3" : {
+                u"desc" : u"回答时间",
+                },
+            u"4" : {
+                u"desc" : u"回答内容",
+                },
+            },
+        },
+    u"9000" : {
+        u"desc" : u"公告",
+        u"periods" : [0],
+        u"fields" : {
+            u"1" : {
+                u"desc" : u"证券",
+                u"type" : u"string",
+                },
+            u"2" : {
+                u"desc" : u"主题",
+                u"type" : u"string",
+                },
+            u"3" : {
+                u"desc" : u"摘要",
+                u"type" : u"string",
+                },
+            u"4" : {
+                u"desc" : u"格式",
+                u"type" : u"string",
+                },
+            u"5" : {
+                u"desc" : u"内容",
+                u"type" : u"string",
+                },
+            u"6" : {
+                u"desc" : u"级别",
+                u"type" : u"int",
+                },
+            },
+        },
+        u"9506" : {
+        u"desc" : u"日线涨跌停",
+        u"periods" : [86400000],
+        u"fields" : {
+            u"e" : {
+                u"desc" : u"涨停价",
+                u"type" : u"double",
+                },
+            u"f" : {
+                u"desc" : u"跌停价",
+                u"type" : u"double",
+                },
+            },
+        },
+}
