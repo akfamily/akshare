@@ -1,5 +1,7 @@
 import time
 import akshare as ak
+import pandas as pd
+
 ## A 股上市公司的实时行情数据
 stock_zh_a_spot_df = ak.stock_zh_a_spot()
 #print(stock_zh_a_spot_df)
