@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: mysql
+Version: 0.0.3
+Summary: Virtual package for MySQL-python
+Home-page: https://github.com/valhallasw/virtual-mysql-pypi-package
+Author: Merlijn van Deen
+Author-email: valhallasw@arctus.nl
+License: MIT
+Platform: UNKNOWN
+Requires-Dist: mysqlclient
+
+----------------------------
+Virtual MySQL-python package
+----------------------------
+
+This package is a 'virtual package', which requires MySQL-python (Python 2)
+or mysqlclient (Python 3) to install.
+In effect, this means 'pip install mysql' will actually install MySQL-python.
+
+Instead of depending on this package, please depend on the relevant package
+directly.
+
+See also:
+- https://pypi.python.org/pypi/MySQL-python
+- https://pypi.python.org/pypi/mysqlclient
+
+
+

@@ -1,138 +1,193 @@
 import akshare as ak
-import numpy as np
 import pandas as pd
-from datetime import datetime
+import pymysql
+from datetime import datetime,timedelta
+from tqdm import tqdm
+from pymysql import MySQLError
 
 
-def get_historical_year_pe(stock_code, start_year=2023):
-    """获取历史年度市盈率(单位：亿元)"""
 
-    # 获取年度净利润[6](@ref)
-    income_df = get_historical_year_income(stock_code, start_year);
-    print(income_df)
+# 数据库配置（适配PyMySQL参数）
+DB_CONFIG = {
+    'host': 'localhost',
+    'user': 'powerbi',
+    'password': 'longyu',
+    'database': 'akshare',
+    'port': 3306,
+    'charset': 'utf8mb4',
+    'cursorclass': pymysql.cursors.DictCursor
+}
 
-    # 获取年度总股本[6](@ref)
-    balance_df = get_historical_year_shares(stock_code, start_year)
-    print(balance_df)
+STARTDAY="20230519"
 
-    # 获取最后交易日股价[6](@ref)
-    price_df = get_annual_lastday_prices(stock_code, start_year)
-    print(price_df)
-    
-    # ================== 3. 合并计算PE ==================
-    result = []
-    for year in range(start_year, pd.Timestamp.now().year):
-        try:
-            # 获取每年财务数据
-            net_profit = income_df[income_df['年份'] == year]['净利润'].values[0]
-            total_shares = balance_df[balance_df['年份'] == year]['总股本'].values[0]
-            last_price = price_df[balance_df['年份'] == year]['收盘价'].values[0]
 
-            # 计算年度PE
-            if all([not np.isnan(net_profit), not np.isnan(total_shares), not np.isnan(last_price)]):
-                year_pe = (total_shares * last_price) / net_profit
-                result.append({'年份': year, 'PE': round(year_pe, 2)})
+def save_pe_to_mysql(symbol='证监会行业分类'):
+    """查询行业行业分类的历史PE数据，并存入本地数据主函数（批量插入优化）"""
+    """执行前先执行query_industry_pe_sequential接口确认从什么时间点开始查询"""
+    try:
+        # 建立PyMySQL连接（网页4标准连接方式）
+        conn = pymysql.connect(**DB_CONFIG)
+        print("✅ 连接成功 | MySQL版本:", conn.get_server_info())
+        conn.autocommit(False)  # 禁用自动提交
+        
+        with conn.cursor() as cursor:
+            trade_days = get_trade_days(STARTDAY)
+            pbar = tqdm(trade_days, desc="Processing Days")
+
+            batch_size = 500  # 网页6推荐的批次大小
+            total_data = []
+            
+            for day in pbar:
+                try:
+                    date_str = day.replace("-", "")
+                    
+                    # 获取PE数据（网页2接口）
+                    pe_df = ak.stock_industry_pe_ratio_cninfo(
+                        symbol=symbol,
+                        date=date_str
+                    )
+                    
+                    # 数据清洗
+                    filtered_df = pe_df[['行业编码', '静态市盈率-加权平均',
+                                       '静态市盈率-中位数', '静态市盈率-算术平均']].copy()
+                    filtered_df['trade_date'] =  pd.to_datetime(day, errors='coerce')  # 强制日期转换
+
+                    # 清除无效数据（网页8处理方案）
+                    valid_df = filtered_df.dropna(subset=['trade_date'])
+                    if valid_df.empty:
+                        print(f"⚠️ 无效日期数据 {day}")
+                        return
+                    
+                    # 生成批量数据（网页3数据格式转换）
+                    batch_data = [
+                        (row['trade_date'], row['行业编码'],
+                         None if pd.isna(row['静态市盈率-加权平均']) else float(row['静态市盈率-加权平均']),
+                         None if pd.isna(row['静态市盈率-中位数']) else float(row['静态市盈率-中位数']),
+                         None if pd.isna(row['静态市盈率-算术平均']) else float(row['静态市盈率-算术平均'])
+                         )
+                        for _, row in filtered_df.iterrows()
+                    ]
+                    total_data.extend(batch_data)
+                    
+                    # 分批次全量处理
+                    while len(total_data) >= batch_size:  # ✅ 循环处理所有完整分片
+                        _execute_batch_insert(cursor, total_data[:batch_size])
+                        conn.commit()  # 每批次提交
+                        total_data = total_data[batch_size:]  # 动态更新剩余数据
+
+                    pbar.set_postfix_str(f"Day {day} cached")
+                    
+                except MySQLError as e:
+                    print(f"\nError processing {day}: {str(e)}")
+                    conn.rollback()
+                    continue
+            
+            # 插入剩余数据（网页6剩余数据处理）
+            if total_data:
+                _execute_batch_insert(cursor, total_data)
+                conn.commit()
                 
-        except IndexError:
-            continue
-            
-    return pd.DataFrame(result)
+    except MySQLError as err:
+        print(f"Database error: {err.code} {err.msg}")
+    finally:
+        if conn and conn.open:
+            conn.close()
 
-def get_historical_year_income(stock_code, start_year=2023):
-    """获取指定年份及之后的年度净利润数据"""
-    # ================== 1. 获取并清洗财务数据 ==================
-    try:
-        # 获取利润表数据（网页1、网页8方法）
-        income_df = ak.stock_financial_report_sina(stock=stock_code, symbol="利润表")
-        
-        # 筛选年报数据并提取年份（网页1）
-        income_df = income_df[income_df['报告日'].str.endswith('1231', na=False)].copy()
-        income_df['年份'] = pd.to_datetime(income_df['报告日']).dt.year
-        
-        # 转换金额单位（网页1处理逻辑）
-        #income_df['净利润'] = income_df['净利润'].str.replace('亿', '').astype(float)
-        
-        # 按年份筛选（新增核心逻辑）
-        filtered_df = income_df[income_df['年份'] >= start_year]
-        
-        return filtered_df[['年份', '净利润']].reset_index(drop=True)
-    
-    except Exception as e:
-        print(f"数据利润获取失败: {str(e)}")
-        return pd.DataFrame(columns=['年份', '净利润'])
-
-def get_historical_year_shares(stock_code, start_year=2023):
-    """通过年报获取历史总股本数据"""
-    try:
-        # 获取资产负债表（网页7方法）
-        balance_df = ak.stock_financial_report_sina(stock_code, symbol="资产负债表")
-        
-        # 筛选年报数据（网页1、网页7逻辑）
-        balance_df = balance_df[balance_df['报告日'].str.contains('1231')].copy()
-        balance_df['年份'] = pd.to_datetime(balance_df['报告日']).dt.year
-        
-        # 按年份筛选（新增核心逻辑）
-        filtered_df = balance_df[balance_df['年份'] >= start_year]
-        filtered_df = filtered_df.rename(columns={
-            '实收资本(或股本)': '总股本'
-            })[['年份', '总股本']]
-        return filtered_df[['年份', '总股本']].reset_index(drop=True)
-    
-    except Exception as e:
-        print(f"数据利润获取失败: {str(e)}")
-        return pd.DataFrame(columns=['年份', '净利润'])
-
-def get_annual_lastday_prices(stock_code, start_year=2023, adjust="qfq"):
+def _execute_batch_insert(cursor, data):
+    """执行批量插入（网页1的executemany优化）"""
+    insert_sql = """
+    INSERT IGNORE INTO industry_pe_history 
+    (trade_date, industry_code, pe_weighted, pe_median, pe_mean)
+    VALUES (%s, %s, %s, %s, %s)
     """
-    高效获取每年最后一个交易日收盘价
-    :param stock_code: 股票代码，如 '600519'
-    :param start_year: 起始年份，如 2010
-    :param adjust: 复权方式，默认前复权(qfq)
-    """
-    current_year = datetime.now().year
-    results = []
+    try:
+        cursor.executemany(insert_sql, data)
+    except MySQLError as e:
+        if e.args[0] in (1062, 1586):  # 忽略主键冲突错误
+            pass
+        else:
+            raise
+
+def get_trade_days(startday="20230519"):
+    """获取指定起始日至今的交易日历"""
+    # 转换日期格式（网页6/7/8时间类型处理方案）
+    start_date = pd.to_datetime(startday, format='%Y%m%d')  # 标准化输入日期
+    end_date = pd.to_datetime(datetime.now() - timedelta(days=1))  # 统一时区
     
-    for year in range(start_year, current_year + 1):
-        # 构造每年最后一周的查询范围(网页6参数规范)
-        end_date = f"{year}1231"
-        start_date = f"{year}1225"  # 查询最后一周数据
-        
+    # 获取原始交易日数据（网页1接口说明）
+    df = ak.tool_trade_date_hist_sina()
+    
+    # 强制转换日期列类型（网页6兼容性处理）
+    df['trade_date'] = pd.to_datetime(df['trade_date'])
+    
+    # 日期范围过滤（网页7最佳实践）
+    mask = (df['trade_date'] >= start_date) & (df['trade_date'] <= end_date)
+    filtered_df = df.loc[mask, 'trade_date']
+    
+    # 转换为YYYYMMDD格式字符串列表（网页3数据格式需求）
+    return [d.strftime('%Y%m%d') for d in filtered_df.dt.date.tolist()]
+
+def query_industry_pe_sequential(date_list, symbol="证监会行业分类"):
+    """
+    按日期顺序查询行业PE数据，返回首个有效结果
+    :param date_list: 日期列表(倒序排列，从最新到最旧)
+    :param symbol: 市场类型，默认为"证监会行业分类"
+    :return: (有效日期, DataFrame)
+    """
+    for date_str in tqdm(sorted(date_list, reverse=False), desc="日期查询进度"):
         try:
-            # 仅获取年末最后一周数据(网页7接口调用优化)
-            df = ak.stock_zh_a_hist(
-                symbol=stock_code,
-                period="daily",
-                start_date=start_date,
-                end_date=end_date,
-                adjust=adjust
-            )
+            # 转换日期格式（网页4日期规范）
+            formatted_date = pd.to_datetime(date_str).strftime('%Y%m%d')
             
-            if not df.empty:
-                # 直接取最后一条有效数据(网页5数据处理逻辑)
-                last_row = df.iloc[-1]
-                results.append({
-                    '年份': year,
-                    '收盘价': last_row['收盘'],
-                    '最后交易日': last_row['日期']
-                })
+            # 调用接口（网页9接口调用规范）
+            pe_df = ak.stock_industry_pe_ratio_cninfo(
+                symbol=symbol,
+                date=formatted_date
+            )
+
+            return (date_str, pe_df)
+            
+        except KeyError as e:
+            if "'records'" in str(e):
+                print(f"日期 {date_str} 无有效数据")
+                continue
+            else:
+                raise
         except Exception as e:
-            print(f"{year}年数据异常: {str(e)}")
+            print(f"日期 {date_str} 无有效数据")
+            continue
     
-    return pd.DataFrame(results)
+    return (None, None)
 
-def df_to_excel(df):
-    # 导出CSV查看[3](@ref)
-    df.to_csv("full_columns.csv", index=False)
 
-    # 导出Excel并自动调整列宽[4](@ref)
-    with pd.ExcelWriter("output.xlsx") as writer:
-        df.to_excel(writer, sheet_name="全量数据")
-        worksheet = writer.sheets["全量数据"]
-        for idx, col in enumerate(df.columns):
-            worksheet.set_column(idx, idx, 20)  # 设置列宽为20字符
-    return 
+def insert_batch_insert(data):
+    try:
+        # 建立PyMySQL连接（网页4标准连接方式）
+        conn = pymysql.connect(**DB_CONFIG)
+        print("✅ 连接成功 | MySQL版本:", conn.get_server_info())
+        conn.autocommit(False)  # 禁用自动提交
+
+        with conn.cursor() as cursor:
+            _execute_batch_insert(cursor, data)
+            conn.commit()
+            print(f"✅ 插入成功 |{data} ")
+    except MySQLError as e:
+        if e.args[0] in (1062, 1586):  # 忽略主键冲突错误
+            pass
+        else:
+            print(f"Database error: {err.code} {err.msg}")
+            raise
+    finally:
+        if conn and conn.open:
+            conn.close()
+
 
 
 if __name__ == "__main__":
-    df_pe=get_historical_year_pe("002555",2015)
-    print(df_pe)
+    
+    #df = ak.stock_industry_pe_ratio_cninfo("证监会行业分类","20230519")
+    #df = query_industry_pe_sequential(get_trade_days("20230501")) #从20230519开始有数据
+  
+    df = save_pe_to_mysql("20230519")
+    print(df)
+    

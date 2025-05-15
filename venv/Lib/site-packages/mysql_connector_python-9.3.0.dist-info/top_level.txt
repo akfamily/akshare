@@ -1,0 +1,2 @@
+_mysql_connector
+mysql

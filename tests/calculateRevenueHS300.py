@@ -69,7 +69,7 @@ def get_financial_data(report_time="20231231"):
     result_df['报告期'] = report_time
     
     # 6. 保存结果
-    output_path = f"HS300_核心财务数据_{report_time[:4]}.xlsx"
+    output_path = f".\output\HS300_核心财务数据_{report_time[:4]}.xlsx"
     result_df[['代码', '简称', '营收(亿元)', '净利润(亿元)', '报告期']].to_excel(output_path, index=False)
     return result_df
 

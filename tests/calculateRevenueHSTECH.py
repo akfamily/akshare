@@ -163,7 +163,7 @@ if __name__ == "__main__":
     #print(comparison)
     
     # 保存结果
-    save_path = f"HSTECH_核心财务数据_{report_year}.xlsx"
+    save_path = f".\output\HSTECH_核心财务数据_{report_year}.xlsx"
     with pd.ExcelWriter(save_path) as writer:
         df.to_excel(writer, sheet_name='明细数据', index=False)
         #comparison.to_excel(writer, sheet_name='对比分析', index=False)
