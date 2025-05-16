@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/20 15:00
+Date: 2025/5/16 19:00
 Desc: 债券-集思录-可转债
-集思录：https://app.jisilu.cn/data/cbnew/#cb
+集思录：https://www.jisilu.cn/data/cbnew/#cb
 """
 
 from io import StringIO
@@ -142,7 +142,7 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "双低",
         ]
     ]
-    temp_df["到期时间"] = pd.to_datetime(temp_df["到期时间"]).dt.date
+    temp_df["到期时间"] = pd.to_datetime(temp_df["到期时间"], errors="coerce").dt.date
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
@@ -297,7 +297,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
 def bond_cb_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
     """
     集思录-可转债转股价-调整记录
-    https://app.jisilu.cn/data/cbnew/#cb
+    https://www.jisilu.cn/data/cbnew/#cb
     :param symbol: 可转债代码
     :type symbol: str
     :return: 转股价调整记录
