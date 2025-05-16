@@ -7,7 +7,6 @@ from pymysql import MySQLError
 
 
 
-
 # 数据库配置（适配PyMySQL参数）
 DB_CONFIG = {
     'host': 'localhost',
@@ -108,5 +107,6 @@ if __name__ == "__main__":
     df = ak.stock_index_pe_lg('中证1000')
     df["指数代码"]="000852.SH"
     df["指数名称"]="中证1000"
+    print(df)
     #df = insert_to_mysql(df)
     

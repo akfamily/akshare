@@ -1,37 +1,15 @@
-import akshare as ak
+﻿import akshare as ak
 import pandas as pd
 import pymysql
 from datetime import datetime,timedelta
 from tqdm import tqdm
 from pymysql import MySQLError
 
-# 数据库配置（适配PyMySQL参数）
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'powerbi',
-    'password': 'longyu',
-    'database': 'akshare',
-    'port': 3306,
-    'charset': 'utf8mb4',
-    'cursorclass': pymysql.cursors.DictCursor
-}
-
-# SQL语句
-INSERT_SQL ="""
-INSERT INTO `index_valuation_history` 
-(`index_code`, `index_name`, `trade_date`, `index_value`, 
-`pe_equal_weight_static`, `pe_static`, `pe_static_median`,
-`pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-"""
-
-def insert_major_index_valuation():
-    """获取三大指数估值数据"""
-    indices = {
+INDICES = {
         "上证50": "000016.SH",
         "沪深300": "000300.SH",
-        #"上证380": "000009.SH",
-        #"创业板50": "399673.SZ",
+        "上证380": "000009.SH",
+        "创业板50": "399673.SZ",
         #"中证500": "000905.SH",
         #"上证180": "000010.SH",
         #"深证红利": "399324.SZ",
@@ -41,8 +19,11 @@ def insert_major_index_valuation():
         #"中证100": "000903.SH",
         #"中证800": "000906.SH"
                }
-    for name,code in tqdm(indices.items(),desc=f"获取{indices.keys()} "):
-        print(f"......查询{name} PE")
+
+def insert_major_index_valuation():
+    """获取三大指数估值数据"""
+    
+    for name,code in tqdm(indices.items(),desc=f"获取{indices.items()}估值……"):
         try:
             # 获取基础估值数据[5,9](@ref)
             df = ak.stock_index_pe_lg(name)
@@ -113,8 +94,4 @@ def _execute_batch_insert(cursor, data,insert_sql):
 
 if __name__ == "__main__":
     # 使用示例
-    df = insert_major_index_valuation()
-    #df = ak.stock_index_pe_lg('沪深300')
-    #df = df.iloc[0:2]
-
-    #print(df)
+    print(INDICES.kyes())
