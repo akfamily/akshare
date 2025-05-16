@@ -1,5 +1,5 @@
 SELECT * FROM `industry_pe_history`
-SELECT * FROM `index_valuation_history`
+SELECT * FROM `index_valuation_history` WHERE `index_name`="沪深300" ORDER BY `trade_date` DESC
 
 SELECT COUNT(*) FROM index_valuation_history
 
