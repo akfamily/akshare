@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/4/1 19:20
+Date: 2025/5/16 19:00
 Desc: 雪球-个股-公司概况-公司简介
 https://xueqiu.com/snowman/S/SH601127/detail#/GSJJ
 """
