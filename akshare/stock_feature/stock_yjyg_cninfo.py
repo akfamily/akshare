@@ -16,7 +16,8 @@ def stock_report_disclosure(
     """
     巨潮资讯-首页-数据-预约披露
     http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
-    :param market: choice of {"沪深京": "szsh", "深市": "sz", "深主板": "szmb", "中小板": "szsme", "创业板": "szcn", "沪市": "sh", "沪主板": "shmb", "科创板": "shkcp"}
+    :param market: choice of {"沪深京": "szsh", "深市": "sz", "深主板": "szmb", "中小板": "szsme",
+    "创业板": "szcn", "沪市": "sh", "沪主板": "shmb", "科创板": "shkcp"}
     :type market: str
     :param period: 最近四期的财报
     :type period: str

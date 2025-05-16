@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/20 15:00
+Date: 2025/5/16 19:00
 Desc: 债券-集思录-可转债
-集思录：https://app.jisilu.cn/data/cbnew/#cb
+集思录：https://www.jisilu.cn/data/cbnew/#cb
 """
 
 from io import StringIO
 import pandas as pd
 import requests
+import time
 
 from akshare.utils import demjson
 
@@ -30,13 +31,13 @@ def bond_cb_index_jsl() -> pd.DataFrame:
 def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
     """
     集思录可转债
-    https://app.jisilu.cn/data/cbnew/#cb
+    https://www.jisilu.cn/data/cbnew/#cb
     :param cookie: 输入获取到的游览器 cookie
     :type cookie: str
     :return: 集思录可转债
     :rtype: pandas.DataFrame
     """
-    url = "https://app.jisilu.cn/data/cbnew/cb_list_new/"
+    url = "https://www.jisilu.cn/data/cbnew/cb_list_new/"
     headers = {
         "accept": "application/json, text/javascript, */*; q=0.01",
         "accept-encoding": "gzip, deflate, br",
@@ -45,9 +46,9 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
         "content-length": "220",
         "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
         "cookie": cookie,
-        "origin": "https://app.jisilu.cn",
+        "origin": "https://www.jisilu.cn",
         "pragma": "no-cache",
-        "referer": "https://app.jisilu.cn/data/cbnew/",
+        "referer": "https://www.jisilu.cn/data/cbnew/",
         "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
         "sec-ch-ua-mobile": "?0",
         "sec-fetch-dest": "empty",
@@ -58,7 +59,7 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
         "x-requested-with": "XMLHttpRequest",
     }
     params = {
-        "___jsl": "LST___t=1627021692978",
+        "___jsl": f"LST___t={int(time.time() * 1000)}",
     }
     payload = {
         "fprice": "",
@@ -141,7 +142,7 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "双低",
         ]
     ]
-    temp_df["到期时间"] = pd.to_datetime(temp_df["到期时间"]).dt.date
+    temp_df["到期时间"] = pd.to_datetime(temp_df["到期时间"], errors="coerce").dt.date
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
@@ -296,7 +297,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
 def bond_cb_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
     """
     集思录-可转债转股价-调整记录
-    https://app.jisilu.cn/data/cbnew/#cb
+    https://www.jisilu.cn/data/cbnew/#cb
     :param symbol: 可转债代码
     :type symbol: str
     :return: 转股价调整记录
