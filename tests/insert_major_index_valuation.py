@@ -1,19 +1,19 @@
 import pandas as pd
 import akshare as ak
+from save_to_mysql import insert_to_mysql
 from tqdm import tqdm
-from save_to_mysql save_to_mysql 
+import sys
 
+# SQL语句
+INSERT_SQL ="""
+INSERT INTO `index_valuation_history` 
+(`index_code`, `index_name`, `trade_date`, `index_value`, 
+`pe_equal_weight_static`, `pe_static`, `pe_static_median`,
+`pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""
 
-INSERT_SQL =
-    """
-    INSERT INTO `index_valuation_history` 
-    (`index_code`, `index_name`, `trade_date`, `index_value`, 
-    `pe_equal_weight_static`, `pe_static`, `pe_static_median`,
-     `pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-    """
-
-def get_major_index_valuation():
+def insert_major_index_valuation():
     """获取三大指数估值数据"""
     indices = {
         "上证50": "000016.SH",
@@ -47,17 +47,19 @@ def get_major_index_valuation():
                          None if pd.isna(row['滚动市盈率中位数']) else float(row['滚动市盈率中位数']))
                         for _, row in df.iterrows()
                         ]
-            save_to_mysql(batch_data,INSERT_SQL)
+            save_to_mysql.insert_to_mysql(batch_data,INSERT_SQL)
         except Exception as e:
             print(f"{name} 数据存储失败: {str(e)}")
     
-    return result
+    return "INSERT finished!"
 
 
 if __name__ == "__main__":
     # 使用示例
-    df = get_major_index_valuation()
+    
+    print(sys.path)  
+    #df = insert_major_index_valuation()
     #df = ak.stock_index_pe_lg('沪深300')
     #df = df.iloc[0:2]
 
-    print(df)
+    #print(df)
