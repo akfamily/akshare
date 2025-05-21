@@ -1327,12 +1327,12 @@ def stock_hsgt_board_rank_em(
     return temp_df
 
 
-def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
+def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票
-    https://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
-    :param stock: 股票代码
-    :type stock: str
+    https://data.eastmoney.com/hsgt/StockHdDetail/00700.html
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 具体股票-沪深港通持股
     :rtype: pandas.DataFrame
     """
@@ -1342,15 +1342,28 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
         "sortTypes": "-1",
         "pageSize": "500",
         "pageNumber": "1",
-        "reportName": "RPT_MUTUAL_HOLDSTOCKNORTH_STA",
+        "reportName": "RPT_MUTUAL_STOCK_HOLDRANKS",
         "columns": "ALL",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(SECURITY_CODE="{stock}")(TRADE_DATE>='2020-07-25')""",
+        "filter": f"""(SECUCODE="{symbol}.HK")(MUTUAL_TYPE="002")""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    total_page = data_json["result"]["pages"]
     temp_df = pd.DataFrame(data_json["result"]["data"])
+    for page in range(1, total_page + 1):
+        params.update({"pageNumber": str(page)})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if page == 1:
+            temp_df = pd.DataFrame(data_json["result"]["data"])
+        else:
+            temp_df = pd.concat(
+                objs=[temp_df, pd.DataFrame(data_json["result"]["data"])],
+                ignore_index=True,
+            )
+
     temp_df.rename(
         columns={
             "SECURITY_INNER_CODE": "-",
@@ -1403,7 +1416,116 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
     temp_df["持股市值变化-10日"] = pd.to_numeric(
         temp_df["持股市值变化-10日"], errors="coerce"
     )
+    temp_df.sort_values("持股日期", ignore_index=True, inplace=True)
     return temp_df
+
+
+def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
+    """
+    东方财富-数据中心-沪深港通-沪深港通持股-具体股票
+    https://data.eastmoney.com/hsgt/StockHdStatistics/002008.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 具体股票-沪深港通持股
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "TRADE_DATE",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_MUTUAL_HOLDSTOCKNDATE_STA",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"""(SECURITY_CODE="{symbol}")(INTERVAL_TYPE="1")""",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    for page in range(1, total_page + 1):
+        params.update({"pageNumber": str(page)})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if page == 1:
+            temp_df = pd.DataFrame(data_json["result"]["data"])
+        else:
+            temp_df = pd.concat(
+                objs=[temp_df, pd.DataFrame(data_json["result"]["data"])],
+                ignore_index=True,
+            )
+
+    temp_df.rename(
+        columns={
+            "SECURITY_INNER_CODE": "-",
+            "SECUCODE": "-",
+            "TRADE_DATE": "持股日期",
+            "SECURITY_CODE": "-",
+            "SECURITY_NAME": "-",
+            "MUTUAL_TYPE": "-",
+            "CHANGE_RATE": "当日涨跌幅",
+            "CLOSE_PRICE": "当日收盘价",
+            "HOLD_SHARES": "持股数量",
+            "HOLD_MARKET_CAP": "持股市值",
+            "A_SHARES_RATIO": "-",
+            "HOLD_SHARES_RATIO": "持股数量占A股百分比",
+            "FREE_SHARES_RATIO": "-",
+            "TOTAL_SHARES_RATIO": "-",
+            "HMC_CHANGE": "今日持股市值变化",
+            "ADD_SHARES_REPAIR": "今日增持股数",
+            "PREDICT_AMC": "今日增持资金",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "持股日期",
+            "当日收盘价",
+            "当日涨跌幅",
+            "持股数量",
+            "持股市值",
+            "持股数量占A股百分比",
+            "今日增持股数",
+            "今日增持资金",
+            "今日持股市值变化",
+        ]
+    ]
+    temp_df["持股日期"] = pd.to_datetime(temp_df["持股日期"], errors="coerce").dt.date
+    temp_df["当日收盘价"] = pd.to_numeric(temp_df["当日收盘价"], errors="coerce")
+    temp_df["当日涨跌幅"] = pd.to_numeric(temp_df["当日涨跌幅"], errors="coerce")
+    temp_df["持股数量"] = pd.to_numeric(temp_df["持股数量"], errors="coerce")
+    temp_df["持股市值"] = pd.to_numeric(temp_df["持股市值"], errors="coerce")
+    temp_df["持股数量占A股百分比"] = pd.to_numeric(
+        temp_df["持股数量占A股百分比"], errors="coerce"
+    )
+    temp_df["今日增持股数"] = pd.to_numeric(
+        temp_df["今日增持股数"], errors="coerce"
+    )
+    temp_df["今日增持资金"] = pd.to_numeric(
+        temp_df["今日增持资金"], errors="coerce"
+    )
+    temp_df["今日持股市值变化"] = pd.to_numeric(
+        temp_df["今日持股市值变化"], errors="coerce"
+    )
+    temp_df.sort_values("持股日期", ignore_index=True, inplace=True)
+    return temp_df
+
+
+def stock_hsgt_individual_em(symbol: str = "002008") -> pd.DataFrame:
+    """
+    东方财富-数据中心-沪深港通-沪深港通持股-具体股票
+    https://data.eastmoney.com/hsgt/StockHdDetail/002008.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 具体股票-沪深港通持股
+    :rtype: pandas.DataFrame
+    """
+    if len(symbol) == 6:
+        return __stock_hsgt_individual_zh_a_em(symbol=symbol)
+    else:
+        return __stock_hsgt_individual_zh_hk_em(symbol=symbol)
 
 
 def stock_hsgt_individual_detail_em(
@@ -1591,7 +1713,7 @@ if __name__ == "__main__":
     )
     print(stock_hsgt_board_rank_em_df)
 
-    stock_hsgt_individual_em_df = stock_hsgt_individual_em(stock="002008")
+    stock_hsgt_individual_em_df = stock_hsgt_individual_em(symbol="00700")
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
