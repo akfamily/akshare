@@ -7,7 +7,7 @@ import logging
 import log4ak
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
-from getAllStock import get_all_stocks
+from getAllStock import get_all_stocks, get_select_stocks
 
 log = log4ak.LogManager(log_level=logging.INFO)
 MAX_CONSECUTIVE_ERRORS = 3  # 最大允许连续错误次数
@@ -16,13 +16,13 @@ OUTTIME = 5  # 接口长时间无返回报错
 
 def selectStock():
     ## A 股上市公司列表
-    stock_zh_a_spot_df = get_all_stocks()
+    stock_zh_a_spot_df = get_select_stocks()
     log.info("获取到 A 股上市公司列表")
-    df_stock = stock_zh_a_spot_df[['代码','名称']][4072:]
+    df_stock = stock_zh_a_spot_df[['代码','名称']]
 
     # 分块处理设置[2,3](@ref)
     total_rows = len(df_stock)
-    chunk_num = 5
+    chunk_num = 2
     chunk_indices = np.array_split(np.arange(total_rows), chunk_num)
     log.info(f"分块处理设置总记录数total_rows={total_rows}；块数chunk_num={chunk_num}，每块记录数chunk_indices={len(chunk_indices[0])}")
 
@@ -163,7 +163,7 @@ def checkRoeCashEBIT(r_code = "601398",startyear = "2019"):
 
     return var1,var2,var3
 
-## 指标4- 市盈率低于30且大于0
+## 指标4- 市盈率低于20且大于0
 def check_pe_condition(stock_code="601398", pastday=30):
     # 获取最新接口调用添加精确的超时控制
     try:
@@ -202,7 +202,7 @@ def check_pe_condition(stock_code="601398", pastday=30):
     # 计算逻辑优化（网页[1][1](@ref)数据处理建议）
     try:
         pe_mean = valid_df['pe'].astype(float).mean()
-        var4 = 0 < pe_mean < 30        
+        var4 = 0 < pe_mean < 20       
         log.info(f"{stock_code}获取var4={var4}")
         return var4
     except ValueError as ve:
