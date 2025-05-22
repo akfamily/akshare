@@ -23,7 +23,7 @@ def futures_fees_info() -> pd.DataFrame:
     """
     url = "http://openctp.cn/fees.html"
     r = requests.get(url)
-    r.encoding = "gb2312"
+    r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, features="lxml")
     datetime_str = soup.find("p").string.strip("Generated at ").strip(".")
     datetime_raw = datetime.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
