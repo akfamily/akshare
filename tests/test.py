@@ -1,146 +1,165 @@
+import akshare as ak
+import vectorbt as vbt
+import pandas as pd
 import time
 import numpy as np
-import akshare as ak
-import pandas as pd
-import datetime
+from datetime import datetime,timedelta
 from tqdm import tqdm
-from getAllStock import get_all_stocks
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontManager
+from getAllStock import get_all_stocks, get_select_stocks
 
 
-def selectStock():
-    ## A 股上市公司列表
-    stock_zh_a_spot_df = get_all_stocks()
-    #print(stock_zh_a_spot_df)
-    df_stock = stock_zh_a_spot_df[['代码','名称']]
-     # 分块处理设置[2,3](@ref)
-    total_rows = len(df_stock)
-    chunk_num = 10
-    chunk_indices = np.array_split(np.arange(total_rows), chunk_num)
+# Windows 系统推荐配置
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 黑体支持中文[1,3](@ref)
+plt.rcParams['axes.unicode_minus'] = False    # 修复负号显示问题[1](@ref)
+print("当前生效字体:", plt.rcParams['font.sans-serif'])
 
-    # 分批处理逻辑
-    for file_num, chunk_idx in enumerate(chunk_indices):
-        chunk_df = df_stock.iloc[chunk_idx]
-        df_result = pd.DataFrame(columns=['stock','name','指标1','指标2','指标3','指标4','综合评估'])
-        
-        # 处理单个数据块
-        for row_index, row in tqdm(chunk_df.iterrows(), total=len(chunk_df), desc=f"处理第{file_num+1}批"):
+def fetch_data(user_portfolio, benchmarks, start_date='20230522', end_date='20250522'):
+    dfs = []
+    total_symbols = len(user_portfolio) + len(benchmarks)
+    
+    with tqdm(total=total_symbols, desc='下载数据', unit='标的') as pbar:
+        # 处理股票数据
+        for s in user_portfolio:
             try:
-                r_code = row['代码']
-                r_name = row['名称']
-                
-                # 指标计算
-                var1, var2, var3 = checkRoeCashEBIT(r_code, "2019")
-                var4 = check_pe_condition(r_code)
-                varAll = var1 and var2 and var3 and var4
-                
-                # 结果存储
-                df_result.loc[row_index] = {
-                    'stock': r_code,
-                    'name': r_name,
-                    '指标1': var1,
-                    '指标2': var2,
-                    '指标3': var3,
-                    '指标4': var4,
-                    '综合评估': varAll
-                }
-                time.sleep(1.5)
-                
+                df = ak.stock_zh_a_hist(s, period="daily", 
+                                      start_date=start_date, end_date=end_date,
+                                      adjust="qfq")
+                df = df.set_index(pd.to_datetime(df['日期'])).drop('日期', axis=1)
+                dfs.append(df['收盘'].rename(s))
+                pbar.update(1)
+                time.sleep(1)
             except Exception as e:
-                print(f"处理{row['代码']}时出错：{str(e)}")
-                continue
+                print(f"\n错误：{s}获取失败，{str(e)}")
         
-        # 分块存储[1,5](@ref)
-        df_result.to_excel(f'.\output\stock_result_{file_num}.xlsx', index=False)
-        print(f"第{file_num+1}批数据已存储，包含{len(df_result)}条记录")
+        # 处理指数数据 
+        for s in benchmarks:
+            try:
+                df = ak.index_zh_a_hist(symbol=s, period="daily",
+                                      start_date=start_date, end_date=end_date)
+                df = df.set_index(pd.to_datetime(df['日期'])).drop('日期', axis=1)
+                dfs.append(df['收盘'].rename(s))
+                pbar.update(1)
+                time.sleep(1)
+            except Exception as e:
+                print(f"\n错误：{s}获取失败，{str(e)}")
     
-    return "所有分块处理完成"
+    # 合并与对齐
+    combined = pd.concat(dfs, axis=1)
+    full_dates = pd.date_range(start=pd.to_datetime(start_date), 
+                              end=pd.to_datetime(end_date), freq='B')
+    return combined.reindex(full_dates).sort_index().ffill()
 
-def checkRoeCashEBIT(r_code = "601398",startyear = "2019"):
-    #财务指标数据 工行财报
-    df = ak.stock_financial_analysis_indicator(r_code,startyear)
-    # print(df.head())
-    clean_df = df.copy()
-
-    # 数据清洗
-    # 日期转换与格式校验
-    clean_df['日期'] = pd.to_datetime(
-        clean_df['日期'],
-        errors='coerce'  # 无效日期转为NaT（网页[2]建议）
-        )
-    # 筛选有效年报
-    year_end_mask = (
-        (clean_df['日期'].dt.month == 12) & 
-        (clean_df['日期'].dt.day == 31) & 
-        (clean_df['日期'].notna())
-        )
-    clean_df = clean_df[year_end_mask]
-
-    # 按年排序与截取
-    clean_df = clean_df.sort_values('日期', ascending=False)
+# 创建等权组合（每日再平衡）
+def create_equal_weight_portfolio(portfolio_data, init_cash=1e6):
+    # 生成等权配置矩阵
+    weight_matrix = np.full_like(portfolio_data, 1/len(portfolio_data.columns))
     
-    clean_df = clean_df.set_index(clean_df['日期'])
-
-    #指标1 - 过去5年来平均净资产收益率高于14%
-    df1 = clean_df['净资产收益率(%)']
-    df1_sum = df1.replace('--',0).astype(float).sum(axis = 0, skipna = True)
-    df1_count = df1.count()
-    var1 = (df1_sum / df1_count)>14
-
-    #指标2：经营现金流为正
-    df2=clean_df['每股经营性现金流(元)']
-    var2 = float( df2.iat[0] ) > 0
-
-    
-    #指标3：新期的净利润大于前5年的净利润 取万元 
-    clean_df['扣非净利润'] = (
-        pd.to_numeric(clean_df['扣除非经常性损益后的净利润(元)'], errors='coerce')
-        .div(10000)  # 元转万元
-        .dropna()     # 过滤无效数据
+    # 构建投资组合
+    return vbt.Portfolio.from_holding(
+        close=portfolio_data,
+        size=weight_matrix,
+        init_cash=init_cash,
+        fees=0.001,
+        slippage=0.005,
+        freq='D'
     )
-    df3=clean_df['扣非净利润']
 
-    # 获取最新一期数据
-    latest = df3.iloc[0]  # 索引0为最新数据
-
-    # 获取前五年数据（索引1-5为前1至前5年）
-    past_5years = df3.iloc[1:6]  # 含1不含6
-
-    # 计算逻辑
-    var3 = latest > past_5years.max() 
-
-    return var1,var2,var3
-
-## 指标2- 市盈率低于30且大于0
-def check_pe_condition(stock_code="601398", pastday = 30):
-    # 获取最新接口数据（网页[2]接口变更）
-    try:
-        df = ak.stock_a_indicator_lg(symbol=stock_code)
-    except Exception as e:
-        print(f"接口调用失败: {str(e)}")
-        return False
-    
-    # 日期处理优化（网页[3]数据格式）
-    date_threshold = datetime.datetime.now() - datetime.timedelta(pastday)
-    date_threshold = date_threshold.date()  # 转换为日期对象
-    
-    # 数据清洗与计算（网页[1]字段说明）
-    valid_df = df[
-        (pd.to_datetime(df['trade_date']).dt.date > date_threshold) 
-        & (df['pe'].notna())
-    ]
-    
-    if valid_df.empty:
-        #print("无近期有效数据")
-        return "NAN"
-        
-    pe_mean = valid_df['pe'].mean()
-    var2 = 0 < pe_mean < 30
-    return var2
-
-
+# 使用示例
 if __name__ == "__main__":
-    df = selectStock()
-    #导出Excel并自动调整列宽[4](@ref)
-    #with pd.ExcelWriter(".\output\output.xlsx") as writer:
-    #    df.to_excel(writer, sheet_name="全量数据")
-    #selectStock()
+    # 获取全量数据
+    df = get_select_stocks()
+    user_portfolio = df['代码'].tolist()
+    benchmarks = [
+    #"000016",# "上证50":
+    #"000300",#"沪深300": 
+    #"000009",#"上证380": 
+    "399673",#"创业板50": 
+    #"000905",#"中证500": 
+    #"000010",#"上证180": 
+    #"399324",#"深证红利": 
+    #"399330",#"深证100": 
+    #"000852",#"中证1000":
+    #"000015",#"上证红利":
+    #"000903",#"中证100": 
+    #"000906"#"中证800": 
+    ]
+
+    # 预定义样式库（扩展自网页6、网页8）
+    bench_styles = {
+        '000016': {'color': '#1f77b4', 'linestyle': '-', 'linewidth': 2},
+        '000300': {'color': '#ff7f0e', 'linestyle': '--', 'dash_capstyle': 'round'},
+        '399673': {'color': '#2ca02c', 'linestyle': '-.', 'alpha': 0.8},
+        '000905': {'color': '#d62728', 'linestyle': ':', 'marker': 'o', 'markevery': 10}
+        }
+
+    data = fetch_data(user_portfolio,benchmarks)
+
+    # 提取自建组合数据
+    portfolio_data = data[user_portfolio]
+    # 创建自建组合动态权重矩阵
+    weights = pd.DataFrame(
+        np.full(portfolio_data.shape, 1/len(user_portfolio)),  # 每日等权
+        index=portfolio_data.index,
+        columns=portfolio_data.columns
+    )
+
+    # 构建投资组合
+    portfolio = vbt.Portfolio.from_orders(
+        close=portfolio_data,        # 收盘价数据
+        size=weights,               # 目标持仓比例
+        size_type='targetpercent',  # 按百分比调仓
+        init_cash=1e6,              # 初始资金
+        fees=0.001,                 # 手续费0.1%
+        slippage=0.005,             # 滑点0.5%
+        freq='D'                    # 每日再平衡
+    )
+    
+    # 归一化处理
+    portfolio_nav = portfolio.value().sum(axis=1) / 1e6  
+
+    # 提取基准数据
+    benchmark_data = data[benchmarks]
+
+    # 计算基准收益率
+    benchmark_cum = benchmark_data.pct_change().fillna(0)
+    # 计算累计收益率时初始化首日为1（网页1、网页6方法）
+    benchmark_cum.iloc[0] = 1  # 强制设置首日为基准起点
+
+    # 绘制组合净值曲线
+    portfolio_nav.plot(
+        linewidth=3,
+        color='#9467bd',
+        label='用户组合',
+        zorder=10  # 置于顶层
+    )
+
+    # 绘制基准曲线（采用网页7推荐的循环方式）
+    for b in benchmarks:
+        #if b in bench_styles:
+        #    (benchmark_cum[b]/benchmark_cum[b].iloc[0]).plot(color='#1f77b4', linestyle='-', linewidth=2,label=f'基准: {b}')
+        #else:  # 兜底样式
+            (benchmark_cum[b]/benchmark_cum[b].iloc[0]).plot(
+                linestyle='--',
+                alpha=0.6,
+                label=f'基准: {b}'
+            )
+
+    # 增强图例可读性（网页6、网页8方法）
+    plt.legend(
+        loc='upper left',
+        bbox_to_anchor=(1, 1),  # 右侧外置图例
+        frameon=False,
+        fontsize=10
+    )
+
+    # 添加辅助网格
+    plt.figure(figsize=(16, 8))  # 扩大画布尺寸[8](@ref)
+    plt.grid(axis='y', linestyle=':', alpha=0.5)
+    plt.tight_layout()
+    plt.title('组合与基准收益对比 (2023-2025)', fontsize=14)
+    plt.ylabel('累计收益率', fontsize=12)
+    plt.legend()
+    plt.grid(True)
+    plt.show()

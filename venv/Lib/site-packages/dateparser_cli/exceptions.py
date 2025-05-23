@@ -1,0 +1,2 @@
+class FastTextModelNotFoundException(Exception):
+    pass

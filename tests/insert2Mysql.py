@@ -1,12 +1,13 @@
 ﻿import akshare as ak
 import pandas as pd
 import pymysql
+from pymysql import MySQLError
 from datetime import datetime,timedelta
 from tqdm import tqdm
-from pymysql import MySQLError
 import log4ak
+import logging
 
-log = log4ak.LogManager()
+log = log4ak.LogManager(log_level=logging.INFO)
 
 # 数据库配置（适配PyMySQL参数）
 DB_CONFIG = {
@@ -30,7 +31,7 @@ def insert_to_mysql(datapd, insertSqlStr):
         conn = pymysql.connect(**DB_CONFIG)
         log.debug(f"数据库相关信息：{DB_CONFIG}")
         #print("✅ 连接成功 | MySQL版本:", conn.get_server_info())
-        log.debug(f"✅ 连接成功 | MySQL版本:", conn.get_server_info())
+        log.info(f"✅ 连接成功 | MySQL版本:{conn.get_server_info()}")
 
         conn.autocommit(False)  # 禁用自动提交
         batch_size = 500  # 网页6推荐的批次大小
@@ -47,11 +48,10 @@ def insert_to_mysql(datapd, insertSqlStr):
             if datapd:
                 _execute_batch_insert(cursor, datapd,insertSqlStr)
                 conn.commit()
-            log.debug("insert finished!")
+            log.info("insert finished!")
             return "insert finished!"
                 
     except MySQLError as err:
-        print(f"Database error: {err.code} {err.msg}")
         log.error(f"Database error: {err.code} {err.msg}")
     finally:
         if conn and conn.open:

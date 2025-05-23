@@ -230,8 +230,9 @@ class ConsecutiveErrorException(Exception):
 
 if __name__ == "__main__":
     #time.sleep(600)
-    df = selectStock()
+    #df = selectStock()
+    df=ak.stock_a_indicator_lg("000333")
+    print(df)
     #导出Excel并自动调整列宽[4](@ref)
-    #with pd.ExcelWriter(".\output\output.xlsx") as writer:
-    #    df.to_excel(writer, sheet_name="全量数据")
+    df.to_excel(f'.\output\output.xlsx', index=False)
     #selectStock()

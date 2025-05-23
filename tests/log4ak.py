@@ -2,6 +2,7 @@
 import os
 from logging.handlers import RotatingFileHandler
 
+
 class LevelFilter(logging.Filter):
     """精准级别过滤器[1,4](@ref)"""
     def __init__(self, level):

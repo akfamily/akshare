@@ -1,0 +1,47 @@
+Thanks to all the wonderful folks who have contributed to schedule over the years:
+
+- mattss <https://github.com/mattss>
+- mrhwick <https://github.com/mrhwick>
+- cfrco <https://github.com/cfrco>
+- matrixise <https://github.com/matrixise>
+- abultman <https://github.com/abultman>
+- mplewis <https://github.com/mplewis>
+- WoLfulus <https://github.com/WoLfulus>
+- dylwhich <https://github.com/dylwhich>
+- fkromer <https://github.com/fkromer>
+- alaingilbert <https://github.com/alaingilbert>
+- Zerrossetto <https://github.com/Zerrossetto>
+- yetingsky <https://github.com/yetingsky>
+- schnepp <https://github.com/schnepp> <https://bitbucket.org/saschaschnepp>
+- grampajoe <https://github.com/grampajoe>
+- gilbsgilbs <https://github.com/gilbsgilbs>
+- Nathan Wailes <https://github.com/NathanWailes>
+- Connor Skees <https://github.com/ConnorSkees>
+- qmorek <https://github.com/qmorek>
+- aisk <https://github.com/aisk>
+- MichaelCorleoneLi <https://github.com/MichaelCorleoneLi>
+- sijmenhuizenga <https://github.com/SijmenHuizenga>
+- eladbi <https://github.com/eladbi>
+- chankeypathak <https://github.com/chankeypathak>
+- vubon <https://github.com/vubon>
+- gaguirregabiria <https://github.com/gaguirregabiria>
+- rhagenaars <https://github.com/RHagenaars>
+- Skenvy <https://github.com/skenvy>
+- zcking <https://github.com/zcking>
+- Martin Thoma <https://github.com/MartinThoma>
+- ebllg <https://github.com/ebllg>
+- fredthomsen <https://github.com/fredthomsen>
+- biggerfisch <https://github.com/biggerfisch>
+- sosolidkk <https://github.com/sosolidkk>
+- rudSarkar <https://github.com/rudSarkar>
+- chrimaho <https://github.com/chrimaho>
+- jweijers <https://github.com/jweijers>
+- Akuli <https://github.com/Akuli>
+- NaelsonDouglas <https://github.com/NaelsonDouglas>
+- SergBobrovsky <https://github.com/SergBobrovsky>
+- CPickens42 <https://github.com/CPickens42>
+- emollier <https://github.com/emollier>
+- sunpro108 <https://github.com/sunpro108>
+- kurtasov <https://github.com/kurtasov>
+- AnezeR <https://github.com/AnezeR>
+- a-detiste <https://github.com/a-detiste>

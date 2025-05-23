@@ -1,0 +1,12 @@
+2025-05-22 13:50:38 | ERROR    | log4ak.py:108 - 接口调用失败: name 'pastday' is not defined
+2025-05-22 14:02:42 | ERROR    | log4ak.py:108 - 接口调用失败: name 'pastday' is not defined
+2025-05-22 14:02:42 | ERROR    | log4ak.py:108 - 处理000333时出错：name 'trade_date' is not defined。连续次数1
+2025-05-22 14:02:44 | ERROR    | log4ak.py:108 - 接口调用失败: name 'pastday' is not defined
+2025-05-22 14:02:44 | ERROR    | log4ak.py:108 - 处理000523时出错：name 'trade_date' is not defined。连续次数2
+2025-05-22 14:02:46 | ERROR    | log4ak.py:108 - 接口调用失败: name 'pastday' is not defined
+2025-05-22 14:02:46 | ERROR    | log4ak.py:108 - 处理000568时出错：name 'trade_date' is not defined。连续次数3
+2025-05-22 14:04:44 | ERROR    | log4ak.py:108 - 接口调用失败: name 'pastday' is not defined
+2025-05-22 14:07:25 | ERROR    | log4ak.py:108 - 处理000333时出错：name 'trade_date' is not defined。连续次数1
+2025-05-22 14:39:20 | ERROR    | log4ak.py:108 - 处理000333时出错：name 'trade_date' is not defined。连续次数1
+2025-05-22 14:39:23 | ERROR    | log4ak.py:108 - 处理000523时出错：name 'trade_date' is not defined。连续次数2
+2025-05-22 14:39:25 | ERROR    | log4ak.py:108 - 处理000568时出错：name 'trade_date' is not defined。连续次数3

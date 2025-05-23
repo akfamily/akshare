@@ -1,0 +1,864 @@
+Metadata-Version: 2.2
+Name: dateparser
+Version: 1.2.1
+Summary: Date parsing library designed to parse dates from HTML pages
+Home-page: https://github.com/scrapinghub/dateparser
+Author: Scrapinghub
+Author-email: opensource@zyte.com
+License: BSD
+Project-URL: History, https://dateparser.readthedocs.io/en/latest/history.html
+Keywords: dateparser
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: python-dateutil>=2.7.0
+Requires-Dist: pytz>=2024.2
+Requires-Dist: regex!=2019.02.19,!=2021.8.27,>=2015.06.24
+Requires-Dist: tzlocal>=0.2
+Provides-Extra: calendars
+Requires-Dist: convertdate>=2.2.1; extra == "calendars"
+Requires-Dist: hijridate; extra == "calendars"
+Provides-Extra: fasttext
+Requires-Dist: fasttext>=0.9.1; extra == "fasttext"
+Requires-Dist: numpy<2,>=1.19.3; extra == "fasttext"
+Provides-Extra: langdetect
+Requires-Dist: langdetect>=1.0.0; extra == "langdetect"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+==========================
+Introduction to dateparser
+==========================
+
+
+Features
+========
+
+* Generic parsing of dates in over 200 language locales plus numerous formats in a language agnostic fashion.
+* Generic parsing of relative dates like: ``'1 min ago'``, ``'2 weeks ago'``, ``'3 months, 1 week and 1 day ago'``, ``'in 2 days'``, ``'tomorrow'``.
+* Generic parsing of dates with time zones abbreviations or UTC offsets like: ``'August 14, 2015 EST'``, ``'July 4, 2013 PST'``, ``'21 July 2013 10:15 pm +0500'``.
+* Date lookup in longer texts.
+* Support for non-Gregorian calendar systems. See `Supported Calendars`_.
+* Extensive test coverage.
+
+
+Basic Usage
+===========
+
+The most straightforward way is to use the `dateparser.parse <#dateparser.parse>`_ function,
+that wraps around most of the functionality in the module.
+
+
+   
+   :noindex:
+
+
+Popular Formats
+---------------
+
+    >>> import dateparser
+    >>> dateparser.parse('12/12/12')
+    datetime.datetime(2012, 12, 12, 0, 0)
+    >>> dateparser.parse('Fri, 12 Dec 2014 10:55:50')
+    datetime.datetime(2014, 12, 12, 10, 55, 50)
+    >>> dateparser.parse('Martes 21 de Octubre de 2014')  # Spanish (Tuesday 21 October 2014)
+    datetime.datetime(2014, 10, 21, 0, 0)
+    >>> dateparser.parse('Le 11 Décembre 2014 à 09:00')  # French (11 December 2014 at 09:00)
+    datetime.datetime(2014, 12, 11, 9, 0)
+    >>> dateparser.parse('13 января 2015 г. в 13:34')  # Russian (13 January 2015 at 13:34)
+    datetime.datetime(2015, 1, 13, 13, 34)
+    >>> dateparser.parse('1 เดือนตุลาคม 2005, 1:00 AM')  # Thai (1 October 2005, 1:00 AM)
+    datetime.datetime(2005, 10, 1, 1, 0)
+
+This will try to parse a date from the given string, attempting to
+detect the language each time.
+
+You can specify the language(s), if known, using ``languages`` argument. In this case, given languages are used and language detection is skipped:
+
+    >>> dateparser.parse('2015, Ago 15, 1:08 pm', languages=['pt', 'es'])
+    datetime.datetime(2015, 8, 15, 13, 8)
+
+If you know the possible formats of the dates, you can
+use the ``date_formats`` argument:
+
+    >>> dateparser.parse('22 Décembre 2010', date_formats=['%d %B %Y'])
+    datetime.datetime(2010, 12, 22, 0, 0)
+
+
+Relative Dates
+--------------
+
+    >>> parse('1 hour ago')
+    datetime.datetime(2015, 5, 31, 23, 0)
+    >>> parse('Il ya 2 heures')  # French (2 hours ago)
+    datetime.datetime(2015, 5, 31, 22, 0)
+    >>> parse('1 anno 2 mesi')  # Italian (1 year 2 months)
+    datetime.datetime(2014, 4, 1, 0, 0)
+    >>> parse('yaklaşık 23 saat önce')  # Turkish (23 hours ago)
+    datetime.datetime(2015, 5, 31, 1, 0)
+    >>> parse('Hace una semana')  # Spanish (a week ago)
+    datetime.datetime(2015, 5, 25, 0, 0)
+    >>> parse('2小时前')  # Chinese (2 hours ago)
+    datetime.datetime(2015, 5, 31, 22, 0)
+
+.. note:: Testing above code might return different values for you depending on your environment's current date and time.
+
+.. note:: For `Finnish` language, please specify ``settings={'SKIP_TOKENS': []}`` to correctly parse relative dates.
+
+OOTB Language Based Date Order Preference
+-----------------------------------------
+
+   >>> # parsing ambiguous date
+   >>> parse('02-03-2016')  # assumes english language, uses MDY date order
+   datetime.datetime(2016, 2, 3, 0, 0)
+   >>> parse('le 02-03-2016')  # detects french, uses DMY date order
+   datetime.datetime(2016, 3, 2, 0, 0)
+
+.. note:: Ordering is not locale based, that's why do not expect `DMY` order for UK/Australia English. You can specify date order in that case as follows using `settings`:
+
+    >>> parse('18-12-15 06:00', settings={'DATE_ORDER': 'DMY'})
+    datetime.datetime(2015, 12, 18, 6, 0)
+
+For more on date order, please look at `settings`.
+
+
+Timezone and UTC Offset
+-----------------------
+
+By default, `dateparser` returns tzaware `datetime` if timezone is present in date string. Otherwise, it returns a naive `datetime` object.
+
+    >>> parse('January 12, 2012 10:00 PM EST')
+    datetime.datetime(2012, 1, 12, 22, 0, tzinfo=<StaticTzInfo 'EST'>)
+
+    >>> parse('January 12, 2012 10:00 PM -0500')
+    datetime.datetime(2012, 1, 12, 22, 0, tzinfo=<StaticTzInfo 'UTC\-05:00'>)
+
+    >>> parse('2 hours ago EST')
+    datetime.datetime(2017, 3, 10, 15, 55, 39, 579667, tzinfo=<StaticTzInfo 'EST'>)
+
+    >>> parse('2 hours ago -0500')
+    datetime.datetime(2017, 3, 10, 15, 59, 30, 193431, tzinfo=<StaticTzInfo 'UTC\-05:00'>)
+
+ If date has no timezone name/abbreviation or offset, you can specify it using `TIMEZONE` setting.
+
+    >>> parse('January 12, 2012 10:00 PM', settings={'TIMEZONE': 'US/Eastern'})
+    datetime.datetime(2012, 1, 12, 22, 0)
+
+    >>> parse('January 12, 2012 10:00 PM', settings={'TIMEZONE': '+0500'})
+    datetime.datetime(2012, 1, 12, 22, 0)
+
+``TIMEZONE`` option may not be useful alone as it only attaches given timezone to
+resultant ``datetime`` object. But can be useful in cases where you want conversions from and to different
+timezones or when simply want a tzaware date with given timezone info attached.
+
+    >>> parse('January 12, 2012 10:00 PM', settings={'TIMEZONE': 'US/Eastern', 'RETURN_AS_TIMEZONE_AWARE': True})
+    datetime.datetime(2012, 1, 12, 22, 0, tzinfo=<DstTzInfo 'US/Eastern' EST-1 day, 19:00:00 STD>)
+
+
+    >>> parse('10:00 am', settings={'TIMEZONE': 'EST', 'TO_TIMEZONE': 'EDT'})
+    datetime.datetime(2016, 9, 25, 11, 0)
+
+Some more use cases for conversion of timezones.
+
+    >>> parse('10:00 am EST', settings={'TO_TIMEZONE': 'EDT'})  # date string has timezone info
+    datetime.datetime(2017, 3, 12, 11, 0, tzinfo=<StaticTzInfo 'EDT'>)
+
+    >>> parse('now EST', settings={'TO_TIMEZONE': 'UTC'})  # relative dates
+    datetime.datetime(2017, 3, 10, 23, 24, 47, 371823, tzinfo=<StaticTzInfo 'UTC'>)
+
+In case, no timezone is present in date string or defined in `settings`. You can still
+return tzaware ``datetime``. It is especially useful in case of relative dates when uncertain
+what timezone is relative base.
+
+    >>> parse('2 minutes ago', settings={'RETURN_AS_TIMEZONE_AWARE': True})
+    datetime.datetime(2017, 3, 11, 4, 25, 24, 152670, tzinfo=<DstTzInfo 'Asia/Karachi' PKT+5:00:00 STD>)
+
+In case, you want to compute relative dates in UTC instead of default system's local timezone, you can use `TIMEZONE` setting.
+
+    >>> parse('4 minutes ago', settings={'TIMEZONE': 'UTC'})
+    datetime.datetime(2017, 3, 10, 23, 27, 59, 647248, tzinfo=<StaticTzInfo 'UTC'>)
+
+.. note:: In case, when timezone is present both in string and also specified using `settings`, string is parsed into tzaware representation and then converted to timezone specified in `settings`.
+
+   >>> parse('10:40 pm PKT', settings={'TIMEZONE': 'UTC'})
+   datetime.datetime(2017, 3, 12, 17, 40, tzinfo=<StaticTzInfo 'UTC'>)
+
+   >>> parse('20 mins ago EST', settings={'TIMEZONE': 'UTC'})
+   datetime.datetime(2017, 3, 12, 21, 16, 0, 885091, tzinfo=<StaticTzInfo 'UTC'>)
+
+For more on timezones, please look at `settings`.
+
+
+Incomplete Dates
+----------------
+
+    >>> from dateparser import parse
+    >>> parse('December 2015')  # default behavior
+    datetime.datetime(2015, 12, 16, 0, 0)
+    >>> parse('December 2015', settings={'PREFER_DAY_OF_MONTH': 'last'})
+    datetime.datetime(2015, 12, 31, 0, 0)
+    >>> parse('December 2015', settings={'PREFER_DAY_OF_MONTH': 'first'})
+    datetime.datetime(2015, 12, 1, 0, 0)
+
+    >>> parse('March')
+    datetime.datetime(2015, 3, 16, 0, 0)
+    >>> parse('March', settings={'PREFER_DATES_FROM': 'future'})
+    datetime.datetime(2016, 3, 16, 0, 0)
+    >>> # parsing with preference set for 'past'
+    >>> parse('August', settings={'PREFER_DATES_FROM': 'past'})
+    datetime.datetime(2015, 8, 15, 0, 0)
+
+    >>> import dateparser
+    >>> dateparser.parse("2015") # default behavior
+    datetime.datetime(2015, 3, 27, 0, 0)
+    >>> dateparser.parse("2015", settings={"PREFER_MONTH_OF_YEAR": "last"})
+    datetime.datetime(2015, 12, 27, 0, 0)
+    >>> dateparser.parse("2015", settings={"PREFER_MONTH_OF_YEAR": "first"})
+    datetime.datetime(2015, 1, 27, 0, 0)
+    >>> dateparser.parse("2015", settings={"PREFER_MONTH_OF_YEAR": "current"})
+    datetime.datetime(2015, 3, 27, 0, 0)
+
+You can also ignore parsing incomplete dates altogether by setting `STRICT_PARSING` flag as follows:
+
+    >>> parse('December 2015', settings={'STRICT_PARSING': True})
+    None
+
+For more on handling incomplete dates, please look at `settings`.
+
+
+Search for Dates in Longer Chunks of Text
+-----------------------------------------
+
+.. warning:: Support for searching dates is really limited and needs a lot of improvement, we look forward to community's contribution to get better on that part. See "`contributing`".
+
+
+You can extract dates from longer strings of text. They are returned as list of tuples with text chunk containing the date and parsed datetime object.
+
+
+
+   
+   :noindex:
+
+Advanced Usage
+==============
+If you need more control over what is being parser check the `settings` section as well as the `using-datedataparser` section.
+
+
+Dependencies
+============
+
+`dateparser` relies on following libraries in some ways:
+
+  * dateutil_'s module ``relativedelta`` for its freshness parser.
+  * convertdate_ to convert *Jalali* dates to *Gregorian*.
+  * hijridate_ to convert *Hijri* dates to *Gregorian*.
+  * tzlocal_ to reliably get local timezone.
+  * ruamel.yaml_ (optional) for operations on language files.
+
+.. _dateutil: https://pypi.python.org/pypi/python-dateutil
+.. _convertdate: https://pypi.python.org/pypi/convertdate
+.. _hijridate: https://pypi.python.org/pypi/hijridate
+.. _tzlocal: https://pypi.python.org/pypi/tzlocal
+.. _ruamel.yaml: https://pypi.python.org/pypi/ruamel.yaml
+
+Supported languages and locales
+===============================
+You can check the supported locales by visiting the "`supported-locales`" section.
+
+
+Supported Calendars
+===================
+
+Apart from the Georgian calendar, `dateparser` supports the `Persian Jalali calendar` and the `Hijri/Islami calendar`
+
+To be able to use them you need to install the `calendar` extra by typing:
+
+    pip install dateparser[calendars]
+
+
+* Example using the `Persian Jalali calendar`. For more information, refer to `Persian Jalali Calendar <https://en.wikipedia.org/wiki/Iranian_calendars#Zoroastrian_calendar>`_.
+
+    >>> from dateparser.calendars.jalali import JalaliCalendar
+    >>> JalaliCalendar('جمعه سی ام اسفند ۱۳۸۷').get_date()
+    DateData(date_obj=datetime.datetime(2009, 3, 20, 0, 0), period='day', locale=None)
+
+
+* Example using the `Hijri/Islamic Calendar`. For more information, refer to `Hijri Calendar <https://en.wikipedia.org/wiki/Islamic_calendar>`_.
+
+    >>> from dateparser.calendars.hijri import HijriCalendar
+    >>> HijriCalendar('17-01-1437 هـ 08:30 مساءً').get_date()
+    DateData(date_obj=datetime.datetime(2015, 10, 30, 20, 30), period='day', locale=None)
+
+.. note:: `HijriCalendar` only works with Python ≥ 3.7.
+
+
+.. :changelog:
+
+History
+=======
+
+1.2.1 (2025-02-05)
+------------------
+
+Fixes:
+
+- Fix PytzUsageWarning (#1109)
+- Fix date_parser with prefer_month_of_year wrong results (#1224)
+- Fix skipped day when UTC and tz are different days (#1183)
+
+Improvements:
+
+- Avoid repeated loop over timezones (#1238)
+- Proofread README.rst (#1234)
+- Check for derived types for configuration (#1223)
+- Parse some abbreviated strings as relative dates (#1219)
+- Migrate from hijri-converter to hijridate (#1211)
+- Fixed ClusterFuzz build error by adding dateparser.data as a binary (#1208)
+- Fix an issue detected by OSSFuzz (#1203)
+- Support two-digit years in non-Gregorian calendars (#1187)
+- Refactored CI to run extras separately and test minimum versions of dependencies, replaced flake8 with ruff, fixed tests (#1248)
+- Set minimum versions for dependencies (#1248)
+- Limited ``numpy`` to 1.x when installing ``dateparser[fasttext]`` (#1248)
+
+
+1.2.0 (2023-11-17)
+------------------
+
+New features:
+
+- New ``PREFER_MONTH_OF_YEAR`` setting (#1146)
+
+Fixes:
+
+- Absolute years in Russian are no longer being treated as a number of years in
+  the past (#1129)
+
+Cleanups and internal improvements:
+
+- Removed the use of ``datetime.utcnow``, deprecated on Python 3.12 (#1179)
+- Applied Black formatting to the code base (#1158)
+- Initial integration with OSSFuzz (#1198)
+- Extended test cases (#1191)
+
+
+1.1.8 (2023-03-22)
+------------------
+
+Improvements:
+
+- Improved date parsing for Chinese (#1148)
+- Improved date parsing for Czech (#1151)
+- Reorder language by popularity (#1152)
+- Fix leak of memory in cache (#1140)
+- Add support for "\d units later" (#1154)
+- Move modification in CLDR data to yaml (#1153)
+- Add support to use timezone via settings to get PREFER_DATES_FROM result (#1155)
+
+
+1.1.7 (2023-02-02)
+------------------
+
+Improvements:
+
+- Add an “ago” synonym for Arabic (#1128)
+- Improved date parsing for Czech (#1131)
+- Improved date parsing for Indonesian (#1134)
+
+
+1.1.6 (2023-01-12)
+------------------
+
+Improvements:
+
+- Fix the bug where Monday is parsed as a month (#1121)
+- Prevent ReDoS in Spanish sentence splitting regex (#1084)
+
+
+1.1.5 (2022-12-29)
+------------------
+
+Improvements:
+
+- Parse short versions of day, month, and year (#1103)
+- Add a test for “in 1d” (#1104)
+- Update languages_info (#1107)
+- Add a workaround for zipimporter not having exec_module before Python 3.10 (#1069)
+- Stabilize tests at midnight (#1111)
+- Add a test case for French (#1110)
+
+Cleanups:
+
+- Remove the requirements-build file (#1113)
+
+
+1.1.4 (2022-11-21)
+------------------
+
+Improvements:
+
+- Improved support for languages such as Slovak, Indonesian, Hindi, German and Japanese (#1064, #1094, #986, #1071, #1068)
+- Recursively create a model home (#996)
+- Replace regex sub with simple string replace (#1095)
+- Add Python 3.10, 3.11 support (#1096)
+- Drop support for Python 3.5, 3.6 versions (#1097)
+
+
+1.1.3 (2022-11-03)
+------------------
+
+New features:
+
+- Add support for fractional units (#876)
+
+Improvements:
+
+- Fix the returned datetime skipping a day with time+timezone input and PREFER_DATES_FROM = 'future' (#1002)
+- Fix input translatation breaking keep_formatting (#720)
+- English: support "till date" (#1005)
+- English: support “after” and “before” in relative dates (#1008)
+
+Cleanups:
+
+- Reorganize internal data (#1090)
+- CI updates (#1088)
+
+
+1.1.2 (2022-10-20)
+------------------
+
+Improvements:
+
+- Added support for negative timestamp (#1060)
+- Fixed PytzUsageWarning for Python versions >= 3.6 (#1062)
+- Added support for dates with dots and spaces (#1028)
+- Improved support for Ukrainian, Croatian and Russian (#1072, #1074, #1079, #1082, #1073, #1083)
+- Added support for parsing Unix timestamps consistently regardless of timezones (#954)
+- Improved tests (#1086)
+
+
+1.1.1 (2022-03-17)
+------------------
+
+Improvements:
+
+- Fixed issue with regex library by pinning dependencies to an earlier version (< 2022.3.15, #1046).
+- Extended support for Russian language dates starting with lowercase (#999).
+- Allowed to use_given_order for languages too (#997).
+- Fixed link to settings section (#1018).
+- Defined UTF-8 encoding for Windows (#998).
+- Fixed directories creation error in CLI utils (#1022).
+
+
+1.1.0 (2021-10-04)
+------------------
+
+New features:
+
+* Support language detection based on ``langdetect``, ``fastText``, or a
+  custom implementation (see #932)
+* Add support for 'by <time>' (see #839)
+* Sort default language list by internet usage (see #805)
+
+Improvements:
+
+* Improved support of Chinese (#910), Czech (#977)
+* Improvements in ``search_dates`` (see #953)
+* Make order of previous locales deterministic (see #851)
+* Fix parsing with trailing space (see #841)
+* Consider ``RETURN_TIME_AS_PERIOD`` for timestamp times (see #922)
+* Exclude failing regex version (see #974)
+* Ongoing work multithreading support (see #881, #885)
+* Add demo URL (see #883)
+
+QA:
+
+* Migrate pipelines from Travis CI to Github Actions (see #859, #879, #884,
+  #886, #911, #966)
+* Use versioned CLDR data (see #825)
+* Add a script to update table of supported languages and locales (see #601)
+* Sort 'skip' keys in yaml files (see #844)
+* Improve test coverage (see #827)
+* Code cleanup (see #888, #907, #951, #958, #957)
+
+
+1.0.0 (2020-10-29)
+------------------
+
+Breaking changes:
+
+* Drop support for Python 2.7 and pypy (see #727, #744, #748, #749, #754, #755, #758, #761, #763, #764, #777 and #783)
+* Now ``DateDataParser.get_date_data()`` returns a ``DateData`` object instead of a ``dict`` (see #778).
+* From now wrong ``settings`` are not silenced and raise ``SettingValidationError`` (see #797)
+* Now ``dateparser.parse()`` is deterministic and doesn't try previous locales. Also, ``DateDataParser.get_date_data()`` doesn't try the previous locales by default (see #781)
+* Remove the ``'base-formats'`` parser (see #721)
+* Extract the ``'no-spaces-time'`` parser from the ``'absolute-time'`` parser and make it an optional parser (see #786)
+* Remove ``numeral_translation_data`` (see #782)
+* Remove the undocumented ``SKIP_TOKENS_PARSER`` and ``FUZZY`` settings (see #728, #794)
+* Remove support for using strings in ``date_formats`` (see #726)
+* The undocumented ``ExactLanguageSearch`` class has been moved to the private scope and some internal methods have changed (see #778)
+* Changes in ``dateparser.utils``: ``normalize_unicode()`` doesn't accept ``bytes`` as input and ``convert_to_unicode`` has been deprecated (see #749)
+
+New features:
+
+* Add Python 3.9 support (see #732, #823)
+* Detect hours separated with a period/dot (see #741)
+* Add support for "decade" (see #762)
+* Add support for the hijri calendar in Python ≥ 3.6 (see #718)
+
+Improvements:
+
+* New logo! (see #719)
+* Improve the README and docs (see #779, #722)
+* Fix the "calendars" extra (see #740)
+* Fix leap years when ``PREFER_DATES_FROM`` is set (see #738)
+* Fix ``STRICT_PARSING`` setting in ``no-spaces-time`` parser (see #715)
+* Consider ``RETURN_AS_TIME_PERIOD`` setting for ``relative-time`` parser (see #807)
+* Parse the 24hr time format with meridian info (see #634)
+* Other small improvements (see #698, #709, #710, #712, #730, #731, #735, #739, #784, #788, #795 and #801)
+
+
+0.7.6 (2020-06-12)
+------------------
+
+Improvements:
+
+* Rename ``scripts`` to ``dateparser_scripts`` to avoid name collisions with modules from other packages or projects (see #707)
+
+
+0.7.5 (2020-06-10)
+------------------
+
+New features:
+
+* Add Python 3.8 support (see #664)
+* Implement a ``REQUIRE_PARTS`` setting (see #703)
+* Add support for subscript and superscript numbers (see #684)
+* Extended French support (see #672)
+* Extended German support (see #673)
+
+
+Improvements:
+
+* Migrate test suite to Pytest (see #662)
+* Add test to check the `yaml` and `json` files content (see #663 and #692)
+* Add flake8 pipeline with pytest-flake8 (see #665)
+* Add partial support for 8-digit dates without separators (see #639)
+* Fix possible ``OverflowError`` errors and explicitly avoid to raise ``ValueError`` when parsing relative dates (see #686)
+* Fix double-digit GMT and UTC parsing (see #632)
+* Fix bug when using ``DATE_ORDER`` (see #628)
+* Fix bug when parsing relative time with timezone (see #503)
+* Fix milliseconds parsing (see #572 and #661)
+* Fix wrong values to be interpreted as ``'future'`` in ``PREFER_DATES_FROM`` (see #629)
+* Other small improvements (see #667, #675, #511, #626, #512, #509, #696, #702 and #699)
+
+
+0.7.4 (2020-03-06)
+------------------
+New features:
+
+* Extended Norwegian support (see #598)
+* Implement a ``PARSERS`` setting (see #603)
+
+Improvements:
+
+* Add support for ``PREFER_DATES_FROM`` in relative/freshness parser (see #414)
+* Add support for ``PREFER_DAY_OF_MONTH`` in base-formats parser (see #611)
+* Added UTC -00:00 as a valid offset (see #574)
+* Fix support for “one” (see #593)
+* Fix TypeError when parsing some invalid dates (see #536)
+* Fix tokenizer for non recognized characters (see #622)
+* Prevent installing regex 2019.02.19 (see #600)
+* Resolve DeprecationWarning related to raw string escape sequences (see #596)
+* Implement a tox environment to build the documentation (see #604)
+* Improve tests stability (see #591, #605)
+* Documentation improvements (see #510, #578, #619, #614, #620)
+* Performance improvements (see #570, #569, #625)
+
+
+0.7.3 (2020-03-06)
+------------------
+* Broken version
+
+
+0.7.2 (2019-09-17)
+------------------
+
+Features:
+
+* Extended Czech support
+* Added ``time`` to valid periods
+* Added timezone information to dates found with ``search_dates()``
+* Support strings as date formats
+
+
+Improvements:
+
+* Fixed Collections ABCs depreciation warning
+* Fixed dates with trailing colons not being parsed
+* Fixed date format override on any settings change
+* Fixed parsing current weekday as past date, regardless of settings
+* Added UTC -2:30 as a valid offset
+* Added Python 3.7 to supported versions, dropped support for Python 3.3 and 3.4
+* Moved to importlib from imp where possible
+* Improved support for Catalan
+* Documentation improvements
+
+
+0.7.1 (2019-02-12)
+------------------
+
+Features/news:
+
+* Added detected language to return value of ``search_dates()``
+* Performance improvements
+* Refreshed versions of dependencies
+
+Improvements:
+
+* Fixed unpickleable ``DateTime`` objects with timezones
+* Fixed regex pattern to avoid new behaviour of re.split in Python 3.7
+* Fixed an exception thrown when parsing colons
+* Fixed tests failing on days with number greater than 30
+* Fixed ``ZeroDivisionError`` exceptions
+
+
+
+0.7.0 (2018-02-08)
+------------------
+
+Features added during Google Summer of Code 2017:
+
+* Harvesting language data from Unicode CLDR database (https://github.com/unicode-cldr/cldr-json), which includes over 200 locales (#321) - authored by Sarthak Maddan.
+  See full currently supported locale list in README.
+* Extracting dates from longer strings of text (#324) - authored by Elena Zakharova.
+  Special thanks for their awesome contributions!
+
+
+New features:
+
+* Added (independently from CLDR) Georgian (#308) and Swedish (#305)
+
+Improvements:
+
+* Improved support of Chinese (#359), Thai (#345), French (#301, #304), Russian (#302)
+* Removed ruamel.yaml from dependencies (#374). This should reduce the number of installation issues and improve performance as the result of moving away from YAML as basic data storage format.
+  Note that YAML is still used as format for support language files.
+* Improved performance through using pre-compiling frequent regexes and lazy loading of data (#293, #294, #295, #315)
+* Extended tests (#316, #317, #318, #323)
+* Updated nose_parameterized to its current package, parameterized (#381)
+
+
+Planned for next release:
+
+* Full language and locale names
+* Performance and stability improvements
+* Documentation improvements
+
+
+0.6.0 (2017-03-13)
+------------------
+
+New features:
+
+* Consistent parsing in terms of true python representation of date string. See #281
+* Added support for Bangla, Bulgarian and Hindi languages.
+
+Improvements:
+
+* Major bug fixes related to parser and system's locale. See #277, #282
+* Type check for timezone arguments in settings. see #267
+* Pinned dependencies' versions in requirements. See #265
+* Improved support for cn, es, dutch languages. See #274, #272, #285
+
+Packaging:
+
+* Make calendars extras to be used at the time of installation if need to use calendars feature.
+
+
+0.5.1 (2016-12-18)
+------------------
+
+New features:
+
+* Added support for Hebrew
+
+Improvements:
+
+* Safer loading of YAML. See #251
+* Better timezone parsing for freshness dates. See #256
+* Pinned dependencies' versions in requirements. See #265
+* Improved support for zh, fi languages. See #249, #250, #248, #244
+
+
+0.5.0 (2016-09-26)
+------------------
+
+New features:
+
+* ``DateDataParser`` now also returns detected language in the result dictionary.
+* Explicit and lucid timezone conversion for a given datestring using ``TIMEZONE``, ``TO_TIMEZONE`` settings.
+* Added Hungarian language.
+* Added setting, ``STRICT_PARSING`` to ignore incomplete dates.
+
+Improvements:
+
+* Fixed quite a few parser bugs reported in issues #219, #222, #207, #224.
+* Improved support for chinese language.
+* Consistent interface for both Jalali and Hijri parsers.
+
+
+0.4.0 (2016-06-17)
+------------------
+
+New features:
+
+* Support for Language based date order preference while parsing ambiguous dates.
+* Support for parsing dates with no spaces in between components.
+* Support for custom date order preference using ``settings``.
+* Support for parsing generic relative dates in future.e.g. "tomorrow", "in two weeks", etc.
+* Added ``RELATIVE_BASE`` settings to set date context to any datetime in past or future.
+* Replaced ``dateutil.parser.parse`` with dateparser's own parser.
+
+Improvements:
+
+* Added simplifications for "12 noon" and "12 midnight".
+* Fixed several bugs
+* Replaced PyYAML library by its active fork `ruamel.yaml` which also fixed the issues with installation on windows using python35.
+* More predictable ``date_formats`` handling.
+
+
+0.3.5 (2016-04-27)
+------------------
+
+New features:
+
+* Danish language support.
+* Japanese language support.
+* Support for parsing date strings with accents.
+
+Improvements:
+
+* Transformed languages.yaml into base file and separate files for each language.
+* Fixed vietnamese language simplifications.
+* No more version restrictions for python-dateutil.
+* Timezone parsing improvements.
+* Fixed test environments.
+* Cleaned language codes. Now we strictly follow codes as in ISO 639-1.
+* Improved chinese dates parsing.
+
+
+0.3.4 (2016-03-03)
+------------------
+
+Improvements:
+
+* Fixed broken version 0.3.3 by excluding latest python-dateutil version.
+
+0.3.3 (2016-02-29)
+------------------
+
+New features:
+
+* Finnish language support.
+
+Improvements:
+
+* Faster parsing with switching to regex module.
+* ``RETURN_AS_TIMEZONE_AWARE`` setting to return tz aware date object.
+* Fixed conflicts with month/weekday names similarity across languages.
+
+0.3.2 (2016-01-25)
+------------------
+
+New features:
+
+* Added Hijri Calendar support.
+* Added settings for better control over parsing dates.
+* Support to convert parsed time to the given timezone for both complete and relative dates.
+
+Improvements:
+
+* Fixed problem with caching `datetime.now` in `FreshnessDateDataParser`.
+* Added month names and week day names abbreviations to several languages.
+* More simplifications for Russian and Ukrainian languages.
+* Fixed problem with parsing time component of date strings with several kinds of apostrophes.
+
+
+0.3.1 (2015-10-28)
+------------------
+
+New features:
+
+* Support for Jalali Calendar.
+* Belarusian language support.
+* Indonesian language support.
+
+
+Improvements:
+
+* Extended support for Russian and Polish.
+* Fixed bug with time zone recognition.
+* Fixed bug with incorrect translation of "second" for Portuguese.
+
+
+0.3.0 (2015-07-29)
+------------------
+
+New features:
+
+* Compatibility with Python 3 and PyPy.
+
+Improvements:
+
+* `languages.yaml` data cleaned up to make it human-readable.
+* Improved Spanish date parsing.
+
+
+0.2.1 (2015-07-13)
+------------------
+
+* Support for generic parsing of dates with UTC offset.
+* Support for Tagalog/Filipino dates.
+* Improved support for French and Spanish dates.
+
+
+0.2.0 (2015-06-17)
+------------------
+
+* Easy to use ``parse`` function
+* Languages definitions using YAML.
+* Using translation based approach for parsing non-english languages. Previously, `dateutil.parserinfo` was used for language definitions.
+* Better period extraction.
+* Improved tests.
+* Added a number of new simplifications for more comprehensive generic parsing.
+* Improved validation for dates.
+* Support for Polish, Thai and Arabic dates.
+* Support for `pytz` timezones.
+* Fixed building and packaging issues.
+
+
+0.1.0 (2014-11-24)
+------------------
+
+* First release on PyPI.
