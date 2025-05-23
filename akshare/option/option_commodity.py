@@ -380,7 +380,8 @@ def option_shfe_daily(
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"铜期权", "天胶期权", "黄金期权", "铝期权", "锌期权"}
+    :param symbol: choice of {'原油期权', '铜期权', '铝期权', '锌期权', '铅期权', '螺纹钢期权', '镍期权', '锡期权', '氧化铝期权',
+    '黄金期权', '白银期权', '丁二烯橡胶期权', '天胶期权'}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
