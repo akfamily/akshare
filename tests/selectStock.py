@@ -209,6 +209,7 @@ def check_pe_condition(stock_code="601398", pastday=30):
         log.error(f"市盈率数据类型错误：{str(ve)}")
         return False
 
+
 def handle_error(code: str, e: Exception, error_msg: str, counter: int):
     """统一处理错误日志和阈值判断"""
     log.error(error_msg)
@@ -231,7 +232,7 @@ class ConsecutiveErrorException(Exception):
 if __name__ == "__main__":
     #time.sleep(600)
     #df = selectStock()
-    df=ak.stock_a_indicator_lg("000333")
+    df=checkRoeCashEBIT("301459")
     print(df)
     #导出Excel并自动调整列宽[4](@ref)
     df.to_excel(f'.\output\output.xlsx', index=False)

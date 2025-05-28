@@ -95,5 +95,6 @@ VALUES
 ("000333","美的集团",'2015-01-06',25.1404,13.0392,3.5099,2.5229,2.5229,1.105,0.9807,13368328.66);
 
 SELECT * FROM `stock_pe_history`  WHERE stock_code="300724" ORDER BY `trade_date` DESC
-SELECT * FROM `stock_pe_history`  WHERE stock_code="300724" ORDER BY `pe_ttm`
-SELECT COUNT(*) FROM stock_pe_history WHERE stock_code="000963"
+SELECT * FROM `stock_pe_history`  WHERE stock_code="603198" ORDER BY `pe_ttm`
+SELECT COUNT(*) FROM stock_pe_history WHERE stock_code="603198"
+SELECT DISTINCT stock_pe_history.`stock_code` FROM stock_pe_history
