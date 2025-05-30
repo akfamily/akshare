@@ -13,16 +13,27 @@ log = log4ak.LogManager(log_level=logging.INFO)
 MAX_CONSECUTIVE_ERRORS = 3  # 最大允许连续错误次数
 OUTTIME = 5  # 接口长时间无返回报错
 
+##参数设置：
+STARTYEAR = "2019"  #计算的起始年份
+ROE = 15 #过去几年来平均净资产收益率高于15%
+PEMAX = 25 #过去几天平均市盈率低于20且大于0
+PASTDAY = 30 #过去30天
+
+CHUNK_NUM = 10# 全市场数据过多分10块处理
+
+
 
 def selectStock():
     ## A 股上市公司列表
-    stock_zh_a_spot_df = get_select_stocks()
+    stock_zh_a_spot_df = get_all_stocks()#对全市场数据进行处理
+    #stock_zh_a_spot_df = get_select_stocks()#对筛选过的列表进行处理
+
     log.info("获取到 A 股上市公司列表")
     df_stock = stock_zh_a_spot_df[['代码','名称']]
 
     # 分块处理设置[2,3](@ref)
     total_rows = len(df_stock)
-    chunk_num = 2
+    chunk_num = CHUNK_NUM
     chunk_indices = np.array_split(np.arange(total_rows), chunk_num)
     log.info(f"分块处理设置总记录数total_rows={total_rows}；块数chunk_num={chunk_num}，每块记录数chunk_indices={len(chunk_indices[0])}")
 
@@ -46,7 +57,7 @@ def selectStock():
                 log.info(f"处理第{file_num+1}批第{checkcount}条记录：{r_code}")
 
                 # 指标计算
-                var1, var2, var3 = checkRoeCashEBIT(r_code, "2019")
+                var1, var2, var3 = checkRoeCashEBIT(r_code, STARTYEAR)
                 var4 = check_pe_condition(r_code)
 
                 varAll = var1 and var2 and var3 and var4
@@ -90,7 +101,7 @@ def selectStock():
     
     return "所有分块处理完成"
 
-def checkRoeCashEBIT(r_code = "601398",startyear = "2019"):
+def checkRoeCashEBIT(r_code = "601398",startyear = STARTYEAR):
     #财务指标数据 工行财报
     # 获取最新接口调用添加精确的超时控制
     try:
@@ -130,11 +141,11 @@ def checkRoeCashEBIT(r_code = "601398",startyear = "2019"):
     clean_df = clean_df.set_index(clean_df['日期'])
     log.debug(f"{r_code}筛选后年报信息：\n {clean_df['日期']}")
 
-    #指标1 - 过去5年来平均净资产收益率高于14%
+    #指标1 - 过去几年平均净资产收益率高于14%
     df1 = clean_df['净资产收益率(%)']
     df1_sum = df1.replace('--',0).astype(float).sum(axis = 0, skipna = True)
     df1_count = df1.count()
-    var1 = (df1_sum / df1_count)>14
+    var1 = (df1_sum / df1_count)>ROE
     log.debug(f"{r_code}获取var1={var1}")
 
     #指标2：经营现金流为正
@@ -164,7 +175,7 @@ def checkRoeCashEBIT(r_code = "601398",startyear = "2019"):
     return var1,var2,var3
 
 ## 指标4- 市盈率低于20且大于0
-def check_pe_condition(stock_code="601398", pastday=30):
+def check_pe_condition(stock_code="601398", pastday=PASTDAY):
     # 获取最新接口调用添加精确的超时控制
     try:
         log.info(f"{stock_code}获取{pastday}天内有效市盈率数据")
@@ -202,7 +213,7 @@ def check_pe_condition(stock_code="601398", pastday=30):
     # 计算逻辑优化（网页[1][1](@ref)数据处理建议）
     try:
         pe_mean = valid_df['pe'].astype(float).mean()
-        var4 = 0 < pe_mean < 20       
+        var4 = 0 < pe_mean < PEMAX       
         log.info(f"{stock_code}获取var4={var4}")
         return var4
     except ValueError as ve:
@@ -232,7 +243,7 @@ class ConsecutiveErrorException(Exception):
 if __name__ == "__main__":
     #time.sleep(600)
     #df = selectStock()
-    df=checkRoeCashEBIT("301459")
+    df=ak.stock_a_indicator_lg("301459")
     print(df)
     #导出Excel并自动调整列宽[4](@ref)
     df.to_excel(f'.\output\output.xlsx', index=False)

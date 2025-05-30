@@ -186,5 +186,5 @@ def df_to_excel(df):
 
 
 if __name__ == "__main__":
-    df_pe=get_historical_year_pe("002555","2020")
+    df_pe=get_historical_year_pe("300394","2020")
     print(df_pe)

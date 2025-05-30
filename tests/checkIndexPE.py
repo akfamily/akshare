@@ -180,7 +180,7 @@ def main_analysis(index_name):
 
 # 示例执行
 if __name__ == "__main__":
-    result = main_analysis('上证红利')
+    result = main_analysis('沪深300')
 
     
 #INDICES = [
