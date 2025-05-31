@@ -230,11 +230,9 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
         "fqt": adjust_dict[adjust],
         "end": datetime.now().date().strftime("%Y%m%d"),
         "lmt": "210",
-        "cb": "quote_jp1",
     }
     r = requests.get(url, params=params)
-    data_json = r.text.strip("quote_jp1(").strip(");")
-    data_json = json.loads(data_json)
+    data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
         "date",
