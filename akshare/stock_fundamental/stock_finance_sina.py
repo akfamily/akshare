@@ -719,7 +719,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
-        symbol="300274", start_year="2024"
+        symbol="600519", start_year="2019"
     )
     print(stock_financial_analysis_indicator_df)
 
