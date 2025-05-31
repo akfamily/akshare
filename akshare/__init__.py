@@ -3103,9 +3103,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.16.93 fix: fix stock_hsgt_individual_em interface
 1.16.94 fix: fix futures_fees_info interface
 1.16.95 fix: fix option_shfe_daily interface
+1.16.96 fix: fix stock_individual_spot_xq interface
 """
 
-__version__ = "1.16.95"
+__version__ = "1.16.96"
 __author__ = "AKFamily"
 
 import sys
