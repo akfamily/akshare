@@ -518,6 +518,7 @@ def fund_open_fund_info_em(
             return pd.DataFrame()
         else:
             return temp_df
+    return pd.DataFrame()
 
 
 def fund_money_fund_daily_em() -> pd.DataFrame:
@@ -1208,13 +1209,13 @@ if __name__ == "__main__":
     time.sleep(3)
 
     fund_open_fund_info_em_df = fund_open_fund_info_em(
-        symbol="161606", indicator="分红送配详情"
+        symbol="005561", indicator="分红送配详情"
     )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
     fund_open_fund_info_em_df = fund_open_fund_info_em(
-        symbol="161725", indicator="拆分详情"
+        symbol="005561", indicator="拆分详情"
     )
     print(fund_open_fund_info_em_df)
 
