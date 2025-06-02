@@ -316,14 +316,14 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     return temp_df
 
 
-def get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
+def get_tx_start_year(symbol: str = "sh000919") -> str:
     """
     腾讯证券-获取所有股票数据的第一天, 注意这个数据是腾讯证券的历史数据第一天
     https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票代码
     :type symbol: str
     :return: 开始日期
-    :rtype: pandas.DataFrame
+    :rtype: str
     """
     url = "https://web.ifzq.gtimg.cn/other/klineweb/klineWeb/weekTrends"
     params = {
