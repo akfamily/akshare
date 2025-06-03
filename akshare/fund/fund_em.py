@@ -503,7 +503,11 @@ def fund_open_fund_info_em(
     if indicator == "分红送配详情":
         url = f"https://fundf10.eastmoney.com/fhsp_{symbol}.html"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[1]
+        table_num = len(pd.read_html(StringIO(r.text)))
+        if table_num == 3:
+            temp_df = pd.read_html(StringIO(r.text))[1]
+        else:
+            temp_df = pd.read_html(StringIO(r.text))[0]
         if temp_df.iloc[0, 1] == "暂无分红信息!":
             return pd.DataFrame()
         else:
@@ -513,7 +517,11 @@ def fund_open_fund_info_em(
     if indicator == "拆分详情":
         url = f"https://fundf10.eastmoney.com/fhsp_{symbol}.html"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[2]
+        table_num = len(pd.read_html(StringIO(r.text)))
+        if table_num == 3:
+            temp_df = pd.read_html(StringIO(r.text))[2]
+        else:
+            temp_df = pd.read_html(StringIO(r.text))[1]
         if temp_df.iloc[0, 1] == "暂无拆分信息!":
             return pd.DataFrame()
         else:
@@ -1209,7 +1217,7 @@ if __name__ == "__main__":
     time.sleep(3)
 
     fund_open_fund_info_em_df = fund_open_fund_info_em(
-        symbol="005561", indicator="分红送配详情"
+        symbol="014164", indicator="分红送配详情"
     )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
