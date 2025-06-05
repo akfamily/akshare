@@ -12,3 +12,9 @@
 2025-05-22 14:39:25 | ERROR    | log4ak.py:108 - 处理000568时出错：name 'trade_date' is not defined。连续次数3
 2025-05-27 18:56:54 | ERROR    | log4ak.py:109 - 接口调用超时：5秒未返回数据 | 股票代码：300842
 2025-05-27 18:56:54 | ERROR    | log4ak.py:109 - 股票300842解析失败: 'bool' object has no attribute 'assign'。连续次数1
+2025-06-05 16:06:11 | ERROR    | log4ak.py:109 - 处理000333时出错：name 'DEBT_RATIOS' is not defined。连续次数1
+2025-06-05 16:06:15 | ERROR    | log4ak.py:109 - 处理000858时出错：name 'DEBT_RATIOS' is not defined。连续次数2
+2025-06-05 16:06:18 | ERROR    | log4ak.py:109 - 处理002001时出错：name 'DEBT_RATIOS' is not defined。连续次数3
+2025-06-05 16:20:22 | ERROR    | log4ak.py:109 - 数据库连接失败
+2025-06-05 16:20:22 | ERROR    | log4ak.py:109 - 服务不可用
+2025-06-05 16:20:22 | ERROR    | log4ak.py:109 - 参数类型错误

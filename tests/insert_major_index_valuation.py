@@ -1,4 +1,4 @@
-import pandas as pdtqdm
+import pandas as pd
 import akshare as ak
 from tqdm import tqdm
 import insert2Mysql as ins

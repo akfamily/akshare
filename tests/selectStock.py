@@ -18,14 +18,17 @@ STARTYEAR = "2019"  #计算的起始年份
 ROE = 15 #过去几年来平均净资产收益率高于15%
 PEMAX = 25 #过去几天平均市盈率低于20且大于0
 PASTDAY = 30 #过去30天
+PASTYEAR = 5 #计算过去5年的净资产收益率，负债率，应收账款周期
+DEBT_RATIOS = 70 #负债率低于70%
+RECEIVABLE_DAYS = 30  #应收账款周期小于30
 
-CHUNK_NUM = 10# 全市场数据过多分10块处理
+CHUNK_NUM = 1# 全市场数据过多分10块处理
 
 
 
 def selectStock():
     ## A 股上市公司列表
-    stock_zh_a_spot_df = get_all_stocks()#对全市场数据进行处理
+    stock_zh_a_spot_df = get_select_stocks()#对全市场数据进行处理
     #stock_zh_a_spot_df = get_select_stocks()#对筛选过的列表进行处理
 
     log.info("获取到 A 股上市公司列表")
@@ -44,7 +47,7 @@ def selectStock():
     for file_num, chunk_idx in enumerate(chunk_indices):
         
         chunk_df = df_stock.iloc[chunk_idx]
-        df_result = pd.DataFrame(columns=['stock','name','指标1','指标2','指标3','指标4','综合评估'])
+        df_result = pd.DataFrame(columns=['stock','name','指标1','指标2','指标3','指标4','指标5','指标6','综合评估'])
         log.info(f"开始处理第{file_num+1}批数据，包含{len(chunk_df)}条记录")
         checkcount = 0
         
@@ -57,10 +60,10 @@ def selectStock():
                 log.info(f"处理第{file_num+1}批第{checkcount}条记录：{r_code}")
 
                 # 指标计算
-                var1, var2, var3 = checkRoeCashEBIT(r_code, STARTYEAR)
-                var4 = check_pe_condition(r_code)
+                var1, var2, var3, var4, var5 = checkRoeCashEBIT(r_code, STARTYEAR)
+                var6 = check_pe_condition(r_code)
 
-                varAll = var1 and var2 and var3 and var4
+                varAll = var1 and var2 and var3 and var4 and var5 and var6
                 log.info(f"第{file_num+1}批第{checkcount}条记录处理结果varAll={varAll}")
                 
                 # 结果存储
@@ -71,6 +74,8 @@ def selectStock():
                     '指标2': var2,
                     '指标3': var3,
                     '指标4': var4,
+                    '指标5': var5,
+                    '指标6': var6,
                     '综合评估': varAll
                 }
                 error_count = 0  # 成功执行后重置计数器[6](@ref)
@@ -127,6 +132,17 @@ def checkRoeCashEBIT(r_code = "601398",startyear = STARTYEAR):
         clean_df['日期'],
         errors='coerce'  # 无效日期转为NaT（网页[2]建议）
         )
+    # 数据清洗增强
+    clean_df = clean_df.rename(columns={
+        '资产负债率(%)': 'debt_ratio',
+        '应收账款周转天数(天)': 'receivable_days'
+    })
+        
+    # 新增字段类型转换
+    numeric_cols = ['净资产收益率(%)', 'debt_ratio', 'receivable_days']
+    for col in numeric_cols:
+        clean_df[col] = pd.to_numeric(clean_df[col].replace('--', np.nan), errors='coerce')
+
     # 筛选有效年报
     year_end_mask = (
         (clean_df['日期'].dt.month == 12) & 
@@ -166,15 +182,27 @@ def checkRoeCashEBIT(r_code = "601398",startyear = STARTYEAR):
     latest = df3.iloc[0]  # 索引0为最新数据
 
     # 获取前五年数据（索引1-5为前1至前5年）
-    past_5years = df3.iloc[1:6]  # 含1不含6
+    past_5years = df3.iloc[1:PASTYEAR+1]  # 含1不含6
 
     # 计算逻辑
     var3 = latest > past_5years.max()
     log.info(f"{r_code}获取var1,var2,var3={var1},{var2},{var3}")
 
-    return var1,var2,var3
+    # ================= 新增指标 ================= 
+    # 指标4：过去5年资产负债率<=70%
+    debt_ratios = clean_df['debt_ratio'].head(PASTYEAR)
+    var4 = (debt_ratios <= DEBT_RATIOS).all() if len(debt_ratios) >=PASTYEAR else False
 
-## 指标4- 市盈率低于20且大于0
+    # 指标5：应收账款周转天数<30天
+    receivable_days = clean_df['receivable_days'].head(PASTYEAR)
+    var5 = (receivable_days < RECEIVABLE_DAYS).all() if len(receivable_days)>=PASTYEAR else False
+
+    log.info(f"{r_code} 新增指标 | var4={var4}({debt_ratios.values})，var5={var5}({receivable_days.values})")
+
+
+    return var1, var2, var3, var4, var5
+
+## 指标6- 市盈率低于20且大于0
 def check_pe_condition(stock_code="601398", pastday=PASTDAY):
     # 获取最新接口调用添加精确的超时控制
     try:
@@ -213,9 +241,9 @@ def check_pe_condition(stock_code="601398", pastday=PASTDAY):
     # 计算逻辑优化（网页[1][1](@ref)数据处理建议）
     try:
         pe_mean = valid_df['pe'].astype(float).mean()
-        var4 = 0 < pe_mean < PEMAX       
-        log.info(f"{stock_code}获取var4={var4}")
-        return var4
+        var6 = 0 < pe_mean < PEMAX       
+        log.info(f"{stock_code}获取var6={var6}")
+        return var6
     except ValueError as ve:
         log.error(f"市盈率数据类型错误：{str(ve)}")
         return False
@@ -242,9 +270,9 @@ class ConsecutiveErrorException(Exception):
 
 if __name__ == "__main__":
     #time.sleep(600)
-    #df = selectStock()
-    df=ak.stock_a_indicator_lg("301459")
+    df = selectStock()
+    #df=ak.stock_a_indicator_lg("301459")
     print(df)
     #导出Excel并自动调整列宽[4](@ref)
-    df.to_excel(f'.\output\output.xlsx', index=False)
+    #df.to_excel(f'.\output\output.xlsx', index=False)
     #selectStock()

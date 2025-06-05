@@ -1,16 +1,5 @@
-SELECT * FROM `industry_pe_history`
-SELECT * FROM `index_valuation_history` WHERE `index_name`="沪深300" ORDER BY `trade_date` DESC
 
-SELECT COUNT(*) FROM index_valuation_history
-
-INSERT INTO `index_valuation_history` 
-(`index_code`, `index_name`, `trade_date`, `index_value`, 
- `pe_equal_weight_static`, `pe_static`, `pe_static_median`,
- `pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
-VALUES 
-('000300', '沪深300', '2023-08-15', 3856.0200, 
- 15.2300, 12.7800, 14.5600,
- 14.8900, 12.3400, 14.1200);
+SHOW STATUS;
 
 
 
@@ -24,8 +13,19 @@ CREATE TABLE `industry_pe_history` (
     PRIMARY KEY (`trade_date`, `industry_code`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
 COMMENT='行业历史PE估值表';
-SHOW STATUS;
 
+-- 例子
+INSERT INTO `index_valuation_history` 
+(`index_code`, `index_name`, `trade_date`, `index_value`, 
+ `pe_equal_weight_static`, `pe_static`, `pe_static_median`,
+ `pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
+VALUES 
+('000300', '沪深300', '2023-08-15', 3856.0200, 
+ 15.2300, 12.7800, 14.5600,
+ 14.8900, 12.3400, 14.1200);
+ 
+SELECT * FROM `industry_pe_history` ORDER BY `trade_date` DESC
+SELECT DISTINCT index_valuation_history.`index_name` FROM index_valuation_history
 
 -- 指数历史估值表
 CREATE TABLE `index_valuation_history` (
@@ -48,6 +48,16 @@ CREATE TABLE `index_valuation_history` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci 
 COMMENT='指数历史估值表';
 
+-- 例子
+    INSERT IGNORE INTO `index_valuation_history` 
+    (`index_code`, `index_name`, `trade_date`, `index_value`, 
+    `pe_equal_weight_static`, `pe_static`, `pe_static_median`,
+     `pe_equal_weight_ttm`, `pe_ttm`, `pe_ttm_median`)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+
+SELECT * FROM `index_valuation_history` WHERE `index_name`="沪深300" ORDER BY `trade_date` DESC
+SELECT COUNT(*) FROM index_valuation_history
+
 -- 股票历史估值表
 CREATE TABLE `stock_pe_history` (
   `stock_code` VARCHAR(10) NOT NULL COMMENT '股票代码',
@@ -65,7 +75,6 @@ CREATE TABLE `stock_pe_history` (
   KEY `idx_total_mv` (`total_mv`) COMMENT '市值查询优化[8]'
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci 
 COMMENT='股票历史估值指标表';
-
 
 -- 数据库预计算
 CREATE MATERIALIZED VIEW pe_stats AS

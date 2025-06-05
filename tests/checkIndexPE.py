@@ -4,8 +4,7 @@ from datetime import datetime,timedelta
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-"""获取重要指数"""
-
+"""获取重要指数，选择一个进行分析"""
 INDICES = [
         "上证50",
         "沪深300",
@@ -17,7 +16,7 @@ INDICES = [
         ]
 
 """最早数据从2005年1月开始"""
-STARTDAY=pd.to_datetime("2015-01-01")
+STARTDAY=pd.to_datetime("2005-04-08")
 
 
 def get_index_PE(symbol = "沪深300"):
@@ -182,7 +181,7 @@ def main_analysis(index_name):
 if __name__ == "__main__":
     result = main_analysis('沪深300')
 
-    
+#选择一个指数通过main_analysis方法进行百分位分析    
 #INDICES = [
 #        "上证50",
 #        "沪深300",

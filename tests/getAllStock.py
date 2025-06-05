@@ -152,7 +152,7 @@ def ipodatefilter_stocks(df, start_date):
 
 # 使用示例
 if __name__ == "__main__":
-    df = get_all_stocks()
+    df = get_select_stocks()
     filterlist = ipodatefilter_stocks(df,IPOTIMEFILTER)
     print(filterlist)
     #Excel写入
