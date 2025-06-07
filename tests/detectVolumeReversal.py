@@ -211,7 +211,7 @@ if __name__ == "__main__":
     test_stocks=get_select_stocks()
 
     # 执行检测
-    result = detect_price_volume_reversal(test_stocks, n_years=2)
+    result = detect_price_volume_reversal(test_stocks, start_date = "20160501", n_years=5)
     end_date = datetime.now().strftime("%Y%m%d")
     filename = f'.\output\detect\detect_volume_reversal{end_date}.xlsx'
     print(f"检查成功检测数：{len(result)}")
