@@ -658,6 +658,7 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "-",
         "-",
         "-",
+        "-",
     ]
     temp_df = temp_df[
         [
