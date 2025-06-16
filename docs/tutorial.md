@@ -1335,6 +1335,8 @@
  # 东方财富-港股-公司资料
  "stock_hk_security_profile_em"  # 港股-证券资料
  "stock_hk_company_profile_em"  # 港股-公司资料
+ # 期权保证金
+ "option_margin"  # 期权保证金
 ```
 
 ## 案例演示

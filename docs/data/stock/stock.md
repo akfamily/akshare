@@ -1100,7 +1100,7 @@ print(stock_zh_a_spot_df)
 import akshare as ak
 
 stock_individual_spot_xq_df = ak.stock_individual_spot_xq(symbol="SH600000")
-print(stock_individual_spot_xq_df.dtypes)
+print(stock_individual_spot_xq_df)
 ```
 
 数据示例
