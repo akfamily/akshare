@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/28 11:03
+Date: 2025/6/16 18:03
 Desc: 东方财富网-数据中心-特色数据-高管持股
 https://data.eastmoney.com/executive/gdzjc.html
 """
 
-from tqdm import tqdm
-
 import pandas as pd
 import requests
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
@@ -40,11 +40,11 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
         "client": "WEB",
         "filter": symbol_map[symbol],
     }
-
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
@@ -54,7 +54,7 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
         "持股变动信息-变动数量",
@@ -129,5 +129,5 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_ggcg_em_df = stock_ggcg_em(symbol="全部")
+    stock_ggcg_em_df = stock_ggcg_em(symbol="股东增持")
     print(stock_ggcg_em_df)
