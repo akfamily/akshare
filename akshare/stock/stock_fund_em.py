@@ -150,7 +150,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     params = {
         "fid": indicator_map[indicator][0],
         "po": "1",
-        "pz": "100",
+        "pz": "50",
         "pn": "1",
         "np": "1",
         "fltt": "2",
@@ -161,7 +161,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = math.ceil(data_json["data"]["total"] / 100)
+    total_page = math.ceil(data_json["data"]["total"] / 50)
     temp_list = []
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
