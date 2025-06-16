@@ -81,6 +81,12 @@
 
 ## 更新说明详情
 
+1.17.1 fix: fix stock_gdfx_holding_detail_em interface
+
+	1. 修复 stock_gdfx_holding_detail_em 接口
+	2. 修复 stock_individual_spot_xq 接口
+	3. 修复 bond_zh_cov_value_analysis 接口
+
 1.16.99 fix: fix stock_info_sz_delist interface
 
 	1. 修复 stock_info_sz_delist 接口
