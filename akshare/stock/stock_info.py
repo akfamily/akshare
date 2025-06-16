@@ -348,7 +348,7 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_sz_delist(symbol: str = "暂停上市公司") -> pd.DataFrame:
+def stock_info_sz_delist(symbol: str = "终止上市公司") -> pd.DataFrame:
     """
     深证证券交易所-暂停上市公司-终止上市公司
     https://www.szse.cn/market/stock/suspend/index.html
