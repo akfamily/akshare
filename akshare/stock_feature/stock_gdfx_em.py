@@ -601,11 +601,14 @@ def stock_gdfx_holding_detail_em(
     :return: 十大股东
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "NOTICE_DATE,SECURITY_CODE,RANK",
         "sortTypes": "-1,1,1",
-        "pageSize": "500",
+        "pageSize": "50",
         "pageNumber": "1",
         "reportName": "RPT_DMSK_HOLDERS",
         "columns": "ALL",
@@ -623,7 +626,7 @@ def stock_gdfx_holding_detail_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
@@ -1038,7 +1041,7 @@ if __name__ == "__main__":
     )
     print(stock_gdfx_free_holding_detail_em_df)
 
-    stock_gdfx_holding_detail_em_df = stock_gdfx_holding_detail_em(date="20210930")
+    stock_gdfx_holding_detail_em_df = stock_gdfx_holding_detail_em(date="20230331")
     print(stock_gdfx_holding_detail_em_df)
 
     stock_gdfx_free_holding_analyse_em_df = stock_gdfx_free_holding_analyse_em(
