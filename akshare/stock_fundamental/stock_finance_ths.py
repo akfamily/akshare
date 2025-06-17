@@ -127,40 +127,53 @@ def stock_financial_benefit_ths(
     return temp_df
 
 
-def stock_financial_cash_ths(
+def stock_financial_benefit_ths(
     symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
-    同花顺-财务指标-现金流量表
+    同花顺-财务指标-利润表
     https://basic.10jqka.com.cn/new/000063/finance.html
-    https://basic.10jqka.com.cn/api/stock/finance/000063_cash.json
+    https://basic.10jqka.com.cn/api/stock/finance/000063_benefit.json
     :param symbol: 股票代码
     :type symbol: str
     :param indicator: 指标; choice of {"按报告期","按单季度", "按年度"}
     :type indicator: str
-    :return: 同花顺-财务指标-现金流量表
+    :return: 同花顺-财务指标-利润表
     :rtype: pandas.DataFrame
     """
-    url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_cash.json"
+    url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_benefit.json"
     r = requests.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)["flashData"])
-    df_index = [
-        item[0] if isinstance(item, list) else item for item in data_json["title"]
-    ]
-    if indicator == "按报告期":
-        temp_df = pd.DataFrame(
-            data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
-        )
-    elif indicator == "按单季度":
-        temp_df = pd.DataFrame(
-            data_json["simple"][1:], columns=data_json["simple"][0], index=df_index[1:]
-        )
-    else:
-        temp_df = pd.DataFrame(
-            data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
-        )
-    temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
+    try:
+        data_json = json.loads(json.loads(r.text)["flashData"])
+        # 检查 data_json 是否包含所需的键，并且值不为 None
+        if "title" not in data_json or data_json["title"] is None:
+            return pd.DataFrame()
+        df_index = [
+            item[0] if isinstance(item, list) else item for item in data_json["title"]
+        ]
+        if indicator == "按报告期":
+            if "report" not in data_json or data_json["report"] is None:
+                return pd.DataFrame()
+            temp_df = pd.DataFrame(
+                data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
+            )
+        elif indicator == "按单季度":
+            if "simple" not in data_json or data_json["simple"] is None:
+                return pd.DataFrame()
+            temp_df = pd.DataFrame(
+                data_json["simple"][1:], columns=data_json["simple"][0], index=df_index[1:]
+            )
+        else:
+            if "year" not in data_json or data_json["year"] is None:
+                return pd.DataFrame()
+            temp_df = pd.DataFrame(
+                data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
+            )
+        temp_df = temp_df.T
+        temp_df.reset_index(inplace=True)
+    except (KeyError, json.JSONDecodeError, IndexError):
+        # 处理 JSON 解析错误、键不存在错误和索引错误
+        return pd.DataFrame()
     temp_df.rename(columns={"index": "报告期"}, inplace=True)
     return temp_df
 
