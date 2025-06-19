@@ -14,7 +14,7 @@ def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-停复牌信息
     https://data.eastmoney.com/tfpxx/
-    :param date: specific date as "2020-03-19"
+    :param date: 查询参数 "20240426"
     :type date: str
     :return: 停复牌信息表
     :rtype: pandas.DataFrame
@@ -54,6 +54,7 @@ def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
         "所属市场",
         "停牌开始日期",
         "预计复牌时间",
+        "-",
         "-",
         "-",
     ]
