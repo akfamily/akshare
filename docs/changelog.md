@@ -81,6 +81,10 @@
 
 ## 更新说明详情
 
+1.17.7 fix: fix futures_spot_price_daily interface
+
+	1. 修复 futures_spot_price_daily 接口
+
 1.17.6 fix: fix stock_tfp_em interface
 
 	1. 修复 stock_tfp_em 接口
