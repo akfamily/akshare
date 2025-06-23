@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/6 17:00
+Date: 2025/6/23 15:00
 Desc: 东方财富网-行情中心-外汇市场-所有汇率
 https://quote.eastmoney.com/center/gridlist.html#forex_all
 """
@@ -10,6 +10,7 @@ import pandas as pd
 import requests
 
 from akshare.forex.cons import symbol_market_map
+from akshare.utils.func import fetch_paginated_data
 
 
 def forex_spot_em() -> pd.DataFrame:
@@ -21,23 +22,19 @@ def forex_spot_em() -> pd.DataFrame:
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"
     params = {
-        "np": "2",
-        "fltt": "1",
+        "np": "1",
+        "fltt": "2",
         "invt": "2",
         "fs": "m:119,m:120,m:133",
         "fields": "f12,f13,f14,f1,f2,f4,f3,f152,f17,f18,f15,f16",
         "fid": "f3",
         "pn": "1",
-        "pz": "20000",
+        "pz": "100",
         "po": "1",
         "dect": "1",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df["index"].astype(int) + 1
+    temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
         columns={
             "index": "序号",
