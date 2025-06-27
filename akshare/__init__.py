@@ -4253,6 +4253,7 @@ from akshare.stock_feature.stock_hist_em import (
     stock_sh_a_spot_em,
     stock_sz_a_spot_em,
     stock_zh_b_spot_em,
+    stock_zh_ab_comparison_em,
     stock_zh_a_hist,
     stock_hk_spot_em,
     stock_hk_main_board_spot_em,
