@@ -31,7 +31,7 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
-        "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -140,7 +140,7 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:1 t:2,m:1 t:23",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,"
-        "f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -248,7 +248,7 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:0 t:6,m:0 t:80",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
-        "f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -356,7 +356,7 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:0 t:81 s:2048",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24"
-        ",f25,f22,f11,f62,f128,f136,f115,f152",
+                  ",f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -465,7 +465,7 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "fid": "f26",
         "fs": "m:0 f:8,m:1 f:8",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
-        "f25,f26,f22,f11,f62,f128,f136,f115,f152",
+                  "f25,f26,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -578,7 +578,7 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:0 t:80",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
-        "f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -687,7 +687,7 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:1 t:23",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
-        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -776,6 +776,69 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
     return temp_df
 
 
+def stock_zh_ab_comparison_em() -> pd.DataFrame:
+    """
+    东方财富网-行情中心-沪深京个股-AB股比价-全部AB股比价
+    https://quote.eastmoney.com/center/gridlist.html#ab_comparison
+    :return: 实时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        "np": "1",
+        "fltt": "1",
+        "invt": "2",
+        "fs": "m:1+b:BK0498,m:0+b:BK0498",
+        "fields": "f201,f202,f203,f196,f200,f197,f152,f12,f13,f14,f1,f2,f4,f3,f199",
+        "fid": "f199",
+        "pn": "1",
+        "pz": "100",
+        "po": "1",
+        "dect": "1",
+        "wbp2u": "|0|0|0|web",
+    }
+    columns_map = {
+        "index": "序号",
+        "f1": "-",
+        "f2": "最新价B",
+        "f3": "涨跌幅B",
+        "f4": "-",
+        "f12": "A股代码",
+        "f13": "-",
+        "f14": "A股名称",
+        "f152": "-",
+        "f196": "最新价A",
+        "f197": "涨跌幅A",
+        "f199": "比价",
+        "f200": "-",
+        "f201": "B股代码",
+        "f202": "-",
+        "f203": "B股名称"
+    }
+    temp_df = fetch_paginated_data(url, params)
+    temp_df = temp_df.rename(columns=columns_map)
+    list_name = [value for key, value in columns_map.items() if value != "_"]
+    temp_df = temp_df[list_name]
+    temp_df = temp_df[[
+        "序号",
+        "B股代码",
+        "B股名称",
+        "最新价B",
+        "涨跌幅B",
+        "A股代码",
+        "A股名称",
+        "最新价A",
+        "涨跌幅A",
+        "比价",
+    ]]
+    temp_df["最新价B"] = pd.to_numeric(temp_df["最新价B"], errors="coerce") / 100
+    temp_df["涨跌幅B"] = pd.to_numeric(temp_df["涨跌幅B"], errors="coerce") / 100
+    temp_df["最新价A"] = pd.to_numeric(temp_df["最新价A"], errors="coerce") / 100
+    temp_df["涨跌幅A"] = pd.to_numeric(temp_df["涨跌幅A"], errors="coerce") / 100
+    temp_df["比价"] = pd.to_numeric(temp_df["比价"], errors="coerce") / 100
+    return temp_df
+
+
 def stock_zh_b_spot_em() -> pd.DataFrame:
     """
     东方财富网- B 股-实时行情
@@ -795,7 +858,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:0 t:7,m:1 t:3",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20"
-        ",f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  ",f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -1144,7 +1207,7 @@ def stock_zh_a_hist_pre_min_em(
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
     date_format = temp_df.index[0].date().isoformat()
-    temp_df = temp_df[date_format + " " + start_time : date_format + " " + end_time]
+    temp_df = temp_df[date_format + " " + start_time: date_format + " " + end_time]
     temp_df.reset_index(drop=True, inplace=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
@@ -1176,7 +1239,7 @@ def stock_hk_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:128 t:3,m:128 t:4,m:128 t:1,m:128 t:2",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
-        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -1261,7 +1324,7 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:128 t:3",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
-        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+                  "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
@@ -1544,7 +1607,7 @@ def stock_us_spot_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:105,m:106,m:107",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
-        "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+                  "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.columns = [
