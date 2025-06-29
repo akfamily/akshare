@@ -1337,6 +1337,8 @@
  "stock_hk_company_profile_em"  # 港股-公司资料
  # 期权保证金
  "option_margin"  # 期权保证金
+ # 全部AB股比价
+ "stock_zh_ab_comparison_em"  # 全部AB股比价
 ```
 
 ## 案例演示
