@@ -774,7 +774,55 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         temp_df["年初至今涨跌幅"], errors="coerce"
     )
     return temp_df
+	
+def stock_zh_ab_comparison_em() -> pd.DataFrame:
+    """
+    东方财富网- B 股- AB股比价
+    https://quote.eastmoney.com/center/gridlist.html#ab_comparison
+    :return: 实时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        "pn": "1",
+        "pz": "100",
+        "po": "1",
+        "np": "1",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fid": "f199",
+        "fs": "m:0 t:7,m:1 t:3",
+        #"fields": "f1,f201,f202,f203,f196,f200,f197,f192,f193,f194,f195,f152,f12,f13,f14,f1,f2,f4,f3,f199",
+        "fields": "f1,f2,f3,f12,f14,f196,f197,f199,f201,f203",
+    }
 
+    dicts = {
+        "index":"序号",
+        "f1":"_",
+        "f2":"最新价B",
+        "f3":"涨跌幅B",
+        "f12":"B股代码",
+        "f14":"B股名称",
+        "f196":"最新价A",
+        "f197":"涨跌幅A",
+        "f199":"价格比",
+        "f201":"A股代码",
+        "f203":"A股名称"
+        }
+
+    temp_df = fetch_paginated_data(url, params)
+
+    temp_df = temp_df.rename(columns=dicts)
+    list_name = [value for key, value in dicts.items() if value != "_"]
+    temp_df = temp_df[list_name]
+
+    temp_df["最新价B"] = pd.to_numeric(temp_df["最新价B"], errors="coerce")
+    temp_df["涨跌幅B"] = pd.to_numeric(temp_df["涨跌幅B"], errors="coerce")
+    temp_df["最新价A"] = pd.to_numeric(temp_df["最新价A"], errors="coerce")
+    temp_df["涨跌幅A"] = pd.to_numeric(temp_df["涨跌幅A"], errors="coerce")
+    temp_df["价格比"] = pd.to_numeric(temp_df["价格比"], errors="coerce")
+    return temp_df
 
 def stock_zh_b_spot_em() -> pd.DataFrame:
     """
