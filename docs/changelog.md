@@ -83,7 +83,7 @@
 
 1.17.11 fix: fix stock_individual_spot_xq interface
 
-	1. 修复 stock_individual_spot_xq 接口
+	1. 修复 stock_individual_spot_xq 接口 
 
 1.17.10 fix: fix get_shfe_daily interface
 
