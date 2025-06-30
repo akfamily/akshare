@@ -86,9 +86,9 @@ def get_shfe_receipt_1(
     """
     上海期货交易所-注册仓单数据-类型1
     适用 20081006 至 20140518(包括)、20100126、20101029日期交易所格式混乱，直接回复脚本中 pandas.DataFrame, 20100416、20130821日期交易所数据丢失
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象为空时为当天
     :type date: str
-    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
+    :param vars_list: 合约品种如RB、AL等列表为空时为所有商品
     :type vars_list: list
     :return: 注册仓单数据-类型1
     :rtype: pandas.DataFrame
@@ -102,7 +102,7 @@ def get_shfe_receipt_1(
     )
     if date not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
-        return None
+        return pd.DataFrame()
     if date == "20100126":
         shfe_20100126["date"] = date
         return shfe_20100126
@@ -175,8 +175,8 @@ def get_shfe_receipt_2(
     )
     if date not in calendar:
         warnings.warn("%s 非交易日" % date.strftime("%Y%m%d"))
-        return None
-    url = cons.SHFE_RECEIPT_URL_2 % date
+        return pd.DataFrame()
+    url = cons.SHFE_RECEIPT_URL_20250701 % date
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = r.json()
@@ -598,5 +598,5 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20230601", end_date="20230615")
+    get_receipt_df = get_receipt(start_date="20250630", end_date="20250630")
     print(get_receipt_df)
