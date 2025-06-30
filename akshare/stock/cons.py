@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/5/31 15:00
+Date: 2025/6/30 18:00
 Desc: 股票配置文件
 """
 
-xq_a_token = "b7259d09435458cc3f1a963479abb270a1a016ce"
+xq_a_token = "361dcfccb1d32a1d9b5b65f1a188b9c9ed1e687d"
 
 # zh-sina-kcb
 zh_sina_kcb_stock_url = ("http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"

@@ -3117,9 +3117,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.8 fix: fix forex_spot_em interface
 1.17.9 fix: fix stock_zh_ab_comparison_em interface
 1.17.10 fix: fix get_shfe_daily interface
+1.17.11 fix: fix stock_individual_spot_xq interface
 """
 
-__version__ = "1.17.10"
+__version__ = "1.17.11"
 __author__ = "AKFamily"
 
 import sys
@@ -3142,7 +3143,7 @@ if sys.version_info < (3, 9):
 del sys
 
 """
-期权保证金
+期权保证金 
 """
 from akshare.option.option_margin import option_margin, option_margin_symbol
 
