@@ -334,6 +334,7 @@ CZCE_RECEIPT_URL_3 = (
 
 CFFEX_DAILY_URL = "http://www.cffex.com.cn/fzjy/mrhq/{}/{}/{}_1.csv"
 SHFE_DAILY_URL = "http://tsite.shfe.com.cn/data/dailydata/kx/kx%s.dat"
+SHFE_DAILY_URL_20250630 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx%s.dat"
 SHFE_V_WAP_URL = "http://tsite.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat"
 DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"

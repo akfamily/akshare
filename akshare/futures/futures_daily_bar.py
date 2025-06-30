@@ -480,13 +480,13 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     try:
         json_data = json.loads(
             requests_link(
-                cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")),
+                cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")),
                 headers=cons.shfe_headers,
             ).text
         )
     except requests.HTTPError as reason:
         if reason.response != 404:
-            print(cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")), reason)
+            print(cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")), reason)
         return pd.DataFrame()
 
     if len(json_data["o_curinstrument"]) == 0:
@@ -698,7 +698,7 @@ if __name__ == "__main__":
     get_czce_daily_df = get_czce_daily(date="20210513")
     print(get_czce_daily_df)
 
-    get_shfe_daily_df = get_shfe_daily(date="20210517")
+    get_shfe_daily_df = get_shfe_daily(date="20250630")
     print(get_shfe_daily_df)
 
     get_gfex_daily_df = get_gfex_daily(date="20221228")
