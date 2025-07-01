@@ -223,6 +223,7 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
     big_df["股东户数公告日期"] = pd.to_datetime(
         big_df["股东户数公告日期"], errors="coerce"
     ).dt.date
+    big_df.sort_values(by=['股东户数统计截止日'], ignore_index=True, inplace=True)
     return big_df
 
 
@@ -230,5 +231,5 @@ if __name__ == "__main__":
     stock_zh_a_gdhs_df = stock_zh_a_gdhs(symbol="20230930")
     print(stock_zh_a_gdhs_df)
 
-    stock_zh_a_gdhs_detail_em_df = stock_zh_a_gdhs_detail_em(symbol="000001")
+    stock_zh_a_gdhs_detail_em_df = stock_zh_a_gdhs_detail_em(symbol="002631")
     print(stock_zh_a_gdhs_detail_em_df)
