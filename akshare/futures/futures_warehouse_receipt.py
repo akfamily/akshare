@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/2 22:30
+Date: 2025/7/1 16:30
 Desc: 期货-仓单日报
 上海期货交易所-仓单日报
 https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock
@@ -107,7 +107,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
-    url = f"https://tsite.shfe.com.cn/data/dailydata/{date}dailystock.dat"
+    url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
     if date >= "20140519":
         r = requests.get(url, headers=headers)
         data_json = r.json()
@@ -121,7 +121,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         for item in set(temp_df["VARNAME"]):
             big_dict[item] = temp_df[temp_df["VARNAME"] == item]
     else:
-        url = f"https://tsite.shfe.com.cn/data/dailydata/{date}dailystock.html"
+        url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.html"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
