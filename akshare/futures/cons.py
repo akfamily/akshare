@@ -305,6 +305,7 @@ SYS_SPOT_PRICE_URL = "http://www.100ppi.com/sf/day-{}.html"
 SYS_SPOT_PRICE_LATEST_URL = "http://www.100ppi.com/sf/"
 
 SHFE_VOL_RANK_URL = "https://tsite.shfe.com.cn/data/dailydata/kx/pm%s.dat"
+SHFE_VOL_RANK_URL_20250701 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/pm%s.dat"
 CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/sj/ccpm/%s/%s/%s_1.csv"
 DCE_VOL_RANK_URL_1 = (
     "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?"
