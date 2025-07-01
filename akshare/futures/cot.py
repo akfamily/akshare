@@ -306,7 +306,7 @@ def get_shfe_rank_table(
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    url = cons.SHFE_VOL_RANK_URL % (date.strftime("%Y%m%d"))
+    url = cons.SHFE_VOL_RANK_URL_20250701 % (date.strftime("%Y%m%d"))
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = json.loads(r.text)
