@@ -40,10 +40,10 @@ def forex_spot_em() -> pd.DataFrame:
             "index": "序号",
             "f12": "代码",
             "f14": "名称",
-            "f17": "最新价",
+            "f17": "今开",
             "f4": "涨跌额",
             "f3": "涨跌幅",
-            "f2": "今开",
+            "f2": "最新价",
             "f15": "最高",
             "f16": "最低",
             "f18": "昨收",
@@ -64,13 +64,13 @@ def forex_spot_em() -> pd.DataFrame:
             "昨收",
         ]
     ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce") / 10000
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce") / 10000
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce") / 100
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce") / 10000
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce") / 10000
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce") / 10000
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce") / 10000
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
     return temp_df
 
 
