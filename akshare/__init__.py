@@ -3121,9 +3121,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.12 fix: fix get_receipt interface
 1.17.13 fix: fix futures_shfe_warehouse_receipt interface
 1.17.14 fix: fix forex_spot_em interface
+1.17.15 fix: fix stock_comment_em interface
 """
 
-__version__ = "1.17.14"
+__version__ = "1.17.15"
 __author__ = "AKFamily"
 
 import sys
@@ -4942,7 +4943,6 @@ from akshare.stock_feature.stock_comment_em import (
     stock_comment_detail_scrd_focus_em,
     stock_comment_detail_zhpj_lspf_em,
     stock_comment_detail_scrd_desire_em,
-    stock_comment_detail_scrd_cost_em,
     stock_comment_detail_scrd_desire_daily_em,
 )
 
