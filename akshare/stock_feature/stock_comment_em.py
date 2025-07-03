@@ -313,50 +313,6 @@ def stock_comment_detail_scrd_desire_daily_em(
     return temp_df
 
 
-def stock_comment_detail_scrd_cost_em(symbol: str = "600000") -> pd.DataFrame:
-    """
-    东方财富网-数据中心-特色数据-千股千评-市场热度-市场成本
-    https://data.eastmoney.com/stockcomment/stock/600000.html
-    :param symbol: 股票代码
-    :type symbol: str
-    :return: 市场热度-市场成本
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
-    try_count = 10
-    data_json = None
-    while try_count:
-        try:
-            r = requests.get(url)
-            data_json = r.json()
-            break
-        except requests.exceptions.JSONDecodeError:
-            try_count -= 1
-            time.sleep(1)
-            continue
-    date_str = (
-        data_json["ApiResults"]["scrd"]["cost"][0][0]["UpdateDate"]
-        .split(" ")[0]
-        .replace("/", "-")
-    )
-
-    temp_df = pd.DataFrame(
-        [
-            data_json["ApiResults"]["scrd"]["cost"][1]["XData"],
-            data_json["ApiResults"]["scrd"]["cost"][1]["Ydata"]["AvgBuyPrice"],
-            data_json["ApiResults"]["scrd"]["cost"][1]["Ydata"]["FiveDayAvgBuyPrice"],
-        ]
-    ).T
-    temp_df.columns = ["日期", "市场成本", "5日市场成本"]
-    temp_df["日期"] = date_str[:4] + "-" + temp_df["日期"]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.sort_values(by=["日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
-    temp_df["市场成本"] = pd.to_numeric(temp_df["市场成本"], errors="coerce")
-    temp_df["5日市场成本"] = pd.to_numeric(temp_df["5日市场成本"], errors="coerce")
-    return temp_df
-
-
 if __name__ == "__main__":
     stock_comment_em_df = stock_comment_em()
     print(stock_comment_em_df)
@@ -385,8 +341,3 @@ if __name__ == "__main__":
         stock_comment_detail_scrd_desire_daily_em(symbol="600000")
     )
     print(stock_comment_detail_scrd_desire_daily_em_df)
-
-    stock_comment_detail_scrd_cost_em_df = stock_comment_detail_scrd_cost_em(
-        symbol="600000"
-    )
-    print(stock_comment_detail_scrd_cost_em_df)
