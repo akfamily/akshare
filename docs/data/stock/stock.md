@@ -6424,50 +6424,6 @@ print(stock_comment_detail_scrd_desire_daily_em_df)
 4  2024-09-24    7.42        3.61
 ```
 
-##### 市场成本
-
-接口: stock_comment_detail_scrd_cost_em
-
-目标地址: https://data.eastmoney.com/stockcomment/stock/600000.html
-
-描述: 东方财富网-数据中心-特色数据-千股千评-市场热度-市场成本
-
-限量: 单次获取所有数据
-
-输入参数
-
-| 名称     | 类型  | 描述              |
-|--------|-----|-----------------|
-| symbol | str | symbol="600000" |
-
-输出参数
-
-| 名称     | 类型      | 描述  |
-|--------|---------|-----|
-| 日期     | object  | -   |
-| 市场成本   | float64 | -   |
-| 5日市场成本 | float64 | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-stock_comment_detail_scrd_cost_em_df = ak.stock_comment_detail_scrd_cost_em(symbol="600000")
-print(stock_comment_detail_scrd_cost_em_df)
-```
-
-数据示例
-
-```
-        日期  市场成本  5日市场成本
-0  2022-04-18  8.05    8.09
-1  2022-04-19  8.07    8.09
-2  2022-04-20  8.11    8.09
-3  2022-04-21  8.06    8.08
-4  2022-04-22  8.08    8.07
-```
-
 ### 沪深港通资金流向
 
 接口: stock_hsgt_fund_flow_summary_em
