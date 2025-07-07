@@ -7,18 +7,15 @@ https://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.stock.cons import (
     hk_js_decode,
-    hk_sina_stock_dict_payload,
-    hk_sina_stock_list_url,
     hk_sina_stock_hist_url,
     hk_sina_stock_hist_hfq_url,
     hk_sina_stock_hist_qfq_url,
 )
-from akshare.utils import demjson
 
 
 def stock_hk_spot() -> pd.DataFrame:
@@ -28,42 +25,91 @@ def stock_hk_spot() -> pd.DataFrame:
     :return: 实时行情数据
     :rtype: pandas.DataFrame
     """
-    res = requests.get(hk_sina_stock_list_url, params=hk_sina_stock_dict_payload)
-    data_json = [
-        demjson.decode(tt)
-        for tt in [
-            item + "}" for item in res.text[1:-1].split("},") if not item.endswith("}")
-        ]
+    url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockData"
+    params = {
+        "page": "1",
+        "num": "60",
+        "sort": "symbol",
+        "asc": "1",
+        "node": "qbgg_hk",
+        "_s_r_a": "init",
+    }
+    big_df = pd.DataFrame()
+    from akshare.utils.tqdm import get_tqdm
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, 100), leave=False):
+        params["page"] = str(page)
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if not data_json:
+            break
+        temp_df = pd.DataFrame(data_json)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
+
+    big_df.columns = [
+        "代码",
+        "中文名称",
+        "英文名称",
+        "交易类型",
+        "最新价",
+        "昨收",
+        "今开",
+        "最高",
+        "最低",
+        "成交量",
+        "-",
+        "成交额",
+        "日期时间",
+        "买一",
+        "卖一",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "涨跌额",
+        "涨跌幅",
+        "-",
+        "-",
     ]
-    data_df = pd.DataFrame(data_json)
-    data_df = data_df[
-        [
-            "symbol",
-            "name",
-            "engname",
-            "tradetype",
-            "lasttrade",
-            "prevclose",
-            "open",
-            "high",
-            "low",
-            "volume",
-            "amount",
-            "ticktime",
-            "buy",
-            "sell",
-            "pricechange",
-            "changepercent",
-        ]
-    ]
-    return data_df
+    big_df = big_df[[
+        "日期时间",
+        "代码",
+        "中文名称",
+        "英文名称",
+        "交易类型",
+        "最新价",
+        "涨跌额",
+        "涨跌幅",
+        "昨收",
+        "今开",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "买一",
+        "卖一",
+    ]]
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["涨跌额"] = pd.to_numeric(big_df["涨跌额"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["昨收"] = pd.to_numeric(big_df["昨收"], errors="coerce")
+    big_df["今开"] = pd.to_numeric(big_df["今开"], errors="coerce")
+    big_df["最高"] = pd.to_numeric(big_df["最高"], errors="coerce")
+    big_df["最低"] = pd.to_numeric(big_df["最低"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
+    big_df["买一"] = pd.to_numeric(big_df["买一"], errors="coerce")
+    big_df["卖一"] = pd.to_numeric(big_df["卖一"], errors="coerce")
+    return big_df
 
 
 def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-港股-个股的历史行情数据
     https://stock.finance.sina.com.cn/hkstock/quotes/02912.html
-    :param symbol: 可以使用 stock_hk_spot 获取
+    :param symbol: 可以使用 ak.stock_hk_spot() 获取
     :type symbol: str
     :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
     :type adjust: str
@@ -234,6 +280,8 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         qfq_factor_df.reset_index(inplace=True)
         qfq_factor_df["date"] = pd.to_datetime(qfq_factor_df["date"]).dt.date
         return qfq_factor_df
+    else:
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
