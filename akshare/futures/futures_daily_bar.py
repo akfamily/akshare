@@ -678,11 +678,13 @@ def get_futures_daily(
         temp_df = pd.concat(df_list).reset_index(drop=True)
         temp_df = temp_df[~temp_df["symbol"].str.contains("efp")]
         return temp_df
+    else:
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20250102", end_date="20250102", market="DCE"
+        start_date="20250708", end_date="20250708", market="DCE"
     )
     print(get_futures_daily_df)
 
