@@ -26,7 +26,6 @@ from akshare.option.cons import (
     get_calendar,
     convert_date,
     DCE_DAILY_OPTION_URL,
-    SHFE_OPTION_URL,
     CZCE_DAILY_OPTION_URL_3,
     SHFE_HEADERS,
 )
@@ -156,6 +155,11 @@ def option_dce_daily(
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "原木"],
             another_df[another_df.iloc[:, 0].str.contains("lg")],
+        )
+    elif symbol == "纯苯期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "纯苯"],
+            another_df[another_df.iloc[:, 0].str.contains("bz")],
         )
     result_one_df.reset_index(inplace=True, drop=True)
     result_two_df.reset_index(inplace=True, drop=True)
@@ -630,7 +634,7 @@ if __name__ == "__main__":
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="生猪期权", trade_date="20250327"
+        symbol="纯苯期权", trade_date="20250708"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
