@@ -167,6 +167,7 @@ def chinese_to_english(chinese_var: str):
         "PX",
         "原木",
         "瓶片",
+        "纯苯",
     ]
     english_list = [
         "RU",
@@ -284,6 +285,7 @@ def chinese_to_english(chinese_var: str):
         "PX",
         "LG",
         "PR",
+        "BZ",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]

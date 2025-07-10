@@ -235,7 +235,7 @@ market_exchange_symbols = {
         "SA",  # 纯碱期货
         "PK",  # 20210201 花生期货
         "PF",  # 短纤
-        "PX",  # 纯苯
+        "PX",  # 对二甲苯
         "SH",  # 烧碱
     ],
     "shfe": [
