@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/6/16 20:00
+Date: 2025/7/11 17:15
 Desc: 个股新闻数据
 https://so.eastmoney.com/news/s?keyword=603777
 """
@@ -21,21 +21,22 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
     :return: 个股新闻
     :rtype: pandas.DataFrame
     """
-    url = "https://search-api-web.eastmoney.com/search/jsonp"
+    url = "http://search-api-web.eastmoney.com/search/jsonp"
     params = {
         "cb": "jQuery3510875346244069884_1668256937995",
         "param": '{"uid":"",'
-                 + f'"keyword":"{symbol}"'
-                 + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr",'
-                   '"param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,'
-                   '"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
+        + f'"keyword":"{symbol}"'
+        + ',"type":["cmsArticle"],"client":"web","clientType":"web","clientVersion":"curr",'
+        + '"param":{"cmsArticle":{"searchScope":"default","sort":"default","pageIndex":1,'
+        + '"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
     }
     r = requests.get(url, params=params)
     data_text = r.text
     data_json = json.loads(
         data_text.strip("jQuery3510875346244069884_1668256937995(")[:-1]
     )
-    temp_df = pd.DataFrame(data_json["result"]["cmsArticleWebOld"])
+    temp_df = pd.DataFrame(data_json["result"]["cmsArticle"])
+    temp_df["url"] = "http://finance.eastmoney.com/a/" + temp_df["code"] + ".html"
     temp_df.rename(
         columns={
             "date": "发布时间",
