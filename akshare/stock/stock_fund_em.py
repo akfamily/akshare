@@ -657,19 +657,16 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"
     params = {
-        "pn": "1",
-        "pz": "100",
+        "fid": "f62",
         "po": "1",
+        "pz": "100",
+        "pn": "1",
         "np": "1",
-        "ut": "b2884a393a59ad64002292a3e90d46a5",
         "fltt": "2",
         "invt": "2",
-        "fid0": "f62",
+        "ut": "8dec03ba335b81bf4ebdf7b29ec27d15",
         "fs": "m:90 t:2",
-        "stat": "1",
-        "fields": "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124",
-        "rt": "52975239",
-        "_": int(time.time() * 1000),
+        "fields": "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124,f1,f13",
     }
     temp_df = fetch_paginated_data(url, params)
     name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
@@ -1045,7 +1042,7 @@ def stock_sector_fund_flow_hist(symbol: str = "汽车服务") -> pd.DataFrame:
     temp_df["小单净流入-净占比"] = pd.to_numeric(
         temp_df["小单净流入-净占比"], errors="coerce"
     )
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     return temp_df
 
 
