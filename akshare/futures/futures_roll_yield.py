@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/12/6 13:58
+Date: 2025/7/16 17:40
 Desc: 中国期货各合约展期收益率
 日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
@@ -45,7 +45,7 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         df = df[
             ~df["symbol"].str.contains("efp")
         ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
-        df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
+        df = df[df["variety"] == var].sort_values(by=["open_interest"], ascending=False)
         # df["close"] = df["close"].astype("float")
         df["close"] = pd.to_numeric(df["close"])
         if len(df["close"]) < 2:
@@ -66,7 +66,7 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     if close1 == 0 or close2 == 0:
         return False
     if c > 0:
-        return math.log(close1 / close2) / c * 12, symbol2, symbol1
+        return math.log(close2 / close1) / c * 12, symbol2, symbol1
     else:
         return math.log(close2 / close1) / c * 12, symbol1, symbol2
 
