@@ -43,10 +43,19 @@ def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
     # 获取剩余页面数据
     for page in tqdm(range(2, total_page + 1), leave=False):
         params.update({"pn": page})
-        r = requests.get(url, params=params, timeout=timeout)
-        data_json = r.json()
-        inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
-        temp_list.append(inner_temp_df)
+        i=0
+        while i<4:
+            try:
+                r = requests.get(url, params=params, timeout=timeout)
+                data_json = r.json()
+                inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
+                temp_list.append(inner_temp_df)
+                break
+            except Exception as e:
+                i+=1
+                import time
+                print(f"第{i}次请求失败，原因：{e}，正在重试...")
+                time.sleep(5)        
     # 合并所有数据
     temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df["f3"] = pd.to_numeric(temp_df["f3"], errors="coerce")
