@@ -81,6 +81,10 @@
 
 ## 更新说明详情
 
+1.17.24 fix: fix futures_inventory_99 interface
+
+	1. 修复 futures_inventory_99 接口
+
 1.17.23 fix: fix get_roll_yield interface
 
 	1. 修复 get_roll_yield 接口
@@ -5681,6 +5685,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.24 fix: fix futures_inventory_99 interface
 
 1.17.23 fix: fix get_roll_yield interface
 
