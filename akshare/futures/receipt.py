@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/22 18:00
+Date: 2025/7/21 15:00
 Desc: 每日注册仓单数据
 大连商品交易所, 上海期货交易所, 郑州商品交易所, 广州期货交易所
 """
@@ -501,9 +501,11 @@ def get_gfex_receipt(
         inplace=True,
     )
     result_df = result_df[["var", "receipt", "receipt_chg", "date"]]
-    result_df.set_index(["var"], inplace=True)
+    result_df.set_index(keys=["var"], inplace=True)
     if "LC" not in result_df.index:
         vars_list.remove("LC")
+    if "PS" not in result_df.index:
+        vars_list.remove("PS")
     result_df = result_df.loc[vars_list, :]
     result_df.reset_index(inplace=True)
     return result_df
@@ -598,5 +600,5 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20250630", end_date="20250630")
+    get_receipt_df = get_receipt(start_date="20250718", end_date="20250718")
     print(get_receipt_df)
