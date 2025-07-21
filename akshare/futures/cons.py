@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/5 18:00
+Date: 2025/7/21 15:00
 Desc: 期货配置文件
 """
 
@@ -237,6 +237,7 @@ market_exchange_symbols = {
         "PF",  # 短纤
         "PX",  # 对二甲苯
         "SH",  # 烧碱
+        "PR",  # 瓶片
     ],
     "shfe": [
         "CU",
@@ -262,8 +263,9 @@ market_exchange_symbols = {
         "AO",
         "BR",
         "EC",  # 集运指数
+        "AD",  # 铸造铝合金期货
     ],
-    "gfex": ["SI", "LC"],
+    "gfex": ["SI", "LC", "PS"],
 }
 
 contract_symbols = []

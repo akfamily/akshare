@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/1/10 18:30
+Date: 2025/7/21 15:00
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所
 采集前 20 会员持仓数据;
@@ -1340,7 +1340,7 @@ if __name__ == "__main__":
     print(get_czce_rank_table_first_df)
 
     # 中国金融期货交易所
-    get_cffex_rank_table_df = get_cffex_rank_table(date="20100810")
+    get_cffex_rank_table_df = get_cffex_rank_table(date="20250721")
     print(get_cffex_rank_table_df)
 
     # 上海期货交易所
@@ -1373,12 +1373,12 @@ if __name__ == "__main__":
     print(futures_dce_position_rank_other_df)
 
     # 广州期货交易所
-    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20240729")
+    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20250718")
     print(futures_gfex_position_rank_df)
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20231010",
-        end_day="20231013",
+        start_day="20250718",
+        end_day="20250718",
     )
     print(get_rank_sum_daily_df)
