@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/11/28 22:00
+Date: 2025/7/21 15:00
 Desc: 期货品种映射表
 """
 
@@ -168,6 +168,7 @@ def chinese_to_english(chinese_var: str):
         "原木",
         "瓶片",
         "纯苯",
+        "多晶硅",
     ]
     english_list = [
         "RU",
@@ -286,6 +287,7 @@ def chinese_to_english(chinese_var: str):
         "LG",
         "PR",
         "BZ",
+        "PS",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
