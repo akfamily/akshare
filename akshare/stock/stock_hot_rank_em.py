@@ -80,6 +80,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "globalId": "786e4c21-70dc-435a-93bb-38",
         "marketType": "",
         "srcSecurityCode": symbol,
+        "yearType": "5",
     }
     r = requests.post(url_rank, json=payload)
     data_json = r.json()
@@ -97,6 +98,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df["铁杆粉丝"] = (
         pd.DataFrame(data_json["data"])["oldUidRate"].str.strip("%").astype(float) / 100
     )
+    temp_df.sort_values(['时间'], inplace=True)
     return temp_df
 
 
