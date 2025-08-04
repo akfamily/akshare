@@ -115,7 +115,7 @@ def stock_financial_hk_analysis_indicator_em(
     :type symbol: str
     :param indicator: choice of {"年度", "报告期"}
     :type indicator: str
-    :return: 新浪财经-港股-财务分析-主要指标
+    :return: 东方财富-港股-财务分析-主要指标
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"

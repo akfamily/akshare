@@ -11793,6 +11793,65 @@ print(stock_financial_abstract_ths_df)
 [105 rows x 25 columns]
 ```
 
+#### 主要指标-东方财富
+
+接口: stock_financial_analysis_indicator_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=00700&type=web&color=w#/newfinancialanalysis
+
+描述: 东方财富-A股-财务分析-主要指标
+
+限量: 单次获取指定 symbol 的所有数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                           |
+|-----------|-----|----------------------------------------------|
+| symbol    | str | symbol="301389.SZ"; 股票代码                     |
+| indicator | str | indicator="按报告期"; choice of {"按报告期", "按单季度"} |
+
+输出参数
+
+| 名称 | 类型     | 描述 |
+|----|--------|----|
+| -  | 不逐一列出  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_financial_analysis_indicator_em_df = ak.stock_financial_analysis_indicator_em(symbol="301389.SZ", indicator="按报告期")
+print(stock_financial_analysis_indicator_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... NET_ASSETS_LIABILITIES PROPRIETARY_CAPITAL
+0   301389.SZ        301389  ...                   None                None
+1   301389.SZ        301389  ...                   None                None
+2   301389.SZ        301389  ...                   None                None
+3   301389.SZ        301389  ...                   None                None
+4   301389.SZ        301389  ...                   None                None
+5   301389.SZ        301389  ...                   None                None
+6   301389.SZ        301389  ...                   None                None
+7   301389.SZ        301389  ...                   None                None
+8   301389.SZ        301389  ...                   None                None
+9   301389.SZ        301389  ...                   None                None
+10  301389.SZ        301389  ...                   None                None
+11  301389.SZ        301389  ...                   None                None
+12  301389.SZ        301389  ...                   None                None
+13  301389.SZ        301389  ...                   None                None
+14  301389.SZ        301389  ...                   None                None
+15  301389.SZ        301389  ...                   None                None
+16  301389.SZ        301389  ...                   None                None
+17  301389.SZ        301389  ...                   None                None
+18  301389.SZ        301389  ...                   None                None
+19  301389.SZ        301389  ...                   None                None
+[20 rows x 140 columns]
+```
+
 #### 财务指标
 
 接口: stock_financial_analysis_indicator
