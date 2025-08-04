@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/7/25 14:00
+Date: 2025/8/4 14:00
 Desc: 中证指数网站-指数列表
-网站：
-https://www.csindex.com.cn/#/indices/family/list?index_series=1
+网站：https://www.csindex.com.cn/#/indices/family/list?index_series=1
 """
+import warnings
 from io import BytesIO
+
 import pandas as pd
 import requests
-import warnings
+
 
 def index_csindex_all() -> pd.DataFrame:
     """
@@ -26,7 +27,7 @@ def index_csindex_all() -> pd.DataFrame:
 
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        }
+    }
     playloads = {
         "sorter": {
             "sortField": "null",
@@ -60,6 +61,7 @@ def index_csindex_all() -> pd.DataFrame:
     ).dt.date
     temp_df["指数代码"] = temp_df["指数代码"].astype(str).str.zfill(6)
     return temp_df
+
 
 if __name__ == "__main__":
     index_csindex_all_df = index_csindex_all()
