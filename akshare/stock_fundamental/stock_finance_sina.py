@@ -178,6 +178,53 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
     return big_df
 
 
+def stock_financial_analysis_indicator_em(
+    symbol: str = "301389.SZ", indicator: str = "按报告期"
+) -> pd.DataFrame:
+    """
+    东方财富-A股-财务分析-主要指标
+    https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=00700&type=web&color=w#/newfinancialanalysis
+    :param symbol: 股票代码
+    :type symbol: str
+    :param indicator: choice of {"按报告期", "按单季度"}
+    :type indicator: str
+    :return: 东方财富-A股-财务分析-主要指标
+    :rtype: pandas.DataFrame
+    """
+    if indicator == "按报告期":
+        url = "https://datacenter.eastmoney.com/securities/api/data/get"
+        params = {
+            "type": "RPT_F10_FINANCE_MAINFINADATA",
+            "sty": "APP_F10_MAINFINADATA",
+            "quoteColumns": "",
+            "filter": f"""(SECUCODE="{symbol}")""",
+            "p": "1",
+            "ps": "200",
+            "sr": "-1",
+            "st": "REPORT_DATE",
+            "source": "HSF10",
+            "client": "PC",
+        }
+    else:
+        url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
+        params = {
+            "reportName": "RPT_F10_QTR_MAINFINADATA",
+            "columns": "ALL",
+            "quoteColumns": "",
+            "filter": f"""(SECUCODE="{symbol}")""",
+            "pageNumber": "1",
+            "pageSize": "200",
+            "sortTypes": "-1",
+            "sortColumns": "REPORT_DATE",
+            "source": "HSF10",
+            "client": "PC",
+        }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    return temp_df
+
+
 def stock_financial_analysis_indicator(
     symbol: str = "600004", start_year: str = "1900"
 ) -> pd.DataFrame:
@@ -765,3 +812,6 @@ if __name__ == "__main__":
 
     stock_main_stock_holder_df = stock_main_stock_holder(stock="600000")
     print(stock_main_stock_holder_df)
+
+    stock_financial_analysis_indicator_em_df = stock_financial_analysis_indicator_em(symbol="301389.SZ", indicator="按报告期")
+    print(stock_financial_analysis_indicator_em_df)
