@@ -5137,6 +5137,13 @@ from akshare.economic.macro_bank import (
 from akshare.index.index_yw import index_yw
 
 """
+
+股票指数-股票指数-中证指数列表
+"""
+from akshare.index.index_csindex import index_csindex_all
+
+"""
+
 股票指数-股票指数-成份股
 """
 from akshare.index.index_cons import (
