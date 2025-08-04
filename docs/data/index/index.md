@@ -1749,7 +1749,7 @@ print(index_stock_cons_df)
 
 目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
 
-描述: 中证指数网站-成份股目录
+描述: 中证指数网站-成份股目录，可以通过 ak.index_csindex_all() 获取所有指数
 
 输入参数
 
