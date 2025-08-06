@@ -600,5 +600,5 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20250718", end_date="20250718")
+    get_receipt_df = get_receipt(start_date="20250805", end_date="20250806")
     print(get_receipt_df)
