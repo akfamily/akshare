@@ -119,11 +119,7 @@ def air_quality_watch_point(
     ctx = MiniRacer()
     ctx.eval(file_data)
     method = "GETCITYPOINTAVG"
-    ctx.call("encode_param", method)
-    ctx.call("encode_param", start_date)
-    ctx.call("encode_param", end_date)
     city_param = ctx.call("encode_param", city)
-    ctx.call("encode_secret", method, city_param, start_date, end_date)
     payload = {
         "appId": "a01901d3caba1f362d69474674ce477f",
         "method": ctx.call("encode_param", method),
