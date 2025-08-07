@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/4 18:30
+Date: 2025/8/7 18:30
 Desc: 财新数据-指数报告-数字经济指数
 https://yun.ccxe.com.cn/indices/dei
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def index_pmi_com_cx() -> pd.DataFrame():
+def index_pmi_com_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-财新中国 PMI-综合 PMI
     https://yun.ccxe.com.cn/indices/pmi
@@ -38,7 +38,7 @@ def index_pmi_com_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_pmi_man_cx() -> pd.DataFrame():
+def index_pmi_man_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-财新中国 PMI-制造业 PMI
     https://yun.ccxe.com.cn/indices/pmi
@@ -66,7 +66,7 @@ def index_pmi_man_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_pmi_ser_cx() -> pd.DataFrame():
+def index_pmi_ser_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-财新中国 PMI-服务业 PMI
     https://yun.ccxe.com.cn/indices/pmi
@@ -94,7 +94,7 @@ def index_pmi_ser_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_dei_cx() -> pd.DataFrame():
+def index_dei_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-数字经济指数
     https://yun.ccxe.com.cn/indices/dei
@@ -122,7 +122,7 @@ def index_dei_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_ii_cx() -> pd.DataFrame():
+def index_ii_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-产业指数
     https://yun.ccxe.com.cn/indices/dei
@@ -150,7 +150,7 @@ def index_ii_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_si_cx() -> pd.DataFrame():
+def index_si_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-溢出指数
     https://yun.ccxe.com.cn/indices/dei
@@ -178,7 +178,7 @@ def index_si_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_fi_cx() -> pd.DataFrame():
+def index_fi_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-融合指数
     https://yun.ccxe.com.cn/indices/dei
@@ -206,7 +206,7 @@ def index_fi_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_bi_cx() -> pd.DataFrame():
+def index_bi_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-基础指数
     https://yun.ccxe.com.cn/indices/dei
@@ -234,7 +234,7 @@ def index_bi_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_nei_cx() -> pd.DataFrame():
+def index_nei_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-中国新经济指数
     https://yun.ccxe.com.cn/indices/nei
@@ -262,7 +262,7 @@ def index_nei_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_li_cx() -> pd.DataFrame():
+def index_li_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-劳动力投入指数
     https://yun.ccxe.com.cn/indices/nei
@@ -290,7 +290,7 @@ def index_li_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_ci_cx() -> pd.DataFrame():
+def index_ci_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-资本投入指数
     https://yun.ccxe.com.cn/indices/nei
@@ -318,7 +318,7 @@ def index_ci_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_ti_cx() -> pd.DataFrame():
+def index_ti_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-科技投入指数
     https://yun.ccxe.com.cn/indices/nei
@@ -346,7 +346,7 @@ def index_ti_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_neaw_cx() -> pd.DataFrame():
+def index_neaw_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-新经济行业入职平均工资水平
     https://yun.ccxe.com.cn/indices/nei
@@ -374,7 +374,7 @@ def index_neaw_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_awpr_cx() -> pd.DataFrame():
+def index_awpr_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-新经济入职工资溢价水平
     https://yun.ccxe.com.cn/indices/nei
@@ -402,7 +402,7 @@ def index_awpr_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_cci_cx() -> pd.DataFrame():
+def index_cci_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-大宗商品指数
     https://yun.ccxe.com.cn/indices/nei
@@ -434,7 +434,7 @@ def index_cci_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_qli_cx() -> pd.DataFrame():
+def index_qli_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-高质量因子
     https://yun.ccxe.com.cn/indices/qli
@@ -466,7 +466,7 @@ def index_qli_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_ai_cx() -> pd.DataFrame():
+def index_ai_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-AI策略指数
     https://yun.ccxe.com.cn/indices/ai
@@ -498,7 +498,7 @@ def index_ai_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_bei_cx() -> pd.DataFrame():
+def index_bei_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-基石经济指数
     https://yun.ccxe.com.cn/indices/bei
@@ -530,7 +530,7 @@ def index_bei_cx() -> pd.DataFrame():
     return temp_df
 
 
-def index_neei_cx() -> pd.DataFrame():
+def index_neei_cx() -> pd.DataFrame:
     """
     财新数据-指数报告-新动能指数
     https://yun.ccxe.com.cn/indices/neei
