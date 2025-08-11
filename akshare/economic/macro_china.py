@@ -240,7 +240,7 @@ def macro_china_shrzgm() -> pd.DataFrame:
     :return: 社会融资规模增量统计
     :rtype: pandas.DataFrame
     """
-    url = "http://data.mofcom.gov.cn/datamofcom/front/gnmy/shrzgmQuery"
+    url = "https://data.mofcom.gov.cn/datamofcom/front/gnmy/shrzgmQuery"
     r = requests.post(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
