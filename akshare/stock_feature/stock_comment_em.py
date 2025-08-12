@@ -80,6 +80,7 @@ def stock_comment_em() -> pd.DataFrame:
         "目前排名",
         "关注指数",
         "-",
+        "-",
     ]
     big_df = big_df[
         [

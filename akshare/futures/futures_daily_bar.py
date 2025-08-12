@@ -537,7 +537,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
-    url = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
+    url = "http://portal.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,"
         "application/signed-exchange;v=b3;q=0.9",
@@ -548,9 +548,9 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
         "Content-Length": "86",
         "Content-Type": "application/x-www-form-urlencoded",
         "Host": "www.dce.com.cn",
-        "Origin": "http://www.dce.com.cn",
+        "Origin": "http://portal.dce.com.cn",
         "Pragma": "no-cache",
-        "Referer": "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
+        "Referer": "http://portal.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/84.0.4147.105 Safari/537.36",
