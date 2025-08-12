@@ -311,12 +311,12 @@ SHFE_VOL_RANK_URL = "https://tsite.shfe.com.cn/data/dailydata/kx/pm%s.dat"
 SHFE_VOL_RANK_URL_20250701 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/pm%s.dat"
 CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/sj/ccpm/%s/%s/%s_1.csv"
 DCE_VOL_RANK_URL_1 = (
-    "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?"
+    "http://portal.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?"
     "memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.cont"
     "ract_id=%s&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
 )
 DCE_VOL_RANK_URL_2 = (
-    "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDeal"
+    "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDeal"
     "PosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id="
     "all&contract.variety_id=%s&year=%s&month=%s&day=%s"
 )
@@ -326,7 +326,7 @@ CZCE_VOL_RANK_URL_3 = (
     "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm"
 )
 
-DCE_RECEIPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
+DCE_RECEIPT_URL = "http://portal.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
 
 SHFE_RECEIPT_URL_1 = "http://tsite.shfe.com.cn/data/dailydata/%sdailystock.html"
 SHFE_RECEIPT_URL_2 = "http://tsite.shfe.com.cn/data/dailydata/%sdailystock.dat"

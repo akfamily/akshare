@@ -509,7 +509,7 @@ def _get_dce_contract_list(date, var):
     :param var: 合约品种
     :return: list 公布了持仓排名的合约列表
     """
-    url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
+    url = "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;"
         "q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -518,7 +518,7 @@ def _get_dce_contract_list(date, var):
         "Cache-Control": "no-cache",
         "Connection": "close",
         "Host": "www.dce.com.cn",
-        "Origin": "http://www.dce.com.cn",
+        "Origin": "http://portal.dce.com.cn",
         "Pragma": "no-cache",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -642,7 +642,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                 ].astype(float)
                 big_dict[symbol] = temp_df
             except:  # noqa: E722
-                temp_url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
+                temp_url = "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
                 payload = {
                     "memberDealPosiQuotes.variety": var.lower(),
                     "memberDealPosiQuotes.trade_type": "0",
@@ -816,7 +816,7 @@ def futures_dce_position_rank(
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    url = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesBatchData.html"
+    url = "http://portal.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesBatchData.html"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;"
         "q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -827,9 +827,9 @@ def futures_dce_position_rank(
         "Content-Length": "160",
         "Content-Type": "application/x-www-form-urlencoded",
         "Host": "www.dce.com.cn",
-        "Origin": "http://www.dce.com.cn",
+        "Origin": "http://portal.dce.com.cn",
         "Pragma": "no-cache",
-        "Referer": "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html",
+        "Referer": "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/81.0.4044.138 Safari/537.36",
