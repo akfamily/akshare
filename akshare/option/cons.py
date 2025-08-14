@@ -43,9 +43,9 @@ SH_OPTION_PAYLOAD_OTHER = {"select": "contractid,last,chg_rate,presetpx,exepx"}
 
 
 # 大连商品交易所
-DCE_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
+DCE_OPTION_URL = "http://portal.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
 DCE_DAILY_OPTION_URL = (
-    "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
+    "http://portal.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
 )
 
 # 上海期货交易所
