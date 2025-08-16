@@ -172,7 +172,7 @@ Please use this **bibtex** if you want to cite this repository in your publicati
 
 ```markdown
 @misc{akshare,
-    author = {Albert King},
+    author = {Albert King and Yaojie Zhang},
     title = {AKShare},
     year = {2019},
     publisher = {GitHub},
