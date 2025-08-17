@@ -136,6 +136,7 @@ def futures_hist_em(
     r = requests.get(url, timeout=15, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    if temp_df.empty: return temp_df
     temp_df.columns = [
         "时间",
         "开盘",
