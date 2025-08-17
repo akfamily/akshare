@@ -174,7 +174,7 @@ Please use this **bibtex** if you want to cite this repository in your publicati
 @misc{akshare,
     author = {Albert King and Yaojie Zhang},
     title = {AKShare},
-    year = {2019},
+    year = {2022},
     publisher = {GitHub},
     journal = {GitHub repository},
     howpublished = {\url{https://github.com/akfamily/akshare}},
