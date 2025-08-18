@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/28 11:00
+Date: 2025/8/18 11:00
 Desc: 大连商品交易所-业务/服务-业务参数-交易参数-合约信息查询
 http://www.dce.com.cn/dalianshangpin/ywfw/ywcs/jycs/hyxxcx/index.html
 """
@@ -19,7 +19,7 @@ def futures_contract_info_dce() -> pd.DataFrame:
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame
     """
-    url = "http://www.dce.com.cn/publicweb/businessguidelines/queryContractInfo.html"
+    url = "http://portal.dce.com.cn/publicweb/businessguidelines/queryContractInfo.html"
     params = {
         "contractInformation.variety": "all",
         "contractInformation.trade_type": "0",
