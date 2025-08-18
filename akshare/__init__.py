@@ -5627,6 +5627,7 @@ from akshare.futures.futures_basis import (
 """
 期货持仓成交排名数据
 """
+from akshare.utils.db import save_to_mysql, read_from_mysql
 from akshare.futures.cot import (
     get_rank_sum_daily,
     get_rank_sum,
