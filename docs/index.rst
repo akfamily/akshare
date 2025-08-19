@@ -25,6 +25,7 @@
    data/index
    indicator
    data_tips
+   trade
    answer
    tutorial
    articles
