@@ -89,7 +89,7 @@ def __stock_financial_us_report_em(
     if indicator == "年报":
         tuple_data = tuple(item.strip() for item in temp_tuple if "FY" in item)
     elif indicator == "单季报":
-        tuple_data = tuple(item.strip() for item in temp_tuple if "Q1" in item)
+        tuple_data = tuple(item.strip() for item in temp_tuple if any(q in item for q in ["Q1", "Q2", "Q3", "Q4"]))
     elif indicator == "累计季报":
         tuple_data = tuple(
             item.strip() for item in temp_tuple if "Q6" in item or "Q9" in item
