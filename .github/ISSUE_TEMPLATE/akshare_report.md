@@ -7,21 +7,19 @@ assignees: ''
 
 ---
 
-> 由于开源项目维护工作量较大，本 issue 只接受接口报错问题，如有更多问题，网络上有很多相关方案，
+> 由于开源项目维护工作量较大，本 issue 只接受接口报错问题。如有更多问题，推荐加入【财经数据与量化投研】知识社区：https://t.zsxq.com/ZCxUG 。
 
 ## 重要前提
 
 遇到任何 AKShare 使用问题，请先将您本地的 AKShare 升级到**最新版**，可以通过如下命令升级：
 
-```
+```bash
 pip install akshare --upgrade  # Python 版本需要大于等于 3.9
 ```
 
 ## 如何提交问题
 
 请提交以下相关信息，以更精准的解决问题。**不符合提交规范的 issue 会被关闭！**
-
-**详细问题描述**
 
 1. 请先详细阅读 AKShare 文档中对应接口的使用方式：https://akshare.akfamily.xyz
 2. 请务必将 AKShare 升级到最新版本
