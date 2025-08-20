@@ -3,12 +3,13 @@
 """
 Date: 2025/8/18 12:00
 Desc: 数据库工具模块，用于将数据保存到 MySQL 数据库
+https://sqlalchemy.org.cn/
 """
 
+from typing import Optional, Dict
+
 import pandas as pd
-from sqlalchemy import create_engine, MetaData, Column, Table, String, Float, Date, Integer, DateTime, text
-from sqlalchemy.dialects.mysql import VARCHAR
-from typing import Optional, Dict, Any
+from sqlalchemy import create_engine, MetaData, Table, text
 
 
 def save_to_mysql(df: pd.DataFrame, 

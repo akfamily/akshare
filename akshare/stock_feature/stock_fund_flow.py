@@ -62,7 +62,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/90.0.4430.85 Safari/537.36",
+                      "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = "http://data.10jqka.com.cn/funds/ggzjl/field/code/order/desc/ajax/1/free/1/"
@@ -83,7 +83,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
-        js_code = py_mini_racer.MiniRacer()
+        js_code = py_mini_racer.MiniRacer()  # 重点
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
         v_code = js_code.call("v")
@@ -98,7 +98,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/90.0.4430.85 Safari/537.36",
+                          "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
@@ -158,7 +158,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/gnzjl/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/90.0.4430.85 Safari/537.36",
+                      "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = (
@@ -196,7 +196,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/gnzjl/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/90.0.4430.85 Safari/537.36",
+                          "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
@@ -264,7 +264,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/90.0.4430.85 Safari/537.36",
+                      "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = (
@@ -302,7 +302,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/90.0.4430.85 Safari/537.36",
+                          "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
@@ -368,7 +368,7 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/90.0.4430.85 Safari/537.36",
+                      "Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     url = "http://data.10jqka.com.cn/funds/ddzz/order/desc/ajax/1/free/1/"
@@ -395,7 +395,7 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
             "Pragma": "no-cache",
             "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/90.0.4430.85 Safari/537.36",
+                          "Chrome/90.0.4430.85 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
