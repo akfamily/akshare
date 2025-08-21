@@ -17,6 +17,8 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-个股研报
     https://data.eastmoney.com/report/stock.jshtml
+    :param symbol: 个股代码
+    :type symbol: str
     :return: 个股研报
     :rtype: pandas.DataFrame
     """

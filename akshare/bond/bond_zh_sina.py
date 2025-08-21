@@ -46,6 +46,10 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
     """
     新浪财经-债券-沪深债券-实时行情数据, 大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
+    :param start_page: 分页起始页
+    :type start_page: str
+    :param end_page: 分页结束页
+    :type end_page: str
     :return: 所有沪深债券在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
     """

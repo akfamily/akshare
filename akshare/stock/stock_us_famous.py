@@ -14,7 +14,7 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
     """
     东方财富网-行情中心-美股市场-知名美股
     https://quote.eastmoney.com/center/gridlist.html#us_wellknown
-    :symbol: choice of {'科技类', '金融类', '医药食品类', '媒体类', '汽车能源类', '制造零售类'}
+    :param symbol: choice of {'科技类', '金融类', '医药食品类', '媒体类', '汽车能源类', '制造零售类'}
     :type: str
     :return: 知名美股实时行情
     :rtype: pandas.DataFrame

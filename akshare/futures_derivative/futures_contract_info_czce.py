@@ -16,6 +16,8 @@ def futures_contract_info_czce(date: str = "20240228") -> pd.DataFrame:
     """
     郑州商品交易所-交易数据-参考数据
     http://www.czce.com.cn/cn/jysj/cksj/H770322index_1.htm
+    :param date: 查询日期
+    :type date: str
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame
     """
