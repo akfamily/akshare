@@ -69,7 +69,8 @@ def get_rank_sum_daily(
     :type end_day: str
     :param vars_list: 合约品种如 ['RB'、'AL'] 等列表为空时为所有商品
     :type vars_list: list
-    :return: pd.DataFrame
+    :return:  会员持仓排名数据
+    :rtype: pandas.DataFrame
     symbol                           标的合约                     string
     var                              商品品种                     string
     vol_top5                         成交量前5会员成交量总和         int
@@ -116,7 +117,8 @@ def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols
     :type date: date
     :param vars_list: 合约品种如 ['RB', 'AL'] 等列表为空时为所有商品
     :type vars_list: list
-    :return: pd.DataFrame
+    :return: 持仓排名数据
+    :rtype: pandas.DataFrame
     symbol                           标的合约                     string
     var                              商品品种                     string
     vol_top5                         成交量前5会员成交量总和         int
@@ -408,7 +410,9 @@ def get_czce_rank_table(date: str = "20210428") -> dict:
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :return: pd.DataFrame
+    :return: 持仓排名数据明细
+    :rtype: pandas.DataFrame
+    返回值格式
     rank                        排名                        int
     vol_party_name              成交量排序的当前名次会员        string(中文)
     vol                         该会员成交量                  int
@@ -559,7 +563,10 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
     注: 该交易所只公布标的合约排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象, 为空时为当天
     :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品, 数据从 20060104 开始，每交易日 16:30 左右更新数据
-    :return: pandas.DataFrame
+    :return: 持仓排名
+    :rtype: pandas.DataFrame
+
+    返回值格式
     rank                        排名                        int
     vol_party_name              成交量排序的当前名次会员      string(中文)
     vol                         该会员成交量                 int
@@ -707,7 +714,9 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     注：该交易所既公布品种排名，也公布标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品, 数据从20100416开始，每交易日16:30左右更新数据
-    :return: pd.DataFrame
+    :return: 持仓排名
+    :rtype: pandas.DataFrame
+    :rfield:
     rank                        排名                        int
     vol_party_name              成交量排序的当前名次会员        string(中文)
     vol                         该会员成交量                  int
@@ -721,6 +730,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     symbol                      标的合约                     string
     var                         品种                        string
     date                        日期                        string YYYYMMDD
+
     """
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
     date = cons.convert_date(date) if date is not None else datetime.date.today()

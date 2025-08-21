@@ -50,7 +50,7 @@ def fx_swap_quote() -> pd.DataFrame:
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-债券市场行情-人民币外汇远掉报价
     https://www.chinamoney.com.cn/chinese/index.html
     :return: 人民币外汇远掉报价
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     payload = {"t": str(int(round(time.time() * 1000)))}
     res = requests.post(FX_SWAP_URL, data=payload, headers=SHORT_HEADERS)
@@ -83,7 +83,7 @@ def fx_pair_quote() -> pd.DataFrame:
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-债券市场行情-外币对即期报价
     http://www.chinamoney.com.cn/chinese/mkdatapfx/
     :return: 外币对即期报价
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     payload = {"t": str(int(round(time.time() * 1000)))}
     res = requests.post(FX_PAIR_URL, data=payload, headers=SHORT_HEADERS)
