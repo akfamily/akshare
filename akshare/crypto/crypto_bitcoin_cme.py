@@ -14,6 +14,8 @@ def crypto_bitcoin_cme(date: str = "20230830") -> pd.DataFrame:
     """
     芝加哥商业交易所-比特币成交量报告
     https://datacenter.jin10.com/reportType/dc_cme_btc_report
+    :param date: Specific date, e.g., "20230830"
+    :type date: str
     :return: 比特币成交量报告
     :rtype: pandas.DataFrame
     """

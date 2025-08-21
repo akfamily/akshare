@@ -16,6 +16,8 @@ def fund_etf_spot_ths(date: str = "") -> pd.DataFrame:
     """
     同花顺理财-基金数据-每日净值-ETF-实时行情
     https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
+    :param date: 查询日期
+    :type date: str
     :return: ETF 实时行情
     :rtype: pandas.DataFrame
     """

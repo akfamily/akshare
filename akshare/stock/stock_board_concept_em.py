@@ -178,6 +178,8 @@ def stock_board_concept_spot_em(symbol: str = "可燃冰") -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深京板块-概念板块-实时行情
     https://quote.eastmoney.com/bk/90.BK0818.html
+    :param symbol: 概念板块代码
+    :type symbol: str
     :return: 概念板块-实时行情
     :rtype: pandas.DataFrame
     """

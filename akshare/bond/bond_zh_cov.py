@@ -628,6 +628,8 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/113527.html
     东方财富网-数据中心-新股数据-可转债数据-价值分析-溢价率分析
+    :param symbol: 可转债代码
+    :type symbol: str
     :return: 可转债价值分析
     :rtype: pandas.DataFrame
     """

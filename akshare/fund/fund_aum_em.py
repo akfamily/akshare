@@ -65,6 +65,8 @@ def fund_aum_hist_em(year: str = "2023") -> pd.DataFrame:
     """
     东方财富-基金-基金公司历年管理规模排行列表
     https://fund.eastmoney.com/Company/lsgm.html
+    :param year: query year
+    :type year: str
     :return: 基金公司历年管理规模排行列表
     :rtype: pandas.DataFrame
     """

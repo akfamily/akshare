@@ -17,6 +17,10 @@ def stock_zdhtmx_em(
     """
     东方财富网-数据中心-重大合同-重大合同明细
     https://data.eastmoney.com/zdht/mx.html
+    :param start_date: 开始日期, eg 20200819
+    :type start_date: str
+    :param end_date: 结束日期, eg 20230819
+    :type end_date: str
     :return: 股东大会
     :rtype: pandas.DataFrame
     """

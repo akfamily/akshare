@@ -16,6 +16,8 @@ def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
     """
     中国金融期货交易所-数据-交易参数
     http://www.gfex.com.cn/gfex/hyxx/ywcs.shtml
+    :param date: 查询日期
+    :type date: str
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame
     """
