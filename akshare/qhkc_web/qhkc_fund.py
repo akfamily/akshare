@@ -28,7 +28,8 @@ def get_qhkc_fund_bs(
     可获取数据的时间段为:"2016-10-10:2019-09-30"
     :param url: 网址
     :param date: 中文名称
-    :return: pd.DataFrame
+    :return: 净持仓分布
+    :rtype: pandas.DataFrame
     symbol_df
        name       value        ratio      date
        IC  1552535406     0.195622  20190924
@@ -125,7 +126,8 @@ def get_qhkc_fund_position(
     可获取数据的时间段为:"2016-10-10:2019-09-30"
     :param url: 网址
     :param date: 中文名称
-    :return: pd.DataFrame
+    :return: 总持仓分布
+    :rtype: pandas.DataFrame
     symbol_df
        name       value        ratio      date
        IC  1552535406     0.195622  20190924
@@ -322,7 +324,8 @@ def get_qhkc_fund_money_change(
     可获取数据的时间段为:"2016-10-10:2019-09-30"
     :param url: 网址
     :param date: 中文名称
-    :return: pd.DataFrame
+    :return: 成交额分布
+    :rtype: pandas.DataFrame
         name        value        ratio        date
        沪镍    2.292e+10     0.145963  2019-09-25
        沪银  1.22788e+10    0.0781956  2019-09-25

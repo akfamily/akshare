@@ -19,7 +19,8 @@ def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
     奇货可查-工具-外盘比价
     实时更新数据, 暂不能查询历史数据
     :param url: str 网址
-    :return: pd.DataFrame
+    :return: 外盘比价
+    :rtype: pandas.DataFrame
     name    base_time base_price latest_price   rate
      伦敦铜  10/08 01:00       5704       5746.5  0.745
      伦敦锌  10/08 01:00    2291.25      2305.75  0.633
