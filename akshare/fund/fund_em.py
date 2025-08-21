@@ -122,8 +122,8 @@ def fund_info_index_em(
     :type symbol: str
     :param indicator: choice of {"全部", "被动指数型", "增强指数型"}
     :type indicator: str
-    :return: pandas.DataFrame
-    :rtype: 基金信息-指数型
+    :return: 基金信息-指数型
+    :rtype: pandas.DataFrame
     """
     symbol_map = {
         "全部": "",

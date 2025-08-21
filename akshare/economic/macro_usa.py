@@ -925,7 +925,7 @@ def macro_usa_eia_crude_rate() -> pd.DataFrame:
     美国 EIA 原油库存报告, 数据区间从 19950801-至今
     https://datacenter.jin10.com/reportType/dc_eia_crude_oil
     :return: 美国 EIA 原油库存报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {
@@ -944,7 +944,7 @@ def macro_usa_initial_jobless() -> pd.DataFrame:
     美国初请失业金人数报告, 数据区间从 19700101-至今
     https://datacenter.jin10.com/reportType/dc_initial_jobless
     :return: 美国 EIA 原油库存报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {
@@ -963,7 +963,7 @@ def macro_usa_crude_inner() -> pd.DataFrame:
     美国原油产量报告, 数据区间从 19830107-至今
     https://datacenter.jin10.com/reportType/dc_eia_crude_oil_produce
     :return: 美国原油产量报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": t}
@@ -999,7 +999,7 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     美国商品期货交易委员会CFTC外汇类非商业持仓报告, 数据区间从 19830107-至今
     https://datacenter.jin10.com/reportType/dc_cftc_nc_report
     :return: 美国商品期货交易委员会CFTC外汇类非商业持仓报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
@@ -1028,7 +1028,7 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     美国商品期货交易委员会CFTC商品类非商业持仓报告, 数据区间从 19830107-至今
     https://datacenter.jin10.com/reportType/dc_cftc_c_report
     :return: 美国商品期货交易委员会CFTC外汇类非商业持仓报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
@@ -1057,7 +1057,7 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     美国商品期货交易委员会CFTC外汇类商业持仓报告, 数据区间从 19860115-至今
     https://datacenter.jin10.com/reportType/dc_cftc_merchant_currency
     :return: 美国商品期货交易委员会CFTC外汇类商业持仓报告
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
@@ -1115,7 +1115,7 @@ def macro_usa_cme_merchant_goods_holding():
     CME-贵金属, 数据区间从 20180405-至今
     https://datacenter.jin10.com/org
     :return: CME-贵金属
-    :return: pandas.DataFrame
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}

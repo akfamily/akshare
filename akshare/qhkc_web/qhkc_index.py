@@ -26,7 +26,8 @@ def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):
     :type url: str
     :param name: 中文名称
     :type name: str
-    :return: pd.DataFrame
+    :return: 指数详情
+    :rtype: pandas.DataFrame
         date    price   volume  ...      margin     profit long_short_ratio
         2013-01-04     1000   260820  ...  1130485758    1816940            52.78
         2013-01-07  998.244   245112  ...  1132228518    2514410            52.15
@@ -81,7 +82,8 @@ def get_qhkc_index_trend(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX
     :type name: str
     :param url: 网址
     :type url: str
-    :return: pd.DataFrame
+    :return: 大资金动向
+    :rtype: pandas.DataFrame
         broker    grade    money     open_order     variety
         中金期货     B -3.68209e+07  3.68209e+07      沪金
         浙商期货     D    -25845534     25845534      沪银
@@ -161,7 +163,8 @@ def get_qhkc_index_profit_loss(
     :type start_date: str
     :param end_date: "20190716" 指定 end_date 就可以了
     :type end_date: str
-    :return: pd.DataFrame
+    :return: 盈亏详情
+    :rtype: pandas.DataFrame
         indexes       value  trans_date
         招金期货-沪金  -307489200  2019-09-30
         平安期货-沪银  -195016650  2019-09-30

@@ -81,7 +81,7 @@ def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
     :param symbol: 合约代码; 用 ak.option_cffex_sz300_list_sina() 函数查看
     :type symbol: str
     :return: 中金所-上证 50 指数-指定合约-看涨看跌实时行情
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
     params = {
@@ -154,7 +154,7 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
     :param symbol: 合约代码; 用 option_cffex_hs300_list_sina 函数查看
     :type symbol: str
     :return: 中金所-沪深300指数-指定合约-看涨看跌实时行情
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
     params = {
@@ -227,7 +227,7 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
     :param symbol: 合约代码; 用 option_cffex_zz1000_list_sina 函数查看
     :type symbol: str
     :return: 中金所-中证 1000 指数-指定合约-看涨看跌实时行情
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
     params = {
@@ -299,7 +299,7 @@ def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
     :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     year = datetime.datetime.now().year
     month = datetime.datetime.now().month
@@ -340,7 +340,7 @@ def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
     :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     year = datetime.datetime.now().year
     month = datetime.datetime.now().month
@@ -383,7 +383,7 @@ def option_cffex_zz1000_daily_sina(
     :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
-    :rtype: pd.DataFrame
+    :rtype: pandas.DataFrame
     """
     year = datetime.datetime.now().year
     month = datetime.datetime.now().month
