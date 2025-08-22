@@ -67,11 +67,16 @@ def test_demo():
         print("数据保存失败")
 
 
+def test_stock_zh_a_hist():
+    stock_hfq_df = ak.stock_zh_a_hist(symbol="601398", adjust="").iloc[:, :7]
+    del stock_hfq_df['股票代码']
+
 if __name__ == "__main__":
     # test_cost_living()
     # test_path_func()
     # test_zipfile_func()
     test_demo()
+    test_stock_zh_a_hist()
 
 
 def filed():

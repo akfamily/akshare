@@ -948,7 +948,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
 
 
 def stock_zh_a_hist(
-    symbol: str = "000001",
+    symbol: str = "601398",
     period: str = "daily",
     start_date: str = "19700101",
     end_date: str = "20500101",
@@ -957,7 +957,7 @@ def stock_zh_a_hist(
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日行情
-    https://quote.eastmoney.com/concept/sh603777.html?from=classic
+    https://quote.eastmoney.com/concept/sh601398.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
