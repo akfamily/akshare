@@ -274,6 +274,7 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
         "持有个股",
         "-",
         "-",
+        "-",
     ]
     big_df = big_df[
         [
@@ -1010,15 +1011,15 @@ def stock_gdfx_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_gdfx_free_holding_statistics_em_df = stock_gdfx_free_holding_statistics_em(
-        date="20210930"
-    )
-    print(stock_gdfx_free_holding_statistics_em_df)
-
-    stock_gdfx_holding_statistics_em_df = stock_gdfx_holding_statistics_em(
-        date="20210930"
-    )
-    print(stock_gdfx_holding_statistics_em_df)
+    # stock_gdfx_free_holding_statistics_em_df = stock_gdfx_free_holding_statistics_em(
+    #     date="20210930"
+    # )
+    # print(stock_gdfx_free_holding_statistics_em_df)
+    #
+    # stock_gdfx_holding_statistics_em_df = stock_gdfx_holding_statistics_em(
+    #     date="20210930"
+    # )
+    # print(stock_gdfx_holding_statistics_em_df)
 
     stock_gdfx_free_holding_change_em_df = stock_gdfx_free_holding_change_em(
         date="20210930"
