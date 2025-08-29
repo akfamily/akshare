@@ -20,8 +20,8 @@ def fund_rating_all() -> pd.DataFrame:
     """
     url = "https://fund.eastmoney.com/data/fundrating.html"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
-    data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
+    soup = BeautifulSoup(r.text, features="lxml")
+    data_text = soup.find(name="div", attrs={"id": "fundinfo"}).find("script").string
     data_content = [
         item.split("|")
         for item in data_text.split("var")[6]
@@ -48,7 +48,7 @@ def fund_rating_all() -> pd.DataFrame:
         "-",
         "上海证券",
         "-",
-        "-",
+        "晨星评级",
         "-",
         "济安金信",
         "-",
@@ -72,6 +72,7 @@ def fund_rating_all() -> pd.DataFrame:
             "上海证券",
             "招商证券",
             "济安金信",
+            "晨星评级",
             "手续费",
             "类型",
         ]
@@ -80,6 +81,7 @@ def fund_rating_all() -> pd.DataFrame:
     temp_df["上海证券"] = pd.to_numeric(temp_df["上海证券"], errors="coerce")
     temp_df["招商证券"] = pd.to_numeric(temp_df["招商证券"], errors="coerce")
     temp_df["济安金信"] = pd.to_numeric(temp_df["济安金信"], errors="coerce")
+    temp_df["晨星评级"] = pd.to_numeric(temp_df["晨星评级"], errors="coerce")
     temp_df["手续费"] = (
         pd.to_numeric(temp_df["手续费"].str.strip("%"), errors="coerce") / 100
     )
