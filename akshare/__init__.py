@@ -3757,6 +3757,11 @@ from akshare.currency.currency_safe import currency_boc_safe
 from akshare.option.option_risk_indicator_sse import option_risk_indicator_sse
 
 """
+期权-上海证券交易所-当日合约
+"""
+from akshare.option.option_risk_indicator_sse import option_risk_indicator_sse
+"""
+
 全球宏观事件
 """
 from akshare.news.news_baidu import (
