@@ -7793,6 +7793,7 @@ print(stock_dxsyl_em_df)
 | 股票代码     | object  | -       |
 | 股票简称     | object  | -       |
 | 交易所      | object  | -       |
+| 板块       | object  | -       |
 | 申购代码     | object  | -       |
 | 发行总数     | float64 | 注意单位: 股 |
 | 网上发行     | int64   | 注意单位: 股 |

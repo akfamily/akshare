@@ -300,7 +300,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.rename(
             columns={
                 "SECURITY_CODE": "股票代码",
@@ -308,7 +308,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "TRADE_MARKET_CODE": "-",
                 "APPLY_CODE": "申购代码",
                 "TRADE_MARKET": "交易所",
-                "MARKET_TYPE": "-",
+                "MARKET_TYPE": "板块",
                 "ORG_TYPE": "-",
                 "ISSUE_NUM": "发行总数",
                 "ONLINE_ISSUE_NUM": "网上发行",
@@ -360,6 +360,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "股票简称",
                 "申购代码",
                 "交易所",
+                "板块",
                 "发行总数",
                 "网上发行",
                 "顶格申购需配市值",
