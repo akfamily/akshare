@@ -1,14 +1,16 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/9/1 22:20
+Date: 2025/9/8 16:20
 Desc: 上海证券交易所-产品-股票期权-信息披露-当日合约
+http://www.sse.com.cn/assortment/options/disclo/preinfo/
 """
 
-import requests
 import pandas as pd
+import requests
 
-def option_today_sse() -> pd.DataFrame:
+
+def option_current_day_sse() -> pd.DataFrame:
     """
     上海证券交易所-产品-股票期权-信息披露-当日合约
     http://www.sse.com.cn/assortment/options/disclo/preinfo/
@@ -32,12 +34,11 @@ def option_today_sse() -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/101.0.4951.67 Safari/537.36",
+                      "Chrome/101.0.4951.67 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-
     dict_df = {
         "SECURITY_ID": "合约编码",
         "CONTRACT_ID": "合约交易代码",
@@ -52,10 +53,9 @@ def option_today_sse() -> pd.DataFrame:
         "START_DATE": "开始日期",
     }
     temp_df = temp_df[dict_df.keys()].rename(columns=dict_df)
-
     return temp_df
 
 
 if __name__ == "__main__":
-    option_today_df = option_today_sse()
-    print(option_today_df)
+    option_current_day_sse_df = option_current_day_sse()
+    print(option_current_day_sse_df)
