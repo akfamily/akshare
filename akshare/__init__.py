@@ -3151,9 +3151,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.42 fix: fix reits_realtime_em interface
 1.17.43 fix: fix fund_rating_all interface
 1.17.44 fix: fix stock_individual_spot_xq interface
+1.17.45 fix: fix stock_dxsyl_em interface
 """
 
-__version__ = "1.17.44"
+__version__ = "1.17.45"
 __author__ = "AKFamily"
 
 import sys
@@ -3174,6 +3175,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+上海证券交易所-产品-股票期权-信息披露-当日合约
+"""
+from akshare.option.option_current_sse import option_current_day_sse
 
 """
 东方财富-A股-财务分析-主要指标
