@@ -300,7 +300,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         big_df.rename(
             columns={
                 "SECURITY_CODE": "股票代码",
