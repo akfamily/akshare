@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/27 22:20
+Date: 2025/9/8 16:20
 Desc: 上海证券交易所-产品-股票期权-期权风险指标
 """
 
-import requests
 import pandas as pd
+import requests
 
 
 def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
@@ -35,7 +35,7 @@ def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/101.0.4951.67 Safari/537.36",
+                      "Chrome/101.0.4951.67 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
