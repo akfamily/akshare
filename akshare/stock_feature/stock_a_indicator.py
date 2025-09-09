@@ -46,50 +46,6 @@ def get_token_lg() -> str:
     return token
 
 
-def stock_a_indicator_lg(symbol: str = "000001") -> pd.DataFrame:
-    """
-    市盈率, 市净率, 股息率数据接口
-    https://legulegu.com/stocklist
-    :param symbol: 通过 ak.stock_a_indicator_lg(symbol="all") 来获取所有股票的代码
-    :type symbol: str
-    :return: 市盈率, 市净率, 股息率查询
-    :rtype: pandas.DataFrame
-    """
-    if symbol == "all":
-        url = "https://legulegu.com/stocklist"
-        r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.text, features="lxml")
-        node_list = soup.find_all(attrs={"class": "col-xs-6"})
-        href_list = [item.find("a")["href"] for item in node_list]
-        title_list = [item.find("a")["title"] for item in node_list]
-        temp_df = pd.DataFrame([title_list, href_list]).T
-        temp_df.columns = ["stock_name", "short_url"]
-        temp_df["code"] = temp_df["short_url"].str.split("/", expand=True).iloc[:, -1]
-        del temp_df["short_url"]
-        temp_df = temp_df[["code", "stock_name"]]
-        return temp_df
-    else:
-        url = "https://legulegu.com/api/s/base-info/"
-        token = get_token_lg()
-        params = {"token": token, "id": symbol}
-        r = requests.post(
-            url,
-            params=params,
-            **get_cookie_csrf(url="https://legulegu.com/"),
-        )
-        temp_json = r.json()
-        temp_df = pd.DataFrame(
-            temp_json["data"]["items"],
-            columns=temp_json["data"]["fields"],
-        )
-        temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
-        temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
-        temp_df.sort_values(by=["trade_date"], inplace=True, ignore_index=True)
-        if len(set(temp_df["trade_date"])) <= 0:
-            raise ValueError("数据获取失败, 请检查是否输入正确的股票代码")
-        return temp_df
-
-
 def stock_hk_indicator_eniu(
     symbol: str = "hk01093", indicator: str = "市盈率"
 ) -> pd.DataFrame:
@@ -128,12 +84,6 @@ def stock_hk_indicator_eniu(
 
 
 if __name__ == "__main__":
-    stock_a_indicator_lg_all_df = stock_a_indicator_lg(symbol="all")
-    print(stock_a_indicator_lg_all_df)
-
-    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="000001")
-    print(stock_a_indicator_lg_df)
-
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
         symbol="hk01093", indicator="市盈率"
     )
