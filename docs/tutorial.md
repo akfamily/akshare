@@ -479,7 +479,6 @@
  "stock_index_pe_lg"  # 乐咕乐股-指数市盈率
  "stock_market_pb_lg"  # 乐咕乐股-主板市净率
  "stock_index_pb_lg"  # 乐咕乐股-指数市净率
- "stock_a_indicator_lg"  # A 股个股市盈率、市净率和股息率指标
  "stock_hk_indicator_eniu"  # 港股股个股市盈率、市净率和股息率指标
  "stock_a_high_low_statistics"  # 创新高和新低的股票数量
  "stock_a_below_net_asset_statistics"  # 破净股统计
@@ -1341,6 +1340,8 @@
  "index_csindex_all"  # 中证指数网站-指数列表
  # 东方财富-A股-财务分析-主要指标
  "stock_financial_analysis_indicator_em"  # 东方财富-A股-财务分析-主要指标
+ # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+ "fx_c_swap_cm"  # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
 ```
 
 ## 案例演示
