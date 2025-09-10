@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/8 17:00
+Date: 2025/9/10 17:00
 Desc: AKShare's PYPI info file
 """
 
@@ -55,7 +55,7 @@ setuptools.setup(
         "nest_asyncio>=1.6.0",
         "mini-racer>=0.12.4;platform_system!='Linux'",
         "py-mini-racer>=0.6.0;platform_system=='Linux'",
-        "akracer[py-mini-racer]>=0.0.13;platform_system=='Linux'",
+        "akracer>=0.0.13;platform_system=='Linux'",
     ],
     extras_require={
         # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
