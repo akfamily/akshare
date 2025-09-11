@@ -11939,7 +11939,52 @@ print(stock_financial_abstract_ths_df)
 
 | 名称 | 类型     | 描述 |
 |----|--------|----|
-| -  | 不逐一列出  | -  |
+| SECUCODE  | object  | 股票代码(带HK后缀)  |
+| SECURITY_CODE  | object  | 股票代码(不带HK后缀)  |
+| SECURITY_NAME_ABBR  | object  | 股票名称  |
+| ORG_CODE  | object  | ORG_CODE  |
+| STD_REPORT_DATE  | object  | 报告日期  |
+| REPORT_DATE  | object  | 报告日期  |
+| DATE_TYPE_CODE  | object  | 报告日期类型  |
+| REPORT_TYPE  | object  | 报告类型  |
+| PER_NETCASH_OPERATE  | object  | 每股经营现金流(元)  |
+| PER_OI  | object  | 每股营业收入(元)  |
+| BPS  | object  | 每股净资产(元)  |
+| BASIC_EPS  | object  | 基本每股收益(元)  |
+| DILUTED_EPS  | object  | 稀释每股收益(元)  |
+| OPERATE_INCOME  | object  | 营业总收入(元)  |
+| OPERATE_INCOME_YOY  | object  | 营业总收入同比增长(%)  |
+| GROSS_PROFIT  | object  | 毛利润(元)  |
+| GROSS_PROFIT_YOY  | object  | 毛利润同比增长(%)  |
+| HOLDER_PROFIT  | object  | 归母净利润(元)  |
+| HOLDER_PROFIT_YOY  | object  | 归母净利润同比增长(%)  |
+| GROSS_PROFIT_RATIO  | object  | 毛利率(%)  |
+| EPS_TTM  | object  | TTM每股收益(元)  |
+| OPERATE_INCOME_QOQ  | object  | 营业总收入滚动环比增长(%)  |
+| NET_PROFIT_RATIO  | object  | 净利率(%)  |
+| ROE_AVG  | object  | 平均净资产收益率(%)  |
+| GROSS_PROFIT_QOQ  | object  | 毛利润滚动环比增长(%)  |
+| ROA  | object  | 总资产净利率(%)  |
+| HOLDER_PROFIT_QOQ  | object  | 归母净利润滚动环比增长(%)  |
+| ROE_YEARLY  | object  | 年化净资产收益率(%)  |
+| ROIC_YEARLY  | object  | 年化投资回报率(%)  |
+| TOTAL_ASSETS  | object  | 资产总额  |
+| TOTAL_LIABILITIES  | object  | 负债总额  |
+| TAX_EBT  | object  | 所得税/利润总额(%)  |
+| OCF_SALES  | object  | 经营现金流/营业收入(%)  |
+| TOTAL_PARENT_EQUITY  | object  | 本公司权益持有人应占权益  |
+| DEBT_ASSET_RATIO  | object  | 资产负债率(%)  |
+| OPERATE_PROFIT  | object  | 经营盈利  |
+| PRETAX_PROFIT  | object  | 除税前盈利  |
+| NETCASH_OPERATE  | object  | 经营活动所得现金流量净额  |
+| NETCASH_INVEST  | object  | 投资活动耗用现金流量净额  |
+| NETCASH_FINANCE  | object  | 融资活动耗用现金流量净额  |
+| END_CASH  | object  | 期末的现金及现金等价物  |
+| DIVI_RATIO  | object  | 总资产周转率(次)  |
+| DIVIDEND_RATE  | object  | 流动资产周转率(次)  |
+| CURRENT_RATIO  | object  | 流动比率(倍)  |
+| CURRENTDEBT_DEBT  | object  | 流动负债/总负债(%)  |
+| -  | 其他不常用字段不逐一列出  | -  |
 
 接口示例
 
