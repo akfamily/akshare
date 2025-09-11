@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/5/11 16:00
+Date: 2025/9/11 13:00
 Desc: 东方财富-港股-公司概况
 https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CompanyProfile
 """
@@ -197,9 +197,9 @@ def stock_hk_financial_indicator_em(symbol: str = "03900") -> pd.DataFrame:
         'HOLDER_PROFIT': '净利润',
         'HOLDER_PROFIT_QOQ': '净利润滚动环比增长(%)',
         'ROE_AVG': '股东权益回报率(%)',
-        'PE_TTM':'市盈率',
-        'PB_TTM':'市净率',
-        'ROA':'总资产回报率(%)'
+        'PE_TTM': '市盈率',
+        'PB_TTM': '市净率',
+        'ROA': '总资产回报率(%)'
     }
     temp_df.rename(columns=field_mapping, inplace=True)
     temp_df = temp_df[[
@@ -277,6 +277,9 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
         "截至过户日",
         "发放日",
     ]]
+    temp_df['最新公告日期'] = pd.to_datetime(temp_df['最新公告日期'], errors='coerce').dt.date
+    temp_df['除净日'] = pd.to_datetime(temp_df['除净日'], errors='coerce').dt.date
+    temp_df['发放日'] = pd.to_datetime(temp_df['发放日'], errors='coerce').dt.date
     return temp_df
 
 
