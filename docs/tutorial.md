@@ -1332,6 +1332,9 @@
  # 东方财富-港股-公司资料
  "stock_hk_security_profile_em"  # 港股-证券资料
  "stock_hk_company_profile_em"  # 港股-公司资料
+ # 东方财富-港股-核心必读
+ "stock_hk_financial_indicator_em"  # 港股-最新指标
+ "stock_hk_dividend_payout_em"  # 港股-分红派息
  # 期权保证金
  "option_margin"  # 期权保证金
  # 全部AB股比价
