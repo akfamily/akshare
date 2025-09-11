@@ -368,7 +368,7 @@ def option_czce_daily(
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
-            elif symbol == "丙烯期货":
+            elif symbol == "丙烯期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PL")]
                 temp_df.reset_index(inplace=True, drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
