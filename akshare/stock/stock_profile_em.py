@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/5/11 16:00
+Date: 2025/9/11 13:00
 Desc: 东方财富-港股-公司概况
 https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CompanyProfile
 """
@@ -146,9 +146,152 @@ def stock_hk_company_profile_em(symbol: str = "03900") -> pd.DataFrame:
     return temp_df
 
 
+def stock_hk_financial_indicator_em(symbol: str = "03900") -> pd.DataFrame:
+    """
+    东方财富-港股-核心必读-最新指标
+    https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CoreReading
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 财务指标
+    :rtype: pandas.DataFrame
+    """
+    url = 'https://datacenter.eastmoney.com/securities/api/data/v1/get'
+    params = {
+        'reportName': 'RPT_CUSTOM_HKF10_FN_MAININDICATORMAX',
+        'columns': 'ORG_CODE,SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,SECURITY_INNER_CODE,REPORT_DATE,BASIC_EPS,'
+                   'PER_NETCASH_OPERATE,BPS,BPS_NEDILUTED,COMMON_ACS,PER_SHARES,ISSUED_COMMON_SHARES,HK_COMMON_SHARES,'
+                   'TOTAL_MARKET_CAP,HKSK_MARKET_CAP,OPERATE_INCOME,OPERATE_INCOME_SQ,OPERATE_INCOME_QOQ,'
+                   'OPERATE_INCOME_QOQ_SQ,HOLDER_PROFIT,HOLDER_PROFIT_SQ,HOLDER_PROFIT_QOQ,HOLDER_PROFIT_QOQ_SQ,PE_TTM,'
+                   'PE_TTM_SQ,PB_TTM,PB_TTM_SQ,NET_PROFIT_RATIO,NET_PROFIT_RATIO_SQ,ROE_AVG,ROE_AVG_SQ,ROA,'
+                   'ROA_SQ,DIVIDEND_TTM,DIVIDEND_LFY,DIVI_RATIO,DIVIDEND_RATE,IS_CNY_CODE',
+        'quoteColumns': '',
+        'filter': f'(SECUCODE="{symbol}.HK")',
+        'pageNumber': '1',
+        'pageSize': '200',
+        'sortTypes': '-1',
+        'sortColumns': 'REPORT_DATE',
+        'source': 'F10',
+        'client': 'PC',
+        'v': '07945646099062258'
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
+    field_mapping = {
+        'SECURITY_CODE': '股票代码',
+        'BASIC_EPS': '基本每股收益(元)',
+        'BPS': '每股净资产(元)',
+        'COMMON_ACS': '法定股本(股)',
+        'PER_SHARES': '每手股',
+        'DIVIDEND_TTM': '每股股息TTM(港元)',
+        'DIVI_RATIO': '派息比率(%)',
+        'ISSUED_COMMON_SHARES': '已发行股本(股)',
+        'HK_COMMON_SHARES': '已发行股本-H股(股)',
+        'PER_NETCASH_OPERATE': '每股经营现金流(元)',
+        'DIVIDEND_RATE': '股息率TTM(%)',
+        'TOTAL_MARKET_CAP': '总市值(港元)',
+        'HKSK_MARKET_CAP': '港股市值(港元)',
+        'OPERATE_INCOME': '营业总收入',
+        'OPERATE_INCOME_QOQ': '营业总收入滚动环比增长(%)',
+        'NET_PROFIT_RATIO': '销售净利率(%)',
+        'HOLDER_PROFIT': '净利润',
+        'HOLDER_PROFIT_QOQ': '净利润滚动环比增长(%)',
+        'ROE_AVG': '股东权益回报率(%)',
+        'PE_TTM': '市盈率',
+        'PB_TTM': '市净率',
+        'ROA': '总资产回报率(%)'
+    }
+    temp_df.rename(columns=field_mapping, inplace=True)
+    temp_df = temp_df[[
+        "基本每股收益(元)",
+        "每股净资产(元)",
+        "法定股本(股)",
+        "每手股",
+        "每股股息TTM(港元)",
+        "派息比率(%)",
+        "已发行股本(股)",
+        "已发行股本-H股(股)",
+        "每股经营现金流(元)",
+        "股息率TTM(%)",
+        "总市值(港元)",
+        "港股市值(港元)",
+        "营业总收入",
+        "营业总收入滚动环比增长(%)",
+        "销售净利率(%)",
+        "净利润",
+        "净利润滚动环比增长(%)",
+        "股东权益回报率(%)",
+        "市盈率",
+        "市净率",
+        "总资产回报率(%)"
+
+    ]]
+    return temp_df
+
+
+def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
+    """
+    东方财富-港股-核心必读-分红派息
+    https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/CoreReading
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 分红派息
+    :rtype: pandas.DataFrame
+    """
+    url = 'https://datacenter.eastmoney.com/securities/api/data/v1/get'
+    params = {
+        'reportName': 'RPT_HKF10_MAIN_DIVBASIC',
+        'columns': 'SECURITY_CODE,UPDATE_DATE,REPORT_TYPE,EX_DIVIDEND_DATE,DIVIDEND_DATE,'
+                   'TRANSFER_END_DATE,YEAR,PLAN_EXPLAIN,IS_BFP',
+        'quoteColumns': '',
+        'filter': f'(SECURITY_CODE="{symbol}")(IS_BFP="0")',
+        'pageNumber': '1',
+        'pageSize': '200',
+        'sortTypes': '-1,-1',
+        'sortColumns': 'NOTICE_DATE,EX_DIVIDEND_DATE',
+        'source': 'F10',
+        'client': 'PC',
+        'v': '035584639294227527'
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
+    field_mapping = {
+        'SECURITY_CODE': '股票代码',
+        'UPDATE_DATE': '最新公告日期',
+        'REPORT_TYPE': '分配类型',
+        'EX_DIVIDEND_DATE': '除净日',
+        'DIVIDEND_DATE': '发放日',
+        'TRANSFER_END_DATE': '截至过户日',
+        'YEAR': '财政年度',
+        'PLAN_EXPLAIN': '分红方案',
+        'IS_BFP': 'IS_BFP'
+    }
+    temp_df.rename(columns=field_mapping, inplace=True)
+    temp_df = temp_df[[
+        "最新公告日期",
+        "财政年度",
+        "分红方案",
+        "分配类型",
+        "除净日",
+        "截至过户日",
+        "发放日",
+    ]]
+    temp_df['最新公告日期'] = pd.to_datetime(temp_df['最新公告日期'], errors='coerce').dt.date
+    temp_df['除净日'] = pd.to_datetime(temp_df['除净日'], errors='coerce').dt.date
+    temp_df['发放日'] = pd.to_datetime(temp_df['发放日'], errors='coerce').dt.date
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_hk_security_profile_em_df = stock_hk_security_profile_em(symbol="03900")
     print(stock_hk_security_profile_em_df)
 
     stock_hk_company_profile_em_df = stock_hk_company_profile_em(symbol="03900")
     print(stock_hk_company_profile_em_df)
+
+    stock_hk_financial_indicator_em_df = stock_hk_financial_indicator_em(symbol="03900")
+    print(stock_hk_financial_indicator_em_df)
+
+    stock_hk_dividend_payout_em_df = stock_hk_dividend_payout_em(symbol="03900")
+    print(stock_hk_dividend_payout_em_df)
