@@ -3191,6 +3191,11 @@ from akshare.fx.fx_c_swap_cm import fx_c_swap_cm
 from akshare.option.option_current_sse import option_current_day_sse
 
 """
+深圳证券交易所-期权子网-行情数据-当日合约
+"""
+from akshare.option.option_today_szse import option_today_szse
+
+"""
 东方财富-A股-财务分析-主要指标
 """
 from akshare.stock_fundamental.stock_finance_sina import stock_financial_analysis_indicator_em
