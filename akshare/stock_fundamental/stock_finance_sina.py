@@ -183,7 +183,7 @@ def stock_financial_analysis_indicator_em(
 ) -> pd.DataFrame:
     """
     东方财富-A股-财务分析-主要指标
-    https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=00700&type=web&color=w#/newfinancialanalysis
+    https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SZ301389&color=b#/cwfx
     :param symbol: 股票代码
     :type symbol: str
     :param indicator: choice of {"按报告期", "按单季度"}
