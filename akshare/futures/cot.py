@@ -1388,7 +1388,7 @@ if __name__ == "__main__":
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20250718",
-        end_day="20250718",
+        start_day="20250903",
+        end_day="20250905",
     )
     print(get_rank_sum_daily_df)
