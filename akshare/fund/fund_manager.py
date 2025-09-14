@@ -54,7 +54,7 @@ def fund_manager_em() -> pd.DataFrame:
         "姓名",
         "_",
         "所属公司",
-        "_",
+        "现任基金代码",
         "现任基金",
         "累计从业时间",
         "现任基金最佳回报",
@@ -68,6 +68,7 @@ def fund_manager_em() -> pd.DataFrame:
             "序号",
             "姓名",
             "所属公司",
+            "现任基金代码",
             "现任基金",
             "累计从业时间",
             "现任基金资产总规模",
@@ -87,8 +88,9 @@ def fund_manager_em() -> pd.DataFrame:
     big_df["现任基金资产总规模"] = pd.to_numeric(
         big_df["现任基金资产总规模"], errors="coerce"
     )
+    big_df["现任基金代码"] = big_df["现任基金代码"].apply(lambda x: x.split(","))
     big_df["现任基金"] = big_df["现任基金"].apply(lambda x: x.split(","))
-    big_df = big_df.explode(column="现任基金")
+    big_df = big_df.explode(column=["现任基金代码", "现任基金"])
     big_df.reset_index(drop=True, inplace=True)
     return big_df
 
