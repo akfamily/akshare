@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/5 20:00
+Date: 2025/9/14 18:00
 Desc: 基金经理大全
 https://fund.eastmoney.com/manager/default.html
 """
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
 from akshare.utils import demjson
+from akshare.utils.tqdm import get_tqdm
 
 
 def fund_manager_em() -> pd.DataFrame:
@@ -35,6 +35,7 @@ def fund_manager_em() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var returnjson= "))
     total_page = data_json["pages"]
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
