@@ -3284,6 +3284,11 @@ from akshare.futures.futures_hist_em import futures_hist_table_em, futures_hist_
 from akshare.stock.stock_hold_control_cninfo import stock_hold_change_cninfo
 
 """
+天天基金-基金档案-基金基本概况
+"""
+from akshare.fund.fund_overview_em import fund_overview_em
+
+"""
 基金费率
 """
 from akshare.fund.fund_fee_em import fund_fee_em
