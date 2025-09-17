@@ -1186,6 +1186,8 @@
  "stock_esg_zd_sina"  # 新浪财经-ESG评级中心-ESG评级-秩鼎
  "stock_esg_hz_sina"  # 新浪财经-ESG评级中心-ESG评级-华证指数
  # 基金公告
+ "fund_announcement_dividend_em"  # 东方财富网站-天天基金网-基金档案-基金公告-分红配送
+ "fund_announcement_report_em"  # 东方财富网站-天天基金网-基金档案-基金公告-定期报告
  "fund_announcement_personnel_em"  # 东方财富网站-天天基金网-基金档案-基金公告-人事调整
  # 互动易
  "stock_irm_cninfo"  # 互动易-提问

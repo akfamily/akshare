@@ -3521,6 +3521,16 @@ from akshare.stock_feature.stock_irm_cninfo import (
 )
 
 """
+基金公告-分红配送
+"""
+from akshare.fund.fund_announcement import fund_announcement_dividend_em
+
+"""
+基金公告-定期报告
+"""
+from akshare.fund.fund_announcement import fund_announcement_report_em
+
+"""
 基金公告-人事公告
 """
 from akshare.fund.fund_announcement import fund_announcement_personnel_em
