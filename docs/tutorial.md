@@ -814,6 +814,7 @@
  # REITs
  "reits_realtime_em"  #  REITs-实时行情
  "reits_hist_em"  #  REITs-历史行情
+ "reits_hist_min_em"  #  REITs-历史分钟行情
  # A 股分时数据
  "stock_zh_a_hist_min_em"  # 东财-股票分时
  "stock_zh_a_hist_pre_min_em"  # 东财-股票盘前分时
