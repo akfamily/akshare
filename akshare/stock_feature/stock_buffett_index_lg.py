@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/5 22:05
+Date: 2025/9/20 18:05
 Desc: 乐估乐股-底部研究-巴菲特指标
 https://legulegu.com/stockdata/marketcap-gdp
 """
@@ -50,7 +50,8 @@ def stock_buffett_index_lg() -> pd.DataFrame:
             "总历史分位数",
         ]
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], unit="ms").dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], unit="ms")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"] + pd.Timedelta(hours=8)).dt.date
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["GDP"] = pd.to_numeric(temp_df["GDP"], errors="coerce")
