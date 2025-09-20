@@ -4625,7 +4625,7 @@ print(fund_announcement_dividend_em_df)
 import akshare as ak
 
 fund_announcement_report_em_df = ak.fund_announcement_report_em(symbol="000001")
-print(und_announcement_report_em_df)
+print(fund_announcement_report_em_df)
 ```
 
 数据示例
