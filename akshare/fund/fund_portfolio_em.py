@@ -43,7 +43,18 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
         item.text.split("\xa0\xa0")[1]
         for item in soup.find_all(name="h4", attrs={"class": "t"})
     ]
-    big_df = pd.DataFrame()
+
+    column_name = [
+        "序号",
+        "股票代码",
+        "股票名称",
+        "占净值比例",
+        "持股数",
+        "持仓市值",
+        "季度",
+    ]
+    big_df = pd.DataFrame(columns=column_name)
+
     for item in range(len(item_label)):
         temp_df = pd.read_html(
             StringIO(data_json["content"]), converters={"股票代码": str}
@@ -74,25 +85,17 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
         )
 
         temp_df["季度"] = item_label[item]
-        temp_df = temp_df[
-            [
-                "序号",
-                "股票代码",
-                "股票名称",
-                "占净值比例",
-                "持股数",
-                "持仓市值",
-                "季度",
-            ]
-        ]
-        big_df = pd.concat(objs=[temp_df, big_df], ignore_index=True)
-    big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
-    big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
-    big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
-    del big_df["序号"]
-    big_df.reset_index(inplace=True, drop=False)
-    big_df["index"] = big_df["index"] + 1
-    big_df.rename(columns={"index": "序号"}, inplace=True)
+        temp_df = temp_df[column_name]
+        big_df = pd.concat(objs=[temp_df, big_df], ignore_index=True) if not big_df.empty else temp_df
+
+    if not big_df.empty:
+        big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
+        big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
+        big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
+        del big_df["序号"]
+        big_df.reset_index(inplace=True, drop=False)
+        big_df["index"] = big_df["index"] + 1
+        big_df.rename(columns={"index": "序号"}, inplace=True)
     return big_df
 
 
