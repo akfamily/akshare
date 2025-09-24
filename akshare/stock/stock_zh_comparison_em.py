@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/21 13:00
+Date: 2025/9/24 15:00
 Desc: 东方财富-行情中心-同行比较
 https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj
 """
@@ -245,6 +245,6 @@ if __name__ == "__main__":
 
     stock_zh_dupont_comparison_em_df = stock_zh_dupont_comparison_em(symbol="SZ000895")
     print(stock_zh_dupont_comparison_em_df)
-    
+
     stock_zh_scale_comparison_em_df = stock_zh_scale_comparison_em(symbol="SZ000895")
     print(stock_zh_scale_comparison_em_df)
