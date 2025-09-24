@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/11 13:00
+Date: 2025/9/24 15:00
 Desc: 东方财富-港股-行业对比
 https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/IndustryComparison
 """
@@ -38,7 +38,6 @@ def stock_hk_growth_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     field_mapping = {
         'CORRE_SECURITY_CODE': '代码',
         'CORRE_SECURITY_NAME': '简称',
@@ -51,13 +50,11 @@ def stock_hk_growth_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         'TOTAL_ASSET_YOY': '基本每股收总资产同比增长率益同比增长率',
         'TOASSET_YOY_RANK': '总资产同比增长率排名',
     }
-
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json['result'] is not None:
         temp_df = pd.DataFrame(data_json['result']['data'])
         temp_df.rename(columns=field_mapping, inplace=True)
         temp_df = temp_df[field_mapping.values()]
-
     return temp_df
 
 
@@ -69,7 +66,7 @@ def stock_hk_valuation_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     :type symbol: str
     :return: 估值对比
     :rtype: pandas.DataFrame
-    """    
+    """
     url = 'https://datacenter.eastmoney.com/securities/api/data/v1/get'
     params = {
         'reportName': 'RPT_PCF10_INDUSTRY_HKCVALUE',
@@ -90,7 +87,6 @@ def stock_hk_valuation_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     field_mapping = {
         'CORRE_SECURITY_CODE': '代码',
         'CORRE_SECURITY_NAME': '简称',
@@ -111,13 +107,11 @@ def stock_hk_valuation_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         'PCE_LYR': '市现率-LYR',
         'PCE_LYR_RANK': '市现率-LYR排名',
     }
-
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json['result'] is not None:
         temp_df = pd.DataFrame(data_json['result']['data'])
         temp_df.rename(columns=field_mapping, inplace=True)
         temp_df = temp_df[field_mapping.values()]
-
     return temp_df
 
 
@@ -150,7 +144,6 @@ def stock_hk_scale_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     field_mapping = {
         'CORRE_SECURITY_CODE': '代码',
         'CORRE_SECURITY_NAME': '简称',
@@ -163,18 +156,15 @@ def stock_hk_scale_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         'GROSS_PROFIT': '净利润',
         'GROSS_PROFIT_RANK': '净利润排名',
     }
-
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json['result'] is not None:
         temp_df = pd.DataFrame(data_json['result']['data'])
         temp_df.rename(columns=field_mapping, inplace=True)
         temp_df = temp_df[field_mapping.values()]
-
     return temp_df
 
 
 if __name__ == "__main__":
-
     stock_hk_growth_comparison_em_df = stock_hk_growth_comparison_em(symbol="03900")
     print(stock_hk_growth_comparison_em_df)
 
