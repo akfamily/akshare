@@ -1340,6 +1340,15 @@
  # 东方财富-港股-核心必读
  "stock_hk_financial_indicator_em"  # 港股-最新指标
  "stock_hk_dividend_payout_em"  # 港股-分红派息
+ # 东方财富-港股-行业对比
+ "stock_hk_growth_comparison_em"  # 港股-行业对比-成长性对比
+ "stock_hk_valuation_comparison_em"  # 港股-行业对比-估值对比
+ "stock_hk_scale_comparison_em"  # 港股-行业对比-规模对比
+ # 东方财富-行情中心-同行比较
+ "stock_zh_growth_comparison_em"  # 行情中心-同行比较-成长性比较
+ "stock_zh_valuation_comparison_em"  # 行情中心-同行比较-估值比较
+ "stock_zh_dupont_comparison_em"  # 行情中心-同行比较-杜邦分析比较
+ "stock_zh_scale_comparison_em"  # 行情中心-同行比较-公司规模
  # 期权保证金
  "option_margin"  # 期权保证金
  # 全部AB股比价

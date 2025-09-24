@@ -2110,6 +2110,253 @@ print(stock_zh_a_tick_tx_js_df)
 1409  15:00:02  3.52  0.01      10    3520   买盘
 ```
 
+
+#### 同行比较
+
+##### 成长性比较
+
+接口: stock_zh_growth_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj/czxbj
+
+描述: 东方财富-行情中心-同行比较-成长性比较
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="SZ000895"     |
+
+输出参数
+
+| 名称               | 类型      | 描述 |
+|------------------|---------|----|
+| 代码               | object  | -  |
+| 简称               | object  | -  |
+| 基本每股收益增长率-3年复合   | float64 | -  |
+| 基本每股收益增长率-24A    | float64 | -  |
+| 基本每股收益增长率-TTM    | float64 | -  |
+| 基本每股收益增长率-25E    | float64 | -  |
+| 基本每股收益增长率-26E    | float64 | -  |
+| 基本每股收益增长率-27E    | float64 | -  |
+| 营业收入增长率-3年复合     | float64 | -  |
+| 营业收入增长率-24A      | float64 | -  |
+| 营业收入增长率-TTM      | float64 | -  |
+| 营业收入增长率-25E      | float64 | -  |
+| 营业收入增长率-26E      | float64 | -  |
+| 营业收入增长率-27E      | float64 | -  |
+| 净利润增长率-3年复合      | float64 | -  |
+| 净利润增长率-24A       | float64 | -  |
+| 净利润增长率-TTM       | float64 | -  |
+| 净利润增长率-25E       | float64 | -  |
+| 净利润增长率-26E       | float64 | -  |
+| 净利润增长率-27E       | float64 | -  |
+| 基本每股收益增长率-3年复合排名 | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_growth_comparison_em_df = ak.stock_zh_growth_comparison_em(symbol="SZ000895")
+print(stock_zh_growth_comparison_em_df)
+```
+
+数据示例
+
+```
+       代码    简称  基本每股收益增长率-3年复合  ...  净利润增长率-26E  净利润增长率-27E  基本每股收益增长率-3年复合排名
+0    行业中值  行业中值       -8.790000  ...   21.290000   16.135000               NaN
+1    行业平均  行业平均      -31.127395  ...   57.622875   18.847125               NaN
+2  600530  交大昂立       81.710000  ...         NaN         NaN               1.0
+3  600186  莲花控股       58.740000  ...   28.700000   22.480000               2.0
+4  600962  国投中鲁       51.860000  ...         NaN         NaN               3.0
+5  600737  中粮糖业       48.850000  ...   39.030000   22.690000               4.0
+6  003000  劲仔食品       46.100000  ...   22.070000   17.520000               5.0
+7  000895  双汇发展        0.840000  ...    4.320000    3.980000              38.0
+[8 rows x 21 columns]
+```
+
+##### 估值比较
+
+接口: stock_zh_valuation_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj/gzbj
+
+描述: 东方财富-行情中心-同行比较-估值比较
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="SZ000895"     |
+
+输出参数
+
+| 名称            | 类型      | 描述 |
+|---------------|---------|----|
+| 代码            | object  | -  |
+| 简称            | object  | -  |
+| PEG           | float64 | -  |
+| 市盈率-24A       | float64 | -  |
+| 市盈率-TTM       | float64 | -  |
+| 市盈率-25E       | float64 | -  |
+| 市盈率-26E       | float64 | -  |
+| 市盈率-27E       | float64 | -  |
+| 市销率-24A       | float64 | -  |
+| 市销率-TTM       | float64 | -  |
+| 市销率-25E       | float64 | -  |
+| 市销率-26E       | float64 | -  |
+| 市销率-27E       | float64 | -  |
+| 市净率-24A       | float64 | -  |
+| 市净率-MRQ       | float64 | -  |
+| 市现率PCE-24A    | float64 | -  |
+| 市现率PCE-TTM    | float64 | -  |
+| 市现率PCF-24A    | float64 | -  |
+| 市现率PCF-TTM    | float64 | -  |
+| EV/EBITDA-24A | float64 | -  |
+| PEG排名         | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_valuation_comparison_em_df = ak.stock_zh_valuation_comparison_em(symbol="SZ000895")
+print(stock_zh_valuation_comparison_em_df)
+```
+
+数据示例
+
+```
+       代码    简称       PEG  ...  市现率PCF-TTM  EV/EBITDA-24A  PEG排名
+0    行业平均  行业平均  2.481418  ...   94.251683      12.792460    NaN
+1    行业中值  行业中值  0.716858  ...  -10.069886      18.565517    NaN
+2  002840  华统股份  0.074928  ...   20.345530      19.671557    1.0
+3  002597  金禾实业  0.154887  ...  -16.269930      14.470896    2.0
+4  002852   道道全  0.177293  ...  -18.053383      10.933433    3.0
+5  600419  天润乳业  0.242839  ...   85.026739      20.480766    4.0
+6  000529  广弘控股  0.246618  ...   -7.832618      31.953205    5.0
+7  000895  双汇发展  2.146946  ...   63.911018      12.503574   58.0
+[8 rows x 21 columns]
+```
+
+##### 杜邦分析比较
+
+接口: stock_zh_dupont_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj/dbfxbj
+
+描述: 东方财富-行情中心-同行比较-杜邦分析比较
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="SZ000895"     |
+
+输出参数
+
+| 名称          | 类型      | 描述 |
+|-------------|---------|----|
+| 代码          | object  | -  |
+| 简称          | object  | -  |
+| ROE-3年平均    | float64 | -  |
+| ROE-22A     | float64 | -  |
+| ROE-23A     | float64 | -  |
+| ROE-24A     | float64 | -  |
+| 净利率-3年平均    | float64 | -  |
+| 净利率-22A     | float64 | -  |
+| 净利率-23A     | float64 | -  |
+| 净利率-24A     | float64 | -  |
+| 总资产周转率-3年平均 | float64 | -  |
+| 总资产周转率-22A  | float64 | -  |
+| 总资产周转率-23A  | float64 | -  |
+| 总资产周转率-24A  | float64 | -  |
+| 权益乘数-3年平均   | float64 | -  |
+| 权益乘数-22A    | float64 | -  |
+| 权益乘数-23A    | float64 | -  |
+| 权益乘数-24A    | float64 | -  |
+| ROE-3年平均排名  | float64 | -  |
+
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_dupont_comparison_em_df = ak.stock_zh_dupont_comparison_em(symbol="SZ000895")
+print(stock_zh_dupont_comparison_em_df)
+```
+
+数据示例
+
+```
+    代码    简称  ROE-3年平均  ROE-22A  ...  权益乘数-22A  权益乘数-23A  权益乘数-24A  ROE-3年平均排名
+0    行业平均  行业平均      5.70     5.51  ...    191.76    189.10   185.080         NaN
+1    行业中值  行业中值      7.71     7.89  ...    149.35    142.50   143.105         NaN
+2  605499  东鹏饮料     38.09    30.97  ...    234.37    232.62   294.820         1.0
+3  002847  盐津铺子     36.48    30.03  ...    213.82    196.34   203.650         2.0
+4  000895  双汇发展     24.21    25.17  ...    164.15    173.44   174.840         3.0
+5  603262  技源集团     24.02    28.06  ...    152.21    132.11   125.360         4.0
+6  603288  海天味业     22.24    24.89  ...    126.69    132.34   130.110         5.0
+7  000848  承德露露     21.92    23.53  ...    136.51    133.85   133.510         6.0
+[8 rows x 19 columns]
+```
+
+##### 公司规模
+
+接口: stock_zh_scale_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj/gsgm
+
+描述: 东方财富-行情中心-同行比较-公司规模
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="SZ000895"     |
+
+输出参数
+
+| 名称     | 类型      | 描述 |
+|--------|---------|----|
+| 代码     | object  | -  |
+| 简称     | object  | -  |
+| 总市值    | float64 | -  |
+| 总市值排名  | int64   | -  |
+| 流通市值   | float64 | -  |
+| 流通市值排名 | int64   | -  |
+| 营业收入   | float64 | -  |
+| 营业收入排名 | int64   | -  |
+| 净利润    | float64 | -  |
+| 净利润排名  | int64   | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_scale_comparison_em_df = ak.stock_zh_scale_comparison_em(symbol="SZ000895")
+print(stock_zh_scale_comparison_em_df)
+```
+
+数据示例
+
+```
+       代码    简称           总市值  总市值排名    流通市值  流通市值排名          营业收入  营业收入排名           净利润  净利润排名
+0  000895  双汇发展  8.685906e+10      5  868.48       4  2.850309e+10       3  2.351218e+09      4
+```
+
 ### A股-CDR
 
 #### 历史行情数据
@@ -4925,6 +5172,161 @@ print(stock_hk_dividend_payout_em_df)
 17  2008-05-26  2007  ...  2008/05/21-2008/05/23  2008-05-30
 18  2007-05-14  2006  ...  2007/05/07-2007/05/11  2007-05-22
 [19 rows x 7 columns]
+```
+
+
+#### 行业对比
+
+##### 成长性对比
+
+接口: stock_hk_growth_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/IndustryComparison
+
+描述: 东方财富-港股-行业对比-成长性对比
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="03900" |
+
+输出参数
+
+| 名称                  | 类型      | 描述 |
+|---------------------|---------|----|
+| 代码                  | object  | -  |
+| 简称                  | object  | -  |
+| 基本每股收益同比增长率         | float64 | -  |
+| 基本每股收益同比增长率排名       | int64   | -  |
+| 营业收入同比增长率           | float64 | -  |
+| 营业收入同比增长率排名         | int64   | -  |
+| 营业利润率同比增长率          | float64 | -  |
+| 营业利润率同比增长率排名        | int64   | -  |
+| 基本每股收总资产同比增长率益同比增长率 | float64 | -  |
+| 总资产同比增长率排名          | int64   | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_growth_comparison_em_df = ak.stock_hk_growth_comparison_em(symbol="03900")
+print(stock_hk_growth_comparison_em_df)
+```
+
+数据示例
+
+```
+      代码    简称  基本每股收益同比增长率  基本每股收益同比增长率排名 ...  总资产同比增长率排名
+0  03900  绿城中国   -90.123457            171          ...          91
+```
+
+##### 估值对比
+
+接口: stock_hk_valuation_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/IndustryComparison
+
+描述: 东方财富-港股-行业对比-估值对比
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="03900" |
+
+输出参数
+
+| 名称        | 类型      | 描述 |
+|-----------|---------|----|
+| 代码        | object  | -  |
+| 简称        | object  | -  |
+| 市盈率-TTM   | float64 | -  |
+| 市盈率-TTM排名 | int64   | -  |
+| 市盈率-LYR   | float64 | -  |
+| 市盈率-LYR排名 | int64   | -  |
+| 市净率-MRQ   | float64 | -  |
+| 市净率-MRQ排名 | int64   | -  |
+| 市净率-LYR   | float64 | -  |
+| 市净率-LYR排名 | int64   | -  |
+| 市销率-TTM   | float64 | -  |
+| 市销率-TTM排名 | int64   | -  |
+| 市销率-LYR   | float64 | -  |
+| 市销率-LYR排名 | int64   | -  |
+| 市现率-TTM   | float64 | -  |
+| 市现率-TTM排名 | int64   | -  |
+| 市现率-LYR   | float64 | -  |
+| 市现率-LYR排名 | int64   | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_valuation_comparison_em_df = ak.stock_hk_valuation_comparison_em(symbol="03900")
+print(stock_hk_valuation_comparison_em_df)
+```
+
+数据示例
+
+```
+      代码    简称   市盈率-TTM  市盈率-TTM排名    ...   市现率-LYR  市现率-LYR排名
+0  03900  绿城中国 -86.44272         97  14.363182      -30.427808      121
+[1 rows x 18 columns]
+```
+
+
+##### 规模对比
+
+接口: stock_hk_scale_comparison_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900&type=web&color=w#/IndustryComparison
+
+描述: 东方财富-港股-行业对比-规模对比
+
+限量: 单次返回全部数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="03900" |
+
+输出参数
+
+| 名称      | 类型      | 描述 |
+|---------|---------|----|
+| 代码      | object  | -  |
+| 简称      | object  | -  |
+| 总市值     | float64 | -  |
+| 总市值排名   | int64   | -  |
+| 流通市值    | float64 | -  |
+| 流通市值排名  | int64   | -  |
+| 营业总收入   | int64   | -  |
+| 营业总收入排名 | int64   | -  |
+| 净利润     | int64   | -  |
+| 净利润排名   | int64   | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_scale_comparison_em_df = ak.stock_hk_scale_comparison_em(symbol="03900")
+print(stock_hk_scale_comparison_em_df)
+```
+
+数据示例
+
+```
+    代码   简称       总市值  总市值排名  ...    营业总收入  营业总收入排名  净利润  净利润排名
+0  03900  绿城中国  2.201719e+10     20  ...  53368264000        6  209907000     37
+[1 rows x 10 columns]
 ```
 
 ### 机构调研

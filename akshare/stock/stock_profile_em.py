@@ -255,7 +255,7 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['result']['data'])
+
     field_mapping = {
         'SECURITY_CODE': '股票代码',
         'UPDATE_DATE': '最新公告日期',
@@ -267,8 +267,7 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
         'PLAN_EXPLAIN': '分红方案',
         'IS_BFP': 'IS_BFP'
     }
-    temp_df.rename(columns=field_mapping, inplace=True)
-    temp_df = temp_df[[
+    columns = [
         "最新公告日期",
         "财政年度",
         "分红方案",
@@ -276,10 +275,16 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
         "除净日",
         "截至过户日",
         "发放日",
-    ]]
-    temp_df['最新公告日期'] = pd.to_datetime(temp_df['最新公告日期'], errors='coerce').dt.date
-    temp_df['除净日'] = pd.to_datetime(temp_df['除净日'], errors='coerce').dt.date
-    temp_df['发放日'] = pd.to_datetime(temp_df['发放日'], errors='coerce').dt.date
+    ]
+
+    temp_df = pd.DataFrame(columns=columns)
+    if data_json['result'] is not None:
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df[columns]
+        temp_df['最新公告日期'] = pd.to_datetime(temp_df['最新公告日期'], errors='coerce').dt.date
+        temp_df['除净日'] = pd.to_datetime(temp_df['除净日'], errors='coerce').dt.date
+        temp_df['发放日'] = pd.to_datetime(temp_df['发放日'], format='%Y-%m-%d', errors='coerce').dt.date
     return temp_df
 
 

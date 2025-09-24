@@ -3161,9 +3161,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.52 fix: fix fund_overview_em interface
 1.17.53 fix: fix reits_hist_min_em interface
 1.17.54 fix: fix fund_announcement_dividend_em interface
+1.17.55 fix: fix stock_zh_growth_comparison_em interface
 """
 
-__version__ = "1.17.54"
+__version__ = "1.17.55"
 __author__ = "AKFamily"
 
 import sys
@@ -3219,6 +3220,16 @@ from akshare.stock.stock_profile_em import stock_hk_company_profile_em, stock_hk
 东方财富-港股-核心必读
 """
 from akshare.stock.stock_profile_em import stock_hk_dividend_payout_em, stock_hk_financial_indicator_em
+
+"""
+东方财富-港股-行业对比
+"""
+from akshare.stock.stock_hk_comparison_em import stock_hk_growth_comparison_em, stock_hk_valuation_comparison_em, stock_hk_scale_comparison_em
+
+"""
+东方财富-行情中心-同行比较
+"""
+from akshare.stock.stock_zh_comparison_em import stock_zh_growth_comparison_em, stock_zh_valuation_comparison_em, stock_zh_dupont_comparison_em, stock_zh_scale_comparison_em
 
 """
 东方财富网-行情中心-债券市场-质押式回购
