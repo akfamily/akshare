@@ -3162,9 +3162,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.53 fix: fix reits_hist_min_em interface
 1.17.54 fix: fix fund_announcement_dividend_em interface
 1.17.55 fix: fix stock_zh_growth_comparison_em interface
+1.17.56 fix: fix stock_balance_sheet_by_report_delisted_em interface
 """
 
-__version__ = "1.17.55"
+__version__ = "1.17.56"
 __author__ = "AKFamily"
 
 import sys
