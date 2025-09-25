@@ -453,15 +453,15 @@ def __get_report_date_list_delisted_em(symbol: str = "SZ000013") -> list:
     url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
         "type": "RPT_F10_FINANCE_GINCOME",
-        "sty": "SECURITY_CODE,REPORT_DATE,REPORT_TYPE,REPORT_DATE_NAME",
-        "filter": f'(SECURITY_CODE="{symbol[2:]}")',
+        "sty": "SECUCODE,SECURITY_CODE,REPORT_DATE,REPORT_TYPE,REPORT_DATE_NAME",
+        "filter": f'(SECUCODE="{symbol[2:]}.{symbol[:2]}")',
         "p": "1",
         "ps": "200",
         "sr": "-1",
         "st": "REPORT_DATE",
         "source": "HSF10",
         "client": "PC",
-        "v": "05767841728614413",
+        "v": "07306678536291241",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
