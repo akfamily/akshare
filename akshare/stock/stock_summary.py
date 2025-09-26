@@ -80,8 +80,6 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
         "期权交易额(元)": "期权交易额",
     }
     temp_df.rename(columns=column_map, inplace=True)
-
-
     temp_df["总交易额"] = temp_df["总交易额"].str.replace(",", "")
     temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"], errors="coerce")
     temp_df["占市场"] = pd.to_numeric(temp_df["占市场"], errors="coerce")
@@ -92,7 +90,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     temp_df["债券交易额"] = temp_df["债券交易额"].str.replace(",", "")
     temp_df["债券交易额"] = pd.to_numeric(temp_df["债券交易额"], errors="coerce")
     if "优先股交易额" in temp_df.columns:
-        temp_df['优先股交易额'] = temp_df['优先股交易额'].astype('str') # 2025年2月为float
+        temp_df['优先股交易额'] = temp_df['优先股交易额'].astype('str')  # 2025年2月为float
         temp_df["优先股交易额"] = temp_df["优先股交易额"].str.replace(",", "")
         temp_df["优先股交易额"] = pd.to_numeric(
             temp_df["优先股交易额"], errors="coerce"
@@ -126,7 +124,7 @@ def stock_szse_sector_summary(
     )
     tags_dict = [
         eval(
-            item.string[item.string.find("{") : item.string.find("}") + 1]
+            item.string[item.string.find("{"): item.string.find("}") + 1]
             .replace("\n", "")
             .replace(" ", "")
             .replace("value", "'value'")
@@ -211,7 +209,7 @@ def stock_sse_summary() -> pd.DataFrame:
     headers = {
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/89.0.4389.90 Safari/537.36",
+                      "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -258,7 +256,7 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/89.0.4389.90 Safari/537.36",
+                      "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -345,20 +343,22 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # stock_szse_summary_df = stock_szse_summary(date="20200619")
-    # print(stock_szse_summary_df)
+    stock_szse_summary_df = stock_szse_summary(date="20200619")
+    print(stock_szse_summary_df)
 
     stock_szse_area_summary_df = stock_szse_area_summary(date="202412")
     print(stock_szse_area_summary_df)
+
     stock_szse_area_summary_df = stock_szse_area_summary(date="202502")
     print(stock_szse_area_summary_df)
-    # stock_szse_sector_summary_df = stock_szse_sector_summary(
-    #     symbol="当月", date="202501"
-    # )
-    # print(stock_szse_sector_summary_df)
-    #
-    # stock_sse_summary_df = stock_sse_summary()
-    # print(stock_sse_summary_df)
-    #
-    # stock_sse_deal_daily_df = stock_sse_deal_daily(date="20250228")
-    # print(stock_sse_deal_daily_df)
+
+    stock_szse_sector_summary_df = stock_szse_sector_summary(
+        symbol="当月", date="202501"
+    )
+    print(stock_szse_sector_summary_df)
+
+    stock_sse_summary_df = stock_sse_summary()
+    print(stock_sse_summary_df)
+
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20250228")
+    print(stock_sse_deal_daily_df)
