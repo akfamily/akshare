@@ -32,7 +32,6 @@ def fx_c_swap_cm():
     session = requests.Session()
     session.mount(prefix='https://', adapter=LegacySSLAdapter())
     url = "https://www.chinamoney.org.cn/r/cms/www/chinamoney/data/fx/fx-c-sw-curv-USD.CNY.json"
-
     payload = {
         "t": "1757402201554",
     }
@@ -40,12 +39,14 @@ def fx_c_swap_cm():
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['records'])
     temp_df.rename(columns={
+        "curveTime": "日期时间",
         "tenor": "期限品种",
         "swapPnt": "掉期点(Pips)",
         "dataSource": "掉期点数据源",
         "swapAllPrc": "全价汇率",
     }, inplace=True)
     temp_df = temp_df[[
+        "日期时间",
         "期限品种",
         "掉期点(Pips)",
         "掉期点数据源",
