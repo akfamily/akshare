@@ -12212,7 +12212,7 @@ print(stock_financial_hk_report_em_df)
 
 | 名称        | 类型  | 描述                                                    |
 |-----------|-----|-------------------------------------------------------|
-| stock     | str | stock="TSLA"; 股票代码                                    |
+| stock     | str | stock="TSLA"; 股票代码, 比如 BRK.A 需修改为 BRK_A 再获取           |
 | symbol    | str | symbol="资产负债表"; choice of {"资产负债表", "综合损益表", "现金流量表"} |
 | indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"}       |
 

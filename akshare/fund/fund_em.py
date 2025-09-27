@@ -902,7 +902,7 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
     temp_df_columns = temp_df.iloc[0, :].tolist()[1:]
     temp_df = temp_df.iloc[1:, 1:]
     temp_df.columns = temp_df_columns
-    temp_df["基金简称"] = temp_df["基金简称"].str.strip("基金吧档案")
+    temp_df["基金简称"] = temp_df["基金简称"].str.replace("行情吧档案", '')
     temp_df.reset_index(inplace=True, drop=True)
     temp_df.columns = [
         "基金代码",
