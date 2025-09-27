@@ -223,7 +223,7 @@ if __name__ == "__main__":
     print(stock_financial_us_analysis_indicator_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="BABA", symbol="资产负债表", indicator="年报"
+        stock="BRK", symbol="资产负债表", indicator="年报"
     )
     print(stock_financial_us_report_em_df)
 
