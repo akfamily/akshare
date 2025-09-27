@@ -80,6 +80,10 @@
 
 ## 更新说明详情
 
+1.17.58 fix: fix fund_etf_fund_daily_em interface
+
+	1. 修复 fund_etf_fund_daily_em 接口
+
 1.17.57 fix: fix stock_szse_summary interface
 
 	1. 修复 stock_szse_summary 接口
@@ -5824,6 +5828,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.58 fix: fix fund_etf_fund_daily_em interface
 
 1.17.57 fix: fix stock_szse_summary interface
 
