@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/21 18:00
+Date: 2025/9/28 13:30
 Desc: 新浪财经-日内分时数据
 https://quote.eastmoney.com/f1.html?newcode=0.000001
 """
@@ -64,5 +64,5 @@ def stock_intraday_sina(
 
 
 if __name__ == "__main__":
-    stock_intraday_sina_df = stock_intraday_sina(symbol="sz000001", date="20250221")
+    stock_intraday_sina_df = stock_intraday_sina(symbol="sz000001", date="20250926")
     print(stock_intraday_sina_df)
