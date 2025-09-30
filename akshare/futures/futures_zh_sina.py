@@ -25,17 +25,21 @@ from akshare.utils import demjson
 
 
 @lru_cache()
-def futures_symbol_mark() -> pd.DataFrame:
+def futures_symbol_mark(headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     期货的品种和代码映射
     https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 期货的品种和代码映射
     :rtype: pandas.DataFrame
     """
     url = (
         "https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
     )
-    r = requests.get(url)
+    r = requests.get(url, headers=headers, proxies=proxies)
     r.encoding = "gb2312"
     data_text = r.text
     raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
@@ -88,16 +92,20 @@ def futures_symbol_mark() -> pd.DataFrame:
     return temp_df
 
 
-def futures_zh_realtime(symbol: str = "PTA") -> pd.DataFrame:
+def futures_zh_realtime(symbol: str = "PTA", headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     期货品种当前时刻所有可交易的合约实时数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: 品种名称；可以通过 ak.futures_symbol_mark() 获取所有品种命名表
     :type symbol: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 期货品种当前时刻所有可交易的合约实时数据
     :rtype: pandas.DataFrame
     """
-    _futures_symbol_mark_df = futures_symbol_mark()
+    _futures_symbol_mark_df = futures_symbol_mark(headers=headers, proxies=proxies)
     symbol_mark_map = dict(
         zip(_futures_symbol_mark_df["symbol"], _futures_symbol_mark_df["mark"])
     )
@@ -109,7 +117,7 @@ def futures_zh_realtime(symbol: str = "PTA") -> pd.DataFrame:
         "node": symbol_mark_map[symbol],
         "base": "futures",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers, proxies=proxies)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
 
@@ -136,16 +144,20 @@ def futures_zh_realtime(symbol: str = "PTA") -> pd.DataFrame:
     return temp_df
 
 
-def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
+def zh_subscribe_exchange_symbol(symbol: str = "cffex", headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     交易所具体的可交易品种
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
-    r = requests.get(zh_subscribe_exchange_symbol_url)
+    r = requests.get(zh_subscribe_exchange_symbol_url, headers=headers, proxies=proxies)
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(
@@ -168,22 +180,26 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
         return pd.DataFrame(data_json["gfex"])
 
 
-def match_main_contract(symbol: str = "cffex") -> str:
+def match_main_contract(symbol: str = "cffex", headers: dict = None, proxies: dict = None) -> str:
     """
     新浪财经-期货-主力合约
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 主力合约的字符串
     :rtype: str
     """
     subscribe_exchange_list = []
-    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
+    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol, headers=headers, proxies=proxies).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
-            zh_match_main_contract_url, params=zh_match_main_contract_payload
+            zh_match_main_contract_url, params=zh_match_main_contract_payload, headers=headers, proxies=proxies
         )
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
@@ -206,6 +222,8 @@ def futures_zh_spot(
     symbol: str = "V2309",
     market: str = "CF",
     adjust: str = "0",
+    headers: dict = None,
+    proxies: dict = None,
 ) -> pd.DataFrame:
     """
     期货的实时行情数据
@@ -216,6 +234,10 @@ def futures_zh_spot(
     :type market: str
     :param adjust: '1' or '0'；字符串的 0 或 1；返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢
     :type adjust: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
     """
@@ -224,7 +246,7 @@ def futures_zh_spot(
     rn_code = ctx.eval(file_data)
     subscribe_list = ",".join(["nf_" + item.strip() for item in symbol.split(",")])
     url = f"https://hq.sinajs.cn/rn={rn_code}&list={subscribe_list}"
-    headers = {
+    default_headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
@@ -236,7 +258,9 @@ def futures_zh_spot(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    if headers:
+        default_headers.update(headers)
+    r = requests.get(url, headers=default_headers, proxies=proxies)
     data_df = pd.DataFrame(
         [
             item.strip().split("=")[1].split(",")
@@ -612,7 +636,7 @@ def futures_zh_spot(
             return data_df
 
 
-def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.DataFrame:
+def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1", headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     中国各品种期货分钟频率数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
@@ -620,6 +644,10 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 指定 symbol 和 period 的数据
     :rtype: pandas.DataFrame
     """
@@ -628,7 +656,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
         "symbol": symbol,
         "type": period,
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers, proxies=proxies)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "datetime",
@@ -648,12 +676,16 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
     return temp_df
 
 
-def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
+def futures_zh_daily_sina(symbol: str = "RB0", headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
     :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
     """
@@ -666,7 +698,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
         "symbol": symbol,
         "type": "_".join([date[:4], date[4:6], date[6:]]),
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers, proxies=proxies)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "date",

@@ -27,14 +27,18 @@ from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
 
 
-def _get_zh_a_page_count() -> int:
+def _get_zh_a_page_count(headers: dict = None, proxies: dict = None) -> int:
     """
     所有股票的总页数
     https://vip.stock.finance.sina.com.cn/mkt/#hs_a
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    res = requests.get(zh_sina_a_stock_count_url)
+    res = requests.get(zh_sina_a_stock_count_url, headers=headers, proxies=proxies)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -42,22 +46,26 @@ def _get_zh_a_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_zh_a_spot() -> pd.DataFrame:
+def stock_zh_a_spot(headers: dict = None, proxies: dict = None) -> pd.DataFrame:
     """
     新浪财经-所有 A 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_a
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 所有股票的实时行情数据
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = _get_zh_a_page_count()
+    page_count = _get_zh_a_page_count(headers=headers, proxies=proxies)
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
     tqdm = get_tqdm()
     for page in tqdm(
         range(1, page_count + 1), leave=False, desc="Please wait for a moment"
     ):
         zh_sina_stock_payload_copy.update({"page": page})
-        r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
+        r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy, headers=headers, proxies=proxies)
         data_json = demjson.decode(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
 
@@ -129,6 +137,8 @@ def stock_zh_a_daily(
     start_date: str = "19900101",
     end_date: str = "21000118",
     adjust: str = "",
+    headers: dict = None,
+    proxies: dict = None,
 ) -> pd.DataFrame:
     """
     新浪财经-A 股-个股的历史行情数据, 大量抓取容易封 IP
@@ -141,13 +151,17 @@ def stock_zh_a_daily(
     :type end_date: str
     :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子
     :type adjust: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: 行情数据
     :rtype: pandas.DataFrame
     """
 
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
-            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol), headers=headers, proxies=proxies)
             hfq_factor_df = pd.DataFrame(
                 eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -159,7 +173,7 @@ def stock_zh_a_daily(
             hfq_factor_df.reset_index(inplace=True)
             return hfq_factor_df
         else:
-            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol), headers=headers, proxies=proxies)
             qfq_factor_df = pd.DataFrame(
                 eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -174,7 +188,7 @@ def stock_zh_a_daily(
     if adjust in ("hfq-factor", "qfq-factor"):
         return _fq_factor(adjust.split("-")[0])
 
-    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    r = requests.get(zh_sina_a_stock_hist_url.format(symbol), headers=headers, proxies=proxies)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -193,7 +207,7 @@ def stock_zh_a_daily(
     except:  # noqa: E722
         pass
     data_df = data_df.astype("float")
-    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
+    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol), headers=headers, proxies=proxies)
     amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.columns = ["date", "outstanding_share"]
@@ -239,7 +253,7 @@ def stock_zh_a_daily(
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         return temp_df
     if adjust == "hfq":
-        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol), headers=headers, proxies=proxies)
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -283,7 +297,7 @@ def stock_zh_a_daily(
         return temp_df
 
     if adjust == "qfq":
-        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol), headers=headers, proxies=proxies)
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -331,6 +345,8 @@ def stock_zh_a_cdr_daily(
     symbol: str = "sh689009",
     start_date: str = "19900101",
     end_date: str = "22201116",
+    headers: dict = None,
+    proxies: dict = None,
 ) -> pd.DataFrame:
     """
     新浪财经-A股-CDR个股的历史行情数据, 大量抓取容易封 IP
@@ -341,10 +357,14 @@ def stock_zh_a_cdr_daily(
     :type end_date: str
     :param symbol: sh689009
     :type symbol: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    res = requests.get(zh_sina_a_stock_hist_url.format(symbol), headers=headers, proxies=proxies)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -365,7 +385,7 @@ def stock_zh_a_cdr_daily(
 
 
 def stock_zh_a_minute(
-    symbol: str = "sh600519", period: str = "1", adjust: str = ""
+    symbol: str = "sh600519", period: str = "1", adjust: str = "", headers: dict = None, proxies: dict = None
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
@@ -376,6 +396,10 @@ def stock_zh_a_minute(
     :type period: str
     :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据;
     :type adjust: str
+    :param headers: 请求头
+    :type headers: dict
+    :param proxies: 代理
+    :type proxies: dict
     :return: specific data
     :rtype: pandas.DataFrame
     """
@@ -388,7 +412,7 @@ def stock_zh_a_minute(
         "ma": "no",
         "datalen": "1970",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers, proxies=proxies)
     data_text = r.text
     try:
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
@@ -401,7 +425,7 @@ def stock_zh_a_minute(
             "ma": "no",
             "datalen": "1970",
         }
-        r = requests.get(url, params=params)
+        r = requests.get(url, params=params, headers=headers, proxies=proxies)
         data_text = r.text
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :6]
@@ -409,7 +433,7 @@ def stock_zh_a_minute(
         print(f"{symbol} 股票数据不存在，请检查是否已退市")
         return pd.DataFrame()
     try:
-        stock_zh_a_daily(symbol=symbol, adjust="qfq")
+        stock_zh_a_daily(symbol=symbol, adjust="qfq", headers=headers, proxies=proxies)
     except:  # noqa: E722
         return temp_df
 
@@ -427,7 +451,7 @@ def stock_zh_a_minute(
         ]
         need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
+        stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq", headers=headers, proxies=proxies)
         stock_zh_a_daily_qfq_df.index = pd.to_datetime(stock_zh_a_daily_qfq_df["date"])
         result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df) :, :]["close"].astype(
             float
@@ -452,7 +476,7 @@ def stock_zh_a_minute(
         ]
         need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
+        stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq", headers=headers, proxies=proxies)
         stock_zh_a_daily_hfq_df.index = pd.to_datetime(stock_zh_a_daily_hfq_df["date"])
         result_df = stock_zh_a_daily_hfq_df.iloc[-len(need_df) :, :]["close"].astype(
             float
