@@ -52,27 +52,25 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     return big_dict
 
 
-def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
+def futures_dce_warehouse_receipt(date: str = "20250929") -> dict:
     """
     大连商品交易所-行情数据-统计数据-日统计-仓单日报
-    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/cdrb/index.html
+    http://www.dce.com.cn/dce/channel/list/187.html
     :param date: 交易日, e.g., "20200702"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
-    url = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
+    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/wbillWeeklyQuotes"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
     params = {
-        "wbillWeeklyQuotes.variety": "all",
-        "year": date[:4],
-        "month": str(int(date[4:6]) - 1),
-        "day": date[6:],
+        "tradeDate": date,
+        "varietyId": "all",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = requests.post(url, params=params, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
     index_list = temp_df[temp_df.iloc[:, 0].str.contains("小计") == 1].index.to_list()
     index_list.insert(0, 0)
