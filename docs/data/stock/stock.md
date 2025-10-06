@@ -12445,6 +12445,7 @@ print(stock_financial_abstract_ths_df)
 | TOAZZL             | float64 | 总资产周转率(次)        |
 | CHZZL              | float64 | 存货周转率(次)         |
 | YSZKZZL            | float64 | 应收账款周转率(次)       |
+| ...                | ...     | ...              |
 
 接口示例
 
