@@ -61,7 +61,7 @@ def futures_dce_warehouse_receipt(date: str = "20250929") -> dict:
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
-    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/wbillWeeklyQuotes"
+    url = "http://portal.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     czce_warehouse_receipt_df = futures_czce_warehouse_receipt(date="20151019")
     print(czce_warehouse_receipt_df)
 
-    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(date="20240401")
+    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(date="20251014")
     print(futures_dce_warehouse_receipt_df)
 
     futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20200702")
