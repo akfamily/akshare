@@ -259,11 +259,10 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
         "交割数量",
         "交割额",
     ]
-    temp_df["交割数量"] = temp_df["交割数量"].str.replace(",", "")
-    temp_df["交割额"] = temp_df["交割额"].str.replace(",", "")
-
-    temp_df["交割数量"] = pd.to_numeric(temp_df["交割数量"])
-    temp_df["交割额"] = pd.to_numeric(temp_df["交割额"])
+    temp_df["交割数量"] = temp_df["交割数量"].astype(str).str.replace(",", "")
+    temp_df["交割额"] = temp_df["交割额"].astype(str).str.replace(",", "")
+    temp_df["交割数量"] = pd.to_numeric(temp_df["交割数量"], errors="coerce")
+    temp_df["交割额"] = pd.to_numeric(temp_df["交割额"], errors="coerce")
     return temp_df
 
 
@@ -328,7 +327,7 @@ if __name__ == "__main__":
     futures_delivery_dce_df = futures_delivery_dce(date="202101")
     print(futures_delivery_dce_df)
 
-    futures_delivery_monthly_czce_df = futures_delivery_czce(date="20210112")
+    futures_delivery_monthly_czce_df = futures_delivery_czce(date="20251014")
     print(futures_delivery_monthly_czce_df)
 
     futures_delivery_shfe_df = futures_delivery_shfe(date="202312")
