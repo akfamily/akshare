@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/25 15:30
+Date: 2025/10/15 22:30
 Desc: 腾讯证券-行情首页-沪深京A股
 https://quote.eastmoney.com/
 """
@@ -77,7 +77,8 @@ def stock_zh_a_hist_tx(
     big_df["low"] = pd.to_numeric(big_df["low"], errors="coerce")
     big_df["amount"] = pd.to_numeric(big_df["amount"], errors="coerce")
     big_df.drop_duplicates(inplace=True, ignore_index=True)
-    big_df.index = pd.to_datetime(big_df["date"])
+    big_df.index = pd.to_datetime(big_df["date"], errors="coerce")
+    big_df.sort_index(inplace=True)
     big_df = big_df[start_date:end_date]
     big_df.reset_index(inplace=True, drop=True)
     return big_df
