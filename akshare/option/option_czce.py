@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/22 16:30
+Date: 2025/10/17 16:30
 Desc: 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
 http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 自 20200101 起，成交量、空盘量、成交额、行权量均为单边计算
@@ -27,14 +27,14 @@ http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 "PR": "20241227"
 """
 
-from io import StringIO
 import warnings
+from io import StringIO
 
 import pandas as pd
 import requests
 
 
-def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
+def option_hist_yearly_czce(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
     """
     郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
     http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
@@ -78,5 +78,5 @@ def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    option_czce_hist_df = option_czce_hist(symbol="RM", year="2025")
-    print(option_czce_hist_df)
+    option_hist_yearly_czce_df = option_hist_yearly_czce(symbol="RM", year="2025")
+    print(option_hist_yearly_czce_df)
