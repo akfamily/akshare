@@ -2757,7 +2757,7 @@ print(option_margin_df)
 
 #### 上海期货交易所
 
-接口: option_shfe_daily
+接口: option_hist_shfe
 
 目标地址: https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
@@ -2819,9 +2819,11 @@ Part-2: 上海期货交易所隐含波动参考值
 ```python
 import akshare as ak
 
-option_shfe_daily_one, option_shfe_daily_two = ak.option_shfe_daily(symbol="铝期权", trade_date="20200827")
-print(option_shfe_daily_one)
-print(option_shfe_daily_two)
+option_hist_shfe_df = ak.option_hist_shfe(symbol="铝期权", trade_date="20200827")
+print(option_hist_shfe_df)
+
+option_vol_shfe_df = ak.option_vol_shfe(symbol="天胶期权", trade_date="20250418")
+print(option_vol_shfe_df)
 ```
 
 数据示例
@@ -2855,114 +2857,86 @@ part_2: 上海期货交易所隐含波动参考值
 
 #### 大连商品交易所
 
-接口: option_dce_daily
+接口: option_hist_dce
 
 目标地址: http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
 
 描述: 大连商品交易所-商品期权数据
 
-限量: 单次返回指定 symbol 和 trade_date 的期权行情数据
+限量: 单次返回指定 symbol 和 trade_date 的期权日行情数据
 
 输入参数
 
-| 名称         | 类型  | 描述                    |
-|------------|-----|-----------------------|
-| symbol     | str | symbol="玉米期权"         |
-| trade_date | str | trade_date="20191017" |
+| 名称         | 类型  | 描述                                                                                                                                                                                    |
+|------------|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol     | str | symbol="聚丙烯期权"; choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权", "鸡蛋期权", "玉米淀粉期权", "生猪期权", "原木期权"} |
+| trade_date | str | trade_date="20251016"                                                                                                                                                                 |
 
 输出参数
 
 Part-1: 大连商品交易所期权合约行情
 
-| 名称    | 类型      | 描述  |
-|-------|---------|-----|
-| 商品名称  | object  |     |
-| 合约名称  | object  |     |
-| 开盘价   | float64 |     |
-| 最高价   | float64 |     |
-| 最低价   | float64 |     |
-| 收盘价   | float64 |     |
-| 前结算价  | float64 |     |
-| 结算价   | float64 |     |
-| 涨跌    | float64 |     |
-| 涨跌1   | float64 |     |
-| 成交量   | float64 |     |
-| 持仓量   | float64 |     |
-| 持仓量变化 | float64 |     |
-| 成交额   | float64 |     |
-| 行权量   | float64 |     |
+| 名称       | 类型      | 描述 |
+|----------|---------|----|
+| 品种名称     | object  |    |
+| 合约       | object  |    |
+| 开盘价      | float64 |    |
+| 最高价      | float64 |    |
+| 最低价      | float64 |    |
+| 收盘价      | float64 |    |
+| 前结算价     | float64 |    |
+| 结算价      | float64 |    |
+| 涨跌       | float64 |    |
+| 涨跌1      | float64 |    |
+| Delta    | float64 |    |
+| 隐含波动率(%) | float64 |    |
+| 成交量      | int64   |    |
+| 持仓量      | int64   |    |
+| 持仓量变化    | int64   |    |
+| 成交额      | float64 |    |
+| 行权量      | int64   |    |
 
 说明:
-1. 价格: 元/吨, 鸡蛋为元/500千克, 纤维板、胶合板为元/张
-2. 成交量、持仓量: 手(按双边计算)
-3. 成交额: 万元(按双边计算)
-4. 涨跌＝收盘价－前结算价
-5. 涨跌1=今结算价-前结算价
-6. 合约系列: 具有相同月份标的期货合约的所有期权合约的统称
-7. 隐含波动率: 根据期权市场价格, 利用期权定价模型计算的标的期货合约价格波动率
 
-Part-2: 隐含波动率参考值
-
-| 名称     | 类型      | 描述  |
-|--------|---------|-----|
-| 合约系列   | object  |     |
-| 隐含波动率% | float64 |     |
+1. 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
+2. 价格：元/吨，鸡蛋为元/500千克，纤维板为元/立方米，胶合板为元/张，原木为元/立方米
+3. 成交量、持仓量：手（按单边计算）
+4. 成交额：万元（按单边计算）
+5. 涨跌＝收盘价-前结算价
+6. 涨跌1=今结算价-前结算价
+7. 合约系列：具有相同月份标的期货合约的所有期权合约的统称
+8. 隐含波动率：根据期权市场价格，利用期权定价模型计算的标的期货合约价格波动率
 
 接口示例
 
 ```python
 import akshare as ak
 
-part_1, part_2 = ak.option_dce_daily(symbol="玉米期权", trade_date="20191017")
-print(part_1)
-print(part_2)
+option_hist_dce_df = ak.option_hist_dce(symbol="聚丙烯期权", trade_date="20251016")
+print(option_hist_dce_df)
 ```
 
 数据示例
 
-part_1: 大连商品交易所期权合约行情
-
 ```
-            商品名称          合约名称    开盘价    最高价    最低价    收盘价   前结算价    结算价   涨跌  涨跌1  \
-0     玉米  c2001-C-1680  168.5  168.5  168.5  168.5  168.0  167.5  0.5 -0.5
-1     玉米  c2001-C-1700      0    0.0    0.0  148.0  148.0  148.0  0.0  0.0
-2     玉米  c2001-C-1720      0    0.0    0.0  129.0  128.0  129.0  1.0  1.0
-3     玉米  c2001-C-1740    115  115.0  115.0  115.0  108.0  111.0  7.0  3.0
-4     玉米  c2001-C-1760     89   95.5   89.0   95.5   89.0   93.5  6.5  4.5
-..   ...           ...    ...    ...    ...    ...    ...    ...  ...  ...
-239   玉米  c2009-P-2040      0    0.0    0.0   91.0   88.5   91.0  2.5  2.5
-240   玉米  c2009-P-2060      0    0.0    0.0  106.0  104.0  106.0  2.0  2.0
-241   玉米  c2009-P-2080      0    0.0    0.0  121.5  120.5  121.5  1.0  1.0
-242   玉米  c2009-P-2100      0    0.0    0.0  138.5  137.5  138.5  1.0  1.0
-243   玉米  c2009-P-2120      0    0.0    0.0  155.5  155.5  155.5  0.0  0.0
-     Delta 成交量    持仓量 持仓量变化   成交额  行权量
-0     0.98   2    236     0  0.34  0.0
-1     0.96   0    236     0     0  0.0
-2     0.94   0    210     0     0  0.0
-3     0.90  20  1,040     0   2.3  0.0
-4     0.85  12    680     0  1.11  0.0
-..     ...  ..    ...   ...   ...  ...
-239  -0.70   0     30     0     0  0.0
-240  -0.75   0     50     0     0  0.0
-241  -0.80   0     20     0     0  0.0
-242  -0.84   0     10     0     0  0.0
-243  -0.88   0      0     0     0  0.0
-```
-
-part_2: 隐含波动率参考值
-
-```
-   合约系列 隐含波动率(%)
-1  c2001    12.95
-2  c2003     8.74
-3  c2005     8.75
-4  c2007      7.7
-5  c2009     6.85
+    品种名称       合约       开盘价  最高价   最低价 ...  成交量 持仓量 持仓量变化 成交额 行权量
+0    聚丙烯  pp2511-C-5900     0      0     0  ...      0       0     0     0.00   0
+1    聚丙烯  pp2511-C-6000     0      0     0  ...      0       0     0     0.00   0
+2    聚丙烯  pp2511-C-6100     0      0     0  ...      0       0     0     0.00   0
+3    聚丙烯  pp2511-C-6200   338    362   301  ...    305     185    92    51.00   0
+4    聚丙烯  pp2511-C-6300   241  262.5   200  ...    353     203    59    40.73   0
+..   ...            ...   ...    ...   ...  ...    ...     ...   ...      ...  ..
+350  聚丙烯  pp2609-P-7200     0      0     0  ...      0       0     0     0.00   0
+351  聚丙烯  pp2609-P-7400     0      0     0  ...      0       0     0     0.00   0
+352  聚丙烯  pp2609-P-7600     0      0     0  ...      0       0     0     0.00   0
+353  聚丙烯  pp2609-P-7800     0      0     0  ...      0       0     0     0.00   0
+354   总计           None  None   None  None  ...  62945  125168  8929  1082.37   0
+[355 rows x 17 columns]
 ```
 
 #### 郑州商品交易所
 
-接口: option_czce_daily
+接口: option_hist_czce
 
 目标地址: http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
 
@@ -3015,8 +2989,8 @@ part_2: 隐含波动率参考值
 ```python
 import akshare as ak
 
-option_czce_daily_df = ak.option_czce_daily(symbol="白糖期权", trade_date="20240711")
-print(option_czce_daily_df)
+option_hist_czce_df = ak.option_hist_czce(symbol="白糖期权", trade_date="20240711")
+print(option_hist_czce_df)
 ```
 
 数据示例
@@ -3039,7 +3013,7 @@ print(option_czce_daily_df)
 
 #### 广州期货交易所
 
-接口: option_gfex_daily
+接口: option_hist_gfex
 
 目标地址: http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
 
@@ -3093,8 +3067,8 @@ print(option_czce_daily_df)
 ```python
 import akshare as ak
 
-option_gfex_daily_df = ak.option_gfex_daily(symbol="工业硅", trade_date="20230418")
-print(option_gfex_daily_df)
+option_hist_gfex_df = ak.option_hist_gfex(symbol="工业硅", trade_date="20230418")
+print(option_hist_gfex_df)
 ```
 
 数据示例-广州期货交易所期权合约行情(工业硅)
@@ -3116,7 +3090,7 @@ print(option_gfex_daily_df)
 
 #### 广州期货交易所-隐含波动参考值
 
-接口: option_gfex_vol_daily
+接口: option_vol_gfex
 
 目标地址: http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
 
@@ -3155,8 +3129,8 @@ print(option_gfex_daily_df)
 ```python
 import akshare as ak
 
-option_gfex_vol_daily_df = ak.option_gfex_vol_daily(symbol="工业硅", trade_date="20230418")
-print(option_gfex_vol_daily_df)
+option_vol_gfex_df = ak.option_vol_gfex(symbol="工业硅", trade_date="20230418")
+print(option_vol_gfex_df)
 ```
 
 数据示例-广州期货交易所-隐含波动参考值(工业硅)
@@ -3226,8 +3200,8 @@ print(option_gfex_vol_daily_df)
 ```python
 import akshare as ak
 
-option_czce_hist_df = ak.option_czce_hist(symbol="RM", year="2025")
-print(option_czce_hist_df)
+option_hist_yearly_czce_df = ak.option_hist_yearly_czce(symbol="RM", year="2025")
+print(option_hist_yearly_czce_df)
 ```
 
 数据示例
