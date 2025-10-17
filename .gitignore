@@ -23,3 +23,5 @@ colors
 .DS_Store
 /data
 /tests/data
+
+.venv
