@@ -47,11 +47,13 @@
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  # 交易所商品期权数据
- "option_dce_daily"  # 提供大连商品交易所商品期权数据
- "option_czce_daily"  # 提供郑州商品交易所商品期权数据
- "option_shfe_daily"  # 提供上海期货交易所商品期权数据
- "option_gfex_daily"  # 提供广州期货交易所商品期权数据
- "option_gfex_vol_daily"  # 提供广州期货交易所-合约隐含波动率数据
+ "option_hist_dce"  # 提供大连商品交易所商品期权数据
+ "option_hist_czce"  # 提供郑州商品交易所商品期权数据
+ "option_hist_shfe"  # 提供上海期货交易所商品期权数据
+ "option_hist_gfex"  # 提供广州期货交易所商品期权数据
+ "option_vol_gfex"  # 提供广州期货交易所-合约隐含波动率数据
+ "option_vol_shfe"  # 提供上海期货交易所-合约隐含波动率数据
+ "option_hist_yearly_czce"  # 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
  # 中国银行间市场债券行情数据
  "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
  "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
@@ -330,7 +332,7 @@
  "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_sz50_list_sina"  # 上证50期权列表
-  "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
+ "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
  "option_cffex_sz50_daily_sina"  # 沪深300期权历史行情-日频
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
