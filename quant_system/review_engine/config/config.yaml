@@ -1,0 +1,130 @@
+# A股日度复盘引擎配置文件
+# 严禁使用虚拟/模拟数据，所有数据必须来自AkShare
+
+# 多周期窗口
+windows: [5, 10, 30]
+
+# 四维评分权重
+score_weights:
+  macro: 0.25
+  liquidity: 0.35
+  riskon: 0.20
+  momentum: 0.20
+
+# 资产配置规则（总分 -> 仓位/风格）
+allocation_rules:
+  - score_min: 70
+    score_max: 100
+    position_min: 70
+    position_max: 90
+    style: "顺周期偏多/高股息+资源"
+    description: "市场强势，积极配置周期股和高股息"
+
+  - score_min: 50
+    score_max: 70
+    position_min: 55
+    position_max: 70
+    style: "均衡/轻偏顺周期"
+    description: "市场中性偏多，均衡配置"
+
+  - score_min: 30
+    score_max: 50
+    position_min: 35
+    position_max: 55
+    style: "偏防守"
+    description: "市场偏弱，降低仓位转向防御"
+
+  - score_min: 0
+    score_max: 30
+    position_min: 20
+    position_max: 35
+    style: "防御+现金"
+    description: "市场疲弱，大幅降低仓位"
+
+# ETF分组（用于资金流向分析）
+etf_buckets:
+  broad:
+    name: "宽基"
+    codes: ["510300", "510500", "159915"]  # 沪深300/中证500/创业板
+
+  growth:
+    name: "成长"
+    codes: ["159949", "159915"]  # 创业板50/创业板
+
+  value:
+    name: "价值"
+    codes: ["510880", "510900"]  # 红利ETF/H股ETF
+
+  industry_resources:
+    name: "资源"
+    codes: ["510170", "159980"]  # 商品ETF/能源化工
+
+  industry_tech:
+    name: "科技"
+    codes: ["159801", "159841"]  # 5GETF/新能车
+
+# 行业轮动矩阵配置
+rotation_matrix:
+  strength_weights:
+    return_percentile: 0.6
+    net_flow_percentile: 0.4
+
+  crowding_weights:
+    turnover_percentile: 0.6
+    limit_up_percentile: 0.4
+
+  quadrants:
+    prime:  # 首选（强度高、拥挤度低）
+      strength_min: 0.6
+      crowding_max: 0.7
+      label: "首选"
+
+    chase:  # 追高风险（强度高、拥挤度高）
+      strength_min: 0.6
+      crowding_min: 0.7
+      label: "追高风险"
+
+    lurk:  # 潜伏（强度低、拥挤度低）
+      strength_max: 0.4
+      crowding_max: 0.4
+      label: "潜伏"
+
+    avoid:  # 回避（强度低、拥挤度高）
+      strength_max: 0.4
+      crowding_min: 0.7
+      label: "回避"
+
+# 数据存储路径
+paths:
+  sqlite: "data/review.sqlite"
+  parquet_dir: "data/parquet/"
+  output_dir: "output/"
+
+# 功能开关
+flags:
+  enable_astro: false  # 金融占星（默认关闭）
+  enable_deepseek: false  # DeepSeek增强（默认关闭）
+  enable_charts: true  # 生成图表
+
+# AkShare配置
+akshare:
+  timeout: 30
+  retry: 3
+  retry_delay: 2  # 秒
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG/INFO/WARNING/ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/review_engine.log"
+
+# 数据校验
+validation:
+  required_columns:
+    indices: ["date", "close", "volume", "amount"]
+    breadth: ["date", "up_count", "down_count", "flat_count"]
+    northbound: ["date", "net_flow"]
+    margin: ["date", "balance"]
+
+  # 空值容忍度（0-1，超过此比例则报错）
+  null_tolerance: 0.1
