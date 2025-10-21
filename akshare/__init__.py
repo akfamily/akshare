@@ -3176,9 +3176,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.67 fix: fix stock_zh_a_hist_tx interface
 1.17.68 fix: fix option_hist_dce interface
 1.17.69 fix: fix fund_etf_hist_sina interface
+1.17.70 fix: fix macro_stock_finance interface
 """
 
-__version__ = "1.17.69"
+__version__ = "1.17.70"
 __author__ = "AKFamily"
 
 import sys

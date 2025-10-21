@@ -86,6 +86,10 @@
 
 ## 更新说明详情
 
+1.17.70 fix: fix macro_stock_finance interface
+
+	1. 修复 macro_stock_finance 接口
+
 1.17.69 fix: fix fund_etf_hist_sina interface
 
 	1. 修复 fund_etf_hist_sina 接口
@@ -5878,6 +5882,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.70 fix: fix macro_stock_finance interface
 
 1.17.69 fix: fix fund_etf_hist_sina interface
 
