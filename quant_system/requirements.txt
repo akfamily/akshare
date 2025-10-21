@@ -18,6 +18,7 @@ statsmodels>=0.14.0
 # 可视化
 plotly>=5.14.0
 matplotlib>=3.7.0
+streamlit>=1.28.0
 
 # 工具
 python-dateutil>=2.8.0
