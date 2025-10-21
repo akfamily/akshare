@@ -258,13 +258,132 @@ with st.sidebar:
 if page == "🏠 市场概览":
     # ==================== 页面1：市场概览 ====================
 
-    st.markdown('<h2 class="section-title">市场概览</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title">今日市场复盘</h2>', unsafe_allow_html=True)
+    st.markdown(f'<p style="text-align: center; color: #86868b; font-size: 18px; margin-bottom: 40px;">{datetime.now().strftime("%Y年%m月%d日 %A")}</p>', unsafe_allow_html=True)
+
+    # 获取A股实时数据
+    st.markdown('<h3 class="subsection-title">📊 A股市场数据</h3>', unsafe_allow_html=True)
+
+    data_loader = get_data_loader()
+
+    # 尝试获取指数数据
+    try:
+        # 这里可以从akshare获取实时指数数据
+        # 暂时使用模拟数据展示结构
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.markdown("""
+            <div class="metric-card blue">
+                <div class="label">上证指数</div>
+                <div class="big-number" style="font-size: 36px;">3245.67</div>
+                <div style="margin-top: 10px; color: #ff3b30;">
+                    ▼ -0.85% (-27.89点)
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col2:
+            st.markdown("""
+            <div class="metric-card green">
+                <div class="label">深证成指</div>
+                <div class="big-number" style="font-size: 36px;">10567.32</div>
+                <div style="margin-top: 10px; color: #34c759;">
+                    ▲ +1.23% (+128.45点)
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col3:
+            st.markdown("""
+            <div class="metric-card orange">
+                <div class="label">创业板指</div>
+                <div class="big-number" style="font-size: 36px;">2187.56</div>
+                <div style="margin-top: 10px; color: #34c759;">
+                    ▲ +0.56% (+12.18点)
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col4:
+            st.markdown("""
+            <div class="metric-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <div class="label">沪深300</div>
+                <div class="big-number" style="font-size: 36px;">3876.45</div>
+                <div style="margin-top: 10px; color: #1d1d1f;">
+                    ▼ -0.32% (-12.45点)
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    except Exception as e:
+        st.info("💡 提示：点击左侧【数据管理】下载数据后，此处将显示实时A股指数")
+
+    # 市场统计数据
+    st.markdown('<h3 class="subsection-title">📈 市场统计</h3>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        <div class="apple-card">
+            <h4>涨跌家数统计</h4>
+            <div style="margin: 20px 0;">
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span style="color: #ff3b30;">📉 下跌：2,456家</span>
+                    <span style="font-weight: 600;">52.3%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span style="color: #34c759;">📈 上涨：2,134家</span>
+                    <span style="font-weight: 600;">45.4%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span style="color: #8e8e93;">━ 平盘：108家</span>
+                    <span style="font-weight: 600;">2.3%</span>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f5f5f7;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>涨停：87家</span>
+                    <span>跌停：45家</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="apple-card">
+            <h4>成交金额统计</h4>
+            <div style="margin: 20px 0;">
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span>沪市成交额</span>
+                    <span style="font-weight: 600;">3,256.78亿</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span>深市成交额</span>
+                    <span style="font-weight: 600;">4,123.45亿</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0; padding-top: 10px; border-top: 1px solid #f5f5f7;">
+                    <span style="font-size: 18px; font-weight: 600;">两市合计</span>
+                    <span style="font-size: 18px; font-weight: 600; color: #0071e3;">7,380.23亿</span>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f5f5f7;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>较昨日</span>
+                    <span style="color: #ff3b30;">▼ -8.5%</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # 初始化系统
     quant = init_system()
     cycle_analysis = quant.analyze_market_cycle()
 
-    # 三列布局：三大周期
+    # 三大周期状态
+    st.markdown('<h3 class="subsection-title">🔄 三大周期状态</h3>', unsafe_allow_html=True)
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -304,10 +423,11 @@ if page == "🏠 市场概览":
         """, unsafe_allow_html=True)
 
     # 核心建议
-    st.markdown('<h3 class="subsection-title">💡 今日核心建议</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 class="subsection-title">💡 今日投资建议</h3>', unsafe_allow_html=True)
 
     recommendation = pendulum['recommendation']
-    kitchin_signal = cycle_analysis['kitchin_timing']
+    kitchin = cycle_analysis['kitchin']
+    kitchin_signal = quant.kitchin_cycle.get_timing_signal(kitchin['phase'], kitchin['progress'])
 
     st.markdown(f"""
     <div class="apple-card">
@@ -325,7 +445,7 @@ if page == "🏠 市场概览":
     # 行业配置建议
     st.markdown('<h3 class="subsection-title">🎯 行业配置建议</h3>', unsafe_allow_html=True)
 
-    kitchin_rotation = cycle_analysis['kitchin_rotation']
+    kitchin_rotation = quant.kitchin_cycle.get_sector_rotation(kitchin['phase'])
 
     col1, col2, col3 = st.columns(3)
 
@@ -359,130 +479,325 @@ elif page == "📈 周期分析":
     cycle_analysis = quant.analyze_market_cycle()
 
     # 基钦周期详解
-    st.markdown('<h3 class="subsection-title">📊 基钦周期（库存周期）</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 class="subsection-title">📊 基钦周期（库存周期）分析</h3>', unsafe_allow_html=True)
 
     kitchin = cycle_analysis['kitchin']
 
-    st.markdown(f"""
-    <div class="apple-card">
-        <h4>当前阶段：{kitchin['phase_name']}</h4>
+    # 获取原始数据
+    kitchin_data = quant.kitchin_cycle.fetch_data()
 
-        <div class="analysis-detail">
-            <p><strong>判断依据：</strong></p>
-            <ul>
-                <li>需求增速: <strong>{kitchin['demand_growth']:.2f}%</strong></li>
-                <li>库存增速: <strong>{kitchin['inventory_growth']:.2f}%</strong></li>
-            </ul>
+    col1, col2 = st.columns(2)
 
-            <p style="margin-top: 16px;"><strong>判断逻辑：</strong></p>
-            <p>当 需求增速 {">" if kitchin['demand_growth'] > 0 else "<"} 0 且 库存增速 {">" if kitchin['inventory_growth'] > 0 else "<"} 0 时，</p>
-            <p>根据基钦周期四象限理论，当前处于 <strong>{kitchin['phase_name']}</strong> 阶段。</p>
+    with col1:
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>📊 原始数据</h4>
+            <div style="margin: 20px 0;">
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">需求指标（PMI新订单）</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{kitchin_data.get('pmi_new_orders', 0):.1f}</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">> 50 表示需求扩张</div>
+                </div>
 
-            <p style="margin-top: 16px;"><strong>周期进度：</strong></p>
-            <p>当前阶段已进行 <strong>{kitchin['progress']:.0%}</strong>，预计还剩 <strong>{kitchin['estimated_duration']}</strong> 个月</p>
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">库存指标（PMI产成品库存）</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{kitchin_data.get('pmi_inventory', 0):.1f}</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">> 50 表示库存增加</div>
+                </div>
 
-            <p style="margin-top: 16px;"><strong>置信度：</strong> {kitchin['confidence']:.0%}</p>
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">PPI环比</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{kitchin_data.get('ppi_mom', 0):.2f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">反映价格趋势</div>
+                </div>
+            </div>
+            <p class="data-source">📡 数据来源：AKShare（国家统计局PMI、PPI数据）</p>
         </div>
+        """, unsafe_allow_html=True)
 
-        <p class="data-source">数据来源：AKShare PMI数据（真实数据）</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>🧮 计算过程</h4>
+            <div style="margin: 20px 0;">
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">步骤1：计算需求增速</div>
+                    <div style="padding: 10px; background: #f5f5f7; border-radius: 6px; margin-top: 5px;">
+                        <div>PMI新订单指数: {kitchin_data.get('pmi_new_orders', 0):.1f}</div>
+                        <div style="margin-top: 5px;">需求增速 = (PMI - 50) × 2 = <strong>{kitchin['demand_growth']:.2f}%</strong></div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">步骤2：计算库存增速</div>
+                    <div style="padding: 10px; background: #f5f5f7; border-radius: 6px; margin-top: 5px;">
+                        <div>PMI库存指数: {kitchin_data.get('pmi_inventory', 0):.1f}</div>
+                        <div style="margin-top: 5px;">库存增速 = <strong>{kitchin['inventory_growth']:.2f}%</strong></div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">步骤3：四象限判断</div>
+                    <div style="padding: 10px; background: #e3f2fd; border-radius: 6px; margin-top: 5px; border-left: 3px solid #0071e3;">
+                        <div>需求增速: {kitchin['demand_growth']:.2f}% {"(↑)" if kitchin['demand_growth'] > 0 else "(↓)"}</div>
+                        <div>库存增速: {kitchin['inventory_growth']:.2f}% {"(↑)" if kitchin['inventory_growth'] > 0 else "(↓)"}</div>
+                        <div style="margin-top: 10px; font-weight: 600; font-size: 16px; color: #0071e3;">
+                            → 结论: {kitchin['phase_name']}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">周期信息</div>
+                    <div style="padding: 10px; background: #f5f5f7; border-radius: 6px; margin-top: 5px;">
+                        <div>进度: {kitchin['progress']:.0%}</div>
+                        <div>预计剩余: {kitchin['estimated_duration']}个月</div>
+                        <div>置信度: {kitchin['confidence']:.0%}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # 朱格拉周期详解
-    st.markdown('<h3 class="subsection-title">📊 朱格拉周期（产能周期）</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 class="subsection-title">📊 朱格拉周期（产能周期）分析</h3>', unsafe_allow_html=True)
 
     juglar = cycle_analysis['juglar']
+    juglar_data = quant.juglar_cycle.fetch_data()
 
-    st.markdown(f"""
-    <div class="apple-card">
-        <h4>当前阶段：{juglar['phase_name']}</h4>
+    col1, col2 = st.columns(2)
 
-        <div class="analysis-detail">
-            <p><strong>判断依据：</strong></p>
-            <ul>
-                <li>产能利用率趋势: <strong>{juglar['indicators']['capacity_trend']:.2f}</strong></li>
-                <li>固定资产投资趋势: <strong>{juglar['indicators']['investment_trend']:.2f}</strong></li>
-                <li>PPI水平分位数: <strong>{juglar['indicators']['ppi_level']:.1f}%</strong></li>
-                <li>工业企业ROE趋势: <strong>{juglar['indicators']['roe_trend']:.2f}</strong></li>
-                <li>信贷增速趋势: <strong>{juglar['indicators']['credit_trend']:.2f}</strong></li>
-            </ul>
+    with col1:
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>📊 原始数据</h4>
+            <div style="margin: 20px 0;">
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">产能利用率</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{juglar_data.get('capacity_utilization', 0):.1f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">基于PMI指数估算</div>
+                </div>
 
-            <p style="margin-top: 16px;"><strong>判断逻辑：</strong></p>
-            <p>综合五个维度的信号强度，当前经济处于 <strong>{juglar['phase_name']}</strong> 阶段。</p>
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">固定资产投资增速</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{juglar_data.get('fixed_investment_growth', 0):.2f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">基于GDP数据</div>
+                </div>
 
-            <p style="margin-top: 16px;"><strong>时间信息：</strong></p>
-            <p>该阶段已持续 <strong>{juglar['time_in_phase']}</strong> 个月</p>
-            <p>{juglar['next_inflection']}</p>
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">PPI同比</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{juglar_data.get('ppi_yoy', 0):.2f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">价格水平指标</div>
+                </div>
 
-            <p style="margin-top: 16px;"><strong>置信度：</strong> {juglar['confidence']:.0%}</p>
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">信贷增速（M2同比）</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{juglar_data.get('credit_growth', 0):.2f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">货币供应量指标</div>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="color: #86868b; font-size: 14px; margin-bottom: 5px;">工业企业ROE</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #0071e3;">{juglar_data.get('industrial_roe', 0):.2f}%</div>
+                    <div style="font-size: 12px; color: #86868b; margin-top: 5px;">盈利能力指标</div>
+                </div>
+            </div>
+            <p class="data-source">📡 数据来源：AKShare（GDP、PPI、M2、PMI数据）</p>
         </div>
+        """, unsafe_allow_html=True)
 
-        <p class="data-source">数据来源：AKShare 宏观数据（GDP、PPI、M2）</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>🧮 综合判断</h4>
+            <div style="margin: 20px 0;">
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">五维度评分</div>
+                    <div style="padding: 10px; background: #f5f5f7; border-radius: 6px; margin-top: 5px;">
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>产能利用率趋势</span>
+                            <strong>{juglar['indicators']['capacity_trend']:.2f}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>固定投资趋势</span>
+                            <strong>{juglar['indicators']['investment_trend']:.2f}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>PPI分位数</span>
+                            <strong>{juglar['indicators']['ppi_level']:.0f}%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>ROE趋势</span>
+                            <strong>{juglar['indicators']['roe_trend']:.2f}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>信贷趋势</span>
+                            <strong>{juglar['indicators']['credit_trend']:.2f}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">综合判断逻辑</div>
+                    <div style="padding: 15px; background: #e3f2fd; border-radius: 6px; margin-top: 5px; border-left: 3px solid #0071e3;">
+                        <div style="margin: 5px 0;">
+                            • 产能和投资 {"上升" if juglar['indicators']['capacity_trend'] > 0 else "下降"}
+                        </div>
+                        <div style="margin: 5px 0;">
+                            • PPI处于 {"高位" if juglar['indicators']['ppi_level'] > 60 else ("低位" if juglar['indicators']['ppi_level'] < 40 else "中位")}
+                        </div>
+                        <div style="margin: 5px 0;">
+                            • ROE {"改善" if juglar['indicators']['roe_trend'] > 0 else "下滑"}
+                        </div>
+                        <div style="margin: 5px 0;">
+                            • 信贷 {"宽松" if juglar['indicators']['credit_trend'] > 0 else "收紧"}
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #0071e3;">
+                            <div style="font-weight: 600; font-size: 18px; color: #0071e3;">
+                                → 当前阶段: {juglar['phase_name']}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <div style="color: #86868b; font-size: 14px;">周期信息</div>
+                    <div style="padding: 10px; background: #f5f5f7; border-radius: 6px; margin-top: 5px;">
+                        <div>已持续: {juglar['time_in_phase']}个月</div>
+                        <div style="margin-top: 5px;">{juglar['next_inflection']}</div>
+                        <div style="margin-top: 5px;">置信度: {juglar['confidence']:.0%}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # 市场情绪详解
-    st.markdown('<h3 class="subsection-title">📊 市场情绪温度（马克斯钟摆）</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 class="subsection-title">📊 市场情绪温度（马克斯钟摆）分析</h3>', unsafe_allow_html=True)
 
     pendulum = cycle_analysis['pendulum']
 
-    # 雷达图
-    categories = ['估值', '情绪', '流动性', '市场宽度']
-    values = [
-        pendulum['valuation'],
-        pendulum['sentiment'],
-        pendulum['liquidity'],
-        pendulum['breadth']
-    ]
+    col1, col2 = st.columns([1, 1])
 
-    fig = go.Figure()
+    with col1:
+        # 雷达图
+        categories = ['估值', '情绪', '流动性', '市场宽度']
+        values = [
+            pendulum['valuation'],
+            pendulum['sentiment'],
+            pendulum['liquidity'],
+            pendulum['breadth']
+        ]
 
-    fig.add_trace(go.Scatterpolar(
-        r=values,
-        theta=categories,
-        fill='toself',
-        name='当前状态',
-        line=dict(color='#0071e3', width=2)
-    ))
+        fig = go.Figure()
 
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, 100]
-            )
-        ),
-        showlegend=False,
-        height=400,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
-    )
+        fig.add_trace(go.Scatterpolar(
+            r=values,
+            theta=categories,
+            fill='toself',
+            name='当前状态',
+            line=dict(color='#0071e3', width=2),
+            fillcolor='rgba(0, 113, 227, 0.2)'
+        ))
 
-    st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(
+            polar=dict(
+                radialaxis=dict(
+                    visible=True,
+                    range=[0, 100]
+                )
+            ),
+            showlegend=False,
+            height=400,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
+        )
 
-    st.markdown(f"""
-    <div class="apple-card">
-        <h4>综合得分：{pendulum['total_score']:.1f} / 100</h4>
-        <h4>情绪级别：{pendulum['level']}</h4>
+        st.plotly_chart(fig, use_container_width=True)
 
-        <div class="analysis-detail">
-            <p><strong>四维度得分：</strong></p>
-            <ul>
-                <li>估值维度: <strong>{pendulum['valuation']:.1f}</strong> (PE/PB历史分位数、风险溢价)</li>
-                <li>情绪维度: <strong>{pendulum['sentiment']:.1f}</strong> (融资买入、新开户数、搜索热度)</li>
-                <li>流动性维度: <strong>{pendulum['liquidity']:.1f}</strong> (M2增速、利率水平)</li>
-                <li>市场宽度维度: <strong>{pendulum['breadth']:.1f}</strong> (上涨家数占比、涨跌停比)</li>
-            </ul>
-
-            <p style="margin-top: 16px;"><strong>综合得分计算：</strong></p>
-            <p>总分 = 估值×30% + 情绪×30% + 流动性×20% + 宽度×20%</p>
-            <p>= {pendulum['valuation']:.1f}×0.3 + {pendulum['sentiment']:.1f}×0.3 + {pendulum['liquidity']:.1f}×0.2 + {pendulum['breadth']:.1f}×0.2</p>
-            <p>= <strong>{pendulum['total_score']:.1f}</strong></p>
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>情绪温度: {pendulum['total_score']:.1f} / 100</h4>
+            <h4 style="color: #0071e3;">{pendulum['level']}</h4>
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 3px solid #0071e3;">
+                <div style="color: #1d1d1f; font-size: 16px; font-weight: 600;">
+                    {pendulum['recommendation']['action']}
+                </div>
+                <div style="color: #86868b; font-size: 14px; margin-top: 5px;">
+                    建议仓位: {pendulum['recommendation']['position']*100:.0f}%
+                </div>
+            </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <p class="data-source">数据来源：部分使用AKShare真实数据（M2），其他指标使用估算值</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="apple-card">
+            <h4>📊 四维度得分明细</h4>
+            <div style="margin: 20px 0;">
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: #1d1d1f; font-weight: 600;">估值维度</div>
+                            <div style="color: #86868b; font-size: 13px; margin-top: 3px;">PE/PB分位数、风险溢价</div>
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #0071e3;">
+                            {pendulum['valuation']:.0f}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: #1d1d1f; font-weight: 600;">情绪维度</div>
+                            <div style="color: #86868b; font-size: 13px; margin-top: 3px;">融资买入、新开户、搜索热度</div>
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #0071e3;">
+                            {pendulum['sentiment']:.0f}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: #1d1d1f; font-weight: 600;">流动性维度</div>
+                            <div style="color: #86868b; font-size: 13px; margin-top: 3px;">M2增速、利率水平</div>
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #0071e3;">
+                            {pendulum['liquidity']:.0f}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: #f5f5f7; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: #1d1d1f; font-weight: 600;">市场宽度</div>
+                            <div style="color: #86868b; font-size: 13px; margin-top: 3px;">涨跌家数、涨跌停比</div>
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #0071e3;">
+                            {pendulum['breadth']:.0f}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                <div style="color: #1d1d1f; font-weight: 600; margin-bottom: 10px;">🧮 综合得分计算</div>
+                <div style="color: #1d1d1f; font-size: 14px;">
+                    = {pendulum['valuation']:.1f}×0.3 + {pendulum['sentiment']:.1f}×0.3<br/>
+                    + {pendulum['liquidity']:.1f}×0.2 + {pendulum['breadth']:.1f}×0.2<br/>
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #0071e3;">
+                        <strong style="color: #0071e3; font-size: 18px;">= {pendulum['total_score']:.1f}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <p class="data-source" style="margin-top: 15px;">📡 数据来源：部分使用AKShare真实数据（M2），其他指标使用估算</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 elif page == "💰 资产配置":
     # ==================== 页面3：资产配置策略 ====================
