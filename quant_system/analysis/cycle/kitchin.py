@@ -3,13 +3,20 @@
 这是最高频、最实用的周期，直接指导短期配置
 """
 
+import sys
+import os
+# 添加项目根目录到路径
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import pandas as pd
 import numpy as np
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 
-from ...utils.logger import logger
-from ...utils.helpers import DataHelper
+from utils.logger import logger
+from utils.helpers import DataHelper
 
 
 class KitchinCycle:

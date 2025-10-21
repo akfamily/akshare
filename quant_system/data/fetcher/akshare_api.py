@@ -6,8 +6,15 @@ AKShare数据接口封装
 import sys
 import os
 
+# 添加项目根目录到路径
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 # 将akshare库添加到路径
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../..'))
+akshare_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
+if akshare_root not in sys.path:
+    sys.path.insert(0, akshare_root)
 
 import akshare as ak
 import pandas as pd
@@ -15,7 +22,7 @@ import numpy as np
 from typing import Optional, List, Dict
 from datetime import datetime, timedelta
 
-from ...utils.logger import logger
+from utils.logger import logger
 
 
 class AKShareAPI:

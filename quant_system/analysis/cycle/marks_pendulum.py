@@ -3,12 +3,19 @@
 霍华德·马克斯的市场钟摆理论，衡量市场情绪和风险偏好
 """
 
+import sys
+import os
+# 添加项目根目录到路径
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import pandas as pd
 import numpy as np
 from typing import Dict
 
-from ...utils.logger import logger
-from ...utils.helpers import DataHelper
+from utils.logger import logger
+from utils.helpers import DataHelper
 
 
 class MarksPendulum:

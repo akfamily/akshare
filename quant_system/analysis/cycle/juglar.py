@@ -3,13 +3,20 @@
 中期经济周期，主要由固定资产投资和产能利用率驱动
 """
 
+import sys
+import os
+# 添加项目根目录到路径
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import pandas as pd
 import numpy as np
 from typing import Dict, Optional
 from datetime import datetime
 
-from ...utils.logger import logger
-from ...utils.helpers import DataHelper
+from utils.logger import logger
+from utils.helpers import DataHelper
 
 
 class JuglarCycle:
