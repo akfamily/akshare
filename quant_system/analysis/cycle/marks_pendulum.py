@@ -34,6 +34,10 @@ class MarksPendulum:
         self.data_fetcher = data_fetcher
         self.logger = logger
 
+        # 导入数据加载器
+        from data.data_loader import get_data_loader
+        self.data_loader = get_data_loader()
+
         # 各维度权重
         self.components = {
             'valuation': 0.3,      # 估值水平权重
@@ -170,19 +174,39 @@ class MarksPendulum:
         Returns:
             流动性得分 (0-100)
         """
-        # M2-M1剪刀差（0-10个百分点，越大流动性越紧）
-        m2_m1_gap = np.random.uniform(0, 10)
-        gap_score = max(0, 100 - m2_m1_gap * 10)
+        try:
+            # 尝试获取真实M2数据
+            m2_data = self.data_loader.get_macro_data('m2', use_mock=False)
 
-        # Shibor利率（1-5%）
+            if not m2_data.empty and len(m2_data) >= 2:
+                # 获取最新M2增速
+                m2_growth = float(m2_data.iloc[-1, 1])
+
+                # M2增速越高，流动性越宽松，得分越高
+                # 假设M2增速范围为5%-15%
+                gap_score = min(max((m2_growth - 5) / 10 * 100, 0), 100)
+
+                self.logger.info(f"M2增速（真实数据）: {m2_growth:.2f}%, 流动性得分: {gap_score:.1f}")
+            else:
+                # 降级到模拟数据
+                m2_m1_gap = np.random.uniform(0, 10)
+                gap_score = max(0, 100 - m2_m1_gap * 10)
+                self.logger.warning("M2数据不足，使用模拟流动性数据")
+
+        except Exception as e:
+            self.logger.error(f"获取M2数据失败: {e}, 使用模拟数据")
+            m2_m1_gap = np.random.uniform(0, 10)
+            gap_score = max(0, 100 - m2_m1_gap * 10)
+
+        # Shibor利率（1-5%）- 暂时使用模拟数据
         shibor = np.random.uniform(1, 5)
         shibor_score = max(0, 100 - (shibor - 1) * 25)
 
-        # 10年国债收益率（2-4%）
+        # 10年国债收益率（2-4%）- 暂时使用模拟数据
         bond_yield = np.random.uniform(2, 4)
         yield_score = max(0, 100 - (bond_yield - 2) * 50)
 
-        # 北向资金流入强度（-100亿到+200亿）
+        # 北向资金流入强度（-100亿到+200亿）- 暂时使用模拟数据
         northbound_flow = np.random.uniform(-100, 200)
         flow_score = min((northbound_flow + 100) / 300 * 100, 100)
 

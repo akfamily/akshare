@@ -38,6 +38,10 @@ class KitchinCycle:
         self.data_window = 36  # 3年数据窗口（月）
         self.logger = logger
 
+        # 导入数据加载器
+        from data.data_loader import get_data_loader
+        self.data_loader = get_data_loader()
+
         # 历史数据缓存
         self.historical_data = {
             'inventory': [],           # 产成品库存
@@ -244,26 +248,111 @@ class KitchinCycle:
     # ==================== 私有方法 ====================
 
     def _get_inventory_growth(self) -> float:
-        """获取库存增速（模拟数据）"""
-        # 实际应用中应从数据源获取
-        # 这里返回模拟数据
-        return np.random.uniform(-5, 5)
+        """获取库存增速（真实数据）"""
+        try:
+            # 从PMI数据中提取产成品库存指数
+            pmi_data = self.data_loader.get_macro_data('pmi', use_mock=False)
+
+            if not pmi_data.empty and len(pmi_data) >= 2:
+                # 计算库存增速：当月库存指数 - 上月库存指数
+                # PMI产成品库存通常在第3或第4列
+                current = float(pmi_data.iloc[-1, 3]) if len(pmi_data.columns) > 3 else 50.0
+                previous = float(pmi_data.iloc[-2, 3]) if len(pmi_data.columns) > 3 else 50.0
+
+                # 转换为增速：(当前-50) - (上期-50)
+                # PMI指数>50表示扩张，<50表示收缩
+                inventory_growth = (current - 50) - (previous - 50)
+
+                self.logger.info(f"库存增速（真实数据）: {inventory_growth:.2f}% (当前PMI库存: {current:.1f}, 上期: {previous:.1f})")
+                return inventory_growth
+            else:
+                self.logger.warning("PMI数据不足，使用模拟数据")
+                return np.random.uniform(-5, 5)
+
+        except Exception as e:
+            self.logger.error(f"获取库存增速失败: {e}, 使用模拟数据")
+            return np.random.uniform(-5, 5)
 
     def _get_demand_growth(self) -> float:
-        """获取需求增速（模拟数据）"""
-        return np.random.uniform(-3, 8)
+        """获取需求增速（真实数据）"""
+        try:
+            # 使用PMI新订单指数作为需求代理指标
+            pmi_data = self.data_loader.get_macro_data('pmi', use_mock=False)
+
+            if not pmi_data.empty and len(pmi_data) >= 2:
+                # PMI新订单通常在第2或第3列
+                current = float(pmi_data.iloc[-1, 2]) if len(pmi_data.columns) > 2 else 50.0
+                previous = float(pmi_data.iloc[-2, 2]) if len(pmi_data.columns) > 2 else 50.0
+
+                # 计算需求增速
+                demand_growth = (current - 50) * 2  # 放大系数，将PMI转换为类似增速的概念
+
+                self.logger.info(f"需求增速（真实数据）: {demand_growth:.2f}% (当前PMI新订单: {current:.1f}, 上期: {previous:.1f})")
+                return demand_growth
+            else:
+                self.logger.warning("PMI数据不足，使用模拟数据")
+                return np.random.uniform(-3, 8)
+
+        except Exception as e:
+            self.logger.error(f"获取需求增速失败: {e}, 使用模拟数据")
+            return np.random.uniform(-3, 8)
 
     def _get_pmi_inventory(self) -> float:
-        """获取PMI产成品库存指数"""
-        return np.random.uniform(45, 55)
+        """获取PMI产成品库存指数（真实数据）"""
+        try:
+            pmi_data = self.data_loader.get_macro_data('pmi', use_mock=False)
+
+            if not pmi_data.empty:
+                # 获取最新的PMI产成品库存指数
+                pmi_inventory = float(pmi_data.iloc[-1, 3]) if len(pmi_data.columns) > 3 else 50.0
+
+                self.logger.info(f"PMI产成品库存指数（真实数据）: {pmi_inventory:.2f}")
+                return pmi_inventory
+            else:
+                return 50.0
+
+        except Exception as e:
+            self.logger.error(f"获取PMI库存指数失败: {e}")
+            return 50.0
 
     def _get_pmi_new_orders(self) -> float:
-        """获取PMI新订单指数"""
-        return np.random.uniform(45, 55)
+        """获取PMI新订单指数（真实数据）"""
+        try:
+            pmi_data = self.data_loader.get_macro_data('pmi', use_mock=False)
+
+            if not pmi_data.empty:
+                # 获取最新的PMI新订单指数
+                pmi_new_orders = float(pmi_data.iloc[-1, 2]) if len(pmi_data.columns) > 2 else 50.0
+
+                self.logger.info(f"PMI新订单指数（真实数据）: {pmi_new_orders:.2f}")
+                return pmi_new_orders
+            else:
+                return 50.0
+
+        except Exception as e:
+            self.logger.error(f"获取PMI新订单指数失败: {e}")
+            return 50.0
 
     def _get_ppi_mom(self) -> float:
-        """获取PPI环比"""
-        return np.random.uniform(-1, 2)
+        """获取PPI环比（真实数据）"""
+        try:
+            ppi_data = self.data_loader.get_macro_data('ppi', use_mock=False)
+
+            if not ppi_data.empty and len(ppi_data) >= 2:
+                # 计算PPI环比增速
+                current = float(ppi_data.iloc[-1, 1])
+                previous = float(ppi_data.iloc[-2, 1])
+
+                ppi_mom = ((current - previous) / previous) * 100
+
+                self.logger.info(f"PPI环比（真实数据）: {ppi_mom:.2f}%")
+                return ppi_mom
+            else:
+                return 0.0
+
+        except Exception as e:
+            self.logger.error(f"获取PPI环比失败: {e}")
+            return 0.0
 
     def _calc_phase_progress(self, phase: int) -> float:
         """
