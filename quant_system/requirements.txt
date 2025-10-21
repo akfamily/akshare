@@ -1,0 +1,23 @@
+# A股量化分析系统依赖包
+
+# 数据获取（AKShare已在父目录）
+# akshare>=1.12.0
+
+# 数据处理
+pandas>=1.5.0
+numpy>=1.23.0
+
+# 数据存储
+sqlalchemy>=2.0.0
+
+# 计算与分析
+scipy>=1.10.0
+scikit-learn>=1.2.0
+statsmodels>=0.14.0
+
+# 可视化
+plotly>=5.14.0
+matplotlib>=3.7.0
+
+# 工具
+python-dateutil>=2.8.0
