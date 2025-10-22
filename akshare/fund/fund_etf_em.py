@@ -12,6 +12,8 @@ import pandas as pd
 import requests
 
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.func import fetch_paginated_data_2
+from akshare.utils.func import fetch_paginated_data_3
 
 
 @lru_cache()
@@ -36,7 +38,8 @@ def _fund_etf_code_id_map_em() -> dict:
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
         "fields": "f3,f12,f13",
     }
-    temp_df = fetch_paginated_data(url, params)
+    # temp_df = fetch_paginated_data(url, params)
+    temp_df = fetch_paginated_data_3(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
     return temp_dict
 
