@@ -3178,9 +3178,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.69 fix: fix fund_etf_hist_sina interface
 1.17.70 fix: fix macro_stock_finance interface
 1.17.71 fix: fix futures_inventory_99 interface
+1.17.72 fix: fix futures_warehouse_receipt_dce interface
 """
 
-__version__ = "1.17.71"
+__version__ = "1.17.72"
 __author__ = "AKFamily"
 
 import sys
@@ -4868,7 +4869,7 @@ futures-warehouse-receipt
 """
 from akshare.futures.futures_warehouse_receipt import (
     futures_czce_warehouse_receipt,
-    futures_dce_warehouse_receipt,
+    futures_warehouse_receipt_dce,
     futures_shfe_warehouse_receipt,
     futures_gfex_warehouse_receipt,
 )
