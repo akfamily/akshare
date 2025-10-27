@@ -32,7 +32,7 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/83.0.4103.116 Safari/537.36"
+                      "Chrome/83.0.4103.116 Safari/537.36"
     }
     r = requests.get(url, verify=False, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
@@ -40,7 +40,7 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     index_list.append(len(temp_df))
     big_dict = {}
     for inner_index in range(len(index_list) - 1):
-        inner_df = temp_df[index_list[inner_index] : index_list[inner_index + 1]]
+        inner_df = temp_df[index_list[inner_index]: index_list[inner_index + 1]]
         inner_key = re.findall(r"[a-zA-Z]+", inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
         inner_df.dropna(axis=0, how="all", inplace=True)
@@ -52,7 +52,7 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     return big_dict
 
 
-def futures_dce_warehouse_receipt(date: str = "20250929") -> dict:
+def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     """
     大连商品交易所-行情数据-统计数据-日统计-仓单日报
     http://www.dce.com.cn/dce/channel/list/187.html
@@ -61,35 +61,33 @@ def futures_dce_warehouse_receipt(date: str = "20250929") -> dict:
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
-    url = "http://portal.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/83.0.4103.116 Safari/537.36"
-    }
-    params = {
+    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/wbillWeeklyQuotes"
+    payload = {
         "tradeDate": date,
         "varietyId": "all",
     }
-    r = requests.post(url, params=params, headers=headers)
-    temp_df = pd.read_html(StringIO(r.text))[0]
-    index_list = temp_df[temp_df.iloc[:, 0].str.contains("小计") == 1].index.to_list()
-    index_list.insert(0, 0)
-    big_dict = {}
-    for inner_index in range(len(index_list) - 1):
-        if inner_index == 0:
-            temp_index = 0
-        else:
-            temp_index = index_list[inner_index] + 1
-        inner_df = temp_df[temp_index : index_list[inner_index + 1] + 1].copy()
-        inner_key = inner_df.iloc[0, 0]
-        inner_df.reset_index(inplace=True, drop=True)
-        inner_df.ffill(inplace=True)
-        # 填补 20240401 中开头没有品种的情况
-        if date == "20240401":
-            inner_df["品种"] = inner_df["品种"].fillna("玉米")
-            inner_key = inner_df.iloc[0, 0]
-        big_dict[inner_key] = inner_df
-    return big_dict
+    r = requests.post(url, json=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['entityList'])
+    temp_df.rename(columns={
+        "variety": "品种名称",
+        "whAbbr": "仓库/分库",
+        "deliveryAbbr": "可选提货地点/分库-数量",
+        "lastWbillQty": "昨日仓单量（手）",
+        "wbillQty": "今日仓单量（手）",
+        "diff": "增减（手）",
+        "varietyOrder": "品种代码",
+    }, inplace=True)
+    temp_df = temp_df[[
+        "品种代码",
+        "品种名称",
+        "仓库/分库",
+        "可选提货地点/分库-数量",
+        "昨日仓单量（手）",
+        "今日仓单量（手）",
+        "增减（手）",
+    ]]
+    return temp_df
 
 
 def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
@@ -103,7 +101,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
     """
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/83.0.4103.116 Safari/537.36"
+                      "Chrome/83.0.4103.116 Safari/537.36"
     }
     url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
     if date >= "20140519":
@@ -124,7 +122,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
             temp_df.iloc[:, 3].str.contains("单位：") == 1
-        ].index.to_list()
+            ].index.to_list()
         big_dict = {}
         for inner_index in range(len(index_list)):
             temp_index_start = index_list[inner_index]
@@ -157,7 +155,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     url = "http://www.gfex.com.cn/u/interfacesWebTdWbillWeeklyQuotes/loadList"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/83.0.4103.116 Safari/537.36"
+                      "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
     r = requests.post(url=url, data=payload, headers=headers)
@@ -220,8 +218,8 @@ if __name__ == "__main__":
     czce_warehouse_receipt_df = futures_czce_warehouse_receipt(date="20151019")
     print(czce_warehouse_receipt_df)
 
-    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(date="20251014")
-    print(futures_dce_warehouse_receipt_df)
+    futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
+    print(futures_warehouse_receipt_dce_df)
 
     futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20200702")
     print(futures_shfe_warehouse_receipt_df)
