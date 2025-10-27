@@ -32,7 +32,7 @@
  "futures_spot_price_daily"  # 一段交易日大宗商品现货价格及相应基差数据
  "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
- "futures_dce_warehouse_receipt"  # 大连商品交易所-交易数据-仓单日报
+ "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报
  "futures_gfex_warehouse_receipt"  # 广州期货交易所-行情数据-仓单日报
  "futures_rule"  # 国泰君安-交易日历
  # 奇货可查数据
