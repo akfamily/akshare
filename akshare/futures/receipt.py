@@ -37,7 +37,7 @@ shfe_20101029 = pd.DataFrame(
 def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
     """
     大连商品交易所-注册仓单数据
-
+    http://www.dce.com.cn/dce/channel/list/187.html
     :param date: 开始日期: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 RB, AL等列表, 为空时为所有商品数据从 20060106开始，每周五更新仓单数据。直到20090407起，每交易日都更新仓单数据
@@ -51,24 +51,23 @@ def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
         return None
+    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/wbillWeeklyQuotes"
     payload = {
-        "weekQuotes.variety": "all",
-        "year": date.year,
-        "month": date.month - 1,  # 网站月份描述少 1 个月, 属于网站问题
-        "day": date.day,
+        "tradeDate": date.strftime("%Y%m%d"),
+        "varietyId": "all",
     }
-    data = pandas_read_html_link(
-        cons.DCE_RECEIPT_URL, method="post", data=payload, headers=cons.dce_headers
-    )[0]
+    r = requests.post(url, json=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['entityList'])
     records = pd.DataFrame()
-    for x in data.to_dict(orient="records"):
-        if isinstance(x["品种"], str):
-            if x["品种"][-2:] == "小计":
-                var = x["品种"][:-2]
+    for x in temp_df.to_dict(orient="records"):
+        if isinstance(x["variety"], str):
+            if x["variety"][-2:] == "小计":
+                var = x["variety"][:-2]
                 temp_data = {
                     "var": chinese_to_english(var),
-                    "receipt": int(x["今日仓单量"]),
-                    "receipt_chg": int(x["增减"]),
+                    "receipt": int(x["wbillQty"]),
+                    "receipt_chg": int(x["diff"]),
                     "date": date.strftime("%Y%m%d"),
                 }
                 records = pd.concat([records, pd.DataFrame(temp_data, index=[0])])
@@ -110,7 +109,8 @@ def get_shfe_receipt_1(
         shfe_20101029["date"] = date
         return shfe_20101029
     elif date in ["20100416", "20130821"]:
-        return warnings.warn("20100416、20130821交易所数据丢失")
+        print("20100416、20130821交易所数据丢失")
+        return pd.DataFrame()
     else:
         var_list = [
             "天然橡胶",
@@ -245,10 +245,10 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     ends = [x for x in data.index if "总计" in str(data[0].tolist()[x])]
     for i in list(range(len(indexes))):
         if i != len(indexes) - 1:
-            data_cut = data.loc[indexes[i] : ends[i], :]
+            data_cut = data.loc[indexes[i]: ends[i], :]
             data_cut = data_cut.fillna(method="pad")
         else:
-            data_cut = data.loc[indexes[i] :, :]
+            data_cut = data.loc[indexes[i]:, :]
             data_cut = data_cut.fillna(method="pad")
         if "PTA" in data_cut[0].tolist()[0]:
             var = "TA"
@@ -347,7 +347,8 @@ def get_czce_receipt_3(
     :rtype: pandas.DataFrame
     """
     if not isinstance(vars_list, list):
-        return warnings.warn("vars_list: 必须是列表")
+        print("vars_list: 必须是列表")
+        return pd.DataFrame()
     date = (
         cons.convert_date(date).strftime("%Y%m%d")
         if date is not None
@@ -355,7 +356,7 @@ def get_czce_receipt_3(
     )
     if date not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
-        return None
+        return pd.DataFrame()
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     temp_df = pd.read_excel(BytesIO(r.content))
@@ -389,6 +390,7 @@ def get_czce_receipt_3(
     symbol_list = []
     receipt_list = []
     receipt_chg_list = []
+    records = pd.DataFrame()
     for page in range(len(range_list_one)):
         inner_df = temp_df[range_list_one[page] : range_list_two[page]]
         reg = re.compile(r"[A-Z]+")
@@ -600,5 +602,5 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20250805", end_date="20250806")
+    get_receipt_df = get_receipt(start_date="20251027", end_date="20251027")
     print(get_receipt_df)
