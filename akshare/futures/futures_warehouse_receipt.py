@@ -29,6 +29,8 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
