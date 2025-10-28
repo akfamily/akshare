@@ -99,7 +99,7 @@ def get_rank_sum_daily(
                     f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
-            records = pd.concat([records, data], ignore_index=True)
+            records = pd.concat(objs=[records, data], ignore_index=True)
         else:
             warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
         start_day += datetime.timedelta(days=1)
@@ -826,10 +826,10 @@ def futures_dce_position_rank(
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    datestr=date.strftime("%Y%m%d")
+    date_str = date.strftime("%Y%m%d")
     url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/memberDealPosi/batchDownload"
     payload = {
-        "tradeDate": f"{datestr}",
+        "tradeDate": date_str,
         "varietyId": "a",
         "contractId": "a2601",
         "tradeType": "1",
@@ -840,7 +840,7 @@ def futures_dce_position_rank(
     with zipfile.ZipFile(BytesIO(r.content), mode="r") as z:
         for i in z.namelist():
             file_name = i
-            if not file_name.startswith(datestr):
+            if not file_name.startswith(date_str):
                 continue
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t")
