@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/18 15:00
+Date: 2025/10/28 15:00
 Desc: 全部A股-等权重市盈率、中位数市盈率
 https://www.legulegu.com/stockdata/a-ttm-lyr
 """
@@ -24,10 +24,16 @@ def stock_a_ttm_lyr() -> pd.DataFrame:
         "marketId": "5",
         "token": get_token_lg(),
     }
+    headers = get_cookie_csrf(url="https://www.legulegu.com/stockdata/a-ttm-lyr")['headers']
+    headers.update({
+        "host": "www.legulegu.com",
+        "referer": "https://www.legulegu.com/stockdata/a-ttm-lyr",
+    })
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://www.legulegu.com/stockdata/a-ttm-lyr"),
+        cookies=get_cookie_csrf(url="https://www.legulegu.com/stockdata/a-ttm-lyr")['cookies'],
+        headers=headers,
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
