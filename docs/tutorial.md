@@ -408,7 +408,6 @@
  "futures_spot_stock"  # 现货与股票接口
  # 中证商品指数
  "futures_index_ccidx"  # 中证商品指数
- "futures_index_min_ccidx"  # 中证商品指数-分时
  # 打新收益率
  "stock_dxsyl_em"  # 打新收益率
  "stock_xgsglb_em"  # 新股申购与中签查询
