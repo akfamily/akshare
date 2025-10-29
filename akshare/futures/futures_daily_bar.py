@@ -697,7 +697,7 @@ if __name__ == "__main__":
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20241118")
+    get_dce_daily_df = get_dce_daily(date="20251029")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20230810")
