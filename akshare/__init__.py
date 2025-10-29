@@ -3182,9 +3182,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.73 fix: fix get_receipt interface
 1.17.74 fix: fix futures_dce_position_rank interface
 1.17.75 fix: fix stock_a_ttm_lyr interface
+1.17.76 fix: fix futures_index_ccidx interface
 """
 
-__version__ = "1.17.75"
+__version__ = "1.17.76"
 __author__ = "AKFamily"
 
 import sys
@@ -5007,10 +5008,7 @@ from akshare.article.fred_md import fred_md, fred_qd
 """
 中证商品指数
 """
-from akshare.futures.futures_index_ccidx import (
-    futures_index_min_ccidx,
-    futures_index_ccidx,
-)
+from akshare.futures.futures_index_ccidx import futures_index_ccidx
 
 """
 futures_em_spot_stock
