@@ -584,7 +584,8 @@
  # 胡润排行榜
  "hurun_rank"  # 胡润排行榜
  # 期货合约详情
- "futures_contract_detail"  # 期货合约详情
+ "futures_contract_detail"  # 新浪期货合约详情
+ "futures_contract_detail_em"  # 东方财富期货合约详情
  # 科创板报告
  "stock_zh_kcb_report_em"  # 科创板报告
  # 东方财富-期权
@@ -1363,6 +1364,8 @@
  # 股票期权
  "option_current_day_szse"  # 深圳证券交易所-期权子网-行情数据-当日合约
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约
+ # 期权合约信息
+ "option_contract_info_ctp"  # 期权合约信息
 ```
 
 ## 案例演示
