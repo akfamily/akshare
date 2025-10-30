@@ -87,6 +87,11 @@
 
 ## 更新说明详情
 
+1.17.80 fix: fix futures_contract_detail_em interface
+
+	1. 新增 futures_contract_detail_em 接口
+	2. 新增 option_contract_info_ctp 接口
+
 1.17.79 fix: fix futures_contract_info_dce interface
 
 	1. 修复 futures_contract_info_dce 接口
@@ -5921,6 +5926,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.80 fix: fix futures_contract_detail_em interface
 
 1.17.79 fix: fix futures_contract_info_dce interface
 
