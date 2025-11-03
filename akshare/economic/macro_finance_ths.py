@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/7/16 22:30
+Date: 2025/10/21 20:00
 Desc: 同花顺-数据中心-宏观数据-股票筹资
 https://data.10jqka.com.cn/macro/finance/
 """
-
 from io import StringIO
 
 import pandas as pd
@@ -22,7 +21,7 @@ def macro_stock_finance() -> pd.DataFrame:
     url = "https://data.10jqka.com.cn/macro/finance/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
@@ -43,6 +42,7 @@ def macro_stock_finance() -> pd.DataFrame:
     temp_df["首发募集资金"] = pd.to_numeric(temp_df["首发募集资金"], errors="coerce")
     temp_df["增发募集资金"] = pd.to_numeric(temp_df["增发募集资金"], errors="coerce")
     temp_df["配股募集资金"] = pd.to_numeric(temp_df["配股募集资金"], errors="coerce")
+    temp_df.sort_values(by=['月份'], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -56,7 +56,7 @@ def macro_rmb_loan() -> pd.DataFrame:
     url = "https://data.10jqka.com.cn/macro/loan/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
@@ -74,6 +74,7 @@ def macro_rmb_loan() -> pd.DataFrame:
     temp_df["累计人民币贷款-总额"] = pd.to_numeric(
         temp_df["累计人民币贷款-总额"], errors="coerce"
     )
+    temp_df.sort_values(by=['月份'], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -87,7 +88,7 @@ def macro_rmb_deposit() -> pd.DataFrame:
     url = "https://data.10jqka.com.cn/macro/rmb/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
@@ -119,6 +120,7 @@ def macro_rmb_deposit() -> pd.DataFrame:
     temp_df["新增其他存款-数量"] = pd.to_numeric(
         temp_df["新增其他存款-数量"], errors="coerce"
     )
+    temp_df.sort_values(by=['月份'], inplace=True, ignore_index=True)
     return temp_df
 
 

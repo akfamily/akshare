@@ -32,7 +32,7 @@
  "futures_spot_price_daily"  # 一段交易日大宗商品现货价格及相应基差数据
  "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
- "futures_dce_warehouse_receipt"  # 大连商品交易所-交易数据-仓单日报
+ "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报
  "futures_gfex_warehouse_receipt"  # 广州期货交易所-行情数据-仓单日报
  "futures_rule"  # 国泰君安-交易日历
  # 奇货可查数据
@@ -47,11 +47,13 @@
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  # 交易所商品期权数据
- "option_dce_daily"  # 提供大连商品交易所商品期权数据
- "option_czce_daily"  # 提供郑州商品交易所商品期权数据
- "option_shfe_daily"  # 提供上海期货交易所商品期权数据
- "option_gfex_daily"  # 提供广州期货交易所商品期权数据
- "option_gfex_vol_daily"  # 提供广州期货交易所-合约隐含波动率数据
+ "option_hist_dce"  # 提供大连商品交易所商品期权数据
+ "option_hist_czce"  # 提供郑州商品交易所商品期权数据
+ "option_hist_shfe"  # 提供上海期货交易所商品期权数据
+ "option_hist_gfex"  # 提供广州期货交易所商品期权数据
+ "option_vol_gfex"  # 提供广州期货交易所-合约隐含波动率数据
+ "option_vol_shfe"  # 提供上海期货交易所-合约隐含波动率数据
+ "option_hist_yearly_czce"  # 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
  # 中国银行间市场债券行情数据
  "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
  "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
@@ -330,7 +332,7 @@
  "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_sz50_list_sina"  # 上证50期权列表
-  "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
+ "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
  "option_cffex_sz50_daily_sina"  # 沪深300期权历史行情-日频
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
@@ -406,7 +408,6 @@
  "futures_spot_stock"  # 现货与股票接口
  # 中证商品指数
  "futures_index_ccidx"  # 中证商品指数
- "futures_index_min_ccidx"  # 中证商品指数-分时
  # 打新收益率
  "stock_dxsyl_em"  # 打新收益率
  "stock_xgsglb_em"  # 新股申购与中签查询
@@ -583,7 +584,8 @@
  # 胡润排行榜
  "hurun_rank"  # 胡润排行榜
  # 期货合约详情
- "futures_contract_detail"  # 期货合约详情
+ "futures_contract_detail"  # 新浪期货合约详情
+ "futures_contract_detail_em"  # 东方财富期货合约详情
  # 科创板报告
  "stock_zh_kcb_report_em"  # 科创板报告
  # 东方财富-期权
@@ -1362,6 +1364,8 @@
  # 股票期权
  "option_current_day_szse"  # 深圳证券交易所-期权子网-行情数据-当日合约
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约
+ # 期权合约信息
+ "option_contract_info_ctp"  # 期权合约信息
 ```
 
 ## 案例演示

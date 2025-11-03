@@ -524,7 +524,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     return df
 
 
-def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
+def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
@@ -537,41 +537,42 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
-    url = "http://portal.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,"
-        "application/signed-exchange;v=b3;q=0.9",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Length": "86",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Host": "www.dce.com.cn",
-        "Origin": "http://portal.dce.com.cn",
-        "Pragma": "no-cache",
-        "Referer": "http://portal.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/84.0.4147.105 Safari/537.36",
+    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/dayQuotes"
+    payload = {
+        "contractId": "",
+        "lang": "zh",
+        "optionSeries": "",
+        "statisticsType": "0",
+        "tradeDate": date,
+        "tradeType": "1",
+        "varietyId": "all",
     }
-    params = {
-        "dayQuotes.variety": "all",
-        "dayQuotes.trade_type": "0",
-        "year": date[:4],
-        "month": str(int(date[4:6]) - 1),
-        "day": date[6:],
-        "exportFlag": "excel",
-    }
-    r = requests.post(url, data=params, headers=headers)
-    data_df = pd.read_excel(BytesIO(r.content), header=1)
-    data_df = data_df[~data_df["商品名称"].str.contains("小计")]
-    data_df = data_df[~data_df["商品名称"].str.contains("总计")]
-    data_df["variety"] = data_df["商品名称"].map(lambda x: cons.DCE_MAP[x])
-    data_df["symbol"] = data_df["合约名称"]
-    del data_df["商品名称"]
-    del data_df["合约名称"]
-    data_df.columns = [
+    r = requests.post(url, json=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data'])
+    temp_df.rename(columns={
+        "variety": "品种名称",
+        "contractId": "合约",
+        "open": "开盘价",
+        "high": "最高价",
+        "low": "最低价",
+        "close": "收盘价",
+        "lastClear": "前结算价",
+        "clearPrice": "结算价",
+        "diff": "涨跌",
+        "diff1": "涨跌1",
+        "volumn": "成交量",
+        "openInterest": "持仓量",
+        "diffI": "持仓量变化",
+        "turnover": "成交额",
+    }, inplace=True)
+    temp_df = temp_df[~temp_df["品种名称"].str.contains("小计")]
+    temp_df = temp_df[~temp_df["品种名称"].str.contains("总计")]
+    temp_df["variety"] = temp_df["品种名称"].map(lambda x: cons.DCE_MAP[x])
+    temp_df["symbol"] = temp_df["合约"]
+    del temp_df["品种名称"]
+    del temp_df["合约"]
+    temp_df.columns = [
         "open",
         "high",
         "low",
@@ -580,15 +581,24 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
         "settle",
         "_",
         "_",
+        "_",
         "volume",
         "open_interest",
         "_",
         "turnover",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
         "variety",
         "symbol",
     ]
-    data_df["date"] = date
-    data_df = data_df[
+    temp_df["date"] = date
+    temp_df = temp_df[
         [
             "symbol",
             "date",
@@ -604,8 +614,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
             "variety",
         ]
     ]
-    data_df = data_df.map(lambda x: x.replace(",", ""))
-    data_df = data_df.astype(
+    temp_df = temp_df.astype(
         {
             "open": "float",
             "high": "float",
@@ -618,8 +627,8 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
             "pre_settle": "float",
         }
     )
-    data_df.reset_index(inplace=True, drop=True)
-    return data_df
+    temp_df.reset_index(inplace=True, drop=True)
+    return temp_df
 
 
 def get_futures_daily(
@@ -688,7 +697,7 @@ if __name__ == "__main__":
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20241118")
+    get_dce_daily_df = get_dce_daily(date="20251029")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20230810")

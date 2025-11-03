@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/25 20:24
+Date: 2025/10/30 20:24
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -24,12 +24,17 @@ def get_cookie_csrf(url: str = "") -> dict:
     :return: 指定市场的市盈率数据
     :rtype: pandas.DataFrame
     """
-    r = requests.get(url, headers=headers)
+    # 创建独立的 session，避免污染全局状态
+    session = requests.Session()
+    session.headers.update(headers)
+    r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     csrf_tag = soup.find(name="meta", attrs={"name": "_csrf"})
     csrf_token = csrf_tag.attrs["content"]
-    headers.update({"X-CSRF-Token": csrf_token})
-    return {"cookies": r.cookies, "headers": headers}
+    # 创建新的 headers
+    local_headers = headers.copy()
+    local_headers.update({"X-CSRF-Token": csrf_token})
+    return {"cookies": r.cookies, "headers": local_headers}
 
 
 def get_token_lg() -> str:

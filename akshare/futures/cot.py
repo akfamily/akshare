@@ -99,7 +99,7 @@ def get_rank_sum_daily(
                     f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
-            records = pd.concat([records, data], ignore_index=True)
+            records = pd.concat(objs=[records, data], ignore_index=True)
         else:
             warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
         start_day += datetime.timedelta(days=1)
@@ -826,40 +826,21 @@ def futures_dce_position_rank(
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    url = "http://portal.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesBatchData.html"
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;"
-        "q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Length": "160",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Host": "www.dce.com.cn",
-        "Origin": "http://portal.dce.com.cn",
-        "Pragma": "no-cache",
-        "Referer": "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/81.0.4044.138 Safari/537.36",
-    }
+    date_str = date.strftime("%Y%m%d")
+    url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/memberDealPosi/batchDownload"
     payload = {
-        "memberDealPosiQuotes.variety": "a",
-        "memberDealPosiQuotes.trade_type": "0",
-        "contract.contract_id": "a2009",
-        "contract.variety_id": "a",
-        "year": date.year,
-        "month": date.month - 1,
-        "day": str(date.day).zfill(2),
-        "batchExportFlag": "batch",
+        "tradeDate": date_str,
+        "varietyId": "a",
+        "contractId": "a2601",
+        "tradeType": "1",
+        "lang": "zh",
     }
-    r = requests.post(url, payload, headers=headers)
+    r = requests.post(url, json=payload)
     big_dict = dict()
     with zipfile.ZipFile(BytesIO(r.content), mode="r") as z:
         for i in z.namelist():
-            file_name = i.encode("cp437").decode("GBK")
-            if not file_name.startswith(date.strftime("%Y%m%d")):
+            file_name = i
+            if not file_name.startswith(date_str):
                 continue
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t")
