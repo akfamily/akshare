@@ -848,7 +848,7 @@ import akshare as ak
 
 ak.get_dce_rank_table()
 ak.get_cffex_rank_table()
-ak.get_czce_rank_table()
+ak.get_rank_table_czce()
 ak.get_shfe_rank_table()
 ```
 
@@ -857,8 +857,8 @@ ak.get_shfe_rank_table()
 ```python
 import akshare as ak
 
-get_czce_rank_table_df = ak.get_czce_rank_table(date='20200213')
-print(get_czce_rank_table_df)
+get_rank_table_czce_df = ak.get_rank_table_czce(date='20200213')
+print(get_rank_table_czce_df)
 ```
 
 注意:
@@ -1073,7 +1073,7 @@ print(futures_gfex_position_rank_dict)
 
 ##### 仓单日报-郑州商品交易所
 
-接口: futures_czce_warehouse_receipt
+接口: futures_warehouse_receipt_czce
 
 目标地址: http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
 
@@ -1098,8 +1098,8 @@ print(futures_gfex_position_rank_dict)
 ```python
 import akshare as ak
 
-futures_czce_warehouse_receipt_df = ak.futures_czce_warehouse_receipt(date="20200702")
-print(futures_czce_warehouse_receipt_df)
+futures_warehouse_receipt_czce_df = ak.futures_warehouse_receipt_czce(date="20200702")
+print(futures_warehouse_receipt_czce_df)
 ```
 
 数据示例
