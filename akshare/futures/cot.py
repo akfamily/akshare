@@ -150,7 +150,7 @@ def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols
             return False
         big_dict.update(data)
     if len(czce_var) > 0:
-        data = get_czce_rank_table(date)
+        data = get_rank_table_czce(date)
         if data is False:
             return False
         big_dict.update(data)
@@ -405,9 +405,10 @@ def _czce_df_read(url, skip_rows, encoding="utf-8", header=0):
     return data
 
 
-def get_czce_rank_table(date: str = "20210428") -> dict:
+def get_rank_table_czce(date: str = "20251103") -> dict:
     """
     郑州商品交易所前 20 会员持仓排名数据明细
+    https://www.czce.com.cn/cn/jysj/ccpm/H077003004index_1.htm
     注：该交易所既公布了品种排名, 也公布了标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :return: 持仓排名数据明细
@@ -439,13 +440,18 @@ def get_czce_rank_table(date: str = "20210428") -> dict:
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    if date >= datetime.date(2015, 10, 8):
+    if date > datetime.date(year=2025, month=11, day=1):
+        url = (
+            f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/"
+            f"{date.isoformat().replace('-', '')}/FutureDataHolding.xlsx"
+        )
+    else:
         url = (
             f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/"
             f"{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
         )
-        r = requests.get(url, headers=headers)
-        temp_df = pd.read_excel(BytesIO(r.content))
+    r = requests.get(url, headers=headers)
+    temp_df = pd.read_excel(BytesIO(r.content))
 
     temp_pinzhong_index = [
         item + 1
@@ -1324,11 +1330,11 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
 
 if __name__ == "__main__":
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date="20230109")
-    print(get_czce_rank_table_first_df)
+    get_rank_table_czce_df = get_rank_table_czce(date="20230109")
+    print(get_rank_table_czce_df)
 
-    get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
-    print(get_czce_rank_table_first_df)
+    get_rank_table_czce_df = get_rank_table_czce(date="20201026")
+    print(get_rank_table_czce_df)
 
     # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date="20250721")
@@ -1369,7 +1375,7 @@ if __name__ == "__main__":
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20250903",
-        end_day="20250905",
+        start_day="20251031",
+        end_day="20251103",
     )
     print(get_rank_sum_daily_df)
