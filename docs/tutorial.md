@@ -11,7 +11,7 @@
  "get_cffex_daily",  # 中国金融期货交易所每日交易数据
  "get_cffex_rank_table",  # 中国金融期货交易所前20会员持仓数据明细
  "get_czce_daily",  # 郑州商品交易所每日交易数据
- "get_czce_rank_table",  # 郑州商品交易所前20会员持仓数据明细
+ "get_rank_table_czce",  # 郑州商品交易所前20会员持仓数据明细
  "get_dce_daily",  # 大连商品交易所每日交易数据
  "get_gfex_daily",  # 广州期货交易所每日交易数据
  "get_ine_daily",  # 上海国际能源交易中心每日交易数据
@@ -30,7 +30,7 @@
  "futures_spot_price",  # 具体交易日大宗商品现货价格及相应基差数据
  "futures_spot_price_previous",  # 具体交易日大宗商品现货价格及相应基差数据-该接口补充历史数据
  "futures_spot_price_daily"  # 一段交易日大宗商品现货价格及相应基差数据
- "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
+ "futures_warehouse_receipt_czce"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
  "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报
  "futures_gfex_warehouse_receipt"  # 广州期货交易所-行情数据-仓单日报
