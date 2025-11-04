@@ -12,9 +12,10 @@ import pandas as pd
 import requests
 
 from custom_extend.custom_func import fetch_paginated_data
+from custom_extend.utils.persistent_cache_utils import load_fund_etf_code_id_map_em_cache, save_fund_etf_code_id_map_em_cache
 
 
-@lru_cache()
+# @lru_cache()
 def _fund_etf_code_id_map_em() -> dict:
     """
     东方财富-ETF代码和市场标识映射
@@ -22,6 +23,9 @@ def _fund_etf_code_id_map_em() -> dict:
     :return: ETF 代码和市场标识映射。获取ETF代码（如"516210"）与市场标识（如1）的映射字典
     :rtype: dict
     """
+    cached_data = load_fund_etf_code_id_map_em_cache()
+    if cached_data:
+        return cached_data
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",  # page number - 页码
@@ -38,6 +42,7 @@ def _fund_etf_code_id_map_em() -> dict:
     }
     temp_df = fetch_paginated_data(url, params)
     temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
+    save_fund_etf_code_id_map_em_cache(temp_dict)
     return temp_dict
 
 
