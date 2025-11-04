@@ -61,9 +61,18 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
-        temp_codes_df = pd.DataFrame(
-            [item["codes"][0] for item in data_json["data"]["list"]]
-        )
+
+        temp_code_list = []
+        for item in data_json["data"]["list"]:
+            if len(item["codes"]) == 1:
+                temp_code_list.append(item["codes"][0])
+            else:
+                for code in item["codes"]:
+                    if code["ann_type"].startswith("A"):
+                        temp_code_list.append(code)
+                        break
+        temp_codes_df = pd.DataFrame(temp_code_list)
+
         try:
             temp_columns_df = pd.DataFrame(
                 [item["columns"][0] for item in data_json["data"]["list"]]

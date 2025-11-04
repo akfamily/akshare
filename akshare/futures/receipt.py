@@ -357,7 +357,10 @@ def get_czce_receipt_3(
     if date not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return pd.DataFrame()
-    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
+    if int(date) > 20251101:
+        url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xlsx"
+    else:
+        url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df = temp_df[
@@ -602,5 +605,5 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20251027", end_date="20251027")
+    get_receipt_df = get_receipt(start_date="20251031", end_date="20251103", vars_list=['MA'])
     print(get_receipt_df)

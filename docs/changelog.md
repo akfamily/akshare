@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.17.81    | get_czce_rank_table                         | get_rank_table_czce                         | 20251103 |
+| 1.17.81    | futures_czce_warehouse_receipt              | futures_warehouse_receipt_czce              | 20251103 |
 | 1.17.72    | futures_dce_warehouse_receipt               | futures_warehouse_receipt_dce               | 20251027 |
 | 1.17.68    | option_gfex_vol_daily                       | option_vol_gfex                             | 20251017 |
 | 1.17.68    | option_gfex_daily                           | option_hist_gfex                            | 20251017 |
@@ -86,6 +88,16 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.17.82 fix: fix stock_notice_report interface
+
+	1. 修复 stock_notice_report 接口
+
+1.17.81 fix: fix get_receipt interface
+
+	1. 修复 get_receipt 接口
+	2. 修复 get_rank_table_czce 接口
+	3. 修复 futures_warehouse_receipt_czce 接口
 
 1.17.80 fix: fix futures_contract_detail_em interface
 
@@ -5926,6 +5938,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.82 fix: fix stock_notice_report interface
+
+1.17.81 fix: fix get_receipt interface
 
 1.17.80 fix: fix futures_contract_detail_em interface
 

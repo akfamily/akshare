@@ -20,7 +20,7 @@ import pandas as pd
 import requests
 
 
-def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
+def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     """
     郑州商品交易所-交易数据-仓单日报
     http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
@@ -31,7 +31,10 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     """
     import urllib3
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
+    if int(date) > 20251101:
+        url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xlsx"
+    else:
+        url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/83.0.4103.116 Safari/537.36"
@@ -43,7 +46,7 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     big_dict = {}
     for inner_index in range(len(index_list) - 1):
         inner_df = temp_df[index_list[inner_index]: index_list[inner_index + 1]]
-        inner_key = re.findall(r"[a-zA-Z]+", inner_df.iloc[0, 0])[0]
+        inner_key = re.findall(pattern=r"[a-zA-Z]+", string=inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
         inner_df.dropna(axis=0, how="all", inplace=True)
         inner_df.dropna(axis=1, how="all", inplace=True)
@@ -217,8 +220,8 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
 
 
 if __name__ == "__main__":
-    czce_warehouse_receipt_df = futures_czce_warehouse_receipt(date="20151019")
-    print(czce_warehouse_receipt_df)
+    futures_warehouse_receipt_czce_df = futures_warehouse_receipt_czce(date="20251014")
+    print(futures_warehouse_receipt_czce_df)
 
     futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
     print(futures_warehouse_receipt_dce_df)
