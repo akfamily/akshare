@@ -85,5 +85,5 @@ if __name__ == "__main__":
     futures_contract_detail_df = futures_contract_detail(symbol="V2101")
     print(futures_contract_detail_df)
 
-    futures_contract_detail_em_df = futures_contract_detail_em(symbol="v2603F")
+    futures_contract_detail_em_df = futures_contract_detail_em(symbol="l2602F")
     print(futures_contract_detail_em_df)
