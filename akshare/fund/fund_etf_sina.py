@@ -175,7 +175,7 @@ def fund_etf_dividend_sina(symbol: str = "sh510050") -> pd.DataFrame:
             # 转换数值类型
             df[["f", "s", "u"]] = df[["f", "s", "u"]].astype(float)
             # 按日期排序
-            df = df.sort_values("date", ascending=True, ignore_index=True)
+            df = df.sort_values(by="date", ascending=True, ignore_index=True)
             temp_df = df[["date", "u"]].copy()
             temp_df.columns = ["日期", "累计分红"]
             temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
