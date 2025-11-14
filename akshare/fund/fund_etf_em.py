@@ -217,7 +217,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     return temp_df
 
 def get_market_id(symbol: str)-> int:
-     """
+    """
     东方财富-ETF市场标识判断
     :param symbol: ETF 代码
     :type symbol: str
