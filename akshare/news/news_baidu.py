@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/3/7 20:30
+Date: 2025/11/14 20:30
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
@@ -255,7 +255,7 @@ if __name__ == "__main__":
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20241107"
+        date="20251107"
     )
     print(news_trade_notify_dividend_baidu_df)
 
