@@ -8,6 +8,7 @@ https://gushitong.baidu.com/calendar
 
 import pandas as pd
 import requests
+import numpy as np
 
 
 def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
@@ -172,11 +173,11 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
                 inplace=True,
             )
             if "实物" not in temp_df.columns:
-                temp_df["实物"] = pd.NA
+                temp_df["实物"] = "-"
             if "送股" not in temp_df.columns:
-                temp_df["送股"] = pd.NA
+                temp_df["送股"] = "-"
             if "转增" not in temp_df.columns:
-                temp_df["转增"] = pd.NA
+                temp_df["转增"] = "-"
             temp_df = temp_df[
                 [
                     "股票代码",
@@ -260,7 +261,7 @@ if __name__ == "__main__":
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20251107"
+        date="20251114"
     )
     print(news_trade_notify_dividend_baidu_df)
 
