@@ -302,6 +302,8 @@ def option_finance_board(
         del raw_df["end_month"]
         raw_df.reset_index(inplace=True, drop=True)
         return raw_df
+    else:
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
