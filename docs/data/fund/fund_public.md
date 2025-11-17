@@ -2894,7 +2894,7 @@ print(fund_overview_em_df)
 ```python
 import akshare as ak
 
-fund_fee_em_df = fund_fee_em(symbol="015641", indicator="认购费率")
+fund_fee_em_df = ak.fund_fee_em(symbol="015641", indicator="认购费率")
 print(fund_fee_em_df)
 ```
 

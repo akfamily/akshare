@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/10/18 19:00
+Date: 2025/11/10 15:30
 Desc: 新浪财经-基金行情
 https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
@@ -122,7 +122,7 @@ def fund_etf_hist_sina(symbol: str = "sh510050") -> pd.DataFrame:
     :return: 日行情数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata/klc_kl.js"
+    url = f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata_klc2/klc_kl.js"
     r = requests.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
@@ -175,7 +175,7 @@ def fund_etf_dividend_sina(symbol: str = "sh510050") -> pd.DataFrame:
             # 转换数值类型
             df[["f", "s", "u"]] = df[["f", "s", "u"]].astype(float)
             # 按日期排序
-            df = df.sort_values("date", ascending=True, ignore_index=True)
+            df = df.sort_values(by="date", ascending=True, ignore_index=True)
             temp_df = df[["date", "u"]].copy()
             temp_df.columns = ["日期", "累计分红"]
             temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date

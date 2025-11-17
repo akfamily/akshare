@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/3/7 20:30
+Date: 2025/11/14 20:30
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
 
 import pandas as pd
 import requests
+import numpy as np
 
 
 def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
@@ -140,19 +141,20 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    url = "https://finance.pae.baidu.com/api/financecalendar"
+    url = "https://finance.pae.baidu.com/sapi/v1/financecalendar"
     params = {
         "start_date": start_date,
         "end_date": end_date,
-        "market": "",
+        "market": "all",
         "cate": "notify_divide",
-        "rn": 500,
+        "rn": 100,
         "pn": 0,
+        "finClientType": "pc",
     }
     r = requests.get(url=url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
-    for item in data_json["Result"]:
+    for item in data_json["Result"]["calendarInfo"]:
         if not item["list"] == []:
             temp_df = pd.DataFrame(item["list"])
             temp_df.rename(
@@ -171,7 +173,11 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
                 inplace=True,
             )
             if "实物" not in temp_df.columns:
-                temp_df["实物"] = pd.NA
+                temp_df["实物"] = "-"
+            if "送股" not in temp_df.columns:
+                temp_df["送股"] = "-"
+            if "转增" not in temp_df.columns:
+                temp_df["转增"] = "-"
             temp_df = temp_df[
                 [
                     "股票代码",
@@ -255,7 +261,7 @@ if __name__ == "__main__":
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20241107"
+        date="20251114"
     )
     print(news_trade_notify_dividend_baidu_df)
 
