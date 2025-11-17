@@ -2082,7 +2082,7 @@ print(fund_etf_dividend_sina_df)
 
 | 名称  | 类型  | 描述  |
 |-----|-----|-----|
-| -   | -   | -   |
+| year | str | year="2025"; 默认返回全部数据 |
 
 输出参数
 
@@ -2101,7 +2101,7 @@ print(fund_etf_dividend_sina_df)
 ```python
 import akshare as ak
 
-fund_fh_em_df = ak.fund_fh_em()
+fund_fh_em_df = ak.fund_fh_em(2025)
 print(fund_fh_em_df)
 ```
 
@@ -2136,7 +2136,7 @@ print(fund_fh_em_df)
 
 | 名称  | 类型  | 描述  |
 |-----|-----|-----|
-| -   | -   | -   |
+| year | str | year="2025"; 默认返回全部数据 |
 
 输出参数
 
@@ -2154,7 +2154,7 @@ print(fund_fh_em_df)
 ```python
 import akshare as ak
 
-fund_cf_em_df = ak.fund_cf_em()
+fund_cf_em_df = ak.fund_cf_em(2025)
 print(fund_cf_em_df)
 ```
 
@@ -2189,7 +2189,7 @@ print(fund_cf_em_df)
 
 | 名称  | 类型  | 描述  |
 |-----|-----|-----|
-| -   | -   | -   |
+| year | str | year="2025"; 默认返回全部数据 |
 
 输出参数
 
@@ -2207,7 +2207,7 @@ print(fund_cf_em_df)
 ```python
 import akshare as ak
 
-fund_fh_rank_em_df = ak.fund_fh_rank_em()
+fund_fh_rank_em_df = ak.fund_fh_rank_em(2025)
 print(fund_fh_rank_em_df)
 ```
 
