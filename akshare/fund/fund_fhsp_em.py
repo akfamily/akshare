@@ -121,14 +121,10 @@ def fund_cf_em(
     return big_df
 
 
-def fund_fh_rank_em(
-    year: str = ""
-) -> pd.DataFrame:
+def fund_fh_rank_em() -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红排行
     https://fund.eastmoney.com/data/fundleijifenhong.html
-    :param year: 查询年份
-    :type year: str
     :return: 基金分红排行
     :rtype: pandas.DataFrame
     """
@@ -140,7 +136,6 @@ def fund_fh_rank_em(
         "sort": "desc",
         "gs": "",
         "ftype": "",
-        "year": year,
     }
     r = requests.get(url, params=params)
     data_text = r.text
@@ -183,5 +178,5 @@ if __name__ == "__main__":
     fund_cf_em_df = fund_cf_em(2025)
     print(fund_cf_em_df)
 
-    fund_fh_rank_em_df = fund_fh_rank_em(2025)
+    fund_fh_rank_em_df = fund_fh_rank_em()
     print(fund_fh_rank_em_df)
