@@ -11,10 +11,14 @@ import requests
 from tqdm import tqdm
 
 
-def fund_fh_em() -> pd.DataFrame:
+def fund_fh_em(
+    year: str = ""
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红
     https://fund.eastmoney.com/data/fundfenhong.html#DJR,desc,1,,,
+    :param year: 查询年份
+    :type year: str
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
@@ -26,7 +30,7 @@ def fund_fh_em() -> pd.DataFrame:
         "sort": "asc",
         "gs": "",
         "ftype": "",
-        "year": "",
+        "year": year,
     }
     r = requests.get(url, params=params)
     data_text = r.text
@@ -63,10 +67,14 @@ def fund_fh_em() -> pd.DataFrame:
     return big_df
 
 
-def fund_cf_em() -> pd.DataFrame:
+def fund_cf_em(
+    year: str = ""
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金拆分
     https://fund.eastmoney.com/data/fundchaifen.html#FSRQ,desc,1,,,
+    :param year: 查询年份
+    :type year: str
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
@@ -78,7 +86,7 @@ def fund_cf_em() -> pd.DataFrame:
         "sort": "desc",
         "gs": "",
         "ftype": "",
-        "year": "",
+        "year": year,
     }
     r = requests.get(url, params=params)
     data_text = r.text
@@ -128,7 +136,6 @@ def fund_fh_rank_em() -> pd.DataFrame:
         "sort": "desc",
         "gs": "",
         "ftype": "",
-        "year": "",
     }
     r = requests.get(url, params=params)
     data_text = r.text
@@ -165,10 +172,10 @@ def fund_fh_rank_em() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_fh_em_df = fund_fh_em()
+    fund_fh_em_df = fund_fh_em(2025)
     print(fund_fh_em_df)
 
-    fund_cf_em_df = fund_cf_em()
+    fund_cf_em_df = fund_cf_em(2025)
     print(fund_cf_em_df)
 
     fund_fh_rank_em_df = fund_fh_rank_em()

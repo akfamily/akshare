@@ -30,11 +30,17 @@ def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "economic_data",
         "finClientType": "pc",
     }
-    r = requests.get(url=url, params=params)
+    headers = {
+        'Host': 'finance.pae.baidu.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+    }
+    r = requests.get(url=url, params=params, headers=headers)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == []:
+        if not item["list"] == [] and not item["list"] == None:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "日期",
@@ -92,11 +98,17 @@ def news_trade_notify_suspend_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "notify_suspend",
         "finClientType": "pc",
     }
-    r = requests.get(url=url, params=params)
+    headers = {
+        'Host': 'finance.pae.baidu.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+    }
+    r = requests.get(url=url, params=params, headers=headers)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == []:
+        if not item["list"] == [] and not item["list"] == None:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "股票代码",
@@ -151,11 +163,17 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
         "pn": 0,
         "finClientType": "pc",
     }
-    r = requests.get(url=url, params=params)
+    headers = {
+        'Host': 'finance.pae.baidu.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+    }
+    r = requests.get(url=url, params=params, headers=headers)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]["calendarInfo"]:
-        if not item["list"] == []:
+        if not item["list"] == [] and not item["list"] == None:
             temp_df = pd.DataFrame(item["list"])
             temp_df.rename(
                 columns={
@@ -222,11 +240,17 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "report_time",
         "finClientType": "pc",
     }
-    r = requests.get(url=url, params=params)
+    headers = {
+        'Host': 'finance.pae.baidu.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+    }
+    r = requests.get(url=url, params=params, headers=headers)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == []:
+        if not item["list"] == [] and not item["list"] == None:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "股票代码",
