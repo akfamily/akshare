@@ -8,7 +8,6 @@ https://gushitong.baidu.com/calendar
 
 import pandas as pd
 import requests
-import numpy as np
 
 
 def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
@@ -30,17 +29,11 @@ def news_economic_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "economic_data",
         "finClientType": "pc",
     }
-    headers = {
-        'Host': 'finance.pae.baidu.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-    }
-    r = requests.get(url=url, params=params, headers=headers)
+    r = requests.get(url=url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == [] and not item["list"] == None:
+        if not item["list"] == []:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "日期",
@@ -98,17 +91,11 @@ def news_trade_notify_suspend_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "notify_suspend",
         "finClientType": "pc",
     }
-    headers = {
-        'Host': 'finance.pae.baidu.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-    }
-    r = requests.get(url=url, params=params, headers=headers)
+    r = requests.get(url=url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == [] and not item["list"] == None:
+        if not item["list"] == []:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "股票代码",
@@ -163,17 +150,11 @@ def news_trade_notify_dividend_baidu(date: str = "20241107") -> pd.DataFrame:
         "pn": 0,
         "finClientType": "pc",
     }
-    headers = {
-        'Host': 'finance.pae.baidu.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-    }
-    r = requests.get(url=url, params=params, headers=headers)
+    r = requests.get(url=url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]["calendarInfo"]:
-        if not item["list"] == [] and not item["list"] == None:
+        if not item["list"] == []:
             temp_df = pd.DataFrame(item["list"])
             temp_df.rename(
                 columns={
@@ -240,17 +221,11 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
         "cate": "report_time",
         "finClientType": "pc",
     }
-    headers = {
-        'Host': 'finance.pae.baidu.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-    }
-    r = requests.get(url=url, params=params, headers=headers)
+    r = requests.get(url=url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
-        if not item["list"] == [] and not item["list"] == None:
+        if not item["list"] == []:
             temp_df = pd.DataFrame(item["list"])
             temp_df.columns = [
                 "股票代码",
@@ -276,18 +251,18 @@ def news_report_time_baidu(date: str = "20241107") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20250307")
+    news_economic_baidu_df = news_economic_baidu(date="20251117")
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(
-        date="20241107"
+        date="20251117"
     )
     print(news_trade_notify_suspend_baidu_df)
 
     news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20251114"
+        date="20251117"
     )
     print(news_trade_notify_dividend_baidu_df)
 
-    news_report_time_baidu_df = news_report_time_baidu(date="20241107")
+    news_report_time_baidu_df = news_report_time_baidu(date="20251117")
     print(news_report_time_baidu_df)
