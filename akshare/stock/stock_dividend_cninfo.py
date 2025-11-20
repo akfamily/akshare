@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/5/4 22:00
+Date: 2025/11/20 22:00
 Desc: 巨潮资讯-个股-历史分红
 https://webapi.cninfo.com.cn/#/company?companyid=600009
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
+import requests
 
 from akshare.datasets import get_ths_js
 
@@ -55,7 +55,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "Proxy-Connection": "keep-alive",
         "Referer": "http://webapi.cninfo.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/93.0.4577.63 Safari/537.36",
+                      "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, params=params, headers=headers)
@@ -64,8 +64,8 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
     temp_df.rename(columns={
         "F006D": "实施方案公告日期",
         "F044V": "分红类型",
-        "F011N": "送股比例",
-        "F010N": "转增比例",
+        "F011N": "转增比例",
+        "F010N": "送股比例",
         "F012N": "派息比例",
         "F018D": "股权登记日",
         "F020D": "除权日",
