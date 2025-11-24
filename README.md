@@ -1,3 +1,26 @@
+
+东财封IP，替代方案：
+1. 雪球
+访问示例：
+https://stock.xueqiu.com/v5/stock/chart/kline.json?symbol=SZ159915&period=day&type=before&count=-10&indicator=kline&begin=1735660800000
+参数说明：
+symbol: 股票代码（SZ159915 = 深交所创业板ETF）
+period: 周期（day=日线, week=周线, month=月线）
+count: 数据条数（负号表示获取之前的数据）
+begin: 起始时间戳（毫秒级）
+indicator: 指标类型
+2. 中华财经网
+https://www.cnfin.com/quote/index.html
+
+关注b站up：量化鸭
+
+
+
+
+
+
+
+
 **资源分享**：对于想了解更多财经数据与量化投研的小伙伴，推荐一个专注于财经数据和量化研究的知识社区。
 该社区提供相关文档和视频学习资源，汇集了各类财经数据源和量化投研工具的使用经验。
 有兴趣深入学习的朋友可点此[了解更多](https://t.zsxq.com/ZCxUG)，也推荐大家关注微信公众号【数据科学实战】。
