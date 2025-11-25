@@ -466,6 +466,8 @@ def stock_zh_a_minute(
         temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
         temp_df.reset_index(drop=True, inplace=True)
         return temp_df
+    else:
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
