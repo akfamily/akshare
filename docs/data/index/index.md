@@ -1974,7 +1974,7 @@ print(index_hist_cni_df)
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 国证指数-指数样本详情数据
+描述: 国证指数-指数样本详情数据；20251125 开始只能获取近期的数据
 
 输入参数
 
