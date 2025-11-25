@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/20 18:00
+Date: 2025/11/25 18:00
 Desc: 99 期货网-大宗商品库存数据
 https://www.99qh.com/
 """
@@ -63,8 +63,8 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     url = "https://centerapi.fx168api.com/app/qh/api/stock/trend"
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        "_pcc": "ccU4XwAjPxRnbT0L5Zm0tfZrCdL9+nH4E5yYYG3aBFlf9iKUbTVt70JbtguPRpvrUGatAbw4NhRK4QGVvMDprt"
-                "jmOCMw7osHyT/KSE9nWWKXmPVHV0xkzSrDWXiUrqzZsEd2NVCJYdqTClzdkZ3MouP6BEYBu3QbbOPqGraXefU=",
+        "_pcc": "Km+8HvRZpwuTQevs9gsuZsqDqExHrbSybJ2owcl8Mlz8vRgIuzoVIGUDD+WkESBlOWbSC3sKLxA4M4sG57vC0V"
+                "KPdI+MX+IpDC4NViRU6TSftUi9Jeqer88KW8BvEmYMOTdUgyYuo27yjgAT28wWSYDiHBCBHiWX97lJydFI8ec=",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/58.0.3029.110 Safari/537.3",
         "referer": "https://www.99qh.com",
