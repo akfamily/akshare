@@ -8,6 +8,7 @@ https://gushitong.baidu.com/calendar
 import math
 
 import pandas as pd
+import re
 import requests
 
 
@@ -52,26 +53,29 @@ def _baidu_finance_calendar(
                       "Chrome/142.0.0.0 Safari/537.36"
     }
 
-    # 默认cookie
+    # 没传入cookie则动态请求获取需要的Cookie
     if cookie is None:
-        cookie = ("BAIDUID=2FFEC7A2DFDD58623592821064EA5BA7:FG=1; BAIDUID_BFESS=2FFEC7A2DFDD58623592821064EA5BA7"
-                  ":FG=1; ppfuid=FOCoIC3q5fKa8fgJnwzbE67EJ49BGJeplOzf+4l4EOvDuu2RXBRv6R3A1AZMa49I27C0gDDLrJyxcIIe"
-                  "AeEhD8JYsoLTpBiaCXhLqvzbzmvy3SeAW17tKgNq/Xx+RgOdb8TWCFe62MVrDTY6lMf2GrfqL8c87KLF2qFER3obJGnsqk"
-                  "Zri/4OJbm7r4CyJIowGEimjy3MrXEpSuItnI4KD2oamHIjD/NFFeJepWnxVEaTDvh37imFnz2JusPfLg+20CMlRn+O+PSm"
-                  "Ijl1iaxOt9JGgA1IWuwdWQ6HGpfvkACrc6cZOQiWpdWZFfM9cCLuTBuECl+tiP++NCHKpXEMdWH1SPBXDyoMbf9Ga3EX3J"
-                  "C70/lU+rOcT92RpNAO3HyuQbeCqJ91LNPfk1CUv8oZVl7/rim5dFAQ7oqBps3g3+aZ9KUZywDhnDu1Pi1I0y9keBGRJ+oo"
-                  "8Kes3TzdoZP/mCoPKvyITQOchTYjURqFqbrHZFO3SaB4GS7zlBrG2cLm8lTRl19JYcYcqvy3P/50mxpWDwUUC4pvKOF9e+p"
-                  "wNq7l6HzKEZyCMUDd+W6AiaksYiu+4AAz72OnMQfgAyNUbW3IyzL5c+UBht87WUigOY9alcIuR+n1gwn+Dmf3unATYGtv0z"
-                  "KmAog3Ny9wFYiQ/gdKSrR9D25HSwrLQyIe5QKTkKSlY6nVev8MhaT3AUPwNqYIvWCQZXWkhuuU0ZXLMYAKJSeHY7mTrwwSS"
-                  "KC3ZaI47CoFrvl4EuqobWGxpsF3vJDYM3XW3DNljsFR9IuqbVM9CtZEazJl9vJpqbMvL7R91rSPWb2eeCt263/A+EJVR/A8"
-                  "+3BQ92SIDoXabq8Wb8ZGN9BAsC9g5OdjE6lhwzTadptHqT7mZN901gDzA4lMYEG/kekC+0J5/N5yVy+eizEguGAhOCNLy27"
-                  "Y07ekeZ4evBBG6uKiyECyim8GsWrtEdf1YjB/qEZ70NLAIoAhusD05kuRm4sFZh/o1XJ6o5ZazU62XvOvycqQeNHJHilKXv"
-                  "+Y0q7CT6wHNqzprY+XMxDln8dKB7nefcEun8dlqoZs4uNOo+pkpyckwWP4VbWloC92vUUtZ2lVqKiGsvJKvLgaUA9sPnxLH"
-                  "pdf4XomqPKDKx4eFPQw2Q1jzqxFibbX6o8w3MlwZxJhxBabUW5sicyie973hz6nxWLbBzvYx9HPb4mEvyTKCvOi6/oFz+ZBS"
-                  "s/kEn2kikYfHcMOTvlvvsfnWwwTasVNneN3K++VbMkJcXe6HpWGsfMtkPHUjgkj; ab_sr=1.0.1_MThjZTllNjUzYjk4Mz"
-                  "Q4ZDcxZTc3ZDIxY2ZiZDYyODdkOTZmMDUxYzU1MWE4NTY2N2I5NjExZjk1ZjRiMTU4M2Q4N2MyMDYxZGRiMDFjOTg5NDJjO"
-                  "DM5Zjk2Y2JhMDI1NzU5YjFmYWZlYjgyYjEyNzYxMTQ0YTVjYjVhNDc0ZTQwMWUzZDI2YjQ3OGVkYjI0Mzk5ZmQyNWYwZjBh"
-                  "M2U3YmQzNTI5YWUyNGRlZDNhOTIxNjMyODljN2I1YzYyYzA0OTE4NjI0NWVkYzVhZWFkMDc2YWEwZjQxZDRiZDY0MmE=")
+        # 首先请求https://gushitong.baidu.com/calendar获取cookie BAIDUID和BAIDUID_BFESS
+        session = requests.Session()
+        resp_cookie_step1 = session.get(url="https://gushitong.baidu.com/calendar", headers=headers)
+        cookie_BAIDUID = resp_cookie_step1.cookies.get("BAIDUID")
+        cookie_BAIDUID_BFESS = resp_cookie_step1.cookies.get("BAIDUID_BFESS")
+
+        # 通过正则表达式提取返回网页内容中https://hm.baidu.com/hm.js的全部url（后面包含了一个uuid）
+        pattern = r'https://hm.baidu.com/hm.js\?\w*'
+        match = re.search(pattern, resp_cookie_step1.text)
+        step2_url = match.group()
+        # 请求，并获取cookie HMACCOUNT和HMACCOUNT_BFESS
+        resp_cookie_step2 = session.get(url=step2_url, headers=headers)
+        cookie_HMACCOUNT = resp_cookie_step2.cookies.get("HMACCOUNT")
+        cookie_HMACCOUNT_BFESS = resp_cookie_step2.cookies.get("HMACCOUNT_BFESS")
+        session.close()
+
+        # 拼接cookie
+        cookie = (f"BAIDUID={cookie_BAIDUID}; "
+                  f"BAIDUID_BFESS={cookie_BAIDUID_BFESS}; "
+                  f"HMACCOUNT={cookie_HMACCOUNT}; "
+                  f"HMACCOUNT_BFESS={cookie_HMACCOUNT_BFESS}; ")
     headers["cookie"] = cookie
 
     url = "https://finance.pae.baidu.com/sapi/v1/financecalendar"
