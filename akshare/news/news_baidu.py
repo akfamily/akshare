@@ -1,15 +1,76 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/11/14 20:30
+Date: 2025/12/1 22:00
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
 import math
+import re
 
 import pandas as pd
-import re
 import requests
+
+
+def _get_baidu_cookie(headers: dict) -> str:
+    """
+    安全获取百度股市通所需的Cookie
+    :param headers: 基础请求头
+    :return: 格式化的Cookie字符串
+    :raises ValueError: 当无法获取必要Cookie时
+    :raises ConnectionError: 网络请求失败时
+    """
+    try:
+        # 使用Session保持Cookie上下文
+        with requests.Session() as session:
+            session.headers.update(headers)
+
+            # 第一步：获取基础Cookie (BAIDUID系列)
+            resp1 = session.get(
+                "https://gushitong.baidu.com/calendar",
+                timeout=10
+            )
+            resp1.raise_for_status()
+
+            # 验证必要Cookie
+            baiduid = resp1.cookies.get("BAIDUID")
+            baiduid_bfess = resp1.cookies.get("BAIDUID_BFESS")
+            if not all([baiduid, baiduid_bfess]):
+                raise ValueError("Missing BAIDUID cookies in first response")
+
+            # 第二步：提取并请求hm.js
+            hm_pattern = r'https://hm\.baidu\.com/hm\.js\?\w+'
+            hm_match = re.search(hm_pattern, resp1.text)
+            if not hm_match:
+                # 尝试备用正则模式
+                hm_match = re.search(r'//hm\.baidu\.com/hm\.js\?\w+', resp1.text)
+                if not hm_match:
+                    raise ValueError("Failed to extract hm.js URL from response")
+
+            hm_url = "https:" + hm_match.group() if hm_match.group().startswith("//") else hm_match.group()
+
+            # 第二步请求 (自动携带第一步的Cookie)
+            resp2 = session.get(hm_url, timeout=10)
+            resp2.raise_for_status()
+
+            # 验证必要Cookie
+            hmac_count = resp2.cookies.get("HMACCOUNT")
+            hmac_count_bfess = resp2.cookies.get("HMACCOUNT_BFESS")
+            if not all([hmac_count, hmac_count_bfess]):
+                raise ValueError("Missing HMACCOUNT cookies in second response")
+
+            # 安全拼接Cookie
+            return (
+                f"BAIDUID={baiduid}; "
+                f"BAIDUID_BFESS={baiduid_bfess}; "
+                f"HMACCOUNT={hmac_count}; "
+                f"HMACCOUNT_BFESS={hmac_count_bfess}"
+            )
+
+    except requests.exceptions.RequestException as e:
+        raise ConnectionError(f"Network request failed: {str(e)}") from e
+    except re.error as e:
+        raise ValueError(f"Regex pattern error: {str(e)}") from e
 
 
 def _baidu_finance_calendar(
@@ -53,27 +114,13 @@ def _baidu_finance_calendar(
                       "Chrome/142.0.0.0 Safari/537.36"
     }
 
-    # 没传入cookie则动态请求获取需要的Cookie
+    # 在_baidu_finance_calendar函数中替换原代码块
     if cookie is None:
-        # 首先请求https://gushitong.baidu.com/calendar获取cookie BAIDUID和BAIDUID_BFESS
-        resp_cookie_step1 = requests.get(url="https://gushitong.baidu.com/calendar", headers=headers)
-        cookie_BAIDUID = resp_cookie_step1.cookies.get("BAIDUID")
-        cookie_BAIDUID_BFESS = resp_cookie_step1.cookies.get("BAIDUID_BFESS")
-
-        # 通过正则表达式提取返回网页内容中https://hm.baidu.com/hm.js的全部url（后面包含了一个uuid）
-        pattern = r'https://hm.baidu.com/hm.js\?\w*'
-        match = re.search(pattern, resp_cookie_step1.text)
-        step2_url = match.group()
-        # 请求，并获取cookie HMACCOUNT和HMACCOUNT_BFESS
-        resp_cookie_step2 = requests.get(url=step2_url, headers=headers)
-        cookie_HMACCOUNT = resp_cookie_step2.cookies.get("HMACCOUNT")
-        cookie_HMACCOUNT_BFESS = resp_cookie_step2.cookies.get("HMACCOUNT_BFESS")
-
-        # 拼接cookie
-        cookie = (f"BAIDUID={cookie_BAIDUID}; "
-                  f"BAIDUID_BFESS={cookie_BAIDUID_BFESS}; "
-                  f"HMACCOUNT={cookie_HMACCOUNT}; "
-                  f"HMACCOUNT_BFESS={cookie_HMACCOUNT_BFESS}; ")
+        try:
+            cookie = _get_baidu_cookie(headers.copy())  # 保护原始headers
+        except Exception as e:
+            # 可降级处理或保留原始行为
+            raise RuntimeError(f"Failed to obtain Baidu cookies: {str(e)}") from e
     headers["cookie"] = cookie
 
     url = "https://finance.pae.baidu.com/sapi/v1/financecalendar"
