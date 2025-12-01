@@ -56,8 +56,7 @@ def _baidu_finance_calendar(
     # 没传入cookie则动态请求获取需要的Cookie
     if cookie is None:
         # 首先请求https://gushitong.baidu.com/calendar获取cookie BAIDUID和BAIDUID_BFESS
-        session = requests.Session()
-        resp_cookie_step1 = session.get(url="https://gushitong.baidu.com/calendar", headers=headers)
+        resp_cookie_step1 = requests.get(url="https://gushitong.baidu.com/calendar", headers=headers)
         cookie_BAIDUID = resp_cookie_step1.cookies.get("BAIDUID")
         cookie_BAIDUID_BFESS = resp_cookie_step1.cookies.get("BAIDUID_BFESS")
 
@@ -66,10 +65,9 @@ def _baidu_finance_calendar(
         match = re.search(pattern, resp_cookie_step1.text)
         step2_url = match.group()
         # 请求，并获取cookie HMACCOUNT和HMACCOUNT_BFESS
-        resp_cookie_step2 = session.get(url=step2_url, headers=headers)
+        resp_cookie_step2 = requests.get(url=step2_url, headers=headers)
         cookie_HMACCOUNT = resp_cookie_step2.cookies.get("HMACCOUNT")
         cookie_HMACCOUNT_BFESS = resp_cookie_step2.cookies.get("HMACCOUNT_BFESS")
-        session.close()
 
         # 拼接cookie
         cookie = (f"BAIDUID={cookie_BAIDUID}; "
