@@ -25,3 +25,10 @@ colors
 /tests/data
 
 .venv
+
+*.log
+
+*.png
+*.gif
+
+t/t_chromedriver/chrome_profile
