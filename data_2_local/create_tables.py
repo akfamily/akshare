@@ -101,6 +101,7 @@ def create_single_stock_table_0(stock_code, prefix):
         print(f"创建表 {table_name} 时出错: {e}")
         return stock_code, False
 
+
 def create_single_stock_table(stock_code, prefix):
     """优化版的单个表创建函数"""
     table_name = None
@@ -133,6 +134,141 @@ def create_single_stock_table(stock_code, prefix):
     except Exception as e:
         print(f"创建表 {table_name} 时出错: {e}")
         return stock_code, False
+
+
+def create_shenwan_industry_2_table():
+    """优化版的单个表创建函数"""
+    table_name = 'shenwan_industry_2'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '二级行业代码' ,
+            `name` VARCHAR(30) NOT NULL   COMMENT '二级行业名称' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '申万二级行业';
+
+        """
+        idx_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code);
+        """
+
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+
+        return True
+
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+
+def create_code_industry_2_change_table():
+    """
+    股票行业(申万二级行业)变化表
+    """
+    table_name = 'code_industry_2_change'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `start_date` DATE NOT NULL   COMMENT '起始日期' ,
+            `industry_code_2` CHAR(6) NOT NULL   COMMENT '二级行业代码' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '股票行业(申万二级行业)变化表';
+
+        """
+        idx_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
+        """
+
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+
+        return True
+
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+
+def create_code_is_st_change_table():
+    """
+    股票曾用名变化表
+    """
+    table_name = 'code_is_st_change'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `start_date` DATE NOT NULL   COMMENT '起始日期' ,
+            `is_st` BOOL NOT NULL   COMMENT '是否ST' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '股票是否ST变化表';
+
+        """
+        idx_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
+        """
+
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+
+def create_code_name_change_table():
+    """
+    股票曾用名变化表
+    """
+    table_name = 'code_name_change'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `start_date` DATE NOT NULL   COMMENT '起始日期' ,
+            `name` VARCHAR(30) NOT NULL   COMMENT '二级行业代码' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '股票曾用名变化表';
+
+        """
+        idx_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
+        """
+
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+
+        return True
+
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
 
 
 def obtain_middle_small_stock_codes():
@@ -230,8 +366,8 @@ if __name__ == '__main__':
     # tset = get_exist_table_code_set(tprefix)
     # print(tset)
 
-    tprefix = 'etf_qfq_'
-    create_single_stock_table_0('518880', tprefix)
+    # tprefix = 'etf_qfq_'
+    # create_single_stock_table_0('518880', tprefix)
     # create_single_stock_table_0('159941', tprefix)
     # create_single_stock_table_0('159915', tprefix)
     # create_single_stock_table_0('510180', tprefix)
@@ -240,6 +376,10 @@ if __name__ == '__main__':
     # create_single_stock_table_0('159928', tprefix)
     # create_single_stock_table_0('512400', tprefix)
     # create_single_stock_table_0('515080', tprefix)
-    create_single_stock_table_0('159985', tprefix)
+    # create_single_stock_table_0('159985', tprefix)
     # create_single_stock_table_0('512930', tprefix)
 
+    # create_shenwan_industry_2_table()
+    # create_code_industry_2_change_table()
+    create_code_is_st_change_table()
+    # create_code_name_change_table()
