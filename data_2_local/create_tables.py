@@ -62,8 +62,41 @@ def get_exist_table_code_set(prefix) -> Set[str]:
 
     return table_set
 
-
 def create_single_stock_table_0(stock_code, prefix):
+    table_name = None
+    try:
+        table_name = f'{prefix}{stock_code}'
+
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `date` DATE NOT NULL   COMMENT '日期' ,
+            `open` DECIMAL(8,4)    COMMENT '开盘' ,
+            `close` DECIMAL(8,4)    COMMENT '收盘' ,
+            `high` DECIMAL(8,4)    COMMENT '最高' ,
+            `low` DECIMAL(8,4)    COMMENT '最低' ,
+            `volume` BIGINT    COMMENT '成交量' ,
+            `pct_chg` DECIMAL(6,3)    COMMENT '涨跌幅' ,
+            `turnover_rate` DECIMAL(8,5)    COMMENT '换手率' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '股票-前复权-{stock_code}';
+        """
+        idx_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+        return stock_code, True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return stock_code, False
+
+def create_single_etf_table_0(stock_code, prefix):
     table_name = None
     try:
         table_name = f'{prefix}{stock_code}'
@@ -183,6 +216,7 @@ def create_code_industry_2_change_table():
             `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
             `start_date` DATE NOT NULL   COMMENT '起始日期' ,
             `industry_code_2` CHAR(6) NOT NULL   COMMENT '二级行业代码' ,
+            `industry_name_2` VARCHAR(30) NOT NULL   COMMENT '二级行业名称' ,
             PRIMARY KEY (id)
         )  COMMENT = '股票行业(申万二级行业)变化表';
 
@@ -266,6 +300,56 @@ def create_code_name_change_table():
 
         return True
 
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+def create_index_stocks_399101_table():
+    """
+    股票曾用名变化表
+    """
+    table_name = 'index_stocks_399101'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '指数成分股_399101';
+
+        """
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+def create_temp_table():
+    """
+    股票曾用名变化表
+    """
+    table_name = 'temp'
+    try:
+        drop_sql = f"""
+        DROP TABLE IF EXISTS {table_name};
+        """
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            PRIMARY KEY (id)
+        )  COMMENT = 'temp';
+
+        """
+        with engine.begin() as connection:
+            connection.execute(text(drop_sql))
+            connection.execute(text(create_sql))
+        return True
     except Exception as e:
         print(f"创建表 {table_name} 时出错: {e}")
         return False
@@ -367,19 +451,22 @@ if __name__ == '__main__':
     # print(tset)
 
     # tprefix = 'etf_qfq_'
-    # create_single_stock_table_0('518880', tprefix)
-    # create_single_stock_table_0('159941', tprefix)
-    # create_single_stock_table_0('159915', tprefix)
-    # create_single_stock_table_0('510180', tprefix)
-    # create_single_stock_table_0('510880', tprefix)
-    # create_single_stock_table_0('159930', tprefix)
-    # create_single_stock_table_0('159928', tprefix)
-    # create_single_stock_table_0('512400', tprefix)
-    # create_single_stock_table_0('515080', tprefix)
-    # create_single_stock_table_0('159985', tprefix)
-    # create_single_stock_table_0('512930', tprefix)
+    # create_single_etf_table_0('518880', tprefix)
+
+    tprefix = 'stock_qfq_'
+    # create_single_stock_table_0('002001', tprefix)
+
+    with open(file='data/stock_price_data_2_local/stock_codes.txt', mode='r', encoding='utf-8') as f:
+        content = f.read()
+        t_stock_codes = content.split('\n')
+        # print(len(t_stock_codes))
+        for code in t_stock_codes:
+            create_single_stock_table_0(code, tprefix)
 
     # create_shenwan_industry_2_table()
     # create_code_industry_2_change_table()
-    create_code_is_st_change_table()
+    # create_code_is_st_change_table()
     # create_code_name_change_table()
+
+    # create_index_stocks_399101_table()
+    # create_temp_table()
