@@ -55,6 +55,7 @@ def data_2_local():
     codes = []
     start_date_strs = []
     industry_codes = []
+    industry_names = []
     for item in parsed_data:
         code = item[0]
         change_list = item[1]
@@ -62,11 +63,13 @@ def data_2_local():
             codes.append(code)
             start_date_strs.append(start_date_str)
             industry_codes.append(industry_code)
+            industry_names.append(industry_name)
 
     t_dict = {
         'code': codes,
         'start_date': start_date_strs,
-        'industry_code_2': industry_codes
+        'industry_code_2': industry_codes,
+        'industry_name_2': industry_names
     }
     df = pd.DataFrame(t_dict)
     df['code'] = df['code'].astype(str)
