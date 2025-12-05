@@ -138,7 +138,7 @@ def create_single_stock_table(stock_code, prefix):
 def obtain_middle_small_stock_codes():
     Session = sessionmaker(bind=engine)
     session = Session()
-    sql_str = "SELECT code FROM middle_small_fixed_data"
+    sql_str = "SELECT code FROM index_stocks_399101"
     try:
         result = session.execute(text(sql_str))
         code_list = [row[0] for row in result]
