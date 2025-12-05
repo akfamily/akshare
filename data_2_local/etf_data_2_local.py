@@ -113,9 +113,9 @@ def update_single_index_data_2_database(code, prefix):
     try:
         # 高效读取最后一行
         last_date = get_last_date(table_name)
-        greater_date_ts = pd.Timestamp(last_date)
         # print(f'###{greater_date_ts}')
         if last_date:
+            greater_date_ts = pd.Timestamp(last_date)
             fetch_data_tdx(code, table_name, greater_date_ts)
             # # 如果和今天相差25天内，则直接返回
             # today = datetime.now().date()
