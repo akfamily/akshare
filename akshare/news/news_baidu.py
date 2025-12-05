@@ -9,7 +9,32 @@ import math
 import re
 
 import pandas as pd
+import ssl
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.poolmanager import PoolManager
+
+class TLSAdapter(HTTPAdapter):
+    def init_poolmanager(self, *args, **kwargs):
+        # 自定义 TLS 设置
+        ctx = ssl.create_default_context()
+        # Chrome 110的密码套件（按Chrome顺序）
+        chrome_ciphers = (
+            'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:'
+            'TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:'
+            'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:'
+            'ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:'
+            'ECDHE-RSA-CHACHA20-POLY1305'
+        )
+        ctx.set_ciphers(chrome_ciphers)
+        
+        # 设置TLS扩展（部分可通过ssl上下文设置）
+        ctx.set_alpn_protocols(['h2', 'http/1.1'])  # Chrome支持ALPN
+        
+        # 其他Chrome特定设置
+        ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT
+        kwargs['ssl_context'] = ctx
+        return super().init_poolmanager(*args, **kwargs)
 
 
 def _get_baidu_cookie(headers: dict) -> str:
@@ -23,6 +48,7 @@ def _get_baidu_cookie(headers: dict) -> str:
     try:
         # 使用Session保持Cookie上下文
         with requests.Session() as session:
+            session.mount('https://', TLSAdapter())
             session.headers.update(headers)
 
             # 第一步：获取基础Cookie (BAIDUID系列)
@@ -132,7 +158,11 @@ def _baidu_finance_calendar(
 
     # 第一次请求
     params = base_params.copy()
-    response = requests.get(url=url, params=params, headers=headers)
+    
+    with requests.Session() as session:
+        session.mount('https://', TLSAdapter())
+        response = session.get(url=url, params=params, headers=headers)
+        
     response.raise_for_status()
     data_json = response.json()
 
