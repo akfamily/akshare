@@ -66,10 +66,6 @@ def create_single_stock_table_0(stock_code, prefix):
     table_name = None
     try:
         table_name = f'{prefix}{stock_code}'
-
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -88,7 +84,6 @@ def create_single_stock_table_0(stock_code, prefix):
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(date);
         """
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
         return stock_code, True
@@ -100,10 +95,6 @@ def create_single_etf_table_0(stock_code, prefix):
     table_name = None
     try:
         table_name = f'{prefix}{stock_code}'
-
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -124,7 +115,6 @@ def create_single_etf_table_0(stock_code, prefix):
         """
 
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
 
@@ -140,10 +130,6 @@ def create_single_stock_table(stock_code, prefix):
     table_name = None
     try:
         table_name = f'{prefix}{stock_code}'
-
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -158,7 +144,6 @@ def create_single_stock_table(stock_code, prefix):
         """
 
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
 
@@ -168,14 +153,37 @@ def create_single_stock_table(stock_code, prefix):
         print(f"创建表 {table_name} 时出错: {e}")
         return stock_code, False
 
+def create_single_stock_cir_table(stock_code):
+    table_name = None
+    try:
+        table_name = f'stock_cir_cap_{stock_code}'
+        create_sql = f"""
+            CREATE TABLE {table_name}(
+                `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+                `date` DATE NOT NULL   COMMENT '日期' ,
+                `cir_cap` DECIMAL(20,2)    COMMENT '流通市值' ,
+                PRIMARY KEY (id)
+            )  COMMENT = '{stock_code}每日流通市值';
+
+            """
+        idx_sql = f"""
+            CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(date);
+            """
+
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_sql))
+
+        return stock_code, True
+
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return stock_code, False
 
 def create_shenwan_industry_2_table():
     """优化版的单个表创建函数"""
     table_name = 'shenwan_industry_2'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -183,19 +191,14 @@ def create_shenwan_industry_2_table():
             `name` VARCHAR(30) NOT NULL   COMMENT '二级行业名称' ,
             PRIMARY KEY (id)
         )  COMMENT = '申万二级行业';
-
         """
         idx_sql = f"""
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code);
         """
-
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
-
         return True
-
     except Exception as e:
         print(f"创建表 {table_name} 时出错: {e}")
         return False
@@ -207,9 +210,6 @@ def create_code_industry_2_change_table():
     """
     table_name = 'code_industry_2_change'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -224,12 +224,9 @@ def create_code_industry_2_change_table():
         idx_sql = f"""
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
         """
-
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
-
         return True
 
     except Exception as e:
@@ -243,9 +240,6 @@ def create_code_is_st_change_table():
     """
     table_name = 'code_is_st_change'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -254,14 +248,11 @@ def create_code_is_st_change_table():
             `is_st` BOOL NOT NULL   COMMENT '是否ST' ,
             PRIMARY KEY (id)
         )  COMMENT = '股票是否ST变化表';
-
         """
         idx_sql = f"""
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
         """
-
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
         return True
@@ -276,9 +267,6 @@ def create_code_name_change_table():
     """
     table_name = 'code_name_change'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -287,19 +275,14 @@ def create_code_name_change_table():
             `name` VARCHAR(30) NOT NULL   COMMENT '二级行业代码' ,
             PRIMARY KEY (id)
         )  COMMENT = '股票曾用名变化表';
-
         """
         idx_sql = f"""
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code, start_date);
         """
-
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
             connection.execute(text(idx_sql))
-
         return True
-
     except Exception as e:
         print(f"创建表 {table_name} 时出错: {e}")
         return False
@@ -310,19 +293,14 @@ def create_index_stocks_399101_table():
     """
     table_name = 'index_stocks_399101'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
             `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
             PRIMARY KEY (id)
         )  COMMENT = '指数成分股_399101';
-
         """
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
         return True
     except Exception as e:
@@ -335,9 +313,6 @@ def create_temp_table():
     """
     table_name = 'temp'
     try:
-        drop_sql = f"""
-        DROP TABLE IF EXISTS {table_name};
-        """
         create_sql = f"""
         CREATE TABLE {table_name}(
             `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
@@ -347,7 +322,6 @@ def create_temp_table():
 
         """
         with engine.begin() as connection:
-            connection.execute(text(drop_sql))
             connection.execute(text(create_sql))
         return True
     except Exception as e:
@@ -461,7 +435,8 @@ if __name__ == '__main__':
         t_stock_codes = content.split('\n')
         # print(len(t_stock_codes))
         for code in t_stock_codes:
-            create_single_stock_table_0(code, tprefix)
+            # create_single_stock_table_0(code, tprefix)
+            create_single_stock_cir_table(code)
 
     # create_shenwan_industry_2_table()
     # create_code_industry_2_change_table()
