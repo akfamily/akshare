@@ -180,6 +180,42 @@ def create_single_stock_cir_table(stock_code):
         print(f"创建表 {table_name} 时出错: {e}")
         return stock_code, False
 
+def create_qfq_daily_stock_price_sz_main_table():
+    """
+    日K中小板股票价格前复权数据，包含深市主板所有代码。注意：中小板已经合并进主板，现在只能根据399101确定中小板列表
+    """
+    table_name = 'qfq_daily_stock_price_sz_main'
+    try:
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `date` DATE NOT NULL   COMMENT '日期' ,
+            `open` DECIMAL(8,4)    COMMENT '开盘' ,
+            `close` DECIMAL(8,4)    COMMENT '收盘' ,
+            `high` DECIMAL(8,4)    COMMENT '最高' ,
+            `low` DECIMAL(8,4)    COMMENT '最低' ,
+            `volume` BIGINT    COMMENT '成交量' ,
+            `pct_chg` DECIMAL(6,3)    COMMENT '涨跌幅' ,
+            `turnover_rate` DECIMAL(8,5)    COMMENT '换手率' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '前复权-日K-股票价格数据-深市主板';
+        """
+        idx_0_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, date);
+        """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
 def create_shenwan_industry_2_table():
     """优化版的单个表创建函数"""
     table_name = 'shenwan_industry_2'
@@ -307,6 +343,38 @@ def create_index_stocks_399101_table():
         print(f"创建表 {table_name} 时出错: {e}")
         return False
 
+
+def create_adjust_factor_table():
+    """
+    复权因子。按照baostock数据格式。BaoStock的实现中，adjustFactor（本次复权因子）被设计为向后复权的累积因子，和想后复权因子值一样，这里不存
+    """
+    table_name = 'adjust_factor'
+    try:
+        create_sql = f"""
+            CREATE TABLE {table_name}(
+                `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+                `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+                `divid_operate_date` DATE NOT NULL   COMMENT '除权除息日期' ,
+                `fore_adjust_factor` DECIMAL(30,20)    COMMENT '向前复权因子' ,
+                `back_adjust_factor` DECIMAL(30,20)    COMMENT '向后复权因子' ,
+                PRIMARY KEY (id)
+            )  COMMENT = '复权因子';
+            """
+        idx_0_sql = f"""
+            CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, divid_operate_date);
+            """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(divid_operate_date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
 def create_temp_table():
     """
     股票曾用名变化表
@@ -332,7 +400,7 @@ def create_temp_table():
 def obtain_middle_small_stock_codes():
     Session = sessionmaker(bind=engine)
     session = Session()
-    sql_str = "SELECT code FROM middle_small_fixed_data"
+    sql_str = "SELECT code FROM index_stocks_399101"
     try:
         result = session.execute(text(sql_str))
         code_list = [row[0] for row in result]
@@ -401,6 +469,8 @@ def create_stock_tables_parallel(prefix):
                 f.write(f"{code}\n")
 
 
+
+
 def verify_table_creation(sample_codes):
     """验证表是否创建成功"""
     print("\n验证表创建情况...")
@@ -427,16 +497,16 @@ if __name__ == '__main__':
     # tprefix = 'etf_qfq_'
     # create_single_etf_table_0('518880', tprefix)
 
-    tprefix = 'stock_qfq_'
-    # create_single_stock_table_0('002001', tprefix)
-
-    with open(file='data/stock_price_data_2_local/stock_codes.txt', mode='r', encoding='utf-8') as f:
-        content = f.read()
-        t_stock_codes = content.split('\n')
-        # print(len(t_stock_codes))
-        for code in t_stock_codes:
-            # create_single_stock_table_0(code, tprefix)
-            create_single_stock_cir_table(code)
+    # tprefix = 'stock_qfq_'
+    # # create_single_stock_table_0('002001', tprefix)
+    #
+    # with open(file='data/stock_price_data_2_local/stock_codes.txt', mode='r', encoding='utf-8') as f:
+    #     content = f.read()
+    #     t_stock_codes = content.split('\n')
+    #     # print(len(t_stock_codes))
+    #     for code in t_stock_codes:
+    #         # create_single_stock_table_0(code, tprefix)
+    #         create_single_stock_cir_table(code)
 
     # create_shenwan_industry_2_table()
     # create_code_industry_2_change_table()
@@ -445,3 +515,7 @@ if __name__ == '__main__':
 
     # create_index_stocks_399101_table()
     # create_temp_table()
+
+    # create_qfq_daily_stock_price_sz_main_table()
+
+    create_adjust_factor_table()
