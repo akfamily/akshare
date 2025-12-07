@@ -39,7 +39,7 @@ if __name__ == '__main__':
     with open(file='data/adjust_factor_2_local/complete_codes.txt', mode='r', encoding='utf-8') as f:
         content = f.read()
         t_complete_codes = content.split('\n')
-        print(len(t_complete_codes) - 1)
+        print(len(t_complete_codes) - 1)  # 减1是因为多个换行
     t_complete_code_set = set(t_complete_codes)
     t_codes = []
     for code in t_stock_codes:
