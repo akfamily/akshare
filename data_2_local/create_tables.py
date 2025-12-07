@@ -183,6 +183,7 @@ def create_single_stock_cir_table(stock_code):
 def create_qfq_daily_stock_price_sz_main_table():
     """
     日K中小板股票价格前复权数据，包含深市主板所有代码。注意：中小板已经合并进主板，现在只能根据399101确定中小板列表
+    前复权数据，早期数据涨跌幅列无意义
     """
     table_name = 'qfq_daily_stock_price_sz_main'
     try:
@@ -196,10 +197,83 @@ def create_qfq_daily_stock_price_sz_main_table():
             `high` DECIMAL(8,4)    COMMENT '最高' ,
             `low` DECIMAL(8,4)    COMMENT '最低' ,
             `volume` BIGINT    COMMENT '成交量' ,
-            `pct_chg` DECIMAL(6,3)    COMMENT '涨跌幅' ,
             `turnover_rate` DECIMAL(8,5)    COMMENT '换手率' ,
             PRIMARY KEY (id)
         )  COMMENT = '前复权-日K-股票价格数据-深市主板';
+        """
+        idx_0_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, date);
+        """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+def create_bfq_daily_stock_price_sz_main_table():
+    """
+    日K中小板股票价格不复权数据，包含深市主板所有代码。注意：中小板已经合并进主板，现在只能根据399101确定中小板列表
+    不复权数据
+    """
+    table_name = 'bfq_daily_stock_price_sz_main'
+    try:
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `date` DATE NOT NULL   COMMENT '日期' ,
+            `open` DECIMAL(8,4)    COMMENT '开盘' ,
+            `close` DECIMAL(8,4)    COMMENT '收盘' ,
+            `high` DECIMAL(8,4)    COMMENT '最高' ,
+            `low` DECIMAL(8,4)    COMMENT '最低' ,
+            `pct_chg` DECIMAL(6,3)    COMMENT '涨跌幅' ,
+            `volume` BIGINT    COMMENT '成交量' ,
+            `turnover` DECIMAL(20,4)    COMMENT '成交额' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '不复权-日K-股票价格数据-深市主板';
+        """
+        idx_0_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, date);
+        """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
+def create_daily_stock_cir_sz_main_table():
+    """
+    每日中小板股票市值数据，包含深市主板所有代码。注意：中小板已经合并进主板，现在只能根据399101确定中小板列表
+    不复权数据
+    """
+    table_name = 'bfq_daily_stock_price_sz_main'
+    try:
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `date` DATE NOT NULL   COMMENT '日期' ,
+            `open` DECIMAL(8,4)    COMMENT '开盘' ,
+            `close` DECIMAL(8,4)    COMMENT '收盘' ,
+            `high` DECIMAL(8,4)    COMMENT '最高' ,
+            `low` DECIMAL(8,4)    COMMENT '最低' ,
+            `pct_chg` DECIMAL(6,3)    COMMENT '涨跌幅' ,
+            `volume` BIGINT    COMMENT '成交量' ,
+            `turnover` DECIMAL(20,4)    COMMENT '成交额' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '不复权-日K-股票价格数据-深市主板';
         """
         idx_0_sql = f"""
         CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, date);
@@ -375,6 +449,78 @@ def create_adjust_factor_table():
         print(f"创建表 {table_name} 时出错: {e}")
         return False
 
+def create_stock_share_change_cninfo_table():
+    """
+    复权因子。按照baostock数据格式。BaoStock的实现中，adjustFactor（本次复权因子）被设计为向后复权的累积因子，和想后复权因子值一样，这里不存
+    """
+    table_name = 'stock_share_change_cninfo'
+    try:
+        create_sql = f"""
+            CREATE TABLE {table_name} (
+                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                code VARCHAR(20) NOT NULL COMMENT '证券代码',
+                change_date DATE NOT NULL COMMENT '变动日期',
+                security_abbr VARCHAR(20) COMMENT '证券简称',
+                institution_name VARCHAR(100) COMMENT '机构名称',
+                foreign_corp_share DECIMAL(20, 4) COMMENT '境外法人持股',
+                fund_share DECIMAL(20, 4) COMMENT '证券投资基金持股',
+                state_share_restricted DECIMAL(20, 4) COMMENT '国家持股-受限',
+                state_owned_corp_share DECIMAL(20, 4) COMMENT '国有法人持股',
+                placement_corp_share DECIMAL(20, 4) COMMENT '配售法人股',
+                founder_share DECIMAL(20, 4) COMMENT '发起人股份',
+                non_tradable_share DECIMAL(20, 4) COMMENT '未流通股份',
+                foreign_individual_share DECIMAL(20, 4) COMMENT '其中：境外自然人持股',
+                other_restricted_share DECIMAL(20, 4) COMMENT '其他流通受限股份',
+                other_tradable_share DECIMAL(20, 4) COMMENT '其他流通股',
+                foreign_share_restricted DECIMAL(20, 4) COMMENT '外资持股-受限',
+                employee_share DECIMAL(20, 4) COMMENT '内部职工股',
+                h_share DECIMAL(20, 4) COMMENT '境外上市外资股-H股',
+                domestic_corp_share DECIMAL(20, 4) COMMENT '其中：境内法人持股',
+                individual_share DECIMAL(20, 4) COMMENT '自然人持股',
+                a_share DECIMAL(20, 4) COMMENT '人民币普通股',
+                state_owned_corp_share_restricted DECIMAL(20, 4) COMMENT '国有法人持股-受限',
+                general_corp_share DECIMAL(20, 4) COMMENT '一般法人持股',
+                controlling_shareholder DECIMAL(20, 4) COMMENT '控股股东、实际控制人',
+                restricted_h_share DECIMAL(20, 4) COMMENT '其中：限售H股',
+                change_reason VARCHAR(100) COMMENT '变动原因',
+                announcement_date DATE COMMENT '公告日期',
+                domestic_corp_share_2 DECIMAL(20, 4) COMMENT '境内法人持股',
+                strategic_investor_share DECIMAL(20, 4) COMMENT '战略投资者持股',
+                state_share DECIMAL(20, 4) COMMENT '国家持股',
+                restricted_b_share DECIMAL(20, 4) COMMENT '其中：限售B股',
+                other_non_tradable_share DECIMAL(20, 4) COMMENT '其他未流通股',
+                restricted_tradable_share DECIMAL(20, 4) COMMENT '流通受限股份',
+                preferred_share DECIMAL(20, 4) COMMENT '优先股',
+                executive_share DECIMAL(20, 4) COMMENT '高管股',
+                total_shares DECIMAL(20, 4) COMMENT '总股本',
+                restricted_executive_share DECIMAL(20, 4) COMMENT '其中：限售高管股',
+                transferred_share DECIMAL(20, 4) COMMENT '转配股',
+                b_share DECIMAL(20, 4) COMMENT '境内上市外资股-B股',
+                foreign_corp_share_2 DECIMAL(20, 4) COMMENT '其中：境外法人持股',
+                fundraising_corp_share DECIMAL(20, 4) COMMENT '募集法人股',
+                tradable_share DECIMAL(20, 4) COMMENT '已流通股份',
+                domestic_individual_share DECIMAL(20, 4) COMMENT '其中：境内自然人持股',
+                other_domestic_restricted DECIMAL(20, 4) COMMENT '其他内资持股-受限',
+                change_reason_code VARCHAR(50) COMMENT '变动原因编码',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            ) COMMENT='股东持股变动表';
+            """
+        idx_0_sql = f"""
+            CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, change_date);
+            """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(change_date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
 def create_temp_table():
     """
     股票曾用名变化表
@@ -518,4 +664,7 @@ if __name__ == '__main__':
 
     # create_qfq_daily_stock_price_sz_main_table()
 
-    create_adjust_factor_table()
+    # create_adjust_factor_table()
+    create_stock_share_change_cninfo_table()
+
+    # create_bfq_daily_stock_price_sz_main_table()
