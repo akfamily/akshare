@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/10 15:20
+Date: 2025/12/8 17:20
 Desc: 新浪财经-中行人民币牌价历史数据查询
 https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
 """
@@ -80,7 +80,7 @@ def currency_boc_sina(
         "call_type": "ajax",
     }
     r = requests.get(url, params=params)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     soup.find(attrs={"id": "money_code"})
     page_element_list = soup.find_all("a", attrs={"class": "page"})
     page_num = int(page_element_list[-2].text) if len(page_element_list) != 0 else 1
@@ -89,7 +89,7 @@ def currency_boc_sina(
         params.update({"page": page})
         r = requests.get(url, params=params)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "日期",
         "中行汇买价",
