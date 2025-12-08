@@ -24,7 +24,7 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
     url = "https://search-api-web.eastmoney.com/search/jsonp"
     inner_param = {
         "uid": "",
-        "keyword": "603777",
+        "keyword": symbol,
         "type": ["cmsArticleWebOld"],
         "client": "web",
         "clientType": "web",
