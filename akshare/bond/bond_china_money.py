@@ -382,7 +382,7 @@ if __name__ == "__main__":
     print(bond_china_close_return_df)
 
     macro_china_swap_rate_df = macro_china_swap_rate(
-        start_date="20240501", end_date="20240531"
+        start_date="20251010", end_date="20251208"
     )
     print(macro_china_swap_rate_df)
 
