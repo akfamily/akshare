@@ -32,11 +32,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-delisted_stock_codes = {'002336', '002750'}
 
-def get_file_name(code):
+
+def get_file_name(code, delisted_stock_code_set):
     # 已退市股票。用当前页面数据导出的。已退市股票用高级导出是空的，没数据。
-    if code in delisted_stock_codes:
+    if code in delisted_stock_code_set:
         file_name = f'T{code}.txt'
     elif code.startswith('6'):
         file_name = f"bfq-SH#{code}.txt"
@@ -47,8 +47,10 @@ def get_file_name(code):
     return file_name
 
 
-def get_file_data(code, greater_date_ts=None):
-    file_name = get_file_name(code)
+def get_file_data(code, greater_date_ts=None, delisted_stock_code_set=None):
+    if delisted_stock_code_set is None:
+        delisted_stock_code_set = {}
+    file_name = get_file_name(code, delisted_stock_code_set)
     file_path = f'D:/new_tdx/T0002/export/bfq-399101/{file_name}'
 
     dtype_dict = {
@@ -59,7 +61,7 @@ def get_file_data(code, greater_date_ts=None):
         # 'volume': 'int64',
     }
     # 退市股是特殊的少数几个，用当前页面导出的数据。两种格式不一样
-    if code in delisted_stock_codes:
+    if code in delisted_stock_code_set:
         skiprows = 4
         column_names = ['date', 'open', 'high', 'low', 'close', 'volume', 'MA.MA1', 'MA.MA2', 'MA.MA3', 'MA.MA4', 'MA.MA5', 'MA.MA6', 'MA.MA7', 'MA.MA8']
     else:
@@ -83,6 +85,11 @@ def get_file_data(code, greater_date_ts=None):
 
 
 if __name__ == '__main__':
+    with open(file='data/temp/delisted_middle_small.txt', mode='r', encoding='utf-8') as f:
+        content = f.read()
+        t_delisted_stock_code_list = content.split('\n')
+        t_delisted_stock_code_set = set(t_delisted_stock_code_list[1:])
+
     with open(file='data/bfq_daily_stock_price_sz_main_2_local/399101_codes.txt', mode='r', encoding='utf-8') as f:
         content = f.read()
         t_stock_codes = content.split('\n')
@@ -101,7 +108,7 @@ if __name__ == '__main__':
     print(f'len_t_codes: {len(t_codes)}')
 
     for code in t_codes:
-        tdf = get_file_data(code)
+        tdf = get_file_data(code, None, t_delisted_stock_code_set)
         df_append_2_local(table_name='bfq_daily_stock_price_sz_main', df=tdf)
         with open(file='data/bfq_daily_stock_price_sz_main_2_local/complete_codes.txt', mode='a', encoding='utf-8') as f:
             f.write(f'{code}\n')

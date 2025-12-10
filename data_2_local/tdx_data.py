@@ -19,7 +19,6 @@ def get_file_data(code, greater_date_ts=None):
     file_name = get_file_name(code)
     file_path = f'D:/new_tdx/T0002/export/{file_name}'
 
-
     dtype_dict = {
         'open': 'float64',
         'close': 'float64',

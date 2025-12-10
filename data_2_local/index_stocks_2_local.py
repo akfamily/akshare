@@ -4,7 +4,7 @@ from data_2_local.common_data_2_local import df_append_2_local
 
 
 def data_2_local():
-    file_path = f'data/index_stocks/tdx_399101.txt'
+    file_path = f'data/index_stocks/399101.txt'
     # 定义列名。turnover: 成交额
     column_names = ['code']
     dtype_dict = {
@@ -18,7 +18,7 @@ def data_2_local():
                      names=column_names,
                      dtype=dtype_dict,
                      encoding='utf-8')
-    df_append_2_local(table_name='temp', df=df)
+    df_append_2_local(table_name='index_stocks_399101', df=df)
 
 
 if __name__ == '__main__':
