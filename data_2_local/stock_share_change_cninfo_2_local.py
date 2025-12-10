@@ -1,3 +1,4 @@
+import os
 import time
 
 import pandas as pd
@@ -86,9 +87,9 @@ def data_2_local():
         #     f.write(f'{code}\n')
         # time.sleep(0.5)
 
-def unlisted_data_2_local(code):
-    file_path = f'data/stock_share_change_cninfo_2_local/{code}.txt'
-    column_names = ['code', 'day', 'circulating_cap']
+def delisted_data_2_local(code):
+    file_path = f'data/stock_share_change_cninfo_2_local/delisted/{code}.txt'
+    column_names = ['code', 'day', 'capitalization', 'circulating_cap']
     dtype_dict = {
         'circulating_cap': 'float64',
     }
@@ -102,6 +103,7 @@ def unlisted_data_2_local(code):
                      encoding='utf-8')
     column_rename_dict = {
         'day': 'change_date',
+        'capitalization': 'total_shares',
         'circulating_cap': 'a_share',
     }
     df = df.rename(columns=column_rename_dict)
@@ -110,15 +112,37 @@ def unlisted_data_2_local(code):
     df_append_2_local(table_name='stock_share_change_cninfo', df=df)
 
 def special_data_2_local():
-    codes = ['002336', '002750']
+    with open(file='data/stock_share_change_cninfo_2_local/delisted_codes.txt', mode='r', encoding='utf-8') as f:
+        content = f.read()
+        codes = content.split('\n')
+    with open(file='data/stock_share_change_cninfo_2_local/delisted_complete_codes.txt', mode='r', encoding='utf-8') as f:
+        content = f.read()
+        t_complete_codes = content.split('\n')
+        print(len(t_complete_codes) - 1)  # 减1是因为多个换行
+    complete_codes = set(t_complete_codes)
     for code in codes:
-        unlisted_data_2_local(code)
+        if code in complete_codes:
+            continue
+        delisted_data_2_local(code)
+        with open(file='data/stock_share_change_cninfo_2_local/delisted_complete_codes.txt', mode='a', encoding='utf-8') as f:
+            f.write(f'{code}\n')
+
+def create_delisted_files():
+    with open(file='data/stock_share_change_cninfo_2_local/delisted_codes.txt', mode='r', encoding='utf-8') as f:
+        content = f.read()
+        codes = content.split('\n')
+    for code in codes:
+        file_path = f'data/stock_share_change_cninfo_2_local/delisted/{code}.txt'
+        if not os.path.exists(file_path):
+            open(file_path, 'w')
 
 if __name__ == '__main__':
     pd.set_option('display.max_rows', None)  # 设置行数为无限制
     pd.set_option('display.max_columns', None)  # 设置列数为无限制
     pd.set_option('display.width', 1000)  # 设置列宽
     pd.set_option('display.colheader_justify', 'left')  # 设置列标题靠左
+
+    # create_delisted_files()
     special_data_2_local()
 
 
