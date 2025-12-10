@@ -154,6 +154,9 @@ def create_single_stock_table(stock_code, prefix):
         return stock_code, False
 
 def create_single_stock_cir_table(stock_code):
+    """
+    废弃，不存市值了，改为存股本，实际获取数据时再去计算市值
+    """
     table_name = None
     try:
         table_name = f'stock_cir_cap_{stock_code}'
@@ -521,6 +524,31 @@ def create_stock_share_change_cninfo_table():
         print(f"创建表 {table_name} 时出错: {e}")
         return False
 
+def create_stock_listing_date_table():
+    """
+    复权因子。按照baostock数据格式。BaoStock的实现中，adjustFactor（本次复权因子）被设计为向后复权的累积因子，和想后复权因子值一样，这里不存
+    """
+    table_name = 'stock_listing_date'
+    try:
+        create_sql = f"""
+            CREATE TABLE {table_name}(
+                `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+                `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+                `listing_date` DATE NOT NULL   COMMENT '上市日期' ,
+                PRIMARY KEY (id)
+            )  COMMENT = '股票上市日期';
+            """
+        idx_0_sql = f"""
+            CREATE UNIQUE INDEX {PREFIX_IDX}{table_name} ON {table_name}(code);
+            """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
 def create_temp_table():
     """
     股票曾用名变化表
@@ -615,8 +643,6 @@ def create_stock_tables_parallel(prefix):
                 f.write(f"{code}\n")
 
 
-
-
 def verify_table_creation(sample_codes):
     """验证表是否创建成功"""
     print("\n验证表创建情况...")
@@ -665,6 +691,8 @@ if __name__ == '__main__':
     # create_qfq_daily_stock_price_sz_main_table()
 
     # create_adjust_factor_table()
-    create_stock_share_change_cninfo_table()
+    # create_stock_share_change_cninfo_table()
 
     # create_bfq_daily_stock_price_sz_main_table()
+
+    create_stock_listing_date_table()
