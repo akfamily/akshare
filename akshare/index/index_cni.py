@@ -143,19 +143,19 @@ def index_hist_cni(
     return temp_df
 
 
-def index_detail_cni(symbol: str = "399001", date: str = "202404") -> pd.DataFrame:
+def index_detail_cni(symbol: str = "399001") -> pd.DataFrame:
     """
     国证指数-样本详情-指定日期的样本成份
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码
     :type symbol: str
-    :param date: 指定月份
-    :type date: str
     :return: 指定日期的样本成份
     :rtype: pandas.DataFrame
     """
-    url = "http://www.cnindex.com.cn/sample-detail/download"
-    params = {"indexcode": symbol, "dateStr": "-".join([date[:4], date[4:]])}
+    import warnings
+    warnings.simplefilter(action="ignore", category=UserWarning)
+    url = "https://www.cnindex.com.cn/sample-detail/download-history"
+    params = {"indexcode": symbol}
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
@@ -268,7 +268,7 @@ if __name__ == "__main__":
     )
     print(index_hist_cni_df)
 
-    index_detail_cni_df = index_detail_cni(symbol="399001", date="202404")
+    index_detail_cni_df = index_detail_cni(symbol="399001")
     print(index_detail_cni_df)
 
     index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101", date="202404")
