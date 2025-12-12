@@ -257,9 +257,3 @@ Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 Thanks for the data provided by [Currencyscoop 网站](https://currencyscoop.com/);
 
 Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);
-
-## Backer and Sponsor
-
-<a href="https://www.jetbrains.com/?from=albertandking/akshare" target="_blank">
-<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" alt="JetBrains logo.">
-</a>
