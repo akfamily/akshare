@@ -159,7 +159,9 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     temp_df.rename(
         columns={
             col_stock_code: "证券代码",
-            "COMPANY_ABBR": "证券简称",
+            "SEC_NAME_CN": "证券简称",
+            "SEC_NAME_FULL": "证券全称",
+            "COMPANY_ABBR": "公司简称",
             "FULL_NAME": "公司全称",
             "LIST_DATE": "上市日期",
         },

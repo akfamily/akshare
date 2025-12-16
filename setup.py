@@ -44,6 +44,7 @@ setuptools.setup(
         "lxml>=4.2.1",
         "pandas>=0.25",
         "requests>=2.22.0",
+        "curl_cffi>=0.13.0",
         "html5lib>=1.0.1",
         "xlrd>=1.2.0",
         "urllib3>=1.25.8",

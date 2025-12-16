@@ -7,7 +7,7 @@ https://fundf10.eastmoney.com/jjfl_015641.html
 """
 
 from io import StringIO
-
+from bs4 import BeautifulSoup
 import pandas as pd
 import requests
 
@@ -25,19 +25,54 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
     """
     url = f"https://fundf10.eastmoney.com/jjfl_{symbol}.html"
     r = requests.get(url)
+    # 使用BeautifulSoup解析HTML
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    # 创建一个字典，将标题文本映射到对应的表格
+    tables_dict = {}
+    # 找到所有具有class="t"的h4标签
+    title_elements = soup.find_all("h4", class_="t")
+    import re
+    for title_elem in title_elements:
+        # 获取标题文本
+        title_text = title_elem.get_text(strip=True)
+        title_text = re.sub(r'\s+', ' ', title_text).strip()
+
+        # 获取标题后面的表格
+        if title_text == "申购与赎回金额":
+            next_table = title_elem.find_all_next("table")[0]
+            next_next_table = title_elem.find_all_next("table")[1]
+            table_html = str(next_table)
+            next_table_html = str(next_next_table)
+            df_1 = pd.read_html(StringIO(table_html))[0]
+            df_2 = pd.read_html(StringIO(next_table_html))[0]
+            df = pd.concat(objs=[df_1, df_2], ignore_index=True)
+            tables_dict[title_text] = df
+            continue
+        else:
+            next_table = title_elem.find_next("table")
+
+        if next_table:
+            try:
+                # 将表格转换为HTML字符串，然后使用pd.read_html读取
+                table_html = str(next_table)
+                df = pd.read_html(StringIO(table_html))[0]
+                tables_dict[title_text] = df
+            except Exception as e:
+                continue
+
+
 
     if indicator == "交易状态":
-        temp_df = pd.read_html(StringIO(r.text))[1]
+        temp_df = tables_dict[indicator]
     elif indicator == "申购与赎回金额":
-        temp_df_1 = pd.read_html(StringIO(r.text))[2]
-        temp_df_2 = pd.read_html(StringIO(r.text))[3]
-        temp_df = pd.concat(objs=[temp_df_1, temp_df_2], ignore_index=True)
+        temp_df = tables_dict[indicator]
     elif indicator == "交易确认日":
-        temp_df = pd.read_html(StringIO(r.text))[4]
+        temp_df = tables_dict[indicator]
     elif indicator == "运作费用":
-        temp_df = pd.read_html(StringIO(r.text))[5]
-    elif indicator == "认购费率":
-        temp_df = pd.read_html(StringIO(r.text))[6]
+        temp_df = tables_dict[indicator]
+    elif indicator == "认购费率（前端）":
+        temp_df = tables_dict[indicator]
         temp_df["原费率"] = temp_df["原费率|天天基金优惠费率"].str.split(
             "|", expand=True
         )[0]
@@ -48,20 +83,34 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
         temp_df.loc[3, "天天基金优惠费率"] = temp_df.loc[3, "原费率"]
         temp_df["原费率"] = temp_df["原费率"].str.strip()
         temp_df["天天基金优惠费率"] = temp_df["天天基金优惠费率"].str.strip()
-    elif indicator == "申购费率":
-        temp_df = pd.read_html(StringIO(r.text))[7]
-        temp_df["原费率"] = temp_df[
+    elif indicator == "申购费率（前端）":
+        temp_df = tables_dict[indicator]
+        if temp_df[
             "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
-        ].str.split("|", expand=True)[0]
-        temp_df["天天基金优惠费率-银行卡购买"] = temp_df[
-            "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
-        ].str.split("|", expand=True)[1]
-        temp_df["天天基金优惠费率-活期宝购买"] = temp_df[
-            "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
-        ].str.split("|", expand=True)[2]
-        del temp_df["原费率|天天基金优惠费率 银行卡购买|活期宝购买"]
-        temp_df.loc[3, "天天基金优惠费率-银行卡购买"] = temp_df.loc[3, "原费率"]
-        temp_df.loc[3, "天天基金优惠费率-活期宝购买"] = temp_df.loc[3, "原费率"]
+        ].str.split("|", expand=True).shape == (1, 1):
+            temp_df["原费率"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[0]
+            temp_df["天天基金优惠费率-银行卡购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[0]
+            temp_df["天天基金优惠费率-活期宝购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[0]
+            del temp_df["原费率|天天基金优惠费率 银行卡购买|活期宝购买"]
+        else:
+            temp_df["原费率"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[0]
+            temp_df["天天基金优惠费率-银行卡购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[1]
+            temp_df["天天基金优惠费率-活期宝购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[2]
+            del temp_df["原费率|天天基金优惠费率 银行卡购买|活期宝购买"]
+            temp_df.loc[3, "天天基金优惠费率-银行卡购买"] = temp_df.loc[3, "原费率"]
+            temp_df.loc[3, "天天基金优惠费率-活期宝购买"] = temp_df.loc[3, "原费率"]
         temp_df["原费率"] = temp_df["原费率"].str.strip()
         temp_df["天天基金优惠费率-银行卡购买"] = temp_df[
             "天天基金优惠费率-银行卡购买"
@@ -70,30 +119,30 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
             "天天基金优惠费率-活期宝购买"
         ].str.strip()
     elif indicator == "赎回费率":
-        temp_df = pd.read_html(StringIO(r.text))[8]
+        temp_df = tables_dict[indicator]
     else:
         temp_df = pd.DataFrame([])
     return temp_df
 
 
 if __name__ == "__main__":
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="交易状态")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="交易状态")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="申购与赎回金额")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="申购与赎回金额")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="交易确认日")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="交易确认日")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="运作费用")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="运作费用")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="认购费率")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="认购费率（前端）")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="申购费率")
+    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="申购费率（前端）")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="赎回费率")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="赎回费率")
     print(fund_fee_em_df)

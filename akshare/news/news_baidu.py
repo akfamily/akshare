@@ -9,7 +9,7 @@ import math
 import re
 
 import pandas as pd
-import requests
+from curl_cffi import requests
 
 
 def _get_baidu_cookie(headers: dict) -> str:
@@ -28,6 +28,7 @@ def _get_baidu_cookie(headers: dict) -> str:
             # 第一步：获取基础Cookie (BAIDUID系列)
             resp1 = session.get(
                 "https://gushitong.baidu.com/calendar",
+                impersonate="chrome110",
                 timeout=10
             )
             resp1.raise_for_status()
@@ -50,7 +51,7 @@ def _get_baidu_cookie(headers: dict) -> str:
             hm_url = "https:" + hm_match.group() if hm_match.group().startswith("//") else hm_match.group()
 
             # 第二步请求 (自动携带第一步的Cookie)
-            resp2 = session.get(hm_url, timeout=10)
+            resp2 = session.get(hm_url, impersonate="chrome110", timeout=10)
             resp2.raise_for_status()
 
             # 验证必要Cookie
