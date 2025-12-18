@@ -171,6 +171,8 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
         [
             "证券代码",
             "证券简称",
+            "证券全称",
+            "公司简称",
             "公司全称",
             "上市日期",
         ]

@@ -2832,7 +2832,7 @@ print(futures_zh_minute_sina_df)
 
 目标地址: https://qhweb.eastmoney.com/quote
 
-描述: 东方财富网-期货行情-行情数据
+描述: 东方财富网-期货行情-行情数据；其中 weekly, monthly 获取的成交额和持仓量未经验证
 
 限量: 单次返回指定 symbol 的所有数据; 只能获取当期合约;
 
