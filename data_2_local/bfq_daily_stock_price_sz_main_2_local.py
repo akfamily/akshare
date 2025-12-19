@@ -1,12 +1,12 @@
-import logging
 import os
-import time
+import sys
 from datetime import datetime
 
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from contextlib import contextmanager
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import akshare as ak
 
 from data_2_local.common_data_2_local import df_append_2_local, get_price_last_date, get_price_max_date
