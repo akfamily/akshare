@@ -1,0 +1,9 @@
+1. write sh
+2. write service
+sudo vim /etc/systemd/system/sync_bfq_daily_stock_price_sz_main.service
+3. write timer
+sudo vim /etc/systemd/system/sync_bfq_daily_stock_price_sz_main.timer
+4. start timer
+sudo systemctl daemon-reload
+sudo systemctl enable sync_bfq_daily_stock_price_sz_main.timer
+sudo systemctl start sync_bfq_daily_stock_price_sz_main.timer
