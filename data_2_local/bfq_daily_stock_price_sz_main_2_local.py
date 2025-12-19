@@ -12,6 +12,7 @@ import akshare as ak
 from data_2_local.common_data_2_local import df_append_2_local, get_price_last_date, get_price_max_date
 from utils.db_utils import get_db_url
 from utils.holiday_utils import ChinaHolidayChecker
+from utils.log_utils import setup_logger_simple_msg
 
 # 数据库连接配置
 DATABASE_URL = get_db_url()
@@ -32,9 +33,7 @@ SessionLocal = sessionmaker(
     bind=engine  # 绑定到引擎
 )
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
+LOGGER = setup_logger_simple_msg(name='bfq_daily_stock_price_sz_main_2_local')
 
 table_name = 'bfq_daily_stock_price_sz_main'
 
@@ -169,7 +168,7 @@ def tdx_file_data_2_local():
             complete_code_set.add(code)
         except Exception as e:
             s = f'{code}保存出错'
-            logger.error(s)
+            LOGGER.error(s)
             raise e
 
 
@@ -182,13 +181,13 @@ def data_2_local():
     date_str = current_date.strftime('%Y%m%d')
     # 如果当天不是工作日，不操作
     if not ChinaHolidayChecker.is_workday(current_date):
-        logger.info(f'{current_date}不是工作日, 不操作')
+        LOGGER.info(f'{current_date}不是工作日, 不操作')
         return
 
     # 进一步检查，判断指数是否有数据，指数有数据才运行
     index_df = ak.stock_zh_index_daily_em(symbol="sh000001", start_date=date_str, end_date=date_str)
     if index_df.shape[0] == 0:
-        logger.info(f'{current_date}指数无数据, 不操作')
+        LOGGER.info(f'{current_date}指数无数据, 不操作')
         return
 
     # 如果表中今日已有数据，不再运行
@@ -197,7 +196,7 @@ def data_2_local():
     max_date_str = max_date.strftime('%Y%m%d')
     # 如果最大日期等于当日日期，跳过。（后面如果有需求，可以先查出表中当日数据，再把接口获取的数据去除掉已存在的，再插入表中）
     if date_str == max_date_str:
-        logger.info(f'{current_date}已有数据, 不操作')
+        LOGGER.info(f'{current_date}已有数据, 不操作')
         return
 
     # 定义中文到英文的列名映射
@@ -260,7 +259,7 @@ def data_2_local():
     # 去掉值为空的
     df = df[pd.notna(df["open"])]
     if df.shape[0] == 0:
-        logger.info(f'{current_date}未获取到数据, 不操作')
+        LOGGER.info(f'{current_date}未获取到数据, 不操作')
         return
     # 转换类型
     df['id'] = df['id'].astype('int64')
@@ -273,6 +272,7 @@ def data_2_local():
     # 这个接口返回的数据成交量单位是"100"，需要乘以100
     df['volume'] = df['volume'] * 100
     df_append_2_local(table_name=table_name, df=df)
+    LOGGER.info(f'{current_date}同步数据完成')
 
 
 
@@ -287,3 +287,4 @@ if __name__ == '__main__':
     # initial_tdx_file_data_2_local()
     # tdx_file_data_2_local()
     data_2_local()
+    # LOGGER.info('xxx')
