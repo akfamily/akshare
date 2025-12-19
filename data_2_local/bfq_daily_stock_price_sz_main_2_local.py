@@ -11,6 +11,7 @@ import akshare as ak
 
 from data_2_local.common_data_2_local import df_append_2_local, get_price_last_date, get_price_max_date
 from utils.db_utils import get_db_url
+from utils.holiday_utils import ChinaHolidayChecker
 
 # 数据库连接配置
 DATABASE_URL = get_db_url()
@@ -177,13 +178,26 @@ def data_2_local():
     """
     每日收盘后，通过网络接口获取数据，写入数据库
     """
+    current_date = datetime.now().date()
+    date_str = current_date.strftime('%Y%m%d')
+    # 如果当天不是工作日，不操作
+    if not ChinaHolidayChecker.is_workday(current_date):
+        logger.info(f'{current_date}不是工作日, 不操作')
+        return
+
+    # 进一步检查，判断指数是否有数据，指数有数据才运行
+    index_df = ak.stock_zh_index_daily_em(symbol="sh000001", start_date=date_str, end_date=date_str)
+    if index_df.shape[0] == 0:
+        logger.info(f'{current_date}指数无数据, 不操作')
+        return
+
+    # 如果表中今日已有数据，不再运行
     # 查询表中数据最大日期
     max_date = get_price_max_date(table_name)
     max_date_str = max_date.strftime('%Y%m%d')
     # 如果最大日期等于当日日期，跳过。（后面如果有需求，可以先查出表中当日数据，再把接口获取的数据去除掉已存在的，再插入表中）
-    date_str = datetime.now().strftime('%Y%m%d')
     if date_str == max_date_str:
-        logger.info(f'{date_str}已有数据, 不操作')
+        logger.info(f'{current_date}已有数据, 不操作')
         return
 
     # 定义中文到英文的列名映射
@@ -213,7 +227,6 @@ def data_2_local():
         '60日涨跌幅': 'change_60d',
         '年初至今涨跌幅': 'change_ytd'
     }
-
     # 定义数据类型映射
     dtype_dict = {
         'id': 'int64',
@@ -246,6 +259,9 @@ def data_2_local():
     df.rename(columns=column_mapping, inplace=True)
     # 去掉值为空的
     df = df[pd.notna(df["open"])]
+    if df.shape[0] == 0:
+        logger.info(f'{current_date}未获取到数据, 不操作')
+        return
     # 转换类型
     df['id'] = df['id'].astype('int64')
     df['code'] = df['code'].astype('str')
@@ -256,9 +272,7 @@ def data_2_local():
     df['date'] = pd.to_datetime(df['date'])
     # 这个接口返回的数据成交量单位是"100"，需要乘以100
     df['volume'] = df['volume'] * 100
-    # print(df.head(10))
-    if df.shape[0] > 0:
-        df_append_2_local(table_name=table_name, df=df)
+    df_append_2_local(table_name=table_name, df=df)
 
 
 
