@@ -13,8 +13,8 @@ def load_db_config(config_file='db_config.ini'):
     从配置文件加载数据库配置
     """
     # 获取配置文件路径
-    current_dir = Path(__file__).parent.parent
-    config_path = current_dir / 'config' / config_file
+    root_dir = Path(__file__).parent.parent
+    config_path = root_dir / 'config' / config_file
 
     if not config_path.exists():
         raise FileNotFoundError(f"配置文件 {config_path} 不存在")
