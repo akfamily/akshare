@@ -3,7 +3,7 @@ import logging
 import traceback
 from contextlib import contextmanager
 
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
@@ -52,6 +52,45 @@ def get_db_session():
         session.close()  # 无论如何都关闭Session
 
 
+def get_price_last_date(table_name, code):
+    """
+    获取price相关表记录最新日期
+    :param table_name:
+    :param code:
+    :return:
+    """
+    try:
+        with get_db_session() as session:
+            # 使用 text() 执行原生 SQL 查询
+            result = session.execute(text(f"SELECT MAX(date) FROM {table_name} WHERE code = '{code}'"))
+            max_date = result.scalar()
+            if max_date:
+                return max_date
+            else:
+                return None
+    except Exception as e:
+        print(f"获取最后日期时出错 {table_name}: {e}")
+        raise
+
+def get_price_max_date(table_name):
+    """
+    获取price相关表记录最新日期
+    :param table_name:
+    :return:
+    """
+    try:
+        with get_db_session() as session:
+            # 使用 text() 执行原生 SQL 查询
+            result = session.execute(text(f"SELECT MAX(date) FROM {table_name}"))
+            max_date = result.scalar()
+            if max_date:
+                return max_date
+            else:
+                return None
+    except Exception as e:
+        print(f"获取最大日期时出错 {table_name}: {e}")
+        raise
+
 def df_append_2_local(table_name, df):
     try:
         with get_db_session() as session:
@@ -77,8 +116,8 @@ def df_append_2_local(table_name, df):
     except SQLAlchemyError as e:
         print(f"数据库错误: {e}")
         traceback.print_exc()
-        return False
+        raise
     except Exception as e:
         print(f"发生未知错误: {e}")
         traceback.print_exc()
-        return False
+        raise
