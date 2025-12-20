@@ -3203,9 +3203,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.94 fix: fix index_detail_cni interface
 1.17.95 fix: fix stock_info_sh_name_code interface
 1.17.96 fix: fix stock_info_sh_name_code interface
+1.17.97 fix: fix stock_financial_debt_new_ths interface
 """
 
-__version__ = "1.17.96"
+__version__ = "1.17.97"
 __author__ = "AKFamily"
 
 import sys
@@ -3622,6 +3623,10 @@ from akshare.stock_fundamental.stock_finance_ths import (
     stock_financial_debt_ths,
     stock_financial_benefit_ths,
     stock_financial_cash_ths,
+    stock_financial_abstract_new_ths,
+    stock_financial_debt_new_ths,
+    stock_financial_benefit_new_ths,
+    stock_financial_cash_new_ths,
     stock_management_change_ths,
     stock_shareholder_change_ths,
 )
