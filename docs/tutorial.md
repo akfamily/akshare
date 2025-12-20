@@ -1174,10 +1174,10 @@
  "stock_hk_index_spot_em"  # 东方财富网-行情中心-港股-指数实时行情
  "stock_hk_index_daily_em"  # 东方财富网-港股-股票指数数据
  # 同花顺-财务指标-主要指标
- "stock_financial_abstract_ths"  # 同花顺-财务指标-主要指标
- "stock_financial_debt_ths"  # 同花顺-财务指标-资产负债表
- "stock_financial_benefit_ths"  # 同花顺-财务指标-利润表
- "stock_financial_cash_ths"  # 同花顺-财务指标-现金流量表
+ "stock_financial_abstract_new_ths"  # 同花顺-财务指标-主要指标
+ "stock_financial_debt_new_ths"  # 同花顺-财务指标-资产负债表
+ "stock_financial_benefit_new_ths"  # 同花顺-财务指标-利润表
+ "stock_financial_cash_new_ths"  # 同花顺-财务指标-现金流量表
  # LOF 行情
  "fund_lof_hist_em"  # 东方财富-LOF 行情
  "fund_lof_spot_em"  # 东方财富-LOF 实时行情
