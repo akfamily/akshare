@@ -256,6 +256,42 @@ def create_bfq_daily_stock_price_sz_main_table():
         print(f"创建表 {table_name} 时出错: {e}")
         return False
 
+def create_bfq_daily_etf_price_table():
+    """
+    日K，etf价格不复权数据
+    不复权数据
+    """
+    table_name = 'bfq_daily_etf_price'
+    try:
+        create_sql = f"""
+        CREATE TABLE {table_name}(
+            `id` INT NOT NULL AUTO_INCREMENT  COMMENT '' ,
+            `code` CHAR(6) NOT NULL   COMMENT '股票代码' ,
+            `date` DATE NOT NULL   COMMENT '日期' ,
+            `open` DECIMAL(8,4)    COMMENT '开盘' ,
+            `close` DECIMAL(8,4)    COMMENT '收盘' ,
+            `high` DECIMAL(8,4)    COMMENT '最高' ,
+            `low` DECIMAL(8,4)    COMMENT '最低' ,
+            `volume` BIGINT    COMMENT '成交量' ,
+            `turnover` DECIMAL(20,4)    COMMENT '成交额' ,
+            PRIMARY KEY (id)
+        )  COMMENT = '不复权-日K-etf价格数据';
+        """
+        idx_0_sql = f"""
+        CREATE UNIQUE INDEX {PREFIX_IDX}{table_name}_0 ON {table_name}(code, date);
+        """
+        idx_1_sql = f"""
+        CREATE INDEX {PREFIX_IDX}{table_name}_1 ON {table_name}(date);
+        """
+        with engine.begin() as connection:
+            connection.execute(text(create_sql))
+            connection.execute(text(idx_0_sql))
+            connection.execute(text(idx_1_sql))
+        return True
+    except Exception as e:
+        print(f"创建表 {table_name} 时出错: {e}")
+        return False
+
 def create_daily_stock_cir_sz_main_table():
     """
     每日中小板股票市值数据，包含深市主板所有代码。注意：中小板已经合并进主板，现在只能根据399101确定中小板列表
@@ -695,4 +731,5 @@ if __name__ == '__main__':
 
     # create_bfq_daily_stock_price_sz_main_table()
 
-    create_stock_listing_date_table()
+    # create_stock_listing_date_table()
+    create_bfq_daily_etf_price_table()
