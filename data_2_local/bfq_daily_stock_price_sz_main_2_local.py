@@ -262,10 +262,10 @@ def data_2_local():
         LOGGER.info(f'{current_date}未获取到数据, 不操作')
         return
     # 转换类型
+    df = df.astype(dtype_dict)
     df['id'] = df['id'].astype('int64')
     df['code'] = df['code'].astype('str')
     df['name'] = df['name'].astype('str')
-    df = df.astype(dtype_dict)
     df = df[['code', 'open', 'high', 'low', 'close', 'volume']]
     df['date'] = date_str
     df['date'] = pd.to_datetime(df['date'])
