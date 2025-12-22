@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/1/4 17:00
+Date: 2025/12/22 17:00
 Desc: 天天基金-基金档案
 https://fundf10.eastmoney.com/jjfl_015641.html
 """
-
+import re
 from io import StringIO
-from bs4 import BeautifulSoup
+
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
 def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.DataFrame:
@@ -27,12 +28,10 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
     r = requests.get(url)
     # 使用BeautifulSoup解析HTML
     soup = BeautifulSoup(r.text, "html.parser")
-
     # 创建一个字典，将标题文本映射到对应的表格
     tables_dict = {}
     # 找到所有具有class="t"的h4标签
-    title_elements = soup.find_all("h4", class_="t")
-    import re
+    title_elements = soup.find_all(name="h4", class_="t")
     for title_elem in title_elements:
         # 获取标题文本
         title_text = title_elem.get_text(strip=True)
@@ -60,8 +59,6 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 tables_dict[title_text] = df
             except Exception as e:
                 continue
-
-
 
     if indicator == "交易状态":
         temp_df = tables_dict[indicator]
@@ -97,6 +94,21 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
             temp_df["天天基金优惠费率-活期宝购买"] = temp_df[
                 "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
             ].str.split("|", expand=True)[0]
+            del temp_df["原费率|天天基金优惠费率 银行卡购买|活期宝购买"]
+        elif temp_df[
+            "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+        ].str.split("|", expand=True).shape == (3, 3):
+            temp_df["原费率"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[0]
+            temp_df["天天基金优惠费率-银行卡购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[1]
+            temp_df["天天基金优惠费率-活期宝购买"] = temp_df[
+                "原费率|天天基金优惠费率 银行卡购买|活期宝购买"
+            ].str.split("|", expand=True)[2]
+            temp_df.loc[2, "天天基金优惠费率-银行卡购买"] = temp_df.loc[2, "原费率"]
+            temp_df.loc[2, "天天基金优惠费率-活期宝购买"] = temp_df.loc[2, "原费率"]
             del temp_df["原费率|天天基金优惠费率 银行卡购买|活期宝购买"]
         else:
             temp_df["原费率"] = temp_df[
@@ -141,8 +153,20 @@ if __name__ == "__main__":
     fund_fee_em_df = fund_fee_em(symbol="019005", indicator="认购费率（前端）")
     print(fund_fee_em_df)
 
-    fund_fee_em_df = fund_fee_em(symbol="015641", indicator="申购费率（前端）")
+    fund_fee_em_df = fund_fee_em(symbol="019005", indicator="申购费率（前端）")
     print(fund_fee_em_df)
 
     fund_fee_em_df = fund_fee_em(symbol="019005", indicator="赎回费率")
+    print(fund_fee_em_df)
+
+    fund_fee_em_df = fund_fee_em(symbol="022364", indicator="申购费率（前端）")
+    print(fund_fee_em_df)
+
+    fund_fee_em_df = fund_fee_em(symbol="022365", indicator="申购费率（前端）")
+    print(fund_fee_em_df)
+
+    fund_fee_em_df = fund_fee_em(symbol="006030", indicator="申购费率（前端）")
+    print(fund_fee_em_df)
+
+    fund_fee_em_df = fund_fee_em(symbol="016243", indicator="申购费率（前端）")
     print(fund_fee_em_df)
