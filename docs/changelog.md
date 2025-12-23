@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.17.99 fix: fix stock_news_em interface
+
+	1. 修复 stock_news_em 接口
+
 1.17.98 fix: fix stock_jgdy_tj_em interface
 
 	1. 修复 stock_jgdy_tj_em 接口
@@ -6016,6 +6020,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.17.99 fix: fix stock_news_em interface
 
 1.17.98 fix: fix stock_jgdy_tj_em interface
 
