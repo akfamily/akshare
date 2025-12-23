@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/11/20 120:15
+Date: 2025/12/23 17:15
 Desc: 个股新闻数据
 https://so.eastmoney.com/news/s?keyword=603777
 """
@@ -9,7 +9,7 @@ https://so.eastmoney.com/news/s?keyword=603777
 import json
 
 import pandas as pd
-import requests
+from curl_cffi import requests
 
 
 def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
