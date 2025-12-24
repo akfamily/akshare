@@ -18966,7 +18966,7 @@ print(stock_lhb_jgmx_sina_df)
 
 #### 首发申报信息
 
-接口: stock_ipo_declare
+接口: stock_ipo_declare_em
 
 目标地址: https://data.eastmoney.com/xg/xg/sbqy.html
 
@@ -18982,23 +18982,26 @@ print(stock_lhb_jgmx_sina_df)
 
 输出参数
 
-| 名称     | 类型     | 描述  |
-|--------|--------|-----|
-| 序号     | int64  | -   |
-| 申报企业   | object | -   |
-| 拟上市地   | object | -   |
-| 保荐机构   | object | -   |
-| 会计师事务所 | object | -   |
-| 律师事务所  | object | -   |
-| 备注     | object | -   |
+| 名称     | 类型     | 描述 |
+|--------|--------|----|
+| 序号     | int64  | -  |
+| 企业名称   | object | -  |
+| 最新状态   | object | -  |
+| 注册地    | object | -  |
+| 保荐机构   | object | -  |
+| 律师事务所  | object | -  |
+| 会计师事务所 | object | -  |
+| 拟上市地点  | object | -  |
+| 更新日期   | object | -  |
+| 招股说明书  | object | -  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_ipo_declare_df = ak.stock_ipo_declare()
-print(stock_ipo_declare_df)
+stock_ipo_declare_em_df = ak.stock_ipo_declare_em()
+print(stock_ipo_declare_em_df)
 ```
 
 数据示例

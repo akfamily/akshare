@@ -649,7 +649,7 @@
  "stock_lrb_em"  # 三大表报-利润表
  "stock_xjll_em"  # 三大表报-现金流量表
  # 首发企业申报
- "stock_ipo_declare"  # 首发企业申报
+ "stock_ipo_declare_em"  # 首发企业申报
  # 行业板块
  "stock_board_industry_index_ths"  # 同花顺-行业板块-指数日频数据
  # 概念板块
