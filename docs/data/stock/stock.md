@@ -17622,7 +17622,7 @@ print(stock_hk_valuation_baidu_df)
 
 | 名称        | 类型  | 描述                                                                     |
 |-----------|-----|------------------------------------------------------------------------|
-| symbol    | str | symbol="NVDA"; 美股代码                                                   |
+| symbol    | str | symbol="NVDA"; 美股代码                                                    |
 | indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
 | period    | str | period="近一年"; choice of {"近一年", "近三年", "全部"}                           |
 

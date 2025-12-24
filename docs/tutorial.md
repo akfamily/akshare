@@ -1366,6 +1366,8 @@
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约
  # 期权合约信息
  "option_contract_info_ctp"  # 期权合约信息
+ # 百度股市通-美股-财务报表-估值数据
+ "stock_us_valuation_baidu"  # 百度股市通-美股-财务报表-估值数据
 ```
 
 ## 案例演示
