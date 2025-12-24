@@ -4559,6 +4559,11 @@ from akshare.stock_fundamental.stock_notice import stock_notice_report
 from akshare.stock_fundamental.stock_ipo_declare import stock_ipo_declare
 
 """
+辅导备案信息
+"""
+from akshare.stock_fundamental.stock_ipo_tutor import stock_ipo_tutor
+
+"""
 三大报表
 """
 from akshare.stock_feature.stock_report_em import (
@@ -4795,6 +4800,7 @@ from akshare.stock.stock_zh_a_special import (
 东方财富-注册制审核
 """
 from akshare.stock_fundamental.stock_register_em import (
+    stock_register_all,
     stock_register_kcb,
     stock_register_cyb,
     stock_register_bj,
@@ -4802,6 +4808,11 @@ from akshare.stock_fundamental.stock_register_em import (
     stock_register_sh,
     stock_register_sz
 )
+
+"""
+东方财富-过会企业信息
+"""
+from akshare.stock_fundamental.stock_ipo_review import stock_ipo_review
 
 """
 新浪财经-龙虎榜
