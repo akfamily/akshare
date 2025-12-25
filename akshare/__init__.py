@@ -3208,9 +3208,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.17.99 fix: fix stock_news_em interface
 1.18.1 fix: fix stock_us_valuation_baidu interface
 1.18.2 fix: fix stock_ipo_declare_em interface
+1.18.3 fix: fix stock_ipo_tutor_em interface
 """
 
-__version__ = "1.18.2"
+__version__ = "1.18.3"
 __author__ = "AKFamily"
 
 import sys
@@ -4563,7 +4564,7 @@ from akshare.stock_fundamental.stock_ipo_declare import stock_ipo_declare_em
 """
 辅导备案信息
 """
-from akshare.stock_fundamental.stock_ipo_tutor import stock_ipo_tutor
+from akshare.stock_fundamental.stock_ipo_tutor import stock_ipo_tutor_em
 
 """
 三大报表
@@ -4802,7 +4803,7 @@ from akshare.stock.stock_zh_a_special import (
 东方财富-注册制审核
 """
 from akshare.stock_fundamental.stock_register_em import (
-    stock_register_all,
+    stock_register_all_em,
     stock_register_kcb,
     stock_register_cyb,
     stock_register_bj,
@@ -4814,7 +4815,7 @@ from akshare.stock_fundamental.stock_register_em import (
 """
 东方财富-过会企业信息
 """
-from akshare.stock_fundamental.stock_ipo_review import stock_ipo_review
+from akshare.stock_fundamental.stock_ipo_review import stock_ipo_review_em
 
 """
 新浪财经-龙虎榜
@@ -5357,11 +5358,6 @@ from akshare.economic.marco_cnbs import macro_cnbs
 大宗商品-现货价格指数
 """
 from akshare.index.index_spot import spot_goods
-
-"""
-成本-世界各大城市生活成本
-"""
-from akshare.cost.cost_living import cost_living
 
 """
 能源-碳排放权
