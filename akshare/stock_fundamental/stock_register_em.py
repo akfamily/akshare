@@ -13,6 +13,79 @@ from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
+def stock_register_all() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-新股数据-IPO审核信息-全部
+    https://data.eastmoney.com/xg/ipo/
+    :return: 科创板注册制审核结果
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "UPDATE_DATE,ORG_CODE",
+        "sortTypes": "-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_IPO_INFOALLNEW",
+        "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "source": "WEB",
+        "client": "WEB",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    page_num = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    tqdm = get_tqdm()
+    for page in tqdm(range(1, page_num + 1), leave=False):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.rename(
+        columns={
+            "index": "序号",
+            "DECLARE_ORG": "企业名称",
+            "STATE": "最新状态",
+            "REG_ADDRESS": "注册地",
+            "CSRC_INDUSTRY": "行业",
+            "RECOMMEND_ORG": "保荐机构",
+            "LAW_FIRM": "律师事务所",
+            "ACCOUNT_FIRM": "会计师事务所",
+            "UPDATE_DATE": "更新日期",
+            "ACCEPT_DATE": "受理日期",
+            "PREDICT_LISTING_MARKET": "拟上市地点",
+            "INFO_CODE": "招股说明书",
+        },
+        inplace=True,
+    )
+    big_df["招股说明书"] = [
+        f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "企业名称",
+            "最新状态",
+            "注册地",
+            "行业",
+            "保荐机构",
+            "律师事务所",
+            "会计师事务所",
+            "更新日期",
+            "受理日期",
+            "拟上市地点",
+            "招股说明书",
+        ]
+    ]
+    big_df["更新日期"] = pd.to_datetime(big_df["更新日期"], errors="coerce").dt.date
+    big_df["受理日期"] = pd.to_datetime(big_df["受理日期"], errors="coerce").dt.date
+    return big_df
+
+
 def stock_register_kcb() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-IPO审核信息-科创板
