@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/15 20:20
+Date: 2025/12/25 16:20
 Desc: 东方财富网-数据中心-新股数据-注册制审核
 https://data.eastmoney.com/kcb/?type=nsb
 """
@@ -13,7 +13,7 @@ from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_register_all() -> pd.DataFrame:
+def stock_register_all_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-IPO审核信息-全部
     https://data.eastmoney.com/xg/ipo/
@@ -28,7 +28,7 @@ def stock_register_all() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
     }
@@ -101,7 +101,7 @@ def stock_register_kcb() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="科创板")',
@@ -175,7 +175,7 @@ def stock_register_cyb() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="创业板")',
@@ -249,7 +249,7 @@ def stock_register_bj() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="北交所")',
@@ -323,7 +323,7 @@ def stock_register_sh() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="沪主板")',
@@ -397,7 +397,7 @@ def stock_register_sz() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="深主板")',
@@ -507,7 +507,9 @@ def stock_register_db() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    pd.set_option("display.max_columns", None)
+    stock_register_all_em_df = stock_register_all_em()
+    print(stock_register_all_em_df)
+
     stock_register_kcb_df = stock_register_kcb()
     print(stock_register_kcb_df)
 
