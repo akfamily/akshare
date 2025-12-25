@@ -6,20 +6,20 @@ Desc: 东方财富网-数据中心-新股申购-辅导备案信息
 https://data.eastmoney.com/xg/ipo/fd.html
 """
 
+import json
+
 import pandas as pd
 import requests
-import re
-import json
 
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_ipo_tutor() -> pd.DataFrame:
+def stock_ipo_tutor_em() -> pd.DataFrame:
     """
-    东方财富网-数据中心-新股数据-辅导备案信息
+    东方财富网-数据中心-新股数据-IPO辅导信息
     https://data.eastmoney.com/xg/ipo/fd.html
-    :return: 辅导备案信息
+    :return: IPO辅导信息
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
@@ -29,7 +29,8 @@ def stock_ipo_tutor() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_IPO_TUTRECORD",
-        "columns": "TUTOR_OBJECT,ORG_CODE,TUTOR_ORG_CODE,TUTOR_ORG,TUTOR_PROCESS_STATE,REPORT_TYPE,DISPATCH_ORG,REPORT_TITLE,RECORD_DATE",
+        "columns": "TUTOR_OBJECT,ORG_CODE,TUTOR_ORG_CODE,TUTOR_ORG,TUTOR_PROCESS_STATE,REPORT_TYPE,"
+                   "DISPATCH_ORG,REPORT_TITLE,RECORD_DATE",
         "source": "WEB",
         "client": "WEB",
     }
@@ -41,7 +42,7 @@ def stock_ipo_tutor() -> pd.DataFrame:
         end = text.rfind('}')
         if start == -1 or end == -1 or end <= start:
             raise ValueError(f"无法找到 JSON 对象: {text[:100]}...")
-        json_str = text[start:end+1]
+        json_str = text[start:end + 1]
         return json.loads(json_str)
 
     # 首次请求获取总页数
@@ -98,5 +99,5 @@ def stock_ipo_tutor() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_ipo_tutor_df = stock_ipo_tutor()
-    print(stock_ipo_tutor_df)
+    stock_ipo_tutor_em_df = stock_ipo_tutor_em()
+    print(stock_ipo_tutor_em_df)
