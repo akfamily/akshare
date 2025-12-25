@@ -649,7 +649,7 @@
  "stock_lrb_em"  # 三大表报-利润表
  "stock_xjll_em"  # 三大表报-现金流量表
  # 首发企业申报
- "stock_ipo_declare"  # 首发企业申报
+ "stock_ipo_declare_em"  # 首发企业申报
  # 行业板块
  "stock_board_industry_index_ths"  # 同花顺-行业板块-指数日频数据
  # 概念板块
@@ -1366,6 +1366,8 @@
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约
  # 期权合约信息
  "option_contract_info_ctp"  # 期权合约信息
+ # 百度股市通-美股-财务报表-估值数据
+ "stock_us_valuation_baidu"  # 百度股市通-美股-财务报表-估值数据
 ```
 
 ## 案例演示

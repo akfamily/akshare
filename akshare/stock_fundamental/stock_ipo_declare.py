@@ -13,7 +13,7 @@ from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_ipo_declare() -> pd.DataFrame:
+def stock_ipo_declare_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-首发申报企业信息
     https://data.eastmoney.com/xg/xg/sbqy.html
@@ -88,10 +88,9 @@ def stock_ipo_declare() -> pd.DataFrame:
 
     # 日期处理
     big_df["更新日期"] = pd.to_datetime(big_df["更新日期"], errors="coerce", utc=True).dt.date
-
     return big_df
 
 
 if __name__ == "__main__":
-    stock_ipo_declare_df = stock_ipo_declare()
-    print(stock_ipo_declare_df)
+    stock_ipo_declare_em_df = stock_ipo_declare_em()
+    print(stock_ipo_declare_em_df)
