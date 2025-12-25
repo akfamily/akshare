@@ -1,25 +1,25 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/12/24 16:46
+Date: 2025/12/25 16:46
 Desc: 东方财富网-数据中心-新股申购-过会企业信息
 https://data.eastmoney.com/xg/gh/default.html
 """
 
+import json
+
 import pandas as pd
 import requests
-import re
-import json
 
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_ipo_review() -> pd.DataFrame:
+def stock_ipo_review_em() -> pd.DataFrame:
     """
-    东方财富网-数据中心-新股数据-过会企业信息
+    东方财富网-数据中心-新股申购-新股上会信息
     https://data.eastmoney.com/xg/gh/default.html
-    :return: 过会企业信息
+    :return: 新股上会信息
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
@@ -40,7 +40,7 @@ def stock_ipo_review() -> pd.DataFrame:
         end = text.rfind('}')
         if start == -1 or end == -1 or end <= start:
             raise ValueError(f"无法找到 JSON 对象: {text[:200]}...")
-        json_str = text[start:end+1]
+        json_str = text[start:end + 1]
         return json.loads(json_str)
 
     # 首次请求获取总页数
@@ -117,5 +117,5 @@ def stock_ipo_review() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_ipo_review_df = stock_ipo_review()
-    print(stock_ipo_review_df)
+    stock_ipo_review_em_df = stock_ipo_review_em()
+    print(stock_ipo_review_em_df)
