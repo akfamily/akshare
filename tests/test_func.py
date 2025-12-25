@@ -10,15 +10,6 @@ import pathlib
 from akshare.datasets import get_ths_js, get_crypto_info_csv
 
 
-def test_cost_living():
-    """
-    just for test aim
-    :return: assert result
-    :rtype: assert
-    """
-    pass
-
-
 def test_path_func():
     """
     test path func
@@ -40,6 +31,5 @@ def test_zipfile_func():
 
 
 if __name__ == "__main__":
-    # test_cost_living()
     test_path_func()
     test_zipfile_func()

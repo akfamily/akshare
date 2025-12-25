@@ -168,8 +168,6 @@
  "energy_carbon_eu"  # 碳排放权-国际
  "energy_carbon_hb"  # 碳排放权-湖北
  "energy_carbon_gz"  # 碳排放权-广州
- # 生活成本
- "cost_living"  # 世界各大城市生活成本数据
  # 商品现货价格指数
  "spot_goods"  # 商品现货价格指数
  # 中国宏观杠杆率

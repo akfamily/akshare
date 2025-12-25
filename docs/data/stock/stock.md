@@ -8196,9 +8196,9 @@ print(stock_news_em_df)
 
 目标地址: https://cxdata.caixin.com/pc/
 
-描述: 财新网-财新数据通-内容精选
+描述: 财新网-财新数据通-最新
 
-限量: 返回所有历史新闻数据
+限量: 返回最新 100 条新闻数据
 
 输入参数
 
@@ -8212,8 +8212,6 @@ print(stock_news_em_df)
 |---------------|--------|----|
 | tag           | object | -  |
 | summary       | object | -  |
-| interval_time | object | -  |
-| pub_time      | object | -  |
 | url           | object | -  |
 
 接口示例
@@ -8228,19 +8226,19 @@ print(stock_news_main_cx_df)
 数据示例
 
 ```
-                     tag  ...                                                url
-0                 8月5日收盘  ...  https://stock.caixin.com/m/market?cxapp_link=true
-1      高盛上调美国衰退预期但认为风险有限  ...  https://database.caixin.com/2024-08-05/1022233...
-2       分析人士：股市逢低买入还为时过早  ...  https://database.caixin.com/2024-08-05/1022233...
-3        巴菲特加速减持苹果是重大信号吗  ...  https://www.caixin.com/2024-08-04/102223237.ht...
-4                 今日股市热点  ...  https://database.caixin.com/2024-08-05/1022233...
-...                  ...  ...                                                ...
-12729     （接上条）广电的5G牌怎么打  ...  https://cxdata.caixin.com/twotopic/20200925153...
-12730           5G建设最新数据  ...  https://www.caixin.com/2020-11-26/101632865.htm...
-12731       银行股尾盘爆发有何道理？  ...  https://database.caixin.com/2020-11-22/10163123...
-12732  鸿海或将部分苹果产品生产线迁出中国  ...  https://database.caixin.com/2020-11-27/10163291...
-12733          “小酒”股今日普跌  ...  https://database.caixin.com/2020-11-26/10163250...
-[12734 rows x 5 columns]
+      tag  ...                                                url
+0    今日热点  ...  https://database.caixin.com/2025-12-25/1023970...
+5    市场动态  ...  https://database.caixin.com/2025-12-25/1023969...
+6    市场动态  ...  https://database.caixin.com/2025-12-25/1023969...
+9    市场动态  ...  https://database.caixin.com/2025-12-25/1023969...
+10   市场动态  ...  https://database.caixin.com/2025-12-25/1023969...
+..    ...  ...                                                ...
+105  市场动态  ...  https://database.caixin.com/2025-12-15/1023934...
+106  市场动态  ...  https://database.caixin.com/2025-12-15/1023934...
+107  市场动态  ...  https://database.caixin.com/2025-12-15/1023934...
+108  市场洞察  ...  https://database.caixin.com/2025-12-15/1023933...
+109  市场洞察  ...  https://database.caixin.com/2025-12-15/1023933...
+[100 rows x 3 columns]
 ```
 
 ### 财报发行
@@ -14177,6 +14175,122 @@ print(stock_ipo_info_df)
 16            上市日期  2003-04-28
 ```
 
+#### 新股上会信息
+
+接口: stock_ipo_review_em
+
+目标地址: https://data.eastmoney.com/xg/gh/default.html
+
+描述: 东方财富网-数据中心-新股申购-新股上会信息
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称      | 类型     | 描述 |
+|---------|--------|----|
+| 序号      | int64  | -  |
+| 企业名称    | object | -  |
+| 股票简称    | object | -  |
+| 股票代码    | object | -  |
+| 上市板块    | object | -  |
+| 上会日期    | object | -  |
+| 审核状态    | object | -  |
+| 发审委委员   | object | -  |
+| 主承销商    | object | -  |
+| 发行数量(股) | object | -  |
+| 拟融资额(元) | object | -  |
+| 公告日期    | object | -  |
+| 上市日期    | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_ipo_review_em_df = ak.stock_ipo_review_em()
+print(stock_ipo_review_em_df)
+```
+
+数据示例
+
+```
+     序号              企业名称  股票简称  ...       拟融资额(元)        公告日期 上市日期
+0        1     北京维通利电气股份有限公司   维通利  ...  1.593741e+09  2025-11-19  NaT
+1        2        杭州福恩股份有限公司  福恩股份  ...  1.250000e+09  2025-12-17  NaT
+2        3    南昌三瑞智能科技股份有限公司  三瑞智能  ...  7.688829e+08  2025-12-08  NaT
+3        4     深圳大普微电子股份有限公司   大普微  ...  1.877852e+09  2025-09-30  NaT
+4        5        视涯科技股份有限公司  视涯科技  ...  2.014572e+09  2025-09-30  NaT
+...    ...               ...   ...  ...           ...         ...  ...
+5056  5057     合肥芯谷微电子股份有限公司   芯谷微  ...  8.500000e+08  2023-05-05  NaT
+5057  5058    安翰科技(武汉)股份有限公司  安翰科技  ...  1.200000e+09  2019-03-22  NaT
+5058  5059      浙江高信技术股份有限公司  高信技术  ...  7.300000e+08  2023-06-26  NaT
+5059  5060    华夏天信智能物联股份有限公司  华夏天信  ...  9.280300e+08  2019-05-31  NaT
+5060  5061  广西北部湾陆海新能源股份有限公司  陆海新能  ...  1.600000e+09  2023-09-22  NaT
+[5061 rows x 13 columns]
+```
+
+#### IPO辅导信息
+
+接口: stock_ipo_tutor_em
+
+目标地址: https://data.eastmoney.com/xg/gh/default.html
+
+描述: 东方财富网-数据中心-新股申购-IPO辅导信息
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称      | 类型     | 描述 |
+|---------|--------|----|
+| 序号      | int64  | -  |
+| 企业名称    | object | -  |
+| 辅导机构    | object | -  |
+| 辅导状态    | object | -  |
+| 报告类型    | object | -  |
+| 派出机构    | object | -  |
+| 备案日期    | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_ipo_tutor_em_df = ak.stock_ipo_tutor_em()
+print(stock_ipo_tutor_em_df)
+```
+
+数据示例
+
+```
+     序号  ...        备案日期
+0        1  ...  2025-12-23
+1        2  ...  2025-12-23
+2        3  ...  2025-12-23
+3        4  ...  2025-12-23
+4        5  ...  2025-12-23
+...    ...  ...         ...
+5129  5130  ...         NaT
+5130  5131  ...         NaT
+5131  5132  ...         NaT
+5132  5133  ...         NaT
+5133  5134  ...         NaT
+[5134 rows x 8 columns]
+```
+
 #### 股票增发
 
 接口: stock_add_stock
@@ -19025,7 +19139,65 @@ print(stock_ipo_declare_em_df)
 
 ##### 全部
 
-###### 科创板
+接口: stock_register_all_em
+
+目标地址: https://data.eastmoney.com/xg/ipo/
+
+描述: 东方财富网-数据中心-新股数据-IPO审核信息-全部
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称     | 类型     | 描述 |
+|--------|--------|----|
+| 序号     | int64  | -  |
+| 企业名称   | object | -  |
+| 最新状态   | object | -  |
+| 注册地    | object | -  |
+| 行业     | object | -  |
+| 保荐机构   | object | -  |
+| 律师事务所  | object | -  |
+| 会计师事务所 | object | -  |
+| 更新日期   | object | -  |
+| 受理日期   | object | -  |
+| 拟上市地点  | object | -  |
+| 招股说明书  | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_register_all_em_df = ak.stock_register_all_em()
+print(stock_register_all_em_df)
+```
+
+数据示例
+
+```
+       序号  ...                                    招股说明书
+0        1  ...  https://pdf.dfcfw.com/pdf/H2_AN202512251807880...
+1        2  ...  https://pdf.dfcfw.com/pdf/H2_AN202506301700470...
+2        3  ...  https://pdf.dfcfw.com/pdf/H2_AN202512241807247...
+3        4  ...  https://pdf.dfcfw.com/pdf/H2_AN202512241807270...
+4        5  ...  https://pdf.dfcfw.com/pdf/H2_AN202512241807300...
+...    ...  ...                                                ...
+4145  4146  ...  https://pdf.dfcfw.com/pdf/H2_AN201609240017728...
+4146  4147  ...  https://pdf.dfcfw.com/pdf/H2_AN201607140016578...
+4147  4148  ...  https://pdf.dfcfw.com/pdf/H2_AN201611160102988...
+4148  4149  ...  https://pdf.dfcfw.com/pdf/H2_AN201410300007493...
+4149  4150  ...  https://pdf.dfcfw.com/pdf/H2_AN201611080074226...
+[4150 rows x 12 columns]
+```
+
+##### 科创板
 
 接口: stock_register_kcb
 
