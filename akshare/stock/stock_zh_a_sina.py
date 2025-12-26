@@ -8,10 +8,13 @@ https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 
 import json
 import re
+from io import StringIO
 
 import pandas as pd
 import py_mini_racer
 import requests
+from bs4 import BeautifulSoup
+
 
 from akshare.stock.cons import (
     zh_sina_a_stock_payload,
@@ -21,7 +24,7 @@ from akshare.stock.cons import (
     hk_js_decode,
     zh_sina_a_stock_hfq_url,
     zh_sina_a_stock_qfq_url,
-    zh_sina_a_stock_amount_url,
+    zh_sina_a_stock_amount_page_url,
 )
 from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
@@ -193,12 +196,30 @@ def stock_zh_a_daily(
     except:  # noqa: E722
         pass
     data_df = data_df.astype("float")
-    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
-    amount_data_df = pd.DataFrame(amount_data_json)
-    amount_data_df.columns = ["date", "outstanding_share"]
+
+    r = requests.get(zh_sina_a_stock_amount_page_url.format(symbol[2:]))
+    soup = BeautifulSoup(r.text, "html.parser")
+    amount_data_df = pd.concat(
+        [
+            pd.read_html(StringIO(str(table)))[0].set_axis(
+                ["date", "outstanding_share"], axis="columns"
+            )
+            for table in (
+                soup.find("th", string="持有股数")
+                .find_parent("table").find_parent("table")
+                .find_all("table")
+            )
+        ],
+        axis="index",
+        ignore_index=True,
+    )
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
+    amount_data_df.sort_index(inplace=True)
     del amount_data_df["date"]
+    amount_data_df["outstanding_share"] = (
+        amount_data_df["outstanding_share"].str[:-2].astype(float)
+    )
+
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="outer"
     )
