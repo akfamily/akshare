@@ -48,6 +48,9 @@ zh_sina_a_stock_amount_url = ("https://stock.finance.sina.com.cn/stock/api/jsonp
                               "var%20KKE_ShareAmount_{}=/StockService.getAmountBySymbol?_=20&symbol={}")
 zh_sina_a_stock_hfq_url = "https://finance.sina.com.cn/realstock/company/{}/hfq.js"
 zh_sina_a_stock_qfq_url = "https://finance.sina.com.cn/realstock/company/{}/qfq.js"
+zh_sina_a_stock_amount_page_url = (
+    "https://money.finance.sina.com.cn/corp/go.php/vCI_StockStructureHistory/stockid/{}/stocktype/TotalStock.phtml"
+)
 
 # us-sina
 us_sina_stock_hist_qfq_url = (
