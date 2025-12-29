@@ -200,12 +200,12 @@ def stock_zh_a_daily(
     amount_data_dfs = []
     r = requests.get(zh_sina_a_stock_amount_page_url.format(symbol[2:]))
     soup = BeautifulSoup(r.text, "html.parser")
-    th = soup.find("th", string="持有股数")
+    th = soup.find(name="th", string="持有股数")
     # 如果完全没有数据，可能找不到对应的<th>。
     if th is not None:
         for table in th.find_parent("table").find_parent("table").find_all("table"):
             # 这里的<table>也有可能没有数据，需要跳过。
-            if table.find("th", string="持有股数") is None:
+            if table.find(name="th", string="持有股数") is None:
                 continue
             amount_data_dfs.append(
                 pd.read_html(StringIO(str(table)))[0]
