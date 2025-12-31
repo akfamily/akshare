@@ -63,8 +63,8 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     url = "https://centerapi.fx168api.com/app/qh/api/stock/trend"
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        "_pcc": "Km+8HvRZpwuTQevs9gsuZsqDqExHrbSybJ2owcl8Mlz8vRgIuzoVIGUDD+WkESBlOWbSC3sKLxA4M4sG57vC0V"
-                "KPdI+MX+IpDC4NViRU6TSftUi9Jeqer88KW8BvEmYMOTdUgyYuo27yjgAT28wWSYDiHBCBHiWX97lJydFI8ec=",
+        "_pcc": "bTPEsNiiF8ZPdCXDyHx8LYsmWL+0W2wSUNK7MAVACjF8ofVXw9nqIHGdpINtqzYlQRAGFJnkWhgQUP+VtC"
+                "z6IkIrV4dFUnH4b8PPDz7zJ5FsX521QAEpfmPHGmgMPQ464GsQdItvqfkKEnC52IEt4AUxz9iDOyJHCm99qWXNJL8=",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/58.0.3029.110 Safari/537.3",
         "referer": "https://www.99qh.com",
