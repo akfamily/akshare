@@ -45,6 +45,18 @@ def fund_fh_em(year: str = "2025") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
+     # 处理空数据时报错的问题
+    if big_df.empty:
+        big_df = big_df.reindex(columns=[
+            "序号",
+            "基金代码",
+            "基金简称",
+            "权益登记日",
+            "除息日期",
+            "分红",
+            "分红发放日",
+            "-",
+        ])
     big_df.columns = [
         "序号",
         "基金代码",
@@ -100,6 +112,17 @@ def fund_cf_em(year: str = "2025") -> pd.DataFrame:
 
     big_df.reset_index(inplace=True)
     big_df.loc[:, "index"] = big_df["index"] + 1
+    # 处理空数据时报错的问题
+    if big_df.empty:
+        big_df = big_df.reindex(columns=[
+            "序号",
+            "基金代码",
+            "基金简称", 
+            "拆分折算日",
+            "拆分类型",
+            "拆分折算",
+            "-"
+        ])
     big_df.columns = [
         "序号",
         "基金代码",
@@ -149,6 +172,17 @@ def fund_fh_rank_em() -> pd.DataFrame:
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
+     # 处理空数据时报错的问题
+    if big_df.empty:
+        big_df = big_df.reindex(columns=[
+            "序号",
+            "基金代码",
+            "基金简称",
+            "累计分红",
+            "累计次数",
+            "成立日期",
+            "-",
+        ])
     big_df.columns = [
         "序号",
         "基金代码",
