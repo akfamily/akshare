@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.8 fix: fix stock_zh_valuation_comparison_em interface
+
+	1. 修复 stock_zh_valuation_comparison_em 接口
+
 1.18.7 fix: fix stock_us_valuation_baidu interface
 
 	1. 修复 stock_us_valuation_baidu 接口
@@ -6052,6 +6056,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.8 fix: fix stock_zh_valuation_comparison_em interface
 
 1.18.7 fix: fix stock_us_valuation_baidu interface
 

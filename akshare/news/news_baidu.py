@@ -173,7 +173,6 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
     """处理经济数据"""
     if not data_list:
         return pd.DataFrame()
-
     temp_df = pd.DataFrame(data_list)
     rename_dict = {
         "date": "日期",
@@ -188,27 +187,19 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
         "timePeriod": "统计周期"
     }
     temp_df.rename(columns=rename_dict, inplace=True)
-
-    # 确保必要列存在
     required_cols = ["公布", "预期", "前值", "重要性"]
     for col in required_cols:
         if col not in temp_df.columns:
             temp_df[col] = None
-
-    # 选择并排序列 (根据实际存在的列)
     available_cols = []
     for col in ["日期", "时间", "国家", "地区", "事件", "统计周期", "公布", "预期", "前值", "重要性"]:
         if col in temp_df.columns:
             available_cols.append(col)
-
     if available_cols:
         temp_df = temp_df[available_cols]
-
-    # 类型转换
     for col in ["公布", "预期", "前值", "重要性"]:
         if col in temp_df.columns:
             temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
-
     if "日期" in temp_df.columns:
         temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
 
@@ -219,18 +210,14 @@ def _process_suspend_data(data_list: list) -> pd.DataFrame:
     """处理停复牌数据 - 根据实际JSON结构精确修正"""
     if not data_list:
         return pd.DataFrame()
-
-    # 创建DataFrame
     temp_df = pd.DataFrame(data_list)
-
-    # 精确字段映射 (根据实际JSON结构)
     rename_dict = {
         "code": "股票代码",
         "name": "股票简称",
         "exchange": "交易所代码",
-        "start": "停牌时间",  # 实际停牌开始时间字段
+        "start": "停牌时间",
         "reason": "停牌事项说明",
-        "marketValue": "市值",  # 使用marketValue而非capitalization
+        "marketValue": "市值",
         "date": "公告日期",
         "time": "公告时间",
         "type": "证券类型",
@@ -245,10 +232,10 @@ def _process_suspend_data(data_list: list) -> pd.DataFrame:
         "股票代码",
         "股票简称",
         "交易所代码",
-        "停牌时间",  # 实际停牌开始时间字段
-        "复牌时间",  # 实际停牌开始时间字段
+        "停牌时间",
+        "复牌时间",
         "停牌事项说明",
-        "市值",  # 使用marketValue而非capitalization
+        "市值",
         "公告日期",
         "公告时间",
         "证券类型",
