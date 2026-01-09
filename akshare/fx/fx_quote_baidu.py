@@ -1,22 +1,19 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/5 18:12
+Date: 2026/1/9 22:12
 Desc: 百度股市通-外汇-行情榜单
 https://gushitong.baidu.com/top/foreign-common-%E5%B8%B8%E7%94%A8
 """
 
-import http.client
-import json
-import urllib
-
 import pandas as pd
+from curl_cffi import requests
 
 
 def fx_quote_baidu(symbol: str = "人民币") -> pd.DataFrame:
     """
     百度股市通-外汇-行情榜单
-    https://gushitong.baidu.com/top/foreign-common-%E5%B8%B8%E7%94%A8
+    https://gushitong.baidu.com/top/foreign-rmb
     :param symbol: choice of {"人民币", 美元"}
     :type symbol: str
     :return: 外汇行情数据
@@ -30,17 +27,15 @@ def fx_quote_baidu(symbol: str = "人民币") -> pd.DataFrame:
     out_df = pd.DataFrame()
     while True:
         try:
-            conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+            url = "https://finance.pae.baidu.com/api/getforeignrank"
             params = {
+                "type": symbol_map[symbol],
                 "pn": num,
                 "rn": "20",
-                "type": symbol_map[symbol],
                 "finClientType": "pc",
             }
-            conn.request("GET", f"/api/getforeignrank?{urllib.parse.urlencode(params)}")
-            res = conn.getresponse()
-            data = res.read()
-            data_json = json.loads(data.decode("utf-8"))
+            r = requests.get(url, params=params)
+            data_json = r.json()
             temp_df = pd.DataFrame(data_json["Result"])
             temp_list = []
             for item in temp_df["list"]:
@@ -48,17 +43,18 @@ def fx_quote_baidu(symbol: str = "人民币") -> pd.DataFrame:
             value_df = pd.DataFrame(
                 temp_list, columns=pd.DataFrame(item).T.iloc[0, :].values
             )
-            big_df = pd.concat([temp_df, value_df], axis=1)
+            big_df = pd.concat(objs=[temp_df, value_df], axis=1)
             del big_df["market"]
             del big_df["list"]
             del big_df["status"]
             del big_df["icon1"]
             del big_df["icon2"]
+            del big_df["financeType"]
             big_df.columns = ["代码", "名称", "最新价", "涨跌额", "涨跌幅"]
             big_df["最新价"] = pd.to_numeric(big_df["最新价"])
             big_df["涨跌额"] = pd.to_numeric(big_df["涨跌额"])
             big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"].str.strip("%")) / 100
-            out_df = pd.concat([out_df, big_df], ignore_index=True)
+            out_df = pd.concat(objs=[out_df, big_df], ignore_index=True)
             num = num + 20
         except:  # noqa: E722
             break
