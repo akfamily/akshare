@@ -186,55 +186,23 @@ def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFram
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
+    temp_df = index_detail_cni(symbol=symbol)
     if date:
-        url = "http://www.cnindex.com.cn/sample-detail/detail"
-        params = {
-            "indexcode": symbol,
-            "dateStr": "-".join([date[:4], date[4:]]),
-            "pageNum": "1",
-            "rows": "50000",
-        }
-        r = requests.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["rows"])
-        temp_df.columns = [
-            "-",
-            "-",
-            "日期",
-            "样本代码",
-            "样本简称",
-            "所属行业",
-            "-",
-            "总市值",
-            "权重",
-            "-",
-        ]
-        temp_df = temp_df[
-            [
-                "日期",
-                "样本代码",
-                "样本简称",
-                "所属行业",
-                "总市值",
-                "权重",
-            ]
-        ]
-    else:
-        url = "http://www.cnindex.com.cn/sample-detail/download-history"
-        params = {"indexcode": symbol}
-        r = requests.get(url, params=params)
-        temp_df = pd.read_excel(BytesIO(r.content))
-    temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
-    temp_df.columns = [
-        "日期",
-        "样本代码",
-        "样本简称",
-        "所属行业",
-        "总市值",
-        "权重",
-    ]
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"])
-    temp_df["权重"] = pd.to_numeric(temp_df["权重"])
+        # 1. 转换日期列（临时）
+        temp_df['date_dt'] = pd.to_datetime(temp_df['日期'])
+        # 2. 计算每一行的年月（用于筛选目标月份）
+        temp_df['ym'] = temp_df['date_dt'].dt.strftime('%Y%m')
+        # 3. 只保留目标月份的数据
+        target_month_df = temp_df[temp_df['ym'] == date].copy()
+        if not target_month_df.empty:
+            # 4. 在目标月份中找出最大日期（字符串形式安全！）
+            latest_date_in_target_month = target_month_df['date_dt'].max()  # 因为 YYYY-MM-DD 字符串可比
+            # 5. 保留所有等于该最新日期的行
+            temp_df = target_month_df[target_month_df['date_dt'] == latest_date_in_target_month].reset_index(drop=True)
+        else:
+            temp_df = target_month_df  # 空 DataFrame
+        # 6. 清理临时列
+        temp_df = temp_df.drop(columns=['date_dt', 'ym'], errors='ignore')
     return temp_df
 
 
