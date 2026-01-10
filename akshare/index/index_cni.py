@@ -16,11 +16,11 @@ import requests
 def index_all_cni() -> pd.DataFrame:
     """
     国证指数-最近交易日的所有指数
-    http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
+    https://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
     :return: 国证指数-所有指数
     :rtype: pandas.DataFrame
     """
-    url = "http://www.cnindex.com.cn/index/indexList"
+    url = "https://www.cnindex.com.cn/index/indexList"
     params = {
         "channelCode": "-1",
         "rows": "2000",
@@ -29,46 +29,49 @@ def index_all_cni() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["rows"])
-    temp_df.columns = [
-        "_",
-        "_",
-        "指数代码",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "指数简称",
-        "_",
-        "_",
-        "_",
-        "样本数",
-        "收盘点位",
-        "涨跌幅",
-        "_",
-        "PE滚动",
-        "_",
-        "成交量",
-        "成交额",
-        "总市值",
-        "自由流通市值",
-        "_",
-        "_",
-    ]
     temp_df = temp_df[
         [
-            "指数代码",
-            "指数简称",
-            "样本数",
-            "收盘点位",
-            "涨跌幅",
-            "PE滚动",
-            "成交量",
-            "成交额",
-            "总市值",
-            "自由流通市值",
+            #'id',
+            #'docchannel',
+            'indexcode',
+            #'indextype',
+            #'showcnindex',
+            #'indexsource',
+            #'realtimemarket',
+            #'remark',
+            'indexname',
+            #'indexename',
+            #'indexfullename',
+            #'indexfullcname',
+            'samplesize',
+            'closeingPoint',
+            'percent',
+            #'peStatic',
+            'peDynamic',
+            #'pb',
+            'volume',
+            'amount',
+            'totalMarketValue',
+            'freeMarketValue',
+            #'sampleshowdate',
+            #'prefixmonth',
+            #'showDetail'
         ]
     ]
+    temp_df = temp_df.rename(columns=
+        {
+            "indexcode": "指数代码",
+            "indexname": "指数简称",
+            "samplesize": "样本数",
+            "closeingPoint": "收盘点位",
+            "percent": "涨跌幅",
+            "peDynamic": "PE滚动",
+            "volume": "成交量",
+            "amount": "成交额",
+            "totalMarketValue": "总市值",
+            "freeMarketValue": "自由流通市值"
+        }
+    )
     temp_df["成交量"] = temp_df["成交量"] / 100000
     temp_df["成交额"] = temp_df["成交额"] / 100000000
     temp_df["总市值"] = temp_df["总市值"] / 100000000
@@ -81,7 +84,7 @@ def index_hist_cni(
 ) -> pd.DataFrame:
     """
     指数历史行情数据
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码
     :type symbol: str
     :param start_date: 开始时间
@@ -93,7 +96,7 @@ def index_hist_cni(
     """
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
-    url = "http://hq.cnindex.com.cn/market/market/getIndexDailyDataWithDataFormat"
+    url = "https://hq.cnindex.com.cn/market/market/getIndexDailyDataWithDataFormat"
     params = {
         "indexCode": symbol,
         "startDate": start_date,
@@ -175,7 +178,7 @@ def index_detail_cni(symbol: str = "399001") -> pd.DataFrame:
 def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码; "399001"
     :type symbol: str
     :param date: 指定月份; "202201", 为空返回所有数据
@@ -244,7 +247,7 @@ def index_detail_hist_adjust_cni(symbol: str = "399005") -> pd.DataFrame:
     :return: 历史调样
     :rtype: pandas.DataFrame
     """
-    url = "http://www.cnindex.com.cn/sample-detail/download-adjustment"
+    url = "https://www.cnindex.com.cn/sample-detail/download-adjustment"
     params = {"indexcode": symbol}
     r = requests.get(url, params=params)
     try:
