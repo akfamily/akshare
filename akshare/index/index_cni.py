@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/14 18:00
+Date: 2026/1/12 15:00
 Desc: 国证指数
-http://www.cnindex.com.cn/index.html
+https://www.cnindex.com.cn/index.html
 """
 
 import zipfile
@@ -16,11 +16,11 @@ import requests
 def index_all_cni() -> pd.DataFrame:
     """
     国证指数-最近交易日的所有指数
-    http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
+    https://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
     :return: 国证指数-所有指数
     :rtype: pandas.DataFrame
     """
-    url = "http://www.cnindex.com.cn/index/indexList"
+    url = "https://www.cnindex.com.cn/index/indexList"
     params = {
         "channelCode": "-1",
         "rows": "2000",
@@ -52,6 +52,7 @@ def index_all_cni() -> pd.DataFrame:
         "成交额",
         "总市值",
         "自由流通市值",
+        "_",
         "_",
         "_",
     ]
@@ -172,55 +173,19 @@ def index_detail_cni(symbol: str = "399001") -> pd.DataFrame:
     return temp_df
 
 
-def index_detail_hist_cni(symbol: str = "399001", date: str = "") -> pd.DataFrame:
+def index_detail_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码; "399001"
     :type symbol: str
-    :param date: 指定月份; "202201", 为空返回所有数据
-    :type date: str
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
-    if date:
-        url = "http://www.cnindex.com.cn/sample-detail/detail"
-        params = {
-            "indexcode": symbol,
-            "dateStr": "-".join([date[:4], date[4:]]),
-            "pageNum": "1",
-            "rows": "50000",
-        }
-        r = requests.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["rows"])
-        temp_df.columns = [
-            "-",
-            "-",
-            "日期",
-            "样本代码",
-            "样本简称",
-            "所属行业",
-            "-",
-            "总市值",
-            "权重",
-            "-",
-        ]
-        temp_df = temp_df[
-            [
-                "日期",
-                "样本代码",
-                "样本简称",
-                "所属行业",
-                "总市值",
-                "权重",
-            ]
-        ]
-    else:
-        url = "http://www.cnindex.com.cn/sample-detail/download-history"
-        params = {"indexcode": symbol}
-        r = requests.get(url, params=params)
-        temp_df = pd.read_excel(BytesIO(r.content))
+    url = "https://www.cnindex.com.cn/sample-detail/download-history"
+    params = {"indexcode": symbol}
+    r = requests.get(url, params=params)
+    temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
     temp_df.columns = [
         "日期",
