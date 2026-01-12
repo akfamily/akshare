@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.10 fix: fix futures_comm_info interface
+
+	1. 修复 futures_comm_info 接口
+	2. 修复 index_detail_hist_cni 接口
+
 1.18.9 fix: fix fx_quote_baidu interface
 
 	1. 修复 fx_quote_baidu 接口
@@ -6061,6 +6066,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.10 fix: fix futures_comm_info interface
 
 1.18.9 fix: fix fx_quote_baidu interface
 
