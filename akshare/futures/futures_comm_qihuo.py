@@ -138,8 +138,24 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     common_temp_df["每跳毛利"] = pd.to_numeric(common_temp_df["每跳毛利"])
     common_temp_df["手续费"] = pd.to_numeric(common_temp_df["手续费"])
     common_temp_df["每跳净利"] = pd.to_numeric(common_temp_df["每跳净利"])
-    url = "https://www.9qihuo.com/qihuoshouxufei"
-    r = requests.get(url, verify=False)
+    session = requests.Session()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/125.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://www.9qihuo.com/",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "max-age=0"
+    }
+    session.get("https://www.9qihuo.com/", headers=headers, timeout=10)
+    r = session.get("https://www.9qihuo.com/qihuoshouxufei", headers=headers, timeout=10)
     soup = BeautifulSoup(r.text, features="lxml")
     raw_date_text = soup.find(name="a", attrs={"id": "dlink"}).previous
     comm_update_time = raw_date_text.split("，")[0].strip("（手续费更新时间：")
@@ -160,11 +176,24 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     :return: 期货手续费
     :rtype: pandas.DataFrame
     """
-    import urllib3
-
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    url = "https://www.9qihuo.com/qihuoshouxufei"
-    r = requests.get(url, verify=False)
+    session = requests.Session()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/125.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://www.9qihuo.com/",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "max-age=0"
+    }
+    session.get("https://www.9qihuo.com/", headers=headers, timeout=10)
+    r = session.get("https://www.9qihuo.com/qihuoshouxufei", headers=headers, timeout=10)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [
         "合约品种",
