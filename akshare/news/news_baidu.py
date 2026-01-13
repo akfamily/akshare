@@ -133,7 +133,7 @@ def _baidu_finance_calendar(
 
     # 第一次请求
     params = base_params.copy()
-    response = requests.get(url=url, params=params, headers=headers)
+    response = requests.get(url=url, params=params, headers=headers, impersonate="chrome110")
     response.raise_for_status()
     data_json = response.json()
 
