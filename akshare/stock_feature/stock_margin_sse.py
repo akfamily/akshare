@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/14 17:20
+Date: 2026/1/13 15:20
 Desc: 上海证券交易所-融资融券数据
 https://www.sse.com.cn/market/othersdata/margin/sum/
 """
@@ -10,15 +10,22 @@ import pandas as pd
 import requests
 
 
-def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
+def stock_margin_ratio_pa(symbol: str = "深市", date: str = "20260113") -> pd.DataFrame:
     """
     融资融券-标的证券名单及保证金比例查询
     https://stock.pingan.com/static/webinfo/margin/business.html?businessType=0
+    :param symbol: choice of {"深市", "沪市", "北交所"}
+    :type symbol: str
     :param date: 交易日期
     :type date: str
     :return: 标的证券名单及保证金比例查询
     :rtype: pandas.DataFrame
     """
+    market_code = {
+        "深市": "00",
+        "沪市": "10",
+        "北交所": "30",
+    }
     url = "https://stock.pingan.com/fss/servlet/fsscoreapp/stockSource/mrgRatio"
     payload = {
         "currentPage": 1,
@@ -26,7 +33,7 @@ def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
         "type": "bdzq",
         "setdate": "-".join([date[:4], date[4:6], date[6:]]),
         "stockMes": "",
-        "market": "00",
+        "market": market_code[symbol],
         "appName": "AYLCH5",
         "tokenId": "",
         "appChannel": "LRSP",
@@ -87,7 +94,7 @@ def stock_margin_sse(
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/88.0.4324.150 Safari/537.36",
+                      "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -154,7 +161,7 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/88.0.4324.150 Safari/537.36",
+                      "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -197,7 +204,7 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_margin_ratio_pa_df = stock_margin_ratio_pa(date="20231013")
+    stock_margin_ratio_pa_df = stock_margin_ratio_pa(symbol="沪市", date="20260113")
     print(stock_margin_ratio_pa_df)
 
     stock_margin_sse_df = stock_margin_sse(start_date="20010106", end_date="20210401")
