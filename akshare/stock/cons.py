@@ -5,7 +5,7 @@ Date: 2025/12/12 15:00
 Desc: 股票配置文件
 """
 
-xq_a_token = "a5cd2fa0820cd6e296940c4fbb3857c63726317f"
+xq_a_token = "ac2a78f80e88c34c3386da6345e0f7562548dd15"
 
 # zh-sina-kcb
 zh_sina_kcb_stock_url = ("http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"
