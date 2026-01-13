@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.11 fix: fix stock_individual_spot_xq interface
+
+	1. 修复 stock_individual_spot_xq 接口
+	2. 修复 stock_margin_ratio_pa 接口
+
 1.18.10 fix: fix futures_comm_info interface
 
 	1. 修复 futures_comm_info 接口
