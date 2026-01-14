@@ -300,6 +300,8 @@ def _process_dividend_data(data_list: list) -> pd.DataFrame:
     temp_df.rename(columns=rename_dict, inplace=True)
 
     # 确保必要列存在
+    if "分红" not in temp_df.columns:
+        temp_df["分红"] = "-"
     if "实物" not in temp_df.columns:
         temp_df["实物"] = "-"
     if "送股" not in temp_df.columns:
