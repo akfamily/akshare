@@ -113,7 +113,11 @@ def futures_spot_price(
         for url in [u2, u1]:
             try:
                 # url = u2
-                r = pandas_read_html_link(url)
+                headers = {
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                              "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                }
+                r = pandas_read_html_link(url, headers=headers)
                 string = r[0].loc[1, 1]
                 news = "".join(re.findall(r"[0-9]", string))
                 if news[3:11] == date.strftime("%Y%m%d"):
@@ -306,7 +310,11 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
     url = date.strftime("https://www.100ppi.com/sf2/day-%Y-%m-%d.html")
-    content = pandas_read_html_link(url)
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,"
+                  "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+    }
+    content = pandas_read_html_link(url, headers=headers)
     main = content[1]
     # Header
     header = _join_head(main)
