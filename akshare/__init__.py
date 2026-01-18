@@ -3221,7 +3221,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.13 fix: fix futures_spot_price_daily interface
 """
 
-__version__ = "1.18.13"
+__version__ = "1.18.14"
 __author__ = "AKFamily"
 
 import sys
@@ -3701,6 +3701,16 @@ from akshare.fund.fund_etf_em import (
     fund_etf_hist_min_em,
     fund_etf_spot_em,
 )
+
+"""
+上海证券交易所-ETF基金份额数据
+"""
+from akshare.fund.fund_etf_sse import fund_etf_scale_sse
+
+"""
+深圳证券交易所-ETF基金份额数据
+"""
+from akshare.fund.fund_etf_szse import fund_etf_scale_szse
 
 """
 乐咕乐股-股债利差
