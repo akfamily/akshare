@@ -11,6 +11,7 @@ from typing import Dict
 
 import pandas as pd
 import requests
+from akshare.utils.cons import headers
 
 
 def requests_link(
@@ -70,7 +71,7 @@ def pandas_read_html_link(
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=20)
+                r = requests.get(url, timeout=20, headers=headers)
                 r.encoding = encoding
                 r = pd.read_html(StringIO(r.text), encoding=encoding)
                 return r
