@@ -3784,6 +3784,118 @@ print(fund_scale_structured_sina_df)
 [402 rows x 9 columns]
 ```
 
+#### ETF 基金份额-上交所
+
+接口: fund_etf_scale_sse
+
+目标地址: https://www.sse.com.cn/assortment/fund/etf/list/scale/
+
+描述: 上海证券交易所-产品-基金产品-ETF产品-ETF产品列表-基金规模
+
+限量: 单次返回指定日期的 ETF 基金份额数据
+
+输入参数
+
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20250115" |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| 序号    | int64   | -  |
+| 基金代码  | object  | -  |
+| 基金简称  | object  | -  |
+| ETF类型 | object  | -  |
+| 统计日期  | object  | -  |
+| 基金份额  | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+fund_etf_scale_sse_df = ak.fund_etf_scale_sse(date="20250115")
+print(fund_etf_scale_sse_df)
+```
+
+数据示例
+
+```
+      序号 基金代码  基金简称 ETF类型  统计日期        基金份额
+0      1  510010   治理ETF    单市  2025-01-15    20152.44
+1      2  510020   超大ETF    单市  2025-01-15     4324.80
+2      3  510030   价值ETF    单市  2025-01-15    21122.98
+3      4  510040  上证180E    单市  2025-01-15    56448.00
+4      5  510050   50ETF    单市  2025-01-15  5533716.68
+..   ...     ...     ...   ...         ...         ...
+588  589  588880    科创指数    单市  2025-01-15    46836.80
+589  590  588890     科创芯    单市  2025-01-15    23381.00
+590  591  588900  科创100N    单市  2025-01-15    40678.30
+591  592  588930   科创板AI    单市  2025-01-15    16532.90
+592  593  588990     科芯片    单市  2025-01-15    14574.54
+[593 rows x 6 columns]
+```
+
+#### ETF 基金份额-深交所
+
+接口: fund_etf_scale_szse
+
+目标地址: https://fund.szse.cn/marketdata/fundslist/index.html
+
+描述: 深圳证券交易所-基金产品-基金列表-ETF基金份额
+
+限量: 单次返回最近交易日的 ETF 基金份额数据
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| 基金代码  | object  | -  |
+| 基金简称  | object  | -  |
+| 基金类别  | object  | -  |
+| 投资类别  | object  | -  |
+| 上市日期  | object  | -  |
+| 基金份额  | float64 | -  |
+| 基金管理人 | object  | -  |
+| 基金发起人 | float64 | -  |
+| 基金托管人 | float64 | -  |
+| 净值    | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+fund_etf_scale_szse_df = ak.fund_etf_scale_szse()
+print(fund_etf_scale_szse_df)
+```
+
+数据示例
+
+```
+     基金代码        基金简称   基金类别  ... 基金发起人 基金托管人  净值
+0    159001        货币ETF易方达    ETF  ...   NaN   NaN  100.0000
+1    159003         招商快线ETF    ETF  ...   NaN   NaN  100.0000
+2    159005        汇添富快钱ETF    ETF  ...   NaN   NaN  100.0000
+3    159100           巴西ETF    ETF  ...   NaN   NaN    1.0223
+4    159101      港股通科技ETF基金    ETF  ...   NaN   NaN    0.9906
+..      ...             ...    ...  ...   ...   ...       ...
+898  180606    中金中国绿发商业REIT  不动产基金  ...   NaN   NaN       NaN
+899  180607      华夏中海商业REIT  不动产基金  ...   NaN   NaN       NaN
+900  180701    银华绍兴原水水利REIT  不动产基金  ...   NaN   NaN       NaN
+901  180801      中航首钢绿能REIT  不动产基金  ...   NaN   NaN       NaN
+902  180901  南方润泽科技数据中心REIT  不动产基金  ...   NaN   NaN       NaN
+[903 rows x 10 columns]
+```
+
 ### 基金公司规模
 
 #### 基金规模详情
