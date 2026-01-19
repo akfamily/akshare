@@ -1365,6 +1365,9 @@
  "option_contract_info_ctp"  # 期权合约信息
  # 百度股市通-美股-财务报表-估值数据
  "stock_us_valuation_baidu"  # 百度股市通-美股-财务报表-估值数据
+ # 基金份额
+ "fund_etf_scale_szse"  # 深圳证券交易所-基金产品-基金列表-ETF基金份额
+ "fund_etf_scale_sse"  # 上海证券交易所-产品-基金产品-ETF产品-ETF产品列表-基金规模
 ```
 
 ## 案例演示
