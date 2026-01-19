@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.14 add: add fund_etf_scale_sse and fund_etf_scale_szse interface
+
+	1. 新增 fund_etf_scale_sse 接口-上海证券交易所 ETF 基金份额数据
+	2. 新增 fund_etf_scale_szse 接口-深圳证券交易所 ETF 基金份额数据
+
 1.18.13 fix: fix futures_spot_price_daily interface
 
 	1. 修复 futures_spot_price_daily 接口
