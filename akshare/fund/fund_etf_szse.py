@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/1/18 15:00
+Date: 2026/1/19 15:00
 Desc: 深圳证券交易所-ETF基金份额数据
 https://fund.szse.cn/marketdata/fundslist/index.html
 """
