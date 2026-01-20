@@ -21,7 +21,7 @@ from akshare.stock.cons import (
     hk_js_decode,
     zh_sina_a_stock_hfq_url,
     zh_sina_a_stock_qfq_url,
-    zh_sina_a_stock_amount_url
+    zh_sina_a_stock_amount_url,
 )
 from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
@@ -194,7 +194,7 @@ def stock_zh_a_daily(
         pass
     data_df = data_df.astype("float")
     r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("["): r.text.rfind("]") + 1])
+    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.columns = ["date", "outstanding_share"]
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
@@ -429,7 +429,7 @@ def stock_zh_a_minute(
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
         stock_zh_a_daily_qfq_df.index = pd.to_datetime(stock_zh_a_daily_qfq_df["date"])
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df) :, :]["close"].astype(
             float
         ) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
@@ -454,7 +454,7 @@ def stock_zh_a_minute(
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
         stock_zh_a_daily_hfq_df.index = pd.to_datetime(stock_zh_a_daily_hfq_df["date"])
-        result_df = stock_zh_a_daily_hfq_df.iloc[-len(need_df):, :]["close"].astype(
+        result_df = stock_zh_a_daily_hfq_df.iloc[-len(need_df) :, :]["close"].astype(
             float
         ) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])

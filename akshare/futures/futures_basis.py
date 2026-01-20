@@ -107,7 +107,7 @@ def futures_spot_price(
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
     u1 = "https://www.100ppi.com/sf/"
-    u2 = f'https://www.100ppi.com/sf/day-{date.strftime("%Y-%m-%d")}.html'
+    u2 = f"https://www.100ppi.com/sf/day-{date.strftime('%Y-%m-%d')}.html"
     i = 1
     while True:
         for url in [u2, u1]:
@@ -115,7 +115,7 @@ def futures_spot_price(
                 # url = u2
                 headers = {
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
-                              "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                    "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
                 }
                 r = pandas_read_html_link(url, headers=headers)
                 string = r[0].loc[1, 1]
@@ -312,7 +312,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     url = date.strftime("https://www.100ppi.com/sf2/day-%Y-%m-%d.html")
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,"
-                  "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+        "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
     }
     content = pandas_read_html_link(url, headers=headers)
     main = content[1]

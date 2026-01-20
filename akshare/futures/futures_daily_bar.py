@@ -549,23 +549,26 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    temp_df.rename(columns={
-        "variety": "品种名称",
-        "contractId": "合约",
-        "open": "开盘价",
-        "high": "最高价",
-        "low": "最低价",
-        "close": "收盘价",
-        "lastClear": "前结算价",
-        "clearPrice": "结算价",
-        "diff": "涨跌",
-        "diff1": "涨跌1",
-        "volumn": "成交量",
-        "openInterest": "持仓量",
-        "diffI": "持仓量变化",
-        "turnover": "成交额",
-    }, inplace=True)
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.rename(
+        columns={
+            "variety": "品种名称",
+            "contractId": "合约",
+            "open": "开盘价",
+            "high": "最高价",
+            "low": "最低价",
+            "close": "收盘价",
+            "lastClear": "前结算价",
+            "clearPrice": "结算价",
+            "diff": "涨跌",
+            "diff1": "涨跌1",
+            "volumn": "成交量",
+            "openInterest": "持仓量",
+            "diffI": "持仓量变化",
+            "turnover": "成交额",
+        },
+        inplace=True,
+    )
     temp_df = temp_df[~temp_df["品种名称"].str.contains("小计")]
     temp_df = temp_df[~temp_df["品种名称"].str.contains("总计")]
     temp_df["variety"] = temp_df["品种名称"].map(lambda x: cons.DCE_MAP[x])

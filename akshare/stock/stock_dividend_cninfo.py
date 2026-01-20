@@ -55,25 +55,28 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "Proxy-Connection": "keep-alive",
         "Referer": "http://webapi.cninfo.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/93.0.4577.63 Safari/537.36",
+        "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(columns={
-        "F006D": "实施方案公告日期",
-        "F044V": "分红类型",
-        "F011N": "转增比例",
-        "F010N": "送股比例",
-        "F012N": "派息比例",
-        "F018D": "股权登记日",
-        "F020D": "除权日",
-        "F023D": "派息日",
-        "F025D": "股份到账日",
-        "F007V": "实施方案分红说明",
-        "F001V": "报告时间",
-    }, inplace=True)
+    temp_df.rename(
+        columns={
+            "F006D": "实施方案公告日期",
+            "F044V": "分红类型",
+            "F011N": "转增比例",
+            "F010N": "送股比例",
+            "F012N": "派息比例",
+            "F018D": "股权登记日",
+            "F020D": "除权日",
+            "F023D": "派息日",
+            "F025D": "股份到账日",
+            "F007V": "实施方案分红说明",
+            "F001V": "报告时间",
+        },
+        inplace=True,
+    )
 
     temp_df["实施方案公告日期"] = pd.to_datetime(
         temp_df["实施方案公告日期"], errors="coerce"
@@ -87,19 +90,21 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
     temp_df["除权日"] = pd.to_datetime(temp_df["除权日"], errors="coerce").dt.date
     temp_df["派息日"] = pd.to_datetime(temp_df["派息日"], errors="coerce").dt.date
     temp_df.sort_values(by="实施方案公告日期", ignore_index=True, inplace=True)
-    temp_df = temp_df[[
-        "实施方案公告日期",
-        "分红类型",
-        "送股比例",
-        "转增比例",
-        "派息比例",
-        "股权登记日",
-        "除权日",
-        "派息日",
-        "股份到账日",
-        "实施方案分红说明",
-        "报告时间",
-    ]]
+    temp_df = temp_df[
+        [
+            "实施方案公告日期",
+            "分红类型",
+            "送股比例",
+            "转增比例",
+            "派息比例",
+            "股权登记日",
+            "除权日",
+            "派息日",
+            "股份到账日",
+            "实施方案分红说明",
+            "报告时间",
+        ]
+    ]
     return temp_df
 
 

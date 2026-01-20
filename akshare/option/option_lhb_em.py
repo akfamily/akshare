@@ -31,8 +31,9 @@ def option_lhb_em(
     params = {
         "type": "RPT_IF_BILLBOARD_TD",
         "sty": "ALL",
-        "filter": f"""(SECURITY_CODE="{symbol}")(TRADE_DATE='{'-'.join([trade_date[:4],
-                                                                        trade_date[4:6], trade_date[6:]])}')""",
+        "filter": f"""(SECURITY_CODE="{symbol}")(TRADE_DATE='{
+            "-".join([trade_date[:4], trade_date[4:6], trade_date[6:]])
+        }')""",
         "p": "1",
         "pss": "200",
         "source": "IFBILLBOARD",

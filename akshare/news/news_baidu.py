@@ -5,6 +5,7 @@ Date: 2025/12/1 22:00
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
+
 import math
 import re
 
@@ -29,7 +30,7 @@ def _get_baidu_cookie(headers: dict) -> str:
             resp1 = session.get(
                 "https://gushitong.baidu.com/calendar",
                 impersonate="chrome110",
-                timeout=10
+                timeout=10,
             )
             resp1.raise_for_status()
 
@@ -40,15 +41,19 @@ def _get_baidu_cookie(headers: dict) -> str:
                 raise ValueError("Missing BAIDUID cookies in first response")
 
             # 第二步：提取并请求hm.js
-            hm_pattern = r'https://hm\.baidu\.com/hm\.js\?\w+'
+            hm_pattern = r"https://hm\.baidu\.com/hm\.js\?\w+"
             hm_match = re.search(hm_pattern, resp1.text)
             if not hm_match:
                 # 尝试备用正则模式
-                hm_match = re.search(r'//hm\.baidu\.com/hm\.js\?\w+', resp1.text)
+                hm_match = re.search(r"//hm\.baidu\.com/hm\.js\?\w+", resp1.text)
                 if not hm_match:
                     raise ValueError("Failed to extract hm.js URL from response")
 
-            hm_url = "https:" + hm_match.group() if hm_match.group().startswith("//") else hm_match.group()
+            hm_url = (
+                "https:" + hm_match.group()
+                if hm_match.group().startswith("//")
+                else hm_match.group()
+            )
 
             # 第二步请求 (自动携带第一步的Cookie)
             resp2 = session.get(hm_url, impersonate="chrome110", timeout=10)
@@ -75,10 +80,7 @@ def _get_baidu_cookie(headers: dict) -> str:
 
 
 def _baidu_finance_calendar(
-    date: str,
-    cate: str,
-    process_func,
-    cookie: str = None
+    date: str, cate: str, process_func, cookie: str = None
 ) -> pd.DataFrame:
     """
     百度股市通日历数据基础函数（支持分页）
@@ -112,7 +114,7 @@ def _baidu_finance_calendar(
         "priority": "u=1, i",
         "referer": "https://gushitong.baidu.com/",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/142.0.0.0 Safari/537.36"
+        "Chrome/142.0.0.0 Safari/537.36",
     }
 
     # 在_baidu_finance_calendar函数中替换原代码块
@@ -133,7 +135,9 @@ def _baidu_finance_calendar(
 
     # 第一次请求
     params = base_params.copy()
-    response = requests.get(url=url, params=params, headers=headers, impersonate="chrome110")
+    response = requests.get(
+        url=url, params=params, headers=headers, impersonate="chrome110"
+    )
     response.raise_for_status()
     data_json = response.json()
 
@@ -184,7 +188,7 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
         "region": "地区",
         "indicateVal": "预期",
         "country": "国家",
-        "timePeriod": "统计周期"
+        "timePeriod": "统计周期",
     }
     temp_df.rename(columns=rename_dict, inplace=True)
     required_cols = ["公布", "预期", "前值", "重要性"]
@@ -192,7 +196,18 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
         if col not in temp_df.columns:
             temp_df[col] = None
     available_cols = []
-    for col in ["日期", "时间", "国家", "地区", "事件", "统计周期", "公布", "预期", "前值", "重要性"]:
+    for col in [
+        "日期",
+        "时间",
+        "国家",
+        "地区",
+        "事件",
+        "统计周期",
+        "公布",
+        "预期",
+        "前值",
+        "重要性",
+    ]:
         if col in temp_df.columns:
             available_cols.append(col)
     if available_cols:
@@ -223,25 +238,27 @@ def _process_suspend_data(data_list: list) -> pd.DataFrame:
         "type": "证券类型",
         "market": "市场类型",
         "isSkip": "是否跳过",
-        "end": "复牌时间"
+        "end": "复牌时间",
     }
     temp_df.rename(columns=rename_dict, inplace=True)
     if "复牌时间" not in temp_df.columns:
-        temp_df['复牌时间'] = '-'
-    temp_df = temp_df[[
-        "股票代码",
-        "股票简称",
-        "交易所代码",
-        "停牌时间",
-        "复牌时间",
-        "停牌事项说明",
-        "市值",
-        "公告日期",
-        "公告时间",
-        "证券类型",
-        "市场类型",
-        "是否跳过"
-    ]]
+        temp_df["复牌时间"] = "-"
+    temp_df = temp_df[
+        [
+            "股票代码",
+            "股票简称",
+            "交易所代码",
+            "停牌时间",
+            "复牌时间",
+            "停牌事项说明",
+            "市值",
+            "公告日期",
+            "公告时间",
+            "证券类型",
+            "市场类型",
+            "是否跳过",
+        ]
+    ]
     return temp_df
 
 
@@ -257,11 +274,13 @@ def news_economic_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFr
         date=date,
         cate="economic_data",
         process_func=_process_economic_data,
-        cookie=cookie
+        cookie=cookie,
     )
 
 
-def news_trade_notify_suspend_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFrame:
+def news_trade_notify_suspend_baidu(
+    date: str = "20251126", cookie: str = None
+) -> pd.DataFrame:
     """
     百度股市通-交易提醒-停复牌
     https://gushitong.baidu.com/calendar
@@ -273,7 +292,7 @@ def news_trade_notify_suspend_baidu(date: str = "20251126", cookie: str = None) 
         date=date,
         cate="notify_suspend",
         process_func=_process_suspend_data,
-        cookie=cookie
+        cookie=cookie,
     )
 
 
@@ -333,7 +352,9 @@ def _process_dividend_data(data_list: list) -> pd.DataFrame:
     return temp_df
 
 
-def news_trade_notify_dividend_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFrame:
+def news_trade_notify_dividend_baidu(
+    date: str = "20251126", cookie: str = None
+) -> pd.DataFrame:
     """
     百度股市通-交易提醒-分红派息
     https://gushitong.baidu.com/calendar
@@ -345,7 +366,7 @@ def news_trade_notify_dividend_baidu(date: str = "20251126", cookie: str = None)
         date=date,
         cate="notify_divide",
         process_func=_process_dividend_data,
-        cookie=cookie
+        cookie=cookie,
     )
 
 
@@ -366,7 +387,7 @@ def _process_report_data(data_list: list) -> pd.DataFrame:
         "time": "发布时间",
         "marketValue": "市值",
         "capitalization": "总市值",
-        "date": "发布日期"
+        "date": "发布日期",
     }
     temp_df.rename(columns=rename_dict, inplace=True)
 
@@ -380,7 +401,15 @@ def _process_report_data(data_list: list) -> pd.DataFrame:
 
     # 选择并排序列
     available_cols = []
-    for col in ["股票代码", "股票简称", "交易所", "财报类型", "发布时间", "市值", "发布日期"]:
+    for col in [
+        "股票代码",
+        "股票简称",
+        "交易所",
+        "财报类型",
+        "发布时间",
+        "市值",
+        "发布日期",
+    ]:
         if col in temp_df.columns:
             available_cols.append(col)
 
@@ -395,7 +424,9 @@ def _process_report_data(data_list: list) -> pd.DataFrame:
         temp_df["市值"] = pd.to_numeric(temp_df["市值"], errors="coerce")
 
     if "发布日期" in temp_df.columns:
-        temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
+        temp_df["发布日期"] = pd.to_datetime(
+            temp_df["发布日期"], errors="coerce"
+        ).dt.date
 
     return temp_df
 
@@ -409,10 +440,7 @@ def news_report_time_baidu(date: str = "20251126", cookie: str = None) -> pd.Dat
     :return: 财报发行DataFrame
     """
     return _baidu_finance_calendar(
-        date=date,
-        cate="report_time",
-        process_func=_process_report_data,
-        cookie=cookie
+        date=date, cate="report_time", process_func=_process_report_data, cookie=cookie
     )
 
 

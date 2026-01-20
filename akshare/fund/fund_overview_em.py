@@ -5,6 +5,7 @@ Date: 2025/9/16 21:00
 Desc: 天天基金-基金档案
 https://fundf10.eastmoney.com/jbgk_015641.html
 """
+
 from io import StringIO
 
 import pandas as pd

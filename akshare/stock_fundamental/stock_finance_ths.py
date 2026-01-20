@@ -5,6 +5,7 @@ Date: 2025/12/18 16:00
 Desc: 同花顺-财务指标-主要指标
 https://basic.10jqka.com.cn/new/000063/finance.html
 """
+
 import json
 
 import pandas as pd
@@ -178,13 +179,13 @@ def __get_market_code(stock_code: str = "000063") -> int:
     if len(stock_code) < 6:
         raise "请输入正确的股票代码"
     # 深交所股票: 000, 001, 002, 003, 300开头 (market代码33)
-    if stock_code.startswith(('000', '001', '002', '003', '300')):
+    if stock_code.startswith(("000", "001", "002", "003", "300")):
         return 33
     # 上交所股票: 600, 601, 603, 605, 688开头 (market代码17)
-    if stock_code.startswith(('600', '601', '603', '605', '688')):
+    if stock_code.startswith(("600", "601", "603", "605", "688")):
         return 17
     # 北交所股票: 920开头 (market代码151)
-    if stock_code.startswith('920'):
+    if stock_code.startswith("920"):
         return 151
     # 其他情况无法识别
     return 0
@@ -217,42 +218,42 @@ def stock_financial_abstract_new_ths(
     else:
         period = "4"
     params = {
-        'code': symbol,
-        'id': 'client_stock_importance',
-        'market': __get_market_code(symbol),
-        'type': 'stock',
-        'page': '1',
-        'size': '50',
-        'period': period,
+        "code": symbol,
+        "id": "client_stock_importance",
+        "market": __get_market_code(symbol),
+        "type": "stock",
+        "page": "1",
+        "size": "50",
+        "period": period,
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
-    financial_data = data_json['data']['data']
+    financial_data = data_json["data"]["data"]
     # 创建空列表用于存储处理后的数据
     records = []
     # 收集所有可能的指标字段
     all_metric_fields = set()
     # 首先遍历一次，找出所有的字段名
     for report in financial_data:
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             if isinstance(metric_values, dict):
                 all_metric_fields.update(metric_values.keys())
     # 遍历每个报告期的数据
     for report in financial_data:
-        report_date = report['date']
-        report_name = report['report_name']
-        report_period = report['report']
-        quarter_name = report['quarter_name']
+        report_date = report["date"]
+        report_name = report["report_name"]
+        report_period = report["report"]
+        quarter_name = report["quarter_name"]
         # 遍历该报告期的所有财务指标
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             # 基本信息
             record = {
-                'report_date': report_date,
-                'report_name': report_name,
-                'report_period': report_period,
-                'quarter_name': quarter_name,
-                'metric_name': metric_name,
+                "report_date": report_date,
+                "report_name": report_name,
+                "report_period": report_period,
+                "quarter_name": quarter_name,
+                "metric_name": metric_name,
             }
             # 动态添加所有指标字段
             if isinstance(metric_values, dict):
@@ -260,20 +261,26 @@ def stock_financial_abstract_new_ths(
                     record[field] = value
             else:
                 # 如果不是字典，将其作为'value'字段
-                record['value'] = metric_values
+                record["value"] = metric_values
             records.append(record)
     # 创建DataFrame
     df = pd.DataFrame(records)
     # 自动识别并转换数值列
     numeric_columns = []
     for col in df.columns:
-        if col not in ['report_date', 'report_name', 'report_period', 'quarter_name', 'metric_name']:
+        if col not in [
+            "report_date",
+            "report_name",
+            "report_period",
+            "quarter_name",
+            "metric_name",
+        ]:
             # 尝试将列转换为数值类型
-            if df[col].dtype == 'object':
+            if df[col].dtype == "object":
                 # 替换空字符串为NaN
-                df[col] = df[col].replace(to_replace='', value=pd.NA)
+                df[col] = df[col].replace(to_replace="", value=pd.NA)
                 # 尝试转换为数值
-                numeric_series = pd.to_numeric(df[col], errors='coerce')
+                numeric_series = pd.to_numeric(df[col], errors="coerce")
                 # 如果大部分能转换为数值，则保留转换结果
                 if numeric_series.notna().sum() > len(numeric_series) * 0.5:
                     df[col] = numeric_series
@@ -300,42 +307,42 @@ def stock_financial_debt_new_ths(
     else:
         period = "4"
     params = {
-        'code': symbol,
-        'id': 'client_stock_debt',
-        'market': __get_market_code(symbol),
-        'type': 'stock',
-        'page': '1',
-        'size': '50',
-        'period': period,
+        "code": symbol,
+        "id": "client_stock_debt",
+        "market": __get_market_code(symbol),
+        "type": "stock",
+        "page": "1",
+        "size": "50",
+        "period": period,
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
-    financial_data = data_json['data']['data']
+    financial_data = data_json["data"]["data"]
     # 创建空列表用于存储处理后的数据
     records = []
     # 收集所有可能的指标字段
     all_metric_fields = set()
     # 首先遍历一次，找出所有的字段名
     for report in financial_data:
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             if isinstance(metric_values, dict):
                 all_metric_fields.update(metric_values.keys())
     # 遍历每个报告期的数据
     for report in financial_data:
-        report_date = report['date']
-        report_name = report['report_name']
-        report_period = report['report']
-        quarter_name = report['quarter_name']
+        report_date = report["date"]
+        report_name = report["report_name"]
+        report_period = report["report"]
+        quarter_name = report["quarter_name"]
         # 遍历该报告期的所有财务指标
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             # 基本信息
             record = {
-                'report_date': report_date,
-                'report_name': report_name,
-                'report_period': report_period,
-                'quarter_name': quarter_name,
-                'metric_name': metric_name,
+                "report_date": report_date,
+                "report_name": report_name,
+                "report_period": report_period,
+                "quarter_name": quarter_name,
+                "metric_name": metric_name,
             }
             # 动态添加所有指标字段
             if isinstance(metric_values, dict):
@@ -343,20 +350,26 @@ def stock_financial_debt_new_ths(
                     record[field] = value
             else:
                 # 如果不是字典，将其作为'value'字段
-                record['value'] = metric_values
+                record["value"] = metric_values
             records.append(record)
     # 创建DataFrame
     df = pd.DataFrame(records)
     # 自动识别并转换数值列
     numeric_columns = []
     for col in df.columns:
-        if col not in ['report_date', 'report_name', 'report_period', 'quarter_name', 'metric_name']:
+        if col not in [
+            "report_date",
+            "report_name",
+            "report_period",
+            "quarter_name",
+            "metric_name",
+        ]:
             # 尝试将列转换为数值类型
-            if df[col].dtype == 'object':
+            if df[col].dtype == "object":
                 # 替换空字符串为NaN
-                df[col] = df[col].replace(to_replace='', value=pd.NA)
+                df[col] = df[col].replace(to_replace="", value=pd.NA)
                 # 尝试转换为数值
-                numeric_series = pd.to_numeric(df[col], errors='coerce')
+                numeric_series = pd.to_numeric(df[col], errors="coerce")
                 # 如果大部分能转换为数值，则保留转换结果
                 if numeric_series.notna().sum() > len(numeric_series) * 0.5:
                     df[col] = numeric_series
@@ -391,42 +404,42 @@ def stock_financial_benefit_new_ths(
     else:
         period = "4"
     params = {
-        'code': symbol,
-        'id': 'client_stock_benefit',
-        'market': __get_market_code(symbol),
-        'type': 'stock',
-        'page': '1',
-        'size': '50',
-        'period': period,
+        "code": symbol,
+        "id": "client_stock_benefit",
+        "market": __get_market_code(symbol),
+        "type": "stock",
+        "page": "1",
+        "size": "50",
+        "period": period,
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
-    financial_data = data_json['data']['data']
+    financial_data = data_json["data"]["data"]
     # 创建空列表用于存储处理后的数据
     records = []
     # 收集所有可能的指标字段
     all_metric_fields = set()
     # 首先遍历一次，找出所有的字段名
     for report in financial_data:
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             if isinstance(metric_values, dict):
                 all_metric_fields.update(metric_values.keys())
     # 遍历每个报告期的数据
     for report in financial_data:
-        report_date = report['date']
-        report_name = report['report_name']
-        report_period = report['report']
-        quarter_name = report['quarter_name']
+        report_date = report["date"]
+        report_name = report["report_name"]
+        report_period = report["report"]
+        quarter_name = report["quarter_name"]
         # 遍历该报告期的所有财务指标
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             # 基本信息
             record = {
-                'report_date': report_date,
-                'report_name': report_name,
-                'report_period': report_period,
-                'quarter_name': quarter_name,
-                'metric_name': metric_name,
+                "report_date": report_date,
+                "report_name": report_name,
+                "report_period": report_period,
+                "quarter_name": quarter_name,
+                "metric_name": metric_name,
             }
             # 动态添加所有指标字段
             if isinstance(metric_values, dict):
@@ -434,20 +447,26 @@ def stock_financial_benefit_new_ths(
                     record[field] = value
             else:
                 # 如果不是字典，将其作为'value'字段
-                record['value'] = metric_values
+                record["value"] = metric_values
             records.append(record)
     # 创建DataFrame
     df = pd.DataFrame(records)
     # 自动识别并转换数值列
     numeric_columns = []
     for col in df.columns:
-        if col not in ['report_date', 'report_name', 'report_period', 'quarter_name', 'metric_name']:
+        if col not in [
+            "report_date",
+            "report_name",
+            "report_period",
+            "quarter_name",
+            "metric_name",
+        ]:
             # 尝试将列转换为数值类型
-            if df[col].dtype == 'object':
+            if df[col].dtype == "object":
                 # 替换空字符串为NaN
-                df[col] = df[col].replace(to_replace='', value=pd.NA)
+                df[col] = df[col].replace(to_replace="", value=pd.NA)
                 # 尝试转换为数值
-                numeric_series = pd.to_numeric(df[col], errors='coerce')
+                numeric_series = pd.to_numeric(df[col], errors="coerce")
                 # 如果大部分能转换为数值，则保留转换结果
                 if numeric_series.notna().sum() > len(numeric_series) * 0.5:
                     df[col] = numeric_series
@@ -482,42 +501,42 @@ def stock_financial_cash_new_ths(
     else:
         period = "4"
     params = {
-        'code': symbol,
-        'id': 'client_stock_cash',
-        'market': __get_market_code(symbol),
-        'type': 'stock',
-        'page': '1',
-        'size': '50',
-        'period': period,
+        "code": symbol,
+        "id": "client_stock_cash",
+        "market": __get_market_code(symbol),
+        "type": "stock",
+        "page": "1",
+        "size": "50",
+        "period": period,
     }
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
-    financial_data = data_json['data']['data']
+    financial_data = data_json["data"]["data"]
     # 创建空列表用于存储处理后的数据
     records = []
     # 收集所有可能的指标字段
     all_metric_fields = set()
     # 首先遍历一次，找出所有的字段名
     for report in financial_data:
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             if isinstance(metric_values, dict):
                 all_metric_fields.update(metric_values.keys())
     # 遍历每个报告期的数据
     for report in financial_data:
-        report_date = report['date']
-        report_name = report['report_name']
-        report_period = report['report']
-        quarter_name = report['quarter_name']
+        report_date = report["date"]
+        report_name = report["report_name"]
+        report_period = report["report"]
+        quarter_name = report["quarter_name"]
         # 遍历该报告期的所有财务指标
-        for metric_name, metric_values in report['index_list'].items():
+        for metric_name, metric_values in report["index_list"].items():
             # 基本信息
             record = {
-                'report_date': report_date,
-                'report_name': report_name,
-                'report_period': report_period,
-                'quarter_name': quarter_name,
-                'metric_name': metric_name,
+                "report_date": report_date,
+                "report_name": report_name,
+                "report_period": report_period,
+                "quarter_name": quarter_name,
+                "metric_name": metric_name,
             }
             # 动态添加所有指标字段
             if isinstance(metric_values, dict):
@@ -525,20 +544,26 @@ def stock_financial_cash_new_ths(
                     record[field] = value
             else:
                 # 如果不是字典，将其作为'value'字段
-                record['value'] = metric_values
+                record["value"] = metric_values
             records.append(record)
     # 创建DataFrame
     df = pd.DataFrame(records)
     # 自动识别并转换数值列
     numeric_columns = []
     for col in df.columns:
-        if col not in ['report_date', 'report_name', 'report_period', 'quarter_name', 'metric_name']:
+        if col not in [
+            "report_date",
+            "report_name",
+            "report_period",
+            "quarter_name",
+            "metric_name",
+        ]:
             # 尝试将列转换为数值类型
-            if df[col].dtype == 'object':
+            if df[col].dtype == "object":
                 # 替换空字符串为NaN
-                df[col] = df[col].replace(to_replace='', value=pd.NA)
+                df[col] = df[col].replace(to_replace="", value=pd.NA)
                 # 尝试转换为数值
-                numeric_series = pd.to_numeric(df[col], errors='coerce')
+                numeric_series = pd.to_numeric(df[col], errors="coerce")
                 # 如果大部分能转换为数值，则保留转换结果
                 if numeric_series.notna().sum() > len(numeric_series) * 0.5:
                     df[col] = numeric_series
@@ -576,7 +601,7 @@ def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
         new_rows = []
         step = len(column_names)
         for i in range(0, len(row), step):
-            new_rows.append(row[i: i + step])
+            new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
         temp_df.sort_values(by="变动日期", ignore_index=True, inplace=True)
         temp_df["变动日期"] = pd.to_datetime(
@@ -624,7 +649,7 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
         new_rows = []
         step = len(column_names)
         for i in range(0, len(row), step):
-            new_rows.append(row[i: i + step])
+            new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
         temp_df.sort_values(by="公告日期", ignore_index=True, inplace=True)
         temp_df["公告日期"] = pd.to_datetime(

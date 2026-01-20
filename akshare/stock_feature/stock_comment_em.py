@@ -31,7 +31,7 @@ def stock_comment_em() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_DMSK_TS_STOCKNEW",
         "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE,f8~01~SECURITY_CODE~TURNOVERRATE,"
-                        "f3~01~SECURITY_CODE~CHANGE_RATE,f9~01~SECURITY_CODE~PE_DYNAMIC",
+        "f3~01~SECURITY_CODE~CHANGE_RATE,f9~01~SECURITY_CODE~PE_DYNAMIC",
         "columns": "ALL",
         "filter": "",
         "token": "894050c76af8597a853f5b408b759f5d",
@@ -234,7 +234,7 @@ def stock_comment_detail_scrd_desire_em(
     :return: 市场热度-市场参与意愿
     :rtype: pandas.DataFrame
     """
-    url = f"https://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "callback": f"jQuery11230899775623921407_{int(time.time() * 1000)}",
         "filter": f'(SECURITY_CODE="{symbol}")',
@@ -245,40 +245,46 @@ def stock_comment_detail_scrd_desire_em(
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
         "pageSize": "30",
-        "_": int(time.time() * 1000)
+        "_": int(time.time() * 1000),
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/91.0.4472.124 Safari/537.36",
+        "Chrome/91.0.4472.124 Safari/537.36",
         "Referer": "https://data.eastmoney.com/",
         "Accept": "*/*",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     }
     r = requests.get(url, params=params, headers=headers)
     jsonp_data = r.text
-    json_str = re.search(r'\((.*)\)', jsonp_data).group(1)
+    json_str = re.search(r"\((.*)\)", jsonp_data).group(1)
     data_json = json.loads(json_str)
-    data_list = data_json['result']['data']
+    data_list = data_json["result"]["data"]
     temp_df = pd.DataFrame(data_list)
-    temp_df['TRADE_DATE'] = pd.to_datetime(temp_df['TRADE_DATE'], errors="coerce").dt.date
+    temp_df["TRADE_DATE"] = pd.to_datetime(
+        temp_df["TRADE_DATE"], errors="coerce"
+    ).dt.date
     column_mapping = {
-        'SECURITY_INNER_CODE': '内部代码',
-        'SECURITY_CODE': '股票代码',
-        'TRADE_DATE': '交易日期',
-        'PARTICIPATION_WISH': '参与意愿',
-        'PARTICIPATION_WISH_5DAYS': '5日平均参与意愿',
-        'PARTICIPATION_WISH_CHANGE': '参与意愿变化',
-        'PARTICIPATION_WISH_5DAYSCHANGE': '5日平均变化'
+        "SECURITY_INNER_CODE": "内部代码",
+        "SECURITY_CODE": "股票代码",
+        "TRADE_DATE": "交易日期",
+        "PARTICIPATION_WISH": "参与意愿",
+        "PARTICIPATION_WISH_5DAYS": "5日平均参与意愿",
+        "PARTICIPATION_WISH_CHANGE": "参与意愿变化",
+        "PARTICIPATION_WISH_5DAYSCHANGE": "5日平均变化",
     }
     temp_df = temp_df.rename(columns=column_mapping)
     column_order = [
-        '交易日期', '股票代码', '内部代码',
-        '参与意愿', '5日平均参与意愿',
-        '参与意愿变化', '5日平均变化'
+        "交易日期",
+        "股票代码",
+        "内部代码",
+        "参与意愿",
+        "5日平均参与意愿",
+        "参与意愿变化",
+        "5日平均变化",
     ]
     temp_df = temp_df[column_order]
-    del temp_df['内部代码']
-    temp_df.sort_values(by=['交易日期'], ignore_index=True, inplace=True)
+    del temp_df["内部代码"]
+    temp_df.sort_values(by=["交易日期"], ignore_index=True, inplace=True)
     return temp_df
 
 

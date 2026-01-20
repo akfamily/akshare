@@ -32,31 +32,33 @@ def fund_fh_em(year: str = "2025") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
+    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": str(page)})
         r = requests.get(url, params=params)
         data_text = r.text
         temp_list = eval(
-            data_text[data_text.find("[["): data_text.find(";var jjfh_jjgs")]
+            data_text[data_text.find("[[") : data_text.find(";var jjfh_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
-     # 处理空数据时报错的问题
+    # 处理空数据时报错的问题
     if big_df.empty:
-        big_df = big_df.reindex(columns=[
-            "序号",
-            "基金代码",
-            "基金简称",
-            "权益登记日",
-            "除息日期",
-            "分红",
-            "分红发放日",
-            "-",
-        ])
+        big_df = big_df.reindex(
+            columns=[
+                "序号",
+                "基金代码",
+                "基金简称",
+                "权益登记日",
+                "除息日期",
+                "分红",
+                "分红发放日",
+                "-",
+            ]
+        )
     big_df.columns = [
         "序号",
         "基金代码",
@@ -98,13 +100,13 @@ def fund_cf_em(year: str = "2025") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
+    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": str(page)})
         r = requests.get(url, params=params)
         data_text = r.text
-        temp_str = data_text[data_text.find("[["): data_text.find(";var jjcf_jjgs")]
+        temp_str = data_text[data_text.find("[[") : data_text.find(";var jjcf_jjgs")]
         if temp_str:
             temp_list = eval(temp_str)
             temp_df = pd.DataFrame(temp_list)
@@ -114,15 +116,17 @@ def fund_cf_em(year: str = "2025") -> pd.DataFrame:
     big_df.loc[:, "index"] = big_df["index"] + 1
     # 处理空数据时报错的问题
     if big_df.empty:
-        big_df = big_df.reindex(columns=[
-            "序号",
-            "基金代码",
-            "基金简称", 
-            "拆分折算日",
-            "拆分类型",
-            "拆分折算",
-            "-"
-        ])
+        big_df = big_df.reindex(
+            columns=[
+                "序号",
+                "基金代码",
+                "基金简称",
+                "拆分折算日",
+                "拆分类型",
+                "拆分折算",
+                "-",
+            ]
+        )
     big_df.columns = [
         "序号",
         "基金代码",
@@ -158,31 +162,33 @@ def fund_fh_rank_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
+    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": str(page)})
         r = requests.get(url, params=params)
         data_text = r.text
         temp_list = eval(
-            data_text[data_text.find("[["): data_text.find(";var fhph_jjgs")]
+            data_text[data_text.find("[[") : data_text.find(";var fhph_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
-     # 处理空数据时报错的问题
+    # 处理空数据时报错的问题
     if big_df.empty:
-        big_df = big_df.reindex(columns=[
-            "序号",
-            "基金代码",
-            "基金简称",
-            "累计分红",
-            "累计次数",
-            "成立日期",
-            "-",
-        ])
+        big_df = big_df.reindex(
+            columns=[
+                "序号",
+                "基金代码",
+                "基金简称",
+                "累计分红",
+                "累计次数",
+                "成立日期",
+                "-",
+            ]
+        )
     big_df.columns = [
         "序号",
         "基金代码",

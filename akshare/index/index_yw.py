@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/5/3 
+Date: 2025/5/3
 Desc: 义乌小商品指数
 目前可以通过这些接口直接请求到 JSON 数据
 周价格指数：https://apiserver.chinagoods.com/yiwuindex/v1/active/industry/class/history/piweek?gcCode=
@@ -25,6 +25,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     import urllib3
+
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if symbol == "月景气指数":
@@ -32,7 +33,15 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         r = requests.get(url, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df = temp_df[["indextimeno", "totalindex", "scopeindex", "benifitindex", "confidentindex"]]
+        temp_df = temp_df[
+            [
+                "indextimeno",
+                "totalindex",
+                "scopeindex",
+                "benifitindex",
+                "confidentindex",
+            ]
+        ]
         temp_df.columns = ["期数", "景气指数", "规模指数", "效益指数", "市场信心指数"]
         temp_df["期数"] = pd.to_datetime(temp_df["期数"], errors="coerce").dt.date
         temp_df["景气指数"] = pd.to_numeric(temp_df["景气指数"], errors="coerce")
@@ -44,10 +53,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         temp_df.sort_values(["期数"], inplace=True, ignore_index=True)
         return temp_df
     else:
-        symbol_map = {
-            "周价格指数": "piweek",
-            "月价格指数": "month"
-        }
+        symbol_map = {"周价格指数": "piweek", "月价格指数": "month"}
         url = f"https://apiserver.chinagoods.com/yiwuindex/v1/active/industry/class/history/{symbol_map[symbol]}?gcCode="
         r = requests.get(url, verify=False)
         data_json = r.json()
@@ -88,4 +94,3 @@ if __name__ == "__main__":
 
     index_yw_df = index_yw(symbol="月景气指数")
     print(index_yw_df)
-    

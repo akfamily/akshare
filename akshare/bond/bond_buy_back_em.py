@@ -34,9 +34,9 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data']['diff'])
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df['index'] + 1
+    temp_df["index"] = temp_df["index"] + 1
     temp_df.rename(
         columns={
             "index": "序号",
@@ -55,20 +55,22 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
         inplace=True,
     )
 
-    temp_df = temp_df[[
-        "序号",
-        "代码",
-        "名称",
-        "最新价",
-        "涨跌额",
-        "涨跌幅",
-        "今开",
-        "最高",
-        "最低",
-        "昨收",
-        "成交量",
-        "成交额",
-    ]]
+    temp_df = temp_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "今开",
+            "最高",
+            "最低",
+            "昨收",
+            "成交量",
+            "成交额",
+        ]
+    ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce") / 1000
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce") / 100
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce") / 1000
@@ -104,9 +106,9 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data']['diff'])
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df['index'] + 1
+    temp_df["index"] = temp_df["index"] + 1
     temp_df.rename(
         columns={
             "index": "序号",
@@ -125,20 +127,22 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
         inplace=True,
     )
 
-    temp_df = temp_df[[
-        "序号",
-        "代码",
-        "名称",
-        "最新价",
-        "涨跌额",
-        "涨跌幅",
-        "今开",
-        "最高",
-        "最低",
-        "昨收",
-        "成交量",
-        "成交额",
-    ]]
+    temp_df = temp_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "今开",
+            "最高",
+            "最低",
+            "昨收",
+            "成交量",
+            "成交额",
+        ]
+    ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce") / 1000
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce") / 100
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce") / 1000
@@ -174,28 +178,12 @@ def bond_buy_back_hist_em(symbol: str = "204001"):
         "iscca": "1",
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64",
-        "forcect": "1"
+        "forcect": "1",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']['klines']])
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
-            "日期",
-            "开盘",
-            "收盘",
-            "最高",
-            "最低",
-            "成交量",
-            "成交额",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-    ]
-    temp_df = temp_df[[
         "日期",
         "开盘",
         "收盘",
@@ -203,7 +191,25 @@ def bond_buy_back_hist_em(symbol: str = "204001"):
         "最低",
         "成交量",
         "成交额",
-    ]]
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "日期",
+            "开盘",
+            "收盘",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+        ]
+    ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")

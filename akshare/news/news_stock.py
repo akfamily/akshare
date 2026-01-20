@@ -36,14 +36,14 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
                 "pageIndex": 1,
                 "pageSize": 10,
                 "preTag": "<em>",
-                "postTag": "</em>"
+                "postTag": "</em>",
             }
-        }
+        },
     }
     params = {
         "cb": "jQuery35101792940631092459_1764599530165",
         "param": json.dumps(inner_param, ensure_ascii=False),  # 保留中文,
-        "_": "1764599530176"
+        "_": "1764599530176",
     }
     headers = {
         "accept": "*/*",
@@ -55,13 +55,13 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
         "host": "search-api-web.eastmoney.com",
         "pragma": "no-cache",
         "referer": "https://so.eastmoney.com/news/s?keyword=603777",
-        "sec-ch-ua": "\"Chromium\";v=\"142\", \"Google Chrome\";v=\"142\", \"Not_A Brand\";v=\"99\"",
+        "sec-ch-ua": '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
         "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-ch-ua-platform": '"Windows"',
         "sec-fetch-dest": "script",
         "sec-fetch-mode": "no-cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text

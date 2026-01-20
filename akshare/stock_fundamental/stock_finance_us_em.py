@@ -88,7 +88,11 @@ def __stock_financial_us_report_em(
     if indicator == "年报":
         tuple_data = tuple(item.strip() for item in temp_tuple if "FY" in item)
     elif indicator == "单季报":
-        tuple_data = tuple(item.strip() for item in temp_tuple if any(q in item for q in ["Q1", "Q2", "Q3", "Q4"]))
+        tuple_data = tuple(
+            item.strip()
+            for item in temp_tuple
+            if any(q in item for q in ["Q1", "Q2", "Q3", "Q4"])
+        )
     elif indicator == "累计季报":
         tuple_data = tuple(
             item.strip() for item in temp_tuple if "Q6" in item or "Q9" in item
@@ -179,13 +183,15 @@ def stock_financial_us_analysis_indicator_em(
     }
     if "_" in symbol:
         params["reportName"] = "RPT_USF10_FN_IMAININDICATOR"
-        params["columns"] = ("ORG_CODE,SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,SECURITY_INNER_CODE,"
-                             "STD_REPORT_DATE,REPORT_DATE,DATE_TYPE,DATE_TYPE_CODE,REPORT_TYPE,REPORT_DATA_TYPE,"
-                             "FISCAL_YEAR,START_DATE,NOTICE_DATE,ACCOUNT_STANDARD,ACCOUNT_STANDARD_NAME,CURRENCY,"
-                             "CURRENCY_NAME,ORGTYPE,TOTAL_INCOME,TOTAL_INCOME_YOY,PREMIUM_INCOME,PREMIUM_INCOME_YOY,"
-                             "PARENT_HOLDER_NETPROFIT,PARENT_HOLDER_NETPROFIT_YOY,BASIC_EPS_CS,BASIC_EPS_CS_YOY,"
-                             "DILUTED_EPS_CS,PAYOUT_RATIO,CAPITIAL_RATIO,ROE,ROE_YOY,ROA,ROA_YOY,DEBT_RATIO,"
-                             "DEBT_RATIO_YOY,EQUITY_RATIO")
+        params["columns"] = (
+            "ORG_CODE,SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,SECURITY_INNER_CODE,"
+            "STD_REPORT_DATE,REPORT_DATE,DATE_TYPE,DATE_TYPE_CODE,REPORT_TYPE,REPORT_DATA_TYPE,"
+            "FISCAL_YEAR,START_DATE,NOTICE_DATE,ACCOUNT_STANDARD,ACCOUNT_STANDARD_NAME,CURRENCY,"
+            "CURRENCY_NAME,ORGTYPE,TOTAL_INCOME,TOTAL_INCOME_YOY,PREMIUM_INCOME,PREMIUM_INCOME_YOY,"
+            "PARENT_HOLDER_NETPROFIT,PARENT_HOLDER_NETPROFIT_YOY,BASIC_EPS_CS,BASIC_EPS_CS_YOY,"
+            "DILUTED_EPS_CS,PAYOUT_RATIO,CAPITIAL_RATIO,ROE,ROE_YOY,ROA,ROA_YOY,DEBT_RATIO,"
+            "DEBT_RATIO_YOY,EQUITY_RATIO"
+        )
     if indicator == "年报":
         params.update({"filter": f"""(SECUCODE="{symbol}")(DATE_TYPE_CODE="001")"""})
     elif indicator == "单季报":

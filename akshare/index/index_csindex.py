@@ -5,6 +5,7 @@ Date: 2025/8/4 14:00
 Desc: 中证指数网站-指数列表
 网站：https://www.csindex.com.cn/#/indices/family/list?index_series=1
 """
+
 import warnings
 from io import BytesIO
 
@@ -20,23 +21,17 @@ def index_csindex_all() -> pd.DataFrame:
     :return: 最新指数的列表,
     :rtype: pandas.DataFrame
     """
-    warnings.filterwarnings("ignore", category=UserWarning, message="Workbook contains no default style")
-    url = (
-        f"https://www.csindex.com.cn/csindex-home/exportExcel/indexAll/CH"
+    warnings.filterwarnings(
+        "ignore", category=UserWarning, message="Workbook contains no default style"
     )
+    url = "https://www.csindex.com.cn/csindex-home/exportExcel/indexAll/CH"
 
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
     }
     playloads = {
-        "sorter": {
-            "sortField": "null",
-            "sortOrder": None
-        },
-        "pager": {
-            "pageNum": 1,
-            "pageSize": 10
-        },
+        "sorter": {"sortField": "null", "sortOrder": None},
+        "pager": {"pageNum": 1, "pageSize": 10},
         "indexFilter": {
             "ifCustomized": None,
             "ifTracked": None,
@@ -47,8 +42,8 @@ def index_csindex_all() -> pd.DataFrame:
             "currency": None,
             "region": None,
             "indexSeries": ["1"],
-            "undefined": None
-        }
+            "undefined": None,
+        },
     }
     r = requests.post(url, json=playloads, headers=headers)
 

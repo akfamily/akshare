@@ -36,11 +36,11 @@ def stock_ipo_review_em() -> pd.DataFrame:
 
     def parse_jsonp(text: str):
         """安全解析 JSONP 响应"""
-        start = text.find('{')
-        end = text.rfind('}')
+        start = text.find("{")
+        end = text.rfind("}")
         if start == -1 or end == -1 or end <= start:
             raise ValueError(f"无法找到 JSON 对象: {text[:200]}...")
-        json_str = text[start:end + 1]
+        json_str = text[start : end + 1]
         return json.loads(json_str)
 
     # 首次请求获取总页数
@@ -70,36 +70,41 @@ def stock_ipo_review_em() -> pd.DataFrame:
     big_df.reset_index(drop=True, inplace=True)
     big_df.insert(0, "序号", big_df.index + 1)
 
-    big_df.rename(columns={
-        "ORG_NAME": "企业名称",
-        "SECURITY_NAME_ABBR": "股票简称",
-        "SECURITY_CODE": "股票代码",
-        "TRADE_MARKET": "上市板块",
-        "REVIEW_DATE": "上会日期",
-        "REVIEW_STATE": "审核状态",
-        "REVIEW_MEMBER": "发审委委员",
-        "LEAD_UNDERWRITER": "主承销商",
-        "ISSUE_NUM": "发行数量(股)",
-        "FINANCE_AMT_UPPER": "拟融资额(元)",
-        "NOTICE_DATE": "公告日期",
-        "LISTING_DATE": "上市日期",
-    }, inplace=True)
+    big_df.rename(
+        columns={
+            "ORG_NAME": "企业名称",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "SECURITY_CODE": "股票代码",
+            "TRADE_MARKET": "上市板块",
+            "REVIEW_DATE": "上会日期",
+            "REVIEW_STATE": "审核状态",
+            "REVIEW_MEMBER": "发审委委员",
+            "LEAD_UNDERWRITER": "主承销商",
+            "ISSUE_NUM": "发行数量(股)",
+            "FINANCE_AMT_UPPER": "拟融资额(元)",
+            "NOTICE_DATE": "公告日期",
+            "LISTING_DATE": "上市日期",
+        },
+        inplace=True,
+    )
 
-    big_df = big_df[[
-        "序号",
-        "企业名称",
-        "股票简称",
-        "股票代码",
-        "上市板块",
-        "上会日期",
-        "审核状态",
-        "发审委委员",
-        "主承销商",
-        "发行数量(股)",
-        "拟融资额(元)",
-        "公告日期",
-        "上市日期",
-    ]]
+    big_df = big_df[
+        [
+            "序号",
+            "企业名称",
+            "股票简称",
+            "股票代码",
+            "上市板块",
+            "上会日期",
+            "审核状态",
+            "发审委委员",
+            "主承销商",
+            "发行数量(股)",
+            "拟融资额(元)",
+            "公告日期",
+            "上市日期",
+        ]
+    ]
 
     # 日期处理
     date_cols = ["上会日期", "公告日期", "上市日期"]

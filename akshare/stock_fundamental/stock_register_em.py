@@ -28,7 +28,7 @@ def stock_register_all_em() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
     }
@@ -101,7 +101,7 @@ def stock_register_kcb() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="科创板")',
@@ -175,7 +175,7 @@ def stock_register_cyb() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="创业板")',
@@ -249,7 +249,7 @@ def stock_register_bj() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="北交所")',
@@ -323,7 +323,7 @@ def stock_register_sh() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="沪主板")',
@@ -397,7 +397,7 @@ def stock_register_sz() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_INFOALLNEW",
         "columns": "SECURITY_CODE,STATE,REG_ADDRESS,INFO_CODE,CSRC_INDUSTRY,ACCEPT_DATE,DECLARE_ORG,"
-                   "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
+        "PREDICT_LISTING_MARKET,LAW_FIRM,ACCOUNT_FIRM,ORG_CODE,UPDATE_DATE,RECOMMEND_ORG,IS_REGISTRATION",
         "source": "WEB",
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="深主板")',

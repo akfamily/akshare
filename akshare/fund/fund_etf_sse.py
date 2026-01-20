@@ -19,7 +19,7 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
     :return: ETF基金份额数据
     :rtype: pandas.DataFrame
     """
-    data_str = '-'.join([date[:4], date[4:6], date[6:]])
+    data_str = "-".join([date[:4], date[4:6], date[6:]])
     url = "https://query.sse.com.cn/commonQuery.do"
     params = {
         "isPagination": "true",
@@ -34,7 +34,7 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/88.0.4324.150 Safari/537.36",
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

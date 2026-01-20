@@ -6,12 +6,8 @@ Desc: 东方财富网-行情中心-沪深港通
 https://quote.eastmoney.com/center/gridlist.html#ah_comparison
 """
 
-import math
-
 import pandas as pd
-import requests
 
-from akshare.utils.tqdm import get_tqdm
 from akshare.utils.func import fetch_paginated_data
 
 

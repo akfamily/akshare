@@ -11,8 +11,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.utils.tqdm import get_tqdm
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
@@ -270,11 +270,11 @@ def stock_hsgt_hold_stock_em(
         "_",
         "_",
         "_",
-        f'{indicator.split("排")[0]}增持估计-市值',
-        f'{indicator.split("排")[0]}增持估计-股数',
-        f'{indicator.split("排")[0]}增持估计-市值增幅',
-        f'{indicator.split("排")[0]}增持估计-占流通股比',
-        f'{indicator.split("排")[0]}增持估计-占总股本比',
+        f"{indicator.split('排')[0]}增持估计-市值",
+        f"{indicator.split('排')[0]}增持估计-股数",
+        f"{indicator.split('排')[0]}增持估计-市值增幅",
+        f"{indicator.split('排')[0]}增持估计-占流通股比",
+        f"{indicator.split('排')[0]}增持估计-占总股本比",
         "_",
         "_",
         "_",
@@ -295,11 +295,11 @@ def stock_hsgt_hold_stock_em(
             "今日持股-市值",
             "今日持股-占流通股比",
             "今日持股-占总股本比",
-            f'{indicator.split("排")[0]}增持估计-股数',
-            f'{indicator.split("排")[0]}增持估计-市值',
-            f'{indicator.split("排")[0]}增持估计-市值增幅',
-            f'{indicator.split("排")[0]}增持估计-占流通股比',
-            f'{indicator.split("排")[0]}增持估计-占总股本比',
+            f"{indicator.split('排')[0]}增持估计-股数",
+            f"{indicator.split('排')[0]}增持估计-市值",
+            f"{indicator.split('排')[0]}增持估计-市值增幅",
+            f"{indicator.split('排')[0]}增持估计-占流通股比",
+            f"{indicator.split('排')[0]}增持估计-占总股本比",
             "所属板块",
             "日期",
         ]
@@ -314,20 +314,20 @@ def stock_hsgt_hold_stock_em(
     big_df["今日持股-占总股本比"] = pd.to_numeric(
         big_df["今日持股-占总股本比"], errors="coerce"
     )
-    big_df[f'{indicator.split("排")[0]}增持估计-股数'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-股数'], errors="coerce"
+    big_df[f"{indicator.split('排')[0]}增持估计-股数"] = pd.to_numeric(
+        big_df[f"{indicator.split('排')[0]}增持估计-股数"], errors="coerce"
     )
-    big_df[f'{indicator.split("排")[0]}增持估计-市值'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-市值'], errors="coerce"
+    big_df[f"{indicator.split('排')[0]}增持估计-市值"] = pd.to_numeric(
+        big_df[f"{indicator.split('排')[0]}增持估计-市值"], errors="coerce"
     )
-    big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'], errors="coerce"
+    big_df[f"{indicator.split('排')[0]}增持估计-市值增幅"] = pd.to_numeric(
+        big_df[f"{indicator.split('排')[0]}增持估计-市值增幅"], errors="coerce"
     )
-    big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'], errors="coerce"
+    big_df[f"{indicator.split('排')[0]}增持估计-占流通股比"] = pd.to_numeric(
+        big_df[f"{indicator.split('排')[0]}增持估计-占流通股比"], errors="coerce"
     )
-    big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'], errors="coerce"
+    big_df[f"{indicator.split('排')[0]}增持估计-占总股本比"] = pd.to_numeric(
+        big_df[f"{indicator.split('排')[0]}增持估计-占总股本比"], errors="coerce"
     )
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     return big_df
@@ -1500,12 +1500,8 @@ def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
     temp_df["持股数量占A股百分比"] = pd.to_numeric(
         temp_df["持股数量占A股百分比"], errors="coerce"
     )
-    temp_df["今日增持股数"] = pd.to_numeric(
-        temp_df["今日增持股数"], errors="coerce"
-    )
-    temp_df["今日增持资金"] = pd.to_numeric(
-        temp_df["今日增持资金"], errors="coerce"
-    )
+    temp_df["今日增持股数"] = pd.to_numeric(temp_df["今日增持股数"], errors="coerce")
+    temp_df["今日增持资金"] = pd.to_numeric(temp_df["今日增持资金"], errors="coerce")
     temp_df["今日持股市值变化"] = pd.to_numeric(
         temp_df["今日持股市值变化"], errors="coerce"
     )
@@ -1556,8 +1552,8 @@ def stock_hsgt_individual_detail_em(
         "source": "WEB",
         "client": "WEB",
         "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="003")(HOLD_DATE
-        >='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
-        <='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        >='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
+        <='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1567,8 +1563,8 @@ def stock_hsgt_individual_detail_em(
         params.update(
             {
                 "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="001")(HOLD_DATE
-                >='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
-                <='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+                >='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
+                <='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
             }
         )
         r = requests.get(url, params=params)

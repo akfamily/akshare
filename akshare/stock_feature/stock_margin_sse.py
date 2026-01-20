@@ -94,7 +94,7 @@ def stock_margin_sse(
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/88.0.4324.150 Safari/537.36",
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -161,7 +161,7 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
     headers = {
         "Referer": "https://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/88.0.4324.150 Safari/537.36",
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

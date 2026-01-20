@@ -308,7 +308,9 @@ SYS_SPOT_PRICE_URL = "http://www.100ppi.com/sf/day-{}.html"
 SYS_SPOT_PRICE_LATEST_URL = "http://www.100ppi.com/sf/"
 
 SHFE_VOL_RANK_URL = "https://tsite.shfe.com.cn/data/dailydata/kx/pm%s.dat"
-SHFE_VOL_RANK_URL_20250701 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/pm%s.dat"
+SHFE_VOL_RANK_URL_20250701 = (
+    "https://www.shfe.com.cn/data/tradedata/future/dailydata/pm%s.dat"
+)
 CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/sj/ccpm/%s/%s/%s_1.csv"
 DCE_VOL_RANK_URL_1 = (
     "http://portal.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?"
@@ -330,7 +332,9 @@ DCE_RECEIPT_URL = "http://portal.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuot
 
 SHFE_RECEIPT_URL_1 = "http://tsite.shfe.com.cn/data/dailydata/%sdailystock.html"
 SHFE_RECEIPT_URL_2 = "http://tsite.shfe.com.cn/data/dailydata/%sdailystock.dat"
-SHFE_RECEIPT_URL_20250701 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/%sdailystock.dat"
+SHFE_RECEIPT_URL_20250701 = (
+    "https://www.shfe.com.cn/data/tradedata/future/dailydata/%sdailystock.dat"
+)
 CZCE_RECEIPT_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html"
 CZCE_RECEIPT_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datawhsheet/%s.htm"
 CZCE_RECEIPT_URL_3 = (
@@ -339,7 +343,9 @@ CZCE_RECEIPT_URL_3 = (
 
 CFFEX_DAILY_URL = "http://www.cffex.com.cn/fzjy/mrhq/{}/{}/{}_1.csv"
 SHFE_DAILY_URL = "http://tsite.shfe.com.cn/data/dailydata/kx/kx%s.dat"
-SHFE_DAILY_URL_20250630 = "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx%s.dat"
+SHFE_DAILY_URL_20250630 = (
+    "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx%s.dat"
+)
 SHFE_V_WAP_URL = "http://tsite.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat"
 DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"

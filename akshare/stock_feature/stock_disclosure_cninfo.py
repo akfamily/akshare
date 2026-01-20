@@ -136,8 +136,8 @@ def stock_zh_a_disclosure_report_cninfo(
         "secid": "",
         "category": category_item,
         "trade": "",
-        "seDate": f'{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}~'
-        f'{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}',
+        "seDate": f"{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}~"
+        f"{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}",
         "sortName": "",
         "sortType": "",
         "isHLtitle": "true",
@@ -231,8 +231,8 @@ def stock_zh_a_disclosure_relation_cninfo(
         "secid": "",
         "category": "",
         "trade": "",
-        "seDate": f'{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}~'
-        f'{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}',
+        "seDate": f"{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}~"
+        f"{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}",
         "sortName": "",
         "sortType": "",
         "isHLtitle": "true",
