@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.15 fix: fix fund_etf_scale_sse and fund_etf_scale_szse interface
+
+	1. 修复 fund_etf_scale_sse 接口-基金份额字段数据解析错误，统一使用"份"作为单位
+	2. 修复 fund_etf_scale_szse 接口-基金份额字段数据解析错误，统一使用"份"作为单位
+
 1.18.14 add: add fund_etf_scale_sse and fund_etf_scale_szse interface
 
 	1. 新增 fund_etf_scale_sse 接口-上海证券交易所 ETF 基金份额数据
