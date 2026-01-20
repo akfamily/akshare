@@ -3220,6 +3220,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.12 fix: fix news_economic_baidu interface
 1.18.13 fix: fix futures_spot_price_daily interface
 1.18.14 fix: fix fund_etf_scale_szse interface
+1.18.15 fix: fix fund_etf_scale_sse interface
 """
 
 __version__ = "1.18.15"

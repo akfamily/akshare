@@ -6090,6 +6090,8 @@
 
 ## 版本更新说明
 
+1.18.15 fix: fix fund_etf_scale_sse and fund_etf_scale_szse interface
+
 1.18.14 add: add fund_etf_scale_sse and fund_etf_scale_szse interface
 
 1.18.13 fix: fix futures_spot_price_daily interface
