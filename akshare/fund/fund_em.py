@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/12/14 15:00
+Date: 2026/1/20 17:00
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表:
@@ -189,7 +189,7 @@ def fund_info_index_em(
         "Proxy-Connection": "keep-alive",
         "Referer": "https://fund.eastmoney.com/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/103.0.0.0 Safari/537.36",
+                      "Chrome/103.0.0.0 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -411,6 +411,60 @@ def fund_open_fund_info_em(
         temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"], errors="coerce")
         return temp_df
 
+    # 每万份收益
+    if indicator == "每万份收益":
+        data_json = js_code.execute("Data_millionCopiesIncome")
+        temp_df = pd.DataFrame(data_json)
+        if temp_df.empty:
+            return pd.DataFrame()
+        temp_df.columns = ["x", "y"]
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
+            "Asia/Shanghai"
+        )
+        temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            "净值日期",
+            "每万份收益",
+        ]
+        temp_df = temp_df[
+            [
+                "净值日期",
+                "每万份收益",
+            ]
+        ]
+        temp_df["净值日期"] = pd.to_datetime(
+            temp_df["净值日期"], errors="coerce"
+        ).dt.date
+        temp_df["每万份收益"] = pd.to_numeric(temp_df["每万份收益"], errors="coerce")
+        return temp_df
+
+    # 7日年化收益率    
+    if indicator == "7日年化收益率":
+        data_json = js_code.execute("Data_sevenDaysYearIncome")
+        temp_df = pd.DataFrame(data_json)
+        if temp_df.empty:
+            return pd.DataFrame()
+        temp_df.columns = ["x", "y"]
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
+            "Asia/Shanghai"
+        )
+        temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            "净值日期",
+            "7日年化收益率",
+        ]
+        temp_df = temp_df[
+            [
+                "净值日期",
+                "7日年化收益率",
+            ]
+        ]
+        temp_df["净值日期"] = pd.to_datetime(
+            temp_df["净值日期"], errors="coerce"
+        ).dt.date
+        temp_df["7日年化收益率"] = pd.to_numeric(temp_df["7日年化收益率"], errors="coerce")
+        return temp_df
+
     # 累计收益率走势
     if indicator == "累计收益率走势":
         url = "https://api.fund.eastmoney.com/pinzhong/LJSYLZS"
@@ -575,7 +629,7 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
         "Host": "api.fund.eastmoney.com",
     }
@@ -633,7 +687,7 @@ def fund_financial_fund_daily_em() -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/FundNetValue/GetLCJJJZ"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/lcjj.html",
     }
     params = {
@@ -707,7 +761,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
@@ -721,7 +775,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    data_json = demjson.decode(text_data[text_data.find("{"): -1])
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
@@ -767,7 +821,7 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
     url = "https://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fjjj.html",
     }
     params = {
@@ -838,7 +892,7 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
@@ -940,7 +994,7 @@ def fund_etf_fund_info_em(
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
+                      "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
     }
     params = {
@@ -1012,7 +1066,7 @@ def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/FundGuZhi/GetFundGZList"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/81.0.4044.138 Safari/537.36",
+                      "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/",
     }
     params = {

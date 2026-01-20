@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/1/19 15:00
+Date: 2026/1/20 15:00
 Desc: 上海证券交易所-ETF基金份额数据
 https://www.sse.com.cn/assortment/fund/etf/list/scale/
 """
@@ -62,7 +62,7 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
     ]
     temp_df["序号"] = pd.to_numeric(temp_df["序号"], errors="coerce")
     temp_df["统计日期"] = pd.to_datetime(temp_df["统计日期"], errors="coerce").dt.date
-    temp_df["基金份额"] = pd.to_numeric(temp_df["基金份额"], errors="coerce")
+    temp_df["基金份额"] = pd.to_numeric(temp_df["基金份额"], errors="coerce") * 10000
     return temp_df
 
 
