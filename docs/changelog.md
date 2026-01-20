@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.16 fix: fix news_economic_baidu interface
+
+	1. 修复 news_economic_baidu 接口
+
 1.18.15 fix: fix fund_etf_scale_sse and fund_etf_scale_szse interface
 
 	1. 修复 fund_etf_scale_sse 接口-基金份额字段数据解析错误，统一使用"份"作为单位
@@ -6089,6 +6093,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.16 fix: fix news_economic_baidu interface
 
 1.18.15 fix: fix fund_etf_scale_sse and fund_etf_scale_szse interface
 
