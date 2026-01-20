@@ -39,7 +39,6 @@ setuptools.setup(
     url="https://github.com/akfamily/akshare",
     packages=setuptools.find_packages(),
     install_requires=[
-        "aiohttp>=3.11.13",
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
         "pandas>=0.25",
@@ -53,7 +52,6 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "nest_asyncio>=1.6.0",
         "mini-racer>=0.12.4;platform_system!='Linux'",
         "py-mini-racer>=0.6.0;platform_system=='Linux'",
         "akracer>=0.0.13;platform_system=='Linux'",
