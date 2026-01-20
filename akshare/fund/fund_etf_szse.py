@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/1/19 15:00
+Date: 2026/1/20 15:00
 Desc: 深圳证券交易所-ETF基金份额数据
 https://fund.szse.cn/marketdata/fundslist/index.html
 """
@@ -56,6 +56,11 @@ def fund_etf_scale_szse() -> pd.DataFrame:
         ]
     ]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
+    temp_df["基金份额"] = (
+        temp_df["基金份额"]
+        .astype(str)
+        .str.replace(",", "", regex=False)
+    )
     temp_df["基金份额"] = pd.to_numeric(temp_df["基金份额"], errors="coerce")
     temp_df["净值"] = pd.to_numeric(temp_df["净值"], errors="coerce")
     return temp_df
