@@ -34,7 +34,7 @@ def option_current_day_sse() -> pd.DataFrame:
         "Pragma": "no-cache",
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/101.0.4951.67 Safari/537.36",
+        "Chrome/101.0.4951.67 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

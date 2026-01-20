@@ -98,7 +98,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df["铁杆粉丝"] = (
         pd.DataFrame(data_json["data"])["oldUidRate"].str.strip("%").astype(float) / 100
     )
-    temp_df.sort_values(['时间'], inplace=True)
+    temp_df.sort_values(["时间"], inplace=True)
     return temp_df
 
 

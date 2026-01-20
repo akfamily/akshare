@@ -32,7 +32,7 @@ def stock_yjkb_em(date: str = "20211231") -> pd.DataFrame:
         "reportName": "RPT_FCI_PERFORMANCEE",
         "columns": "ALL",
         "filter": f"""(SECURITY_TYPE_CODE in ("058001001","058001008"))(TRADE_MARKET_CODE!="069001017")
-        (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+        (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -240,21 +240,21 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
         "reportName": "RPT_PUBLIC_BS_APPOIN",
         "columns": "ALL",
         "filter": f"""(SECURITY_TYPE_CODE in ("058001001","058001008"))(TRADE_MARKET_CODE!="069001017")
-        (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+        (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
     if symbol == "沪市A股":
         params.update(
             {
                 "filter": f"""(SECURITY_TYPE_CODE in ("058001001","058001008"))
                 (TRADE_MARKET_CODE in ("069001001001","069001001003","069001001006"))
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     elif symbol == "科创板":
         params.update(
             {
                 "filter": f"""(SECURITY_TYPE_CODE in ("058001001","058001008"))(TRADE_MARKET_CODE="069001001006")
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     elif symbol == "深市A股":
@@ -262,28 +262,28 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
             {
                 "filter": f"""(SECURITY_TYPE_CODE="058001001")(TRADE_MARKET_CODE in
                 ("069001002001","069001002002","069001002003","069001002005"))
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     elif symbol == "创业板":
         params.update(
             {
                 "filter": f"""(SECURITY_TYPE_CODE="058001001")(TRADE_MARKET_CODE="069001002002")
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     elif symbol == "京市A股":
         params.update(
             {
                 "filter": f"""(TRADE_MARKET_CODE="069001017")
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     elif symbol == "ST板":
         params.update(
             {
                 "filter": f"""(TRADE_MARKET_CODE in("069001001003","069001002005"))
-                (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"""
+                (REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')"""
             }
         )
     r = requests.get(url, params=params)

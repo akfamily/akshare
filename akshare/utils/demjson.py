@@ -4095,7 +4095,7 @@ class JSON(object):
             c = buf.peek()
             if c and c in "-+0123456789.":  # First chars for a number-like value
                 buf.save_position()
-                nbr = buf.pop_while_in("-+0123456789abcdefABCDEF" "NaN" "Infinity.")
+                nbr = buf.pop_while_in("-+0123456789abcdefABCDEFNaNInfinity.")
                 if "." in nbr and self.has_hook("decode_float"):
                     hook_name = "decode_float"
                 elif self.has_hook("decode_number"):

@@ -28,8 +28,8 @@ def stock_ipo_declare_em() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_DECORGNEWEST",
         "columns": "DECLARE_ORG,STATE,REG_ADDRESS,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,IS_SUBMIT,"
-                   "PREDICT_LISTING_MARKET,END_DATE,INFO_CODE,SECURITY_CODE,ORG_CODE,IS_REGISTER,"
-                   "STATE_CODE,DERIVE_SECURITY_CODE,ORG_CODE_OLD,IS_STATE",
+        "PREDICT_LISTING_MARKET,END_DATE,INFO_CODE,SECURITY_CODE,ORG_CODE,IS_REGISTER,"
+        "STATE_CODE,DERIVE_SECURITY_CODE,ORG_CODE_OLD,IS_STATE",
         "source": "WEB",
         "client": "WEB",
     }
@@ -87,7 +87,9 @@ def stock_ipo_declare_em() -> pd.DataFrame:
     ]
 
     # 日期处理
-    big_df["更新日期"] = pd.to_datetime(big_df["更新日期"], errors="coerce", utc=True).dt.date
+    big_df["更新日期"] = pd.to_datetime(
+        big_df["更新日期"], errors="coerce", utc=True
+    ).dt.date
     return big_df
 
 

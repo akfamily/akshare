@@ -33,7 +33,7 @@ def stock_jgdy_tj_em(date: str = "20220101") -> pd.DataFrame:
         "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE,f3~01~SECURITY_CODE~CHANGE_RATE",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(NUMBERNEW="1")(IS_SOURCE="1")(NOTICE_DATE>'{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+        "filter": f"""(NUMBERNEW="1")(IS_SOURCE="1")(NOTICE_DATE>'{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -127,7 +127,7 @@ def stock_jgdy_detail_em(date: str = "20241211") -> pd.DataFrame:
         "quoteType": "0",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(IS_SOURCE="1")(RECEIVE_START_DATE>'{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+        "filter": f"""(IS_SOURCE="1")(RECEIVE_START_DATE>'{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()

@@ -26,7 +26,7 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
         "invt": "1",
         "fs": "m:153",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
-                  "f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        "f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "fid": "f3",
         "pn": "1",
         "pz": "100",
@@ -37,7 +37,8 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     import math
-    total_page = math.ceil(data_json['data']["total"] / 100)
+
+    total_page = math.ceil(data_json["data"]["total"] / 100)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):

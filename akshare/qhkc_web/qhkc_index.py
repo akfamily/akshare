@@ -204,5 +204,7 @@ if __name__ == "__main__":
     get_qhkc_index_trend_df = get_qhkc_index_trend("奇货贵金属")
     print(get_qhkc_index_trend_df)
 
-    get_qhkc_index_profit_loss_df = get_qhkc_index_profit_loss("奇货贵金属", end_date="20250410")
+    get_qhkc_index_profit_loss_df = get_qhkc_index_profit_loss(
+        "奇货贵金属", end_date="20250410"
+    )
     print(get_qhkc_index_profit_loss_df)

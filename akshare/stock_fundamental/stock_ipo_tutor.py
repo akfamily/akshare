@@ -30,7 +30,7 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_IPO_TUTRECORD",
         "columns": "TUTOR_OBJECT,ORG_CODE,TUTOR_ORG_CODE,TUTOR_ORG,TUTOR_PROCESS_STATE,REPORT_TYPE,"
-                   "DISPATCH_ORG,REPORT_TITLE,RECORD_DATE",
+        "DISPATCH_ORG,REPORT_TITLE,RECORD_DATE",
         "source": "WEB",
         "client": "WEB",
     }
@@ -38,11 +38,11 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
     def parse_jsonp(text: str):
         """安全解析 JSONP 响应"""
         # 找到第一个 { 和最后一个 } 之间的内容
-        start = text.find('{')
-        end = text.rfind('}')
+        start = text.find("{")
+        end = text.rfind("}")
         if start == -1 or end == -1 or end <= start:
             raise ValueError(f"无法找到 JSON 对象: {text[:100]}...")
-        json_str = text[start:end + 1]
+        json_str = text[start : end + 1]
         return json.loads(json_str)
 
     # 首次请求获取总页数
@@ -72,26 +72,31 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
     big_df.reset_index(drop=True, inplace=True)
     big_df.insert(0, "序号", big_df.index + 1)
 
-    big_df.rename(columns={
-        "TUTOR_OBJECT": "企业名称",
-        "TUTOR_ORG": "辅导机构",
-        "TUTOR_PROCESS_STATE": "辅导状态",
-        "REPORT_TYPE": "报告类型",
-        "DISPATCH_ORG": "派出机构",
-        "REPORT_TITLE": "报告标题",
-        "RECORD_DATE": "备案日期",
-    }, inplace=True)
+    big_df.rename(
+        columns={
+            "TUTOR_OBJECT": "企业名称",
+            "TUTOR_ORG": "辅导机构",
+            "TUTOR_PROCESS_STATE": "辅导状态",
+            "REPORT_TYPE": "报告类型",
+            "DISPATCH_ORG": "派出机构",
+            "REPORT_TITLE": "报告标题",
+            "RECORD_DATE": "备案日期",
+        },
+        inplace=True,
+    )
 
-    big_df = big_df[[
-        "序号",
-        "企业名称",
-        "辅导机构",
-        "辅导状态",
-        "报告类型",
-        "派出机构",
-        "报告标题",
-        "备案日期",
-    ]]
+    big_df = big_df[
+        [
+            "序号",
+            "企业名称",
+            "辅导机构",
+            "辅导状态",
+            "报告类型",
+            "派出机构",
+            "报告标题",
+            "备案日期",
+        ]
+    ]
 
     big_df["备案日期"] = pd.to_datetime(big_df["备案日期"], errors="coerce").dt.date
 

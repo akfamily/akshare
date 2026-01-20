@@ -61,7 +61,7 @@ def option_hist_dce(
         "鸡蛋期权": "jd",
         "玉米淀粉期权": "cs",
         "生猪期权": "lh",
-        "原木期权": "lg"
+        "原木期权": "lg",
     }
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
@@ -83,62 +83,66 @@ def option_hist_dce(
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(
         columns={
-            'variety': '品种名称',
-            'contractId': '合约',
-            'open': '开盘价',
-            'high': '最高价',
-            'low': '最低价',
-            'close': '收盘价',
-            'lastClear': '前结算价',
-            'clearPrice': '结算价',
-            'diff': '涨跌',
-            'diff1': '涨跌1',
-            'delta': 'Delta',
-            'volumn': '成交量',  # 注意：你写的是“volumn”，可能是拼写错误，应为“volume”
-            'openInterest': '持仓量',
-            'diffI': '持仓量变化',
-            'turnover': '成交额',
-            'matchQtySum': '行权量',
-            'impliedVolatility': '隐含波动率(%)',
-        }, inplace=True
+            "variety": "品种名称",
+            "contractId": "合约",
+            "open": "开盘价",
+            "high": "最高价",
+            "low": "最低价",
+            "close": "收盘价",
+            "lastClear": "前结算价",
+            "clearPrice": "结算价",
+            "diff": "涨跌",
+            "diff1": "涨跌1",
+            "delta": "Delta",
+            "volumn": "成交量",  # 注意：你写的是“volumn”，可能是拼写错误，应为“volume”
+            "openInterest": "持仓量",
+            "diffI": "持仓量变化",
+            "turnover": "成交额",
+            "matchQtySum": "行权量",
+            "impliedVolatility": "隐含波动率(%)",
+        },
+        inplace=True,
     )
-    temp_df = temp_df[[
-        '品种名称',
-        '合约',
-        '开盘价',
-        '最高价',
-        '最低价',
-        '收盘价',
-        '前结算价',
-        '结算价',
-        '涨跌',
-        '涨跌1',
-        'Delta',
-        '隐含波动率(%)',
-        '成交量',
-        '持仓量',
-        '持仓量变化',
-        '成交额',
-        '行权量'
-    ]]
-    comma_cols = ['开盘价',
-                  '最高价',
-                  '最低价',
-                  '收盘价',
-                  '前结算价',
-                  '结算价',
-                  '涨跌',
-                  '涨跌1',
-                  'Delta',
-                  '隐含波动率(%)',
-                  '成交额',
-                  ]  # 需要处理的列
+    temp_df = temp_df[
+        [
+            "品种名称",
+            "合约",
+            "开盘价",
+            "最高价",
+            "最低价",
+            "收盘价",
+            "前结算价",
+            "结算价",
+            "涨跌",
+            "涨跌1",
+            "Delta",
+            "隐含波动率(%)",
+            "成交量",
+            "持仓量",
+            "持仓量变化",
+            "成交额",
+            "行权量",
+        ]
+    ]
+    comma_cols = [
+        "开盘价",
+        "最高价",
+        "最低价",
+        "收盘价",
+        "前结算价",
+        "结算价",
+        "涨跌",
+        "涨跌1",
+        "Delta",
+        "隐含波动率(%)",
+        "成交额",
+    ]  # 需要处理的列
     for col in comma_cols:
         temp_df[col] = (
             temp_df[col]
             .astype(str)
-            .str.replace(',', '')
-            .pipe(pd.to_numeric, errors='coerce')
+            .str.replace(",", "")
+            .pipe(pd.to_numeric, errors="coerce")
         )
     return temp_df
 
@@ -387,7 +391,7 @@ def option_hist_shfe(
                     row
                     for row in json_data["o_curinstrument"]
                     if row["INSTRUMENTID"] not in ["小计", "合计"]
-                       and row["INSTRUMENTID"] != ""
+                    and row["INSTRUMENTID"] != ""
                 ]
             )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
@@ -407,8 +411,9 @@ def option_hist_shfe(
                     "OPENINTERESTCHG": "持仓量变化",
                     "TURNOVER": "成交额",
                     "DELTA": "德尔塔",
-                    "EXECVOLUME": "行权量"
-                }, inplace=True
+                    "EXECVOLUME": "行权量",
+                },
+                inplace=True,
             )
             contract_df = contract_df[
                 [
@@ -464,16 +469,19 @@ def option_vol_shfe(
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
-                ]
-            volatility_df.rename(columns={
-                "INSTRUMENTID": "合约系列",
-                "VOLUME": "成交量",
-                "OPENINTEREST": "持仓量",
-                "OPENINTERESTCHG": "持仓量变化",
-                "TURNOVER": "成交额",
-                "EXECVOLUME": "行权量",
-                "SIGMA": "隐含波动率"
-            }, inplace=True)
+            ]
+            volatility_df.rename(
+                columns={
+                    "INSTRUMENTID": "合约系列",
+                    "VOLUME": "成交量",
+                    "OPENINTEREST": "持仓量",
+                    "OPENINTERESTCHG": "持仓量变化",
+                    "TURNOVER": "成交额",
+                    "EXECVOLUME": "行权量",
+                    "SIGMA": "隐含波动率",
+                },
+                inplace=True,
+            )
             volatility_df = volatility_df[
                 [
                     "合约系列",
@@ -493,7 +501,9 @@ def option_vol_shfe(
         return pd.DataFrame()
 
 
-def option_hist_gfex(symbol: str = "工业硅", trade_date: str = "20230724") -> pd.DataFrame:
+def option_hist_gfex(
+    symbol: str = "工业硅", trade_date: str = "20230724"
+) -> pd.DataFrame:
     """
     广州期货交易所-日频率-量价数据
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
@@ -524,7 +534,7 @@ def option_hist_gfex(symbol: str = "工业硅", trade_date: str = "20230724") ->
         "Proxy-Connection": "keep-alive",
         "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/108.0.0.0 Safari/537.36",
+        "Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
@@ -616,7 +626,7 @@ def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
         "Proxy-Connection": "keep-alive",
         "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/108.0.0.0 Safari/537.36",
+        "Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }

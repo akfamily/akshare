@@ -25,7 +25,7 @@ def stock_news_main_cx() -> pd.DataFrame:
     }
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-        "referer": "https://cxdata.caixin.com/index/newsTab?tab=latest"
+        "referer": "https://cxdata.caixin.com/index/newsTab?tab=latest",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()

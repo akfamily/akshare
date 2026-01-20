@@ -50,19 +50,23 @@ def stock_hot_search_baidu(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["Result"]['list']["body"])
-    temp_df.rename(columns={
-        'name': "名称/代码",
-        'pxChangeRate': "涨跌幅",
-        'heat': "综合热度",
-
-    }, inplace=True)
-    temp_df = temp_df[[
-        "名称/代码",
-        "涨跌幅",
-        "综合热度",
-    ]]
-    temp_df['综合热度'] = pd.to_numeric(temp_df['综合热度'], errors='coerce')
+    temp_df = pd.DataFrame(data_json["Result"]["list"]["body"])
+    temp_df.rename(
+        columns={
+            "name": "名称/代码",
+            "pxChangeRate": "涨跌幅",
+            "heat": "综合热度",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "名称/代码",
+            "涨跌幅",
+            "综合热度",
+        ]
+    ]
+    temp_df["综合热度"] = pd.to_numeric(temp_df["综合热度"], errors="coerce")
     return temp_df
 
 

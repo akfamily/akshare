@@ -790,7 +790,7 @@ def stock_lhb_stock_detail_em(
     params = {
         "reportName": report_map[flag],
         "columns": "ALL",
-        "filter": f"""(TRADE_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')(SECURITY_CODE="{symbol}")""",
+        "filter": f"""(TRADE_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')(SECURITY_CODE="{symbol}")""",
         "pageNumber": "1",
         "pageSize": "500",
         "sortTypes": "-1",
@@ -914,7 +914,7 @@ def stock_lhb_yyb_detail_em(symbol: str = "10188715") -> pd.DataFrame:
     params = {
         "sortColumns": "TRADE_DATE,SECURITY_CODE",
         "sortTypes": "-1,1",
-        "pageSize": '100',
+        "pageSize": "100",
         "pageNumber": "1",
         "reportName": "RPT_OPERATEDEPT_TRADE_DETAILSNEW",
         "columns": "ALL",
@@ -959,7 +959,7 @@ def stock_lhb_yyb_detail_em(symbol: str = "10188715") -> pd.DataFrame:
         "SECUCODE": "证券代码",
         "OPERATEDEPT_CODE_OLD": "营业部旧代码",
         "ORG_NAME_ABBR": "营业部简称",
-        "CHANGE_RATE": "涨跌幅"
+        "CHANGE_RATE": "涨跌幅",
     }
 
     # 重命名列
@@ -1004,9 +1004,17 @@ def stock_lhb_yyb_detail_em(symbol: str = "10188715") -> pd.DataFrame:
 
     # 处理数值列
     numeric_cols = [
-        "涨跌幅", "买入金额", "卖出金额", "净额",
-        "1日后涨跌幅", "2日后涨跌幅", "3日后涨跌幅",
-        "5日后涨跌幅", "10日后涨跌幅", "20日后涨跌幅", "30日后涨跌幅"
+        "涨跌幅",
+        "买入金额",
+        "卖出金额",
+        "净额",
+        "1日后涨跌幅",
+        "2日后涨跌幅",
+        "3日后涨跌幅",
+        "5日后涨跌幅",
+        "10日后涨跌幅",
+        "20日后涨跌幅",
+        "30日后涨跌幅",
     ]
     for col in numeric_cols:
         big_df[col] = pd.to_numeric(big_df[col], errors="coerce")

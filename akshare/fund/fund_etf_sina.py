@@ -42,7 +42,7 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("([") + 1: -2])
+    data_json = demjson.decode(data_text[data_text.find("([") + 1 : -2])
     temp_df = pd.DataFrame(data_json)
     if symbol == "封闭式基金":
         temp_df.columns = [
@@ -122,7 +122,9 @@ def fund_etf_hist_sina(symbol: str = "sh510050") -> pd.DataFrame:
     :return: 日行情数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata_klc2/klc_kl.js"
+    url = (
+        f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata_klc2/klc_kl.js"
+    )
     r = requests.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)

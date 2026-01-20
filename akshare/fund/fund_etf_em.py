@@ -216,21 +216,23 @@ def fund_etf_spot_em() -> pd.DataFrame:
     )
     return temp_df
 
-def get_market_id(symbol: str)-> int:
+
+def get_market_id(symbol: str) -> int:
     """
     东方财富-ETF市场标识判断
     :param symbol: ETF 代码
     :type symbol: str
     :return: ETF 代码和市场标识（1:上证 0:深证）
-    :rtype: int 
+    :rtype: int
     """
-    if symbol.startswith(('0', '1', '3', '2', '5', '6')):
-        if symbol.startswith(('5', '6')):
+    if symbol.startswith(("0", "1", "3", "2", "5", "6")):
+        if symbol.startswith(("5", "6")):
             return 1
         else:
             return 0
     else:
         return 1
+
 
 def fund_etf_hist_em(
     symbol: str = "159707",
@@ -338,7 +340,7 @@ def fund_etf_hist_min_em(
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """
-    #code_id_dict = _fund_etf_code_id_map_em()
+    # code_id_dict = _fund_etf_code_id_map_em()
     # 商品期货类 ETF
     # code_id_dict.update(
     #     {

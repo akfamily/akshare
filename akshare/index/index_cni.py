@@ -154,6 +154,7 @@ def index_detail_cni(symbol: str = "399001") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     import warnings
+
     warnings.simplefilter(action="ignore", category=UserWarning)
     url = "https://www.cnindex.com.cn/sample-detail/download-history"
     params = {"indexcode": symbol}

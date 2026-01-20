@@ -126,8 +126,8 @@ def stock_restricted_release_detail_em(
         "pageNumber": "1",
         "reportName": "RPT_LIFT_STAGE",
         "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,"
-                   "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
-                   "NON_FREE_SHARES,BATCH_HOLDER_NUM",
+        "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
+        "NON_FREE_SHARES,BATCH_HOLDER_NUM",
         "source": "WEB",
         "client": "WEB",
         "filter": f"""(FREE_DATE>='{start_date_str}')(FREE_DATE<='{end_date_str}')""",
@@ -224,8 +224,8 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
         "reportName": "RPT_LIFT_STAGE",
         "filter": f'(SECURITY_CODE="{symbol}")',
         "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,"
-                   "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
-                   "NON_FREE_SHARES,BATCH_HOLDER_NUM",
+        "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
+        "NON_FREE_SHARES,BATCH_HOLDER_NUM",
         "source": "WEB",
         "client": "WEB",
     }
@@ -321,7 +321,7 @@ def stock_restricted_release_stockholder_em(
         "reportName": "RPT_LIFT_GD",
         "filter": f"""(SECURITY_CODE="{symbol}")(FREE_DATE='{date_str}')""",
         "columns": "LIMITED_HOLDER_NAME,ADD_LISTING_SHARES,ACTUAL_LISTED_SHARES,ADD_LISTING_CAP,LOCK_MONTH,"
-                   "RESIDUAL_LIMITED_SHARES,FREE_SHARES_TYPE,PLAN_FEATURE",
+        "RESIDUAL_LIMITED_SHARES,FREE_SHARES_TYPE,PLAN_FEATURE",
         "source": "WEB",
         "client": "WEB",
     }

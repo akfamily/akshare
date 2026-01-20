@@ -58,7 +58,7 @@ def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data']['entityList'])
+    temp_df = pd.DataFrame(data_json["data"]["entityList"])
     records = pd.DataFrame()
     for x in temp_df.to_dict(orient="records"):
         if isinstance(x["variety"], str):
@@ -245,10 +245,10 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     ends = [x for x in data.index if "总计" in str(data[0].tolist()[x])]
     for i in list(range(len(indexes))):
         if i != len(indexes) - 1:
-            data_cut = data.loc[indexes[i]: ends[i], :]
+            data_cut = data.loc[indexes[i] : ends[i], :]
             data_cut = data_cut.fillna(method="pad")
         else:
-            data_cut = data.loc[indexes[i]:, :]
+            data_cut = data.loc[indexes[i] :, :]
             data_cut = data_cut.fillna(method="pad")
         if "PTA" in data_cut[0].tolist()[0]:
             var = "TA"
@@ -605,5 +605,7 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(start_date="20251031", end_date="20251103", vars_list=['MA'])
+    get_receipt_df = get_receipt(
+        start_date="20251031", end_date="20251103", vars_list=["MA"]
+    )
     print(get_receipt_df)

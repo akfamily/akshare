@@ -189,7 +189,7 @@ def fund_info_index_em(
         "Proxy-Connection": "keep-alive",
         "Referer": "https://fund.eastmoney.com/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/103.0.0.0 Safari/537.36",
+        "Chrome/103.0.0.0 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -438,7 +438,7 @@ def fund_open_fund_info_em(
         temp_df["每万份收益"] = pd.to_numeric(temp_df["每万份收益"], errors="coerce")
         return temp_df
 
-    # 7日年化收益率    
+    # 7日年化收益率
     if indicator == "7日年化收益率":
         data_json = js_code.execute("Data_sevenDaysYearIncome")
         temp_df = pd.DataFrame(data_json)
@@ -462,7 +462,9 @@ def fund_open_fund_info_em(
         temp_df["净值日期"] = pd.to_datetime(
             temp_df["净值日期"], errors="coerce"
         ).dt.date
-        temp_df["7日年化收益率"] = pd.to_numeric(temp_df["7日年化收益率"], errors="coerce")
+        temp_df["7日年化收益率"] = pd.to_numeric(
+            temp_df["7日年化收益率"], errors="coerce"
+        )
         return temp_df
 
     # 累计收益率走势
@@ -629,7 +631,7 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
         "Host": "api.fund.eastmoney.com",
     }
@@ -687,7 +689,7 @@ def fund_financial_fund_daily_em() -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/FundNetValue/GetLCJJJZ"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/lcjj.html",
     }
     params = {
@@ -761,7 +763,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
@@ -775,7 +777,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{"): -1])
+    data_json = demjson.decode(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
@@ -821,7 +823,7 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
     url = "https://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fjjj.html",
     }
     params = {
@@ -892,7 +894,7 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
@@ -956,7 +958,7 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
     temp_df_columns = temp_df.iloc[0, :].tolist()[1:]
     temp_df = temp_df.iloc[1:, 1:]
     temp_df.columns = temp_df_columns
-    temp_df["基金简称"] = temp_df["基金简称"].str.replace("行情吧档案", '')
+    temp_df["基金简称"] = temp_df["基金简称"].str.replace("行情吧档案", "")
     temp_df.reset_index(inplace=True, drop=True)
     temp_df.columns = [
         "基金代码",
@@ -994,7 +996,7 @@ def fund_etf_fund_info_em(
     url = "https://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/80.0.3987.149 Safari/537.36",
+        "Chrome/80.0.3987.149 Safari/537.36",
         "Referer": f"https://fundf10.eastmoney.com/jjjz_{fund}.html",
     }
     params = {
@@ -1066,7 +1068,7 @@ def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
     url = "https://api.fund.eastmoney.com/FundGuZhi/GetFundGZList"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/81.0.4044.138 Safari/537.36",
+        "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/",
     }
     params = {

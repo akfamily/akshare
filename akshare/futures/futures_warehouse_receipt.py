@@ -30,6 +30,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     :rtype: dict
     """
     import urllib3
+
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     if int(date) > 20251101:
         url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xlsx"
@@ -37,7 +38,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
         url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/83.0.4103.116 Safari/537.36"
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
     r = requests.get(url, verify=False, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
@@ -45,7 +46,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     index_list.append(len(temp_df))
     big_dict = {}
     for inner_index in range(len(index_list) - 1):
-        inner_df = temp_df[index_list[inner_index]: index_list[inner_index + 1]]
+        inner_df = temp_df[index_list[inner_index] : index_list[inner_index + 1]]
         inner_key = re.findall(pattern=r"[a-zA-Z]+", string=inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
         inner_df.dropna(axis=0, how="all", inplace=True)
@@ -73,25 +74,30 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data']['entityList'])
-    temp_df.rename(columns={
-        "variety": "品种名称",
-        "whAbbr": "仓库/分库",
-        "deliveryAbbr": "可选提货地点/分库-数量",
-        "lastWbillQty": "昨日仓单量（手）",
-        "wbillQty": "今日仓单量（手）",
-        "diff": "增减（手）",
-        "varietyOrder": "品种代码",
-    }, inplace=True)
-    temp_df = temp_df[[
-        "品种代码",
-        "品种名称",
-        "仓库/分库",
-        "可选提货地点/分库-数量",
-        "昨日仓单量（手）",
-        "今日仓单量（手）",
-        "增减（手）",
-    ]]
+    temp_df = pd.DataFrame(data_json["data"]["entityList"])
+    temp_df.rename(
+        columns={
+            "variety": "品种名称",
+            "whAbbr": "仓库/分库",
+            "deliveryAbbr": "可选提货地点/分库-数量",
+            "lastWbillQty": "昨日仓单量（手）",
+            "wbillQty": "今日仓单量（手）",
+            "diff": "增减（手）",
+            "varietyOrder": "品种代码",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "品种代码",
+            "品种名称",
+            "仓库/分库",
+            "可选提货地点/分库-数量",
+            "昨日仓单量（手）",
+            "今日仓单量（手）",
+            "增减（手）",
+        ]
+    ]
     return temp_df
 
 
@@ -106,9 +112,11 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
     """
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/83.0.4103.116 Safari/537.36"
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
-    url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
+    url = (
+        f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
+    )
     if date >= "20140519":
         r = requests.get(url, headers=headers)
         data_json = r.json()
@@ -127,7 +135,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
             temp_df.iloc[:, 3].str.contains("单位：") == 1
-            ].index.to_list()
+        ].index.to_list()
         big_dict = {}
         for inner_index in range(len(index_list)):
             temp_index_start = index_list[inner_index]
@@ -160,7 +168,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     url = "http://www.gfex.com.cn/u/interfacesWebTdWbillWeeklyQuotes/loadList"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/83.0.4103.116 Safari/537.36"
+        "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
     r = requests.post(url=url, data=payload, headers=headers)

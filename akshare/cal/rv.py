@@ -90,7 +90,8 @@ def rv_from_futures_zh_minute_sina(
 
 
 def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
-    """
+    (
+        """
     波动率-已实现波动率-Yang-Zhang 已实现波动率(Yang-Zhang Realized Volatility)
     https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
     论文地址：https://www.jstor.org/stable/10.1086/209650
@@ -128,7 +129,9 @@ def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     # Vrs (Rogers & Satchell RV proxy) = ui(ui-ci)+di(di-ci)
     # with ui = ln(Hi/Oi), ci = ln(Ci/Oi), di=(Li/Oi), oi = ln(Oi/Ci-1)
     # where Hi = high price at time t and Li = low price at time t
-    """ ""
+    """
+        ""
+    )
     warnings.filterwarnings("ignore")
 
     data["ui"] = np.log(np.divide(data["High"][1:], data["Open"][1:]))

@@ -58,7 +58,7 @@ def request_with_retry(
 
             if attempt < max_retries - 1:
                 # 指数退避 + 随机抖动
-                delay = base_delay * (2 ** attempt) + random.uniform(*random_delay_range)
+                delay = base_delay * (2**attempt) + random.uniform(*random_delay_range)
                 time.sleep(delay)
 
     raise last_exception
