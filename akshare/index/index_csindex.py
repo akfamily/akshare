@@ -22,7 +22,7 @@ def index_csindex_all() -> pd.DataFrame:
     """
     warnings.filterwarnings("ignore", category=UserWarning, message="Workbook contains no default style")
     url = (
-        f"https://www.csindex.com.cn/csindex-home/exportExcel/indexAll/CH"
+        "https://www.csindex.com.cn/csindex-home/exportExcel/indexAll/CH"
     )
 
     headers = {

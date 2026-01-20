@@ -234,7 +234,7 @@ def stock_comment_detail_scrd_desire_em(
     :return: 市场热度-市场参与意愿
     :rtype: pandas.DataFrame
     """
-    url = f"https://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "callback": f"jQuery11230899775623921407_{int(time.time() * 1000)}",
         "filter": f'(SECURITY_CODE="{symbol}")',

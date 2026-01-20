@@ -11,8 +11,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.utils.tqdm import get_tqdm
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
@@ -26,10 +26,10 @@ def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
     params = {
         "reportName": "RPT_MUTUAL_QUOTA",
         "columns": "TRADE_DATE,MUTUAL_TYPE,BOARD_TYPE,MUTUAL_TYPE_NAME,FUNDS_DIRECTION,"
-        "INDEX_CODE,INDEX_NAME,BOARD_CODE",
+                   "INDEX_CODE,INDEX_NAME,BOARD_CODE",
         "quoteColumns": "status~07~BOARD_CODE,dayNetAmtIn~07~BOARD_CODE,dayAmtRemain~07~BOARD_CODE,"
-        "dayAmtThreshold~07~BOARD_CODE,f104~07~BOARD_CODE,f105~07~BOARD_CODE,"
-        "f106~07~BOARD_CODE,f3~03~INDEX_CODE~INDEX_f3,netBuyAmt~07~BOARD_CODE",
+                        "dayAmtThreshold~07~BOARD_CODE,f104~07~BOARD_CODE,f105~07~BOARD_CODE,"
+                        "f106~07~BOARD_CODE,f3~03~INDEX_CODE~INDEX_f3,netBuyAmt~07~BOARD_CODE",
         "quoteType": "0",
         "pageNumber": "1",
         "pageSize": "2000",
@@ -109,7 +109,7 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "b:DLMK0146,b:DLMK0144",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,"
-        "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+                  "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url=url, base_params=params)
     temp_df.columns = [
@@ -796,7 +796,7 @@ def stock_hsgt_institution_statistics_em(
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/114.0.0.0 Safari/537.36"
+                      "Chrome/114.0.0.0 Safari/537.36"
     }
     if market == "南向持股":
         params = {

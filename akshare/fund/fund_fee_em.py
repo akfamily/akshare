@@ -52,6 +52,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 df = pd.read_html(StringIO(table_html))[0]
                 tables_dict[title_text] = df
             except Exception as e:
+                print("Error:", e)
                 continue
 
     if indicator == "交易状态":
