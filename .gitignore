@@ -1,25 +1,84 @@
-*.bak
-*.pyc
-*.xml
+# --- Python Core ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Distribution / Packaging ---
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+MANIFEST
 *.tar.gz
+
+# --- Virtual Environments ---
+# Common venv naming conventions
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Unit Test / Coverage ---
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+
+# --- Type Checking ---
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# --- Jupyter Notebook ---
+.ipynb_checkpoints
+
+# --- IDEs / Editors ---
+# JetBrains (IntelliJ, PyCharm, etc.)
+.idea/
 *.iml
 *.icls
 /_windows/
 /codestyles/
-# Temp
-build/
-docs/build/
-docs/_build/
-dist/
-*.egg-info/
 colors
-# IDE
-.idea/
-# jupyter
-.ipynb_checkpoints
 
-#docs/source/_static/
-#docs/source/_templates/
+# VS Code
+.vscode/
+*.code-workspace
+
+# Vim
+*.swp
+*.swo
+
+# --- OS Generated Files ---
+# macOS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+ehthumbs.db
+Thumbs.db
+
+# --- Project Specific ---
+*.bak
+*.xml
 /data
 /tests/data
+
+# Documentation
+docs/build/
+docs/_build/
