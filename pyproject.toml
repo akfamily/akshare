@@ -1,3 +1,80 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "akshare"
+dynamic = ["version"]
+description = "AKShare is an elegant and simple financial data interface library for Python, built for human beings!"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "AKFamily", email = "albertandking@gmail.com"}
+]
+keywords = [
+    "stock",
+    "option",
+    "futures",
+    "fund",
+    "bond",
+    "index",
+    "air",
+    "finance",
+    "spider",
+    "quant",
+    "quantitative",
+    "investment",
+    "trading",
+    "algotrading",
+    "data",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "beautifulsoup4>=4.9.1",
+    "lxml>=4.2.1",
+    "pandas>=0.25",
+    "requests>=2.22.0",
+    "curl_cffi>=0.13.0",
+    "html5lib>=1.0.1",
+    "xlrd>=1.2.0",
+    "urllib3>=1.25.8",
+    "tqdm>=4.43.0",
+    "openpyxl>=3.0.3",
+    "jsonpath>=0.82",
+    "tabulate>=0.8.6",
+    "decorator>=4.4.2",
+    "mini-racer>=0.12.4; platform_system != 'Linux'",
+    "py-mini-racer>=0.6.0; platform_system == 'Linux'",
+    "akracer>=0.0.13; platform_system == 'Linux'",
+]
+
+[project.optional-dependencies]
+full = ["akqmt"]
+qmt = ["akqmt"]
+
+[project.urls]
+Homepage = "https://github.com/akfamily/akshare"
+
+[tool.setuptools.dynamic]
+version = {attr = "akshare._version.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["akshare*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip"]
+
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
