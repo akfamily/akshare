@@ -1,5 +1,5 @@
 # 升级到 Python 3.13.x 提高 20% 以上性能
-FROM python:3.13-bullseye
+FROM python:3.14-bullseye
 
 # 设定时区
 ENV TZ=Asia/Shanghai
