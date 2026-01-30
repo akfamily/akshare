@@ -43,7 +43,7 @@ classifiers = [
 dependencies = [
     "beautifulsoup4>=4.9.1",
     "lxml>=4.2.1",
-    "pandas>=0.25",
+    "pandas>=2.0.0",
     "requests>=2.22.0",
     "curl_cffi>=0.13.0",
     "html5lib>=1.0.1",
@@ -64,14 +64,14 @@ full = ["akqmt"]
 qmt = ["akqmt"]
 dev = [
     "akqmt>=0.1.0",
-    "commitizen>=4.12.0",
+    "commitizen>=4.12.1",
     "pre-commit>=3.6.2",
     "sphinx>=7.4.3",
     "recommonmark>=0.7.1",
     "sphinx_markdown_tables>=0.0.17",
     "sphinx_rtd_theme>=1.0.0",
     "mplfinance>=0.12.10b0",
-    "ruff>=0.14.13",
+    "ruff>=0.14.14",
     "ruff-lsp>=0.0.53",
 ]
 
