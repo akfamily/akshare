@@ -180,7 +180,7 @@ def get_shfe_receipt_2(
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = r.json()
-    except:  # noqa: E722
+    except:  # noqa
         return pd.DataFrame()
     data = pd.DataFrame(context["o_cursor"])
     if len(data.columns) < 1:
@@ -449,7 +449,7 @@ def get_czce_receipt_3(
         reg = re.compile(r"[A-Z]+")
         try:
             symbol = reg.findall(inner_df.iloc[0, 0])[0]
-        except:  # noqa: E722
+        except:  # noqa
             continue
         symbol_list.append(symbol)
         inner_df.columns = inner_df.iloc[1, :]
@@ -461,7 +461,7 @@ def get_czce_receipt_3(
                     inner_df["仓单数量(完税)"].iloc[-1]
                     + int(inner_df["仓单数量(保税)"].iloc[-1])
                 )  # 20210316 TA 分为保税和完税
-            except:  # noqa: E722
+            except:  # noqa
                 receipt_list.append(0)
         elif symbol == "MA":
             try:
@@ -470,16 +470,16 @@ def get_czce_receipt_3(
                         inner_df["仓单数量(完税)"].iloc[-2]
                         + int(inner_df["仓单数量(保税)"].iloc[-2])
                     )  # 20210316 MA 分为保税和完税
-                except:  # noqa: E722
+                except:  # noqa
                     receipt_list.append(
                         inner_df["仓单数量(完税)"].iloc[-2]
                     )  # 处理 MA 的特殊格式
-            except:  # noqa: E722
+            except:  # noqa
                 receipt_list.append(0)
         else:
             try:
                 receipt_list.append(inner_df["仓单数量"].iloc[-1])
-            except:  # noqa: E722
+            except:  # noqa
                 receipt_list.append(0)
         if symbol == "MA":
             receipt_chg_list.append(inner_df["当日增减"].iloc[-2])
