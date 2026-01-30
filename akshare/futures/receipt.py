@@ -136,9 +136,9 @@ def get_shfe_receipt_1(
         records = pd.DataFrame()
         for i in list(range(len(indexes))):
             if i != len(indexes) - 1:
-                data_cut = data.loc[indexes[i]: indexes[i + 1] - 1, :]
+                data_cut = data.loc[indexes[i] : indexes[i + 1] - 1, :]
             else:
-                data_cut = data.loc[indexes[i]: last_index, :]
+                data_cut = data.loc[indexes[i] : last_index, :]
                 data_cut = data_cut.fillna(method="pad")
             data_dict = dict()
             data_dict["var"] = chinese_to_english(data_cut[0].tolist()[0])
@@ -241,6 +241,7 @@ def get_shfe_receipt_3(
     url = f"https://www.shfe.com.cn/data/tradedata/future/stockdata/dailystock_{date}/ZH/all.html"
     r = requests.get(url, headers=cons.shfe_headers)
     from io import StringIO
+
     temp_tables = pd.read_html(StringIO(r.text))
     len(temp_tables)
     records = pd.DataFrame()
@@ -295,10 +296,10 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     ends = [x for x in data.index if "总计" in str(data[0].tolist()[x])]
     for i in list(range(len(indexes))):
         if i != len(indexes) - 1:
-            data_cut = data.loc[indexes[i]: ends[i], :]
+            data_cut = data.loc[indexes[i] : ends[i], :]
             data_cut = data_cut.fillna(method="pad")
         else:
-            data_cut = data.loc[indexes[i]:, :]
+            data_cut = data.loc[indexes[i] :, :]
             data_cut = data_cut.fillna(method="pad")
         if "PTA" in data_cut[0].tolist()[0]:
             var = "TA"
@@ -417,9 +418,9 @@ def get_czce_receipt_3(
         [
             bool(1 - item)
             for item in [
-            item if item is not pd.NA else False
-            for item in temp_df.iloc[:, 0].str.contains("非农产品")
-        ]
+                item if item is not pd.NA else False
+                for item in temp_df.iloc[:, 0].str.contains("非农产品")
+            ]
         ]
     ]
     temp_df.reset_index(inplace=True, drop=True)
@@ -445,7 +446,7 @@ def get_czce_receipt_3(
     receipt_chg_list = []
     records = pd.DataFrame()
     for page in range(len(range_list_one)):
-        inner_df = temp_df[range_list_one[page]: range_list_two[page]]
+        inner_df = temp_df[range_list_one[page] : range_list_two[page]]
         reg = re.compile(r"[A-Z]+")
         try:
             symbol = reg.findall(inner_df.iloc[0, 0])[0]
@@ -531,7 +532,8 @@ def get_gfex_receipt(
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
         "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
@@ -615,9 +617,10 @@ def get_receipt(
                         <= datetime.date(2014, 5, 16)
                     ):
                         f = get_shfe_receipt_1
-                    elif (datetime.date(2014, 5, 16)
-                          <= start_date
-                          <= datetime.date(2025, 11, 17)
+                    elif (
+                        datetime.date(2014, 5, 16)
+                        <= start_date
+                        <= datetime.date(2025, 11, 17)
                     ):
                         f = get_shfe_receipt_2
                     elif start_date > datetime.date(2025, 11, 17):
