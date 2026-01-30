@@ -264,6 +264,7 @@ market_exchange_symbols = {
         "BR",
         "EC",  # 集运指数
         "AD",  # 铸造铝合金期货
+        "OP",  # 胶版印刷纸期货
     ],
     "gfex": ["SI", "LC", "PS"],
 }
