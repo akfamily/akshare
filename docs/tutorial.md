@@ -1368,6 +1368,9 @@
  # 基金份额
  "fund_etf_scale_szse"  # 深圳证券交易所-基金产品-基金列表-ETF基金份额
  "fund_etf_scale_sse"  # 上海证券交易所-产品-基金产品-ETF产品-ETF产品列表-基金规模
+ #
+ "bond_gb_us_sina"  # 新浪财经-债券-美国国债收益率行情数据
+ "bond_gb_zh_sina"  # 新浪财经-债券-中国国债收益率行情数据
 ```
 
 ## 案例演示

@@ -246,26 +246,32 @@ def _check_information(df_data, date):
     ].astype("int").astype("str")
 
     records["near_contract"] = records["near_contract"].apply(
-        lambda x: x.lower()
-        if x[:-4]
-        in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
-        else x
+        lambda x: (
+            x.lower()
+            if x[:-4]
+            in cons.market_exchange_symbols["shfe"]
+            + cons.market_exchange_symbols["dce"]
+            else x
+        )
     )
     records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
-        lambda x: x.lower()
-        if x[:-4]
-        in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
-        else x
+        lambda x: (
+            x.lower()
+            if x[:-4]
+            in cons.market_exchange_symbols["shfe"]
+            + cons.market_exchange_symbols["dce"]
+            else x
+        )
     )
     records.loc[:, "near_contract"] = records.loc[:, "near_contract"].apply(
-        lambda x: x[:-4] + x[-3:]
-        if x[:-4] in cons.market_exchange_symbols["czce"]
-        else x
+        lambda x: (
+            x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
+        )
     )
     records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
-        lambda x: x[:-4] + x[-3:]
-        if x[:-4] in cons.market_exchange_symbols["czce"]
-        else x
+        lambda x: (
+            x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
+        )
     )
 
     records["near_basis"] = records["near_contract_price"] - records["spot_price"]
@@ -329,7 +335,8 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         basis = pd.DataFrame(columns=["主力合约基差", "主力合约基差(%)"])
 
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
-    # 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
+    # 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，
+    # 如果用商品名来merge，会出现重复列名，所以改用index来merge
     # basis["商品"] = values["商品"].tolist()
     basis.index = values.index
     basis = pd.merge(

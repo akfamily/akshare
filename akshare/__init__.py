@@ -3227,10 +3227,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.19 fix: fix github action
 1.18.20 fix: fix stock_individual_spot_xq interface
 1.18.21 fix: fix get_receipt interface
+1.18.22 fix: fix bond_gb_zh_sina interface
 """
 
 from akshare._version import __version__
 __author__ = "AKFamily"
+
+"""
+国债收益率
+"""
+from akshare.bond.bond_gb_sina import bond_gb_zh_sina, bond_gb_us_sina
 
 """
 openctp-合约信息接口
@@ -3258,7 +3264,7 @@ from akshare.option.option_current_szse import option_current_day_szse
 from akshare.stock_fundamental.stock_finance_sina import stock_financial_analysis_indicator_em
 
 """
-期权保证金 
+期权保证金
 """
 from akshare.option.option_margin import option_margin, option_margin_symbol
 

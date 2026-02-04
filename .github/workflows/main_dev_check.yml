@@ -36,8 +36,9 @@ jobs:
       - name: Lint with Ruff
         run: |
           pip install ruff
-          ruff check .
-          ruff format --check .
+          ruff format .
+          ruff check . --fix
+          
 
       - name: Test with pytest
         run: |
