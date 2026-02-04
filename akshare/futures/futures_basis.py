@@ -115,7 +115,7 @@ def futures_spot_price(
                 # url = u2
                 headers = {
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
-                    "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                              "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
                 }
                 r = pandas_read_html_link(url, headers=headers)
                 string = r[0].loc[1, 1]
@@ -248,13 +248,13 @@ def _check_information(df_data, date):
     records["near_contract"] = records["near_contract"].apply(
         lambda x: x.lower()
         if x[:-4]
-        in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
+           in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
         else x
     )
     records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
         lambda x: x.lower()
         if x[:-4]
-        in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
+           in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
         else x
     )
     records.loc[:, "near_contract"] = records.loc[:, "near_contract"].apply(
@@ -312,7 +312,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     url = date.strftime("https://www.100ppi.com/sf2/day-%Y-%m-%d.html")
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,"
-        "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                  "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
     }
     content = pandas_read_html_link(url, headers=headers)
     main = content[1]
@@ -329,7 +329,8 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         basis = pd.DataFrame(columns=["主力合约基差", "主力合约基差(%)"])
 
     basis.columns = ["主力合约基差", "主力合约基差(%)"]
-    # 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，如果用商品名来merge，会出现重复列名，所以改用index来merge
+    # 20241125(jasonudu)：因为部分日期，存在多个品种的现货价格，比如20151125的白糖、豆粕、豆油等，
+    # 如果用商品名来merge，会出现重复列名，所以改用index来merge
     # basis["商品"] = values["商品"].tolist()
     basis.index = values.index
     basis = pd.merge(
