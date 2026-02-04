@@ -115,7 +115,7 @@ def futures_spot_price(
                 # url = u2
                 headers = {
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
-                              "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+                    "image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
                 }
                 r = pandas_read_html_link(url, headers=headers)
                 string = r[0].loc[1, 1]
@@ -246,26 +246,32 @@ def _check_information(df_data, date):
     ].astype("int").astype("str")
 
     records["near_contract"] = records["near_contract"].apply(
-        lambda x: x.lower()
-        if x[:-4]
-           in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
-        else x
+        lambda x: (
+            x.lower()
+            if x[:-4]
+            in cons.market_exchange_symbols["shfe"]
+            + cons.market_exchange_symbols["dce"]
+            else x
+        )
     )
     records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
-        lambda x: x.lower()
-        if x[:-4]
-           in cons.market_exchange_symbols["shfe"] + cons.market_exchange_symbols["dce"]
-        else x
+        lambda x: (
+            x.lower()
+            if x[:-4]
+            in cons.market_exchange_symbols["shfe"]
+            + cons.market_exchange_symbols["dce"]
+            else x
+        )
     )
     records.loc[:, "near_contract"] = records.loc[:, "near_contract"].apply(
-        lambda x: x[:-4] + x[-3:]
-        if x[:-4] in cons.market_exchange_symbols["czce"]
-        else x
+        lambda x: (
+            x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
+        )
     )
     records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
-        lambda x: x[:-4] + x[-3:]
-        if x[:-4] in cons.market_exchange_symbols["czce"]
-        else x
+        lambda x: (
+            x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
+        )
     )
 
     records["near_basis"] = records["near_contract_price"] - records["spot_price"]
@@ -312,7 +318,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     url = date.strftime("https://www.100ppi.com/sf2/day-%Y-%m-%d.html")
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,"
-                  "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+        "image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
     }
     content = pandas_read_html_link(url, headers=headers)
     main = content[1]
