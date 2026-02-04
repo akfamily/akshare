@@ -623,7 +623,7 @@
 	1. 修复 stock_info_sz_delist 接口
 
 1.16.98 fix: fix fund_open_fund_info_em interface
-	
+
 	1. 修复 fund_open_fund_info_em 接口
 
 1.16.97 fix: fix fund_open_fund_info_em interface
@@ -631,7 +631,7 @@
 	1. 修复 fund_open_fund_info_em 接口
 
 1.16.96 fix: fix stock_individual_spot_xq interface
-	
+
 	1. 修复 stock_individual_spot_xq 接口
 	2. 修复 stock_cyq_em 接口
 

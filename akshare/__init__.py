@@ -3264,7 +3264,7 @@ from akshare.option.option_current_szse import option_current_day_szse
 from akshare.stock_fundamental.stock_finance_sina import stock_financial_analysis_indicator_em
 
 """
-期权保证金 
+期权保证金
 """
 from akshare.option.option_margin import option_margin, option_margin_symbol
 
