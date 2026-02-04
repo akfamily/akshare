@@ -5,6 +5,7 @@ Date: 2026/2/4 17:00
 Desc: 新浪财经-债券-中国/美国国债收益率
 https://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
+
 import pandas as pd
 import requests
 
@@ -72,7 +73,7 @@ def bond_gb_us_sina(symbol: str = "美国10年期国债") -> pd.DataFrame:
         "美国7年期国债": "US7YT",
         "美国10年期国债": "US10YT",
         "美国20年期国债": "US20YT",
-        "美国30年期国债": "US30YT"
+        "美国30年期国债": "US30YT",
     }
     url = f"https://bond.finance.sina.com.cn/hq/gb/daily?symbol={symbol_map[symbol]}"
     r = requests.get(url)
@@ -95,7 +96,7 @@ def bond_gb_us_sina(symbol: str = "美国10年期国债") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     bond_gb_zh_sina_df = bond_gb_zh_sina(symbol="中国10年期国债")
     print(bond_gb_zh_sina_df)
 
