@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.22 fix: fix bond_gb_zh_sina interface
+
+	1. 修复 bond_gb_zh_sina 接口
+	2. 修复 bond_gb_us_sina 接口
+
 1.18.21 fix: fix get_receipt interface
 
 	1. 修复 get_receipt 接口
