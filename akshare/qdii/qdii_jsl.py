@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.request import make_request_with_retry_json
 
 
-def qdii_e_index_jsl() -> pd.DataFrame:
+def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-欧美指数
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -23,7 +23,10 @@ def qdii_e_index_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
     }
-    data_json = make_request_with_retry_json(url, params)
+    headers = {
+        "cookie": cookie,
+    }
+    data_json = make_request_with_retry_json(url, params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={
@@ -82,7 +85,7 @@ def qdii_e_index_jsl() -> pd.DataFrame:
     return temp_df
 
 
-def qdii_e_comm_jsl() -> pd.DataFrame:
+def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-商品
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -94,7 +97,10 @@ def qdii_e_comm_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
     }
-    data_json = make_request_with_retry_json(url, params=params)
+    headers = {
+        "cookie": cookie
+    }
+    data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={
@@ -153,7 +159,7 @@ def qdii_e_comm_jsl() -> pd.DataFrame:
     return temp_df
 
 
-def qdii_a_index_jsl() -> pd.DataFrame:
+def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-亚洲市场-亚洲指数
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -165,7 +171,10 @@ def qdii_a_index_jsl() -> pd.DataFrame:
         "___jsl": "LST___t=1728206439242",
         "rp": "22",
     }
-    data_json = make_request_with_retry_json(url, params=params)
+    headers = {
+        "cookie": cookie
+    }
+    data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
         columns={

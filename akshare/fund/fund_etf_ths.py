@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/21 17:00
+Date: 2026/2/10 16:00
 Desc: 同花顺理财-基金数据-每日净值-ETF
 https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
 """
@@ -12,17 +12,34 @@ import pandas as pd
 import requests
 
 
-def fund_etf_spot_ths(date: str = "") -> pd.DataFrame:
+def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
     """
-    同花顺理财-基金数据-每日净值-ETF-实时行情
-    https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
+    同花顺理财-基金数据-每日净值-实时行情
+    https://fund.10jqka.com.cn/datacenter/jz/
+    :param symbol: 基金类型; choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部
+    :type symbol: str
     :param date: 查询日期
     :type date: str
-    :return: ETF 实时行情
+    :return: 基金实时行情
     :rtype: pandas.DataFrame
     """
+    symbol_map = {
+        "股票型": "gpx",
+        "债券型": "zqx",
+        "混合型": "hhx",
+        "ETF": "ETF",
+        "LOF": "LOF",
+        "QDII": "QDII",
+        "保本型": "bbx",
+        "指数型": "zsx",
+        "": "all",
+    }
+    inner_symbol = symbol_map.get(symbol, "ETF")
     inner_date = "-".join([date[:4], date[4:6], date[6:]]) if date != "" else 0
-    url = f"https://fund.10jqka.com.cn/data/Net/info/ETF_rate_desc_{inner_date}_0_1_9999_0_0_0_jsonp_g.html"
+    url = (
+        f"https://fund.10jqka.com.cn/data/Net/info/"
+        f"{inner_symbol}_rate_desc_{inner_date}_0_1_9999_0_0_0_jsonp_g.html"
+    )
     r = requests.get(url, timeout=15)
     data_text = r.text[2:-1]
     data_json = json.loads(data_text)
@@ -90,6 +107,45 @@ def fund_etf_spot_ths(date: str = "") -> pd.DataFrame:
     return temp_df
 
 
+def fund_etf_spot_ths(date: str = "") -> pd.DataFrame:
+    """
+    同花顺理财-基金数据-每日净值-ETF-实时行情
+    https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
+    :param date: 查询日期
+    :type date: str
+    :return: ETF 实时行情
+    :rtype: pandas.DataFrame
+    """
+    return fund_etf_category_ths(date=date, symbol="ETF")
+
+
 if __name__ == "__main__":
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="股票型")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="债券型")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="混合型")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="ETF")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="LOF")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="QDII")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="保本型")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="指数型")
+    print(fund_etf_category_ths_df)
+
+    fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="")
+    print(fund_etf_category_ths_df)
+
     fund_etf_spot_ths_df = fund_etf_spot_ths(date="20240620")
     print(fund_etf_spot_ths_df)
