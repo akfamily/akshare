@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.23 fix: fix fund_fee_em interface
+
+	1. 修复 fund_fee_em 接口
+	2. 修复 fund_etf_category_ths 接口
+
 1.18.22 fix: fix bond_gb_zh_sina interface
 
 	1. 修复 bond_gb_zh_sina 接口
