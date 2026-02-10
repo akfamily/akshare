@@ -1,26 +1,25 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/6/21 17:00
+Date: 2026/2/10 16:00
 Desc: 同花顺理财-基金数据-每日净值-ETF
 https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
 """
 
 import json
-import time
 
 import pandas as pd
 import requests
 
 
-def fund_etf_category_ths(date: str = "", symbol: str = "ETF") -> pd.DataFrame:
+def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
     """
     同花顺理财-基金数据-每日净值-实时行情
     https://fund.10jqka.com.cn/datacenter/jz/
-    :param date: 查询日期
-    :type date: str
     :param symbol: 基金类型; choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部
     :type symbol: str
+    :param date: 查询日期
+    :type date: str
     :return: 基金实时行情
     :rtype: pandas.DataFrame
     """
@@ -121,72 +120,32 @@ def fund_etf_spot_ths(date: str = "") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    import time
-
-    print("========== 测试股票型基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="股票型")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试债券型基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="债券型")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试混合型基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="混合型")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试ETF基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="ETF")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试LOF基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="LOF")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试QDII基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="QDII")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试保本型基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="保本型")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试指数型基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="指数型")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试全部基金 ==========")
     fund_etf_category_ths_df = fund_etf_category_ths(date="20240620", symbol="")
     print(fund_etf_category_ths_df)
-    print(f"\n共 {len(fund_etf_category_ths_df)} 条记录")
-    time.sleep(5)
-    print()
 
-    print("========== 测试 fund_etf_spot_ths (调用 fund_etf_category_ths) ==========")
     fund_etf_spot_ths_df = fund_etf_spot_ths(date="20240620")
     print(fund_etf_spot_ths_df)
-    print(f"\n共 {len(fund_etf_spot_ths_df)} 条记录")
