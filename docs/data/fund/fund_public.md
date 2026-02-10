@@ -328,10 +328,10 @@ print(fund_etf_spot_em_df)
 
 输入参数
 
-| 名称    | 类型  | 描述                                                                                           |
-|-------|-----|----------------------------------------------------------------------------------------------|
-| date  | str | date=""; 默认返回当前最新的数据                                                                   |
-| symbol| str | symbol="ETF"; choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部 |
+| 名称     | 类型  | 描述                                                                                             |
+|--------|-----|------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="ETF"; choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部 |
+| date   | str | date=""; 默认返回当前最新的数据                                                                           |
 
 输出参数
 
@@ -359,7 +359,7 @@ print(fund_etf_spot_em_df)
 ```python
 import akshare as ak
 
-fund_etf_category_ths_df = ak.fund_etf_category_ths(date="20240620", symbol="ETF")
+fund_etf_category_ths_df = ak.fund_etf_category_ths(symbol="ETF", date="20240620")
 print(fund_etf_category_ths_df)
 ```
 
