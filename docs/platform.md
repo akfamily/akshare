@@ -2,6 +2,7 @@
 
 ## 开源平台
 
+- [AKQuant](https://github.com/akfamily/akquant)
 - [PyBroker](https://www.pybroker.com/)
 - [Backtrader](https://www.backtrader.com/)
 - [VN.PY](https://www.vnpy.com/)
