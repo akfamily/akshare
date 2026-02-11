@@ -2,8 +2,11 @@
 该社区提供相关文档和视频学习资源，汇集了各类财经数据源和量化投研工具的使用经验。
 有兴趣深入学习的朋友可点此[了解更多](https://t.zsxq.com/ZCxUG)，也推荐大家关注微信公众号【数据科学实战】。
 
+**重磅推荐**：AKQuant 是一款专为**量化投研 (Quantitative Research)**打造的高性能量化回测框架。它以 Rust 铸造极速撮合内核，
+以 Python 链接数据与 AI 生态，旨在为量化投资者提供可靠高效的量化投研解决方案。参见[AKQuant](https://github.com/akfamily/akquant)
+
 **工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
-如需了解更多信息可访问[期魔方](https://qmfquant.com/)。
+如需了解更多信息可访问[期魔方](https://qmfquant.com)。
 
 ![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 
