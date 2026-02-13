@@ -92,7 +92,7 @@ def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
     :return: T+0 QDII-欧美市场-商品
     :rtype: pandas.DataFrame
     """
-    url = "https://www.jisilu.cn/data/qdii/qdii_list/C"
+    url = "https://www.jisilu.cn/data/qdii/qdii_list/E"
     params = {
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
