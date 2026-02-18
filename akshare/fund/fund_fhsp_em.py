@@ -10,7 +10,14 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-def fund_fh_em(year: str = "2025", typ: str = "", rank: str = "BZDM", sort: str = "asc", page: int = -1) -> pd.DataFrame:
+
+def fund_fh_em(
+    year: str = "2025",
+    typ: str = "",
+    rank: str = "BZDM",
+    sort: str = "asc",
+    page: int = -1,
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红
     https://fund.eastmoney.com/data/fundfenhong.html#DJR,desc,1,,,
@@ -27,6 +34,7 @@ def fund_fh_em(year: str = "2025", typ: str = "", rank: str = "BZDM", sort: str 
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
+
     def get_df_from_response(response):
         text = response.text
         return pd.DataFrame(eval(text[text.find("[[") : text.find(";var jjfh_jjgs")]))
@@ -87,7 +95,13 @@ def fund_fh_em(year: str = "2025", typ: str = "", rank: str = "BZDM", sort: str 
     return big_df
 
 
-def fund_cf_em(year: str = "2025", typ: str = "", rank: str = "FSRQ", sort: str = "desc", page: int = -1) -> pd.DataFrame:
+def fund_cf_em(
+    year: str = "2025",
+    typ: str = "",
+    rank: str = "FSRQ",
+    sort: str = "desc",
+    page: int = -1,
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金拆分
     https://fund.eastmoney.com/data/fundchaifen.html#FSRQ,desc,1,,,
@@ -104,6 +118,7 @@ def fund_cf_em(year: str = "2025", typ: str = "", rank: str = "FSRQ", sort: str 
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
+
     def get_df_from_response(response):
         text = response.text
         code = text[text.find("[[") : text.find(";var jjcf_jjgs")]
