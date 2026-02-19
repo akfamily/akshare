@@ -165,7 +165,7 @@ def bond_china_yield(
     res = requests.get(url, params=params, headers=headers)
     data_text = res.text.replace("&nbsp", "")
     data_df = pd.read_html(StringIO(data_text), header=0)[1]
-    data_df["日期"] = pd.to_datetime(data_df["日期"], errors="coerce").dt.date
+    data_df["日期"] = pd.to_datetime(data_df["日期"], errors="coerce")
     data_df["3月"] = pd.to_numeric(data_df["3月"], errors="coerce")
     data_df["6月"] = pd.to_numeric(data_df["6月"], errors="coerce")
     data_df["1年"] = pd.to_numeric(data_df["1年"], errors="coerce")
