@@ -3031,6 +3031,85 @@ print(get_futures_daily_df)
 2753   JM99  20200716  1193.58  ...  1195.49    1197.92      JM
 ```
 
+#### 内盘-结算参数数据
+
+接口: get_futures_settle
+
+目标地址: 各交易所网站
+
+描述: 提供各交易所的结算参数数据，包括保证金、手续费、涨跌停板等参数
+
+限量: 单次返回指定日期指定交易所的结算参数数据
+
+输入参数
+
+| 名称   | 类型          | 描述                                                                      |
+|--------|-------------|-------------------------------------------------------------------------|
+| date   | str         | date="20250117"; 结算参数日期，默认为当前交易日                                        |
+| market | str         | market="CFFEX"; choice of {"CFFEX", "INE", "CZCE", "SHFE", "GFEX"} |
+
+输出参数
+
+| 名称                 | 类型     | 描述       |
+|--------------------|--------|----------|
+| date               | str    | 结算日期   |
+| symbol             | str    | 合约代码   |
+| variety            | str    | 品种代码   |
+| settle_price       | float  | 结算价     |
+| long_margin_ratio  | float  | 多头保证金率 |
+| short_margin_ratio | float  | 空头保证金率 |
+| spec_long_margin_ratio  | float  | 投机多头保证金率 |
+| spec_short_margin_ratio | float  | 投机空头保证金率 |
+| hedge_long_margin_ratio | float  | 套保多头保证金率 |
+| hedge_short_margin_ratio | float  | 套保空头保证金率 |
+| trade_fee_ratio    | float  | 交易手续费率 |
+| close_today_fee_ratio   | float  | 平今手续费率 |
+| delivery_fee_ratio      | float  | 交割手续费率 |
+| is_single_market        | str    | 是否单边市   |
+| single_market_days     | int    | 连续单边市天数 |
+| limit_ratio            | str    | 涨跌停板幅度 |
+| position_limit         | float  | 持仓限额    |
+| trade_limit            | float  | 交易限额    |
+| rise_limit_rate        | float  | 涨停板比例  |
+| fall_limit_rate        | float  | 跌停板比例  |
+
+接口示例
+
+```python
+import akshare as ak
+
+# 获取中金所结算参数
+get_futures_settle_df = ak.get_futures_settle(date="20241230", market="CFFEX")
+print(get_futures_settle_df)
+
+# 获取郑商所结算参数
+get_futures_settle_df = ak.get_futures_settle(date="20250117", market="CZCE")
+print(get_futures_settle_df)
+
+# 获取上期所结算参数
+get_futures_settle_df = ak.get_futures_settle(date="20250117", market="SHFE")
+print(get_futures_settle_df)
+
+# 获取广期所结算参数
+get_futures_settle_df = ak.get_futures_settle(date="20250117", market="GFEX")
+print(get_futures_settle_df)
+
+# 获取上能中心结算参数
+get_futures_settle_df = ak.get_futures_settle(date="20250117", market="INE")
+print(get_futures_settle_df)
+```
+
+数据示例
+
+```
+      date    symbol variety  settle_price long_margin_ratio short_margin_ratio
+0  20241230   IC2501       IC      6952.8             12%                  12%
+1  20241230   IC2502       IC      6816.2             12%                  12%
+2  20241230   IF2501       IF      3983.8             12%                  12%
+3  20241230   IF2502       IF      3987.4             12%                  12%
+4  20241230   IH2501       IH      2828.2             12%                  12%
+```
+
 #### 外盘-品种代码表
 
 接口: futures_hq_subscribe_exchange_symbol
