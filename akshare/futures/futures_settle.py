@@ -19,11 +19,7 @@ import requests
 from io import StringIO
 
 from akshare.futures import cons
-
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/120.0.0.0 Safari/537.36",
-}
+from akshare.utils.cons import headers
 
 gfex_headers = {
     "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -136,7 +132,7 @@ def _parse_pipe_data(text: str) -> pd.DataFrame:
     return pd.DataFrame(data_list, columns=columns)
 
 
-def get_cffex_settle(date: str = "20260119") -> pd.DataFrame:
+def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
     """
     中国金融期货交易所-结算参数
     http://www.cffex.com.cn/jscs/
@@ -181,7 +177,7 @@ def get_cffex_settle(date: str = "20260119") -> pd.DataFrame:
     return data_df
 
 
-def get_czce_settle(date: str = "20260119") -> pd.DataFrame:
+def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
     """
     郑州商品交易所-结算参数
     http://www.czce.com.cn/cn/jysj/jscs/H077003003index_1.htm
@@ -220,7 +216,7 @@ def get_czce_settle(date: str = "20260119") -> pd.DataFrame:
     return data_df
 
 
-def get_gfex_settle(date: str = "20260119") -> pd.DataFrame:
+def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
     """
     广州期货交易所-结算参数
     http://www.gfex.com.cn/gfex/rjycs/ywcs.shtml
@@ -270,7 +266,7 @@ def get_gfex_settle(date: str = "20260119") -> pd.DataFrame:
     return data_df
 
 
-def get_shfe_settle(date: str = "20260119") -> pd.DataFrame:
+def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     """
     上海期货交易所-结算参数
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
@@ -310,7 +306,7 @@ def get_shfe_settle(date: str = "20260119") -> pd.DataFrame:
     return data_df
 
 
-def get_ine_settle(date: str = "20260119") -> pd.DataFrame:
+def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     """
     上海国际能源交易中心-结算参数
     https://www.ine.cn/reports/businessdata/prmsummary/
@@ -350,7 +346,7 @@ def get_ine_settle(date: str = "20260119") -> pd.DataFrame:
     return data_df
 
 
-def get_futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.DataFrame:
+def futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.DataFrame:
     """
     期货交易所结算参数
     :param date: 结算日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
@@ -361,58 +357,59 @@ def get_futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.Data
     :rtype: pandas.DataFrame
     """
     if market.upper() == "CFFEX":
-        df = get_cffex_settle(date)
+        df = futures_settle_cffex(date)
     elif market.upper() == "CZCE":
-        df = get_czce_settle(date)
+        df = futures_settle_czce(date)
     elif market.upper() == "SHFE":
-        df = get_shfe_settle(date)
+        df = futures_settle_shfe(date)
     elif market.upper() == "GFEX":
-        df = get_gfex_settle(date)
+        df = futures_settle_gfex(date)
     elif market.upper() == "INE":
-        df = get_ine_settle(date)
+        df = futures_settle_ine(date)
     else:
         print(f"Unsupported market: {market}")
         return pd.DataFrame(columns=SETTLE_OUTPUT_COLUMNS)
-    return _normalize_settle_columns(df)
+    temp_df = _normalize_settle_columns(df)
+    return temp_df
 
 
 if __name__ == "__main__":
-    get_cffex_settle_df = get_cffex_settle(date="20260119")
+    futures_settle_cffex_df = futures_settle_cffex(date="20260119")
     print("=== 中金所结算参数 ===")
-    print(get_cffex_settle_df)
+    print(futures_settle_cffex_df)
 
-    get_czce_settle_df = get_czce_settle(date="20260119")
+    futures_settle_czce_df = futures_settle_czce(date="20260119")
     print("\n=== 郑商所结算参数 ===")
-    print(get_czce_settle_df)
+    print(futures_settle_czce_df)
 
-    get_shfe_settle_df = get_shfe_settle(date="20260119")
+    futures_settle_shfe_df = futures_settle_shfe(date="20260119")
     print("\n=== 上期所结算参数 ===")
-    print(get_shfe_settle_df)
+    print(futures_settle_shfe_df)
 
-    get_gfex_settle_df = get_gfex_settle(date="20260119")
+    futures_settle_gfex_df = futures_settle_gfex(date="20260119")
     print("\n=== 广期所结算参数 ===")
-    print(get_gfex_settle_df)
+    print(futures_settle_gfex_df)
 
-    get_ine_settle_df = get_ine_settle(date="20250117")
+    futures_settle_ine_df = futures_settle_ine(date="20250117")
     print("\n=== 上能中心结算参数 ===")
-    print(get_ine_settle_df)
+    print(futures_settle_ine_df)
 
-    get_futures_settle_df = get_futures_settle(date="20260119", market="CFFEX")
+    futures_settle_df = futures_settle(date="20260119", market="CFFEX")
     print("\n=== 通用接口-CFFEX ===")
-    print(get_futures_settle_df)
+    print(futures_settle_df)
 
-    get_futures_settle_df = get_futures_settle(date="20260119", market="CZCE")
+    futures_settle_df = futures_settle(date="20260119", market="CZCE")
     print("\n=== 通用接口-CZCE ===")
-    print(get_futures_settle_df)
+    print(futures_settle_df)
 
-    get_futures_settle_df = get_futures_settle(date="20260119", market="SHFE")
+    futures_settle_df = futures_settle(date="20260119", market="SHFE")
     print("\n=== 通用接口-SHFE ===")
-    print(get_futures_settle_df)
+    print(futures_settle_df)
 
-    get_futures_settle_df = get_futures_settle(date="20260119", market="GFEX")
+    futures_settle_df = futures_settle(date="20260119", market="GFEX")
     print("\n=== 通用接口-GFEX ===")
-    print(get_futures_settle_df)
+    print(futures_settle_df)
 
-    get_futures_settle_df = get_futures_settle(date="20260119", market="INE")
+    futures_settle_df = futures_settle(date="20260119", market="INE")
     print("\n=== 通用接口-INE ===")
-    print(get_futures_settle_df)
+    print(futures_settle_df)

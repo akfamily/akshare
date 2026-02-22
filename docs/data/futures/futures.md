@@ -270,21 +270,19 @@
 
 #### 展期收益率
 
-期货市场中的展期收益率（Rolling Yield）是指在期货合约到期时，投资者将持有的合约换成下一个到期的合约时可能产生的收益。
-展期收益率在期货市场中具有重要意义，因为它反映了期货市场的期限结构，也可以作为投资者制定投资策略的依据。
+期货市场中的展期收益率（Rolling Yield）是指在期货合约到期时，多头投资者将持有的近月合约换成远月合约时可能产生的收益。展期收益率在期货市场中具有重要意义，因为它反映了期货市场的期限结构，也可以作为投资者制定投资策略的依据。
 
-展期收益率的计算方法是将当前期货合约的价格与下一个到期的期货合约的价格进行比较。具体计算公式如下：
+展期收益率的计算方法是将近月期货合约的价格与远月期货合约的价格进行比较。具体计算公式如下：
 
-展期收益率 = (下一个到期合约价格 - 当前到期合约价格) / 当前到期合约价格
+展期收益率 =（近月合约价格 - 远月合约价格）/ 近月合约价格
 
-展期收益率可以是正数，也可以是负数。正数表示下一个到期的合约价格高于当前到期的合约价格，投资者在展期时可以获得正向收益；
-负数表示下一个到期的合约价格低于当前到期的合约价格，投资者在展期时可能面临损失。
+展期收益率可以是正数，也可以是负数。正数表示远月合约价格低于近月合约价格，多头投资者在展期时卖出较贵的近月合约、买入较便宜的远月合约，从而获得正向收益；负数表示远月合约价格高于近月合约价格，多头投资者在展期时卖出较便宜的近月合约、买入较贵的远月合约，可能面临损失。
 
 期货市场的期限结构通常分为三种类型：
 
-1. 远期溢价（Contango）：远期合约价格高于近期合约价格，展期收益率为正。
-2. 远期折价（Backwardation）：远期合约价格低于近期合约价格，展期收益率为负。
-3. 平价（Flat）：远期合约价格与近期合约价格相同，展期收益率接近于零。
+1. 远期溢价（Contango）：远月合约价格高于近月合约价格，展期收益率为负。
+2. 远期折价（Backwardation）：远月合约价格低于近月合约价格，展期收益率为正。
+3. 平价（Flat）：远月合约价格与近月合约价格相同，展期收益率接近于零。
 
 投资者可以根据不同的期限结构和展期收益率来调整其期货交易策略，以实现收益最大化或风险最小化。
 
@@ -3033,81 +3031,71 @@ print(get_futures_daily_df)
 
 #### 内盘-结算参数数据
 
-接口: get_futures_settle
+接口: futures_settle
 
 目标地址: 各交易所网站
 
 描述: 提供各交易所的结算参数数据，包括保证金、手续费、涨跌停板等参数
 
-限量: 单次返回指定日期指定交易所的结算参数数据
+限量: 单次返回指定日期指定交易所的结算参数数据；暂不支持 DCE
 
 输入参数
 
-| 名称   | 类型          | 描述                                                                      |
-|--------|-------------|-------------------------------------------------------------------------|
-| date   | str         | date="20250117"; 结算参数日期，默认为当前交易日                                        |
-| market | str         | market="CFFEX"; choice of {"CFFEX", "INE", "CZCE", "SHFE", "GFEX"} |
+| 名称     | 类型  | 描述                                                                 |
+|--------|-----|--------------------------------------------------------------------|
+| date   | str | date="20250117"; 结算参数日期，默认为当前交易日                                   |
+| market | str | market="CFFEX"; choice of {"CFFEX", "INE", "CZCE", "SHFE", "GFEX"} |
 
 输出参数
 
-| 名称                 | 类型     | 描述       |
-|--------------------|--------|----------|
-| date               | str    | 结算日期   |
-| symbol             | str    | 合约代码   |
-| variety            | str    | 品种代码   |
-| settle_price       | float  | 结算价     |
-| long_margin_ratio  | float  | 多头保证金率 |
-| short_margin_ratio | float  | 空头保证金率 |
-| spec_long_margin_ratio  | float  | 投机多头保证金率 |
-| spec_short_margin_ratio | float  | 投机空头保证金率 |
-| hedge_long_margin_ratio | float  | 套保多头保证金率 |
-| hedge_short_margin_ratio | float  | 套保空头保证金率 |
-| trade_fee_ratio    | float  | 交易手续费率 |
-| close_today_fee_ratio   | float  | 平今手续费率 |
-| delivery_fee_ratio      | float  | 交割手续费率 |
-| is_single_market        | str    | 是否单边市   |
-| single_market_days     | int    | 连续单边市天数 |
-| limit_ratio            | str    | 涨跌停板幅度 |
-| position_limit         | float  | 持仓限额    |
-| trade_limit            | float  | 交易限额    |
-| rise_limit_rate        | float  | 涨停板比例  |
-| fall_limit_rate        | float  | 跌停板比例  |
+| 名称                       | 类型      | 描述       |
+|--------------------------|---------|----------|
+| date                     | str     | 结算日期     |
+| symbol                   | str     | 合约代码     |
+| variety                  | str     | 品种代码     |
+| settle_price             | float64 | 结算价      |
+| long_margin_ratio        | object  | 多头保证金率   |
+| short_margin_ratio       | object  | 空头保证金率   |
+| spec_long_margin_ratio   | float64 | 投机多头保证金率 |
+| spec_short_margin_ratio  | float64 | 投机空头保证金率 |
+| hedge_long_margin_ratio  | float64 | 套保多头保证金率 |
+| hedge_short_margin_ratio | float64 | 套保空头保证金率 |
+| trade_fee_ratio          | float64 | 交易手续费率   |
+| close_today_fee_ratio    | float64 | 平今手续费率   |
+| delivery_fee_ratio       | object  | 交割手续费率   |
+| is_single_market         | object  | 是否单边市    |
+| single_market_days       | object  | 连续单边市天数  |
+| limit_ratio              | object  | 涨跌停板幅度   |
+| position_limit           | object  | 持仓限额     |
+| trade_limit              | object  | 交易限额     |
+| rise_limit_rate          | object  | 涨停板比例    |
+| fall_limit_rate          | object  | 跌停板比例    |
 
 接口示例
 
 ```python
 import akshare as ak
 
-# 获取中金所结算参数
-get_futures_settle_df = ak.get_futures_settle(date="20241230", market="CFFEX")
-print(get_futures_settle_df)
-
-# 获取郑商所结算参数
-get_futures_settle_df = ak.get_futures_settle(date="20250117", market="CZCE")
-print(get_futures_settle_df)
-
-# 获取上期所结算参数
-get_futures_settle_df = ak.get_futures_settle(date="20250117", market="SHFE")
-print(get_futures_settle_df)
-
-# 获取广期所结算参数
-get_futures_settle_df = ak.get_futures_settle(date="20250117", market="GFEX")
-print(get_futures_settle_df)
-
-# 获取上能中心结算参数
-get_futures_settle_df = ak.get_futures_settle(date="20250117", market="INE")
-print(get_futures_settle_df)
+futures_settle_df = ak.futures_settle(date="20260119", market="INE")
+print(futures_settle_df)
 ```
 
 数据示例
 
 ```
-      date    symbol variety  settle_price long_margin_ratio short_margin_ratio
-0  20241230   IC2501       IC      6952.8             12%                  12%
-1  20241230   IC2502       IC      6816.2             12%                  12%
-2  20241230   IF2501       IF      3983.8             12%                  12%
-3  20241230   IF2502       IF      3987.4             12%                  12%
-4  20241230   IH2501       IH      2828.2             12%                  12%
+        date  symbol variety  ...  trade_limit rise_limit_rate fall_limit_rate
+0   20260119  sc2602      sc  ...         None            None            None
+1   20260119  sc2603      sc  ...         None            None            None
+2   20260119  sc2604      sc  ...         None            None            None
+3   20260119  sc2605      sc  ...         None            None            None
+4   20260119  sc2606      sc  ...         None            None            None
+..       ...     ...     ...  ...          ...             ...             ...
+57  20260119  ec2604      ec  ...         None            None            None
+58  20260119  ec2606      ec  ...         None            None            None
+59  20260119  ec2608      ec  ...         None            None            None
+60  20260119  ec2610      ec  ...         None            None            None
+61  20260119  ec2612      ec  ...         None            None            None
+[62 rows x 20 columns]
 ```
 
 #### 外盘-品种代码表
