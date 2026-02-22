@@ -1,48 +1,70 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/11/19 12:00
+Date: 2026/2/22 13:00
 Desc: 天天基金网-基金数据-分红送配
 https://fund.eastmoney.com/data/fundfenhong.html
 """
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
-def fund_fh_em(year: str = "2025") -> pd.DataFrame:
+def fund_fh_em(
+    year: str = "2025",
+    typ: str = "",
+    rank: str = "BZDM",
+    sort: str = "asc",
+    page: int = -1,
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红
     https://fund.eastmoney.com/data/fundfenhong.html#DJR,desc,1,,,
     :param year: 查询年份
     :type year: str
+    :param typ: 基金类型；空串表示全部; choice of {"指数型-其他", "指数型-海外股票", "指数型-固收", "指数型-股票", "债券型-中短债",
+    "债券型-长债", "债券型-理财", "债券型-混合债", "债券型-混合一级", "债券型-混合二级", "货币型-普通货币", "货币型-浮动净值",
+    "混合型-平衡", "混合型-偏债", "混合型-偏股", "混合型-灵活", "混合型-绝对收益", "股票型", "REITs", "Reits", "QDII-商品",
+    "QDII-普通股票", "QDII-混合债", "QDII-混合偏股", "QDII-纯债", "QDII-REITs", "FOF"}
+    :type typ: str
+    :param rank: 排序字段；choice of {"BZDM", "ABBNAME", "DJR", "FSRQ", "FHFCZ", "FFR"}; "BZDM": 基金代码,
+    "ABBNAME": 基金简称, "DJR": 权益登记日, "FSRQ": 除息日期, "FHFCZ": 分红(元/份), "FFR": 分红发放日
+    :type rank: str
+    :param sort: 排序方向；排序方式; choice of {"asc", "desc"}
+    :type sort: str
+    :param page: 查询页数；请求第page页数据; -1 表示全部页面
+    :type page: int
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
+
+    def get_df_from_response(response):
+        text = response.text
+        return pd.DataFrame(eval(text[text.find("[["): text.find(";var jjfh_jjgs")]))
+
     url = "https://fund.eastmoney.com/Data/funddataIndex_Interface.aspx"
     params = {
         "dt": "8",
-        "page": "1",
-        "rank": "BZDM",
-        "sort": "asc",
+        "page": "1" if page == -1 else str(page),
+        "rank": rank,
+        "sort": sort,
         "gs": "",
-        "ftype": "",
+        "ftype": typ,
         "year": year,
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
-    big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update({"page": str(page)})
-        r = requests.get(url, params=params)
+    data_list = [get_df_from_response(r)]
+    if page == -1:
         data_text = r.text
-        temp_list = eval(
-            data_text[data_text.find("[[") : data_text.find(";var jjfh_jjgs")]
-        )
-        temp_df = pd.DataFrame(temp_list)
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
+        tqdm = get_tqdm()
+        for p in tqdm(range(1, total_page + 1), leave=False):
+            params.update({"page": str(p)})
+            r = requests.get(url, params=params)
+            data_list.append(get_df_from_response(r))
+    big_df = pd.concat(objs=data_list, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     # 处理空数据时报错的问题
@@ -79,39 +101,61 @@ def fund_fh_em(year: str = "2025") -> pd.DataFrame:
     return big_df
 
 
-def fund_cf_em(year: str = "2025") -> pd.DataFrame:
+def fund_cf_em(
+    year: str = "2025",
+    typ: str = "",
+    rank: str = "FSRQ",
+    sort: str = "desc",
+    page: int = -1,
+) -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金拆分
     https://fund.eastmoney.com/data/fundchaifen.html#FSRQ,desc,1,,,
     :param year: 查询年份
     :type year: str
+    :param typ: 基金类型；空串表示全部; choice of {"", "指数型-其他", "指数型-海外股票", "指数型-固收", "指数型-股票",
+    "债券型-中短债", "债券型-长债", "债券型-可转债", "债券型-混合债", "债券型-混合一级", "债券型-混合二级",
+    "商品（不含QDII）", "货币型", "混合型-平衡", "混合型-偏债", "混合型-偏股", "混合型-灵活", "股票型", "QDII", "FOF"}
+    :type typ: str
+    :param rank: 排序字段；choice of {"BZDM", "ABBNAME", "FSRQ", "FHFCZ"}; "BZDM": 基金代码,
+    "ABBNAME": 基金简称, "FSRQ": 拆分折算日, "FHFCZ": 拆分折算(每份)
+    :type rank: str
+    :param sort: 排序方向；choice of {"asc", "desc"}
+    :type sort: str
+    :param page: 查询页数；请求第page页数据; -1 表示全部页面
+    :type page: int
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
+
+    def get_df_from_response(response):
+        text = response.text
+        code = text[text.find("[["): text.find(";var jjcf_jjgs")]
+        if code:
+            return pd.DataFrame(eval(code))
+        return pd.DataFrame()
+
     url = "https://fund.eastmoney.com/Data/funddataIndex_Interface.aspx"
     params = {
         "dt": "9",
-        "page": "1",
-        "rank": "FSRQ",
-        "sort": "desc",
+        "page": "1" if page == -1 else str(page),
+        "rank": rank,
+        "sort": sort,
         "gs": "",
-        "ftype": "",
+        "ftype": typ,
         "year": year,
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
-    big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update({"page": str(page)})
-        r = requests.get(url, params=params)
+    data_list = [get_df_from_response(r)]
+    if page == -1:
         data_text = r.text
-        temp_str = data_text[data_text.find("[[") : data_text.find(";var jjcf_jjgs")]
-        if temp_str:
-            temp_list = eval(temp_str)
-            temp_df = pd.DataFrame(temp_list)
-            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
+        total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
+        tqdm = get_tqdm()
+        for p in tqdm(range(1, total_page + 1), leave=False):
+            params.update({"page": str(p)})
+            r = requests.get(url, params=params)
+            data_list.append(get_df_from_response(r))
+    big_df = pd.concat(objs=data_list, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df.loc[:, "index"] = big_df["index"] + 1
     # 处理空数据时报错的问题
@@ -162,14 +206,15 @@ def fund_fh_rank_em() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
+    total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": str(page)})
         r = requests.get(url, params=params)
         data_text = r.text
         temp_list = eval(
-            data_text[data_text.find("[[") : data_text.find(";var fhph_jjgs")]
+            data_text[data_text.find("[["): data_text.find(";var fhph_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

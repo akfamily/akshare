@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.26 fix: fix fund_fh_em interface
+
+	1. 修复 fund_fh_em 接口
+	2. 修复 stock_gdfx_free_holding_change_em 接口
+
 1.18.25 fix: fix qdii_e_comm_jsl interface
 
 	1. 修复 qdii_e_comm_jsl 接口
@@ -6132,6 +6137,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.26 fix: fix fund_fh_em interface
 
 1.18.25 fix: fix qdii_e_comm_jsl interface
 
