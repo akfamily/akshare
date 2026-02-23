@@ -3496,6 +3496,11 @@ from akshare.futures_derivative.futures_contract_info_ine import futures_contrac
 from akshare.futures.futures_stock_js import futures_stock_shfe_js
 
 """
+金十数据-期货手续费
+"""
+from akshare.futures.futures_comm_js import futures_comm_js
+
+"""
 东方财富-数据中心-沪深港通-市场概括-分时数据
 """
 from akshare.stock_feature.stock_hsgt_min_em import stock_hsgt_fund_min_em
