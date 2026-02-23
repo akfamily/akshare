@@ -71,11 +71,11 @@ def _futures_daily_czce(
         "low",
         "close",
         "settle",
-        "-",
-        "-",
+        "move1",
+        "move2",
         "volume",
         "open_interest",
-        "-",
+        "diffpos",
         "turnover",
         "-",
     ]
@@ -238,7 +238,7 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     result_df = result_df[~result_df["variety"].str.contains("小计")]
     result_df = result_df[~result_df["variety"].str.contains("总计")]
     result_df["symbol"] = (
-        result_df["varietyOrder"].str.upper() + result_df["delivMonth"]
+        result_df["varietyOrder"] + result_df["delivMonth"]
     )
     result_df["date"] = date
     result_df["open"] = pd.to_numeric(result_df["open"], errors="coerce")
@@ -252,7 +252,7 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     result_df["turnover"] = pd.to_numeric(result_df["turnover"], errors="coerce")
     result_df["settle"] = pd.to_numeric(result_df["clearPrice"], errors="coerce")
     result_df["pre_settle"] = pd.to_numeric(result_df["lastClear"], errors="coerce")
-    result_df["variety"] = result_df["varietyOrder"].str.upper()
+    result_df["variety"] = result_df["varietyOrder"]
     result_df = result_df[
         [
             "symbol",
@@ -299,15 +299,11 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
     try:
         result_df["symbol"] = (
-            temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
+            temp_df["PRODUCTGROUPID"] + temp_df["DELIVERYMONTH"]
         )
     except:  # noqa: E722
         result_df["symbol"] = (
-            temp_df["PRODUCTID"]
-            .str.upper()
-            .str.strip()
-            .str.split("_", expand=True)
-            .iloc[:, 0]
+            temp_df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
             + temp_df["DELIVERYMONTH"]
         )
     result_df["date"] = day.strftime("%Y%m%d")
@@ -324,14 +320,10 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
-        result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
+        result_df["variety"] = temp_df["PRODUCTGROUPID"]
     except:  # noqa: E722
         result_df["variety"] = (
-            temp_df["PRODUCTID"]
-            .str.upper()
-            .str.strip()
-            .str.split("_", expand=True)
-            .iloc[:, 0]
+            temp_df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
         )
     result_df = result_df[result_df["symbol"] != "总计"]
     result_df = result_df[~result_df["symbol"].str.contains("efp")]
@@ -501,14 +493,10 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
         ]
     )
     try:
-        df["variety"] = df["PRODUCTGROUPID"].str.upper().str.strip()
+        df["variety"] = df["PRODUCTGROUPID"]
     except KeyError:
         df["variety"] = (
-            df["PRODUCTID"]
-            .str.upper()
-            .str.split("_", expand=True)
-            .iloc[:, 0]
-            .str.strip()
+            df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
         )
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
