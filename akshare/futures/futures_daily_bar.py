@@ -299,11 +299,11 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
     try:
         result_df["symbol"] = (
-            temp_df["PRODUCTGROUPID"] + temp_df["DELIVERYMONTH"]
+            temp_df["PRODUCTGROUPID"].str.strip() + temp_df["DELIVERYMONTH"]
         )
     except:  # noqa: E722
         result_df["symbol"] = (
-            temp_df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
+            temp_df["PRODUCTID"].str.strip().str.split("_", expand=True).iloc[:, 0]
             + temp_df["DELIVERYMONTH"]
         )
     result_df["date"] = day.strftime("%Y%m%d")
@@ -320,10 +320,10 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
-        result_df["variety"] = temp_df["PRODUCTGROUPID"]
+        result_df["variety"] = temp_df["PRODUCTGROUPID"].str.strip()
     except:  # noqa: E722
         result_df["variety"] = (
-            temp_df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
+            temp_df["PRODUCTID"].str.strip().str.split("_", expand=True).iloc[:, 0]
         )
     result_df = result_df[result_df["symbol"] != "总计"]
     result_df = result_df[~result_df["symbol"].str.contains("efp")]
@@ -493,10 +493,10 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
         ]
     )
     try:
-        df["variety"] = df["PRODUCTGROUPID"]
+        df["variety"] = df["PRODUCTGROUPID"].str.strip()
     except KeyError:
         df["variety"] = (
-            df["PRODUCTID"].str.split("_", expand=True).iloc[:, 0]
+            df["PRODUCTID"].str.strip().str.split("_", expand=True).iloc[:, 0]
         )
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
