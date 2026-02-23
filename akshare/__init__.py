@@ -3232,13 +3232,14 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.24 fix: fix stock_individual_spot_xq interface
 1.18.25 fix: fix qdii_e_comm_jsl interface
 1.18.26 fix: fix fund_fh_em interface
+1.18.27 fix: fix futures_comm_js interface
 """
 
 from akshare._version import __version__
 __author__ = "AKFamily"
 
 """
-
+期货结算
 """
 from akshare.futures.futures_settle import (
     futures_settle,
