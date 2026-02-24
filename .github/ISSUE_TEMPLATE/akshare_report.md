@@ -9,6 +9,8 @@ assignees: ''
 
 > 由于开源项目维护工作量较大，本 issue 只接受接口报错问题。如有更多问题，推荐加入【财经数据与量化投研】知识社区：https://t.zsxq.com/ZCxUG 。
 
+> 推荐使用 **AKQuant** 进行量化投研：https://akquant.akfamily.xyz
+
 ## 重要前提
 
 遇到任何 AKShare 使用问题，请先将您本地的 AKShare 升级到**最新版**，可以通过如下命令升级：
