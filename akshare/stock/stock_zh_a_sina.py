@@ -392,7 +392,7 @@ def stock_zh_a_minute(
     data_text = r.text
     try:
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
-        temp_df = pd.DataFrame(data_json).iloc[:, :6]
+        temp_df = pd.DataFrame(data_json).iloc[:, :7]
     except:  # noqa: E722
         url = f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203=/CN_MarketDataService.getKLineData"
         params = {
@@ -404,7 +404,7 @@ def stock_zh_a_minute(
         r = requests.get(url, params=params)
         data_text = r.text
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
-        temp_df = pd.DataFrame(data_json).iloc[:, :6]
+        temp_df = pd.DataFrame(data_json).iloc[:, :7]
     if temp_df.empty:
         print(f"{symbol} 股票数据不存在，请检查是否已退市")
         return pd.DataFrame()
