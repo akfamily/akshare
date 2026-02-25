@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/2/12 15:00
+Date: 2026/2/25 14:00
 Desc: 股票配置文件
 """
 
-xq_a_token = "d51dff9ce4c54877fd40470706d55c2fe08b4640"
+xq_a_token = "b30e3a6a14d9cbe422149b7a71dbf9353d89849e"
 
 # zh-sina-kcb
 zh_sina_kcb_stock_url = (
