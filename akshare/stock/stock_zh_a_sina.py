@@ -438,7 +438,7 @@ def stock_zh_a_minute(
         merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
-        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
+        temp_df = merged_df[["day", "open", "high", "low", "close", "volume", "amount"]]
         temp_df.reset_index(drop=True, inplace=True)
         return temp_df
     if adjust == "hfq":
@@ -463,7 +463,7 @@ def stock_zh_a_minute(
         merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
-        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
+        temp_df = merged_df[["day", "open", "high", "low", "close", "volume", "amount"]]
         temp_df.reset_index(drop=True, inplace=True)
         return temp_df
     else:
@@ -517,12 +517,17 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sz000876", period="1", adjust="qfq"
+        symbol="sh600751", period="1", adjust="qfq"
     )
     print(stock_zh_a_minute_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(
         symbol="sh600519", period="1", adjust="hfq"
+    )
+    print(stock_zh_a_minute_df)
+
+    stock_zh_a_minute_df = stock_zh_a_minute(
+        symbol="sh600751", period="1", adjust=""
     )
     print(stock_zh_a_minute_df)
 
