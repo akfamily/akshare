@@ -648,7 +648,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
     return temp_df
 
 
-def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
+def futures_zh_daily_sina(symbol: str, date: str) -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
@@ -657,7 +657,8 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
     """
-    date = "20210412"
+    symbol = symbol.upper()
+    # date = "20210412"
     url = (
         "https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_V21052021_4_12="
         "/InnerFuturesNewService.getDailyKLine"
