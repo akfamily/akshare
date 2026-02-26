@@ -3363,7 +3363,7 @@ from akshare.stock_fundamental.stock_finance_us_em import (
 """
 期货行情-内盘-历史行情数据-东财
 """
-from akshare.futures.futures_hist_em import futures_hist_table_em, futures_hist_em
+from akshare.futures.futures_hist_em import futures_hist_table_em, futures_hist_em, get_all_future_symbol
 
 """
 巨潮资讯-数据中心-专题统计-股东股本-股本变动
