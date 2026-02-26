@@ -198,7 +198,7 @@ def _check_information(df_data, date):
             symbol = chinese_to_english(news)
             record = pd.DataFrame(df_data[df_data["symbol"] == string])
             record.loc[:, "symbol"] = symbol
-            record.loc[:, "spot_price"] = record.loc[:, "spot_price"].astype(float)
+            record["spot_price"] = record["spot_price"].astype(float)
             if (
                 symbol == "JD"
             ):  # 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨(http://www.100ppi.com/sf/)
@@ -223,25 +223,24 @@ def _check_information(df_data, date):
         records["date"] = pd.Series(dtype="object")
         return records
 
-    records.loc[:, ["near_contract_price", "dominant_contract_price", "spot_price"]] = (
-        records.loc[
-            :, ["near_contract_price", "dominant_contract_price", "spot_price"]
+    records[["near_contract_price", "dominant_contract_price", "spot_price"]] = (
+        records[["near_contract_price", "dominant_contract_price", "spot_price"]
         ].astype("float")
     )
 
-    records.loc[:, "near_contract"] = records["near_contract"].replace(
+    records["near_contract"] = records["near_contract"].replace(
         r"[^0-9]*(\d*)$", r"\g<1>", regex=True
     )
-    records.loc[:, "dominant_contract"] = records["dominant_contract"].replace(
+    records["dominant_contract"] = records["dominant_contract"].replace(
         r"[^0-9]*(\d*)$", r"\g<1>", regex=True
     )
 
-    records.loc[:, "near_month"] = records.loc[:, "near_contract"]
-    records.loc[:, "near_contract"] = records["symbol"] + records.loc[
+    records["near_month"] = records.loc[:, "near_contract"]
+    records["near_contract"] = records["symbol"] + records.loc[
         :, "near_contract"
     ].astype("int").astype("str")
-    records.loc[:, "dominant_month"] = records.loc[:, "dominant_contract"]
-    records.loc[:, "dominant_contract"] = records["symbol"] + records.loc[
+    records["dominant_month"] = records.loc[:, "dominant_contract"]
+    records["dominant_contract"] = records["symbol"] + records.loc[
         :, "dominant_contract"
     ].astype("int").astype("str")
 
@@ -254,7 +253,7 @@ def _check_information(df_data, date):
             else x
         )
     )
-    records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
+    records["dominant_contract"] = records["dominant_contract"].apply(
         lambda x: (
             x.lower()
             if x[:-4]
@@ -263,12 +262,12 @@ def _check_information(df_data, date):
             else x
         )
     )
-    records.loc[:, "near_contract"] = records.loc[:, "near_contract"].apply(
+    records["near_contract"] = records["near_contract"].apply(
         lambda x: (
             x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
         )
     )
-    records.loc[:, "dominant_contract"] = records.loc[:, "dominant_contract"].apply(
+    records["dominant_contract"] = records["dominant_contract"].apply(
         lambda x: (
             x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols["czce"] else x
         )
