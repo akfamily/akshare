@@ -3683,6 +3683,65 @@ print(fund_new_found_em_df)
 [7315 rows x 11 columns]
 ```
 
+接口: fund_new_found_ths
+
+目标地址: https://fund.10jqka.com.cn/datacenter/xfjj/
+
+描述: 同花顺-基金数据-新发基金
+
+限量: 单次返回所有新发基金数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                    |
+|--------|-----|---------------------------------------|
+| symbol | str  | choice of {"全部", "发行中", "将发行"}<br>"全部": 全部新发基金<br>"发行中": 发行中的基金<br>"将发行": 将发行的基金; 默认为 "全部" |
+
+输出参数
+
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| 基金代码  | object  | -        |
+| 基金名称  | object  | -        |
+| 投资类型  | object  | -        |
+| 募集起始日 | object  | -        |
+| 募集终止日 | object  | -        |
+| 管理人   | object  | -        |
+| 基金经理  | object  | -        |
+| 认购费率  | float64 | 注意单位: %  |
+| 最低认购  | float64 | -        |
+| 基金类型  | object  | -        |
+| 投资风格  | object  | -        |
+
+接口示例
+
+```python
+import akshare as ak
+
+# 获取全部新发基金
+fund_new_found_ths_df = ak.fund_new_found_ths(symbol="全部")
+print(fund_new_found_ths_df)
+
+# 获取发行中的基金
+fund_new_found_ths_issue_df = ak.fund_new_found_ths(symbol="发行中")
+print(fund_new_found_ths_issue_df)
+
+# 获取将发行的基金
+fund_new_found_ths_future_df = ak.fund_new_found_ths(symbol="将发行")
+print(fund_new_found_ths_future_df)
+```
+
+数据示例
+
+```
+    基金代码            基金名称  投资类型       募集起始日       募集终止日      管理人     基金经理  认购费率  最低认购    基金类型  投资风格
+0  020073      财通中证A500指数A   股票型  2026-02-13  2026-05-12  财通基金管理有限公司    郭欣   0.30   NaN   开放式基金  平衡型
+1  020074      财通中证A500指数C   股票型  2026-02-13  2026-05-12  财通基金管理有限公司    郭欣   0.00   NaN   开放式基金  平衡型
+2  022471  兴全安康稳健养老一年持有混合(FOF)  指数型  2026-02-26  2026-03-11  兴证全球基金管理有限公司    刘灏   0.50   1.0   开放式基金  None
+3  023679    格林上证科创板综指增强A   股票型  2026-03-04  2026-03-24     格林基金管理有限公司  郑中华   0.30   1.0   开放式基金  成长型
+4  023680    格林上证科创板综指增强C   股票型  2026-03-04  2026-03-24     格林基金管理有限公司  郑中华   0.00   1.0   开放式基金  成长型
+```
+
 ### 基金规模
 
 #### 开放式基金
