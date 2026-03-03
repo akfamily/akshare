@@ -242,3 +242,6 @@ if __name__ == "__main__":
 
     futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20240122")
     print(futures_gfex_warehouse_receipt_df)
+
+    futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20260226")
+    print(futures_gfex_warehouse_receipt_df)
