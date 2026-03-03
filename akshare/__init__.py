@@ -4567,6 +4567,7 @@ from akshare.index.index_kq_ss import index_kq_fashion
 新发基金
 """
 from akshare.fund.fund_init_em import fund_new_found_em
+from akshare.fund.fund_init_ths import fund_new_found_ths
 
 """
 高管持股
