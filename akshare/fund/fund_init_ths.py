@@ -7,7 +7,6 @@ https://fund.10jqka.com.cn/datacenter/xfjj/
 """
 
 import json
-import re
 
 import pandas as pd
 import requests
