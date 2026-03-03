@@ -292,7 +292,7 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
         ).dt.date
         temp_df["除净日"] = pd.to_datetime(temp_df["除净日"], errors="coerce").dt.date
         temp_df["发放日"] = pd.to_datetime(
-            temp_df["发放日"], format="%Y-%m-%d", errors="coerce"
+            temp_df["发放日"], format="%Y/%m/%d", errors="coerce"
         ).dt.date
     return temp_df
 
