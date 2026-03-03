@@ -666,6 +666,7 @@
  "stock_ggcg_em"  # 高管持股
  # 新发基金
  "fund_new_found_em"  # 新发基金
+ "fund_new_found_ths"  # 新发基金
  # 柯桥指数
  "index_kq_fz"  # 柯桥纺织指数
  "index_kq_fashion"  # 柯桥时尚指数
