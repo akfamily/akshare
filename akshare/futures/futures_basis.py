@@ -373,7 +373,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20250708", end_day="20250709", vars_list=["BZ", "RB"]
+        start_day="20250708", end_day="20250709", vars_list=["A", "RB", "MA"]
     )
     print(futures_spot_price_daily_df)
 
