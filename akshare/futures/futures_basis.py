@@ -283,6 +283,7 @@ def _check_information(df_data, date):
     )
     # records.loc[:, "date"] = date.strftime("%Y%m%d")
     records.insert(0, "date", date.strftime("%Y%m%d"))
+    records.reset_index(inplace=True, drop=True)
     return records
 
 
@@ -368,16 +369,17 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         "180日内主力基差平均",
     ]
     basis["主力合约变动百分比"] = basis["主力合约变动百分比"].str.strip("%")
+    basis.reset_index(inplace=True, drop=True)
     return basis
 
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20250708", end_day="20250709", vars_list=["A", "RB", "MA"]
+        start_day="20260303", end_day="20260303", vars_list=['PL']
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price(date="20250620")
+    futures_spot_price_df = futures_spot_price(date="20260303")
     print(futures_spot_price_df)
 
     futures_spot_price_previous_df = futures_spot_price_previous(date="20240430")
