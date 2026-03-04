@@ -60,7 +60,7 @@ def fund_fh_em(
         data_text = r.text
         total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
         tqdm = get_tqdm()
-        for p in tqdm(range(1, total_page + 1), leave=False):
+        for p in tqdm(range(2, total_page + 1), leave=False):
             params.update({"page": str(p)})
             r = requests.get(url, params=params)
             data_list.append(get_df_from_response(r))
@@ -151,7 +151,7 @@ def fund_cf_em(
         data_text = r.text
         total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
         tqdm = get_tqdm()
-        for p in tqdm(range(1, total_page + 1), leave=False):
+        for p in tqdm(range(2, total_page + 1), leave=False):
             params.update({"page": str(p)})
             r = requests.get(url, params=params)
             data_list.append(get_df_from_response(r))
