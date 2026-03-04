@@ -35,6 +35,7 @@ futures_inventory_em_symbol_dict = {
     "eg": "EG",  # 乙二醇
     "fb": None,  # 纤维板 (new中没有对应)
     "FG": "FG",  # 玻璃
+    "PL": "PL",  # 丙烯
     "fu": "FU",  # 燃料油/燃油
     "hc": "HC",  # 热卷
     "i": "I",  # 铁矿石
@@ -238,6 +239,7 @@ market_exchange_symbols = {
         "PX",  # 对二甲苯
         "SH",  # 烧碱
         "PR",  # 瓶片
+        "PL",  # 丙烯
     ],
     "shfe": [
         "CU",
