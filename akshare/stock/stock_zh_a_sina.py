@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/1/9 22:00
+Date: 2026/3/4 20:00
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -153,6 +153,7 @@ def stock_zh_a_daily(
             )
             if hfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
+            hfq_factor_df = hfq_factor_df[["d", "f"]]
             hfq_factor_df.columns = ["date", "hfq_factor"]
             hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
             del hfq_factor_df["date"]
@@ -165,6 +166,7 @@ def stock_zh_a_daily(
             )
             if qfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
+            qfq_factor_df = qfq_factor_df[["d", "f"]]
             qfq_factor_df.columns = ["date", "qfq_factor"]
             qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
             del qfq_factor_df["date"]
@@ -194,11 +196,22 @@ def stock_zh_a_daily(
         pass
     data_df = data_df.astype("float")
     r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
-    amount_data_df = pd.DataFrame(amount_data_json)
-    amount_data_df.columns = ["date", "outstanding_share"]
-    amount_data_df.index = pd.to_datetime(amount_data_df.date)
-    del amount_data_df["date"]
+    amount_text = r.text[r.text.find("[") : r.text.rfind("]") + 1]
+
+    if "null" in amount_text.lower() or not amount_text.strip():
+        # Fallback for ETFs or indices where share amounts are empty/null
+        amount_data_df = pd.DataFrame(
+            {"date": data_df.index.unique(), "outstanding_share": 0.0}
+        )
+        amount_data_df.index = pd.to_datetime(amount_data_df.date)
+        del amount_data_df["date"]
+    else:
+        amount_data_json = demjson.decode(amount_text)
+        amount_data_df = pd.DataFrame(amount_data_json)
+        amount_data_df.columns = ["date", "outstanding_share"]
+        amount_data_df.index = pd.to_datetime(amount_data_df.date)
+        del amount_data_df["date"]
+
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="outer"
     )
@@ -213,7 +226,13 @@ def stock_zh_a_daily(
 
     temp_df = temp_df.astype(float)
     temp_df["outstanding_share"] = temp_df["outstanding_share"] * 10000
-    temp_df["turnover"] = temp_df["volume"] / temp_df["outstanding_share"]
+
+    # Handle division by zero for turnover if outstanding_share is 0 (like for ETFs)
+    if (temp_df["outstanding_share"] == 0).all():
+        temp_df["turnover"] = 0.0
+    else:
+        temp_df["turnover"] = temp_df["volume"] / temp_df["outstanding_share"]
+
     temp_df.columns = [
         "open",
         "high",
@@ -243,6 +262,8 @@ def stock_zh_a_daily(
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
+        # 兼容 ETF 多出的 s和u列
+        hfq_factor_df = hfq_factor_df[["d", "f"]]
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
@@ -287,6 +308,8 @@ def stock_zh_a_daily(
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
+        # 兼容 ETF 多出的 s和u列
+        qfq_factor_df = qfq_factor_df[["d", "f"]]
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
