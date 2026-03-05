@@ -3240,6 +3240,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.32 fix: fix fund_new_found_ths interface
 1.18.33 fix: fix futures_spot_price_daily interface
 1.18.34 fix: fix fund_fh_em interface
+1.18.35 fix: fix stock_ipo_ths interface
 """
 
 from akshare._version import __version__
@@ -4866,6 +4867,14 @@ from akshare.stock_fundamental.stock_register_em import (
 东方财富-过会企业信息
 """
 from akshare.stock_fundamental.stock_ipo_review import stock_ipo_review_em
+
+"""
+同花顺-新股申购与中签
+"""
+from akshare.stock_fundamental.stock_ipo_ths import (
+    stock_ipo_ths,
+    stock_ipo_hk_ths,
+)
 
 """
 新浪财经-龙虎榜
