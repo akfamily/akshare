@@ -430,6 +430,8 @@
  "stock_financial_analysis_indicator"  # 财务指标
  "stock_add_stock"  # 股票增发
  "stock_ipo_info"  # 股票新股
+ "stock_ipo_ths"  # 新股申购与中签
+ "stock_ipo_hk_ths"  # 新股申购与中签
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
  "stock_dividend_cninfo"  # 个股历史分红
