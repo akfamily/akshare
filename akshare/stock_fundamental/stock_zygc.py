@@ -59,7 +59,7 @@ def stock_zygc_em(symbol: str = "SH688041") -> pd.DataFrame:
     ]
     temp_df["报告日期"] = pd.to_datetime(temp_df["报告日期"], errors="coerce").dt.date
     temp_df["分类类型"] = temp_df["分类类型"].map(
-        {"2": "按产品分类", "3": "按地区分类"}
+        {"1": "按行业分类", "2": "按产品分类", "3": "按地区分类"}
     )
     temp_df["主营收入"] = pd.to_numeric(temp_df["主营收入"], errors="coerce")
     temp_df["收入比例"] = pd.to_numeric(temp_df["收入比例"], errors="coerce")
