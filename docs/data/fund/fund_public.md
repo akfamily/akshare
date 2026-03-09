@@ -2106,7 +2106,7 @@ print(fund_hk_fund_hist_em_df)
 ```python
 import akshare as ak
 
-fund_etf_dividend_sina_df = fund_etf_dividend_sina(symbol="sh510050")
+fund_etf_dividend_sina_df = ak.fund_etf_dividend_sina(symbol="sh510050")
 print(fund_etf_dividend_sina_df)
 ```
 
@@ -2281,7 +2281,7 @@ print(fund_cf_em_df)
 ```python
 import akshare as ak
 
-fund_fh_rank_em_df = ak.fund_fh_rank_em(2025)
+fund_fh_rank_em_df = ak.fund_fh_rank_em()
 print(fund_fh_rank_em_df)
 ```
 
