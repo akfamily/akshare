@@ -127,7 +127,7 @@ def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     :return: 历史行情数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://finance.sina.com.cn/stock/hkstock/{symbol}/klc_kl.js"
+    url = f"https://finance.sina.com.cn/stock/hkstock/{symbol}/klc2_kl.js"
     params = {"d": "2023_5_01"}
     res = requests.get(url, params=params)
     js_code = py_mini_racer.MiniRacer()
