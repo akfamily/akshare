@@ -5,7 +5,7 @@ Date: 2026/2/25 14:00
 Desc: 股票配置文件
 """
 
-xq_a_token = "b30e3a6a14d9cbe422149b7a71dbf9353d89849e"
+xq_a_token = "826f0dd021d646522fa7b6413f5be324c52d33e4"
 
 # zh-sina-kcb
 zh_sina_kcb_stock_url = (
@@ -141,7 +141,7 @@ js_hash_text = """
 # hk-sina
 hk_sina_stock_hist_hfq_url = "https://finance.sina.com.cn/stock/hkstock/{}/hfq.js"
 hk_sina_stock_hist_qfq_url = "https://finance.sina.com.cn/stock/hkstock/{}/qfq.js"
-hk_sina_stock_hist_url = "https://finance.sina.com.cn/stock/hkstock/{}/klc_kl.js"
+hk_sina_stock_hist_url = "https://finance.sina.com.cn/stock/hkstock/{}/klc2_kl.js"
 hk_sina_stock_list_url = (
     "http://vip.stock.finance.sina.com.cn/quotes_service/api/"
     "json_v2.php/Market_Center.getHKStockData"

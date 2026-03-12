@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.39 fix: fix stock_hk_daily interface
+
+	1. 修复 stock_hk_daily 接口
+
 1.18.38 fix: fix stock_hk_index_daily_sina interface
 
 	1. 修复 stock_hk_index_daily_sina 接口
@@ -6185,6 +6189,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.39 fix: fix stock_hk_daily interface
 
 1.18.38 fix: fix stock_hk_index_daily_sina interface
 
