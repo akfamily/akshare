@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+uv.lock
 
 # --- Distribution / Packaging ---
 build/
@@ -21,6 +22,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.venv/
 
 # --- Unit Test / Coverage ---
 .tox/
