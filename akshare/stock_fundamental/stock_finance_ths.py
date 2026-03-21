@@ -728,3 +728,6 @@ if __name__ == "__main__":
 
     stock_shareholder_change_ths_df = stock_shareholder_change_ths(symbol="688981")
     print(stock_shareholder_change_ths_df)
+
+    stock_financial_abstract_ths_df = stock_financial_abstract_ths(symbol="000063", indicator="按报告期")
+    print(stock_financial_abstract_ths_df)
