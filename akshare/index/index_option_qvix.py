@@ -40,11 +40,11 @@ def index_option_50etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -80,11 +80,11 @@ def index_option_300etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -120,11 +120,11 @@ def index_option_500etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -160,11 +160,11 @@ def index_option_cyb_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -200,11 +200,11 @@ def index_option_kcb_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -240,11 +240,11 @@ def index_option_100etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -280,11 +280,11 @@ def index_option_300index_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -320,11 +320,11 @@ def index_option_1000index_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
@@ -360,11 +360,11 @@ def index_option_50index_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df.loc[:, "date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.loc[:, "open"] = pd.to_numeric(temp_df["open"], errors="coerce")
-    temp_df.loc[:, "high"] = pd.to_numeric(temp_df["high"], errors="coerce")
-    temp_df.loc[:, "low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df.loc[:, "close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     return temp_df
 
 
