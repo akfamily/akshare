@@ -348,7 +348,7 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df["date"] = (
-            pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+            pd.to_datetime(temp_df["date"], utc=True)
             .dt.tz_convert("Asia/Shanghai")
             .dt.date
         )
@@ -376,7 +376,7 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df["date"] = (
-            pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+            pd.to_datetime(temp_df["date"], utc=True)
             .dt.tz_convert("Asia/Shanghai")
             .dt.date
         )
@@ -431,7 +431,7 @@ def stock_index_pe_lg(symbol: str = "沪深300") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        pd.to_datetime(temp_df["date"], utc=True)
         .dt.tz_convert("Asia/Shanghai")
         .dt.date
     )
@@ -485,7 +485,7 @@ def stock_market_pb_lg(symbol: str = "上证") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        pd.to_datetime(temp_df["date"], utc=True)
         .dt.tz_convert("Asia/Shanghai")
         .dt.date
     )
@@ -544,7 +544,7 @@ def stock_index_pb_lg(symbol: str = "上证50") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        pd.to_datetime(temp_df["date"], utc=True)
         .dt.tz_convert("Asia/Shanghai")
         .dt.date
     )
