@@ -3251,6 +3251,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.43 fix: fix stock_financial_abstract_new_ths interface
 1.18.44 fix: fix index_option_50etf_qvix interface
 1.18.45 fix: fix stock_a_high_low_statistics interface
+1.18.46 fix: fix stock_a_all_pb interface
 """
 
 from akshare._version import __version__
