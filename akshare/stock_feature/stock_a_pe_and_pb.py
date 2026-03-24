@@ -578,7 +578,7 @@ if __name__ == "__main__":
         stock_market_pe_lg_df = stock_market_pe_lg(symbol=item)
         print(stock_market_pe_lg_df)
 
-    stock_index_pe_lg_df = stock_index_pe_lg(symbol="上证50")
+    stock_index_pe_lg_df = stock_index_pe_lg(symbol="沪深300")
     print(stock_index_pe_lg_df)
 
     for item in [
