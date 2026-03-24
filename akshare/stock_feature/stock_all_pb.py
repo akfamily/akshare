@@ -32,7 +32,7 @@ def stock_a_all_pb() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms", utc=True)
+        pd.to_datetime(temp_df["date"], utc=True)
         .dt.tz_convert("Asia/Shanghai")
         .dt.date
     )
