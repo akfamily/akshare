@@ -59,7 +59,7 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_foreign_hist_df = futures_foreign_hist(symbol="ZSD")
+    futures_foreign_hist_df = futures_foreign_hist(symbol="JY")
     print(futures_foreign_hist_df)
 
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
@@ -67,3 +67,7 @@ if __name__ == "__main__":
     for item in subscribes:
         futures_foreign_detail_df = futures_foreign_detail(symbol=item)
         print(futures_foreign_detail_df)
+
+    for item in subscribes:
+        futures_foreign_hist_df = futures_foreign_hist(symbol=item)
+        print(futures_foreign_hist_df)
