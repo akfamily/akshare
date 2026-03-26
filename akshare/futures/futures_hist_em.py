@@ -13,6 +13,8 @@ from typing import Tuple, Dict
 import pandas as pd
 import requests
 
+from akshare.utils.request import request_with_retry
+
 
 def __futures_hist_separate_char_and_numbers_em(symbol: str = "焦煤2506") -> tuple:
     """
@@ -37,19 +39,21 @@ def __fetch_exchange_symbol_raw_em() -> list:
     :rtype: pandas.DataFrame
     """
     url = "https://futsse-static.eastmoney.com/redis"
-    params = {"msgid": "gnweb"}
-    r = requests.get(url, params=params)
-    data_json = r.json()
     all_exchange_symbol_list = []
-    for item in data_json:
-        params = {"msgid": str(item["mktid"])}
-        r = requests.get(url, params=params)
-        inner_data_json = r.json()
-        for num in range(1, len(inner_data_json) + 1):
-            params = {"msgid": str(item["mktid"]) + f"_{num}"}
-            r = requests.get(url, params=params)
-            inner_data_json = r.json()
-            all_exchange_symbol_list.extend(inner_data_json)
+    with requests.Session() as session:
+        r = session.get(url, params={"msgid": "gnweb"}, timeout=15)
+        data_json = r.json()
+        for item in data_json:
+            mktid = str(item["mktid"])
+            r = session.get(url, params={"msgid": mktid}, timeout=15)
+            variety_count = len(r.json())
+            for num in range(1, variety_count + 1):
+                r = session.get(
+                    url, params={"msgid": f"{mktid}_{num}"}, timeout=15
+                )
+                page_data = r.json()
+                if page_data:
+                    all_exchange_symbol_list.extend(page_data)
     return all_exchange_symbol_list
 
 
@@ -133,8 +137,10 @@ def futures_hist_em(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "forcect": "1",
     }
-    r = requests.get(url, timeout=15, params=params)
+    r = request_with_retry(url, params=params, timeout=15)
     data_json = r.json()
+    if not (data_json.get("data") and data_json["data"].get("klines")):
+        return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:
         return temp_df

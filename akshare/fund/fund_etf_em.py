@@ -12,6 +12,7 @@ import pandas as pd
 import requests
 
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.request import request_with_retry
 
 
 @lru_cache()
@@ -274,19 +275,19 @@ def fund_etf_hist_em(
         # market_id = code_id_dict[symbol]
         market_id = get_market_id(symbol)
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = request_with_retry(url, params=params, timeout=15)
         data_json = r.json()
     except KeyError:
         market_id = 1
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = request_with_retry(url, params=params, timeout=15)
         data_json = r.json()
-        if not data_json["data"]:
+        if not data_json.get("data"):
             market_id = 0
             params.update({"secid": f"{market_id}.{symbol}"})
-            r = requests.get(url, timeout=15, params=params)
+            r = request_with_retry(url, params=params, timeout=15)
             data_json = r.json()
-    if not (data_json["data"] and data_json["data"]["klines"]):
+    if not (data_json.get("data") and data_json["data"].get("klines")):
         return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
@@ -367,8 +368,10 @@ def fund_etf_hist_min_em(
             "iscr": "0",
             "secid": f"{get_market_id(symbol)}.{symbol}",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = request_with_retry(url, params=params, timeout=15)
         data_json = r.json()
+        if not (data_json.get("data") and data_json["data"].get("trends")):
+            return pd.DataFrame()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
         )
@@ -406,8 +409,10 @@ def fund_etf_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = request_with_retry(url, params=params, timeout=15)
         data_json = r.json()
+        if not (data_json.get("data") and data_json["data"].get("klines")):
+            return pd.DataFrame()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
         )
