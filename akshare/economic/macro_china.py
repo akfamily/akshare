@@ -317,38 +317,56 @@ def macro_china_shrzgm() -> pd.DataFrame:
 def macro_china_urban_unemployment() -> pd.DataFrame:
     """
     国家统计局-月度数据-城镇调查失业率
-    https://data.stats.gov.cn/easyquery.htm?cn=A01&zb=A0203&sj=202304
+    https://data.stats.gov.cn/dg/website/page.html#/pc/national/monthData
     :return: 城镇调查失业率
     :rtype: pandas.DataFrame
     """
-    url = "https://data.stats.gov.cn/easyquery.htm"
-    params = {
-        "m": "QueryData",
-        "dbcode": "hgyd",
-        "rowcode": "zb",
-        "colcode": "sj",
-        "wds": "[]",
-        "dfwds": '[{"wdcode":"zb","valuecode":"A0E01"},{"wdcode":"sj","valuecode":"LAST72"}]',
-        "k1": "1691326382042",
-        "h": "1",
+    url = "https://data.stats.gov.cn/dg/website/publicrelease/web/external/getEsDataByCidAndDt"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Content-Type": "application/json",
     }
-    r = requests.get(url, params=params, verify=False)
-    r.encoding = "utf-8"
+    payload = {
+        "cid": "ee3b7046b390415b9b7745e3d16f6052",
+        "indicatorIds": [
+            "3888eac6062945a79c8a27e5f13d4953",
+            "1d550f3ec77a463bb607d4a3427e1465",
+            "1c1b2d9ab24048bfadc5c7d9510dc663",
+            "3921da310de24f14b6457c235657baf9",
+            "bd6da1abb26046c2acb38aa701d90e86",
+            "7bc1bd5daeac48ae8bb413c34ece1d08",
+            "c03a36c9562246b6bc8aab010951ef1c",
+            "1061f276ce354907b0b9900c266cf851",
+            "40ab91b1ef4948e89633c5c7f55b9713"
+        ],
+        "daCatalogId": "",
+        "das": [
+            {
+                "text": "全国",
+                "value": "000000000000"
+            }
+        ],
+        "dts": ["199001MM-203601MM"],
+        "showType": "1",
+        "rootId": "fc982599aa684be7969d7b90b1bd0e84"
+    }
+    r = requests.post(url, json=payload, headers=headers, timeout=10)
     data_json = r.json()
-    value_list = [item["data"]["data"] for item in data_json["returndata"]["datanodes"]]
-    name_list = [
-        item["wds"][0]["valuecode"] for item in data_json["returndata"]["datanodes"]
-    ]
-    date_list = [
-        item["wds"][1]["valuecode"] for item in data_json["returndata"]["datanodes"]
-    ]
-    temp_df = pd.DataFrame(data_json["returndata"]["wdnodes"][0]["nodes"])
-    code_item_map = dict(zip(temp_df["code"], temp_df["cname"]))
-    temp_df = pd.DataFrame([date_list, name_list, value_list]).T
-    temp_df.columns = ["date", "item", "value"]
-    temp_df["item"] = temp_df["item"].map(code_item_map)
-    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
-    temp_df.sort_values(by=["date"], ignore_index=True, inplace=True)
+    data_list = []
+    for month_item in data_json['data']:
+        raw_month = month_item['name']
+        year_part = raw_month.split('年')[0]
+        month_part = raw_month.split('年')[1].replace('月', '')
+        month_clean = year_part + month_part.zfill(2)
+        for value_item in month_item['values']:
+            if value_item['_name'] == '城镇调查失业率':
+                rate = value_item['value']
+                if rate:
+                    indicator_clean = value_item['i_showname'].replace(' (%)', '')
+                    data_list.append([month_clean, indicator_clean, rate])
+    temp_df = pd.DataFrame(data_list, columns=['date', 'item', 'value'])
+    temp_df.sort_values(by=['date'], ascending=True, inplace=True)
+    temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 
 

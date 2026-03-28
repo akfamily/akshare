@@ -230,7 +230,7 @@ if __name__ == "__main__":
     print(index_all_cni_df)
 
     index_hist_cni_df = index_hist_cni(
-        symbol="399005", start_date="20230114", end_date="20240114"
+        symbol="399005", start_date="20230114", end_date="20260328"
     )
     print(index_hist_cni_df)
 
