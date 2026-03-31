@@ -5404,6 +5404,7 @@ from akshare.stock_feature.stock_gpzy_em import (
     stock_gpzy_distribute_statistics_company_em,
     stock_gpzy_industry_data_em,
     stock_gpzy_pledge_ratio_detail_em,
+    stock_gpzy_individual_pledge_ratio_detail_em,
 )
 
 """
