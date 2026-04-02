@@ -167,7 +167,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
     return big_df
 
 
-def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
+def _get_page_num_gpzy_market_pledge_ratio_detail(filter: str = None) -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细
     https://data.eastmoney.com/gpzy/pledgeDetail.aspx
@@ -184,6 +184,7 @@ def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
         "quoteColumns": "",
         "source": "WEB",
         "client": "WEB",
+        "filter": filter,
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -191,14 +192,14 @@ def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
     return total_page
 
 
-def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
+def _stock_gpzy_pledge_ratio_detail_em(filter: str = None) -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细
     https://data.eastmoney.com/gpzy/pledgeDetail.aspx
     :return: pandas.DataFrame
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-    total_page = _get_page_num_gpzy_market_pledge_ratio_detail()
+    total_page = _get_page_num_gpzy_market_pledge_ratio_detail(filter)
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -212,6 +213,7 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
             "quoteColumns": "",
             "source": "WEB",
             "client": "WEB",
+            "filter": filter,
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -235,8 +237,8 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
         "占总股本比例",
         "质押日收盘价",
         "质押开始日期",
-        "_",
-        "_",
+        "质押结束日期",
+        "状态",
         "_",
         "_",
         "_",
@@ -277,6 +279,8 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
             "质押日收盘价",
             "预估平仓线",
             "质押开始日期",
+            "质押结束日期",
+            "状态",
             "公告日期",
         ]
     ]
@@ -291,7 +295,18 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
     big_df["质押开始日期"] = pd.to_datetime(
         big_df["质押开始日期"], errors="coerce"
     ).dt.date
+    big_df["质押结束日期"] = pd.to_datetime(
+        big_df["质押结束日期"], errors="coerce"
+    ).dt.date
     return big_df
+
+
+def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
+    return _stock_gpzy_pledge_ratio_detail_em()
+
+
+def stock_gpzy_individual_pledge_ratio_detail_em(symbol: str) -> pd.DataFrame:
+    return _stock_gpzy_pledge_ratio_detail_em(filter=f'(SECURITY_CODE="{symbol}")')
 
 
 def stock_gpzy_distribute_statistics_company_em() -> pd.DataFrame:
@@ -497,6 +512,11 @@ if __name__ == "__main__":
 
     stock_gpzy_pledge_ratio_detail_em_df = stock_gpzy_pledge_ratio_detail_em()
     print(stock_gpzy_pledge_ratio_detail_em_df)
+
+    stock_gpzy_individual_pledge_ratio_detail_em_df = (
+        stock_gpzy_individual_pledge_ratio_detail_em(symbol="603132")
+    )
+    print(stock_gpzy_individual_pledge_ratio_detail_em_df)
 
     stock_em_gpzy_distribute_statistics_company_df = (
         stock_gpzy_distribute_statistics_company_em()

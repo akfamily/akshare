@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.50 fix: fix stock_gpzy_individual_pledge_ratio_detail_em interface
+
+	1. 修复 stock_gpzy_individual_pledge_ratio_detail_em 接口
+
 1.18.49 fix: fix macro_china_urban_unemployment interface
 
 	1. 修复 macro_china_urban_unemployment 接口
@@ -6230,6 +6234,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.50 fix: fix stock_gpzy_individual_pledge_ratio_detail_em interface
 
 1.18.49 fix: fix macro_china_urban_unemployment interface
 

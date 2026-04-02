@@ -3255,6 +3255,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.47 fix: fix stock_margin_underlying_info_szse interface
 1.18.48 fix: fix stock_individual_spot_xq interface
 1.18.49 fix: fix macro_china_urban_unemployment interface
+1.18.50 fix: fix stock_gpzy_individual_pledge_ratio_detail_em interface
 """
 
 from akshare._version import __version__
@@ -5404,6 +5405,7 @@ from akshare.stock_feature.stock_gpzy_em import (
     stock_gpzy_distribute_statistics_company_em,
     stock_gpzy_industry_data_em,
     stock_gpzy_pledge_ratio_detail_em,
+    stock_gpzy_individual_pledge_ratio_detail_em,
 )
 
 """

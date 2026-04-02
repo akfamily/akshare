@@ -183,6 +183,7 @@
  "stock_gpzy_profile_em"  # 股权质押市场概况
  "stock_gpzy_pledge_ratio_em"  # 上市公司质押比例
  "stock_gpzy_pledge_ratio_detail_em"  # 重要股东股权质押明细
+ "stock_gpzy_individual_pledge_ratio_detail_em"  # 个股重要股东股权质押明细
  "stock_gpzy_distribute_statistics_company_em"  # 质押机构分布统计-证券公司
  "stock_gpzy_distribute_statistics_bank_em"  # 质押机构分布统计-银行
  "stock_gpzy_industry_data_em"  # 上市公司质押比例-行业数据
