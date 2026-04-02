@@ -514,7 +514,7 @@ if __name__ == "__main__":
     print(stock_gpzy_pledge_ratio_detail_em_df)
 
     stock_gpzy_individual_pledge_ratio_detail_em_df = (
-        stock_gpzy_individual_pledge_ratio_detail_em("603132")
+        stock_gpzy_individual_pledge_ratio_detail_em(symbol="603132")
     )
     print(stock_gpzy_individual_pledge_ratio_detail_em_df)
 
