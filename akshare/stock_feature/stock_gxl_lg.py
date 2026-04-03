@@ -38,8 +38,10 @@ def stock_a_gxl_lg(symbol: str = "上证A股") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json[symbol_map[symbol]])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms") + pd.Timedelta(hours=8)
-    ).dt.date
+        pd.to_datetime(temp_df["date"], utc=True)
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.date
+    )
     temp_df.rename(columns={"addDvTtm": "股息率", "date": "日期"}, inplace=True)
     temp_df = temp_df[
         [
@@ -69,9 +71,11 @@ def stock_hk_gxl_lg() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], unit="ms") + pd.Timedelta(hours=8)
-    ).dt.date
-    temp_df.rename(columns={"addDvRatio": "股息率", "date": "日期"}, inplace=True)
+        pd.to_datetime(temp_df["date"], utc=True)
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.date
+    )
+    temp_df.rename(columns={"dvRatio": "股息率", "date": "日期"}, inplace=True)
     temp_df = temp_df[
         [
             "日期",
