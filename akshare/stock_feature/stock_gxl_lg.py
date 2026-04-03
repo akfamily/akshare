@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/10 16:05
+Date: 2026/4/3 16:05
 Desc: 乐咕乐股-股息率-A 股股息率
 https://legulegu.com/stockdata/guxilv
 """
