@@ -3257,6 +3257,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.49 fix: fix macro_china_urban_unemployment interface
 1.18.50 fix: fix stock_gpzy_individual_pledge_ratio_detail_em interface
 1.18.51 fix: fix stock_a_gxl_lg interface
+1.18.52 fix: fix fund_scale_daily_szse interface
 """
 
 from akshare._version import __version__
@@ -3751,6 +3752,11 @@ from akshare.fund.fund_etf_sse import fund_etf_scale_sse
 深圳证券交易所-ETF基金份额数据
 """
 from akshare.fund.fund_etf_szse import fund_etf_scale_szse
+
+"""
+深圳证券交易所-基金规模日频数据
+"""
+from akshare.fund.fund_scale_szse import fund_scale_daily_szse
 
 """
 乐咕乐股-股债利差
