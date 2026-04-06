@@ -3,7 +3,7 @@
 """
 Date: 2026/4/2 22:00
 Desc: 深圳证券交易所-基金规模日频数据
-http://www.szse.cn/market/fund/volume/etf/index.html
+https://www.szse.cn/market/fund/volume/etf/index.html
 """
 
 import io
@@ -24,12 +24,12 @@ def _parse_date(date_str: str) -> date:
         raise ValueError("start_date 和 end_date 应为有效日期") from err
 
 
-def fund_scale_szse_daily(
+def fund_scale_daily_szse(
     start_date: str = "20260401", end_date: str = "20260401", symbol: str = "ETF"
 ) -> pd.DataFrame:
     """
     深圳证券交易所-基金产品-基金规模-日频数据
-    http://www.szse.cn/market/fund/volume/etf/index.html
+    https://www.szse.cn/market/fund/volume/etf/index.html
     :param start_date: 开始日期, 格式如 "20260401"
     :type start_date: str
     :param end_date: 结束日期, 格式如 "20260401"
@@ -67,7 +67,7 @@ def fund_scale_szse_daily(
         "Host": "www.szse.cn",
         "Referer": symbol_map[symbol]["referer"],
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
     }
     params = {
         "SHOWTYPE": "xlsx",
@@ -123,8 +123,8 @@ def fund_scale_szse_daily(
 
 if __name__ == "__main__":
     for item_symbol in ["ETF", "LOF", "REITS"]:
-        fund_scale_szse_daily_df = fund_scale_szse_daily(
+        fund_scale_daily_szse_df = fund_scale_daily_szse(
             start_date="20260401", end_date="20260402", symbol=item_symbol
         )
         print(item_symbol)
-        print(fund_scale_szse_daily_df)
+        print(fund_scale_daily_szse_df)

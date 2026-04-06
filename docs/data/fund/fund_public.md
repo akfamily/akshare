@@ -4027,7 +4027,7 @@ print(fund_etf_scale_szse_df)
 
 #### 基金规模日频-深交所
 
-接口: fund_scale_szse_daily
+接口: fund_scale_daily_szse
 
 目标地址: http://www.szse.cn/market/fund/volume/etf/index.html
 
@@ -4037,10 +4037,10 @@ print(fund_etf_scale_szse_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                             |
-|------------|-----|------------------------------------------------|
-| start_date | str | 开始日期, 格式为 "YYYYMMDD" |
-| end_date   | str | 结束日期, 格式为 "YYYYMMDD" |
+| 名称         | 类型  | 描述                                                         |
+|------------|-----|------------------------------------------------------------|
+| start_date | str | 开始日期, 格式为 "YYYYMMDD"                                       |
+| end_date   | str | 结束日期, 格式为 "YYYYMMDD"                                       |
 | symbol     | str | 基金类别, choice of {"ETF", "LOF", "REITS"}; REITS 映射为 "不动产基金" |
 
 输出参数
@@ -4057,10 +4057,8 @@ print(fund_etf_scale_szse_df)
 ```python
 import akshare as ak
 
-fund_scale_szse_daily_df = ak.fund_scale_szse_daily(
-    start_date="20260401", end_date="20260402", symbol="ETF"
-)
-print(fund_scale_szse_daily_df)
+fund_scale_daily_szse_df = ak.fund_scale_daily_szse(start_date="20260401", end_date="20260402", symbol="ETF")
+print(fund_scale_daily_szse_df)
 ```
 
 数据示例
