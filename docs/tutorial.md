@@ -9,6 +9,7 @@
 ```
  # 交易所期货数据
  "get_cffex_daily",  # 中国金融期货交易所每日交易数据
+ "futures_hist_daily_cffex",  # 中国金融期货交易所-每日交易数据
  "get_cffex_rank_table",  # 中国金融期货交易所前20会员持仓数据明细
  "get_czce_daily",  # 郑州商品交易所每日交易数据
  "get_rank_table_czce",  # 郑州商品交易所前20会员持仓数据明细
