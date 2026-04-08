@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/13 13:00
+Date: 2026/4/8 16:00
 Desc: 东方财富网-数据中心-公告大全-沪深 A 股公告
 https://data.eastmoney.com/notices/hsa/5.html
 """
@@ -14,14 +14,23 @@ import requests
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.DataFrame:
+def _stock_notice_report(
+    security: str = None,
+    symbol: str = "全部",
+    begin_date: str = None,
+    end_date: str = None,
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-公告大全-沪深京 A 股公告
     https://data.eastmoney.com/notices/hsa/5.html
+    :param security: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type security: str
     :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type symbol: str
-    :param date: 制定日期
-    :type date: str
+    :param begin_date: 制定日期
+    :type begin_date: str
+    :param end_date: 制定日期
+    :type end_date: str
     :return: 沪深京 A 股公告
     :rtype: pandas.DataFrame
     """
@@ -44,9 +53,13 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
         "client_source": "web",
         "f_node": report_map[symbol],
         "s_node": "0",
-        "begin_time": "-".join([date[:4], date[4:6], date[6:]]),
-        "end_time": "-".join([date[:4], date[4:6], date[6:]]),
     }
+    if security:
+        params["stock_list"] = security
+    if begin_date:
+        params["begin_time"] = begin_date
+    if end_date:
+        params["end_time"] = end_date
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = math.ceil(data_json["data"]["total_hits"] / 100)
@@ -117,7 +130,52 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
     return big_df
 
 
+def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-公告大全-沪深京 A 股公告
+    https://data.eastmoney.com/notices/hsa/5.html
+    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type symbol: str
+    :param date: 制定日期
+    :type date: str
+    :return: 沪深京 A 股公告
+    :rtype: pandas.DataFrame
+    """
+    return _stock_notice_report(
+        symbol=symbol,
+        begin_date="-".join([date[:4], date[4:6], date[6:]]),
+        end_date="-".join([date[:4], date[4:6], date[6:]]),
+    )
+
+
+def stock_individual_notice_report(
+    security: str, symbol: str = "全部", begin_date: str = None, end_date: str = None
+) -> pd.DataFrame:
+    """
+    东方财富网-数据中心-公告大全-个股
+    https://data.eastmoney.com/notices/stock/300237.html
+    :param security: 股票代码
+    :type security: str
+    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type symbol: str
+    :param begin_date: 开始日期
+    :type begin_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 个股公告
+    :rtype: pandas.DataFrame
+    """
+    return _stock_notice_report(
+        security=security, symbol=symbol, begin_date=begin_date, end_date=end_date
+    )
+
+
 if __name__ == "__main__":
+    stock_individual_notice_report_df = stock_individual_notice_report(
+        security="300237", symbol="财务报告", begin_date="20250101", end_date="20260101"
+    )
+    print(stock_individual_notice_report_df)
+
     stock_notice_report_df = stock_notice_report(symbol="财务报告", date="20240612")
     print(stock_notice_report_df)
 

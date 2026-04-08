@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.54 fix: fix stock_individual_notice_report interface
+
+	1. 修复 stock_individual_notice_report 接口
+
 1.18.53 fix: fix futures_hist_daily_cffex interface
 
 	1. 修复 futures_hist_daily_cffex 接口
@@ -6246,6 +6250,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.18.54 fix: fix stock_individual_notice_report interface
 
 1.18.53 fix: fix futures_hist_daily_cffex interface
 
