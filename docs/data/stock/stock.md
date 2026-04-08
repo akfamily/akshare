@@ -11456,7 +11456,7 @@ print(stock_notice_report_df)
 
 目标地址: https://data.eastmoney.com/notices/stock/300237.html
 
-描述: 东方财富网-个股-相关咨询-相关公告
+描述: 东方财富网-数据中心-公告大全-个股
 
 限量: 单次获取指定 security, symbol, begin_date 和 end_date 的数据
 

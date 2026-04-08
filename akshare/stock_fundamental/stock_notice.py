@@ -138,7 +138,7 @@ def stock_individual_notice_report(
     security: str, symbol: str = "全部", begin_date: str = None, end_date: str = None
 ) -> pd.DataFrame:
     """
-    东方财富网-个股-资讯公告-相关公告
+    东方财富网-数据中心-公告大全-个股
     https://data.eastmoney.com/notices/stock/300237.html
     :param security: 股票代码
     :type security: str
