@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/6/13 13:00
+Date: 2026/4/8 16:00
 Desc: 东方财富网-数据中心-公告大全-沪深 A 股公告
 https://data.eastmoney.com/notices/hsa/5.html
 """
@@ -20,6 +20,20 @@ def _stock_notice_report(
     begin_date: str = None,
     end_date: str = None,
 ) -> pd.DataFrame:
+    """
+    东方财富网-数据中心-公告大全-沪深京 A 股公告
+    https://data.eastmoney.com/notices/hsa/5.html
+    :param security: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type security: str
+    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type symbol: str
+    :param begin_date: 制定日期
+    :type begin_date: str
+    :param end_date: 制定日期
+    :type end_date: str
+    :return: 沪深京 A 股公告
+    :rtype: pandas.DataFrame
+    """
     url = "https://np-anotice-stock.eastmoney.com/api/security/ann"
     report_map = {
         "全部": "0",
