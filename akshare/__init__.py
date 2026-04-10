@@ -3914,11 +3914,14 @@ from akshare.stock_feature.stock_hsgt_exchange_rate import (
 )
 
 """
-中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
+中国债券信息网-中债指数-中债指数族系
 """
 from akshare.bond.bond_cbond import (
     bond_new_composite_index_cbond,
     bond_composite_index_cbond,
+    available_bond_index,
+    bond_index_general_cbond,
+    bond_treasury_index_cbond,
 )
 
 """

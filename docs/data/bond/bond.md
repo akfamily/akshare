@@ -2394,7 +2394,7 @@ print(bond_new_composite_index_cbond_df)
 
 目标地址: https://yield.chinabond.com.cn/cbweb-mn/indices/single_index_query
 
-描述: 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数-中债-综合指数
+描述: 中国债券信息网-中债指数-中债指数族系-分类指数-按待偿期限
 
 输入参数
 
@@ -2436,3 +2436,130 @@ print(bond_composite_index_cbond_df)
 5433  2023-09-17  232.5021
 [5434 rows x 2 columns]
 ```
+
+###### 国债指数
+
+接口: bond_treasury_index_cbond
+
+目标地址: https://yield.chinabond.com.cn/cbweb-mn/indices/single_index_query
+
+描述: 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数-中债-国债指数
+
+输入参数
+
+| 名称        | 类型  | 描述                                                                                                      |
+|-----------|-----|---------------------------------------------------------------------------------------------------------|
+| indicator | str | indicator="财富"; choice of {"全价", "净价", "财富"}                                                        |
+| period    | str | period="5Y"; choice of {'0-1Y', '0-3Y', '0-5Y', '0-10Y', '1-3Y', '1-5Y', '1-10Y', '3-5Y', '5Y', '7Y', '7-10Y', '10Y', '30Y'} |
+
+输出参数
+
+| 名称    | 类型      | 描述   |
+|-------|---------|------|
+| date  | object  | -    |
+| value | float64 | 注意单位 |
+
+接口示例
+
+```python
+import akshare as ak
+
+bond_treasury_index_cbond_df = ak.bond_treasury_index_cbond(indicator="财富", period="5Y")
+print(bond_treasury_index_cbond_df)
+```
+
+数据示例
+
+```
+                          value
+date                           
+2002-01-04 00:00:00+08:00   99.9928
+2002-01-07 00:00:00+08:00  100.0346
+2002-01-08 00:00:00+08:00   99.8457
+2002-01-09 00:00:00+08:00  100.0399
+2002-01-10 00:00:00+08:00   99.9506
+```
+
+#### 中债指数族系
+
+##### 可选指数
+
+接口: available_bond_index
+
+目标地址: https://yield.chinabond.com.cn/cbweb-mn/indices/singleIndexQueryResult
+
+描述: 中国债券信息网-中债指数-中债指数族系当中, 非指定期限部分的可选指数
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称       | 类型   | 描述     |
+|----------|------|--------|
+| index_list | list | 可选指数名称列表 |
+
+接口示例
+
+```python
+import akshare as ak
+
+available_bond_index_list = ak.available_bond_index()
+print(available_bond_index_list)
+```
+
+数据示例
+
+```
+['新综合指数', '综合指数', '银行间国债指数', '银行间债券总指数', '中债-国债指数']
+```
+
+##### 指数族系查询
+
+接口: bond_index_general_cbond
+
+目标地址: https://yield.chinabond.com.cn/cbweb-mn/indices/singleIndexQueryResult
+
+描述: 中国债券信息网-中债指数-中债指数族系
+
+输入参数
+
+| 名称             | 类型        | 描述                                                                                                                                                                                                       |
+|----------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| index_category | str       | index_category="新综合指数"; index_category 取值参考 `available_bond_index` 的返回结果                                                                                                                                   |
+| indicator      | str       | indicator="财富"; choice of {"全价", "净价", "财富", "平均市值法久期", "平均现金流法久期", "平均市值法凸性", "平均现金流法凸性", "平均现金流法到期收益率", "平均市值法到期收益率", "平均基点价值", "平均待偿期", "平均派息率", "指数上日总市值", "财富指数涨跌幅", "全价指数涨跌幅", "净价指数涨跌幅", "现券结算量"} |
+| periods        | list[str] | periods=["总值", "1-3年", "3-5年"]; choice of {"总值", "1年以下", "1-3年", "3-5年", "5-7年", "7-10年", "10年以上", "0-3个月", "3-6个月", "6-9个月", "9-12个月", "0-6个月", "6-12个月"}                                 |
+
+输出参数
+
+| 名称         | 类型      | 描述          |
+|------------|---------|-------------|
+| date       | object  | 时间索引        |
+| 各期限分段字段名称 | float64 | 对应所选期限分段的指标值 |
+
+接口示例
+
+```python
+import akshare as ak
+
+bond_index_general_cbond_df = ak.bond_index_general_cbond(
+    index_category="新综合指数", indicator="财富", periods=["总值", "1-3年", "3-5年"]
+)
+print(bond_index_general_cbond_df)
+```
+
+数据示例
+
+```
+                           总值      1-3年      3-5年
+date                                                
+2002-01-04 00:00:00+08:00   99.9731   99.9468   99.9824
+2002-01-07 00:00:00+08:00  100.0149   99.9892  100.0216
+2002-01-08 00:00:00+08:00   99.8273   99.8087   99.8415
+2002-01-09 00:00:00+08:00  100.0203   99.9964  100.0288
+2002-01-10 00:00:00+08:00   99.9317   99.9102   99.9401
+```
+
