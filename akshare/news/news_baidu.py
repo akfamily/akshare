@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/12/1 22:00
+Date: 2026/4/12 17:00
 Desc: 百度股市通-经济数据
 https://finance.baidu.com/calendar
 """
@@ -15,9 +15,9 @@ from curl_cffi import requests
 
 def _get_baidu_cookie(headers: dict) -> str:
     """
-    安全获取百度股市通所需的Cookie
+    安全获取百度股市通所需的 Cookie
     :param headers: 基础请求头
-    :return: 格式化的Cookie字符串
+    :return: 格式化的 Cookie字符串
     :raises ValueError: 当无法获取必要Cookie时
     :raises ConnectionError: 网络请求失败时
     """
@@ -268,7 +268,7 @@ def news_economic_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFr
     https://finance.baidu.com/calendar
     :param date: 查询日期 (格式: YYYYMMDD)
     :param cookie: cookie
-    :return: 经济数据DataFrame
+    :return: 经济数据 pd.DataFrame
     """
     return _baidu_finance_calendar(
         date=date,
