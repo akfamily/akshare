@@ -31,6 +31,8 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
     temp_df = pd.DataFrame(dict_list)
     temp_df.columns = ["trade_date"]
     temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
+    today = datetime.date.today()
+    temp_df = temp_df[temp_df["trade_date"] < today]
     temp_list = temp_df["trade_date"].to_list()
     # 该日期是交易日，但是在新浪返回的交易日历缺失该日期，这里补充上
     temp_list.append(datetime.date(year=1992, month=5, day=4))
