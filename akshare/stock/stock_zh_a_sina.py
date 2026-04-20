@@ -301,6 +301,7 @@ def stock_zh_a_daily(
         temp_df.reset_index(inplace=True)
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         return temp_df
+    return pd.DataFrame()
 
 
 def stock_zh_a_cdr_daily(
