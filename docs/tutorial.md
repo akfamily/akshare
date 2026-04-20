@@ -97,6 +97,7 @@
  "stock_zh_ah_name"  #  A+H 股所有股票代码
  # A股实时行情数据和历史行情数据
  "stock_zh_a_spot"  # 新浪 A 股实时行情数据
+ "stock_zh_a_spot_tx"  # 腾讯 A 股实时行情数据
  "stock_zh_a_spot_em"  # 东财 A 股实时行情数据
  "stock_sh_a_spot_em"  # 东财沪 A 股实时行情数据
  "stock_sz_a_spot_em"  # 东财深 A 股实时行情数据
