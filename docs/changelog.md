@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.56 fix: fix stock_zh_a_spot_tx interface
+
+	1. 修复 stock_zh_a_spot_tx 接口
+
 1.18.55 fix: fix bond_index_general_cbond interface
 
 	1. 修复 bond_index_general_cbond 接口
