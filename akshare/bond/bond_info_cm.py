@@ -10,8 +10,9 @@ import functools
 
 import pandas as pd
 import requests
-from akshare.utils.tqdm import get_tqdm
+
 from akshare.bond.bond_china import bond_china_close_return_map
+from akshare.utils.tqdm import get_tqdm
 
 
 @functools.lru_cache()
@@ -29,7 +30,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/EntyFullNameSearchCondition"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/109.0.0.0 Safari/537.36"
+                          "Chrome/109.0.0.0 Safari/537.36"
         }
         r = requests.post(url, headers=headers)
         data_json = r.json()
@@ -47,7 +48,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/BondBaseInfoSearchCondition"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/109.0.0.0 Safari/537.36"
+                          "Chrome/109.0.0.0 Safari/537.36"
         }
         r = requests.post(url, headers=headers)
         data_json = r.json()
@@ -134,7 +135,7 @@ def bond_info_cm(
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/109.0.0.0 Safari/537.36"
+                      "Chrome/109.0.0.0 Safari/537.36"
     }
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
@@ -195,7 +196,10 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     payload = {"bondDefinedCode": bond_code}
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/109.0.0.0 Safari/537.36"
+                      "Chrome/109.0.0.0 Safari/537.36",
+        "host": "www.chinamoney.com.cn",
+        "origin": "https://www.chinamoney.com.cn",
+        "referer": "https://www.chinamoney.com.cn/chinese/zqjc/?bondDefinedCode=egfjh08154",
     }
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
@@ -223,5 +227,5 @@ if __name__ == "__main__":
     )
     print(bond_info_cm_df)
 
-    bond_info_detail_cm_df = bond_info_detail_cm(symbol="19万林投资CP001")
+    bond_info_detail_cm_df = bond_info_detail_cm(symbol="19渝机电CP002")
     print(bond_info_detail_cm_df)
