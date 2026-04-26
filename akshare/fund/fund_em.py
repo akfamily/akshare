@@ -761,13 +761,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://api.fund.eastmoney.com/f10/lsjz"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
-    }
     params = {
-        "callback": "jQuery18307915911837995662_1588249228826",
         "fundCode": symbol,
         "pageIndex": "1",
         "pageSize": "10000",
@@ -775,9 +769,8 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
         "endDate": "",
         "_": round(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    r = requests.get(url, params=params)
+    data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
@@ -806,7 +799,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
         ]
     ]
     temp_df.sort_values(["净值日期"], inplace=True, ignore_index=True)
-    temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"]).dt.date
+    temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"], errors="coerce").dt.date
     temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
     temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"], errors="coerce")
     temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"], errors="coerce")
@@ -863,6 +856,7 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
         "-",
         "-",
         "手续费",
+        "-",
     ]
     data_df = temp_df[
         [
@@ -1212,6 +1206,7 @@ def fund_hk_fund_hist_em(
             "分红发放日",
             "_",
             "单位",
+            "_",
             "_",
             "_",
         ]
