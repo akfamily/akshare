@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/15 22:00
+Date: 2025/4/27 00:00
 Desc: 东方财富-ETF行情
 https://quote.eastmoney.com/sh513500.html
 """
@@ -48,7 +48,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     :return: ETF 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://88.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://push2delay.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "100",
@@ -491,7 +491,7 @@ if __name__ == "__main__":
         symbol="511380",
         period="1",
         adjust="",
-        start_date="2025-03-10 09:30:00",
-        end_date="2025-03-10 17:40:00",
+        start_date="2025-04-10 09:30:00",
+        end_date="2025-04-10 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
