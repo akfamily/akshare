@@ -6,6 +6,7 @@ Desc: 同花顺-数据中心-技术选股
 https://data.10jqka.com.cn/rank/cxg/
 """
 
+import re
 from io import StringIO
 
 import pandas as pd
@@ -52,7 +53,7 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = (
@@ -73,7 +74,7 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = (
@@ -81,7 +82,8 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
             f"order/asc/page/{page}/ajax/1/free/1/"
         )
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0].iloc[:, :-1]  # 20260214 新增
+        html_fixed = re.sub(r'\srowspan="\d+"', '', r.text)
+        temp_df = pd.read_html(StringIO(html_fixed), header=0)[0]  # 20260214 新增
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "序号",
@@ -127,7 +129,7 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = (
@@ -148,7 +150,7 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = (
@@ -194,7 +196,7 @@ def stock_rank_lxsz_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/lxsz/field/lxts/order/desc/page/1/ajax/1/free/1/"
@@ -212,7 +214,7 @@ def stock_rank_lxsz_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/lxsz/field/lxts/order/desc/page/{page}/ajax/1/free/1/"
@@ -255,7 +257,7 @@ def stock_rank_lxxd_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/lxxd/field/lxts/order/desc/page/1/ajax/1/free/1/"
@@ -273,7 +275,7 @@ def stock_rank_lxxd_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/lxxd/field/lxts/order/desc/page/{page}/ajax/1/free/1/"
@@ -316,7 +318,7 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/cxfl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
@@ -334,7 +336,7 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/cxfl/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
@@ -402,7 +404,7 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/cxsl/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
@@ -420,7 +422,7 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/cxsl/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
@@ -500,7 +502,7 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = f"http://data.10jqka.com.cn/rank/xstp/board/{symbol_map[symbol]}/order/asc/ajax/1/free/1/page/1/free/1/"
@@ -518,7 +520,7 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = (
@@ -597,7 +599,7 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = f"http://data.10jqka.com.cn/rank/xxtp/board/{symbol_map[symbol]}/order/asc/ajax/1/free/1/page/1/free/1/"
@@ -615,7 +617,7 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = (
@@ -681,7 +683,7 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
@@ -699,7 +701,7 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
@@ -763,7 +765,7 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
@@ -781,7 +783,7 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
         v_code = js_code.call("v")
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                          "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         url = f"http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
@@ -846,7 +848,7 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
     v_code = js_code.call("v")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+                      "(KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     url = "http://data.10jqka.com.cn/ajax/xzjp/field/DECLAREDATE/order/desc/ajax/1/free/1/"
