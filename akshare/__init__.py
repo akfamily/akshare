@@ -3264,6 +3264,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.56 fix: fix stock_zh_a_spot_tx interface
 1.18.57 fix: fix bond_info_detail_cm interface
 1.18.58 fix: fix stock_individual_spot_xq interface
+1.18.59 fix: fix stock_board_concept_hist_min_em interface
 """
 
 from akshare._version import __version__
