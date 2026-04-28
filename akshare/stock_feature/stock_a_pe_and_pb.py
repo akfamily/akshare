@@ -575,6 +575,7 @@ if __name__ == "__main__":
     print(stock_market_pe_lg_df)
 
     for item in {"上证", "深证", "创业板", "科创版"}:
+        print(item)
         stock_market_pe_lg_df = stock_market_pe_lg(symbol=item)
         print(stock_market_pe_lg_df)
 
