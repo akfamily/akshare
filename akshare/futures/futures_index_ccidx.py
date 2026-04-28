@@ -1,12 +1,10 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2025/10/29 15:00
+Date: 2026/4/28 15:00
 Desc: 中证商品指数
 http://www.ccidx.com/
 """
-
-import json
 
 import pandas as pd
 import requests
@@ -30,7 +28,7 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(
-        [json.loads(item) for item in data_json["data"]["dateLineJson"]]
+        [item for item in data_json["data"]["dateLineJson"]]
     )
     temp_df.rename(
         columns={
