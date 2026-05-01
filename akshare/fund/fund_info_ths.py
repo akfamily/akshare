@@ -24,7 +24,7 @@ def fund_info_ths(symbol: str = "161130") -> pd.DataFrame:
     """
     url = f"https://fund.10jqka.com.cn/{symbol}/interduce.html"
     r = requests.get(url, headers=headers, timeout=15)
-    soup = BeautifulSoup(r.text, features="lxml")
+    soup = BeautifulSoup(r.content, features="lxml", from_encoding="utf-8")
 
     # 查找基金信息对话框
     g_dialog = soup.find("ul", class_="g-dialog")
