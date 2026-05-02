@@ -3477,6 +3477,11 @@ from akshare.option.option_daily_stats_sse_szse import option_daily_stats_sse, o
 from akshare.fund.fund_etf_ths import fund_etf_spot_ths, fund_etf_category_ths
 
 """
+同花顺-基金数据-基金基本信息
+"""
+from akshare.fund.fund_info_ths import fund_info_ths
+
+"""
 东方财富网-数据中心-融资融券-融资融券账户统计-两融账户信息
 """
 from akshare.stock_feature.stock_margin_em import stock_margin_account_info
