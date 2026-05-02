@@ -351,24 +351,46 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     return start_date
 
 
-def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
+def stock_zh_index_daily_tx(
+    symbol: str = "sz980017",
+    start_date: str = "",
+    end_date: str = "",
+) -> pd.DataFrame:
     """
-    腾讯证券-日频-股票或者指数历史数据
+    腾讯证券-日频-股票或者指数历史数据(支持自定义时间范围)
     作为 ak.stock_zh_index_daily() 的补充, 因为在新浪中有部分指数数据缺失
     注意都是: 前复权, 不同网站复权方式不同, 不可混用数据
     https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
     :type symbol: str
+    :param start_date: 开始日期, 格式 "YYYY-MM-DD", 为空则从最早日期开始
+    :type start_date: str
+    :param end_date: 结束日期, 格式 "YYYY-MM-DD", 为空则到当前日期
+    :type end_date: str
     :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
-    start_date = get_tx_start_year(symbol=symbol)
+    if start_date:
+        dt_start = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        i_start_year = dt_start.year
+    else:
+        earliest_date = get_tx_start_year(symbol=symbol)
+        dt_start = datetime.datetime.strptime(earliest_date, "%Y-%m-%d")
+        i_start_year = dt_start.year
+
+    if end_date:
+        dt_end = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+        i_end_year = dt_end.year
+    else:
+        dt_end = datetime.datetime.combine(
+            datetime.date.today(), datetime.datetime.min.time()
+        )
+        i_end_year = dt_end.year
+
     url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
-    range_start = int(start_date.split("-")[0])
-    range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
     tqdm = get_tqdm()
-    for year in tqdm(range(range_start, range_end), leave=False):
+    for year in tqdm(range(i_start_year, i_end_year + 1), leave=False):
         params = {
             "_var": "kline_dayqfq",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
@@ -397,6 +419,9 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
     temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
     temp_df.drop_duplicates(inplace=True, ignore_index=True)
+    temp_df = temp_df[temp_df["date"] >= dt_start.date()]
+    temp_df = temp_df[temp_df["date"] <= dt_end.date()]
+    temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 
 
