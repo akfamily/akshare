@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/10 18:30
+Date: 2026/5/2 16:30
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -147,7 +147,7 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
         "fid": "",
         "fs": "b:MK0010",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
-        "f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152",
+                  "f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -236,7 +236,7 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
         "fid": "f12",
         "fs": symbol_map[symbol],
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,"
-        "f26,f22,f33,f11,f62,f128,f136,f115,f152",
+                  "f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df.rename(
@@ -334,7 +334,7 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    if not demjson.decode(data_text[data_text.find("={") + 1 :])["data"]:
+    if not demjson.decode(data_text[data_text.find("={") + 1:])["data"]:
         url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
         params = {
             "_var": "kline_dayqfq",
@@ -343,11 +343,11 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
         }
         r = requests.get(url, params=params)
         data_text = r.text
-        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
+        start_date = demjson.decode(data_text[data_text.find("={") + 1:])["data"][
             symbol
         ]["day"][0][0]
         return start_date
-    start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
+    start_date = demjson.decode(data_text[data_text.find("={") + 1:])["data"][0][0]
     return start_date
 
 
@@ -363,15 +363,15 @@ def stock_zh_index_daily_tx(
     https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
     :type symbol: str
-    :param start_date: 开始日期, 格式 "YYYY-MM-DD", 为空则从最早日期开始
+    :param start_date: 开始日期, 格式 "YYYYMMDD", 为空则从最早日期开始
     :type start_date: str
-    :param end_date: 结束日期, 格式 "YYYY-MM-DD", 为空则到当前日期
+    :param end_date: 结束日期, 格式 "YYYYMMDD", 为空则到当前日期
     :type end_date: str
     :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
     if start_date:
-        dt_start = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        dt_start = datetime.datetime.strptime(start_date, "%Y%m%d")
         i_start_year = dt_start.year
     else:
         earliest_date = get_tx_start_year(symbol=symbol)
@@ -379,7 +379,7 @@ def stock_zh_index_daily_tx(
         i_start_year = dt_start.year
 
     if end_date:
-        dt_end = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+        dt_end = datetime.datetime.strptime(end_date, "%Y%m%d")
         i_end_year = dt_end.year
     else:
         dt_end = datetime.datetime.combine(
@@ -400,11 +400,11 @@ def stock_zh_index_daily_tx(
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["day"]
             )
         except:  # noqa: E722
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
     if temp_df.shape[1] == 6:
@@ -501,7 +501,7 @@ if __name__ == "__main__":
     stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="中证系列指数")
     print(stock_zh_index_spot_em_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919")
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919", start_date="20260101", end_date="20260429")
     print(stock_zh_index_daily_tx_df)
 
     stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="bj899050")
