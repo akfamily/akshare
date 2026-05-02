@@ -191,11 +191,11 @@ print(stock_zh_index_daily_df)
 
 输入参数-历史行情数据
 
-| 名称         | 类型  | 描述                                                                      |
-|------------|-----|-------------------------------------------------------------------------|
-| symbol     | str | symbol="sh000001"                                                       |
-| start_date | str | start_date=""; 开始日期, 格式 "YYYY-MM-DD", 为空则从最早日期开始                    |
-| end_date   | str | end_date=""; 结束日期, 格式 "YYYY-MM-DD", 为空则到当前（最新）日期                          |
+| 名称         | 类型  | 描述                                             |
+|------------|-----|------------------------------------------------|
+| symbol     | str | symbol="sh000001"                              |
+| start_date | str | start_date=""; 开始日期, 格式 "YYYYMMDD", 为空则从最早日期开始 |
+| end_date   | str | end_date=""; 结束日期, 格式 "YYYYMMDD", 为空则到当前（最新）日期 |
 
 输出参数-历史行情数据
 
@@ -213,7 +213,7 @@ print(stock_zh_index_daily_df)
 ```python
 import akshare as ak
 
-stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000001", start_date="2026-01-01", end_date="2026-04-29")
+stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000001", start_date="20260101", end_date="20260429")
 print(stock_zh_index_daily_tx_df)
 ```
 
@@ -232,7 +232,6 @@ print(stock_zh_index_daily_tx_df)
 73  2026-04-27  4074.81  4086.34  4092.83  4071.08  589950867.0
 74  2026-04-28  4076.14  4078.64  4090.20  4062.87  600507498.0
 75  2026-04-29  4061.82  4107.51  4112.15  4061.82  614221451.0
-
 [76 rows x 6 columns]
 ```
 
