@@ -1381,6 +1381,10 @@
  "bond_gb_zh_sina"  # 新浪财经-债券-中国国债收益率行情数据
  # 期货交易所结算参数
  "futures_settle"  # 期货交易所结算参数
+ # 基金基本信息-同花顺
+ "fund_info_ths"  # 基金基本信息-同花顺
+ # TapTap 游戏榜单
+ "game_hot_rank_taptap"  # TapTap 游戏榜单
 ```
 
 ## 案例演示
