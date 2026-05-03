@@ -7,6 +7,7 @@ Desc: test stock_us_adanos.py
 
 from unittest.mock import Mock, patch
 
+import akshare as ak
 import pandas as pd
 import pytest
 
@@ -38,7 +39,7 @@ def test_stock_us_adanos_sentiment():
         "akshare.stock.stock_us_adanos.requests.get", return_value=mock_response
     ) as mock_get:
         temp_df = stock_us_adanos_sentiment(
-            symbol="tsla", source="reddit", days=3, api_key="test-key"
+            symbol=" tsla ", source=" Reddit ", days=3, api_key="test-key"
         )
 
     assert isinstance(temp_df, pd.DataFrame)
@@ -47,8 +48,10 @@ def test_stock_us_adanos_sentiment():
     assert temp_df.loc[0, "buzz_score"] == 72.4
     assert temp_df.loc[0, "trend_history"] == [61.0, 66.0, 72.4]
 
-    _, kwargs = mock_get.call_args
+    args, kwargs = mock_get.call_args
+    assert args[0] == "https://api.adanos.org/reddit/stocks/v1/stock/TSLA"
     assert kwargs["params"] == {"days": 3}
+    assert kwargs["headers"]["Accept"] == "application/json"
     assert kwargs["headers"]["X-API-Key"] == "test-key"
     assert kwargs["timeout"] == 30
 
@@ -82,14 +85,25 @@ def test_stock_us_adanos_compare():
         "akshare.stock.stock_us_adanos.requests.get", return_value=mock_response
     ) as mock_get:
         temp_df = stock_us_adanos_compare(
-            symbols="tsla,nvda", source="news", days=7, api_key="test-key"
+            symbols="tsla, nvda, ", source="news", days=7, api_key="test-key"
         )
 
     assert list(temp_df["ticker"]) == ["TSLA", "NVDA"]
     assert list(temp_df["source"]) == ["news", "news"]
 
-    _, kwargs = mock_get.call_args
+    args, kwargs = mock_get.call_args
+    assert args[0] == "https://api.adanos.org/news/stocks/v1/compare"
     assert kwargs["params"] == {"tickers": "TSLA,NVDA", "days": 7}
+
+
+def test_stock_us_adanos_root_exports():
+    """
+    test stock_us_adanos root exports
+    :return: None
+    :rtype: None
+    """
+    assert ak.stock_us_adanos_sentiment is stock_us_adanos_sentiment
+    assert ak.stock_us_adanos_compare is stock_us_adanos_compare
 
 
 def test_stock_us_adanos_invalid_source():
@@ -102,6 +116,26 @@ def test_stock_us_adanos_invalid_source():
         stock_us_adanos_sentiment(source="invalid", api_key="test-key")
 
 
+def test_stock_us_adanos_empty_symbol():
+    """
+    test stock_us_adanos empty symbol
+    :return: None
+    :rtype: None
+    """
+    with pytest.raises(ValueError, match="symbol must not be empty"):
+        stock_us_adanos_sentiment(symbol=" ", api_key="test-key")
+
+
+def test_stock_us_adanos_empty_symbols():
+    """
+    test stock_us_adanos empty symbols
+    :return: None
+    :rtype: None
+    """
+    with pytest.raises(ValueError, match="symbols must contain"):
+        stock_us_adanos_compare(symbols=" , ", api_key="test-key")
+
+
 def test_stock_us_adanos_requires_api_key(monkeypatch):
     """
     test stock_us_adanos requires api key
@@ -110,7 +144,7 @@ def test_stock_us_adanos_requires_api_key(monkeypatch):
     """
     monkeypatch.delenv("ADANOS_API_KEY", raising=False)
     with pytest.raises(ValueError, match="Please provide api_key"):
-        stock_us_adanos_compare(api_key="")
+        stock_us_adanos_compare(api_key=" ")
 
 
 def test_stock_us_adanos_env_api_key(monkeypatch):
