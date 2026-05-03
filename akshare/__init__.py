@@ -5616,6 +5616,10 @@ from akshare.stock.stock_us_sina import (
     stock_us_spot,
     get_us_stock_name,
 )
+from akshare.stock.stock_us_adanos import (
+    stock_us_adanos_sentiment,
+    stock_us_adanos_compare,
+)
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)

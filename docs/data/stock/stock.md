@@ -3711,6 +3711,91 @@ print(stock_zh_ah_name_df)
 
 ### 美股
 
+#### 市场情绪数据-Adanos
+
+接口: stock_us_adanos_sentiment
+
+目标地址: https://api.adanos.org
+
+描述: Adanos Market Sentiment API-美股个股市场情绪数据; 支持 Reddit、X、News、Polymarket 数据源; 需要传入 Adanos API Key 或设置环境变量 `ADANOS_API_KEY`
+
+限量: 单次返回指定美股代码最近 N 天的市场情绪数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                                            |
+|--------|-----|---------------------------------------------------------------|
+| symbol | str | symbol="TSLA"; 美股代码, 不需要添加交易所前缀                              |
+| source | str | source="reddit"; choice of {"reddit", "x", "news", "polymarket"} |
+| days   | int | days=7; 最近 N 天数据                                              |
+| api_key | str | api_key=""; Adanos API Key, 也可以设置环境变量 `ADANOS_API_KEY`          |
+
+输出参数
+
+| 名称              | 类型      | 描述          |
+|-----------------|---------|-------------|
+| source          | object  | 数据源         |
+| ticker          | object  | 美股代码        |
+| company_name    | object  | 公司名称        |
+| buzz_score      | float64 | 热度评分        |
+| trend           | object  | 趋势          |
+| sentiment_score | float64 | 情绪评分        |
+| mentions        | int64   | 提及数量        |
+| unique_tweets   | int64   | X 数据源推文数量   |
+| trade_count     | int64   | Polymarket 交易数量 |
+| market_count    | int64   | Polymarket 市场数量 |
+| total_liquidity | float64 | Polymarket 流动性  |
+| trend_history   | object  | 最近 N 天趋势序列  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_us_adanos_sentiment_df = ak.stock_us_adanos_sentiment(
+    symbol="TSLA",
+    source="reddit",
+    days=7,
+    api_key="此处输入 API",
+)
+print(stock_us_adanos_sentiment_df)
+```
+
+接口: stock_us_adanos_compare
+
+目标地址: https://api.adanos.org
+
+描述: Adanos Market Sentiment API-美股多股票市场情绪对比
+
+限量: 单次返回多个美股代码最近 N 天的市场情绪对比数据
+
+输入参数
+
+| 名称      | 类型  | 描述                                                            |
+|---------|-----|---------------------------------------------------------------|
+| symbols | str | symbols="TSLA,NVDA,AAPL"; 英文逗号分隔的美股代码                       |
+| source  | str | source="reddit"; choice of {"reddit", "x", "news", "polymarket"} |
+| days    | int | days=7; 最近 N 天数据                                              |
+| api_key | str | api_key=""; Adanos API Key, 也可以设置环境变量 `ADANOS_API_KEY`          |
+
+输出参数
+
+同 `stock_us_adanos_sentiment`。
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_us_adanos_compare_df = ak.stock_us_adanos_compare(
+    symbols="TSLA,NVDA,AAPL",
+    source="news",
+    days=7,
+    api_key="此处输入 API",
+)
+print(stock_us_adanos_compare_df)
+```
+
 #### 实时行情数据-东财
 
 接口: stock_us_spot_em
