@@ -3744,7 +3744,14 @@ print(stock_zh_ah_name_df)
 | unique_tweets   | int64   | X 数据源推文数量   |
 | trade_count     | int64   | Polymarket 交易数量 |
 | market_count    | int64   | Polymarket 市场数量 |
+| unique_traders  | int64   | Polymarket 交易者数量 |
 | total_liquidity | float64 | Polymarket 流动性  |
+| positive_count  | int64   | 正面提及数量      |
+| negative_count  | int64   | 负面提及数量      |
+| neutral_count   | int64   | 中性提及数量      |
+| bullish_pct     | float64 | 看涨比例        |
+| bearish_pct     | float64 | 看跌比例        |
+| period_days     | int64   | 统计周期天数      |
 | trend_history   | object  | 最近 N 天趋势序列  |
 
 接口示例
@@ -3773,7 +3780,7 @@ print(stock_us_adanos_sentiment_df)
 
 | 名称      | 类型  | 描述                                                            |
 |---------|-----|---------------------------------------------------------------|
-| symbols | str | symbols="TSLA,NVDA,AAPL"; 英文逗号分隔的美股代码                       |
+| symbols | str | symbols="TSLA,NVDA,AAPL"; 英文逗号分隔的美股代码, 会自动去除空格并转为大写       |
 | source  | str | source="reddit"; choice of {"reddit", "x", "news", "polymarket"} |
 | days    | int | days=7; 最近 N 天数据                                              |
 | api_key | str | api_key=""; Adanos API Key, 也可以设置环境变量 `ADANOS_API_KEY`          |

@@ -16,6 +16,36 @@ ADANOS_SOURCES = {"reddit", "x", "news", "polymarket"}
 ADANOS_REQUEST_TIMEOUT = 30
 
 
+def _normalize_symbol(symbol: str) -> str:
+    """
+    规范化单个美股代码
+    :param symbol: 美股代码
+    :type symbol: str
+    :return: 规范化后的美股代码
+    :rtype: str
+    """
+    symbol = symbol.strip().upper()
+    if not symbol:
+        raise ValueError("symbol must not be empty.")
+    return symbol
+
+
+def _normalize_symbols(symbols: str) -> str:
+    """
+    规范化多个美股代码
+    :param symbols: 英文逗号分隔的美股代码
+    :type symbols: str
+    :return: 规范化后的美股代码
+    :rtype: str
+    """
+    normalized_symbols = ",".join(
+        symbol.strip().upper() for symbol in symbols.split(",") if symbol.strip()
+    )
+    if not normalized_symbols:
+        raise ValueError("symbols must contain at least one symbol.")
+    return normalized_symbols
+
+
 def _get_adanos_api_key(api_key: str = "") -> str:
     """
     获取 Adanos API Key
@@ -24,7 +54,7 @@ def _get_adanos_api_key(api_key: str = "") -> str:
     :return: Adanos API Key
     :rtype: str
     """
-    adanos_api_key = api_key or os.getenv("ADANOS_API_KEY", "")
+    adanos_api_key = (api_key or os.getenv("ADANOS_API_KEY", "")).strip()
     if not adanos_api_key:
         raise ValueError("Please provide api_key or set ADANOS_API_KEY.")
     return adanos_api_key
@@ -38,7 +68,7 @@ def _validate_source(source: str) -> str:
     :return: 数据源
     :rtype: str
     """
-    source = source.lower()
+    source = source.strip().lower()
     if source not in ADANOS_SOURCES:
         raise ValueError("source must be one of: reddit, x, news, polymarket")
     return source
@@ -134,7 +164,7 @@ def stock_us_adanos_sentiment(
     """
     source = _validate_source(source)
     data_json = _request_adanos(
-        path=f"/{source}/stocks/v1/stock/{symbol.upper()}",
+        path=f"/{source}/stocks/v1/stock/{_normalize_symbol(symbol)}",
         params={"days": days},
         api_key=_get_adanos_api_key(api_key),
         base_url=base_url,
@@ -173,7 +203,7 @@ def stock_us_adanos_compare(
     source = _validate_source(source)
     data_json = _request_adanos(
         path=f"/{source}/stocks/v1/compare",
-        params={"tickers": symbols.upper(), "days": days},
+        params={"tickers": _normalize_symbols(symbols), "days": days},
         api_key=_get_adanos_api_key(api_key),
         base_url=base_url,
         timeout=timeout,
@@ -185,12 +215,13 @@ def stock_us_adanos_compare(
 
 
 if __name__ == "__main__":
+    adanos_api_key = os.getenv("ADANOS_API_KEY", "")
     stock_us_adanos_sentiment_df = stock_us_adanos_sentiment(
-        symbol="TSLA", source="reddit", api_key=""
+        symbol="TSLA", source="reddit", api_key=adanos_api_key
     )
     print(stock_us_adanos_sentiment_df)
 
     stock_us_adanos_compare_df = stock_us_adanos_compare(
-        symbols="TSLA,NVDA,AAPL", source="reddit", api_key=""
+        symbols="TSLA,NVDA,AAPL", source="reddit", api_key=adanos_api_key
     )
     print(stock_us_adanos_compare_df)
