@@ -146,7 +146,7 @@ def fund_scale_change_detail_all_em(date: str = "", qmjzc_minimum_value: int = 0
 def fund_scale_single_em(symbol: str = "000001") -> pd.DataFrame:
     """
     天天基金网-基金数据-规模份额-单只基金规模变动
-    https://fundf10.eastmoney.com/FundArchivesDatas.aspx?type=gmbd&mode=0&code=016873
+    https://fundf10.eastmoney.com/gmbd_000001.html
     :param symbol: 基金代码
     :type symbol: str
     :return: 单只基金规模变动
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     fund_scale_change_detail_em_df = fund_scale_change_detail_all_em()
     print(fund_scale_change_detail_em_df)
 
-    fund_scale_single_em_df = fund_scale_single_em(symbol="025209")
+    fund_scale_single_em_df = fund_scale_single_em(symbol="000001")
     print(fund_scale_single_em_df)
 
     fund_hold_structure_em_df = fund_hold_structure_em()

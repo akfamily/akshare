@@ -48,3 +48,40 @@ print(tool_trade_date_hist_sina_df)
 8554  2025-12-31
 [8555 rows x 1 columns]
 ```
+
+### 最新交易季度
+
+接口: latest_quarter
+
+目标地址: https://fund.eastmoney.com/data/gmbdlist.html
+
+描述: 天天基金网-基金数据-最新交易季度
+
+限量: 单次返回最新交易季度字符串
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称  | 类型  | 描述                    |
+|-----|-----|-----------------------|
+| -   | str  | 最新季度字符串，如 "2026_1"     |
+
+接口示例
+
+```python
+from akshare.tool.latest_quarter import latest_quarter
+
+latest_quarter_str = latest_quarter()
+print(latest_quarter_str)
+```
+
+数据示例
+
+```
+2026_1
+```
