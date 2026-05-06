@@ -145,6 +145,10 @@ def stock_zh_a_disclosure_report_cninfo(
     r = requests.post(url, params=payload)
     text_json = r.json()
     page_num = math.ceil(int(text_json["totalAnnouncement"]) / 30)
+    if page_num == 0:
+        return pd.DataFrame(
+            columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
+        )
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
