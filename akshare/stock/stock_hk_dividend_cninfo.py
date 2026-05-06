@@ -78,7 +78,7 @@ def stock_hk_dividend_cninfo(
     }
     r = requests.get(url, params=params, headers=headers, timeout=15)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
+    temp_df = pd.DataFrame(data_json.get("records", []))
     if temp_df.empty:
         return temp_df
     temp_df.rename(
