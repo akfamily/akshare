@@ -5236,6 +5236,80 @@ print(stock_hk_dividend_payout_em_df)
 [19 rows x 7 columns]
 ```
 
+#### 分红派息-巨潮资讯
+
+接口: stock_hk_dividend_cninfo
+
+目标地址: https://webapi.cninfo.com.cn/#/apiDoc
+
+描述: 巨潮资讯-港股-重要指标-分红派息表
+
+限量: 单次返回指定港股的分红派息数据
+
+输入参数
+
+| 名称         | 类型  | 描述                                  |
+|------------|-----|-------------------------------------|
+| symbol     | str | symbol="00700"; 港股代码, 5 位代码       |
+| start_date | str | start_date="20200101"; 开始查询时间      |
+| end_date   | str | end_date="20260101"; 结束查询时间        |
+| state      | str | state="1"; 1: 历史所有数据; 2: 最近一次数据 |
+
+输出参数
+
+| 名称       | 类型      | 描述 |
+|----------|---------|----|
+| 证券代码     | object  | -  |
+| 证券简称     | object  | -  |
+| 公告日期     | object  | -  |
+| 分红年度     | object  | -  |
+| 事项类型     | object  | -  |
+| 事项       | object  | -  |
+| 股权登记日    | object  | -  |
+| 除净日      | object  | -  |
+| 开始截止过户日期 | object  | -  |
+| 最后截止过户日期 | object  | -  |
+| 派息日      | object  | -  |
+| 每股派息     | float64 | -  |
+| 每股派息币种   | object  | -  |
+| 派息比例     | float64 | -  |
+| 派息比例值    | float64 | -  |
+| 币种       | object  | -  |
+| 派息方式     | object  | -  |
+| 实物分派说明   | object  | -  |
+| 备注       | object  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_dividend_cninfo_df = ak.stock_hk_dividend_cninfo(
+    symbol="00700",
+    start_date="20200101",
+    end_date="20260101",
+)
+print(stock_hk_dividend_cninfo_df)
+```
+
+数据示例
+
+```
+     证券代码  证券简称        公告日期  ... 派息方式 实物分派说明    备注
+0   00700  腾讯控股  2020-03-18  ...   现金    NaN  None
+1   00700  腾讯控股  2020-05-13  ...  NaN    NaN  None
+2   00700  腾讯控股  2020-08-12  ...  NaN    NaN  None
+3   00700  腾讯控股  2020-11-12  ...  NaN    NaN  None
+4   00700  腾讯控股  2021-03-24  ...   现金    NaN  None
+..    ...   ...         ...  ...  ...    ...   ...
+21  00700  腾讯控股  2024-11-13  ...  NaN    NaN  None
+22  00700  腾讯控股  2025-03-19  ...   现金    NaN  None
+23  00700  腾讯控股  2025-05-14  ...  NaN    NaN  None
+24  00700  腾讯控股  2025-08-13  ...  NaN    NaN  None
+25  00700  腾讯控股  2025-11-13  ...  NaN    NaN  None
+[26 rows x 19 columns]
+```
+
 
 #### 行业对比
 

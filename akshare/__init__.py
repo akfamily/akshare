@@ -4301,6 +4301,11 @@ from akshare.stock.stock_new_cninfo import (
 from akshare.stock.stock_dividend_cninfo import stock_dividend_cninfo
 
 """
+港股分红派息
+"""
+from akshare.stock.stock_hk_dividend_cninfo import stock_hk_dividend_cninfo
+
+"""
 公司股本变动
 """
 from akshare.stock.stock_share_changes_cninfo import stock_share_change_cninfo
