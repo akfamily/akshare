@@ -4637,11 +4637,17 @@ print(macro_china_au_report_df)
 
 #### 国家统计局通用接口
 
+> **注意 (2026-03 改版)**: NBS 已切到新版数据发布库 (`https://data.stats.gov.cn/dg/website/`), 本节两个接口已对接新版 API. 几个行为变化:
+>
+> - NBS 改版后某些 catalog 多了一层 (例 CPI 多了"全国/城市/农村 × 时间切片"), 需要把 path 写到 leaf 一级; 命中 catalog 时函数会 fail-fast 列出可选 leaf
+> - 跨 NBS 时间切片不自动拼接; period 跨切片时函数会 fail-fast 提示切换到合适切片
+> - 新版返回的 indicator label 可能不含旧版下划线 (例 `地区生产总值累计值(亿元)` 而非 `地区生产总值_累计值(亿元)`); 输入侧用旧 label 仍能匹配 (内部 normalize 处理)
+
 ##### 国家统计局全国数据
 
 接口: macro_china_nbs_nation
 
-目标地址: https://data.stats.gov.cn/easyquery.htm
+目标地址: https://data.stats.gov.cn/dg/website/
 
 描述: 国家统计局全国数据通用接口，包括月度数据、季度数据、年度数据，具体指标见数据官网。
 
@@ -4685,7 +4691,7 @@ print(macro_china_nbs_nation_df)
 
 接口: macro_china_nbs_region
 
-目标地址: https://data.stats.gov.cn/easyquery.htm
+目标地址: https://data.stats.gov.cn/dg/website/
 
 描述: 国家统计局地区数据通用接口，包括分省月度数据、分省季度数据、分省年度数据、主要城市月度价格、主要城市年度数据、港澳台月度数据、港澳台年度数据，具体指标见数据官网。
 
