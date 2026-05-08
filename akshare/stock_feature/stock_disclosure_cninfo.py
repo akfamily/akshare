@@ -119,7 +119,7 @@ def stock_zh_a_disclosure_report_cninfo(
         "预披露": "pre_disclosure",
     }
     stock_id_map = ""
-    if market == "沪深京" or "基金":
+    if market in ("沪深京", "基金"):
         stock_id_map = __get_stock_json(market)
     category_dict = __get_category_dict()
     url = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
@@ -216,8 +216,8 @@ def stock_zh_a_disclosure_relation_cninfo(
         "预披露": "pre_disclosure",
     }
     stock_id_map = ""
-    if market == "沪深京":
-        stock_id_map = __get_stock_json(symbol)
+    if market in ("沪深京", "基金"):
+        stock_id_map = __get_stock_json(market)
     stock_item = "" if symbol == "" else f"{symbol},{stock_id_map[symbol]}"
     url = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
     payload = {
@@ -240,6 +240,10 @@ def stock_zh_a_disclosure_relation_cninfo(
     r = requests.post(url, data=payload)
     text_json = r.json()
     page_num = math.ceil(int(text_json["totalAnnouncement"]) / 30)
+    if page_num == 0:
+        return pd.DataFrame(
+            columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
+        )
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
@@ -264,7 +268,7 @@ def stock_zh_a_disclosure_relation_cninfo(
     big_df["公告时间"] = (
         big_df["公告时间"]
         .dt.tz_convert("Asia/Shanghai")
-        .dt.tz_convert(None)
+        .dt.tz_localize(None)
         .astype(str)
     )
     url_list = []
