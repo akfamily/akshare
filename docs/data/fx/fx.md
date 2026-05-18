@@ -617,6 +617,7 @@ print(macro_fx_sentiment_df)
 | 名称     | 类型  | 描述                                   |
 |--------|-----|--------------------------------------|
 | symbol | str | symbol="人民币"; choice of {"人民币", 美元"} |
+| token  | str | 目标网站复制 acs-token 后传入                 |
 
 输出参数
 
