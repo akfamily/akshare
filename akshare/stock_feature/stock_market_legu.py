@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/25 20:22
+Date: 2026/5/18 18:22
 Desc: 乐咕乐股网-赚钱效应分析
 https://www.legulegu.com/stockdata/market-activity
 """
@@ -36,11 +36,11 @@ def stock_market_activity_legu() -> pd.DataFrame:
     )
     temp_df.dropna(how="all", axis=0, inplace=True)
     soup = BeautifulSoup(r.text, features="lxml")
-    item_str = soup.find(name="div", attrs={"class": "current-index"}).text
-    inner_temp_df = pd.DataFrame([item.strip() for item in item_str.split("：")]).T
+    item_str = soup.find(name="div", attrs={"class": "metric-activity"}).text.strip()
+    inner_temp_df = pd.DataFrame([item.strip() for item in item_str.split("\n")]).T
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
-    item_str = soup.find(name="div", attrs={"class": "current-data"}).text.strip()
+    item_str = soup.find(name="div", attrs={"class": "market-activity-meta"}).text.strip()
     inner_temp_df = pd.DataFrame(["统计日期", item_str]).T
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
