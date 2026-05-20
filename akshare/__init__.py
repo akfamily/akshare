@@ -3268,6 +3268,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.60 fix: fix stock_zh_index_daily_tx interface
 1.18.61 fix: fix stock_individual_spot_xq interface
 1.18.62 fix: fix stock_market_activity_legu interface
+1.18.63 fix: fix stock_a_high_low_statistics interface
 """
 
 from akshare._version import __version__
