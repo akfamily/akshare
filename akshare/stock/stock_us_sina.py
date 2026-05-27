@@ -164,7 +164,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
 
     if adjust == "qfq":
         if len(new_range) == 1:
-            new_range.index.values[0] = pd.to_datetime(str(data_df.index.date[0]))
+            new_range.index = [pd.to_datetime(str(data_df.index.date[0]))]
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="left"
         )
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     stock_us_daily_df = stock_us_daily(symbol=".DJI", adjust="")
     print(stock_us_daily_df)
 
-    stock_us_daily_qfq_df = stock_us_daily(symbol=".DJI", adjust="qfq")
+    stock_us_daily_qfq_df = stock_us_daily(symbol='WOLF', adjust='qfq')
     print(stock_us_daily_qfq_df)
 
     stock_us_daily_qfq_factor_df = stock_us_daily(symbol="AAPL", adjust="qfq-factor")

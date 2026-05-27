@@ -6,7 +6,7 @@ Desc: 百度股市通-港股-财务报表-估值数据
 https://gushitong.baidu.com/stock/hk-06969
 """
 
-import http.client
+from curl_cffi import requests
 import json
 import urllib
 
@@ -28,6 +28,7 @@ def stock_hk_valuation_baidu(
     :return: 估值数据
     :rtype: pandas.DataFrame
     """
+    url = "https://finance.baidu.com/opendata"
     params = {
         "openapi": "1",
         "dspName": "iphone",
@@ -44,10 +45,8 @@ def stock_hk_valuation_baidu(
         "skip_industry": "1",
         "finClientType": "pc",
     }
-    conn = http.client.HTTPSConnection("gushitong.baidu.com")
-    conn.request(method="GET", url=f"/opendata?{urllib.parse.urlencode(params)}")
-    r = conn.getresponse()
-    data_json = json.loads(r.read())
+    r = requests.get(url, params=params)
+    data_json = r.json()
     temp_df = pd.DataFrame(
         data_json["Result"][0]["DisplayData"]["resultData"]["tplData"]["result"][
             "chartInfo"
