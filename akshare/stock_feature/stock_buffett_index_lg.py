@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/20 18:05
+Date: 2026/5/27 17:05
 Desc: 乐估乐股-底部研究-巴菲特指标
 https://legulegu.com/stockdata/marketcap-gdp
 """
@@ -29,8 +29,6 @@ def stock_buffett_index_lg() -> pd.DataFrame:
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-
-    # Rename columns that exist
     rename_map = {
         "marketCap": "总市值",
         "gdp": "GDP",
@@ -42,13 +40,11 @@ def stock_buffett_index_lg() -> pd.DataFrame:
     existing_rename = {k: v for k, v in rename_map.items() if k in temp_df.columns}
     temp_df.rename(columns=existing_rename, inplace=True)
 
-    # Build column list from what's available
     base_cols = ["日期", "收盘价", "总市值", "GDP"]
     optional_cols = ["近十年分位数", "总历史分位数"]
     available_cols = base_cols + [c for c in optional_cols if c in temp_df.columns]
     temp_df = temp_df[available_cols]
 
-    # Type conversions for available columns
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], utc=True).dt.date
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
