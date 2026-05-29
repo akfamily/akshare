@@ -6,13 +6,21 @@ Desc: 东方财富-财经早餐
 https://stock.eastmoney.com/a/czpnc.html
 """
 
+import hashlib
 from datetime import datetime
 
 import pandas as pd
 import requests
 
-from akshare.request import make_request_with_retry_json
 from akshare.utils.cons import headers
+
+
+def _get_cls_sign(params: dict) -> str:
+    """Generate CLS web API signature."""
+    canonical = "&".join(
+        f"{key}={params[key]}" for key in sorted(params, key=str.upper)
+    )
+    return hashlib.md5(hashlib.sha1(canonical.encode()).hexdigest().encode()).hexdigest()
 
 
 def stock_info_cjzc_em() -> pd.DataFrame:
@@ -198,8 +206,24 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     :return: 财联社-电报
     :rtype: pandas.DataFrame
     """
-    url = "https://www.cls.cn/nodeapi/telegraphList"
-    data_json = make_request_with_retry_json(url, max_retries=10, headers=headers)
+    url = "https://www.cls.cn/v1/roll/get_roll_list"
+    params = {
+        "app": "CailianpressWeb",
+        "os": "web",
+        "sv": "8.7.9",
+        "refresh_type": "1",
+        "rn": "20",
+        "last_time": "0",
+    }
+    params["sign"] = _get_cls_sign(params)
+    cls_headers = {
+        **headers,
+        "Referer": "https://www.cls.cn/telegraph",
+    }
+    r = requests.get(url, params=params, headers=cls_headers)
+    data_json = r.json()
+    if str(data_json.get("errno")) != "0":
+        raise ValueError(f"接口返回异常: {data_json}")
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
     big_df = temp_df.copy()
     big_df = big_df[["title", "content", "ctime", "level"]]
