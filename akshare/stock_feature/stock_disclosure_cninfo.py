@@ -153,6 +153,10 @@ def stock_zh_a_disclosure_report_cninfo(
         text_json = r.json()
         temp_df = pd.DataFrame(text_json["announcements"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(
+            columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
+        )
     big_df.rename(
         columns={
             "secCode": "代码",
@@ -248,6 +252,10 @@ def stock_zh_a_disclosure_relation_cninfo(
         text_json = r.json()
         temp_df = pd.DataFrame(text_json["announcements"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(
+            columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
+        )
     big_df.rename(
         columns={
             "secCode": "代码",
