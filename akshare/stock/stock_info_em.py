@@ -61,6 +61,8 @@ def stock_individual_info_em(
     temp_df = temp_df[pd.notna(temp_df["index"])]
     if "dlmkts" in temp_df.columns:
         del temp_df["dlmkts"]
+    if "dsc" in temp_df.columns:
+        del temp_df["dsc"]
     temp_df.columns = [
         "item",
         "value",
