@@ -34,12 +34,15 @@ def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
     r = request_with_retry(url, params=params, timeout=timeout)
     data_json = r.json()
     # 计算分页信息
-    per_page_num = len(data_json["data"]["diff"])
+    first_page_data = data_json["data"]["diff"]
+    if not first_page_data:
+        return pd.DataFrame(data=[])
+    per_page_num = len(first_page_data)
     total_page = math.ceil(data_json["data"]["total"] / per_page_num)
     # 存储所有页面数据
     temp_list = []
     # 添加第一页数据
-    temp_list.append(pd.DataFrame(data_json["data"]["diff"]))
+    temp_list.append(pd.DataFrame(first_page_data))
     # 获取进度条
     tqdm = get_tqdm()
     # 获取剩余页面数据
