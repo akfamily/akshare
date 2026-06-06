@@ -3270,6 +3270,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.62 fix: fix stock_market_activity_legu interface
 1.18.63 fix: fix stock_a_high_low_statistics interface
 1.18.64 fix: fix stock_buffett_index_lg interface
+1.18.65 add: add stock_margin_bse, stock_margin_detail_bse, stock_margin_underlying_info_bse interface
 """
 
 from akshare._version import __version__
@@ -4742,6 +4743,11 @@ from akshare.stock_feature.stock_margin_sse import (
     stock_margin_detail_sse,
     stock_margin_sse,
     stock_margin_ratio_pa,
+)
+from akshare.stock_feature.stock_margin_bse import (
+    stock_margin_bse,
+    stock_margin_detail_bse,
+    stock_margin_underlying_info_bse,
 )
 
 """
