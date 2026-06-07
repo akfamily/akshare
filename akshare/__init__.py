@@ -4707,6 +4707,9 @@ from akshare.stock_feature.stock_board_industry_ths import (
 分红配送
 """
 from akshare.stock_feature.stock_fhps_em import stock_fhps_em, stock_fhps_detail_em
+from akshare.stock_feature.stock_dividend_financing_em import (
+    stock_dividend_financing_em,
+)
 
 """
 中美国债收益率
