@@ -23,6 +23,14 @@ def make_request_with_retry_json(
     """
     if proxies is None:
         proxies = config.proxies
+    # Default headers mimicking a standard browser to avoid connection resets
+    if headers is None:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "zh-CN,zh;q=0.9",
+            "Referer": "https://data.eastmoney.com/",
+        }
     for attempt in range(max_retries):
         try:
             response = requests.get(
