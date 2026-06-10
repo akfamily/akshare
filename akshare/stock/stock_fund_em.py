@@ -506,7 +506,7 @@ def stock_sector_fund_flow_rank(
                 "pn": page,
             }
         )
-        r = requests.get(url, params=params, timeout=15)
+        r = requests.get(url, params=params, headers=headers, timeout=15)
         data_json = r.json()
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)
@@ -551,9 +551,9 @@ def stock_sector_fund_flow_rank(
                 "今日主力净流入最大股",
             ]
         ]
-        temp_df["今日主力净流入-净额"] = pd.to_numeric(
-            temp_df["今日主力净流入-净额"], errors="coerce"
-        )
+        for col in temp_df.columns:
+            if col not in ("名称", "今日主力净流入最大股"):
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         temp_df.sort_values(["今日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)
@@ -597,6 +597,9 @@ def stock_sector_fund_flow_rank(
                 "5日主力净流入最大股",
             ]
         ]
+        for col in temp_df.columns:
+            if col not in ("名称", "5日主力净流入最大股"):
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         temp_df.sort_values(["5日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)
@@ -640,6 +643,9 @@ def stock_sector_fund_flow_rank(
                 "10日主力净流入最大股",
             ]
         ]
+        for col in temp_df.columns:
+            if col not in ("名称", "10日主力净流入最大股"):
+                temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
         temp_df.sort_values(["10日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)
