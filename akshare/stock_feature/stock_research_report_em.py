@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/2/28 13:00
+Date: 2026/6/14 10:00
 Desc: 东方财富网-数据中心-研究报告-个股研报
 https://data.eastmoney.com/report/stock.jshtml
 """
@@ -60,6 +60,11 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
+
+    # 检查 DataFrame 是否为空（该股票暂无研报时，接口返回 TotalPage 为 0）
+    if big_df.empty:
+        return pd.DataFrame()
+
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df["index"] + 1
     predict_this_year_eps_title = f"{current_year}-盈利预测-收益"
