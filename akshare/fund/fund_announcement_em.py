@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/20 17:40
+Date: 2026/6/16 18:30
 Desc: 东方财富网站-天天基金网-基金档案-基金公告
 https://fundf10.eastmoney.com/jjgg_000001.html
 """
@@ -118,6 +118,8 @@ def fund_announcement_personnel_em(symbol: str = "000001") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"])
+    if temp_df.empty:
+        return pd.DataFrame()
     temp_df.columns = [
         "基金代码",
         "公告标题",
