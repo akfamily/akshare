@@ -219,7 +219,7 @@ def stock_board_industry_index_ths(
     return big_df
 
 
-def stock_xgsr_ths() -> pd.DataFrame:
+def stock_xgsr_ths(page_cnt: int|None) -> pd.DataFrame:
     """
     同花顺-数据中心-新股数据-新股上市首日
     https://data.10jqka.com.cn/ipo/xgsr/
@@ -236,10 +236,14 @@ def stock_xgsr_ths() -> pd.DataFrame:
         "Cookie": f"v={v_code}",
         "hexin-v": v_code,
     }
-    url = "https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
+    
+    if page_cnt:
+        page_num = page_cnt
+    else:
+        url = "https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/1/ajax/1/free/1/"
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.text, features="lxml")
+        page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
