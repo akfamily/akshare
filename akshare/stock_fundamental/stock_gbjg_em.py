@@ -32,16 +32,27 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         "quoteColumns": "",
         "filter": f'(SECUCODE="{symbol}")',
         "pageNumber": "1",
-        "pageSize": "20",
+        "pageSize": "500",
         "sortTypes": "-1",
         "sortColumns": "END_DATE",
         "source": "HSF10",
         "client": "PC",
         "v": "047483522105257925",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"])
+    # 分页获取全部股本变动历史; 此前固定 pageSize=20 只返回最近 20 条
+    big_df = pd.DataFrame()
+    while True:
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if not (data_json.get("result") and data_json["result"]["data"]):
+            break
+        big_df = pd.concat(
+            [big_df, pd.DataFrame(data_json["result"]["data"])], ignore_index=True
+        )
+        if int(params["pageNumber"]) >= int(data_json["result"].get("pages", 1)):
+            break
+        params["pageNumber"] = str(int(params["pageNumber"]) + 1)
+    temp_df = big_df
     temp_df.rename(
         columns={
             "END_DATE": "变更日期",
