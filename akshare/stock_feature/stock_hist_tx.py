@@ -36,7 +36,7 @@ def stock_zh_a_hist_tx(
     :type adjust: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
-    :return: 前复权的股票和指数数据
+    :return: 股票和指数历史行情数据, 复权方式由 adjust 参数决定(默认不复权); 成交量统一为股, 成交额统一为元
     :rtype: pandas.DataFrame
     """
     init_start_date = get_tx_start_year(symbol=symbol)
@@ -68,15 +68,27 @@ def stock_zh_a_hist_tx(
         else:
             temp_df = pd.DataFrame(data_json["qfqday"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df = big_df.iloc[:, :6]
-    big_df.columns = ["date", "open", "close", "high", "low", "amount"]
+    # 行情列表结构: [日期, 开盘, 收盘, 最高, 最低, 成交量(手; 科创板为股), {}, 换手率(%), 成交额(万元), ...]
+    # 此前误将第 5 列(成交量)命名为 amount 并丢弃了真实的成交额(第 8 列)与换手率(第 7 列)
+    big_df = big_df.reindex(columns=[0, 1, 2, 3, 4, 5, 7, 8])
+    big_df.columns = [
+        "date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "volume",
+        "turnover",
+        "amount",
+    ]
     big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
-    big_df["open"] = pd.to_numeric(big_df["open"], errors="coerce")
-    big_df["close"] = pd.to_numeric(big_df["close"], errors="coerce")
-    big_df["high"] = pd.to_numeric(big_df["high"], errors="coerce")
-    big_df["low"] = pd.to_numeric(big_df["low"], errors="coerce")
-    big_df["amount"] = pd.to_numeric(big_df["amount"], errors="coerce")
-    big_df.drop_duplicates(inplace=True, ignore_index=True)
+    for col in ["open", "close", "high", "low", "volume", "turnover", "amount"]:
+        big_df[col] = pd.to_numeric(big_df[col], errors="coerce")
+    if not symbol.startswith("sh68"):  # 统一成交量单位为股: 科创板原生为股, 其余板块原生为手
+        big_df["volume"] = big_df["volume"] * 100  # 手 -> 股
+    big_df["amount"] = big_df["amount"] * 10000  # 万元 -> 元
+    # 分页窗口重叠会产生重复日期; 按 date 去重(不同年代的行宽不同, 整行比较可能漏去重)
+    big_df.drop_duplicates(subset=["date"], keep="last", inplace=True, ignore_index=True)
     big_df.index = pd.to_datetime(big_df["date"], errors="coerce")
     big_df.sort_index(inplace=True)
     big_df = big_df[start_date:end_date]
