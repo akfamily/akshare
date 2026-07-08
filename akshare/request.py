@@ -45,7 +45,7 @@ def make_request_with_retry_json(
                     f"API request failed. Status code: {response.status_code}"
                 )
 
-        except (RequestException, RateLimitError, APIError, DataParsingError) as e:
+        except (RequestException, OSError, RateLimitError, APIError, DataParsingError) as e:
             if attempt == max_retries - 1:
                 if isinstance(e, RateLimitError):
                     raise
