@@ -35,16 +35,21 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-    del temp_df["marketId"]
-    big_df = temp_df.iloc[:, :3]
-    big_df.columns = ["below_net_asset", "total_company", "date"]
+    if temp_df.empty:
+        return pd.DataFrame(
+            columns=["date", "below_net_asset", "total_company", "below_net_asset_ratio"]
+        )
+    rename_map = {
+        "belowNetAsset": "below_net_asset",
+        "totalCompany": "total_company",
+        "date": "date",
+    }
+    big_df = temp_df.rename(columns=rename_map)[
+        ["date", "below_net_asset", "total_company"]
+    ].copy()
     big_df["below_net_asset_ratio"] = round(
         big_df["below_net_asset"] / big_df["total_company"], 4
     )
-    big_df = big_df[
-        ["date", "below_net_asset", "total_company", "below_net_asset_ratio"]
-    ]
     big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
     big_df["below_net_asset"] = pd.to_numeric(
         big_df["below_net_asset"], errors="coerce"

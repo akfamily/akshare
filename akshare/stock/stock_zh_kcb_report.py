@@ -47,6 +47,8 @@ def stock_zh_kcb_report_em(from_page: int = 1, to_page: int = 100) -> pd.DataFra
     :return: 科创板报告内容
     :rtype: pandas.DataFrame
     """
+    from_page = int(from_page)
+    to_page = int(to_page)
     url = "https://np-anotice-stock.eastmoney.com/api/security/ann"
     total_page = _stock_zh_kcb_report_em_page()
     big_df = pd.DataFrame()
@@ -66,27 +68,22 @@ def stock_zh_kcb_report_em(from_page: int = 1, to_page: int = 100) -> pd.DataFra
         data_json = r.json()
         temp_df = pd.DataFrame(
             [
-                [item["codes"][0]["stock_code"] for item in data_json["data"]["list"]],
-                [item["codes"][0]["short_name"] for item in data_json["data"]["list"]],
-                [item["title"] for item in data_json["data"]["list"]],
-                [
-                    item["columns"][0]["column_name"]
-                    for item in data_json["data"]["list"]
-                ],
-                [item["notice_date"] for item in data_json["data"]["list"]],
-                [item["art_code"] for item in data_json["data"]["list"]],
+                {
+                    "代码": item["codes"][0]["stock_code"],
+                    "名称": item["codes"][0]["short_name"],
+                    "公告标题": item["title"],
+                    "公告类型": (
+                        item["columns"][0]["column_name"]
+                        if item.get("columns")
+                        else None
+                    ),
+                    "公告日期": item["notice_date"],
+                    "公告代码": item["art_code"],
+                }
+                for item in data_json["data"]["list"]
             ]
-        ).T
+        )
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df.columns = [
-        "代码",
-        "名称",
-        "公告标题",
-        "公告类型",
-        "公告日期",
-        "公告代码",
-    ]
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
     return big_df
 
