@@ -80,6 +80,52 @@ def __get_stock_json(symbol: str = "沪深京") -> dict:
     return dict(zip(temp_df["code"], temp_df["orgId"]))
 
 
+def __format_announcement_df(big_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    标准化巨潮资讯公告查询返回结果。
+
+    :param big_df: 原始公告数据
+    :type big_df: pandas.DataFrame
+    :return: 标准化后的公告数据
+    :rtype: pandas.DataFrame
+    """
+    if big_df.empty:
+        return pd.DataFrame(
+            columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
+        )
+    big_df.rename(
+        columns={
+            "secCode": "代码",
+            "secName": "简称",
+            "announcementTitle": "公告标题",
+            "announcementTime": "公告时间",
+        },
+        inplace=True,
+    )
+    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "announcementId", "orgId"]]
+    big_df["公告时间"] = pd.to_datetime(
+        big_df["公告时间"], unit="ms", utc=True, errors="coerce"
+    )
+    big_df["公告时间"] = (
+        big_df["公告时间"]
+        .dt.tz_convert("Asia/Shanghai")
+        .dt.tz_localize(None)
+        .astype(str)
+    )
+    url_list = []
+    for item in zip(
+        big_df["代码"], big_df["announcementId"], big_df["orgId"], big_df["公告时间"]
+    ):
+        url_format = (
+            f"http://www.cninfo.com.cn/new/disclosure/detail?stockCode={item[0]}&"
+            f"announcementId={item[1]}&orgId={item[2]}&announcementTime={item[3]}"
+        )
+        url_list.append(url_format)
+    big_df["公告链接"] = url_list
+    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "公告链接"]]
+    return big_df
+
+
 def stock_zh_a_disclosure_report_cninfo(
     symbol: str = "000001",
     market: str = "沪深京",
@@ -119,7 +165,7 @@ def stock_zh_a_disclosure_report_cninfo(
         "预披露": "pre_disclosure",
     }
     stock_id_map = ""
-    if market == "沪深京" or "基金":
+    if market in ("沪深京", "基金"):
         stock_id_map = __get_stock_json(market)
     category_dict = __get_category_dict()
     url = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
@@ -142,7 +188,7 @@ def stock_zh_a_disclosure_report_cninfo(
         "sortType": "",
         "isHLtitle": "true",
     }
-    r = requests.post(url, params=payload)
+    r = requests.post(url, data=payload)
     text_json = r.json()
     page_num = math.ceil(int(text_json["totalAnnouncement"]) / 30)
     big_df = pd.DataFrame()
@@ -153,37 +199,7 @@ def stock_zh_a_disclosure_report_cninfo(
         text_json = r.json()
         temp_df = pd.DataFrame(text_json["announcements"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
-        columns={
-            "secCode": "代码",
-            "secName": "简称",
-            "announcementTitle": "公告标题",
-            "announcementTime": "公告时间",
-        },
-        inplace=True,
-    )
-    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "announcementId", "orgId"]]
-    big_df["公告时间"] = pd.to_datetime(
-        big_df["公告时间"], unit="ms", utc=True, errors="coerce"
-    )
-    big_df["公告时间"] = (
-        big_df["公告时间"]
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.tz_localize(None)
-        .astype(str)
-    )
-    url_list = []
-    for item in zip(
-        big_df["代码"], big_df["announcementId"], big_df["orgId"], big_df["公告时间"]
-    ):
-        url_format = (
-            f"http://www.cninfo.com.cn/new/disclosure/detail?stockCode={item[0]}&"
-            f"announcementId={item[1]}&orgId={item[2]}&announcementTime={item[3]}"
-        )
-        url_list.append(url_format)
-    big_df["公告链接"] = url_list
-    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "公告链接"]]
-    return big_df
+    return __format_announcement_df(big_df)
 
 
 def stock_zh_a_disclosure_relation_cninfo(
@@ -216,8 +232,8 @@ def stock_zh_a_disclosure_relation_cninfo(
         "预披露": "pre_disclosure",
     }
     stock_id_map = ""
-    if market == "沪深京":
-        stock_id_map = __get_stock_json(symbol)
+    if market in ("沪深京", "基金"):
+        stock_id_map = __get_stock_json(market)
     stock_item = "" if symbol == "" else f"{symbol},{stock_id_map[symbol]}"
     url = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
     payload = {
@@ -248,47 +264,17 @@ def stock_zh_a_disclosure_relation_cninfo(
         text_json = r.json()
         temp_df = pd.DataFrame(text_json["announcements"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
-        columns={
-            "secCode": "代码",
-            "secName": "简称",
-            "announcementTitle": "公告标题",
-            "announcementTime": "公告时间",
-        },
-        inplace=True,
-    )
-    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "announcementId", "orgId"]]
-    big_df["公告时间"] = pd.to_datetime(
-        big_df["公告时间"], unit="ms", utc=True, errors="coerce"
-    )
-    big_df["公告时间"] = (
-        big_df["公告时间"]
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.tz_convert(None)
-        .astype(str)
-    )
-    url_list = []
-    for item in zip(
-        big_df["代码"], big_df["announcementId"], big_df["orgId"], big_df["公告时间"]
-    ):
-        url_format = (
-            f"http://www.cninfo.com.cn/new/disclosure/detail?stockCode={item[0]}"
-            f"&announcementId={item[1]}&orgId={item[2]}&announcementTime={item[3]}"
-        )
-        url_list.append(url_format)
-    big_df["公告链接"] = url_list
-    big_df = big_df[["代码", "简称", "公告标题", "公告时间", "公告链接"]]
-    return big_df
+    return __format_announcement_df(big_df)
 
 
 if __name__ == "__main__":
     stock_zh_a_disclosure_report_cninfo_df = stock_zh_a_disclosure_report_cninfo(
-        symbol="164701",
-        market="基金",
-        keyword="大模型",
+        symbol="300408",
+        market="沪深京",
+        keyword="",
         category="",
-        start_date="20240422",
-        end_date="20250422",
+        start_date="20260121",
+        end_date="20260721",
     )
     print(stock_zh_a_disclosure_report_cninfo_df)
 
