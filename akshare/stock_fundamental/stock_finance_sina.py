@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/2 9:00
+Date: 2026/7/21 15:00
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -242,13 +242,33 @@ def stock_financial_analysis_indicator(
         f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/"
         f"stockid/{symbol}/ctrl/2020/displaytype/4.phtml"
     )
-    r = requests.get(url)
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/138.0.0.0 Safari/537.36"
+        )
+    }
+    session = requests.Session()
+    r = session.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
-    year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
-    year_list = [item.text for item in year_context]
-    if start_year in year_list:
+    year_container = soup.find(attrs={"id": "con02-1"})
+    if year_container is None or year_container.find("table") is None:
+        return pd.DataFrame()
+    year_context = year_container.find("table").find_all("a")
+    year_list = [item.text.strip() for item in year_context if item.text.strip()]
+    if not year_list:
+        return pd.DataFrame()
+    if start_year.isdigit():
+        # 默认 start_year="1900" 表示尽可能获取全部可用年份数据。
+        year_list = [
+            item for item in year_list if item.isdigit() and item >= start_year
+        ]
+    elif start_year in year_list:
         year_list = year_list[: year_list.index(start_year) + 1]
     else:
+        return pd.DataFrame()
+    if not year_list:
         return pd.DataFrame()
     out_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -257,7 +277,7 @@ def stock_financial_analysis_indicator(
             f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/"
             f"stockid/{symbol}/ctrl/{year_item}/displaytype/4.phtml"
         )
-        r = requests.get(url)
+        r = session.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[12].iloc[:, :-1]
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
