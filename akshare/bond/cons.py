@@ -321,7 +321,7 @@ INDEX_MAPPING: dict[str, str] = {
     "乡村振兴债券综合指数": "cec6a61bd8827e306fcba8f195a4903f",
 }
 
-INDICATOR_MAPPING =  {
+INDICATOR_MAPPING = {
     "全价": "QJZS",
     "净价": "JJZS",
     "财富": "CFZS",

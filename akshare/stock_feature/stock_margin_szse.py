@@ -38,7 +38,9 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl", dtype={"证券代码": str})
+        temp_df = pd.read_excel(
+            BytesIO(r.content), engine="openpyxl", dtype={"证券代码": str}
+        )
     return temp_df
 
 
@@ -116,7 +118,9 @@ def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl", dtype={"证券代码": str})
+        temp_df = pd.read_excel(
+            BytesIO(r.content), engine="openpyxl", dtype={"证券代码": str}
+        )
     temp_df.columns = [
         "证券代码",
         "证券简称",

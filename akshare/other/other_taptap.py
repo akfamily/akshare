@@ -3,6 +3,7 @@
 Date: 2026/05/02
 Desc: TapTap 游戏榜单数据接口
 """
+
 import re
 import time
 from typing import Optional
@@ -55,8 +56,13 @@ def _clean_html(text: Optional[str]) -> str:
     text = re.sub(r"<br[^>]*/?>", "\n", text)
     text = re.sub(r"<[^>]+>", "", text)
     replacements = {
-        "&amp;": "&", "&lt;": "<", "&gt;": ">",
-        "&#34;": '"', "&#39;": "'", "&quot;": '"', "&nbsp;": " ",
+        "&amp;": "&",
+        "&lt;": "<",
+        "&gt;": ">",
+        "&#34;": '"',
+        "&#39;": "'",
+        "&quot;": '"',
+        "&nbsp;": " ",
     }
     for k, v in replacements.items():
         text = text.replace(k, v)
@@ -133,9 +139,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
     if "发布时间戳" in df.columns:
-        df["发布时间"] = pd.to_datetime(
-            df["发布时间戳"], unit="s", errors="coerce"
-        )
+        df["发布时间"] = pd.to_datetime(df["发布时间戳"], unit="s", errors="coerce")
     for col in ["游戏名称", "游戏ID", "图标链接", "推荐语", "标签"]:
         if col in df.columns:
             df[col] = df[col].astype("string").str.strip()
@@ -143,9 +147,18 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
         df["简介"] = df["简介"].apply(_clean_html).astype("string")
 
     columns_order = [
-        "游戏名称", "评分", "总点击量", "游玩次数", "评论数",
-        "粉丝数", "标签", "推荐语", "发布时间",
-        "游戏ID", "图标链接", "简介",
+        "游戏名称",
+        "评分",
+        "总点击量",
+        "游玩次数",
+        "评论数",
+        "粉丝数",
+        "标签",
+        "推荐语",
+        "发布时间",
+        "游戏ID",
+        "图标链接",
+        "简介",
     ]
     df = df[[c for c in columns_order if c in df.columns]]
     df = df.drop_duplicates(subset=["游戏ID"]).reset_index(drop=True)

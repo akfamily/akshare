@@ -263,7 +263,7 @@ print(stock_zh_index_daily_tx_df)
 | high   | float64 | -                     |
 | low    | float64 | -                     |
 | volume | int64   | -                     |
-| amount | float64 | -                     |  
+| amount | float64 | -                     |
 
 接口示例
 

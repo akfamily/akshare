@@ -24,6 +24,7 @@ def __get_99_symbol_map() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     import warnings
+
     warnings.filterwarnings("ignore")
     url = "https://www.99qh.com/data/stockIn"
     r = requests.get(url, verify=False)
@@ -53,6 +54,7 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     import warnings
+
     warnings.filterwarnings("ignore")
     temp_df = __get_99_symbol_map()
     symbol_name_map = dict(zip(temp_df["name"], temp_df["productId"]))
@@ -68,9 +70,9 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "_pcc": "J7Dwju3vSeTlLLfTOLBnMXMtc9+PI1GWJR82GTEemXB9ORwBKCyPNDNVUQQv8p1jL3mLpZJ0PHt8"
-                "HZ57YtInOoeRj900V6EBBuvPTDAD9bghKWx4sNHiZNJhkzb4cSjlSO9ZcyZPHXuCLp2szfvtZSgCGQSbTFLUnHJsMrUFxJw=",
+        "HZ57YtInOoeRj900V6EBBuvPTDAD9bghKWx4sNHiZNJhkzb4cSjlSO9ZcyZPHXuCLp2szfvtZSgCGQSbTFLUnHJsMrUFxJw=",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/58.0.3029.110 Safari/537.3",
+        "Chrome/58.0.3029.110 Safari/537.3",
         "referer": "https://www.99qh.com",
         "origin": "https://www.99qh.com",
     }

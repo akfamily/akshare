@@ -30,14 +30,13 @@ def stock_ipo_ths(symbol: str = "全部A股") -> pd.DataFrame:
     }
     if symbol not in symbol_map:
         raise ValueError(
-            f"Invalid symbol: {symbol}. "
-            f"Please choose from {list(symbol_map.keys())}"
+            f"Invalid symbol: {symbol}. Please choose from {list(symbol_map.keys())}"
         )
 
     url = f"https://data.10jqka.com.cn/ipo/xgsgyzq/{symbol_map[symbol]}/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     r.raise_for_status()
@@ -89,7 +88,7 @@ def stock_ipo_hk_ths() -> pd.DataFrame:
     url = "https://data.10jqka.com.cn/ipo/xgsgyzq/hkstock/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/89.0.4389.90 Safari/537.36",
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     r.raise_for_status()

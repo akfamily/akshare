@@ -337,35 +337,30 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
             "7bc1bd5daeac48ae8bb413c34ece1d08",
             "c03a36c9562246b6bc8aab010951ef1c",
             "1061f276ce354907b0b9900c266cf851",
-            "40ab91b1ef4948e89633c5c7f55b9713"
+            "40ab91b1ef4948e89633c5c7f55b9713",
         ],
         "daCatalogId": "",
-        "das": [
-            {
-                "text": "全国",
-                "value": "000000000000"
-            }
-        ],
+        "das": [{"text": "全国", "value": "000000000000"}],
         "dts": ["199001MM-203601MM"],
         "showType": "1",
-        "rootId": "fc982599aa684be7969d7b90b1bd0e84"
+        "rootId": "fc982599aa684be7969d7b90b1bd0e84",
     }
     r = requests.post(url, json=payload, headers=headers, timeout=10)
     data_json = r.json()
     data_list = []
-    for month_item in data_json['data']:
-        raw_month = month_item['name']
-        year_part = raw_month.split('年')[0]
-        month_part = raw_month.split('年')[1].replace('月', '')
+    for month_item in data_json["data"]:
+        raw_month = month_item["name"]
+        year_part = raw_month.split("年")[0]
+        month_part = raw_month.split("年")[1].replace("月", "")
         month_clean = year_part + month_part.zfill(2)
-        for value_item in month_item['values']:
-            if value_item['_name'] == '城镇调查失业率':
-                rate = value_item['value']
+        for value_item in month_item["values"]:
+            if value_item["_name"] == "城镇调查失业率":
+                rate = value_item["value"]
                 if rate:
-                    indicator_clean = value_item['i_showname'].replace(' (%)', '')
+                    indicator_clean = value_item["i_showname"].replace(" (%)", "")
                     data_list.append([month_clean, indicator_clean, rate])
-    temp_df = pd.DataFrame(data_list, columns=['date', 'item', 'value'])
-    temp_df.sort_values(by=['date'], ascending=True, inplace=True)
+    temp_df = pd.DataFrame(data_list, columns=["date", "item", "value"])
+    temp_df.sort_values(by=["date"], ascending=True, inplace=True)
     temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 

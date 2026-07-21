@@ -9,7 +9,7 @@
 
 ### AKQuant 介绍（强烈推荐）
 
-AKQuant 是一款专为量化投研 (Quantitative Research) 打造的高性能混合架构引擎。它以 
+AKQuant 是一款专为量化投研 (Quantitative Research) 打造的高性能混合架构引擎。它以
 Rust 铸造极速撮合内核，以 Python 链接数据与 AI 生态，旨在为量化投资者提供可靠高效的解决方案。
 它超越了传统工具的范畴，将**事件驱动**、**机器学习**与**生产级风控**深度融合，让量化交易不再受限于计算性能，专注于策略本身的逻辑与价值。
 
@@ -70,7 +70,7 @@ print(result.metrics_df)
 ```text
 === Backtest Result ===
                                             value
-name                                             
+name
 start_time              2023-01-03 00:00:00+08:00
 end_time                2023-12-29 00:00:00+08:00
 duration                        360 days, 0:00:00

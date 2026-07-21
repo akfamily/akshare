@@ -5,6 +5,7 @@ Date: 2026/2/22 15:45
 Desc: 金十数据-期货手续费
 https://www.jin10.com/
 """
+
 import json
 
 import pandas as pd
@@ -22,7 +23,7 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
     """
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/107.0.0.0 Safari/537.36",
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "fiXF2nOnDycGutVA",
         "x-version": "1.0",
         "referer": "https://www.jin10.com/",
@@ -32,7 +33,9 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
     formatted_date = "-".join([date[:4], date[4:6], date[6:]])
     params = {
         "tb_name": "_vir_26",
-        "search": json.dumps({"range,date": f"{formatted_date},{formatted_date}", "status": 1}),
+        "search": json.dumps(
+            {"range,date": f"{formatted_date},{formatted_date}", "status": 1}
+        ),
         "order": "date,desc",
     }
     r = requests.get(url, params=params, headers=headers)
@@ -61,15 +64,24 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
         }
     )
     temp_df = temp_df.drop(
-        columns=["id", "status", "created_at", "updated_at", "_date", "_pub_date_commission", "_pub_date_price"],
-        errors="ignore")
-    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
-    temp_df['现价'] = pd.to_numeric(temp_df['现价'], errors="coerce")
-    temp_df['涨停板'] = pd.to_numeric(temp_df['涨停板'], errors="coerce")
-    temp_df['跌停板'] = pd.to_numeric(temp_df['跌停板'], errors="coerce")
-    temp_df['每手跳数'] = pd.to_numeric(temp_df['每手跳数'], errors="coerce")
-    temp_df['每跳毛利'] = pd.to_numeric(temp_df['每跳毛利'], errors="coerce")
-    temp_df['每跳净利'] = pd.to_numeric(temp_df['每跳净利'], errors="coerce")
+        columns=[
+            "id",
+            "status",
+            "created_at",
+            "updated_at",
+            "_date",
+            "_pub_date_commission",
+            "_pub_date_price",
+        ],
+        errors="ignore",
+    )
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    temp_df["涨停板"] = pd.to_numeric(temp_df["涨停板"], errors="coerce")
+    temp_df["跌停板"] = pd.to_numeric(temp_df["跌停板"], errors="coerce")
+    temp_df["每手跳数"] = pd.to_numeric(temp_df["每手跳数"], errors="coerce")
+    temp_df["每跳毛利"] = pd.to_numeric(temp_df["每跳毛利"], errors="coerce")
+    temp_df["每跳净利"] = pd.to_numeric(temp_df["每跳净利"], errors="coerce")
     return temp_df
 
 

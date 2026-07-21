@@ -97,9 +97,7 @@ def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
         "___jsl": "LST___t=1728207798534",
         "rp": "22",
     }
-    headers = {
-        "cookie": cookie
-    }
+    headers = {"cookie": cookie}
     data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(
@@ -171,9 +169,7 @@ def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
         "___jsl": "LST___t=1728206439242",
         "rp": "22",
     }
-    headers = {
-        "cookie": cookie
-    }
+    headers = {"cookie": cookie}
     data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
     temp_df.rename(

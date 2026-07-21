@@ -28,10 +28,10 @@ def stock_zh_a_spot_tx() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data']['rank_list'])
+    temp_df = pd.DataFrame(data_json["data"]["rank_list"])
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_zh_a_spot_tx_df = stock_zh_a_spot_tx()
     print(stock_zh_a_spot_tx_df)

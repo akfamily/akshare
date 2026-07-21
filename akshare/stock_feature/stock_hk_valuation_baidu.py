@@ -7,8 +7,6 @@ https://gushitong.baidu.com/stock/hk-06969
 """
 
 from curl_cffi import requests
-import json
-import urllib
 
 import pandas as pd
 

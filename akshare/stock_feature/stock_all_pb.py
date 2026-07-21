@@ -32,9 +32,7 @@ def stock_a_all_pb() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
-        pd.to_datetime(temp_df["date"], utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
+        pd.to_datetime(temp_df["date"], utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     )
     del temp_df["weightingAveragePB"]
     return temp_df

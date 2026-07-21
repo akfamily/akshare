@@ -503,9 +503,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_minute_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sh600751", period="1", adjust=""
-    )
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="")
     print(stock_zh_a_minute_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(

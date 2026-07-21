@@ -40,7 +40,9 @@ def stock_market_activity_legu() -> pd.DataFrame:
     inner_temp_df = pd.DataFrame([item.strip() for item in item_str.split("\n")]).T
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
-    item_str = soup.find(name="div", attrs={"class": "market-activity-meta"}).text.strip()
+    item_str = soup.find(
+        name="div", attrs={"class": "market-activity-meta"}
+    ).text.strip()
     inner_temp_df = pd.DataFrame(["统计日期", item_str]).T
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
