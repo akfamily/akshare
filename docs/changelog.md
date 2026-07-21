@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.68 fix: fix index_realtime_sw interface
+
+	1. 修复 index_realtime_sw 接口
+
 1.18.67 fix: fix stock_zh_a_disclosure_report_cninfo interface
 
 	1. 修复 stock_zh_a_disclosure_report_cninfo 接口
