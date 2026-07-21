@@ -537,3 +537,55 @@ if __name__ == '__main__':
 2020-06-12, (MA均线： 30日) 期末总资金 1014076.32
 期末总资金: 1014076.32
 ```
+
+
+### 基本面分析示例
+
+[AKShare](https://github.com/akfamily/akshare) 不仅提供行情数据，还内置了完整的**上市公司财务报表**和**财务分析指标**接口，支持 A 股三大报表（利润表、资产负债表、现金流量表）的获取。
+
+以下示例展示如何使用 AKShare 进行基本面数据采集：
+
+```python
+import akshare as ak
+
+# 1. 利润表 - 获取科大讯飞(002230)的利润表（含同比）
+df_profit = ak.stock_profit_sheet_by_report_em(symbol="SZ002230")
+print("=== 利润表（最近5期） ===")
+print(df_profit[["SECUCODE", "REPORT_DATE", "OPERATE_INCOME", "OPERATE_PROFIT", "TOTAL_PROFIT", "NETPROFIT"]].head())
+
+# 2. 资产负债表
+df_balance = ak.stock_balance_sheet_by_report_em(symbol="SZ002230")
+print("\n=== 资产负债表（最近5期） ===")
+print(df_balance[["SECUCODE", "REPORT_DATE", "TOTAL_ASSETS", "TOTAL_LIABILITIES", "TOTAL_EQUITY"]].head())
+
+# 3. 现金流量表
+df_cashflow = ak.stock_cash_flow_sheet_by_report_em(symbol="SZ002230")
+print("\n=== 现金流量表（最近5期） ===")
+print(df_cashflow[["SECUCODE", "REPORT_DATE", "OPERATE_CASH_FLOW", "INVEST_CASH_FLOW", "FINANCE_CASH_FLOW"]].head())
+
+# 4. 财务分析指标（ROE、毛利率、净利率等）
+df_indicator = ak.stock_financial_analysis_indicator_em(symbol="002230")
+print("\n=== 核心财务指标（最近5期） ===")
+indicator_cols = ["SECUCODE", "REPORT_DATE", "ROE", "ROA", "GROSS_PROFIT_MARGIN", "NET_PROFIT_MARGIN", "ASSERT_TURN_RATE", "CURRENT_RATIO"]
+print(df_indicator[indicator_cols].head())
+```
+
+更多完整的分析框架和一站式脚本，请参考开源项目 [Finance Report Analyzer](https://github.com/lt91888/finance-report-analyzer)，该项目基于 AKShare 的财报接口构建了专业的财务分析框架，涵盖：
+
+- **营收趋势分析** — 营业收入同比增长、复合增长率
+- **利润质量分析** — 毛利率、净利率、ROE、ROA
+- **资产结构分析** — 资产负债率、流动比率、周转率
+- **现金流健康度** — 经营现金流/营收比、自由现金流
+
+```text
+=== 核心财务指标示例 ===
+     SECUCODE REPORT_DATE    ROE     ROA  GROSS_PROFIT_MARGIN  NET_PROFIT_MARGIN  ASSERT_TURN_RATE  CURRENT_RATIO
+0    002230   2025-12-31  0.123   0.058               0.4123             0.0892            0.6521           1.8734
+1    002230   2025-09-30  0.094   0.045               0.4056             0.0815            0.4876           1.7845
+2    002230   2025-06-30  0.067   0.032               0.3987             0.0768            0.3254           1.6512
+3    002230   2025-03-31  0.031   0.015               0.3921             0.0723            0.1587           1.5923
+4    002230   2024-12-31  0.115   0.052               0.4189             0.0854            0.6132           1.7921
+```
+
+> **提示**：以上数据均为 2026 年 7 月获取的公开财报数据，仅作示例参考，不构成投资建议。
+
