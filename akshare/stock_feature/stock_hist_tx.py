@@ -16,6 +16,27 @@ from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
 
 
+def _normalize_tx_symbol(symbol: str) -> str:
+    """
+    标准化腾讯证券股票代码。
+
+    :param symbol: 原始股票代码
+    :type symbol: str
+    :return: 带市场前缀的股票代码
+    :rtype: str
+    """
+    normalized_symbol = symbol.strip().lower()
+    if normalized_symbol.startswith(("sh", "sz", "bj")):
+        return normalized_symbol
+    if normalized_symbol.startswith(("600", "601", "603", "605", "688", "900")):
+        return f"sh{normalized_symbol}"
+    if normalized_symbol.startswith(("000", "001", "002", "003", "200", "300", "301")):
+        return f"sz{normalized_symbol}"
+    if normalized_symbol.startswith(("430", "440", "830", "831", "832", "833", "839")):
+        return f"bj{normalized_symbol}"
+    return normalized_symbol
+
+
 def stock_zh_a_hist_tx(
     symbol: str = "sz000001",
     start_date: str = "19000101",
@@ -39,6 +60,7 @@ def stock_zh_a_hist_tx(
     :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
+    symbol = _normalize_tx_symbol(symbol=symbol)
     init_start_date = get_tx_start_year(symbol=symbol)
     if int(start_date.replace("-", "")) < int(init_start_date.replace("-", "")):
         start_date = init_start_date
