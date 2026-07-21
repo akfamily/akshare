@@ -27,9 +27,7 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     params = {"indexId": futures_index_map[symbol]}
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(
-        [item for item in data_json["data"]["dateLineJson"]]
-    )
+    temp_df = pd.DataFrame([item for item in data_json["data"]["dateLineJson"]])
     temp_df.rename(
         columns={
             "tradeDate": "日期",

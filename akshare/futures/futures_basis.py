@@ -223,10 +223,9 @@ def _check_information(df_data, date):
         records["date"] = pd.Series(dtype="object")
         return records
 
-    records[["near_contract_price", "dominant_contract_price", "spot_price"]] = (
-        records[["near_contract_price", "dominant_contract_price", "spot_price"]
-        ].astype("float")
-    )
+    records[["near_contract_price", "dominant_contract_price", "spot_price"]] = records[
+        ["near_contract_price", "dominant_contract_price", "spot_price"]
+    ].astype("float")
 
     records["near_contract"] = records["near_contract"].replace(
         r"[^0-9]*(\d*)$", r"\g<1>", regex=True
@@ -375,7 +374,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20260303", end_day="20260303", vars_list=['PL']
+        start_day="20260303", end_day="20260303", vars_list=["PL"]
     )
     print(futures_spot_price_daily_df)
 

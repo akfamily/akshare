@@ -69,7 +69,11 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
     # 提取 manager 字段（可能是数组）
     if "manager" in temp_df.columns:
         temp_df["manager"] = temp_df["manager"].apply(
-            lambda x: x[0] if isinstance(x, list) and len(x) > 0 else (x if pd.notna(x) else "")
+            lambda x: (
+                x[0]
+                if isinstance(x, list) and len(x) > 0
+                else (x if pd.notna(x) else "")
+            )
         )
 
     # 重命名列
@@ -114,9 +118,13 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
 
     # 数据类型转换
     if "募集起始日" in temp_df.columns:
-        temp_df["募集起始日"] = pd.to_datetime(temp_df["募集起始日"], errors="coerce").dt.date
+        temp_df["募集起始日"] = pd.to_datetime(
+            temp_df["募集起始日"], errors="coerce"
+        ).dt.date
     if "募集终止日" in temp_df.columns:
-        temp_df["募集终止日"] = pd.to_datetime(temp_df["募集终止日"], errors="coerce").dt.date
+        temp_df["募集终止日"] = pd.to_datetime(
+            temp_df["募集终止日"], errors="coerce"
+        ).dt.date
     if "认购费率" in temp_df.columns:
         temp_df["认购费率"] = pd.to_numeric(temp_df["认购费率"], errors="coerce")
     if "最低认购" in temp_df.columns:

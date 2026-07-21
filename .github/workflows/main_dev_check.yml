@@ -38,7 +38,7 @@ jobs:
           pip install ruff
           ruff format .
           ruff check . --fix
-          
+
 
       - name: Test with pytest
         run: |

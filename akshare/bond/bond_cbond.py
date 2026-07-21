@@ -20,8 +20,8 @@ def bond_available_index_cbond():
     """
     temp_df = pd.DataFrame(list(INDEX_MAPPING.keys()))
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df['index'] + 1
-    temp_df.columns = ['index', 'value']
+    temp_df["index"] = temp_df["index"] + 1
+    temp_df.columns = ["index", "value"]
     return temp_df
 
 
@@ -52,16 +52,20 @@ def bond_index_general_cbond(
     }
     r = requests.post(url, params=params)
     raw_json = r.json()
-    key_col_map = {f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col for p_code, freq_col in
-                   raw_json['dqcName'].items()}
+    key_col_map = {
+        f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
+        for p_code, freq_col in raw_json["dqcName"].items()
+    }
     data_json = {key: raw_json[key] for key in key_col_map}
     temp_df = pd.DataFrame.from_dict(data_json, orient="columns")
-    temp_df.index = pd.to_datetime(pd.to_numeric(temp_df.index), unit="ms", utc=True).tz_convert("Asia/Shanghai")
+    temp_df.index = pd.to_datetime(
+        pd.to_numeric(temp_df.index), unit="ms", utc=True
+    ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
     temp_df.rename(columns=key_col_map, inplace=True)
     temp_df.reset_index(inplace=True)
     temp_df.columns = ["date", "value"]
-    temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
 
 
@@ -106,16 +110,20 @@ def bond_treasury_index_cbond(
     }
     r = requests.post(url, params=params)
     raw_json = r.json()
-    key_col_map = {f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col for p_code, freq_col in
-                   raw_json['dqcName'].items()}
+    key_col_map = {
+        f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
+        for p_code, freq_col in raw_json["dqcName"].items()
+    }
     data_json = {key: raw_json[key] for key in key_col_map}
     temp_df = pd.DataFrame.from_dict(data_json, orient="columns")
-    temp_df.index = pd.to_datetime(pd.to_numeric(temp_df.index), unit="ms", utc=True).tz_convert("Asia/Shanghai")
+    temp_df.index = pd.to_datetime(
+        pd.to_numeric(temp_df.index), unit="ms", utc=True
+    ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
     temp_df.rename(columns=key_col_map, inplace=True)
     temp_df.reset_index(inplace=True)
     temp_df.columns = ["date", "value"]
-    temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
 
 
@@ -273,7 +281,9 @@ def bond_composite_index_cbond(
     )
     temp_df.reset_index(inplace=True)
     temp_df.columns = ["date", "value"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"].astype(int), errors="coerce", unit="ms").dt.date
+    temp_df["date"] = pd.to_datetime(
+        temp_df["date"].astype(int), errors="coerce", unit="ms"
+    ).dt.date
     temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
@@ -289,8 +299,12 @@ if __name__ == "__main__":
     )
     print(bond_composite_index_cbond_df)
 
-    bond_index_general_cbond_df = bond_index_general_cbond(index_category="新综合指数", indicator="全价", period="总值")
+    bond_index_general_cbond_df = bond_index_general_cbond(
+        index_category="新综合指数", indicator="全价", period="总值"
+    )
     print(bond_index_general_cbond_df)
 
-    bond_treasury_index_cbond_df = bond_treasury_index_cbond(indicator="财富", period="5Y")
+    bond_treasury_index_cbond_df = bond_treasury_index_cbond(
+        indicator="财富", period="5Y"
+    )
     print(bond_treasury_index_cbond_df)

@@ -67,7 +67,7 @@ def fund_scale_daily_szse(
         "Host": "www.szse.cn",
         "Referer": symbol_map[symbol]["referer"],
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                      "(KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+        "(KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
     }
     params = {
         "SHOWTYPE": "xlsx",

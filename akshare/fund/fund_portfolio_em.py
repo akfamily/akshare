@@ -6,13 +6,79 @@ Desc: 天天基金网-基金档案-投资组合
 https://fundf10.eastmoney.com/ccmx_000001.html
 """
 
+import random
 from io import StringIO
+from typing import Any
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from requests import Response
+from requests.exceptions import RequestException
 
+from akshare.exceptions import APIError, DataParsingError
 from akshare.utils import demjson
+
+
+def _get_fund_archives_data(
+    symbol: str,
+    data_type: str,
+    referer_page: str,
+    extra_params: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """
+    获取天天基金基金档案接口数据。
+
+    该接口当前仍返回 JS 片段而非标准 JSON，因此需要在请求成功后
+    手动提取对象字面量并交由 ``demjson`` 解析。
+
+    :param symbol: 基金代码
+    :type symbol: str
+    :param data_type: 接口类型
+    :type data_type: str
+    :param referer_page: Referer 页面前缀
+    :type referer_page: str
+    :param extra_params: 额外请求参数
+    :type extra_params: dict[str, str] | None
+    :return: 解析后的接口数据
+    :rtype: dict[str, Any]
+    """
+    url = "https://fundf10.eastmoney.com/FundArchivesDatas.aspx"
+    params = {
+        "type": data_type,
+        "code": symbol,
+        "rt": f"{random.random():.16f}",
+    }
+    if extra_params:
+        params.update(extra_params)
+    headers = {
+        "Accept": "*/*",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Referer": f"https://fundf10.eastmoney.com/{referer_page}_{symbol}.html",
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/138.0.0.0 Safari/537.36"
+        ),
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    try:
+        response: Response = requests.get(url, params=params, headers=headers)
+        response.raise_for_status()
+    except RequestException as err:
+        raise APIError(f"FundArchivesDatas request failed: {err}") from err
+
+    data_text = response.text
+    start = data_text.find("{")
+    end = data_text.rfind("}")
+    if start == -1 or end == -1 or start >= end:
+        raise DataParsingError("FundArchivesDatas response is not a valid JS object")
+
+    # 响应为 ``var apidata = {...};`` 形式，这里只截取对象字面量部分。
+    data_json = demjson.decode(data_text[start : end + 1])
+    if not isinstance(data_json, dict) or "content" not in data_json:
+        raise DataParsingError("FundArchivesDatas response missing content field")
+    return data_json
 
 
 def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.DataFrame:
@@ -21,23 +87,17 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
     https://fundf10.eastmoney.com/ccmx_000001.html
     :param symbol: 基金代码
     :type symbol: str
-    :param date: 查询年份
+    :param date: 查询年份; 传入空字符串时返回最新可用年份数据
     :type date: str
     :return: 基金持仓
     :rtype: pandas.DataFrame
     """
-    url = "https://fundf10.eastmoney.com/FundArchivesDatas.aspx"
-    params = {
-        "type": "jjcc",
-        "code": symbol,
-        "topline": "10000",
-        "year": date,
-        "month": "",
-        "rt": "0.913877030254846",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = _get_fund_archives_data(
+        symbol=symbol,
+        data_type="jjcc",
+        referer_page="ccmx",
+        extra_params={"topline": "10000", "year": date, "month": ""},
+    )
     soup = BeautifulSoup(data_json["content"], features="lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
@@ -116,16 +176,12 @@ def fund_portfolio_bond_hold_em(
     :return: 债券持仓
     :rtype: pandas.DataFrame
     """
-    url = "https://fundf10.eastmoney.com/FundArchivesDatas.aspx"
-    params = {
-        "type": "zqcc",
-        "code": symbol,
-        "year": date,
-        "rt": "0.913877030254846",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = _get_fund_archives_data(
+        symbol=symbol,
+        data_type="zqcc",
+        referer_page="ccmx1",
+        extra_params={"year": date},
+    )
     soup = BeautifulSoup(data_json["content"], features="lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
@@ -250,17 +306,12 @@ def fund_portfolio_change_em(
         "累计买入": "1",
         "累计卖出": "2",
     }
-    url = "https://fundf10.eastmoney.com/FundArchivesDatas.aspx"
-    params = {
-        "type": "zdbd",
-        "code": symbol,
-        "zdbd": indicator_map[indicator],
-        "year": date,
-        "rt": "0.913877030254846",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = _get_fund_archives_data(
+        symbol=symbol,
+        data_type="zdbd",
+        referer_page="ccbd",
+        extra_params={"zdbd": indicator_map[indicator], "year": date},
+    )
     soup = BeautifulSoup(data_json["content"], features="lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
