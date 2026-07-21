@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/4 18:10
+Date: 2026/7/21 14:10
 Desc: 东方财富-数据中心-年报季报
 东方财富-数据中心-年报季报-业绩预告
 https://data.eastmoney.com/bbsj/202003/yjyg.html
@@ -301,32 +301,20 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
-    big_df["index"] = range(1, len(big_df) + 1)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "_",
-        "_",
-        "首次预约时间",
-        "一次变更日期",
-        "二次变更日期",
-        "三次变更日期",
-        "实际披露时间",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    big_df.reset_index(inplace=True, drop=True)
+    big_df.insert(0, "序号", range(1, len(big_df) + 1))
+    big_df.rename(
+        columns={
+            "SECURITY_CODE": "股票代码",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "FIRST_APPOINT_DATE": "首次预约时间",
+            "FIRST_CHANGE_DATE": "一次变更日期",
+            "SECOND_CHANGE_DATE": "二次变更日期",
+            "THIRD_CHANGE_DATE": "三次变更日期",
+            "ACTUAL_PUBLISH_DATE": "实际披露时间",
+        },
+        inplace=True,
+    )
     big_df = big_df[
         [
             "序号",

@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.66 fix: fix stock_yysj_em interface
+
+	1. 修复 stock_yysj_em 接口
+
 1.18.65 fix: fix fund_portfolio_hold_em interface
 
 	1. 修复 fund_portfolio_hold_em 接口在 date="" 场景下的请求兼容问题
