@@ -39,7 +39,7 @@ def stock_hot_rank_em() -> pd.DataFrame:
         "fltt": "2",
         "invt": "2",
         "fields": "f14,f3,f12,f2",
-        "secids": ",".join(temp_rank_df["mark"]) + ",?v=08926209912590994",
+        "secids": ",".join(temp_rank_df["mark"]),
     }
     url = "https://push2.eastmoney.com/api/qt/ulist.np/get"
     r = requests.get(url, params=params)
