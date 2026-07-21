@@ -8973,9 +8973,9 @@ print(stock_report_disclosure_df)
 
 目标地址: http://www.cninfo.com.cn/new/commonUrl/pageOfSearch?url=disclosure/list/search
 
-描述: 巨潮资讯-首页-公告查询-信息披露公告-沪深京
+描述: 巨潮资讯-首页-公告查询-信息披露公告
 
-限量: 单次获取指定 symbol 的信息披露公告数据
+限量: 单次获取指定 symbol 的信息披露公告数据; 无数据时返回空的 pandas.DataFrame
 
 输入参数
 
@@ -9026,9 +9026,9 @@ print(stock_zh_a_disclosure_report_cninfo_df)
 
 目标地址: http://www.cninfo.com.cn/new/commonUrl/pageOfSearch?url=disclosure/list/search
 
-描述: 巨潮资讯-首页-公告查询-信息披露调研-沪深京
+描述: 巨潮资讯-首页-公告查询-信息披露调研
 
-限量: 单次获取指定 symbol 的信息披露调研数据
+限量: 单次获取指定 symbol 的信息披露调研数据; 无数据时返回空的 pandas.DataFrame
 
 输入参数
 
