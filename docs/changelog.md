@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.70 fix: fix stock_a_below_net_asset_statistics interface
+
+	1. 修复 stock_a_below_net_asset_statistics 接口
+
 1.18.69 fix: fix stock_zh_a_hist_tx interface
 
 	1. 修复 stock_zh_a_hist_tx 接口
