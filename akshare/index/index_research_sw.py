@@ -14,6 +14,18 @@ import requests
 from akshare.utils.tqdm import get_tqdm
 
 
+def _empty_realtime_index_df(columns: list[str]) -> pd.DataFrame:
+    """
+    返回申万指数实时行情空表。
+
+    :param columns: 列名列表
+    :type columns: list[str]
+    :return: 空表
+    :rtype: pandas.DataFrame
+    """
+    return pd.DataFrame(columns=columns)
+
+
 def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
     """
     申万宏源研究-指数发布-指数详情-指数历史数据
@@ -178,13 +190,17 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swsresearch.com/insWechatSw/dflgOrJcIndex/pageList"
+    index_type_map = {
+        "大类风格指数": 1,
+        "金创指数": 2,
+    }
     payload = {
         "pageNo": 1,
         "pageSize": 10,
         "indexTypeName": symbol,
         "sortField": "",
         "rule": "",
-        "indexType": 1,
+        "indexType": index_type_map[symbol],
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -192,6 +208,10 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload, headers=headers, verify=False)
     data_json = r.json()
+    if not data_json.get("data") or not data_json["data"].get("list"):
+        return _empty_realtime_index_df(
+            ["指数代码", "指数名称", "昨收盘", "日涨跌幅", "年涨跌幅"]
+        )
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df.rename(
         columns={
@@ -238,6 +258,20 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers, verify=False)
     data_json = r.json()
+    if not data_json.get("data"):
+        return _empty_realtime_index_df(
+            [
+                "指数代码",
+                "指数名称",
+                "昨收盘",
+                "今开盘",
+                "最新价",
+                "成交额",
+                "成交量",
+                "最高价",
+                "最低价",
+            ]
+        )
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
