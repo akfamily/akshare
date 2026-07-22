@@ -13,6 +13,7 @@ import time
 
 import pandas as pd
 import requests
+from curl_cffi import requests as curl_requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 
@@ -321,10 +322,17 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
     :return: 城镇调查失业率
     :rtype: pandas.DataFrame
     """
-    url = "https://data.stats.gov.cn/dg/website/publicrelease/web/external/getEsDataByCidAndDt"
+    url = "https://data.stats.gov.cn/dg/website/publicrelease/web/external/stream/esData"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Content-Type": "application/json",
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json;charset=UTF-8",
+        "Origin": "https://data.stats.gov.cn",
+        "Referer": "https://data.stats.gov.cn/dg/website/page.html#/pc/national/monthData",
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/138.0.0.0 Safari/537.36"
+        ),
     }
     payload = {
         "cid": "ee3b7046b390415b9b7745e3d16f6052",
@@ -345,8 +353,12 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
         "showType": "1",
         "rootId": "fc982599aa684be7969d7b90b1bd0e84",
     }
-    r = requests.post(url, json=payload, headers=headers, timeout=10)
+    r = curl_requests.post(
+        url, json=payload, headers=headers, impersonate="chrome", timeout=30
+    )
     data_json = r.json()
+    if not data_json.get("success") or "data" not in data_json:
+        return pd.DataFrame(columns=["date", "item", "value"])
     data_list = []
     for month_item in data_json["data"]:
         raw_month = month_item["name"]

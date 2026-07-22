@@ -3276,6 +3276,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.68 fix: fix index_realtime_sw interface
 1.18.69 fix: fix stock_zh_a_hist_tx interface
 1.18.70 fix: fix stock_a_below_net_asset_statistics interface
+1.18.71 fix: fix NBS macro interfaces
 """
 
 from akshare._version import __version__
