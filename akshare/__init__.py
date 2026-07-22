@@ -3279,10 +3279,20 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.71 fix: fix NBS macro interfaces
 1.18.72 fix: fix stock_cg_lawsuit_cninfo interface
 1.18.73 fix: fix stock_sector_fund_flow_rank interface
+1.18.74 fix: fix stock_margin_bse interface
 """
 
 from akshare._version import __version__
 __author__ = "AKFamily"
+
+"""
+京证券交易所融资融券数据
+"""
+from akshare.stock_feature.stock_margin_bse import (
+    stock_margin_bse,
+    stock_margin_detail_bse,
+    stock_margin_underlying_info_bse,
+)
 
 """
 腾讯证券-沪深京-实时行情数据
@@ -4416,6 +4426,15 @@ from akshare.stock_feature.stock_margin_szse import (
     stock_margin_underlying_info_szse,
     stock_margin_detail_szse,
     stock_margin_szse,
+)
+
+"""
+融资融券-北京证券交易所
+"""
+from akshare.stock_feature.stock_margin_bse import (
+    stock_margin_bse,
+    stock_margin_detail_bse,
+    stock_margin_underlying_info_bse,
 )
 
 """

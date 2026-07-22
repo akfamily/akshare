@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.74 fix: fix stock_margin_bse interface
+
+	1. 修复 stock_margin_bse 接口
+
 1.18.73 fix: fix stock_sector_fund_flow_rank interface
 
 	1. 修复 stock_sector_fund_flow_rank 接口
@@ -100,6 +104,13 @@
 	7. 修复 movie_boxoffice_monthly 接口
 	8. 修复 movie_boxoffice_yearly 接口
 	9. 修复 movie_boxoffice_yearly_first_week 接口
+	10. 清理 stock_hot_rank_em 接口 secids 参数中的无效后缀
+	11. 清理 stock_hk_hot_rank_em 接口 secids 参数中的无效后缀
+	12. 清理 stock_hot_up_em 接口 secids 参数中的无效后缀
+	13. 修复 stock_zh_a_gbjg_em 接口分页截断问题
+	14. 修复 stock_zh_a_hist_tx 接口的成交量、换手率和成交额字段语义
+	15. 修复 stock_rank_cxd_ths 接口表格解析异常
+	16. 新增 stock_margin_bse、stock_margin_detail_bse 和 stock_margin_underlying_info_bse 接口
 
 1.18.72 fix: fix stock_cg_lawsuit_cninfo interface
 
