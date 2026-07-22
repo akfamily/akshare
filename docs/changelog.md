@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.72 fix: fix stock_cg_lawsuit_cninfo interface
+
+	1. 修复 stock_cg_lawsuit_cninfo 接口
+
 1.18.71 fix: fix NBS macro interfaces
 
 	1. 修复 macro_china_urban_unemployment 接口
