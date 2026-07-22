@@ -158,7 +158,8 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
             f"stockcode/order/asc/page/{page}/ajax/1/free/1/"
         )
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text))[0].iloc[:, :-1]  # 20260214 新增
+        html_fixed = re.sub(r'\srowspan="\d+"', "", r.text)
+        temp_df = pd.read_html(StringIO(html_fixed), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "序号",

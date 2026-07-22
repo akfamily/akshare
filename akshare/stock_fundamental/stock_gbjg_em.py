@@ -6,8 +6,57 @@ Desc: 东方财富-A股数据-股本结构
 https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SH603392&color=b#/gbjg/gbjg
 """
 
-import requests
+import re
+
 import pandas as pd
+import requests
+
+
+def _normalize_em_secu_code(symbol: str) -> str:
+    """
+    规范化东方财富使用的证券代码格式。
+
+    :param symbol: 原始证券代码
+    :type symbol: str
+    :return: 东方财富接口使用的证券代码
+    :rtype: str
+    """
+    symbol = symbol.strip().upper()
+    if re.fullmatch(r"\d{6}\.(SH|SZ|BJ)", symbol):
+        return symbol
+    if re.fullmatch(r"(SH|SZ|BJ)\d{6}", symbol):
+        return f"{symbol[2:]}.{symbol[:2]}"
+    if re.fullmatch(r"\d{6}", symbol):
+        if symbol.startswith(("4", "8")):
+            market = "BJ"
+        elif symbol.startswith(("5", "6", "9")):
+            market = "SH"
+        else:
+            market = "SZ"
+        return f"{symbol}.{market}"
+    raise ValueError("Please check if the symbol parameter is correct.")
+
+
+def _empty_stock_zh_a_gbjg_em_df() -> pd.DataFrame:
+    """
+    返回股本结构接口的标准空表。
+
+    :return: 标准空表
+    :rtype: pandas.DataFrame
+    """
+    return pd.DataFrame(
+        columns=[
+            "变更日期",
+            "总股本",
+            "流通受限股份",
+            "其他内资持股(受限)",
+            "境内法人持股(受限)",
+            "境内自然人持股(受限)",
+            "已流通股份",
+            "已上市流通A股",
+            "变动原因",
+        ]
+    )
 
 
 def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
@@ -19,6 +68,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
     :return: 股本结构
     :rtype: pandas.DataFrame
     """
+    symbol = _normalize_em_secu_code(symbol)
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
     params = {
         "reportName": "RPT_F10_EH_EQUITY",
@@ -32,16 +82,35 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         "quoteColumns": "",
         "filter": f'(SECUCODE="{symbol}")',
         "pageNumber": "1",
-        "pageSize": "20",
+        "pageSize": "500",
         "sortTypes": "-1",
         "sortColumns": "END_DATE",
         "source": "HSF10",
         "client": "PC",
         "v": "047483522105257925",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=30)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"])
+    result = data_json.get("result") or {}
+    data_list = result.get("data") or []
+    if not data_list:
+        return _empty_stock_zh_a_gbjg_em_df()
+
+    total_pages = int(result.get("pages") or 1)
+    big_df = pd.DataFrame(data_list)
+    # 逐页拉取，避免老股票较长的股本结构历史被静默截断。
+    for page in range(2, total_pages + 1):
+        params.update({"pageNumber": str(page)})
+        r = requests.get(url, params=params, timeout=30)
+        page_json = r.json()
+        page_result = page_json.get("result") or {}
+        page_data = page_result.get("data") or []
+        if not page_data:
+            continue
+        page_df = pd.DataFrame(page_data)
+        big_df = pd.concat([big_df, page_df], ignore_index=True)
+
+    temp_df = big_df
     temp_df.rename(
         columns={
             "END_DATE": "变更日期",
