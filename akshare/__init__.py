@@ -3278,10 +3278,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.70 fix: fix stock_a_below_net_asset_statistics interface
 1.18.71 fix: fix NBS macro interfaces
 1.18.72 fix: fix stock_cg_lawsuit_cninfo interface
+1.18.73 fix: fix stock_sector_fund_flow_rank interface
 """
 
 from akshare._version import __version__
 __author__ = "AKFamily"
+
+"""
+腾讯证券-沪深京-实时行情数据
+"""
+from akshare.stock.stock_zh_a_tx import stock_zh_a_spot_tx
 
 """
 TapTap 游戏榜单

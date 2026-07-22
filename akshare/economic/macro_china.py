@@ -322,7 +322,9 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
     :return: 城镇调查失业率
     :rtype: pandas.DataFrame
     """
-    url = "https://data.stats.gov.cn/dg/website/publicrelease/web/external/stream/esData"
+    url = (
+        "https://data.stats.gov.cn/dg/website/publicrelease/web/external/stream/esData"
+    )
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Content-Type": "application/json;charset=UTF-8",

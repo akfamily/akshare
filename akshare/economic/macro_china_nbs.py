@@ -404,7 +404,9 @@ def _build_nbs_dts(period: str, granularity: str) -> List[str]:
     if "-" in period:
         start_text, end_text = [item.strip() for item in period.split("-", maxsplit=1)]
         if granularity != "year" and re.fullmatch(r"\d{4}", start_text):
-            start_text = f"{start_text}01" if granularity == "month" else f"{start_text}A"
+            start_text = (
+                f"{start_text}01" if granularity == "month" else f"{start_text}A"
+            )
         start_code = _encode_nbs_period_token(start_text, granularity)
         if not end_text:
             end_code = _get_last_completed_period(granularity)
@@ -489,7 +491,9 @@ def _post_nbs_es_data(
     :return: 数据列表
     :rtype: List[Dict]
     """
-    url = "https://data.stats.gov.cn/dg/website/publicrelease/web/external/stream/esData"
+    url = (
+        "https://data.stats.gov.cn/dg/website/publicrelease/web/external/stream/esData"
+    )
     payload = {
         "cid": cid,
         "indicatorIds": indicator_ids,
@@ -597,7 +601,8 @@ def macro_china_nbs_region(
         (
             item
             for item in da_catalogs
-            if _normalize_nbs_text(item.get("name", item.get("_name", ""))) == "全部地区"
+            if _normalize_nbs_text(item.get("name", item.get("_name", "")))
+            == "全部地区"
         ),
         da_catalogs[0],
     )
@@ -645,7 +650,8 @@ def macro_china_nbs_region(
         (
             item
             for item in da_members
-            if _normalize_nbs_text(item.get("show_name", "")) == _normalize_nbs_text(region)
+            if _normalize_nbs_text(item.get("show_name", ""))
+            == _normalize_nbs_text(region)
         ),
         None,
     )

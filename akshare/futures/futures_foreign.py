@@ -45,7 +45,7 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
 def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
     """
     foreign futures contract detail data
-    :param symbol: futures symbol, you can get it from hf_subscribe_exchange_symbol function
+    :param symbol: futures symbol, you can get it from ak.futures_hq_subscribe_exchange_symbol function
     :type symbol: str
     :return: contract detail
     :rtype: pandas.DataFrame

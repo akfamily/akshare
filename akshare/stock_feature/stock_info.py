@@ -7,6 +7,9 @@ https://stock.eastmoney.com/a/czpnc.html
 """
 
 from datetime import datetime
+import hashlib
+import time
+from urllib.parse import urlencode
 
 import pandas as pd
 import requests
@@ -198,8 +201,22 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
     :return: 财联社-电报
     :rtype: pandas.DataFrame
     """
-    url = "https://www.cls.cn/nodeapi/telegraphList"
-    data_json = make_request_with_retry_json(url, max_retries=10, headers=headers)
+    url = "https://www.cls.cn/v1/roll/get_roll_list"
+    params = {
+        "app": "CailianpressWeb",
+        "category": "",
+        "last_time": int(time.time()),
+        "os": "web",
+        "refresh_type": "1",
+        "rn": "20",
+        "sv": "8.4.6",
+    }
+    params["sign"] = hashlib.md5(
+        hashlib.sha1(urlencode(params).encode("utf-8")).hexdigest().encode("utf-8")
+    ).hexdigest()
+    data_json = make_request_with_retry_json(
+        url, params=params, max_retries=10, headers=headers
+    )
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
     big_df = temp_df.copy()
     big_df = big_df[["title", "content", "ctime", "level"]]
