@@ -506,11 +506,28 @@ def stock_sector_fund_flow_rank(
                 "pn": page,
             }
         )
-        r = requests.get(url, params=params, timeout=15)
+        r = requests.get(url, params=params, headers=headers, timeout=15)
         data_json = r.json()
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)
     temp_df = pd.concat(temp_list, ignore_index=True)
+
+    def _coerce_numeric_columns(
+        data: pd.DataFrame, numeric_columns: list[str]
+    ) -> pd.DataFrame:
+        """
+        将东方财富返回的数值列统一转换为数值类型。
+
+        :param data: 原始数据
+        :type data: pandas.DataFrame
+        :param numeric_columns: 需要转换的列名列表
+        :type numeric_columns: list[str]
+        :return: 转换后的数据
+        :rtype: pandas.DataFrame
+        """
+        for column in numeric_columns:
+            data[column] = pd.to_numeric(data[column], errors="coerce")
+        return data
 
     if indicator == "今日":
         temp_df.columns = [
@@ -551,8 +568,21 @@ def stock_sector_fund_flow_rank(
                 "今日主力净流入最大股",
             ]
         ]
-        temp_df["今日主力净流入-净额"] = pd.to_numeric(
-            temp_df["今日主力净流入-净额"], errors="coerce"
+        temp_df = _coerce_numeric_columns(
+            temp_df,
+            [
+                "今日涨跌幅",
+                "今日主力净流入-净额",
+                "今日主力净流入-净占比",
+                "今日超大单净流入-净额",
+                "今日超大单净流入-净占比",
+                "今日大单净流入-净额",
+                "今日大单净流入-净占比",
+                "今日中单净流入-净额",
+                "今日中单净流入-净占比",
+                "今日小单净流入-净额",
+                "今日小单净流入-净占比",
+            ],
         )
         temp_df.sort_values(["今日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
@@ -597,6 +627,22 @@ def stock_sector_fund_flow_rank(
                 "5日主力净流入最大股",
             ]
         ]
+        temp_df = _coerce_numeric_columns(
+            temp_df,
+            [
+                "5日涨跌幅",
+                "5日主力净流入-净额",
+                "5日主力净流入-净占比",
+                "5日超大单净流入-净额",
+                "5日超大单净流入-净占比",
+                "5日大单净流入-净额",
+                "5日大单净流入-净占比",
+                "5日中单净流入-净额",
+                "5日中单净流入-净占比",
+                "5日小单净流入-净额",
+                "5日小单净流入-净占比",
+            ],
+        )
         temp_df.sort_values(["5日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)
@@ -640,6 +686,22 @@ def stock_sector_fund_flow_rank(
                 "10日主力净流入最大股",
             ]
         ]
+        temp_df = _coerce_numeric_columns(
+            temp_df,
+            [
+                "10日涨跌幅",
+                "10日主力净流入-净额",
+                "10日主力净流入-净占比",
+                "10日超大单净流入-净额",
+                "10日超大单净流入-净占比",
+                "10日大单净流入-净额",
+                "10日大单净流入-净占比",
+                "10日中单净流入-净额",
+                "10日中单净流入-净占比",
+                "10日小单净流入-净额",
+                "10日小单净流入-净占比",
+            ],
+        )
         temp_df.sort_values(["10日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)

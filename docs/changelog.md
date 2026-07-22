@@ -89,6 +89,18 @@
 
 ## 更新说明详情
 
+1.18.73 fix: fix stock_sector_fund_flow_rank interface
+
+	1. 修复 stock_sector_fund_flow_rank 接口
+    2. 修复 stock_info_global_cls 接口
+    3. 补充 Jin10 美国宏观与美联储利率接口的上游数据滞后说明
+    4. 修复 stock_individual_info_em 接口
+    5. 修复 movie_boxoffice_realtime 接口
+	6. 修复 movie_boxoffice_daily 接口
+	7. 修复 movie_boxoffice_monthly 接口
+	8. 修复 movie_boxoffice_yearly 接口
+	9. 修复 movie_boxoffice_yearly_first_week 接口
+
 1.18.72 fix: fix stock_cg_lawsuit_cninfo interface
 
 	1. 修复 stock_cg_lawsuit_cninfo 接口

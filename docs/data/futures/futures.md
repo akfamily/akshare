@@ -3466,7 +3466,7 @@ print(futures_global_hist_em_df)
 
 | 名称     | 类型  | 描述                                                                           |
 |--------|-----|------------------------------------------------------------------------------|
-| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **ak.hf_subscribe_exchange_symbol()** 获取 |
+| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **ak.futures_hq_subscribe_exchange_symbol()** 获取 |
 
 输出参数
 
@@ -3520,7 +3520,7 @@ print(futures_foreign_hist_df)
 
 | 名称     | 类型  | 描述                                                                      |
 |--------|-----|-------------------------------------------------------------------------|
-| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **hf_subscribe_exchange_symbol** 获取 |
+| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **ak.futures_hq_subscribe_exchange_symbol()** 获取 |
 
 输出参数
 

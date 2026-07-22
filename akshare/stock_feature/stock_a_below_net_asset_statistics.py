@@ -37,7 +37,12 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     temp_df = pd.DataFrame(data_json)
     if temp_df.empty:
         return pd.DataFrame(
-            columns=["date", "below_net_asset", "total_company", "below_net_asset_ratio"]
+            columns=[
+                "date",
+                "below_net_asset",
+                "total_company",
+                "below_net_asset_ratio",
+            ]
         )
     rename_map = {
         "belowNetAsset": "below_net_asset",
