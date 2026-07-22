@@ -1,0 +1,165 @@
+# AKShare
+
+AKShare is an open-source Python financial data interface library.
+
+It provides public financial market data and alternative data from many sources,
+especially for China markets, including A-share, Hong Kong stocks, U.S.
+stocks, funds, futures, options, bonds, forex, macroeconomic indicators,
+industry data, news, and cryptocurrency data.
+
+AKShare is designed around a simple idea: write less, get more. Most public
+interfaces return `pandas.DataFrame` objects and are meant to be called from the
+top-level package.
+
+## Install
+
+Use pip:
+
+`pip install akshare --upgrade`
+
+## Python Entry Point
+
+Import AKShare as:
+
+```python
+import akshare as ak
+```
+
+All public interfaces are exposed from the top-level package and are typically
+called as:
+
+```python
+ak.function_name(...)
+```
+
+Do not assume users need to import submodules directly unless you are working on
+AKShare internals.
+
+## Documentation
+
+Main entry points:
+
+- `README.md`
+- `docs/tutorial.md`
+- `docs/data/`
+- Online docs: `https://akshare.akfamily.xyz/`
+- Data interface index: `https://akshare.akfamily.xyz/data/index.html`
+
+The most important interface documentation is organized by category under
+`docs/data/`.
+
+## Core Usage Pattern
+
+Recommended workflow:
+
+1. Identify the asset class or topic.
+2. Find the matching documentation page under `docs/data/`.
+3. Use the documented public function from `akshare`.
+4. Inspect the returned `DataFrame` columns before downstream processing.
+
+## Major Categories
+
+Common data categories include:
+
+- `stock`: stock market data, including A-share, Hong Kong stocks, U.S.
+  stocks, spot data, historical data, and stock information
+- `stock_feature`: rankings, capital flow, margin trading, technical data, and
+  market feature datasets
+- `stock_fundamental`: company fundamentals, financial statements, equity
+  structure, and disclosures
+- `fund`: public fund data, ETFs, rankings, holdings, managers, and net value
+- `futures`: domestic and global futures market data
+- `option`: option market data
+- `bond`: bond and convertible bond data
+- `index`: market index data
+- `forex` and `fx`: foreign exchange data
+- `macro` and `economic`: macroeconomic and statistical data
+- `news`: financial news and information
+- `crypto`: cryptocurrency market data
+- `tool`: trading calendar and utility datasets
+
+## Naming Conventions
+
+AKShare function names usually encode both the topic and the data source.
+
+Common suffixes include:
+
+- `_em`: EastMoney
+- `_sina`: Sina
+- `_ths`: Tonghuashun
+- `_cninfo`: CNINFO
+- `_xq`: Xueqiu
+
+Choose functions based on documented behavior, not only by suffix similarity.
+
+## Return Types And Parameters
+
+Common conventions:
+
+- Most public interfaces return `pandas.DataFrame`.
+- Date parameters are often strings such as `YYYYMMDD`.
+- Symbol parameters may use market-specific codes.
+- Returned column names are often Chinese because they follow upstream data
+  semantics or established AKShare conventions.
+
+## Important Notes For LLMs And Agents
+
+When helping users with AKShare:
+
+- Prefer documented public functions over internal helpers.
+- Prefer top-level calls such as `ak.stock_zh_a_hist(...)` instead of submodule
+  imports.
+- Check `docs/data/` before guessing interface names.
+- Many interfaces depend on upstream public websites and may break when
+  upstream providers change.
+- Data freshness can vary by source; if results look stale, verify whether the
+  upstream source still provides updated data.
+- Inspect returned columns before making assumptions about field names, units,
+  or semantics.
+
+## Example Function Families
+
+Representative examples:
+
+- `ak.stock_zh_a_spot_em()`
+- `ak.stock_zh_a_hist(...)`
+- `ak.stock_individual_info_em(...)`
+- `ak.fund_open_fund_info_em(...)`
+- `ak.futures_zh_spot()`
+- `ak.option_current_em()`
+- `ak.bond_zh_hs_cov_spot()`
+- `ak.macro_china_cpi()`
+- `ak.news_cctv()`
+- `ak.crypto_hist(...)`
+
+## Project Structure
+
+AKShare is organized by domain subpackages under `akshare/`, but user-facing
+calls are flat through the top-level package.
+
+Important structure:
+
+- Source code: `akshare/`
+- Public API export hub: `akshare/__init__.py`
+- Main documentation: `docs/`
+- Data interface docs: `docs/data/`
+
+## If Editing AKShare Source
+
+When adding or fixing a public interface:
+
+- Keep the external API stable whenever possible.
+- Add the public import to `akshare/__init__.py`, or users cannot call it as
+  `ak.function_name(...)`.
+- Update the corresponding documentation under `docs/data/`.
+- Update `docs/changelog.md` for user-visible fixes or new interfaces.
+
+## Preferred Guidance Style
+
+If you are an LLM or coding agent helping a user:
+
+1. Clarify the market, asset class, and target dataset.
+2. Identify the most likely documented interface.
+3. Provide a minimal working AKShare example.
+4. Explain likely parameter formats.
+5. Mention upstream availability or freshness limits when relevant.
