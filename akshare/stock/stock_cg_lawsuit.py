@@ -3,7 +3,7 @@
 """
 Date: 2021/9/29 16:19
 Desc: 巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
-http://webapi.cninfo.com.cn/#/thematicStatistics
+https://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import pandas as pd
@@ -33,14 +33,15 @@ def stock_cg_lawsuit_cninfo(
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
-    http://webapi.cninfo.com.cn/#/thematicStatistics
+    https://webapi.cninfo.com.cn/#/thematicStatistics
+
     :param symbol: choice of {"全部", "深市主板", "沪市", "创业板", "科创板"}
     :type symbol: str
     :param start_date: 开始统计时间
     :type start_date: str
     :param end_date: 结束统计时间
     :type end_date: str
-    :return: 对外担保
+    :return: 公司诉讼数据; 若源站无记录则返回空 DataFrame
     :rtype: pandas.DataFrame
     """
     symbol_map = {
@@ -54,6 +55,7 @@ def stock_cg_lawsuit_cninfo(
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("cninfo.js")
     js_code.eval(js_content)
+    # 巨潮资讯当前专题统计接口要求携带动态 Accept-Enckey 头。
     mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
@@ -77,13 +79,14 @@ def stock_cg_lawsuit_cninfo(
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "market": symbol_map[symbol],
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = requests.post(url, headers=headers, params=params, timeout=30)
     data_json = r.json()
-    if "records" not in data_json:
+    records = data_json.get("records", [])
+    if not records:
         return pd.DataFrame(
             columns=["证券代码", "证券简称", "公告统计区间", "诉讼次数", "诉讼金额"]
         )
-    temp_df = pd.DataFrame(data_json["records"])
+    temp_df = pd.DataFrame(records)
     temp_df.columns = [
         "公告统计区间",
         "诉讼金额",
