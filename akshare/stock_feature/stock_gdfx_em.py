@@ -515,7 +515,9 @@ def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
     params = {
         "sortColumns": "UPDATE_DATE,SECURITY_CODE,HOLDER_RANK",
         "sortTypes": "-1,1,1",
-        "pageSize": "500",
+        # EastMoney may return empty results once the page count reaches 100.
+        # Use a larger page size to keep `result.pages` below that threshold.
+        "pageSize": "2000",
         "pageNumber": "1",
         "reportName": "RPT_F10_EH_FREEHOLDERS",
         "columns": "ALL",

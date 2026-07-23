@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.75 fix: fix stock_gdfx_free_holding_detail_em interface
+
+	1. 修复 stock_gdfx_free_holding_detail_em 接口
+
 1.18.74 fix: fix stock_margin_bse interface
 
 	1. 修复 stock_margin_bse 接口
