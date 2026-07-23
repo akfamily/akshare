@@ -13563,6 +13563,8 @@ print(stock_gdfx_holding_analyse_em_df)
 
 限量: 单次返回指定 date 的所有数据
 
+说明: 已优化 EastMoney 分页参数，避免在部分报告期因总页数达到 100 页附近而出现后续页面返回空结果的情况
+
 输入参数
 
 | 名称   | 类型  | 描述                         |
