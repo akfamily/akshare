@@ -8,7 +8,7 @@ https://fundf10.eastmoney.com/ccmx_000001.html
 
 import random
 from io import StringIO
-from typing import Any
+from typing import Any, Optional
 
 import pandas as pd
 import requests
@@ -24,7 +24,7 @@ def _get_fund_archives_data(
     symbol: str,
     data_type: str,
     referer_page: str,
-    extra_params: dict[str, str] | None = None,
+    extra_params: Optional[dict[str, str]] = None,
 ) -> dict[str, Any]:
     """
     获取天天基金基金档案接口数据。
@@ -39,7 +39,7 @@ def _get_fund_archives_data(
     :param referer_page: Referer 页面前缀
     :type referer_page: str
     :param extra_params: 额外请求参数
-    :type extra_params: dict[str, str] | None
+    :type extra_params: Optional[dict[str, str]]
     :return: 解析后的接口数据
     :rtype: dict[str, Any]
     """
