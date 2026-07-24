@@ -2759,6 +2759,8 @@ print(fund_individual_achievement_xq_df)
 
 限量: 单次返回当前交易日指定 symbol 的所有数据
 
+说明: 非交易时段若上游返回“暂无数据”，则返回空的 `pandas.DataFrame`，不再抛出异常
+
 输入参数
 
 | 名称     | 类型  | 描述                                                                                                    |

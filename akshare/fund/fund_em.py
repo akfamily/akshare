@@ -29,6 +29,28 @@ from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
 
+def _empty_fund_value_estimation_em_df() -> pd.DataFrame:
+    """
+    返回基金净值估算接口的标准空表。
+
+    :return: 标准空表
+    :rtype: pandas.DataFrame
+    """
+    return pd.DataFrame(
+        columns=[
+            "序号",
+            "基金代码",
+            "基金名称",
+            "交易日-估算数据-估算值",
+            "交易日-估算数据-估算增长率",
+            "交易日-公布数据-单位净值",
+            "交易日-公布数据-日增长率",
+            "估算偏差",
+            "交易日-单位净值",
+        ]
+    )
+
+
 def fund_purchase_em() -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-基金申购状态
@@ -1076,9 +1098,13 @@ def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     json_data = r.json()
-    temp_df = pd.DataFrame(json_data["Data"]["list"])
-    value_day = json_data["Data"]["gzrq"]
-    cal_day = json_data["Data"]["gxrq"]
+    data_content = json_data.get("Data")
+    if not data_content or not data_content.get("list"):
+        return _empty_fund_value_estimation_em_df()
+
+    temp_df = pd.DataFrame(data_content["list"])
+    value_day = data_content["gzrq"]
+    cal_day = data_content["gxrq"]
     temp_df.columns = [
         "基金代码",
         "-",

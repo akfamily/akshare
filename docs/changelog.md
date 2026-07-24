@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.78 fix: fix fund_value_estimation_em interface
+
+    1. 修复 fund_value_estimation_em 接口
+
 1.18.77 fix: fix futures_inventory_99 interface
 
     1. 修复 futures_inventory_99 接口
