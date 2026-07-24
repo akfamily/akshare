@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.76 fix: fix Python 3.9 compatibility regression
+
+    1. 修复 fund_portfolio_em 模块中 `dict[str, str] | None` 类型注解导致的 Python 3.9 导入报错问题
+
 1.18.75 fix: fix stock_gdfx_free_holding_detail_em interface
 
 	1. 修复 stock_gdfx_free_holding_detail_em 接口
