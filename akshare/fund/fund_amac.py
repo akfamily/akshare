@@ -372,8 +372,8 @@ def amac_member_sub_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/pofMember"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -483,8 +483,8 @@ def amac_securities_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/securities"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -537,8 +537,8 @@ def amac_aoin_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/aoin/product"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -584,8 +584,8 @@ def amac_fund_sub_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/subfund"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -640,8 +640,8 @@ def amac_fund_account_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/fund/account"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -744,8 +744,8 @@ def amac_futures_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/futures"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
@@ -802,8 +802,8 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     url = "https://gs.amac.org.cn/amac-infodisc/api/cancelled/manager"
     params = {
         "rand": "0.7665138514630696",
-        "page": "1",
-        "size": "100",
+        "page": "0",
+        "size": "20",
     }
     r = requests.post(url, params=params, json={}, verify=False, headers=headers)
     data_json = r.json()
