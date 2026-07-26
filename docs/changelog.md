@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.79 fix: fix amac_aoin_info interface
+
+    1. 修复 amac_aoin_info 接口因 AMAC 分页参数变更导致的 JSONDecodeError 问题
+
 1.18.78 fix: fix fund_value_estimation_em interface
 
     1. 修复 fund_value_estimation_em 接口
