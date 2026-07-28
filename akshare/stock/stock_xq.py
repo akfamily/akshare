@@ -8,9 +8,12 @@ https://xueqiu.com/S/SH513520
 
 import re
 from datetime import datetime
+from typing import Any, Optional
 
 import pandas as pd
 import requests
+
+from akshare.exceptions import APIError, NetworkError
 
 
 def _convert_timestamp(timestamp_ms: int) -> str:
@@ -26,35 +29,73 @@ def _convert_timestamp(timestamp_ms: int) -> str:
     return datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
 
 
+def _get_xq_quote_data(
+    symbol: str, token: Optional[str] = None, timeout: Optional[float] = None
+) -> dict[str, Any]:
+    """
+    获取雪球个股行情接口的原始数据
+
+    :param symbol: 证券代码
+    :type symbol: str
+    :param token: 雪球财经的 xq_a_token
+    :type token: Optional[str]
+    :param timeout: 设置超时时间
+    :type timeout: Optional[float]
+    :return: 个股行情原始数据
+    :rtype: dict[str, Any]
+    :raises NetworkError: 网络请求异常
+    :raises APIError: 上游接口返回异常或需要有效登录态
+    """
+    from akshare.stock.cons import xq_a_token
+
+    session = requests.Session()
+    xq_token = token or xq_a_token
+    headers = {
+        "cookie": f"xq_a_token={xq_token};",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) "
+        "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 "
+        "Safari/604.1",
+    }
+    url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
+    try:
+        session.get(url="https://xueqiu.com", headers=headers, timeout=timeout)
+        r = session.get(url, headers=headers, timeout=timeout)
+        data_json = r.json()
+    except requests.RequestException as err:
+        raise NetworkError(f"Failed to request Xueqiu quote endpoint: {err}") from err
+    except ValueError as err:
+        raise APIError("Xueqiu quote endpoint returned invalid JSON") from err
+
+    if "data" not in data_json or "quote" not in data_json.get("data", {}):
+        error_code = data_json.get("error_code")
+        error_description = data_json.get("error_description", "Unknown error")
+        raise APIError(
+            "Xueqiu quote endpoint requires a valid xq_a_token or login session; "
+            f"upstream returned {error_code}: {error_description}",
+            status_code=r.status_code,
+        )
+
+    return data_json["data"]["quote"]
+
+
 def stock_individual_spot_xq(
     symbol: str = "SH600000",
-    token: str = None,
-    timeout: float = None,
+    token: Optional[str] = None,
+    timeout: Optional[float] = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
     https://xueqiu.com/S/SH600000
     :param symbol: 证券代码，可以是 A 股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
     :type symbol: str
-    :param token: set xueqiu token
-    :type token: str
+    :param token: 雪球财经的 xq_a_token
+    :type token: Optional[str]
     :param timeout: choice of None or a positive float number
-    :type timeout: float
+    :type timeout: Optional[float]
     :return: 证券最新行情
     :rtype: pandas.DataFrame
+    :raises APIError: 雪球接口需要有效登录态时抛出
     """
-    from akshare.stock.cons import xq_a_token
-
-    session = requests.Session()
-    xq_a_token = token or xq_a_token
-    headers = {
-        "cookie": f"xq_a_token={xq_a_token};",
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 "
-        "(KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
-    }
-    session.get(url="https://xueqiu.com", headers=headers)
-    url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
-    r = session.get(url, headers=headers, timeout=timeout)
     column_name_map = {
         "acc_unit_nav": "累计净值",
         "amount": "成交额",
@@ -101,8 +142,8 @@ def stock_individual_spot_xq(
         "volume": "成交量",
         "time": "时间",
     }
-    json_data = r.json()
-    temp_df = pd.json_normalize(json_data["data"]["quote"])
+    quote_data = _get_xq_quote_data(symbol=symbol, token=token, timeout=timeout)
+    temp_df = pd.json_normalize(quote_data)
     temp_df.columns = [
         *map(
             lambda x: column_name_map[x] if x in column_name_map.keys() else x,

@@ -89,6 +89,12 @@
 
 ## 更新说明详情
 
+1.18.80 fix: fix Xueqiu stock info interfaces
+
+    1. 修复 stock_individual_basic_info_xq 系列接口在雪球返回登录态错误时抛出 KeyError 的问题
+    2. 修复 stock_individual_spot_xq 接口在雪球返回登录态错误时抛出 KeyError 的问题
+    3. 加固雪球热榜和内部交易接口的异常处理与空结果兜底逻辑
+
 1.18.79 fix: fix amac_aoin_info interface
 
     1. 修复 amac_aoin_info 接口因 AMAC 分页参数变更导致的 JSONDecodeError 问题
