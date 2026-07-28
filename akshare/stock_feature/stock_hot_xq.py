@@ -7,11 +7,73 @@ https://xueqiu.com/hq
 """
 
 import math
+from typing import Any
 
 import pandas as pd
 import requests
 
+from akshare.exceptions import APIError, NetworkError
 from akshare.utils.tqdm import get_tqdm
+
+
+def _get_xq_hot_headers() -> dict[str, str]:
+    """
+    获取雪球热榜请求头
+
+    :return: 请求头
+    :rtype: dict[str, str]
+    """
+    return {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "xueqiu.com",
+        "Pragma": "no-cache",
+        "Referer": "https://xueqiu.com/hq",
+        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+
+
+def _request_xq_hot_data(url: str, params: dict[str, Any]) -> dict[str, Any]:
+    """
+    请求雪球热榜接口数据
+
+    :param url: 接口地址
+    :type url: str
+    :param params: 请求参数
+    :type params: dict[str, Any]
+    :return: 接口 data 字段
+    :rtype: dict[str, Any]
+    :raises NetworkError: 网络请求异常
+    :raises APIError: 上游接口返回异常
+    """
+    try:
+        r = requests.get(url, params=params, headers=_get_xq_hot_headers())
+        data_json = r.json()
+    except requests.RequestException as err:
+        raise NetworkError(f"Failed to request Xueqiu hot rank endpoint: {err}") from err
+    except ValueError as err:
+        raise APIError("Xueqiu hot rank endpoint returned invalid JSON") from err
+
+    if "data" not in data_json:
+        error_code = data_json.get("error_code")
+        error_description = data_json.get("error_description", "Unknown error")
+        raise APIError(
+            "Xueqiu hot rank endpoint returned an invalid response; "
+            f"upstream returned {error_code}: {error_description}",
+            status_code=r.status_code,
+        )
+    return data_json["data"]
 
 
 def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
@@ -36,39 +98,18 @@ def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
         "only_count": "0",
         "page": "1",
     }
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "xueqiu.com",
-        "Pragma": "no-cache",
-        "Referer": "https://xueqiu.com/hq",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    total_num = data_json["data"]["count"]
+    data = _request_xq_hot_data(url=url, params=params)
+    total_num = int(data["count"])
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        try:
-            temp_df = pd.DataFrame(data_json["data"]["list"])
-        except TypeError:
-            temp_df = pd.DataFrame()
+        data = _request_xq_hot_data(url=url, params=params)
+        temp_df = pd.DataFrame(data.get("list") or [])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(columns=["股票代码", "股票简称", "关注", "最新价"])
     if symbol == "本周新增":
         big_df = big_df[
             [
@@ -120,39 +161,18 @@ def stock_hot_tweet_xq(symbol: str = "最热门") -> pd.DataFrame:
         "only_count": "0",
         "page": "1",
     }
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "xueqiu.com",
-        "Pragma": "no-cache",
-        "Referer": "https://xueqiu.com/hq",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    total_num = data_json["data"]["count"]
+    data = _request_xq_hot_data(url=url, params=params)
+    total_num = int(data["count"])
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        try:
-            temp_df = pd.DataFrame(data_json["data"]["list"])
-        except TypeError:
-            temp_df = pd.DataFrame()
+        data = _request_xq_hot_data(url=url, params=params)
+        temp_df = pd.DataFrame(data.get("list") or [])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(columns=["股票代码", "股票简称", "关注", "最新价"])
     if symbol == "本周新增":
         big_df = big_df[
             [
@@ -204,39 +224,18 @@ def stock_hot_deal_xq(symbol: str = "最热门") -> pd.DataFrame:
         "only_count": "0",
         "page": "1",
     }
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "xueqiu.com",
-        "Pragma": "no-cache",
-        "Referer": "https://xueqiu.com/hq",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    total_num = data_json["data"]["count"]
+    data = _request_xq_hot_data(url=url, params=params)
+    total_num = int(data["count"])
     total_page = math.ceil(total_num / 200)
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        try:
-            temp_df = pd.DataFrame(data_json["data"]["list"])
-        except TypeError:
-            temp_df = pd.DataFrame()
+        data = _request_xq_hot_data(url=url, params=params)
+        temp_df = pd.DataFrame(data.get("list") or [])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(columns=["股票代码", "股票简称", "关注", "最新价"])
     if symbol == "本周新增":
         big_df = big_df[
             [

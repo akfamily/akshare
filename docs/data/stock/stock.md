@@ -429,7 +429,7 @@ print(stock_individual_info_em_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="SH601127"; 股票代码 |
-| token   | str   | token=None;             |
+| token   | str   | token=None; 雪球 xq_a_token |
 | timeout | float | timeout=None; 默认不设置超时参数 |
 
 输出参数
@@ -1204,7 +1204,7 @@ print(stock_zh_a_spot_df)
 | 名称      | 类型    | 描述                                                             |
 |---------|-------|----------------------------------------------------------------|
 | symbol  | str   | symbol="SH600000"; 证券代码，可以是 A 股个股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数 |
-| token   | float | token=None; 默认不设置token                                         |
+| token   | str   | token=None; 雪球 xq_a_token                                        |
 | timeout | float | timeout=None; 默认不设置超时参数                                        |
 
 输出参数
@@ -3929,7 +3929,7 @@ print(stock_us_hist_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="NVDA"; 股票代码     |
-| token   | str   | token=None;             |
+| token   | str   | token=None; 雪球 xq_a_token |
 | timeout | float | timeout=None; 默认不设置超时参数 |
 
 输出参数
@@ -3944,7 +3944,7 @@ print(stock_us_hist_df)
 ```python
 import akshare as ak
 
-stock_individual_basic_info_us_xq_df = ak.stock_individual_basic_info_us_xq(symbol="SH601127")
+stock_individual_basic_info_us_xq_df = ak.stock_individual_basic_info_us_xq(symbol="NVDA")
 print(stock_individual_basic_info_us_xq_df)
 ```
 
@@ -4506,7 +4506,7 @@ print(stock_hk_spot_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="02097"; 股票代码    |
-| token   | str   | token=None;             |
+| token   | str   | token=None; 雪球 xq_a_token |
 | timeout | float | timeout=None; 默认不设置超时参数 |
 
 输出参数
