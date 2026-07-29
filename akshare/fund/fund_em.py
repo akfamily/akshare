@@ -17,12 +17,14 @@ https://fundf10.eastmoney.com/jjjl_001810.html
 
 import json
 import math
+import re
 import time
 from io import StringIO
 
 import pandas as pd
 import py_mini_racer
 import requests
+from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
 from akshare.utils.cons import headers
@@ -49,6 +51,101 @@ def _empty_fund_value_estimation_em_df() -> pd.DataFrame:
             "交易日-单位净值",
         ]
     )
+
+
+def _fetch_fund_value_estimation_index_page(page: int) -> str:
+    """
+    获取东方财富基金净值估算静态页面内容
+
+    :param page: 页码
+    :type page: int
+    :return: 页面内容
+    :rtype: str
+    """
+    url = f"https://fund.eastmoney.com/lof_fundguzhi{page}.html"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
+    }
+    r = requests.get(url, headers=headers)
+    r.encoding = "gb2312"
+    return r.text
+
+
+def _parse_fund_value_estimation_index_page(html: str) -> pd.DataFrame:
+    """
+    解析东方财富基金净值估算静态页面
+
+    :param html: 页面内容
+    :type html: str
+    :return: 估值数据
+    :rtype: pandas.DataFrame
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.select_one("#tContent")
+    if table is None:
+        return pd.DataFrame()
+
+    gsdata = soup.select_one("#gsdata")
+    dwjzdata = soup.select_one("#dwjzdata")
+    if gsdata is None or dwjzdata is None:
+        return pd.DataFrame()
+
+    cal_day_match = re.search(r"\d{4}-\d{2}-\d{2}", gsdata.get_text(strip=True))
+    value_day_match = re.search(r"\d{4}-\d{2}-\d{2}", dwjzdata.get_text(strip=True))
+    if cal_day_match is None or value_day_match is None:
+        return pd.DataFrame()
+
+    cal_day = cal_day_match.group()
+    value_day = value_day_match.group()
+    records = []
+    for row in soup.select("#tableContent tr"):
+        cells = row.find_all("td")
+        if len(cells) < 10:
+            continue
+        name_anchor = cells[3].find("a")
+        record = {
+            "序号": cells[1].get_text(strip=True),
+            "基金代码": cells[2].get_text(strip=True),
+            "基金名称": name_anchor.get_text(strip=True)
+            if name_anchor is not None
+            else cells[3].get_text(strip=True),
+            f"{cal_day}-估算数据-估算值": cells[4].get("data-gz")
+            or cells[4].get_text(strip=True),
+            f"{cal_day}-估算数据-估算增长率": cells[5].get("data-gz")
+            or cells[5].get_text(strip=True),
+            f"{cal_day}-公布数据-单位净值": cells[6].get_text(strip=True),
+            f"{cal_day}-公布数据-日增长率": cells[7].get_text(strip=True),
+            "估算偏差": cells[8].get_text(strip=True),
+            f"{value_day}-单位净值": cells[9].get_text(strip=True),
+        }
+        records.append(record)
+
+    if not records:
+        return pd.DataFrame()
+    return pd.DataFrame(records)
+
+
+def _fund_value_estimation_index_em() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-净值估算-指数型静态页
+
+    :return: 指数型估值数据
+    :rtype: pandas.DataFrame
+    """
+    big_df = pd.DataFrame()
+    for page in range(1, 100):
+        html = _fetch_fund_value_estimation_index_page(page=page)
+        temp_df = _parse_fund_value_estimation_index_page(html=html)
+        if temp_df.empty:
+            break
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return big_df
+    big_df.drop_duplicates(subset=["基金代码"], inplace=True, ignore_index=True)
+    big_df["序号"] = range(1, len(big_df) + 1)
+    return big_df
 
 
 def fund_purchase_em() -> pd.DataFrame:
@@ -1064,12 +1161,17 @@ def fund_etf_fund_info_em(
 def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-净值估算
-    https://fund.eastmoney.com/fundguzhi.html
+    https://fund.eastmoney.com/lof_fundguzhi1.html
     :param symbol: choice of {'全部', '股票型', '混合型', '债券型', '指数型', 'QDII', 'ETF联接', 'LOF', '场内交易基金'}
     :type symbol: str
     :return: 近期净值估算数据
     :rtype: pandas.DataFrame
     """
+    if symbol in {"全部", "指数型"}:
+        index_df = _fund_value_estimation_index_em()
+        if not index_df.empty:
+            return index_df
+
     symbol_map = {
         "全部": 1,
         "股票型": 2,
@@ -1330,7 +1432,7 @@ if __name__ == "__main__":
     )
     print(fund_etf_fund_info_em_df)
 
-    fund_value_estimation_em_df = fund_value_estimation_em(symbol="混合型")
+    fund_value_estimation_em_df = fund_value_estimation_em(symbol="全部")
     print(fund_value_estimation_em_df)
 
     fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(

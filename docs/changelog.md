@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.81 fix: fix fund_value_estimation_em interface
+
+    1. 修复 fund_value_estimation_em 接口在东方财富旧统一估值接口失效后持续返回空结果的问题
+
 1.18.80 fix: fix Xueqiu stock info interfaces
 
     1. 修复 stock_individual_basic_info_xq 系列接口在雪球返回登录态错误时抛出 KeyError 的问题
