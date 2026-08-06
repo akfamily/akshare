@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.82 fix: fix fund_portfolio_hold_em interface
+
+    1. 修复 fund_portfolio_hold_em 接口因东方财富 `topline=10000` 失效而只能返回首屏摘要持仓的问题
+    2. 修复 stock_szse_sector_summary 接口在查询深交所尚未发布月份时直接抛出 KeyError 的问题
+
 1.18.81 fix: fix fund_value_estimation_em interface
 
     1. 修复 fund_value_estimation_em 接口在东方财富旧统一估值接口失效后持续返回空结果的问题

@@ -9,11 +9,14 @@ https://www.sse.com.cn/market/stockdata/statistic/
 """
 
 import warnings
+from ast import literal_eval
 from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+from akshare.exceptions import InvalidParameterError
 
 
 def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
@@ -125,7 +128,7 @@ def stock_szse_sector_summary(
         "script"
     )
     tags_dict = [
-        eval(
+        literal_eval(
             item.string[item.string.find("{") : item.string.find("}") + 1]
             .replace("\n", "")
             .replace(" ", "")
@@ -141,6 +144,12 @@ def stock_szse_sector_summary(
         )
     )
     date_format = "-".join([date[:4], date[4:]])
+    if date_format not in date_url_dict:
+        latest_date = next(iter(date_url_dict))
+        raise InvalidParameterError(
+            f"深圳证券交易所统计月报尚未提供 {date_format} 的股票行业成交数据; "
+            f"当前最新可用月份为 {latest_date}"
+        )
     url = f"https://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
     r = requests.get(url)
     r.encoding = "utf8"
