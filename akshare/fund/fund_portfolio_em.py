@@ -96,7 +96,7 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
         symbol=symbol,
         data_type="jjcc",
         referer_page="ccmx",
-        extra_params={"topline": "10000", "year": date, "month": ""},
+        extra_params={"topline": "100", "year": date, "month": ""},
     )
     soup = BeautifulSoup(data_json["content"], features="lxml")
     item_label = [
