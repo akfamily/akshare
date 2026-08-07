@@ -880,32 +880,42 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://api.fund.eastmoney.com/f10/lsjz"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
+        "Referer": f"https://fundf10.eastmoney.com/jjjz_{symbol}.html",
+    }
     params = {
         "fundCode": symbol,
         "pageIndex": "1",
-        "pageSize": "10000",
+        "pageSize": "20",
         "startDate": "",
         "endDate": "",
         "_": round(time.time() * 1000),
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
-    temp_df.columns = [
-        "净值日期",
-        "单位净值",
-        "累计净值",
-        "_",
-        "_",
-        "_",
-        "日增长率",
-        "申购状态",
-        "赎回状态",
-        "_",
-        "_",
-        "_",
-        "分红送配",
-    ]
+    total_page = math.ceil(int(data_json["TotalCount"]) / 20)
+    tqdm = get_tqdm()
+    big_list = []
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageIndex": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
+        big_list.append(temp_df)
+    temp_df = pd.concat(big_list, ignore_index=True)
+    temp_df = temp_df.rename(
+        columns={
+            "FSRQ": "净值日期",
+            "DWJZ": "单位净值",
+            "LJJZ": "累计净值",
+            "JZZZL": "日增长率",
+            "SGZT": "申购状态",
+            "SHZT": "赎回状态",
+            "FHSP": "分红送配",
+        }
+    )
     temp_df = temp_df[
         [
             "净值日期",
@@ -1030,21 +1040,16 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
         big_list.append(temp_df)
     big_df = pd.concat(big_list, ignore_index=True)
-    big_df.columns = [
-        "净值日期",
-        "单位净值",
-        "累计净值",
-        "_",
-        "_",
-        "_",
-        "日增长率",
-        "申购状态",
-        "赎回状态",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "FSRQ": "净值日期",
+            "DWJZ": "单位净值",
+            "LJJZ": "累计净值",
+            "JZZZL": "日增长率",
+            "SGZT": "申购状态",
+            "SHZT": "赎回状态",
+        }
+    )
     big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
     big_df = big_df[
         ["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]
@@ -1131,22 +1136,17 @@ def fund_etf_fund_info_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
         df_list.append(temp_df)
-    big_df = pd.concat(df_list)
-    big_df.columns = [
-        "净值日期",
-        "单位净值",
-        "累计净值",
-        "_",
-        "_",
-        "_",
-        "日增长率",
-        "申购状态",
-        "赎回状态",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    big_df = pd.concat(df_list, ignore_index=True)
+    big_df = big_df.rename(
+        columns={
+            "FSRQ": "净值日期",
+            "DWJZ": "单位净值",
+            "LJJZ": "累计净值",
+            "JZZZL": "日增长率",
+            "SGZT": "申购状态",
+            "SHZT": "赎回状态",
+        }
+    )
     big_df = big_df[
         ["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]
     ]
