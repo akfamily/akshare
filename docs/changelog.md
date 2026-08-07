@@ -89,10 +89,19 @@
 
 ## 更新说明详情
 
+1.18.83 fix: fix fund_portfolio_hold_em interface
+
+    1. 修复 fund_etf_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
+    2. 修复 fund_financial_fund_info_em 接口因 `pageSize=10000` 失效导致返回空数据的问题
+    3. 修复 fund_graded_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
+
 1.18.82 fix: fix fund_portfolio_hold_em interface
 
     1. 修复 fund_portfolio_hold_em 接口因东方财富 `topline=10000` 失效而只能返回首屏摘要持仓的问题
     2. 修复 stock_szse_sector_summary 接口在查询深交所尚未发布月份时直接抛出 KeyError 的问题
+    3. 修复 fund_etf_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
+    4. 修复 fund_financial_fund_info_em 接口因 `pageSize=10000` 失效导致返回空数据的问题
+    5. 修复 fund_graded_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
 
 1.18.81 fix: fix fund_value_estimation_em interface
 
