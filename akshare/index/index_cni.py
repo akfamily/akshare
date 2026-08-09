@@ -55,6 +55,7 @@ def index_all_cni() -> pd.DataFrame:
         "_",
         "_",
         "_",
+        "_",
     ]
     temp_df = temp_df[
         [
@@ -237,7 +238,7 @@ if __name__ == "__main__":
     index_detail_cni_df = index_detail_cni(symbol="399001")
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101", date="202404")
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101")
     print(index_detail_hist_cni_df)
 
     index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol="399005")
