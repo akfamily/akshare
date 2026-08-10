@@ -7,13 +7,32 @@ Desc: 申万宏源研究-申万指数-指数发布
 https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 """
 
+import re
 from io import StringIO
+from typing import List
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from akshare.utils.cons import headers
+
+
+def _clean_legulegu_table_headers(columns: List[str]) -> List[str]:
+    """
+    清洗乐咕乐股表头中的 JSON-LD 噪声内容。
+
+    :param columns: 原始表头序列
+    :type columns: List[str]
+    :return: 清洗后的表头列表
+    :rtype: List[str]
+    """
+    cleaned_columns: List[str] = []
+    for column in columns:
+        column_name = re.sub(r"\s*\{.*", "", str(column), flags=re.S).strip()
+        column_name = column_name.replace("市值（亿元）", "市值")
+        cleaned_columns.append(column_name)
+    return cleaned_columns
 
 
 def sw_index_first_info() -> pd.DataFrame:
@@ -210,57 +229,18 @@ def sw_index_third_cons(symbol: str = "801120.SI") -> pd.DataFrame:
     url = f"https://legulegu.com/stockdata/index-composition?industryCode={symbol}"
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
-    temp_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "纳入时间",
-        "申万1级",
-        "申万2级",
-        "申万3级",
-        "价格",
-        "市盈率",
-        "市盈率ttm",
-        "市净率",
-        "股息率",
-        "市值",
-        "归母净利润同比增长(09-30)",
-        "归母净利润同比增长(06-30)",
-        "营业收入同比增长(09-30)",
-        "营业收入同比增长(06-30)",
-    ]
+    temp_df.columns = _clean_legulegu_table_headers(temp_df.columns.tolist())
+    temp_df["序号"] = pd.to_numeric(temp_df["序号"], errors="coerce")
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
     temp_df["市盈率"] = pd.to_numeric(temp_df["市盈率"], errors="coerce")
     temp_df["市盈率ttm"] = pd.to_numeric(temp_df["市盈率ttm"], errors="coerce")
     temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
-    temp_df["股息率"] = pd.to_numeric(temp_df["股息率"].str.strip("%"), errors="coerce")
     temp_df["市值"] = pd.to_numeric(temp_df["市值"], errors="coerce")
-
-    temp_df["归母净利润同比增长(09-30)"] = temp_df[
-        "归母净利润同比增长(09-30)"
-    ].str.strip("%")
-    temp_df["归母净利润同比增长(06-30)"] = temp_df[
-        "归母净利润同比增长(06-30)"
-    ].str.strip("%")
-    temp_df["营业收入同比增长(09-30)"] = temp_df["营业收入同比增长(09-30)"].str.strip(
-        "%"
-    )
-    temp_df["营业收入同比增长(06-30)"] = temp_df["营业收入同比增长(06-30)"].str.strip(
-        "%"
-    )
-
-    temp_df["归母净利润同比增长(09-30)"] = pd.to_numeric(
-        temp_df["归母净利润同比增长(09-30)"], errors="coerce"
-    )
-    temp_df["归母净利润同比增长(06-30)"] = pd.to_numeric(
-        temp_df["归母净利润同比增长(06-30)"], errors="coerce"
-    )
-    temp_df["营业收入同比增长(09-30)"] = pd.to_numeric(
-        temp_df["营业收入同比增长(09-30)"], errors="coerce"
-    )
-    temp_df["营业收入同比增长(06-30)"] = pd.to_numeric(
-        temp_df["营业收入同比增长(06-30)"], errors="coerce"
-    )
+    for column in temp_df.columns:
+        if column in {"股息率", "ROE(%)"} or "涨幅" in column or "(%)" in column:
+            temp_df[column] = pd.to_numeric(
+                temp_df[column].astype(str).str.strip("%"), errors="coerce"
+            )
     return temp_df
 
 

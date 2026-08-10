@@ -89,11 +89,17 @@
 
 ## 更新说明详情
 
+1.18.84 fix: fix index_all_cni interface
+
+    1. 修复 index_all_cni 接口因国证指数返回体新增字段而触发 Length mismatch 的问题
+    2. 修复 sw_index_third_cons 接口因乐咕乐股申万三级行业表头变化而触发 Length mismatch 的问题
+
 1.18.83 fix: fix fund_portfolio_hold_em interface
 
     1. 修复 fund_etf_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
     2. 修复 fund_financial_fund_info_em 接口因 `pageSize=10000` 失效导致返回空数据的问题
     3. 修复 fund_graded_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
+
 
 1.18.82 fix: fix fund_portfolio_hold_em interface
 
