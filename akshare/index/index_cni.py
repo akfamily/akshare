@@ -29,33 +29,20 @@ def index_all_cni() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["rows"])
-    temp_df.columns = [
-        "_",
-        "_",
-        "指数代码",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "指数简称",
-        "_",
-        "_",
-        "_",
-        "样本数",
-        "收盘点位",
-        "涨跌幅",
-        "_",
-        "PE滚动",
-        "_",
-        "成交量",
-        "成交额",
-        "总市值",
-        "自由流通市值",
-        "_",
-        "_",
-        "_",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "indexcode": "指数代码",
+            "indexname": "指数简称",
+            "samplesize": "样本数",
+            "closeingPoint": "收盘点位",
+            "percent": "涨跌幅",
+            "peDynamic": "PE滚动",
+            "volume": "成交量",
+            "amount": "成交额",
+            "totalMarketValue": "总市值",
+            "freeMarketValue": "自由流通市值",
+        }
+    )
     temp_df = temp_df[
         [
             "指数代码",

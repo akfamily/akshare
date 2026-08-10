@@ -3289,6 +3289,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.81 fix: fix fund_value_estimation_em interface
 1.18.82 fix: fix fund_portfolio_hold_em interface
 1.18.83 fix: fix fund_portfolio_hold_em interface
+1.18.84 fix: fix index_all_cni interface
 """
 
 from akshare._version import __version__
