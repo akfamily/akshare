@@ -108,6 +108,13 @@ def collect_doc_records(docs_dir: pathlib.Path) -> Dict[str, Dict]:
 # 实测 1100 个顶层导出中 6 个不可推断 category，而这 6 个恰好只是异常类
 # （相对导入 from .exceptions）；__version__ / pro_api / set_token / get_token
 # 均可推断 category，若按「不可推断即排除」实现会被错误收录。
+#
+# 检索层（akshare/registry.py）自身对外暴露的 search / interface_info /
+# list_categories 同样是工具函数：查的是接口元数据本身，不属于 docs/data
+# 下任何资产类目，因此必须显式排除，否则它们会被本脚本当成新增数据接口
+# 收录进产物，进而因缺少 docs/data 文档条目触发 --check 门禁误报（检索层
+# 收录了自己）。后续新增面向工具/元数据的公开 API（而非某个资产类目的
+# 数据接口）时，同样应加入这里，而不是指望 category 推断把它们过滤掉。
 EXCLUDE = {
     "__version__",
     "pro_api",
@@ -120,6 +127,9 @@ EXCLUDE = {
     "InvalidParameterError",
     "NetworkError",
     "RateLimitError",
+    "search",
+    "interface_info",
+    "list_categories",
 }
 
 

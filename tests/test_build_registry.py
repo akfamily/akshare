@@ -192,6 +192,7 @@ from akshare._version import __version__
 from akshare.index.index_cni import index_all_cni, index_hist_cni
 from akshare.pro.data_pro import pro_api
 from akshare.utils.token_process import set_token, get_token
+from akshare.registry import search, interface_info, list_categories
 from .exceptions import APIError, NetworkError
 
 try:
@@ -222,6 +223,9 @@ def test_collect_exports_drops_non_data_interfaces(tmp_path):
         "APIError",
         "NetworkError",
         "xt_api",
+        "search",
+        "interface_info",
+        "list_categories",
     ):
         assert name not in exports
     assert len(exports) == 2
