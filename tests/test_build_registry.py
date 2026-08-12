@@ -268,9 +268,29 @@ def test_merge_infers_category_from_module_when_undocumented():
 
 
 def test_serialize_is_deterministic():
-    exports = {"b_func": "akshare.stock.a", "a_func": "akshare.fund.b"}
-    records = merge_records(exports, {})
-    assert serialize(records) == serialize(records)
+    """
+    回归：serialize 必须依赖 sort_keys=True 消除字典插入顺序的影响。
+
+    两份 record 的键值完全相同，但插入顺序相反（构造方式不同，非同一对象），
+    若 sort_keys=True 被删除，json.dumps 会按各自的插入顺序输出，
+    两次 serialize 结果将逐字节不同，此断言即会失败。
+    """
+    record = {
+        "name": "a_func",
+        "module": "akshare.fund.b",
+        "category": "fund",
+        "documented": False,
+        "desc": None,
+        "url": None,
+        "limit_desc": None,
+        "params": [],
+        "outputs": [],
+        "example": None,
+    }
+    reordered_record = {key: record[key] for key in reversed(list(record))}
+    assert list(record.keys()) != list(reordered_record.keys())
+    assert record == reordered_record  # 内容相同，仅插入顺序不同
+    assert serialize([record]) == serialize([reordered_record])
 
 
 def test_serialize_has_no_timestamp_or_version():
