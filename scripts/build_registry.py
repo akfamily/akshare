@@ -5,7 +5,9 @@ Date: 2026/8/12
 Desc: 构建期脚本，解析 docs/data 与 akshare/__init__.py 生成接口元数据
 """
 
+import argparse
 import ast
+import json
 import pathlib
 import re
 from typing import Dict, List, Optional
@@ -141,3 +143,86 @@ def collect_exports(init_path: pathlib.Path) -> Dict[str, str]:
                 continue
             exports[name] = node.module
     return exports
+
+
+SCHEMA_VERSION = 1
+
+
+def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
+    """
+    以导出表为主键集合合并文档信息。
+
+    不变量①：结果中的每个 name 都保证可通过 getattr(ak, name) 取到，
+    因此文档中存在而代码未导出的条目会被丢弃。
+
+    :param exports: 接口名 -> 模块路径
+    :param docs: 接口名 -> 文档元数据
+    :return: 按 name 字典序排序的记录列表
+    """
+    records = []
+    for name in sorted(exports):
+        module = exports[name]
+        doc = docs.get(name)
+        records.append(
+            {
+                "name": name,
+                "module": module,
+                "category": (doc or {}).get("category") or module.split(".")[1],
+                "documented": doc is not None,
+                "desc": (doc or {}).get("desc"),
+                "url": (doc or {}).get("url"),
+                "limit_desc": (doc or {}).get("limit_desc"),
+                "params": (doc or {}).get("params") or [],
+                "outputs": (doc or {}).get("outputs") or [],
+                "example": (doc or {}).get("example"),
+            }
+        )
+    return records
+
+
+def serialize(records: List[Dict]) -> str:
+    """
+    确定性序列化。禁止写入时间戳与版本号，否则会污染 --check 的 diff 比对。
+
+    :param records: 记录列表
+    :return: JSON 文本，末尾带单个换行
+    """
+    payload = {"schema_version": SCHEMA_VERSION, "interfaces": records}
+    return (
+        json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        + "\n"
+    )
+
+
+def build(repo_root: pathlib.Path) -> str:
+    """
+    生成完整的 registry JSON 文本。
+
+    :param repo_root: 仓库根目录
+    :return: JSON 文本
+    """
+    exports = collect_exports(repo_root / "akshare" / "__init__.py")
+    docs = collect_doc_records(repo_root / "docs" / "data")
+    return serialize(merge_records(exports, docs))
+
+
+OUTPUT_RELPATH = pathlib.Path("akshare") / "data" / "interfaces.json"
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="生成接口元数据 registry")
+    parser.add_argument(
+        "--check", action="store_true", help="仅校验，不写入（供 CI 使用）"
+    )
+    args = parser.parse_args()
+    repo_root = pathlib.Path(__file__).resolve().parent.parent
+    text = build(repo_root)
+    if args.check:
+        return 0  # Task 5 实现完整校验
+    (repo_root / OUTPUT_RELPATH).write_text(text, encoding="utf-8", newline="\n")
+    print(f"已写入 {OUTPUT_RELPATH}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

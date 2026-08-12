@@ -1,8 +1,12 @@
+import json
+
 from build_registry import (
     collect_doc_records,
     collect_exports,
+    merge_records,
     parse_segment,
     parse_table,
+    serialize,
 )
 
 SIMPLE = """
@@ -220,3 +224,62 @@ def test_collect_exports_drops_non_data_interfaces(tmp_path):
     ):
         assert name not in exports
     assert len(exports) == 2
+
+
+def test_merge_uses_exports_as_primary_key():
+    """文档孤儿不得进入结果；无文档的导出必须保留并标记。"""
+    exports = {
+        "index_all_cni": "akshare.index.index_cni",
+        "no_doc_func": "akshare.stock_feature.stock_info",
+    }
+    docs = {
+        "index_all_cni": {
+            "desc": "国证指数",
+            "url": "https://x.com",
+            "limit_desc": None,
+            "params": [],
+            "outputs": [],
+            "example": None,
+            "category": "index",
+        },
+        "orphan_func": {
+            "desc": "已删除的接口",
+            "url": None,
+            "limit_desc": None,
+            "params": [],
+            "outputs": [],
+            "example": None,
+            "category": "stock",
+        },
+    }
+    records = merge_records(exports, docs)
+    names = [r["name"] for r in records]
+    assert "orphan_func" not in names
+    assert names == ["index_all_cni", "no_doc_func"]  # 已按字典序排序
+    documented = {r["name"]: r["documented"] for r in records}
+    assert documented == {"index_all_cni": True, "no_doc_func": False}
+
+
+def test_merge_infers_category_from_module_when_undocumented():
+    exports = {"no_doc_func": "akshare.stock_feature.stock_info"}
+    records = merge_records(exports, {})
+    assert records[0]["category"] == "stock_feature"
+    assert records[0]["desc"] is None
+
+
+def test_serialize_is_deterministic():
+    exports = {"b_func": "akshare.stock.a", "a_func": "akshare.fund.b"}
+    records = merge_records(exports, {})
+    assert serialize(records) == serialize(records)
+
+
+def test_serialize_has_no_timestamp_or_version():
+    records = merge_records({"f": "akshare.stock.a"}, {})
+    payload = json.loads(serialize(records))
+    assert set(payload.keys()) == {"schema_version", "interfaces"}
+
+
+def test_serialize_ends_with_single_newline():
+    text = serialize(merge_records({"f": "akshare.stock.a"}, {}))
+    assert text.endswith("}\n")
+    assert not text.endswith("\n\n")
