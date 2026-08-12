@@ -188,6 +188,44 @@ def test_interface_info_unknown_name_suggests_candidates():
     assert "stock_zh_a_hist" in str(exc.value)
 
 
+def test_interface_info_deepcopy_isolates_nested_structures(monkeypatch):
+    # 局部注入一份独立的 registry 数据（不改动模块级 FIXTURE），预置非空
+    # outputs/params，用来验证 interface_info 返回的是深拷贝而不是缓存里
+    # 那个 list 对象的引用——否则用户对返回值做 append 会真的污染进程级
+    # 缓存，且此后所有 search/interface_info 都会被污染。
+    local_registry = {
+        "schema_version": 1,
+        "interfaces": [
+            {
+                "name": "isolated_probe",
+                "module": "akshare.probe.a",
+                "category": "probe",
+                "documented": True,
+                "desc": "用于验证 interface_info 深拷贝隔离的探测记录",
+                "url": None,
+                "limit_desc": None,
+                "params": [{"name": "symbol", "type": "str", "desc": "-"}],
+                "outputs": [{"name": "close", "type": "float64", "desc": "-"}],
+                "example": None,
+            },
+        ],
+    }
+    monkeypatch.setattr(registry, "_REGISTRY", local_registry)
+    cached_record = local_registry["interfaces"][0]
+
+    info = registry.interface_info("isolated_probe")
+
+    # 结构断言：返回值的嵌套 list 不是缓存里的同一个对象。
+    assert info["outputs"] is not cached_record["outputs"]
+    assert info["params"] is not cached_record["params"]
+
+    # 行为断言：对返回值追加元素后，缓存中的记录不受影响。
+    info["outputs"].append({"name": "polluted", "type": "float64", "desc": "-"})
+    info["params"].append({"name": "polluted", "type": "str", "desc": "-"})
+    assert len(cached_record["outputs"]) == 1
+    assert len(cached_record["params"]) == 1
+
+
 def test_list_categories_counts():
     df = registry.list_categories()
     assert list(df.columns) == ["类目", "接口数"]
