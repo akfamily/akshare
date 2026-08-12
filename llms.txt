@@ -48,6 +48,33 @@ Main entry points:
 The most important interface documentation is organized by category under
 `docs/data/`.
 
+## Interface Registry (Offline Search)
+
+AKShare ships a small, bundled interface registry to help locate function
+names without manually grepping through `docs/data/`:
+
+- `ak.search(query)`: keyword search across interface names, descriptions,
+  categories, and output columns. Returns a ranked `pandas.DataFrame`.
+- `ak.interface_info(name)`: full metadata for one interface, including
+  input parameters, output columns, and an example snippet.
+- `ak.list_categories()`: lists all categories with interface counts.
+
+This registry is entirely offline: its data ships inside the package and
+no network request is made, so it is safe to call before deciding whether
+a network call is worth making.
+
+It is a keyword/substring matcher, not a semantic search engine. It is
+best at pinpointing an interface by exact or near-exact name and at
+narrowing candidates by keyword — it does not reliably understand natural
+language intent.
+
+```python
+import akshare as ak
+
+ak.search("A股 历史行情")
+ak.interface_info("stock_zh_a_hist")
+```
+
 ## Core Usage Pattern
 
 Recommended workflow:

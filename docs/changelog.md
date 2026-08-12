@@ -91,7 +91,7 @@
 
 1.18.85 feat: add interface registry search API
 
-    1. 新增 ak.search 接口检索功能，支持按自然语言定位接口
+    1. 新增 ak.search 接口检索功能，支持按接口名精确定位与关键词模糊检索
     2. 新增 ak.interface_info 接口元数据查询功能
     3. 新增 ak.list_categories 类目列表功能
     4. 新增 CI 门禁，校验文档与接口导出的一致性

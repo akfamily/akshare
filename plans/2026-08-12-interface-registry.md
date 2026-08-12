@@ -1577,3 +1577,112 @@ git commit -m "ci(registry): 新增接口一致性门禁并同步版本文档"
 | `option_czce_hist` | 已于 1.17.68 更名为 `option_hist_yearly_czce`，文档未同步 | 删除过期文档条目 |
 | `stock_zh_a_tick_tx` | 函数存在未导出 | 需维护者判断补导出还是正式下线 |
 | 75 个无文档接口 | 见 `scripts/registry_baseline.json` | 逐步补文档，baseline 只减不增 |
+
+### 本次实施中记录的延后项
+
+以下问题在「检索质量最终修复轮」的实施与 review 过程中被发现，均已评估为
+可延后、不阻塞本轮合并，按主题归档于此，避免随工作区清理而丢失，后续各自
+单独提 PR 处理。
+
+#### 检索质量
+
+- **`parse_table` 在标题与表格之间夹了小标题时返回空表。**
+  `scripts/build_registry.py` 的 `parse_table` 用「标题行之后跳过空行，
+  遇到第一个非 `|` 开头的行立即终止」的规则定位表格，如果标题与表格之间
+  插入了一行说明性小标题（而非直接是表格），该规则会在小标题处提前终止，
+  返回空表。实测 10 个已文档接口的 `输出参数` 全部因此丢失：
+  `article_oman_rv`、`article_rlab_rv`、`fx_spot_quote`、`fx_swap_quote`、
+  `option_finance_board`、`option_hist_shfe`、`option_hist_dce`、
+  `option_hist_czce`、`option_hist_gfex`、`option_vol_gfex`。它们在产物中
+  `outputs: []`，与「文档本来就没有输出表」无法区分，导致输出列反查失效、
+  `interface_info` 误报。修法需要有界前瞻——向后扫描，但一旦遇到下一个
+  `输入参数` / `输出参数` / `接口:` 边界即停，不能无界扫描。**陷阱**：
+  `article_oman_rv` 同时是 Task 1 跨表污染回归测试的 `CONTAMINATED` 样本
+  来源，若简单放宽为「跳过文本直到首个表格」会重新破坏
+  `test_parse_table_stops_at_blank_line_not_next_table`，修的时候要连带
+  跑一遍该测试。
+- **`匹配分` 列不可用作置信度信号。** spec 第 6 节承诺该列「供 agent 判断
+  置信度」，但 2-gram 分是按接口名长度累加的，跨记录、跨查询不可比：实测
+  两个同为精确匹配的接口 `fred_md` 得 100.0、`macro_china_cpi` 得 228.0。
+  排序不受影响（精确名靠 `is_exact` 置顶），损害仅限于展示列的数值本身。
+  同时 `akshare/registry.py` 的 `_score` 里，精确名捷径在
+  `PENALTY_UNDOCUMENTED` 之前就 `return`，导致无文档接口精确命中反而拿满
+  分 100，而其他命中路径都被打五折——这两个问题性质相关，应一并处理
+  （归一化展示分，或从 spec 移除「置信度」这一承诺）。
+- **2-gram 无条件参与打分带来噪声召回。** 实测 `search("今天天气怎么样")`
+  返回 38 行、`search("A股 历史行情")` 有 194 个命中（本轮修复后的实测
+  数字，见 final-fix-report）。已评估的两个缓解方向——per-token 取最大值、
+  per-record fallback——经 12 查询 benchmark 实测均**更差**（top5 命中率从
+  8/12 降到 6/12），不要采用；相对分数下限（丢弃低于最高分约 25% 的结果）
+  是尚未验证的可选方向，留给后续单独评估。
+
+#### 构建期健壮性
+
+- `main()`（`scripts/build_registry.py`）写产物非原子，中断可能留下截断的
+  `interfaces.json`。已被 `--check` 与集成测试里的
+  `len(interfaces) > 1000` 守卫兜底；改为写临时文件再 `os.replace` 是两行
+  改动，不紧急。
+- `scripts/registry_baseline.json` 缺失或 JSON 非法时抛裸 traceback，而非
+  清晰的 `[registry]` 消息。仍会以非零退出码结束，CI 门禁不受影响，仅操作
+  体验较差。
+- `collect_doc_records` 用 `errors="replace"` 读取文档，编码问题会被静默
+  替换并写进产物，而不是响亮失败。
+- `--check` 中读取产物用 `read_text(encoding="utf-8")`，其 universal-newline
+  转换是 Windows checkout 能通过校验的**载重逻辑**（git 工作区可能是
+  CRLF，而 blob 是 LF）；代码里目前没有注释说明这一点，将来若有人为了
+  「更严格」改成 `read_bytes()` 会破坏所有 Windows 检出，动手前务必先补
+  这条注释。
+- 仓库自己的 `ruff format .`（CI 的 `build` job 就在跑）会重排
+  `docs/data` 下 20 个文件里 `接口示例` 代码块的引号风格（单引号改双
+  引号），而这些代码块正是产物 `example` 字段的来源。当前 CI 能自洽仅因为
+  `build` job 不提交格式化结果、`registry-check` job 用的是干净检出；一旦
+  有人提交一次全量格式化清理的 PR，`registry-check` 会无关地变红（可
+  自愈，报错消息里带重新生成命令）。建议在 `scripts/build_registry.py`
+  的模块 docstring 里补一句提示，防止这个耦合被遗忘。
+- `--check` 会把 `akshare/__init__.py` 与整个 `docs/data` 解析两遍
+  （`build()` 内一次、`diff_baseline` 之前又一次）。**已评估无需处理**：
+  实测总耗时 0.519s，优化收益不值得为此增加代码复杂度。
+- `EXCLUDE`（`scripts/build_registry.py`）的注释未提示「将来若出现真名为
+  `search` / `list_categories` 的数据接口会被静默丢弃且无报错」。鉴于仓库
+  强制 `<domain>_<topic>_<source>` 命名惯例，撞名概率极低，暂不处理。
+
+#### 运行期健壮性
+
+- `search(None)` / `interface_info(None)` 会抛 `AttributeError` 而非
+  `InvalidParameterError`；`search("stock", limit=1.5)` 会泄漏切片操作的
+  `TypeError`。`akshare/registry.py` 已经对 `limit < 0` 做了校验，不校验
+  类型是内部不一致，但不影响任何文档化的正常调用路径。
+- `_load`（`akshare/registry.py`）中 `raise DataParsingError(...)` 未用
+  `from e`，会丢失原始 traceback，排障时不够友好。
+- `_REGISTRY` 的 check-then-load 无锁，并发首次调用可能重复解析一次
+  1.07 MB 的 JSON 文件。仅浪费一次解析开销，不会导致数据损坏（GIL 保证
+  模块级变量赋值是原子的），计划本身未要求线程安全。
+- `merge_records` 重复七次 `(doc or {}).get(...)`，可以提前
+  `doc = doc or {}` 简化。纯可读性问题，不影响行为。
+
+#### 测试覆盖
+
+以下缺口均被 `--check` 的字节级比对兜底：改动涉及的任一处都会让产物
+字节变化并使 CI 变红，因此不是「静默漂移」风险，只是覆盖不够精确、定位
+问题时不够直接。
+
+- 全角冒号容错的回归测试只覆盖了 `BLOCK_RE`，未独立验证 `_field` 对全角
+  `描述：` / `目标地址：` 的容错。实测 `docs/data` 中有 31 处使用全角
+  冒号，说明这条容错确实是载重的，值得补一条独立断言。
+- `EXCLUDE` 完整性测试只覆盖了 4 个真正依赖 `EXCLUDE` 才能被排除的名字，
+  另外 7 个已经被前缀过滤器或 try 过滤器冗余拦截，测试没有区分「必须靠
+  EXCLUDE」与「碰巧也被别的规则拦住」。
+
+#### 文档笔误（仅设计文档侧）
+
+- `specs/2026-08-12-interface-registry-design.md` 第 6 节称检索层覆盖
+  「36 个类目」，实际为 27 个。
+- 同文件第 3 / 第 5 节称产物大小约 1.19 MB，实际为 1,066,985 字节
+  （约 1.07 MB）。
+
+#### 存量问题（本次未触碰）
+
+- `akshare/__init__.py` 存在重复导入：`macro_bank_brazil_interest_rate`
+  在 5418、5419 两行各导入一次，`stock_margin_bse` 在 3301 与 4444 两行
+  各导入一次。均为同符号同模块的重复导入，无害；修复它会违反本计划「只做
+  追加式修改」的约束，留给专门清理 `__init__.py` 的 PR。
