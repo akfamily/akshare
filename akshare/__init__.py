@@ -3290,6 +3290,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.82 fix: fix fund_portfolio_hold_em interface
 1.18.83 fix: fix fund_portfolio_hold_em interface
 1.18.84 fix: fix index_all_cni interface
+1.18.85 feat: add interface registry search API
 """
 
 from akshare._version import __version__
@@ -5973,6 +5974,11 @@ Pro API 设置
 """
 from akshare.pro.data_pro import pro_api
 from akshare.utils.token_process import set_token, get_token
+
+"""
+接口检索层
+"""
+from akshare.registry import search, interface_info, list_categories
 
 """
 AKQMT 设置
