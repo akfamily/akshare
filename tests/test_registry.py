@@ -3,7 +3,7 @@ import pytest
 
 from akshare.exceptions import InvalidParameterError
 from akshare import registry
-from akshare.registry import _tokenize, _score
+from akshare.registry import _bigrams, _tokenize, _score
 
 RECORD = {
     "name": "stock_zh_a_hist",
@@ -113,6 +113,30 @@ FIXTURE = {
             "outputs": [],
             "example": None,
         },
+        {
+            "name": "bond_zh_hs_daily",
+            "module": "akshare.bond.a",
+            "category": "bond",
+            "documented": True,
+            "desc": "沪深债券日行情",
+            "url": None,
+            "limit_desc": None,
+            "params": [],
+            "outputs": [],
+            "example": None,
+        },
+        {
+            "name": "bond_zh_hs_cov_daily",
+            "module": "akshare.bond.b",
+            "category": "bond",
+            "documented": True,
+            "desc": "沪深可转债日行情",
+            "url": None,
+            "limit_desc": None,
+            "params": [],
+            "outputs": [],
+            "example": None,
+        },
     ],
 }
 
@@ -149,6 +173,7 @@ def test_search_filters_by_category():
 def test_search_documented_only_excludes_undocumented():
     df = registry.search("stock", documented_only=True)
     assert "stock_no_doc" not in set(df["接口名"])
+    assert "stock_zh_a_hist" in set(df["接口名"])
 
 
 def test_interface_info_returns_full_record():
@@ -167,3 +192,40 @@ def test_list_categories_counts():
     df = registry.list_categories()
     assert list(df.columns) == ["类目", "接口数"]
     assert dict(zip(df["类目"], df["接口数"]))["stock"] == 2
+
+
+def test_bigrams_single_char_returns_empty():
+    assert _bigrams("a") == []
+
+
+def test_bigrams_compresses_whitespace_before_splitting():
+    assert _bigrams("a b") == ["ab"]
+
+
+def test_search_exact_name_is_ranked_first():
+    # bond_zh_hs_daily 与 bond_zh_hs_cov_daily 是近似名字（后者是前者插入了
+    # "cov_"），2-gram 降级分几乎相同，字典序上 cov 版本更靠前。如果降级路径
+    # 覆盖了精确命中接口名的主分（而不是与主分取最大值），精确查询就会被
+    # 挤到第二位，这条测试用来钉住这个回归。
+    df = registry.search("bond_zh_hs_daily")
+    assert df.iloc[0]["接口名"] == "bond_zh_hs_daily"
+
+
+def test_search_unspaced_query_recalls_via_bigram_fallback():
+    # "行情历史" 整体不是 desc 里的连续子串（desc 里是"历史行情"，顺序相反），
+    # 主分为 0，只有降级为 2-gram（"行情"/"情历"/"历史"）后才能命中 desc，
+    # 用来验证 2-gram 降级召回在 search 上确实生效，而不只是在
+    # interface_info 的错名提示路径里被间接测到。
+    df = registry.search("行情历史")
+    assert "stock_zh_a_hist" in set(df["接口名"])
+
+
+def test_search_negative_limit_raises():
+    with pytest.raises(InvalidParameterError):
+        registry.search("stock", limit=-1)
+
+
+def test_search_empty_query_returns_empty_with_columns():
+    df = registry.search("")
+    assert df.empty
+    assert list(df.columns) == ["接口名", "类目", "描述", "有无文档", "匹配分"]

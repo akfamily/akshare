@@ -5,6 +5,7 @@ Date: 2026/8/12
 Desc: 接口检索层，提供接口发现与元数据查询能力
 """
 
+import copy
 import json
 import re
 from typing import Dict, List, Optional
@@ -98,7 +99,6 @@ def _score(tokens: List[str], record: Dict) -> float:
 
 
 SEARCH_COLUMNS = ["接口名", "类目", "描述", "有无文档", "匹配分"]
-MIN_HITS_BEFORE_FALLBACK = 3
 
 
 def _bigrams(query: str) -> List[str]:
@@ -114,22 +114,32 @@ def _bigrams(query: str) -> List[str]:
 
 def _rank(query: str, records: List[Dict]) -> List[Dict]:
     """
-    对候选记录打分排序，命中不足时降级为 2-gram 重试。
+    对候选记录打分排序。
+
+    每条记录取「按空白/标点切分的主分」与「连续字符 2-gram 的降级分」两者中
+    的较大值，作为召回与常规排序依据。但排序优先级不完全依赖分数大小：
+    接口名与查询原文完全相等的记录一律置顶，不论其分数是否被 2-gram 降级
+    分反超——因为 2-gram 分是按字符子串累加的，接口名越长该分数越容易超过
+    精确命中的加成分，单纯比较数值大小无法保证精确匹配永远排第一。其余
+    记录按分数降序，同分再按接口名字典序排列。
 
     :param query: 查询字符串
     :param records: 候选记录
-    :return: 含 _score 键并按分数降序的记录列表
+    :return: 含 _score 键并按「精确名置顶、分数降序、名字典序」排列的记录列表
     """
     tokens = _tokenize(query)
-    scored = [(record, _score(tokens, record)) for record in records]
-    hits = [item for item in scored if item[1] > 0]
-    if len(hits) < MIN_HITS_BEFORE_FALLBACK:
-        fallback_tokens = _bigrams(query)
+    fallback_tokens = _bigrams(query)
+    stripped = query.strip()
+    scored = []
+    for record in records:
+        score = _score(tokens, record)
         if fallback_tokens:
-            scored = [(record, _score(fallback_tokens, record)) for record in records]
-            hits = [item for item in scored if item[1] > 0]
-    hits.sort(key=lambda item: (-item[1], item[0]["name"]))
-    return [dict(record, _score=score) for record, score in hits]
+            score = max(score, _score(fallback_tokens, record))
+        if score > 0:
+            is_exact = record["name"] == stripped
+            scored.append((record, score, is_exact))
+    scored.sort(key=lambda item: (not item[2], -item[1], item[0]["name"]))
+    return [dict(record, _score=score) for record, score, _ in scored]
 
 
 def search(
@@ -147,16 +157,18 @@ def search(
     :param documented_only: 仅返回有文档的接口
     :return: 检索结果
     :rtype: pandas.DataFrame
+    :raises InvalidParameterError: 当 limit 为负数时
     """
+    if limit < 0:
+        raise InvalidParameterError(f"limit 不能为负数，收到 {limit}")
+    if not query.strip():
+        return pd.DataFrame(columns=SEARCH_COLUMNS)
     records = _load()["interfaces"]
     if category:
         records = [item for item in records if item["category"] == category]
     if documented_only:
         records = [item for item in records if item["documented"]]
-    if not query.strip():
-        ranked = [dict(item, _score=0.0) for item in records]
-    else:
-        ranked = _rank(query, records)
+    ranked = _rank(query, records)
     rows = [
         {
             "接口名": item["name"],
@@ -181,7 +193,7 @@ def interface_info(name: str) -> Dict:
     records = _load()["interfaces"]
     for record in records:
         if record["name"] == name:
-            return {key: value for key, value in record.items()}
+            return copy.deepcopy(record)
     candidates = [item["name"] for item in _rank(name, records)[:3]]
     hint = "、".join(candidates) if candidates else "无"
     raise InvalidParameterError(f"未知接口 {name}，最接近的候选: {hint}")
