@@ -86,3 +86,6 @@ docs/build/
 docs/_build/
 
 CLAUDE.md
+
+# superpowers SDD 工作区（本地临时产物）
+.superpowers/
