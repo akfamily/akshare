@@ -3,6 +3,7 @@ import json
 from build_registry import (
     collect_doc_records,
     collect_exports,
+    diff_baseline,
     merge_records,
     parse_segment,
     parse_table,
@@ -303,3 +304,37 @@ def test_serialize_ends_with_single_newline():
     text = serialize(merge_records({"f": "akshare.stock.a"}, {}))
     assert text.endswith("}\n")
     assert not text.endswith("\n\n")
+
+
+BASE = {"undocumented": ["old_no_doc"], "orphaned": ["old_orphan"]}
+
+
+def test_baseline_allows_known_gaps():
+    exports = {"old_no_doc": "akshare.stock.a"}
+    docs = {"old_orphan": {"category": "stock"}}
+    assert diff_baseline(exports, docs, BASE) == []
+
+
+def test_baseline_rejects_new_undocumented():
+    exports = {"old_no_doc": "akshare.stock.a", "brand_new": "akshare.fund.b"}
+    docs = {"old_orphan": {"category": "stock"}}
+    problems = diff_baseline(exports, docs, BASE)
+    assert len(problems) == 1
+    assert "brand_new" in problems[0]
+
+
+def test_baseline_rejects_new_orphan():
+    exports = {"old_no_doc": "akshare.stock.a"}
+    docs = {"old_orphan": {"category": "stock"}, "new_orphan": {"category": "fund"}}
+    problems = diff_baseline(exports, docs, BASE)
+    assert len(problems) == 1
+    assert "new_orphan" in problems[0]
+
+
+def test_baseline_rejects_stale_entry():
+    """已修复的项必须从 baseline 移除，否则 baseline 会腐烂。"""
+    exports = {"old_no_doc": "akshare.stock.a"}
+    docs = {"old_no_doc": {"category": "stock"}, "old_orphan": {"category": "stock"}}
+    problems = diff_baseline(exports, docs, BASE)
+    assert len(problems) == 1
+    assert "old_no_doc" in problems[0]

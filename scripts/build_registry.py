@@ -207,6 +207,34 @@ def build(repo_root: pathlib.Path) -> str:
 
 
 OUTPUT_RELPATH = pathlib.Path("akshare") / "data" / "interfaces.json"
+BASELINE_RELPATH = pathlib.Path("scripts") / "registry_baseline.json"
+
+
+def diff_baseline(
+    exports: Dict[str, str], docs: Dict[str, Dict], baseline: Dict
+) -> List[str]:
+    """
+    双向棘轮校验：缺口不得超出 baseline，baseline 中也不得残留已修复项。
+
+    :param exports: 接口名 -> 模块路径
+    :param docs: 接口名 -> 文档元数据
+    :param baseline: 含 undocumented / orphaned 两个名单
+    :return: 违规说明列表，空列表代表通过
+    """
+    undocumented = set(exports) - set(docs)
+    orphaned = set(docs) - set(exports)
+    known_undoc = set(baseline.get("undocumented", []))
+    known_orphan = set(baseline.get("orphaned", []))
+    problems = []
+    for name in sorted(undocumented - known_undoc):
+        problems.append(f"新增接口 {name} 缺少 docs/data 文档条目")
+    for name in sorted(orphaned - known_orphan):
+        problems.append(f"文档条目 {name} 在 __init__.py 中没有对应导出")
+    for name in sorted(known_undoc - undocumented):
+        problems.append(f"{name} 已补文档，请从 registry_baseline.json 移除")
+    for name in sorted(known_orphan - orphaned):
+        problems.append(f"{name} 的文档漂移已修复，请从 registry_baseline.json 移除")
+    return problems
 
 
 def main() -> int:
@@ -218,7 +246,22 @@ def main() -> int:
     repo_root = pathlib.Path(__file__).resolve().parent.parent
     text = build(repo_root)
     if args.check:
-        return 0  # Task 5 实现完整校验
+        baseline_path = repo_root / BASELINE_RELPATH
+        baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+        exports = collect_exports(repo_root / "akshare" / "__init__.py")
+        docs = collect_doc_records(repo_root / "docs" / "data")
+        problems = diff_baseline(exports, docs, baseline)
+        current = (repo_root / OUTPUT_RELPATH).read_text(encoding="utf-8")
+        if current != text:
+            problems.append(
+                "interfaces.json 与源不同步，请运行 python scripts/build_registry.py"
+            )
+        if problems:
+            for problem in problems:
+                print(f"[registry] {problem}")
+            return 1
+        print("[registry] 校验通过")
+        return 0
     (repo_root / OUTPUT_RELPATH).write_text(text, encoding="utf-8", newline="\n")
     print(f"已写入 {OUTPUT_RELPATH}")
     return 0
