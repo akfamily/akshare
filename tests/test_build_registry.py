@@ -1,4 +1,4 @@
-from build_registry import parse_segment, parse_table
+from build_registry import collect_doc_records, parse_segment, parse_table
 
 SIMPLE = """
 输入参数
@@ -131,3 +131,46 @@ def test_parse_segment_absent_limit_is_none():
     assert rec["limit_desc"] is None
     assert rec["params"] == []
     assert rec["example"] is None
+
+
+def test_collect_doc_records_keeps_first_occurrence_by_sorted_path(tmp_path):
+    """同名条目以首次出现者为准，"首次"由 sorted(rglob) 后的路径顺序决定。"""
+    first_dir = tmp_path / "aaa"
+    second_dir = tmp_path / "bbb"
+    first_dir.mkdir()
+    second_dir.mkdir()
+    (first_dir / "a.md").write_text(
+        "接口: dup_iface\n\n描述: 来自 aaa 的描述\n\n目标地址: https://a.com\n",
+        encoding="utf-8",
+    )
+    (second_dir / "a.md").write_text(
+        "接口: dup_iface\n\n描述: 来自 bbb 的描述\n\n目标地址: https://b.com\n",
+        encoding="utf-8",
+    )
+    records = collect_doc_records(tmp_path)
+    assert records["dup_iface"]["desc"] == "来自 aaa 的描述"
+
+
+def test_collect_doc_records_category_from_parent_dir_name(tmp_path):
+    stock_dir = tmp_path / "stock"
+    stock_dir.mkdir()
+    (stock_dir / "a.md").write_text(
+        "接口: stock_only_iface\n\n描述: 股票专属接口\n", encoding="utf-8"
+    )
+    records = collect_doc_records(tmp_path)
+    assert records["stock_only_iface"]["category"] == "stock"
+
+
+def test_collect_doc_records_supports_fullwidth_colon(tmp_path):
+    """回归：接口边界冒号必须容错全角"："，否则该条目会被并入前一条记录。"""
+    stock_dir = tmp_path / "stock"
+    stock_dir.mkdir()
+    (stock_dir / "a.md").write_text(
+        "接口: prev_iface\n\n描述: 前一个接口\n\n"
+        "接口：stock_info_cjzc_em\n\n描述: 全角冒号接口\n",
+        encoding="utf-8",
+    )
+    records = collect_doc_records(tmp_path)
+    assert "stock_info_cjzc_em" in records
+    assert records["stock_info_cjzc_em"]["desc"] == "全角冒号接口"
+    assert records["prev_iface"]["desc"] == "前一个接口"
