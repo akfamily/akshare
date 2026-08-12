@@ -15,7 +15,7 @@
 - **不引入任何第三方依赖。** 构建期脚本仅用标准库；运行期仅用已有的 `pandas`。
 - **Python 下限 3.9。** 禁止 `match` 语句、禁止 `X | Y` 运行时注解（用 `typing.Optional` / `typing.List`）。`list[dict]` 这类 PEP 585 注解在 3.9 可用。
 - **不修改任何现有数据接口的函数签名或运行时行为。** 本计划只新增文件，对 `akshare/__init__.py`、`akshare/datasets.py`、CI workflow 只做追加式修改。
-- **Ruff 强制：** 88 字符行宽、双引号、4 空格缩进。提交前必须跑 `ruff format .` 与 `ruff check . --fix`。注意 `akshare/__init__.py` 被 Ruff 排除，其余新文件不排除。
+- **Ruff 强制：** 88 字符行宽、双引号、4 空格缩进。提交前对**本任务改动的文件**跑 `ruff format <文件>` 与 `ruff check <文件> --fix`。**禁止跑全量 `ruff format .`**——当前 ruff 会格式化 Markdown 里的 Python 代码块，全量执行会改动 11 个与本次无关的 md 文件和 1 个存量 py 文件（`akshare/stock_feature/stock_margin_bse.py`），污染提交。注意 `akshare/__init__.py` 被 Ruff 排除，其余新文件不排除。
 - **提交信息遵循 Conventional Commits**（`conventional-pre-commit` 在 `commit-msg` 钩子强制）。仓库惯例为英文 type/scope + 中文主题。
 - **测试全程禁止联网。** 本计划所有测试均为纯本地，不得发起 HTTP 请求。
 - **产物确定性三要素：** 按 `name` 字典序排序、`json.dumps(..., ensure_ascii=False, separators=(",", ":"), sort_keys=True)`、文件末尾单个换行。产物中禁止出现时间戳与版本号。
@@ -32,7 +32,8 @@
 | `akshare/__init__.py` | 追加三个 API 的导出与版本记录行 | 修改 |
 | `tests/conftest.py` | 将 `scripts/` 加入 `sys.path` 供测试导入 | 新建 |
 | `tests/test_build_registry.py` | 构建期解析器单元测试 | 新建 |
-| `tests/test_registry.py` | 运行期检索器单元测试 + 不变量集成测试 | 新建 |
+| `tests/test_registry.py` | 运行期检索器单元测试（用假数据 fixture） | 新建 |
+| `tests/test_registry_integration.py` | 不变量集成测试（用真实产物） | 新建 |
 | `.github/workflows/main_dev_check.yml` | 追加独立的 registry-check job | 修改 |
 
 测试拆成两个文件：构建期与运行期是解耦的两个组件，分开测才能各自独立演进。这是对 spec 交付物清单中单一 `tests/test_registry.py` 的细化。
@@ -1353,7 +1354,9 @@ git commit -m "feat(registry): 新增 search/interface_info/list_categories 接�
 
 **Files:**
 - Modify: `akshare/__init__.py`
-- Test: `tests/test_registry.py`
+- Test: `tests/test_registry_integration.py`（新建）
+
+集成测试必须放在**独立文件**，不能追加到 `tests/test_registry.py`：后者有一个 `autouse=True` 的 fixture 会给全文件注入假数据，而集成测试需要真实产物。同文件靠 `monkeypatch` 反转 autouse fixture 依赖执行顺序，脆弱且难读。
 
 **Interfaces:**
 - Consumes: `search`、`interface_info`、`list_categories`（Task 7）
@@ -1361,11 +1364,21 @@ git commit -m "feat(registry): 新增 search/interface_info/list_categories 接�
 
 - [ ] **Step 1: 写失败的集成测试**
 
-追加到 `tests/test_registry.py`。注意这些测试用真实 registry，必须绕过上面的 fixture：
+创建 `tests/test_registry_integration.py`：
 
 ```python
-def test_public_api_is_exported(monkeypatch):
+import pytest
+
+from akshare import registry
+
+
+@pytest.fixture(autouse=True)
+def _force_real_registry(monkeypatch):
+    """确保从真实产物文件加载，不受其他测试文件注入的假数据影响。"""
     monkeypatch.setattr(registry, "_REGISTRY", None)
+
+
+def test_public_api_is_exported():
     import akshare as ak
 
     assert callable(ak.search)
@@ -1373,9 +1386,8 @@ def test_public_api_is_exported(monkeypatch):
     assert callable(ak.list_categories)
 
 
-def test_real_search_returns_callable_interfaces(monkeypatch):
+def test_real_search_returns_callable_interfaces():
     """不变量①：search 返回的每个接口名都必须真实可调用。"""
-    monkeypatch.setattr(registry, "_REGISTRY", None)
     import akshare as ak
 
     df = ak.search("A股 历史行情", limit=10)
@@ -1384,9 +1396,8 @@ def test_real_search_returns_callable_interfaces(monkeypatch):
         assert hasattr(ak, name), f"{name} 在 registry 中但无法从 akshare 取到"
 
 
-def test_every_registry_entry_is_reachable(monkeypatch):
+def test_every_registry_entry_is_reachable():
     """全量校验不变量①，将来有人删函数忘删文档时会立即失败。"""
-    monkeypatch.setattr(registry, "_REGISTRY", None)
     import akshare as ak
 
     missing = [
@@ -1449,9 +1460,9 @@ Expected: 第一条返回相关接口；无空格查询仍有结果；类目统�
 - [ ] **Step 6: 提交**
 
 ```bash
-ruff format akshare/registry.py tests/
-ruff check akshare/registry.py tests/ --fix
-git add akshare/__init__.py tests/test_registry.py
+ruff format tests/test_registry_integration.py
+ruff check tests/test_registry_integration.py --fix
+git add akshare/__init__.py tests/test_registry_integration.py
 git commit -m "feat(registry): 导出检索接口至公开 API"
 ```
 
@@ -1524,10 +1535,13 @@ __version__ = "1.18.85"
 
 - [ ] **Step 4: 全量验收**
 
-Run:
+**不要跑 `ruff format .`**。当前 ruff 会格式化 Markdown 里的 Python 代码块，全量执行会改动 11 个与本次无关的 md 文件（`README.md`、多个 `docs/*.md`、本 plan 与 spec 自身）以及 1 个存量 py 文件 `akshare/stock_feature/stock_margin_bse.py`，污染提交。项目 CI 用的是修改模式的 `ruff format .` 而非 `--check`，所以这些存量不合规长期存在且不会导致 CI 失败——不属于本次范围。
+
+只校验本次涉及的 Python 文件：
 
 ```bash
-ruff format . && ruff check . --fix
+ruff format --check scripts/build_registry.py akshare/registry.py akshare/datasets.py tests/
+ruff check scripts/build_registry.py akshare/registry.py akshare/datasets.py tests/
 pytest -v
 python scripts/build_registry.py --check
 python -c "
@@ -1538,7 +1552,7 @@ print('检索可用:', not ak.search('基金 净值', limit=3).empty)
 "
 ```
 
-Expected: ruff 无错误；pytest 全绿；`--check` 通过；import 耗时与实施前基线（约 1.95s）无可测量差异；`检索前未加载数据: True`
+Expected: ruff 两条命令均无输出问题；pytest 全绿；`--check` 通过；import 耗时与实施前基线（约 1.95s）无可测量差异；`检索前未加载数据: True`
 
 - [ ] **Step 5: 提交**
 
