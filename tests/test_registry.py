@@ -52,6 +52,42 @@ def test_score_no_hit_returns_zero():
     assert _score(["完全不相关"], RECORD) == 0
 
 
+# desc 中 "A" 与 "股" 之间夹了一个源文档常见的排版空格，用于验证 _score 在
+# 匹配前会先压缩查询 token 与被搜索字段的空白，否则连写查询词 "A股" 匹配不
+# 到带空格的 "A 股" 子串。
+WHITESPACE_RECORD = {
+    "name": "quant_whitespace_probe",
+    "category": "probe",
+    "documented": True,
+    "desc": "东方财富-A 股专题历史行情",
+    "outputs": [],
+}
+
+
+def test_score_normalizes_whitespace_between_latin_and_cjk():
+    assert _score(["A股"], WHITESPACE_RECORD) > 0
+
+
+# "市盈率" 与 "动态" 是两个相邻列名。拼接列名时如果仍用空格分隔，归一化会把
+# 分隔空格一并压掉，两个列名会首尾相连成 "市盈率动态"，让跨列名边界的伪造
+# 查询词 "率动" 产生假匹配。分隔符换成不会出现在真实列名里的字符后，归一化
+# 不应消除这个分隔，因此该查询词不应命中。
+COLUMN_BOUNDARY_RECORD = {
+    "name": "quant_column_boundary_probe",
+    "category": "probe",
+    "documented": True,
+    "desc": "-",
+    "outputs": [
+        {"name": "市盈率", "type": "float64", "desc": "-"},
+        {"name": "动态", "type": "float64", "desc": "-"},
+    ],
+}
+
+
+def test_score_does_not_match_across_adjacent_column_boundary():
+    assert _score(["率动"], COLUMN_BOUNDARY_RECORD) == 0
+
+
 # name / category / desc / outputs 四个字段互不重叠子串，
 # 便于构造「只命中单一字段」的查询，以钉住各权重常量的相对次序。
 FIELD_RECORD = {
@@ -247,6 +283,39 @@ def test_search_exact_name_is_ranked_first():
     # 挤到第二位，这条测试用来钉住这个回归。
     df = registry.search("bond_zh_hs_daily")
     assert df.iloc[0]["接口名"] == "bond_zh_hs_daily"
+
+
+# decoy 与目标共享目标接口名作为前缀，且额外的输出列名把目标全部命中的
+# 2-gram 又在 "outputs" 字段里重复命中了一遍，2-gram 降级分因此反超目标的
+# 精确命中分（100）。如果 is_exact 判定仍使用未剥标点的原始 query 与
+# record["name"] 比较（旧实现），两者的 is_exact 都是 False，纯按分数排序
+# 会让 decoy 反而排到目标前面；is_exact 判定与 _score 的精确名捷径口径一致
+# 后，目标应该无条件置顶，不受分数大小影响。
+EXACT_PUNCTUATION_TARGET = {
+    "name": "stock_zh_a_hist",
+    "category": "stock",
+    "documented": True,
+    "desc": "东方财富-沪深京 A 股历史行情数据",
+    "outputs": [],
+}
+EXACT_PUNCTUATION_DECOY = {
+    "name": "stock_zh_a_hist_min_em",
+    "category": "stock",
+    "documented": True,
+    "desc": "东方财富-沪深京 A 股历史行情数据",
+    "outputs": [{"name": "stock_zh_a_hist_extra_col", "type": "float64", "desc": "-"}],
+}
+EXACT_PUNCTUATION_FIXTURE = {
+    "schema_version": 1,
+    "interfaces": [EXACT_PUNCTUATION_TARGET, EXACT_PUNCTUATION_DECOY],
+}
+
+
+@pytest.mark.parametrize("suffix", [",", "，", "、"])
+def test_search_exact_name_survives_trailing_punctuation(suffix, monkeypatch):
+    monkeypatch.setattr(registry, "_REGISTRY", EXACT_PUNCTUATION_FIXTURE)
+    df = registry.search("stock_zh_a_hist" + suffix)
+    assert df.iloc[0]["接口名"] == "stock_zh_a_hist"
 
 
 def test_search_unspaced_query_recalls_via_bigram_fallback():

@@ -58,6 +58,20 @@ def _tokenize(query: str) -> List[str]:
     return [token for token in _TOKEN_SPLIT_RE.split(query.strip()) if token]
 
 
+_WHITESPACE_RE = re.compile(r"\s+")
+
+
+def _normalize(text: str) -> str:
+    """
+    压缩字符串内的全部空白，用于消除源文档里 latin/数字与中日韩字符之间
+    人工插入的排版空格（如「A 股」）对子串匹配造成的干扰。
+
+    :param text: 原始字符串
+    :return: 空白压缩后的字符串
+    """
+    return _WHITESPACE_RE.sub("", text)
+
+
 def _score(tokens: List[str], record: Dict) -> float:
     """
     对单条记录打分。
@@ -73,20 +87,30 @@ def _score(tokens: List[str], record: Dict) -> float:
         return WEIGHT_NAME_EXACT
     desc = record.get("desc") or ""
     category = record.get("category") or ""
-    columns = " ".join(
+    # 用 "\x00" 而非空格拼接列名：归一化会压掉真正的空白分隔符，若仍用
+    # 空格拼接，两个相邻列名会首尾相连产生跨列名的假匹配（例如列名
+    # "市盈率" 与 "动态" 拼接后变成 "市盈率动态"，让查询词 "率动" 误命中）。
+    # "\x00" 不会出现在真实列名里，归一化后依然保留分隔作用。
+    columns = "\x00".join(
         column.get("name") or "" for column in record.get("outputs") or []
     )
+    # 每条记录只归一化一次待搜索字段，避免在下方 token 循环里重复计算。
+    norm_name = _normalize(name)
+    norm_desc = _normalize(desc)
+    norm_category = _normalize(category)
+    norm_columns = _normalize(columns)
     total = 0.0
     hit_count = 0
     for token in tokens:
+        norm_token = _normalize(token)
         subtotal = 0.0
-        if token in name:
+        if norm_token in norm_name:
             subtotal += WEIGHT_NAME
-        if token in desc:
+        if norm_token in norm_desc:
             subtotal += WEIGHT_DESC
-        if token in category:
+        if norm_token in norm_category:
             subtotal += WEIGHT_CATEGORY
-        if token in columns:
+        if norm_token in norm_columns:
             subtotal += WEIGHT_OUTPUT
         if subtotal:
             hit_count += 1
@@ -136,7 +160,13 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
         if fallback_tokens:
             score = max(score, _score(fallback_tokens, record))
         if score > 0:
-            is_exact = record["name"] == stripped
+            # 与 _score 的精确名捷径判定保持一致：tokenize 会剥掉
+            # ",，、;；/|" 等标点，若这里仍用未剥标点的原始 stripped 比较，
+            # 带尾随标点的精确名查询（如 "stock_zh_a_hist,"）会被判定为
+            # 非精确，从而失去置顶保证。
+            is_exact = (len(tokens) == 1 and tokens[0] == record["name"]) or (
+                record["name"] == stripped
+            )
             scored.append((record, score, is_exact))
     scored.sort(key=lambda item: (not item[2], -item[1], item[0]["name"]))
     return [dict(record, _score=score) for record, score, _ in scored]
