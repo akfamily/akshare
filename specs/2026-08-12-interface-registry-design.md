@@ -116,7 +116,7 @@ scripts/build_registry.py    →   akshare/data/       →   akshare/registry.py
 
 **① 主键集合 = `__init__.py` 的实际导出，而非文档条目。**
 
-以代码为准，保证 `ak.search()` 返回的每个结果都真实可调用，文档孤儿永远不会被推荐给 agent。95 个无文档接口仍然收录，标记 `documented: false`、`desc` 为空、category 由模块路径推断，使其至少可被发现。文档是可选增强，不是真相源。
+以代码为准，保证 `ak.search()` 返回的每个结果都真实可调用，文档孤儿永远不会被推荐给 agent。85 个无文档接口仍然收录，标记 `documented: false`、`desc` 为空、category 由模块路径推断，使其至少可被发现。文档是可选增强，不是真相源。
 
 非数据接口不收录，须以**显式排除清单**实现，不可依赖「category 能否推断」来判定：
 
@@ -186,7 +186,9 @@ ak.list_categories() -> pd.DataFrame
 `scripts/build_registry.py --check` 执行三项校验：
 
 1. **产物同步**：重新生成并与仓库中 `interfaces.json` 逐字节比对，不一致则失败，提示运行生成命令。
-2. **导出但无文档**：当前 95 个存量写入 `scripts/registry_baseline.json` 豁免；新增接口无文档则失败。
+2. **导出但无文档**：当前 85 个存量写入 `scripts/registry_baseline.json` 豁免；新增接口无文档则失败。
+
+   此处为 85 而非第 1 节的 95：95 是基于全部 1100 个顶层导出的原始统计，其中 6 个异常类与 4 个非数据接口已由 `EXCLUDE` 清单排除，排除后 `exports` 为 1090，与文档的 1005 个交集相减得 85。
 3. **文档但无导出**：当前 3 个同样计入 baseline。
 
 **棘轮语义为双向**：缺口集合既不得超出 baseline（新增违规失败），baseline 中也不得残留已修复项（修复后未同步删除同样失败）。否则 baseline 将腐烂为无人维护的过期清单。
@@ -241,4 +243,4 @@ ak.list_categories() -> pd.DataFrame
 | `fortune_rank` | 函数存在于 `fortune/fortune_500.py:40`，历史修复 4 次，当前未导出 | 补 `__init__.py` 导出 |
 | `option_czce_hist` | changelog 更名表记录 1.17.68 已更名为 `option_hist_yearly_czce`，文档未同步 | 删除过期文档条目 |
 | `stock_zh_a_tick_tx` | 函数存在未导出，近期仅有 docs 变更 | 需维护者判断是补导出还是正式下线 |
-| 95 个导出而无文档的接口 | 见 baseline 清单 | 逐步补文档，baseline 只减不增 |
+| 85 个导出而无文档的接口 | 见 baseline 清单（95 减去 10 个非数据接口） | 逐步补文档，baseline 只减不增 |
