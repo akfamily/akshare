@@ -338,3 +338,12 @@ def test_baseline_rejects_stale_entry():
     problems = diff_baseline(exports, docs, BASE)
     assert len(problems) == 1
     assert "old_no_doc" in problems[0]
+
+
+def test_baseline_rejects_fixed_orphan():
+    """已修复的孤儿项（补上导出）必须从 baseline 移除，否则 baseline 会腐烂。"""
+    exports = {"old_no_doc": "akshare.stock.a", "old_orphan": "akshare.stock.b"}
+    docs = {"old_orphan": {"category": "stock"}}
+    problems = diff_baseline(exports, docs, BASE)
+    assert len(problems) == 1
+    assert "old_orphan" in problems[0]
