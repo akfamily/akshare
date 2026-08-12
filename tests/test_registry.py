@@ -45,3 +45,25 @@ def test_score_undocumented_is_downweighted():
 
 def test_score_no_hit_returns_zero():
     assert _score(["完全不相关"], RECORD) == 0
+
+
+# name / category / desc / outputs 四个字段互不重叠子串，
+# 便于构造「只命中单一字段」的查询，以钉住各权重常量的相对次序。
+FIELD_RECORD = {
+    "name": "quant_alpha_beta",
+    "category": "kappa",
+    "documented": True,
+    "desc": "delta_desc_text",
+    "outputs": [{"name": "epsilon_col", "type": "float64", "desc": "-"}],
+}
+
+
+def test_score_category_only_hit_is_positive():
+    assert _score(["kappa"], FIELD_RECORD) > 0
+
+
+def test_score_desc_gt_category_gt_output_when_each_hits_alone():
+    desc_only = _score(["delta"], FIELD_RECORD)
+    category_only = _score(["kappa"], FIELD_RECORD)
+    output_only = _score(["epsilon"], FIELD_RECORD)
+    assert desc_only > category_only > output_only > 0
