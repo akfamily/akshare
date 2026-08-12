@@ -11,7 +11,8 @@ AKShare 的使用者正在从「人写代码」转向「agent 调用」。当前
 | 断点 | 实测证据 |
 |---|---|
 | 发现不到接口 | 1100 个导出、无 `__all__`；`docs/data/` 共 2.68 MB，`stock.md` 单文件 1.0 MB / 375 个条目，无法放进模型上下文 |
-| 文档与代码已漂移 | 1005 个接口文档与导出匹配；**3 个文档有而代码无**；**95 个导出而无文档** |
+| 文档与代码已漂移 | 1015 个接口文档与导出匹配；**3 个文档有而代码无**；**75 个导出而无文档**（数据接口口径，详见第 7 节推导） |
+| 文档格式不统一 | 10 个接口条目用全角冒号 `接口：`，解析器必须同时容错半角与全角，否则这些接口会从 registry 中彻底消失 |
 | 错误无法分类 | 219 个模块裸调 `r.json()` 不检查状态码；仅 9 个用 `raise_for_status`；`exceptions.py` 全库仅 5 个文件用到 |
 | 返回结构不可预期 | 276 个函数无返回类型注解；无 `py.typed` |
 
@@ -116,7 +117,7 @@ scripts/build_registry.py    →   akshare/data/       →   akshare/registry.py
 
 **① 主键集合 = `__init__.py` 的实际导出，而非文档条目。**
 
-以代码为准，保证 `ak.search()` 返回的每个结果都真实可调用，文档孤儿永远不会被推荐给 agent。85 个无文档接口仍然收录，标记 `documented: false`、`desc` 为空、category 由模块路径推断，使其至少可被发现。文档是可选增强，不是真相源。
+以代码为准，保证 `ak.search()` 返回的每个结果都真实可调用，文档孤儿永远不会被推荐给 agent。75 个无文档接口仍然收录，标记 `documented: false`、`desc` 为空、category 由模块路径推断，使其至少可被发现。文档是可选增强，不是真相源。
 
 非数据接口不收录，须以**显式排除清单**实现，不可依赖「category 能否推断」来判定：
 
@@ -186,9 +187,11 @@ ak.list_categories() -> pd.DataFrame
 `scripts/build_registry.py --check` 执行三项校验：
 
 1. **产物同步**：重新生成并与仓库中 `interfaces.json` 逐字节比对，不一致则失败，提示运行生成命令。
-2. **导出但无文档**：当前 85 个存量写入 `scripts/registry_baseline.json` 豁免；新增接口无文档则失败。
+2. **导出但无文档**：当前 75 个存量写入 `scripts/registry_baseline.json` 豁免；新增接口无文档则失败。
 
-   此处为 85 而非第 1 节的 95：95 是基于全部 1100 个顶层导出的原始统计，其中 6 个异常类与 4 个非数据接口已由 `EXCLUDE` 清单排除，排除后 `exports` 为 1090，与文档的 1005 个交集相减得 85。
+   75 的推导：顶层导出 1100 个，经 `EXCLUDE` 排除 6 个异常类与 4 个非数据接口后 `exports` 为 1090；文档条目 1018 条，与 exports 交集 1015，相减得 75。
+
+   两次修正说明：第 1 节的 95 是基于全部 1100 个导出且只匹配半角冒号的原始统计。排除非数据接口后降为 85；再修正解析器对全角冒号 `接口：` 的容错后，又有 10 个本就有文档的接口（`stock_info_global_em/sina/ths/futu/cls`、`stock_info_cjzc_em`、`stock_rank_cxg/cxd/lxsz/lxxd_ths`）被正确识别，最终为 75。
 3. **文档但无导出**：当前 3 个同样计入 baseline。
 
 **棘轮语义为双向**：缺口集合既不得超出 baseline（新增违规失败），baseline 中也不得残留已修复项（修复后未同步删除同样失败）。否则 baseline 将腐烂为无人维护的过期清单。
@@ -243,4 +246,4 @@ ak.list_categories() -> pd.DataFrame
 | `fortune_rank` | 函数存在于 `fortune/fortune_500.py:40`，历史修复 4 次，当前未导出 | 补 `__init__.py` 导出 |
 | `option_czce_hist` | changelog 更名表记录 1.17.68 已更名为 `option_hist_yearly_czce`，文档未同步 | 删除过期文档条目 |
 | `stock_zh_a_tick_tx` | 函数存在未导出，近期仅有 docs 变更 | 需维护者判断是补导出还是正式下线 |
-| 85 个导出而无文档的接口 | 见 baseline 清单（95 减去 10 个非数据接口） | 逐步补文档，baseline 只减不增 |
+| 75 个导出而无文档的接口 | 见 baseline 清单 | 逐步补文档，baseline 只减不增 |

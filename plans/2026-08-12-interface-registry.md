@@ -281,13 +281,17 @@ Expected: FAIL，`ImportError: cannot import name 'parse_segment'`
 追加到 `scripts/build_registry.py`（`import re` 下方补充 `import pathlib`）：
 
 ```python
-BLOCK_RE = re.compile(r"^接口:\s*(\S+)\s*$", re.M)
+# 冒号必须同时容错半角 ":" 与全角 "："。实测 docs/data/stock/stock.md 中有 10 个
+# 接口条目使用全角冒号（stock_info_global_em/sina/ths/futu/cls、stock_info_cjzc_em、
+# stock_rank_cxg/cxd/lxsz/lxxd_ths），它们都是真实导出的接口。只匹配半角会让这些
+# 条目不被识别为边界，其正文被并入前一条记录，接口本身则从 registry 中彻底消失。
+BLOCK_RE = re.compile(r"^接口[:：]\s*(\S+)\s*$", re.M)
 EXAMPLE_RE = re.compile(r"```python\n(.*?)```", re.S)
 
 
 def _field(segment: str, key: str) -> Optional[str]:
-    """抽取 "键: 值" 形式的单行字段。"""
-    match = re.search(rf"^{re.escape(key)}:\s*(.+?)\s*$", segment, re.M)
+    """抽取 "键: 值" 形式的单行字段，冒号半角全角均可。"""
+    match = re.search(rf"^{re.escape(key)}[:：]\s*(.+?)\s*$", segment, re.M)
     return match.group(1) if match else None
 
 
@@ -353,7 +357,7 @@ print('with example:', sum(1 for v in r.values() if v['example']))
 "
 ```
 
-Expected: `records: 1008`、`with outputs` 约 953、`with example: 1008`。若 records 不是 1008，说明条目切分有误，先排查再继续。
+Expected: `records: 1018`、`with outputs` 约 959、`with example: 1018`。**records 必须是 1018**，若不是则说明条目切分有误（最常见的原因是冒号未容错全角），先排查再继续；`with outputs` 是参考值，允许小幅出入。
 
 - [ ] **Step 6: 格式化并提交**
 
@@ -693,7 +697,7 @@ python scripts/build_registry.py
 diff -q /tmp/first.json akshare/data/interfaces.json && echo "确定性 OK"
 ```
 
-Expected: size 约 1.19 MB、interfaces 约 1090、documented 约 1005、输出「确定性 OK」
+Expected: size 约 1.19 MB、interfaces 1090、documented 1015、输出「确定性 OK」
 
 - [ ] **Step 6: 提交**
 
@@ -844,9 +848,9 @@ print('orphaned:', base['orphaned'])
 python scripts/build_registry.py --check
 ```
 
-Expected: `undocumented: 85`、`orphaned` 为 `['fortune_rank', 'option_czce_hist', 'stock_zh_a_tick_tx']`、`--check` 输出「校验通过」且退出码 0
+Expected: `undocumented: 75`、`orphaned` 为 `['fortune_rank', 'option_czce_hist', 'stock_zh_a_tick_tx']`、`--check` 输出「校验通过」且退出码 0
 
-此处是 85 而非 95：95 是基于全部 1100 个顶层导出的原始统计，其中含 6 个异常类与 4 个非数据接口，经 `EXCLUDE` 排除后 `exports` 为 1090，与文档的 1005 个交集相减得 85。
+75 的推导：顶层导出共 1100 个，经 `EXCLUDE` 排除 6 个异常类与 4 个非数据接口后 `exports` 为 1090；文档条目在冒号容错后为 1018 条，与 exports 的交集为 1015，相减得 75。（早期基于半角冒号的统计为 85，其中 10 个接口实为全角冒号文档被漏读，不是真的缺文档。）
 
 - [ ] **Step 6: 验证门禁真的会失败（两种模式都要验）**
 
@@ -1572,4 +1576,4 @@ git commit -m "ci(registry): 新增接口一致性门禁并同步版本文档"
 | `fortune_rank` | 函数存在于 `akshare/fortune/fortune_500.py:40`，历史修复四次，当前未导出 | 补 `__init__.py` 导出 |
 | `option_czce_hist` | 已于 1.17.68 更名为 `option_hist_yearly_czce`，文档未同步 | 删除过期文档条目 |
 | `stock_zh_a_tick_tx` | 函数存在未导出 | 需维护者判断补导出还是正式下线 |
-| 85 个无文档接口 | 见 `scripts/registry_baseline.json` | 逐步补文档，baseline 只减不增 |
+| 75 个无文档接口 | 见 `scripts/registry_baseline.json` | 逐步补文档，baseline 只减不增 |
