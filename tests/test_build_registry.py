@@ -1,4 +1,9 @@
-from build_registry import collect_doc_records, parse_segment, parse_table
+from build_registry import (
+    collect_doc_records,
+    collect_exports,
+    parse_segment,
+    parse_table,
+)
 
 SIMPLE = """
 输入参数
@@ -174,3 +179,44 @@ def test_collect_doc_records_supports_fullwidth_colon(tmp_path):
     assert "stock_info_cjzc_em" in records
     assert records["stock_info_cjzc_em"]["desc"] == "全角冒号接口"
     assert records["prev_iface"]["desc"] == "前一个接口"
+
+
+FAKE_INIT = '''"""模块文档字符串"""
+
+from akshare._version import __version__
+from akshare.index.index_cni import index_all_cni, index_hist_cni
+from akshare.pro.data_pro import pro_api
+from akshare.utils.token_process import set_token, get_token
+from .exceptions import APIError, NetworkError
+
+try:
+    from akqmt import xt_api
+except ImportError:
+    pass
+'''
+
+
+def test_collect_exports_maps_name_to_module(tmp_path):
+    init_file = tmp_path / "__init__.py"
+    init_file.write_text(FAKE_INIT, encoding="utf-8")
+    exports = collect_exports(init_file)
+    assert exports["index_all_cni"] == "akshare.index.index_cni"
+    assert exports["index_hist_cni"] == "akshare.index.index_cni"
+
+
+def test_collect_exports_drops_non_data_interfaces(tmp_path):
+    """__version__/pro_api/set_token 等可推断 category，必须显式排除。"""
+    init_file = tmp_path / "__init__.py"
+    init_file.write_text(FAKE_INIT, encoding="utf-8")
+    exports = collect_exports(init_file)
+    for name in (
+        "__version__",
+        "pro_api",
+        "set_token",
+        "get_token",
+        "APIError",
+        "NetworkError",
+        "xt_api",
+    ):
+        assert name not in exports
+    assert len(exports) == 2

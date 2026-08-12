@@ -5,6 +5,7 @@ Date: 2026/8/12
 Desc: 构建期脚本，解析 docs/data 与 akshare/__init__.py 生成接口元数据
 """
 
+import ast
 import pathlib
 import re
 from typing import Dict, List, Optional
@@ -99,3 +100,44 @@ def collect_doc_records(docs_dir: pathlib.Path) -> Dict[str, Dict]:
             record["category"] = path.parent.name
             records[name] = record
     return records
+
+
+# 非数据接口，必须显式排除。不可依赖「category 能否推断」判定：
+# 实测 1100 个顶层导出中 6 个不可推断 category，而这 6 个恰好只是异常类
+# （相对导入 from .exceptions）；__version__ / pro_api / set_token / get_token
+# 均可推断 category，若按「不可推断即排除」实现会被错误收录。
+EXCLUDE = {
+    "__version__",
+    "pro_api",
+    "set_token",
+    "get_token",
+    "xt_api",
+    "AkshareException",
+    "APIError",
+    "DataParsingError",
+    "InvalidParameterError",
+    "NetworkError",
+    "RateLimitError",
+}
+
+
+def collect_exports(init_path: pathlib.Path) -> Dict[str, str]:
+    """
+    静态解析 __init__.py，提取公开数据接口及其所属模块。
+
+    :param init_path: akshare/__init__.py 路径
+    :return: 接口名 -> 模块路径
+    """
+    tree = ast.parse(init_path.read_text(encoding="utf-8"))
+    exports: Dict[str, str] = {}
+    for node in tree.body:
+        if not isinstance(node, ast.ImportFrom):
+            continue
+        if not node.module or not node.module.startswith("akshare."):
+            continue
+        for alias in node.names:
+            name = alias.asname or alias.name
+            if name in EXCLUDE:
+                continue
+            exports[name] = node.module
+    return exports
