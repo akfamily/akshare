@@ -95,16 +95,16 @@ def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     波动率-已实现波动率-Yang-Zhang 已实现波动率(Yang-Zhang Realized Volatility)
     https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
     论文地址：https://www.jstor.org/stable/10.1086/209650
-    基于以下公式计算:
+    基于以下公式计算：
     RV^2 = Vo + k*Vc + (1-k)*Vrs
-    其中:
-    - Vo: 隔夜波动率, Vo = 1/(n-1)*sum(Oi-Obar)^2
-        Oi为标准化开盘价, Obar为标准化开盘价均值
-    - Vc: 收盘波动率, Vc = 1/(n-1)*sum(ci-Cbar)^2
-        ci为标准化收盘价, Cbar为标准化收盘价均值
-    - k: 权重系数, k = 0.34/(1.34+(n+1)/(n-1))
+    其中：
+    - Vo: 隔夜波动率，Vo = 1/(n-1)*sum(Oi-Obar)^2
+        Oi为标准化开盘价，Obar为标准化开盘价均值
+    - Vc: 收盘波动率，Vc = 1/(n-1)*sum(ci-Cbar)^2
+        ci为标准化收盘价，Cbar为标准化收盘价均值
+    - k: 权重系数，k = 0.34/(1.34+(n+1)/(n-1))
         n为样本数量
-    - Vrs: Rogers-Satchell波动率代理, Vrs = ui(ui-ci)+di(di-ci)
+    - Vrs: Rogers-Satchell波动率代理，Vrs = ui(ui-ci)+di(di-ci)
         ui = ln(Hi/Oi), ci = ln(Ci/Oi), di = ln(Li/Oi), oi = ln(Oi/Ci-1)
         Hi/Li/Ci/Oi分别为最高价/最低价/收盘价/开盘价
 
@@ -113,7 +113,7 @@ def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     :return: 包含 Yang-Zhang 实现波动率的 pandas.DataFrame
     :rtype: pandas.DataFrame
 
-    要求输入数据包含以下列:
+    要求输入数据包含以下列：
     - Open: 开盘价
     - High: 最高价
     - Low: 最低价

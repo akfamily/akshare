@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.87 fix: fix interface docs
+
+    1. 修复接口文档中接口半角符号问题
+
 1.18.86 fix: fix interface docs
 
     1. 修复接口文档中接口半角符号问题
@@ -4763,7 +4767,7 @@
 
 1.8.42 add: add get_gfex_daily interface
 
-    1. 新增 get_gfex_daily 接口, 获取广期所的量价数据
+    1. 新增 get_gfex_daily 接口，获取广期所的量价数据
 
 1.8.41 add: add futures_index_ccidx interface
 
