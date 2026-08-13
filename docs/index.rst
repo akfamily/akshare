@@ -24,6 +24,7 @@
 
    introduction
    installation
+   registry
    data/index
    indicator
    data_tips

@@ -1,5 +1,27 @@
 # [AKShare](https://github.com/akfamily/akshare/) 快速入门
 
+## 查找接口
+
+AKShare 提供 1000 余个数据接口, 在下面的清单里逐个翻找并不高效. 如果还不确定该
+调用哪个接口, 可以先用内置的接口检索按关键词找:
+
+```python
+import akshare as ak
+
+# 按关键词检索接口
+print(ak.search("可转债 实时行情", limit=5))
+
+# 查看单个接口的输入参数, 输出字段与调用示例
+print(ak.interface_info("bond_zh_hs_cov_min"))
+
+# 列出全部类目, 可用于缩小检索范围
+print(ak.list_categories())
+```
+
+检索完全在本地进行, 不发起网络请求. 传入完整接口名时该接口一定排在第一位, 因此
+它也适合用来确认一个记不全的接口名. 需要注意这是关键词匹配而非语义检索, 详见
+[AKShare 接口检索](https://akshare.akfamily.xyz/registry.html).
+
 ## 查看数据
 
 具体函数使用详情, 请查看 [AKShare 文档](https://akshare.akfamily.xyz/) 每个接口的示例代码

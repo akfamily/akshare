@@ -31,9 +31,23 @@ def get_crypto_info_csv(file: str = "crypto_info.zip") -> pathlib.Path:
         return data_file_path
 
 
+def get_registry_json(file: str = "interfaces.json") -> pathlib.Path:
+    """
+    get path to data "interfaces.json" file.
+    :return: 文件路径
+    :rtype: pathlib.Path
+    """
+    with resources.path("akshare.data", file) as f:
+        data_file_path = f
+        return data_file_path
+
+
 if __name__ == "__main__":
     get_ths_js_path = get_ths_js(file="ths.js")
     print(get_ths_js_path)
 
     get_crypto_info_csv_path = get_crypto_info_csv(file="crypto_info.zip")
     print(get_crypto_info_csv_path)
+
+    get_registry_json_path = get_registry_json(file="interfaces.json")
+    print(get_registry_json_path)

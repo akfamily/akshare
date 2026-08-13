@@ -44,3 +44,17 @@ jobs:
         run: |
           pip install pytest
           pytest
+
+  registry-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Check interface registry is in sync
+        run: python scripts/build_registry.py --check
