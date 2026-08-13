@@ -29,8 +29,11 @@ repos:
         name: check Chinese punctuation
         entry: python scripts/check_punctuation.py --fix
         language: system
-        files: ^(akshare|docs)/.*\.(py|md)$
-        exclude: ^docs/changelog\.md$
+        files: ^((akshare|docs|scripts|tests)/.*|[^/]+)\.(py|md)$
+        # 只排除检查器自身: 它的正文大量引用标点样例（如 "（手续费更新时间："）,
+        # 会稳定触发括号配对与引号配平这两条启发式告警, 纳入后每次提交都刷屏,
+        # 因此改为靠 --selftest 与手工运行来自检。
+        exclude: ^scripts/check_punctuation\.py$
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.3.0
     hooks:
