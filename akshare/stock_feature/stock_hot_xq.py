@@ -61,7 +61,9 @@ def _request_xq_hot_data(url: str, params: dict[str, Any]) -> dict[str, Any]:
         r = requests.get(url, params=params, headers=_get_xq_hot_headers())
         data_json = r.json()
     except requests.RequestException as err:
-        raise NetworkError(f"Failed to request Xueqiu hot rank endpoint: {err}") from err
+        raise NetworkError(
+            f"Failed to request Xueqiu hot rank endpoint: {err}"
+        ) from err
     except ValueError as err:
         raise APIError("Xueqiu hot rank endpoint returned invalid JSON") from err
 

@@ -11,10 +11,50 @@ on:
       - main
       - dev
 
+env:
+  # 与本地开发使用的 uv 版本保持一致，避免"本地通过、CI 失败"。
+  # 升级时请连同开发者本地的 uv 一起升，并重新生成 uv.lock。
+  UV_VERSION: "0.12.3"
+
+# 三个 job 相互独立并行，任何一个失败都不阻塞其余两个的反馈。
+# 注意 astral-sh/setup-uv 自 v8 起不再发布浮动大版本标签（@v9 无法解析），
+# 必须写完整版本号；v10.0.0 发布过新，此处用成熟的 v9.0.0。
 jobs:
-  build:
+  # 代码风格与静态检查与平台、Python 版本无关，单独跑一次即可，
+  # 不必在 3 OS × 4 Python 的矩阵里重复 12 遍。
+  # --only-group lint 仅安装 ruff（8 个包），不装 akshare 本体——lint 不需要它。
+  # ruff 版本由 uv.lock 锁定，来源是 pyproject.toml 的 lint 组，因此不在此处写死版本号。
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Install locked lint toolchain
+        run: uv sync --locked --only-group lint
+
+      - name: Lint with Ruff
+        run: |
+          uv run --locked --only-group lint ruff format --check .
+          uv run --locked --only-group lint ruff check .
+
+  # 只跑测试，因此需要覆盖全部受支持的平台与 Python 版本。
+  # 用 --locked 而非 --frozen：两者都严格按 uv.lock 安装，但 --frozen 只是"不更新锁文件",
+  # 改了 pyproject.toml 却忘记重新 lock 时它会静默放过；--locked 断言锁文件无需变更，
+  # 这种漂移会直接失败。依赖声明与锁文件脱节因此不可能进入主干。
+  # --no-default-groups 必须加：dev 是 PEP 735 的默认组，uv sync 会自动装它，
+  # 不排除的话会多拖进 37 个包（pre-commit、commitizen、mplfinance 等）。
+  # 加上后只装项目本体与 pytest，共 34 个包。
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.11", "3.12", "3.13", "3.14"]
@@ -23,28 +63,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9.0.0
         with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install .
-
-      - name: Lint with Ruff
-        run: |
-          pip install ruff
-          ruff format .
-          ruff check . --fix
-
+      - name: Install locked dependencies
+        run: uv sync --locked --no-default-groups --group test
 
       - name: Test with pytest
-        run: |
-          pip install pytest
-          pytest
+        run: uv run --locked --no-default-groups --group test pytest
 
+  # build_registry.py 只依赖标准库（argparse/ast/json/pathlib/re/typing），
+  # 无需安装项目或任何第三方包，因此这里保持最轻量的裸 Python。
   registry-check:
     runs-on: ubuntu-latest
     steps:

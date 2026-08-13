@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.88 fix: fix fund_portfolio_hold_em interface
+
+    1. 修复 fund_portfolio_hold_em 接口
+
 1.18.87 fix: fix interface docs
 
     1. 修复接口文档中接口半角符号问题
