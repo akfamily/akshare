@@ -1,6 +1,6 @@
-## [AKShare](https://github.com/akfamily/akshare) 外汇数据
+# [AKShare](https://github.com/akfamily/akshare) 外汇数据
 
-### 实时行情数据
+## 实时行情数据
 
 接口：forex_spot_em
 
@@ -58,7 +58,7 @@ print(forex_spot_em_df)
 [190 rows x 10 columns]
 ```
 
-### 历史行情数据
+## 历史行情数据
 
 接口：forex_hist_em
 
@@ -116,7 +116,7 @@ print(forex_hist_em_df)
 [3781 rows x 8 columns]
 ```
 
-### 人民币牌价数据
+## 人民币牌价数据
 
 接口：currency_boc_sina
 
@@ -171,7 +171,7 @@ print(currency_boc_sina_df)
 [180 rows x 5 columns]
 ```
 
-### 人民币汇率中间价
+## 人民币汇率中间价
 
 接口：currency_boc_safe
 
@@ -246,7 +246,7 @@ print(currency_boc_safe_df)
 [7323 rows x 25 columns]
 ```
 
-### 人民币外汇即期报价
+## 人民币外汇即期报价
 
 接口：fx_spot_quote
 
@@ -312,7 +312,7 @@ print(fx_spot_quote_df)
 23     CNY/THB    5.24800    5.25000
 ```
 
-### 人民币外汇远掉报价
+## 人民币外汇远掉报价
 
 接口：fx_swap_quote
 
@@ -383,7 +383,7 @@ print(fx_swap_quote_df)
 23     CNY/THB  -68.44/-43.00  ...    -514.60/-436.28    -675.05/-534.00
 ```
 
-### 外汇掉期 C-Swap 定盘曲线
+## 外汇掉期 C-Swap 定盘曲线
 
 接口：fx_c_swap_cm
 
@@ -436,7 +436,7 @@ print(fx_c_swap_cm_df)
 11  2025-09-26 16:30:00.0   1Y   -1337.01   报价数据  7.0017
 ```
 
-### 外币对即期报价
+## 外币对即期报价
 
 接口：fx_pair_quote
 
@@ -488,7 +488,7 @@ print(fx_pair_quote_df)
 10  EUR/GBP    0.86308    0.86308
 ```
 
-### 指定币种的所有货币对
+## 指定币种的所有货币对
 
 接口：currency_pair_map
 
@@ -538,7 +538,7 @@ print(currency_pair_map_df)
 [90 rows x 2 columns]
 ```
 
-### 货币对-投机情绪报告
+## 货币对-投机情绪报告
 
 接口：macro_fx_sentiment
 
@@ -602,7 +602,7 @@ print(macro_fx_sentiment_df)
 966  2022-10-17 20:10   55.51   67.39   36.80  ...   42.82   30.95  39.78   59.70
 ```
 
-### 外汇行情报价
+## 外汇行情报价
 
 接口：fx_quote_baidu
 

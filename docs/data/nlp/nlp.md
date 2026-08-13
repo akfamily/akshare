@@ -1,6 +1,6 @@
-## [AKShare](https://github.com/akfamily/akshare) 自然语言处理
+# [AKShare](https://github.com/akfamily/akshare) 自然语言处理
 
-### 知识图谱
+## 知识图谱
 
 接口：nlp_ownthink
 
@@ -116,7 +116,7 @@ print(nlp_ownthink_df)
 ['中国通信学会', '学科']
 ```
 
-### 智能问答
+## 智能问答
 
 接口：nlp_answer
 

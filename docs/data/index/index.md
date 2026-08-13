@@ -1,8 +1,8 @@
-## [AKShare](https://github.com/akfamily/akshare) 指数数据
+# [AKShare](https://github.com/akfamily/akshare) 指数数据
 
-### A股股票指数
+## A股股票指数
 
-#### 实时行情数据-东财
+### 实时行情数据-东财
 
 接口：stock_zh_index_spot_em
 
@@ -64,7 +64,7 @@ print(stock_zh_index_spot_em_df)
 [179 rows x 14 columns]
 ```
 
-#### 实时行情数据-新浪
+### 实时行情数据-新浪
 
 接口：stock_zh_index_spot_sina
 
@@ -123,9 +123,9 @@ print(stock_zh_index_spot_sina_df)
 [557 rows x 11 columns]
 ```
 
-#### 历史行情数据
+### 历史行情数据
 
-##### 历史行情数据-新浪
+#### 历史行情数据-新浪
 
 接口：stock_zh_index_daily
 
@@ -179,7 +179,7 @@ print(stock_zh_index_daily_df)
 [4571 rows x 6 columns]
 ```
 
-##### 历史行情数据-腾讯
+#### 历史行情数据-腾讯
 
 接口：stock_zh_index_daily_tx
 
@@ -235,7 +235,7 @@ print(stock_zh_index_daily_tx_df)
 [76 rows x 6 columns]
 ```
 
-##### 历史行情数据-东方财富
+#### 历史行情数据-东方财富
 
 接口：stock_zh_index_daily_em
 
@@ -292,7 +292,7 @@ print(stock_zh_index_daily_em_df)
 [4571 rows x 7 columns]
 ```
 
-##### 历史行情数据-通用
+#### 历史行情数据-通用
 
 接口：index_zh_a_hist
 
@@ -353,7 +353,7 @@ print(index_zh_a_hist_df)
 4404  2022-02-21  3155.32  3144.86  3155.88  ...  0.86 -0.57 -17.96  0.21
 ```
 
-#### 分时行情数据
+### 分时行情数据
 
 接口：index_zh_a_hist_min_em
 
@@ -412,9 +412,9 @@ print(index_zh_a_hist_min_em_df)
 [241 rows x 8 columns]
 ```
 
-### 港股股票指数
+## 港股股票指数
 
-#### 实时行情数据-新浪
+### 实时行情数据-新浪
 
 接口：stock_hk_index_spot_sina
 
@@ -498,7 +498,7 @@ print(stock_hk_index_spot_sina_df)
 [38 rows x 9 columns]
 ```
 
-#### 历史行情数据-新浪
+### 历史行情数据-新浪
 
 接口：stock_hk_index_daily_sina
 
@@ -552,7 +552,7 @@ print(stock_hk_index_daily_sina_df)
 [2298 rows x 6 columns]
 ```
 
-#### 实时行情数据-东财
+### 实时行情数据-东财
 
 接口：stock_hk_index_spot_em
 
@@ -613,7 +613,7 @@ print(stock_hk_index_spot_em_df)
 [359 rows x 13 columns]
 ```
 
-#### 历史行情数据-东财
+### 历史行情数据-东财
 
 接口：stock_hk_index_daily_em
 
@@ -666,9 +666,9 @@ print(stock_zh_index_daily_em_df)
 [680 rows x 5 columns]
 ```
 
-### 美股股票指数
+## 美股股票指数
 
-#### 指数行情
+### 指数行情
 
 接口：index_us_stock_sina
 
@@ -721,9 +721,9 @@ print(index_us_stock_sina_df)
 [4956 rows x 7 columns]
 ```
 
-### 全球指数
+## 全球指数
 
-#### 全球指数-实时行情数据
+### 全球指数-实时行情数据
 
 接口：index_global_spot_em
 
@@ -826,7 +826,7 @@ print(index_global_spot_em_df)
 [56 rows x 12 columns]
 ```
 
-#### 全球指数-历史行情数据-东财
+### 全球指数-历史行情数据-东财
 
 接口：index_global_hist_em
 
@@ -880,7 +880,7 @@ print(index_global_hist_em_df)
 [10032 rows x 8 columns]
 ```
 
-#### 全球指数-历史行情数据-新浪
+### 全球指数-历史行情数据-新浪
 
 接口：index_global_hist_sina
 
@@ -934,9 +934,9 @@ print(index_global_hist_sina_df)
 [1000 rows x 6 columns]
 ```
 
-### 中国股票指数成份
+## 中国股票指数成份
 
-#### 最新成份
+### 最新成份
 
 接口：index_stock_cons
 
@@ -1745,7 +1745,7 @@ print(index_stock_cons_df)
 [40 rows x 4 columns]
 ```
 
-#### 中证指数成份股
+### 中证指数成份股
 
 接口：index_stock_cons_csindex
 
@@ -1800,7 +1800,7 @@ print(index_stock_cons_csindex_df)
 [300 rows x 9 columns]
 ```
 
-#### 中证指数成份股权重
+### 中证指数成份股权重
 
 接口：index_stock_cons_weight_csindex
 
@@ -1856,9 +1856,9 @@ print(index_stock_cons_weight_csindex_df)
 [300 rows x 10 columns]
 ```
 
-### 国证指数
+## 国证指数
 
-#### 全部指数
+### 全部指数
 
 接口：index_all_cni
 
@@ -1914,7 +1914,7 @@ print(index_all_cni_df)
 [1262 rows x 10 columns]
 ```
 
-#### 指数行情
+### 指数行情
 
 接口：index_hist_cni
 
@@ -1970,7 +1970,7 @@ print(index_hist_cni_df)
 [242 rows x 8 columns]
 ```
 
-#### 指数样本详情
+### 指数样本详情
 
 接口：index_detail_cni
 
@@ -2023,7 +2023,7 @@ print(index_detail_cni_df)
 [30500 rows x 6 columns]
 ```
 
-#### 历史样本
+### 历史样本
 
 接口：index_detail_hist_cni
 
@@ -2076,7 +2076,7 @@ print(index_detail_hist_cni_df)
 [30500 rows x 6 columns]
 ```
 
-#### 历史调样
+### 历史调样
 
 接口：index_detail_hist_adjust_cni
 
@@ -2128,9 +2128,9 @@ print(index_detail_hist_adjust_cni_df)
 [1190 rows x 6 columns]
 ```
 
-### 期权波动率指数
+## 期权波动率指数
 
-#### 50ETF 期权波动率指数
+### 50ETF 期权波动率指数
 
 接口：index_option_50etf_qvix
 
@@ -2183,7 +2183,7 @@ print(index_option_50etf_qvix_df)
 [2113 rows x 5 columns]
 ```
 
-#### 50ETF 期权波动率指数-分时
+### 50ETF 期权波动率指数-分时
 
 接口：index_option_50etf_min_qvix
 
@@ -2233,7 +2233,7 @@ print(index_option_50etf_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 300ETF 期权波动率指数
+### 300ETF 期权波动率指数
 
 接口：index_option_300etf_qvix
 
@@ -2286,7 +2286,7 @@ print(index_option_300etf_qvix_df)
 [2113 rows x 5 columns]
 ```
 
-#### 300ETF 期权波动率指数-分时
+### 300ETF 期权波动率指数-分时
 
 接口：index_option_300etf_min_qvix
 
@@ -2336,7 +2336,7 @@ print(index_option_300etf_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 500ETF 期权波动率指数
+### 500ETF 期权波动率指数
 
 接口：index_option_500etf_qvix
 
@@ -2389,7 +2389,7 @@ print(index_option_500etf_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 500ETF 期权波动率指数-分时
+### 500ETF 期权波动率指数-分时
 
 接口：index_option_500etf_min_qvix
 
@@ -2439,7 +2439,7 @@ print(index_option_500etf_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 创业板 期权波动率指数
+### 创业板 期权波动率指数
 
 接口：index_option_cyb_qvix
 
@@ -2492,7 +2492,7 @@ print(index_option_cyb_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 创业板 期权波动率指数-分时
+### 创业板 期权波动率指数-分时
 
 接口：index_option_cyb_min_qvix
 
@@ -2542,7 +2542,7 @@ print(index_option_cyb_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 科创板 期权波动率指数
+### 科创板 期权波动率指数
 
 接口：index_option_kcb_qvix
 
@@ -2595,7 +2595,7 @@ print(index_option_kcb_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 科创板 期权波动率指数-分时
+### 科创板 期权波动率指数-分时
 
 接口：index_option_kcb_min_qvix
 
@@ -2645,7 +2645,7 @@ print(index_option_kcb_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 深证100ETF 期权波动率指数
+### 深证100ETF 期权波动率指数
 
 接口：index_option_100etf_qvix
 
@@ -2698,7 +2698,7 @@ print(index_option_100etf_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 深证100ETF 期权波动率指数-分时
+### 深证100ETF 期权波动率指数-分时
 
 接口：index_option_100etf_min_qvix
 
@@ -2748,7 +2748,7 @@ print(index_option_100etf_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 中证300股指 期权波动率指数
+### 中证300股指 期权波动率指数
 
 接口：index_option_300index_qvix
 
@@ -2801,7 +2801,7 @@ print(index_option_300index_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 中证300股指 期权波动率指数-分时
+### 中证300股指 期权波动率指数-分时
 
 接口：index_option_300index_min_qvix
 
@@ -2851,7 +2851,7 @@ print(index_option_300index_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 中证1000股指 期权波动率指数
+### 中证1000股指 期权波动率指数
 
 接口：index_option_1000index_qvix
 
@@ -2904,7 +2904,7 @@ print(index_option_1000index_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 中证1000股指 期权波动率指数-分时
+### 中证1000股指 期权波动率指数-分时
 
 接口：index_option_1000index_min_qvix
 
@@ -2954,7 +2954,7 @@ print(index_option_1000index_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-#### 上证50股指 期权波动率指数
+### 上证50股指 期权波动率指数
 
 接口：index_option_50index_qvix
 
@@ -3007,7 +3007,7 @@ print(index_option_50index_qvix_df)
 [2398 rows x 5 columns]
 ```
 
-#### 上证50股指 期权波动率指数-分时
+### 上证50股指 期权波动率指数-分时
 
 接口：index_option_50index_min_qvix
 
@@ -3057,7 +3057,7 @@ print(index_option_50index_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-### 申万一级行业信息
+## 申万一级行业信息
 
 接口：sw_index_first_info
 
@@ -3129,7 +3129,7 @@ print(sw_index_first_info_df)
 30  801980.SI  美容护理    28  40.38       41.16  5.36   0.78
 ```
 
-### 申万二级行业信息
+## 申万二级行业信息
 
 接口：sw_index_second_info
 
@@ -3183,7 +3183,7 @@ print(sw_index_second_info_df)
 [124 rows x 8 columns]
 ```
 
-### 申万三级行业信息
+## 申万三级行业信息
 
 接口：sw_index_third_info
 
@@ -3236,7 +3236,7 @@ print(sw_index_third_info_df)
 [258 rows x 8 columns]
 ```
 
-### 申万三级行业成份
+## 申万三级行业成份
 
 接口：sw_index_third_cons
 
@@ -3298,7 +3298,7 @@ print(sw_index_third_cons_df)
 7   8  002041.SZ  登海种业  2004-06-29   种子   NaN  9.65   78.60   70.55  2.68    0.60  0.62   84.92               0.63               0.10               -9.05    -31.75   -25.14
 ```
 
-### 商品现货价格指数
+## 商品现货价格指数
 
 接口：spot_goods
 
@@ -3356,7 +3356,7 @@ print(spot_goods_df)
 [3678 rows x 4 columns]
 ```
 
-### 义乌小商品指数
+## 义乌小商品指数
 
 接口：index_yw
 
@@ -3483,7 +3483,7 @@ print(index_yw_df)
 11  2024-04-01  1413.93  1101.44  2237.66  1006.87
 ```
 
-### 柯桥纺织品指数
+## 柯桥纺织品指数
 
 接口：index_kq_fz
 
@@ -3606,7 +3606,7 @@ print(index_kq_fz_df)
 [177 rows x 5 columns]
 ```
 
-### 柯桥时尚指数
+## 柯桥时尚指数
 
 接口：index_kq_fashion
 
@@ -3715,7 +3715,7 @@ print(index_kq_fashion_df)
 25  2023-03-31  127.061311   0.430384  0.003399
 ```
 
-### 中国食糖指数
+## 中国食糖指数
 
 接口：index_sugar_msweet
 
@@ -3765,7 +3765,7 @@ print(index_sugar_msweet_df)
 [4239 rows x 4 columns]
 ```
 
-### 配额内进口糖估算指数
+## 配额内进口糖估算指数
 
 接口：index_inner_quote_sugar_msweet
 
@@ -3824,7 +3824,7 @@ print(index_inner_quote_sugar_msweet_df)
 [2886 rows x 13 columns]
 ```
 
-### 配额外进口糖估算指数
+## 配额外进口糖估算指数
 
 接口：index_outer_quote_sugar_msweet
 
@@ -3876,7 +3876,7 @@ print(index_outer_quote_sugar_msweet_df)
 [1780 rows x 6 columns]
 ```
 
-### 排污权指数
+## 排污权指数
 
 接口：index_eri
 
@@ -3926,7 +3926,7 @@ print(index_eri_df)
 [102 rows x 4 columns]
 ```
 
-### 集装箱指数
+## 集装箱指数
 
 接口：drewry_wci_index
 
@@ -3976,9 +3976,9 @@ print(drewry_wci_index_df)
 [442 rows x 2 columns]
 ```
 
-### 公路物流指数
+## 公路物流指数
 
-#### 中国公路物流运价指数
+### 中国公路物流运价指数
 
 接口：index_price_cflp
 
@@ -4028,7 +4028,7 @@ print(index_price_cflp_df)
 [437 rows x 4 columns]
 ```
 
-#### 中国公路物流运量指数
+### 中国公路物流运量指数
 
 接口：index_volume_cflp
 
@@ -4121,7 +4121,7 @@ print(index_volume_cflp_df)
 54  2020-08-31   56.95   58.97  108.56
 ```
 
-### 中证指数
+## 中证指数
 
 接口：stock_zh_index_hist_csindex
 
@@ -4187,9 +4187,9 @@ print(stock_zh_index_hist_csindex_df)
 [2856 rows x 16 columns]
 ```
 
-### 财新指数
+## 财新指数
 
-#### 综合 PMI
+### 综合 PMI
 
 接口：index_pmi_com_cx
 
@@ -4239,7 +4239,7 @@ print(index_pmi_com_cx_df)
 94  2022-01-30   50.1 -2.9
 ```
 
-#### 制造业 PMI
+### 制造业 PMI
 
 接口：index_pmi_man_cx
 
@@ -4289,7 +4289,7 @@ print(index_pmi_man_cx_df)
 94  2022-01-30    49.1 -1.8
 ```
 
-#### 服务业 PMI
+### 服务业 PMI
 
 接口：index_pmi_ser_cx
 
@@ -4339,7 +4339,7 @@ print(index_pmi_ser_cx_df)
 94  2022-01-30    51.4 -1.7
 ```
 
-#### 数字经济指数
+### 数字经济指数
 
 接口：index_dei_cx
 
@@ -4389,7 +4389,7 @@ print(index_dei_cx_df)
 71  2021-11-30  435.00 -158.00
 ```
 
-#### 产业指数
+### 产业指数
 
 接口：index_ii_cx
 
@@ -4439,7 +4439,7 @@ print(index_ii_cx_df)
 71  2021-11-30  310.74  48.77
 ```
 
-#### 溢出指数
+### 溢出指数
 
 接口：index_si_cx
 
@@ -4489,7 +4489,7 @@ print(index_si_cx_df)
 71  2021-11-30   48.24 -46.68
 ```
 
-#### 融合指数
+### 融合指数
 
 接口：index_fi_cx
 
@@ -4539,7 +4539,7 @@ print(index_fi_cx_df)
 71  2021-11-30  253.82  31.79
 ```
 
-#### 基础指数
+### 基础指数
 
 接口：index_bi_cx
 
@@ -4589,7 +4589,7 @@ print(index_bi_cx_df)
 71  2021-11-30   48.14 -35.36
 ```
 
-#### 中国新经济指数
+### 中国新经济指数
 
 接口：index_nei_cx
 
@@ -4639,7 +4639,7 @@ print(index_nei_cx_df)
 68  2021-12-31  29.464567  1.407950
 ```
 
-#### 劳动力投入指数
+### 劳动力投入指数
 
 接口：index_li_cx
 
@@ -4689,7 +4689,7 @@ print(index_li_cx_df)
 77  2021-12-31  22.587685  -0.871255
 ```
 
-#### 资本投入指数
+### 资本投入指数
 
 接口：index_ci_cx
 
@@ -4739,7 +4739,7 @@ print(index_ci_cx_df)
 77  2021-12-31  39.438158   4.906216
 ```
 
-#### 科技投入指数
+### 科技投入指数
 
 接口：index_ti_cx
 
@@ -4789,7 +4789,7 @@ print(index_ti_cx_df)
 77  2021-12-31  26.504550  0.157105
 ```
 
-#### 新经济行业入职平均工资水平
+### 新经济行业入职平均工资水平
 
 接口：index_neaw_cx
 
@@ -4839,7 +4839,7 @@ print(index_neaw_cx_df)
 77  2021-12-31     13241.5176  116.9039
 ```
 
-#### 新经济入职工资溢价水平
+### 新经济入职工资溢价水平
 
 接口：index_awpr_cx
 
@@ -4889,7 +4889,7 @@ print(index_awpr_cx_df)
 77  2021-12-31   104.185324  2.129122
 ```
 
-#### 大宗商品指数
+### 大宗商品指数
 
 接口：index_cci_cx
 
@@ -4940,7 +4940,7 @@ print(index_cci_cx_df)
 [3740 rows x 3 columns]
 ```
 
-#### 高质量因子
+### 高质量因子
 
 接口：index_qli_cx
 
@@ -4991,7 +4991,7 @@ print(index_qli_cx_df)
 [1480 rows x 3 columns]
 ```
 
-#### AI策略指数
+### AI策略指数
 
 接口：index_ai_cx
 
@@ -5042,7 +5042,7 @@ print(index_ai_cx_df)
 [828 rows x 3 columns]
 ```
 
-#### 基石经济指数
+### 基石经济指数
 
 接口：index_bei_cx
 
@@ -5093,7 +5093,7 @@ print(index_bei_cx_df)
 [1807 rows x 3 columns]
 ```
 
-#### 新动能指数
+### 新动能指数
 
 接口：index_neei_cx
 
@@ -5154,9 +5154,9 @@ print(index_neei_cx_df)
 21  2024-06-04  1572.3699  0.980896
 ```
 
-### 指数估值
+## 指数估值
 
-#### 指数估值-中证
+### 指数估值-中证
 
 接口：stock_zh_index_value_csindex
 
@@ -5223,9 +5223,9 @@ print(stock_zh_index_value_csindex_df)
 [20 rows x 10 columns]
 ```
 
-### 申万宏源研究
+## 申万宏源研究
 
-#### 基金指数实时行情
+### 基金指数实时行情
 
 接口：index_realtime_fund_sw
 
@@ -5273,7 +5273,7 @@ print(index_realtime_fund_sw_df)
 6  807700  申万宏源QDII基金指数  1063.01  0.03  1.78
 ```
 
-#### 基金指数历史行情
+### 基金指数历史行情
 
 接口：index_hist_fund_sw
 
@@ -5328,7 +5328,7 @@ print(index_hist_fund_sw_df)
 [4435 rows x 6 columns]
 ```
 
-#### 申万指数实时行情
+### 申万指数实时行情
 
 接口：index_realtime_sw
 
@@ -5389,7 +5389,7 @@ print(index_realtime_sw_df)
 [9 rows x 9 columns]
 ```
 
-#### 申万指数历史行情
+### 申万指数历史行情
 
 接口：index_hist_sw
 
@@ -5446,7 +5446,7 @@ print(index_hist_sw_df)
 [4086 rows x 8 columns]
 ```
 
-#### 申万指数分时行情
+### 申万指数分时行情
 
 接口：index_min_sw
 
@@ -5499,7 +5499,7 @@ print(index_min_sw_df)
 [973 rows x 5 columns]
 ```
 
-#### 申万指数成分股
+### 申万指数成分股
 
 接口：index_component_sw
 
@@ -5552,7 +5552,7 @@ print(index_component_sw_df)
 [150 rows x 5 columns]
 ```
 
-#### 申万指数分析-日报表
+### 申万指数分析-日报表
 
 接口：index_analysis_daily_sw
 
@@ -5614,7 +5614,7 @@ print(index_analysis_daily_sw_df)
 [9 rows x 14 columns]
 ```
 
-#### 申万指数分析-周报表
+### 申万指数分析-周报表
 
 接口：index_analysis_weekly_sw
 
@@ -5675,7 +5675,7 @@ print(index_analysis_weekly_sw_df)
 [9 rows x 14 columns]
 ```
 
-#### 申万指数分析-月报表
+### 申万指数分析-月报表
 
 接口：index_analysis_monthly_sw
 
@@ -5736,9 +5736,9 @@ print(index_analysis_monthly_sw_df)
 [9 rows x 14 columns]
 ```
 
-### 市场情绪指数
+## 市场情绪指数
 
-#### A 股新闻情绪指数
+### A 股新闻情绪指数
 
 接口：index_news_sentiment_scope
 

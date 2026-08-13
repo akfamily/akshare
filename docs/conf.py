@@ -14,8 +14,6 @@ import ast
 import re
 from datetime import datetime
 
-from recommonmark.transform import AutoStructify
-
 
 def get_version_string():
     """
@@ -36,13 +34,11 @@ latex_elements = {
     "preamble": "\\usepackage[UTF8]{ctex}\n",
 }
 
-source_parsers = {
-    ".md": "recommonmark.parser.CommonMarkParser",
+# myst_parser 会自行注册 .md 解析器，无需 source_parsers（该配置项在新版 Sphinx 已移除）。
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
 }
-
-source_suffix = [".rst", ".md"]
-
-github_doc_root = "https://github.com/rtfd/recommonmark/tree/master/doc/"
 
 # -- Project information -----------------------------------------------------
 
@@ -61,7 +57,9 @@ release = get_version_string()
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["recommonmark", "sphinx_markdown_tables", "sphinx_rtd_theme"]
+# 不再需要 sphinx_markdown_tables：它当年存在的唯一理由是 recommonmark 不支持
+# Markdown 表格，而 myst_parser 原生渲染 GFM 表格（本文档有 16000+ 行表格）。
+extensions = ["myst_parser", "sphinx_rtd_theme"]
 
 # Add any paths that contain templates here, relative to this directory.
 
@@ -92,14 +90,12 @@ html_theme = "sphinx_rtd_theme"
 
 master_doc = "index"
 
-
-def setup(app):
-    app.add_config_value(
-        "recommonmark_config",
-        {
-            "url_resolver": lambda url: github_doc_root + url,
-            "auto_toc_tree_section": "Contents",
-        },
-        True,
-    )
-    app.add_transform(AutoStructify)
+# 原先的 setup() 只做两件 recommonmark 专属的事，迁移后都不需要：
+# url_resolver 指向 recommonmark 自己的仓库、与本项目无关；
+# auto_toc_tree_section = "Contents" 依赖名为 Contents 的小节，
+# 而全库 46 个 md 文件中没有任何一个含该小节，属于从未生效的死配置。
+#
+# myst_parser 默认只启用 CommonMark 加表格。本文档正文中大量出现
+# 未转义的下划线与星号（接口名如 stock_zh_a_hist），因此刻意不开启
+# 额外的行内语法扩展，避免把接口名误解析为强调。
+myst_heading_anchors = 3
