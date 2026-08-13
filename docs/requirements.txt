@@ -10,4 +10,4 @@ readthedocs-sphinx-search>=0.3.2
 sphinx-markdown-tables>=0.0.17
 setuptools>=69.2.0
 recommonmark>=0.7.1
-markdown>=3.6
+markdown>=3.10.3
