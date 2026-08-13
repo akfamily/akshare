@@ -86,5 +86,9 @@ docs/_build/
 
 CLAUDE.md
 
-# superpowers SDD 工作区（本地临时产物）
+# AI 辅助流程的中间产物：SDD 工作区、实施计划、设计稿、任务台账。
+# 一律本地保留、不入库——它们面向 agent 执行过程，而非本库的使用者或维护者。
+# 确有长期价值的设计说明，应改写为正式文档并入 docs/，而不是把过程文件留在根目录。
 .superpowers/
+plans/
+specs/

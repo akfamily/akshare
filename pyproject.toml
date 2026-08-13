@@ -7,7 +7,7 @@ name = "akshare"
 dynamic = ["version"]
 description = "AKShare is an elegant and simple financial data interface library for Python, built for human beings!"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
     {name = "AKFamily", email = "albertandking@gmail.com"}
@@ -30,8 +30,6 @@ keywords = [
     "data",
 ]
 classifiers = [
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -58,10 +56,6 @@ dependencies = [
     "akracer>=0.0.13; platform_system == 'Linux'",
 ]
 
-[project.optional-dependencies]
-full = ["akqmt"]
-qmt = ["akqmt"]
-
 [project.urls]
 Homepage = "https://github.com/akfamily/akshare"
 
@@ -81,13 +75,12 @@ test = ["pytest>=8.0.0"]
 # 编辑器的 LSP 能力由 ruff 自带的 ruff server 子命令提供，无需额外依赖。
 # 原先声明的 ruff-lsp 已被 Astral 归档（PyPI 停在 0.0.62 / 2025-02，
 # 包自身即会打印废弃警告并指向 ruff server），故不再声明。
-lint = ["ruff==0.16.2; python_version >= '3.10'"]
+lint = ["ruff==0.16.2"]
 dev = [
     { include-group = "test" },
     { include-group = "lint" },
-    "akqmt>=0.1.0",
-    "commitizen>=4.12.1; python_version >= '3.10'",
-    "pre-commit>=3.6.2; python_version >= '3.9'",
+    "commitizen>=4.12.1",
+    "pre-commit>=3.6.2",
     "mplfinance>=0.12.10b0",
 ]
 
@@ -149,9 +142,8 @@ extend-exclude = ["*.md"]
 line-length = 88
 indent-width = 4
 
-# 与 requires-python = ">=3.9" 保持一致，令 ruff 拦下 match、PEP 695 等 3.10+ 语法。
-# 注意 X | Y 注解在 3.9 是合法语法、仅运行时报错，ruff 不覆盖，仍需人工留意。
-target-version = "py39"
+# 与 requires-python = ">=3.11" 保持一致，也与 CI 矩阵的下界一致。
+target-version = "py311"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.

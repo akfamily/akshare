@@ -120,7 +120,6 @@ EXCLUDE = {
     "pro_api",
     "set_token",
     "get_token",
-    "xt_api",
     "AkshareException",
     "APIError",
     "DataParsingError",
@@ -131,6 +130,14 @@ EXCLUDE = {
     "interface_info",
     "list_categories",
 }
+
+# EXCLUDE 的成员被排除在 registry 之外，但除 dunder 以外它们仍是公开 API，
+# 因此必须出现在 __all__ 里。dunder 不需要：ak.__version__ 的可访问性与
+# __all__ 无关，而 __all__ 只影响 from akshare import * 导出哪些名字。
+DUNDER_EXPORTS = {"__version__"}
+
+ALL_BEGIN = "# === __all__ 开始：由 scripts/build_registry.py 生成，请勿手工编辑 ==="
+ALL_END = "# === __all__ 结束 ==="
 
 
 def collect_exports(init_path: pathlib.Path) -> Dict[str, str]:
@@ -153,6 +160,50 @@ def collect_exports(init_path: pathlib.Path) -> Dict[str, str]:
                 continue
             exports[name] = node.module
     return exports
+
+
+def collect_all_names(init_path: pathlib.Path) -> List[str]:
+    """
+    计算 __init__.py 应当声明的 __all__ 名单。
+
+    构成为「数据接口导出表」并上「EXCLUDE 中的非 dunder 公开 API」。
+    刻意不含子模块名（air、bond、cal 等）：它们只是 import 的副产物，
+    缺少 __all__ 时 from akshare import * 会把它们一并倒进用户命名空间，
+    其中 cal、event、bank 一类通用词很容易静默覆盖用户自己的变量。
+
+    :param init_path: akshare/__init__.py 路径
+    :return: 按字典序排序的公开名称列表
+    """
+    exports = collect_exports(init_path)
+    return sorted(set(exports) | (EXCLUDE - DUNDER_EXPORTS))
+
+
+def render_all_block(names: List[str]) -> str:
+    """
+    渲染带首尾标记的 __all__ 代码块。
+
+    :param names: 公开名称列表
+    :return: 可写入 __init__.py 的文本，以换行结尾
+    """
+    lines = [ALL_BEGIN, "__all__ = ["]
+    lines.extend(f'    "{name}",' for name in names)
+    lines.extend(["]", ALL_END, ""])
+    return "\n".join(lines)
+
+
+def replace_all_block(text: str, block: str) -> str:
+    """
+    用新块替换 __init__.py 中的 __all__ 块，标记不存在时追加到文件末尾。
+
+    :param text: __init__.py 原文
+    :param block: render_all_block 的输出
+    :return: 替换后的全文
+    """
+    if ALL_BEGIN in text:
+        head, _, rest = text.partition(ALL_BEGIN)
+        _, _, tail = rest.partition(ALL_END)
+        return head + block + tail.lstrip("\n")
+    return text.rstrip("\n") + "\n\n" + block
 
 
 SCHEMA_VERSION = 1
@@ -254,17 +305,26 @@ def main() -> int:
     )
     args = parser.parse_args()
     repo_root = pathlib.Path(__file__).resolve().parent.parent
+    init_path = repo_root / "akshare" / "__init__.py"
     text = build(repo_root)
+    init_text = init_path.read_text(encoding="utf-8")
+    all_block = render_all_block(collect_all_names(init_path))
+    new_init_text = replace_all_block(init_text, all_block)
     if args.check:
         baseline_path = repo_root / BASELINE_RELPATH
         baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
-        exports = collect_exports(repo_root / "akshare" / "__init__.py")
+        exports = collect_exports(init_path)
         docs = collect_doc_records(repo_root / "docs" / "data")
         problems = diff_baseline(exports, docs, baseline)
         current = (repo_root / OUTPUT_RELPATH).read_text(encoding="utf-8")
         if current != text:
             problems.append(
                 "interfaces.json 与源不同步，请运行 python scripts/build_registry.py"
+            )
+        if new_init_text != init_text:
+            problems.append(
+                "__init__.py 的 __all__ 与导入表不同步，"
+                "请运行 python scripts/build_registry.py"
             )
         if problems:
             for problem in problems:
@@ -274,6 +334,11 @@ def main() -> int:
         return 0
     (repo_root / OUTPUT_RELPATH).write_text(text, encoding="utf-8", newline="\n")
     print(f"已写入 {OUTPUT_RELPATH}")
+    if new_init_text != init_text:
+        init_path.write_text(new_init_text, encoding="utf-8", newline="\n")
+        print(
+            f"已更新 {init_path.name} 的 __all__（{len(collect_all_names(init_path))} 项）"
+        )
     return 0
 
 

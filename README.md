@@ -8,7 +8,7 @@
 **工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
 如需了解更多信息可访问[期魔方](https://qmfquant.com)。
 
-![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
+![AKShare Logo](https://raw.githubusercontent.com/akfamily/akshare/main/assets/images/akshare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
@@ -16,16 +16,16 @@
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/?badge=latest)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
-[![Actions Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions)
+[![Checks Status](https://github.com/akfamily/akshare/actions/workflows/main_dev_check.yml/badge.svg)](https://github.com/akfamily/akshare/actions/workflows/main_dev_check.yml)
+[![Release Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml)
 [![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/main/LICENSE)
-[![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/akfamily/akshare)
-[![](https://img.shields.io/github/stars/jindaxiang/akshare)](https://github.com/akfamily/akshare)
-[![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/akfamily/akshare)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![](https://img.shields.io/github/forks/akfamily/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/stars/akfamily/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/issues/akfamily/akshare)](https://github.com/akfamily/akshare)
 
 ## Overview
 
-[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.9 or higher and
+[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.11 or higher and
 aims to simplify the process of fetching financial data.
 
 **Write less, get more!**
@@ -43,13 +43,8 @@ pip install akshare --upgrade
 ### China
 
 ```shell
-pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+pip install akshare -i https://mirrors.aliyun.com/pypi/simple/ --upgrade
 ```
-
-### PR
-
-Please check out [Documentation](https://akshare.akfamily.xyz/contributing.html) if you
-want to contribute to AKShare
 
 ### Docker
 
@@ -82,7 +77,7 @@ Code:
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20231022', adjust="")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date="20231022", adjust="")
 print(stock_zh_a_hist_df)
 ```
 
@@ -155,13 +150,9 @@ stock_us_daily_df = stock_us_daily_df["2020-04-01": "2020-04-29"]
 mpf.plot(stock_us_daily_df, type="candle", mav=(3, 6, 9), volume=True, show_nontrading=False)
 ```
 
-Output:
-
-![KLine](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/AAPL_candle.png)
-
 ## Features
 
-- **Easy of use**: Just one line code to fetch the data;
+- **Ease of use**: Just one line code to fetch the data;
 - **Extensible**: Easy to customize your own code with other application;
 - **Powerful**: Python ecosystem.
 
@@ -172,16 +163,21 @@ Output:
 3. [Interface Search](https://akshare.akfamily.xyz/registry.html)
 4. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
 5. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
-6. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
+6. [Indicator](https://akshare.akfamily.xyz/indicator.html)
+7. [Data Tips](https://akshare.akfamily.xyz/data_tips.html)
+8. [Trade](https://akshare.akfamily.xyz/trade.html)
 
 ## Contribution
 
-[AKShare](https://github.com/akfamily/akshare) is still under developing, feel free to open issues and pull requests:
+[AKShare](https://github.com/akfamily/akshare) is still under development, feel free to open issues and pull requests:
 
 - Report or fix bugs
 - Require or publish interface
 - Write or fix documentation
 - Add test cases
+
+See the [contributing guide](https://akshare.akfamily.xyz/contributing.html) before
+opening a pull request.
 
 > Notice: We use [Ruff](https://github.com/astral-sh/ruff) to format the code
 
@@ -271,11 +267,11 @@ Thanks for the data provided by [上海国际能源交易中心网站](http://ww
 
 Thanks for the data provided by [Timeanddate 网站](https://www.timeanddate.com/);
 
-Thanks for the data provided by [河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/);
+Thanks for the data provided by [河北省空气质量预报信息发布系统网站](http://218.11.10.130:8080/);
 
-Thanks for the data provided by [Economic Policy Uncertainty 网站](http://www.nanhua.net/nhzc/varietytrend.html);
+Thanks for the data provided by [Economic Policy Uncertainty 网站](https://www.policyuncertainty.com/);
 
-Thanks for the data provided by [申万指数网站](http://www.swsindex.com/idx0120.aspx?columnid=8832);
+Thanks for the data provided by 申万指数网站;
 
 Thanks for the data provided by [真气网网站](https://www.zq12369.com/);
 
@@ -289,7 +285,7 @@ Thanks for the data provided by [北京市碳排放权电子交易平台网站](
 
 Thanks for the data provided by [国家金融与发展实验室网站](http://www.nifd.cn/);
 
-Thanks for the data provided by [义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/);
+Thanks for the data provided by [义乌小商品指数网站](https://www.ywindex.com/);
 
 Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
 

@@ -1,12 +1,17 @@
 import json
 
 from build_registry import (
+    ALL_BEGIN,
+    ALL_END,
+    collect_all_names,
     collect_doc_records,
     collect_exports,
     diff_baseline,
     merge_records,
     parse_segment,
     parse_table,
+    render_all_block,
+    replace_all_block,
     serialize,
 )
 
@@ -194,9 +199,10 @@ from akshare.pro.data_pro import pro_api
 from akshare.utils.token_process import set_token, get_token
 from akshare.registry import search, interface_info, list_categories
 from .exceptions import APIError, NetworkError
+from pandas import DataFrame
 
 try:
-    from akqmt import xt_api
+    from akshare.optional.maybe_missing import optional_iface
 except ImportError:
     pass
 '''
@@ -211,7 +217,13 @@ def test_collect_exports_maps_name_to_module(tmp_path):
 
 
 def test_collect_exports_drops_non_data_interfaces(tmp_path):
-    """__version__/pro_api/set_token 等可推断 category，必须显式排除。"""
+    """
+    三类名字都不得进入导出表，各自由不同规则拦下：
+
+    - __version__/pro_api/set_token/search 等：可推断 category，靠 EXCLUDE 显式排除；
+    - DataFrame：模块名不以 "akshare." 开头，第三方导入一律忽略；
+    - optional_iface：嵌套在 try 内，collect_exports 只遍历 tree.body 顶层节点。
+    """
     init_file = tmp_path / "__init__.py"
     init_file.write_text(FAKE_INIT, encoding="utf-8")
     exports = collect_exports(init_file)
@@ -222,10 +234,11 @@ def test_collect_exports_drops_non_data_interfaces(tmp_path):
         "get_token",
         "APIError",
         "NetworkError",
-        "xt_api",
         "search",
         "interface_info",
         "list_categories",
+        "DataFrame",
+        "optional_iface",
     ):
         assert name not in exports
     assert len(exports) == 2
@@ -351,3 +364,71 @@ def test_baseline_rejects_fixed_orphan():
     problems = diff_baseline(exports, docs, BASE)
     assert len(problems) == 1
     assert "old_orphan" in problems[0]
+
+
+def test_collect_all_names_includes_non_data_public_api(tmp_path):
+    """__all__ 是数据接口与非数据公开 API 的并集，两类都不能漏。"""
+    init_file = tmp_path / "__init__.py"
+    init_file.write_text(FAKE_INIT, encoding="utf-8")
+    names = collect_all_names(init_file)
+    # 数据接口
+    assert "index_all_cni" in names
+    assert "index_hist_cni" in names
+    # registry 排除、但仍属公开 API 的工具函数与异常类
+    for name in ("pro_api", "set_token", "search", "APIError", "NetworkError"):
+        assert name in names
+
+
+def test_collect_all_names_excludes_dunder_and_third_party(tmp_path):
+    """dunder 的可访问性与 __all__ 无关；第三方与条件导入不得进入。"""
+    init_file = tmp_path / "__init__.py"
+    init_file.write_text(FAKE_INIT, encoding="utf-8")
+    names = collect_all_names(init_file)
+    for name in ("__version__", "DataFrame", "optional_iface"):
+        assert name not in names
+
+
+def test_collect_all_names_is_sorted_and_unique(tmp_path):
+    init_file = tmp_path / "__init__.py"
+    init_file.write_text(FAKE_INIT, encoding="utf-8")
+    names = collect_all_names(init_file)
+    assert names == sorted(names)
+    assert len(names) == len(set(names))
+
+
+def test_render_all_block_is_valid_python_and_round_trips():
+    """渲染结果必须能被 exec 出等价的 __all__，否则等于写坏了 __init__.py。"""
+    block = render_all_block(["b_iface", "a_iface"])
+    assert block.startswith(ALL_BEGIN)
+    assert block.rstrip("\n").endswith(ALL_END)
+    namespace = {}
+    exec(block, namespace)
+    assert namespace["__all__"] == ["b_iface", "a_iface"]
+
+
+def test_replace_all_block_appends_when_marker_absent():
+    text = '"""doc"""\nfrom akshare.x import y\n'
+    block = render_all_block(["y"])
+    result = replace_all_block(text, block)
+    assert result.startswith('"""doc"""')
+    assert result.count(ALL_BEGIN) == 1
+    assert result.endswith(block)
+
+
+def test_replace_all_block_replaces_in_place_and_is_idempotent():
+    """重复生成不得堆叠出第二个块，这是 --check 能作为门禁的前提。"""
+    text = '"""doc"""\nfrom akshare.x import y\n'
+    once = replace_all_block(text, render_all_block(["y"]))
+    twice = replace_all_block(once, render_all_block(["y"]))
+    assert once == twice
+    assert twice.count(ALL_BEGIN) == 1
+    assert twice.count(ALL_END) == 1
+
+
+def test_replace_all_block_updates_stale_content():
+    text = '"""doc"""\nfrom akshare.x import y\n'
+    stale = replace_all_block(text, render_all_block(["old_iface"]))
+    fresh = replace_all_block(stale, render_all_block(["new_iface"]))
+    assert "old_iface" not in fresh
+    assert "new_iface" in fresh
+    assert fresh.count(ALL_BEGIN) == 1
