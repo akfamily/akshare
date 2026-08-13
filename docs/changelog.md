@@ -89,6 +89,13 @@
 
 ## 更新说明详情
 
+1.18.89 build: raise the minimum supported Python version to 3.11
+
+    1. 将 requires-python 提升至 3.11 以上，并同步 classifiers、CI 测试矩阵与 ruff target-version
+    2. 修复 uv.lock 中为 Python 3.9 保留的旧版本解析分支所引发的 24 条依赖安全告警
+    3. 新增 dependabot 配置，自动跟进 uv 与 GitHub Actions 的依赖更新
+    4. 同步更新文档中关于 Python 最低版本的说明
+
 1.18.88 fix: fix fund_portfolio_hold_em interface
 
     1. 修复 fund_portfolio_hold_em 接口

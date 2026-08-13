@@ -3294,6 +3294,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.86 fix: fix interface docs
 1.18.87 fix: fix interface docs
 1.18.88 fix: fix fund_portfolio_hold_em interface
+1.18.89 build: raise the minimum supported Python version to 3.11
 """
 
 from akshare._version import __version__

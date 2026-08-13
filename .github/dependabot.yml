@@ -1,0 +1,31 @@
+# Dependabot 配置
+#
+# 背景：uv.lock 入库后，Dependabot 才第一次能看到传递依赖的确切版本，
+# 一次性报出 24 条告警。根因是 requires-python 曾为 >=3.9，通用锁文件必须为
+# 3.9 保留一批旧版本解析分支（pillow 11.x、urllib3 2.6.x 等），而 CI 从不测 3.9。
+# 下限提到 3.11 后那些分支已消失。此处配置的目的是让后续漂移自动提 PR，
+# 而不是靠人去盯 Security 页面。
+version: 2
+updates:
+  # Python 依赖。uv 生态自 2025-03 起 GA，直接读取 pyproject.toml 与 uv.lock。
+  # 不要再并列 pip 生态：两者共存会出现只更新 uv.lock、pyproject.toml 保持陈旧的情况。
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    # 刻意不按 dependency-type 分组：Dependabot 读不懂 PEP 735 的 dependency-groups，
+    # 会把 dev 组的 pillow、filelock 标成 runtime，分组只会产生误导性的归类。
+    commit-message:
+      prefix: "build"
+      include: "scope"
+
+  # GitHub Actions。astral-sh/setup-uv 自 v8 起不再发布浮动大版本标签，
+  # 版本号只能手动追——这正是需要 Dependabot 的场景。
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
