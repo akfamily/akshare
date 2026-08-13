@@ -10,8 +10,8 @@
 # （迁移前每次构建产生 92 条 Container node skipped）。
 # sphinx-markdown-tables 与 markdown 随之移除：它们存在的唯一理由是
 # recommonmark 不支持 Markdown 表格，而 myst-parser 原生渲染 GFM 表格。
-sphinx>=7.4.3
-sphinx_rtd_theme>=2.0.0
+sphinx>=9.0.4
+sphinx_rtd_theme>=3.1.0
 readthedocs-sphinx-search>=0.3.2
 setuptools>=69.2.0
-myst-parser>=4.0.0
+myst-parser>=5.1.0
