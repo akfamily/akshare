@@ -92,7 +92,7 @@ def stock_lhb_ggtj_sina(symbol: str = "5") -> pd.DataFrame:
     """
     龙虎榜-个股上榜统计
     https://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml
-    :param symbol: choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}
+    :param symbol: choice of {"5": 最近 5 天；"10": 最近 10 天；"30": 最近 30 天；"60": 最近 60 天；}
     :type symbol: str
     :return: 龙虎榜-个股上榜统计
     :rtype: pandas.DataFrame
@@ -129,7 +129,7 @@ def stock_lhb_yytj_sina(symbol: str = "5") -> pd.DataFrame:
     """
     龙虎榜-营业部上榜统计
     https://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/yytj/index.phtml
-    :param symbol: choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}
+    :param symbol: choice of {"5": 最近 5 天；"10": 最近 10 天；"30": 最近 30 天；"60": 最近 60 天；}
     :type symbol: str
     :return: 龙虎榜-营业部上榜统计
     :rtype: pandas.DataFrame
@@ -167,7 +167,7 @@ def stock_lhb_jgzz_sina(symbol: str = "5") -> pd.DataFrame:
     """
     龙虎榜-机构席位追踪
     https://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml
-    :param symbol: choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}
+    :param symbol: choice of {"5": 最近 5 天；"10": 最近 10 天；"30": 最近 30 天；"60": 最近 60 天；}
     :type symbol: str
     :return: 龙虎榜-机构席位追踪
     :rtype: pandas.DataFrame

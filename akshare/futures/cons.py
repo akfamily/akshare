@@ -31,7 +31,7 @@ futures_inventory_em_symbol_dict = {
     "cu": "CU",  # 沪铜
     "CY": "CY",  # 棉纱
     "eb": "EB",  # 苯乙烯
-    "ec": "ec",  # 集运欧线/集运指数(欧线)
+    "ec": "ec",  # 集运欧线/集运指数（欧线）
     "eg": "EG",  # 乙二醇
     "fb": None,  # 纤维板 (new中没有对应)
     "FG": "FG",  # 玻璃
@@ -174,7 +174,7 @@ QHKC_FUND_BIG_CHANGE_URL = "https://qhkch.com/ajax/fund_big_chge.php"
 QHKC_TOOL_FOREIGN_URL = "https://qhkch.com/ajax/toolbox_foreign.php"
 QHKC_TOOL_GDP_URL = "https://qhkch.com/dist/views/toolbox/gdp.html?v=1.10.7.1"
 
-# 键值对: 键为交易所代码, 值为具体合约代码
+# 键值对：键为交易所代码，值为具体合约代码
 market_exchange_symbols = {
     "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS", "TL"],
     "dce": [
@@ -542,7 +542,7 @@ def convert_date(date):
 
 def get_json_path(name, module_file):
     """
-    获取 JSON 配置文件的路径(从模块所在目录查找)
+    获取 JSON 配置文件的路径（从模块所在目录查找）
     :param name: 文件名
     :param module_file: filename
     :return: str json_file_path
@@ -554,7 +554,7 @@ def get_json_path(name, module_file):
 
 def get_pk_path(name, module_file):
     """
-    获取 pickle 配置文件的路径(从模块所在目录查找)
+    获取 pickle 配置文件的路径（从模块所在目录查找）
     :param name: 文件名
     :param module_file: filename
     :return: str json_file_path
@@ -566,7 +566,7 @@ def get_pk_path(name, module_file):
 
 def get_pk_data(file_name):
     """
-    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
+    获取交易日历至 2019 年结束，这里的交易日历需要按年更新
     :return: json
     """
     setting_file_name = file_name
@@ -576,7 +576,7 @@ def get_pk_data(file_name):
 
 def get_calendar():
     """
-    获取交易日历, 这里的交易日历需要按年更新, 主要是从新浪获取的
+    获取交易日历，这里的交易日历需要按年更新，主要是从新浪获取的
     :return: 交易日历
     :rtype: json
     """
@@ -597,7 +597,7 @@ def last_trading_day(day):
 
     if isinstance(day, str):
         if day not in calendar:
-            print("Today is not trading day：" + day)
+            print("Today is not trading day: " + day)
             return False
         pos = calendar.index(day)
         last_day = calendar[pos - 1]
@@ -606,7 +606,7 @@ def last_trading_day(day):
     elif isinstance(day, datetime.date):
         d_str = day.strftime("%Y%m%d")
         if d_str not in calendar:
-            print("Today is not working day：" + d_str)
+            print("Today is not working day: " + d_str)
             return False
         pos = calendar.index(d_str)
         last_day = calendar[pos - 1]

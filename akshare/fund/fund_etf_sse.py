@@ -14,7 +14,7 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
     """
     上海证券交易所-产品-基金产品-ETF产品-ETF产品列表-基金规模
     https://www.sse.com.cn/assortment/fund/etf/list/scale/
-    :param date: 统计日期, 默认为空返回最新数据, 格式如 "20250115"
+    :param date: 统计日期，默认为空返回最新数据，格式如 "20250115"
     :type date: str
     :return: ETF基金份额数据
     :rtype: pandas.DataFrame

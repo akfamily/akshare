@@ -31,7 +31,7 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金重仓股
     https://webapi.cninfo.com.cn/#/thematicStatistics
-    :param date: 报告时间; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}
+    :param date: 报告时间；choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}
     :type date: str
     :return: 基金重仓股
     :rtype: pandas.DataFrame
@@ -98,7 +98,7 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金行业配置
     https://webapi.cninfo.com.cn/#/thematicStatistics
-    :param date: 报告时间; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}, 从 2017 年开始
+    :param date: 报告时间；choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}，从 2017 年开始
     :type date: str
     :return: 基金行业配置
     :rtype: pandas.DataFrame

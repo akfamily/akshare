@@ -3,7 +3,7 @@
 """
 Date: 2024/4/29 16:00
 Desc: 中国证券投资基金业协会-信息公示数据
-中国证券投资基金业协会-新版: https://gs.amac.org.cn
+中国证券投资基金业协会-新版：https://gs.amac.org.cn
 """
 
 import pandas as pd
@@ -21,7 +21,7 @@ headers = {
 def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
-    暂时不使用本函数, 直接可以获取所有数据
+    暂时不使用本函数，直接可以获取所有数据
     """
     res = requests.post(url=url, json=payload, headers=headers)
     res.encoding = "utf-8"
@@ -416,9 +416,9 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     https://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
-    :param start_page: 开始页码, 获取指定页码直接的数据
+    :param start_page: 开始页码，获取指定页码直接的数据
     :type start_page: str
-    :param end_page: 结束页码, 获取指定页码直接的数据
+    :param end_page: 结束页码，获取指定页码直接的数据
     :type end_page: str
     :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
@@ -793,9 +793,9 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
     https://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
-    主动注销: 100
-    依公告注销: 200
-    协会注销: 300
+    主动注销：100
+    依公告注销：200
+    协会注销：300
     :return: 已注销私募基金管理人名单
     :rtype: pandas.DataFrame
     """

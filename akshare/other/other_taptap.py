@@ -74,7 +74,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
     TapTap-游戏榜单
     https://www.taptap.cn/top/played
 
-    :param symbol: 榜单类型; 可选 {"热玩榜", "热门榜", "新品榜", "预约榜", "热卖榜"}
+    :param symbol: 榜单类型；可选 {"热玩榜", "热门榜", "新品榜", "预约榜", "热卖榜"}
     :type symbol: str
     :return: 游戏榜单数据
     :rtype: pandas.DataFrame

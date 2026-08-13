@@ -2,25 +2,25 @@
 
 ### 货币报价最新数据
 
-接口: currency_latest
+接口：currency_latest
 
-注意：此接口使用外部 API, 免费账号每月限量访问 5000 次, 可以在 [currencyscoop](https://currencyscoop.com/) 注册
+注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
 
-目标地址: https://currencyscoop.com/
+目标地址：https://currencyscoop.com/
 
-描述: 货币报价最新数据
+描述：货币报价最新数据
 
-限量: 单次返回指定货币的最新报价数据
+限量：单次返回指定货币的最新报价数据
 
 输入参数
 
 | 名称      | 类型  | 描述                                                                                                          |
 |---------|-----|-------------------------------------------------------------------------------------------------------------|
 | base    | str | base="USD"                                                                                                  |
-| symbols | str | symbols=""; 默认返回全部, 可以在此处设置 symbols="AUD", 则返回 AUD 的数据; 可以在此处设置 symbols: str = "AUD,CNY", 则返回 AUD 和 CNY 的数据 |
+| symbols | str | symbols=""；默认返回全部，可以在此处设置 symbols="AUD"，则返回 AUD 的数据；可以在此处设置 symbols: str = "AUD,CNY"，则返回 AUD 和 CNY 的数据 |
 | api_key | str | api_key="此处输入 API";                                                                                         |
 
-更多相关参数可以访问: https://currencybeacon.com/api-documentation 和 https://currencybeacon.com/supported-currencies
+更多相关参数可以访问：https://currencybeacon.com/api-documentation 和 https://currencybeacon.com/supported-currencies
 
 输出参数
 
@@ -60,15 +60,15 @@ print(currency_latest_df)
 
 ### 货币报价历史数据
 
-接口: currency_history
+接口：currency_history
 
-注意：此接口使用外部 API, 免费账号每月限量访问 5000 次, 可以在 [currencyscoop](https://currencyscoop.com/) 注册
+注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
 
-目标地址: https://currencyscoop.com/
+目标地址：https://currencyscoop.com/
 
-描述: 货币报价历史数据
+描述：货币报价历史数据
 
-限量: 单次返回指定货币在指定交易日的报价历史数据-免费账号每月限量访问 5000 次
+限量：单次返回指定货币在指定交易日的报价历史数据-免费账号每月限量访问 5000 次
 
 输入参数
 
@@ -76,7 +76,7 @@ print(currency_latest_df)
 |---------|-----|-------------------------------------------------------------------------------------------------------------|
 | base    | str | base="USD"                                                                                                  |
 | date    | str | date="2023-02-03"                                                                                           |
-| symbols | str | symbols=""; 默认返回全部, 可以在此处设置 symbols="AUD", 则返回 AUD 的数据; 可以在此处设置 symbols: str = "AUD,CNY", 则返回 AUD 和 CNY 的数据 |
+| symbols | str | symbols=""；默认返回全部，可以在此处设置 symbols="AUD"，则返回 AUD 的数据；可以在此处设置 symbols: str = "AUD,CNY"，则返回 AUD 和 CNY 的数据 |
 | api_key | str | api_key="此处输入 API";                                                                                         |
 
 输出参数
@@ -117,15 +117,15 @@ print(currency_history_df)
 
 ### 货币报价时间序列数据
 
-接口: currency_time_series
+接口：currency_time_series
 
-注意：此接口使用外部 API, 免费账号每月限量访问 5000 次, 可以在 [currencyscoop](https://currencyscoop.com/) 注册
+注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
 
-目标地址: https://currencyscoop.com/
+目标地址：https://currencyscoop.com/
 
-描述: 货币报价时间序列数据
+描述：货币报价时间序列数据
 
-限量: 单次返回指定货币在指定交易日到另一指定交易日的报价数据
+限量：单次返回指定货币在指定交易日到另一指定交易日的报价数据
 
 输入参数
 
@@ -134,7 +134,7 @@ print(currency_history_df)
 | base       | str | base="USD"                                                                                                  |
 | start_date | str | start_date="2023-02-03"                                                                                     |
 | end_date   | str | end_date="2023-03-04"                                                                                       |
-| symbols    | str | symbols=""; 默认返回全部, 可以在此处设置 symbols="AUD", 则返回 AUD 的数据; 可以在此处设置 symbols: str = "AUD,CNY", 则返回 AUD 和 CNY 的数据 |
+| symbols    | str | symbols=""；默认返回全部，可以在此处设置 symbols="AUD"，则返回 AUD 的数据；可以在此处设置 symbols: str = "AUD,CNY"，则返回 AUD 和 CNY 的数据 |
 | api_key    | str | api_key="此处输入 API";                                                                                         |
 
 输出参数
@@ -192,15 +192,15 @@ print(currency_time_series_df)
 
 ### 货币基础信息查询
 
-接口: currency_currencies
+接口：currency_currencies
 
-注意：此接口使用外部 API, 免费账号每月限量访问 5000 次, 可以在 [currencyscoop](https://currencyscoop.com/) 注册
+注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
 
-目标地址: https://currencyscoop.com/
+目标地址：https://currencyscoop.com/
 
-描述: 所有货币的基础信息
+描述：所有货币的基础信息
 
-限量: 单次返回指定所有货币基础信息
+限量：单次返回指定所有货币基础信息
 
 输入参数
 
@@ -253,23 +253,23 @@ print(currency_currencies_df)
 
 ### 货币对价格转换
 
-接口: currency_convert
+接口：currency_convert
 
-注意：此接口使用外部 API, 免费账号每月限量访问 5000 次, 可以在 [currencyscoop](https://currencyscoop.com/) 注册
+注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
 
-目标地址: https://currencyscoop.com/
+目标地址：https://currencyscoop.com/
 
-描述: 指定货币对指定货币数量的转换后价格
+描述：指定货币对指定货币数量的转换后价格
 
-限量: 单次返回指定货币对的转换后价格
+限量：单次返回指定货币对的转换后价格
 
 输入参数
 
 | 名称      | 类型  | 描述                  |
 |---------|-----|---------------------|
-| base    | str | base="USD"; 基础货币    |
-| to      | str | to="CNY"; 需要转换到的货币  |
-| amount  | str | amount="10000"; 转换量 |
+| base    | str | base="USD"；基础货币    |
+| to      | str | to="CNY"；需要转换到的货币  |
+| amount  | str | amount="10000"；转换量 |
 | api_key | str | api_key="此处输入 API"; |
 
 输出参数

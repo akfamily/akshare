@@ -83,7 +83,7 @@ def convert_date(date):
 
 def get_json_path(name, module_file):
     """
-    获取 JSON 配置文件的路径(从模块所在目录查找)
+    获取 JSON 配置文件的路径（从模块所在目录查找）
     :param name: 文件名
     :param module_file: filename
     :return: str json_file_path
@@ -95,7 +95,7 @@ def get_json_path(name, module_file):
 
 def get_calendar():
     """
-    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
+    获取交易日历至 2019 年结束，这里的交易日历需要按年更新
     :return: json
     """
     setting_file_name = "calendar.json"
@@ -113,7 +113,7 @@ def last_trading_day(day):
 
     if isinstance(day, str):
         if day not in calendar:
-            print("Today is not trading day：" + day)
+            print("Today is not trading day: " + day)
             return False
         pos = calendar.index(day)
         last_day = calendar[pos - 1]
@@ -122,7 +122,7 @@ def last_trading_day(day):
     elif isinstance(day, datetime.date):
         d_str = day.strftime("%Y%m%d")
         if d_str not in calendar:
-            print("Today is not working day：" + d_str)
+            print("Today is not working day: " + d_str)
             return False
         pos = calendar.index(d_str)
         last_day = calendar[pos - 1]

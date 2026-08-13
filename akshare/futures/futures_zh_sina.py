@@ -4,7 +4,7 @@
 Date: 2024/3/20 16:00
 Desc: 新浪财经-国内期货-实时数据获取
 https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
+P.S. 注意采集速度，容易封禁 IP，如果不能访问请稍后再试
 """
 
 import json
@@ -214,7 +214,7 @@ def futures_zh_spot(
     :type symbol: str
     :param market: CF 为商品期货
     :type market: str
-    :param adjust: '1' or '0'；字符串的 0 或 1；返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢
+    :param adjust: '1' or '0'；字符串的 0 或 1；返回合约、交易所和最小变动单位的实时数据，返回数据会变慢
     :type adjust: str
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
@@ -616,7 +616,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
     """
     中国各品种期货分钟频率数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取，或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
@@ -652,7 +652,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
-    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取，或者访问网页获取
     :type symbol: str
     :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame

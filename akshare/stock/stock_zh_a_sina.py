@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/1/9 22:00
-Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
+Desc: 新浪财经-A股-实时行情数据和历史行情数据（包含前复权和后复权因子）
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 
@@ -44,7 +44,7 @@ def _get_zh_a_page_count() -> int:
 
 def stock_zh_a_spot() -> pd.DataFrame:
     """
-    新浪财经-所有 A 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
+    新浪财经-所有 A 股的实时行情数据；重复运行本函数会被新浪暂时封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_a
     :return: 所有股票的实时行情数据
     :rtype: pandas.DataFrame
@@ -131,15 +131,15 @@ def stock_zh_a_daily(
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    新浪财经-A 股-个股的历史行情数据, 大量抓取容易封 IP
+    新浪财经-A 股-个股的历史行情数据，大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh603843/nc.shtml
     :param symbol: sh600000
     :type symbol: str
-    :param start_date: 20201103; 开始日期
+    :param start_date: 20201103；开始日期
     :type start_date: str
-    :param end_date: 20201103; 结束日期
+    :param end_date: 20201103；结束日期
     :type end_date: str
-    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
     :type adjust: str
     :return: 行情数据
     :rtype: pandas.DataFrame
@@ -310,11 +310,11 @@ def stock_zh_a_cdr_daily(
     end_date: str = "22201116",
 ) -> pd.DataFrame:
     """
-    新浪财经-A股-CDR个股的历史行情数据, 大量抓取容易封 IP
+    新浪财经-A股-CDR个股的历史行情数据，大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
-    :param start_date: 20201103; 开始日期
+    :param start_date: 20201103；开始日期
     :type start_date: str
-    :param end_date: 20201103; 结束日期
+    :param end_date: 20201103；结束日期
     :type end_date: str
     :param symbol: sh689009
     :type symbol: str
@@ -351,7 +351,7 @@ def stock_zh_a_minute(
     :type symbol: str
     :param period: 1, 5, 15, 30, 60 分钟的数据
     :type period: str
-    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据;
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；
     :type adjust: str
     :return: specific data
     :rtype: pandas.DataFrame

@@ -4,13 +4,13 @@
 
 #### 实时行情数据-东财
 
-接口: stock_zh_index_spot_em
+接口：stock_zh_index_spot_em
 
-目标地址: https://quote.eastmoney.com/center/gridlist.html#index_sz
+目标地址：https://quote.eastmoney.com/center/gridlist.html#index_sz
 
-描述: 东方财富网-行情中心-沪深京指数
+描述：东方财富网-行情中心-沪深京指数
 
-限量: 单次返回所有指数的实时行情数据
+限量：单次返回所有指数的实时行情数据
 
 输入参数
 
@@ -27,10 +27,10 @@
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
-| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌幅 | float64 | 注意单位：% |
 | 成交量 | float64 | -       |
 | 成交额 | float64 | -       |
-| 振幅  | float64 | 注意单位: % |
+| 振幅  | float64 | 注意单位：% |
 | 最高  | float64 | -       |
 | 最低  | float64 | -       |
 | 今开  | float64 | -       |
@@ -66,13 +66,13 @@ print(stock_zh_index_spot_em_df)
 
 #### 实时行情数据-新浪
 
-接口: stock_zh_index_spot_sina
+接口：stock_zh_index_spot_sina
 
-目标地址: https://vip.stock.finance.sina.com.cn/mkt/#hs_s
+目标地址：https://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
-描述: 新浪财经-中国股票指数数据
+描述：新浪财经-中国股票指数数据
 
-限量: 单次返回所有指数的实时行情数据
+限量：单次返回所有指数的实时行情数据
 
 输入参数
 
@@ -88,13 +88,13 @@ print(stock_zh_index_spot_em_df)
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
-| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌幅 | float64 | 注意单位：% |
 | 昨收  | float64 | -       |
 | 今开  | float64 | -       |
 | 最高  | float64 | -       |
 | 最低  | float64 | -       |
-| 成交量 | float64 | 注意单位: 手 |
-| 成交额 | float64 | 注意单位: 元 |
+| 成交量 | float64 | 注意单位：手 |
+| 成交额 | float64 | 注意单位：元 |
 
 接口示例
 
@@ -127,13 +127,13 @@ print(stock_zh_index_spot_sina_df)
 
 ##### 历史行情数据-新浪
 
-接口: stock_zh_index_daily
+接口：stock_zh_index_daily
 
-目标地址: https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)
+目标地址：https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)
 
-描述: 股票指数的历史数据按日频率更新
+描述：股票指数的历史数据按日频率更新
 
-限量: 单次返回指定 symbol 的所有历史行情数据
+限量：单次返回指定 symbol 的所有历史行情数据
 
 输入参数
 
@@ -145,7 +145,7 @@ print(stock_zh_index_spot_sina_df)
 
 | 名称     | 类型      | 描述                    |
 |--------|---------|-----------------------|
-| date   | object  | 新浪的数据开始时间, 不是该指数的上市时间 |
+| date   | object  | 新浪的数据开始时间，不是该指数的上市时间 |
 | open   | float64 | -                     |
 | high   | float64 | -                     |
 | low    | float64 | -                     |
@@ -181,32 +181,32 @@ print(stock_zh_index_daily_df)
 
 ##### 历史行情数据-腾讯
 
-接口: stock_zh_index_daily_tx
+接口：stock_zh_index_daily_tx
 
-目标地址: https://gu.qq.com/sh000919/zs
+目标地址：https://gu.qq.com/sh000919/zs
 
-描述: 股票指数(或者股票)历史行情数据, 支持自定义时间范围
+描述：股票指数（或者股票）历史行情数据，支持自定义时间范围
 
-限量: 单次返回具体某个股票指数(或者股票)指定时间范围内的历史行情数据
+限量：单次返回具体某个股票指数（或者股票）指定时间范围内的历史行情数据
 
 输入参数-历史行情数据
 
 | 名称         | 类型  | 描述                                             |
 |------------|-----|------------------------------------------------|
 | symbol     | str | symbol="sh000001"                              |
-| start_date | str | start_date=""; 开始日期, 格式 "YYYYMMDD", 为空则从最早日期开始 |
-| end_date   | str | end_date=""; 结束日期, 格式 "YYYYMMDD", 为空则到当前（最新）日期 |
+| start_date | str | start_date=""；开始日期，格式 "YYYYMMDD"，为空则从最早日期开始 |
+| end_date   | str | end_date=""；结束日期，格式 "YYYYMMDD"，为空则到当前（最新）日期 |
 
 输出参数-历史行情数据
 
 | 名称     | 类型      | 描述                  |
 |--------|---------|---------------------|
-| date   | object  | 腾讯的数据开始时间, 不是证券上市时间 |
+| date   | object  | 腾讯的数据开始时间，不是证券上市时间 |
 | open   | float64 | -                   |
 | close  | float64 | -                   |
 | high   | float64 | -                   |
 | low    | float64 | -                   |
-| amount | float64 | 注意单位: 手             |
+| amount | float64 | 注意单位：手             |
 
 接口示例
 
@@ -237,19 +237,19 @@ print(stock_zh_index_daily_tx_df)
 
 ##### 历史行情数据-东方财富
 
-接口: stock_zh_index_daily_em
+接口：stock_zh_index_daily_em
 
-目标地址: http://quote.eastmoney.com/center/hszs.html
+目标地址：http://quote.eastmoney.com/center/hszs.html
 
-描述: 东方财富股票指数数据, 历史数据按日频率更新
+描述：东方财富股票指数数据，历史数据按日频率更新
 
-限量: 单次返回具体指数的所有历史行情数据
+限量：单次返回具体指数的所有历史行情数据
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                      |
 |------------|-----|-------------------------------------------------------------------------|
-| symbol     | str | symbol="sz399552"; 支持 sz: 深交所, sh: 上交所, bj: 北交所, csi: 中证指数 + id(000905) |
+| symbol     | str | symbol="sz399552"；支持 sz: 深交所，sh: 上交所，bj: 北交所，csi: 中证指数 + id(000905) |
 | start_date | str | start_date="19900101"                                                   |
 | end_date   | str | end_date="20500101"                                                     |
 
@@ -257,7 +257,7 @@ print(stock_zh_index_daily_tx_df)
 
 | 名称     | 类型      | 描述                    |
 |--------|---------|-----------------------|
-| date   | object  | 东方财富的数据开始时间, 不是证券上市时间 |
+| date   | object  | 东方财富的数据开始时间，不是证券上市时间 |
 | open   | float64 | -                     |
 | close  | float64 | -                     |
 | high   | float64 | -                     |
@@ -294,22 +294,22 @@ print(stock_zh_index_daily_em_df)
 
 ##### 历史行情数据-通用
 
-接口: index_zh_a_hist
+接口：index_zh_a_hist
 
-目标地址: http://quote.eastmoney.com/center/hszs.html
+目标地址：http://quote.eastmoney.com/center/hszs.html
 
-描述: 东方财富网-中国股票指数-行情数据
+描述：东方财富网-中国股票指数-行情数据
 
-限量: 单次返回具体指数指定 period 从 start_date 到 end_date 的之间的近期数据
+限量：单次返回具体指数指定 period 从 start_date 到 end_date 的之间的近期数据
 
 输入参数
 
 | 名称         | 类型  | 描述                                                       |
 |------------|-----|----------------------------------------------------------|
-| symbol     | str | symbol="399282"; 指数代码，此处不用市场标识                           |
+| symbol     | str | symbol="399282"；指数代码，此处不用市场标识                           |
 | period     | str | period="daily"; choice of {'daily', 'weekly', 'monthly'} |
-| start_date | str | start_date="19700101"; 开始日期                              |
-| end_date   | str | end_date="22220101"; 结束时间                                |
+| start_date | str | start_date="19700101"；开始日期                              |
+| end_date   | str | end_date="22220101"；结束时间                                |
 
 输出参数
 
@@ -320,12 +320,12 @@ print(stock_zh_index_daily_em_df)
 | 收盘  | float64 | 收盘价     |
 | 最高  | float64 | 最高价     |
 | 最低  | float64 | 最低价     |
-| 成交量 | int32   | 注意单位: 手 |
-| 成交额 | float64 | 注意单位: 元 |
-| 振幅  | float64 | 注意单位: % |
-| 涨跌幅 | float64 | 注意单位: % |
-| 涨跌额 | float64 | 注意单位: 元 |
-| 换手率 | float64 | 注意单位: % |
+| 成交量 | int32   | 注意单位：手 |
+| 成交额 | float64 | 注意单位：元 |
+| 振幅  | float64 | 注意单位：% |
+| 涨跌幅 | float64 | 注意单位：% |
+| 涨跌额 | float64 | 注意单位：元 |
+| 换手率 | float64 | 注意单位：% |
 
 接口示例
 
@@ -355,22 +355,22 @@ print(index_zh_a_hist_df)
 
 #### 分时行情数据
 
-接口: index_zh_a_hist_min_em
+接口：index_zh_a_hist_min_em
 
-目标地址: https://quote.eastmoney.com/center/hszs.html
+目标地址：https://quote.eastmoney.com/center/hszs.html
 
-描述: 东方财富网-指数数据-分时行情
+描述：东方财富网-指数数据-分时行情
 
-限量: 单次返回具体指数指定 period 从 start_date 到 end_date 的之间的近期数据，该接口不能返回所有历史数据
+限量：单次返回具体指数指定 period 从 start_date 到 end_date 的之间的近期数据，该接口不能返回所有历史数据
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                                |
 |------------|-----|-----------------------------------------------------------------------------------|
-| symbol     | str | symbol="399006"; 指数代码，此处不用市场标识                                                    |
-| period     | str | period="1"; choice of {'1', '5', '15', '30', '60'}, 其中 1 分钟数据只能返回当前的, 其余只能返回近期的数据 |
-| start_date | str | start_date="1979-09-01 09:32:00"; 开始日期时间                                          |
-| end_date   | str | end_date="2222-01-01 09:32:00"; 结束时间时间                                            |
+| symbol     | str | symbol="399006"；指数代码，此处不用市场标识                                                    |
+| period     | str | period="1"; choice of {'1', '5', '15', '30', '60'}，其中 1 分钟数据只能返回当前的，其余只能返回近期的数据 |
+| start_date | str | start_date="1979-09-01 09:32:00"；开始日期时间                                          |
+| end_date   | str | end_date="2222-01-01 09:32:00"；结束时间时间                                            |
 
 输出参数
 
@@ -381,8 +381,8 @@ print(index_zh_a_hist_df)
 | 收盘  | float64 | 收盘价     |
 | 最高  | float64 | 最高价     |
 | 最低  | float64 | 最低价     |
-| 成交量 | int64   | 注意单位: 手 |
-| 成交额 | float64 | 注意单位: 元 |
+| 成交量 | int64   | 注意单位：手 |
+| 成交额 | float64 | 注意单位：元 |
 | 均价  | float64 | -       |
 
 接口示例
@@ -416,13 +416,13 @@ print(index_zh_a_hist_min_em_df)
 
 #### 实时行情数据-新浪
 
-接口: stock_hk_index_spot_sina
+接口：stock_hk_index_spot_sina
 
-目标地址: https://vip.stock.finance.sina.com.cn/mkt/#zs_hk
+目标地址：https://vip.stock.finance.sina.com.cn/mkt/#zs_hk
 
-描述: 新浪财经-行情中心-港股指数
+描述：新浪财经-行情中心-港股指数
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -438,7 +438,7 @@ print(index_zh_a_hist_min_em_df)
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
-| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌幅 | float64 | 注意单位：% |
 | 昨收  | float64 | -       |
 | 今开  | float64 | -       |
 | 最高  | float64 | -       |
@@ -500,13 +500,13 @@ print(stock_hk_index_spot_sina_df)
 
 #### 历史行情数据-新浪
 
-接口: stock_hk_index_daily_sina
+接口：stock_hk_index_daily_sina
 
-目标地址: https://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
+目标地址：https://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
 
-描述: 新浪财经-港股指数-历史行情数据
+描述：新浪财经-港股指数-历史行情数据
 
-限量: 单次返回指定 symbol 的所有数据
+限量：单次返回指定 symbol 的所有数据
 
 输入参数
 
@@ -522,7 +522,7 @@ print(stock_hk_index_spot_sina_df)
 | open   | object  | -       |
 | close  | float64 | -       |
 | high   | float64 | -       |
-| low    | float64 | 注意单位: % |
+| low    | float64 | 注意单位：% |
 | volume | float64 | -       |
 
 接口示例
@@ -554,13 +554,13 @@ print(stock_hk_index_daily_sina_df)
 
 #### 实时行情数据-东财
 
-接口: stock_hk_index_spot_em
+接口：stock_hk_index_spot_em
 
-目标地址: https://quote.eastmoney.com/center/gridlist.html#hk_index
+目标地址：https://quote.eastmoney.com/center/gridlist.html#hk_index
 
-描述: 东方财富网-行情中心-港股-指数实时行情
+描述：东方财富网-行情中心-港股-指数实时行情
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -578,13 +578,13 @@ print(stock_hk_index_daily_sina_df)
 | 名称   | object  | -        |
 | 最新价  | float64 | -        |
 | 涨跌额  | float64 | -        |
-| 涨跌幅  | float64 | 注意单位: %  |
+| 涨跌幅  | float64 | 注意单位：%  |
 | 今开   | float64 | -        |
 | 最高   | float64 | -        |
 | 最低   | float64 | -        |
 | 昨收   | float64 | -        |
 | 成交量  | float64 | -        |
-| 成交额  | float64 | 注意单位: 港元 |
+| 成交额  | float64 | 注意单位：港元 |
 
 接口示例
 
@@ -615,19 +615,19 @@ print(stock_hk_index_spot_em_df)
 
 #### 历史行情数据-东财
 
-接口: stock_hk_index_daily_em
+接口：stock_hk_index_daily_em
 
-目标地址: https://quote.eastmoney.com/gb/zsHSTECF2L.html
+目标地址：https://quote.eastmoney.com/gb/zsHSTECF2L.html
 
-描述: 东方财富网-港股-股票指数数据
+描述：东方财富网-港股-股票指数数据
 
-限量: 单次返回指定 symbol 的所有数据
+限量：单次返回指定 symbol 的所有数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                     |
 |--------|-----|--------------------------------------------------------|
-| symbol | str | symbol="HSTECF2L"; 可以通过 ak.stock_hk_index_spot_em() 获取 |
+| symbol | str | symbol="HSTECF2L"；可以通过 ak.stock_hk_index_spot_em() 获取 |
 
 输出参数
 
@@ -670,11 +670,11 @@ print(stock_zh_index_daily_em_df)
 
 #### 指数行情
 
-接口: index_us_stock_sina
+接口：index_us_stock_sina
 
-目标地址: https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
+目标地址：https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
 
-描述: 新浪财经-美股指数行情
+描述：新浪财经-美股指数行情
 
 输入参数
 
@@ -725,11 +725,11 @@ print(index_us_stock_sina_df)
 
 #### 全球指数-实时行情数据
 
-接口: index_global_spot_em
+接口：index_global_spot_em
 
-目标地址: https://quote.eastmoney.com/center/gridlist.html#global_qtzs
+目标地址：https://quote.eastmoney.com/center/gridlist.html#global_qtzs
 
-描述: 东方财富网-行情中心-全球指数-实时行情数据
+描述：东方财富网-行情中心-全球指数-实时行情数据
 
 输入参数
 
@@ -828,17 +828,17 @@ print(index_global_spot_em_df)
 
 #### 全球指数-历史行情数据-东财
 
-接口: index_global_hist_em
+接口：index_global_hist_em
 
-目标地址: https://quote.eastmoney.com/gb/zsUDI.html
+目标地址：https://quote.eastmoney.com/gb/zsUDI.html
 
-描述: 东方财富网-行情中心-全球指数-历史行情数据
+描述：东方财富网-行情中心-全球指数-历史行情数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                               |
 |--------|-----|--------------------------------------------------|
-| symbol | str | symbol="美元指数"; 可以通过 ak.index_global_spot_em() 获取 |
+| symbol | str | symbol="美元指数"；可以通过 ak.index_global_spot_em() 获取 |
 
 输出参数
 
@@ -851,7 +851,7 @@ print(index_global_spot_em_df)
 | 最新价 | float64 | -       |
 | 最高  | float64 | -       |
 | 最低  | float64 | -       |
-| 振幅  | float64 | 主要单位: % |
+| 振幅  | float64 | 主要单位：% |
 
 接口示例
 
@@ -882,11 +882,11 @@ print(index_global_hist_em_df)
 
 #### 全球指数-历史行情数据-新浪
 
-接口: index_global_hist_sina
+接口：index_global_hist_sina
 
-目标地址: https://finance.sina.com.cn/stock/globalindex/quotes/UKX
+目标地址：https://finance.sina.com.cn/stock/globalindex/quotes/UKX
 
-描述: 新浪财经-行情中心-环球市场-历史行情
+描述：新浪财经-行情中心-环球市场-历史行情
 
 限量：单次返回最近的 1000 条数据
 
@@ -894,7 +894,7 @@ print(index_global_hist_em_df)
 
 | 名称     | 类型  | 描述                                                    |
 |--------|-----|-------------------------------------------------------|
-| symbol | str | symbol="瑞士股票指数"; 可以通过 ak.index_global_name_table() 获取 |
+| symbol | str | symbol="瑞士股票指数"；可以通过 ak.index_global_name_table() 获取 |
 
 输出参数
 
@@ -938,19 +938,19 @@ print(index_global_hist_sina_df)
 
 #### 最新成份
 
-接口: index_stock_cons
+接口：index_stock_cons
 
-目标地址: http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
+目标地址：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 
-描述: 指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **ak.index_stock_cons_sina()** 获取主流指数数据, 或调用**ak.index_stock_cons_csindex()**获取中证指数网提供的成分数据
+描述：指定指数的最新成份股票信息，注意该接口返回的数据有部分是重复会导致数据缺失，可以调用 **ak.index_stock_cons_sina()** 获取主流指数数据，或调用**ak.index_stock_cons_csindex()**获取中证指数网提供的成分数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                   |
 |--------|-----|------------------------------------------------------|
-| symbol | str | symbol="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表** |
+| symbol | str | symbol="000300"，获取沪深 300 最新成份股，指数代码见 **股票指数信息一览表** |
 
-股票指数信息一览表(可以在 AKShare 中通过如下代码获取本表)
+股票指数信息一览表（可以在 AKShare 中通过如下代码获取本表）
 
 ```python
 import akshare as ak
@@ -1747,17 +1747,17 @@ print(index_stock_cons_df)
 
 #### 中证指数成份股
 
-接口: index_stock_cons_csindex
+接口：index_stock_cons_csindex
 
-目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+目标地址：http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
 
-描述: 中证指数网站-成份股目录，可以通过 ak.index_csindex_all() 获取所有指数
+描述：中证指数网站-成份股目录，可以通过 ak.index_csindex_all() 获取所有指数
 
 输入参数
 
 | 名称     | 类型  | 描述                    |
 |--------|-----|-----------------------|
-| symbol | str | symbol="000300"; 指数代码 |
+| symbol | str | symbol="000300"；指数代码 |
 
 输出参数
 
@@ -1802,17 +1802,17 @@ print(index_stock_cons_csindex_df)
 
 #### 中证指数成份股权重
 
-接口: index_stock_cons_weight_csindex
+接口：index_stock_cons_weight_csindex
 
-目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+目标地址：http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
 
-描述: 中证指数网站-成份股权重
+描述：中证指数网站-成份股权重
 
 输入参数
 
 | 名称     | 类型  | 描述                    |
 |--------|-----|-----------------------|
-| symbol | str | symbol="000300"; 指数代码 |
+| symbol | str | symbol="000300"；指数代码 |
 
 输出参数
 
@@ -1827,7 +1827,7 @@ print(index_stock_cons_csindex_df)
 | 成分券英文名称 | object  | -       |
 | 交易所     | object  | -       |
 | 交易所英文名称 | object  | -       |
-| 权重      | float64 | 注意单位: % |
+| 权重      | float64 | 注意单位：% |
 
 示例代码
 
@@ -1860,11 +1860,11 @@ print(index_stock_cons_weight_csindex_df)
 
 #### 全部指数
 
-接口: index_all_cni
+接口：index_all_cni
 
-目标地址: http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
+目标地址：http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
 
-描述: 国证指数-最近交易日的所有指数的代码和基本信息
+描述：国证指数-最近交易日的所有指数的代码和基本信息
 
 输入参数
 
@@ -1882,10 +1882,10 @@ print(index_stock_cons_weight_csindex_df)
 | 收盘点位   | float64 | -                                |
 | 涨跌幅    | float64 | -                                |
 | PE滚动   | float64 | -                                |
-| 成交量    | float64 | 注意单位: 债券指数成交量单位为亿张，非债券指数成交量单位为万手 |
-| 成交额    | float64 | 注意单位: 亿元                         |
-| 总市值    | float64 | 注意单位: 亿元                         |
-| 自由流通市值 | float64 | 注意单位: 亿元                         |
+| 成交量    | float64 | 注意单位：债券指数成交量单位为亿张，非债券指数成交量单位为万手 |
+| 成交额    | float64 | 注意单位：亿元                         |
+| 总市值    | float64 | 注意单位：亿元                         |
+| 自由流通市值 | float64 | 注意单位：亿元                         |
 
 接口示例
 
@@ -1916,17 +1916,17 @@ print(index_all_cni_df)
 
 #### 指数行情
 
-接口: index_hist_cni
+接口：index_hist_cni
 
-目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+目标地址：http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 国证指数-具体指数的日频率行情数据
+描述：国证指数-具体指数的日频率行情数据
 
 输入参数
 
 | 名称         | 类型  | 描述                                             |
 |------------|-----|------------------------------------------------|
-| symbol     | str | symbol="399005"; 从 ak.index_all_cni() 接口获取指数代码 |
+| symbol     | str | symbol="399005"；从 ak.index_all_cni() 接口获取指数代码 |
 | start_date | str | start_date="20230114"                          |
 | end_date   | str | end_date="20240114"                            |
 
@@ -1940,8 +1940,8 @@ print(index_all_cni_df)
 | 最低价 | float64 | -        |
 | 收盘价 | float64 | -        |
 | 涨跌幅 | float64 | -        |
-| 成交量 | float64 | 注意单位: 万手 |
-| 成交额 | float64 | 注意单位: 亿元 |
+| 成交量 | float64 | 注意单位：万手 |
+| 成交额 | float64 | 注意单位：亿元 |
 
 接口示例
 
@@ -1972,17 +1972,17 @@ print(index_hist_cni_df)
 
 #### 指数样本详情
 
-接口: index_detail_cni
+接口：index_detail_cni
 
-目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+目标地址：http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 国证指数-指数样本详情数据；20251125 开始只能获取近期的数据
+描述：国证指数-指数样本详情数据；20251125 开始只能获取近期的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
-| symbol | str | symbol='399001'; 从 **ak.index_all_cni()** 接口获取指数代码 |
+| symbol | str | symbol='399001'；从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
@@ -1992,9 +1992,9 @@ print(index_hist_cni_df)
 | 样本代码   | object  | -        |
 | 样本简称   | object  | -        |
 | 所属行业   | object  | -        |
-| 自由流通市值 | float64 | 注意单位: 亿元 |
-| 总市值    | float64 | 注意单位: 亿元 |
-| 权重     | float64 | 注意单位: %  |
+| 自由流通市值 | float64 | 注意单位：亿元 |
+| 总市值    | float64 | 注意单位：亿元 |
+| 权重     | float64 | 注意单位：%  |
 
 接口示例
 
@@ -2025,17 +2025,17 @@ print(index_detail_cni_df)
 
 #### 历史样本
 
-接口: index_detail_hist_cni
+接口：index_detail_hist_cni
 
-目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+目标地址：http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 国证指数-历史样本数据，返回所有历史数据
+描述：国证指数-历史样本数据，返回所有历史数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                           |
 |--------|-----|--------------------------------------------------------------|
-| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码           |
+| symbol | str | symbol='399005'；从 **ak.index_all_cni()** 接口获取指数代码           |
 
 输出参数
 
@@ -2045,9 +2045,9 @@ print(index_detail_cni_df)
 | 样本代码   | object  | -        |
 | 样本简称   | object  | -        |
 | 所属行业   | object  | -        |
-| 自由流通市值 | float64 | 注意单位: 亿元 |
-| 总市值    | float64 | 注意单位: 亿元 |
-| 权重     | float64 | 注意单位: %  |
+| 自由流通市值 | float64 | 注意单位：亿元 |
+| 总市值    | float64 | 注意单位：亿元 |
+| 权重     | float64 | 注意单位：%  |
 
 接口示例
 
@@ -2078,17 +2078,17 @@ print(index_detail_hist_cni_df)
 
 #### 历史调样
 
-接口: index_detail_hist_adjust_cni
+接口：index_detail_hist_adjust_cni
 
-目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+目标地址：http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 国证指数-样本详情-历史调样
+描述：国证指数-样本详情-历史调样
 
 输入参数
 
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
-| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
+| symbol | str | symbol='399005'；从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
@@ -2132,13 +2132,13 @@ print(index_detail_hist_adjust_cni_df)
 
 #### 50ETF 期权波动率指数
 
-接口: index_option_50etf_qvix
+接口：index_option_50etf_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?50ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?50ETF
 
-描述: 50ETF 期权波动率指数 QVIX; 又称中国版的恐慌指数
+描述：50ETF 期权波动率指数 QVIX；又称中国版的恐慌指数
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2185,13 +2185,13 @@ print(index_option_50etf_qvix_df)
 
 #### 50ETF 期权波动率指数-分时
 
-接口: index_option_50etf_min_qvix
+接口：index_option_50etf_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?50ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?50ETF
 
-描述: 50ETF 期权波动率指数-分时
+描述：50ETF 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2235,13 +2235,13 @@ print(index_option_50etf_min_qvix_df)
 
 #### 300ETF 期权波动率指数
 
-接口: index_option_300etf_qvix
+接口：index_option_300etf_qvix
 
-目标地址: https://1.optbbs.com/s/vix.shtml?300ETF
+目标地址：https://1.optbbs.com/s/vix.shtml?300ETF
 
-描述: 300ETF 期权波动率指数 QVIX
+描述：300ETF 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2288,13 +2288,13 @@ print(index_option_300etf_qvix_df)
 
 #### 300ETF 期权波动率指数-分时
 
-接口: index_option_300etf_min_qvix
+接口：index_option_300etf_min_qvix
 
-目标地址: https://1.optbbs.com/s/vix.shtml?300ETF
+目标地址：https://1.optbbs.com/s/vix.shtml?300ETF
 
-描述: 300ETF 期权波动率指数-分时
+描述：300ETF 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2338,13 +2338,13 @@ print(index_option_300etf_min_qvix_df)
 
 #### 500ETF 期权波动率指数
 
-接口: index_option_500etf_qvix
+接口：index_option_500etf_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?500ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?500ETF
 
-描述: 500ETF 期权波动率指数 QVIX
+描述：500ETF 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2391,13 +2391,13 @@ print(index_option_500etf_qvix_df)
 
 #### 500ETF 期权波动率指数-分时
 
-接口: index_option_500etf_min_qvix
+接口：index_option_500etf_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?500ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?500ETF
 
-描述: 500ETF 期权波动率指数-分时
+描述：500ETF 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2441,13 +2441,13 @@ print(index_option_500etf_min_qvix_df)
 
 #### 创业板 期权波动率指数
 
-接口: index_option_cyb_qvix
+接口：index_option_cyb_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?CYB
+目标地址：http://1.optbbs.com/s/vix.shtml?CYB
 
-描述: 创业板 期权波动率指数 QVIX
+描述：创业板 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2494,13 +2494,13 @@ print(index_option_cyb_qvix_df)
 
 #### 创业板 期权波动率指数-分时
 
-接口: index_option_cyb_min_qvix
+接口：index_option_cyb_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?CYB
+目标地址：http://1.optbbs.com/s/vix.shtml?CYB
 
-描述: 创业板 期权波动率指数-分时
+描述：创业板 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2544,13 +2544,13 @@ print(index_option_cyb_min_qvix_df)
 
 #### 科创板 期权波动率指数
 
-接口: index_option_kcb_qvix
+接口：index_option_kcb_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?KCB
+目标地址：http://1.optbbs.com/s/vix.shtml?KCB
 
-描述: 科创板 期权波动率指数 QVIX
+描述：科创板 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2597,13 +2597,13 @@ print(index_option_kcb_qvix_df)
 
 #### 科创板 期权波动率指数-分时
 
-接口: index_option_kcb_min_qvix
+接口：index_option_kcb_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?KCB
+目标地址：http://1.optbbs.com/s/vix.shtml?KCB
 
-描述: 科创板 期权波动率指数-分时
+描述：科创板 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2647,13 +2647,13 @@ print(index_option_kcb_min_qvix_df)
 
 #### 深证100ETF 期权波动率指数
 
-接口: index_option_100etf_qvix
+接口：index_option_100etf_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?100ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?100ETF
 
-描述: 深证100ETF 期权波动率指数 QVIX
+描述：深证100ETF 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2700,13 +2700,13 @@ print(index_option_100etf_qvix_df)
 
 #### 深证100ETF 期权波动率指数-分时
 
-接口: index_option_100etf_min_qvix
+接口：index_option_100etf_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?100ETF
+目标地址：http://1.optbbs.com/s/vix.shtml?100ETF
 
-描述: 深证100ETF 期权波动率指数-分时
+描述：深证100ETF 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2750,13 +2750,13 @@ print(index_option_100etf_min_qvix_df)
 
 #### 中证300股指 期权波动率指数
 
-接口: index_option_300index_qvix
+接口：index_option_300index_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?Index
+目标地址：http://1.optbbs.com/s/vix.shtml?Index
 
-描述: 中证300股指 期权波动率指数 QVIX
+描述：中证300股指 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2803,13 +2803,13 @@ print(index_option_300index_qvix_df)
 
 #### 中证300股指 期权波动率指数-分时
 
-接口: index_option_300index_min_qvix
+接口：index_option_300index_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?Index
+目标地址：http://1.optbbs.com/s/vix.shtml?Index
 
-描述: 中证300股指 期权波动率指数-分时
+描述：中证300股指 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2853,13 +2853,13 @@ print(index_option_300index_min_qvix_df)
 
 #### 中证1000股指 期权波动率指数
 
-接口: index_option_1000index_qvix
+接口：index_option_1000index_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?Index1000
+目标地址：http://1.optbbs.com/s/vix.shtml?Index1000
 
-描述: 中证1000股指 期权波动率指数 QVIX
+描述：中证1000股指 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -2906,13 +2906,13 @@ print(index_option_1000index_qvix_df)
 
 #### 中证1000股指 期权波动率指数-分时
 
-接口: index_option_1000index_min_qvix
+接口：index_option_1000index_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?Index1000
+目标地址：http://1.optbbs.com/s/vix.shtml?Index1000
 
-描述: 中证1000股指 期权波动率指数-分时
+描述：中证1000股指 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -2956,13 +2956,13 @@ print(index_option_1000index_min_qvix_df)
 
 #### 上证50股指 期权波动率指数
 
-接口: index_option_50index_qvix
+接口：index_option_50index_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?50index
+目标地址：http://1.optbbs.com/s/vix.shtml?50index
 
-描述: 上证50股指 期权波动率指数 QVIX
+描述：上证50股指 期权波动率指数 QVIX
 
-限量: 单次返回所有数据
+限量：单次返回所有数据
 
 输入参数
 
@@ -3009,13 +3009,13 @@ print(index_option_50index_qvix_df)
 
 #### 上证50股指 期权波动率指数-分时
 
-接口: index_option_50index_min_qvix
+接口：index_option_50index_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?50index
+目标地址：http://1.optbbs.com/s/vix.shtml?50index
 
-描述: 上证50股指 期权波动率指数-分时
+描述：上证50股指 期权波动率指数-分时
 
-限量: 单次返回最近交易日的分时数据
+限量：单次返回最近交易日的分时数据
 
 输入参数
 
@@ -3059,11 +3059,11 @@ print(index_option_50index_min_qvix_df)
 
 ### 申万一级行业信息
 
-接口: sw_index_first_info
+接口：sw_index_first_info
 
-目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
+目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
-描述: 申万一级行业信息
+描述：申万一级行业信息
 
 输入参数
 
@@ -3131,11 +3131,11 @@ print(sw_index_first_info_df)
 
 ### 申万二级行业信息
 
-接口: sw_index_second_info
+接口：sw_index_second_info
 
-目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
+目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
-描述: 申万二级行业信息
+描述：申万二级行业信息
 
 输入参数
 
@@ -3185,11 +3185,11 @@ print(sw_index_second_info_df)
 
 ### 申万三级行业信息
 
-接口: sw_index_third_info
+接口：sw_index_third_info
 
-目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
+目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
-描述: 申万三级行业信息
+描述：申万三级行业信息
 
 输入参数
 
@@ -3238,19 +3238,19 @@ print(sw_index_third_info_df)
 
 ### 申万三级行业成份
 
-接口: sw_index_third_cons
+接口：sw_index_third_cons
 
-目标地址: https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
+目标地址：https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 
-描述: 申万三级行业成份
+描述：申万三级行业成份
 
-说明: 乐咕乐股当前表头已调整为 `申万3级`、`细分概念`、`ROE(%)` 以及带交易日后缀的涨幅字段; 接口会先清洗表头中的页面元数据噪声, 再按真实列名解析
+说明：乐咕乐股当前表头已调整为 `申万3级`、`细分概念`、`ROE(%)` 以及带交易日后缀的涨幅字段；接口会先清洗表头中的页面元数据噪声，再按真实列名解析
 
 输入参数
 
 | 名称     | 类型  | 描述                                                               |
 |--------|-----|------------------------------------------------------------------|
-| symbol | str | symbol="850111.SI"; 行业代码; 可以通过 ak.sw_index_third_info() 获取所有行业代码 |
+| symbol | str | symbol="850111.SI"；行业代码；可以通过 ak.sw_index_third_info() 获取所有行业代码 |
 
 输出参数
 
@@ -3266,14 +3266,14 @@ print(sw_index_third_info_df)
 | 市盈率              | float64 |          |
 | 市盈率ttm           | float64 |          |
 | 市净率              | float64 |          |
-| ROE(%)           | float64 | 注意单位: %  |
-| 股息率              | float64 | 注意单位: %  |
-| 市值               | float64 | 注意单位: 亿元 |
-| 近1日涨幅(YYYY-MM-DD)  | float64 | 注意单位: %  |
-| 近5日涨幅(YYYY-MM-DD)  | float64 | 注意单位: %  |
-| 今年以来涨幅(YYYY-MM-DD) | float64 | 注意单位: %  |
-| 净利润增速(%)         | float64 | 注意单位: %  |
-| 营收增速(%)          | float64 | 注意单位: %  |
+| ROE(%)           | float64 | 注意单位：%  |
+| 股息率              | float64 | 注意单位：%  |
+| 市值               | float64 | 注意单位：亿元 |
+| 近1日涨幅(YYYY-MM-DD)  | float64 | 注意单位：%  |
+| 近5日涨幅(YYYY-MM-DD)  | float64 | 注意单位：%  |
+| 今年以来涨幅(YYYY-MM-DD) | float64 | 注意单位：%  |
+| 净利润增速(%)         | float64 | 注意单位：%  |
+| 营收增速(%)          | float64 | 注意单位：%  |
 
 接口示例
 
@@ -3300,17 +3300,17 @@ print(sw_index_third_cons_df)
 
 ### 商品现货价格指数
 
-接口: spot_goods
+接口：spot_goods
 
-目标地址: http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
+目标地址：http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 
-描述: 新浪财经-商品现货价格指数
+描述：新浪财经-商品现货价格指数
 
 输入参数
 
 | 名称     | 类型  | 描述                                      |
 |--------|-----|-----------------------------------------|
-| symbol | str | symbol="波罗的海干散货指数"; 指数目录请参考 **现货指数一览表** |
+| symbol | str | symbol="波罗的海干散货指数"；指数目录请参考 **现货指数一览表** |
 
 现货指数一览表
 
@@ -3358,11 +3358,11 @@ print(spot_goods_df)
 
 ### 义乌小商品指数
 
-接口: index_yw
+接口：index_yw
 
-目标地址: https://www.ywindex.com/Home/Product/index/
+目标地址：https://www.ywindex.com/Home/Product/index/
 
-描述: 指定 symbol 的义乌小商品指数的近期历史数据
+描述：指定 symbol 的义乌小商品指数的近期历史数据
 
 输入参数
 
@@ -3485,11 +3485,11 @@ print(index_yw_df)
 
 ### 柯桥纺织品指数
 
-接口: index_kq_fz
+接口：index_kq_fz
 
-目标地址: http://www.kqindex.cn/flzs/jiage
+目标地址：http://www.kqindex.cn/flzs/jiage
 
-描述: 指定 symbol 的柯桥纺织品指数的所有历史数据
+描述：指定 symbol 的柯桥纺织品指数的所有历史数据
 
 输入参数
 
@@ -3503,7 +3503,7 @@ print(index_yw_df)
 |-----|---------|---------|
 | 期次  | object  | -       |
 | 指数  | float64 | -       |
-| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌幅 | float64 | 注意单位：% |
 
 接口示例-价格指数
 
@@ -3538,7 +3538,7 @@ print(index_kq_fz_df)
 |--------|---------|---------|
 | 期次     | object  | -       |
 | 总景气指数  | float64 | -       |
-| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌幅    | float64 | 注意单位：% |
 | 流通景气指数 | float64 | -       |
 | 生产景气指数 | float64 | -       |
 
@@ -3575,9 +3575,9 @@ print(index_kq_fz_df)
 |----------|---------|---------|
 | 期次       | object  | -       |
 | 价格指数     | float64 | -       |
-| 价格指数-涨跌幅 | float64 | 注意单位: % |
+| 价格指数-涨跌幅 | float64 | 注意单位：% |
 | 景气指数     | float64 | -       |
-| 景气指数-涨跌幅 | float64 | 注意单位: % |
+| 景气指数-涨跌幅 | float64 | 注意单位：% |
 
 接口示例-外贸指数
 
@@ -3608,11 +3608,11 @@ print(index_kq_fz_df)
 
 ### 柯桥时尚指数
 
-接口: index_kq_fashion
+接口：index_kq_fashion
 
-目标地址: http://ss.kqindex.cn:9559/rinder_web_kqsszs/index/index_page.do
+目标地址：http://ss.kqindex.cn:9559/rinder_web_kqsszs/index/index_page.do
 
-描述: 指定 symbol 的柯桥时尚指数的所有数据
+描述：指定 symbol 的柯桥时尚指数的所有数据
 
 输入参数
 
@@ -3717,11 +3717,11 @@ print(index_kq_fashion_df)
 
 ### 中国食糖指数
 
-接口: index_sugar_msweet
+接口：index_sugar_msweet
 
-目标地址: http://www.msweet.com.cn/mtkj/sjzx13/index.html
+目标地址：http://www.msweet.com.cn/mtkj/sjzx13/index.html
 
-描述: 沐甜科技数据中心-中国食糖指数
+描述：沐甜科技数据中心-中国食糖指数
 
 输入参数
 
@@ -3767,11 +3767,11 @@ print(index_sugar_msweet_df)
 
 ### 配额内进口糖估算指数
 
-接口: index_inner_quote_sugar_msweet
+接口：index_inner_quote_sugar_msweet
 
-目标地址: http://www.msweet.com.cn/mtkj/sjzx13/index.html
+目标地址：http://www.msweet.com.cn/mtkj/sjzx13/index.html
 
-描述: 沐甜科技数据中心-配额内进口糖估算指数
+描述：沐甜科技数据中心-配额内进口糖估算指数
 
 输入参数
 
@@ -3826,11 +3826,11 @@ print(index_inner_quote_sugar_msweet_df)
 
 ### 配额外进口糖估算指数
 
-接口: index_outer_quote_sugar_msweet
+接口：index_outer_quote_sugar_msweet
 
-目标地址: http://www.msweet.com.cn/mtkj/sjzx13/index.html
+目标地址：http://www.msweet.com.cn/mtkj/sjzx13/index.html
 
-描述: 沐甜科技数据中心-配额外进口糖估算指数
+描述：沐甜科技数据中心-配额外进口糖估算指数
 
 输入参数
 
@@ -3878,11 +3878,11 @@ print(index_outer_quote_sugar_msweet_df)
 
 ### 排污权指数
 
-接口: index_eri
+接口：index_eri
 
-目标地址: https://zs.zjpwq.net/
+目标地址：https://zs.zjpwq.net/
 
-描述: 浙江省排污权交易指数的数据
+描述：浙江省排污权交易指数的数据
 
 输入参数
 
@@ -3896,8 +3896,8 @@ print(index_outer_quote_sugar_msweet_df)
 |------|---------|---------|
 | 日期   | object  |         |
 | 交易指数 | float64 |         |
-| 成交量  | float64 | 注意单位: 吨 |
-| 成交额  | float64 | 注意单位: 元 |
+| 成交量  | float64 | 注意单位：吨 |
+| 成交额  | float64 | 注意单位：元 |
 
 接口示例
 
@@ -3928,13 +3928,13 @@ print(index_eri_df)
 
 ### 集装箱指数
 
-接口: drewry_wci_index
+接口：drewry_wci_index
 
-目标地址: https://infogram.com/world-container-index-1h17493095xl4zj
+目标地址：https://infogram.com/world-container-index-1h17493095xl4zj
 
-描述: Drewry 集装箱指数的数据
+描述：Drewry 集装箱指数的数据
 
-限量: 返回指定 symbol 的数据
+限量：返回指定 symbol 的数据
 
 输入参数
 
@@ -3980,11 +3980,11 @@ print(drewry_wci_index_df)
 
 #### 中国公路物流运价指数
 
-接口: index_price_cflp
+接口：index_price_cflp
 
-目标地址: http://index.0256.cn/expx.htm
+目标地址：http://index.0256.cn/expx.htm
 
-描述: 获取指定 symbol 的中国公路物流运价指数的数据
+描述：获取指定 symbol 的中国公路物流运价指数的数据
 
 输入参数
 
@@ -4030,11 +4030,11 @@ print(index_price_cflp_df)
 
 #### 中国公路物流运量指数
 
-接口: index_volume_cflp
+接口：index_volume_cflp
 
-目标地址: http://index.0256.cn/expx.htm
+目标地址：http://index.0256.cn/expx.htm
 
-描述: 指定 symbol 的中国公路物流运量指数的数据
+描述：指定 symbol 的中国公路物流运量指数的数据
 
 输入参数
 
@@ -4123,19 +4123,19 @@ print(index_volume_cflp_df)
 
 ### 中证指数
 
-接口: stock_zh_index_hist_csindex
+接口：stock_zh_index_hist_csindex
 
-目标地址: https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
+目标地址：https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
 
-描述: 中证指数日频率的数据
+描述：中证指数日频率的数据
 
-限量: 该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据
+限量：该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据
 
 输入参数
 
 | 名称         | 类型  | 描述                    |
 |------------|-----|-----------------------|
-| symbol     | str | symbol="000928"; 指数代码 |
+| symbol     | str | symbol="000928"；指数代码 |
 | start_date | str | start_date="20180526" |
 | end_date   | str | end_date="20240604"   |
 
@@ -4154,9 +4154,9 @@ print(index_volume_cflp_df)
 | 最低     | float64 | -        |
 | 收盘     | float64 | -        |
 | 涨跌     | float64 | -        |
-| 涨跌幅    | float64 | 注意单位: %  |
-| 成交量    | float64 | 注意单位: 万手 |
-| 成交金额   | float64 | 注意单位: 亿元 |
+| 涨跌幅    | float64 | 注意单位：%  |
+| 成交量    | float64 | 注意单位：万手 |
+| 成交金额   | float64 | 注意单位：亿元 |
 | 样本数量   | float64 | -        |
 | 滚动市盈率  | float64 | -        |
 
@@ -4191,13 +4191,13 @@ print(stock_zh_index_hist_csindex_df)
 
 #### 综合 PMI
 
-接口: index_pmi_com_cx
+接口：index_pmi_com_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/pmi
+目标地址：https://yun.ccxe.com.cn/indices/pmi
 
-描述: 财新数据-指数报告-财新中国 PMI-综合 PMI
+描述：财新数据-指数报告-财新中国 PMI-综合 PMI
 
-限量: 该接口返回所有历史数据，该数据更新至 202507 截止；
+限量：该接口返回所有历史数据，该数据更新至 202507 截止；
 
 输入参数
 
@@ -4241,13 +4241,13 @@ print(index_pmi_com_cx_df)
 
 #### 制造业 PMI
 
-接口: index_pmi_man_cx
+接口：index_pmi_man_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/pmi
+目标地址：https://yun.ccxe.com.cn/indices/pmi
 
-描述: 财新数据-指数报告-财新中国 PMI-制造业 PMI
+描述：财新数据-指数报告-财新中国 PMI-制造业 PMI
 
-限量: 该接口返回所有历史数据，该数据更新至 202507 截止；
+限量：该接口返回所有历史数据，该数据更新至 202507 截止；
 
 输入参数
 
@@ -4291,13 +4291,13 @@ print(index_pmi_man_cx_df)
 
 #### 服务业 PMI
 
-接口: index_pmi_ser_cx
+接口：index_pmi_ser_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/pmi
+目标地址：https://yun.ccxe.com.cn/indices/pmi
 
-描述: 财新数据-指数报告-财新中国 PMI-服务业 PMI
+描述：财新数据-指数报告-财新中国 PMI-服务业 PMI
 
-限量: 该接口返回所有历史数据，该数据更新至 202507 截止；
+限量：该接口返回所有历史数据，该数据更新至 202507 截止；
 
 输入参数
 
@@ -4341,13 +4341,13 @@ print(index_pmi_ser_cx_df)
 
 #### 数字经济指数
 
-接口: index_dei_cx
+接口：index_dei_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/dei
+目标地址：https://yun.ccxe.com.cn/indices/dei
 
-描述: 财新指数-数字经济指数
+描述：财新指数-数字经济指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4391,13 +4391,13 @@ print(index_dei_cx_df)
 
 #### 产业指数
 
-接口: index_ii_cx
+接口：index_ii_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/dei
+目标地址：https://yun.ccxe.com.cn/indices/dei
 
-描述: 财新指数-产业指数
+描述：财新指数-产业指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4441,13 +4441,13 @@ print(index_ii_cx_df)
 
 #### 溢出指数
 
-接口: index_si_cx
+接口：index_si_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/dei
+目标地址：https://yun.ccxe.com.cn/indices/dei
 
-描述: 财新指数-溢出指数
+描述：财新指数-溢出指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4491,13 +4491,13 @@ print(index_si_cx_df)
 
 #### 融合指数
 
-接口: index_fi_cx
+接口：index_fi_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/dei
+目标地址：https://yun.ccxe.com.cn/indices/dei
 
-描述: 财新指数-融合指数
+描述：财新指数-融合指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4541,13 +4541,13 @@ print(index_fi_cx_df)
 
 #### 基础指数
 
-接口: index_bi_cx
+接口：index_bi_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/dei
+目标地址：https://yun.ccxe.com.cn/indices/dei
 
-描述: 财新指数-基础指数
+描述：财新指数-基础指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4591,13 +4591,13 @@ print(index_bi_cx_df)
 
 #### 中国新经济指数
 
-接口: index_nei_cx
+接口：index_nei_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-中国新经济指数
+描述：财新指数-中国新经济指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4641,13 +4641,13 @@ print(index_nei_cx_df)
 
 #### 劳动力投入指数
 
-接口: index_li_cx
+接口：index_li_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-劳动力投入指数
+描述：财新指数-劳动力投入指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4691,13 +4691,13 @@ print(index_li_cx_df)
 
 #### 资本投入指数
 
-接口: index_ci_cx
+接口：index_ci_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-资本投入指数
+描述：财新指数-资本投入指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4741,13 +4741,13 @@ print(index_ci_cx_df)
 
 #### 科技投入指数
 
-接口: index_ti_cx
+接口：index_ti_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-科技投入指数
+描述：财新指数-科技投入指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4791,13 +4791,13 @@ print(index_ti_cx_df)
 
 #### 新经济行业入职平均工资水平
 
-接口: index_neaw_cx
+接口：index_neaw_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-新经济行业入职平均工资水平
+描述：财新指数-新经济行业入职平均工资水平
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4841,13 +4841,13 @@ print(index_neaw_cx_df)
 
 #### 新经济入职工资溢价水平
 
-接口: index_awpr_cx
+接口：index_awpr_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-新经济入职工资溢价水平
+描述：财新指数-新经济入职工资溢价水平
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4891,13 +4891,13 @@ print(index_awpr_cx_df)
 
 #### 大宗商品指数
 
-接口: index_cci_cx
+接口：index_cci_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/nei
+目标地址：https://yun.ccxe.com.cn/indices/nei
 
-描述: 财新指数-大宗商品指数
+描述：财新指数-大宗商品指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4942,13 +4942,13 @@ print(index_cci_cx_df)
 
 #### 高质量因子
 
-接口: index_qli_cx
+接口：index_qli_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/qli
+目标地址：https://yun.ccxe.com.cn/indices/qli
 
-描述: 财新指数-高质量因子
+描述：财新指数-高质量因子
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -4962,7 +4962,7 @@ print(index_cci_cx_df)
 |---------|---------|---------|
 | 日期      | object  | -       |
 | 高质量因子指数 | float64 | -       |
-| 变化幅度    | float64 | 注意单位: % |
+| 变化幅度    | float64 | 注意单位：% |
 
 接口示例
 
@@ -4993,13 +4993,13 @@ print(index_qli_cx_df)
 
 #### AI策略指数
 
-接口: index_ai_cx
+接口：index_ai_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/ai
+目标地址：https://yun.ccxe.com.cn/indices/ai
 
-描述: 财新指数-AI策略指数
+描述：财新指数-AI策略指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -5013,7 +5013,7 @@ print(index_qli_cx_df)
 |--------|---------|---------|
 | 日期     | object  | -       |
 | AI策略指数 | float64 | -       |
-| 变化幅度   | float64 | 注意单位: % |
+| 变化幅度   | float64 | 注意单位：% |
 
 接口示例
 
@@ -5044,13 +5044,13 @@ print(index_ai_cx_df)
 
 #### 基石经济指数
 
-接口: index_bei_cx
+接口：index_bei_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/bei
+目标地址：https://yun.ccxe.com.cn/indices/bei
 
-描述: 财新指数-基石经济指数
+描述：财新指数-基石经济指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -5064,7 +5064,7 @@ print(index_ai_cx_df)
 |--------|---------|---------|
 | 日期     | object  | -       |
 | 基石经济指数 | float64 | -       |
-| 变化幅度   | float64 | 注意单位: % |
+| 变化幅度   | float64 | 注意单位：% |
 
 接口示例
 
@@ -5095,13 +5095,13 @@ print(index_bei_cx_df)
 
 #### 新动能指数
 
-接口: index_neei_cx
+接口：index_neei_cx
 
-目标地址: https://yun.ccxe.com.cn/indices/neei
+目标地址：https://yun.ccxe.com.cn/indices/neei
 
-描述: 财新指数-新动能指数
+描述：财新指数-新动能指数
 
-限量: 该接口返回所有历史数据
+限量：该接口返回所有历史数据
 
 输入参数
 
@@ -5115,7 +5115,7 @@ print(index_bei_cx_df)
 |-------|---------|---------|
 | 日期    | object  | -       |
 | 新动能指数 | float64 | -       |
-| 变化幅度  | float64 | 注意单位: % |
+| 变化幅度  | float64 | 注意单位：% |
 
 接口示例
 
@@ -5158,19 +5158,19 @@ print(index_neei_cx_df)
 
 #### 指数估值-中证
 
-接口: stock_zh_index_value_csindex
+接口：stock_zh_index_value_csindex
 
-目标地址: https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
+目标地址：https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
 
-描述: 中证指数-指数估值数据
+描述：中证指数-指数估值数据
 
-限量: 该接口返回指定的指数的估值数据, 该接口只能返回近期的数据
+限量：该接口返回指定的指数的估值数据，该接口只能返回近期的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                    |
 |--------|-----|-----------------------|
-| symbol | str | symbol="H30374"; 指数代码 |
+| symbol | str | symbol="H30374"；指数代码 |
 
 输出参数
 
@@ -5182,10 +5182,10 @@ print(index_neei_cx_df)
 | 指数中文简称 | object  | -               |
 | 指数英文全称 | object  | -               |
 | 指数英文简称 | object  | -               |
-| 市盈率1   | float64 | 注意: （总股本）P/E1   |
-| 市盈率2   | float64 | 注意: （计算用股本）P/E2 |
-| 股息率1   | float64 | 注意: （总股本）D/P1   |
-| 股息率2   | float64 | 注意: （计算用股本）D/P2 |
+| 市盈率1   | float64 | 注意：（总股本）P/E1   |
+| 市盈率2   | float64 | 注意：（计算用股本）P/E2 |
+| 股息率1   | float64 | 注意：（总股本）D/P1   |
+| 股息率2   | float64 | 注意：（计算用股本）D/P2 |
 
 接口示例
 
@@ -5227,13 +5227,13 @@ print(stock_zh_index_value_csindex_df)
 
 #### 基金指数实时行情
 
-接口: index_realtime_fund_sw
+接口：index_realtime_fund_sw
 
-目标地址: https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
+目标地址：https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
-描述: 申万宏源研究-申万指数-指数发布-基金指数-实时行情
+描述：申万宏源研究-申万指数-指数发布-基金指数-实时行情
 
-限量: 该接口返回指定 symbol 的数据
+限量：该接口返回指定 symbol 的数据
 
 输入参数
 
@@ -5248,8 +5248,8 @@ print(stock_zh_index_value_csindex_df)
 | 指数代码 | object  | -       |
 | 指数名称 | object  | -       |
 | 昨收盘  | float64 | -       |
-| 日涨跌幅 | float64 | 注意单位: % |
-| 年涨跌幅 | float64 | 注意单位: % |
+| 日涨跌幅 | float64 | 注意单位：% |
+| 年涨跌幅 | float64 | 注意单位：% |
 
 接口示例
 
@@ -5275,19 +5275,19 @@ print(index_realtime_fund_sw_df)
 
 #### 基金指数历史行情
 
-接口: index_hist_fund_sw
+接口：index_hist_fund_sw
 
-目标地址: https://www.swsresearch.com/institute_sw/allIndex/releasedIndex/fundDetail?code=807100
+目标地址：https://www.swsresearch.com/institute_sw/allIndex/releasedIndex/fundDetail?code=807100
 
-描述: 申万宏源研究-申万指数-指数发布-基金指数-历史行情
+描述：申万宏源研究-申万指数-指数发布-基金指数-历史行情
 
-限量: 该接口返回指定 symbol 的数据
+限量：该接口返回指定 symbol 的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                               |
 |--------|-----|--------------------------------------------------|
-| symbol | str | symbol="807200"; 基金指数代码                          |
+| symbol | str | symbol="807200"；基金指数代码                          |
 | period | str | period="day"; choice of {"day", "week", "month"} |
 
 输出参数
@@ -5299,7 +5299,7 @@ print(index_realtime_fund_sw_df)
 | 开盘指数 | float64 | -       |
 | 最高指数 | float64 | -       |
 | 最低指数 | float64 | -       |
-| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌幅  | float64 | 注意单位：% |
 
 接口示例
 
@@ -5330,13 +5330,13 @@ print(index_hist_fund_sw_df)
 
 #### 申万指数实时行情
 
-接口: index_realtime_sw
+接口：index_realtime_sw
 
-目标地址: https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
+目标地址：https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
-描述: 申万宏源研究-指数系列; 注意其中大类风格指数和金创指数的字段与其他分类不同
+描述：申万宏源研究-指数系列；注意其中大类风格指数和金创指数的字段与其他分类不同
 
-限量: 该接口返回指定 symbol 的数据; 源站无数据时返回空的 pandas.DataFrame
+限量：该接口返回指定 symbol 的数据；源站无数据时返回空的 pandas.DataFrame
 
 输入参数
 
@@ -5344,11 +5344,11 @@ print(index_hist_fund_sw_df)
 |--------|-----|-----------------------------------------------------------------------------|
 | symbol | str | symbol="市场表征"; choice of {"市场表征", "一级行业", "二级行业", "风格指数", "大类风格指数", "金创指数"} |
 
-说明:
+说明：
 
-- `symbol` 为 `"市场表征"`, `"一级行业"`, `"二级行业"`, `"风格指数"` 时, 返回字段为 `指数代码`, `指数名称`, `昨收盘`, `今开盘`, `最新价`, `成交额`, `成交量`, `最高价`, `最低价`
-- `symbol` 为 `"大类风格指数"` 或 `"金创指数"` 时, 返回字段为 `指数代码`, `指数名称`, `昨收盘`, `日涨跌幅`, `年涨跌幅`
-- 当前若源站对某一分类暂无实时数据, 接口会返回结构化空表
+- `symbol` 为 `"市场表征"`, `"一级行业"`, `"二级行业"`, `"风格指数"` 时，返回字段为 `指数代码`, `指数名称`, `昨收盘`, `今开盘`, `最新价`, `成交额`, `成交量`, `最高价`, `最低价`
+- `symbol` 为 `"大类风格指数"` 或 `"金创指数"` 时，返回字段为 `指数代码`, `指数名称`, `昨收盘`, `日涨跌幅`, `年涨跌幅`
+- 当前若源站对某一分类暂无实时数据，接口会返回结构化空表
 
 输出参数
 
@@ -5359,8 +5359,8 @@ print(index_hist_fund_sw_df)
 | 昨收盘  | float64 | -       |
 | 今开盘  | float64 | -       |
 | 最新价  | float64 | -       |
-| 成交额  | float64 | 注意: 百万元 |
-| 成交量  | float64 | 注意: 百万股 |
+| 成交额  | float64 | 注意：百万元 |
+| 成交量  | float64 | 注意：百万股 |
 | 最高价  | float64 | -       |
 | 最低价  | float64 | -       |
 
@@ -5391,19 +5391,19 @@ print(index_realtime_sw_df)
 
 #### 申万指数历史行情
 
-接口: index_hist_sw
+接口：index_hist_sw
 
-目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801002&name=申万中小
+目标地址：https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801002&name=申万中小
 
-描述: 申万宏源研究-指数发布-指数详情-指数历史数据
+描述：申万宏源研究-指数发布-指数详情-指数历史数据
 
-限量: 该接口返回指定 symbol 和 period 的数据
+限量：该接口返回指定 symbol 和 period 的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                               |
 |--------|-----|--------------------------------------------------|
-| symbol | str | symbol="801030"; 指数代码                            |
+| symbol | str | symbol="801030"；指数代码                            |
 | period | str | period="day"; choice of {"day", "week", "month"} |
 
 输出参数
@@ -5448,19 +5448,19 @@ print(index_hist_sw_df)
 
 #### 申万指数分时行情
 
-接口: index_min_sw
+接口：index_min_sw
 
-目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
+目标地址：https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
 
-描述: 申万宏源研究-指数发布-指数详情-指数分时数据
+描述：申万宏源研究-指数发布-指数详情-指数分时数据
 
-限量: 该接口返回指定 symbol 的数据
+限量：该接口返回指定 symbol 的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                               |
 |--------|-----|--------------------------------------------------|
-| symbol | str | symbol="801030"; 指数代码                            |
+| symbol | str | symbol="801030"；指数代码                            |
 
 输出参数
 
@@ -5501,19 +5501,19 @@ print(index_min_sw_df)
 
 #### 申万指数成分股
 
-接口: index_component_sw
+接口：index_component_sw
 
-目标地址: https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
+目标地址：https://www.swsresearch.com//institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=申万中小
 
-描述: 申万宏源研究-指数发布-指数详情-成分股
+描述：申万宏源研究-指数发布-指数详情-成分股
 
-限量: 该接口返回指定 symbol 的数据
+限量：该接口返回指定 symbol 的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                               |
 |--------|-----|--------------------------------------------------|
-| symbol | str | symbol="801001"; 指数代码                            |
+| symbol | str | symbol="801001"；指数代码                            |
 
 输出参数
 
@@ -5554,13 +5554,13 @@ print(index_component_sw_df)
 
 #### 申万指数分析-日报表
 
-接口: index_analysis_daily_sw
+接口：index_analysis_daily_sw
 
-目标地址: https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
+目标地址：https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
 
-描述: 申万宏源研究-指数分析-日报表
+描述：申万宏源研究-指数分析-日报表
 
-限量: 该接口返回指定参数的数据
+限量：该接口返回指定参数的数据
 
 输入参数
 
@@ -5578,16 +5578,16 @@ print(index_component_sw_df)
 | 指数名称   | object  | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
-| 成交量    | float64 | 注意单位: 亿股 |
-| 涨跌幅    | float64 | 注意单位: %  |
-| 换手率    | float64 | 注意单位: %  |
-| 市盈率    | float64 | 注意单位: 倍  |
-| 市净率    | float64 | 注意单位: 倍  |
-| 均价     | float64 | 注意单位: 元  |
-| 成交额占比  | float64 | 注意单位: %  |
-| 流通市值   | float64 | 注意单位: 亿元 |
-| 平均流通市值 | float64 | 注意单位: 亿元 |
-| 股息率    | float64 | 注意单位: %  |
+| 成交量    | float64 | 注意单位：亿股 |
+| 涨跌幅    | float64 | 注意单位：%  |
+| 换手率    | float64 | 注意单位：%  |
+| 市盈率    | float64 | 注意单位：倍  |
+| 市净率    | float64 | 注意单位：倍  |
+| 均价     | float64 | 注意单位：元  |
+| 成交额占比  | float64 | 注意单位：%  |
+| 流通市值   | float64 | 注意单位：亿元 |
+| 平均流通市值 | float64 | 注意单位：亿元 |
+| 股息率    | float64 | 注意单位：%  |
 
 接口示例
 
@@ -5616,20 +5616,20 @@ print(index_analysis_daily_sw_df)
 
 #### 申万指数分析-周报表
 
-接口: index_analysis_weekly_sw
+接口：index_analysis_weekly_sw
 
-目标地址: https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
+目标地址：https://www.swsresearch.com//institute_sw/allIndex/analysisIndex
 
-描述: 申万宏源研究-指数分析-周报表
+描述：申万宏源研究-指数分析-周报表
 
-限量: 该接口返回指定参数的数据
+限量：该接口返回指定参数的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                            |
 |--------|-----|-------------------------------------------------------------------------------|
 | symbol | str | symbol="市场表征"; choice of {"市场表征", "一级行业", "二级行业", "风格指数"}                     |
-| date   | str | start_date="20221104"; 通过调用 ak.index_analysis_week_month_sw(date="week") 接口获取 |
+| date   | str | start_date="20221104"；通过调用 ak.index_analysis_week_month_sw(date="week") 接口获取 |
 
 输出参数
 
@@ -5639,16 +5639,16 @@ print(index_analysis_daily_sw_df)
 | 指数名称   | object  | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
-| 成交量    | float64 | 注意单位: 亿股 |
-| 涨跌幅    | float64 | 注意单位: %  |
-| 换手率    | float64 | 注意单位: %  |
-| 市盈率    | float64 | 注意单位: 倍  |
-| 市净率    | float64 | 注意单位: 倍  |
-| 均价     | float64 | 注意单位: 元  |
-| 成交额占比  | float64 | 注意单位: %  |
-| 流通市值   | float64 | 注意单位: 亿元 |
-| 平均流通市值 | float64 | 注意单位: 亿元 |
-| 股息率    | float64 | 注意单位: %  |
+| 成交量    | float64 | 注意单位：亿股 |
+| 涨跌幅    | float64 | 注意单位：%  |
+| 换手率    | float64 | 注意单位：%  |
+| 市盈率    | float64 | 注意单位：倍  |
+| 市净率    | float64 | 注意单位：倍  |
+| 均价     | float64 | 注意单位：元  |
+| 成交额占比  | float64 | 注意单位：%  |
+| 流通市值   | float64 | 注意单位：亿元 |
+| 平均流通市值 | float64 | 注意单位：亿元 |
+| 股息率    | float64 | 注意单位：%  |
 
 接口示例
 
@@ -5677,20 +5677,20 @@ print(index_analysis_weekly_sw_df)
 
 #### 申万指数分析-月报表
 
-接口: index_analysis_monthly_sw
+接口：index_analysis_monthly_sw
 
-目标地址: https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
+目标地址：https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
 
-描述: 申万宏源研究-指数分析-月报表
+描述：申万宏源研究-指数分析-月报表
 
-限量: 该接口返回指定参数的数据
+限量：该接口返回指定参数的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                             |
 |--------|-----|--------------------------------------------------------------------------------|
 | symbol | str | symbol="市场表征"; choice of {"市场表征", "一级行业", "二级行业", "风格指数"}                      |
-| date   | str | start_date="20221031"; 通过调用 ak.index_analysis_week_month_sw(date="month") 接口获取 |
+| date   | str | start_date="20221031"；通过调用 ak.index_analysis_week_month_sw(date="month") 接口获取 |
 
 输出参数
 
@@ -5700,16 +5700,16 @@ print(index_analysis_weekly_sw_df)
 | 指数名称   | object  | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
-| 成交量    | float64 | 注意单位: 亿股 |
-| 涨跌幅    | float64 | 注意单位: %  |
-| 换手率    | float64 | 注意单位: %  |
-| 市盈率    | float64 | 注意单位: 倍  |
-| 市净率    | float64 | 注意单位: 倍  |
-| 均价     | float64 | 注意单位: 元  |
-| 成交额占比  | float64 | 注意单位: %  |
-| 流通市值   | float64 | 注意单位: 亿元 |
-| 平均流通市值 | float64 | 注意单位: 亿元 |
-| 股息率    | float64 | 注意单位: %  |
+| 成交量    | float64 | 注意单位：亿股 |
+| 涨跌幅    | float64 | 注意单位：%  |
+| 换手率    | float64 | 注意单位：%  |
+| 市盈率    | float64 | 注意单位：倍  |
+| 市净率    | float64 | 注意单位：倍  |
+| 均价     | float64 | 注意单位：元  |
+| 成交额占比  | float64 | 注意单位：%  |
+| 流通市值   | float64 | 注意单位：亿元 |
+| 平均流通市值 | float64 | 注意单位：亿元 |
+| 股息率    | float64 | 注意单位：%  |
 
 接口示例
 
@@ -5740,13 +5740,13 @@ print(index_analysis_monthly_sw_df)
 
 #### A 股新闻情绪指数
 
-接口: index_news_sentiment_scope
+接口：index_news_sentiment_scope
 
-目标地址: https://www.chinascope.com/reasearch.html
+目标地址：https://www.chinascope.com/reasearch.html
 
-描述: 数库-A股新闻情绪指数
+描述：数库-A股新闻情绪指数
 
-限量: 该接口返回近一年的 A 股新闻情绪指数数据
+限量：该接口返回近一年的 A 股新闻情绪指数数据
 
 输入参数
 

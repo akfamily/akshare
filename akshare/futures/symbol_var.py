@@ -12,7 +12,7 @@ from akshare.futures import cons
 
 def symbol_varieties(contract_code: str):
     """
-    查找到具体合约代码, 返回大写字母的品种名称
+    查找到具体合约代码，返回大写字母的品种名称
     :param contract_code: ru1801
     :return: RU
     """

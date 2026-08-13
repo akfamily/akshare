@@ -16,7 +16,7 @@ def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
     """
     新财富 500 人富豪榜
     http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
-    :param year: 具体排名年份, 数据从 2003-至今
+    :param year: 具体排名年份，数据从 2003-至今
     :type year: str
     :return: 排行榜
     :rtype: pandas.DataFrame

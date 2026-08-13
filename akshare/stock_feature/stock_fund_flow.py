@@ -42,7 +42,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-个股资金流
     https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
-    :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
+    :param symbol: choice of {“即时”，"3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 个股资金流
     :rtype: pandas.DataFrame
@@ -138,7 +138,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-概念资金流
     https://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
-    :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
+    :param symbol: choice of {“即时”，"3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 概念资金流
     :rtype: pandas.DataFrame
@@ -244,7 +244,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-行业资金流
     https://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
-    :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
+    :param symbol: choice of {“即时”，"3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 行业资金流
     :rtype: pandas.DataFrame

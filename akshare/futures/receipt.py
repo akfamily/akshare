@@ -3,7 +3,7 @@
 """
 Date: 2025/7/21 15:00
 Desc: 每日注册仓单数据
-大连商品交易所, 上海期货交易所, 郑州商品交易所, 广州期货交易所
+大连商品交易所，上海期货交易所，郑州商品交易所，广州期货交易所
 """
 
 import datetime
@@ -38,9 +38,9 @@ def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
     """
     大连商品交易所-注册仓单数据
     http://www.dce.com.cn/dce/channel/list/187.html
-    :param date: 开始日期: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 为空时为当天
+    :param date: 开始日期：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，为空时为当天
     :type date: str
-    :param vars_list: 合约品种如 RB, AL等列表, 为空时为所有商品数据从 20060106开始，每周五更新仓单数据。直到20090407起，每交易日都更新仓单数据
+    :param vars_list: 合约品种如 RB, AL等列表，为空时为所有商品数据从 20060106开始，每周五更新仓单数据。直到20090407起，每交易日都更新仓单数据
     :type vars_list: list
     :return: 注册仓单数据
     :rtype: pandas.DataFrame
@@ -85,7 +85,7 @@ def get_shfe_receipt_1(
     """
     上海期货交易所-注册仓单数据-类型1
     适用 20081006 至 20140518(包括)、20100126、20101029日期交易所格式混乱，直接回复脚本中 pandas.DataFrame, 20100416、20130821日期交易所数据丢失
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象为空时为当天
     :type date: str
     :param vars_list: 合约品种如RB、AL等列表为空时为所有商品
     :type vars_list: list
@@ -159,7 +159,7 @@ def get_shfe_receipt_2(
     """
     上海期货交易所-注册仓单数据-类型2
     适用 20140519(包括)-至今
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
     :type vars_list: list
@@ -221,7 +221,7 @@ def get_shfe_receipt_3(
     """
     上海期货交易所-注册仓单数据-类型2
     适用 20140519(包括)-至今
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
     :type vars_list: list
@@ -270,7 +270,7 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     """
     郑州商品交易所-注册仓单数据
     适用 20080222 至 20100824(包括)
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: list
     :type vars_list: 合约品种如 CF、TA 等列表 为空时为所有商品
@@ -330,7 +330,7 @@ def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
     郑州商品交易所-注册仓单数据
     http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
     适用 20100825(包括) - 20151111(包括)
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 CF、TA 等列表为空时为所有商品
     :type vars_list: list
@@ -390,7 +390,7 @@ def get_czce_receipt_3(
     郑州商品交易所-注册仓单数据
     适用 20151008-至今
     http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 CF、TA 等列表为空时为所有商品
     :type vars_list: list
@@ -505,7 +505,7 @@ def get_gfex_receipt(
     """
     广州期货交易所-注册仓单数据
     http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 SI 等列表为空时为所有商品
     :type vars_list: list
@@ -575,9 +575,9 @@ def get_receipt(
 ):
     """
     大宗商品-注册仓单数据
-    :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
+    :param start_date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
     :type start_date: str
-    :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
+    :param end_date: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
     :type end_date: str
     :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品
     :type vars_list: str

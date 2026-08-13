@@ -54,7 +54,7 @@ def spot_quotations_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     https://www.sge.com.cn/graph/quotations
     :param symbol: choice of {'Au99.99', 'Au99.95', 'Au100g', 'Pt99.95', 'Ag(T+D)', 'Au(T+D)',
     'mAu(T+D)', 'Au(T+N1)', 'Au(T+N2)', 'Ag99.99', 'iAu99.99', 'Au99.5', 'iAu100g',
-    'iAu99.5', 'PGC30g', 'NYAuTN06', 'NYAuTN12'}; 可以通过 ak.spot_symbol_table_sge() 获取品种表
+    'iAu99.5', 'PGC30g', 'NYAuTN06', 'NYAuTN12'}；可以通过 ak.spot_symbol_table_sge() 获取品种表
     :type symbol: str
     :return: 行情数据
     :rtype: pandas.DataFrame
@@ -112,7 +112,7 @@ def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     https://www.sge.com.cn/sjzx/mrhq
     :param symbol: choice of {'Au99.99', 'Au99.95', 'Au100g', 'Pt99.95', 'Ag(T+D)', 'Au(T+D)',
     'mAu(T+D)', 'Au(T+N1)', 'Au(T+N2)', 'Ag99.99', 'iAu99.99', 'Au99.5', 'iAu100g', 'iAu99.5',
-    'PGC30g', 'NYAuTN06', 'NYAuTN12'}; 可以通过 ak.spot_symbol_table_sge() 获取品种表
+    'PGC30g', 'NYAuTN06', 'NYAuTN12'}；可以通过 ak.spot_symbol_table_sge() 获取品种表
     :type symbol: str
     :return: 历史数据
     :rtype: pandas.DataFrame

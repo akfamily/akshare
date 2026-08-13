@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2025/10/30 20:24
-Desc: 市盈率, 市净率和股息率查询
+Desc: 市盈率，市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
 """
@@ -59,7 +59,7 @@ def stock_hk_indicator_eniu(
     https://eniu.com/gu/hk01093/roe
     :param symbol: 港股代码
     :type symbol: str
-    :param indicator: 需要获取的指标, choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}
+    :param indicator: 需要获取的指标，choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}
     :type indicator: str
     :return: 指定 symbol 和 indicator 的数据
     :rtype: pandas.DataFrame

@@ -36,7 +36,7 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
     https://webapi.cninfo.com.cn/#/thematicStatistics
-    :param symbol: choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}; 从 2010 开始
+    :param symbol: choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}；从 2010 开始
     :type symbol: str
     :return: 实际控制人持股变动
     :rtype: pandas.DataFrame

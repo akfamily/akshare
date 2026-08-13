@@ -771,7 +771,7 @@ def stock_lhb_stock_detail_em(
     https://data.eastmoney.com/stock/lhb/600077.html
     :param symbol: 股票代码
     :type symbol: str
-    :param date: 查询日期; 需要通过 ak.stock_lhb_stock_detail_date_em(symbol="600077") 接口获取相应股票的有龙虎榜详情数据的日期
+    :param date: 查询日期；需要通过 ak.stock_lhb_stock_detail_date_em(symbol="600077") 接口获取相应股票的有龙虎榜详情数据的日期
     :type date: str
     :param flag: choice of {"买入", "卖出"}
     :type flag: str
@@ -905,7 +905,7 @@ def stock_lhb_yyb_detail_em(symbol: str = "10188715") -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-营业部历史交易明细-营业部交易明细
     https://data.eastmoney.com/stock/lhb/yyb/10188715.html
-    :param symbol: 营业部代码, 如 "10188715", 通过 ak.stock_lhb_hyyyb_em() 接口获取
+    :param symbol: 营业部代码，如 "10188715"，通过 ak.stock_lhb_hyyyb_em() 接口获取
     :type symbol: str
     :return: 营业部交易明细数据
     :rtype: pandas.DataFrame

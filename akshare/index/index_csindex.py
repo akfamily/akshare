@@ -18,7 +18,7 @@ def index_csindex_all() -> pd.DataFrame:
     中证指数网站-指数列表
     https://www.csindex.com.cn/#/indices/family/list?index_series=1
     Note: 但是不知道数据更新时间
-    :return: 最新指数的列表,
+    :return: 最新指数的列表，
     :rtype: pandas.DataFrame
     """
     warnings.filterwarnings(

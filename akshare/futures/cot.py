@@ -4,10 +4,10 @@
 Date: 2025/7/21 15:00
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所
-采集前 20 会员持仓数据;
-建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
+采集前 20 会员持仓数据；
+建议下午 16:30 以后采集当天数据，避免交易所数据更新不稳定；
 郑州商品交易所格式分为三类
-大连商品交易所有具体合约的持仓排名, 通过 futures_dce_position_rank 获取
+大连商品交易所有具体合约的持仓排名，通过 futures_dce_position_rank 获取
 20171228
 http://www.czce.com.cn/cn/DFSStaticFiles/Future/2020/20200727/FutureDataHolding.txt
 20100825
@@ -60,12 +60,12 @@ def get_rank_sum_daily(
 ):
     """
     采集四个期货交易所前 5、前 10、前 15、前 20 会员持仓排名数据
-    注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名;
+    注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
         所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
     注2：大商所只公布了品种排名，未公布标的排名
-    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param start_day: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type start_day: str
-    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param end_day: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type end_day: str
     :param vars_list: 合约品种如 ['RB'、'AL'] 等列表为空时为所有商品
     :type vars_list: list
@@ -110,9 +110,9 @@ def get_rank_sum_daily(
 def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols):
     """
     采集五个期货交易所前5、前10、前15、前20会员持仓排名数据
-    注1：由于上期所和中金所只公布每个品种内部的标的排名, 没有公布品种的总排名;
-        所以函数输出的品种排名是由品种中的每个标的加总获得, 并不是真实的品种排名列表
-    注2：大商所只公布了品种排名, 未公布标的排名
+    注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
+        所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
+    注2：大商所只公布了品种排名，未公布标的排名
     :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: date
     :param vars_list: 合约品种如 ['RB', 'AL'] 等列表为空时为所有商品
@@ -283,7 +283,7 @@ def get_shfe_rank_table(
     数据从 20020107 开始，每交易日 16:30 左右更新数据
     :param date: 交易日
     :type date: str
-    :param vars_list: 合约品种如 RB、AL等列表; 为空时为所有商品
+    :param vars_list: 合约品种如 RB、AL等列表；为空时为所有商品
     :type vars_list: list
     :return: 上海期货交易所会员成交及持仓排名表
     :rtype: dict
@@ -409,8 +409,8 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     https://www.czce.com.cn/cn/jysj/ccpm/H077003004index_1.htm
-    注：该交易所既公布了品种排名, 也公布了标的排名
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    注：该交易所既公布了品种排名，也公布了标的排名
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :return: 持仓排名数据明细
     :rtype: pandas.DataFrame
     返回值格式
@@ -515,7 +515,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
 def _get_dce_contract_list(date, var):
     """
     大连商品交易所取消了品种排名，只提供标的合约排名，需要获取标的合约列表
-    :param date: 日期 datetime.date 对象, 为空时为当天
+    :param date: 日期 datetime.date 对象，为空时为当天
     :param var: 合约品种
     :return: list 公布了持仓排名的合约列表
     """
@@ -565,10 +565,10 @@ def _get_dce_contract_list(date, var):
 
 def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) -> dict:
     """
-    大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
-    注: 该交易所只公布标的合约排名
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象, 为空时为当天
-    :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品, 数据从 20060104 开始，每交易日 16:30 左右更新数据
+    大连商品交易所前 20 会员持仓排名数据明细，由于交易所网站问题，需要 20200720 之后才有数据
+    注：该交易所只公布标的合约排名
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象，为空时为当天
+    :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品，数据从 20060104 开始，每交易日 16:30 左右更新数据
     :return: 持仓排名
     :rtype: pandas.DataFrame
 
@@ -718,8 +718,8 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     中国金融期货交易所前 20 会员持仓排名数据明细
     http://www.cffex.com.cn/ccpm/
     注：该交易所既公布品种排名，也公布标的排名
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品, 数据从20100416开始，每交易日16:30左右更新数据
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品，数据从20100416开始，每交易日16:30左右更新数据
     :return: 持仓排名
     :rtype: pandas.DataFrame
     :rfield:
@@ -821,7 +821,7 @@ def futures_dce_position_rank(
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
-    :param date: 指定交易日; e.g., "20200511"
+    :param date: 指定交易日；e.g., "20200511"
     :type date: str
     :param vars_list: 品种列表
     :type vars_list: list
@@ -858,7 +858,7 @@ def futures_dce_position_rank(
                 temp_filter = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 if (
                     temp_filter[1] - temp_filter[0] < 5
-                ):  # 过滤有无成交量但是有买卖持仓的数据, 如 20201105_c2011_成交量_买持仓_卖持仓排名.txt
+                ):  # 过滤有无成交量但是有买卖持仓的数据，如 20201105_c2011_成交量_买持仓_卖持仓排名.txt
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
@@ -1293,7 +1293,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
     """
     广州期货交易所-日成交持仓排名
     http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
-    :param date: 开始日期; 广州期货交易所的日成交持仓排名从 20231110 开始
+    :param date: 开始日期；广州期货交易所的日成交持仓排名从 20231110 开始
     :type date: str
     :param vars_list: 商品代码列表
     :type vars_list: list

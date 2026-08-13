@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 def __get_sys_spot_futures_dict() -> dict:
     """
-    生意社-商品与期货-现期图: 品种和网址字典
+    生意社-商品与期货-现期图：品种和网址字典
     https://www.100ppi.com/sf/792.html
     :return: 品种和网址字典
     :rtype: dict
@@ -39,7 +39,7 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     https://www.100ppi.com/sf/792.html
     :param symbol: 期货品种
     :type symbol: str
-    :param indicator: 市场价格; choice of {"市场价格", "基差率", "主力基差"}
+    :param indicator: 市场价格；choice of {"市场价格", "基差率", "主力基差"}
     :type indicator: str
     :return: pandas.DataFrame
     :rtype: dict

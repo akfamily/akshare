@@ -18,7 +18,7 @@ def news_cctv(date: str = "20240424") -> pd.DataFrame:
     """
     新闻联播文字稿
     https://tv.cctv.com/lm/xwlb
-    :param date: 需要获取数据的日期; 目前 20160203 年后
+    :param date: 需要获取数据的日期；目前 20160203 年后
     :type date: str
     :return: 新闻联播文字稿
     :rtype: pandas.DataFrame

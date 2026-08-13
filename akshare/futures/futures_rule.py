@@ -16,7 +16,7 @@ def futures_rule(date: str = "20231205") -> pd.DataFrame:
     """
     国泰君安期货-交易日历数据表
     https://www.gtjaqh.com/pc/calendar.html
-    :param date: 需要指定为交易日, 且是近期的日期
+    :param date: 需要指定为交易日，且是近期的日期
     :type date: str
     :return: 交易日历数据
     :rtype: pandas.DataFrame

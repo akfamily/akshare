@@ -19,7 +19,7 @@ def __futures_global_hist_market_code(symbol: str = "HG00Y") -> Optional[int]:
     """
     东方财富网-行情中心-期货市场-国际期货-品种市场对照表
     https://quote.eastmoney.com/center/gridlist.html#futures_global
-    :param symbol: HG00Y, 品种代码；可以通过 ak.futures_global_spot_em() 来获取所有可获取历史行情数据的品种代码
+    :param symbol: HG00Y，品种代码；可以通过 ak.futures_global_spot_em() 来获取所有可获取历史行情数据的品种代码
     :type symbol: str
     :return: 品种所属于的市场
     :rtype: str

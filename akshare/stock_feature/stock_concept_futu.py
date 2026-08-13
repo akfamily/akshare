@@ -17,7 +17,7 @@ def _stock_concept_cons_futu(symbol: str = "巴菲特持仓") -> pd.DataFrame:
     """
     富途牛牛-主题投资-概念板块-成分股
     https://www.futunn.com/quote/sparks-us
-    :param symbol: 板块名称; choice of {"巴菲特持仓", "佩洛西持仓"}
+    :param symbol: 板块名称；choice of {"巴菲特持仓", "佩洛西持仓"}
     :type symbol: str
     :return: 概念板块
     :rtype: pandas.DataFrame
@@ -104,7 +104,7 @@ def stock_concept_cons_futu(symbol: str = "特朗普概念股") -> pd.DataFrame:
     """
     富途牛牛-主题投资-概念板块-成分股
     https://www.futunn.com/quote/sparks-us
-    :param symbol: 板块名称; choice of {"巴菲特持仓", "佩洛西持仓", "特朗普概念股"}
+    :param symbol: 板块名称；choice of {"巴菲特持仓", "佩洛西持仓", "特朗普概念股"}
     :type symbol: str
     :return: 概念板块
     :rtype: pandas.DataFrame

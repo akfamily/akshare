@@ -84,7 +84,7 @@ def _baidu_finance_calendar(
 ) -> pd.DataFrame:
     """
     百度股市通日历数据基础函数（支持分页）
-    :param date: 查询日期 (格式: YYYYMMDD)
+    :param date: 查询日期 (格式：YYYYMMDD)
     :param cate: 数据类别 ("economic_data" 或 "notify_suspend")
     :param process_func: 数据处理函数
     :param cookie: cookie
@@ -266,7 +266,7 @@ def news_economic_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFr
     """
     百度股市通-经济数据
     https://finance.baidu.com/calendar
-    :param date: 查询日期 (格式: YYYYMMDD)
+    :param date: 查询日期 (格式：YYYYMMDD)
     :param cookie: cookie
     :return: 经济数据 pd.DataFrame
     """
@@ -284,7 +284,7 @@ def news_trade_notify_suspend_baidu(
     """
     百度股市通-交易提醒-停复牌
     https://finance.baidu.com/calendar
-    :param date: 查询日期 (格式: YYYYMMDD)
+    :param date: 查询日期 (格式：YYYYMMDD)
     :param cookie: cookie
     :return: 停复牌数据DataFrame
     """
@@ -358,7 +358,7 @@ def news_trade_notify_dividend_baidu(
     """
     百度股市通-交易提醒-分红派息
     https://finance.baidu.com/calendar
-    :param date: 查询日期 (格式: YYYYMMDD)
+    :param date: 查询日期 (格式：YYYYMMDD)
     :param cookie: cookie
     :return: 交易提醒-分红派息DataFrame
     """
@@ -435,7 +435,7 @@ def news_report_time_baidu(date: str = "20251126", cookie: str = None) -> pd.Dat
     """
     百度股市通-财报发行
     https://finance.baidu.com/calendar
-    :param date: 查询日期 (格式: YYYYMMDD)
+    :param date: 查询日期 (格式：YYYYMMDD)
     :param cookie: cookie
     :return: 财报发行DataFrame
     """

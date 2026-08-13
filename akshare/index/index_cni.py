@@ -165,7 +165,7 @@ def index_detail_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
     https://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param symbol: 指数代码; "399001"
+    :param symbol: 指数代码；"399001"
     :type symbol: str
     :return: 历史样本
     :rtype: pandas.DataFrame

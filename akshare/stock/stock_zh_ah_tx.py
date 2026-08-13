@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2024/2/26 15:10
-Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
+Desc: 腾讯财经-A+H股数据，实时行情数据和历史行情数据（后复权）
 https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
 """
 
@@ -165,11 +165,11 @@ def stock_zh_ah_daily(
     https://gu.qq.com/hk01033/gp
     :param symbol: 股票代码
     :type symbol: str
-    :param start_year: 开始年份; e.g., “2000”
+    :param start_year: 开始年份；e.g., “2000”
     :type start_year: str
-    :param end_year: 结束年份; e.g., “2019”
+    :param end_year: 结束年份；e.g., “2019”
     :type end_year: str
-    :param adjust: 'qfq': 前复权, 'hfq': 后复权
+    :param adjust: 'qfq': 前复权，'hfq': 后复权
     :type adjust: str
     :return: 指定股票在指定年份的日频率历史行情数据
     :rtype: pandas.DataFrame

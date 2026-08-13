@@ -4,13 +4,13 @@
 
 #### 乘联会-统计数据-总体市场
 
-接口: car_market_total_cpca
+接口：car_market_total_cpca
 
-目标地址: http://data.cpcadata.com/TotalMarket
+目标地址：http://data.cpcadata.com/TotalMarket
 
-描述: 乘联会-统计数据-总体市场
+描述：乘联会-统计数据-总体市场
 
-限量: 单次返回指定 symbol 和 indicator 的数据
+限量：单次返回指定 symbol 和 indicator 的数据
 
 输入参数
 
@@ -24,8 +24,8 @@
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
 | 月份       | object  | -        |
-| {前一个年份}年 | float64 | 注意单位: 万辆 |
-| {当前年份}年  | float64 | 注意单位: 万辆 |
+| {前一个年份}年 | float64 | 注意单位：万辆 |
+| {当前年份}年  | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -56,13 +56,13 @@ print(car_market_total_cpca_df)
 
 #### 乘联会-统计数据-厂商排名
 
-接口: car_market_man_rank_cpca
+接口：car_market_man_rank_cpca
 
-目标地址: http://data.cpcadata.com/ManRank
+目标地址：http://data.cpcadata.com/ManRank
 
-描述: 乘联会-统计数据-厂商排名
+描述：乘联会-统计数据-厂商排名
 
-限量: 单次返回指定 symbol 和 indicator 的数据
+限量：单次返回指定 symbol 和 indicator 的数据
 
 输入参数
 
@@ -76,8 +76,8 @@ print(car_market_total_cpca_df)
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
 | 月份       | object  | -        |
-| {前一个年份}年 | float64 | 注意单位: 万辆 |
-| {当前年份}年  | float64 | 注意单位: 万辆 |
+| {前一个年份}年 | float64 | 注意单位：万辆 |
+| {当前年份}年  | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -106,13 +106,13 @@ print(car_market_man_rank_cpca_df)
 
 #### 乘联会-统计数据-车型大类
 
-接口: car_market_cate_cpca
+接口：car_market_cate_cpca
 
-目标地址: http://data.cpcadata.com/CategoryMarket
+目标地址：http://data.cpcadata.com/CategoryMarket
 
-描述: 乘联会-统计数据-车型大类
+描述：乘联会-统计数据-车型大类
 
-限量: 单次返回指定 symbol 和 indicator 的数据
+限量：单次返回指定 symbol 和 indicator 的数据
 
 输入参数
 
@@ -126,8 +126,8 @@ print(car_market_man_rank_cpca_df)
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
 | 月份       | object  | -        |
-| {前一个年份}年 | float64 | 注意单位: 万辆 |
-| {当前年份}年  | float64 | 注意单位: 万辆 |
+| {前一个年份}年 | float64 | 注意单位：万辆 |
+| {当前年份}年  | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -158,13 +158,13 @@ print(car_market_cate_cpca_df)
 
 #### 乘联会-统计数据-国别细分市场
 
-接口: car_market_country_cpca
+接口：car_market_country_cpca
 
-目标地址: http://data.cpcadata.com/CountryMarket
+目标地址：http://data.cpcadata.com/CountryMarket
 
-描述: 乘联会-统计数据-国别细分市场
+描述：乘联会-统计数据-国别细分市场
 
-限量: 单次返回指定 symbol 和 indicator 的数据
+限量：单次返回指定 symbol 和 indicator 的数据
 
 输入参数
 
@@ -177,13 +177,13 @@ print(car_market_cate_cpca_df)
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
 | 月份   | object  | -        |
-| 自主   | float64 | 注意单位: 万辆 |
-| 德系   | float64 | 注意单位: 万辆 |
-| 日系   | float64 | 注意单位: 万辆 |
-| 法系   | float64 | 注意单位: 万辆 |
-| 美系   | float64 | 注意单位: 万辆 |
-| 韩系   | float64 | 注意单位: 万辆 |
-| 其他欧系 | float64 | 注意单位: 万辆 |
+| 自主   | float64 | 注意单位：万辆 |
+| 德系   | float64 | 注意单位：万辆 |
+| 日系   | float64 | 注意单位：万辆 |
+| 法系   | float64 | 注意单位：万辆 |
+| 美系   | float64 | 注意单位：万辆 |
+| 韩系   | float64 | 注意单位：万辆 |
+| 其他欧系 | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -215,13 +215,13 @@ print(car_market_country_cpca_df)
 
 #### 乘联会-统计数据-级别细分市场
 
-接口: car_market_segment_cpca
+接口：car_market_segment_cpca
 
-目标地址: http://data.cpcadata.com/SegmentMarket
+目标地址：http://data.cpcadata.com/SegmentMarket
 
-描述: 乘联会-统计数据-级别细分市场
+描述：乘联会-统计数据-级别细分市场
 
-限量: 单次返回指定 symbol 的数据
+限量：单次返回指定 symbol 的数据
 
 输入参数
 
@@ -234,11 +234,11 @@ print(car_market_country_cpca_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 月份  | object  | -        |
-| A00 | float64 | 注意单位: 万辆 |
-| A0  | float64 | 注意单位: 万辆 |
-| A   | float64 | 注意单位: 万辆 |
-| B   | float64 | 注意单位: 万辆 |
-| C   | float64 | 注意单位: 万辆 |
+| A00 | float64 | 注意单位：万辆 |
+| A0  | float64 | 注意单位：万辆 |
+| A   | float64 | 注意单位：万辆 |
+| B   | float64 | 注意单位：万辆 |
+| C   | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -269,13 +269,13 @@ print(car_market_segment_cpca_df)
 
 #### 乘联会-统计数据-新能源细分市场
 
-接口: car_market_fuel_cpca
+接口：car_market_fuel_cpca
 
-目标地址: http://data.cpcadata.com/FuelMarket
+目标地址：http://data.cpcadata.com/FuelMarket
 
-描述: 乘联会-统计数据-车型大类
+描述：乘联会-统计数据-车型大类
 
-限量: 单次返回指定 symbol 的数据
+限量：单次返回指定 symbol 的数据
 
 输入参数
 
@@ -288,8 +288,8 @@ print(car_market_segment_cpca_df)
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
 | 月份       | object  | -        |
-| {前一个年份}年 | float64 | 注意单位: 万辆 |
-| {当前年份}年  | float64 | 注意单位: 万辆 |
+| {前一个年份}年 | float64 | 注意单位：万辆 |
+| {当前年份}年  | float64 | 注意单位：万辆 |
 
 接口示例
 
@@ -320,20 +320,20 @@ print(car_market_fuel_cpca_df)
 
 #### 盖世研究院
 
-接口: car_sale_rank_gasgoo
+接口：car_sale_rank_gasgoo
 
-目标地址: https://i.gasgoo.com/data/ranking
+目标地址：https://i.gasgoo.com/data/ranking
 
-描述: 盖世汽车资讯的汽车销量排行榜数据
+描述：盖世汽车资讯的汽车销量排行榜数据
 
-限量: 单次返回指定 symbol 和 date 的汽车销量排行榜数据
+限量：单次返回指定 symbol 和 date 的汽车销量排行榜数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                            |
 |--------|-----|-----------------------------------------------|
 | symbol | str | symbol="车型榜"; choice of {"车企榜", "品牌榜", "车型榜"} |
-| date   | str | date="202104"; 指定到月份即可                        |
+| date   | str | date="202104"；指定到月份即可                        |
 
 输出参数-品牌
 
@@ -341,8 +341,8 @@ print(car_market_fuel_cpca_df)
 |------------------|---------|---------|
 | 品牌               | object  | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位: % |
-| {当前月份}月环比        | object  | 注意单位: % |
+| {当前月份}月同比        | object  | 注意单位：% |
+| {当前月份}月环比        | object  | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -418,8 +418,8 @@ print(car_sale_rank_gasgoo_df)
 |------------------|---------|---------|
 | 车型               | object  | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位: % |
-| {当前月份}月环比        | object  | 注意单位: % |
+| {当前月份}月同比        | object  | 注意单位：% |
+| {当前月份}月环比        | object  | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -496,8 +496,8 @@ print(car_sale_rank_gasgoo_df)
 |------------------|---------|---------|
 | 厂商               | object  | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位: % |
-| {当前月份}月环比        | object  | 注意单位: % |
+| {当前月份}月同比        | object  | 注意单位：% |
+| {当前月份}月环比        | object  | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -569,13 +569,13 @@ print(car_sale_rank_gasgoo_df)
 
 ### 新闻联播文字稿
 
-接口: news_cctv
+接口：news_cctv
 
-目标地址: https://tv.cctv.com/lm/xwlb
+目标地址：https://tv.cctv.com/lm/xwlb
 
-描述: 新闻联播文字稿, 数据区间从 20160330-至今
+描述：新闻联播文字稿，数据区间从 20160330-至今
 
-限量: 单次返回指定日期新闻联播文字稿数据
+限量：单次返回指定日期新闻联播文字稿数据
 
 输入参数
 
@@ -623,20 +623,20 @@ print(news_cctv_df)
 
 #### 日出和日落-天
 
-接口: sunrise_daily
+接口：sunrise_daily
 
-目标地址: https://www.timeanddate.com/sun/china/
+目标地址：https://www.timeanddate.com/sun/china/
 
-描述: 中国各大城市-日出和日落时间, 数据区间从 19990101-至今, 推荐使用代理访问
+描述：中国各大城市-日出和日落时间，数据区间从 19990101-至今，推荐使用代理访问
 
-限量: 单次返回指定日期和指定城市的数据
+限量：单次返回指定日期和指定城市的数据
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
 | date | str | date="20240428"            |
-| city | str | city="beijing"; 注意输入的城市的拼音 |
+| city | str | city="beijing"；注意输入的城市的拼音 |
 
 输出参数
 
@@ -675,26 +675,26 @@ print(sunrise_daily_df)
 
 #### 日出和日落-月
 
-接口: sunrise_monthly
+接口：sunrise_monthly
 
-目标地址: https://www.timeanddate.com/sun/china/
+目标地址：https://www.timeanddate.com/sun/china/
 
-描述: 中国各大城市-日出和日落时间, 数据区间从 19990101-至今, 推荐使用代理访问
+描述：中国各大城市-日出和日落时间，数据区间从 19990101-至今，推荐使用代理访问
 
-限量: 单次返回指定日期所在月份每天的数据, 如果是未来日期则为预测值
+限量：单次返回指定日期所在月份每天的数据，如果是未来日期则为预测值
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
 | date | str | date="20240428"            |
-| city | str | city="beijing"; 注意输入的城市的拼音 |
+| city | str | city="beijing"；注意输入的城市的拼音 |
 
 输出参数
 
 | 名称         | 类型     | 描述                          |
 |------------|--------|-----------------------------|
-| date       | object | 日期-索引; XXXX-XX 格式           |
+| date       | object | 日期-索引；XXXX-XX 格式           |
 | feb        | object | 月份简称-随月份变化                  |
 | Sunrise    | object | 日出                          |
 | Sunset     | object | 日落                          |
@@ -759,13 +759,13 @@ print(sunrise_monthly_df)
 
 #### 近期空气质量
 
-接口: air_quality_hebei
+接口：air_quality_hebei
 
-目标地址: http://218.11.10.130:8080/#/application/home
+目标地址：http://218.11.10.130:8080/#/application/home
 
-描述: 河北省实时空气质量数据
+描述：河北省实时空气质量数据
 
-限量: 单次返回所有城市数据
+限量：单次返回所有城市数据
 
 输入参数
 
@@ -782,7 +782,7 @@ print(sunrise_monthly_df)
 | 监测点        | object  | 监测站点名称        |
 | 时间         | object  | 监测时间          |
 | AQI        | float64 | 空气质量指数        |
-| 空气质量等级     | object  | 空气质量级别(优、良等)  |
+| 空气质量等级     | object  | 空气质量级别（优、良等）  |
 | 首要污染物      | object  | 主要污染物         |
 | 经度         | float64 | 监测站点经度        |
 | 纬度         | float64 | 监测站点纬度        |
@@ -832,13 +832,13 @@ print(air_quality_hebei_df)
 
 #### 城市列表
 
-接口: air_city_table
+接口：air_city_table
 
-目标地址: https://www.aqistudy.cn/
+目标地址：https://www.aqistudy.cn/
 
-描述: 所有能获取空气质量数据的城市表
+描述：所有能获取空气质量数据的城市表
 
-限量: 单次返回所有可以获取的城市表数据
+限量：单次返回所有可以获取的城市表数据
 
 输入参数
 
@@ -886,22 +886,22 @@ print(air_city_table_df)
 
 #### 空气质量历史数据
 
-接口: air_quality_hist
+接口：air_quality_hist
 
-目标地址: https://www.zq12369.com/
+目标地址：https://www.zq12369.com/
 
-描述: 指定城市和数据频率下并且在指定时间段内的空气质量数据
+描述：指定城市和数据频率下并且在指定时间段内的空气质量数据
 
-限量: 单次返回所有的数据, 在提取一小时频率数据时请注意时间跨度不宜过长, 提取日频率数据的早年数据请分段提取
+限量：单次返回所有的数据，在提取一小时频率数据时请注意时间跨度不宜过长，提取日频率数据的早年数据请分段提取
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                             |
 |------------|-----|--------------------------------------------------------------------------------|
-| city       | str | city="北京"; 调用 ak.air_city_table() 接口获取所有城市列表                                   |
-| period     | str | period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据 |
-| start_date | str | start_date="20200320"; 注意 **start_date** 和 **end_date** 跨度不宜过长                 |
-| end_date   | str | end_date="20200427"; 注意 **start_date** 和 **end_date** 跨度不宜过长                   |
+| city       | str | city="北京"；调用 ak.air_city_table() 接口获取所有城市列表                                   |
+| period     | str | period="day"; "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据 |
+| start_date | str | start_date="20200320"；注意 **start_date** 和 **end_date** 跨度不宜过长                 |
+| end_date   | str | end_date="20200427"；注意 **start_date** 和 **end_date** 跨度不宜过长                   |
 
 输出参数
 
@@ -1032,19 +1032,19 @@ print(air_quality_hist_df)
 
 #### 空气质量排名
 
-接口: air_quality_rank
+接口：air_quality_rank
 
-目标地址: https://www.zq12369.com/environment.php
+目标地址：https://www.zq12369.com/environment.php
 
-描述: 获取指定 date 时间点上所有城市(168个)的空气质量数据
+描述：获取指定 date 时间点上所有城市（168个）的空气质量数据
 
-限量: 单次返回所有的数据
+限量：单次返回所有的数据
 
 输入参数
 
 | 名称   | 类型  | 描述                                                                                       |
 |------|-----|------------------------------------------------------------------------------------------|
-| date | str | date=""; "": 当前时刻空气质量排名, 默认; "20200312": 当日空气质量排名; "202003": 当月空气质量排名; "2019": 当年空气质量排名; |
+| date | str | date=""; "": 当前时刻空气质量排名，默认；"20200312": 当日空气质量排名；"202003": 当月空气质量排名；"2019": 当年空气质量排名；|
 
 输出参数
 
@@ -1161,19 +1161,19 @@ print(air_quality_rank_df)
 
 #### 监测点空气质量
 
-接口: air_quality_watch_point
+接口：air_quality_watch_point
 
-目标地址: https://www.zq12369.com/environment.php
+目标地址：https://www.zq12369.com/environment.php
 
-描述: 获取每个城市的所有空气质量监测点的数据
+描述：获取每个城市的所有空气质量监测点的数据
 
-限量: 单次返回指定城市指定日期区间的所有监测点的空气质量数据
+限量：单次返回指定城市指定日期区间的所有监测点的空气质量数据
 
 输入参数
 
 | 名称         | 类型     | 描述                                           |
 |------------|--------|----------------------------------------------|
-| city       | object | city="杭州"; 调用 ak.air_city_table() 接口获取所有城市列表 | |
+| city       | object | city="杭州"；调用 ak.air_city_table() 接口获取所有城市列表 | |
 | start_date | object | start_date="2018-01-01"                      |
 | end_date   | object | end_date="2020-04-27"                        |
 
@@ -1218,13 +1218,13 @@ print(air_quality_watch_point_df)
 
 ### 财富排行榜-中文
 
-接口: fortune_rank
+接口：fortune_rank
 
-目标地址: https://www.fortunechina.com/fortune500/node_65.htm
+目标地址：https://www.fortunechina.com/fortune500/node_65.htm
 
-描述: 指定年份财富世界 500 强公司排行榜
+描述：指定年份财富世界 500 强公司排行榜
 
-限量: 单次返回某一个年份的所有历史数据
+限量：单次返回某一个年份的所有历史数据
 
 输入参数
 
@@ -1236,7 +1236,7 @@ print(air_quality_watch_point_df)
 
 | 名称  | 类型  | 描述                |
 |-----|-----|-------------------|
-| -   | -   | 以当年的数据为准, 输出的字段不一 |
+| -   | -   | 以当年的数据为准，输出的字段不一 |
 
 接口示例
 
@@ -1267,19 +1267,19 @@ print(fortune_rank_df)
 
 ### 福布斯中国榜单
 
-接口: forbes_rank
+接口：forbes_rank
 
-目标地址: https://www.forbeschina.com/lists
+目标地址：https://www.forbeschina.com/lists
 
-描述: 福布斯中国-榜单数据, 一共 87 个指标的数据可以获取
+描述：福布斯中国-榜单数据，一共 87 个指标的数据可以获取
 
-限量: 单次返回指定 symbol 的数据
+限量：单次返回指定 symbol 的数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                                                  |
 |--------|-----|-----------------------------------------------------------------------------------------------------|
-| symbol | str | symbol="2020年福布斯中国400富豪榜"; 参考 **福布斯中国指标一览表**, 也可以访问 https://www.forbeschina.com/lists 获取所需要的 symbol |
+| symbol | str | symbol="2020年福布斯中国400富豪榜"；参考 **福布斯中国指标一览表**，也可以访问 https://www.forbeschina.com/lists 获取所需要的 symbol |
 
 福布斯中国指标一览表
 
@@ -1408,26 +1408,26 @@ print(forbes_rank_df)
 
 ### 新财富富豪榜
 
-接口: xincaifu_rank
+接口：xincaifu_rank
 
-目标地址: http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
+目标地址：http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
 
-描述: 新财富 500 富豪榜, 从 2003 年至今
+描述：新财富 500 富豪榜，从 2003 年至今
 
-限量: 单次返回指定年份的富豪榜数据
+限量：单次返回指定年份的富豪榜数据
 
 输入参数
 
 | 名称   | 类型  | 描述                      |
 |------|-----|-------------------------|
-| year | str | year="2020"; 从 2003 年至今 |
+| year | str | year="2020"；从 2003 年至今 |
 
 输出参数
 
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
 | 排名   | int64   | -        |
-| 财富   | float64 | 注意单位: 亿元 |
+| 财富   | float64 | 注意单位：亿元 |
 | 姓名   | object  | -        |
 | 主要公司 | object  | -        |
 | 相关行业 | object  | -        |
@@ -1464,13 +1464,13 @@ print(xincaifu_rank_df)
 
 ### 胡润排行榜
 
-接口: hurun_rank
+接口：hurun_rank
 
-目标地址: https://www.hurun.net/zh-CN/Rank/HsRankDetails?num=QWDD234E
+目标地址：https://www.hurun.net/zh-CN/Rank/HsRankDetails?num=QWDD234E
 
-描述: 胡润百富榜单；富豪榜系列，创业系列，500强系列，特色系列
+描述：胡润百富榜单；富豪榜系列，创业系列，500强系列，特色系列
 
-限量: 单次返回指定 indicator 和 year 的榜单数据
+限量：单次返回指定 indicator 和 year 的榜单数据
 
 输入参数
 
@@ -1484,7 +1484,7 @@ print(xincaifu_rank_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 排名  | int64   | -        |
-| 财富  | float64 | 注意单位: 亿元 |
+| 财富  | float64 | 注意单位：亿元 |
 | 姓名  | object  | -        |
 | 企业  | object  | -        |
 | 行业  | object  | -        |
@@ -1521,7 +1521,7 @@ print(hurun_rank_df)
 | 名称  | 类型      | 描述        |
 |-----|---------|-----------|
 | 排名  | int64   | -         |
-| 财富  | float64 | 注意单位: 亿美元 |
+| 财富  | float64 | 注意单位：亿美元 |
 | 姓名  | object  | -         |
 | 企业  | object  | -         |
 | 行业  | object  | -         |
@@ -1558,7 +1558,7 @@ print(hurun_rank_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 排名  | int64   | -        |
-| 财富  | float64 | 注意单位: 亿元 |
+| 财富  | float64 | 注意单位：亿元 |
 | 姓名  | object  | -        |
 | 企业  | object  | -        |
 | 行业  | object  | -        |
@@ -1596,7 +1596,7 @@ print(hurun_rank_df)
 |------|---------|----------|
 | 排名   | int64   | -        |
 | 排名变化 | int64   | -        |
-| 企业估值 | float64 | 注意单位: 亿元 |
+| 企业估值 | float64 | 注意单位：亿元 |
 | 企业信息 | object  | -        |
 | CEO  | object  | -        |
 | 行业   | object  | -        |
@@ -1634,7 +1634,7 @@ print(hurun_rank_df)
 |------|---------|---------|
 | 排名   | int64   | -       |
 | 排名   | int64   | -       |
-| 成交额  | float64 | 注意单位: 万 |
+| 成交额  | float64 | 注意单位：万 |
 | 姓名   | object  | -       |
 | 年龄   | object  | -       |
 | 艺术类别 | object  | -       |
@@ -1670,15 +1670,15 @@ print(hurun_rank_df)
 
 #### 实时票房
 
-接口: movie_boxoffice_realtime
+接口：movie_boxoffice_realtime
 
-目标地址: https://ys.endata.cn/BoxOffice/Movie
+目标地址：https://ys.endata.cn/BoxOffice/Movie
 
-描述: 当前时刻的实时电影票房数据, 每 5 分钟更新一次数据, 实时票房包含今天未开映场次已售出的票房
+描述：当前时刻的实时电影票房数据，每 5 分钟更新一次数据，实时票房包含今天未开映场次已售出的票房
 
-限量: 当前时刻的实时票房数据
+限量：当前时刻的实时票房数据
 
-说明: 接口已切换至艺恩当前 `ys.endata.cn/enlib-api` 影片榜单接口, 输出金额统一按 `万` 进行换算
+说明：接口已切换至艺恩当前 `ys.endata.cn/enlib-api` 影片榜单接口，输出金额统一按 `万` 进行换算
 
 输入参数
 
@@ -1692,10 +1692,10 @@ print(hurun_rank_df)
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
 | 影片名称 | object  | -       |
-| 实时票房 | float64 | 注意单位: 万 |
-| 票房占比 | float64 | 注意单位: % |
+| 实时票房 | float64 | 注意单位：万 |
+| 票房占比 | float64 | 注意单位：% |
 | 上映天数 | int64   | -       |
-| 累计票房 | float64 | 注意单位: 万 |
+| 累计票房 | float64 | 注意单位：万 |
 
 接口示例
 
@@ -1725,21 +1725,21 @@ print(movie_boxoffice_realtime_df)
 
 #### 单日票房
 
-接口: movie_boxoffice_daily
+接口：movie_boxoffice_daily
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Day/index.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Day/index.html
 
-描述: 指定日期的电影票房数据, 每日 10:30, 12:30更新日票房，16:30 同时补充前 7 日票房
+描述：指定日期的电影票房数据，每日 10:30, 12:30更新日票房，16:30 同时补充前 7 日票房
 
-限量: 只能指定最近的日期
+限量：只能指定最近的日期
 
-说明: 接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源; 由于新站公开列表未返回口碑字段, `口碑指数` 当前统一返回空值
+说明：接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源；由于新站公开列表未返回口碑字段，`口碑指数` 当前统一返回空值
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20240219"; 只能选择最近的日期 |
+| date | str | date="20240219"；只能选择最近的日期 |
 
 输出参数
 
@@ -1747,10 +1747,10 @@ print(movie_boxoffice_realtime_df)
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
 | 影片名称 | object  | -       |
-| 单日票房 | int64   | 注意单位: 万 |
-| 环比变化 | float64 | 注意单位: % |
-| 累计票房 | int64   | 注意单位: 万 |
-| 平均票价 | int64   | 注意单位: 元 |
+| 单日票房 | int64   | 注意单位：万 |
+| 环比变化 | float64 | 注意单位：% |
+| 累计票房 | int64   | 注意单位：万 |
+| 平均票价 | int64   | 注意单位：元 |
 | 场均人次 | int64   | -       |
 | 口碑指数 | float64 | -       |
 | 上映天数 | int64   | -       |
@@ -1782,21 +1782,21 @@ print(movie_boxoffice_daily_df)
 
 #### 单周票房
 
-接口: movie_boxoffice_weekly
+接口：movie_boxoffice_weekly
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Week/oneWeek.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Week/oneWeek.html
 
-描述: 指定日期所在完整周的票房数据, 影片周票房数据初始更新周期为每周二，下周二补充数据
+描述：指定日期所在完整周的票房数据，影片周票房数据初始更新周期为每周二，下周二补充数据
 
-限量: 指定日期所在完整周的票房数据
+限量：指定日期所在完整周的票房数据
 
-说明: 艺恩新站公开周榜接口当前返回权限限制, 调用时会抛出明确的上游权限异常, 不再返回旧版 `JSONDecodeError`
+说明：艺恩新站公开周榜接口当前返回权限限制，调用时会抛出明确的上游权限异常，不再返回旧版 `JSONDecodeError`
 
 输入参数
 
 | 名称   | 类型  | 描述                             |
 |------|-----|--------------------------------|
-| date | str | date="20240218"; 指定日期所在周必须已经完整 |
+| date | str | date="20240218"；指定日期所在周必须已经完整 |
 
 输出参数
 
@@ -1805,9 +1805,9 @@ print(movie_boxoffice_daily_df)
 | 排序   | int64   | 票房排名    |
 | 影片名称 | object  | -       |
 | 排名变化 | int64   | -       |
-| 单周票房 | int64   | 注意单位: 万 |
-| 环比变化 | int64   | 注意单位: % |
-| 累计票房 | int64   | 注意单位: 万 |
+| 单周票房 | int64   | 注意单位：万 |
+| 环比变化 | int64   | 注意单位：% |
+| 累计票房 | int64   | 注意单位：万 |
 | 平均票价 | int64   | -       |
 | 场均人次 | int64   | -       |
 | 口碑指数 | float64 | -       |
@@ -1840,21 +1840,21 @@ print(movie_boxoffice_weekly_df)
 
 #### 单月票房
 
-接口: movie_boxoffice_monthly
+接口：movie_boxoffice_monthly
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Month/oneMonth.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Month/oneMonth.html
 
-描述: 获取指定日期所在月份的票房数据, 每月5号更新上月票房，并补充之前两个月票房
+描述：获取指定日期所在月份的票房数据，每月5号更新上月票房，并补充之前两个月票房
 
-限量: 指定日期所在月份的票房数据, 只能获取最近月份的数据
+限量：指定日期所在月份的票房数据，只能获取最近月份的数据
 
-说明: 接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源; 由于新站公开列表未返回口碑字段, `口碑指数` 当前统一返回空值
+说明：接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源；由于新站公开列表未返回口碑字段，`口碑指数` 当前统一返回空值
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20201019"; 输入具体的日期即可 |
+| date | str | date="20201019"；输入具体的日期即可 |
 
 输出参数
 
@@ -1862,8 +1862,8 @@ print(movie_boxoffice_weekly_df)
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
 | 影片名称 | object  | -       |
-| 单月票房 | int64   | 注意单位: 万 |
-| 月度占比 | float64 | 注意单位: % |
+| 单月票房 | int64   | 注意单位：万 |
+| 月度占比 | float64 | 注意单位：% |
 | 平均票价 | int64   | -       |
 | 场均人次 | int64   | -       |
 | 上映日期 | object  | -       |
@@ -1898,21 +1898,21 @@ print(movie_boxoffice_monthly_df)
 
 #### 年度票房
 
-接口: movie_boxoffice_yearly
+接口：movie_boxoffice_yearly
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Year/index.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Year/index.html
 
-描述: 指定日期所在年度的票房数据
+描述：指定日期所在年度的票房数据
 
-限量: 指定日期所在年度的票房数据, 只能获取最近年度的数据
+限量：指定日期所在年度的票房数据，只能获取最近年度的数据
 
-说明: 接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源
+说明：接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20240218"; 输入具体的日期即可 |
+| date | str | date="20240218"；输入具体的日期即可 |
 
 输出参数
 
@@ -1921,7 +1921,7 @@ print(movie_boxoffice_monthly_df)
 | 排序    | int64   | 票房排名    |
 | 影片名称  | object  | -       |
 | 类型    | object  | -       |
-| 总票房   | int64   | 注意单位: 万 |
+| 总票房   | int64   | 注意单位：万 |
 | 平均票价  | int64   | -       |
 | 场均人次  | float64 | -       |
 | 国家及地区 | object  | -       |
@@ -1969,21 +1969,21 @@ print(movie_boxoffice_yearly_df)
 
 #### 年度首周票房
 
-接口: movie_boxoffice_yearly_first_week
+接口：movie_boxoffice_yearly_first_week
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Year/firstWeek.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Year/firstWeek.html
 
-描述: 指定日期所在年度的年度首周票房数据
+描述：指定日期所在年度的年度首周票房数据
 
-限量: 指定日期所在年度的年度首周票房数据, 只能获取最近年度的数据
+限量：指定日期所在年度的年度首周票房数据，只能获取最近年度的数据
 
-说明: 接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 年榜数据源, 其中 `首周天数` 依据上映日期按首周自然周区间估算
+说明：接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 年榜数据源，其中 `首周天数` 依据上映日期按首周自然周区间估算
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20201018"; 输入具体的日期即可 |
+| date | str | date="20201018"；输入具体的日期即可 |
 
 输出参数
 
@@ -1992,8 +1992,8 @@ print(movie_boxoffice_yearly_df)
 | 排序     | int64  | 票房排名    |
 | 影片名称   | object | -       |
 | 类型     | object | -       |
-| 首周票房   | int64  | 注意单位: 万 |
-| 占总票房比重 | int64  | 注意单位: % |
+| 首周票房   | int64  | 注意单位：万 |
+| 占总票房比重 | int64  | 注意单位：% |
 | 场均人次   | int64  | -       |
 | 国家及地区  | object | -       |
 | 上映日期   | object | -       |
@@ -2024,21 +2024,21 @@ print(movie_boxoffice_yearly_first_week_df)
 
 #### 影院票房-日票房排行
 
-接口: movie_boxoffice_cinema_daily
+接口：movie_boxoffice_cinema_daily
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
 
-描述: 指定日期的每日各影院的票房数据
+描述：指定日期的每日各影院的票房数据
 
-限量: 指定日期各影院的票房数据, 注意当前日期的数据需要第二日才可以获取
+限量：指定日期各影院的票房数据，注意当前日期的数据需要第二日才可以获取
 
-说明: 接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源
+说明：接口已迁移至艺恩当前 `ys.endata.cn/enlib-api` 数据源
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20240219"; 输入具体的日期即可 |
+| date | str | date="20240219"；输入具体的日期即可 |
 
 输出参数
 
@@ -2046,11 +2046,11 @@ print(movie_boxoffice_yearly_first_week_df)
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
 | 影院名称 | object  | -       |
-| 单日票房 | float64 | 注意单位: 元 |
+| 单日票房 | float64 | 注意单位：元 |
 | 单日场次 | int64   | -       |
 | 场均人次 | float64 | -       |
 | 场均票价 | float64 | -       |
-| 上座率  | float64 | 注意单位: % |
+| 上座率  | float64 | 注意单位：% |
 
 接口示例
 
@@ -2081,21 +2081,21 @@ print(movie_boxoffice_cinema_daily_df)
 
 #### 影院票房-周票房排行
 
-接口: movie_boxoffice_cinema_weekly
+接口：movie_boxoffice_cinema_weekly
 
-目标地址: https://www.endata.com.cn/BoxOffice/BO/Cinema/week.html
+目标地址：https://www.endata.com.cn/BoxOffice/BO/Cinema/week.html
 
-描述: 指定日期的完整周各影院的票房数据
+描述：指定日期的完整周各影院的票房数据
 
-限量: 指定日期的完整周各影院的票房数据, 注意当前日期的数据只能返回上周的数据
+限量：指定日期的完整周各影院的票房数据，注意当前日期的数据只能返回上周的数据
 
-说明: 艺恩新站公开影院周榜接口当前返回系统错误, 调用时会抛出明确的上游权限异常, 不再返回旧版 `JSONDecodeError`
+说明：艺恩新站公开影院周榜接口当前返回系统错误，调用时会抛出明确的上游权限异常，不再返回旧版 `JSONDecodeError`
 
 输入参数
 
 | 名称   | 类型  | 描述                         |
 |------|-----|----------------------------|
-| date | str | date="20240219"; 输入具体的日期即可 |
+| date | str | date="20240219"；输入具体的日期即可 |
 
 输出参数
 
@@ -2103,8 +2103,8 @@ print(movie_boxoffice_cinema_daily_df)
 |--------|---------|---------|
 | 排序     | int64   | 票房排名    |
 | 影院名称   | object  | -       |
-| 当周票房   | float64 | 注意单位: 万 |
-| 单银幕票房  | float64 | 注意单位: 元 |
+| 当周票房   | float64 | 注意单位：万 |
+| 单银幕票房  | float64 | 注意单位：元 |
 | 场均人次   | float64 | -       |
 | 单日单厅票房 | float64 | -       |
 | 单日单厅场次 | float64 | -       |
@@ -2140,13 +2140,13 @@ print(movie_boxoffice_cinema_weekly_df)
 
 #### 电视剧集
 
-接口: video_tv
+接口：video_tv
 
-目标地址: https://www.endata.com.cn/Video/index.html
+目标地址：https://www.endata.com.cn/Video/index.html
 
-描述: 艺恩-视频放映-电视剧集
+描述：艺恩-视频放映-电视剧集
 
-限量: 返回前一日的电视剧播映数据
+限量：返回前一日的电视剧播映数据
 
 输入参数
 
@@ -2195,13 +2195,13 @@ print(video_tv_df)
 
 #### 综艺节目
 
-接口: video_variety_show
+接口：video_variety_show
 
-目标地址: https://www.endata.com.cn/Video/index.html
+目标地址：https://www.endata.com.cn/Video/index.html
 
-描述: 艺恩-视频放映-综艺节目
+描述：艺恩-视频放映-综艺节目
 
-限量: 返回前一日的综艺播映数据
+限量：返回前一日的综艺播映数据
 
 输入参数
 
@@ -2252,13 +2252,13 @@ print(video_variety_show_df)
 
 #### 艺人商业价值
 
-接口: business_value_artist
+接口：business_value_artist
 
-目标地址: https://www.endata.com.cn/Marketing/Artist/business.html
+目标地址：https://www.endata.com.cn/Marketing/Artist/business.html
 
-描述: 艺恩-艺人-艺人商业价值
+描述：艺恩-艺人-艺人商业价值
 
-限量: 返回当前的艺人商业价值数据
+限量：返回当前的艺人商业价值数据
 
 输入参数
 
@@ -2307,13 +2307,13 @@ print(business_value_artist_df)
 
 #### 艺人流量价值
 
-接口: online_value_artist
+接口：online_value_artist
 
-目标地址: https://www.endata.com.cn/Marketing/Artist/business.html
+目标地址：https://www.endata.com.cn/Marketing/Artist/business.html
 
-描述: 艺恩-艺人-艺人流量价值
+描述：艺恩-艺人-艺人流量价值
 
-限量: 返回当前的艺人流量价值数据
+限量：返回当前的艺人流量价值数据
 
 输入参数
 
@@ -2362,19 +2362,19 @@ print(online_value_artist_df)
 
 ### 微博舆情报告
 
-接口: stock_js_weibo_report
+接口：stock_js_weibo_report
 
-目标地址: https://datacenter.jin10.com/market
+目标地址：https://datacenter.jin10.com/market
 
-描述: 微博舆情报告中近期受关注的股票
+描述：微博舆情报告中近期受关注的股票
 
-限量: 单次返回指定时间内微博舆情报告中近期受关注的股票
+限量：单次返回指定时间内微博舆情报告中近期受关注的股票
 
 输入参数
 
 | 名称          | 类型  | 描述                                                                                     |
 |-------------|-----|----------------------------------------------------------------------------------------|
-| time_period | str | time_period="CNHOUR12"; 详见下表**time_period参数一览表**, 可通过调用 **stock_js_weibo_nlp_time** 获取 |
+| time_period | str | time_period="CNHOUR12"；详见下表**time_period参数一览表**，可通过调用 **stock_js_weibo_nlp_time** 获取 |
 
 time_period 参数一览表
 
@@ -2463,13 +2463,13 @@ print(stock_js_weibo_report_df)
 
 #### 彭博实时亿万富豪指数
 
-接口: index_bloomberg_billionaires
+接口：index_bloomberg_billionaires
 
-目标地址: https://www.bloomberg.com/billionaires/
+目标地址：https://www.bloomberg.com/billionaires/
 
-描述: 彭博亿万富豪指数, 全球前 500 名; 该接口需要使用代理访问
+描述：彭博亿万富豪指数，全球前 500 名；该接口需要使用代理访问
 
-限量: 单次返回所有数据彭博亿万富豪排名数据
+限量：单次返回所有数据彭博亿万富豪排名数据
 
 输入参数
 
@@ -2517,13 +2517,13 @@ print(index_bloomberg_billionaires_df)
 
 #### 历史彭博亿万富豪指数
 
-接口: index_bloomberg_billionaires_hist
+接口：index_bloomberg_billionaires_hist
 
-目标地址: https://stats.areppim.com/stats/links_billionairexlists.htm
+目标地址：https://stats.areppim.com/stats/links_billionairexlists.htm
 
-描述: 按照年份查询彭博亿万富豪指数; 该接口需要使用代理访问
+描述：按照年份查询彭博亿万富豪指数；该接口需要使用代理访问
 
-限量: 单次返回当年所有数据彭博亿万富豪排名数据
+限量：单次返回当年所有数据彭博亿万富豪排名数据
 
 输入参数
 
@@ -2572,13 +2572,13 @@ print(index_bloomberg_billionaires_hist_df)
 
 #### TapTap 游戏榜单
 
-接口: game_hot_rank_taptap
+接口：game_hot_rank_taptap
 
-目标地址: https://www.taptap.cn/top/played
+目标地址：https://www.taptap.cn/top/played
 
-描述: 按照榜单类型查询 TapTap 平台游戏排行榜数据
+描述：按照榜单类型查询 TapTap 平台游戏排行榜数据
 
-限量: 单次返回指定榜单的全部游戏排名数据
+限量：单次返回指定榜单的全部游戏排名数据
 
 输入参数
 
@@ -2597,7 +2597,7 @@ print(index_bloomberg_billionaires_hist_df)
 | 游玩次数 | int            | 累计游玩次数                    |
 | 评论数  | int            | 评论总数                      |
 | 粉丝数  | int            | 关注/粉丝数                    |
-| 标签   | str            | 游戏标签 (逗号分隔, 如 "模拟经营, 治愈") |
+| 标签   | str            | 游戏标签 (逗号分隔，如 "模拟经营, 治愈") |
 | 推荐语  | str            | 编辑/官方推荐语                  |
 | 发布时间 | datetime64[ns] | 游戏发布时间                    |
 | 游戏ID | str            | TapTap 平台游戏唯一 ID          |

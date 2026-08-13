@@ -38,7 +38,7 @@ def option_margin_symbol() -> pd.DataFrame:
 def option_margin(symbol: str = "原油期权") -> pd.DataFrame:
     """
     获取商品期权保证金
-    :param symbol: 商品期权品种名称, 如 "原油期权"，可以通过 ak.option_margin_symbol() 获取所有商品期权品种代码和名称
+    :param symbol: 商品期权品种名称，如 "原油期权"，可以通过 ak.option_margin_symbol() 获取所有商品期权品种代码和名称
     :type symbol: str
     :return: 商品期权保证金
     :rtype: pandas.DataFrame

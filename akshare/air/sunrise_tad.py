@@ -41,9 +41,9 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
     """
     每日日出日落数据
     https://www.timeanddate.com/astronomy/china/shaoxing
-    :param date: 需要查询的日期, e.g., “20200428”
+    :param date: 需要查询的日期，e.g., “20200428”
     :type date: str
-    :param city: 需要查询的城市; 注意输入的格式, e.g., "北京", "上海"
+    :param city: 需要查询的城市；注意输入的格式，e.g., "北京", "上海"
     :type city: str
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
@@ -72,11 +72,11 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
 
 def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFrame:
     """
-    每个指定 date 所在月份的每日日出日落数据, 如果当前月份未到月底, 则以预测值填充
+    每个指定 date 所在月份的每日日出日落数据，如果当前月份未到月底，则以预测值填充
     https://www.timeanddate.com/astronomy/china/shaoxing
-    :param date: 需要查询的日期, 这里用来指定 date 所在的月份; e.g., “20200428”
+    :param date: 需要查询的日期，这里用来指定 date 所在的月份；e.g., “20200428”
     :type date: str
-    :param city: 需要查询的城市; 注意输入的格式, e.g., "北京", "上海"
+    :param city: 需要查询的城市；注意输入的格式，e.g., "北京", "上海"
     :type city: str
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame

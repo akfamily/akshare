@@ -4,13 +4,13 @@
 
 #### 碳排放权-国内
 
-接口: energy_carbon_domestic
+接口：energy_carbon_domestic
 
-目标地址: http://www.tanjiaoyi.com/
+目标地址：http://www.tanjiaoyi.com/
 
-描述: 碳交易网-行情信息
+描述：碳交易网-行情信息
 
-限量: 返回指定 symbol 的所有历史数据
+限量：返回指定 symbol 的所有历史数据
 
 输入参数
 
@@ -23,8 +23,8 @@
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
 | 日期  | object  |         |
-| 成交价 | float64 | 注意单位: 元 |
-| 成交量 | float64 | 注意单位: 吨 |
+| 成交价 | float64 | 注意单位：元 |
+| 成交量 | float64 | 注意单位：吨 |
 | 成交额 | float64 | -       |
 | 地点  | object  | -       |
 
@@ -56,15 +56,15 @@ print(energy_carbon_domestic_df)
 
 #### 碳排放权-北京
 
-接口: energy_carbon_bj
+接口：energy_carbon_bj
 
-目标地址: https://www.bjets.com.cn/article/jyxx/
+目标地址：https://www.bjets.com.cn/article/jyxx/
 
-描述: 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
+描述：北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 
-注意: 注意在 2017-08-08 日的数据有误 70.074.00（BEA）
+注意：注意在 2017-08-08 日的数据有误 70.074.00（BEA）
 
-限量: 全部历史数据
+限量：全部历史数据
 
 输入参数
 
@@ -77,9 +77,9 @@ print(energy_carbon_domestic_df)
 | 名称   | 类型      | 描述        |
 |------|---------|-----------|
 | 日期   | object  |           |
-| 成交量  | int64   | 注意单位: 吨   |
-| 成交均价 | float64 | 注意单位: 元/吨 |
-| 成交额  | float64 | 注意单位: 元   |
+| 成交量  | int64   | 注意单位：吨   |
+| 成交均价 | float64 | 注意单位：元/吨 |
+| 成交额  | float64 | 注意单位：元   |
 | 成交单位 | object  | -         |
 
 接口示例
@@ -110,13 +110,13 @@ print(energy_carbon_bj_df)
 
 #### 碳排放权-深圳
 
-接口: energy_carbon_sz
+接口：energy_carbon_sz
 
-目标地址: http://www.cerx.cn/dailynewsCN/index.htm
+目标地址：http://www.cerx.cn/dailynewsCN/index.htm
 
-描述: 深圳碳排放交易所-国内碳情
+描述：深圳碳排放交易所-国内碳情
 
-限量: 全部历史数据
+限量：全部历史数据
 
 输入参数
 
@@ -166,13 +166,13 @@ print(energy_carbon_sz_df)
 
 #### 碳排放权-国际
 
-接口: energy_carbon_eu
+接口：energy_carbon_eu
 
-目标地址: http://www.cerx.cn/dailynewsOuter/index.htm
+目标地址：http://www.cerx.cn/dailynewsOuter/index.htm
 
-描述: 深圳碳排放交易所-国际碳情
+描述：深圳碳排放交易所-国际碳情
 
-限量: 返回从 2018-03-13 至 2020-04-29 的所有历史数据
+限量：返回从 2018-03-13 至 2020-04-29 的所有历史数据
 
 输入参数
 
@@ -222,13 +222,13 @@ print(energy_carbon_eu_df)
 
 #### 碳排放权-湖北
 
-接口: energy_carbon_hb
+接口：energy_carbon_hb
 
-目标地址: http://www.cerx.cn/dailynewsOuter/index.htm
+目标地址：http://www.cerx.cn/dailynewsOuter/index.htm
 
-描述: 湖北碳排放权交易中心-碳排放权交易数据
+描述：湖北碳排放权交易中心-碳排放权交易数据
 
-限量: 返回从 2014-04-02 至今的所有历史数据
+限量：返回从 2014-04-02 至今的所有历史数据
 
 输入参数
 
@@ -275,13 +275,13 @@ print(energy_carbon_hb_df)
 
 #### 碳排放权-广州
 
-接口: energy_carbon_gz
+接口：energy_carbon_gz
 
-目标地址: http://www.cnemission.com/article/hqxx/
+目标地址：http://www.cnemission.com/article/hqxx/
 
-描述: 广州碳排放权交易中心-行情信息
+描述：广州碳排放权交易中心-行情信息
 
-限量: 该接口返回从 2013-12-19 至今的所有历史数据
+限量：该接口返回从 2013-12-19 至今的所有历史数据
 
 输入参数
 
@@ -300,7 +300,7 @@ print(energy_carbon_hb_df)
 | 最高价  | float64 | -       |
 | 最低价  | float64 | -       |
 | 涨跌   | float64 | -       |
-| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌幅  | float64 | 注意单位：% |
 | 成交数量 | int64   | -       |
 | 成交金额 | float64 | -       |
 
@@ -334,13 +334,13 @@ print(energy_carbon_gz_df)
 
 #### 汽柴油历史调价信息
 
-接口: energy_oil_hist
+接口：energy_oil_hist
 
-目标地址: https://data.eastmoney.com/cjsj/oil_default.html
+目标地址：https://data.eastmoney.com/cjsj/oil_default.html
 
-描述: 东方财富-数据中心-中国油价-汽柴油历史调价信息
+描述：东方财富-数据中心-中国油价-汽柴油历史调价信息
 
-限量: 单次返回中国油价的所有历史数据
+限量：单次返回中国油价的所有历史数据
 
 输入参数
 
@@ -353,10 +353,10 @@ print(energy_carbon_gz_df)
 | 名称   | 类型      | 描述        |
 |------|---------|-----------|
 | 调整日期 | object  | 价格调整的日期   |
-| 汽油价格 | int64   | 注意单位: 元/吨 |
-| 柴油价格 | int64   | 注意单位: 元/吨 |
-| 汽油涨幅 | float64 | 注意单位: 元/吨 |
-| 柴油涨幅 | float64 | 注意单位: 元/吨 |
+| 汽油价格 | int64   | 注意单位：元/吨 |
+| 柴油价格 | int64   | 注意单位：元/吨 |
+| 汽油涨幅 | float64 | 注意单位：元/吨 |
+| 柴油涨幅 | float64 | 注意单位：元/吨 |
 
 接口示例
 
@@ -387,19 +387,19 @@ print(energy_oil_hist_df)
 
 #### 地区油价
 
-接口: energy_oil_detail
+接口：energy_oil_detail
 
-目标地址: https://data.eastmoney.com/cjsj/oil_default.html
+目标地址：https://data.eastmoney.com/cjsj/oil_default.html
 
-描述: 东方财富-数据中心-中国油价-地区油价
+描述：东方财富-数据中心-中国油价-地区油价
 
-限量: 返回指定调价日的全国各地区的油价的历史数据
+限量：返回指定调价日的全国各地区的油价的历史数据
 
 输入参数
 
 | 名称   | 类型  | 描述                                                              |
 |------|-----|-----------------------------------------------------------------|
-| date | str | date="20200319"; 此日期为调价日期, 通过调用 ak.energy_oil_hist() 可以获取历史调价日期 |
+| date | str | date="20200319"；此日期为调价日期，通过调用 ak.energy_oil_hist() 可以获取历史调价日期 |
 
 输出参数
 
@@ -407,18 +407,18 @@ print(energy_oil_hist_df)
 |--------|---------|-----------------------|
 | 日期     | object  | 价格调整的日期               |
 | 地区     | object  | 地区                    |
-| V_0    | float64 | 0#柴油价格(单位:元/升)        |
-| V_92   | float64 | 92#汽油价格(单位:元/升)       |
-| V_95   | float64 | 95#汽油价格(单位:元/升)       |
-| V_89   | float64 | 89#汽油价格(单位:元/升)       |
-| ZDE_0  | float64 | 0#柴油涨幅(单位:元/升)        |
-| ZDE_92 | float64 | 92#汽油涨幅(单位:元/升)       |
-| ZDE_95 | float64 | 95#汽油涨幅(单位:元/升)       |
-| ZDE_89 | float64 | 89#汽油涨幅(单位:元/升)       |
-| QE_0   | float64 | 上一次调整时0#柴油价格(单位:元/升)  |
-| QE_92  | float64 | 上一次调整时92#汽油价格(单位:元/升) |
-| QE_95  | float64 | 上一次调整时95#汽油价格(单位:元/升) |
-| QE_89  | float64 | 上一次调整时89#汽油价格(单位:元/升) |
+| V_0    | float64 | 0#柴油价格（单位：元/升）        |
+| V_92   | float64 | 92#汽油价格（单位：元/升）       |
+| V_95   | float64 | 95#汽油价格（单位：元/升）       |
+| V_89   | float64 | 89#汽油价格（单位：元/升）       |
+| ZDE_0  | float64 | 0#柴油涨幅（单位：元/升）        |
+| ZDE_92 | float64 | 92#汽油涨幅（单位：元/升）       |
+| ZDE_95 | float64 | 95#汽油涨幅（单位：元/升）       |
+| ZDE_89 | float64 | 89#汽油涨幅（单位：元/升）       |
+| QE_0   | float64 | 上一次调整时0#柴油价格（单位：元/升）  |
+| QE_92  | float64 | 上一次调整时92#汽油价格（单位：元/升） |
+| QE_95  | float64 | 上一次调整时95#汽油价格（单位：元/升） |
+| QE_89  | float64 | 上一次调整时89#汽油价格（单位：元/升） |
 
 接口示例
 

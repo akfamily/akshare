@@ -16,7 +16,7 @@ def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
     """
     同花顺理财-基金数据-每日净值-实时行情
     https://fund.10jqka.com.cn/datacenter/jz/
-    :param symbol: 基金类型; choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部
+    :param symbol: 基金类型；choice of {"股票型", "债券型", "混合型", "ETF", "LOF", "QDII", "保本型", "指数型", ""}; "" 表示全部
     :type symbol: str
     :param date: 查询日期
     :type date: str

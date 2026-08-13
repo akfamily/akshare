@@ -18,7 +18,7 @@ def stock_yjkb_em(date: str = "20211231") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报
     https://data.eastmoney.com/bbsj/202003/yjkb.html
-    :param date: 财报发布日期; choice of {"20200331", "20200630", "20200930", "20201231", ...}; 从 20100331 开始
+    :param date: 财报发布日期；choice of {"20200331", "20200630", "20200930", "20201231", ...}；从 20100331 开始
     :type date: str
     :return: 业绩快报
     :rtype: pandas.DataFrame
@@ -136,7 +136,7 @@ def stock_yjyg_em(date: str = "20200331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩预告
     https://data.eastmoney.com/bbsj/202003/yjyg.html
-    :param date: 财报发布日期; choice of {"20200331", "20200630", "20200930", "20201231", ...}; 从 20081231 开始
+    :param date: 财报发布日期；choice of {"20200331", "20200630", "20200930", "20201231", ...}；从 20081231 开始
     :type date: str
     :return: 业绩预告
     :rtype: pandas.DataFrame
@@ -226,7 +226,7 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
     https://data.eastmoney.com/bbsj/202003/yysj.html
     :param symbol: choice of {'沪深A股', '沪市A股', '科创板', '深市A股', '创业板', '京市A股', 'ST板'}
     :type symbol: str
-    :param date: "20190331", "20190630", "20190930", "20191231"; 从 20081231 开始
+    :param date: "20190331", "20190630", "20190930", "20191231"；从 20081231 开始
     :type date: str
     :return: 指定时间的上市公司预约披露时间数据
     :rtype: pandas.DataFrame

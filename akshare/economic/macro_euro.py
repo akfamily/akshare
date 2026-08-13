@@ -23,7 +23,7 @@ from tqdm import tqdm
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况-欧元区季度GDP年率报告
 def macro_euro_gdp_yoy() -> pd.DataFrame:
     """
-    欧元区季度 GDP 年率报告, 数据区间从 20131114-至今
+    欧元区季度 GDP 年率报告，数据区间从 20131114-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_gdp_yoy
     :return: 欧元区季度 GDP 年率报告
     :rtype: pandas.DataFrame
@@ -80,7 +80,7 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI月率报告
 def macro_euro_cpi_mom() -> pd.DataFrame:
     """
-    欧元区 CPI 月率报告, 数据区间从 19900301-至今
+    欧元区 CPI 月率报告，数据区间从 19900301-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_cpi_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_mom_all.js?v=1578578318
     :return: 欧元区CPI月率报告
@@ -136,7 +136,7 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI年率报告
 def macro_euro_cpi_yoy() -> pd.DataFrame:
     """
-    欧元区CPI年率报告, 数据区间从19910201-至今
+    欧元区CPI年率报告，数据区间从19910201-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_cpi_yoy
     https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_yoy_all.js?v=1578578404
     :return: 欧元区CPI年率报告-今值(%)
@@ -195,7 +195,7 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区PPI月率报告
 def macro_euro_ppi_mom() -> pd.DataFrame:
     """
-    欧元区PPI月率报告, 数据区间从19810301-至今
+    欧元区PPI月率报告，数据区间从19810301-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_ppi_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_ppi_mom_all.js?v=1578578493
     :return: 欧元区PPI月率报告-今值(%)
@@ -253,7 +253,7 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区零售销售月率报告
 def macro_euro_retail_sales_mom() -> pd.DataFrame:
     """
-    欧元区零售销售月率报告, 数据区间从20000301-至今
+    欧元区零售销售月率报告，数据区间从20000301-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_retail_sales_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_retail_sales_mom_all.js?v=1578578576
     :return: 欧元区零售销售月率报告-今值(%)
@@ -312,7 +312,7 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区季调后就业人数季率报告
 def macro_euro_employment_change_qoq() -> pd.DataFrame:
     """
-    欧元区季调后就业人数季率报告, 数据区间从20083017-至今
+    欧元区季调后就业人数季率报告，数据区间从20083017-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_employment_change_qoq
     https://cdn.jin10.com/dc/reports/dc_eurozone_employment_change_qoq_all.js?v=1578578699
     :return: 欧元区季调后就业人数季率报告-今值(%)
@@ -368,7 +368,7 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区失业率报告
 def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
     """
-    欧元区失业率报告, 数据区间从19980501-至今
+    欧元区失业率报告，数据区间从19980501-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_unemployment_rate_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_unemployment_rate_mom_all.js?v=1578578767
     :return: 欧元区失业率报告-今值(%)
@@ -427,10 +427,10 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-贸易状况-欧元区未季调贸易帐报告
 def macro_euro_trade_balance() -> pd.DataFrame:
     """
-    欧元区未季调贸易帐报告, 数据区间从19990201-至今
+    欧元区未季调贸易帐报告，数据区间从19990201-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_trade_balance_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_trade_balance_mom_all.js?v=1578577862
-    :return: 欧元区未季调贸易帐报告-今值(亿欧元)
+    :return: 欧元区未季调贸易帐报告-今值（亿欧元）
     :rtype: pandas.Series
     """
     ec = 43
@@ -486,10 +486,10 @@ def macro_euro_trade_balance() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-贸易状况-欧元区经常帐报告
 def macro_euro_current_account_mom() -> pd.DataFrame:
     """
-    欧元区经常帐报告, 数据区间从20080221-至今, 前两个值需要去掉
+    欧元区经常帐报告，数据区间从20080221-至今，前两个值需要去掉
     https://datacenter.jin10.com/reportType/dc_eurozone_current_account_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_current_account_mom_all.js?v=1578577976
-    :return: 欧元区经常帐报告-今值(亿欧元)
+    :return: 欧元区经常帐报告-今值（亿欧元）
     :rtype: pandas.Series
     """
     ec = 11
@@ -545,7 +545,7 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-产业指标-欧元区工业产出月率报告
 def macro_euro_industrial_production_mom() -> pd.DataFrame:
     """
-    欧元区工业产出月率报告, 数据区间从19910301-至今
+    欧元区工业产出月率报告，数据区间从19910301-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_industrial_production_mom
     https://cdn.jin10.com/dc/reports/dc_eurozone_industrial_production_mom_all.js?v=1578577377
     :return: 欧元区工业产出月率报告-今值(%)
@@ -604,7 +604,7 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-产业指标-欧元区制造业PMI初值报告
 def macro_euro_manufacturing_pmi() -> pd.DataFrame:
     """
-    欧元区制造业PMI初值报告, 数据区间从20080222-至今
+    欧元区制造业PMI初值报告，数据区间从20080222-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_manufacturing_pmi
     https://cdn.jin10.com/dc/reports/dc_eurozone_manufacturing_pmi_all.js?v=1578577537
     :return: 欧元区制造业PMI初值报告-今值
@@ -663,7 +663,7 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-产业指标-欧元区服务业PMI终值报告
 def macro_euro_services_pmi() -> pd.DataFrame:
     """
-    欧元区服务业PMI终值报告, 数据区间从 20080222-至今
+    欧元区服务业PMI终值报告，数据区间从 20080222-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_services_pmi
     https://cdn.jin10.com/dc/reports/dc_eurozone_services_pmi_all.js?v=1578577639
     :return: 欧元区服务业PMI终值报告-今值
@@ -722,7 +722,7 @@ def macro_euro_services_pmi() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-领先指标-欧元区ZEW经济景气指数报告
 def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
     """
-    欧元区ZEW经济景气指数报告, 数据区间从20080212-至今
+    欧元区ZEW经济景气指数报告，数据区间从20080212-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_zew_economic_sentiment
     https://cdn.jin10.com/dc/reports/dc_eurozone_zew_economic_sentiment_all.js?v=1578577013
     :return: 欧元区ZEW经济景气指数报告-今值
@@ -780,7 +780,7 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
 # 金十数据中心-经济指标-欧元区-领先指标-欧元区Sentix投资者信心指数报告
 def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
     """
-    欧元区Sentix投资者信心指数报告, 数据区间从20020801-至今
+    欧元区Sentix投资者信心指数报告，数据区间从20020801-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
     https://cdn.jin10.com/dc/reports/dc_eurozone_sentix_investor_confidence_all.js?v=1578577195
     :return: 欧元区Sentix投资者信心指数报告-今值
@@ -838,7 +838,7 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
 # 金十数据中心-伦敦金属交易所(LME)-持仓报告
 def macro_euro_lme_holding() -> pd.DataFrame:
     """
-    伦敦金属交易所(LME)-持仓报告, 数据区间从 20151022-至今
+    伦敦金属交易所(LME)-持仓报告，数据区间从 20151022-至今
     https://datacenter.jin10.com/reportType/dc_lme_traders_report
     https://cdn.jin10.com/data_center/reports/lme_position.json?_=1591533934658
     :return: 伦敦金属交易所(LME)-持仓报告
@@ -869,7 +869,7 @@ def macro_euro_lme_holding() -> pd.DataFrame:
 # 金十数据中心-伦敦金属交易所(LME)-库存报告
 def macro_euro_lme_stock() -> pd.DataFrame:
     """
-    伦敦金属交易所(LME)-库存报告, 数据区间从 20140702-至今
+    伦敦金属交易所(LME)-库存报告，数据区间从 20140702-至今
     https://datacenter.jin10.com/reportType/dc_lme_report
     https://cdn.jin10.com/data_center/reports/lme_stock.json?_=1591535304783
     :return: 伦敦金属交易所(LME)-库存报告

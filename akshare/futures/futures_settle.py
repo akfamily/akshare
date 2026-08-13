@@ -4,12 +4,12 @@
 Date: 2026/2/20 10:00
 Desc: 期货结算信息
 期货交易所结算参数数据
-- 中金所: 结算参数(保证金、手续费等) - 已实现
-- 郑商所: 结算参数 - 已实现
-- 上期所: 结算参数 - 已实现
-- 广期所: 结算参数 - 已实现
-- 上能中心: 结算参数 - 已实现
-- 大商所: 待解决(网站反爬虫保护，所有接口返回412错误)
+- 中金所：结算参数（保证金、手续费等） - 已实现
+- 郑商所：结算参数 - 已实现
+- 上期所：结算参数 - 已实现
+- 广期所：结算参数 - 已实现
+- 上能中心：结算参数 - 已实现
+- 大商所：待解决（网站反爬虫保护，所有接口返回412错误）
 """
 
 import datetime
@@ -176,7 +176,7 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
     """
     中国金融期货交易所-结算参数
     http://www.cffex.com.cn/jscs/
-    :param date: 结算参数日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算参数日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 结算参数数据
     :rtype: pandas.DataFrame
@@ -228,7 +228,7 @@ def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
     """
     郑州商品交易所-结算参数
     http://www.czce.com.cn/cn/jysj/jscs/H077003003index_1.htm
-    :param date: 结算参数日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算参数日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 结算参数数据
     :rtype: pandas.DataFrame
@@ -289,7 +289,7 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
     """
     广州期货交易所-结算参数
     http://www.gfex.com.cn/gfex/rjycs/ywcs.shtml
-    :param date: 结算参数日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算参数日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 结算参数数据
     :rtype: pandas.DataFrame
@@ -360,7 +360,7 @@ def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     """
     上海期货交易所-结算参数
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
-    :param date: 结算参数日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算参数日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 结算参数数据
     :rtype: pandas.DataFrame
@@ -421,7 +421,7 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     """
     上海国际能源交易中心-结算参数
     https://www.ine.cn/reports/businessdata/prmsummary/
-    :param date: 结算参数日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算参数日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 结算参数数据
     :rtype: pandas.DataFrame
@@ -481,9 +481,9 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
 def futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.DataFrame:
     """
     期货交易所结算参数
-    :param date: 结算日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 结算日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
-    :param market: 交易所代码: CFFEX-中金所, CZCE-郑商所, SHFE-上期所, DCE-大商所, INE-上能中心, GFEX-广期所
+    :param market: 交易所代码：CFFEX-中金所，CZCE-郑商所，SHFE-上期所，DCE-大商所，INE-上能中心，GFEX-广期所
     :type market: str
     :return: 结算参数数据（统一格式）
     :rtype: pandas.DataFrame

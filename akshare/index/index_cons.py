@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2024/6/17 14:00
-Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
+Desc: 股票指数成份股数据，新浪有两个接口，这里使用老接口：
 新接口：https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
@@ -19,7 +19,7 @@ from akshare.utils import demjson
 
 def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
     """
-    新浪新版股票指数成份页面, 目前该接口可获取指数数量较少
+    新浪新版股票指数成份页面，目前该接口可获取指数数量较少
     https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000040
     :param symbol: 指数代码
     :type symbol: str
@@ -88,7 +88,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
     """
     最新股票指数的成份股目录
     https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
-    :param symbol: 指数代码, 可以通过 ak.index_stock_info() 函数获取
+    :param symbol: 指数代码，可以通过 ak.index_stock_info() 函数获取
     :type symbol: str
     :return: 最新股票指数的成份股目录
     :rtype: pandas.DataFrame
@@ -127,7 +127,7 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
     """
     中证指数网站-成份股目录
     https://www.csindex.com.cn/zh-CN/indices/index-detail/000300
-    :param symbol: 指数代码, 可以通过 ak.index_stock_info() 函数获取
+    :param symbol: 指数代码，可以通过 ak.index_stock_info() 函数获取
     :type symbol: str
     :return: 最新指数的成份股
     :rtype: pandas.DataFrame
@@ -161,7 +161,7 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     """
     中证指数网站-样本权重
     https://www.csindex.com.cn/zh-CN/indices/index-detail/000300
-    :param symbol: 指数代码, 可以通过 ak.index_stock_info() 接口获取
+    :param symbol: 指数代码，可以通过 ak.index_stock_info() 接口获取
     :type symbol: str
     :return: 最新指数的成份股权重
     :rtype: pandas.DataFrame

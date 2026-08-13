@@ -6,13 +6,13 @@
 
 ##### 会员机构综合查询
 
-接口: amac_member_info
+接口：amac_member_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
 
-描述: 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
+描述：中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -63,13 +63,13 @@ print(amac_member_info_df)
 
 ##### 基金从业人员资格注册信息
 
-接口: amac_person_fund_org_list
+接口：amac_person_fund_org_list
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
-描述: 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
+描述：中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -118,13 +118,13 @@ print(amac_person_fund_org_list_df)
 
 ##### 债券投资交易相关人员公示
 
-接口: amac_person_bond_org_list
+接口：amac_person_bond_org_list
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
-描述: 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
+描述：中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -172,13 +172,13 @@ print(amac_person_bond_org_list_df)
 
 ##### 私募基金管理人综合查询
 
-接口: amac_manager_info
+接口：amac_manager_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
 
-描述: 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
+描述：中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -191,7 +191,7 @@ print(amac_person_bond_org_list_df)
 | 名称                    | 类型     | 描述 |
 |-----------------------|--------|----|
 | 私募基金管理人名称             | object | -  |
-| 法定代表人/执行事务合伙人(委派代表)姓名 | object | -  |
+| 法定代表人/执行事务合伙人（委派代表）姓名 | object | -  |
 | 机构类型                  | object | -  |
 | 注册地                   | object | -  |
 | 登记编号                  | object | -  |
@@ -227,13 +227,13 @@ print(amac_manager_info_df)
 
 ##### 私募基金管理人分类公示
 
-接口: amac_manager_classify_info
+接口：amac_manager_classify_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
 
-描述: 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
+描述：中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -246,7 +246,7 @@ print(amac_manager_info_df)
 | 名称                    | 类型     | 描述  |
 |-----------------------|--------|-----|
 | 私募基金管理人名称             | object | -   |
-| 法定代表人/执行事务合伙人(委派代表)姓名 | object | -   |
+| 法定代表人/执行事务合伙人（委派代表）姓名 | object | -   |
 | 机构类型                  | object | -   |
 | 登记编号                  | object | -   |
 | 注册地                   | object | -   |
@@ -287,13 +287,13 @@ print(amac_manager_classify_info_df)
 
 ##### 证券公司私募基金子公司管理人信息公示
 
-接口: amac_member_sub_info
+接口：amac_member_sub_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
 
-描述: 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
+描述：中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -343,20 +343,20 @@ print(amac_member_sub_info_df)
 
 ##### 私募基金管理人基金产品
 
-接口: amac_fund_info
+接口：amac_fund_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-私募基金管理人基金产品
+描述：中国证券投资基金业协会-信息公示-基金产品公示-私募基金管理人基金产品
 
-限量: 单次返回指定页码之间的所有历史数据, 其中与每页 100 条的目标网站对应; 默认返回所有数据
+限量：单次返回指定页码之间的所有历史数据，其中与每页 100 条的目标网站对应；默认返回所有数据
 
 输入参数
 
 | 名称         | 类型  | 描述                    |
 |------------|-----|-----------------------|
-| start_page | str | start_page='1'; 开始页码  |
-| end_page   | str | end_page="2000"; 结束页码 |
+| start_page | str | start_page='1'；开始页码  |
+| end_page   | str | end_page="2000"；结束页码 |
 
 输出参数
 
@@ -399,13 +399,13 @@ print(amac_fund_info_df)
 
 ##### 证券公司集合资管产品公示
 
-接口: amac_securities_info
+接口：amac_securities_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
+描述：中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -457,13 +457,13 @@ print(amac_securities_info_df)
 
 ##### 证券公司直投基金
 
-接口: amac_aoin_info
+接口：amac_aoin_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
+描述：中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -510,13 +510,13 @@ print(amac_aoin_info_df)
 
 ##### 证券公司私募投资基金
 
-接口: amac_fund_sub_info
+接口：amac_fund_sub_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
+描述：中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -564,13 +564,13 @@ print(amac_fund_sub_info_df)
 
 ##### 基金公司及子公司集合资管产品公示
 
-接口: amac_fund_account_info
+接口：amac_fund_account_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
+描述：中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -616,13 +616,13 @@ print(amac_fund_account_info_df)
 
 ##### 资产支持专项计划
 
-接口: amac_fund_abs
+接口：amac_fund_abs
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
 
-描述: 中国证券投资基金业协会-信息公示-产品公示-资产支持专项计划
+描述：中国证券投资基金业协会-信息公示-产品公示-资产支持专项计划
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -672,13 +672,13 @@ print(amac_fund_abs_df)
 
 ##### 期货公司集合资管产品公示
 
-接口: amac_futures_info
+接口：amac_futures_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
 
-描述: 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
+描述：中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 
@@ -732,13 +732,13 @@ print(amac_futures_info_df)
 
 ##### 已注销私募基金管理人名单
 
-接口: amac_manager_cancelled_info
+接口：amac_manager_cancelled_info
 
-目标地址: https://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
+目标地址：https://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
 
-描述: 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
+描述：中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
 
-限量: 单次返回当前时刻所有历史数据
+限量：单次返回当前时刻所有历史数据
 
 输入参数
 

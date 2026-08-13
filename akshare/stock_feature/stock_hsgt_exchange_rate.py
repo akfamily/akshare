@@ -4,8 +4,8 @@
 Date: 2025/2/19 22:00
 Desc: 参考汇率和结算汇率
 深港通-港股通业务信息
-深港通-港股通业务信息: https://www.szse.cn/szhk/hkbussiness/exchangerate/index.html
-沪港通-港股通信息披露: https://www.sse.com.cn/services/hkexsc/disclo/ratios/
+深港通-港股通业务信息：https://www.szse.cn/szhk/hkbussiness/exchangerate/index.html
+沪港通-港股通信息披露：https://www.sse.com.cn/services/hkexsc/disclo/ratios/
 """
 
 import warnings

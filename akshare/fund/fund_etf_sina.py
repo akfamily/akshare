@@ -117,7 +117,7 @@ def fund_etf_hist_sina(symbol: str = "sh510050") -> pd.DataFrame:
     """
     新浪财经-基金-ETF 基金-日行情数据
     https://finance.sina.com.cn/fund/quotes/159996/bc.shtml
-    :param symbol: 基金名称, 可以通过 ak.fund_etf_category_sina() 函数获取
+    :param symbol: 基金名称，可以通过 ak.fund_etf_category_sina() 函数获取
     :type symbol: str
     :return: 日行情数据
     :rtype: pandas.DataFrame
@@ -153,7 +153,7 @@ def fund_etf_dividend_sina(symbol: str = "sh510050") -> pd.DataFrame:
     """
     新浪财经-基金-ETF 基金-累计分红
     https://finance.sina.com.cn/fund/quotes/510050/bc.shtml
-    :param symbol: 基金名称, 可以通过 ak.fund_etf_category_sina() 函数获取
+    :param symbol: 基金名称，可以通过 ak.fund_etf_category_sina() 函数获取
     :type symbol: str
     :return: 累计分红
     :rtype: pandas.DataFrame

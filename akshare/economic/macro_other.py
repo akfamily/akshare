@@ -13,7 +13,7 @@ import requests
 
 def crypto_js_spot() -> pd.DataFrame:
     """
-    主流加密货币的实时行情数据, 一次请求返回具体某一时刻行情数据
+    主流加密货币的实时行情数据，一次请求返回具体某一时刻行情数据
     https://datacenter.jin10.com/reportType/dc_bitcoin_current
     :return: pandas.DataFrame
     """
@@ -56,14 +56,14 @@ def macro_fx_sentiment(
     """
     金十数据-外汇-投机情绪报告
     外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
-    报告内容: 品种: 澳元兑日元、澳元兑美元、欧元兑美元、欧元兑澳元、欧元兑日元、英镑兑美元、英镑兑日元、纽元兑美元、美元兑加元、美元兑瑞郎、美元兑日元以及现货黄金兑美元。
-             数据: 由Shark - fx整合全球8家交易平台（ 包括 Oanda、 FXCM、 Insta、 Dukas、 MyFxBook以及FiboGroup） 的多空投机仓位数据而成。
-    名词释义: 外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
-    工具使用策略: Shark-fx声明表示，基于“主流通常都是错误的”的事实，当空头头寸超过60%，交易者就应该建立多头仓位； 同理，当市场多头头寸超过60%，交易者则应该建立空头仓位。此外，当多空仓位比例接近50%的情况下，我们则倾向于建议交易者不要进场，保持观望。
+    报告内容：品种：澳元兑日元、澳元兑美元、欧元兑美元、欧元兑澳元、欧元兑日元、英镑兑美元、英镑兑日元、纽元兑美元、美元兑加元、美元兑瑞郎、美元兑日元以及现货黄金兑美元。
+             数据：由Shark - fx整合全球8家交易平台（ 包括 Oanda、FXCM、Insta、Dukas、MyFxBook以及FiboGroup） 的多空投机仓位数据而成。
+    名词释义：外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
+    工具使用策略：Shark-fx声明表示，基于“主流通常都是错误的”的事实，当空头头寸超过60%，交易者就应该建立多头仓位；同理，当市场多头头寸超过60%，交易者则应该建立空头仓位。此外，当多空仓位比例接近50%的情况下，我们则倾向于建议交易者不要进场，保持观望。
     https://datacenter.jin10.com/reportType/dc_ssi_trends
     :param start_date: 具体交易日
     :type start_date: str
-    :param end_date: 具体交易日, 与 end_date 相同
+    :param end_date: 具体交易日，与 end_date 相同
     :type end_date: str
     :return: 投机情绪报告
     :rtype: pandas.DataFrame

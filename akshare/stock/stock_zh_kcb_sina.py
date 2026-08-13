@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2023/7/6 19:28
-Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
+Desc: 新浪财经-科创板-实时行情数据和历史行情数据（包含前复权和后复权因子）
 """
 
 import datetime
@@ -41,7 +41,7 @@ def get_zh_kcb_page_count() -> int:
 
 def stock_zh_kcb_spot() -> pd.DataFrame:
     """
-    新浪财经-科创板实时行情数据, 大量抓取容易封IP
+    新浪财经-科创板实时行情数据，大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#kcb
     :return: 科创板实时行情数据
     :rtype: pandas.DataFrame
@@ -122,11 +122,11 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
 
 def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFrame:
     """
-    新浪财经-科创板股票的历史行情数据, 大量抓取容易封IP
+    新浪财经-科创板股票的历史行情数据，大量抓取容易封IP
     https://finance.sina.com.cn/realstock/company/sh688005/nc.shtml
-    :param symbol: 股票代码; 带市场标识的股票代码
+    :param symbol: 股票代码；带市场标识的股票代码
     :type symbol: str
-    :param adjust: 默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子
+    :param adjust: 默认不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
     :type adjust: str
     :return: 科创板股票的历史行情数据
     :rtype: pandas.DataFrame

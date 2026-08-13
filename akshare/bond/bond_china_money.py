@@ -137,9 +137,9 @@ def bond_china_close_return(
     :type period: choice of {'0.1', '0.5', '1'}
     :param period: 期限间隔
     :type symbol: str
-    :param start_date: 开始日期, 结束日期和开始日期不要超过 1 个月
+    :param start_date: 开始日期，结束日期和开始日期不要超过 1 个月
     :type start_date: str
-    :param end_date: 结束日期, 结束日期和开始日期不要超过 1 个月
+    :param end_date: 结束日期，结束日期和开始日期不要超过 1 个月
     :type end_date: str
     :return: 收盘收益率曲线历史数据
     :rtype: pandas.DataFrame
@@ -193,11 +193,11 @@ def macro_china_swap_rate(
     start_date: str = "20231101", end_date: str = "20231204"
 ) -> pd.DataFrame:
     """
-    FR007 利率互换曲线历史数据; 只能获取近一年的数据
+    FR007 利率互换曲线历史数据；只能获取近一年的数据
     https://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007
-    :param start_date: 开始日期, 开始和结束日期不得超过一个月
+    :param start_date: 开始日期，开始和结束日期不得超过一个月
     :type start_date: str
-    :param end_date: 结束日期, 开始和结束日期不得超过一个月
+    :param end_date: 结束日期，开始和结束日期不得超过一个月
     :type end_date: str
     :return: FR007利率互换曲线历史数据
     :rtype: pandas.DataFrame

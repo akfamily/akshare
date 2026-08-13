@@ -270,7 +270,7 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
     """
     上海期货交易所-交割情况表
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
-    注意: 日期 -> 月度统计 -> 下拉到交割情况表
+    注意：日期 -> 月度统计 -> 下拉到交割情况表
     :param date: 年月日
     :type date: str
     :return: 上海期货交易所-交割情况表

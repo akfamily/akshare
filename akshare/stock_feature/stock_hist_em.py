@@ -1594,7 +1594,7 @@ def stock_us_spot_em() -> pd.DataFrame:
     """
     东方财富网-美股-实时行情
     https://quote.eastmoney.com/center/gridlist.html#us_stocks
-    :return: 美股-实时行情; 延迟 15 min
+    :return: 美股-实时行情；延迟 15 min
     :rtype: pandas.DataFrame
     """
     url = "https://72.push2.eastmoney.com/api/qt/clist/get"
@@ -1695,7 +1695,7 @@ def stock_us_hist(
     """
     东方财富网-行情-美股-每日行情
     https://quote.eastmoney.com/us/ENTX.html#fullScreenChart
-    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em() 的 `代码` 字段获取
+    :param symbol: 股票代码；此股票代码需要通过调用 ak.stock_us_spot_em() 的 `代码` 字段获取
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
     :type period: str

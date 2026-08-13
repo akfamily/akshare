@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2023/9/15 19:00
-Desc: 请求网站内容的函数: 在链接失败后可重复 20 次
+Desc: 请求网站内容的函数：在链接失败后可重复 20 次
 """
 
 import time
@@ -21,13 +21,13 @@ def requests_link(
     headers: Dict = None,
 ):
     """
-    利用 requests 请求网站, 爬取网站内容, 如网站链接失败, 可重复爬取 20 次
+    利用 requests 请求网站，爬取网站内容，如网站链接失败，可重复爬取 20 次
     :param url: string 网站地址
-    :param encoding: string 编码类型: "utf-8", "gbk", "gb2312"
-    :param method: string 访问方法: "get", "post"
-    :param data: dict 上传数据: 键值对
-    :param headers: dict 游览器请求头: 键值对
-    :return: requests.response 爬取返回内容: response
+    :param encoding: string 编码类型："utf-8", "gbk", "gb2312"
+    :param method: string 访问方法："get", "post"
+    :param data: dict 上传数据：键值对
+    :param headers: dict 游览器请求头：键值对
+    :return: requests.response 爬取返回内容：response
     """
     i = 0
     while True:
@@ -58,13 +58,13 @@ def pandas_read_html_link(
     headers: Dict = None,
 ):
     """
-    利用 pandas 提供的 read_html 函数来直接提取网页中的表格内容, 如网站链接失败, 可重复爬取 20 次
+    利用 pandas 提供的 read_html 函数来直接提取网页中的表格内容，如网站链接失败，可重复爬取 20 次
     :param url: string 网站地址
-    :param encoding: string 编码类型: "utf-8", "gbk", "gb2312"
-    :param method: string 访问方法: "get", "post"
-    :param data: dict 上传数据: 键值对
-    :param headers: dict 游览器请求头: 键值对
-    :return: requests.response 爬取返回内容: response
+    :param encoding: string 编码类型："utf-8", "gbk", "gb2312"
+    :param method: string 访问方法："get", "post"
+    :param data: dict 上传数据：键值对
+    :param headers: dict 游览器请求头：键值对
+    :return: requests.response 爬取返回内容：response
     """
     i = 0
     while True:

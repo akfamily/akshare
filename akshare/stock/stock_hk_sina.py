@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/3/15 23:00
-Desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复权和后复权因子)
+Desc: 新浪财经-港股-实时行情数据和历史行情数据（包含前复权和后复权因子）
 https://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 
@@ -112,7 +112,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
     https://stock.finance.sina.com.cn/hkstock/quotes/02912.html
     :param symbol: 可以使用 ak.stock_hk_spot() 获取
     :type symbol: str
-    :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
+    :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据；qfq-factor: 返回前复权因子和调整；
     :type adjust: str
     :return: 指定 adjust 的数据
     :rtype: pandas.DataFrame

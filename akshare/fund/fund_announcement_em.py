@@ -16,7 +16,7 @@ def fund_announcement_dividend_em(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金档案-基金公告-分红配送
     https://fundf10.eastmoney.com/jjgg_000001_2.html
-    :param symbol: 基金代码; 可以通过调用 ak.fund_name_em() 接口获取
+    :param symbol: 基金代码；可以通过调用 ak.fund_name_em() 接口获取
     :type symbol: str
     :return: 分红配送-公告列表
     :rtype: pandas.DataFrame
@@ -57,7 +57,7 @@ def fund_announcement_report_em(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金档案-基金公告-定期报告
     https://fundf10.eastmoney.com/jjgg_000001_3.html
-    :param symbol: 基金代码; 可以通过调用 ak.fund_name_em() 接口获取
+    :param symbol: 基金代码；可以通过调用 ak.fund_name_em() 接口获取
     :type symbol: str
     :return: 定期报告-公告列表
     :rtype: pandas.DataFrame
@@ -98,7 +98,7 @@ def fund_announcement_personnel_em(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金档案-基金公告-人事调整
     https://fundf10.eastmoney.com/jjgg_000001_4.html
-    :param symbol: 基金代码; 可以通过调用 ak.fund_name_em() 接口获取
+    :param symbol: 基金代码；可以通过调用 ak.fund_name_em() 接口获取
     :type symbol: str
     :return: 人事调整-公告列表
     :rtype: pandas.DataFrame

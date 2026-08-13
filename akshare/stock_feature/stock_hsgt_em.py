@@ -4,7 +4,7 @@
 Date: 2025/3/4 23:00
 Desc: 东方财富网-数据中心-沪深港通持股
 https://data.eastmoney.com/hsgtcg/
-沪深港通详情: https://finance.eastmoney.com/news/1622,20161118685370149.html
+沪深港通详情：https://finance.eastmoney.com/news/1622,20161118685370149.html
 """
 
 import pandas as pd
@@ -341,13 +341,13 @@ def stock_hsgt_stock_statistics_em(
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
     https://data.eastmoney.com/hsgtcg/StockStatistics.aspx
-    market=001, 沪股通持股
-    market=003, 深股通持股
+    market=001，沪股通持股
+    market=003，深股通持股
     :param symbol: choice of {"北向持股", "南向持股"}
     :type symbol: str
-    :param start_date: 指定数据获取开始的时间, e.g., "20200713"
+    :param start_date: 指定数据获取开始的时间，e.g., "20200713"
     :type start_date: str
-    :param end_date: 指定数据获取结束的时间, e.g., "20200715"
+    :param end_date: 指定数据获取结束的时间，e.g., "20200715"
     :type end_date:str
     :return: 指定市场和指定时间段的每日个股统计数据
     :rtype: pandas.DataFrame
@@ -785,9 +785,9 @@ def stock_hsgt_institution_statistics_em(
     https://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
     :param market: choice of {"北向持股", "南向持股", "沪股通持股", "深股通持股"}
     :type market: str
-    :param start_date: 指定数据获取开始的时间, e.g., "20200713"
+    :param start_date: 指定数据获取开始的时间，e.g., "20200713"
     :type start_date: str
-    :param end_date: 指定数据获取结束的时间, e.g., "20200715"
+    :param end_date: 指定数据获取结束的时间，e.g., "20200715"
     :type end_date:str
     :return: 指定市场和指定时间段的每日个股统计数据
     :rtype: pandas.DataFrame

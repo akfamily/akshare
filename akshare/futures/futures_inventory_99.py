@@ -48,7 +48,7 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     """
     99 期货网-大宗商品库存数据
     https://www.99qh.com/data/stockIn?productId=12
-    :param symbol: 交易所对应的具体品种; 如：大连商品交易所的 豆一
+    :param symbol: 交易所对应的具体品种；如：大连商品交易所的 豆一
     :type symbol: str
     :return: 大宗商品库存数据
     :rtype: pandas.DataFrame

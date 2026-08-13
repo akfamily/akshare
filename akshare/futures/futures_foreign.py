@@ -21,7 +21,7 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     """
     外盘期货-历史行情数据-日频率
     https://finance.sina.com.cn/money/future/hf.html
-    :param symbol: 外盘期货代码, 可以通过 ak.futures_foreign_commodity_subscribe_exchange_symbol() 来获取所有品种代码
+    :param symbol: 外盘期货代码，可以通过 ak.futures_foreign_commodity_subscribe_exchange_symbol() 来获取所有品种代码
     :type symbol: str
     :return: 历史行情数据-日频率
     :rtype: pandas.DataFrame

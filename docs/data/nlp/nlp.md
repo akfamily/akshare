@@ -2,13 +2,13 @@
 
 ### 知识图谱
 
-接口: nlp_ownthink
+接口：nlp_ownthink
 
-目标地址: https://ownthink.com/
+目标地址：https://ownthink.com/
 
-描述: 思知-知识图谱的接口, 以此来查询知识图谱数据
+描述：思知-知识图谱的接口，以此来查询知识图谱数据
 
-限量: 单次返回查询的数据结果
+限量：单次返回查询的数据结果
 
 输入参数
 
@@ -118,13 +118,13 @@ print(nlp_ownthink_df)
 
 ### 智能问答
 
-接口: nlp_answer
+接口：nlp_answer
 
-目标地址: https://ownthink.com/robot.html
+目标地址：https://ownthink.com/robot.html
 
-描述: 思知-对话机器人的接口, 以此来进行智能问答
+描述：思知-对话机器人的接口，以此来进行智能问答
 
-限量: 单次返回查询的数据结果
+限量：单次返回查询的数据结果
 
 输入参数
 

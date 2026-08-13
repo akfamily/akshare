@@ -367,7 +367,7 @@ def stock_history_dividend_detail(
     :type indicator: str
     :param symbol: 股票代码
     :type symbol: str
-    :param date: 分红配股的具体日期, e.g., "1994-12-24"
+    :param date: 分红配股的具体日期，e.g., "1994-12-24"
     :type date: str
     :return: 指定 indicator, stock, date 的数据
     :rtype: pandas.DataFrame
@@ -563,7 +563,7 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
 def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     """
     新浪财经-股东股本-流通股东
-    P.S. 特定股票特定时间只有前 5 个; e.g., 000002
+    P.S. 特定股票特定时间只有前 5 个；e.g., 000002
     https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000.phtml
     :param symbol: 股票代码
     :type symbol: str
@@ -696,7 +696,7 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
 def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     """
     新浪财经-股本股东-主要股东
-    P.S. 特定股票特定时间只有前 5 个; e.g., 000002
+    P.S. 特定股票特定时间只有前 5 个；e.g., 000002
     https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/600004.phtml
     :param stock: 股票代码
     :type stock: str

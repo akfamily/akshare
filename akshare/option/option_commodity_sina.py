@@ -56,7 +56,7 @@ def option_commodity_contract_table_sina(
     symbol: str = "黄金期权", contract: str = "au2204"
 ) -> pd.DataFrame:
     """
-    当前所有期权合约, 包括看涨期权合约和看跌期权合约
+    当前所有期权合约，包括看涨期权合约和看跌期权合约
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
     :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权", "动力煤期权", "菜籽油期权", "花生期权"}
     :type symbol: str
@@ -140,7 +140,7 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
     """
     合约历史行情-日频
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
-    :param symbol: return of option_sina_option_commodity_contract_list(symbol="黄金期权", contract="au2012"), 看涨期权合约 filed
+    :param symbol: return of option_sina_option_commodity_contract_list(symbol="黄金期权", contract="au2012")，看涨期权合约 filed
     :type symbol: str
     :return: 合约历史行情-日频
     :rtype: pandas.DataFrame

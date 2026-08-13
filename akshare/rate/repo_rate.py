@@ -48,9 +48,9 @@ def repo_rate_hist(
     """
     中国外汇交易中心暨全国银行间同业拆借中心-回购定盘利率-历史数据
     https://www.chinamoney.com.cn/chinese/bkfrr/
-    :param start_date: 开始时间, 开始时间与结束时间需要在一个月内
+    :param start_date: 开始时间，开始时间与结束时间需要在一个月内
     :type start_date: str
-    :param end_date: 结束时间, 开始时间与结束时间需要在一个月内
+    :param end_date: 结束时间，开始时间与结束时间需要在一个月内
     :type end_date: str
     :return: 回购定盘利率-历史数据
     :rtype: pandas.DataFrame

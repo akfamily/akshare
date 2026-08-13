@@ -42,7 +42,7 @@ def option_hist_yearly_czce(symbol: str = "SR", year: str = "2021") -> pd.DataFr
     "动力煤": "ZC", "菜籽油": "OI", "花生": "PK", "对二甲苯": "PX", "烧碱": "SH", "纯碱": "SA", "短纤": "PF",
     "锰硅": "SM", "硅铁": "SF", "尿素": "UR", "苹果": "AP", "红枣": "CJ", "玻璃": "FG", "瓶片": "PR"}
     :type symbol: str
-    :param year: 需要获取数据的年份, 注意品种的上市时间
+    :param year: 需要获取数据的年份，注意品种的上市时间
     :type year: str
     :return: 指定年份的日频期权数据
     :rtype: pandas.DataFrame

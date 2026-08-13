@@ -2,13 +2,13 @@
 
 ### 实时数据
 
-接口: crypto_js_spot
+接口：crypto_js_spot
 
-目标地址: https://datacenter.jin10.com/reportType/dc_bitcoin_current
+目标地址：https://datacenter.jin10.com/reportType/dc_bitcoin_current
 
-描述: 加密货币实时行情
+描述：加密货币实时行情
 
-限量: 单次返回主流加密货币当前时点行情数据
+限量：单次返回主流加密货币当前时点行情数据
 
 输入参数
 
@@ -59,13 +59,13 @@ print(crypto_js_spot_df)
 
 #### 比特币持仓报告
 
-接口: crypto_bitcoin_hold_report
+接口：crypto_bitcoin_hold_report
 
-目标地址: https://datacenter.jin10.com/dc_report?name=bitcoint
+目标地址：https://datacenter.jin10.com/dc_report?name=bitcoint
 
-描述: 比特币持仓报告
+描述：比特币持仓报告
 
-限量: 单次返回当前时点的比特币持仓报告数据
+限量：单次返回当前时点的比特币持仓报告数据
 
 输入参数
 
@@ -82,9 +82,9 @@ print(crypto_js_spot_df)
 | 公司名称-中文  | object  | -       |
 | 国家/地区    | object  | -       |
 | 市值       | float64 | -       |
-| 比特币占市值比重 | float64 | 注意单位: % |
+| 比特币占市值比重 | float64 | 注意单位：% |
 | 持仓成本     | float64 | -       |
-| 持仓占比     | float64 | 注意单位: % |
+| 持仓占比     | float64 | 注意单位：% |
 | 持仓量      | float64 | -       |
 | 当日持仓市值   | float64 | -       |
 | 查询日期     | object  | -       |
@@ -169,13 +169,13 @@ print(crypto_bitcoin_hold_report_df)
 
 ### CME-成交量报告
 
-接口: crypto_bitcoin_cme
+接口：crypto_bitcoin_cme
 
-目标地址: https://datacenter.jin10.com/reportType/dc_cme_btc_report
+目标地址：https://datacenter.jin10.com/reportType/dc_cme_btc_report
 
-描述: 芝加哥商业交易所-比特币成交量报告
+描述：芝加哥商业交易所-比特币成交量报告
 
-限量: 单次返回指定交易日的比特币成交量报告数据
+限量：单次返回指定交易日的比特币成交量报告数据
 
 输入参数
 

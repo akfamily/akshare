@@ -34,7 +34,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
     巨潮资讯-行业分类数据
     https://webapi.cninfo.com.cn/#/apiDoc
     查询 p_public0002 接口
-    :param symbol: 行业类型; choice of {"证监会行业分类标准", "巨潮行业分类标准", "申银万国行业分类标准",
+    :param symbol: 行业类型；choice of {"证监会行业分类标准", "巨潮行业分类标准", "申银万国行业分类标准",
     "新财富行业分类标准", "国资委行业分类标准", "巨潮产业细分标准", "天相行业分类标准", "全球行业分类标准"}
     :type symbol: str
     :return: 行业分类数据

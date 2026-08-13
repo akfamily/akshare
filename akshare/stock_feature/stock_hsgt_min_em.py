@@ -14,7 +14,7 @@ def stock_hsgt_fund_min_em(symbol: str = "北向资金") -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-市场概括-分时数据
     https://data.eastmoney.com/hsgt/hsgtDetail/scgk.html
-    :param symbol: 北向资金; choice of {"北向资金", "南向资金"}
+    :param symbol: 北向资金；choice of {"北向资金", "南向资金"}
     :type symbol: str
     :return: 沪深港通持股-分时数据
     :rtype: pandas.DataFrame

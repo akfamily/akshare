@@ -2,21 +2,21 @@
 
 ### 银保监分局本级行政处罚
 
-接口: bank_fjcf_table_detail
+接口：bank_fjcf_table_detail
 
-目标地址: https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=881574&itemId=4115&generaltype=9
+目标地址：https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=881574&itemId=4115&generaltype=9
 
-描述: 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表, 是信息公开表不是处罚决定书书
+描述：首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表，是信息公开表不是处罚决定书书
 
-限量: 单次返回银保监分局本级行政处罚中的指定页数的所有表格数据
+限量：单次返回银保监分局本级行政处罚中的指定页数的所有表格数据
 
 输入参数
 
 | 名称    | 类型  | 描述                                          |
 |-------|-----|---------------------------------------------|
-| page  | int | page=5; 获取前 5 页数据, 并返回处理好后的数据框              |
+| page  | int | page=5；获取前 5 页数据，并返回处理好后的数据框              |
 | item  | int | item="分局本级"; choice of {"机关", "本级", "分局本级"} |
-| begin | int | begin=1; 开始页面                               |
+| begin | int | begin=1；开始页面                               |
 
 输出参数-分局本级
 

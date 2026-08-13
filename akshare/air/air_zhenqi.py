@@ -22,7 +22,7 @@ from akshare.utils import demjson
 
 def _get_js_path(name: str = None, module_file: str = None) -> str:
     """
-    获取 JS 文件的路径(从模块所在目录查找)
+    获取 JS 文件的路径（从模块所在目录查找）
     :param name: 文件名
     :type name: str
     :param module_file: 模块路径
@@ -150,7 +150,7 @@ def air_quality_hist(
     https://www.zq12369.com/
     :param city: 调用 ak.air_city_table() 接口获取所有城市列表
     :type city: str
-    :param period: "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据
+    :param period: "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据
     :type period: str
     :param start_date: e.g., "20190327"
     :type start_date: str
@@ -220,7 +220,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
     """
     真气网-168 城市 AQI 排行榜
     https://www.zq12369.com/environment.php?date=2020-03-12&tab=rank&order=DESC&type=DAY#rank
-    :param date: "": 当前时刻空气质量排名; "20200312": 当日空气质量排名; "202003": 当月空气质量排名; "2019": 当年空气质量排名;
+    :param date: "": 当前时刻空气质量排名；"20200312": 当日空气质量排名；"202003": 当月空气质量排名；"2019": 当年空气质量排名；
     :type date: str
     :return: 指定 date 类型的空气质量排名数据
     :rtype: pandas.DataFrame
