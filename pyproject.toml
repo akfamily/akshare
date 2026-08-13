@@ -61,21 +61,44 @@ dependencies = [
 [project.optional-dependencies]
 full = ["akqmt"]
 qmt = ["akqmt"]
-dev = [
-    "akqmt>=0.1.0",
-    "commitizen>=4.12.1; python_version >= '3.10'",
-    "pre-commit>=3.6.2; python_version >= '3.9'",
-    "sphinx>=7.4.3",
-    "recommonmark>=0.7.1",
-    "sphinx_markdown_tables>=0.0.17",
-    "sphinx_rtd_theme>=1.0.0",
-    "mplfinance>=0.12.10b0",
-    "ruff>=0.14.14; python_version >= '3.10'",
-    "ruff-lsp>=0.0.53; python_version >= '3.10'",
-]
 
 [project.urls]
 Homepage = "https://github.com/akfamily/akshare"
+
+# 开发依赖走 PEP 735 dependency-groups 而非 extra。extra 会随包发布，
+# 原先的 dev extra 意味着终端用户 pip install akshare[dev] 会被装上
+# pre-commit、sphinx、ruff 这些与使用本库无关的工具链；组不会进入包元数据。
+# 附带好处：uv sync 默认就安装 dev 组，本地无需再记 --extra dev。
+#
+# 文档依赖刻意不在这里，仍由 docs/requirements.txt 声明。Read the Docs 的
+# python.install 只认 requirements 文件与 extra_requirements，不支持 --group；
+# 而 docs/conf.py 是以读文件加正则的方式取版本号、从不 import akshare，
+# 若改用 extra_requirements 就得连 pandas、lxml、curl_cffi、mini-racer 一起
+# 装进文档镜像。因此保留那份文件作为文档依赖的唯一声明。
+[dependency-groups]
+test = ["pytest>=8.0.0"]
+# 本组的 ruff 版本与 .pre-commit-config.yaml 的 rev 必须一致，CI 的 lint job 从本组取用。
+# 编辑器的 LSP 能力由 ruff 自带的 ruff server 子命令提供，无需额外依赖。
+# 原先声明的 ruff-lsp 已被 Astral 归档（PyPI 停在 0.0.62 / 2025-02，
+# 包自身即会打印废弃警告并指向 ruff server），故不再声明。
+lint = ["ruff==0.16.2; python_version >= '3.10'"]
+dev = [
+    { include-group = "test" },
+    { include-group = "lint" },
+    "akqmt>=0.1.0",
+    "commitizen>=4.12.1; python_version >= '3.10'",
+    "pre-commit>=3.6.2; python_version >= '3.9'",
+    "mplfinance>=0.12.10b0",
+]
+
+# uv.lock 会把解析时用的索引地址逐条写进去，因此项目必须显式声明官方 PyPI。
+# 否则谁本地配了镜像，提交的锁文件就带上镜像地址，海外贡献者与 CI 都无法复现。
+# 本段优先级高于用户级 uv.toml 与 UV_INDEX_URL 环境变量（已实测），
+# 所以配了国内镜像的开发者无需改动个人配置，重新生成的锁文件依然是官方源。
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
 
 [tool.setuptools.dynamic]
 version = {attr = "akshare._version.__version__"}
@@ -118,12 +141,17 @@ exclude = [
     "venv",
 ]
 
+# 自 ruff 0.16 起，格式化器会改写 Markdown 中 ```python 围栏块的代码。
+# docs/ 下的接口示例与数据示例是手工维护的真实输出，不接受自动改写。
+extend-exclude = ["*.md"]
+
 # Same as Black.
 line-length = 88
 indent-width = 4
 
-# Assume Python 3.13
-target-version = "py313"
+# 与 requires-python = ">=3.9" 保持一致，令 ruff 拦下 match、PEP 695 等 3.10+ 语法。
+# 注意 X | Y 注解在 3.9 是合法语法、仅运行时报错，ruff 不覆盖，仍需人工留意。
+target-version = "py39"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.

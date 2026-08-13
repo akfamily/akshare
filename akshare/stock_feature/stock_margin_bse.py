@@ -93,7 +93,14 @@ def stock_margin_bse(date: str = "20260721") -> pd.DataFrame:
     data_list = data_json[0]
     if not data_list:
         return pd.DataFrame(
-            columns=["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
+            columns=[
+                "融资买入额",
+                "融资余额",
+                "融券卖出量",
+                "融券余量",
+                "融券余额",
+                "融资融券余额",
+            ]
         )
     temp_df = pd.DataFrame(data_list)
     temp_df = temp_df[
@@ -211,9 +218,23 @@ def stock_margin_underlying_info_bse(date: str = "20260722") -> pd.DataFrame:
         page += 1
     if big_df.empty:
         return pd.DataFrame(
-            columns=["证券代码", "证券简称", "融资标的", "融券标的", "当日可融资", "当日可融券"]
+            columns=[
+                "证券代码",
+                "证券简称",
+                "融资标的",
+                "融券标的",
+                "当日可融资",
+                "当日可融券",
+            ]
         )
     big_df = big_df[["zqdm", "zqjc", "rzbd", "rqbd", "drkrz", "drkrq"]]
-    big_df.columns = ["证券代码", "证券简称", "融资标的", "融券标的", "当日可融资", "当日可融券"]
+    big_df.columns = [
+        "证券代码",
+        "证券简称",
+        "融资标的",
+        "融券标的",
+        "当日可融资",
+        "当日可融券",
+    ]
     big_df["证券代码"] = big_df["证券代码"].astype(str).str.zfill(6)
     return big_df

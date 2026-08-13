@@ -14,10 +14,10 @@ repos:
       - id: detect-private-key
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.15.0
+    rev: v0.16.2
     hooks:
       # Run the linter.
-      - id: ruff
+      - id: ruff-check
         args: [--fix]
       # Run the formatter.
       - id: ruff-format

@@ -1,3 +1,9 @@
+# 文档构建依赖的唯一声明处，由 .readthedocs.yaml 的 python.install 直接引用。
+# 请勿把这些包再抄进 pyproject.toml：此前 dev extra 里有一份副本，且
+# sphinx_rtd_theme 被写成 >=1.0.0 与这里的 >=2.0.0 长期冲突。
+# Read the Docs 不支持 PEP 735 的 --group，而 docs/conf.py 只是读取
+# akshare/_version.py 取版本号、从不 import akshare，所以文档构建无需安装本包。
+# 本地构建文档：uv pip install -r docs/requirements.txt
 sphinx>=7.4.3
 sphinx_rtd_theme>=2.0.0
 readthedocs-sphinx-search>=0.3.2
