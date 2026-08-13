@@ -13,9 +13,18 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
-    # 刻意不按 dependency-type 分组：Dependabot 读不懂 PEP 735 的 dependency-groups，
-    # 会把 dev 组的 pillow、filelock 标成 runtime，分组只会产生误导性的归类。
+    # 必须分组，且分组键只能是 patterns: "*"。
+    # 首次运行的教训：不分组时每个依赖各开一个 PR，而它们都要改 uv.lock
+    # （docs/requirements.txt 同理），彼此天然冲突，只有第一个能干净合并，
+    # 其余全部需要 rebase。实测一次开出 3 个改同一个文件的 PR。
+    # 不能按 dependency-type 分组：Dependabot 读不懂 PEP 735 的 dependency-groups，
+    # 会把 dev 组的 pillow、filelock 标成 runtime，那样的归类是误导性的。
+    groups:
+      python:
+        patterns:
+          - "*"
+    # 分组后正常每周最多 1 个 PR，留 2 是为了容纳安全更新单独开的 PR。
+    open-pull-requests-limit: 2
     commit-message:
       prefix: "build"
       include: "scope"
@@ -26,6 +35,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    # 同样分组：两个 workflow 里有重复的 action，不分组会出现多个 PR 改同一文件。
+    groups:
+      actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 2
     commit-message:
       prefix: "ci"

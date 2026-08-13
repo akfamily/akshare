@@ -1,6 +1,6 @@
-## [AKShare](https://github.com/akfamily/akshare) 公募基金数据
+# [AKShare](https://github.com/akfamily/akshare) 公募基金数据
 
-### 基金基本信息
+## 基金基本信息
 
 接口：fund_name_em
 
@@ -52,7 +52,7 @@ print(fund_name_em_df)
 10227  980003   TPYLGYGDCYZ  ...   债券型   TAIPINGYANGLIUGEYUEGUNDONGCHIYOUZHAI
 ```
 
-### 基金基本信息-同花顺
+## 基金基本信息-同花顺
 
 接口：fund_info_ths
 
@@ -108,7 +108,7 @@ print(fund_info_ths_df)
 15    业绩比较基准  纳斯达克100指数收益率(使用估值汇率折算)*95%+活期存款利率(税后)*5%
 ```
 
-### 基金基本信息-雪球
+## 基金基本信息-雪球
 
 接口：fund_individual_basic_info_xq
 
@@ -161,7 +161,7 @@ print(fund_individual_basic_info_xq_df)
 13  业绩比较基准                                       本基金暂不设业绩比较基准
 ```
 
-### 基金基本信息-指数型
+## 基金基本信息-指数型
 
 接口：fund_info_index_em
 
@@ -227,7 +227,7 @@ print(fund_info_index_em_df)
 279  016134       嘉实沪深300指数研究增强C  0.9614  2022-07-26  ...  0.00   10元  沪深指数  增强指数型
 ```
 
-### 基金申购状态
+## 基金申购状态
 
 接口：fund_purchase_em
 
@@ -286,9 +286,9 @@ print(fund_purchase_em_df)
 14959  14960  980003         太平洋六个月滚动持有债  ...  100  1.000000e+11  0.05
 ```
 
-### 基金行情
+## 基金行情
 
-#### ETF基金实时行情-东财
+### ETF基金实时行情-东财
 
 接口：fund_etf_spot_em
 
@@ -372,7 +372,7 @@ print(fund_etf_spot_em_df)
 [1010 rows x 37 columns]
 ```
 
-#### 基金实时行情-同花顺
+### 基金实时行情-同花顺
 
 接口：fund_etf_category_ths
 
@@ -437,7 +437,7 @@ print(fund_etf_category_ths_df)
 [984 rows x 16 columns]
 ```
 
-#### ETF基金实时行情-同花顺
+### ETF基金实时行情-同花顺
 
 接口：fund_etf_spot_ths
 
@@ -501,7 +501,7 @@ print(fund_etf_spot_ths_df)
 [984 rows x 16 columns]
 ```
 
-#### LOF基金实时行情-东财
+### LOF基金实时行情-东财
 
 接口：fund_lof_spot_em
 
@@ -563,7 +563,7 @@ print(fund_lof_spot_em_df)
 [151 rows x 14 columns]
 ```
 
-#### 基金实时行情-新浪
+### 基金实时行情-新浪
 
 接口：fund_etf_category_sina
 
@@ -664,7 +664,7 @@ print(fund_etf_category_sina_df)
 [51 rows x 13 columns]
 ```
 
-#### ETF基金分时行情-东财
+### ETF基金分时行情-东财
 
 接口：fund_etf_hist_min_em
 
@@ -804,7 +804,7 @@ print(fund_etf_hist_min_em_df)
 [48 rows x 11 columns]
 ```
 
-#### LOF基金分时行情-东财
+### LOF基金分时行情-东财
 
 接口：fund_lof_hist_min_em
 
@@ -944,7 +944,7 @@ print(fund_lof_hist_min_em_df)
 [48 rows x 11 columns]
 ```
 
-#### ETF基金历史行情-东财
+### ETF基金历史行情-东财
 
 接口：fund_etf_hist_em
 
@@ -1079,7 +1079,7 @@ print(fund_etf_hist_em_df)
 2183  2023-01-04  2.494  2.490  2.498  ...  0.40 -0.40 -0.010  1.86
 ```
 
-#### LOF基金历史行情-东财
+### LOF基金历史行情-东财
 
 接口：fund_lof_hist_em
 
@@ -1217,7 +1217,7 @@ print(fund_lof_hist_em_df)
 [2520 rows x 11 columns]
 ```
 
-#### 基金历史行情-新浪
+### 基金历史行情-新浪
 
 接口：fund_etf_hist_sina
 
@@ -1271,9 +1271,9 @@ print(fund_etf_hist_sina_df)
 [4801 rows x 6 columns]
 ```
 
-### 基金净值
+## 基金净值
 
-#### 开放式基金-实时数据
+### 开放式基金-实时数据
 
 接口：fund_open_fund_daily_em
 
@@ -1331,7 +1331,7 @@ print(fund_open_fund_daily_em_df)
 10009  010650       易方达创新未来18个月封闭混合B                  ...   封闭期  开放赎回
 ```
 
-#### 开放式基金-历史数据
+### 开放式基金-历史数据
 
 接口：fund_open_fund_info_em
 
@@ -1597,7 +1597,7 @@ print(fund_open_fund_info_em_df)
 8  2015年  2015-12-15  份额折算  1:1.0180
 ```
 
-#### 货币型基金-实时数据
+### 货币型基金-实时数据
 
 接口：fund_money_fund_daily_em
 
@@ -1657,7 +1657,7 @@ print(fund_money_fund_daily_em_df)
 452  519507       万家货币B        ---         ---  ...  2013-08-15    郅元  0费率   购买
 ```
 
-#### 货币型基金-历史数据
+### 货币型基金-历史数据
 
 接口：fund_money_fund_info_em
 
@@ -1710,7 +1710,7 @@ print(fund_money_fund_info_em_df)
 [4192 rows x 5 columns]
 ```
 
-#### 理财型基金-实时数据
+### 理财型基金-实时数据
 
 接口：fund_financial_fund_daily_em
 
@@ -1766,7 +1766,7 @@ print(fund_financial_fund_daily_em_df)
 9  10  000322    农银14天理财债券A           ...      0.4592      1.6080  14天  限大额
 ```
 
-#### 理财型基金-历史数据
+### 理财型基金-历史数据
 
 接口：fund_financial_fund_info_em
 
@@ -1820,7 +1820,7 @@ print(fund_financial_fund_info_em_df)
 667  2023-03-22  1.0303  1.0963  0.00  限制大额申购  开放赎回
 ```
 
-#### 分级基金-实时数据
+### 分级基金-实时数据
 
 接口：fund_graded_fund_daily_em
 
@@ -1878,7 +1878,7 @@ print(fund_graded_fund_daily_em_df)
 345  161825       银华中证800分级                  ...                         1.20%
 ```
 
-#### 分级基金-历史数据
+### 分级基金-历史数据
 
 接口：fund_graded_fund_info_em
 
@@ -1932,7 +1932,7 @@ print(fund_graded_fund_info_em_df)
 [1343 rows x 6 columns]
 ```
 
-#### 场内交易基金-实时数据
+### 场内交易基金-实时数据
 
 接口：fund_etf_fund_daily_em
 
@@ -1990,7 +1990,7 @@ print(fund_etf_fund_daily_em_df)
 478  515790  华泰柏瑞中证光伏产业ETF行情  ETF-场内  ...     ---     ---     ---
 ```
 
-#### 场内交易基金-历史数据
+### 场内交易基金-历史数据
 
 接口：fund_etf_fund_info_em
 
@@ -2046,7 +2046,7 @@ print(fund_etf_fund_info_em_df)
 [784 rows x 6 columns]
 ```
 
-#### 香港基金-历史数据
+### 香港基金-历史数据
 
 接口：fund_hk_fund_hist_em
 
@@ -2132,9 +2132,9 @@ print(fund_hk_fund_hist_em_df)
 6  2020  2020-06-30  2020-06-30  2020-07-15  0.0669  元
 ```
 
-### 分红送配
+## 分红送配
 
-#### 基金累计分红
+### 基金累计分红
 
 接口：fund_etf_dividend_sina
 
@@ -2189,7 +2189,7 @@ print(fund_etf_dividend_sina_df)
 16 2024-12-02  0.717
 ```
 
-#### 基金分红
+### 基金分红
 
 接口：fund_fh_em
 
@@ -2247,7 +2247,7 @@ print(fund_fh_em_df)
 [6454 rows x 7 columns]
 ```
 
-#### 基金拆分
+### 基金拆分
 
 接口：fund_cf_em
 
@@ -2305,7 +2305,7 @@ print(fund_cf_em_df)
 [82 rows x 6 columns]
 ```
 
-#### 基金分红排行
+### 基金分红排行
 
 接口：fund_fh_rank_em
 
@@ -2358,9 +2358,9 @@ print(fund_fh_rank_em_df)
 4620  4621  008139        鑫元一年中高等级债   0.000100     1  2020-03-18
 ```
 
-### 基金排行
+## 基金排行
 
-#### 开放式基金排行
+### 开放式基金排行
 
 接口：fund_open_fund_rank_em
 
@@ -2426,7 +2426,7 @@ print(fund_open_fund_rank_em_df)
 [15010 rows x 18 columns]
 ```
 
-#### 场内交易基金排行榜
+### 场内交易基金排行榜
 
 接口：fund_exchange_rank_em
 
@@ -2491,7 +2491,7 @@ print(fund_exchange_rank_em_df)
 [880 rows x 17 columns]
 ```
 
-#### 货币型基金排行
+### 货币型基金排行
 
 接口：fund_money_rank_em
 
@@ -2557,7 +2557,7 @@ print(fund_money_rank_em_df)
 [544 rows x 18 columns]
 ```
 
-#### 理财基金排行
+### 理财基金排行
 
 接口：fund_lcx_rank_em
 
@@ -2611,7 +2611,7 @@ print(fund_lcx_rank_em_df)
 1   2  530014  建信双周理财A  2021-01-17  0.7035  ...  0.98  0.12   33.374   1  0.00%
 ```
 
-#### 香港基金排行
+### 香港基金排行
 
 接口：fund_hk_rank_em
 
@@ -2677,7 +2677,7 @@ print(fund_hk_rank_em_df)
 [112 rows x 18 columns]
 ```
 
-### 基金业绩-雪球
+## 基金业绩-雪球
 
 接口：fund_individual_achievement_xq
 
@@ -2749,7 +2749,7 @@ print(fund_individual_achievement_xq_df)
 29  阶段业绩   近5年   -3.250474    48.55  2300/2414
 ```
 
-### 净值估算
+## 净值估算
 
 接口：fund_value_estimation_em
 
@@ -2807,7 +2807,7 @@ print(fund_value_estimation_em_df)
 4850  4851  011059  ...     ---             ---
 ```
 
-### 基金数据分析
+## 基金数据分析
 
 接口：fund_individual_analysis_xq
 
@@ -2853,7 +2853,7 @@ print(fund_individual_analysis_xq_df)
 2  近5年         2        57  19.04   -0.11  48.55
 ```
 
-### 基金盈利概率
+## 基金盈利概率
 
 接口：fund_individual_profit_probability_xq
 
@@ -2897,7 +2897,7 @@ print(fund_individual_profit_probability_xq_df)
 3   满3年    76  51.16
 ```
 
-### 基金持仓资产比例
+## 基金持仓资产比例
 
 接口：fund_individual_detail_hold_xq
 
@@ -2940,7 +2940,7 @@ print(fund_individual_detail_hold_xq_df)
 2   其他  29.09
 ```
 
-### 基金基本概况
+## 基金基本概况
 
 接口：fund_overview_em
 
@@ -2996,7 +2996,7 @@ print(fund_overview_em_df)
 [1 rows x 18 columns]
 ```
 
-### 基金交易费率
+## 基金交易费率
 
 接口：fund_fee_em
 
@@ -3040,7 +3040,7 @@ print(fund_fee_em_df)
 3          大于等于500万元  ---  每笔1000元  每笔1000元
 ```
 
-### 基金交易规则
+## 基金交易规则
 
 接口：fund_individual_detail_info_xq
 
@@ -3088,7 +3088,7 @@ print(fund_individual_detail_info_xq_df)
 7  其他费用                 基金托管费     0.2
 ```
 
-### 基金持仓
+## 基金持仓
 
 接口：fund_portfolio_hold_em
 
@@ -3142,7 +3142,7 @@ print(fund_portfolio_hold_em_df)
 9  10  000100  TCL科技   1.82  893.37  4172.03  2024年1季度股票投资明细
 ```
 
-### 债券持仓
+## 债券持仓
 
 接口：fund_portfolio_bond_hold_em
 
@@ -3236,7 +3236,7 @@ print(fund_portfolio_bond_hold_em_df)
 50  51     123107         温氏转债   0.00      0.03  2023年1季度债券投资明细
 ```
 
-### 行业配置
+## 行业配置
 
 接口：fund_portfolio_industry_allocation_em
 
@@ -3315,7 +3315,7 @@ print(fund_portfolio_industry_allocation_em_df)
 36  37     水利、环境和公共设施管理业   0.00      10.346959  2023-03-31
 ```
 
-### 重大变动
+## 重大变动
 
 接口：fund_portfolio_change_em
 
@@ -3379,9 +3379,9 @@ print(fund_portfolio_change_em_df)
 19  20  600641  万业企业  16500.35         1.51  2023年2季度累计买入股票明细
 ```
 
-### 基金评级
+## 基金评级
 
-#### 基金评级总汇
+### 基金评级总汇
 
 接口：fund_rating_all
 
@@ -3439,7 +3439,7 @@ print(fund_rating_all_df)
 [14523 rows x 11 columns]
 ```
 
-#### 上海证券评级
+### 上海证券评级
 
 接口：fund_rating_sh
 
@@ -3503,7 +3503,7 @@ print(fund_rating_sh_df)
 [4637 rows x 16 columns]
 ```
 
-#### 招商证券评级
+### 招商证券评级
 
 接口：fund_rating_zs
 
@@ -3564,7 +3564,7 @@ print(fund_rating_zs_df)
 [3324 rows x 13 columns]
 ```
 
-#### 济安金信评级
+### 济安金信评级
 
 接口：fund_rating_ja
 
@@ -3626,7 +3626,7 @@ print(fund_rating_ja_df)
 [7723 rows x 14 columns]
 ```
 
-### 基金经理
+## 基金经理
 
 接口：fund_manager_em
 
@@ -3682,7 +3682,7 @@ print(fund_manager_em_df)
 [32083 rows x 8 columns]
 ```
 
-### 新发基金
+## 新发基金
 
 接口：fund_new_found_em
 
@@ -3798,9 +3798,9 @@ print(fund_new_found_ths_df)
 [223 rows x 11 columns]
 ```
 
-### 基金规模
+## 基金规模
 
-#### 开放式基金
+### 开放式基金
 
 接口：fund_scale_open_sina
 
@@ -3857,7 +3857,7 @@ print(fund_scale_open_sina_df)
 [3682 rows x 9 columns]
 ```
 
-#### 封闭式基金
+### 封闭式基金
 
 接口：fund_scale_close_sina
 
@@ -3914,7 +3914,7 @@ print(fund_scale_close_sina_df)
 [140 rows x 9 columns]
 ```
 
-#### 分级子基金
+### 分级子基金
 
 接口：fund_scale_structured_sina
 
@@ -3971,7 +3971,7 @@ print(fund_scale_structured_sina_df)
 [402 rows x 9 columns]
 ```
 
-#### ETF 基金份额-上交所
+### ETF 基金份额-上交所
 
 接口：fund_etf_scale_sse
 
@@ -4025,7 +4025,7 @@ print(fund_etf_scale_sse_df)
 [593 rows x 6 columns]
 ```
 
-#### ETF 基金份额-深交所
+### ETF 基金份额-深交所
 
 接口：fund_etf_scale_szse
 
@@ -4083,7 +4083,7 @@ print(fund_etf_scale_szse_df)
 [903 rows x 10 columns]
 ```
 
-#### 基金规模日频-深交所
+### 基金规模日频-深交所
 
 接口：fund_scale_daily_szse
 
@@ -4137,9 +4137,9 @@ print(fund_scale_daily_szse_df)
 [1258 rows x 4 columns]
 ```
 
-### 基金公司规模
+## 基金公司规模
 
-#### 基金规模详情
+### 基金规模详情
 
 接口：fund_aum_em
 
@@ -4194,7 +4194,7 @@ print(fund_aum_em_df)
 [205 rows x 7 columns]
 ```
 
-#### 基金规模走势
+### 基金规模走势
 
 接口：fund_aum_trend_em
 
@@ -4253,7 +4253,7 @@ print(fund_aum_trend_em_df)
 20  2021-06-28  2.233053e+13
 ```
 
-#### 基金公司历年管理规模
+### 基金公司历年管理规模
 
 接口：fund_aum_hist_em
 
@@ -4310,9 +4310,9 @@ print(fund_aum_hist_em_df)
 [199 rows x 9 columns]
 ```
 
-### REITs
+## REITs
 
-#### REITs-实时行情
+### REITs-实时行情
 
 接口：reits_realtime_em
 
@@ -4372,7 +4372,7 @@ print(reits_realtime_em_df)
 [63 rows x 12 columns]
 ```
 
-#### REITs-历史行情
+### REITs-历史行情
 
 接口：reits_hist_em
 
@@ -4429,9 +4429,9 @@ print(reits_hist_em_df)
 [76 rows x 9 columns]
 ```
 
-### 基金报告
+## 基金报告
 
-#### 基金重仓股
+### 基金重仓股
 
 接口：fund_report_stock_cninfo
 
@@ -4485,7 +4485,7 @@ print(fund_report_stock_cninfo_df)
 3955  3956  839167  同享科技  2021-06-30       1   315074    667.96
 ```
 
-#### 基金行业配置
+### 基金行业配置
 
 接口：fund_report_industry_allocation_cninfo
 
@@ -4546,7 +4546,7 @@ print(fund_report_industry_allocation_cninfo_df)
 18    S                综合  2021-06-30     278     60.31    0.03
 ```
 
-#### 基金资产配置
+### 基金资产配置
 
 接口：fund_report_asset_allocation_cninfo
 
@@ -4600,9 +4600,9 @@ print(fund_report_asset_allocation_cninfo_df)
 [68 rows x 6 columns]
 ```
 
-### 规模份额
+## 规模份额
 
-#### 规模变动
+### 规模变动
 
 接口：fund_scale_change_em
 
@@ -4657,7 +4657,7 @@ print(fund_scale_change_em_df)
 [102 rows x 7 columns]
 ```
 
-#### 持有人结构
+### 持有人结构
 
 接口：fund_hold_structure_em
 
@@ -4739,9 +4739,9 @@ print(fund_hold_structure_em_df)
 38  39  2004-06-30    127   66.97   79.44    0.00    1759.85
 ```
 
-### 基金仓位
+## 基金仓位
 
-#### 股票型基金仓位
+### 股票型基金仓位
 
 接口：fund_stock_position_lg
 
@@ -4791,7 +4791,7 @@ print(fund_stock_position_lg_df)
 260  2022-12-23  3828.22     89.67
 ```
 
-#### 平衡混合型基金仓位
+### 平衡混合型基金仓位
 
 接口：fund_balance_position_lg
 
@@ -4841,7 +4841,7 @@ print(fund_balance_position_lg_df)
 260  2022-12-23  3828.22     68.28
 ```
 
-#### 灵活配置型基金仓位
+### 灵活配置型基金仓位
 
 接口：fund_linghuo_position_lg
 
@@ -4891,9 +4891,9 @@ print(fund_linghuo_position_lg_df)
 260  2022-12-23  3828.22     72.55
 ```
 
-### 基金公告
+## 基金公告
 
-#### 分红配送
+### 分红配送
 
 接口：fund_announcement_dividend_em
 
@@ -4948,7 +4948,7 @@ print(fund_announcement_dividend_em_df)
 13  000001                华夏成长证券投资基金第二十四次分红公告  华夏成长混合  2023-01-10  AN202301101581832718
 ```
 
-#### 定期报告
+### 定期报告
 
 接口：fund_announcement_report_em
 
@@ -5001,7 +5001,7 @@ print(fund_announcement_report_em_df)
 [100 rows x 5 columns]
 ```
 
-#### 人事公告
+### 人事公告
 
 接口：fund_announcement_personnel_em
 

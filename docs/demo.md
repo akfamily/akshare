@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/akfamily/akshare) 策略示例
+# [AKShare](https://github.com/akfamily/akshare) 策略示例
 
 本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
 调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
@@ -7,22 +7,22 @@
 [Backtrader](https://www.backtrader.com) 来演示！
 注意：本教程的开发是基于：Python (64 位) 3.12.4 来进行的
 
-### AKQuant 介绍（强烈推荐）
+## AKQuant 介绍（强烈推荐）
 
 AKQuant 是一款专为量化投研 (Quantitative Research) 打造的高性能混合架构引擎。它以
 Rust 铸造极速撮合内核，以 Python 链接数据与 AI 生态，旨在为量化投资者提供可靠高效的解决方案。
 它超越了传统工具的范畴，将**事件驱动**、**机器学习**与**生产级风控**深度融合，让量化交易不再受限于计算性能，专注于策略本身的逻辑与价值。
 
-### AKQuant 安装
+## AKQuant 安装
 
 AKQuant 支持在 Windows、macOS 和 Linux 中的 Python 3.10（建议使用 Python 3.13）及以上版本使用。其安装非常简单，
 只需要 ```pip install akquant``` 就可以实现一键安装。
 
-### AKQuant 教程
+## AKQuant 教程
 
 AKShare 拥有最齐全的量化投研和使用文档，请访问：[AKQuant](https://akquant.akfamily.xyz)
 
-### AKQuant 策略示例
+## AKQuant 策略示例
 
 ```python
 import akquant as aq
@@ -126,21 +126,21 @@ sqn                                       0.20869
 kelly_criterion                          0.032959
 ```
 
-### PyBroker 介绍
+## PyBroker 介绍
 
 你是否希望借助 Python 和机器学习的力量来优化您的交易策略？那么你需要了解一下 PyBroker！这个 Python 框架专为开发算法交易策略而设计，
 尤其关注使用机器学习的策略。借助 PyBroker，你可以轻松创建和微调交易规则，构建强大的模型，并深入了解你的策略表现。
 
-### PyBroker 安装
+## PyBroker 安装
 
 PyBroker 支持在 Windows、macOS 和 Linux 中的 Python 3.9（建议使用 Python 3.11）及以上版本使用。其安装非常简单，
 只需要 ```pip install lib-pybroker``` 就可以实现一键安装。
 
-### PyBroker 系列教程
+## PyBroker 系列教程
 
 1. [AKBroker-开源项目](https://akbroker.akfamily.xyz)
 
-### PyBroker 策略示例
+## PyBroker 策略示例
 
 ```python
 # 导入所需的库和模块
@@ -236,29 +236,29 @@ Finished backtest: 0:00:03
 38               std_error   27448.1177
 ```
 
-### Backtrader 介绍
+## Backtrader 介绍
 
 [Backtrader](https://www.backtrader.com) 是基于 Python 编程语言的主要用于量化投资开源回测和交易的框架，可以用于多种资产的回测。
 目前，[Backtrader](https://www.backtrader.com) 可以用于实现股票、期货、期权、外汇、加密货币等资产的回测，同时该开源框架也有强大的第三方社区支持，目前已经实现了
 基于 IB、Oanda、VC、CCXT、MT5 等接口量化交易，随着该框架的流行，后期会有更多的小伙伴提供更多的第三方模块，学习和使用该框架是一个不错的选择！
 
-#### Backtrader 下载和安装
+### Backtrader 下载和安装
 
 [Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/akfamily/akshare) 的
 基础上，我们只需要 `pip install backtrader` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
 环境配置，请参考 [AKShare 环境配置](https://akshare.akfamily.xyz/anaconda.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下
 载安装，由于源码安装比较繁琐，建议直接通过 `pip` 或 `conda` 来安装和使用。需要注意的是如果要输出图形，请安装 `pip install matplotlib==3.2.2`
 
-### Backtrader 系列教程
+## Backtrader 系列教程
 
 1. [Backtrader-系列教程-01-介绍](https://zhuanlan.zhihu.com/p/418247765)
 2. [Backtrader-系列教程-02-环境配置](https://zhuanlan.zhihu.com/p/418255493)
 
-### Backtrader 策略教程
+## Backtrader 策略教程
 
-#### 基本策略
+### 基本策略
 
-##### 代码
+#### 代码
 
 ```python
 from datetime import datetime
@@ -344,7 +344,7 @@ print(f"净收益: {round(pnl, 2)}")
 cerebro.plot(style='candlestick')  # 画图
 ```
 
-##### 结果
+#### 结果
 
 ```
 初始资金: 1000000
@@ -353,13 +353,13 @@ cerebro.plot(style='candlestick')  # 画图
 净收益: 10238.65
 ```
 
-##### 可视化
+#### 可视化
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/Figure_0.png)
 
-#### 参数优化
+### 参数优化
 
-##### 代码
+#### 代码
 
 ```python
 from datetime import datetime
@@ -503,7 +503,7 @@ if __name__ == '__main__':
     main(code="600070", start_cash=1000000, stake=100, commission_fee=0.001)
 ```
 
-##### 结果
+#### 结果
 
 ```
 期初总资金: 1000000.00

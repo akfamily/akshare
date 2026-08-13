@@ -1,6 +1,6 @@
-## [AKShare](https://github.com/akfamily/akshare) 依赖说明
+# [AKShare](https://github.com/akfamily/akshare) 依赖说明
 
-### Python 依赖
+## Python 依赖
 
 1. [AKShare](https://github.com/akfamily/akshare) 文档的依赖说明部分主要是为了对 [AKShare](https://github.com/akfamily/akshare) 库的所有依赖库做一个描述，
 方便小伙伴在对 [AKShare](https://github.com/akfamily/akshare) 进行二次封装进行参考；
@@ -8,7 +8,7 @@
 3. 所有的依赖名称都跟 PyPI 提供的库名称统一；
 4. 打包的时候注意 mini-racer 库如报错，请重新编译。
 
-#### mini-racer
+### mini-racer
 
 1. 版本 >=0.12.4
 2. 推荐使用最新版
@@ -22,7 +22,7 @@
     2. [Js2Py](https://pypi.org/project/Js2Py/) 是目前比较使用量较大和维护较好的库，其 [GitHub 地址](https://github.com/PiotrDabkowski/Js2Py) 但是考虑到在测试中，
        对部分 Javascript 代码的运行不稳定，所以没有使用该库。
 
-#### pandas
+### pandas
 
 1. 版本 >=0.25.0
 2. 推荐使用最新版

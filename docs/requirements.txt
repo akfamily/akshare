@@ -4,10 +4,14 @@
 # Read the Docs 不支持 PEP 735 的 --group，而 docs/conf.py 只是读取
 # akshare/_version.py 取版本号、从不 import akshare，所以文档构建无需安装本包。
 # 本地构建文档：uv pip install -r docs/requirements.txt
+#
+# Markdown 解析用 myst-parser，不再用 recommonmark：后者上游停更于 2021 年，
+# Sphinx 官方已推荐 myst-parser 替代，且它会静默跳过它不认识的容器节点
+# （迁移前每次构建产生 92 条 Container node skipped）。
+# sphinx-markdown-tables 与 markdown 随之移除：它们存在的唯一理由是
+# recommonmark 不支持 Markdown 表格，而 myst-parser 原生渲染 GFM 表格。
 sphinx>=7.4.3
 sphinx_rtd_theme>=2.0.0
 readthedocs-sphinx-search>=0.3.2
-sphinx-markdown-tables>=0.0.17
 setuptools>=69.2.0
-recommonmark>=0.7.1
-markdown>=3.6
+myst-parser>=4.0.0

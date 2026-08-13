@@ -18,18 +18,40 @@ jobs:
         with:
           python-version: '3.x'
 
+      # 必须在 build 与 upload 之前：PyPI 的版本号一经占用即不可重用，
+      # 发错版本号无法撤回，只能改用下一个号。
+      # 脚本只依赖标准库，因此放在安装依赖之前也能跑。
+      - name: Verify release metadata
+        run: python scripts/check_release.py "${{ github.ref_name }}"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install build twine
 
-      - name: Build and publish package
+      - name: Build package
+        run: python -m build
+
+      # 上一步校验的是仓库内的版本声明，这一步校验真正要上传的产物文件名。
+      # 两者分开是有意的：构建后端若取错版本号，只有看产物才能发现。
+      - name: Verify built artifacts carry the tagged version
+        run: |
+          version="${GITHUB_REF_NAME#release-v}"
+          echo "期望版本: ${version}"
+          ls -1 dist/
+          for f in dist/*; do
+            case "$(basename "$f")" in
+              akshare-${version}-*.whl|akshare-${version}.tar.gz) ;;
+              *) echo "[release] 产物 $(basename "$f") 与 tag 版本 ${version} 不匹配"; exit 1 ;;
+            esac
+          done
+          twine check dist/*
+
+      - name: Publish package to PyPI
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          python -m build
-          twine upload dist/*
+        run: twine upload dist/*
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2

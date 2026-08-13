@@ -89,6 +89,13 @@
 
 ## 更新说明详情
 
+1.18.91 docs: migrate the Markdown parser to myst-parser
+
+    1. 文档 Markdown 解析器由 recommonmark 迁移至 myst-parser，并移除随之无用的 sphinx-markdown-tables 与 markdown 依赖
+    2. 修正 docs 目录下 25 个文件的标题层级，使每个页面具备唯一的一级标题且不再跳级
+    3. 接口条目层级调整后可生成锚点，文档站中每个接口均支持直接链接定位
+    4. 为 dependabot 增加依赖分组配置，避免多个拉取请求同时修改同一文件
+
 1.18.90 build: declare __all__ and drop the akqmt integration
 
     1. 为 akshare 声明 __all__，由 scripts/build_registry.py 生成并纳入 CI 校验

@@ -1,10 +1,10 @@
-## [AKShare](https://github.com/akfamily/akshare) 私募基金数据
+# [AKShare](https://github.com/akfamily/akshare) 私募基金数据
 
-### 中国证券投资基金业协会
+## 中国证券投资基金业协会
 
-#### 会员信息
+### 会员信息
 
-##### 会员机构综合查询
+#### 会员机构综合查询
 
 接口：amac_member_info
 
@@ -59,9 +59,9 @@ print(amac_member_info_df)
 [4863 rows x 7 columns]
 ```
 
-#### 从业人员信息
+### 从业人员信息
 
-##### 基金从业人员资格注册信息
+#### 基金从业人员资格注册信息
 
 接口：amac_person_fund_org_list
 
@@ -116,7 +116,7 @@ print(amac_person_fund_org_list_df)
 [146 rows x 8 columns]
 ```
 
-##### 债券投资交易相关人员公示
+#### 债券投资交易相关人员公示
 
 接口：amac_person_bond_org_list
 
@@ -168,9 +168,9 @@ print(amac_person_bond_org_list_df)
 [307 rows x 4 columns]
 ```
 
-#### 私募基金管理人公示
+### 私募基金管理人公示
 
-##### 私募基金管理人综合查询
+#### 私募基金管理人综合查询
 
 接口：amac_manager_info
 
@@ -225,7 +225,7 @@ print(amac_manager_info_df)
 [21092 rows x 7 columns]
 ```
 
-##### 私募基金管理人分类公示
+#### 私募基金管理人分类公示
 
 接口：amac_manager_classify_info
 
@@ -285,7 +285,7 @@ print(amac_manager_classify_info_df)
 [21092 rows x 12 columns]
 ```
 
-##### 证券公司私募基金子公司管理人信息公示
+#### 证券公司私募基金子公司管理人信息公示
 
 接口：amac_member_sub_info
 
@@ -339,9 +339,9 @@ print(amac_member_sub_info_df)
 [4863 rows x 6 columns]
 ```
 
-#### 基金产品
+### 基金产品
 
-##### 私募基金管理人基金产品
+#### 私募基金管理人基金产品
 
 接口：amac_fund_info
 
@@ -397,7 +397,7 @@ print(amac_fund_info_df)
 [10000 rows x 7 columns]
 ```
 
-##### 证券公司集合资管产品公示
+#### 证券公司集合资管产品公示
 
 接口：amac_securities_info
 
@@ -455,7 +455,7 @@ print(amac_securities_info_df)
 [20291 rows x 10 columns]
 ```
 
-##### 证券公司直投基金
+#### 证券公司直投基金
 
 接口：amac_aoin_info
 
@@ -508,7 +508,7 @@ print(amac_aoin_info_df)
 [224 rows x 5 columns]
 ```
 
-##### 证券公司私募投资基金
+#### 证券公司私募投资基金
 
 接口：amac_fund_sub_info
 
@@ -562,7 +562,7 @@ print(amac_fund_sub_info_df)
 [1692 rows x 6 columns]
 ```
 
-##### 基金公司及子公司集合资管产品公示
+#### 基金公司及子公司集合资管产品公示
 
 接口：amac_fund_account_info
 
@@ -614,7 +614,7 @@ print(amac_fund_account_info_df)
 [38249 rows x 4 columns]
 ```
 
-##### 资产支持专项计划
+#### 资产支持专项计划
 
 接口：amac_fund_abs
 
@@ -670,7 +670,7 @@ print(amac_fund_abs_df)
 [8340 rows x 8 columns]
 ```
 
-##### 期货公司集合资管产品公示
+#### 期货公司集合资管产品公示
 
 接口：amac_futures_info
 
@@ -728,9 +728,9 @@ print(amac_futures_info_df)
 [9648 rows x 10 columns]
 ```
 
-#### 诚信信息
+### 诚信信息
 
-##### 已注销私募基金管理人名单
+#### 已注销私募基金管理人名单
 
 接口：amac_manager_cancelled_info
 

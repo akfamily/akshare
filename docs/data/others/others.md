@@ -1,8 +1,8 @@
-## [AKShare](https://github.com/akfamily/akshare) 另类数据
+# [AKShare](https://github.com/akfamily/akshare) 另类数据
 
-### 汽车销量排行
+## 汽车销量排行
 
-#### 乘联会-统计数据-总体市场
+### 乘联会-统计数据-总体市场
 
 接口：car_market_total_cpca
 
@@ -54,7 +54,7 @@ print(car_market_total_cpca_df)
 11  12月  267.8423       NaN
 ```
 
-#### 乘联会-统计数据-厂商排名
+### 乘联会-统计数据-厂商排名
 
 接口：car_market_man_rank_cpca
 
@@ -104,7 +104,7 @@ print(car_market_man_rank_cpca_df)
 9    华晨宝马   5.2871   4.1604
 ```
 
-#### 乘联会-统计数据-车型大类
+### 乘联会-统计数据-车型大类
 
 接口：car_market_cate_cpca
 
@@ -156,7 +156,7 @@ print(car_market_cate_cpca_df)
 11  12月  122.1150      NaN
 ```
 
-#### 乘联会-统计数据-国别细分市场
+### 乘联会-统计数据-国别细分市场
 
 接口：car_market_country_cpca
 
@@ -213,7 +213,7 @@ print(car_market_country_cpca_df)
 [12 rows x 8 columns]
 ```
 
-#### 乘联会-统计数据-级别细分市场
+### 乘联会-统计数据-级别细分市场
 
 接口：car_market_segment_cpca
 
@@ -267,7 +267,7 @@ print(car_market_segment_cpca_df)
 11   2024-2月   7.976292   7.585693  36.759968  36.646090  11.031953
 ```
 
-#### 乘联会-统计数据-新能源细分市场
+### 乘联会-统计数据-新能源细分市场
 
 接口：car_market_fuel_cpca
 
@@ -318,7 +318,7 @@ print(car_market_fuel_cpca_df)
 11  12月  94.7347      NaN
 ```
 
-#### 盖世研究院
+### 盖世研究院
 
 接口：car_sale_rank_gasgoo
 
@@ -567,7 +567,7 @@ print(car_sale_rank_gasgoo_df)
 49     睿蓝汽车     2861   -32.82%  -90.86%      31290    26141.0        0.0
 ```
 
-### 新闻联播文字稿
+## 新闻联播文字稿
 
 接口：news_cctv
 
@@ -619,9 +619,9 @@ print(news_cctv_df)
 [12 rows x 3 columns]
 ```
 
-### 日出和日落
+## 日出和日落
 
-#### 日出和日落-天
+### 日出和日落-天
 
 接口：sunrise_daily
 
@@ -673,7 +673,7 @@ print(sunrise_daily_df)
 [1 rows x 14 columns]
 ```
 
-#### 日出和日落-月
+### 日出和日落-月
 
 接口：sunrise_monthly
 
@@ -755,9 +755,9 @@ print(sunrise_monthly_df)
 [30 rows x 14 columns]
 ```
 
-### 空气质量-河北
+## 空气质量-河北
 
-#### 近期空气质量
+### 近期空气质量
 
 接口：air_quality_hebei
 
@@ -828,9 +828,9 @@ print(air_quality_hebei_df)
 [364 rows x 23 columns]
 ```
 
-### 空气质量-全国
+## 空气质量-全国
 
-#### 城市列表
+### 城市列表
 
 接口：air_city_table
 
@@ -884,7 +884,7 @@ print(air_city_table_df)
 167  168  海南  海口   32.0     优   14 ug/m3   NaN
 ```
 
-#### 空气质量历史数据
+### 空气质量历史数据
 
 接口：air_quality_hist
 
@@ -1030,7 +1030,7 @@ print(air_quality_hist_df)
 10   62       北京  2020-03  ...         None         3.174              None
 ```
 
-#### 空气质量排名
+### 空气质量排名
 
 接口：air_quality_rank
 
@@ -1159,7 +1159,7 @@ print(air_quality_rank_df)
 168  168.0  西藏   拉萨  2.39  0.81     O3
 ```
 
-#### 监测点空气质量
+### 监测点空气质量
 
 接口：air_quality_watch_point
 
@@ -1216,7 +1216,7 @@ print(air_quality_watch_point_df)
 10       千岛湖  55.8762  ...  143.00000000000003                   1
 ```
 
-### 财富排行榜-中文
+## 财富排行榜-中文
 
 接口：fortune_rank
 
@@ -1265,7 +1265,7 @@ print(fortune_rank_df)
 [500 rows x 6 columns]
 ```
 
-### 福布斯中国榜单
+## 福布斯中国榜单
 
 接口：forbes_rank
 
@@ -1406,7 +1406,7 @@ print(forbes_rank_df)
 399  399    卢竑岩   103.4        吉比特  43   厦门
 ```
 
-### 新财富富豪榜
+## 新财富富豪榜
 
 接口：xincaifu_rank
 
@@ -1462,7 +1462,7 @@ print(xincaifu_rank_df)
 499  500    93.7    赵轶/徐昕       长川科技    集成电路测试装备     浙江杭州  男/女  56,56  2022
 ```
 
-### 胡润排行榜
+## 胡润排行榜
 
 接口：hurun_rank
 
@@ -1666,9 +1666,9 @@ print(hurun_rank_df)
 [100 rows x 6 columns]
 ```
 
-### 电影票房
+## 电影票房
 
-#### 实时票房
+### 实时票房
 
 接口：movie_boxoffice_realtime
 
@@ -1723,7 +1723,7 @@ print(movie_boxoffice_realtime_df)
 10  11               其它    10.25   1.00     0       0.00
 ```
 
-#### 单日票房
+### 单日票房
 
 接口：movie_boxoffice_daily
 
@@ -1780,7 +1780,7 @@ print(movie_boxoffice_daily_df)
 9  10          八戒之天蓬下界     14 -64.0     342    42    10  0.00     2
 ```
 
-#### 单周票房
+### 单周票房
 
 接口：movie_boxoffice_weekly
 
@@ -1838,7 +1838,7 @@ print(movie_boxoffice_weekly_df)
 9  10   还是觉得你最好2     0      75    0      75    61    95   NaN    -5
 ```
 
-#### 单月票房
+### 单月票房
 
 接口：movie_boxoffice_monthly
 
@@ -1896,7 +1896,7 @@ print(movie_boxoffice_monthly_df)
 10  999         其他   12222   1.3    38     2        None   NaN   NaN
 ```
 
-#### 年度票房
+### 年度票房
 
 接口：movie_boxoffice_yearly
 
@@ -1967,7 +1967,7 @@ print(movie_boxoffice_yearly_df)
 24  25         志愿军：雄兵出击   战争    1047    96  55.0       中国  2023-09-28
 ```
 
-#### 年度首周票房
+### 年度首周票房
 
 接口：movie_boxoffice_yearly_first_week
 
@@ -2022,7 +2022,7 @@ print(movie_boxoffice_yearly_first_week_df)
 7   8                格萨尔藏戏  剧情     0       0     1     中国  2020-08-21  -186
 ```
 
-#### 影院票房-日票房排行
+### 影院票房-日票房排行
 
 接口：movie_boxoffice_cinema_daily
 
@@ -2079,7 +2079,7 @@ print(movie_boxoffice_cinema_daily_df)
 [100 rows x 7 columns]
 ```
 
-#### 影院票房-周票房排行
+### 影院票房-周票房排行
 
 接口：movie_boxoffice_cinema_weekly
 
@@ -2136,9 +2136,9 @@ print(movie_boxoffice_cinema_weekly_df)
 [100 rows x 7 columns]
 ```
 
-### 视频播映
+## 视频播映
 
-#### 电视剧集
+### 电视剧集
 
 接口：video_tv
 
@@ -2193,7 +2193,7 @@ print(video_tv_df)
 9  10  繁花[沪语版]     剧情  66.96  75.93  65.39  51.32  63.16  2024-02-18
 ```
 
-#### 综艺节目
+### 综艺节目
 
 接口：video_variety_show
 
@@ -2248,9 +2248,9 @@ print(video_variety_show_df)
 9  10      极限挑战宝藏行第四季     真人秀  62.34  56.96  67.96  50.64  56.37  2024-02-18
 ```
 
-### 艺人
+## 艺人
 
-#### 艺人商业价值
+### 艺人商业价值
 
 接口：business_value_artist
 
@@ -2305,7 +2305,7 @@ print(business_value_artist_df)
 99  100   钟楚曦  71.87  72.61  63.14  55.64  44.00  2021-11-16
 ```
 
-#### 艺人流量价值
+### 艺人流量价值
 
 接口：online_value_artist
 
@@ -2360,7 +2360,7 @@ print(online_value_artist_df)
 99  100  张子枫  67.02  74.36  65.76  41.24  71.71  2021-11-16
 ```
 
-### 微博舆情报告
+## 微博舆情报告
 
 接口：stock_js_weibo_report
 
@@ -2459,9 +2459,9 @@ print(stock_js_weibo_report_df)
 49  四维图新   8.76
 ```
 
-### 彭博亿万富豪指数
+## 彭博亿万富豪指数
 
-#### 彭博实时亿万富豪指数
+### 彭博实时亿万富豪指数
 
 接口：index_bloomberg_billionaires
 
@@ -2515,7 +2515,7 @@ print(index_bloomberg_billionaires_df)
 498  500                Shi Yonghong  ...           Singapore     Consumer
 ```
 
-#### 历史彭博亿万富豪指数
+### 历史彭博亿万富豪指数
 
 接口：index_bloomberg_billionaires_hist
 
@@ -2570,7 +2570,7 @@ print(index_bloomberg_billionaires_hist_df)
 498  500                Shi Yonghong  ...           Singapore     Consumer
 ```
 
-#### TapTap 游戏榜单
+### TapTap 游戏榜单
 
 接口：game_hot_rank_taptap
 
