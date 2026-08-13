@@ -89,6 +89,13 @@
 
 ## 更新说明详情
 
+1.18.90 build: declare __all__ and drop the akqmt integration
+
+    1. 为 akshare 声明 __all__，由 scripts/build_registry.py 生成并纳入 CI 校验
+    2. 修复 from akshare import * 会额外导出 39 个子模块名的问题
+    3. 移除 akqmt 集成及 full、qmt 两个附加依赖组
+    4. 修正 README 中的 Python 版本要求、失效的仓库条幅与错误的代码风格条幅
+
 1.18.89 build: raise the minimum supported Python version to 3.11
 
     1. 将 requires-python 提升至 3.11 以上，并同步 classifiers、CI 测试矩阵与 ruff target-version

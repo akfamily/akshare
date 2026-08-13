@@ -79,7 +79,6 @@ lint = ["ruff==0.16.2"]
 dev = [
     { include-group = "test" },
     { include-group = "lint" },
-    "akqmt>=0.1.0",
     "commitizen>=4.12.1",
     "pre-commit>=3.6.2",
     "mplfinance>=0.12.10b0",

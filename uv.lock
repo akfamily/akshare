@@ -14,15 +14,6 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "akqmt"
-version = "0.1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/86/fa/64be916a2b348fd2ee3e04ac746ae25a31dc83d6c8c0bfd17861072148bd/akqmt-0.1.0.tar.gz", hash = "sha256:fbe9904ef955e08bba04007e58274aa2658eff24121e52c9e6a3390487221b80", size = 22769228, upload-time = "2024-02-21T11:22:52.859Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/14/85/9399216e981d699760593601bf1ad624ddf673fb40157bc41432baed0c7b/akqmt-0.1.0-py3-none-any.whl", hash = "sha256:87514c2489deca62b041cf573183e92b0c2e71b0085549ca7a2ec6305b2e8615", size = 22855189, upload-time = "2024-02-21T11:22:43.058Z" },
-]
-
-[[package]]
 name = "akracer"
 version = "0.0.14"
 source = { registry = "https://pypi.org/simple" }
@@ -55,7 +46,6 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "akqmt" },
     { name = "commitizen" },
     { name = "mplfinance" },
     { name = "pre-commit" },
@@ -91,7 +81,6 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "akqmt", specifier = ">=0.1.0" },
     { name = "commitizen", specifier = ">=4.12.1" },
     { name = "mplfinance", specifier = ">=0.12.10b0" },
     { name = "pre-commit", specifier = ">=3.6.2" },
