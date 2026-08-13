@@ -56,10 +56,6 @@ dependencies = [
     "akracer>=0.0.13; platform_system == 'Linux'",
 ]
 
-[project.optional-dependencies]
-full = ["akqmt"]
-qmt = ["akqmt"]
-
 [project.urls]
 Homepage = "https://github.com/akfamily/akshare"
 

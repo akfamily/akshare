@@ -53,14 +53,6 @@ dependencies = [
     { name = "xlrd" },
 ]
 
-[package.optional-dependencies]
-full = [
-    { name = "akqmt" },
-]
-qmt = [
-    { name = "akqmt" },
-]
-
 [package.dev-dependencies]
 dev = [
     { name = "akqmt" },
@@ -79,8 +71,6 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "akqmt", marker = "extra == 'full'" },
-    { name = "akqmt", marker = "extra == 'qmt'" },
     { name = "akracer", marker = "sys_platform == 'linux'", specifier = ">=0.0.13" },
     { name = "beautifulsoup4", specifier = ">=4.9.1" },
     { name = "curl-cffi", specifier = ">=0.13.0" },
@@ -98,7 +88,6 @@ requires-dist = [
     { name = "urllib3", specifier = ">=1.25.8" },
     { name = "xlrd", specifier = ">=1.2.0" },
 ]
-provides-extras = ["full", "qmt"]
 
 [package.metadata.requires-dev]
 dev = [
