@@ -104,6 +104,43 @@ Output:
 [1615 rows x 11 columns]
 ```
 
+### Search
+
+AKShare ships an offline interface registry, so you can look up an interface by
+keyword without leaving Python and without any network request. This is
+especially handy for LLM-driven programs that need to resolve a description into
+a callable interface name.
+
+Code:
+
+```python
+import akshare as ak
+
+search_df = ak.search("可转债 实时行情", limit=5)
+print(search_df)
+
+# full metadata of a single interface: params, output columns and a usage example
+interface_info_dict = ak.interface_info("bond_cb_jsl")
+print(interface_info_dict)
+```
+
+Output:
+
+```
+                      接口名    类目                                                       描述  有无文档   匹配分
+0             bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  27.0
+1      bond_zh_hs_cov_min  bond                                           东方财富网-可转债-分时行情  True  20.0
+2  bond_zh_hs_cov_pre_min  bond                                      东方财富网-可转债-分时行情-盘前分时  True  20.0
+3     bond_cov_comparison  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  17.0
+4        fund_etf_spot_em  fund                                            东方财富-ETF 实时行情  True  17.0
+```
+
+Passing a full interface name always ranks that interface first, which makes it
+a reliable way to confirm a half-remembered name. Note this is keyword matching
+rather than semantic search — see the
+[interface search docs](https://akshare.akfamily.xyz/registry.html) for what it
+can and cannot do.
+
 ### Plot
 
 Code:
@@ -132,9 +169,10 @@ Output:
 
 1. [Overview](https://akshare.akfamily.xyz/introduction.html)
 2. [Installation](https://akshare.akfamily.xyz/installation.html)
-3. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
-4. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
-5. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
+3. [Interface Search](https://akshare.akfamily.xyz/registry.html)
+4. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
+5. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
+6. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
 
 ## Contribution
 
