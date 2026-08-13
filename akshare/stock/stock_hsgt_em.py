@@ -75,9 +75,9 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
 
 def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
     """
-    东方财富网-行情中心-沪深港通-港股通(沪>港)-股票
+    东方财富网-行情中心-沪深港通-港股通（沪>港）-股票
     https://quote.eastmoney.com/center/gridlist.html#hk_sh_stocks
-    :return: 东方财富网-行情中心-沪深港通-港股通(沪>港)-股票
+    :return: 东方财富网-行情中心-沪深港通-港股通（沪>港）-股票
     :rtype: pandas.DataFrame
     """
     url = "https://push2.eastmoney.com/api/qt/clist/get"

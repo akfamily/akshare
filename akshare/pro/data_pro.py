@@ -11,7 +11,7 @@ from akshare.utils import token_process
 
 def pro_api(token=""):
     """
-    初始化 pro API,第一次可以通过ak.set_token('your token')来记录自己的token凭证，临时token可以通过本参数传入
+    初始化 pro API，第一次可以通过ak.set_token('your token')来记录自己的token凭证，临时token可以通过本参数传入
     """
     if token == "" or token is None:
         token = token_process.get_token()

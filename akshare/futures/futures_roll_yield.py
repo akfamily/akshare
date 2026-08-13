@@ -3,7 +3,7 @@
 """
 Date: 2025/7/16 17:40
 Desc: 中国期货各合约展期收益率
-日线数据从 daily_bar 函数获取, 需要在收盘后运行
+日线数据从 daily_bar 函数获取，需要在收盘后运行
 """
 
 import datetime
@@ -25,7 +25,7 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
     Parameters
     ------
-    date: string 某一天日期 format： YYYYMMDD
+    date: string 某一天日期 format: YYYYMMDD
     var: string 合约品种如 RB、AL 等
     symbol1: string 合约 1 如 rb1810
     symbol2: string 合约 2 如 rb1812
@@ -80,11 +80,11 @@ def get_roll_yield_bar(
 ):
     """
     展期收益率
-    :param type_method: 'symbol': 获取指定交易日指定品种所有交割月合约的收盘价; 'var': 获取指定交易日所有品种两个主力合约的展期收益率(展期收益率横截面); 'date': 获取指定品种每天的两个主力合约的展期收益率(展期收益率时间序列)
+    :param type_method: 'symbol': 获取指定交易日指定品种所有交割月合约的收盘价；'var': 获取指定交易日所有品种两个主力合约的展期收益率（展期收益率横截面）；'date': 获取指定品种每天的两个主力合约的展期收益率（展期收益率时间序列）
     :param var: 合约品种如 "RB", "AL" 等
-    :param date: 指定交易日 format： YYYYMMDD
-    :param start_day: 开始日期 format：YYYYMMDD
-    :param end_day: 结束日期 format：YYYYMMDD
+    :param date: 指定交易日 format: YYYYMMDD
+    :param start_day: 开始日期 format: YYYYMMDD
+    :param end_day: 结束日期 format: YYYYMMDD
     :return: pandas.DataFrame
     展期收益率数据(DataFrame)
     ry      展期收益率

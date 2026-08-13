@@ -145,11 +145,11 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
     We provide quasi-maximum likelihood estimates of volatility (QMLE) based on moving-average models MA(q), using non-zero returns of transaction prices (or mid-quotes if available) sampled up to their highest frequency available, for days with at least 12 observations. We select the best model (q) using Akaike Information Criterion (AIC). For comparison, we report realized volatility (RV) estimates using 5-minute and 15-minute subsampled returns.
 
     References
-    1. “When Moving-Average Models Meet High-Frequency Data: Uniform Inference on Volatility”, by Rui Da and Dacheng Xiu. 2017.
-    2. “Quasi-Maximum Likelihood Estimation of Volatility with High Frequency Data”, by Dacheng Xiu. Journal of Econometrics, 159 (2010), 235-250.
-    3. “How Often to Sample A Continuous-time Process in the Presence of Market Microstructure Noise”, by Yacine Aït-Sahalia, Per Mykland, and Lan Zhang. Review of Financial Studies, 18 (2005), 351–416.
-    4. “The Distribution of Exchange Rate Volatility”, by Torben Andersen, Tim Bollerslev, Francis X. Diebold, and Paul Labys. Journal of the American Statistical Association, 96 (2001), 42-55.
-    5. “Econometric Analysis of Realized Volatility and Its Use in Estimating Stochastic Volatility Models”, by Ole E Barndorff‐Nielsen and Neil Shephard. Journal of the Royal Statistical Society: Series B, 64 (2002), 253-280.
+    1. “When Moving-Average Models Meet High-Frequency Data: Uniform Inference on Volatility”，by Rui Da and Dacheng Xiu. 2017.
+    2. “Quasi-Maximum Likelihood Estimation of Volatility with High Frequency Data”，by Dacheng Xiu. Journal of Econometrics, 159 (2010), 235-250.
+    3. “How Often to Sample A Continuous-time Process in the Presence of Market Microstructure Noise”，by Yacine Aït-Sahalia, Per Mykland, and Lan Zhang. Review of Financial Studies, 18 (2005), 351–416.
+    4. “The Distribution of Exchange Rate Volatility”，by Torben Andersen, Tim Bollerslev, Francis X. Diebold, and Paul Labys. Journal of the American Statistical Association, 96 (2001), 42-55.
+    5. “Econometric Analysis of Realized Volatility and Its Use in Estimating Stochastic Volatility Models”，by Ole E Barndorff‐Nielsen and Neil Shephard. Journal of the Royal Statistical Society: Series B, 64 (2002), 253-280.
     """
     print("由于服务器在国外, 请稍后, 如果访问失败, 请使用代理工具")
     url = "https://dachxiu.chicagobooth.edu/data.php"

@@ -22,9 +22,9 @@ from bs4 import BeautifulSoup
 
 def air_quality_hebei() -> pd.DataFrame:
     """
-    河北省空气质量预报信息发布系统-空气质量预报, 未来 6 天
+    河北省空气质量预报信息发布系统-空气质量预报，未来 6 天
     http://218.11.10.130:8080/#/application/home
-    :return: city = "", 返回所有地区的数据; city="唐山市", 返回唐山市的数据
+    :return: city = ""，返回所有地区的数据；city="唐山市"，返回唐山市的数据
     :rtype: pandas.DataFrame
     """
     url = "http://218.11.10.130:8080/api/hour/130000.xml"

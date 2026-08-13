@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2024/11/30 19:00
-Desc: 上海国际能源交易中心-业务指南-交易参数汇总(期货)
+Desc: 上海国际能源交易中心-业务指南-交易参数汇总（期货）
 https://www.ine.cn/bourseService/summary/?name=currinstrumentprop
 """
 
@@ -12,9 +12,9 @@ import requests
 
 def futures_contract_info_ine(date: str = "20241129") -> pd.DataFrame:
     """
-    上海国际能源交易中心-业务指南-交易参数汇总(期货)
+    上海国际能源交易中心-业务指南-交易参数汇总（期货）
     https://www.ine.cn/bourseService/summary/?name=currinstrumentprop
-    :param date: 查询日期; 交易日
+    :param date: 查询日期；交易日
     :type date: str
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame

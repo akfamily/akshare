@@ -33,14 +33,14 @@ def execute_js_in_executor(js_code_str, method, *args, timeout=30):
     """
     使用 ProcessPoolExecutor 在独立进程中执行 JavaScript
 
-    参数:
+    参数：
         js_code_str: JavaScript 代码字符串
         method: 'call' 或 'eval'
         args: 如果 method 是 'call'，第一个参数是函数名，后续是函数参数
               如果 method 是 'eval'，只需提供一个参数：要评估的代码
         timeout: 超时时间（秒）
 
-    返回:
+    返回：
         执行结果
     """
     with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:

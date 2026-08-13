@@ -45,7 +45,7 @@ def _get_zh_bond_hs_cov_page_count() -> int:
 
 def bond_zh_hs_cov_spot() -> pd.DataFrame:
     """
-    新浪财经-债券-沪深可转债的实时行情数据; 大量抓取容易封IP
+    新浪财经-债券-沪深可转债的实时行情数据；大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :return: 所有沪深可转债在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
@@ -64,9 +64,9 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
 
 def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封 IP
+    新浪财经-债券-沪深可转债的历史行情数据，大量抓取容易封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
-    :param symbol: 沪深可转债代码; e.g., sh010107
+    :param symbol: 沪深可转债代码；e.g., sh010107
     :type symbol: str
     :return: 指定沪深可转债代码的日 K 线数据
     :rtype: pandas.DataFrame

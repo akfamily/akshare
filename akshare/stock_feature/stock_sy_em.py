@@ -3,11 +3,11 @@
 """
 Date: 2024/9/15 15:30
 Desc: 东方财富网-数据中心-特色数据-商誉
-东方财富网-数据中心-特色数据-商誉-A股商誉市场概况: https://data.eastmoney.com/sy/scgk.html
-东方财富网-数据中心-特色数据-商誉-商誉减值预期明细: https://data.eastmoney.com/sy/yqlist.html
-东方财富网-数据中心-特色数据-商誉-个股商誉减值明细: https://data.eastmoney.com/sy/jzlist.html
-东方财富网-数据中心-特色数据-商誉-个股商誉明细: https://data.eastmoney.com/sy/list.html
-东方财富网-数据中心-特色数据-商誉-行业商誉: https://data.eastmoney.com/sy/hylist.html
+东方财富网-数据中心-特色数据-商誉-A股商誉市场概况：https://data.eastmoney.com/sy/scgk.html
+东方财富网-数据中心-特色数据-商誉-商誉减值预期明细：https://data.eastmoney.com/sy/yqlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉减值明细：https://data.eastmoney.com/sy/jzlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉明细：https://data.eastmoney.com/sy/list.html
+东方财富网-数据中心-特色数据-商誉-行业商誉：https://data.eastmoney.com/sy/hylist.html
 """
 
 import pandas as pd

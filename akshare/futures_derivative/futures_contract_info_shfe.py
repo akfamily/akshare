@@ -14,7 +14,7 @@ def futures_contract_info_shfe(date: str = "20240513") -> pd.DataFrame:
     """
     上海期货交易所-交易所服务-业务数据-交易参数汇总查询
     https://tsite.shfe.com.cn/bourseService/businessdata/summaryinquiry/
-    :param date: 查询日期; 交易日
+    :param date: 查询日期；交易日
     :type date: str
     :return: 交易参数汇总查询
     :rtype: pandas.DataFrame

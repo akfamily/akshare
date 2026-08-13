@@ -17,6 +17,24 @@
 6. 返回数据格式要求：
    1. 为了兼容 HTTP API 接口，所有返回的数据格式统一为 Pandas 中的 pandas.DataFrame 格式
 
+### 标点符号规范
+
+1. 中文正文统一使用全角标点 `，。；：？！（）“”、`，全角标点后面不再加空格；纯英文语境保持半角，例如写 `format: YYYYMMDD` 而不是 `format：`；
+2. 该规范由 `scripts/check_punctuation.py` 检查，并已接入 pre-commit 的 `check-punctuation` 钩子自动修复。本地可以直接运行：
+
+   ```shell
+   python scripts/check_punctuation.py            # 只检查并列出待修改处
+   python scripts/check_punctuation.py --fix      # 就地修复
+   python scripts/check_punctuation.py --selftest # 运行内置守卫用例
+   ```
+
+3. 工具只会修改 **docstring、`#` 注释与 Markdown 正文**。以下三类内容是数据而不是正文，既不在工具范围内，也请不要手工去「纠正」：
+   1. 中文列名与用户可传的参数值，例如 `"持股数（万股）"`、`"其中：境内法人持股"`、`ak.fund_fee_em(indicator="申购费率（前端）")`。它们既是对外的接口契约，也是与上游字段做匹配的键；
+   2. 用于解析上游文本的字面量，例如 `.split("：")`、`.strip("（手续费更新时间：")`、`== "暂时没有数据！"`。其中的全角字符就是上游网页本身的内容。个别模块（如 `news_cctv.py`）会同时兼容半角和全角两种写法，这是有意的容错，不是冗余；
+   3. Markdown 的围栏代码块，也就是 **接口示例** 与 **数据示例**，里面是真实的代码与输出。
+
+4. 修改 `docs/data` 下的文档后，请运行 `python scripts/build_registry.py` 重新生成接口元数据，否则 CI 的 `registry-check` 会因 `akshare/data/interfaces.json` 不同步而失败。
+
 ### 文档撰写规范
 
 1. 在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新；
@@ -37,13 +55,13 @@
     ```shell
       ##### 分时数据
 
-      接口: stock_zh_a_minute
+      接口：stock_zh_a_minute
 
-      目标地址: https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+      目标地址：https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
 
-      描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
+      描述：新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
 
-      限量: 单次返回指定公司的指定频率的所有历史分时行情数据
+      限量：单次返回指定公司的指定频率的所有历史分时行情数据
 
       输入参数
 

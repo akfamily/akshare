@@ -78,7 +78,7 @@ def bank_fjcf_page_url(
 ) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-每一页的 json 数据
-    :param page: 需要获取前 page 页的内容, 总页数请通过 ak.bank_fjcf_total_page() 获取
+    :param page: 需要获取前 page 页的内容，总页数请通过 ak.bank_fjcf_total_page() 获取
     :type page: int
     :param item: choice of {"机关", "本级", "分局本级"}
     :type item: str
@@ -113,13 +113,13 @@ def bank_fjcf_table_detail(
 ) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表 数据
-    :param page: 需要获取前 page 页的内容, 总页数请通过 ak.bank_fjcf_total_page() 获取
+    :param page: 需要获取前 page 页的内容，总页数请通过 ak.bank_fjcf_total_page() 获取
     :type page: int
     :param item: choice of {"机关", "本级", "分局本级"}
     :type item: str
     :param begin: 开始页面
     :type begin: int
-    :return: 返回所有行政处罚信息公开表的集合, 按第一页到最后一页的顺序排列
+    :return: 返回所有行政处罚信息公开表的集合，按第一页到最后一页的顺序排列
     :rtype: pandas.DataFrame
     """
     id_list = bank_fjcf_page_url(page=page, item=item, begin=begin)["docId"]
@@ -152,7 +152,7 @@ def bank_fjcf_table_detail(
                 )
                 continue
 
-            # 部分会变成嵌套列表, 这里还原
+            # 部分会变成嵌套列表，这里还原
             table_list = [
                 item[0] if isinstance(item, list) else item for item in table_list
             ]
@@ -161,7 +161,7 @@ def bank_fjcf_table_detail(
             table_df = pd.DataFrame(table_list)
             table_df.columns = ["内容"]
             big_df = pd.concat(objs=[big_df, table_df.T], ignore_index=True)
-            # 解决有些页面缺少字段的问题, 都放到 try 里面
+            # 解决有些页面缺少字段的问题，都放到 try 里面
         except:  # noqa: E722
             warnings.warn(f"{item} 不是表格型数据，将跳过采集")
             continue

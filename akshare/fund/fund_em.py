@@ -4,11 +4,11 @@
 Date: 2026/1/20 17:00
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
-1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表:
+1.基金经理基本数据，建议包含：基金经理代码，基金经理姓名，从业起始日期，现任基金公司，管理资产总规模，上述数据可在"基金经理列表：
 https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和
-"基金经理理档案如:https://fund.eastmoney.com/manager/30040164.html 获取.
-2.基金经理任职数据:可调取全部或特定经理,管理的基金数据,建议包含:基金经理代码,基金经理姓名,基金代码,基金简称,
-经理位次(在当前基金的经理中排第几位),起始任职时间,截止任职时间,任职回报.在特定基金的经理信息中可以获取如:
+"基金经理理档案如：https://fund.eastmoney.com/manager/30040164.html 获取。
+2.基金经理任职数据：可调取全部或特定经理，管理的基金数据，建议包含：基金经理代码，基金经理姓名，基金代码，基金简称，
+经理位次（在当前基金的经理中排第几位），起始任职时间，截止任职时间，任职回报.在特定基金的经理信息中可以获取如：
 https://fundf10.eastmoney.com/jjjl_001810.html
 3.在接口：fund_basic"公募基金列表"增加数据"基金经理代码"(或第一基金经理代码),
 "基金经理姓名"(或第一基金经理姓名),"当前基金经理人数","当前经理任职起始时间".
@@ -455,7 +455,7 @@ def fund_open_fund_info_em(
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
     https://fund.eastmoney.com/fund.html
-    :param symbol: 基金代码; 可以通过调用 ak.fund_open_fund_daily_em() 获取所有开放式基金代码
+    :param symbol: 基金代码；可以通过调用 ak.fund_open_fund_daily_em() 获取所有开放式基金代码
     :type symbol: str
     :param indicator: 需要获取的指标
     :type indicator: str
@@ -742,7 +742,7 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-货币型基金收益-历史净值数据
     https://fundf10.eastmoney.com/jjjz_004186.html
-    :param symbol: 货币型基金代码, 可以通过 fund_money_fund_daily_em 来获取
+    :param symbol: 货币型基金代码，可以通过 fund_money_fund_daily_em 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-货币型基金收益-历史净值数据
     :rtype: pandas.DataFrame
@@ -874,7 +874,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     https://fundf10.eastmoney.com/jjjz_000791.html
-    :param symbol: 理财型基金代码, 可以通过 ak.fund_financial_fund_daily_em() 来获取
+    :param symbol: 理财型基金代码，可以通过 ak.fund_financial_fund_daily_em() 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     :rtype: pandas.DataFrame
@@ -1009,7 +1009,7 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     https://fundf10.eastmoney.com/jjjz_150232.html
-    :param symbol: 分级基金代码, 可以通过 ak.fund_money_fund_daily_em() 来获取
+    :param symbol: 分级基金代码，可以通过 ak.fund_money_fund_daily_em() 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     :rtype: pandas.DataFrame
@@ -1102,7 +1102,7 @@ def fund_etf_fund_info_em(
     """
     东方财富网站-天天基金网-基金数据-场内交易基金-历史净值明细
     https://fundf10.eastmoney.com/jjjz_511280.html
-    :param fund: 场内交易基金代码, 可以通过 fund_etf_fund_daily_em 来获取
+    :param fund: 场内交易基金代码，可以通过 fund_etf_fund_daily_em 来获取
     :type fund: str
     :param start_date: 开始统计时间
     :type start_date: str
@@ -1261,13 +1261,13 @@ def fund_hk_fund_hist_em(
     code: str = "1002200683", symbol: str = "历史净值明细"
 ) -> pd.DataFrame:
     """
-    东方财富网-天天基金网-基金数据-香港基金-历史净值明细(分红送配详情)
+    东方财富网-天天基金网-基金数据-香港基金-历史净值明细（分红送配详情）
     https://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
     :param code: 通过 ak.fund_em_hk_rank() 获取
     :type code: str
     :param symbol: choice of {"历史净值明细", "分红送配详情"}
     :type symbol: str
-    :return: 香港基金-历史净值明细(分红送配详情)
+    :return: 香港基金-历史净值明细（分红送配详情）
     :rtype: pandas.DataFrame
     """
     url = "https://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"

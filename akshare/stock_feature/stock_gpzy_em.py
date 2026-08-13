@@ -3,12 +3,12 @@
 """
 Date: 2024/12/18 17:30
 Desc: 东方财富网-数据中心-特色数据-股权质押
-东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: https://data.eastmoney.com/gpzy/marketProfile.aspx
-东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: https://data.eastmoney.com/gpzy/pledgeRatio.aspx
-东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: https://data.eastmoney.com/gpzy/pledgeDetail.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-行业数据: https://data.eastmoney.com/gpzy/industryData.aspx
+东方财富网-数据中心-特色数据-股权质押-股权质押市场概况：https://data.eastmoney.com/gpzy/marketProfile.aspx
+东方财富网-数据中心-特色数据-股权质押-上市公司质押比例：https://data.eastmoney.com/gpzy/pledgeRatio.aspx
+东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细：https://data.eastmoney.com/gpzy/pledgeDetail.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司：https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行：https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-行业数据：https://data.eastmoney.com/gpzy/industryData.aspx
 """
 
 import math
@@ -89,7 +89,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     https://data.eastmoney.com/gpzy/pledgeRatio.aspx
-    :param date: 指定交易日, 访问 https://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
+    :param date: 指定交易日，访问 https://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
     :type date: str
     :return: 上市公司质押比例
     :rtype: pandas.DataFrame

@@ -18,7 +18,7 @@ def stock_report_fund_hold(
     http://data.eastmoney.com/zlsj/2020-12-31-1-2.html
     :param symbol: choice of {"基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"}
     :type symbol: str
-    :param date: 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31
+    :param date: 财报发布日期，xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31
     :type date: str
     :return: 基金持仓数据
     :rtype: pandas.DataFrame
@@ -115,7 +115,7 @@ def stock_report_fund_hold_detail(
     http://data.eastmoney.com/zlsj/ccjj/2020-12-31-008286.html
     :param symbol: 基金代码
     :type symbol: str
-    :param date: 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31
+    :param date: 财报发布日期，xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31
     :type date: str
     :return: 基金持仓-明细数据
     :rtype: pandas.DataFrame

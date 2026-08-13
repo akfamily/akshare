@@ -85,7 +85,7 @@ def get_us_stock_name() -> pd.DataFrame:
 
 def stock_us_spot() -> pd.DataFrame:
     """
-    新浪财经-所有美股的数据, 注意延迟 15 分钟
+    新浪财经-所有美股的数据，注意延迟 15 分钟
     https://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: 美股所有股票实时行情
     :rtype: pandas.DataFrame
@@ -120,10 +120,10 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     https://finance.sina.com.cn/stock/usstock/sector.shtml
     备注：
     1. CIEN 新浪复权因子错误
-    2. AI 新浪复权因子错误, 该股票刚上市未发生复权, 但是返回复权因子
+    2. AI 新浪复权因子错误，该股票刚上市未发生复权，但是返回复权因子
     :param symbol: 可以使用 get_us_stock_name 获取
     :type symbol: str
-    :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
+    :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据；qfq-factor: 返回前复权因子和调整；
     :type adjust: str
     :return: 指定 adjust 的数据
     :rtype: pandas.DataFrame

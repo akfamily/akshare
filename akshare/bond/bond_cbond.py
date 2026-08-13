@@ -13,7 +13,7 @@ from akshare.bond.cons import INDEX_MAPPING, PERIOD_MAPPING, INDICATOR_MAPPING
 
 def bond_available_index_cbond():
     """
-    中国债券信息网-中债指数-中债指数族系 当中， 非指定期限部分
+    中国债券信息网-中债指数-中债指数族系 当中，非指定期限部分
     https://yield.chinabond.com.cn/cbweb-mn/indices/singleIndexQueryResult
     :return: 可选项列表
     :rtype: list

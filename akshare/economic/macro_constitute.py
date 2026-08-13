@@ -16,7 +16,7 @@ from tqdm import tqdm
 
 def macro_cons_gold() -> pd.DataFrame:
     """
-    全球最大黄金 ETF—SPDR Gold Trust 持仓报告, 数据区间从 20041118-至今
+    全球最大黄金 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_gold
     :return: 持仓报告
     :rtype: pandas.DataFrame
@@ -81,7 +81,7 @@ def macro_cons_gold() -> pd.DataFrame:
 
 def macro_cons_silver() -> pd.DataFrame:
     """
-    全球最大白银 ETF—SPDR Gold Trust 持仓报告, 数据区间从 20041118-至今
+    全球最大白银 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_sliver
     :return: 持仓报告
     :rtype: pandas.DataFrame
@@ -146,8 +146,8 @@ def macro_cons_silver() -> pd.DataFrame:
 
 def macro_cons_opec_month() -> pd.DataFrame:
     """
-    欧佩克报告-月度, 数据区间从 20170118-至今
-    这里返回的具体索引日期的数据为上一个月的数据, 由于某些国家的数据有缺失
+    欧佩克报告-月度，数据区间从 20170118-至今
+    这里返回的具体索引日期的数据为上一个月的数据，由于某些国家的数据有缺失
     只选择有数据的国家返回
     20200312:fix:由于 “厄瓜多尔” 已经有几个月没有更新数据，在这里加以剔除
     https://datacenter.jin10.com/reportType/dc_opec_report

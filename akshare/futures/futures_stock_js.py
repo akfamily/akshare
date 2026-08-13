@@ -15,7 +15,7 @@ def futures_stock_shfe_js(date: str = "20240419") -> pd.DataFrame:
     """
     金十财经-上海期货交易所指定交割仓库库存周报
     https://datacenter.jin10.com/reportType/dc_shfe_weekly_stock
-    :param date: 交易日; 库存周报只在每周的最后一个交易日公布数据
+    :param date: 交易日；库存周报只在每周的最后一个交易日公布数据
     :type date: str
     :return: 库存周报
     :rtype: pandas.Series

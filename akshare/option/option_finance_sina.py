@@ -27,7 +27,7 @@ from akshare.utils.func import set_df_columns
 # 期权-中金所-上证50指数
 def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
     """
-    新浪财经-中金所-上证 50 指数-所有合约, 返回的第一个合约为主力合约
+    新浪财经-中金所-上证 50 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有上证 50 指数，沪深 300 指数和中证 1000 指数
     :return: 中金所-上证 50 指数-所有合约
     :rtype: dict
@@ -44,7 +44,7 @@ def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
 # 期权-中金所-沪深300指数
 def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     """
-    新浪财经-中金所-沪深 300 指数-所有合约, 返回的第一个合约为主力合约
+    新浪财经-中金所-沪深 300 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
     :return: 中金所-沪深300指数-所有合约
     :rtype: dict
@@ -60,7 +60,7 @@ def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
 
 def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     """
-    新浪财经-中金所-中证 1000 指数-所有合约, 返回的第一个合约为主力合约
+    新浪财经-中金所-中证 1000 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
     :return: 中金所-中证 1000 指数-所有合约
     :rtype: dict
@@ -78,7 +78,7 @@ def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
     """
     中金所-上证 50 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex
-    :param symbol: 合约代码; 用 ak.option_cffex_sz300_list_sina() 函数查看
+    :param symbol: 合约代码；用 ak.option_cffex_sz300_list_sina() 函数查看
     :type symbol: str
     :return: 中金所-上证 50 指数-指定合约-看涨看跌实时行情
     :rtype: pandas.DataFrame
@@ -151,7 +151,7 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
     """
     中金所-沪深 300 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
-    :param symbol: 合约代码; 用 option_cffex_hs300_list_sina 函数查看
+    :param symbol: 合约代码；用 option_cffex_hs300_list_sina 函数查看
     :type symbol: str
     :return: 中金所-沪深300指数-指定合约-看涨看跌实时行情
     :rtype: pandas.DataFrame
@@ -224,7 +224,7 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
     """
     中金所-中证 1000 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
-    :param symbol: 合约代码; 用 option_cffex_zz1000_list_sina 函数查看
+    :param symbol: 合约代码；用 option_cffex_zz1000_list_sina 函数查看
     :type symbol: str
     :return: 中金所-中证 1000 指数-指定合约-看涨看跌实时行情
     :rtype: pandas.DataFrame
@@ -296,7 +296,7 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
 def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
     """
     新浪财经-中金所-上证 50 指数-指定合约-日频行情
-    :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -337,7 +337,7 @@ def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
 def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
     """
     新浪财经-中金所-沪深300指数-指定合约-日频行情
-    :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -380,7 +380,7 @@ def option_cffex_zz1000_daily_sina(
 ) -> pd.DataFrame:
     """
     新浪财经-中金所-中证 1000 指数-指定合约-日频行情
-    :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -443,13 +443,13 @@ def option_sse_expire_day_sina(
 ) -> Tuple[str, int]:
     """
     指定到期月份指定品种的剩余到期时间
-    :param trade_date: 到期月份: 202002, 20203, 20206, 20209
+    :param trade_date: 到期月份：202002, 20203, 20206, 20209
     :type trade_date: str
     :param symbol: 50ETF or 300ETF
     :type symbol: str
     :param exchange: null
     :type exchange: str
-    :return: (到期时间, 剩余时间)
+    :return: (到期时间，剩余时间)
     :rtype: tuple
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
@@ -731,7 +731,7 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
 
 def option_sse_minute_sina(symbol: str = "10003720") -> pd.DataFrame:
     """
-    指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
+    指定期权品种在当前交易日的分钟数据，只能获取当前交易日的数据，不能获取历史分钟数据
     https://stock.finance.sina.com.cn/option/quotes.html
     :param symbol: 期权代码
     :type symbol: str
@@ -866,7 +866,7 @@ def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场-分时行情
     https://wap.eastmoney.com/quote/stock/151.cu2404P61000.html
-    :param symbol: 期权代码; 通过调用 ak.option_current_em() 获取
+    :param symbol: 期权代码；通过调用 ak.option_current_em() 获取
     :type symbol: str
     :return: 指定期权的分钟频率数据
     :rtype: pandas.DataFrame

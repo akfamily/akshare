@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.86 fix: fix interface docs
+
+    1. 修复接口文档中接口半角符号问题
+
 1.18.85 feat: add interface registry search API
 
     1. 新增 ak.search 接口检索功能，支持按接口名精确定位与关键词模糊检索

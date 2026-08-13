@@ -31,7 +31,7 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
     https://webapi.cninfo.com.cn/#/thematicStatistics
-    :param date: choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}; 从 20170331 开始
+    :param date: choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}；从 20170331 开始
     :type date: str
     :return: 股东人数及持股集中度
     :rtype: pandas.DataFrame

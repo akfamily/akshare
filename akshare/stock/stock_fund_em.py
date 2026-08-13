@@ -25,7 +25,7 @@ def stock_individual_fund_flow(
     https://data.eastmoney.com/zjlx/detail.html
     :param stock: 股票代码
     :type stock: str
-    :param market: 股票市场; 上海证券交易所: sh, 深证证券交易所: sz, 北京证券交易所: bj;
+    :param market: 股票市场；上海证券交易所：sh，深证证券交易所：sz，北京证券交易所：bj;
     :type market: str
     :return: 近期个股的资金流数据
     :rtype: pandas.DataFrame
@@ -1224,7 +1224,7 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-主力净流入排名
     https://data.eastmoney.com/zjlx/list.html
-    :param symbol: 全部股票; choice of {"全部股票", "沪深A股", "沪市A股", "科创板", "深市A股", "创业板", "沪市B股", "深市B股"}
+    :param symbol: 全部股票；choice of {"全部股票", "沪深A股", "沪市A股", "科创板", "深市A股", "创业板", "沪市B股", "深市B股"}
     :type symbol: str
     :return: 主力净流入排名
     :rtype: pandas.DataFrame

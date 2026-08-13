@@ -86,7 +86,7 @@ def stock_individual_spot_xq(
     """
     雪球-行情中心-个股
     https://xueqiu.com/S/SH600000
-    :param symbol: 证券代码，可以是 A 股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
+    :param symbol: 证券代码，可以是 A 股代码，A 股场内基金代码，A 股指数，美股代码，美股指数
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]

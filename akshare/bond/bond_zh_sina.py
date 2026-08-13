@@ -44,7 +44,7 @@ def get_zh_bond_hs_page_count() -> int:
 
 def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深债券-实时行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深债券-实时行情数据，大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
     :param start_page: 分页起始页
     :type start_page: str
@@ -117,9 +117,9 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
 
 def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深债券-历史行情数据, 大量抓取容易封 IP
+    新浪财经-债券-沪深债券-历史行情数据，大量抓取容易封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
-    :param symbol: 沪深债券代码; e.g., sh010107
+    :param symbol: 沪深债券代码；e.g., sh010107
     :type symbol: str
     :return: 指定沪深债券代码的日 K 线数据
     :rtype: pandas.DataFrame

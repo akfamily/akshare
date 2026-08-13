@@ -18,7 +18,7 @@ def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
     """
     新浪财经-股票-机构持股一览表
     https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
-    :param symbol: 从 2005 年开始, {"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191", 其中的 1 表示一季报; "20193", 其中的 3 表示三季报;
+    :param symbol: 从 2005 年开始，{"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191"，其中的 1 表示一季报；"20193"，其中的 3 表示三季报；
     :type symbol: str
     :return: 机构持股一览表
     :rtype: pandas.DataFrame
@@ -63,7 +63,7 @@ def stock_institute_hold_detail(
     https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
     :param stock: 股票代码
     :type stock: str
-    :param quarter: 从 2005 年开始, {"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191", 其中的 1 表示一季报; "20193", 其中的 3 表示三季报;
+    :param quarter: 从 2005 年开始，{"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191"，其中的 1 表示一季报；"20193"，其中的 3 表示三季报；
     :type quarter: str
     :return: 指定股票和财报时间的机构持股数据
     :rtype: pandas.DataFrame

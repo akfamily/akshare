@@ -23,9 +23,9 @@ def _stock_notice_report(
     """
     东方财富网-数据中心-公告大全-沪深京 A 股公告
     https://data.eastmoney.com/notices/hsa/5.html
-    :param security: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :param security: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type security: str
-    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :param symbol: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type symbol: str
     :param begin_date: 制定日期
     :type begin_date: str
@@ -134,7 +134,7 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
     """
     东方财富网-数据中心-公告大全-沪深京 A 股公告
     https://data.eastmoney.com/notices/hsa/5.html
-    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :param symbol: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type symbol: str
     :param date: 制定日期
     :type date: str
@@ -156,7 +156,7 @@ def stock_individual_notice_report(
     https://data.eastmoney.com/notices/stock/300237.html
     :param security: 股票代码
     :type security: str
-    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :param symbol: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type symbol: str
     :param begin_date: 开始日期
     :type begin_date: str

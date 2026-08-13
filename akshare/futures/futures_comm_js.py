@@ -16,7 +16,7 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
     """
     金十财经-期货手续费
     https://www.jin10.com/
-    :param date: 日期; 格式为 YYYYMMDD，例如 "20250213"
+    :param date: 日期；格式为 YYYYMMDD，例如 "20250213"
     :type date: str
     :return: 期货手续费数据
     :rtype: pandas.DataFrame

@@ -78,7 +78,7 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
     """
     新浪行业-板块行情-成份详情
     http://finance.sina.com.cn/stock/sl/#area_1
-    :param sector: stock_sector_spot 返回的 label 值, choice of {"新浪行业", "概念", "地域", "行业"}; "启明星行业" 无详情
+    :param sector: stock_sector_spot 返回的 label 值，choice of {"新浪行业", "概念", "地域", "行业"}; "启明星行业" 无详情
     :type sector: str
     :return: 指定 sector 的板块详情
     :rtype: pandas.DataFrame

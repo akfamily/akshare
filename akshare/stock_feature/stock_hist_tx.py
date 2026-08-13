@@ -57,7 +57,7 @@ def stock_zh_a_hist_tx(
     :type adjust: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
-    :return: 历史行情数据, 其中 volume 统一为股, amount 统一为元
+    :return: 历史行情数据，其中 volume 统一为股，amount 统一为元
     :rtype: pandas.DataFrame
     """
     symbol = _normalize_tx_symbol(symbol=symbol)
@@ -109,7 +109,7 @@ def stock_zh_a_hist_tx(
     big_df["volume"] = pd.to_numeric(big_df["volume"], errors="coerce")
     big_df["turnover"] = pd.to_numeric(big_df["turnover"], errors="coerce")
     big_df["amount"] = pd.to_numeric(big_df["amount"], errors="coerce")
-    # 腾讯主板/创业板成交量单位为手, 科创板及指数通常已是股, 这里统一为股。
+    # 腾讯主板/创业板成交量单位为手，科创板及指数通常已是股，这里统一为股。
     if not symbol.startswith(("sh688", "sz399", "sh000", "sz000")):
         big_df["volume"] = big_df["volume"] * 100
     big_df["turnover"] = big_df["turnover"] / 100

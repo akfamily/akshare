@@ -18,9 +18,9 @@ def option_lhb_em(
     """
     东方财富网-数据中心-期货期权-期权龙虎榜单
     https://data.eastmoney.com/other/qqlhb.html
-    :param symbol: 期权代码; choice of {"510050", "510300", "159919"}
+    :param symbol: 期权代码；choice of {"510050", "510300", "159919"}
     :type symbol: str
-    :param indicator: 需要获取的指标; choice of {"期权交易情况-认沽交易量","期权持仓情况-认沽持仓量", "期权交易情况-认购交易量", "期权持仓情况-认购持仓量"}
+    :param indicator: 需要获取的指标；choice of {"期权交易情况-认沽交易量","期权持仓情况-认沽持仓量", "期权交易情况-认购交易量", "期权持仓情况-认购持仓量"}
     :type indicator: str
     :param trade_date: 交易日期
     :type trade_date: str

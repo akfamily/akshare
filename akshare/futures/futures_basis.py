@@ -2,15 +2,15 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2024/12/12 17:00
-Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
-备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
-黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
-焦炭现货规格是: 一级冶金焦; 焦炭期货规格: 介于一级和二级之间, 焦炭现期差仅供参考.
-铁矿石现货价格是: 湿吨, 铁矿石期货价格是: 干吨
-网页地址: https://www.100ppi.com/sf/
-历史数据可以通过修改 url 地址来获取, 比如: https://www.100ppi.com/sf/day-2017-09-12.html
+Desc: 生意社网站采集大宗商品现货价格及相应基差数据，数据时间段从 20110104-至今
+备注：现期差 = 现货价格 - 期货价格（这里的期货价格为结算价）
+黄金为 元/克，白银为 元/千克，玻璃现货为 元/平方米，鸡蛋现货为 元/公斤，鸡蛋期货为 元/500千克，其余为 元/吨。
+焦炭现货规格是：一级冶金焦；焦炭期货规格：介于一级和二级之间，焦炭现期差仅供参考。
+铁矿石现货价格是：湿吨，铁矿石期货价格是：干吨
+网页地址：https://www.100ppi.com/sf/
+历史数据可以通过修改 url 地址来获取，比如：https://www.100ppi.com/sf/day-2017-09-12.html
 发现生意社的 bugs:
-1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失: https://www.100ppi.com/sf/day-2018-09-12.html
+1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失：https://www.100ppi.com/sf/day-2018-09-12.html
 """
 
 import datetime
@@ -36,12 +36,12 @@ def futures_spot_price_daily(
     """
     指定时间段内大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/
-    :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
+    :param start_day: str 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
+    :param end_day: str 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
+    :param vars_list: list 合约品种如 [RB, AL]；默认参数为所有商品
     :return: 基差
     :rtype: pandas.DataFrame
-    展期收益率数据:
+    展期收益率数据：
     var               商品品种                      string
     sp                现货价格                      float
     near_symbol       临近交割合约                  string
@@ -82,10 +82,10 @@ def futures_spot_price(
     """
     指定交易日大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/day-2017-09-12.html
-    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象; 为空时为当天
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象；为空时为当天
     :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
     :return: pandas.DataFrame
-    展期收益率数据:
+    展期收益率数据：
     var              商品品种                     string
     sp               现货价格                     float
     near_symbol      临近交割合约                  string
@@ -201,15 +201,15 @@ def _check_information(df_data, date):
             record["spot_price"] = record["spot_price"].astype(float)
             if (
                 symbol == "JD"
-            ):  # 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨(http://www.100ppi.com/sf/)
+            ):  # 鸡蛋现货为元/公斤，鸡蛋期货为元/500千克，其余元/吨(http://www.100ppi.com/sf/)
                 record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 500
             elif (
                 symbol == "FG"
-            ):  # 上表中现货单位为元/平方米, 期货单位为元/吨. 换算公式：元/平方米*80=元/吨(http://www.100ppi.com/sf/959.html)
+            ):  # 上表中现货单位为元/平方米，期货单位为元/吨。换算公式：元/平方米*80=元/吨(http://www.100ppi.com/sf/959.html)
                 record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 80
             elif (
                 symbol == "LH"
-            ):  # 上表中现货单位为元/公斤, 期货单位为元/吨. 换算公式：元/公斤*1000=元/吨(http://www.100ppi.com/sf/959.html)
+            ):  # 上表中现货单位为元/公斤，期货单位为元/吨。换算公式：元/公斤*1000=元/吨(http://www.100ppi.com/sf/959.html)
                 record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 1000
             records = pd.concat([records, record])
 
@@ -301,7 +301,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
     """
     具体交易日大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/day-2017-09-12.html
-    :param date: 交易日; 历史日期
+    :param date: 交易日；历史日期
     :type date: str
     :return: 现货价格及相应基差
     :rtype: pandas.DataFrame

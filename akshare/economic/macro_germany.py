@@ -101,12 +101,12 @@ def macro_germany_cpi_yearly() -> pd.DataFrame:
     return temp_df
 
 
-# 东方财富-德国-经济数据-贸易帐(季调后)
+# 东方财富-德国-经济数据-贸易帐（季调后）
 def macro_germany_trade_adjusted() -> pd.DataFrame:
     """
-    东方财富-数据中心-经济数据一览-德国-贸易帐(季调后)
+    东方财富-数据中心-经济数据一览-德国-贸易帐（季调后）
     https://data.eastmoney.com/cjsj/foreign_1_3.html
-    :return: 贸易帐(季调后)
+    :return: 贸易帐（季调后）
     :rtype: pandas.DataFrame
     """
     temp_df = macro_germany_core(symbol="EMG00009753")

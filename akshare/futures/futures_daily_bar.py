@@ -29,7 +29,7 @@ def _futures_daily_czce(
     http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
     :param date: 需要的日期
     :type date: str
-    :param dataset: 数据集的名称; 此处只需要替换 datahistory2010 中的 2010 即可
+    :param dataset: 数据集的名称；此处只需要替换 datahistory2010 中的 2010 即可
     :type dataset: str
     :return: 指定日期的所有品种行情数据
     :rtype: pandas.DataFrame
@@ -109,7 +109,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     """
     中国金融期货交易所-日频率交易数据
     http://www.cffex.com.cn/rtj/
-    :param date: 交易日; 数据开始时间为 20100416
+    :param date: 交易日；数据开始时间为 20100416
     :type date: str
     :return: 日频率交易数据
     :rtype: pandas.DataFrame
@@ -199,9 +199,9 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
 def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     """
     广州期货交易所-日频率-量价数据
-    广州期货交易所: 工业硅(上市时间: 20221222)
+    广州期货交易所：工业硅（上市时间：20221222）
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 广州期货交易所-日频率-量价数据
     :rtype: pandas.DataFrame
@@ -275,10 +275,10 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
 def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
-    上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
+    上海国际能源交易中心：原油期货（上市时间：20180326）；20号胶期货（上市时间：20190812）
     trade_price: https://www.ine.cn/statements/daily/?paramid=kx
     trade_note: https://www.ine.cn/data/datanote.dat
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 上海国际能源交易中心-日频率-量价数据
     :rtype: pandas.DataFrame or None
@@ -342,7 +342,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
     http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象，默认为当前交易日; 日期需要大于 20100824
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象，默认为当前交易日；日期需要大于 20100824
     :type date: str or datetime.date
     :return: 郑州商品交易所-日频率-量价数据
     :rtype: pandas.DataFrame
@@ -454,7 +454,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 上海期货交易所-日频率-量价数据
     :rtype: pandas.DataFrame or None
@@ -528,7 +528,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
-    :param date: 交易日, e.g., 20200416
+    :param date: 交易日，e.g., 20200416
     :type date: str
     :return: 具体交易日的个品种行情数据
     :rtype: pandas.DataFrame
@@ -641,11 +641,11 @@ def get_futures_daily(
 ) -> pd.DataFrame:
     """
     交易所日交易数据
-    :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param start_date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type start_date: str
-    :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param end_date: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type end_date: str
-    :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心, "GFEX" 广州期货交易所。默认为中金所
+    :param market: 'CFFEX' 中金所，'CZCE' 郑商所，'SHFE' 上期所，'DCE' 大商所 之一，'INE' 上海国际能源交易中心，"GFEX" 广州期货交易所。默认为中金所
     :type market: str
     :return: 交易所日交易数据
     :rtype: pandas.DataFrame

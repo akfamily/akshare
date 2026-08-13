@@ -4,13 +4,13 @@
 
 ### YZ 已实现波动率
 
-接口: volatility_yz_rv
+接口：volatility_yz_rv
 
-目标地址: https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
+目标地址：https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
 
-描述: 波动率-已实现波动率-Yang-Zhang已实现波动率
+描述：波动率-已实现波动率-Yang-Zhang已实现波动率
 
-限量: 单次返回日频率的已实现波动率数据
+限量：单次返回日频率的已实现波动率数据
 
 输入参数
 

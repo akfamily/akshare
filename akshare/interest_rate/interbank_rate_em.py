@@ -18,7 +18,7 @@ def rate_interbank(
 ):
     """
     东方财富-拆借利率一览-具体市场的具体品种的具体指标的拆借利率数据
-    具体 market 和 symbol 参见: https://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
+    具体 market 和 symbol 参见：https://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: choice of {"上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"}
     :type market: str
     :param symbol: choice of {"Shibor人民币", "Chibor人民币", "Libor英镑", "***", "Sibor美元"}

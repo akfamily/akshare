@@ -17,8 +17,8 @@ def __convert_date_format(date: str) -> str:
     """
     将日期字符串从格式'%Y%m%d'转换为格式'%Y-%m-%d %H:%M:%S'。
 
-    :param date: 日期字符串,格式为'%Y%m%d'
-    :return: 转换后的日期字符串,格式为'%Y-%m-%d %H:%M:%S'
+    :param date: 日期字符串，格式为'%Y%m%d'
+    :return: 转换后的日期字符串，格式为'%Y-%m-%d %H:%M:%S'
     """
     datetime_obj = datetime.strptime(date, "%Y%m%d")
     return datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
@@ -28,7 +28,7 @@ def __format_date(date: str) -> int:
     """
     将日期字符串转换为Unix时间戳。
 
-    :param date: 日期字符串,格式为'%Y-%m-%d %H:%M:%S'
+    :param date: 日期字符串，格式为'%Y-%m-%d %H:%M:%S'
     :return: Unix时间戳
     """
     datetime_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")

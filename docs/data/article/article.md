@@ -4,20 +4,20 @@
 
 #### Oxford-Man
 
-接口: article_oman_rv
+接口：article_oman_rv
 
-目标地址: https://realized.oxford-man.ox.ac.uk/data/visualization
+目标地址：https://realized.oxford-man.ox.ac.uk/data/visualization
 
-描述: 获取 Oxford-Man 已实现波动率数据
+描述：获取 Oxford-Man 已实现波动率数据
 
-限量: 单次返回某个指数具体指标的所有历史数据
+限量：单次返回某个指数具体指标的所有历史数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                        |
 |--------|-----|-------------------------------------------|
-| symbol | str | symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**  |
-| index  | str | index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表** |
+| symbol | str | symbol="FTSE"，具体指数请查看如下 **已实现波动率指数一览表**  |
+| index  | str | index="rk_th2"，具体指标请查看如下 **已实现波动率指标一览表** |
 
 已实现波动率指数一览表
 
@@ -113,19 +113,19 @@ print(article_oman_rv_df)
 
 #### Risk-Lab
 
-接口: article_rlab_rv
+接口：article_rlab_rv
 
-目标地址: https://dachxiu.chicagobooth.edu/
+目标地址：https://dachxiu.chicagobooth.edu/
 
-描述: 获取 Risk-Lab 已实现波动率数据
+描述：获取 Risk-Lab 已实现波动率数据
 
-限量: 单次返回某个指数所有历史数据
+限量：单次返回某个指数所有历史数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                           |
 |--------|-----|----------------------------------------------|
-| symbol | str | symbol="39693", 某个具体指数 help(article_rlab_rv) |
+| symbol | str | symbol="39693"，某个具体指数 help(article_rlab_rv) |
 
 输出参数
 
@@ -165,13 +165,13 @@ print(article_rlab_rv_df)
 
 ### Current Research Returns
 
-接口: article_ff_crr
+接口：article_ff_crr
 
-目标地址: https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+目标地址：https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
-描述: 获取 Current Research Returns 多因子数据; 更多信息请访问目标地址
+描述：获取 Current Research Returns 多因子数据；更多信息请访问目标地址
 
-限量: 单次返回所有历史数据
+限量：单次返回所有历史数据
 
 输入参数
 
@@ -240,19 +240,19 @@ print(article_ff_crr_df)
 
 ### 国家和地区指数
 
-接口: article_epu_index
+接口：article_epu_index
 
-目标地址: https://www.policyuncertainty.com/index.html
+目标地址：https://www.policyuncertainty.com/index.html
 
-描述: 国家或地区的经济政策不确定性(EPU)数据
+描述：国家或地区的经济政策不确定性(EPU)数据
 
-限量: 单次返回某个具体国家或地区的所有月度经济政策不确定性数据
+限量：单次返回某个具体国家或地区的所有月度经济政策不确定性数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                    |
 |--------|-----|---------------------------------------|
-| symbol | str | symbol="China"; 按 **国家和地区一览表** 输入相应参数 |
+| symbol | str | symbol="China"；按 **国家和地区一览表** 输入相应参数 |
 
 国家和地区一览表
 
@@ -274,7 +274,7 @@ print(article_ff_crr_df)
 | USA         |                 |
 | Brazil      |                 |
 | Chile       |                 |
-| Colombia    | 有两种, 默认第一种(FKT) |
+| Colombia    | 有两种，默认第一种(FKT) |
 | France      | 欧洲              |
 | Greece      |                 |
 | India       |                 |

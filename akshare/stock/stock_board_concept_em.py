@@ -171,7 +171,7 @@ def stock_board_concept_spot_em(symbol: str = "可燃冰") -> pd.DataFrame:
     result.columns = ["item", "value"]
     result["value"] = pd.to_numeric(result["value"], errors="coerce")
 
-    # 各项转换成正常单位. 除了成交量与成交额, 原始数据中已是正常单位(元)
+    # 各项转换成正常单位。除了成交量与成交额，原始数据中已是正常单位（元）
     result["value"] = result["value"] * 1e-2
     result.iloc[4, 1] = result.iloc[4, 1] * 1e2
     result.iloc[5, 1] = result.iloc[5, 1] * 1e2
@@ -190,13 +190,13 @@ def stock_board_concept_hist_em(
     https://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
-    :type period: 周期; choice of {"daily", "weekly", "monthly"}
+    :type period: 周期；choice of {"daily", "weekly", "monthly"}
     :param period: 板块名称
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
     :type end_date: str
-    :param adjust: choice of {'': 不复权, "qfq": 前复权, "hfq": 后复权}
+    :param adjust: choice of {'': 不复权，"qfq": 前复权，"hfq": 后复权}
     :type adjust: str
     :return: 历史行情
     :rtype: pandas.DataFrame

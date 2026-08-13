@@ -21,6 +21,16 @@ repos:
         args: [--fix]
       # Run the formatter.
       - id: ruff-format
+  - repo: local
+    hooks:
+      # 中文正文标点统一为全角。只检查 docstring、# 注释与 Markdown 正文,
+      # 中文列名、用户可传参数值、解析上游文本的字面量以及围栏代码块均不在范围内。
+      - id: check-punctuation
+        name: check Chinese punctuation
+        entry: python scripts/check_punctuation.py --fix
+        language: system
+        files: ^(akshare|docs)/.*\.(py|md)$
+        exclude: ^docs/changelog\.md$
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.3.0
     hooks:

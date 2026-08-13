@@ -92,7 +92,7 @@ def fund_rating_sh(date: str = "20230630") -> pd.DataFrame:
     """
     天天基金网-基金评级-上海证券评级
     https://fund.eastmoney.com/data/fundrating_3.html
-    :param date: 日期; https://fund.eastmoney.com/data/fundrating_3.html 获取查询日期
+    :param date: 日期；https://fund.eastmoney.com/data/fundrating_3.html 获取查询日期
     :type date: str
     :return: 上海证券评级
     :rtype: pandas.DataFrame
@@ -190,7 +190,7 @@ def fund_rating_zs(date: str = "20230331") -> pd.DataFrame:
     """
     天天基金网-基金评级-招商证券评级
     https://fund.eastmoney.com/data/fundrating_2.html
-    :param date: 日期; https://fund.eastmoney.com/data/fundrating_2.html 获取查询日期
+    :param date: 日期；https://fund.eastmoney.com/data/fundrating_2.html 获取查询日期
     :type date: str
     :return: 招商证券评级-混合型
     :rtype: pandas.DataFrame
@@ -277,7 +277,7 @@ def fund_rating_ja(date: str = "20230331") -> pd.DataFrame:
     """
     天天基金网-基金评级-济安金信评级
     https://fund.eastmoney.com/data/fundrating_4.html
-    :param date: 日期; https://fund.eastmoney.com/data/fundrating_4.html 获取查询日期
+    :param date: 日期；https://fund.eastmoney.com/data/fundrating_4.html 获取查询日期
     :type date: str
     :return: 济安金信评级
     :rtype: pandas.DataFrame

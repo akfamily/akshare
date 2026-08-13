@@ -3,9 +3,9 @@
 """
 Date: 2022/6/28 14:57
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
-人民币外汇即期报价: fx_spot_quote
-人民币外汇远掉报价: fx_swap_quote
-外币对即期报价: fx_pair_quote
+人民币外汇即期报价：fx_spot_quote
+人民币外汇远掉报价：fx_swap_quote
+外币对即期报价：fx_pair_quote
 """
 
 import time

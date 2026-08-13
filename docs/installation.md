@@ -2,11 +2,11 @@
 
 ## 重要提示
 
-1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用;
-2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.9(64 位) 及以上版本,
-3. 这里推荐 [Python](https://www.python.org/) 3.11.x(64 位) 版本;
-3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/), 可以解决大部分环境配置问题;
-4. 对于熟悉容器技术的小伙伴, 可以安装 Docker 使用, 指导教程如下: [AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html).
+1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
+2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.9(64 位) 及以上版本，
+3. 这里推荐 [Python](https://www.python.org/) 3.11.x(64 位) 版本；
+3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/)，可以解决大部分环境配置问题；
+4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html).
 
 ## 安装 [AKShare](https://github.com/akfamily/akshare)
 
@@ -32,7 +32,7 @@ pip install akshare --upgrade --user -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ## 升级 [AKShare](https://github.com/akfamily/akshare)
 
-P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://github.com/akfamily/akshare) 前先升级, 命令如下所示**
+P.S. **由于目前版本更新迭代频繁，请在使用 [AKShare](https://github.com/akfamily/akshare) 前先升级，命令如下所示**
 
 ```
 pip install akshare --upgrade -i https://pypi.org/simple
@@ -349,7 +349,7 @@ disp(df)
 
 ### 1. 安装超时的错误
 
-1.大致报错如下, 出现关键词 **amt** :
+1.大致报错如下，出现关键词 **amt** :
 
 ```
 Traceback (most recent call last):
@@ -361,7 +361,7 @@ File "/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendo
 data = self.__fp.read(amt)
 ```
 
-2.解决方案如下:
+2.解决方案如下：
 
 方法一
 
@@ -375,14 +375,14 @@ pip --default-timeout=100 install -U akshare
 
 ### 2. 拒绝访问错误
 
-1.大致报错如下, 出现关键词 **拒绝访问** :
+1.大致报错如下，出现关键词 **拒绝访问** :
 
 ```
 Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Users/mac/Anaconda/anaconda3/lib/python3.7/site-packages/cv2/__init__.py'
 Consider using the `--user` option or check the permissions.
 ```
 
-2.解决方案如下:
+2.解决方案如下：
 
 方法一
 
@@ -392,9 +392,9 @@ pip install akshare --user
 
 方法二
 
-使用管理员权限(右键单击选择管理员权限)打开 Anaconda Prompt 进行安装
+使用管理员权限（右键单击选择管理员权限）打开 Anaconda Prompt 进行安装
 
 ### 3. 提示其他的错误
 
-- 方法一: 确认并升级您已安装 64 位的 **Python 3.9** 及以上版本
-- 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容
+- 方法一：确认并升级您已安装 64 位的 **Python 3.9** 及以上版本
+- 方法二：使用 conda 的虚拟环境来安装，详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容

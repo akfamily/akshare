@@ -41,7 +41,7 @@ def stock_cg_lawsuit_cninfo(
     :type start_date: str
     :param end_date: 结束统计时间
     :type end_date: str
-    :return: 公司诉讼数据; 若源站无记录则返回空 DataFrame
+    :return: 公司诉讼数据；若源站无记录则返回空 DataFrame
     :rtype: pandas.DataFrame
     """
     symbol_map = {

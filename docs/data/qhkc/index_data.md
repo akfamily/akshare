@@ -26,8 +26,8 @@ index_info
 | all_varieties | int      | 是否包含所有品种，0:否，1:所有商品，2:所有股指，3:所有商品和股指 |
 | status        | int      | 是否开放，0:不开放，1:开放                      |
 | nickname      | string   | 创建人昵称                                |
-| varieties     | array    | 包含品种的编码， all_varieties为0时返回          |
-| brokers       | array    | 包含席位， all_brokers为0时返回               |
+| varieties     | array    | 包含品种的编码，all_varieties为0时返回          |
+| brokers       | array    | 包含席位，all_brokers为0时返回               |
 
 ### 示例代码
 

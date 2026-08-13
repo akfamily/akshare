@@ -30,14 +30,14 @@ def fund_scale_daily_szse(
     """
     深圳证券交易所-基金产品-基金规模-日频数据
     https://www.szse.cn/market/fund/volume/etf/index.html
-    :param start_date: 开始日期, 格式如 "20260401"
+    :param start_date: 开始日期，格式如 "20260401"
     :type start_date: str
-    :param end_date: 结束日期, 格式如 "20260401"
+    :param end_date: 结束日期，格式如 "20260401"
     :type end_date: str
-    :param symbol: 基金类别, choice of {"ETF", "LOF", "REITS"}
+    :param symbol: 基金类别，choice of {"ETF", "LOF", "REITS"}
     :type symbol: str
-    :return: 深交所基金规模日频数据;
-        日期范围不能超过 6 个月, 否则返回带表头的空 DataFrame
+    :return: 深交所基金规模日频数据；
+        日期范围不能超过 6 个月，否则返回带表头的空 DataFrame
     :rtype: pandas.DataFrame
     """
     columns = ["日期", "基金代码", "基金简称", "基金份额"]

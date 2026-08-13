@@ -14,7 +14,7 @@ def stock_qsjy_em(date: str = "20200731") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-券商业绩月报
     http://data.eastmoney.com/other/qsjy.html
-    :param date: 数据月份，从 2010-06-01 开始, e.g., 需要 2011 年 7 月, 则输入 2011-07-01
+    :param date: 数据月份，从 2010-06-01 开始，e.g.，需要 2011 年 7 月，则输入 2011-07-01
     :type date: str
     :return: 券商业绩月报
     :rtype: pandas.DataFrame

@@ -42,7 +42,7 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
     }
     params = {
         "cb": "jQuery35101792940631092459_1764599530165",
-        "param": json.dumps(inner_param, ensure_ascii=False),  # 保留中文,
+        "param": json.dumps(inner_param, ensure_ascii=False),  # 保留中文，
         "_": "1764599530176",
     }
     headers = {

@@ -16,7 +16,7 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-盈利预测
     https://data.eastmoney.com/report/profitforecast.jshtml
-    :param symbol: "", 默认为获取全部数据; symbol="船舶制造", 则获取具体行业板块的数据;
+    :param symbol: ""，默认为获取全部数据；symbol="船舶制造"，则获取具体行业板块的数据；
     行业板块可以通过 ak.stock_board_industry_name_em() 接口获取
     :type symbol: str
     :return: 盈利预测

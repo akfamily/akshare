@@ -259,19 +259,19 @@ short_pool_df = pro.short_pool(date="2018-08-08")
 print(short_pool_df)
 
 
-# 资金-每日净流多列表(商品)
+# 资金-每日净流多列表（商品）
 commodity_flow_long_df = pro.commodity_flow_long(date="2018-08-08")
 print(commodity_flow_long_df)
 
-# 资金-每日净流空列表(商品)
+# 资金-每日净流空列表（商品）
 commodity_flow_short_df = pro.commodity_flow_short(date="2018-08-08")
 print(commodity_flow_short_df)
 
-# 资金-每日净流多列表(指数)
+# 资金-每日净流多列表（指数）
 stock_flow_long_df = pro.stock_flow_long(date="2018-08-08")
 print(stock_flow_long_df)
 
-# 资金-每日净流空列表(指数)
+# 资金-每日净流空列表（指数）
 stock_flow_short_df = pro.stock_flow_short(date="2018-08-08")
 print(stock_flow_short_df)
 

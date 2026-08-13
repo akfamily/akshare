@@ -74,8 +74,8 @@ def option_finance_board(
 ) -> pd.DataFrame:
     """
     期权当前交易日的行情数据
-    主要为三个: 华夏上证50ETF期权, 华泰柏瑞沪深300ETF期权, 嘉实沪深300ETF期权,
-    沪深300股指期权, 中证1000股指期权, 上证50股指期权, 华夏科创50ETF期权, 易方达科创50ETF期权
+    主要为三个：华夏上证50ETF期权，华泰柏瑞沪深300ETF期权，嘉实沪深300ETF期权，
+    沪深300股指期权，中证1000股指期权，上证50股指期权，华夏科创50ETF期权，易方达科创50ETF期权
     http://www.sse.com.cn/assortment/options/price/
     http://www.szse.cn/market/product/option/index.html
     http://www.cffex.com.cn/hs300gzqq/

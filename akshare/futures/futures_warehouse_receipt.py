@@ -24,7 +24,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     """
     郑州商品交易所-交易数据-仓单日报
     http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
-    :param date: 交易日, e.g., "20200702"
+    :param date: 交易日，e.g., "20200702"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
@@ -62,7 +62,7 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     """
     大连商品交易所-行情数据-统计数据-日统计-仓单日报
     http://www.dce.com.cn/dce/channel/list/187.html
-    :param date: 交易日, e.g., "20200702"
+    :param date: 交易日，e.g., "20200702"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
@@ -105,7 +105,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
     """
     上海期货交易所指定交割仓库期货仓单日报
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
-    :param date: 交易日, e.g., "20200702"
+    :param date: 交易日，e.g., "20200702"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
@@ -160,7 +160,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     """
     广州期货交易所-行情数据-仓单日报
     http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
-    :param date: 交易日, e.g., "20240122"
+    :param date: 交易日，e.g., "20240122"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict

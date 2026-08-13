@@ -16,7 +16,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
     """
     同花顺-基金数据-新发基金
     https://fund.10jqka.com.cn/datacenter/xfjj/
-    :param symbol: 选择基金类型; choice of {"全部", "发行中", "将发行"}
+    :param symbol: 选择基金类型；choice of {"全部", "发行中", "将发行"}
     :type symbol: str
     :return: 新发基金数据
     :rtype: pandas.DataFrame
@@ -60,10 +60,10 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
 
     # 根据 symbol 筛选数据
     if symbol == "发行中":
-        # 发行中: zzfx=1
+        # 发行中：zzfx=1
         temp_df = temp_df[temp_df["zzfx"] == 1]
     elif symbol == "将发行":
-        # 将发行: zzfx != 1 (即 buy=0 且起始日在未来)
+        # 将发行：zzfx != 1 (即 buy=0 且起始日在未来)
         temp_df = temp_df[temp_df["zzfx"] != 1]
 
     # 提取 manager 字段（可能是数组）

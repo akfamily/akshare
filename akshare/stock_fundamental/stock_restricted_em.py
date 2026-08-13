@@ -17,7 +17,7 @@ def stock_restricted_release_summary_em(
     """
     东方财富网-数据中心-特色数据-限售股解禁
     https://data.eastmoney.com/dxf/marketStatistics.html?type=day&startdate=2022-11-08&enddate=2022-12-19
-    :param symbol: 标的市场; choice of {"全部股票", "沪市A股", "科创板", "深市A股", "创业板", "京市A股"}
+    :param symbol: 标的市场；choice of {"全部股票", "沪市A股", "科创板", "深市A股", "创业板", "京市A股"}
     :type symbol: str
     :param start_date: 开始时间
     :type start_date: str
@@ -306,7 +306,7 @@ def stock_restricted_release_stockholder_em(
     https://data.eastmoney.com/dxf/q/600000.html
     :param symbol: 股票代码
     :type symbol: str
-    :param date: 日期; 通过 ak.stock_restricted_release_queue_em(symbol="600000") 获取
+    :param date: 日期；通过 ak.stock_restricted_release_queue_em(symbol="600000") 获取
     :type date: str
     :return: 个股限售解禁
     :rtype: pandas.DataFrame

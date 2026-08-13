@@ -19,7 +19,7 @@ def stock_zh_index_hist_csindex(
     中证指数-具体指数-历史行情数据
     P.S. 只有收盘价，正常情况下不应使用该接口，除非指数只有中证网站有
     https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
-    :param symbol: 指数代码; e.g., H30374
+    :param symbol: 指数代码；e.g., H30374
     :type symbol: str
     :param start_date: 开始日期
     :type start_date: str
@@ -73,7 +73,7 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     """
     中证指数-指数估值数据
     https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
-    :param symbol: 指数代码; e.g., H30374
+    :param symbol: 指数代码；e.g., H30374
     :type symbol: str
     :return: 指数估值数据
     :rtype: pandas.DataFrame

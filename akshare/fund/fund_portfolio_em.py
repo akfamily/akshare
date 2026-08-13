@@ -87,7 +87,7 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
     https://fundf10.eastmoney.com/ccmx_000001.html
     :param symbol: 基金代码
     :type symbol: str
-    :param date: 查询年份; 传入空字符串时返回最新可用年份数据
+    :param date: 查询年份；传入空字符串时返回最新可用年份数据
     :type date: str
     :return: 基金持仓
     :rtype: pandas.DataFrame

@@ -2,8 +2,8 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2019/9/30 13:58
-Desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-工具数据接口, 方便您程序化调用
-注：期货价格为收盘价; 现货价格来自网络; 基差=现货价格-期货价格; 基差率=(现货价格-期货价格)/现货价格 * 100 %.
+Desc: 奇货可查网站目前已经商业化运营，特提供奇货可查-工具数据接口，方便您程序化调用
+注：期货价格为收盘价；现货价格来自网络；基差=现货价格-期货价格；基差率=(现货价格-期货价格)/现货价格 * 100 %.
 """
 
 from typing import AnyStr
@@ -17,7 +17,7 @@ from akshare.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
 def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
     """
     奇货可查-工具-外盘比价
-    实时更新数据, 暂不能查询历史数据
+    实时更新数据，暂不能查询历史数据
     :param url: str 网址
     :return: 外盘比价
     :rtype: pandas.DataFrame
@@ -111,7 +111,7 @@ def qhkc_tool_nebula(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
 def qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP_URL):
     """
       奇货可查-工具-各地区经济数据
-      实时更新数据, 暂不能查询历史数据
+      实时更新数据，暂不能查询历史数据
       :param url:
       :return: pandas.DataFrame
       国家  国内生产总值 国内生产总值YoY 国内生产总值QoQ  ...       预算       债务   经常账户       人口

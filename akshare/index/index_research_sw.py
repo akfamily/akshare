@@ -429,7 +429,7 @@ def index_analysis_weekly_sw(
     https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
     :param symbol: choice of {"市场表征", "一级行业", "二级行业", "风格指数"}
     :type symbol: str
-    :param date: 查询日期; 通过调用 ak.index_analysis_week_month_sw(date="20221104") 接口获取
+    :param date: 查询日期；通过调用 ak.index_analysis_week_month_sw(date="20221104") 接口获取
     :type date: str
     :return: 指数分析
     :rtype: pandas.DataFrame
@@ -504,7 +504,7 @@ def index_analysis_monthly_sw(
     https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
     :param symbol: choice of {"市场表征", "一级行业", "二级行业", "风格指数"}
     :type symbol: str
-    :param date: 查询日期; 通过调用 ak.index_analysis_week_month_sw() 接口获取
+    :param date: 查询日期；通过调用 ak.index_analysis_week_month_sw() 接口获取
     :type date: str
     :return: 指数分析
     :rtype: pandas.DataFrame
