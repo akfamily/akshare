@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.92 fix: improve Xueqiu login requirement guidance
+
+    1. 优化 stock_individual_basic_info_xq 系列接口在雪球返回 400016 时的提示信息，明确匿名访问当前受限且需要通过 `token=` 传入有效 `xq_a_token`
+    2. 补充中概股、美股、港股雪球公司信息接口的登录态依赖说明
+
 1.18.91 docs: migrate the Markdown parser to myst-parser
 
     1. 文档 Markdown 解析器由 recommonmark 迁移至 myst-parser，并移除随之无用的 sphinx-markdown-tables 与 markdown 依赖

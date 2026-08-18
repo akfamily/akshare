@@ -56,7 +56,9 @@ def _get_xq_company_data(
         error_description = data_json.get("error_description", "Unknown error")
         raise APIError(
             "Xueqiu company endpoint requires a valid xq_a_token or login session; "
-            f"upstream returned {error_code}: {error_description}",
+            "anonymous access is currently restricted, please pass a valid token via "
+            "`token=`. "
+            f"Upstream returned {error_code}: {error_description}",
             status_code=r.status_code,
         )
 
