@@ -228,8 +228,7 @@ def stock_board_concept_hist_em(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
-    temp_df.columns = [
+    raw_columns = [
         "日期",
         "开盘",
         "收盘",
@@ -242,6 +241,24 @@ def stock_board_concept_hist_em(
         "涨跌额",
         "换手率",
     ]
+    columns = [
+        "日期",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "涨跌幅",
+        "涨跌额",
+        "成交量",
+        "成交额",
+        "振幅",
+        "换手率",
+    ]
+    data = data_json.get("data") if isinstance(data_json, dict) else None
+    if not isinstance(data, dict) or not data.get("klines"):
+        return pd.DataFrame(columns=columns)
+    temp_df = pd.DataFrame([item.split(",") for item in data["klines"]])
+    temp_df.columns = raw_columns
     temp_df = temp_df[
         [
             "日期",
