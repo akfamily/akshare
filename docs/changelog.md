@@ -89,10 +89,15 @@
 
 ## 更新说明详情
 
+1.18.93 fix: fix fund_money_fund_info_em interface
+
+    1. 修复 fund_money_fund_info_em 接口
+
 1.18.92 fix: improve Xueqiu login requirement guidance
 
     1. 优化 stock_individual_basic_info_xq 系列接口在雪球返回 400016 时的提示信息，明确匿名访问当前受限且需要通过 `token=` 传入有效 `xq_a_token`
     2. 补充中概股、美股、港股雪球公司信息接口的登录态依赖说明
+    3. 修复 fund_money_fund_info_em 接口因东方财富历史净值返回体新增字段而触发 Length mismatch 的问题
 
 1.18.91 docs: migrate the Markdown parser to myst-parser
 

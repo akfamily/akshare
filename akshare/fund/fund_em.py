@@ -774,21 +774,15 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
         big_list.append(temp_df)
     big_df = pd.concat(big_list, ignore_index=True)
-    big_df.columns = [
-        "净值日期",
-        "每万份收益",
-        "7日年化收益率",
-        "_",
-        "_",
-        "_",
-        "_",
-        "申购状态",
-        "赎回状态",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "FSRQ": "净值日期",
+            "DWJZ": "每万份收益",
+            "LJJZ": "7日年化收益率",
+            "SGZT": "申购状态",
+            "SHZT": "赎回状态",
+        }
+    )
     big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
     big_df = big_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
     big_df["净值日期"] = pd.to_datetime(big_df["净值日期"], errors="coerce").dt.date
