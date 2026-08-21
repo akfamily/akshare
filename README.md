@@ -271,7 +271,7 @@ Thanks for the data provided by [河北省空气质量预报信息发布系统�
 
 Thanks for the data provided by [Economic Policy Uncertainty 网站](https://www.policyuncertainty.com/);
 
-Thanks for the data provided by 申万指数网站;
+Thanks for the data provided by 申万指数网站；
 
 Thanks for the data provided by [真气网网站](https://www.zq12369.com/);
 

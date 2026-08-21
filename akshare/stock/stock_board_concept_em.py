@@ -12,6 +12,7 @@ from functools import lru_cache
 import pandas as pd
 import requests
 
+from akshare.exceptions import APIError, InvalidParameterError
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -201,6 +202,19 @@ def stock_board_concept_hist_em(
     :return: 历史行情
     :rtype: pandas.DataFrame
     """
+    columns = [
+        "日期",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "涨跌幅",
+        "涨跌额",
+        "成交量",
+        "成交额",
+        "振幅",
+        "换手率",
+    ]
     period_map = {
         "daily": "101",
         "weekly": "102",
@@ -210,9 +224,12 @@ def stock_board_concept_hist_em(
         stock_board_code = symbol
     else:
         stock_board_concept_em_map = __stock_board_concept_name_em()
-        stock_board_code = stock_board_concept_em_map[
+        stock_board_code_df = stock_board_concept_em_map[
             stock_board_concept_em_map["板块名称"] == symbol
-        ]["板块代码"].values[0]
+        ]
+        if stock_board_code_df.empty:
+            raise InvalidParameterError(f"未找到概念板块: {symbol}")
+        stock_board_code = stock_board_code_df["板块代码"].values[0]
     adjust_map = {"": "0", "qfq": "1", "hfq": "2"}
     url = "https://91.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
@@ -227,8 +244,33 @@ def stock_board_concept_hist_em(
         "lmt": "1000000",
     }
     r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    try:
+        data_json = r.json()
+    except ValueError as err:
+        raise APIError("东方财富概念板块历史行情接口返回了无效的 JSON 数据") from err
+    if not isinstance(data_json, dict):
+        raise APIError("东方财富概念板块历史行情接口返回了异常响应")
+
+    data = data_json.get("data")
+    if data is None:
+        error_detail = (
+            data_json.get("dsc") or data_json.get("msg") or "未返回有效的行情数据"
+        )
+        if re.match(pattern=r"^BK\d+", string=symbol):
+            raise InvalidParameterError(
+                f"无效的概念板块代码: {stock_board_code}; 东方财富返回: {error_detail}"
+            )
+        raise APIError(f"东方财富概念板块历史行情接口未返回有效数据: {error_detail}")
+    if not isinstance(data, dict):
+        raise APIError("东方财富概念板块历史行情接口返回体结构异常")
+
+    klines = data.get("klines")
+    if not klines:
+        return pd.DataFrame(columns=columns)
+    if not isinstance(klines, list):
+        raise APIError("东方财富概念板块历史行情接口返回的 klines 字段格式异常")
+
+    temp_df = pd.DataFrame([item.split(",") for item in klines])
     temp_df.columns = [
         "日期",
         "开盘",
@@ -242,21 +284,7 @@ def stock_board_concept_hist_em(
         "涨跌额",
         "换手率",
     ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "开盘",
-            "收盘",
-            "最高",
-            "最低",
-            "涨跌幅",
-            "涨跌额",
-            "成交量",
-            "成交额",
-            "振幅",
-            "换手率",
-        ]
-    ]
+    temp_df = temp_df[columns]
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

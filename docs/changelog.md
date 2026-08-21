@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.94 fix: fix fund_money_fund_info_em interface
+
+    1. 优化 stock_board_concept_hist_em 接口的空数据兜底逻辑：仅对合法空历史返回空 DataFrame，对无效概念板块名称或 BK 代码抛出明确异常
+
 1.18.93 fix: fix fund_money_fund_info_em interface
 
     1. 修复 fund_money_fund_info_em 接口
