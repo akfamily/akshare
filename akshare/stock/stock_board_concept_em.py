@@ -260,9 +260,7 @@ def stock_board_concept_hist_em(
             raise InvalidParameterError(
                 f"无效的概念板块代码: {stock_board_code}; 东方财富返回: {error_detail}"
             )
-        raise APIError(
-            f"东方财富概念板块历史行情接口未返回有效数据: {error_detail}"
-        )
+        raise APIError(f"东方财富概念板块历史行情接口未返回有效数据: {error_detail}")
     if not isinstance(data, dict):
         raise APIError("东方财富概念板块历史行情接口返回体结构异常")
 
