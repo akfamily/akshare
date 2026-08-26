@@ -75,7 +75,7 @@ test = ["pytest>=8.0.0"]
 # 编辑器的 LSP 能力由 ruff 自带的 ruff server 子命令提供，无需额外依赖。
 # 原先声明的 ruff-lsp 已被 Astral 归档（PyPI 停在 0.0.62 / 2025-02，
 # 包自身即会打印废弃警告并指向 ruff server），故不再声明。
-lint = ["ruff==0.16.3"]
+lint = ["ruff==0.16.4"]
 dev = [
     { include-group = "test" },
     { include-group = "lint" },
