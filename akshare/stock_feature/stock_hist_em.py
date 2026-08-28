@@ -41,10 +41,16 @@ _ZH_A_SPOT_FIELDS = (
 _ZH_A_SPOT_BATCH_SIZE = 500
 _ZH_A_SPOT_CACHE_TTL = 60 * 60
 _ZH_A_SPOT_TIMEOUT = 15
-_ZH_A_SPOT_CACHE_LOCK = threading.Lock()
-_ZH_A_SPOT_CACHED_SECIDS: Tuple[str, ...] = ()
-_ZH_A_SPOT_CACHE_EXPIRES_AT = 0.0
-_ZH_A_SPOT_CACHE_VERSION = 0
+_ZH_A_SPOT_MARKET_FS = {
+    "zh": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
+    "sh": "m:1 t:2,m:1 t:23",
+    "sz": "m:0 t:6,m:0 t:80",
+    "bj": "m:0 t:81 s:2048",
+}
+_ZH_A_SPOT_CACHE_LOCKS = {market: threading.Lock() for market in _ZH_A_SPOT_MARKET_FS}
+_ZH_A_SPOT_CACHED_SECIDS = {market: () for market in _ZH_A_SPOT_MARKET_FS}
+_ZH_A_SPOT_CACHE_EXPIRES_AT = {market: 0.0 for market in _ZH_A_SPOT_MARKET_FS}
+_ZH_A_SPOT_CACHE_VERSION = {market: 0 for market in _ZH_A_SPOT_MARKET_FS}
 
 _ZH_A_SPOT_COLUMN_MAP = {
     "f12": "代码",
@@ -164,7 +170,7 @@ def _stock_zh_a_spot_secids(rows: Sequence[dict]) -> Tuple[str, ...]:
 
 
 def _fetch_stock_zh_a_spot_clist(
-    session: requests.Session,
+    session: requests.Session, market: str
 ) -> Tuple[list, Tuple[str, ...]]:
     params = {
         **_stock_zh_a_spot_params(),
@@ -173,7 +179,7 @@ def _fetch_stock_zh_a_spot_clist(
         "po": "1",
         "np": "1",
         "fid": "f12",
-        "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
+        "fs": _ZH_A_SPOT_MARKET_FS[market],
     }
     first_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URLS, params)
     first_page = first_data["diff"]
@@ -233,34 +239,44 @@ def _fetch_stock_zh_a_spot_batches(
     return rows
 
 
-def _read_stock_zh_a_spot_cache() -> Tuple[Tuple[str, ...], int]:
-    with _ZH_A_SPOT_CACHE_LOCK:
-        if _ZH_A_SPOT_CACHED_SECIDS and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT:
-            return _ZH_A_SPOT_CACHED_SECIDS, _ZH_A_SPOT_CACHE_VERSION
-    return (), _ZH_A_SPOT_CACHE_VERSION
+def _read_stock_zh_a_spot_cache(market: str) -> Tuple[Tuple[str, ...], int]:
+    with _ZH_A_SPOT_CACHE_LOCKS[market]:
+        if (
+            _ZH_A_SPOT_CACHED_SECIDS[market]
+            and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT[market]
+        ):
+            return (
+                _ZH_A_SPOT_CACHED_SECIDS[market],
+                _ZH_A_SPOT_CACHE_VERSION[market],
+            )
+    return (), _ZH_A_SPOT_CACHE_VERSION[market]
 
 
 def _refresh_stock_zh_a_spot_cache(
-    session: requests.Session, expected_version: Optional[int] = None
+    session: requests.Session,
+    market: str,
+    expected_version: Optional[int] = None,
 ) -> Tuple[Optional[list], Tuple[str, ...], int]:
-    global _ZH_A_SPOT_CACHED_SECIDS
-    global _ZH_A_SPOT_CACHE_EXPIRES_AT
-    global _ZH_A_SPOT_CACHE_VERSION
-
-    with _ZH_A_SPOT_CACHE_LOCK:
+    with _ZH_A_SPOT_CACHE_LOCKS[market]:
         cache_is_valid = (
-            _ZH_A_SPOT_CACHED_SECIDS and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT
+            _ZH_A_SPOT_CACHED_SECIDS[market]
+            and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT[market]
         )
         if cache_is_valid and (
-            expected_version is None or _ZH_A_SPOT_CACHE_VERSION != expected_version
+            expected_version is None
+            or _ZH_A_SPOT_CACHE_VERSION[market] != expected_version
         ):
-            return None, _ZH_A_SPOT_CACHED_SECIDS, _ZH_A_SPOT_CACHE_VERSION
+            return (
+                None,
+                _ZH_A_SPOT_CACHED_SECIDS[market],
+                _ZH_A_SPOT_CACHE_VERSION[market],
+            )
 
-        rows, secids = _fetch_stock_zh_a_spot_clist(session)
-        _ZH_A_SPOT_CACHED_SECIDS = secids
-        _ZH_A_SPOT_CACHE_EXPIRES_AT = time.monotonic() + _ZH_A_SPOT_CACHE_TTL
-        _ZH_A_SPOT_CACHE_VERSION += 1
-        return rows, secids, _ZH_A_SPOT_CACHE_VERSION
+        rows, secids = _fetch_stock_zh_a_spot_clist(session, market)
+        _ZH_A_SPOT_CACHED_SECIDS[market] = secids
+        _ZH_A_SPOT_CACHE_EXPIRES_AT[market] = time.monotonic() + _ZH_A_SPOT_CACHE_TTL
+        _ZH_A_SPOT_CACHE_VERSION[market] += 1
+        return rows, secids, _ZH_A_SPOT_CACHE_VERSION[market]
 
 
 def _format_stock_zh_a_spot(rows: Sequence[dict]) -> pd.DataFrame:
@@ -280,17 +296,13 @@ def _format_stock_zh_a_spot(rows: Sequence[dict]) -> pd.DataFrame:
     return temp_df
 
 
-def stock_zh_a_spot_em() -> pd.DataFrame:
-    """
-    东方财富网-沪深京 A 股-实时行情
-    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
-    :return: 实时行情
-    :rtype: pandas.DataFrame
-    """
+def _stock_zh_a_spot_em(market: str) -> pd.DataFrame:
     with _create_stock_zh_a_spot_session() as session:
-        secids, cache_version = _read_stock_zh_a_spot_cache()
+        secids, cache_version = _read_stock_zh_a_spot_cache(market)
         if not secids:
-            rows, secids, cache_version = _refresh_stock_zh_a_spot_cache(session)
+            rows, secids, cache_version = _refresh_stock_zh_a_spot_cache(
+                session, market
+            )
             if rows is not None:
                 return _format_stock_zh_a_spot(rows)
 
@@ -298,11 +310,21 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
             rows = _fetch_stock_zh_a_spot_batches(session, secids)
         except _StockZhASpotCodeCacheStale:
             rows, secids, cache_version = _refresh_stock_zh_a_spot_cache(
-                session, expected_version=cache_version
+                session, market, expected_version=cache_version
             )
             if rows is None:
                 rows = _fetch_stock_zh_a_spot_batches(session, secids)
         return _format_stock_zh_a_spot(rows)
+
+
+def stock_zh_a_spot_em() -> pd.DataFrame:
+    """
+    东方财富网-沪深京 A 股-实时行情
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    :return: 实时行情
+    :rtype: pandas.DataFrame
+    """
+    return _stock_zh_a_spot_em("zh")
 
 
 def stock_sh_a_spot_em() -> pd.DataFrame:
@@ -312,105 +334,7 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://82.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f12",
-        "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,"
-        "f24,f25,f22,f11,f62,f128,f136,f115,f152",
-    }
-    temp_df = fetch_paginated_data(url, params)
-    temp_df.columns = [
-        "序号",
-        "_",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "成交量",
-        "成交额",
-        "振幅",
-        "换手率",
-        "市盈率-动态",
-        "量比",
-        "5分钟涨跌",
-        "代码",
-        "_",
-        "名称",
-        "最高",
-        "最低",
-        "今开",
-        "昨收",
-        "总市值",
-        "流通市值",
-        "涨速",
-        "市净率",
-        "60日涨跌幅",
-        "年初至今涨跌幅",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
-    temp_df = temp_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌幅",
-            "涨跌额",
-            "成交量",
-            "成交额",
-            "振幅",
-            "最高",
-            "最低",
-            "今开",
-            "昨收",
-            "量比",
-            "换手率",
-            "市盈率-动态",
-            "市净率",
-            "总市值",
-            "流通市值",
-            "涨速",
-            "5分钟涨跌",
-            "60日涨跌幅",
-            "年初至今涨跌幅",
-        ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
-    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df["市盈率-动态"] = pd.to_numeric(temp_df["市盈率-动态"], errors="coerce")
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-    temp_df["涨速"] = pd.to_numeric(temp_df["涨速"], errors="coerce")
-    temp_df["5分钟涨跌"] = pd.to_numeric(temp_df["5分钟涨跌"], errors="coerce")
-    temp_df["60日涨跌幅"] = pd.to_numeric(temp_df["60日涨跌幅"], errors="coerce")
-    temp_df["年初至今涨跌幅"] = pd.to_numeric(
-        temp_df["年初至今涨跌幅"], errors="coerce"
-    )
-    return temp_df
+    return _stock_zh_a_spot_em("sh")
 
 
 def stock_sz_a_spot_em() -> pd.DataFrame:
@@ -420,105 +344,7 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://82.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f12",
-        "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
-        "f25,f22,f11,f62,f128,f136,f115,f152",
-    }
-    temp_df = fetch_paginated_data(url, params)
-    temp_df.columns = [
-        "序号",
-        "_",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "成交量",
-        "成交额",
-        "振幅",
-        "换手率",
-        "市盈率-动态",
-        "量比",
-        "5分钟涨跌",
-        "代码",
-        "_",
-        "名称",
-        "最高",
-        "最低",
-        "今开",
-        "昨收",
-        "总市值",
-        "流通市值",
-        "涨速",
-        "市净率",
-        "60日涨跌幅",
-        "年初至今涨跌幅",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
-    temp_df = temp_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌幅",
-            "涨跌额",
-            "成交量",
-            "成交额",
-            "振幅",
-            "最高",
-            "最低",
-            "今开",
-            "昨收",
-            "量比",
-            "换手率",
-            "市盈率-动态",
-            "市净率",
-            "总市值",
-            "流通市值",
-            "涨速",
-            "5分钟涨跌",
-            "60日涨跌幅",
-            "年初至今涨跌幅",
-        ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
-    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df["市盈率-动态"] = pd.to_numeric(temp_df["市盈率-动态"], errors="coerce")
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-    temp_df["涨速"] = pd.to_numeric(temp_df["涨速"], errors="coerce")
-    temp_df["5分钟涨跌"] = pd.to_numeric(temp_df["5分钟涨跌"], errors="coerce")
-    temp_df["60日涨跌幅"] = pd.to_numeric(temp_df["60日涨跌幅"], errors="coerce")
-    temp_df["年初至今涨跌幅"] = pd.to_numeric(
-        temp_df["年初至今涨跌幅"], errors="coerce"
-    )
-    return temp_df
+    return _stock_zh_a_spot_em("sz")
 
 
 def stock_bj_a_spot_em() -> pd.DataFrame:
@@ -528,105 +354,7 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://82.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f12",
-        "fs": "m:0 t:81 s:2048",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24"
-        ",f25,f22,f11,f62,f128,f136,f115,f152",
-    }
-    temp_df = fetch_paginated_data(url, params)
-    temp_df.columns = [
-        "序号",
-        "_",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "成交量",
-        "成交额",
-        "振幅",
-        "换手率",
-        "市盈率-动态",
-        "量比",
-        "5分钟涨跌",
-        "代码",
-        "_",
-        "名称",
-        "最高",
-        "最低",
-        "今开",
-        "昨收",
-        "总市值",
-        "流通市值",
-        "涨速",
-        "市净率",
-        "60日涨跌幅",
-        "年初至今涨跌幅",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
-    temp_df = temp_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌幅",
-            "涨跌额",
-            "成交量",
-            "成交额",
-            "振幅",
-            "最高",
-            "最低",
-            "今开",
-            "昨收",
-            "量比",
-            "换手率",
-            "市盈率-动态",
-            "市净率",
-            "总市值",
-            "流通市值",
-            "涨速",
-            "5分钟涨跌",
-            "60日涨跌幅",
-            "年初至今涨跌幅",
-        ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
-    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df["市盈率-动态"] = pd.to_numeric(temp_df["市盈率-动态"], errors="coerce")
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-    temp_df["涨速"] = pd.to_numeric(temp_df["涨速"], errors="coerce")
-    temp_df["5分钟涨跌"] = pd.to_numeric(temp_df["5分钟涨跌"], errors="coerce")
-    temp_df["60日涨跌幅"] = pd.to_numeric(temp_df["60日涨跌幅"], errors="coerce")
-    temp_df["年初至今涨跌幅"] = pd.to_numeric(
-        temp_df["年初至今涨跌幅"], errors="coerce"
-    )
-    return temp_df
+    return _stock_zh_a_spot_em("bj")
 
 
 def stock_new_a_spot_em() -> pd.DataFrame:

@@ -76,9 +76,10 @@ def _make_row(code, market=0, pct_chg=0.0):
 
 @pytest.fixture(autouse=True)
 def _reset_stock_zh_a_spot_cache(monkeypatch):
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", ())
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_EXPIRES_AT", 0.0)
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", 0)
+    for market in stock_hist_em._ZH_A_SPOT_MARKET_FS:
+        monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHED_SECIDS, market, ())
+        monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHE_EXPIRES_AT, market, 0.0)
+        monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHE_VERSION, market, 0)
     monkeypatch.setattr(stock_hist_em.time, "sleep", lambda _seconds: None)
     monkeypatch.setattr(
         stock_hist_em,
@@ -87,20 +88,70 @@ def _reset_stock_zh_a_spot_cache(monkeypatch):
     )
 
 
-def _set_valid_cache(monkeypatch, secids, version=1):
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", tuple(secids))
-    monkeypatch.setattr(
-        stock_hist_em,
-        "_ZH_A_SPOT_CACHE_EXPIRES_AT",
+def _set_valid_cache(monkeypatch, secids, version=1, market="zh"):
+    monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHED_SECIDS, market, tuple(secids))
+    monkeypatch.setitem(
+        stock_hist_em._ZH_A_SPOT_CACHE_EXPIRES_AT,
+        market,
         time.monotonic() + 3600,
     )
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", version)
+    monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHE_VERSION, market, version)
 
 
-def test_stock_zh_a_spot_em_keeps_public_signature():
-    signature = inspect.signature(stock_hist_em.stock_zh_a_spot_em)
+@pytest.mark.parametrize(
+    "interface",
+    [
+        stock_hist_em.stock_zh_a_spot_em,
+        stock_hist_em.stock_sh_a_spot_em,
+        stock_hist_em.stock_sz_a_spot_em,
+        stock_hist_em.stock_bj_a_spot_em,
+    ],
+)
+def test_stock_a_spot_em_keeps_public_signature(interface):
+    signature = inspect.signature(interface)
     assert not signature.parameters
     assert signature.return_annotation is pd.DataFrame
+
+
+@pytest.mark.parametrize(
+    ("interface", "market", "code", "market_id"),
+    [
+        (stock_hist_em.stock_sh_a_spot_em, "sh", "600000", 1),
+        (stock_hist_em.stock_sz_a_spot_em, "sz", "000001", 0),
+        (stock_hist_em.stock_bj_a_spot_em, "bj", "920992", 0),
+    ],
+)
+def test_market_spot_interfaces_reuse_cold_and_warm_paths(
+    monkeypatch, interface, market, code, market_id
+):
+    calls = []
+
+    def handler(url, params):
+        calls.append((url, params.copy()))
+        row = _make_row(code, market_id)
+        if url == stock_hist_em._ZH_A_SPOT_URL:
+            assert params["fs"] == stock_hist_em._ZH_A_SPOT_MARKET_FS[market]
+            return _FakeResponse({"data": {"total": 1, "diff": [row]}})
+        assert url == stock_hist_em._ZH_A_SPOT_BATCH_URL
+        assert params["secids"] == f"{market_id}.{code}"
+        return _FakeResponse({"data": {"diff": [row]}})
+
+    monkeypatch.setattr(
+        stock_hist_em,
+        "_create_stock_zh_a_spot_session",
+        lambda: _FakeSession(handler),
+    )
+
+    cold_result = interface()
+    warm_result = interface()
+
+    assert cold_result["代码"].tolist() == [code]
+    assert warm_result["代码"].tolist() == [code]
+    assert list(cold_result.columns) == stock_hist_em._ZH_A_SPOT_COLUMNS
+    assert [url for url, _params in calls] == [
+        stock_hist_em._ZH_A_SPOT_URL,
+        stock_hist_em._ZH_A_SPOT_BATCH_URL,
+    ]
 
 
 def test_stock_zh_a_spot_em_cold_path_reuses_one_session(monkeypatch):
@@ -128,7 +179,7 @@ def test_stock_zh_a_spot_em_cold_path_reuses_one_session(monkeypatch):
     assert result["涨跌幅"].tolist() == [2.0, 0.5, -1.0]
     for column in stock_hist_em._ZH_A_SPOT_NUMERIC_COLUMNS:
         assert pd.api.types.is_numeric_dtype(result[column])
-    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == (
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS["zh"] == (
         "0.000001",
         "1.600000",
         "0.000002",
@@ -208,13 +259,13 @@ def test_stock_zh_a_spot_em_warm_path_batches_500_secids(monkeypatch):
 
 
 def test_stock_zh_a_spot_em_refreshes_expired_cache(monkeypatch):
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", ("0.000001",))
-    monkeypatch.setattr(
-        stock_hist_em,
-        "_ZH_A_SPOT_CACHE_EXPIRES_AT",
+    monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHED_SECIDS, "zh", ("0.000001",))
+    monkeypatch.setitem(
+        stock_hist_em._ZH_A_SPOT_CACHE_EXPIRES_AT,
+        "zh",
         time.monotonic() - 1,
     )
-    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", 4)
+    monkeypatch.setitem(stock_hist_em._ZH_A_SPOT_CACHE_VERSION, "zh", 4)
 
     def handler(url, _params):
         assert url == stock_hist_em._ZH_A_SPOT_URL
@@ -229,8 +280,8 @@ def test_stock_zh_a_spot_em_refreshes_expired_cache(monkeypatch):
 
     assert result["代码"].tolist() == ["600000"]
     assert [call[0] for call in session.calls] == [stock_hist_em._ZH_A_SPOT_URL]
-    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == ("1.600000",)
-    assert stock_hist_em._ZH_A_SPOT_CACHE_VERSION == 5
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS["zh"] == ("1.600000",)
+    assert stock_hist_em._ZH_A_SPOT_CACHE_VERSION["zh"] == 5
 
 
 def test_stock_zh_a_spot_em_refreshes_stale_code_cache(monkeypatch):
@@ -253,7 +304,7 @@ def test_stock_zh_a_spot_em_refreshes_stale_code_cache(monkeypatch):
         stock_hist_em._ZH_A_SPOT_BATCH_URL,
         stock_hist_em._ZH_A_SPOT_URL,
     ]
-    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == ("0.000002",)
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS["zh"] == ("0.000002",)
 
 
 @pytest.mark.parametrize(
