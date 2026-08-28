@@ -135,6 +135,50 @@ def test_stock_zh_a_spot_em_cold_path_reuses_one_session(monkeypatch):
     )
 
 
+def test_stock_zh_a_spot_em_falls_back_and_keeps_working_host(monkeypatch):
+    pages = {
+        "1": [_make_row("000001")],
+        "2": [_make_row("600000", 1)],
+    }
+
+    def handler(url, params):
+        if url == stock_hist_em._ZH_A_SPOT_URL:
+            raise requests.ConnectionError("connection reset")
+        assert url == stock_hist_em._ZH_A_SPOT_URLS[1]
+        return _FakeResponse({"data": {"total": 2, "diff": pages[params["pn"]]}})
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert result["代码"].tolist() == ["000001", "600000"]
+    assert [call[0] for call in session.calls] == [
+        stock_hist_em._ZH_A_SPOT_URL,
+        stock_hist_em._ZH_A_SPOT_URLS[1],
+        stock_hist_em._ZH_A_SPOT_URLS[1],
+    ]
+
+
+def test_stock_zh_a_spot_em_reaches_second_fallback_host(monkeypatch):
+    def handler(url, _params):
+        if url != stock_hist_em._ZH_A_SPOT_URLS[2]:
+            raise requests.ConnectionError("connection reset")
+        return _FakeResponse({"data": {"total": 1, "diff": [_make_row("000001")]}})
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert result["代码"].tolist() == ["000001"]
+    assert [call[0] for call in session.calls] == list(stock_hist_em._ZH_A_SPOT_URLS)
+
+
 def test_stock_zh_a_spot_em_warm_path_batches_500_secids(monkeypatch):
     rows_by_secid = {}
     for index in range(501):
@@ -217,11 +261,11 @@ def test_stock_zh_a_spot_em_refreshes_stale_code_cache(monkeypatch):
     [
         _FakeResponse(error=requests.HTTPError("403 Client Error")),
         _FakeResponse(error=requests.HTTPError("429 Client Error")),
-        _FakeResponse(error=requests.ConnectionError("connection reset")),
-        _FakeResponse(payload=ValueError("invalid json")),
     ],
 )
-def test_stock_zh_a_spot_em_does_not_fallback_on_request_errors(monkeypatch, response):
+def test_stock_zh_a_spot_em_does_not_switch_hosts_on_access_errors(
+    monkeypatch, response
+):
     _set_valid_cache(monkeypatch, ("0.000001",))
     session = _FakeSession(lambda _url, _params: response)
     monkeypatch.setattr(
@@ -233,6 +277,28 @@ def test_stock_zh_a_spot_em_does_not_fallback_on_request_errors(monkeypatch, res
 
     assert len(session.calls) == 1
     assert session.calls[0][0] == stock_hist_em._ZH_A_SPOT_BATCH_URL
+
+
+@pytest.mark.parametrize(
+    "response",
+    [
+        _FakeResponse(error=requests.ConnectionError("connection reset")),
+        _FakeResponse(payload=ValueError("invalid json")),
+    ],
+)
+def test_stock_zh_a_spot_em_tries_all_hosts_on_transient_errors(monkeypatch, response):
+    _set_valid_cache(monkeypatch, ("0.000001",))
+    session = _FakeSession(lambda _url, _params: response)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    with pytest.raises((requests.RequestException, ValueError)):
+        stock_hist_em.stock_zh_a_spot_em()
+
+    assert [call[0] for call in session.calls] == list(
+        stock_hist_em._ZH_A_SPOT_BATCH_URLS
+    )
 
 
 def test_stock_zh_a_spot_em_cold_refresh_is_singleflight(monkeypatch):

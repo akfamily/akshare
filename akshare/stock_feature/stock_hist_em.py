@@ -23,6 +23,17 @@ from akshare.utils.tqdm import get_tqdm
 
 _ZH_A_SPOT_URL = "https://82.push2.eastmoney.com/api/qt/clist/get"
 _ZH_A_SPOT_BATCH_URL = "https://82.push2.eastmoney.com/api/qt/ulist.np/get"
+_ZH_A_SPOT_URLS = (
+    _ZH_A_SPOT_URL,
+    "https://push2.eastmoney.com/api/qt/clist/get",
+    "https://push2delay.eastmoney.com/api/qt/clist/get",
+)
+_ZH_A_SPOT_BATCH_URLS = (
+    _ZH_A_SPOT_BATCH_URL,
+    "https://push2.eastmoney.com/api/qt/ulist.np/get",
+    "https://push2delay.eastmoney.com/api/qt/ulist.np/get",
+)
+_ZH_A_SPOT_SELECTED_ORIGIN_ATTR = "_akshare_stock_zh_a_spot_origin"
 _ZH_A_SPOT_FIELDS = (
     "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
     "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152"
@@ -85,6 +96,7 @@ def _create_stock_zh_a_spot_session() -> requests.Session:
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=frozenset({"GET"}),
         respect_retry_after_header=True,
+        raise_on_status=False,
     )
     adapter = HTTPAdapter(
         max_retries=retry,
@@ -97,17 +109,39 @@ def _create_stock_zh_a_spot_session() -> requests.Session:
 
 
 def _request_stock_zh_a_spot_data(
-    session: requests.Session, url: str, params: dict
+    session: requests.Session, urls: Sequence[str], params: dict
 ) -> dict:
-    response = session.get(url, params=params, timeout=_ZH_A_SPOT_TIMEOUT)
-    response.raise_for_status()
-    data_json = response.json()
-    if not isinstance(data_json, dict):
-        raise ValueError("东方财富行情接口未返回有效的 JSON 对象")
-    data = data_json.get("data")
-    if not isinstance(data, dict) or not isinstance(data.get("diff"), list):
-        raise ValueError("东方财富行情接口未返回有效的 data.diff 数据")
-    return data
+    selected_origin = getattr(session, _ZH_A_SPOT_SELECTED_ORIGIN_ATTR, None)
+    ordered_urls = sorted(
+        urls,
+        key=lambda item: not (selected_origin and item.startswith(selected_origin)),
+    )
+    last_error = None
+    for url in ordered_urls:
+        try:
+            response = session.get(url, params=params, timeout=_ZH_A_SPOT_TIMEOUT)
+            response.raise_for_status()
+            data_json = response.json()
+            if not isinstance(data_json, dict):
+                raise ValueError("东方财富行情接口未返回有效的 JSON 对象")
+            data = data_json.get("data")
+            if not isinstance(data, dict) or not isinstance(data.get("diff"), list):
+                raise ValueError("东方财富行情接口未返回有效的 data.diff 数据")
+        except requests.HTTPError as err:
+            status_code = getattr(err.response, "status_code", None)
+            if status_code is None or status_code < 500:
+                raise
+            last_error = err
+        except (requests.ConnectionError, requests.Timeout, ValueError) as err:
+            last_error = err
+        else:
+            origin = url.split("/api/", maxsplit=1)[0]
+            setattr(session, _ZH_A_SPOT_SELECTED_ORIGIN_ATTR, origin)
+            return data
+
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("东方财富行情接口没有可用的请求地址")
 
 
 def _stock_zh_a_spot_params() -> dict:
@@ -141,7 +175,7 @@ def _fetch_stock_zh_a_spot_clist(
         "fid": "f12",
         "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
     }
-    first_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URL, params)
+    first_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URLS, params)
     first_page = first_data["diff"]
     if not first_page:
         raise ValueError("东方财富行情接口返回了空的第一页数据")
@@ -156,7 +190,7 @@ def _fetch_stock_zh_a_spot_clist(
     for page in tqdm(range(2, total_page + 1), leave=False):
         time.sleep(random.uniform(0.5, 1.5))
         params["pn"] = str(page)
-        page_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URL, params)
+        page_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URLS, params)
         rows.extend(page_data["diff"])
 
     secids = _stock_zh_a_spot_secids(rows)
@@ -177,7 +211,7 @@ def _fetch_stock_zh_a_spot_batches(
             **_stock_zh_a_spot_params(),
             "secids": ",".join(batch),
         }
-        data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_BATCH_URL, params)
+        data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_BATCH_URLS, params)
         batch_rows = data["diff"]
         try:
             returned_secids = _stock_zh_a_spot_secids(batch_rows)
