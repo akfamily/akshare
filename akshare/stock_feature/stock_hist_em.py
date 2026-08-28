@@ -188,7 +188,7 @@ def _fetch_stock_zh_a_spot_clist(
     rows = list(first_page)
     tqdm = get_tqdm()
     for page in tqdm(range(2, total_page + 1), leave=False):
-        time.sleep(random.uniform(0.5, 1.5))
+        time.sleep(random.uniform(0.2, 0.4))
         params["pn"] = str(page)
         page_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URLS, params)
         rows.extend(page_data["diff"])
