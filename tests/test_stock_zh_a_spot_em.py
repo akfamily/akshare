@@ -1,0 +1,277 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import inspect
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+import pandas as pd
+import pytest
+import requests
+
+from akshare.stock_feature import stock_hist_em
+
+
+class _FakeResponse:
+    def __init__(self, payload=None, error=None):
+        self._payload = payload
+        self._error = error
+
+    def raise_for_status(self):
+        if self._error is not None:
+            raise self._error
+
+    def json(self):
+        if isinstance(self._payload, Exception):
+            raise self._payload
+        return self._payload
+
+
+class _FakeSession:
+    def __init__(self, handler):
+        self._handler = handler
+        self.calls = []
+        self.closed = False
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.closed = True
+
+    def get(self, url, params, timeout):
+        self.calls.append((url, params.copy(), timeout))
+        return self._handler(url, params)
+
+
+def _make_row(code, market=0, pct_chg=0.0):
+    return {
+        "f1": 2,
+        "f2": "10.20",
+        "f3": str(pct_chg),
+        "f4": "0.20",
+        "f5": "1000",
+        "f6": "10200",
+        "f7": "2.50",
+        "f8": "1.20",
+        "f9": "12.30",
+        "f10": "1.10",
+        "f11": "0.30",
+        "f12": code,
+        "f13": market,
+        "f14": f"股票{code}",
+        "f15": "10.50",
+        "f16": "9.90",
+        "f17": "10.00",
+        "f18": "10.00",
+        "f20": "1000000",
+        "f21": "800000",
+        "f22": "0.10",
+        "f23": "1.50",
+        "f24": "5.20",
+        "f25": "8.30",
+    }
+
+
+@pytest.fixture(autouse=True)
+def _reset_stock_zh_a_spot_cache(monkeypatch):
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", ())
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_EXPIRES_AT", 0.0)
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", 0)
+    monkeypatch.setattr(stock_hist_em.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        stock_hist_em,
+        "get_tqdm",
+        lambda: lambda iterable, **_kwargs: iterable,
+    )
+
+
+def _set_valid_cache(monkeypatch, secids, version=1):
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", tuple(secids))
+    monkeypatch.setattr(
+        stock_hist_em,
+        "_ZH_A_SPOT_CACHE_EXPIRES_AT",
+        time.monotonic() + 3600,
+    )
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", version)
+
+
+def test_stock_zh_a_spot_em_keeps_public_signature():
+    signature = inspect.signature(stock_hist_em.stock_zh_a_spot_em)
+    assert not signature.parameters
+    assert signature.return_annotation is pd.DataFrame
+
+
+def test_stock_zh_a_spot_em_cold_path_reuses_one_session(monkeypatch):
+    pages = {
+        "1": [_make_row("000001", pct_chg=-1), _make_row("600000", 1, 2)],
+        "2": [_make_row("000002", pct_chg=0.5)],
+    }
+
+    def handler(url, params):
+        assert url == stock_hist_em._ZH_A_SPOT_URL
+        return _FakeResponse({"data": {"total": 3, "diff": pages[params["pn"]]}})
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert session.closed
+    assert len(session.calls) == 2
+    assert list(result.columns) == stock_hist_em._ZH_A_SPOT_COLUMNS
+    assert result["序号"].tolist() == [1, 2, 3]
+    assert result["代码"].tolist() == ["600000", "000002", "000001"]
+    assert result["涨跌幅"].tolist() == [2.0, 0.5, -1.0]
+    for column in stock_hist_em._ZH_A_SPOT_NUMERIC_COLUMNS:
+        assert pd.api.types.is_numeric_dtype(result[column])
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == (
+        "0.000001",
+        "1.600000",
+        "0.000002",
+    )
+
+
+def test_stock_zh_a_spot_em_warm_path_batches_500_secids(monkeypatch):
+    rows_by_secid = {}
+    for index in range(501):
+        market = index % 2
+        code = f"{index:06d}"
+        rows_by_secid[f"{market}.{code}"] = _make_row(code, market, index)
+    secids = tuple(rows_by_secid)
+    _set_valid_cache(monkeypatch, secids)
+
+    def handler(url, params):
+        assert url == stock_hist_em._ZH_A_SPOT_BATCH_URL
+        batch = params["secids"].split(",")
+        return _FakeResponse(
+            {"data": {"diff": [rows_by_secid[secid] for secid in batch]}}
+        )
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert len(result) == 501
+    assert [len(call[1]["secids"].split(",")) for call in session.calls] == [500, 1]
+    assert all(call[0] == stock_hist_em._ZH_A_SPOT_BATCH_URL for call in session.calls)
+
+
+def test_stock_zh_a_spot_em_refreshes_expired_cache(monkeypatch):
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHED_SECIDS", ("0.000001",))
+    monkeypatch.setattr(
+        stock_hist_em,
+        "_ZH_A_SPOT_CACHE_EXPIRES_AT",
+        time.monotonic() - 1,
+    )
+    monkeypatch.setattr(stock_hist_em, "_ZH_A_SPOT_CACHE_VERSION", 4)
+
+    def handler(url, _params):
+        assert url == stock_hist_em._ZH_A_SPOT_URL
+        return _FakeResponse({"data": {"total": 1, "diff": [_make_row("600000", 1)]}})
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert result["代码"].tolist() == ["600000"]
+    assert [call[0] for call in session.calls] == [stock_hist_em._ZH_A_SPOT_URL]
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == ("1.600000",)
+    assert stock_hist_em._ZH_A_SPOT_CACHE_VERSION == 5
+
+
+def test_stock_zh_a_spot_em_refreshes_stale_code_cache(monkeypatch):
+    _set_valid_cache(monkeypatch, ("0.000001", "1.600000"), version=3)
+
+    def handler(url, _params):
+        if url == stock_hist_em._ZH_A_SPOT_BATCH_URL:
+            return _FakeResponse({"data": {"diff": [_make_row("000001")]}})
+        return _FakeResponse({"data": {"total": 1, "diff": [_make_row("000002")]}})
+
+    session = _FakeSession(handler)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    result = stock_hist_em.stock_zh_a_spot_em()
+
+    assert result["代码"].tolist() == ["000002"]
+    assert [call[0] for call in session.calls] == [
+        stock_hist_em._ZH_A_SPOT_BATCH_URL,
+        stock_hist_em._ZH_A_SPOT_URL,
+    ]
+    assert stock_hist_em._ZH_A_SPOT_CACHED_SECIDS == ("0.000002",)
+
+
+@pytest.mark.parametrize(
+    "response",
+    [
+        _FakeResponse(error=requests.HTTPError("403 Client Error")),
+        _FakeResponse(error=requests.HTTPError("429 Client Error")),
+        _FakeResponse(error=requests.ConnectionError("connection reset")),
+        _FakeResponse(payload=ValueError("invalid json")),
+    ],
+)
+def test_stock_zh_a_spot_em_does_not_fallback_on_request_errors(monkeypatch, response):
+    _set_valid_cache(monkeypatch, ("0.000001",))
+    session = _FakeSession(lambda _url, _params: response)
+    monkeypatch.setattr(
+        stock_hist_em, "_create_stock_zh_a_spot_session", lambda: session
+    )
+
+    with pytest.raises((requests.RequestException, ValueError)):
+        stock_hist_em.stock_zh_a_spot_em()
+
+    assert len(session.calls) == 1
+    assert session.calls[0][0] == stock_hist_em._ZH_A_SPOT_BATCH_URL
+
+
+def test_stock_zh_a_spot_em_cold_refresh_is_singleflight(monkeypatch):
+    calls = []
+    calls_lock = threading.Lock()
+
+    def handler(url, params):
+        with calls_lock:
+            calls.append((url, params.copy()))
+        if url == stock_hist_em._ZH_A_SPOT_URL:
+            return _FakeResponse({"data": {"total": 1, "diff": [_make_row("000001")]}})
+        return _FakeResponse({"data": {"diff": [_make_row("000001")]}})
+
+    monkeypatch.setattr(
+        stock_hist_em,
+        "_create_stock_zh_a_spot_session",
+        lambda: _FakeSession(handler),
+    )
+    barrier = threading.Barrier(2)
+
+    def fetch():
+        barrier.wait()
+        return stock_hist_em.stock_zh_a_spot_em()
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(lambda _index: fetch(), range(2)))
+
+    assert all(result["代码"].tolist() == ["000001"] for result in results)
+    assert sum(url == stock_hist_em._ZH_A_SPOT_URL for url, _params in calls) == 1
+    assert sum(url == stock_hist_em._ZH_A_SPOT_BATCH_URL for url, _params in calls) == 1
+
+
+def test_stock_zh_a_spot_session_has_bounded_get_retries():
+    session = stock_hist_em._create_stock_zh_a_spot_session()
+    retry = session.adapters["https://"].max_retries
+    try:
+        assert retry.total == 3
+        assert retry.allowed_methods == frozenset({"GET"})
+        assert retry.status_forcelist == (429, 500, 502, 503, 504)
+        assert retry.respect_retry_after_header
+    finally:
+        session.close()

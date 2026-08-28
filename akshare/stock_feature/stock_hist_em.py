@@ -6,10 +6,244 @@ Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
 
+import math
+import random
+import threading
+import time
+from typing import Optional, Sequence, Tuple
+
 import pandas as pd
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.tqdm import get_tqdm
+
+
+_ZH_A_SPOT_URL = "https://82.push2.eastmoney.com/api/qt/clist/get"
+_ZH_A_SPOT_BATCH_URL = "https://82.push2.eastmoney.com/api/qt/ulist.np/get"
+_ZH_A_SPOT_FIELDS = (
+    "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
+    "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152"
+)
+_ZH_A_SPOT_BATCH_SIZE = 500
+_ZH_A_SPOT_CACHE_TTL = 60 * 60
+_ZH_A_SPOT_TIMEOUT = 15
+_ZH_A_SPOT_CACHE_LOCK = threading.Lock()
+_ZH_A_SPOT_CACHED_SECIDS: Tuple[str, ...] = ()
+_ZH_A_SPOT_CACHE_EXPIRES_AT = 0.0
+_ZH_A_SPOT_CACHE_VERSION = 0
+
+_ZH_A_SPOT_COLUMN_MAP = {
+    "f12": "代码",
+    "f14": "名称",
+    "f2": "最新价",
+    "f3": "涨跌幅",
+    "f4": "涨跌额",
+    "f5": "成交量",
+    "f6": "成交额",
+    "f7": "振幅",
+    "f15": "最高",
+    "f16": "最低",
+    "f17": "今开",
+    "f18": "昨收",
+    "f10": "量比",
+    "f8": "换手率",
+    "f9": "市盈率-动态",
+    "f23": "市净率",
+    "f20": "总市值",
+    "f21": "流通市值",
+    "f22": "涨速",
+    "f11": "5分钟涨跌",
+    "f24": "60日涨跌幅",
+    "f25": "年初至今涨跌幅",
+}
+_ZH_A_SPOT_COLUMNS = ["序号", *_ZH_A_SPOT_COLUMN_MAP.values()]
+_ZH_A_SPOT_NUMERIC_COLUMNS = _ZH_A_SPOT_COLUMNS[3:]
+
+
+class _StockZhASpotCodeCacheStale(ValueError):
+    pass
+
+
+def _create_stock_zh_a_spot_session() -> requests.Session:
+    session = requests.Session()
+    session.headers.update(
+        {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+            "Referer": "https://quote.eastmoney.com/",
+        }
+    )
+    retry = Retry(
+        total=3,
+        connect=3,
+        read=2,
+        status=3,
+        backoff_factor=0.5,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset({"GET"}),
+        respect_retry_after_header=True,
+    )
+    adapter = HTTPAdapter(
+        max_retries=retry,
+        pool_connections=1,
+        pool_maxsize=1,
+    )
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
+
+def _request_stock_zh_a_spot_data(
+    session: requests.Session, url: str, params: dict
+) -> dict:
+    response = session.get(url, params=params, timeout=_ZH_A_SPOT_TIMEOUT)
+    response.raise_for_status()
+    data_json = response.json()
+    if not isinstance(data_json, dict):
+        raise ValueError("东方财富行情接口未返回有效的 JSON 对象")
+    data = data_json.get("data")
+    if not isinstance(data, dict) or not isinstance(data.get("diff"), list):
+        raise ValueError("东方财富行情接口未返回有效的 data.diff 数据")
+    return data
+
+
+def _stock_zh_a_spot_params() -> dict:
+    return {
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fields": _ZH_A_SPOT_FIELDS,
+    }
+
+
+def _stock_zh_a_spot_secids(rows: Sequence[dict]) -> Tuple[str, ...]:
+    try:
+        secids = tuple(f"{item['f13']}.{item['f12']}" for item in rows)
+    except (KeyError, TypeError) as err:
+        raise ValueError("东方财富行情结果缺少证券代码或市场标识") from err
+    if len(secids) != len(set(secids)):
+        raise ValueError("东方财富行情结果包含重复证券代码")
+    return secids
+
+
+def _fetch_stock_zh_a_spot_clist(
+    session: requests.Session,
+) -> Tuple[list, Tuple[str, ...]]:
+    params = {
+        **_stock_zh_a_spot_params(),
+        "pn": "1",
+        "pz": "100",
+        "po": "1",
+        "np": "1",
+        "fid": "f12",
+        "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
+    }
+    first_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URL, params)
+    first_page = first_data["diff"]
+    if not first_page:
+        raise ValueError("东方财富行情接口返回了空的第一页数据")
+    try:
+        total = int(first_data["total"])
+    except (KeyError, TypeError, ValueError) as err:
+        raise ValueError("东方财富行情接口未返回有效的数据总量") from err
+
+    total_page = math.ceil(total / len(first_page))
+    rows = list(first_page)
+    tqdm = get_tqdm()
+    for page in tqdm(range(2, total_page + 1), leave=False):
+        time.sleep(random.uniform(0.5, 1.5))
+        params["pn"] = str(page)
+        page_data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_URL, params)
+        rows.extend(page_data["diff"])
+
+    secids = _stock_zh_a_spot_secids(rows)
+    if len(secids) != total:
+        raise ValueError(
+            f"东方财富行情接口返回数量不完整: 预期 {total}, 实际 {len(secids)}"
+        )
+    return rows, secids
+
+
+def _fetch_stock_zh_a_spot_batches(
+    session: requests.Session, secids: Sequence[str]
+) -> list:
+    rows = []
+    for start in range(0, len(secids), _ZH_A_SPOT_BATCH_SIZE):
+        batch = tuple(secids[start : start + _ZH_A_SPOT_BATCH_SIZE])
+        params = {
+            **_stock_zh_a_spot_params(),
+            "secids": ",".join(batch),
+        }
+        data = _request_stock_zh_a_spot_data(session, _ZH_A_SPOT_BATCH_URL, params)
+        batch_rows = data["diff"]
+        try:
+            returned_secids = _stock_zh_a_spot_secids(batch_rows)
+        except ValueError as err:
+            raise _StockZhASpotCodeCacheStale(str(err)) from err
+        if len(returned_secids) != len(batch) or set(returned_secids) != set(batch):
+            raise _StockZhASpotCodeCacheStale(
+                "东方财富批量行情结果与缓存的证券代码清单不一致"
+            )
+        rows.extend(batch_rows)
+        if start + _ZH_A_SPOT_BATCH_SIZE < len(secids):
+            time.sleep(random.uniform(0.2, 0.4))
+
+    returned_secids = _stock_zh_a_spot_secids(rows)
+    if len(returned_secids) != len(secids) or set(returned_secids) != set(secids):
+        raise _StockZhASpotCodeCacheStale(
+            "东方财富批量行情结果未覆盖完整的证券代码清单"
+        )
+    return rows
+
+
+def _read_stock_zh_a_spot_cache() -> Tuple[Tuple[str, ...], int]:
+    with _ZH_A_SPOT_CACHE_LOCK:
+        if _ZH_A_SPOT_CACHED_SECIDS and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT:
+            return _ZH_A_SPOT_CACHED_SECIDS, _ZH_A_SPOT_CACHE_VERSION
+    return (), _ZH_A_SPOT_CACHE_VERSION
+
+
+def _refresh_stock_zh_a_spot_cache(
+    session: requests.Session, expected_version: Optional[int] = None
+) -> Tuple[Optional[list], Tuple[str, ...], int]:
+    global _ZH_A_SPOT_CACHED_SECIDS
+    global _ZH_A_SPOT_CACHE_EXPIRES_AT
+    global _ZH_A_SPOT_CACHE_VERSION
+
+    with _ZH_A_SPOT_CACHE_LOCK:
+        cache_is_valid = (
+            _ZH_A_SPOT_CACHED_SECIDS and time.monotonic() < _ZH_A_SPOT_CACHE_EXPIRES_AT
+        )
+        if cache_is_valid and (
+            expected_version is None or _ZH_A_SPOT_CACHE_VERSION != expected_version
+        ):
+            return None, _ZH_A_SPOT_CACHED_SECIDS, _ZH_A_SPOT_CACHE_VERSION
+
+        rows, secids = _fetch_stock_zh_a_spot_clist(session)
+        _ZH_A_SPOT_CACHED_SECIDS = secids
+        _ZH_A_SPOT_CACHE_EXPIRES_AT = time.monotonic() + _ZH_A_SPOT_CACHE_TTL
+        _ZH_A_SPOT_CACHE_VERSION += 1
+        return rows, secids, _ZH_A_SPOT_CACHE_VERSION
+
+
+def _format_stock_zh_a_spot(rows: Sequence[dict]) -> pd.DataFrame:
+    temp_df = pd.DataFrame(rows)
+    missing_fields = set(_ZH_A_SPOT_COLUMN_MAP).difference(temp_df.columns)
+    if missing_fields:
+        raise ValueError(
+            "东方财富行情结果缺少字段: " + ", ".join(sorted(missing_fields))
+        )
+    temp_df["f3"] = pd.to_numeric(temp_df["f3"], errors="coerce")
+    temp_df.sort_values(by=["f3"], ascending=False, inplace=True, ignore_index=True)
+    temp_df.rename(columns=_ZH_A_SPOT_COLUMN_MAP, inplace=True)
+    temp_df.insert(0, "序号", range(1, len(temp_df) + 1))
+    temp_df = temp_df[_ZH_A_SPOT_COLUMNS]
+    for column in _ZH_A_SPOT_NUMERIC_COLUMNS:
+        temp_df[column] = pd.to_numeric(temp_df[column], errors="coerce")
+    return temp_df
 
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
@@ -19,106 +253,22 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://82.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "100",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "fid": "f12",
-        "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
-        "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
-    }
-    temp_df = fetch_paginated_data(url, params)
-    temp_df.columns = [
-        "index",
-        "_",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "成交量",
-        "成交额",
-        "振幅",
-        "换手率",
-        "市盈率-动态",
-        "量比",
-        "5分钟涨跌",
-        "代码",
-        "_",
-        "名称",
-        "最高",
-        "最低",
-        "今开",
-        "昨收",
-        "总市值",
-        "流通市值",
-        "涨速",
-        "市净率",
-        "60日涨跌幅",
-        "年初至今涨跌幅",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
-    temp_df = temp_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌幅",
-            "涨跌额",
-            "成交量",
-            "成交额",
-            "振幅",
-            "最高",
-            "最低",
-            "今开",
-            "昨收",
-            "量比",
-            "换手率",
-            "市盈率-动态",
-            "市净率",
-            "总市值",
-            "流通市值",
-            "涨速",
-            "5分钟涨跌",
-            "60日涨跌幅",
-            "年初至今涨跌幅",
-        ]
-    ]
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
-    temp_df["今开"] = pd.to_numeric(temp_df["今开"], errors="coerce")
-    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
-    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df["市盈率-动态"] = pd.to_numeric(temp_df["市盈率-动态"], errors="coerce")
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-    temp_df["涨速"] = pd.to_numeric(temp_df["涨速"], errors="coerce")
-    temp_df["5分钟涨跌"] = pd.to_numeric(temp_df["5分钟涨跌"], errors="coerce")
-    temp_df["60日涨跌幅"] = pd.to_numeric(temp_df["60日涨跌幅"], errors="coerce")
-    temp_df["年初至今涨跌幅"] = pd.to_numeric(
-        temp_df["年初至今涨跌幅"], errors="coerce"
-    )
-    return temp_df
+    with _create_stock_zh_a_spot_session() as session:
+        secids, cache_version = _read_stock_zh_a_spot_cache()
+        if not secids:
+            rows, secids, cache_version = _refresh_stock_zh_a_spot_cache(session)
+            if rows is not None:
+                return _format_stock_zh_a_spot(rows)
+
+        try:
+            rows = _fetch_stock_zh_a_spot_batches(session, secids)
+        except _StockZhASpotCodeCacheStale:
+            rows, secids, cache_version = _refresh_stock_zh_a_spot_cache(
+                session, expected_version=cache_version
+            )
+            if rows is None:
+                rows = _fetch_stock_zh_a_spot_batches(session, secids)
+        return _format_stock_zh_a_spot(rows)
 
 
 def stock_sh_a_spot_em() -> pd.DataFrame:
