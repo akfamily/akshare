@@ -14,22 +14,44 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from akshare.exceptions import APIError, DataParsingError
 from akshare.utils.cons import headers
 
 
 def get_cookie_csrf(url: str = "") -> dict:
     """
-    乐咕乐股-主板市盈率
+    从乐咕乐股页面取出 CSRF 令牌与 cookie，供该数据源的各接口带在后续请求上
     https://legulegu.com/stockdata/shanghaiPE
-    :return: 指定市场的市盈率数据
-    :rtype: pandas.DataFrame
+    :param url: 乐咕乐股的页面地址
+    :type url: str
+    :return: 含 cookies 与 headers 两个键，可直接展开传给 requests
+    :rtype: dict
+    :raises APIError: 上游返回非 2xx（被拒绝时为 nginx 403）或请求本身失败
+    :raises DataParsingError: 页面取回成功但其中没有 _csrf 标签
     """
     # 创建独立的 session，避免污染全局状态
     session = requests.Session()
     session.headers.update(headers)
-    r = session.get(url)
+    # 必须先校验状态码：上游拒绝请求时返回的 nginx 403 错误页里没有 _csrf 标签，
+    # 若直接交给下面的解析流程，就会在 None 上取 .attrs，而抛出的
+    # AttributeError: 'NoneType' object has no attribute 'attrs' 既不含状态码
+    # 也不提上游，用户无从判断是自己被挡了。同一报错自 2024 年起已复发多次，
+    # 见 #4680、#7237、#7417。
+    try:
+        r = session.get(url)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as err:
+        raise APIError(
+            f"legulegu 请求失败，请确认该站点在当前网络下可正常访问：{err}",
+            status_code=getattr(err.response, "status_code", None),
+        ) from err
     soup = BeautifulSoup(r.text, features="lxml")
     csrf_tag = soup.find(name="meta", attrs={"name": "_csrf"})
+    # 状态码正常却没有令牌，通常是上游改版或返回了 200 的拦截页。
+    if csrf_tag is None:
+        raise DataParsingError(
+            f"legulegu 页面中未找到 _csrf 令牌，上游可能已改版或拦截了本次请求：{url}"
+        )
     csrf_token = csrf_tag.attrs["content"]
     # 创建新的 headers
     local_headers = headers.copy()

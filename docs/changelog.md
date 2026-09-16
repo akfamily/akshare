@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.95 fix: raise a meaningful error when legulegu rejects the request
+
+    1. 修复乐咕乐股系列接口在上游拒绝请求时抛出 `AttributeError: 'NoneType' object has no attribute 'attrs'` 的问题：共用的 CSRF 获取逻辑此前既不校验状态码也不判空，上游返回的 403 错误页会被当作正常页面解析；现改为抛出携带状态码的 `APIError`，页面缺少 `_csrf` 标签时抛出 `DataParsingError`
+    2. 受益接口共 14 个：stock_buffett_index_lg、stock_index_pe_lg、stock_index_pb_lg、stock_market_pe_lg、stock_market_pb_lg、stock_a_congestion_lg、stock_ebs_lg、stock_a_gxl_lg、stock_hk_gxl_lg、stock_a_ttm_lyr、stock_a_all_pb、fund_stock_position_lg、fund_balance_position_lg、fund_linghuo_position_lg
+
 1.18.94 fix: fix fund_money_fund_info_em interface
 
     1. 优化 stock_board_concept_hist_em 接口的空数据兜底逻辑：仅对合法空历史返回空 DataFrame，对无效概念板块名称或 BK 代码抛出明确异常
