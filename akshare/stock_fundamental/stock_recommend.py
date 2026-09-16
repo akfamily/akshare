@@ -6,9 +6,25 @@ Desc: 新浪财经-机构推荐池
 http://stock.finance.sina.com.cn/stock/go.php/vIR_RatingNewest/index.phtml
 """
 
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+_SINA_RECOMMEND_TIMEOUT = 15
+
+
+def _read_sina_recommend_table(html_text: str) -> pd.DataFrame:
+    """
+    兼容新版 pandas 的 HTML 表格解析。
+
+    :param html_text: 页面 HTML 文本
+    :type html_text: str
+    :return: 解析后的首个表格
+    :rtype: pandas.DataFrame
+    """
+    return pd.read_html(StringIO(html_text), header=0)[0]
 
 
 def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFrame:
@@ -25,7 +41,7 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "40",
         "p": "1",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
     soup = BeautifulSoup(r.text, "lxml")
     indicator_map = {
         item.find("a").text: item.find("a")["href"]
@@ -36,38 +52,38 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "10000",
         "p": "1",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
     if symbol == "股票综合评级":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :9]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :9]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         temp_df = temp_df.rename(columns={"综合评级↓": "综合评级"})
         return temp_df
     if symbol == "首次评级股票":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :8]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :8]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})
         return temp_df
     if symbol == "目标涨幅排名":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :7]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :7]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         temp_df = temp_df.rename(columns={"平均目标涨幅↓": "平均目标涨幅"})
         return temp_df
     if symbol == "机构关注度":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :11]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :11]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         temp_df = temp_df.rename(columns={"关注度↓": "关注度"})
         return temp_df
     if symbol == "行业关注度":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :11]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :11]
         temp_df = temp_df.rename(columns={"关注度↓": "关注度"})
         return temp_df
     if symbol == "投资评级选股":
-        temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :9]
+        temp_df = _read_sina_recommend_table(r.text).iloc[:, :9]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         del temp_df["评级明细"]
         temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})
         return temp_df
-    temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :8]
+    temp_df = _read_sina_recommend_table(r.text).iloc[:, :8]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})
     return temp_df
@@ -87,8 +103,8 @@ def stock_institute_recommend_detail(symbol: str = "000001") -> pd.DataFrame:
         "num": "5000",
         "p": "1",
     }
-    r = requests.get(url, params=params)
-    temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :8]
+    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
+    temp_df = _read_sina_recommend_table(r.text).iloc[:, :8]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})
     return temp_df

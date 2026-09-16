@@ -6,8 +6,64 @@ Desc: 港股-基本面数据
 https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 """
 
+from typing import Dict
+
 import pandas as pd
 import requests
+
+from akshare.exceptions import APIError
+
+
+def _get_hk_financial_report_list(stock: str) -> pd.DataFrame:
+    """
+    获取东方财富港股财务报告摘要列表。
+
+    :param stock: 股票代码
+    :type stock: str
+    :return: 财务报告摘要列表
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
+    params = {
+        "reportName": "RPT_CUSTOM_HKSK_APPFN_CASHFLOW_SUMMARY",
+        "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,START_DATE,REPORT_DATE,FISCAL_YEAR,"
+        "CURRENCY,ACCOUNT_STANDARD,REPORT_TYPE",
+        "quoteColumns": "",
+        "filter": f'(SECUCODE="{stock}.HK")',
+        "source": "F10",
+        "client": "PC",
+        "v": "02092616586970355",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    result_data = data_json.get("result", {}).get("data", [])
+    if not result_data:
+        raise APIError(f"东方财富港股财务摘要接口未返回有效数据: {stock}")
+    report_list = result_data[0].get("REPORT_LIST", [])
+    if not isinstance(report_list, list):
+        raise APIError(f"东方财富港股财务摘要接口返回格式异常: {stock}")
+    return pd.DataFrame(report_list)
+
+
+def _get_hk_financial_currency_map(stock: str) -> Dict[pd.Timestamp, str]:
+    """
+    获取港股财务报告日期到币种的映射表。
+
+    :param stock: 股票代码
+    :type stock: str
+    :return: 报告日期到币种的映射
+    :rtype: dict
+    """
+    report_df = _get_hk_financial_report_list(stock=stock)
+    if report_df.empty or "REPORT_DATE" not in report_df.columns:
+        return {}
+    currency_df = report_df.loc[:, ["REPORT_DATE", "CURRENCY"]].copy()
+    currency_df["REPORT_DATE_KEY"] = pd.to_datetime(
+        currency_df["REPORT_DATE"], errors="coerce"
+    )
+    currency_df = currency_df.dropna(subset=["REPORT_DATE_KEY"])
+    currency_df = currency_df.drop_duplicates(subset=["REPORT_DATE_KEY"], keep="first")
+    return dict(zip(currency_df["REPORT_DATE_KEY"], currency_df["CURRENCY"]))
 
 
 def stock_financial_hk_report_em(
@@ -26,19 +82,7 @@ def stock_financial_hk_report_em(
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
-    params = {
-        "reportName": "RPT_CUSTOM_HKSK_APPFN_CASHFLOW_SUMMARY",
-        "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,START_DATE,REPORT_DATE,FISCAL_YEAR,"
-        "CURRENCY,ACCOUNT_STANDARD,REPORT_TYPE",
-        "quoteColumns": "",
-        "filter": f'(SECUCODE="{stock}.HK")',
-        "source": "F10",
-        "client": "PC",
-        "v": "02092616586970355",
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"][0]["REPORT_LIST"])
+    temp_df = _get_hk_financial_report_list(stock=stock)
     if indicator == "年度":
         temp_df = temp_df[temp_df["REPORT_TYPE"] == "年报"]
     else:
@@ -138,6 +182,20 @@ def stock_financial_hk_analysis_indicator_em(
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
+    if (
+        not temp_df.empty
+        and "REPORT_DATE" in temp_df.columns
+        and "CURRENCY" in temp_df.columns
+    ):
+        currency_map = _get_hk_financial_currency_map(stock=symbol)
+        if currency_map:
+            temp_df["REPORT_DATE_KEY"] = pd.to_datetime(
+                temp_df["REPORT_DATE"], errors="coerce"
+            )
+            temp_df["CURRENCY"] = (
+                temp_df["REPORT_DATE_KEY"].map(currency_map).fillna(temp_df["CURRENCY"])
+            )
+            temp_df.drop(columns=["REPORT_DATE_KEY"], inplace=True)
     return temp_df
 
 

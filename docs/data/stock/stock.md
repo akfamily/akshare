@@ -12016,7 +12016,7 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 | 名称        | 类型  | 描述                                          |
 |-----------|-----|---------------------------------------------|
 | symbol    | str | symbol="000063"；股票代码                       |
-| indicator | str | indicator="按报告期"; choice of {"按报告期", "按年度"} |
+| indicator | str | indicator="按报告期"; choice of {"按报告期", "一季度", "二季度", "三季度", "四季度", "按年度"} |
 
 输出参数
 
@@ -12038,26 +12038,26 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 ```python
 import akshare as ak
 
-stock_financial_debt_new_ths_df = ak.stock_financial_debt_new_ths(symbol="000063", indicator="按年度")
+stock_financial_debt_new_ths_df = ak.stock_financial_debt_new_ths(symbol="000063", indicator="一季度")
 print(stock_financial_debt_new_ths_df)
 ```
 
 数据示例
 
 ```
-     report_date report_name report_period  ...          yoy   mom single_yoy
-0     2024-12-31      2024年报        2024-4  ...         <NA>  <NA>       <NA>
-1     2024-12-31      2024年报        2024-4  ...         <NA>  <NA>       <NA>
-2     2024-12-31      2024年报        2024-4  ...   0.16420728  <NA>       <NA>
-3     2024-12-31      2024年报        2024-4  ...  -0.15807123  <NA>       <NA>
-4     2024-12-31      2024年报        2024-4  ...   0.00005916  <NA>       <NA>
-...          ...         ...           ...  ...          ...   ...        ...
-3684  1994-12-31      1994年报        1994-4  ...         <NA>  <NA>       <NA>
-3685  1994-12-31      1994年报        1994-4  ...         <NA>  <NA>       <NA>
-3686  1994-12-31      1994年报        1994-4  ...         <NA>  <NA>       <NA>
-3687  1994-12-31      1994年报        1994-4  ...         <NA>  <NA>       <NA>
-3688  1994-12-31      1994年报        1994-4  ...         <NA>  <NA>       <NA>
-[3689 rows x 10 columns]
+    report_date report_name report_period  ...   yoy        mom single_yoy
+0    2026-03-31      2026一季报        2026-1  ...  <NA>       <NA>       <NA>
+1    2026-03-31      2026一季报        2026-1  ...  <NA>       <NA>       <NA>
+2    2026-03-31      2026一季报        2026-1  ...  <NA>       <NA>       <NA>
+3    2026-03-31      2026一季报        2026-1  ...  <NA>       <NA>       <NA>
+4    2026-03-31      2026一季报        2026-1  ...  <NA>       <NA>       <NA>
+...         ...         ...           ...  ...   ...        ...        ...
+2159 2010-03-31      2010一季报        2010-1  ...  <NA>       <NA>       <NA>
+2160 2010-03-31      2010一季报        2010-1  ...  <NA>       <NA>       <NA>
+2161 2010-03-31      2010一季报        2010-1  ...  <NA>       <NA>       <NA>
+2162 2010-03-31      2010一季报        2010-1  ...  <NA>       <NA>       <NA>
+2163 2010-03-31      2010一季报        2010-1  ...  <NA>  0.1268659  2.2528218
+[2164 rows x 10 columns]
 ```
 
 #### 利润表
@@ -12917,7 +12917,7 @@ print(stock_financial_analysis_indicator_df)
 | CURRENTDEBT_DEBT    | float64 | 流动负债/总负债(%)    |
 | START_DATE          | object  | START_DATE     |
 | FISCAL_YEAR         | object  | 年结日            |
-| CURRENCY            | object  | CURRENCY       |
+| CURRENCY            | object  | 币种代码（按同报告期摘要数据回填） |
 | IS_CNY_CODE         | int64   | IS_CNY_CODE    |
 
 接口示例
@@ -12933,15 +12933,15 @@ print(stock_financial_hk_analysis_indicator_em_df)
 
 ```
    SECUCODE SECURITY_CODE SECURITY_NAME_ABBR  ... FISCAL_YEAR CURRENCY IS_CNY_CODE
-0  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-1  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-2  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-3  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-4  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-5  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-6  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-7  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
-8  00700.HK         00700               腾讯控股  ...       12-31      HKD           0
+0  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+1  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+2  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+3  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+4  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+5  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+6  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+7  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
+8  00700.HK         00700               腾讯控股  ...       12-31     人民币           0
 [9 rows x 36 columns]
 ```
 
@@ -15800,6 +15800,10 @@ print(stock_institute_hold_detail_df)
 
 描述：新浪财经-机构推荐池-具体指标的数据
 
+说明：接口当前已适配新版 `pandas` 的 HTML 表格解析方式
+
+说明：接口当前已适配新版 `pandas` 的 HTML 表格解析方式
+
 限量：单次获取新浪财经-机构推荐池-具体指标的所有数据
 
 输入参数
@@ -15847,6 +15851,10 @@ print(stock_institute_recommend_df)
 目标地址：http://stock.finance.sina.com.cn/stock/go.php/vIR_StockSearch/key/sz000001.phtml
 
 描述：新浪财经-机构推荐池-股票评级记录
+
+说明：接口当前已适配新版 `pandas` 的 HTML 表格解析方式
+
+说明：接口当前已适配新版 `pandas` 的 HTML 表格解析方式
 
 限量：单次获取新浪财经-机构推荐池-股票评级记录的所有数据
 

@@ -296,7 +296,7 @@ def stock_financial_debt_new_ths(
     https://basic.10jqka.com.cn/astockpc/astockmain/index.html#/financen?code=000063
     :param symbol: 股票代码
     :type symbol: str
-    :param indicator: 指标；choice of {"按报告期", "按年度"}
+    :param indicator: 指标；choice of {"按报告期", "一季度", "二季度", "三季度", "四季度", "按年度"}
     :type indicator: str
     :return: 同花顺-财务指标-资产负债表
     :rtype: pandas.DataFrame
@@ -304,6 +304,14 @@ def stock_financial_debt_new_ths(
     url = "https://basic.10jqka.com.cn/basicapi/finance/index/v1/app_data/"
     if indicator == "按报告期":
         period = "0"
+    elif indicator == "一季度":
+        period = "1"
+    elif indicator == "二季度":
+        period = "2"
+    elif indicator == "三季度":
+        period = "3"
+    elif indicator == "四季度":
+        period = "4"
     else:
         period = "4"
     params = {
