@@ -12,15 +12,30 @@ repos:
         args: ['--maxkb=5000']
       - id: check-case-conflict
       - id: detect-private-key
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.16.4
+  - repo: local
     hooks:
-      # Run the linter.
+      # ruff 版本的唯一来源是 pyproject.toml 的 lint 组（经 uv.lock 锁定），
+      # 这里与 CI 的 lint job 跑同一条命令，因此不存在第二处版本号需要同步。
+      # 原先用 astral-sh/ruff-pre-commit 时，它的 rev 是独立于 lint 组的第二处
+      # 钉版，而 Dependabot 的 uv 生态只改得动 pyproject.toml：0.16.3→0.16.4
+      # 那次就是 #7408 升级后靠 #7409 人工补 rev。改为本地钩子后该缺口消失。
+      # 另有两点是版本号对齐也换不来的：ruff-pre-commit 的 wheel 与 uv.lock 锁定
+      # 的 wheel 是两次独立解析；--locked 还会在改过 pyproject.toml 却漏跑
+      # uv lock 时直接失败，把 CI 安装步骤的报错提前到提交时。
+      # --force-exclude 必需：pre-commit 传入显式文件名时，
+      # ruff 默认不再套用自身配置里的 extend-exclude。
       - id: ruff-check
-        args: [--fix]
-      # Run the formatter.
+        name: ruff check
+        entry: uv run --locked --only-group lint ruff check --fix --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
       - id: ruff-format
+        name: ruff format
+        entry: uv run --locked --only-group lint ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
   - repo: local
     hooks:
       # 中文正文标点统一为全角。只检查 docstring、# 注释与 Markdown 正文,
