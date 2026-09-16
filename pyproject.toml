@@ -71,7 +71,8 @@ Homepage = "https://github.com/akfamily/akshare"
 # 装进文档镜像。因此保留那份文件作为文档依赖的唯一声明。
 [dependency-groups]
 test = ["pytest>=8.0.0"]
-# 本组的 ruff 版本与 .pre-commit-config.yaml 的 rev 必须一致，CI 的 lint job 从本组取用。
+# 本组是 ruff 版本的唯一来源：CI 的 lint job 与 .pre-commit-config.yaml 的
+# 本地钩子都经 uv.lock 从本组取用，没有第二处版本号需要同步。
 # 编辑器的 LSP 能力由 ruff 自带的 ruff server 子命令提供，无需额外依赖。
 # 原先声明的 ruff-lsp 已被 Astral 归档（PyPI 停在 0.0.62 / 2025-02，
 # 包自身即会打印废弃警告并指向 ruff server），故不再声明。
