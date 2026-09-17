@@ -14,6 +14,15 @@ repos:
       - id: detect-private-key
   - repo: local
     hooks:
+      # 文档接口描述或 akshare/__init__.py 导入变动后，先重建接口注册表与
+      # __all__，避免提交后再被 CI 的 registry-check 拦下。
+      - id: build-interface-registry
+        name: build interface registry
+        entry: python scripts/build_registry.py
+        language: system
+        files: ^(docs/data/.*\.md|akshare/__init__\.py)$
+        pass_filenames: false
+        require_serial: true
       # ruff 版本的唯一来源是 pyproject.toml 的 lint 组（经 uv.lock 锁定），
       # 这里与 CI 的 lint job 跑同一条命令，因此不存在第二处版本号需要同步。
       # 原先用 astral-sh/ruff-pre-commit 时，它的 rev 是独立于 lint 组的第二处
