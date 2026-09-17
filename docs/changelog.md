@@ -89,6 +89,10 @@
 
 ## 更新说明详情
 
+1.18.96 fix: fix stock_zh_a_spot interface
+
+    1. 修复 stock_zh_a_spot 接口在新浪分页请求超时参数为 0 时，上游长时间无响应时进程一直阻塞不返回的问题
+
 1.18.95 fix: raise a meaningful error when legulegu rejects the request
 
     1. 修复乐咕乐股系列接口在上游拒绝请求时抛出 `AttributeError: 'NoneType' object has no attribute 'attrs'` 的问题：共用的 CSRF 获取逻辑此前既不校验状态码也不判空，上游返回的 403 错误页会被当作正常页面解析；现改为抛出携带状态码的 `APIError`，页面缺少 `_csrf` 标签时抛出 `DataParsingError`

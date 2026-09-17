@@ -26,6 +26,8 @@ from akshare.stock.cons import (
 from akshare.utils import demjson
 from akshare.utils.tqdm import get_tqdm
 
+_SINA_A_SPOT_TIMEOUT: int = 15
+
 
 def _get_zh_a_page_count() -> int:
     """
@@ -34,7 +36,7 @@ def _get_zh_a_page_count() -> int:
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    res = requests.get(zh_sina_a_stock_count_url)
+    res = requests.get(zh_sina_a_stock_count_url, timeout=_SINA_A_SPOT_TIMEOUT)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -57,7 +59,11 @@ def stock_zh_a_spot() -> pd.DataFrame:
         range(1, page_count + 1), leave=False, desc="Please wait for a moment"
     ):
         zh_sina_stock_payload_copy.update({"page": page})
-        r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
+        r = requests.get(
+            zh_sina_a_stock_url,
+            params=zh_sina_stock_payload_copy,
+            timeout=_SINA_A_SPOT_TIMEOUT,
+        )
         data_json = demjson.decode(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
 
