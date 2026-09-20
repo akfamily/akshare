@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.18.97 fix: fix stock_report_fund_hold interface
+
+    1. 修复 stock_report_fund_hold 接口因东方财富返回字段顺序变动导致的列错位问题，改为按字段名映射股票代码、股票简称及持仓变动相关数据
+    2. 为 stock_report_fund_hold 接口补充 15 秒请求超时，避免上游长时间无响应时进程一直阻塞不返回
+
 1.18.96 fix: fix stock_zh_a_spot interface
 
     1. 修复 stock_zh_a_spot 接口在新浪分页请求超时参数为 0 时，上游长时间无响应时进程一直阻塞不返回的问题

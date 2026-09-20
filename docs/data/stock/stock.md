@@ -18179,7 +18179,7 @@ print(stock_a_below_net_asset_statistics_df)
 
 目标地址：http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 
-描述：东方财富网-数据中心-主力数据-基金持仓
+描述：东方财富网-数据中心-主力数据-基金持仓，返回指定财报期的股票代码、股票简称和持仓变动等数据
 
 限量：单次返回指定 symbol 和 date 的所有历史数据
 
