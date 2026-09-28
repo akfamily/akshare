@@ -18,6 +18,7 @@ from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
 def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
@@ -101,11 +102,78 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     return temp_df
 
 
-def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
+def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
+    """
+    上海期货交易所指定交割仓库期货仓单日报（2025-11-18 起的网页版）
+    自 2025-11-18 起, 交易所不再提供 dailydata/{date}dailystock.dat 数据文件(返回 404),
+    改为按品种分表的网页: stockdata/dailystock_{date}/ZH/all.html
+    输出与原数据文件版保持一致: 键为品种名称(如 "螺纹钢仓库"、"铜"、"铜(BC)"),
+    值为包含 VARNAME, REGNAME, WHABBRNAME, WRTWGHTS, WRTCHANGE, ROWSTATUS 的 pandas.DataFrame,
+    其中 ROWSTATUS 为 "0" 表示仓库, "1" 表示地区合计, "2" 表示总计
+    :param date: 交易日，e.g., "20260924"
+    :type date: str
+    :param headers: 请求头
+    :type headers: dict
+    :return: 指定日期的仓单日报数据
+    :rtype: dict
+    """
+    url = f"https://www.shfe.com.cn/data/tradedata/future/stockdata/dailystock_{date}/ZH/all.html"
+    r = requests.get(url, headers=headers, timeout=15)
+    r.raise_for_status()
+    r.encoding = "utf-8"
+    soup = BeautifulSoup(r.text, features="lxml")
+    big_dict = {}
+    var_name = None
+    region = ""
+    rows = []
+
+    def _flush() -> None:
+        if var_name is not None and rows:
+            temp_df = pd.DataFrame(rows)
+            temp_df["WRTWGHTS"] = pd.to_numeric(temp_df["WRTWGHTS"], errors="coerce")
+            temp_df["WRTCHANGE"] = pd.to_numeric(temp_df["WRTCHANGE"], errors="coerce")
+            big_dict[var_name] = temp_df
+
+    for tr in soup.find_all("tr"):
+        cells = [td.get_text(strip=True) for td in tr.find_all(["td", "th"])]
+        if not cells or cells[0] == "地区":
+            continue
+        if "special_row_type" in (tr.get("class") or []):
+            _flush()
+            # "螺纹钢(仓库)" -> "螺纹钢仓库"; "铜(BC)" 保持不变
+            var_name = cells[0].replace("(仓库)", "仓库").replace("(厂库)", "厂库")
+            region, rows = "", []
+            continue
+        if var_name is None or len(cells) < 3:
+            continue
+        if len(cells) >= 4:
+            region = cells[0]
+        warehouse, quantity, change = cells[-3], cells[-2], cells[-1]
+        if warehouse.endswith("总计"):
+            row_status, row_region = "2", ""
+        elif warehouse == "合计":
+            row_status, row_region = "1", region
+        else:
+            row_status, row_region = "0", region
+        rows.append(
+            {
+                "VARNAME": var_name,
+                "REGNAME": row_region,
+                "WHABBRNAME": warehouse,
+                "WRTWGHTS": quantity,
+                "WRTCHANGE": change,
+                "ROWSTATUS": row_status,
+            }
+        )
+    _flush()
+    return big_dict
+
+
+def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
     """
     上海期货交易所指定交割仓库期货仓单日报
-    https://tsite.shfe.com.cn/statements/dataview.html?paramid=dailystock&paramdate=20200703
-    :param date: 交易日，e.g., "20200702"
+    https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+    :param date: 交易日，e.g., "20260924"
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
@@ -114,6 +182,8 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
+    if date >= "20251118":
+        return __futures_shfe_warehouse_receipt_html(date=date, headers=headers)
     url = (
         f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
     )
@@ -233,6 +303,9 @@ if __name__ == "__main__":
 
     futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
     print(futures_warehouse_receipt_dce_df)
+
+    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20260924")
+    print(futures_shfe_warehouse_receipt_df)
 
     futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20200702")
     print(futures_shfe_warehouse_receipt_df)
