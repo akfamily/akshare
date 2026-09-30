@@ -11,6 +11,10 @@ updates:
   # 不要再并列 pip 生态：两者共存会出现只更新 uv.lock、pyproject.toml 保持陈旧的情况。
   - package-ecosystem: "uv"
     directory: "/"
+    # 日常开发在 dev 分支，版本更新 PR 直接指向 dev，免得再从 main 手动搬过来。
+    # 注意两点：Dependabot 只读取默认分支（main）上的本文件，所以此项要等 dev
+    # 合入 main 后才生效；安全更新 PR 不受 target-branch 影响，始终指向默认分支。
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     # 必须分组，且分组键只能是 patterns: "*"。
@@ -33,6 +37,8 @@ updates:
   # 版本号只能手动追——这正是需要 Dependabot 的场景。
   - package-ecosystem: "github-actions"
     directory: "/"
+    # 同上，指向 dev。
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     # 同样分组：两个 workflow 里有重复的 action，不分组会出现多个 PR 改同一文件。
