@@ -1,8 +1,13 @@
-# [AKShare](https://github.com/akfamily/akshare) 环境配置
+# [AKShare](https://github.com/akfamily/akshare) Anaconda 环境配置
+
+推荐使用 uv 来配置 [AKShare](https://github.com/akfamily/akshare) 的运行环境，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)。本页适用于需要在 R 语言或 MATLAB 中调用 [AKShare](https://github.com/akfamily/akshare)，或者习惯使用 Anaconda 的用户。
 
 ## Anaconda 安装说明
 
-Anaconda 是集成上千个常用库的 Python 发行版本，通过安装 Anaconda 能简化环境管理工作，非常推荐使用。
+Anaconda 是集成上千个常用库的 Python 发行版本，自带图形界面和 JupyterLab 等工具，可以简化环境管理工作。
+
+注意：Anaconda 官方默认渠道（defaults）的服务条款要求 200 人及以上的企业、政府和非营利组织购买商业授权，在单位中使用前请先确认 [Anaconda 服务条款](https://www.anaconda.com/legal)；也可以改用社区维护的 [Miniforge](https://github.com/conda-forge/miniforge)，它默认使用免费的 conda-forge 渠道，本页中的 conda 命令同样适用。
+
 作者建议根据您计算机的操作系统选择相应版本的安装包，国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来加速下载最新的 64 位安装包。
 国外用户可以访问 [Anaconda 官网](https://www.anaconda.com/products/individual) 下载最新的 64 位安装包。
 

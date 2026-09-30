@@ -32,6 +32,7 @@
    answer
    tutorial
    articles
+   uv
    anaconda
    platform
    demo
