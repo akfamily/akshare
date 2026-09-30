@@ -66,7 +66,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 
 [下载 R](https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/)
 
-[下载 RStudio](https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe)
+[下载 RStudio Desktop](https://posit.co/download/rstudio-desktop/)
 
 先安装 R，再安装 RStudio，选择默认步骤安装即可。
 
