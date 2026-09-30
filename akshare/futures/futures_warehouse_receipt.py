@@ -20,6 +20,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from akshare.exceptions import APIError
+
 
 def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     """
@@ -67,13 +69,21 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     :type date: str
     :return: 指定日期的仓单日报数据
     :rtype: dict
+    :raises APIError: 大连商品交易所网站启用瑞数反爬虫验证，拒绝程序请求时抛出
     """
     url = "http://www.dce.com.cn/dcereport/publicweb/dailystat/wbillWeeklyQuotes"
     payload = {
         "tradeDate": date,
         "varietyId": "all",
     }
-    r = requests.post(url, json=payload)
+    r = requests.post(url, json=payload, timeout=15)
+    # 瑞数反爬虫对未通过浏览器验证的请求返回 412 挑战页，其 cookie 需每次请求前由 JS 重新生成
+    if r.status_code == 412:
+        raise APIError(
+            "大连商品交易所网站启用了瑞数反爬虫验证，暂时无法通过程序获取仓单日报数据",
+            status_code=r.status_code,
+        )
+    r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["entityList"])
     temp_df.rename(
@@ -265,7 +275,8 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
-    r = requests.post(url=url, data=payload, headers=headers)
+    r = requests.post(url=url, data=payload, headers=headers, timeout=15)
+    r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     symbol_list = list(
@@ -278,7 +289,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
             "whAbbr": "仓库/分库",
             "lastWbillQty": "昨日仓单量",
             "wbillQty": "今日仓单量",
-            "regWbillQty": "增减",
+            "diff": "增减",
         },
         inplace=True,
     )
@@ -325,9 +336,6 @@ if __name__ == "__main__":
     futures_warehouse_receipt_czce_df = futures_warehouse_receipt_czce(date="20251014")
     print(futures_warehouse_receipt_czce_df)
 
-    futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
-    print(futures_warehouse_receipt_dce_df)
-
     futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20260924")
     print(futures_shfe_warehouse_receipt_df)
 
@@ -342,3 +350,6 @@ if __name__ == "__main__":
 
     futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20260226")
     print(futures_gfex_warehouse_receipt_df)
+
+    futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
+    print(futures_warehouse_receipt_dce_df)

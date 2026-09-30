@@ -89,6 +89,16 @@
 
 ## 更新说明详情
 
+1.19.1 fix: fix futures_gfex_warehouse_receipt interface
+
+    1. 修复 futures_gfex_warehouse_receipt 接口报 `KeyError: "['增减'] not in index"` 的问题：广州期货交易所将增减字段由 regWbillQty 改为 diff，现改为按 diff 映射
+    2. 修正“增减”列的取值：原先映射的 regWbillQty 并非增减量，现取值与“今日仓单量”减“昨日仓单量”一致
+    3. 为接口补充 15 秒请求超时
+
+1.18.99 fix: raise a meaningful error when dce rejects the request
+
+    1. 大连商品交易所网站启用了瑞数反爬虫验证，程序请求返回 HTTP 412 挑战页，futures_warehouse_receipt_dce 接口此前会抛出令人费解的 `JSONDecodeError`；现改为抛出携带状态码的 `APIError` 并说明原因，同时补充 15 秒请求超时
+
 1.18.98 fix: fix futures_shfe_warehouse_receipt interface
 
     1. 修复 futures_shfe_warehouse_receipt 接口在 2025-11-18 及之后的交易日报 `JSONDecodeError` 的问题：上海期货交易所不再提供 dailystock.dat 数据文件，现改为解析网页版仓单日报，更早日期仍使用原数据文件
