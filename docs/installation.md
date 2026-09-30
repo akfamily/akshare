@@ -3,8 +3,7 @@
 ## 重要提示
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
-2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，
-3. 这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
+2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
 3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/)，可以解决大部分环境配置问题；
 4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html).
 
@@ -59,7 +58,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 
 ### 安装 Anaconda
 
-[下载 Windows 64 位 Python 3.9 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
+[下载 Windows 平台带 64 位 Python 的 Anaconda](https://repo.anaconda.com/archive/)，所带 Python 需为 3.11 及以上版本，推荐 3.13
 
 [安装教程参见 AKShare 文档的环境配置专栏](https://akshare.akfamily.xyz/anaconda.html)
 
@@ -131,7 +130,7 @@ head(stock_df)  # 查看数据
 
 [下载 Windows 平台带 64 位 Python 的 Anaconda](https://repo.anaconda.com/archive/)，其需要符合
 [Matlab 各版本对 Python 的支持](https://www.mathworks.com/support/requirements/python-compatibility.html?s_tid=srchtitle_site_search_1_python%20compatibility)
-，比如 `Matlab R2023b` 目前支持 `Python` 的 `3.9, 3.10, 3.11` 版本。
+，同时满足 AKShare 对 Python 3.11 及以上版本的要求。比如 `Matlab R2023b` 支持 `Python` 的 `3.9, 3.10, 3.11` 版本，只能选用 3.11；`Matlab R2024b` 至 `R2025b` 最高支持 3.12；`Matlab R2026a` 起支持推荐的 3.13。
 
 [Anaconda 安装教程参见 AKShare 文档的环境配置专栏](https://akshare.akfamily.xyz/anaconda.html)
 
@@ -166,9 +165,9 @@ ans =
 
   PythonEnvironment - 属性:
 
-          Version: "3.10"
+          Version: "3.11"
        Executable: "C:\Users\albert\.conda\envs\matlab\python.EXE"
-          Library: "C:\Users\albert\.conda\envs\matlab\python310.dll"
+          Library: "C:\Users\albert\.conda\envs\matlab\python311.dll"
              Home: "C:\Users\albert\.conda\envs\matlab"
            Status: NotLoaded
     ExecutionMode: InProcess
