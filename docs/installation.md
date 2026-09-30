@@ -4,7 +4,7 @@
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
 2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
-3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/)，可以解决大部分环境配置问题；
+3. [AKShare](https://github.com/akfamily/akshare) 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)；如需在 R 语言或 MATLAB 中调用，或者习惯使用 Anaconda，请参考 [AKShare Anaconda 环境配置](https://akshare.akfamily.xyz/anaconda.html)；
 4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html).
 
 ## 安装 [AKShare](https://github.com/akfamily/akshare)
@@ -23,10 +23,20 @@ pip install akshare --upgrade
 pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### 国内安装-Anaconda
+### 使用 uv 安装
+
+在已激活的 uv 虚拟环境中运行，国内用户可以使用镜像源加速，完整步骤详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)：
 
 ```
-pip install akshare --upgrade --user -i https://pypi.tuna.tsinghua.edu.cn/simple
+uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+### 使用 Anaconda 安装
+
+先激活 conda 虚拟环境，再在其中运行，不要安装到 base 环境，也不要使用 `--user` 参数：
+
+```
+pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ## 升级 [AKShare](https://github.com/akfamily/akshare)
@@ -396,4 +406,4 @@ pip install akshare --user
 ### 3. 提示其他的错误
 
 - 方法一：确认并升级您已安装 64 位的 **Python 3.11** 及以上版本
-- 方法二：使用 conda 的虚拟环境来安装，详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容
+- 方法二：使用虚拟环境来安装，推荐使用 uv，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)；也可以使用 conda 虚拟环境，详见 [AKShare Anaconda 环境配置](https://akshare.akfamily.xyz/anaconda.html)
