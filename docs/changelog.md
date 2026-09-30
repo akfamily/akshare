@@ -89,6 +89,12 @@
 
 ## 更新说明详情
 
+1.18.98 fix: fix futures_shfe_warehouse_receipt interface
+
+    1. 修复 futures_shfe_warehouse_receipt 接口在 2025-11-18 及之后的交易日报 `JSONDecodeError` 的问题：上海期货交易所不再提供 dailystock.dat 数据文件，现改为解析网页版仓单日报，更早日期仍使用原数据文件
+    2. 网页版按表头名称映射列，兼容“地区、仓库”“厂库、地区”“地区、交割仓库、本日数量”等不同列顺序，并正确处理合并单元格；此后日期的 DataFrame 仅包含 VARNAME、REGNAME、WHABBRNAME、WRTWGHTS、WRTCHANGE、ROWSTATUS 六列
+    3. 为新数据源补充 15 秒请求超时
+
 1.18.97 fix: fix stock_report_fund_hold interface
 
     1. 修复 stock_report_fund_hold 接口因东方财富返回字段顺序变动导致的列错位问题，改为按字段名映射股票代码、股票简称及持仓变动相关数据
