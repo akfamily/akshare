@@ -16,7 +16,7 @@ assignees: ''
 遇到任何 AKShare 使用问题，请先将您本地的 AKShare 升级到**最新版**，可以通过如下命令升级：
 
 ```bash
-pip install akshare --upgrade  # Python 版本需要大于等于 3.9
+pip install akshare --upgrade  # Python 版本需要大于等于 3.11
 ```
 
 ## 如何提交问题
@@ -26,7 +26,7 @@ pip install akshare --upgrade  # Python 版本需要大于等于 3.9
 1. 请先详细阅读 AKShare 文档中对应接口的使用方式：https://akshare.akfamily.xyz
 2. 请务必将 AKShare 升级到最新版本
 3. 请检查操作系统版本，目前只支持 64 位主流操作系统
-4. 请检查 Python 版本，目前只支持 3.9 以上的版本
+4. 请检查 Python 版本，目前只支持 3.11 及以上的版本
 5. 请提交相关接口的名称和相应的调用代码
 6. 接口报错的截图或描述
 7. 期望获得的正确结果

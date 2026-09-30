@@ -439,7 +439,7 @@ def main() -> int:
         # 必须用 newline="" 读写。默认的通用换行会把 CRLF 读成 LF，写回时便把
         # 整个文件的行尾从 CRLF 改成 LF（本仓库 core.autocrlf=true，工作区是
         # CRLF），造成与标点无关的全文件改动。这里用 open() 而非 Path.read_text
-        # 的 newline 参数，后者要到 Python 3.13 才有，本仓库下限是 3.9。
+        # 的 newline 参数，后者要到 Python 3.13 才有，本仓库下限是 3.11。
         with open(path, encoding="utf-8", newline="") as handle:
             original = handle.read()
         markdown = path.suffix == ".md"
