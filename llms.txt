@@ -13,7 +13,9 @@ top-level package.
 
 ## Install
 
-Use pip:
+Use uv (recommended) or pip:
+
+`uv pip install akshare --upgrade`
 
 `pip install akshare --upgrade`
 
