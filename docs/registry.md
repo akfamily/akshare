@@ -213,13 +213,12 @@ print(list_categories_df)
 17              option   46
 18              others   34
 19                qdii    3
-20            qhkc_web    8
-21               reits    1
-22                spot   15
-23               stock  388
-24       stock_feature    6
-25   stock_fundamental    4
-26                tool    1
+20               reits    1
+21                spot   15
+22               stock  388
+23       stock_feature    6
+24   stock_fundamental    4
+25                tool    1
 ```
 
 ## 能力边界
