@@ -255,6 +255,29 @@ def serialize(records: List[Dict]) -> str:
     )
 
 
+def write_if_changed(path: pathlib.Path, text: str) -> bool:
+    """
+    仅在内容变化时写入，并沿用目标文件现有的行尾风格。
+
+    本仓库在 Windows 上 core.autocrlf=true，工作区文件是 CRLF。若无条件地以 LF
+    重写，内容未变的文件也会被 git 标为已修改；pre-commit 钩子每次提交都会运行
+    本脚本，于是提交后工作区总残留一个只有行尾差异的 interfaces.json。
+
+    :param path: 目标文件
+    :param text: 以 LF 分行的新内容
+    :return: 是否实际写入
+    """
+    if path.exists():
+        raw = path.read_bytes()
+        if raw.decode("utf-8").replace("\r\n", "\n") == text:
+            return False
+        newline = "\r\n" if b"\r\n" in raw else "\n"
+    else:
+        newline = "\n"
+    path.write_text(text, encoding="utf-8", newline=newline)
+    return True
+
+
 def build(repo_root: pathlib.Path) -> str:
     """
     生成完整的 registry JSON 文本。
@@ -332,10 +355,11 @@ def main() -> int:
             return 1
         print("[registry] 校验通过")
         return 0
-    (repo_root / OUTPUT_RELPATH).write_text(text, encoding="utf-8", newline="\n")
-    print(f"已写入 {OUTPUT_RELPATH}")
-    if new_init_text != init_text:
-        init_path.write_text(new_init_text, encoding="utf-8", newline="\n")
+    if write_if_changed(repo_root / OUTPUT_RELPATH, text):
+        print(f"已写入 {OUTPUT_RELPATH}")
+    else:
+        print(f"{OUTPUT_RELPATH} 无变化")
+    if write_if_changed(init_path, new_init_text):
         print(
             f"已更新 {init_path.name} 的 __all__（{len(collect_all_names(init_path))} 项）"
         )
