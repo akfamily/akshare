@@ -2936,7 +2936,7 @@ part_2: 上海期货交易所隐含波动参考值
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
 
-描述：大连商品交易所-商品期权数据
+描述：大连商品交易所-商品期权数据；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定 symbol 和 trade_date 的期权日行情数据
 

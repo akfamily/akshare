@@ -35,18 +35,18 @@ print(ak.list_categories())
  "get_cffex_rank_table",  # 中国金融期货交易所前20会员持仓数据明细
  "get_czce_daily",  # 郑州商品交易所每日交易数据
  "get_rank_table_czce",  # 郑州商品交易所前20会员持仓数据明细
- "get_dce_daily",  # 大连商品交易所每日交易数据
+ "get_dce_daily",  # 大连商品交易所每日交易数据（大商所反爬，暂不可用）
  "get_gfex_daily",  # 广州期货交易所每日交易数据
  "get_ine_daily",  # 上海国际能源交易中心每日交易数据
  "futures_settlement_price_sgx",  # 新加坡交易所期货品种每日交易数据
- "get_dce_rank_table",  # 大连商品交易所前20会员持仓数据明细
- "get_futures_daily",  # 各期货交易所每日交易数据（默认中国金融期货交易所）
- "get_rank_sum",  # 各期货交易所前5, 10, 15, 20会员持仓排名数据
- "get_rank_sum_daily",  # 每日各期货交易所前5, 10, 15, 20会员持仓排名数据
- "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据
- "get_receipt",  # 大宗商品注册仓单数据
- "get_roll_yield",  # 某一天某品种(主力和次主力)或固定两个合约的展期收益率
- "get_roll_yield_bar",  # 展期收益率
+ "get_dce_rank_table",  # 大连商品交易所前20会员持仓数据明细（大商所反爬，暂不可用）
+ "get_futures_daily",  # 各期货交易所每日交易数据（默认中国金融期货交易所）（其中大商所部分因反爬暂不可用）
+ "get_rank_sum",  # 各期货交易所前5, 10, 15, 20会员持仓排名数据（其中大商所部分因反爬暂不可用）
+ "get_rank_sum_daily",  # 每日各期货交易所前5, 10, 15, 20会员持仓排名数据（其中大商所部分因反爬暂不可用）
+ "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据（大商所反爬，暂不可用）
+ "get_receipt",  # 大宗商品注册仓单数据（大商所反爬，暂不可用）
+ "get_roll_yield",  # 某一天某品种(主力和次主力)或固定两个合约的展期收益率（大商所反爬，暂不可用）
+ "get_roll_yield_bar",  # 展期收益率（大商所反爬，暂不可用）
  "get_shfe_daily",  # 上海期货交易所每日交易数据
  "get_shfe_rank_table",  # 上海期货交易所前20会员持仓数据明细
  "futures_spot_price",  # 具体交易日大宗商品现货价格及相应基差数据
@@ -54,13 +54,13 @@ print(ak.list_categories())
  "futures_spot_price_daily"  # 一段交易日大宗商品现货价格及相应基差数据
  "futures_warehouse_receipt_czce"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
- "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报
+ "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报（大商所反爬，暂不可用）
  "futures_gfex_warehouse_receipt"  # 广州期货交易所-行情数据-仓单日报
  "futures_rule"  # 国泰君安-交易日历
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  # 交易所商品期权数据
- "option_hist_dce"  # 提供大连商品交易所商品期权数据
+ "option_hist_dce"  # 提供大连商品交易所商品期权数据（大商所反爬，暂不可用）
  "option_hist_czce"  # 提供郑州商品交易所商品期权数据
  "option_hist_shfe"  # 提供上海期货交易所商品期权数据
  "option_hist_gfex"  # 提供广州期货交易所商品期权数据
@@ -599,11 +599,11 @@ print(ak.list_categories())
  # 期货交割和期转现
  "futures_to_spot_czce"  # 郑商所期转现
  "futures_to_spot_shfe"  # 上期所期转现
- "futures_to_spot_dce"  # 大商所期转现
- "futures_delivery_dce"  # 大商所交割统计
+ "futures_to_spot_dce"  # 大商所期转现（大商所反爬，暂不可用）
+ "futures_delivery_dce"  # 大商所交割统计（大商所反爬，暂不可用）
  "futures_delivery_czce"  # 郑商所交割统计
  "futures_delivery_shfe"  # 上期所交割统计
- "futures_delivery_match_dce"  # 大商所交割配对
+ "futures_delivery_match_dce"  # 大商所交割配对（大商所反爬，暂不可用）
  "futures_delivery_match_czce"  # 郑商所交割配对
  # 融资融券
  "stock_margin_sse"  # 上海证券交易所-融资融券汇总
@@ -1239,7 +1239,7 @@ print(ak.list_categories())
  # 期货合约信息
  "futures_contract_info_shfe"  # 上海期货交易所-期货合约信息
  "futures_contract_info_ine"  # 上海国际能源交易中心-期货合约信息
- "futures_contract_info_dce"  # 大连商品交易所-期货合约信息
+ "futures_contract_info_dce"  # 大连商品交易所-期货合约信息（大商所反爬，暂不可用）
  "futures_contract_info_czce"  # 郑州商品交易所-期货合约信息
  "futures_contract_info_gfex"  # 广州期货交易所-期货合约信息
  "futures_contract_info_cffex"  # 中国金融期货交易所-期货合约信息

@@ -939,7 +939,7 @@ print(get_rank_table_czce_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
 
-描述：大连商品交易所指定交易日的具体合约的持仓排名
+描述：大连商品交易所指定交易日的具体合约的持仓排名；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回所有合约的持仓排名数据，返回以合约名字为键，具体排名数据为值的字典
 
@@ -1230,7 +1230,7 @@ print(futures_warehouse_receipt_czce_df)
 
 目标地址：http://www.dce.com.cn/dce/channel/list/187.html
 
-描述：大连商品交易所-行情数据-统计数据-日统计-仓单日报；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），此时接口抛出 APIError
+描述：大连商品交易所-行情数据-统计数据-日统计-仓单日报；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），此时接口抛出 APIError，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回当前交易日的所有仓单日报数据
 
@@ -1415,7 +1415,7 @@ print(futures_gfex_warehouse_receipt_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
 
-描述：大连商品交易所-期转现统计数据
+描述：大连商品交易所-期转现统计数据；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定交易日的期转现统计数据
 
@@ -1572,7 +1572,7 @@ print(futures_to_spot_shfe_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
 
-描述：大连商品交易所-交割统计
+描述：大连商品交易所-交割统计；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定交易月份的交割统计数据
 
@@ -1752,7 +1752,7 @@ print(futures_delivery_shfe_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
 
-描述：大连商品交易所-交割配对
+描述：大连商品交易所-交割配对；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定品种的的交割配对数据
 
@@ -2237,7 +2237,7 @@ print(futures_contract_info_ine_df)
 
 目标地址：http://www.dce.com.cn/dce/channel/list/180.html
 
-描述：大连商品交易所-数据中心-业务数据-交易参数-合约信息
+描述：大连商品交易所-数据中心-业务数据-交易参数-合约信息；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回最近交易日的期货合约信息数据
 
@@ -2991,7 +2991,7 @@ print(futures_zh_daily_sina_df)
 
 目标地址：各交易所网站
 
-描述：提供各交易所各品种的网站的历史行情数据，其中 20040625, 20070604, 20081226, 20090119 原网页数据缺失
+描述：提供各交易所各品种的网站的历史行情数据，其中 20040625, 20070604, 20081226, 20090119 原网页数据缺失；其中 market="DCE"（大连商品交易所）目前因瑞数反爬虫验证无法获取数据（HTTP 412），详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定时间段指定交易所的所有期货品种历史数据
 

@@ -68,3 +68,10 @@
 
     1. 检查代理地址的协议：大多数本地代理软件提供的是 HTTP 代理，`https` 一项也应写成 `http://` 开头，例如 `{"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}`
     2. 不要通过降低 urllib3 版本来规避，旧版本存在已知安全漏洞
+
+10. 大连商品交易所相关接口报错或返回空数据
+
+    1. 原因：大连商品交易所网站目前启用了瑞数反爬虫验证，程序发出的请求会被拒绝并返回 HTTP 412，这不是 AKShare 或本地环境的问题，暂时没有可用的解决办法
+    2. 只有 futures_warehouse_receipt_dce 会明确抛出带 412 状态码的 `APIError`，其他接口的报错各不相同，常见的有 `JSONDecodeError: Expecting value`、`BadZipFile: File is not a zip file`、`ValueError: No tables found`、`IndexError: list index out of range`，也有接口不报错而是返回空数据
+    3. 受影响的接口：futures_contract_info_dce、futures_dce_position_rank、futures_dce_position_rank_other、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、get_dce_daily、get_dce_rank_table、option_hist_dce、get_receipt、get_roll_yield、get_roll_yield_bar；get_futures_daily、get_rank_sum、get_rank_sum_daily 中涉及大连商品交易所的部分同样无法获取
+    4. 其他交易所的接口不受影响
