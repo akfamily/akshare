@@ -24,8 +24,8 @@
 
 | 名称            | 类型      | 描述       |
 |---------------|---------|----------|
-| city_name     | object  | 城市名称     |
-| province_name | object  | 所属省份     |
+| city_name     | str     | 城市名称     |
+| province_name | str     | 所属省份     |
 | value         | float64 | 迁徙规模，比例 |
 
 接口示例

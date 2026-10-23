@@ -79,7 +79,7 @@
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| day    | object  | -   |
+| day    | str     | -   |
 | open   | float64 | -   |
 | high   | float64 | -   |
 | low    | float64 | -   |
@@ -119,4 +119,8 @@ print(stock_zh_a_minute_df)
 
 1. 所提交的代码如不符合上述规范，则可能会被拒绝合并；
 2. 由于某些原因，您所提交的代码、数据接口和文档会被修改、删除或被第三方使用；
-3. **输出参数**里面的字段类型必须为 Pandas 最新版本的 int64 类型，float64 类型，object 类型等三种类型之一，整数为 int64 类型，浮点数为 float64 类型，日期及字符串为 object 类型。
+3. **输出参数**里面的字段类型按 pandas 3 的实际类型填写，可以在接口示例代码后运行 `print(df.dtypes)` 查看，常见的有以下几种：
+   1. 整数为 int64，浮点数为 float64，布尔值为 bool；
+   2. 字符串为 str。pandas 3 起默认把文本列推断为字符串类型，`df.dtypes` 显示为 `str`，不再是 `object`；
+   3. 通过 `.dt.date` 转换得到的日期为 object，其中每个元素是 `datetime.date` 对象；未转换的日期时间列为 datetime64，并按实际显示填写精度，如 `datetime64[us]`；
+   4. 整列都是空值、或者混合了多种类型的列为 object。
