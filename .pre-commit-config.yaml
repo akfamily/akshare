@@ -1,4 +1,7 @@
 # commit setup
+# 让 pre-commit install 同时安装提交前检查与提交信息检查两个钩子；
+# 否则只运行 pre-commit install 时，commit-msg 阶段的 conventional-pre-commit 不会生效。
+default_install_hook_types: [pre-commit, commit-msg]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
