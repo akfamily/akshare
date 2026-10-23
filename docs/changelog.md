@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.19.2 fix: fix bond_zh_cov_value_analysis interface
+
+    1. 修复 bond_zh_cov_value_analysis 接口报 `Length mismatch: Expected axis has 15 elements, new values have 13 elements` 的问题（#7448）：东方财富新增 FLOORPRICE_PREMIUM_RATIO_CB、BOND_NAME_ABBR 字段，现改为按字段名映射日期、收盘价、纯债价值、转股价值、纯债溢价率和转股溢价率，输出格式不变
+    2. 为 bond_zh_cov_value_analysis 接口补充 15 秒请求超时
+
 1.19.1 fix: fix futures_gfex_warehouse_receipt interface
 
     1. 修复 futures_gfex_warehouse_receipt 接口报 `KeyError: "['增减'] not in index"` 的问题：广州期货交易所将增减字段由 regWbillQty 改为 diff，现改为按 diff 映射

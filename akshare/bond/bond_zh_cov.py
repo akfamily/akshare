@@ -645,24 +645,20 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "p": "1",
         "ps": "8000",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=15)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "日期",
-        "-",
-        "-",
-        "转股价值",
-        "纯债价值",
-        "纯债溢价率",
-        "转股溢价率",
-        "收盘价",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
+    temp_df.rename(
+        columns={
+            "DATE": "日期",
+            "SWAPVALUE": "转股价值",
+            "PUREBONDVALUE": "纯债价值",
+            "PUREBONDOR": "纯债溢价率",
+            "SWAPOR": "转股溢价率",
+            "FCLOSE": "收盘价",
+        },
+        inplace=True,
+    )
     temp_df = temp_df[
         [
             "日期",
