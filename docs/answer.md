@@ -44,21 +44,11 @@
     2. 切换 IP 后重试
     3. 可以在 [GitHub Issues](https://github.com/akfamily/akshare/issues) 中反馈
 
-7. 全球疫情历史数据接口获取不到数据
-
-    1. 由于 GitHub 服务器在国外，访问此数据接口最好使用代理访问
-    2. 如没有代理的情况下，多重复请求几次
-
-8. 返回值字段错位
+7. 返回值字段错位
 
     1. 升级 pandas 到最新版本
 
-9. Linux 系统显示 `execjs._exceptions.RuntimeUnavailableError: Could not find an available JavaScript runtime.`
-
-    1. 需要安装 `nodejs`
-    2. 参考[文章](https://blog.csdn.net/qq_36853469/article/details/106401389)
-
-10. 将数据在 IDE 全显示，避免折叠显示不全的情况
+8. 将数据在 IDE 全显示，避免折叠显示不全的情况
 
     1. 全局设置 `pandas`，使用方法：
 ```python
@@ -76,21 +66,10 @@ stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
 
-11. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
+9. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
 
     1. 安装 64 位版本的 Python
 
-12. 无法下载疫情的海外数据
-
-    1. 访问 [IPAddress](https://www.ipaddress.com/)
-    2. 查询 ```raw.githubusercontent.com``` 的真实 IP 地址
-    3. 找到系统 host
-        1. Windows 10 在目录 ```C:\Windows\System32\drivers\etc```
-        2. Ubuntu 18.04 在目录 ```/etc/hosts```
-    4. 修改 host
-        1. 添加如下内容：```199.232.28.133 raw.githubusercontent.com```
-        2. 此处 ```199.232.28.133``` 为查找到的真实 IP
-
-13. 使用代理的时候报错 `check_hostname requires server_hostname`
+10. 使用代理的时候报错 `check_hostname requires server_hostname`
 
     1. 降低 urllib3 的版本到 1.25.8：`pip install urllib3==1.25.8`
