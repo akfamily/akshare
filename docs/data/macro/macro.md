@@ -12087,6 +12087,7 @@ print(macro_info_ws_df)
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
 | date | str | date="20241107" |
+| cookie | str | cookie=None；百度股市通的 Cookie，默认自动获取 |
 
 输出参数
 

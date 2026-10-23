@@ -8000,6 +8000,7 @@ print(stock_tfp_em_df)
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
 | date | str | date="20241107" |
+| cookie | str | cookie=None；百度股市通的 Cookie，默认自动获取 |
 
 输出参数
 
@@ -8216,6 +8217,7 @@ print(stock_news_main_cx_df)
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
 | date | str | date="20241107" |
+| cookie | str | cookie=None；百度股市通的 Cookie，默认自动获取 |
 
 输出参数
 
@@ -21640,9 +21642,9 @@ print(stock_board_concept_name_em_df)
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称     | 类型  | 描述 |
+|--------|-----|----|
+| symbol | str | symbol="可燃冰"；概念板块名称或代码（如 "BK0818"），可以通过 ak.stock_board_concept_name_em() 获取 |
 
 输出参数
 

@@ -40,9 +40,9 @@ print(ak.list_categories())
  "get_ine_daily",  # 上海国际能源交易中心每日交易数据
  "futures_settlement_price_sgx",  # 新加坡交易所期货品种每日交易数据
  "get_dce_rank_table",  # 大连商品交易所前20会员持仓数据明细
- "get_futures_daily",  # 中国金融期货交易所每日基差数据
- "get_rank_sum",  # 四个期货交易所前5, 10, 15, 20会员持仓排名数据
- "get_rank_sum_daily",  # 每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
+ "get_futures_daily",  # 各期货交易所每日交易数据（默认中国金融期货交易所）
+ "get_rank_sum",  # 各期货交易所前5, 10, 15, 20会员持仓排名数据
+ "get_rank_sum_daily",  # 每日各期货交易所前5, 10, 15, 20会员持仓排名数据
  "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据
  "get_receipt",  # 大宗商品注册仓单数据
  "get_roll_yield",  # 某一天某品种(主力和次主力)或固定两个合约的展期收益率
@@ -81,8 +81,8 @@ print(ak.list_categories())
  # 加密货币行情
  "crypto_js_spot"  # 提供主流加密货币行情数据接口
  # 新浪财经-港股
- "stock_hk_spot"  # 港股的历史行情数据(包括前后复权因子)
- "stock_hk_daily"  # 港股的实时行情数据(也可以用于获得所有港股代码)
+ "stock_hk_spot"  # 港股的实时行情数据(也可以用于获得所有港股代码)
+ "stock_hk_daily"  # 港股的历史行情数据(包括前后复权因子)
  # 东方财富
  "stock_hk_spot_em"  # 港股实时行情
  "stock_hk_main_board_spot_em"  # 港股主板实时行情
@@ -152,8 +152,8 @@ print(ak.list_categories())
  "amac_manager_cancelled_info" # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
  # 全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
  "fx_spot_quote"  # 市场行情-外汇市场行情-人民币外汇即期报价
- "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价
- "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
+ "fx_swap_quote"  # 市场行情-外汇市场行情-人民币外汇远期掉期报价
+ "fx_pair_quote"  # 市场行情-外汇市场行情-外币对即期报价
  # 能源-碳排放权
  "energy_carbon_domestic"  # 碳排放权-国内
  "energy_carbon_bj"  # 碳排放权-北京
@@ -316,8 +316,8 @@ print(ak.list_categories())
  "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_sz50_list_sina"  # 上证50期权列表
- "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
- "option_cffex_sz50_daily_sina"  # 沪深300期权历史行情-日频
+ "option_cffex_sz50_spot_sina"  # 上证50期权实时行情
+ "option_cffex_sz50_daily_sina"  # 上证50期权历史行情-日频
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
  "option_cffex_hs300_daily_sina"  # 沪深300期权历史行情-日频
@@ -1345,8 +1345,8 @@ print(ak.list_categories())
  "index_csindex_all"  # 中证指数网站-指数列表
  # 东方财富-A股-财务分析-主要指标
  "stock_financial_analysis_indicator_em"  # 东方财富-A股-财务分析-主要指标
- # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
- "fx_c_swap_cm"  # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+ # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
+ "fx_c_swap_cm"  # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
  # 股票期权
  "option_current_day_szse"  # 深圳证券交易所-期权子网-行情数据-当日合约
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约

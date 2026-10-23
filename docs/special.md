@@ -48,7 +48,7 @@
 
 感谢[南华期货网站](http://www.nanhua.net)提供南华期货-南华指数数据；
 
-感谢[Economic Policy Uncertainty网站](http://www.nanhua.net)提供经济政策不确定性(EPU)指数数据；
+感谢[Economic Policy Uncertainty网站](https://www.policyuncertainty.com/)提供经济政策不确定性(EPU)指数数据；
 
 感谢[申万指数](http://www.swsindex.com)提供的相关数据；
 

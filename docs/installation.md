@@ -395,9 +395,7 @@ Consider using the `--user` option or check the permissions.
 
 方法一
 
-```
-pip install akshare --user
-```
+在虚拟环境中安装，虚拟环境位于用户目录下，不需要管理员权限，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)
 
 方法二
 

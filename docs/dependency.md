@@ -10,12 +10,11 @@
 
 ### mini-racer
 
-1. 版本 >=0.12.4
+1. 版本 >=0.12.4，仅在 Windows 和 macOS 上安装；Linux 上改为安装 [py-mini-racer](https://pypi.org/project/py-mini-racer/)（>=0.6.0）和 [akracer](https://pypi.org/project/akracer/)（>=0.0.13），由 pip 按平台自动选择
 2. 推荐使用最新版
 3. [PyPI 地址](https://pypi.org/project/mini-racer/)
 4. [GitHub 地址](https://github.com/bpcreech/PyMiniRacer)
-5. [文档地址](https://blog.sqreen.com/embedding-javascript-into-python/)
-6. 选用原因如下
+5. 选用原因如下
     1. 由于 [PyExecJS](https://pypi.org/project/PyExecJS/) 在 20180118 推出最后一个版本后，
        主要的开发者不再对该库进行升级维护，导致部分问题无法通过升级该库来修复，
        该库的 [GitHub 地址](https://github.com/doloopwhile/PyExecJS) 可以访问如下地址，所以没有使用该库；
@@ -24,9 +23,9 @@
 
 ### pandas
 
-1. 版本 >=0.25.0
+1. 版本 >=2.0.0
 2. 推荐使用最新版
-3. [PYPI 地址](https://pypi.org/project/pandas/)
+3. [PyPI 地址](https://pypi.org/project/pandas/)
 4. [GitHub 地址](https://github.com/pandas-dev/pandas/)
 5. [文档地址](https://pandas.pydata.org/)
 6. 选用原因如下

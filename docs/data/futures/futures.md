@@ -2015,7 +2015,7 @@ print(futures_hold_pos_sina_df)
 | 名称       | 类型  | 描述                                                  |
 |----------|-----|-----------------------------------------------------|
 | symbol   | str | symbol="铜"；期货品种                                    |
-| contract | str | indicator="市场价格"; choice of {"市场价格", "基差率", "主力基差"} |
+| indicator | str | indicator="市场价格"; choice of {"市场价格", "基差率", "主力基差"} |
 
 输出参数-市场价格
 
@@ -2513,7 +2513,7 @@ print(futures_contract_info_cffex_df)
 
 | 名称             | 类型  | 描述                                                    |
 |----------------|-----|-------------------------------------------------------|
-| subscribe_list | str | 需要订阅的合约代码；e.g.，按照示例获取                               |
+| symbol         | str | symbol="V2309"；合约代码，多个合约用英文逗号分隔，如 "V2205, P2205"    |
 | market         | str | market="CF"; market="CF": 商品期货，market="FF": 金融期货     |
 | adjust         | str | adjust='0'; adjust='1': 返回合约、交易所和最小变动单位的实时数据，返回数据会变慢 |
 

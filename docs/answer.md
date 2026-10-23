@@ -33,22 +33,17 @@
     2. 更换 IP 地址，可以使用代理访问
     3. 降低数据访问的频率
 
-5. 接口报错出现类似错误提示：`cannot import name 'StringIO' from 'pandas.compat'`
-
-    1. 建议安装 pandas 版本大于 **0.25.2**，建议 pandas 版本大于 **1.0**
-    2. 升级命令如下：`pip install pandas --upgrade`
-
-6. 出现数据返回错位，如日期数据和价格数据返回错位的情况
+5. 出现数据返回错位，如日期数据和价格数据返回错位的情况
 
     1. 多运行几次，查看是否是网络不稳定造成的问题
     2. 切换 IP 后重试
     3. 可以在 [GitHub Issues](https://github.com/akfamily/akshare/issues) 中反馈
 
-7. 返回值字段错位
+6. 返回值字段错位
 
     1. 升级 pandas 到最新版本
 
-8. 将数据在 IDE 全显示，避免折叠显示不全的情况
+7. 将数据在 IDE 全显示，避免折叠显示不全的情况
 
     1. 全局设置 `pandas`，使用方法：
 ```python
@@ -66,10 +61,11 @@ stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
 
-9. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
+8. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
 
     1. 安装 64 位版本的 Python
 
-10. 使用代理的时候报错 `check_hostname requires server_hostname`
+9. 使用代理的时候报错 `check_hostname requires server_hostname`
 
-    1. 降低 urllib3 的版本到 1.25.8：`pip install urllib3==1.25.8`
+    1. 检查代理地址的协议：大多数本地代理软件提供的是 HTTP 代理，`https` 一项也应写成 `http://` 开头，例如 `{"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}`
+    2. 不要通过降低 urllib3 版本来规避，旧版本存在已知安全漏洞
