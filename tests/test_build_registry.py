@@ -13,6 +13,7 @@ from build_registry import (
     render_all_block,
     replace_all_block,
     serialize,
+    write_if_changed,
 )
 
 SIMPLE = """
@@ -432,3 +433,34 @@ def test_replace_all_block_updates_stale_content():
     assert "old_iface" not in fresh
     assert "new_iface" in fresh
     assert fresh.count(ALL_BEGIN) == 1
+
+
+def test_write_if_changed_skips_identical_content(tmp_path):
+    # 内容未变时不得写入：重写会改动 mtime 与行尾，让 git 把文件标为已修改
+    target = tmp_path / "a.json"
+    target.write_bytes(b"line1\r\nline2\r\n")
+    before = target.stat().st_mtime_ns
+    assert write_if_changed(target, "line1\nline2\n") is False
+    assert target.read_bytes() == b"line1\r\nline2\r\n"
+    assert target.stat().st_mtime_ns == before
+
+
+def test_write_if_changed_preserves_crlf(tmp_path):
+    # Windows 上 core.autocrlf=true 时工作区是 CRLF，写回时须沿用
+    target = tmp_path / "a.json"
+    target.write_bytes(b"old\r\n")
+    assert write_if_changed(target, "new1\nnew2\n") is True
+    assert target.read_bytes() == b"new1\r\nnew2\r\n"
+
+
+def test_write_if_changed_preserves_lf(tmp_path):
+    target = tmp_path / "a.json"
+    target.write_bytes(b"old\n")
+    assert write_if_changed(target, "new1\nnew2\n") is True
+    assert target.read_bytes() == b"new1\nnew2\n"
+
+
+def test_write_if_changed_creates_missing_file_with_lf(tmp_path):
+    target = tmp_path / "a.json"
+    assert write_if_changed(target, "new\n") is True
+    assert target.read_bytes() == b"new\n"
