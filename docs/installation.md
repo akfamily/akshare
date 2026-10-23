@@ -5,7 +5,7 @@
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
 2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
 3. [AKShare](https://github.com/akfamily/akshare) 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)；如需在 R 语言或 MATLAB 中调用，或者习惯使用 Anaconda，请参考 [AKShare Anaconda 环境配置](https://akshare.akfamily.xyz/anaconda.html)；
-4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html).
+4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/akdocker/akdocker.html)。
 
 ## 安装 [AKShare](https://github.com/akfamily/akshare)
 
@@ -15,7 +15,7 @@
 pip install akshare --upgrade
 ```
 
-注意：程序运行时，文件名、文件夹名不能是：akshare
+注意：程序运行时，文件名、文件夹名不能是 akshare
 
 ### 国内安装-Python
 
@@ -106,7 +106,7 @@ install.packages("reticulate")
 
 ```
 library(reticulate)
-use_python("/usr/local/bin/python")  # 默认使用本地的 Python, 如果需要使用虚拟环境的 Pyhton, 请参考 reticulate 的提示
+use_python("/usr/local/bin/python")  # 默认使用本地的 Python, 如果需要使用虚拟环境的 Python, 请参考 reticulate 的提示
 ```
 
 调用本地的 Python 程序，其中 usr 需要替换为本地计算机的用户名。
@@ -346,7 +346,7 @@ ans =
 ```
 % 导入 AKShare 库
 ak = py.importlib.import_module('akshare');
-% 代用 AKShare 数据接口
+% 调用 AKShare 数据接口
 temp_df = ak.stock_zh_a_hist();
 % 转化数据格式
 df = py2matlab(temp_df);
@@ -358,7 +358,7 @@ disp(df)
 
 ### 1. 安装超时的错误
 
-1.大致报错如下，出现关键词 **amt** :
+1. 大致报错如下，出现关键词 **amt**：
 
 ```
 Traceback (most recent call last):
@@ -370,7 +370,7 @@ File "/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendo
 data = self.__fp.read(amt)
 ```
 
-2.解决方案如下：
+2. 解决方案如下：
 
 方法一
 
@@ -384,14 +384,14 @@ pip --default-timeout=100 install -U akshare
 
 ### 2. 拒绝访问错误
 
-1.大致报错如下，出现关键词 **拒绝访问** :
+1. 大致报错如下，出现关键词 **拒绝访问**：
 
 ```
 Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Users/mac/Anaconda/anaconda3/lib/python3.7/site-packages/cv2/__init__.py'
 Consider using the `--user` option or check the permissions.
 ```
 
-2.解决方案如下：
+2. 解决方案如下：
 
 方法一
 

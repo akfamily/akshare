@@ -20,7 +20,7 @@ print(ak.list_categories())
 
 检索完全在本地进行，不发起网络请求。传入完整接口名时该接口一定排在第一位，因此
 它也适合用来确认一个记不全的接口名。需要注意这是关键词匹配而非语义检索，详见
-[AKShare 接口检索](https://akshare.akfamily.xyz/registry.html).
+[AKShare 接口检索](https://akshare.akfamily.xyz/registry.html)。
 
 ## 查看数据
 
@@ -433,12 +433,12 @@ print(ak.list_categories())
  "stock_sector_spot"  # 板块行情
  "stock_sector_detail"  # 板块详情(具体股票)
  # 股票信息
- "stock_info_sz_name_code"  # 深证证券交易所股票代码和简称
+ "stock_info_sz_name_code"  # 深圳证券交易所股票代码和简称
  "stock_info_sh_name_code"  # 上海证券交易所股票代码和简称
  "stock_info_bj_name_code"  # 北京证券交易所股票代码和简称
  "stock_info_sh_delist"  # 上海证券交易所暂停和终止上市
- "stock_info_sz_delist"  # 深证证券交易所暂停和终止上市
- "stock_info_sz_change_name"  # 深证证券交易所名称变更
+ "stock_info_sz_delist"  # 深圳证券交易所暂停和终止上市
+ "stock_info_sz_change_name"  # 深圳证券交易所名称变更
  "stock_info_change_name"  # A 股股票曾用名列表
  "stock_info_a_code_name"  # A 股股票代码和简称
  # 机构持股

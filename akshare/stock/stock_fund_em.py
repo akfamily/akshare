@@ -25,7 +25,7 @@ def stock_individual_fund_flow(
     https://data.eastmoney.com/zjlx/detail.html
     :param stock: 股票代码
     :type stock: str
-    :param market: 股票市场；上海证券交易所：sh，深证证券交易所：sz，北京证券交易所：bj;
+    :param market: 股票市场；上海证券交易所：sh，深圳证券交易所：sz，北京证券交易所：bj;
     :type market: str
     :return: 近期个股的资金流数据
     :rtype: pandas.DataFrame

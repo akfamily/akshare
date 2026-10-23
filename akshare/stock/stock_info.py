@@ -354,7 +354,7 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
 
 def stock_info_sz_delist(symbol: str = "终止上市公司") -> pd.DataFrame:
     """
-    深证证券交易所-暂停上市公司-终止上市公司
+    深圳证券交易所-暂停上市公司-终止上市公司
     https://www.szse.cn/market/stock/suspend/index.html
     :param symbol: choice of {"暂停上市公司", "终止上市公司"}
     :type symbol: str
@@ -383,7 +383,7 @@ def stock_info_sz_delist(symbol: str = "终止上市公司") -> pd.DataFrame:
 
 def stock_info_sz_change_name(symbol: str = "全称变更") -> pd.DataFrame:
     """
-    深证证券交易所-市场数据-股票数据-名称变更
+    深圳证券交易所-市场数据-股票数据-名称变更
     https://www.szse.cn/www/market/stock/changename/index.html
     :param symbol: choice of {"全称变更": "tab1", "简称变更": "tab2"}
     :type symbol: str

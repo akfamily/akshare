@@ -9,15 +9,13 @@
 1. 安装 AKShare 的速度慢，下载时间久
 
     1. 请使用国内的源来安装 AKShare
-        1. 基于 Python 的代码如下：
-```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
-        2. 基于 uv 的代码如下：
-```uv pip install akshare --default-index https://pypi.tuna.tsinghua.edu.cn/simple --upgrade```
+        1. 基于 pip 的代码如下：`pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple`
+        2. 基于 uv 的代码如下：`uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.cn/simple`
     2. 使用代理安装，由于相关限制，在这里对代理的安装和使用不做介绍，请自行搜索配置。
 
 2. 运行任意接口发现报错，错误类似：`AttributeError: module 'akshare' has no attribute 'xxx'`
 
-    1. 检查 Python 的版本需要在 Python 3.11 以上，推荐使用 Python 3.13.x 及以上版本
+    1. 检查 Python 的版本需要在 Python 3.11 及以上，推荐使用 Python 3.13.x 及以上版本
     2. 检查是否安装了最新版本的 AKShare，如果不是最新版本，请先升级至最新版
     3. 检查在文档中是否具有该 `xxx` 接口，特定情况下有可能会改变接口的命名或者移除某些接口
     4. 检查所运行的 Python 文件名命名问题，不能用如下命名：`akshare.py` 与本地安装包冲突
@@ -46,20 +44,21 @@
 7. 将数据在 IDE 全显示，避免折叠显示不全的情况
 
     1. 全局设置 `pandas`，使用方法：
-```python
-import pandas as pd
-import akshare as ak
-# 列名与数据对其显示
-pd.set_option('display.unicode.ambiguous_as_wide', True)
-pd.set_option('display.unicode.east_asian_width', True)
-# 显示所有列
-pd.set_option('display.max_columns', None)
-# 显示所有行
-pd.set_option('display.max_rows', None)
 
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
-print(stock_zh_index_daily_df)
-```
+       ```python
+       import pandas as pd
+       import akshare as ak
+       # 列名与数据对齐显示
+       pd.set_option('display.unicode.ambiguous_as_wide', True)
+       pd.set_option('display.unicode.east_asian_width', True)
+       # 显示所有列
+       pd.set_option('display.max_columns', None)
+       # 显示所有行
+       pd.set_option('display.max_rows', None)
+
+       stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
+       print(stock_zh_index_daily_df)
+       ```
 
 8. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
 

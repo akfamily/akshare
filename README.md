@@ -251,7 +251,7 @@ Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagoboot
 
 Thanks for the data provided by [上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
 
-Thanks for the data provided by [深证证券交易所网站](http://www.szse.cn/);
+Thanks for the data provided by [深圳证券交易所网站](http://www.szse.cn/);
 
 Thanks for the data provided by [北京证券交易所网站](http://www.bse.cn/);
 

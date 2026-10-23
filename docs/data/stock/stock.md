@@ -10415,7 +10415,7 @@ print(stock_fund_flow_big_deal_df)
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
 | stock  | str | stock="000425"；股票代码                               |
-| market | str | market="sh"；上海证券交易所：sh，深证证券交易所：sz，北京证券交易所：bj |
+| market | str | market="sh"；上海证券交易所：sh，深圳证券交易所：sz，北京证券交易所：bj |
 
 输出参数
 
@@ -15142,9 +15142,9 @@ print(stock_info_sh_name_code_df)
 
 目标地址：https://www.szse.cn/market/product/stock/list/index.html
 
-描述：深证证券交易所股票代码和股票简称数据
+描述：深圳证券交易所股票代码和股票简称数据
 
-限量：单次获取深证证券交易所股票代码和简称数据
+限量：单次获取深圳证券交易所股票代码和简称数据
 
 输入参数
 
@@ -15253,9 +15253,9 @@ print(stock_info_bj_name_code_df)
 
 目标地址：https://www.szse.cn/market/stock/suspend/index.html
 
-描述：深证证券交易所终止/暂停上市股票
+描述：深圳证券交易所终止/暂停上市股票
 
-限量：单次获取深证证券交易所终止/暂停上市数据
+限量：单次获取深圳证券交易所终止/暂停上市数据
 
 输入参数
 
@@ -15453,7 +15453,7 @@ print(stock_info_change_name_list)
 
 目标地址：https://www.szse.cn/www/market/stock/changename/index.html
 
-描述：深证证券交易所-市场数据-股票数据-名称变更
+描述：深圳证券交易所-市场数据-股票数据-名称变更
 
 限量：单次获取所有历史数据
 
@@ -20935,7 +20935,7 @@ print(stock_margin_sse_df)
 
 目标地址：https://www.szse.cn/disclosure/margin/margin/index.html
 
-描述：深证证券交易所-融资融券数据-融资融券交易明细数据
+描述：深圳证券交易所-融资融券数据-融资融券交易明细数据
 
 限量：单次返回指定 date 的所有历史数据
 
@@ -24478,7 +24478,7 @@ print(stock_info_global_cls_df)
 
 #### 以万 2.5 佣金结构为例
 
-深证证券交易所
+深圳证券交易所
 
 | 项目   | 费用      | 收取部门    |
 |------|---------|---------|
@@ -24497,7 +24497,7 @@ print(stock_info_global_cls_df)
 
 #### 以万 1.2 佣金结构为例
 
-深证证券交易所
+深圳证券交易所
 
 | 项目   | 费用      | 收取部门    |
 |------|---------|---------|

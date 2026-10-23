@@ -3355,7 +3355,7 @@ openctp-合约信息接口
 from akshare.option.option_contract_info_ctp import option_contract_info_ctp
 
 """
-中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
 """
 from akshare.fx.fx_c_swap_cm import fx_c_swap_cm
 

@@ -94,7 +94,7 @@ def stock_margin_szse(date: str = "20240411") -> pd.DataFrame:
 
 def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
     """
-    深证证券交易所-融资融券数据-融资融券交易明细
+    深圳证券交易所-融资融券数据-融资融券交易明细
     https://www.szse.cn/disclosure/margin/margin/index.html
     :param date: 交易日期
     :type date: str

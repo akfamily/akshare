@@ -23,7 +23,7 @@ Anaconda 是集成上千个常用库的 Python 发行版本，自带图形界面
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_icon.png)
 
-点击 Next:
+点击 Next：
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_1.png)
 
@@ -31,7 +31,7 @@ Anaconda 是集成上千个常用库的 Python 发行版本，自带图形界面
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_2.png)
 
-点击 Just me --> Next:
+点击 Just me --> Next：
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_3.png)
 
@@ -57,17 +57,13 @@ Anaconda 是集成上千个常用库的 Python 发行版本，自带图形界面
 conda create -n ak_test python=3.13
 ```
 
-输入上述命令后出现确认，输入 y
-
-```
-Proceed 输入 y
-```
+输入上述命令后会出现 `Proceed ([y]/n)?` 的确认提示，输入 y 并回车。
 
 显示出最后一个红框内容则创建虚拟环境成功。
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
-在虚拟环境中安装 [AKShare](https://github.com/akfamily/akshare). 输入如下内容，会在全新的环境中自动安装所需要的依赖包
+在虚拟环境中安装 [AKShare](https://github.com/akfamily/akshare)。输入如下内容，会在全新的环境中自动安装所需要的依赖包
 
 激活已经创建好的 ak_test 虚拟环境
 

@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2025/9/9 14:57
-Desc: 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+Desc: 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
 https://www.chinamoney.org.cn/chinese/bkcurvfsw
 """
 
