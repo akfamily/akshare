@@ -22,6 +22,7 @@ import py_mini_racer
 from akshare.utils.tqdm import get_tqdm
 
 from akshare.datasets import get_ths_js
+from akshare.exceptions import InvalidParameterError
 
 
 def _get_file_content_ths(file: str = "ths.js") -> str:
@@ -38,6 +39,23 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     return file_data
 
 
+_THS_FUND_FLOW_SYMBOLS = ("即时", "3日排行", "5日排行", "10日排行", "20日排行")
+
+
+def _check_ths_fund_flow_symbol(symbol: str) -> None:
+    """
+    校验同花顺资金流向接口的 symbol 参数
+    非法值须在发出任何请求前报错，否则会落入“即时”分支抓取全部分页后才报列数不匹配
+    :param symbol: 待校验的 symbol
+    :type symbol: str
+    :raises InvalidParameterError: symbol 不在可选值中时抛出
+    """
+    if symbol not in _THS_FUND_FLOW_SYMBOLS:
+        raise InvalidParameterError(
+            f"symbol 参数应为 {'、'.join(_THS_FUND_FLOW_SYMBOLS)} 之一，收到: {symbol!r}"
+        )
+
+
 def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-个股资金流
@@ -46,7 +64,9 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     :type symbol: str
     :return: 个股资金流
     :rtype: pandas.DataFrame
+    :raises InvalidParameterError: symbol 不在可选值中时抛出
     """
+    _check_ths_fund_flow_symbol(symbol)
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -142,7 +162,9 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     :type symbol: str
     :return: 概念资金流
     :rtype: pandas.DataFrame
+    :raises InvalidParameterError: symbol 不在可选值中时抛出
     """
+    _check_ths_fund_flow_symbol(symbol)
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -248,7 +270,9 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     :type symbol: str
     :return: 行业资金流
     :rtype: pandas.DataFrame
+    :raises InvalidParameterError: symbol 不在可选值中时抛出
     """
+    _check_ths_fund_flow_symbol(symbol)
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
