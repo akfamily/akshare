@@ -69,7 +69,7 @@ def _normalize(text: str) -> str:
     :param text: 原始字符串
     :return: 空白压缩后的字符串
     """
-    return _WHITESPACE_RE.sub("", text)
+    return "".join(text.split())
 
 
 def _score(tokens: List[str], record: Dict) -> float:
@@ -153,20 +153,68 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
     """
     tokens = _tokenize(query)
     fallback_tokens = _bigrams(query)
+    token_groups = [
+        (terms, [_normalize(term) for term in terms], len(terms))
+        for terms in (tokens, fallback_tokens)
+        if terms
+    ]
+    if not token_groups:
+        return []
+    token_count = len(tokens)
+    weight_name = WEIGHT_NAME
+    weight_desc = WEIGHT_DESC
+    weight_category = WEIGHT_CATEGORY
+    weight_output = WEIGHT_OUTPUT
     stripped = query.strip()
     scored = []
     for record in records:
-        score = _score(tokens, record)
-        if fallback_tokens:
-            score = max(score, _score(fallback_tokens, record))
+        name = record["name"]
+        score = 0.0
+        fields = None
+        for terms, norm_terms, term_count in token_groups:
+            if term_count == 1 and terms[0] == name:
+                total = WEIGHT_NAME_EXACT
+            else:
+                # Prepare fields once for both scoring passes; keep column boundaries.
+                if fields is None:
+                    columns = "\x00".join(
+                        column.get("name") or ""
+                        for column in record.get("outputs") or []
+                    )
+                    fields = (
+                        _normalize(name),
+                        _normalize(record.get("desc") or ""),
+                        _normalize(record.get("category") or ""),
+                        _normalize(columns),
+                    )
+                norm_name, norm_desc, norm_category, norm_columns = fields
+                total = 0.0
+                hit_count = 0
+                for norm_term in norm_terms:
+                    subtotal = 0.0
+                    if norm_term in norm_name:
+                        subtotal += weight_name
+                    if norm_term in norm_desc:
+                        subtotal += weight_desc
+                    if norm_term in norm_category:
+                        subtotal += weight_category
+                    if norm_term in norm_columns:
+                        subtotal += weight_output
+                    if subtotal:
+                        hit_count += 1
+                    total += subtotal
+                if total and hit_count == term_count:
+                    total *= BONUS_ALL_TOKENS
+                if not record.get("documented", False):
+                    total *= PENALTY_UNDOCUMENTED
+            if total > score:
+                score = total
         if score > 0:
             # 与 _score 的精确名捷径判定保持一致：tokenize 会剥掉
             # ",，、;；/|" 等标点，若这里仍用未剥标点的原始 stripped 比较，
             # 带尾随标点的精确名查询（如 "stock_zh_a_hist,"）会被判定为
             # 非精确，从而失去置顶保证。
-            is_exact = (len(tokens) == 1 and tokens[0] == record["name"]) or (
-                record["name"] == stripped
-            )
+            is_exact = (token_count == 1 and tokens[0] == name) or name == stripped
             scored.append((record, score, is_exact))
     scored.sort(key=lambda item: (not item[2], -item[1], item[0]["name"]))
     return [dict(record, _score=score) for record, score, _ in scored]
