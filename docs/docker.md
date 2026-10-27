@@ -35,8 +35,10 @@ docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
 
 ### 运行 AKDocker 容器
 
+进入容器中的 Python 交互环境：
+
 ```shell
-docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
+docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter python
 ```
 
 ### 测试 AKDocker 容器
