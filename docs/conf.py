@@ -117,10 +117,6 @@ html_sidebars = {
 # “本文档更新时间”。
 html_last_updated_fmt = "%Y-%m-%d"
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-
 
 master_doc = "index"
 
