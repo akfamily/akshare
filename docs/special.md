@@ -30,7 +30,7 @@
 
 感谢[上海证券交易所网站](http://www.sse.com.cn)提供的相关数据；
 
-感谢[深证证券交易所网站](http://www.szse.cn)提供的相关数据；
+感谢[深圳证券交易所网站](http://www.szse.cn)提供的相关数据；
 
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn)提供的相关数据；
 
@@ -48,7 +48,7 @@
 
 感谢[南华期货网站](http://www.nanhua.net)提供南华期货-南华指数数据；
 
-感谢[Economic Policy Uncertainty网站](http://www.nanhua.net)提供经济政策不确定性(EPU)指数数据；
+感谢[Economic Policy Uncertainty网站](https://www.policyuncertainty.com/)提供经济政策不确定性(EPU)指数数据；
 
 感谢[申万指数](http://www.swsindex.com)提供的相关数据；
 

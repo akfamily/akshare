@@ -23,7 +23,7 @@
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 月份       | object  | -        |
+| 月份       | str     | -        |
 | {前一个年份}年 | float64 | 注意单位：万辆 |
 | {当前年份}年  | float64 | 注意单位：万辆 |
 
@@ -75,7 +75,7 @@ print(car_market_total_cpca_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 月份       | object  | -        |
+| 月份       | str     | -        |
 | {前一个年份}年 | float64 | 注意单位：万辆 |
 | {当前年份}年  | float64 | 注意单位：万辆 |
 
@@ -125,7 +125,7 @@ print(car_market_man_rank_cpca_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 月份       | object  | -        |
+| 月份       | str     | -        |
 | {前一个年份}年 | float64 | 注意单位：万辆 |
 | {当前年份}年  | float64 | 注意单位：万辆 |
 
@@ -176,7 +176,7 @@ print(car_market_cate_cpca_df)
 
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
-| 月份   | object  | -        |
+| 月份   | str     | -        |
 | 自主   | float64 | 注意单位：万辆 |
 | 德系   | float64 | 注意单位：万辆 |
 | 日系   | float64 | 注意单位：万辆 |
@@ -233,7 +233,7 @@ print(car_market_country_cpca_df)
 
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
-| 月份  | object  | -        |
+| 月份  | str     | -        |
 | A00 | float64 | 注意单位：万辆 |
 | A0  | float64 | 注意单位：万辆 |
 | A   | float64 | 注意单位：万辆 |
@@ -287,7 +287,7 @@ print(car_market_segment_cpca_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 月份       | object  | -        |
+| 月份       | str     | -        |
 | {前一个年份}年 | float64 | 注意单位：万辆 |
 | {当前年份}年  | float64 | 注意单位：万辆 |
 
@@ -339,10 +339,10 @@ print(car_market_fuel_cpca_df)
 
 | 名称               | 类型      | 描述      |
 |------------------|---------|---------|
-| 品牌               | object  | -       |
+| 品牌               | str     | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位：% |
-| {当前月份}月环比        | object  | 注意单位：% |
+| {当前月份}月同比        | str     | 注意单位：% |
+| {当前月份}月环比        | str     | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -416,10 +416,10 @@ print(car_sale_rank_gasgoo_df)
 
 | 名称               | 类型      | 描述      |
 |------------------|---------|---------|
-| 车型               | object  | -       |
+| 车型               | str     | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位：% |
-| {当前月份}月环比        | object  | 注意单位：% |
+| {当前月份}月同比        | str     | 注意单位：% |
+| {当前月份}月环比        | str     | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -494,10 +494,10 @@ print(car_sale_rank_gasgoo_df)
 
 | 名称               | 类型      | 描述      |
 |------------------|---------|---------|
-| 厂商               | object  | -       |
+| 厂商               | str     | -       |
 | {当前年份}-{当前月份}    | int64   | -       |
-| {当前月份}月同比        | object  | 注意单位：% |
-| {当前月份}月环比        | object  | 注意单位：% |
+| {当前月份}月同比        | str     | 注意单位：% |
+| {当前月份}月环比        | str     | 注意单位：% |
 | {年份}-1到{当前年份}    | int64   | -       |
 | {前一年年份}-1到{当前年份} | float64 | -       |
 | {前二年年份}-1到{当前年份} | float64 | -       |
@@ -587,9 +587,9 @@ print(car_sale_rank_gasgoo_df)
 
 | 名称      | 类型     | 描述   |
 |---------|--------|------|
-| date    | object | 新闻日期 |
-| title   | object | 新闻标题 |
-| content | object | 新闻内容 |
+| date    | str    | 新闻日期 |
+| title   | str    | 新闻标题 |
+| content | str    | 新闻内容 |
 
 接口示例
 
@@ -643,18 +643,18 @@ print(news_cctv_df)
 | 名称         | 类型     | 描述                          |
 |------------|--------|-----------------------------|
 | date       | object | 日期                          |
-| Sunrise    | object | 日出                          |
-| Sunset     | object | 日落                          |
-| Length     | object | Daylength-Length            |
-| Difference | object | Daylength-Difference        |
-| Start      | object | Astronomical Twilight-Start |
-| End        | object | Astronomical Twilight-End   |
-| Start.1    | object | Nautical Twilight-Start     |
-| End.1      | object | Nautical Twilight-End       |
-| Start.2    | object | Civil Twilight-Start        |
-| End.2      | object | Civil Twilight-End          |
-| Time       | object | Solar Noon-Time             |
-| Mil. km    | object | Solar Noon-Mil. km          |
+| Sunrise    | str    | 日出                          |
+| Sunset     | str    | 日落                          |
+| Length     | str    | Daylength-Length            |
+| Difference | str    | Daylength-Difference        |
+| Start      | str    | Astronomical Twilight-Start |
+| End        | str    | Astronomical Twilight-End   |
+| Start.1    | str    | Nautical Twilight-Start     |
+| End.1      | str    | Nautical Twilight-End       |
+| Start.2    | str    | Civil Twilight-Start        |
+| End.2      | str    | Civil Twilight-End          |
+| Time       | str    | Solar Noon-Time             |
+| Mil. km    | str    | Solar Noon-Mil. km          |
 
 接口示例
 
@@ -694,20 +694,20 @@ print(sunrise_daily_df)
 
 | 名称         | 类型     | 描述                          |
 |------------|--------|-----------------------------|
-| date       | object | 日期-索引；XXXX-XX 格式           |
-| feb        | object | 月份简称-随月份变化                  |
-| Sunrise    | object | 日出                          |
-| Sunset     | object | 日落                          |
-| Length     | object | Daylength-Length            |
-| Difference | object | Daylength-Difference        |
-| Start      | object | Astronomical Twilight-Start |
-| End        | object | Astronomical Twilight-End   |
-| Start.1    | object | Nautical Twilight-Start     |
-| End.1      | object | Nautical Twilight-End       |
-| Start.2    | object | Civil Twilight-Start        |
-| End.2      | object | Civil Twilight-End          |
-| Time       | object | Solar Noon-Time             |
-| Mil. km    | object | Solar Noon-Mil. km          |
+| date       | str    | 日期-索引；XXXX-XX 格式           |
+| feb        | str    | 月份简称-随月份变化                  |
+| Sunrise    | str    | 日出                          |
+| Sunset     | str    | 日落                          |
+| Length     | str    | Daylength-Length            |
+| Difference | str    | Daylength-Difference        |
+| Start      | str    | Astronomical Twilight-Start |
+| End        | str    | Astronomical Twilight-End   |
+| Start.1    | str    | Nautical Twilight-Start     |
+| End.1      | str    | Nautical Twilight-End       |
+| Start.2    | str    | Civil Twilight-Start        |
+| End.2      | str    | Civil Twilight-End          |
+| Time       | str    | Solar Noon-Time             |
+| Mil. km    | str    | Solar Noon-Mil. km          |
 
 接口示例
 
@@ -777,13 +777,13 @@ print(sunrise_monthly_df)
 
 | 名称         | 类型      | 描述            |
 |------------|---------|---------------|
-| 城市         | object  | 城市名称          |
-| 区域         | object  | 城市下属行政区域      |
-| 监测点        | object  | 监测站点名称        |
-| 时间         | object  | 监测时间          |
+| 城市         | str     | 城市名称          |
+| 区域         | str     | 城市下属行政区域      |
+| 监测点        | str     | 监测站点名称        |
+| 时间         | str     | 监测时间          |
 | AQI        | float64 | 空气质量指数        |
-| 空气质量等级     | object  | 空气质量级别（优、良等）  |
-| 首要污染物      | object  | 主要污染物         |
+| 空气质量等级     | str     | 空气质量级别（优、良等）  |
+| 首要污染物      | str     | 主要污染物         |
 | 经度         | float64 | 监测站点经度        |
 | 纬度         | float64 | 监测站点纬度        |
 | PM10_IAQI  | float64 | PM10空气质量分指数   |
@@ -851,12 +851,12 @@ print(air_quality_hebei_df)
 | 名称      | 类型      | 描述  |
 |---------|---------|-----|
 | 序号      | int64   | -   |
-| 省份      | object  | -   |
-| 城市      | object  | -   |
+| 省份      | str     | -   |
+| 城市      | str     | -   |
 | AQI     | float64 | -   |
-| 空气质量    | object  | -   |
-| PM2.5浓度 | object  | -   |
-| 首要污染物   | object  | -   |
+| 空气质量    | str     | -   |
+| PM2.5浓度 | str     | -   |
+| 首要污染物   | str     | -   |
 
 接口示例
 
@@ -907,22 +907,22 @@ print(air_city_table_df)
 
 | 名称                | 类型      | 描述     |
 |-------------------|---------|--------|
-| time              | object  | 日期时间索引 |
-| aqi               | object  | AQI    |
+| time              | str     | 日期时间索引 |
+| aqi               | str     | AQI    |
 | pm2_5             | float64 | PM2.5  |
-| pm10              | object  | PM10   |
+| pm10              | str     | PM10   |
 | co                | float64 | CO     |
-| no2               | object  | NO2    |
-| o3                | object  | O3     |
-| so2               | object  | SO2    |
-| complexindex      | object  | 综合指数   |
-| rank              | object  | 排名     |
-| primary_pollutant | object  | 主要污染物  |
-| temp              | object  | 温度     |
-| humi              | object  | 湿度     |
-| windlevel         | object  | 风级     |
-| winddirection     | object  | 风向     |
-| weather           | object  | 天气     |
+| no2               | str     | NO2    |
+| o3                | str     | O3     |
+| so2               | str     | SO2    |
+| complexindex      | str     | 综合指数   |
+| rank              | str     | 排名     |
+| primary_pollutant | str     | 主要污染物  |
+| temp              | str     | 温度     |
+| humi              | str     | 湿度     |
+| windlevel         | str     | 风级     |
+| winddirection     | str     | 风向     |
+| weather           | str     | 天气     |
 
 接口示例-小时频率
 
@@ -1053,7 +1053,7 @@ print(air_quality_hist_df)
 | 降序      | str   | 排名  |
 | 省份      | str   | -   |
 | 城市      | str   | -   |
-| AQI     | float | -   |
+| AQI     | float64 | -   |
 | 空气质量    | str   | -   |
 | PM2.5浓度 | str   | -   |
 | 首要污染物   | str   | -   |
@@ -1181,7 +1181,7 @@ print(air_quality_rank_df)
 
 | 名称        | 类型      | 描述    |
 |-----------|---------|-------|
-| pointname | object  | 监测点名称 |
+| pointname | str     | 监测点名称 |
 | aqi       | float64 | AQI   |
 | pm2_5     | float64 | PM2.5 |
 | pm10      | float64 | PM10  |
@@ -1214,55 +1214,6 @@ print(air_quality_watch_point_df)
 8        卧龙桥  71.1863  ...                 161             1.13265
 9         云栖  70.4404  ...                 168                 1.2
 10       千岛湖  55.8762  ...  143.00000000000003                   1
-```
-
-## 财富排行榜-中文
-
-接口：fortune_rank
-
-目标地址：https://www.fortunechina.com/fortune500/node_65.htm
-
-描述：指定年份财富世界 500 强公司排行榜
-
-限量：单次返回某一个年份的所有历史数据
-
-输入参数
-
-| 名称   | 类型  | 描述          |
-|------|-----|-------------|
-| year | str | year="2023" |
-
-输出参数
-
-| 名称  | 类型  | 描述                |
-|-----|-----|-------------------|
-| -   | -   | 以当年的数据为准，输出的字段不一 |
-
-接口示例
-
-```python
-import akshare as ak
-
-fortune_rank_df = ak.fortune_rank(year="2023")
-print(fortune_rank_df)
-```
-
-数据示例
-
-```
-      排名                                         公司名称(中文)  ...     国家  关键数据
-0      1                                       沃尔玛（WALMART)  ...     美国     +
-1      2                               沙特阿美公司（SAUDI ARAMCO)  ...  沙特阿拉伯     +
-2      3                               国家电网有限公司（STATE GRID)  ...     中国     +
-3      4                                    亚马逊（AMAZON.COM)  ...     美国     +
-4      5            中国石油天然气集团有限公司（CHINA NATIONAL PETROLEUM)  ...     中国     +
-..   ...                                                ...  ...    ...   ...
-495  496                     三星人寿保险（SAMSUNG LIFE INSURANCE)  ...     韩国     +
-496  497                  住友生命保险公司（SUMITOMO LIFE INSURANCE)  ...     日本     +
-497  498                                   CarMax公司（CARMAX)  ...     美国     +
-498  499         日本三菱重工业股份有限公司（MITSUBISHI HEAVY INDUSTRIES)  ...     日本     +
-499  500  新疆广汇实业投资（集团）有限责任公司（XINJIANG GUANGHUI INDUSTRY ...  ...     中国     +
-[500 rows x 6 columns]
 ```
 
 ## 福布斯中国榜单
@@ -1428,12 +1379,12 @@ print(forbes_rank_df)
 |------|---------|----------|
 | 排名   | int64   | -        |
 | 财富   | float64 | 注意单位：亿元 |
-| 姓名   | object  | -        |
-| 主要公司 | object  | -        |
-| 相关行业 | object  | -        |
-| 公司总部 | object  | -        |
-| 性别   | object  | -        |
-| 年龄   | object  | -        |
+| 姓名   | str     | -        |
+| 主要公司 | str     | -        |
+| 相关行业 | str     | -        |
+| 公司总部 | str     | -        |
+| 性别   | str     | -        |
+| 年龄   | str     | -        |
 | 年份   | int64   | -        |
 
 接口示例
@@ -1485,9 +1436,9 @@ print(xincaifu_rank_df)
 |-----|---------|----------|
 | 排名  | int64   | -        |
 | 财富  | float64 | 注意单位：亿元 |
-| 姓名  | object  | -        |
-| 企业  | object  | -        |
-| 行业  | object  | -        |
+| 姓名  | str     | -        |
+| 企业  | str     | -        |
+| 行业  | str     | -        |
 
 接口示例-胡润百富榜
 
@@ -1522,9 +1473,9 @@ print(hurun_rank_df)
 |-----|---------|-----------|
 | 排名  | int64   | -         |
 | 财富  | float64 | 注意单位：亿美元 |
-| 姓名  | object  | -         |
-| 企业  | object  | -         |
-| 行业  | object  | -         |
+| 姓名  | str     | -         |
+| 企业  | str     | -         |
+| 行业  | str     | -         |
 
 接口示例-胡润全球富豪榜
 
@@ -1559,9 +1510,9 @@ print(hurun_rank_df)
 |-----|---------|----------|
 | 排名  | int64   | -        |
 | 财富  | float64 | 注意单位：亿元 |
-| 姓名  | object  | -        |
-| 企业  | object  | -        |
-| 行业  | object  | -        |
+| 姓名  | str     | -        |
+| 企业  | str     | -        |
+| 行业  | str     | -        |
 
 接口示例-胡润全球独角兽榜
 
@@ -1597,9 +1548,9 @@ print(hurun_rank_df)
 | 排名   | int64   | -        |
 | 排名变化 | int64   | -        |
 | 企业估值 | float64 | 注意单位：亿元 |
-| 企业信息 | object  | -        |
-| CEO  | object  | -        |
-| 行业   | object  | -        |
+| 企业信息 | str     | -        |
+| CEO  | str     | -        |
+| 行业   | str     | -        |
 
 接口示例-胡润世界500强
 
@@ -1635,9 +1586,9 @@ print(hurun_rank_df)
 | 排名   | int64   | -       |
 | 排名   | int64   | -       |
 | 成交额  | float64 | 注意单位：万 |
-| 姓名   | object  | -       |
-| 年龄   | object  | -       |
-| 艺术类别 | object  | -       |
+| 姓名   | str     | -       |
+| 年龄   | str     | -       |
+| 艺术类别 | str     | -       |
 
 接口示例-胡润艺术榜
 
@@ -1691,7 +1642,7 @@ print(hurun_rank_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
-| 影片名称 | object  | -       |
+| 影片名称 | str     | -       |
 | 实时票房 | float64 | 注意单位：万 |
 | 票房占比 | float64 | 注意单位：% |
 | 上映天数 | int64   | -       |
@@ -1746,7 +1697,7 @@ print(movie_boxoffice_realtime_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
-| 影片名称 | object  | -       |
+| 影片名称 | str     | -       |
 | 单日票房 | int64   | 注意单位：万 |
 | 环比变化 | float64 | 注意单位：% |
 | 累计票房 | int64   | 注意单位：万 |
@@ -1803,7 +1754,7 @@ print(movie_boxoffice_daily_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
-| 影片名称 | object  | -       |
+| 影片名称 | str     | -       |
 | 排名变化 | int64   | -       |
 | 单周票房 | int64   | 注意单位：万 |
 | 环比变化 | int64   | 注意单位：% |
@@ -1861,7 +1812,7 @@ print(movie_boxoffice_weekly_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
-| 影片名称 | object  | -       |
+| 影片名称 | str     | -       |
 | 单月票房 | int64   | 注意单位：万 |
 | 月度占比 | float64 | 注意单位：% |
 | 平均票价 | int64   | -       |
@@ -1919,12 +1870,12 @@ print(movie_boxoffice_monthly_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 排序    | int64   | 票房排名    |
-| 影片名称  | object  | -       |
-| 类型    | object  | -       |
+| 影片名称  | str     | -       |
+| 类型    | str     | -       |
 | 总票房   | int64   | 注意单位：万 |
 | 平均票价  | int64   | -       |
 | 场均人次  | float64 | -       |
-| 国家及地区 | object  | -       |
+| 国家及地区 | string  | -       |
 | 上映日期  | object  | -       |
 
 接口示例
@@ -1990,12 +1941,12 @@ print(movie_boxoffice_yearly_df)
 | 名称     | 类型     | 描述      |
 |--------|--------|---------|
 | 排序     | int64  | 票房排名    |
-| 影片名称   | object | -       |
-| 类型     | object | -       |
+| 影片名称   | str    | -       |
+| 类型     | str    | -       |
 | 首周票房   | int64  | 注意单位：万 |
 | 占总票房比重 | int64  | 注意单位：% |
 | 场均人次   | int64  | -       |
-| 国家及地区  | object | -       |
+| 国家及地区  | string | -       |
 | 上映日期   | object | -       |
 | 首周天数   | int64  | -       |
 
@@ -2045,7 +1996,7 @@ print(movie_boxoffice_yearly_first_week_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 排序   | int64   | 票房排名    |
-| 影院名称 | object  | -       |
+| 影院名称 | str     | -       |
 | 单日票房 | float64 | 注意单位：元 |
 | 单日场次 | int64   | -       |
 | 场均人次 | float64 | -       |
@@ -2102,7 +2053,7 @@ print(movie_boxoffice_cinema_daily_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 排序     | int64   | 票房排名    |
-| 影院名称   | object  | -       |
+| 影院名称   | str     | -       |
 | 当周票房   | float64 | 注意单位：万 |
 | 单银幕票房  | float64 | 注意单位：元 |
 | 场均人次   | float64 | -       |
@@ -2160,7 +2111,7 @@ print(movie_boxoffice_cinema_weekly_df)
 |------|---------|-----|
 | 排序   | int64   | -   |
 | 名称   | object  | -   |
-| 类型   | object  | -   |
+| 类型   | str     | -   |
 | 播映指数 | float64 | -   |
 | 媒体热度 | float64 | -   |
 | 用户热度 | float64 | -   |
@@ -2215,7 +2166,7 @@ print(video_tv_df)
 |------|---------|-----|
 | 排序   | int64   | -   |
 | 名称   | object  | -   |
-| 类型   | object  | -   |
+| 类型   | str     | -   |
 | 播映指数 | float64 | -   |
 | 媒体热度 | float64 | -   |
 | 用户热度 | float64 | -   |
@@ -2271,7 +2222,7 @@ print(video_variety_show_df)
 | 名称   | 类型      | 描述                                                                                                         |
 |------|---------|------------------------------------------------------------------------------------------------------------|
 | 排名   | int64   | -                                                                                                          |
-| 艺人   | object  | -                                                                                                          |
+| 艺人   | str     | -                                                                                                          |
 | 商业价值 | float64 | 商业价值由专业度，关注度，预测热度加权汇总计算后得出，分值范围0~100，综合反映明星作品、代言表现、近期热度及舆情口碑。                                              |
 | 专业热度 | float64 | 艺人专业热度主要表现艺人历史作品及品牌代言的效果情况，参与计算的指标维度包括历史主演电影票房表现，历史主演视频节目播映热度，电影作品豆瓣评分，作品相关微博内容评论正负向，历史代言品牌数量，品牌热度，艺人获奖数量。 |
 | 关注热度 | float64 | 艺人关注热度主要表现艺人网络中的舆情声量，参与计算的指标维度包括百度搜索指数，百度新闻数量，今日头条新闻数，微博转发量，微博评论量，微博点赞量，微博粉丝数量，贴吧关注数量，微博话题数量。              |
@@ -2326,7 +2277,7 @@ print(business_value_artist_df)
 | 名称   | 类型      | 描述                                                                                                         |
 |------|---------|------------------------------------------------------------------------------------------------------------|
 | 排名   | int64   | -                                                                                                          |
-| 艺人   | object  | -                                                                                                          |
+| 艺人   | str     | -                                                                                                          |
 | 流量价值 | float64 | 流量价值由专业度，关注度，预测热度，带货力加权汇总计算后得出，分值范围0~100，在商业价值的基础上增加了明星近期热度及带货力的权重。                                        |
 | 专业热度 | float64 | 艺人专业热度主要表现艺人历史作品及品牌代言的效果情况，参与计算的指标维度包括历史主演电影票房表现，历史主演视频节目播映热度，电影作品豆瓣评分，作品相关微博内容评论正负向，历史代言品牌数量，品牌热度，艺人获奖数量。 |
 | 关注热度 | float64 | 艺人关注热度主要表现艺人网络中的舆情声量，参与计算的指标维度包括百度搜索指数，百度新闻数量，今日头条新闻数，微博转发量，微博评论量，微博点赞量，微博粉丝数量，贴吧关注数量，微博话题数量。              |
@@ -2590,13 +2541,13 @@ print(index_bloomberg_billionaires_hist_df)
 
 | 名称   | 类型             | 描述                        |
 |------|----------------|---------------------------|
-| 排名   | int            | 榜单排名                      |
+| 排名   | int64          | 榜单排名                      |
 | 游戏名称 | str            | 游戏名称                      |
-| 评分   | float          | TapTap 玩家评分 (0-10 分制)     |
-| 总点击量 | int            | 游戏页面累计点击量                 |
-| 游玩次数 | int            | 累计游玩次数                    |
-| 评论数  | int            | 评论总数                      |
-| 粉丝数  | int            | 关注/粉丝数                    |
+| 评分   | float64        | TapTap 玩家评分 (0-10 分制)     |
+| 总点击量 | int64          | 游戏页面累计点击量                 |
+| 游玩次数 | int64          | 累计游玩次数                    |
+| 评论数  | int64          | 评论总数                      |
+| 粉丝数  | int64          | 关注/粉丝数                    |
 | 标签   | str            | 游戏标签 (逗号分隔，如 "模拟经营, 治愈") |
 | 推荐语  | str            | 编辑/官方推荐语                  |
 | 发布时间 | datetime64[ns] | 游戏发布时间                    |

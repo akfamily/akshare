@@ -21,7 +21,7 @@
 | 名称  | 类型      | 描述 |
 |-----|---------|----|
 | 序号  | int64   | -  |
-| 代码  | object  | -  |
+| 代码  | str     | -  |
 | 名称  | object  | -  |
 | 最新价 | float64 | -  |
 | 涨跌额 | float64 | -  |
@@ -79,7 +79,7 @@ print(forex_spot_em_df)
 | 名称  | 类型      | 描述 |
 |-----|---------|----|
 | 序号  | int64   | -  |
-| 代码  | object  | -  |
+| 代码  | str     | -  |
 | 名称  | object  | -  |
 | 最新价 | float64 | -  |
 | 涨跌额 | float64 | -  |
@@ -268,7 +268,7 @@ print(currency_boc_safe_df)
 
 | 名称  | 类型      | 描述  |
 |-----|---------|-----|
-| 货币对 | object  |     |
+| 货币对 | str     |     |
 | 买报价 | float64 |     |
 | 卖报价 | float64 |     |
 
@@ -334,13 +334,13 @@ print(fx_spot_quote_df)
 
 | 名称  | 类型     | 描述                  |
 |-----|--------|---------------------|
-| 货币对 | object | e.g., "USD/CNY"     |
-| 1周  | object | e.g., "11.50/12.00" |
-| 1月  | object |                     |
-| 3月  | object |                     |
-| 6月  | object |                     |
-| 9月  | object |                     |
-| 1年  | object |                     |
+| 货币对 | str    | e.g., "USD/CNY"     |
+| 1周  | str    | e.g., "11.50/12.00" |
+| 1月  | str    |                     |
+| 3月  | str    |                     |
+| 6月  | str    |                     |
+| 9月  | str    |                     |
+| 1年  | str    |                     |
 
 **注：本行情为询价报价行情（美元为ODM），实时更新**
 
@@ -403,10 +403,10 @@ print(fx_swap_quote_df)
 
 | 名称        | 类型      | 描述 |
 |-----------|---------|----|
-| 日期时间      | object  | -  |
-| 期限品种      | object  | -  |
+| 日期时间      | str     | -  |
+| 期限品种      | str     | -  |
 | 掉期点(Pips) | float64 | -  |
-| 掉期点数据源    | object  |    |
+| 掉期点数据源    | str     |    |
 | 全价汇率      | float64 |    |
 
 接口示例
@@ -456,7 +456,7 @@ print(fx_c_swap_cm_df)
 
 | 名称  | 类型      | 描述              |
 |-----|---------|-----------------|
-| 货币对 | object  | e.g., "AUD/USD" |
+| 货币对 | str     | e.g., "AUD/USD" |
 | 买报价 | float64 | e.g., "0.68460" |
 | 卖报价 | float64 | e.g., "0.68461" |
 
@@ -508,7 +508,7 @@ print(fx_pair_quote_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| name | object  | 货币对中文简称 |
+| name | str     | 货币对中文简称 |
 | code | float64 | 货币对代码   |
 
 接口示例
@@ -559,7 +559,7 @@ print(currency_pair_map_df)
 
 | 名称     | 类型      | 描述     |
 |--------|---------|--------|
-| date   | object  | 间隔10分钟 |
+| date   | str     | 间隔10分钟 |
 | AUDJPY | float64 | -      |
 | AUDUSD | float64 | -      |
 | EURAUD | float64 | -      |
@@ -623,7 +623,7 @@ print(macro_fx_sentiment_df)
 
 | 名称  | 类型      | 描述  |
 |-----|---------|-----|
-| 代码  | object  | -   |
+| 代码  | str     | -   |
 | 名称  | object  | -   |
 | 最新价 | float64 | -   |
 | 涨跌额 | float64 | -   |

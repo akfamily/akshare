@@ -87,7 +87,7 @@ Oxford-Man-已实现波动率数据
 | 名称    | 类型                | 描述 |
 |-------|-------------------|----|
 | index | datetime.datetime | 日期 |
-| data  | float             | 数据 |
+| data  | float64           | 数据 |
 
 接口示例
 
@@ -136,7 +136,7 @@ Risk-Lab-已实现波动率数据
 | 名称    | 类型                | 描述  |
 |-------|-------------------|-----|
 | index | datetime.datetime | 日期  |
-| data  | float             | 数据  |
+| data  | float64           | 数据  |
 
 接口示例
 
@@ -185,10 +185,10 @@ print(article_rlab_rv_df)
 
 | 名称             | 类型     | 描述   |
 |----------------|--------|------|
-| item           | object | -    |
-| September 2019 | object | 动态日期 |
-| Last 3 Months  | object | 动态日期 |
-| Last 12 Months | object | 动态日期 |
+| item           | str    | -    |
+| September 2019 | str    | 动态日期 |
+| Last 3 Months  | str    | 动态日期 |
+| Last 12 Months | str    | 动态日期 |
 
 接口示例
 

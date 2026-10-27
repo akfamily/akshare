@@ -20,7 +20,7 @@ print(ak.list_categories())
 
 检索完全在本地进行，不发起网络请求。传入完整接口名时该接口一定排在第一位，因此
 它也适合用来确认一个记不全的接口名。需要注意这是关键词匹配而非语义检索，详见
-[AKShare 接口检索](https://akshare.akfamily.xyz/registry.html).
+[AKShare 接口检索](https://akshare.akfamily.xyz/registry.html)。
 
 ## 查看数据
 
@@ -35,63 +35,42 @@ print(ak.list_categories())
  "get_cffex_rank_table",  # 中国金融期货交易所前20会员持仓数据明细
  "get_czce_daily",  # 郑州商品交易所每日交易数据
  "get_rank_table_czce",  # 郑州商品交易所前20会员持仓数据明细
- "get_dce_daily",  # 大连商品交易所每日交易数据
+ "get_dce_daily",  # 大连商品交易所每日交易数据（大商所反爬，暂不可用）
  "get_gfex_daily",  # 广州期货交易所每日交易数据
  "get_ine_daily",  # 上海国际能源交易中心每日交易数据
  "futures_settlement_price_sgx",  # 新加坡交易所期货品种每日交易数据
- "get_dce_rank_table",  # 大连商品交易所前20会员持仓数据明细
- "get_futures_daily",  # 中国金融期货交易所每日基差数据
- "get_rank_sum",  # 四个期货交易所前5, 10, 15, 20会员持仓排名数据
- "get_rank_sum_daily",  # 每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
- "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据
- "get_receipt",  # 大宗商品注册仓单数据
- "get_roll_yield",  # 某一天某品种(主力和次主力)或固定两个合约的展期收益率
- "get_roll_yield_bar",  # 展期收益率
+ "get_dce_rank_table",  # 大连商品交易所前20会员持仓数据明细（大商所反爬，暂不可用）
+ "get_futures_daily",  # 各期货交易所每日交易数据（默认中国金融期货交易所）（其中大商所部分因反爬暂不可用）
+ "get_rank_sum",  # 各期货交易所前5, 10, 15, 20会员持仓排名数据（其中大商所部分因反爬暂不可用）
+ "get_rank_sum_daily",  # 每日各期货交易所前5, 10, 15, 20会员持仓排名数据（其中大商所部分因反爬暂不可用）
+ "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据（大商所反爬，暂不可用）
+ "get_receipt",  # 大宗商品注册仓单数据（大商所反爬，暂不可用）
+ "get_roll_yield",  # 某一天某品种(主力和次主力)或固定两个合约的展期收益率（大商所反爬，暂不可用）
+ "get_roll_yield_bar",  # 展期收益率（大商所反爬，暂不可用）
  "get_shfe_daily",  # 上海期货交易所每日交易数据
  "get_shfe_rank_table",  # 上海期货交易所前20会员持仓数据明细
- "get_shfe_v_wap",  # 上海期货交易所日成交均价数据
  "futures_spot_price",  # 具体交易日大宗商品现货价格及相应基差数据
  "futures_spot_price_previous",  # 具体交易日大宗商品现货价格及相应基差数据-该接口补充历史数据
  "futures_spot_price_daily"  # 一段交易日大宗商品现货价格及相应基差数据
  "futures_warehouse_receipt_czce"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
- "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报
+ "futures_warehouse_receipt_dce"  # 大连商品交易所-交易数据-仓单日报（大商所反爬，暂不可用）
  "futures_gfex_warehouse_receipt"  # 广州期货交易所-行情数据-仓单日报
  "futures_rule"  # 国泰君安-交易日历
- # 奇货可查数据
- "get_qhkc_index"  # 奇货可查-指数-数值数据
- "get_qhkc_index_profit_loss"  # 奇货可查-指数-累计盈亏数据
- "get_qhkc_index_trend"  # 奇货可查-指数-大资金动向数据
- "get_qhkc_fund_bs"  # 奇货可查-资金-净持仓分布数据
- "get_qhkc_fund_position"  # 奇货可查-资金-总持仓分布数据
- "get_qhkc_fund_position_change"  # 奇货可查-资金-净持仓变化分布数据
- "get_qhkc_tool_foreign"  # 奇货可查-工具-外盘比价数据
- "get_qhkc_tool_gdp"  # 奇货可查-工具-各地区经济数据
  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  # 交易所商品期权数据
- "option_hist_dce"  # 提供大连商品交易所商品期权数据
+ "option_hist_dce"  # 提供大连商品交易所商品期权数据（大商所反爬，暂不可用）
  "option_hist_czce"  # 提供郑州商品交易所商品期权数据
  "option_hist_shfe"  # 提供上海期货交易所商品期权数据
  "option_hist_gfex"  # 提供广州期货交易所商品期权数据
  "option_vol_gfex"  # 提供广州期货交易所-合约隐含波动率数据
  "option_vol_shfe"  # 提供上海期货交易所-合约隐含波动率数据
  "option_hist_yearly_czce"  # 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
- # 中国银行间市场债券行情数据
- "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
- "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
- # 外汇
- "get_fx_spot_quote"  # 人民币外汇即期报价数据
- "get_fx_swap_quote"  # 人民币外汇远掉报价数据
- "get_fx_pair_quote"  # 外币对即期报价数据
- # 宏观-欧洲
- "macro_euro_interest_rate"  # 欧洲央行决议报告
  # 宏观-主要机构
  "macro_cons_gold"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
  "macro_cons_silver"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  "macro_cons_opec_month"  # 欧佩克报告
- # 期货-仓单有效期
- "get_receipt_date"  # 期货仓单有效期数据
  # 新浪财经-期货
  "futures_zh_spot"  # 国内期货实时行情数据
  "futures_zh_realtime"  # 国内期货实时行情数据(品种)
@@ -99,13 +78,11 @@ print(ak.list_categories())
  "futures_foreign_hist"  # 外盘期货历史行情数据
  "futures_foreign_detail"  # 外盘期货合约详情
  "futures_zh_minute_sina"  # 内盘分时数据
- # 交易所金融期权数据
- "get_finance_option"  # 提供上海证券交易所期权数据
  # 加密货币行情
  "crypto_js_spot"  # 提供主流加密货币行情数据接口
  # 新浪财经-港股
- "stock_hk_spot"  # 港股的历史行情数据(包括前后复权因子)
- "stock_hk_daily"  # 港股的实时行情数据(也可以用于获得所有港股代码)
+ "stock_hk_spot"  # 港股的实时行情数据(也可以用于获得所有港股代码)
+ "stock_hk_daily"  # 港股的历史行情数据(包括前后复权因子)
  # 东方财富
  "stock_hk_spot_em"  # 港股实时行情
  "stock_hk_main_board_spot_em"  # 港股主板实时行情
@@ -138,8 +115,6 @@ print(ak.list_categories())
  # 已实现波动率数据
  "article_oman_rv"  # O-MAN已实现波动率
  "article_rlab_rv"  # Risk-Lab已实现波动率
- # FF多因子模型数据
- "ff_crr"  # FF当前因子
  # 指数实时行情和历史行情
  "stock_zh_index_daily"  # 股票指数历史行情数据
  "stock_zh_index_daily_tx"  # 股票指数历史行情数据-腾讯
@@ -148,10 +123,6 @@ print(ak.list_categories())
  "stock_zh_index_spot_em"  # 股票指数实时行情数据-东财
  # 股票分笔数据
  "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据-腾讯-当日数据
- # 世界各地区日出和日落数据-日
- "weather_daily"  # 每日日出和日落数据
- # 世界各地区日出和日落数据-月
- "weather_monthly"  # 每月日出和日落数据
  # 河北空气质量数据(期货-钢铁)
  "air_quality_hebei"  # 河北空气质量数据
  # 经济政策不确定性(EPU)指数
@@ -164,8 +135,6 @@ print(ak.list_categories())
  "air_quality_rank"  # 空气质量排行
  "air_quality_watch_point"  # 空气质量观测点历史数据
  "air_city_table"  # 所有城市列表
- # 财富世界五百强公司
- "fortune_rank"  # 财富世界500强公司历年排名
  # 中国证券投资基金业协会-信息公示
  "amac_member_info" # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
  "amac_person_fund_org_list" # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
@@ -183,8 +152,8 @@ print(ak.list_categories())
  "amac_manager_cancelled_info" # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
  # 全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
  "fx_spot_quote"  # 市场行情-外汇市场行情-人民币外汇即期报价
- "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价
- "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
+ "fx_swap_quote"  # 市场行情-外汇市场行情-人民币外汇远期掉期报价
+ "fx_pair_quote"  # 市场行情-外汇市场行情-外币对即期报价
  # 能源-碳排放权
  "energy_carbon_domestic"  # 碳排放权-国内
  "energy_carbon_bj"  # 碳排放权-北京
@@ -224,7 +193,6 @@ print(ak.list_categories())
  "index_stock_cons_csindex"  # 中证指数-成份股
  "index_stock_cons_weight_csindex"  # 中证指数成份股的权重
  "index_stock_info"  # 股票指数-成份股-所有可以的指数表
- "index_stock_info_sina"  # 股票指数-成份股-所有可以的指数表-新浪新接口
  # 义乌小商品指数
  "index_yw"  # 义乌小商品指数
  # 世界银行间拆借利率
@@ -321,13 +289,6 @@ print(ak.list_categories())
  "macro_usa_eia_crude_rate"  # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
  "macro_usa_initial_jobless"  # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
  "macro_usa_crude_inner"  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
- # 宏观数据
- "macro_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
- "macro_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
- "macro_cons_gold_amount"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
- "macro_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告
- "macro_cons_silver_change"  # 全球最大白银ETF--iShares Silver Trust持仓报告
- "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  # 伦敦金属交易所(LME)
  "macro_euro_lme_holding"  # 伦敦金属交易所(LME)-持仓报告
  "macro_euro_lme_stock"  # 伦敦金属交易所(LME)-库存报告
@@ -355,8 +316,8 @@ print(ak.list_categories())
  "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_sz50_list_sina"  # 上证50期权列表
- "option_cffex_sz50_spot_sina"  # 沪深300期权实时行情
- "option_cffex_sz50_daily_sina"  # 沪深300期权历史行情-日频
+ "option_cffex_sz50_spot_sina"  # 上证50期权实时行情
+ "option_cffex_sz50_daily_sina"  # 上证50期权历史行情-日频
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
  "option_cffex_hs300_daily_sina"  # 沪深300期权历史行情-日频
@@ -374,9 +335,9 @@ print(ak.list_categories())
  "option_finance_minute_sina"  # 金融股票期权分时数据
  "option_minute_em"  # 股票期权分时数据
  # 商品期权-新浪
- "option_sina_option_commodity_dict"  # 商品期权合约字典查询
- "option_sina_option_commodity_contract_list"  # 商品期权合约查询
- "option_sina_option_commodity_hist"  # 商品期权行情历史数据
+ "option_commodity_contract_sina"  # 商品期权合约字典查询
+ "option_commodity_contract_table_sina"  # 商品期权合约查询
+ "option_commodity_hist_sina"  # 商品期权行情历史数据
  # 微博舆情报告
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理
@@ -472,12 +433,12 @@ print(ak.list_categories())
  "stock_sector_spot"  # 板块行情
  "stock_sector_detail"  # 板块详情(具体股票)
  # 股票信息
- "stock_info_sz_name_code"  # 深证证券交易所股票代码和简称
+ "stock_info_sz_name_code"  # 深圳证券交易所股票代码和简称
  "stock_info_sh_name_code"  # 上海证券交易所股票代码和简称
  "stock_info_bj_name_code"  # 北京证券交易所股票代码和简称
  "stock_info_sh_delist"  # 上海证券交易所暂停和终止上市
- "stock_info_sz_delist"  # 深证证券交易所暂停和终止上市
- "stock_info_sz_change_name"  # 深证证券交易所名称变更
+ "stock_info_sz_delist"  # 深圳证券交易所暂停和终止上市
+ "stock_info_sz_change_name"  # 深圳证券交易所名称变更
  "stock_info_change_name"  # A 股股票曾用名列表
  "stock_info_a_code_name"  # A 股股票代码和简称
  # 机构持股
@@ -591,14 +552,12 @@ print(ak.list_categories())
  "movie_boxoffice_cinema_weekly"  # 电影院单周票房
  # 国房景气指数
  "macro_china_real_estate"  # 国房景气指数
- # 加密货币历史数据
- "crypto_name_url_table"  # 加密货币货币名称
  # 基金排行
  "fund_open_fund_rank_em"  # 开放式基金排行
- "fund_em_exchange_rank"  # 场内交易基金排行
- "fund_em_money_rank"  # 货币型基金排行
- "fund_em_lcx_rank"  # 理财基金排行
- "fund_em_hk_rank"  # 香港基金排行
+ "fund_exchange_rank_em"  # 场内交易基金排行
+ "fund_money_rank_em"  # 货币型基金排行
+ "fund_lcx_rank_em"  # 理财基金排行
+ "fund_hk_rank_em"  # 香港基金排行
  # 回购定盘利率
  "repo_rate_hist"  # 回购定盘利率
  # 福布斯中国榜单
@@ -640,11 +599,11 @@ print(ak.list_categories())
  # 期货交割和期转现
  "futures_to_spot_czce"  # 郑商所期转现
  "futures_to_spot_shfe"  # 上期所期转现
- "futures_to_spot_dce"  # 大商所期转现
- "futures_delivery_dce"  # 大商所交割统计
+ "futures_to_spot_dce"  # 大商所期转现（大商所反爬，暂不可用）
+ "futures_delivery_dce"  # 大商所交割统计（大商所反爬，暂不可用）
  "futures_delivery_czce"  # 郑商所交割统计
  "futures_delivery_shfe"  # 上期所交割统计
- "futures_delivery_match_dce"  # 大商所交割配对
+ "futures_delivery_match_dce"  # 大商所交割配对（大商所反爬，暂不可用）
  "futures_delivery_match_czce"  # 郑商所交割配对
  # 融资融券
  "stock_margin_sse"  # 上海证券交易所-融资融券汇总
@@ -1280,7 +1239,7 @@ print(ak.list_categories())
  # 期货合约信息
  "futures_contract_info_shfe"  # 上海期货交易所-期货合约信息
  "futures_contract_info_ine"  # 上海国际能源交易中心-期货合约信息
- "futures_contract_info_dce"  # 大连商品交易所-期货合约信息
+ "futures_contract_info_dce"  # 大连商品交易所-期货合约信息（大商所反爬，暂不可用）
  "futures_contract_info_czce"  # 郑州商品交易所-期货合约信息
  "futures_contract_info_gfex"  # 广州期货交易所-期货合约信息
  "futures_contract_info_cffex"  # 中国金融期货交易所-期货合约信息
@@ -1386,8 +1345,8 @@ print(ak.list_categories())
  "index_csindex_all"  # 中证指数网站-指数列表
  # 东方财富-A股-财务分析-主要指标
  "stock_financial_analysis_indicator_em"  # 东方财富-A股-财务分析-主要指标
- # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
- "fx_c_swap_cm"  # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+ # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
+ "fx_c_swap_cm"  # 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
  # 股票期权
  "option_current_day_szse"  # 深圳证券交易所-期权子网-行情数据-当日合约
  "option_current_day_sse"  # 上海证券交易所-产品-股票期权-信息披露-当日合约

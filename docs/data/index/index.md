@@ -23,7 +23,7 @@
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
 | 序号  | int64   | -       |
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -84,7 +84,7 @@ print(stock_zh_index_spot_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -257,7 +257,7 @@ print(stock_zh_index_daily_tx_df)
 
 | 名称     | 类型      | 描述                    |
 |--------|---------|-----------------------|
-| date   | object  | 东方财富的数据开始时间，不是证券上市时间 |
+| date   | str     | 东方财富的数据开始时间，不是证券上市时间 |
 | open   | float64 | -                     |
 | close  | float64 | -                     |
 | high   | float64 | -                     |
@@ -434,7 +434,7 @@ print(index_zh_a_hist_min_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -519,7 +519,7 @@ print(stock_hk_index_spot_sina_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | date   | object  | -       |
-| open   | object  | -       |
+| open   | float64 | -       |
 | close  | float64 | -       |
 | high   | float64 | -       |
 | low    | float64 | 注意单位：% |
@@ -574,7 +574,7 @@ print(stock_hk_index_daily_sina_df)
 |------|---------|----------|
 | 序号   | int64   | -        |
 | 内部编号 | int64   | -        |
-| 代码   | object  | -        |
+| 代码   | str     | -        |
 | 名称   | object  | -        |
 | 最新价  | float64 | -        |
 | 涨跌额  | float64 | -        |
@@ -633,7 +633,7 @@ print(stock_hk_index_spot_em_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| date   | object  | -   |
+| date   | str     | -   |
 | open   | float64 | -   |
 | high   | float64 | -   |
 | low    | float64 | -   |
@@ -741,8 +741,8 @@ print(index_us_stock_sina_df)
 
 | 名称     | 类型      | 描述          |
 |--------|---------|-------------|
-| 序号     | object  | -           |
-| 代码     | object  | -           |
+| 序号     | str     | -           |
+| 代码     | str     | -           |
 | 名称     | object  | -           |
 | 最新价    | float64 | -           |
 | 涨跌额    | float64 | -           |
@@ -845,7 +845,7 @@ print(index_global_spot_em_df)
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
 | 日期  | object  | -       |
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 今开  | float64 | -       |
 | 最新价 | float64 | -       |
@@ -901,8 +901,8 @@ print(index_global_hist_em_df)
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
 | date   | object  | -  |
-| open   | object  | -  |
-| high   | object  | -  |
+| open   | float64 | -  |
+| high   | float64 | -  |
 | low    | float64 | -  |
 | close  | float64 | -  |
 | volume | float64 | -  |
@@ -1649,9 +1649,9 @@ print(index_stock_info_df)
 
 | 名称   | 类型     | 描述      |
 |------|--------|---------|
-| 品种代码 | object | 股票代码    |
-| 品种名称 | object | 股票名称    |
-| 纳入日期 | object | 成份股纳入日期 |
+| 品种代码 | str    | 股票代码    |
+| 品种名称 | str    | 股票名称    |
+| 纳入日期 | str    | 成份股纳入日期 |
 
 接口示例
 
@@ -1684,9 +1684,9 @@ print(index_stock_cons_df)
 
 | 名称   | 类型     | 描述      |
 |------|--------|---------|
-| 品种代码 | object | 股票代码    |
-| 品种名称 | object | 股票名称    |
-| 纳入日期 | object | 成份股纳入日期 |
+| 品种代码 | str    | 股票代码    |
+| 品种名称 | str    | 股票名称    |
+| 纳入日期 | str    | 成份股纳入日期 |
 
 接口示例-按市场归类
 
@@ -1764,14 +1764,14 @@ print(index_stock_cons_df)
 | 名称      | 类型     | 描述  |
 |---------|--------|-----|
 | 日期      | object | -   |
-| 指数代码    | object | -   |
-| 指数名称    | object | -   |
-| 指数英文名称  | object | -   |
-| 成分券代码   | object | -   |
-| 成分券名称   | object | -   |
-| 成分券英文名称 | object | -   |
-| 交易所     | object | -   |
-| 交易所英文名称 | object | -   |
+| 指数代码    | str    | -   |
+| 指数名称    | str    | -   |
+| 指数英文名称  | str    | -   |
+| 成分券代码   | str    | -   |
+| 成分券名称   | str    | -   |
+| 成分券英文名称 | str    | -   |
+| 交易所     | str    | -   |
+| 交易所英文名称 | str    | -   |
 
 示例代码
 
@@ -1819,14 +1819,14 @@ print(index_stock_cons_csindex_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 日期      | object  | -       |
-| 指数代码    | object  | -       |
-| 指数名称    | object  | -       |
-| 指数英文名称  | object  | -       |
-| 成分券代码   | object  | -       |
-| 成分券名称   | object  | -       |
-| 成分券英文名称 | object  | -       |
-| 交易所     | object  | -       |
-| 交易所英文名称 | object  | -       |
+| 指数代码    | str     | -       |
+| 指数名称    | str     | -       |
+| 指数英文名称  | str     | -       |
+| 成分券代码   | str     | -       |
+| 成分券名称   | str     | -       |
+| 成分券英文名称 | str     | -       |
+| 交易所     | str     | -       |
+| 交易所英文名称 | str     | -       |
 | 权重      | float64 | 注意单位：% |
 
 示例代码
@@ -1988,10 +1988,10 @@ print(index_hist_cni_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 日期     | object  | -        |
-| 样本代码   | object  | -        |
-| 样本简称   | object  | -        |
-| 所属行业   | object  | -        |
+| 日期     | str     | -        |
+| 样本代码   | str     | -        |
+| 样本简称   | str     | -        |
+| 所属行业   | str     | -        |
 | 自由流通市值 | float64 | 注意单位：亿元 |
 | 总市值    | float64 | 注意单位：亿元 |
 | 权重     | float64 | 注意单位：%  |
@@ -2041,10 +2041,10 @@ print(index_detail_cni_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 日期     | object  | -        |
-| 样本代码   | object  | -        |
-| 样本简称   | object  | -        |
-| 所属行业   | object  | -        |
+| 日期     | str     | -        |
+| 样本代码   | str     | -        |
+| 样本简称   | str     | -        |
+| 所属行业   | str     | -        |
 | 自由流通市值 | float64 | 注意单位：亿元 |
 | 总市值    | float64 | 注意单位：亿元 |
 | 权重     | float64 | 注意单位：%  |
@@ -2094,12 +2094,12 @@ print(index_detail_hist_cni_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 开始日期 | object | -   |
-| 结束日期 | object | -   |
-| 样本代码 | object | -   |
-| 样本简称 | object | -   |
-| 所属行业 | object | -   |
-| 调整类型 | object | -   |
+| 开始日期 | str    | -   |
+| 结束日期 | str    | -   |
+| 样本代码 | str    | -   |
+| 样本简称 | str    | -   |
+| 所属行业 | str    | -   |
+| 调整类型 | str    | -   |
 
 接口示例
 
@@ -2203,7 +2203,7 @@ print(index_option_50etf_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2306,7 +2306,7 @@ print(index_option_300etf_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2409,7 +2409,7 @@ print(index_option_500etf_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2512,7 +2512,7 @@ print(index_option_cyb_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2615,7 +2615,7 @@ print(index_option_kcb_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2718,7 +2718,7 @@ print(index_option_100etf_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2821,7 +2821,7 @@ print(index_option_300index_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -2924,7 +2924,7 @@ print(index_option_1000index_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -3027,7 +3027,7 @@ print(index_option_50index_qvix_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| time  | object  | -   |
+| time  | str     | -   |
 | qvix  | float64 | -   |
 
 接口示例
@@ -3075,8 +3075,8 @@ print(index_option_50index_min_qvix_df)
 
 | 名称         | 类型      | 描述  |
 |------------|---------|-----|
-| 行业代码       | object  |     |
-| 行业名称       | object  |     |
+| 行业代码       | str     |     |
+| 行业名称       | str     |     |
 | 成份个数       | int64   |     |
 | 静态市盈率      | float64 |     |
 | TTM(滚动)市盈率 | float64 |     |
@@ -3147,9 +3147,9 @@ print(sw_index_first_info_df)
 
 | 名称         | 类型      | 描述  |
 |------------|---------|-----|
-| 行业代码       | object  |     |
-| 行业名称       | object  |     |
-| 上级行业       | object  |     |
+| 行业代码       | str     |     |
+| 行业名称       | str     |     |
+| 上级行业       | str     |     |
 | 成份个数       | int64   |     |
 | 静态市盈率      | float64 |     |
 | TTM(滚动)市盈率 | float64 |     |
@@ -3201,8 +3201,8 @@ print(sw_index_second_info_df)
 
 | 名称         | 类型      | 描述  |
 |------------|---------|-----|
-| 行业代码       | object  |     |
-| 行业名称       | object  |     |
+| 行业代码       | str     |     |
+| 行业名称       | str     |     |
 | 成份个数       | int64   |     |
 | 静态市盈率      | float64 |     |
 | TTM(滚动)市盈率 | float64 |     |
@@ -3261,7 +3261,7 @@ print(sw_index_third_info_df)
 | 股票简称             | str     |          |
 | 纳入时间             | str     |          |
 | 申万3级             | str     |          |
-| 细分概念             | object  | 该列可能为空   |
+| 细分概念             | float64 | 该列可能为空   |
 | 价格               | float64 |          |
 | 市盈率              | float64 |          |
 | 市盈率ttm           | float64 |          |
@@ -4144,11 +4144,11 @@ print(index_volume_cflp_df)
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
 | 日期     | object  | -        |
-| 指数代码   | object  | -        |
-| 指数中文全称 | object  | -        |
-| 指数中文简称 | object  | -        |
-| 指数英文全称 | object  | -        |
-| 指数英文简称 | object  | -        |
+| 指数代码   | str     | -        |
+| 指数中文全称 | str     | -        |
+| 指数中文简称 | str     | -        |
+| 指数英文全称 | str     | -        |
+| 指数英文简称 | str     | -        |
 | 开盘     | float64 | -        |
 | 最高     | float64 | -        |
 | 最低     | float64 | -        |
@@ -5177,11 +5177,11 @@ print(index_neei_cx_df)
 | 名称     | 类型      | 描述              |
 |--------|---------|-----------------|
 | 日期     | object  | -               |
-| 指数代码   | object  | -               |
-| 指数中文全称 | object  | -               |
-| 指数中文简称 | object  | -               |
-| 指数英文全称 | object  | -               |
-| 指数英文简称 | object  | -               |
+| 指数代码   | str     | -               |
+| 指数中文全称 | str     | -               |
+| 指数中文简称 | str     | -               |
+| 指数英文全称 | str     | -               |
+| 指数英文简称 | str     | -               |
 | 市盈率1   | float64 | 注意：（总股本）P/E1   |
 | 市盈率2   | float64 | 注意：（计算用股本）P/E2 |
 | 股息率1   | float64 | 注意：（总股本）D/P1   |
@@ -5245,8 +5245,8 @@ print(stock_zh_index_value_csindex_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 指数代码 | object  | -       |
-| 指数名称 | object  | -       |
+| 指数代码 | str     | -       |
+| 指数名称 | str     | -       |
 | 昨收盘  | float64 | -       |
 | 日涨跌幅 | float64 | 注意单位：% |
 | 年涨跌幅 | float64 | 注意单位：% |
@@ -5354,8 +5354,8 @@ print(index_hist_fund_sw_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 指数代码 | object  | -       |
-| 指数名称 | object  | -       |
+| 指数代码 | str     | -       |
+| 指数名称 | str     | -       |
 | 昨收盘  | float64 | -       |
 | 今开盘  | float64 | -       |
 | 最新价  | float64 | -       |
@@ -5410,7 +5410,7 @@ print(index_realtime_sw_df)
 
 | 名称  | 类型      | 描述  |
 |-----|---------|-----|
-| 代码  | object  | -   |
+| 代码  | str     | -   |
 | 日期  | object  | -   |
 | 收盘  | float64 | -   |
 | 开盘  | float64 | -   |
@@ -5466,11 +5466,11 @@ print(index_hist_sw_df)
 
 | 名称  | 类型      | 描述  |
 |-----|---------|-----|
-| 代码  | object  | -   |
+| 代码  | str     | -   |
 | 名称  | object  | -   |
 | 价格  | float64 | -   |
 | 日期  | object  | -   |
-| 时间  | object  | -   |
+| 时间  | str     | -   |
 
 接口示例
 
@@ -5520,8 +5520,8 @@ print(index_min_sw_df)
 | 名称   | 类型      | 描述  |
 |------|---------|-----|
 | 序号   | int64   | -   |
-| 证券代码 | object  | -   |
-| 证券名称 | object  | -   |
+| 证券代码 | str     | -   |
+| 证券名称 | str     | -   |
 | 最新权重 | float64 | -   |
 | 计入日期 | object  | -   |
 
@@ -5574,8 +5574,8 @@ print(index_component_sw_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 指数代码   | object  | -        |
-| 指数名称   | object  | -        |
+| 指数代码   | str     | -        |
+| 指数名称   | str     | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
 | 成交量    | float64 | 注意单位：亿股 |
@@ -5635,8 +5635,8 @@ print(index_analysis_daily_sw_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 指数代码   | object  | -        |
-| 指数名称   | object  | -        |
+| 指数代码   | str     | -        |
+| 指数名称   | str     | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
 | 成交量    | float64 | 注意单位：亿股 |
@@ -5696,8 +5696,8 @@ print(index_analysis_weekly_sw_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 指数代码   | object  | -        |
-| 指数名称   | object  | -        |
+| 指数代码   | str     | -        |
+| 指数名称   | str     | -        |
 | 发布日期   | object  | -        |
 | 收盘指数   | float64 | -        |
 | 成交量    | float64 | 注意单位：亿股 |

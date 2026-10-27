@@ -27,5 +27,4 @@ AKShare 数据字典
     nlp/nlp
     qdii/qdii
     others/others
-    qhkc/index
     tool/tool

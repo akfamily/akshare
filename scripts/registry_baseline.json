@@ -1,9 +1,5 @@
 {
-  "orphaned": [
-    "fortune_rank",
-    "option_czce_hist",
-    "stock_zh_a_tick_tx"
-  ],
+  "orphaned": [],
   "undocumented": [
     "article_oman_rv_short",
     "bond_china_close_return_map",
@@ -31,12 +27,6 @@
     "get_dce_rank_table",
     "get_gfex_daily",
     "get_ine_daily",
-    "get_qhkc_fund_bs",
-    "get_qhkc_fund_money_change",
-    "get_qhkc_fund_position",
-    "get_qhkc_index",
-    "get_qhkc_index_profit_loss",
-    "get_qhkc_index_trend",
     "get_rank_sum",
     "get_rank_sum_daily",
     "get_rank_table_czce",
@@ -58,8 +48,6 @@
     "option_hist_yearly_czce",
     "option_margin_symbol",
     "option_vol_shfe",
-    "qhkc_tool_foreign",
-    "qhkc_tool_gdp",
     "reits_hist_min_em",
     "rv_from_futures_zh_minute_sina",
     "rv_from_stock_zh_a_hist_min_em",

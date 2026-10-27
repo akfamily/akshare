@@ -26,9 +26,9 @@
 
 | 名称       | 类型                  | 描述        |
 |----------|---------------------|-----------|
-| currency | object              | 货币代码      |
+| currency | str                 | 货币代码      |
 | date     | datetime64[ns, UTC] | 日期时间-注意时区 |
-| base     | object              | 货币        |
+| base     | str                 | 货币        |
 | rates    | float64             | 比率        |
 
 接口示例
@@ -83,7 +83,7 @@ print(currency_latest_df)
 
 | 名称       | 类型      | 描述   |
 |----------|---------|------|
-| currency | object  | 货币代码 |
+| currency | str     | 货币代码 |
 | date     | object  | 日期   |
 | base     | float64 | 货币   |
 | rates    | float64 | 比率   |
@@ -214,15 +214,15 @@ print(currency_time_series_df)
 | 名称                  | 类型     | 描述 |
 |---------------------|--------|----|
 | id                  | int64  | -  |
-| name                | object | -  |
-| short_code          | object | -  |
-| code                | object | -  |
+| name                | str    | -  |
+| short_code          | str    | -  |
+| code                | str    | -  |
 | precision           | int64  | -  |
 | subunit             | int64  | -  |
-| symbol              | object | -  |
+| symbol              | str    | -  |
 | symbol_first        | bool   | -  |
-| decimal_mark        | object | -  |
-| thousands_separator | object | -  |
+| decimal_mark        | str    | -  |
+| thousands_separator | str    | -  |
 
 接口示例
 
@@ -276,8 +276,8 @@ print(currency_currencies_df)
 
 | 名称    | 类型     | 描述 |
 |-------|--------|----|
-| item  | object | -  |
-| value | object | -  |
+| item  | str    | -  |
+| value | str    | -  |
 
 接口示例
 

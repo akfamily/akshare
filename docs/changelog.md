@@ -89,6 +89,15 @@
 
 ## 更新说明详情
 
+1.19.5 perf: speed up search interface
+
+    1. 优化 search 接口的检索速度：每条接口记录的待搜索字段只归一化一次，在主分与 2-gram 降级分两轮打分之间复用，空白压缩也改用更快的实现；单次检索耗时约减少一半，检索结果与排序不变
+
+1.19.4 remove: remove qhkc_web interface
+
+    1. 移除奇货可查网页接口：get_qhkc_index、get_qhkc_index_trend、get_qhkc_index_profit_loss、get_qhkc_fund_bs、get_qhkc_fund_position、get_qhkc_fund_money_change、qhkc_tool_foreign、qhkc_tool_gdp。奇货可查网站上对应的数据端点均已下线，其中 7 个接口报 `KeyError: 'data'`，1 个返回空表
+    2. 同时移除文档中的奇货可查分类；pro_api、set_token、get_token 不受影响
+
 1.19.3 fix: validate symbol of stock_fund_flow_individual, stock_fund_flow_concept and stock_fund_flow_industry
 
     1. 修复 stock_fund_flow_individual、stock_fund_flow_concept、stock_fund_flow_industry 接口传入非法 symbol 时静默按“即时”抓取全部分页，最后才报 `Length mismatch` 的问题（#7444）：现在会在发出任何请求前抛出 `InvalidParameterError`，并列出可选值“即时”“3日排行”“5日排行”“10日排行”“20日排行”

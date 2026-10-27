@@ -24,7 +24,7 @@
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -77,7 +77,7 @@ print(macro_bank_usa_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -130,7 +130,7 @@ print(macro_bank_euro_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -183,7 +183,7 @@ print(macro_bank_newzealand_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -236,7 +236,7 @@ print(macro_bank_china_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -289,7 +289,7 @@ print(macro_bank_switzerland_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -342,7 +342,7 @@ print(macro_bank_english_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -395,7 +395,7 @@ print(macro_bank_australia_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -448,7 +448,7 @@ print(macro_bank_japan_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -501,7 +501,7 @@ print(macro_bank_russia_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -554,7 +554,7 @@ print(macro_bank_india_interest_rate_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 商品  | object  | -       |
+| 商品  | str     | -       |
 | 日期  | object  | -       |
 | 今值  | float64 | 注意单位：% |
 | 预测值 | float64 | 注意单位：% |
@@ -722,7 +722,7 @@ print(macro_bank_brazil_interest_rate_df)
 
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
-| 日期  | object  | -        |
+| 日期  | str     | -        |
 | 利率  | float64 | 注意单位：%  |
 | 涨跌  | float64 | 注意单位：BP |
 

@@ -4,7 +4,7 @@
 
 [uv](https://docs.astral.sh/uv/) 是 Astral 开发的 Python 包与项目管理工具，可以安装 Python、创建虚拟环境并安装依赖，速度快且不依赖其他工具，[AKShare](https://github.com/akfamily/akshare) 项目本身也使用 uv 进行开发。推荐使用 uv 来配置 [AKShare](https://github.com/akfamily/akshare) 的运行环境。
 
-如果需要在 R 语言或 MATLAB 中调用 [AKShare](https://github.com/akfamily/akshare)，或者习惯使用 Anaconda，请参考 [AKShare Anaconda 环境配置](https://akshare.akfamily.xyz/anaconda.html)。
+如果需要在 R 语言或 MATLAB 中调用 [AKShare](https://github.com/akfamily/akshare)，请参考 [AKShare Anaconda 环境配置](https://akshare.akfamily.xyz/anaconda.html)。
 
 ## 安装 uv
 

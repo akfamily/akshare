@@ -21,7 +21,7 @@ from akshare.exceptions import InvalidParameterError
 
 def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
     """
-    深证证券交易所-总貌-证券类别统计
+    深圳证券交易所-总貌-证券类别统计
     https://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str
@@ -52,7 +52,7 @@ def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
 
 def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     """
-    深证证券交易所-总貌-地区交易排序
+    深圳证券交易所-总貌-地区交易排序
     https://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str

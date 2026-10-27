@@ -3308,6 +3308,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.19.1 fix: fix futures_gfex_warehouse_receipt interface
 1.19.2 fix: fix bond_zh_cov_value_analysis interface
 1.19.3 fix: validate symbol of stock_fund_flow_individual, stock_fund_flow_concept and stock_fund_flow_industry
+1.19.4 remove: remove qhkc_web interface
+1.19.5 perf: speed up search interface
 """
 
 from akshare._version import __version__
@@ -3355,7 +3357,7 @@ openctp-合约信息接口
 from akshare.option.option_contract_info_ctp import option_contract_info_ctp
 
 """
-中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉漆 C-Swap 定盘曲线
+中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
 """
 from akshare.fx.fx_c_swap_cm import fx_c_swap_cm
 
@@ -5889,29 +5891,6 @@ from akshare.futures.futures_inventory_em import futures_inventory_em
 from akshare.bond.bond_nafmii import bond_debt_nafmii
 
 """
-奇货可查-工具模块
-"""
-from akshare.qhkc_web.qhkc_tool import qhkc_tool_foreign, qhkc_tool_gdp
-
-"""
-奇货可查-指数模块
-"""
-from akshare.qhkc_web.qhkc_index import (
-    get_qhkc_index,
-    get_qhkc_index_trend,
-    get_qhkc_index_profit_loss,
-)
-
-"""
-奇货可查-资金模块
-"""
-from akshare.qhkc_web.qhkc_fund import (
-    get_qhkc_fund_money_change,
-    get_qhkc_fund_bs,
-    get_qhkc_fund_position,
-)
-
-"""
 大宗商品现货价格及基差
 """
 from akshare.futures.futures_basis import (
@@ -6261,12 +6240,6 @@ __all__ = [
     "get_futures_daily",
     "get_gfex_daily",
     "get_ine_daily",
-    "get_qhkc_fund_bs",
-    "get_qhkc_fund_money_change",
-    "get_qhkc_fund_position",
-    "get_qhkc_index",
-    "get_qhkc_index_profit_loss",
-    "get_qhkc_index_trend",
     "get_rank_sum",
     "get_rank_sum_daily",
     "get_rank_table_czce",
@@ -6655,8 +6628,6 @@ __all__ = [
     "qdii_a_index_jsl",
     "qdii_e_comm_jsl",
     "qdii_e_index_jsl",
-    "qhkc_tool_foreign",
-    "qhkc_tool_gdp",
     "rate_interbank",
     "reits_hist_em",
     "reits_hist_min_em",

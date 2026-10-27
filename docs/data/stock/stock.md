@@ -24,10 +24,10 @@
 
 | 名称  | 类型     | 描述  |
 |-----|--------|-----|
-| 项目  | object | -   |
-| 股票  | object | -   |
-| 科创板 | object | -   |
-| 主板  | object | -   |
+| 项目  | str    | -   |
+| 股票  | str    | -   |
+| 科创板 | str    | -   |
+| 主板  | str    | -   |
 
 接口示例
 
@@ -74,7 +74,7 @@ print(stock_sse_summary_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 证券类别 | object  | -       |
+| 证券类别 | str     | -       |
 | 数量   | int64   | 注意单位：只 |
 | 成交金额 | float64 | 注意单位：元 |
 | 总市值  | float64 | -       |
@@ -131,7 +131,7 @@ print(stock_szse_summary_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int64   | -       |
-| 地区    | object  | -       |
+| 地区    | str     | -       |
 | 总交易额  | float64 | 注意单位：元 |
 | 占市场   | float64 | 注意单位：% |
 | 股票交易额 | float64 | 注意单位：元 |
@@ -143,7 +143,7 @@ print(stock_szse_summary_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 地区     | object  | -       |
+| 地区     | str     | -       |
 | 总交易额   | float64 | 注意单位：元 |
 | 占市场    | float64 | 注意单位：% |
 | 股票交易额  | float64 | 注意单位：元 |
@@ -270,8 +270,8 @@ print(stock_szse_area_summary_df)
 
 | 名称        | 类型      | 描述      |
 |-----------|---------|---------|
-| 项目名称      | object  | -       |
-| 项目名称-英文   | object  | -       |
+| 项目名称      | str     | -       |
+| 项目名称-英文   | str     | -       |
 | 交易天数      | int64   | -       |
 | 成交金额-人民币元 | int64   |         |
 | 成交金额-占总计  | float64 | 注意单位：% |
@@ -336,7 +336,7 @@ print(stock_szse_sector_summary_df)
 
 | 名称   | 类型      | 描述        |
 |------|---------|-----------|
-| 单日情况 | object  | 包含了网页所有字段 |
+| 单日情况 | category| 包含了网页所有字段 |
 | 股票   | float64 | -         |
 | 主板A  | float64 | -         |
 | 主板B  | float64 | -         |
@@ -389,8 +389,8 @@ print(stock_sse_deal_daily_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
-| value | object | -   |
+| item  | str    | -   |
+| value | str    | -   |
 
 接口示例
 
@@ -438,8 +438,8 @@ print(stock_individual_info_em_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
-| value | object | -   |
+| item  | str    | -   |
+| value | str    | -   |
 
 接口示例
 
@@ -515,7 +515,7 @@ print(stock_individual_basic_info_xq_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| item  | object  | -  |
+| item  | str     | -  |
 | value | float64 | -  |
 
 接口示例
@@ -594,7 +594,7 @@ print(stock_bid_ask_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -665,7 +665,7 @@ print(stock_zh_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -736,7 +736,7 @@ print(stock_sh_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -807,7 +807,7 @@ print(stock_sz_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -878,7 +878,7 @@ print(stock_bj_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -894,7 +894,7 @@ print(stock_bj_a_spot_em_df)
 | 换手率     | float64 | 注意单位：% |
 | 市盈率-动态  | float64 | -       |
 | 市净率     | float64 | -       |
-| 上市时间    | object  | -       |
+| 上市时间    | str     | -       |
 | 总市值     | float64 | 注意单位：元 |
 | 流通市值    | float64 | 注意单位：元 |
 | 涨速      | float64 | -       |
@@ -950,7 +950,7 @@ print(stock_new_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -1021,7 +1021,7 @@ print(stock_cy_a_spot_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -1092,12 +1092,12 @@ print(stock_kc_a_spot_em_df)
 | 名称   | 类型      | 描述 |
 |------|---------|----|
 | 序号   | int64   | -  |
-| B股代码 | object  | -  |
-| B股名称 | object  | -  |
+| B股代码 | str     | -  |
+| B股名称 | str     | -  |
 | 最新价B | float64 | -  |
 | 涨跌幅B | float64 | -  |
-| A股代码 | object  | -  |
-| A股名称 | object  | -  |
+| A股代码 | str     | -  |
+| A股名称 | str     | -  |
 | 最新价A | float64 | -  |
 | 涨跌幅A | float64 | -  |
 | 比价   | float64 | -  |
@@ -1149,7 +1149,7 @@ print(stock_zh_ab_comparison_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -1162,7 +1162,7 @@ print(stock_zh_ab_comparison_em_df)
 | 最低  | float64 | -       |
 | 成交量 | float64 | 注意单位：股 |
 | 成交额 | float64 | 注意单位：元 |
-| 时间戳 | object  | -       |
+| 时间戳 | str     | -       |
 
 接口示例
 
@@ -1213,8 +1213,8 @@ print(stock_zh_a_spot_df)
 
 | 名称    | 类型     | 描述 |
 |-------|--------|----|
-| item  | object | -  |
-| value | object | -  |
+| item  | str    | -  |
+| value | str    | -  |
 
 接口示例
 
@@ -1317,7 +1317,7 @@ print(stock_individual_spot_xq_df)
 | 名称   | 类型      | 描述          |
 |------|---------|-------------|
 | 日期   | object  | 交易日         |
-| 股票代码 | object  | 不带市场标识的股票代码 |
+| 股票代码 | str     | 不带市场标识的股票代码 |
 | 开盘   | float64 | 开盘价         |
 | 收盘   | float64 | 收盘价         |
 | 最高   | float64 | 最高价         |
@@ -1769,7 +1769,7 @@ print(stock_zh_a_hist_tx_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| day    | object  | -   |
+| day    | str     | -   |
 | open   | float64 | -   |
 | high   | float64 | -   |
 | low    | float64 | -   |
@@ -1965,10 +1965,10 @@ print(stock_zh_a_hist_min_em_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| 时间    | object  | -  |
+| 时间    | str     | -  |
 | 成交价   | float64 | -  |
 | 手数    | int64   | -  |
-| 买卖盘性质 | object  | -  |
+| 买卖盘性质 | str     | -  |
 
 接口示例
 
@@ -2018,13 +2018,13 @@ print(stock_intraday_em_df)
 
 | 名称         | 类型      | 描述            |
 |------------|---------|---------------|
-| symbol     | object  | -             |
-| name       | object  | -             |
-| ticktime   | object  | -             |
+| symbol     | str     | -             |
+| name       | str     | -             |
+| ticktime   | str     | -             |
 | price      | float64 | -             |
 | volume     | int64   | 注意单位：股       |
 | prev_price | float64 | -             |
-| kind       | object  | D 表示卖盘，表示 是买盘 |
+| kind       | str     | D 表示卖盘，表示 是买盘 |
 
 接口示例
 
@@ -2111,62 +2111,6 @@ print(stock_zh_a_hist_pre_min_em_df)
 [256 rows x 8 columns]
 ```
 
-### 历史分笔数据
-
-#### 腾讯财经
-
-接口：stock_zh_a_tick_tx
-
-目标地址：http://gu.qq.com/sz300494/gp/detail(示例)
-
-描述：每个交易日 16:00 提供当日数据；如遇到数据缺失，请使用 **ak.stock_zh_a_tick_163()** 接口（注意数据会有一定差异）
-
-限量：单次返回最近交易日的历史分笔行情数据
-
-输入参数-历史行情数据
-
-| 名称         | 类型  | 描述                    |
-|------------|-----|-----------------------|
-| symbol     | str | symbol="sh600000"     |
-
-输出参数
-
-| 名称   | 类型      | 描述      |
-|------|---------|---------|
-| 成交时间 | object  | -       |
-| 成交价格 | float64 | 注意单位：元 |
-| 价格变动 | float64 | 注意单位：元 |
-| 成交量  | int32   | 注意单位：手 |
-| 成交额  | int32   | 注意单位：元 |
-| 性质   | object  | 买卖盘标记   |
-
-接口示例
-
-```python
-import akshare as ak
-
-stock_zh_a_tick_tx_js_df = ak.stock_zh_a_tick_tx_js(symbol="sz000001")
-print(stock_zh_a_tick_tx_js_df)
-```
-
-数据示例
-
-```
-      成交时间  成交价格  价格变动  成交量  成交额 性质
-0     09:25:04  3.45  0.01       4    1380   卖盘
-1     09:30:02  3.46  0.01       1     346   买盘
-2     09:30:08  3.46  0.00      20    6920   买盘
-3     09:30:20  3.46  0.00      28    9688   买盘
-4     09:30:23  3.46  0.00      25    8665   买盘
-        ...   ...   ...     ...     ...  ..
-1405  14:59:29  3.51 -0.02      14    4914   卖盘
-1406  14:59:50  3.51  0.00       5    1755   卖盘
-1407  14:59:50  3.52  0.01      69   24288   买盘
-1408  14:59:59  3.51 -0.01     100   35100   卖盘
-1409  15:00:02  3.52  0.01      10    3520   买盘
-```
-
-
 ### 同行比较
 
 #### 成长性比较
@@ -2189,8 +2133,8 @@ print(stock_zh_a_tick_tx_js_df)
 
 | 名称               | 类型      | 描述 |
 |------------------|---------|----|
-| 代码               | object  | -  |
-| 简称               | object  | -  |
+| 代码               | str     | -  |
+| 简称               | str     | -  |
 | 基本每股收益增长率-3年复合   | float64 | -  |
 | 基本每股收益增长率-24A    | float64 | -  |
 | 基本每股收益增长率-TTM    | float64 | -  |
@@ -2255,9 +2199,9 @@ print(stock_zh_growth_comparison_em_df)
 
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
-| 排名            | object  | -  |
-| 代码            | object  | -  |
-| 简称            | object  | -  |
+| 排名            | str     | -  |
+| 代码            | str     | -  |
+| 简称            | str     | -  |
 | PEG           | float64 | -  |
 | 市盈率-24A       | float64 | -  |
 | 市盈率-TTM       | float64 | -  |
@@ -2321,8 +2265,8 @@ print(stock_zh_valuation_comparison_em_df)
 
 | 名称          | 类型      | 描述 |
 |-------------|---------|----|
-| 代码          | object  | -  |
-| 简称          | object  | -  |
+| 代码          | str     | -  |
+| 简称          | str     | -  |
 | ROE-3年平均    | float64 | -  |
 | ROE-22A     | float64 | -  |
 | ROE-23A     | float64 | -  |
@@ -2386,8 +2330,8 @@ print(stock_zh_dupont_comparison_em_df)
 
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
-| 代码     | object  | -  |
-| 简称     | object  | -  |
+| 代码     | str     | -  |
+| 简称     | str     | -  |
 | 总市值    | float64 | -  |
 | 总市值排名  | int64   | -  |
 | 流通市值   | float64 | -  |
@@ -2500,7 +2444,7 @@ print(stock_zh_a_cdr_daily_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 最新价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -2569,7 +2513,7 @@ print(stock_zh_b_spot_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -2820,7 +2764,7 @@ print(hfq_factor_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| day    | object  | -   |
+| day    | str     | -   |
 | open   | float64 | -   |
 | high   | float64 | -   |
 | low    | float64 | -   |
@@ -2874,9 +2818,9 @@ print(stock_zh_b_minute_df)
 
 | 名称            | 类型      | 描述   |
 |---------------|---------|------|
-| symbol        | object  | 新浪代码 |
-| code          | object  | 股票代码 |
-| name          | object  | 股票简称 |
+| symbol        | str     | 新浪代码 |
+| code          | str     | 股票代码 |
+| name          | str     | 股票简称 |
 | open          | float64 | 开盘价  |
 | high          | float64 | 最高价  |
 | low           | float64 | 最低价  |
@@ -2934,10 +2878,10 @@ print(stock_zh_a_new_df)
 | 名称   | 类型     | 描述 |
 |------|--------|----|
 | 序号   | int64  | -  |
-| 代码   | object | -  |
-| 简称   | object | -  |
-| 事件类型 | object | -  |
-| 具体事项 | object | -  |
+| 代码   | str    | -  |
+| 简称   | str    | -  |
+| 事件类型 | str    | -  |
+| 具体事项 | str    | -  |
 | 交易日  | object | -  |
 
 接口示例
@@ -2988,7 +2932,7 @@ print(stock_gsrl_gsdt_em_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
@@ -3053,7 +2997,7 @@ print(stock_zh_a_st_em_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
@@ -3118,8 +3062,8 @@ print(stock_zh_a_new_em_df)
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
 | 序号    | int64   | -  |
-| 股票代码  | object  | -  |
-| 股票简称  | object  | -  |
+| 股票代码  | str     | -  |
+| 股票简称  | str     | -  |
 | 上市日期  | object  | -  |
 | 发行价   | float64 | -  |
 | 最新价   | float64 | -  |
@@ -3128,7 +3072,7 @@ print(stock_zh_a_new_em_df)
 | 首日最高价 | float64 | -  |
 | 首日最低价 | float64 | -  |
 | 首日涨跌幅 | float64 | -  |
-| 是否破发  | object  | -  |
+| 是否破发  | str     | -  |
 
 接口示例
 
@@ -3178,15 +3122,15 @@ print(stock_xgsr_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 收盘价    | float64 | 注意单位：元 |
 | 涨跌幅    | float64 | 注意单位：% |
-| 市值     | object  | 注意单位：元 |
+| 市值     | str     | 注意单位：元 |
 | 参股家数   | int64   | -       |
-| 投资总额   | object  | 注意单位：元 |
+| 投资总额   | str     | 注意单位：元 |
 | 投资占市值比 | float64 | 注意单位：% |
-| 参股对象   | object  | -       |
+| 参股对象   | str     | -       |
 
 接口示例
 
@@ -3235,7 +3179,7 @@ print(stock_ipo_benefit_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
@@ -3300,7 +3244,7 @@ print(stock_zh_a_stop_em_df)
 
 | 名称   | 类型      | 描述           |
 |------|---------|--------------|
-| 代码   | object  | -            |
+| 代码   | str     | -            |
 | 名称   | object  | -            |
 | 最新价  | float64 | -            |
 | 涨跌额  | float64 | -            |
@@ -3313,7 +3257,7 @@ print(stock_zh_a_stop_em_df)
 | 最低   | float64 | -            |
 | 成交量  | float64 | 注意单位：股      |
 | 成交额  | float64 | 注意单位：元      |
-| 时点   | object  | 注意：数据获取的时间点 |
+| 时点   | str     | 注意：数据获取的时间点 |
 | 市盈率  | float64 | -            |
 | 市净率  | float64 | -            |
 | 流通市值 | float64 | -            |
@@ -3441,12 +3385,12 @@ print(stock_zh_kcb_daily_df)
 
 | 名称   | 类型     | 描述                                                                          |
 |------|--------|-----------------------------------------------------------------------------|
-| 代码   | object | -                                                                           |
+| 代码   | str    | -                                                                           |
 | 名称   | object | -                                                                           |
-| 公告标题 | object | -                                                                           |
-| 公告类型 | object | -                                                                           |
+| 公告标题 | str    | -                                                                           |
+| 公告类型 | str    | -                                                                           |
 | 公告日期 | object | -                                                                           |
-| 公告代码 | object | 本代码可以用来获取公告详情：http://data.eastmoney.com/notices/detail/688595/{替换到此处}.html |
+| 公告代码 | str    | 本代码可以用来获取公告详情：http://data.eastmoney.com/notices/detail/688595/{替换到此处}.html |
 
 接口示例
 
@@ -3499,10 +3443,10 @@ print(stock_zh_kcb_report_em_df)
 |---------|---------|-----------|
 | 序号      | int64   | -         |
 | 名称      | object  | -         |
-| H股代码    | object  | -         |
+| H股代码    | str     | -         |
 | 最新价-HKD | float64 | 注意单位：HKD |
 | H股-涨跌幅  | float64 | 注意单位：%   |
-| A股代码    | object  | -         |
+| A股代码    | str     | -         |
 | 最新价-RMB | float64 | 注意单位：RMB |
 | A股-涨跌幅  | float64 | 注意单位：%   |
 | 比价      | float64 | -         |
@@ -3555,7 +3499,7 @@ print(stock_zh_ah_spot_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌幅 | float64 | 注意单位：% |
@@ -3673,7 +3617,7 @@ print(stock_zh_ah_daily_df)
 
 | 名称  | 类型     | 描述  |
 |-----|--------|-----|
-| 代码  | object | -   |
+| 代码  | str    | -   |
 | 名称  | object | -   |
 
 接口示例
@@ -3740,7 +3684,7 @@ print(stock_zh_ah_name_df)
 | 成交额 | float64 | 注意单位：美元        |
 | 振幅  | float64 | 注意单位：%         |
 | 换手率 | float64 | 注意单位：%         |
-| 代码  | object  | 注意：用来获取历史数据的代码 |
+| 代码  | str     | 注意：用来获取历史数据的代码 |
 
 接口示例
 
@@ -3940,8 +3884,8 @@ print(stock_us_hist_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
-| value | object | -   |
+| item  | str    | -   |
+| value | str    | -   |
 
 接口示例
 
@@ -4085,8 +4029,8 @@ symbol!
 | 名称         | 类型         | 描述                  |
 |------------|------------|---------------------|
 | date       | datetime64 | 日期                  |
-| qfq_factor | float      | 前复权因子               |
-| adjust     | float      | 由于前复权会出现负值，该值为调整因子 |
+| qfq_factor | float64    | 前复权因子               |
+| adjust     | float64    | 由于前复权会出现负值，该值为调整因子 |
 
 P.S. 复权计算公式：未复权数据 * qfq_factor + adjust
 
@@ -4201,7 +4145,7 @@ print(qfq_df)
 | 昨收价 | float64 | 注意单位：美元        |
 | 总市值 | float64 | 注意单位：美元        |
 | 市盈率 | float64 | -               |
-| 代码  | object  | 注意：用来获取历史数据的代码 |
+| 代码  | str     | 注意：用来获取历史数据的代码 |
 
 接口示例
 
@@ -4260,7 +4204,7 @@ print(stock_us_pink_spot_em_df)
 | 昨收价 | float64 | 注意单位：美元        |
 | 总市值 | float64 | 注意单位：美元        |
 | 市盈率 | float64 | -               |
-| 代码  | object  | 注意：用来获取历史数据的代码 |
+| 代码  | str     | 注意：用来获取历史数据的代码 |
 
 接口示例
 
@@ -4334,7 +4278,7 @@ print(stock_us_famous_spot_em_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 序号  | int64   | -        |
-| 代码  | object  | -        |
+| 代码  | str     | -        |
 | 名称  | object  | -        |
 | 最新价 | float64 | 注意单位：港元 |
 | 涨跌额 | float64 | 注意单位：港元 |
@@ -4393,7 +4337,7 @@ print(stock_hk_spot_em_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 序号  | int64   | -        |
-| 代码  | object  | -        |
+| 代码  | str     | -        |
 | 名称  | object  | -        |
 | 最新价 | float64 | 注意单位：港元 |
 | 涨跌额 | float64 | 注意单位：港元 |
@@ -4451,11 +4395,11 @@ print(stock_hk_main_board_spot_em_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 日期时间 | object  | -  |
-| 代码   | object  | -  |
-| 中文名称 | object  | -  |
-| 英文名称 | object  | -  |
-| 交易类型 | object  | -  |
+| 日期时间 | str     | -  |
+| 代码   | str     | -  |
+| 中文名称 | str     | -  |
+| 英文名称 | str     | -  |
+| 交易类型 | str     | -  |
 | 最新价  | float64 | -  |
 | 涨跌额  | float64 | -  |
 | 涨跌幅  | float64 | -  |
@@ -4519,8 +4463,8 @@ print(stock_hk_spot_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
-| value | object | -   |
+| item  | str    | -   |
+| value | str    | -   |
 
 接口示例
 
@@ -4908,8 +4852,8 @@ print(stock_hk_daily_df)
 | 名称         | 类型     | 描述    |
 |------------|--------|-------|
 | date       | object | 日期    |
-| hfq_factor | object | 后复权因子 |
-| cash       | object | 现金分红  |
+| hfq_factor | str    | 后复权因子 |
+| cash       | str    | 现金分红  |
 
 接口示例-后复权因子
 
@@ -4967,7 +4911,7 @@ print(stock_hk_daily_hfq_factor_df)
 | 名称  | 类型      | 描述       |
 |-----|---------|----------|
 | 序号  | int64   | -        |
-| 代码  | object  | -        |
+| 代码  | str     | -        |
 | 名称  | object  | -        |
 | 最新价 | float64 | 注意单位：港元 |
 | 涨跌额 | float64 | 注意单位：港元 |
@@ -5026,19 +4970,19 @@ print(stock_hk_famous_spot_em_df)
 
 | 名称             | 类型      | 描述 |
 |----------------|---------|----|
-| 证券代码           | object  | -  |
-| 证券简称           | object  | -  |
-| 上市日期           | object  | -  |
-| 证券类型           | object  | -  |
+| 证券代码           | str     | -  |
+| 证券简称           | str     | -  |
+| 上市日期           | str     | -  |
+| 证券类型           | str     | -  |
 | 发行价            | float64 | -  |
 | 发行量（股）         | int64   | -  |
 | 每手股数           | int64   | -  |
-| 每股面值           | object  | -  |
-| 交易所            | object  | -  |
-| 板块             | object  | -  |
-| 年结日            | object  | -  |
-| ISIN（国际证券识别编码） | object  | -  |
-| 是否沪港通标的        | object  | -  |
+| 每股面值           | str     | -  |
+| 交易所            | str     | -  |
+| 板块             | str     | -  |
+| 年结日            | str     | -  |
+| ISIN（国际证券识别编码） | str     | -  |
+| 是否沪港通标的        | str     | -  |
 
 接口示例
 
@@ -5077,22 +5021,22 @@ print(stock_hk_security_profile_em_df)
 
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
-| 公司名称   | object | -  |
-| 英文名称   | object | -  |
-| 注册地    | object | -  |
-| 公司成立日期 | object | -  |
-| 所属行业   | object | -  |
-| 董事长    | object | -  |
-| 公司秘书   | object | -  |
+| 公司名称   | str    | -  |
+| 英文名称   | str    | -  |
+| 注册地    | str    | -  |
+| 公司成立日期 | str    | -  |
+| 所属行业   | str    | -  |
+| 董事长    | str    | -  |
+| 公司秘书   | str    | -  |
 | 员工人数   | int64  | -  |
-| 办公地址   | object | -  |
-| 公司网址   | object | -  |
-| E-MAIL | object | -  |
-| 年结日    | object | -  |
-| 联系电话   | object | -  |
-| 核数师    | object | -  |
-| 传真     | object | -  |
-| 公司介绍   | object | -  |
+| 办公地址   | str    | -  |
+| 公司网址   | str    | -  |
+| E-MAIL | str    | -  |
+| 年结日    | str    | -  |
+| 联系电话   | str    | -  |
+| 核数师    | str    | -  |
+| 传真     | str    | -  |
+| 公司介绍   | str    | -  |
 
 接口示例
 
@@ -5131,27 +5075,27 @@ print(stock_hk_company_profile_em_df)
 
 | 名称             | 类型     | 描述 |
 |----------------|--------|----|
-| 基本每股收益（元）      | object | -  |
-| 每股净资产（元）       | object | -  |
-| 法定股本（股）        | object | -  |
-| 每手股            | object | -  |
+| 基本每股收益（元）      | str    | -  |
+| 每股净资产（元）       | str    | -  |
+| 法定股本（股）        | str    | -  |
+| 每手股            | str    | -  |
 | 每股股息TTM(港元)    | object | -  |
 | 派息比率(%)        | object | -  |
-| 已发行股本（股）       | object | -  |
+| 已发行股本（股）       | str    | -  |
 | 已发行股本-H股（股）    | int64  | -  |
-| 每股经营现金流（元）     | object | -  |
+| 每股经营现金流（元）     | str    | -  |
 | 股息率TTM(%)      | object | -  |
-| 总市值（港元）        | object | -  |
-| 港股市值（港元）       | object | -  |
-| 营业总收入          | object | -  |
-| 营业总收入滚动环比增长(%) | object | -  |
-| 销售净利率(%)       | object | -  |
-| 净利润            | object | -  |
-| 净利润滚动环比增长(%)   | object | -  |
-| 股东权益回报率(%)     | object | -  |
-| 市盈率            | object | -  |
-| 市净率            | object | -  |
-| 总资产回报率(%)      | object | -  |
+| 总市值（港元）        | str    | -  |
+| 港股市值（港元）       | str    | -  |
+| 营业总收入          | int64  | -  |
+| 营业总收入滚动环比增长(%) | float64| -  |
+| 销售净利率(%)       | float64| -  |
+| 净利润            | int64  | -  |
+| 净利润滚动环比增长(%)   | float64| -  |
+| 股东权益回报率(%)     | float64| -  |
+| 市盈率            | float64| -  |
+| 市净率            | float64| -  |
+| 总资产回报率(%)      | float64| -  |
 
 接口示例
 
@@ -5192,11 +5136,11 @@ print(stock_hk_financial_indicator_em_df)
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
 | 最新公告日期 | object | -  |
-| 财政年度   | object | -  |
-| 分红方案   | object | -  |
-| 分配类型   | object | -  |
+| 财政年度   | str    | -  |
+| 分红方案   | str    | -  |
+| 分配类型   | str    | -  |
 | 除净日    | object | -  |
-| 截至过户日  | object | -  |
+| 截至过户日  | str    | -  |
 | 发放日    | object | -  |
 
 接口示例
@@ -5257,8 +5201,8 @@ print(stock_hk_dividend_payout_em_df)
 
 | 名称                  | 类型      | 描述 |
 |---------------------|---------|----|
-| 代码                  | object  | -  |
-| 简称                  | object  | -  |
+| 代码                  | str     | -  |
+| 简称                  | str     | -  |
 | 基本每股收益同比增长率         | float64 | -  |
 | 基本每股收益同比增长率排名       | int64   | -  |
 | 营业收入同比增长率           | float64 | -  |
@@ -5304,8 +5248,8 @@ print(stock_hk_growth_comparison_em_df)
 
 | 名称        | 类型      | 描述 |
 |-----------|---------|----|
-| 代码        | object  | -  |
-| 简称        | object  | -  |
+| 代码        | str     | -  |
+| 简称        | str     | -  |
 | 市盈率-TTM   | float64 | -  |
 | 市盈率-TTM排名 | int64   | -  |
 | 市盈率-LYR   | float64 | -  |
@@ -5361,8 +5305,8 @@ print(stock_hk_valuation_comparison_em_df)
 
 | 名称      | 类型      | 描述 |
 |---------|---------|----|
-| 代码      | object  | -  |
-| 简称      | object  | -  |
+| 代码      | str     | -  |
+| 简称      | str     | -  |
 | 总市值     | float64 | -  |
 | 总市值排名   | int64   | -  |
 | 流通市值    | float64 | -  |
@@ -5412,14 +5356,14 @@ print(stock_hk_scale_comparison_em_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
 | 接待机构数量 | int64   | -       |
-| 接待方式   | object  | -       |
-| 接待人员   | object  | -       |
-| 接待地点   | object  | -       |
+| 接待方式   | str     | -       |
+| 接待人员   | str     | -       |
+| 接待地点   | str     | -       |
 | 接待日期   | object  | -       |
 | 公告日期   | object  | -       |
 
@@ -5470,16 +5414,16 @@ print(stock_jgdy_tj_em_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 序号   | int64   | -       |
-| 代码   | object  | -       |
+| 代码   | str     | -       |
 | 名称   | object  | -       |
 | 最新价  | float64 | -       |
 | 涨跌幅  | float64 | 注意单位：% |
-| 调研机构 | object  | -       |
-| 机构类型 | object  | -       |
-| 调研人员 | object  | -       |
-| 接待方式 | object  | -       |
-| 接待人员 | object  | -       |
-| 接待地点 | object  | -       |
+| 调研机构 | str     | -       |
+| 机构类型 | str     | -       |
+| 调研人员 | str     | -       |
+| 接待方式 | str     | -       |
+| 接待人员 | str     | -       |
+| 接待地点 | str     | -       |
 | 调研日期 | object  | -       |
 | 公告日期 | object  | -       |
 
@@ -5527,11 +5471,11 @@ print(stock_jgdy_detail_em_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 股票代码 | object  | -       |
-| 主营业务 | object  | -       |
-| 产品类型 | object  | -       |
-| 产品名称 | object  | -       |
-| 经营范围 | object  | -       |
+| 股票代码 | str     | -       |
+| 主营业务 | str     | -       |
+| 产品类型 | str     | -       |
+| 产品名称 | str     | -       |
+| 经营范围 | str     | -       |
 
 接口示例
 
@@ -5570,9 +5514,9 @@ print(stock_zyjs_ths_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 股票代码 | object  | -       |
+| 股票代码 | str     | -       |
 | 报告日期 | object  | -       |
-| 分类类型 | object  | -       |
+| 分类类型 | str     | -       |
 | 主营构成 | int64   | -       |
 | 主营收入 | float64 | 注意单位：元 |
 | 收入比例 | float64 | -       |
@@ -5688,10 +5632,10 @@ print(stock_gpzy_profile_em_df)
 | 名称      | 类型      | 描述       |
 |---------|---------|----------|
 | 序号      | int64   | -        |
-| 股票代码    | object  | -        |
-| 股票简称    | object  | -        |
+| 股票代码    | str     | -        |
+| 股票简称    | str     | -        |
 | 交易日期    | object  | -        |
-| 所属行业    | object  | -        |
+| 所属行业    | str     | -        |
 | 质押比例    | float64 | 注意单位：%  |
 | 质押股数    | float64 | 注意单位：万股 |
 | 质押市值    | float64 | 注意单位：万元 |
@@ -5699,7 +5643,7 @@ print(stock_gpzy_profile_em_df)
 | 无限售股质押数 | float64 | 注意单位：万股 |
 | 限售股质押数  | float64 | 注意单位：万股 |
 | 近一年涨跌幅  | float64 | 注意单位：%  |
-| 所属行业代码  | object  | -        |
+| 所属行业代码  | str     | -        |
 
 接口示例
 
@@ -5749,20 +5693,20 @@ print(stock_gpzy_pledge_ratio_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 股票代码    | object  | -       |
-| 股票简称    | object  | -       |
-| 股东名称    | object  | -       |
+| 股票代码    | str     | -       |
+| 股票简称    | str     | -       |
+| 股东名称    | str     | -       |
 | 质押股份数量  | float64 | 注意单位：股 |
 | 占所持股份比例 | float64 | 注意单位：% |
 | 占总股本比例  | float64 | 注意单位：% |
-| 质押机构    | object  | -       |
+| 质押机构    | str     | -       |
 | 最新价     | float64 | 注意单位：元 |
 | 质押日收盘价  | float64 | 注意单位：元 |
 | 预估平仓线   | float64 | 注意单位：元 |
 | 公告日期    | object  | -       |
 | 质押开始日期  | object  | -       |
 | 质押结束日期  | object  | -       |
-| 状态      | object  | -       |
+| 状态      | str     | -       |
 
 接口示例
 
@@ -5813,20 +5757,20 @@ print(stock_gpzy_pledge_ratio_detail_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 股票代码    | object  | -       |
-| 股票简称    | object  | -       |
-| 股东名称    | object  | -       |
+| 股票代码    | str     | -       |
+| 股票简称    | str     | -       |
+| 股东名称    | str     | -       |
 | 质押股份数量  | float64 | 注意单位：股 |
 | 占所持股份比例 | float64 | 注意单位：% |
 | 占总股本比例  | float64 | 注意单位：% |
-| 质押机构    | object  | -       |
+| 质押机构    | str     | -       |
 | 最新价     | float64 | 注意单位：元 |
 | 质押日收盘价  | float64 | 注意单位：元 |
 | 预估平仓线   | float64 | 注意单位：元 |
 | 公告日期    | object  | -       |
 | 质押开始日期  | object  | -       |
 | 质押结束日期  | object  | -       |
-| 状态      | object  | -       |
+| 状态      | str     | -       |
 
 接口示例
 
@@ -5889,7 +5833,7 @@ print(stock_gpzy_individual_pledge_ratio_detail_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 质押机构         | object  | -       |
+| 质押机构         | str     | -       |
 | 质押公司数量       | int64   | -       |
 | 质押笔数         | int64   | -       |
 | 质押数量         | float64 | 注意单位：股 |
@@ -5974,7 +5918,7 @@ print(stock_gpzy_distribute_statistics_company_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 质押机构         | object  | -       |
+| 质押机构         | str     | -       |
 | 质押公司数量       | int64   | -       |
 | 质押笔数         | int64   | -       |
 | 质押数量         | float64 | 注意单位：股 |
@@ -6059,7 +6003,7 @@ print(stock_em_gpzy_distribute_statistics_bank_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 行业     | object  | -       |
+| 行业     | str     | -       |
 | 平均质押比例 | float64 | 注意单位：% |
 | 公司家数   | float64 | -       |
 | 质押总笔数  | float64 | -       |
@@ -6178,9 +6122,9 @@ print(stock_sy_profile_em_df)
 | 名称        | 类型      | 描述      |
 |-----------|---------|---------|
 | 序号        | int64   | -       |
-| 股票代码      | object  | -       |
-| 股票简称      | object  | -       |
-| 业绩变动原因    | object  | -       |
+| 股票代码      | str     | -       |
+| 股票简称      | str     | -       |
+| 业绩变动原因    | str     | -       |
 | 最新商誉报告期   | object  | -       |
 | 最新一期商誉    | float64 | 主要单位：元 |
 | 上年商誉      | float64 | 主要单位：元 |
@@ -6190,7 +6134,7 @@ print(stock_sy_profile_em_df)
 | 业绩变动幅度-上限 | float64 | 主要单位：% |
 | 上年度同期净利润  | float64 | 主要单位：元 |
 | 公告日期      | object  | -       |
-| 交易市场      | object  | -       |
+| 交易市场      | str     | -       |
 
 接口示例
 
@@ -6240,15 +6184,15 @@ print(stock_sy_yq_em_df)
 | 名称         | 类型      | 描述      |
 |------------|---------|---------|
 | 序号         | int64   | -       |
-| 股票代码       | object  | -       |
-| 股票简称       | object  | -       |
+| 股票代码       | str     | -       |
+| 股票简称       | str     | -       |
 | 商誉         | float64 | 注意单位：元 |
 | 商誉减值       | float64 | 注意单位：元 |
 | 商誉减值占净资产比例 | float64 | -       |
 | 净利润        | float64 | 注意单位：元 |
 | 商誉减值占净利润比例 | float64 | -       |
 | 公告日期       | object  | -       |
-| 交易市场       | object  | -       |
+| 交易市场       | str     | -       |
 
 接口示例
 
@@ -6298,15 +6242,15 @@ print(stock_sy_jz_em_df)
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
 | 序号       | int64   | -       |
-| 股票代码     | object  | -       |
-| 股票简称     | object  | -       |
+| 股票代码     | str     | -       |
+| 股票简称     | str     | -       |
 | 商誉       | float64 | 注意单位：元 |
 | 商誉占净资产比例 | float64 |         |
 | 净利润      | float64 | 注意单位：元 |
 | 净利润同比    | float64 |         |
 | 上年商誉     | float64 | 注意单位：元 |
 | 公告日期     | object  | -       |
-| 交易市场     | object  | -       |
+| 交易市场     | str     | -       |
 
 接口示例
 
@@ -6355,7 +6299,7 @@ print(stock_sy_em_df)
 
 | 名称           | 类型      | 描述 |
 |--------------|---------|----|
-| 行业名称         | object  | -  |
+| 行业名称         | str     | -  |
 | 公司家数         | int64   | -  |
 | 商誉规模         | float64 | -  |
 | 净资产          | float64 | -  |
@@ -6411,7 +6355,7 @@ print(stock_sy_hy_em_df)
 
 | 名称         | 类型      | 描述       |
 |------------|---------|----------|
-| 数据日期       | object  | -        |
+| 数据日期       | str     | -        |
 | 新增投资者-数量   | float64 | 注意单位：万户 |
 | 新增投资者-环比   | float64 | -        |
 | 新增投资者-同比   | float64 | -        |
@@ -6473,21 +6417,21 @@ print(stock_account_statistics_em_df)
 | 名称              | 类型      | 描述                       |
 |-----------------|---------|--------------------------|
 | 序号              | int64   | -                        |
-| 分析师名称           | object  | -                        |
-| 分析师单位           | object  | -                        |
+| 分析师名称           | str     | -                        |
+| 分析师单位           | str     | -                        |
 | 年度指数            | float64 | -                        |
 | xxxx年收益率        | float64 | 其中 xxxx 表示指定的年份；注意单位：% |
 | 3个月收益率          | float64 | 注意单位：%                  |
 | 6个月收益率          | float64 | 注意单位：%                  |
 | 12个月收益率         | float64 | 注意单位：%                  |
 | 成分股个数           | int64   | -                        |
-| xxxx最新个股评级-股票名称 | object  | 其中 xxxx 表示指定的年份          |
-| xxxx最新个股评级-股票代码 | object  | 其中 xxxx 表示指定的年份          |
-| 分析师ID           | object  | -                        |
-| 行业代码            | object  | -                        |
-| 行业              | object  | -                        |
+| xxxx最新个股评级-股票名称 | str     | 其中 xxxx 表示指定的年份          |
+| xxxx最新个股评级-股票代码 | str     | 其中 xxxx 表示指定的年份          |
+| 分析师ID           | str     | -                        |
+| 行业代码            | str     | -                        |
+| 行业              | str     | -                        |
 | 更新日期            | object  | 数据更新日期                   |
-| 年度              | object  | 数据更新年度                   |
+| 年度              | str     | 数据更新年度                   |
 
 接口示例
 
@@ -6538,11 +6482,11 @@ print(stock_analyst_rank_em_df)
 | 名称        | 类型      | 描述      |
 |-----------|---------|---------|
 | 序号        | int64   | -       |
-| 股票代码      | object  | -       |
-| 股票名称      | object  | -       |
+| 股票代码      | str     | -       |
+| 股票名称      | str     | -       |
 | 调入日期      | object  | -       |
 | 最新评级日期    | object  | -       |
-| 当前评级名称    | object  | -       |
+| 当前评级名称    | str     | -       |
 | 成交价格（前复权） | float64 | -       |
 | 最新价格      | float64 | -       |
 | 阶段涨跌幅     | float64 | 注意单位：% |
@@ -6598,12 +6542,12 @@ print(stock_analyst_detail_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 股票代码    | object  | -       |
-| 股票名称    | object  | -       |
+| 股票代码    | str     | -       |
+| 股票名称    | str     | -       |
 | 调入日期    | object  | -       |
 | 调出日期    | object  | -       |
-| 调入时评级名称 | object  | -       |
-| 调出原因    | object  | -       |
+| 调入时评级名称 | str     | -       |
+| 调出原因    | str     | -       |
 | 累计涨跌幅   | float64 | 注意单位：% |
 
 接口示例-历史跟踪成分股
@@ -6688,7 +6632,7 @@ print(stock_em_analyst_detail_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int64   | -       |
-| 代码    | object  | -       |
+| 代码    | str     | -       |
 | 名称    | object  | -       |
 | 最新价   | float64 | -       |
 | 涨跌幅   | float64 | -       |
@@ -6835,7 +6779,7 @@ print(stock_comment_detail_zlkp_jgcyd_em_df)
 
 | 名称  | 类型      | 描述  |
 |-----|---------|-----|
-| 日期  | object  | -   |
+| 日期  | str     | -   |
 | 评分  | float64 | -   |
 
 接口示例
@@ -6974,7 +6918,7 @@ print(stock_comment_detail_scrd_focus_em_df)
 | 名称       | 类型      | 描述 |
 |----------|---------|----|
 | 交易日期     | object  | -  |
-| 股票代码     | object  | -  |
+| 股票代码     | str     | -  |
 | 参与意愿     | float64 | -  |
 | 5日平均参与意愿 | float64 | -  |
 | 参与意愿变化   | float64 | -  |
@@ -7021,9 +6965,9 @@ print(stock_comment_detail_scrd_desire_em_df)
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
 | 交易日    | object  | -        |
-| 类型     | object  | -        |
-| 板块     | object  | -        |
-| 资金方向   | object  | -        |
+| 类型     | str     | -        |
+| 板块     | str     | -        |
+| 资金方向   | str     | -        |
 | 交易状态   | int64   | 3 为收盘    |
 | 成交净买额  | float64 | 注意单位：亿元 |
 | 资金净流入  | float64 | 注意单位：亿元 |
@@ -7031,7 +6975,7 @@ print(stock_comment_detail_scrd_desire_em_df)
 | 上涨数    | int64   | -        |
 | 持平数    | int64   | -        |
 | 下跌数    | int64   | -        |
-| 相关指数   | object  | -        |
+| 相关指数   | str     | -        |
 | 指数涨跌幅  | float64 | 注意单位：%  |
 
 接口示例
@@ -7079,7 +7023,7 @@ print(stock_hsgt_fund_flow_summary_em_df)
 | 适用日期     | object  | -   |
 | 买入结算汇兑比率 | float64 | -   |
 | 卖出结算汇兑比率 | float64 | -   |
-| 货币种类     | object  | -   |
+| 货币种类     | str     | -   |
 
 接口示例
 
@@ -7130,7 +7074,7 @@ print(stock_sgt_settlement_exchange_rate_szse_df)
 | 适用日期     | object  | -   |
 | 买入结算汇兑比率 | float64 | -   |
 | 卖出结算汇兑比率 | float64 | -   |
-| 货币种类     | object  | -   |
+| 货币种类     | str     | -   |
 
 接口示例
 
@@ -7181,7 +7125,7 @@ print(stock_sgt_settlement_exchange_rate_sse_df)
 | 适用日期    | object  | -   |
 | 参考汇率买入价 | float64 | -   |
 | 参考汇率卖出价 | float64 | -   |
-| 货币种类    | object  | -   |
+| 货币种类    | str     | -   |
 
 接口示例
 
@@ -7232,7 +7176,7 @@ print(stock_sgt_reference_exchange_rate_szse_df)
 | 适用日期    | object  | -   |
 | 参考汇率买入价 | float64 | -   |
 | 参考汇率卖出价 | float64 | -   |
-| 货币种类    | object  | -   |
+| 货币种类    | str     | -   |
 
 接口示例
 
@@ -7282,7 +7226,7 @@ print(stock_sgt_reference_exchange_rate_sse_df)
 | 名称  | 类型      | 描述        |
 |-----|---------|-----------|
 | 序号  | int64   | -         |
-| 代码  | object  | -         |
+| 代码  | str     | -         |
 | 名称  | object  | -         |
 | 最新价 | float64 | 注意单位：HKD |
 | 涨跌额 | float64 | -         |
@@ -7342,7 +7286,7 @@ print(stock_hk_ggt_components_em_df)
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
 | 日期   | object  | 日期       |
-| 时间   | object  | 时间       |
+| 时间   | str     | 时间       |
 | 沪股通  | float64 | 注意单位：万元 |
 | 深股通  | float64 | 注意单位：万元 |
 | 北向资金 | float64 | 注意单位：万元 |
@@ -7379,7 +7323,7 @@ print(stock_hsgt_fund_min_em_df)
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
 | 日期     | object  | 日期       |
-| 时间     | object  | 时间       |
+| 时间     | str     | 时间       |
 | 港股通（沪） | float64 | 注意单位：万元 |
 | 港股通（深） | float64 | 注意单位：万元 |
 | 南向资金   | float64 | 注意单位：万元 |
@@ -7499,7 +7443,7 @@ print(stock_hsgt_board_rank_em_df)
 | 名称         | 类型      | 描述                            |
 |------------|---------|-------------------------------|
 | 序号         | int32   | -                             |
-| 代码         | object  | -                             |
+| 代码         | str     | -                             |
 | 名称         | object  | -                             |
 | 今日收盘价      | float64 | -                             |
 | 今日涨跌幅      | float64 | 注意单位：%                       |
@@ -7509,10 +7453,10 @@ print(stock_hsgt_board_rank_em_df)
 | 今日持股-占总股本比 | float64 | 注意单位：%                       |
 | 增持估计-股数    | float64 | 注意单位：万；主要字段名根据 indicator 变化 |
 | 增持估计-市值    | float64 | 注意单位：万；主要字段名根据 indicator 变化 |
-| 增持估计-市值增幅  | object  | 注意单位：%；主要字段名根据 indicator 变化 |
+| 增持估计-市值增幅  | str     | 注意单位：%；主要字段名根据 indicator 变化 |
 | 增持估计-占流通股比 | float64 | 注意单位：‰；主要字段名根据 indicator 变化 |
 | 增持估计-占总股本比 | float64 | 注意单位：‰；主要字段名根据 indicator 变化 |
-| 所属板块       | object  | -                             |
+| 所属板块       | str     | -                             |
 | 日期         | object  | -                             |
 
 接口示例
@@ -7565,8 +7509,8 @@ print(stock_em_hsgt_hold_stock_df)
 | 名称          | 类型      | 描述                   |
 |-------------|---------|----------------------|
 | 持股日期        | object  | -                    |
-| 股票代码        | object  | -                    |
-| 股票简称        | object  | -                    |
+| 股票代码        | str     | -                    |
+| 股票简称        | str     | -                    |
 | 当日收盘价       | float64 | 注意单位：元；南向持股单位为：港元 |
 | 当日涨跌幅       | float64 | 注意单位：%              |
 | 持股数量        | float64 | 注意单位：万股             |
@@ -7625,7 +7569,7 @@ print(stock_hsgt_stock_statistics_em_df)
 | 名称         | 类型      | 描述                   |
 |------------|---------|----------------------|
 | 持股日期       | object  | -                    |
-| 机构名称       | object  | -                    |
+| 机构名称       | str     | -                    |
 | 持股只数       | float64 | 注意单位：只              |
 | 持股市值       | float64 | 注意单位：元；南向持股单位为：港元 |
 | 持股市值变化-1日  | float64 | 注意单位：元；南向持股单位为：港元 |
@@ -7679,7 +7623,7 @@ print(stock_hsgt_institution_statistics_em_df)
 | 名称  | 类型      | 描述        |
 |-----|---------|-----------|
 | 序号  | int64   | -         |
-| 代码  | object  | -         |
+| 代码  | str     | -         |
 | 名称  | object  | -         |
 | 最新价 | float64 | 注意单位：HKD |
 | 涨跌额 | float64 | -         |
@@ -7746,11 +7690,11 @@ print(stock_hsgt_sh_hk_spot_em_df)
 | 当日资金流入    | float64 | 注意单位：亿元  |
 | 当日余额      | float64 | 注意单位：亿元  |
 | 持股市值      | float64 | 注意单位：元   |
-| 领涨股       | object  | -         |
+| 领涨股       | str     | -         |
 | 领涨股-涨跌幅   | float64 | 注意单位：%   |
 | 沪深300     | float64 | -         |
 | 沪深300-涨跌幅 | float64 | 注意单位：%   |
-| 领涨股-代码    | object  | -         |
+| 领涨股-代码    | str     | -         |
 
 接口示例-北向资金
 
@@ -7791,11 +7735,11 @@ print(stock_hsgt_hist_em_df)
 | 当日资金流入   | float64 | 注意单位：亿元  |
 | 当日余额     | float64 | 注意单位：亿元  |
 | 持股市值     | float64 | 注意单位：元   |
-| 领涨股      | object  | -         |
+| 领涨股      | str     | -         |
 | 领涨股-涨跌幅  | float64 | 注意单位：%   |
 | 恒生指数     | float64 | -         |
 | 恒生指数-涨跌幅 | float64 | 注意单位：%   |
-| 领涨股-代码   | object  | -         |
+| 领涨股-代码   | str     | -         |
 
 接口示例-港股通沪
 
@@ -7844,7 +7788,7 @@ print(stock_hsgt_hist_em_df)
 
 | 名称         | 类型      | 描述      |
 |------------|---------|---------|
-| 持股日期       | object  | -       |
+| 持股日期       | str     | -       |
 | 当日收盘价      | float64 | 注意单位：元 |
 | 当日涨跌幅      | float64 | 注意单位：% |
 | 持股数量       | int64   | 注意单位：股 |
@@ -7858,7 +7802,7 @@ print(stock_hsgt_hist_em_df)
 
 | 名称         | 类型      | 描述       |
 |------------|---------|----------|
-| 持股日期       | object  | -        |
+| 持股日期       | str     | -        |
 | 当日收盘价      | float64 | 注意单位：港元 |
 | 当日涨跌幅      | float64 | 注意单位：%  |
 | 持股数量       | int64   | 注意单位：股  |
@@ -7920,7 +7864,7 @@ print(stock_hsgt_individual_em_df)
 | 持股日期       | object  | -       |
 | 当日收盘价      | float64 | 注意单位：元 |
 | 当日涨跌幅      | float64 | 注意单位：% |
-| 机构名称       | object  | -       |
+| 机构名称       | str     | -       |
 | 持股数量       | int64   | 注意单位：股 |
 | 持股市值       | float64 | 注意单位：元 |
 | 持股数量占A股百分比 | float64 | 注意单位：% |
@@ -7979,13 +7923,13 @@ print(stock_hsgt_individual_detail_em_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int64  |     |
-| 代码     | object |     |
+| 代码     | str    |     |
 | 名称     | object |     |
 | 停牌时间   | object |     |
 | 停牌截止时间 | object |     |
-| 停牌期限   | object |     |
-| 停牌原因   | object |     |
-| 所属市场   | object |     |
+| 停牌期限   | str    |     |
+| 停牌原因   | str    |     |
+| 所属市场   | str    |     |
 | 预计复牌时间 | object |     |
 
 接口示例
@@ -8056,17 +8000,18 @@ print(stock_tfp_em_df)
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
 | date | str | date="20241107" |
+| cookie | str | cookie=None；百度股市通的 Cookie，默认自动获取 |
 
 输出参数
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| 股票代码   | object |     |
-| 股票简称   | object |     |
-| 交易所    | object |     |
-| 停牌时间   | object |     |
-| 复牌时间   | object |     |
-| 停牌事项说明 | object |     |
+| 股票代码   | str    |     |
+| 股票简称   | str    |     |
+| 交易所    | str    |     |
+| 停牌时间   | str    |     |
+| 复牌时间   | str    |     |
+| 停牌事项说明 | str    |     |
 
 接口示例
 
@@ -8112,14 +8057,14 @@ print(news_trade_notify_suspend_baidu_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 股票代码 | object |     |
+| 股票代码 | str    |     |
 | 除权日  | object |     |
-| 分红   | object |     |
-| 送股   | object |     |
-| 转增   | object |     |
-| 实物   | object |     |
-| 交易所  | object |     |
-| 股票简称 | object |     |
+| 分红   | str    |     |
+| 送股   | str    |     |
+| 转增   | str    |     |
+| 实物   | str    |     |
+| 交易所  | str    |     |
+| 股票简称 | str    |     |
 | 报告期  | object |     |
 
 接口示例
@@ -8172,12 +8117,12 @@ print(news_trade_notify_dividend_baidu_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 关键词  | object | -   |
-| 新闻标题 | object | -   |
-| 新闻内容 | object | -   |
-| 发布时间 | object | -   |
-| 文章来源 | object | -   |
-| 新闻链接 | object | -   |
+| 关键词  | str    | -   |
+| 新闻标题 | str    | -   |
+| 新闻内容 | str    | -   |
+| 发布时间 | str    | -   |
+| 文章来源 | str    | -   |
+| 新闻链接 | str    | -   |
 
 接口示例
 
@@ -8226,9 +8171,9 @@ print(stock_news_em_df)
 
 | 名称            | 类型     | 描述 |
 |---------------|--------|----|
-| tag           | object | -  |
-| summary       | object | -  |
-| url           | object | -  |
+| tag           | str    | -  |
+| summary       | str    | -  |
+| url           | str    | -  |
 
 接口示例
 
@@ -8272,15 +8217,16 @@ print(stock_news_main_cx_df)
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
 | date | str | date="20241107" |
+| cookie | str | cookie=None；百度股市通的 Cookie，默认自动获取 |
 
 输出参数
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 股票代码 | object |     |
-| 交易所  | object |     |
-| 股票简称 | object |     |
-| 财报期  | object |     |
+| 股票代码 | str    |     |
+| 交易所  | str    |     |
+| 股票简称 | str    |     |
+| 财报期  | str    |     |
 
 接口示例
 
@@ -8331,8 +8277,8 @@ print(news_report_time_baidu_df)
 
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
-| 股票代码     | object  | -       |
-| 股票简称     | object  | -       |
+| 股票代码     | str     | -       |
+| 股票简称     | str     | -       |
 | 发行价      | float64 | -       |
 | 最新价      | float64 | -       |
 | 网上发行中签率  | float64 | 注意单位：% |
@@ -8395,11 +8341,11 @@ print(stock_dxsyl_em_df)
 
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
-| 股票代码     | object  | -       |
-| 股票简称     | object  | -       |
-| 交易所      | object  | -       |
-| 板块       | object  | -       |
-| 申购代码     | object  | -       |
+| 股票代码     | str     | -       |
+| 股票简称     | str     | -       |
+| 交易所      | str     | -       |
+| 板块       | str     | -       |
+| 申购代码     | str     | -       |
 | 发行总数     | float64 | 注意单位：股 |
 | 网上发行     | int64   | 注意单位：股 |
 | 顶格申购需配市值 | float64 | 注意单位：股 |
@@ -8407,16 +8353,16 @@ print(stock_dxsyl_em_df)
 | 发行价格     | float64 | -       |
 | 最新价      | float64 | -       |
 | 首日收盘价    | float64 | -       |
-| 申购日期     | object  | -       |
+| 申购日期     | str     | -       |
 | 中签号公布日   | object  | -       |
-| 中签缴款日期   | object  | -       |
-| 上市日期     | object  | -       |
+| 中签缴款日期   | str     | -       |
+| 上市日期     | str     | -       |
 | 发行市盈率    | float64 | -       |
 | 行业市盈率    | float64 | -       |
 | 中签率      | float64 | 注意单位：% |
 | 询价累计报价倍数 | float64 | -       |
 | 配售对象报价家数 | float64 | -       |
-| 连续一字板数量  | object  | -       |
+| 连续一字板数量  | str     | -       |
 | 涨幅       | float64 | 注意单位：% |
 | 每中一签获利   | float64 | 注意单位：元 |
 
@@ -8451,9 +8397,9 @@ print(stock_xgsglb_em_df)
 
 | 名称          | 类型      | 描述      |
 |-------------|---------|---------|
-| 代码          | object  | -       |
-| 简称          | object  | -       |
-| 申购代码        | object  | -       |
+| 代码          | str     | -       |
+| 简称          | str     | -       |
+| 申购代码        | str     | -       |
 | 发行总数        | int64   | 注意单位：股 |
 | 网上-发行数量     | int64   | 注意单位：股 |
 | 网上-申购上限     | int64   | 注意单位：股 |
@@ -8521,24 +8467,24 @@ print(stock_xgsglb_em_df)
 
 | 名称           | 类型     | 描述 |
 |--------------|--------|----|
-| 股票代码         | object | -  |
-| 股票简称         | object | -  |
-| 申购代码         | object | -  |
-| 发行总数（万股）     | object | -  |
-| 网上发行（万股）     | object | -  |
-| 申购上限（万股）     | object | -  |
-| 顶格申购需配市值（万元） | object | -  |
-| 发行价格         | object | -  |
-| 发行市盈率        | object | -  |
-| 行业市盈率        | object | -  |
-| 申购日期         | object | -  |
-| 中签率（%）       | object | -  |
-| 中签号          | object | -  |
-| 中签缴款日期       | object | -  |
-| 上市日期         | object | -  |
-| 打新收益（元）      | object | -  |
-| 首日最高涨幅       | object | -  |
-| 连板天数         | object | -  |
+| 股票代码         | str    | -  |
+| 股票简称         | str    | -  |
+| 申购代码         | str    | -  |
+| 发行总数（万股）     | str    | -  |
+| 网上发行（万股）     | str    | -  |
+| 申购上限（万股）     | str    | -  |
+| 顶格申购需配市值（万元） | str    | -  |
+| 发行价格         | str    | -  |
+| 发行市盈率        | str    | -  |
+| 行业市盈率        | str    | -  |
+| 申购日期         | str    | -  |
+| 中签率（%）       | str    | -  |
+| 中签号          | str    | -  |
+| 中签缴款日期       | str    | -  |
+| 上市日期         | str    | -  |
+| 打新收益（元）      | str    | -  |
+| 首日最高涨幅       | str    | -  |
+| 连板天数         | str    | -  |
 
 接口示例
 
@@ -8626,24 +8572,24 @@ print(stock_ipo_ths_df)
 
 | 名称           | 类型     | 描述 |
 |--------------|--------|----|
-| 股票代码         | object | -  |
-| 股票简称         | object | -  |
-| 申购代码         | object | -  |
-| 发行总数（万股）     | object | -  |
-| 网上发行（万股）     | object | -  |
-| 申购上限（万股）     | object | -  |
-| 顶格申购需配市值（万元） | object | -  |
-| 发行价格         | object | -  |
-| 发行市盈率        | object | -  |
-| 行业市盈率        | object | -  |
-| 申购日期         | object | -  |
-| 中签率（%）       | object | -  |
-| 中签号          | object | -  |
-| 中签缴款日期       | object | -  |
-| 上市日期         | object | -  |
-| 打新收益（元）      | object | -  |
-| 首日最高涨幅       | object | -  |
-| 连板天数         | object | -  |
+| 股票代码         | str    | -  |
+| 股票简称         | str    | -  |
+| 申购代码         | str    | -  |
+| 发行总数（万股）     | str    | -  |
+| 网上发行（万股）     | str    | -  |
+| 申购上限（万股）     | str    | -  |
+| 顶格申购需配市值（万元） | str    | -  |
+| 发行价格         | str    | -  |
+| 发行市盈率        | str    | -  |
+| 行业市盈率        | str    | -  |
+| 申购日期         | str    | -  |
+| 中签率（%）       | str    | -  |
+| 中签号          | str    | -  |
+| 中签缴款日期       | str    | -  |
+| 上市日期         | str    | -  |
+| 打新收益（元）      | str    | -  |
+| 首日最高涨幅       | str    | -  |
+| 连板天数         | str    | -  |
 
 接口示例
 
@@ -8684,8 +8630,8 @@ print(stock_ipo_hk_ths_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 股票代码         | object  | -       |
-| 股票简称         | object  | -       |
+| 股票代码         | str     | -       |
+| 股票简称         | str     | -       |
 | 每股收益         | float64 | 注意单位：元 |
 | 营业总收入-营业总收入  | float64 | 注意单位：元 |
 | 营业总收入-同比增长   | float64 | 注意单位：% |
@@ -8697,7 +8643,7 @@ print(stock_ipo_hk_ths_df)
 | 净资产收益率       | float64 | 注意单位：% |
 | 每股经营现金流量     | float64 | 注意单位：元 |
 | 销售毛利率        | float64 | 注意单位：% |
-| 所处行业         | object  | -       |
+| 所处行业         | str     | -       |
 | 最新公告日期       | object  | -       |
 
 接口示例
@@ -8747,24 +8693,24 @@ print(stock_yjbb_em_df)
 
 | 名称          | 类型     | 描述  |
 |-------------|--------|-----|
-| 序号          | object | -   |
-| 股票代码        | object | -   |
-| 股票简称        | object | -   |
-| 每股收益        | object | -   |
-| 营业收入-营业收入   | object | -   |
-| 营业收入-去年同期   | object | -   |
+| 序号          | int64  | -   |
+| 股票代码        | str    | -   |
+| 股票简称        | str    | -   |
+| 每股收益        | float64| -   |
+| 营业收入-营业收入   | float64| -   |
+| 营业收入-去年同期   | float64| -   |
 | 营业收入-同比增长   | str    | -   |
-| 营业收入-季度环比增长 | object | -   |
-| 净利润-净利润     | object | -   |
-| 净利润-去年同期    | object | -   |
+| 营业收入-季度环比增长 | float64| -   |
+| 净利润-净利润     | float64| -   |
+| 净利润-去年同期    | float64| -   |
 | 净利润-同比增长    | str    | -   |
-| 净利润-季度环比增长  | object | -   |
-| 每股净资产       | object | -   |
-| 净资产收益率      | object | -   |
-| 所处行业        | object | -   |
+| 净利润-季度环比增长  | float64| -   |
+| 每股净资产       | float64| -   |
+| 净资产收益率      | float64| -   |
+| 所处行业        | str    | -   |
 | 公告日期        | object | -   |
-| 市场板块        | object | -   |
-| 证券类型        | object | -   |
+| 市场板块        | str    | -   |
+| 证券类型        | str    | -   |
 
 接口示例
 
@@ -8813,9 +8759,9 @@ print(stock_yjkb_em_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 序号     | object  | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 序号     | int64   | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 预测指标   | float64 | -       |
 | 业绩变动   | float64 | -       |
 | 预测数值   | float64 | 注意单位：元 |
@@ -8874,8 +8820,8 @@ print(stock_yjyg_em_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int64  | -   |
-| 股票代码   | object | -   |
-| 股票简称   | object | -   |
+| 股票代码   | str    | -   |
+| 股票简称   | str    | -   |
 | 首次预约时间 | object | -   |
 | 一次变更日期 | object | -   |
 | 二次变更日期 | object | -   |
@@ -8930,8 +8876,8 @@ print(stock_yysj_em_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 股票代码 | object | -   |
-| 股票简称 | object | -   |
+| 股票代码 | str    | -   |
+| 股票简称 | str    | -   |
 | 首次预约 | object | -   |
 | 初次变更 | object | -   |
 | 二次变更 | object | -   |
@@ -8990,11 +8936,11 @@ print(stock_report_disclosure_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 代码   | object | -  |
-| 简称   | object | -  |
-| 公告标题 | object | -  |
-| 公告时间 | object | -  |
-| 公告链接 | object | -  |
+| 代码   | str    | -  |
+| 简称   | str    | -  |
+| 公告标题 | str    | -  |
+| 公告时间 | str    | -  |
+| 公告链接 | str    | -  |
 
 接口示例
 
@@ -9041,11 +8987,11 @@ print(stock_zh_a_disclosure_report_cninfo_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 代码   | object | -  |
-| 简称   | object | -  |
-| 公告标题 | object | -  |
-| 公告时间 | object | -  |
-| 公告链接 | object | -  |
+| 代码   | str    | -  |
+| 简称   | str    | -  |
+| 公告标题 | str    | -  |
+| 公告时间 | str    | -  |
+| 公告链接 | str    | -  |
 
 接口示例
 
@@ -9093,13 +9039,13 @@ print(stock_zh_a_disclosure_relation_cninfo_df)
 
 | 名称     | 类型         | 描述  |
 |--------|------------|-----|
-| 类目编码   | object     | -   |
-| 类目名称   | object     | -   |
+| 类目编码   | str        | -   |
+| 类目名称   | str        | -   |
 | 终止日期   | datetime64 | -   |
-| 行业类型   | object     | -   |
-| 行业类型编码 | object     | -   |
-| 类目名称英文 | object     | -   |
-| 父类编码   | object     | -   |
+| 行业类型   | str        | -   |
+| 行业类型编码 | str        | -   |
+| 类目名称英文 | str        | -   |
+| 父类编码   | str        | -   |
 | 分级     | int32      | -   |
 
 接口示例
@@ -9151,16 +9097,16 @@ print(stock_industry_category_cninfo_df)
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| 新证券简称  | object | -   |
-| 行业中类   | object | -   |
-| 行业大类   | object | -   |
-| 行业次类   | object | -   |
-| 行业门类   | object | -   |
-| 机构名称   | object | -   |
-| 行业编码   | object | -   |
-| 分类标准   | object | -   |
-| 分类标准编码 | object | -   |
-| 证券代码   | object | -   |
+| 新证券简称  | str    | -   |
+| 行业中类   | str    | -   |
+| 行业大类   | str    | -   |
+| 行业次类   | str    | -   |
+| 行业门类   | str    | -   |
+| 机构名称   | str    | -   |
+| 行业编码   | str    | -   |
+| 分类标准   | str    | -   |
+| 分类标准编码 | str    | -   |
+| 证券代码   | str    | -   |
 | 变更日期   | object | -   |
 
 接口示例
@@ -9212,8 +9158,8 @@ print(stock_industry_change_cninfo_df)
 
 | 名称         | 类型      | 描述  |
 |------------|---------|-----|
-| 证券简称       | object  | -   |
-| 机构名称       | object  | -   |
+| 证券简称       | str     | -   |
+| 机构名称       | str     | -   |
 | 境外法人持股     | float64 | -   |
 | 证券投资基金持股   | float64 | -   |
 | 国家持股-受限    | float64 | -   |
@@ -9234,10 +9180,10 @@ print(stock_industry_change_cninfo_df)
 | 一般法人持股     | float64 | -   |
 | 控股股东、实际控制人 | float64 | -   |
 | 其中：限售H股    | float64 | -   |
-| 变动原因       | object  | -   |
+| 变动原因       | str     | -   |
 | 公告日期       | object  | -   |
 | 境内法人持股     | float64 | -   |
-| 证券代码       | object  | -   |
+| 证券代码       | str     | -   |
 | 变动日期       | object  | -   |
 | 战略投资者持股    | float64 | -   |
 | 国家持股       | float64 | -   |
@@ -9255,7 +9201,7 @@ print(stock_industry_change_cninfo_df)
 | 已流通股份      | float64 | -   |
 | 其中：境内自然人持股 | float64 | -   |
 | 其他内资持股-受限  | float64 | -   |
-| 变动原因编码     | object  | -   |
+| 变动原因编码     | str     | -   |
 
 接口示例
 
@@ -9337,7 +9283,7 @@ print(stock_share_change_cninfo_df)
 | 名称           | 类型         | 描述  |
 |--------------|------------|-----|
 | 记录标识         | int64      | -   |
-| 证券简称         | object     | -   |
+| 证券简称         | str        | -   |
 | 停牌起始日        | object     | -   |
 | 上市公告日期       | object     | -   |
 | 配股缴款起始日      | object     | -   |
@@ -9350,24 +9296,24 @@ print(stock_share_change_cninfo_df)
 | 每股配权转让费（元）   | float64    | -   |
 | 法人股实配数量      | float64    | -   |
 | 实际募资净额       | float64    | -   |
-| 大股东认购方式      | object     | -   |
+| 大股东认购方式      | str        | -   |
 | 其他配售简称       | object     | -   |
-| 发行方式         | object     | -   |
+| 发行方式         | str        | -   |
 | 配股失败，退还申购款日期 | object     | -   |
 | 除权基准日        | object     | -   |
 | 预计发行费用       | float64    | -   |
 | 配股发行结果公告日    | object     | -   |
-| 证券代码         | object     | -   |
+| 证券代码         | str        | -   |
 | 配股权证交易截止日    | datetime64 | -   |
 | 其他股份实配数量     | float64    | -   |
 | 国家股实配数量      | float64    | -   |
 | 委托单位         | object     | -   |
 | 公众获转配数量      | float64    | -   |
 | 其他配售代码       | object     | -   |
-| 配售对象         | object     | -   |
+| 配售对象         | str        | -   |
 | 配股权证交易起始日    | datetime64 | -   |
 | 资金到账日        | datetime64 | -   |
-| 机构名称         | object     | -   |
+| 机构名称         | str        | -   |
 | 股权登记日        | object     | -   |
 | 实际募资总额       | float64    | -   |
 | 预计募集资金       | float64    | -   |
@@ -9377,10 +9323,10 @@ print(stock_share_change_cninfo_df)
 | 承销费用         | float64    | -   |
 | 法人获转配数量      | float64    | -   |
 | 配股后流通股本      | float64    | -   |
-| 股票类别         | object     | -   |
-| 公众配售简称       | object     | -   |
-| 发行方式编码       | object     | -   |
-| 承销方式         | object     | -   |
+| 股票类别         | str        | -   |
+| 公众配售简称       | str        | -   |
+| 发行方式编码       | str        | -   |
+| 承销方式         | str        | -   |
 | 公告日期         | object     | -   |
 | 配股上市日        | object     | -   |
 | 配股缴款截止日      | object     | -   |
@@ -9388,11 +9334,11 @@ print(stock_share_change_cninfo_df)
 | 预计配股数量       | float64    | -   |
 | 配股后总股本       | float64    | -   |
 | 职工股实配数量      | float64    | -   |
-| 承销方式编码       | object     | -   |
+| 承销方式编码       | str        | -   |
 | 发行费用总额       | float64    | -   |
 | 配股前流通股本      | float64    | -   |
-| 股票类别编码       | object     | -   |
-| 公众配售代码       | object     | -   |
+| 股票类别编码       | str        | -   |
+| 公众配售代码       | str        | -   |
 
 接口示例
 
@@ -9431,32 +9377,32 @@ print(stock_allotment_cninfo_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 公司名称 | object | -   |
-| 英文名称 | object | -   |
-| 曾用简称 | object | -   |
-| A股代码 | object | -   |
-| A股简称 | object | -   |
-| B股代码 | object | -   |
-| B股简称 | object | -   |
-| H股代码 | object | -   |
-| H股简称 | object | -   |
-| 入选指数 | object | -   |
-| 所属市场 | object | -   |
-| 所属行业 | object | -   |
-| 法人代表 | object | -   |
-| 注册资金 | object | -   |
-| 成立日期 | object | -   |
-| 上市日期 | object | -   |
-| 官方网站 | object | -   |
-| 电子邮箱 | object | -   |
-| 联系电话 | object | -   |
-| 传真   | object | -   |
-| 注册地址 | object | -   |
-| 办公地址 | object | -   |
-| 邮政编码 | object | -   |
-| 主营业务 | object | -   |
-| 经营范围 | object | -   |
-| 机构简介 | object | -   |
+| 公司名称 | str    | -   |
+| 英文名称 | str    | -   |
+| 曾用简称 | str    | -   |
+| A股代码 | str    | -   |
+| A股简称 | str    | -   |
+| B股代码 | str    | -   |
+| B股简称 | str    | -   |
+| H股代码 | str    | -   |
+| H股简称 | str    | -   |
+| 入选指数 | str    | -   |
+| 所属市场 | str    | -   |
+| 所属行业 | str    | -   |
+| 法人代表 | str    | -   |
+| 注册资金 | str    | -   |
+| 成立日期 | str    | -   |
+| 上市日期 | str    | -   |
+| 官方网站 | str    | -   |
+| 电子邮箱 | str    | -   |
+| 联系电话 | str    | -   |
+| 传真   | str    | -   |
+| 注册地址 | str    | -   |
+| 办公地址 | str    | -   |
+| 邮政编码 | str    | -   |
+| 主营业务 | str    | -   |
+| 经营范围 | str    | -   |
+| 机构简介 | str    | -   |
 
 接口示例
 
@@ -9494,9 +9440,9 @@ print(stock_profile_cninfo_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 股票代码     | object  | -        |
+| 股票代码     | str     | -        |
 | 招股公告日期   | object  | -        |
-| 中签率公告日   | object  | -        |
+| 中签率公告日   | datetime64[s] | -        |
 | 每股面值     | float64 | 注意单位：元  |
 | 总发行数量    | float64 | 注意单位：万股 |
 | 发行前每股净资产 | float64 | 注意单位：元  |
@@ -9548,8 +9494,8 @@ print(stock_ipo_summary_cninfo_df)
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
 | 序号       | int64   | -       |
-| 股票代码     | object  | -       |
-| 股票简称     | object  | -       |
+| 股票代码     | str     | -       |
+| 股票简称     | str     | -       |
 | 资产-货币资金  | float64 | 注意单位：元 |
 | 资产-应收账款  | float64 | 注意单位：元 |
 | 资产-存货    | float64 | 注意单位：元 |
@@ -9611,8 +9557,8 @@ print(stock_zcfz_em_df)
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
 | 序号       | int64   | -       |
-| 股票代码     | object  | -       |
-| 股票简称     | object  | -       |
+| 股票代码     | str     | -       |
+| 股票简称     | str     | -       |
 | 资产-货币资金  | float64 | 注意单位：元 |
 | 资产-应收账款  | float64 | 注意单位：元 |
 | 资产-存货    | float64 | 注意单位：元 |
@@ -9674,8 +9620,8 @@ print(stock_zcfz_bj_em_df)
 | 名称          | 类型      | 描述      |
 |-------------|---------|---------|
 | 序号          | int64   | -       |
-| 股票代码        | object  | -       |
-| 股票简称        | object  | -       |
+| 股票代码        | str     | -       |
+| 股票简称        | str     | -       |
 | 净利润         | float64 | 注意单位：元 |
 | 净利润同比       | float64 | 注意单位：% |
 | 营业总收入       | float64 | 注意单位：元 |
@@ -9737,8 +9683,8 @@ print(stock_lrb_em_df)
 | 名称            | 类型      | 描述      |
 |---------------|---------|---------|
 | 序号            | int64   | -       |
-| 股票代码          | object  | -       |
-| 股票简称          | object  | -       |
+| 股票代码          | str     | -       |
+| 股票简称          | str     | -       |
 | 净现金流-净现金流     | float64 | 注意单位：元 |
 | 净现金流-同比增长     | float64 | 注意单位：% |
 | 经营性现金流-现金流量净额 | float64 | 注意单位：元 |
@@ -9798,11 +9744,11 @@ print(stock_xjll_em_df)
 
 | 名称             | 类型      | 描述       |
 |----------------|---------|----------|
-| 代码             | object  | -        |
+| 代码             | str     | -        |
 | 名称             | object  | -        |
 | 最新价            | float64 | -        |
 | 涨跌幅            | float64 | 注意单位：%  |
-| 股东名称           | object  | -        |
+| 股东名称           | str     | -        |
 | 持股变动信息-增减      | float64 | -        |
 | 持股变动信息-变动数量    | float64 | 注意单位：万股 |
 | 持股变动信息-占总股本比例  | float64 | 注意单位：%  |
@@ -9863,7 +9809,7 @@ print(stock_ggcg_em_df)
 
 | 名称          | 类型      | 描述  |
 |-------------|---------|-----|
-| 代码          | object  | -   |
+| 代码          | str     | -   |
 | 名称          | object  | -   |
 | 送转股份-送转总比例  | float64 | -   |
 | 送转股份-送转比例   | float64 | -   |
@@ -9879,7 +9825,7 @@ print(stock_ggcg_em_df)
 | 预案公告日       | object  | -   |
 | 股权登记日       | object  | -   |
 | 除权除息日       | object  | -   |
-| 方案进度        | object  | -   |
+| 方案进度        | str     | -   |
 | 最新公告日期      | object  | -   |
 
 接口示例
@@ -9935,7 +9881,7 @@ print(stock_fhps_em_df)
 | 送转股份-送股比例     | float64 | -  |
 | 送转股份-转股比例     | float64 | -  |
 | 现金分红-现金分红比例   | float64 | -  |
-| 现金分红-现金分红比例描述 | object  | -  |
+| 现金分红-现金分红比例描述 | str     | -  |
 | 现金分红-股息率      | float64 | -  |
 | 每股收益          | float64 | -  |
 | 每股净资产         | float64 | -  |
@@ -9946,7 +9892,7 @@ print(stock_fhps_em_df)
 | 预案公告日         | object  | -  |
 | 股权登记日         | object  | -  |
 | 除权除息日         | object  | -  |
-| 方案进度          | object  | -  |
+| 方案进度          | str     | -  |
 | 最新公告日期        | object  | -  |
 
 接口示例
@@ -9995,17 +9941,17 @@ print(stock_fhps_detail_em_df)
 
 | 名称         | 类型     | 描述                |
 |------------|--------|-------------------|
-| 报告期        | object | -                 |
+| 报告期        | str    | -                 |
 | 董事会日期      | object | -                 |
 | 股东大会预案公告日期 | object | -                 |
 | 实施公告日      | object | -                 |
-| 分红方案说明     | object | -                 |
+| 分红方案说明     | str    | -                 |
 | A股股权登记日    | object | 注意：根据 A 股和 B 股变化 |
 | A股除权除息日    | object | 注意：根据 A 股和 B 股变化 |
-| 分红总额       | object | -                 |
-| 方案进度       | object | -                 |
-| 股利支付率      | object | -                 |
-| 税前分红率      | object | -                 |
+| 分红总额       | str    | -                 |
+| 方案进度       | str    | -                 |
+| 股利支付率      | str    | -                 |
+| 税前分红率      | str    | -                 |
 
 接口示例
 
@@ -10060,14 +10006,14 @@ print(stock_fhps_detail_ths_df)
 | 名称         | 类型     | 描述 |
 |------------|--------|----|
 | 公告日期       | object | -  |
-| 方案         | object | -  |
+| 方案         | str    | -  |
 | 除净日        | object | -  |
 | 派息日        | object | -  |
 | 过户日期起止日-起始 | object | -  |
 | 过户日期起止日-截止 | object | -  |
-| 类型         | object | -  |
-| 进度         | object | -  |
-| 以股代息       | object | -  |
+| 类型         | str    | -  |
+| 进度         | str    | -  |
+| 以股代息       | str    | -  |
 
 接口示例
 
@@ -10122,14 +10068,14 @@ print(stock_hk_fhpx_detail_ths_df)
 |------|---------|---------|
 | 序号   | int32   | -       |
 | 股票代码 | int64   | -       |
-| 股票简称 | object  | -       |
+| 股票简称 | str     | -       |
 | 最新价  | float64 | -       |
-| 涨跌幅  | object  | 注意单位：% |
-| 换手率  | object  | -       |
-| 流入资金 | object  | 注意单位：元 |
-| 流出资金 | object  | 注意单位：元 |
-| 净额   | object  | 注意单位：元 |
-| 成交额  | object  | 注意单位：元 |
+| 涨跌幅  | str     | 注意单位：% |
+| 换手率  | str     | -       |
+| 流入资金 | str     | 注意单位：元 |
+| 流出资金 | str     | 注意单位：元 |
+| 净额   | str     | 注意单位：元 |
+| 成交额  | str     | 注意单位：元 |
 
 接口示例-即时
 
@@ -10164,10 +10110,10 @@ print(stock_fund_flow_individual_df)
 |--------|---------|---------|
 | 序号     | int32   | -       |
 | 股票代码   | int64   | -       |
-| 股票简称   | object  | -       |
+| 股票简称   | str     | -       |
 | 最新价    | float64 | -       |
-| 阶段涨跌幅  | object  | 注意单位：% |
-| 连续换手率  | object  | 注意单位：% |
+| 阶段涨跌幅  | str     | 注意单位：% |
+| 连续换手率  | str     | 注意单位：% |
 | 资金流入净额 | float64 | 注意单位：元 |
 
 接口示例-3日、5日、10日和20日
@@ -10218,14 +10164,14 @@ print(stock_fund_flow_individual_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int32   | -       |
-| 行业      | object  | -       |
+| 行业      | str     | -       |
 | 行业指数    | float64 | -       |
 | 行业-涨跌幅  | float64 | 注意单位：% |
 | 流入资金    | float64 | 注意单位：亿 |
 | 流出资金    | float64 | 注意单位：亿 |
 | 净额      | float64 | 注意单位：亿 |
 | 公司家数    | float64 | -       |
-| 领涨股     | object  | -       |
+| 领涨股     | str     | -       |
 | 领涨股-涨跌幅 | float64 | 注意单位：% |
 | 当前价     | float64 | 注意单位：元 |
 
@@ -10261,10 +10207,10 @@ print(stock_fund_flow_concept_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int32   | -       |
-| 行业    | object  | -       |
+| 行业    | str     | -       |
 | 公司家数  | int64   | -       |
 | 行业指数  | float64 | -       |
-| 阶段涨跌幅 | object  | 注意单位：% |
+| 阶段涨跌幅 | str     | 注意单位：% |
 | 流入资金  | float64 | 注意单位：亿 |
 | 流出资金  | float64 | 注意单位：亿 |
 | 净额    | float64 | 注意单位：亿 |
@@ -10317,14 +10263,14 @@ print(stock_fund_flow_concept_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int32   | -       |
-| 行业      | object  | -       |
+| 行业      | str     | -       |
 | 行业指数    | float64 | -       |
 | 行业-涨跌幅  | object  | 注意单位：% |
 | 流入资金    | float64 | 注意单位：亿 |
 | 流出资金    | float64 | 注意单位：亿 |
 | 净额      | float64 | 注意单位：亿 |
 | 公司家数    | float64 | -       |
-| 领涨股     | object  | -       |
+| 领涨股     | str     | -       |
 | 领涨股-涨跌幅 | object  | 注意单位：% |
 | 当前价     | float64 | -       |
 
@@ -10360,10 +10306,10 @@ print(stock_fund_flow_industry_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int32   | -       |
-| 行业    | object  | -       |
+| 行业    | str     | -       |
 | 公司家数  | int64   | -       |
 | 行业指数  | float64 | -       |
-| 阶段涨跌幅 | object  | 注意单位：% |
+| 阶段涨跌幅 | str     | 注意单位：% |
 | 流入资金  | float64 | 注意单位：亿 |
 | 流出资金  | float64 | 注意单位：亿 |
 | 净额    | float64 | 注意单位：亿 |
@@ -10415,15 +10361,15 @@ print(stock_fund_flow_industry_df)
 
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
-| 成交时间 | object  | -        |
+| 成交时间 | str     | -        |
 | 股票代码 | int64   | -        |
-| 股票简称 | object  | -        |
+| 股票简称 | str     | -        |
 | 成交价格 | float64 | -        |
 | 成交量  | int64   | 注意单位：股  |
 | 成交额  | float64 | 注意单位：万元 |
-| 大单性质 | object  | -        |
-| 涨跌幅  | object  | -        |
-| 涨跌额  | object  | -        |
+| 大单性质 | str     | -        |
+| 涨跌幅  | str     | -        |
+| 涨跌额  | str     | -        |
 
 接口示例-即时
 
@@ -10469,7 +10415,7 @@ print(stock_fund_flow_big_deal_df)
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
 | stock  | str | stock="000425"；股票代码                               |
-| market | str | market="sh"；上海证券交易所：sh，深证证券交易所：sz，北京证券交易所：bj |
+| market | str | market="sh"；上海证券交易所：sh，深圳证券交易所：sz，北京证券交易所：bj |
 
 输出参数
 
@@ -10537,7 +10483,7 @@ print(stock_individual_fund_flow_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | -       |
 | 今日涨跌幅        | float64 | 注意单位：% |
@@ -10593,7 +10539,7 @@ print(stock_individual_fund_flow_rank_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | -       |
 | 3日涨跌幅        | float64 | 注意单位：% |
@@ -10649,7 +10595,7 @@ print(stock_individual_fund_flow_rank_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | -       |
 | 5日涨跌幅        | float64 | 注意单位：% |
@@ -10705,7 +10651,7 @@ print(stock_individual_fund_flow_rank_df)
 | 名称            | 类型      | 描述      |
 |---------------|---------|---------|
 | 序号            | int32   | -       |
-| 代码            | object  | -       |
+| 代码            | str     | -       |
 | 名称            | object  | -       |
 | 最新价           | float64 | -       |
 | 10日涨跌幅        | float64 | 注意单位：% |
@@ -10855,7 +10801,7 @@ print(stock_market_fund_flow_df)
 | 中单净流入-净占比  | float64 | 注意单位：% |
 | 小单净流入-净额   | float64 | -       |
 | 小单净流入-净占比  | float64 | 注意单位：% |
-| 主力净流入最大股   | object  | -       |
+| 主力净流入最大股   | str     | -       |
 
 接口示例-行业资金流-今日
 
@@ -10905,7 +10851,7 @@ print(stock_sector_fund_flow_rank_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | -       |
 | 今日排行榜-主力净占比  | float64 | 注意单位：% |
@@ -10917,7 +10863,7 @@ print(stock_sector_fund_flow_rank_df)
 | 10日排行榜-主力净占比 | float64 | 注意单位：% |
 | 10日排行榜-10日排名 | int64   | -       |
 | 10日排行榜-10日涨跌 | float64 | 注意单位：% |
-| 所属板块         | object  | -       |
+| 所属板块         | str     | -       |
 
 
 接口示例
@@ -10969,7 +10915,7 @@ print(stock_main_fund_flow_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | -       |
 | 今日涨跌幅        | float64 | 注意单位：% |
@@ -11227,9 +11173,9 @@ print(stock_cyq_em_df)
 
 | 名称         | 类型     | 描述 |
 |------------|--------|----|
-| 代码         | object | -  |
-| 简称         | object | -  |
-| 股东大会名称     | object | -  |
+| 代码         | str    | -  |
+| 简称         | str    | -  |
+| 股东大会名称     | str    | -  |
 | 召开开始日      | object | -  |
 | 股权登记日      | object | -  |
 | 现场登记日      | object | -  |
@@ -11237,8 +11183,8 @@ print(stock_cyq_em_df)
 | 网络投票时间-结束日 | object | -  |
 | 决议公告日      | object | -  |
 | 公告日        | object | -  |
-| 序列号        | object | -  |
-| 提案         | object | -  |
+| 序列号        | str    | -  |
+| 提案         | str    | -  |
 
 接口示例
 
@@ -11289,14 +11235,14 @@ print(stock_gddh_em_df)
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
 | 序号            | int64   | -  |
-| 股票代码          | object  | -  |
-| 股票简称          | object  | -  |
-| 签署主体          | object  | -  |
-| 签署主体-与上市公司关系  | object  | -  |
-| 其他签署方         | object  | -  |
-| 其他签署方-与上市公司关系 | object  | -  |
-| 合同类型          | object  | -  |
-| 合同名称          | object  | -  |
+| 股票代码          | str     | -  |
+| 股票简称          | str     | -  |
+| 签署主体          | str     | -  |
+| 签署主体-与上市公司关系  | str     | -  |
+| 其他签署方         | str     | -  |
+| 其他签署方-与上市公司关系 | str     | -  |
+| 合同类型          | str     | -  |
+| 合同名称          | str     | -  |
 | 合同金额          | float64 | -  |
 | 上年度营业收入       | float64 | -  |
 | 占上年度营业收入比例    | float64 | -  |
@@ -11352,11 +11298,11 @@ print(stock_zdhtmx_em_df)
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
 | 序号            | int64   | -  |
-| 股票代码          | object  | -  |
-| 股票简称          | object  | -  |
-| 报告名称          | object  | -  |
-| 东财评级          | object  | -  |
-| 机构            | object  | -  |
+| 股票代码          | str     | -  |
+| 股票简称          | str     | -  |
+| 报告名称          | str     | -  |
+| 东财评级          | str     | -  |
+| 机构            | str     | -  |
 | 近一月个股研报数      | int64   | -  |
 | 2024-盈利预测-收益  | float64 | -  |
 | 2024-盈利预测-市盈率 | float64 | -  |
@@ -11364,9 +11310,9 @@ print(stock_zdhtmx_em_df)
 | 2025-盈利预测-市盈率 | float64 | -  |
 | 2026-盈利预测-收益  | float64 | -  |
 | 2026-盈利预测-市盈率 | float64 | -  |
-| 行业            | object  | -  |
+| 行业            | str     | -  |
 | 日期            | object  | -  |
-| 报告PDF链接       | object  | -  |
+| 报告PDF链接       | str     | -  |
 
 接口示例
 
@@ -11416,12 +11362,12 @@ print(stock_research_report_em_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 代码   | object | -   |
+| 代码   | str    | -   |
 | 名称   | object | -   |
-| 公告标题 | object | -   |
-| 公告类型 | object | -   |
+| 公告标题 | str    | -   |
+| 公告类型 | str    | -   |
 | 公告日期 | object | -   |
-| 网址   | object | -   |
+| 网址   | str    | -   |
 
 接口示例
 
@@ -11473,12 +11419,12 @@ print(stock_notice_report_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 代码   | object | -   |
+| 代码   | str    | -   |
 | 名称   | object | -   |
-| 公告标题 | object | -   |
-| 公告类型 | object | -   |
+| 公告标题 | str    | -   |
+| 公告类型 | str    | -   |
 | 公告日期 | object | -   |
-| 网址   | object | -   |
+| 网址   | str    | -   |
 
 接口示例
 
@@ -11535,9 +11481,9 @@ print(stock_individual_notice_report_df)
 
 | 名称   | 类型     | 描述   |
 |------|--------|------|
-| 报告日  | object | 报告日期 |
+| 报告日  | str    | 报告日期 |
 | 流动资产 | object | -    |
-| ...  | object | -    |
+| ...  | str    | -    |
 | 类型   | object | -    |
 | 更新日期 | object | -    |
 
@@ -12022,16 +11968,16 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
-| report_date   | object  | -  |
-| report_name   | object  | -  |
-| report_period | object  | -  |
-| quarter_name  | object  | -  |
-| metric_name   | object  | -  |
+| report_date   | str     | -  |
+| report_name   | str     | -  |
+| report_period | str     | -  |
+| quarter_name  | str     | -  |
+| metric_name   | str     | -  |
 | value         | float64 | -  |
-| single        | object  | -  |
+| single        | str     | -  |
 | yoy           | float64 | -  |
-| mom           | object  | -  |
-| single_yoy    | object  | -  |
+| mom           | str     | -  |
+| single_yoy    | str     | -  |
 
 接口示例
 
@@ -12081,16 +12027,16 @@ print(stock_financial_debt_new_ths_df)
 
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
-| report_date   | object  | -  |
-| report_name   | object  | -  |
-| report_period | object  | -  |
-| quarter_name  | object  | -  |
-| metric_name   | object  | -  |
+| report_date   | str     | -  |
+| report_name   | str     | -  |
+| report_period | str     | -  |
+| quarter_name  | str     | -  |
+| metric_name   | str     | -  |
 | value         | float64 | -  |
-| single        | object  | -  |
+| single        | str     | -  |
 | yoy           | float64 | -  |
-| mom           | object  | -  |
-| single_yoy    | object  | -  |
+| mom           | str     | -  |
+| single_yoy    | str     | -  |
 
 接口示例
 
@@ -12140,16 +12086,16 @@ print(stock_financial_benefit_new_ths_df)
 
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
-| report_date   | object  | -  |
-| report_name   | object  | -  |
-| report_period | object  | -  |
-| quarter_name  | object  | -  |
-| metric_name   | object  | -  |
+| report_date   | str     | -  |
+| report_name   | str     | -  |
+| report_period | str     | -  |
+| quarter_name  | str     | -  |
+| metric_name   | str     | -  |
 | value         | float64 | -  |
-| single        | object  | -  |
+| single        | str     | -  |
 | yoy           | float64 | -  |
-| mom           | object  | -  |
-| single_yoy    | object  | -  |
+| mom           | str     | -  |
+| single_yoy    | str     | -  |
 
 接口示例
 
@@ -12414,17 +12360,17 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 
 | 名称                 | 类型      | 描述 |
 |--------------------|---------|----|
-| SECUCODE           | object  | -  |
-| SECURITY_CODE      | object  | -  |
-| SECURITY_NAME_ABBR | object  | -  |
-| ORG_CODE           | object  | -  |
-| REPORT_DATE        | object  | -  |
-| DATE_TYPE_CODE     | object  | -  |
-| FISCAL_YEAR        | object  | -  |
-| STD_ITEM_CODE      | object  | -  |
-| STD_ITEM_NAME      | object  | -  |
+| SECUCODE           | str     | -  |
+| SECURITY_CODE      | str     | -  |
+| SECURITY_NAME_ABBR | str     | -  |
+| ORG_CODE           | str     | -  |
+| REPORT_DATE        | str     | -  |
+| DATE_TYPE_CODE     | str     | -  |
+| FISCAL_YEAR        | str     | -  |
+| STD_ITEM_CODE      | str     | -  |
+| STD_ITEM_NAME      | str     | -  |
 | AMOUNT             | float64 | -  |
-| STD_REPORT_DATE    | object  | -  |
+| STD_REPORT_DATE    | str     | -  |
 
 ```python
 import akshare as ak
@@ -12473,15 +12419,15 @@ print(stock_financial_hk_report_em_df)
 
 | 名称                 | 类型      | 描述 |
 |--------------------|---------|----|
-| SECUCODE           | object  | -  |
-| SECURITY_CODE      | object  | -  |
-| SECURITY_NAME_ABBR | object  | -  |
-| REPORT_DATE        | object  | -  |
-| REPORT_TYPE        | object  | -  |
-| REPORT             | object  | -  |
-| STD_ITEM_CODE      | object  | -  |
+| SECUCODE           | str     | -  |
+| SECURITY_CODE      | str     | -  |
+| SECURITY_NAME_ABBR | str     | -  |
+| REPORT_DATE        | str     | -  |
+| REPORT_TYPE        | str     | -  |
+| REPORT             | str     | -  |
+| STD_ITEM_CODE      | str     | -  |
 | AMOUNT             | float64 | -  |
-| ITEM_NAME          | object  | -  |
+| ITEM_NAME          | str     | -  |
 
 
 ```python
@@ -12529,9 +12475,9 @@ print(stock_financial_us_report_em_df)
 
 | 名称       | 类型     | 描述  |
 |----------|--------|-----|
-| 选项       | object | -   |
-| 指标       | object | -   |
-| 【具体的报告期】 | object | -   |
+| 选项       | str    | -   |
+| 指标       | str    | -   |
+| 【具体的报告期】 | str    | -   |
 
 接口示例
 
@@ -12580,16 +12526,16 @@ print(stock_financial_abstract_df)
 
 | 名称            | 类型      | 描述 |
 |---------------|---------|----|
-| report_date   | object  | -  |
-| report_name   | object  | -  |
-| report_period | object  | -  |
-| quarter_name  | object  | -  |
-| metric_name   | object  | -  |
+| report_date   | str     | -  |
+| report_name   | str     | -  |
+| report_period | str     | -  |
+| quarter_name  | str     | -  |
+| metric_name   | str     | -  |
 | value         | float64 | -  |
-| single        | object  | -  |
+| single        | str     | -  |
 | yoy           | float64 | -  |
-| mom           | object  | -  |
-| single_yoy    | object  | -  |
+| mom           | str     | -  |
+| single_yoy    | str     | -  |
 
 接口示例
 
@@ -12639,12 +12585,12 @@ print(stock_financial_abstract_new_ths_df)
 
 | 名称                 | 类型      | 描述               |
 |--------------------|---------|------------------|
-| SECUCODE           | object  | 股票代码（带后缀）        |
-| SECURITY_CODE      | object  | 股票代码             |
-| SECURITY_NAME_ABBR | object  | 股票名称             |
-| REPORT_DATE        | object  | 报告日期             |
-| REPORT_TYPE        | object  | 报告类型             |
-| REPORT_DATE_NAME   | object  | 报告日期名称           |
+| SECUCODE           | str     | 股票代码（带后缀）        |
+| SECURITY_CODE      | str     | 股票代码             |
+| SECURITY_NAME_ABBR | str     | 股票名称             |
+| REPORT_DATE        | str     | 报告日期             |
+| REPORT_TYPE        | str     | 报告类型             |
+| REPORT_DATE_NAME   | str     | 报告日期名称           |
 | EPSJB              | float64 | 基本每股收益（元）        |
 | EPSKCJB            | float64 | 扣非每股收益（元）        |
 | EPSXS              | float64 | 稀释每股收益（元）        |
@@ -12883,12 +12829,12 @@ print(stock_financial_analysis_indicator_df)
 
 | 名称                  | 类型      | 描述             |
 |---------------------|---------|----------------|
-| SECUCODE            | object  | 股票代码（带HK后缀）    |
-| SECURITY_CODE       | object  | 股票代码（不带HK后缀）   |
-| SECURITY_NAME_ABBR  | object  | 股票名称           |
-| ORG_CODE            | object  | ORG_CODE       |
-| REPORT_DATE         | object  | 报告日期           |
-| DATE_TYPE_CODE      | object  | 报告日期类型         |
+| SECUCODE            | str     | 股票代码（带HK后缀）    |
+| SECURITY_CODE       | str     | 股票代码（不带HK后缀）   |
+| SECURITY_NAME_ABBR  | str     | 股票名称           |
+| ORG_CODE            | str     | ORG_CODE       |
+| REPORT_DATE         | str     | 报告日期           |
+| DATE_TYPE_CODE      | str     | 报告日期类型         |
 | PER_NETCASH_OPERATE | float64 | 每股经营现金流（元）     |
 | PER_OI              | float64 | 每股营业收入（元）      |
 | BPS                 | float64 | 每股净资产（元）       |
@@ -12915,9 +12861,9 @@ print(stock_financial_analysis_indicator_df)
 | DEBT_ASSET_RATIO    | float64 | 资产负债率(%)       |
 | CURRENT_RATIO       | float64 | 流动比率（倍）        |
 | CURRENTDEBT_DEBT    | float64 | 流动负债/总负债(%)    |
-| START_DATE          | object  | START_DATE     |
-| FISCAL_YEAR         | object  | 年结日            |
-| CURRENCY            | object  | 币种代码（按同报告期摘要数据回填） |
+| START_DATE          | str     | START_DATE     |
+| FISCAL_YEAR         | str     | 年结日            |
+| CURRENCY            | str     | 币种代码（按同报告期摘要数据回填） |
 | IS_CNY_CODE         | int64   | IS_CNY_CODE    |
 
 接口示例
@@ -12966,23 +12912,23 @@ print(stock_financial_hk_analysis_indicator_em_df)
 
 | 名称                          | 类型      | 描述 |
 |-----------------------------|---------|----|
-| SECUCODE                    | object  | -  |
-| SECURITY_CODE               | object  | -  |
-| SECURITY_NAME_ABBR          | object  | -  |
-| ORG_CODE                    | object  | -  |
-| SECURITY_INNER_CODE         | object  | -  |
-| ACCOUNTING_STANDARDS        | object  | -  |
-| NOTICE_DATE                 | object  | -  |
-| START_DATE                  | object  | -  |
-| REPORT_DATE                 | object  | -  |
-| FINANCIAL_DATE              | object  | -  |
-| STD_REPORT_DATE             | object  | -  |
-| CURRENCY                    | object  | -  |
-| DATE_TYPE                   | object  | -  |
-| DATE_TYPE_CODE              | object  | -  |
-| REPORT_TYPE                 | object  | -  |
-| REPORT_DATA_TYPE            | object  | -  |
-| ORGTYPE                     | object  | -  |
+| SECUCODE                    | str     | -  |
+| SECURITY_CODE               | str     | -  |
+| SECURITY_NAME_ABBR          | str     | -  |
+| ORG_CODE                    | str     | -  |
+| SECURITY_INNER_CODE         | str     | -  |
+| ACCOUNTING_STANDARDS        | str     | -  |
+| NOTICE_DATE                 | str     | -  |
+| START_DATE                  | str     | -  |
+| REPORT_DATE                 | str     | -  |
+| FINANCIAL_DATE              | str     | -  |
+| STD_REPORT_DATE             | str     | -  |
+| CURRENCY                    | str     | -  |
+| DATE_TYPE                   | str     | -  |
+| DATE_TYPE_CODE              | str     | -  |
+| REPORT_TYPE                 | str     | -  |
+| REPORT_DATA_TYPE            | str     | -  |
+| ORGTYPE                     | str     | -  |
 | OPERATE_INCOME              | float64 | -  |
 | OPERATE_INCOME_YOY          | float64 | -  |
 | GROSS_PROFIT                | float64 | -  |
@@ -13070,7 +13016,7 @@ print(stock_financial_us_analysis_indicator_em_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 代码   | object  | -       |
+| 代码   | str     | -       |
 | 名称   | object  | -       |
 | 上市日期 | object  | -       |
 | 累计股息 | float64 | 注意单位：% |
@@ -13128,12 +13074,12 @@ print(stock_history_dividend_df)
 | 名称         | 类型      | 描述      |
 |------------|---------|---------|
 | 名次         | int64   | -       |
-| 股东名称       | object  | -       |
-| 股东性质       | object  | -       |
-| 股份类型       | object  | -       |
+| 股东名称       | str     | -       |
+| 股东性质       | str     | -       |
+| 股份类型       | str     | -       |
 | 持股数        | int64   | 注意单位：股 |
 | 占总流通股本持股比例 | float64 | 注意单位：% |
-| 增减         | object  | 注意单位：股 |
+| 增减         | str     | 注意单位：股 |
 | 变动比率       | float64 | 注意单位：% |
 
 接口示例
@@ -13184,11 +13130,11 @@ print(stock_gdfx_free_top_10_em_df)
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
 | 名次       | int64   | -       |
-| 股东名称     | object  | -       |
-| 股份类型     | object  | -       |
+| 股东名称     | str     | -       |
+| 股份类型     | str     | -       |
 | 持股数      | int64   | 注意单位：股 |
 | 占总股本持股比例 | float64 | 注意单位：% |
-| 增减       | object  | 注意单位：股 |
+| 增减       | str     | 注意单位：股 |
 | 变动比率     | float64 | 注意单位：% |
 
 接口示例
@@ -13237,15 +13183,15 @@ print(stock_gdfx_top_10_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 股东名称         | object  | -       |
-| 股东类型         | object  | -       |
+| 股东名称         | str     | -       |
+| 股东类型         | str     | -       |
 | 期末持股只数统计-总持有 | float64 | -       |
 | 期末持股只数统计-新进  | float64 | -       |
 | 期末持股只数统计-增加  | float64 | -       |
 | 期末持股只数统计-不变  | float64 | -       |
 | 期末持股只数统计-减少  | float64 | -       |
 | 流通市值统计       | float64 | 注意单位：元 |
-| 持有个股         | object  | -       |
+| 持有个股         | str     | -       |
 
 接口示例
 
@@ -13294,15 +13240,15 @@ print(stock_gdfx_free_holding_change_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 股东名称         | object  | -       |
-| 股东类型         | object  | -       |
+| 股东名称         | str     | -       |
+| 股东类型         | str     | -       |
 | 期末持股只数统计-总持有 | float64 | -       |
 | 期末持股只数统计-新进  | float64 | -       |
 | 期末持股只数统计-增加  | float64 | -       |
 | 期末持股只数统计-不变  | float64 | -       |
 | 期末持股只数统计-减少  | float64 | -       |
 | 流通市值统计       | float64 | 注意单位：元 |
-| 持有个股         | object  | -       |
+| 持有个股         | str     | -       |
 
 接口示例
 
@@ -13350,13 +13296,13 @@ print(stock_gdfx_holding_change_em_df)
 
 | 名称      | 类型     | 描述      |
 |---------|--------|---------|
-| 公告日期    | object | -       |
-| 变动人     | object | -       |
-| 与公司高管关系 | object | -       |
-| 变动数量    | object | 注意单位：股 |
-| 交易均价    | object | 注意单位：元 |
-| 剩余股数    | object | 注意单位：股 |
-| 变动途径    | object | -       |
+| 公告日期    | str    | -       |
+| 变动人     | str    | -       |
+| 与公司高管关系 | str    | -       |
+| 变动数量    | str    | 注意单位：股 |
+| 交易均价    | str    | 注意单位：元 |
+| 剩余股数    | str    | 注意单位：股 |
+| 变动途径    | str    | -       |
 
 接口示例
 
@@ -13404,12 +13350,12 @@ print(stock_management_change_ths_df)
 | 名称     | 类型     | 描述      |
 |--------|--------|---------|
 | 公告日期   | object | -       |
-| 变动股东   | object | -       |
-| 变动数量   | object | 注意单位：股 |
-| 交易均价   | object | 注意单位：元 |
-| 剩余股份总数 | object | 注意单位：股 |
-| 变动期间   | object | -       |
-| 变动途径   | object | -       |
+| 变动股东   | str    | -       |
+| 变动数量   | str    | 注意单位：股 |
+| 交易均价   | str    | 注意单位：元 |
+| 剩余股份总数 | str    | 注意单位：股 |
+| 变动期间   | str    | -       |
+| 变动途径   | str    | -       |
 
 接口示例
 
@@ -13455,10 +13401,10 @@ print(stock_shareholder_change_ths_df)
 | 名称             | 类型      | 描述      |
 |----------------|---------|---------|
 | 序号             | int64   | -       |
-| 股东名称           | object  | -       |
-| 股东类型           | object  | -       |
-| 股票代码           | object  | -       |
-| 股票简称           | object  | -       |
+| 股东名称           | str     | -       |
+| 股东类型           | str     | -       |
+| 股票代码           | str     | -       |
+| 股票简称           | str     | -       |
 | 报告期            | object  | -       |
 | 期末持股-数量        | float64 | 注意单位：股 |
 | 期末持股-数量变化      | float64 | 注意单位：股 |
@@ -13518,10 +13464,10 @@ print(stock_gdfx_free_holding_analyse_em_df)
 | 名称             | 类型      | 描述      |
 |----------------|---------|---------|
 | 序号             | int64   | -       |
-| 股东名称           | object  | -       |
-| 股东类型           | object  | -       |
-| 股票代码           | object  | -       |
-| 股票简称           | object  | -       |
+| 股东名称           | str     | -       |
+| 股东类型           | str     | -       |
+| 股票代码           | str     | -       |
+| 股票简称           | str     | -       |
 | 报告期            | object  | -       |
 | 期末持股-数量        | float64 | 注意单位：股 |
 | 期末持股-数量变化      | float64 | 注意单位：股 |
@@ -13582,10 +13528,10 @@ print(stock_gdfx_holding_analyse_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 股东名称         | object  | -       |
-| 股东类型         | object  | -       |
-| 股票代码         | object  | -       |
-| 股票简称         | object  | -       |
+| 股东名称         | str     | -       |
+| 股东类型         | str     | -       |
+| 股票代码         | str     | -       |
+| 股票简称         | str     | -       |
 | 报告期          | object  | -       |
 | 期末持股-数量      | float64 | 注意单位：股 |
 | 期末持股-数量变化    | float64 | 注意单位：股 |
@@ -13643,10 +13589,10 @@ print(stock_gdfx_free_holding_detail_em_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int64   | -       |
-| 股东名称         | object  | -       |
-| 股东排名         | object  | -       |
-| 股票代码         | object  | -       |
-| 股票简称         | object  | -       |
+| 股东名称         | str     | -       |
+| 股东排名         | int64   | -       |
+| 股票代码         | str     | -       |
+| 股票简称         | str     | -       |
 | 报告期          | object  | -       |
 | 期末持股-数量      | float64 | 注意单位：股 |
 | 期末持股-数量变化    | float64 | 注意单位：股 |
@@ -13654,7 +13600,7 @@ print(stock_gdfx_free_holding_detail_em_df)
 | 期末持股-持股变动    | float64 | -       |
 | 期末持股-流通市值    | float64 | 注意单位：元 |
 | 公告日          | object  | -       |
-| 股东类型         | object  | -       |
+| 股东类型         | str     | -       |
 
 接口示例
 
@@ -13704,8 +13650,8 @@ print(stock_gdfx_holding_detail_em_df)
 | 名称                   | 类型      | 描述  |
 |----------------------|---------|-----|
 | 序号                   | int64   | -   |
-| 股东名称                 | object  | -   |
-| 股东类型                 | object  | -   |
+| 股东名称                 | str     | -   |
+| 股东类型                 | str     | -   |
 | 统计次数                 | int64   | -   |
 | 公告日后涨幅统计-10个交易日-平均涨幅 | float64 | -   |
 | 公告日后涨幅统计-10个交易日-最大涨幅 | float64 | -   |
@@ -13716,7 +13662,7 @@ print(stock_gdfx_holding_detail_em_df)
 | 公告日后涨幅统计-60个交易日-平均涨幅 | float64 | -   |
 | 公告日后涨幅统计-60个交易日-最大涨幅 | float64 | -   |
 | 公告日后涨幅统计-60个交易日-最小涨幅 | float64 | -   |
-| 持有个股                 | object  | -   |
+| 持有个股                 | str     | -   |
 
 接口示例
 
@@ -13765,8 +13711,8 @@ print(stock_gdfx_free_holding_statistics_em_df)
 | 名称                   | 类型      | 描述  |
 |----------------------|---------|-----|
 | 序号                   | int64   | -   |
-| 股东名称                 | object  | -   |
-| 股东类型                 | object  | -   |
+| 股东名称                 | str     | -   |
+| 股东类型                 | str     | -   |
 | 统计次数                 | int64   | -   |
 | 公告日后涨幅统计-10个交易日-平均涨幅 | float64 | -   |
 | 公告日后涨幅统计-10个交易日-最大涨幅 | float64 | -   |
@@ -13777,7 +13723,7 @@ print(stock_gdfx_free_holding_statistics_em_df)
 | 公告日后涨幅统计-60个交易日-平均涨幅 | float64 | -   |
 | 公告日后涨幅统计-60个交易日-最大涨幅 | float64 | -   |
 | 公告日后涨幅统计-60个交易日-最小涨幅 | float64 | -   |
-| 持有个股                 | object  | -   |
+| 持有个股                 | str     | -   |
 
 接口示例
 
@@ -13826,12 +13772,12 @@ print(stock_gdfx_holding_statistics_em_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int64  | -   |
-| 股东名称   | object | -   |
-| 股东类型   | object | -   |
-| 协同股东名称 | object | -   |
-| 协同股东类型 | object | -   |
+| 股东名称   | str    | -   |
+| 股东类型   | str    | -   |
+| 协同股东名称 | str    | -   |
+| 协同股东类型 | str    | -   |
 | 协同次数   | int64  | -   |
-| 个股详情   | object | -   |
+| 个股详情   | str    | -   |
 
 接口示例
 
@@ -13881,12 +13827,12 @@ print(stock_gdfx_free_holding_teamwork_em_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int64  | -   |
-| 股东名称   | object | -   |
-| 股东类型   | object | -   |
-| 协同股东名称 | object | -   |
-| 协同股东类型 | object | -   |
+| 股东名称   | str    | -   |
+| 股东类型   | str    | -   |
+| 协同股东名称 | str    | -   |
+| 协同股东类型 | str    | -   |
 | 协同次数   | int64  | -   |
-| 个股详情   | object | -   |
+| 个股详情   | str    | -   |
 
 接口示例
 
@@ -13935,7 +13881,7 @@ print(stock_gdfx_holding_teamwork_em_df)
 
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
-| 代码           | object  | -       |
+| 代码           | str     | -       |
 | 名称           | object  | -       |
 | 最新价          | float64 | 注意单位：元 |
 | 涨跌幅          | float64 | 注意单位：% |
@@ -14010,9 +13956,9 @@ print(stock_zh_a_gdhs_df)
 | 总市值       | float64 | -       |
 | 总股本       | int64   | -       |
 | 股本变动      | int64   | -       |
-| 股本变动原因    | object  | -       |
+| 股本变动原因    | str     | -       |
 | 股东户数公告日期  | object  | -       |
-| 代码        | object  | -       |
+| 代码        | str     | -       |
 | 名称        | object  | -       |
 
 接口示例
@@ -14111,7 +14057,7 @@ print(stock_zh_a_gdhs_detail_em_df)
 | 送股    | int64   | 注意单位：股     |
 | 转增    | int64   | 注意单位：股     |
 | 派息    | float64 | 注意单位：元；税前 |
-| 进度    | object  | -           |
+| 进度    | str     | -           |
 | 除权除息日 | object  | -           |
 | 股权登记日 | object  | -           |
 | 红股上市日 | object  | -           |
@@ -14154,8 +14100,8 @@ print(stock_history_dividend_detail_df)
 
 | 名称    | 类型     | 描述   |
 |-------|--------|------|
-| item  | object | 所列项目 |
-| value | object | 项目值  |
+| item  | str    | 所列项目 |
+| value | str    | 项目值  |
 
 接口示例-分红详情
 
@@ -14239,8 +14185,8 @@ print(stock_history_dividend_detail_df)
 
 | 名称    | 类型     | 描述   |
 |-------|--------|------|
-| item  | object | 所列项目 |
-| value | object | 项目值  |
+| item  | str    | 所列项目 |
+| value | str    | 项目值  |
 
 接口示例-配股详情
 
@@ -14315,9 +14261,9 @@ print(stock_history_dividend_detail_df)
 | 除权日      | object  | -            |
 | 派息日      | object  | -            |
 | 股份到账日    | object  | -            |
-| 实施方案分红说明 | object  | -            |
-| 分红类型     | object  | -            |
-| 报告时间     | object  | -            |
+| 实施方案分红说明 | str     | -            |
+| 分红类型     | str     | -            |
+| 报告时间     | str     | -            |
 
 接口示例
 
@@ -14382,8 +14328,8 @@ print(stock_dividend_cninfo_df)
 
 | 名称    | 类型     | 描述   |
 |-------|--------|------|
-| item  | object | 所列项目 |
-| value | object | 项目值  |
+| item  | str    | 所列项目 |
+| value | str    | 项目值  |
 
 接口示例
 
@@ -14438,16 +14384,16 @@ print(stock_ipo_info_df)
 | 名称      | 类型     | 描述 |
 |---------|--------|----|
 | 序号      | int64  | -  |
-| 企业名称    | object | -  |
-| 股票简称    | object | -  |
-| 股票代码    | object | -  |
-| 上市板块    | object | -  |
+| 企业名称    | str    | -  |
+| 股票简称    | str    | -  |
+| 股票代码    | str    | -  |
+| 上市板块    | str    | -  |
 | 上会日期    | object | -  |
-| 审核状态    | object | -  |
+| 审核状态    | str    | -  |
 | 发审委委员   | object | -  |
-| 主承销商    | object | -  |
-| 发行数量（股） | object | -  |
-| 拟融资额（元） | object | -  |
+| 主承销商    | str    | -  |
+| 发行数量（股） | str    | -  |
+| 拟融资额（元） | str    | -  |
 | 公告日期    | object | -  |
 | 上市日期    | object | -  |
 
@@ -14499,11 +14445,11 @@ print(stock_ipo_review_em_df)
 | 名称      | 类型     | 描述 |
 |---------|--------|----|
 | 序号      | int64  | -  |
-| 企业名称    | object | -  |
-| 辅导机构    | object | -  |
-| 辅导状态    | object | -  |
-| 报告类型    | object | -  |
-| 派出机构    | object | -  |
+| 企业名称    | str    | -  |
+| 辅导机构    | str    | -  |
+| 辅导状态    | str    | -  |
+| 报告类型    | str    | -  |
+| 派出机构    | str    | -  |
 | 备案日期    | object | -  |
 
 接口示例
@@ -14554,11 +14500,11 @@ print(stock_ipo_tutor_em_df)
 | 名称         | 类型     | 描述 |
 |------------|--------|----|
 | 公告日期       | object | -  |
-| 发行方式       | object | -  |
-| 发行价格       | object | -  |
-| 实际公司募集资金总额 | object | -  |
-| 发行费用总额     | object | -  |
-| 实际发行数量     | object | -  |
+| 发行方式       | str    | -  |
+| 发行价格       | str    | -  |
+| 实际公司募集资金总额 | str    | -  |
+| 发行费用总额     | str    | -  |
+| 实际发行数量     | str    | -  |
 
 接口示例
 
@@ -14600,7 +14546,7 @@ print(stock_add_stock_df)
 
 | 名称      | 类型      | 描述       |
 |---------|---------|----------|
-| 代码      | object  | -        |
+| 代码      | int64   | -        |
 | 名称      | object  | -        |
 | 解禁日期    | object  | -        |
 | 解禁数量    | float64 | 注意单位：万股 |
@@ -14723,10 +14669,10 @@ print(stock_restricted_release_summary_em_df)
 | 名称         | 类型      | 描述      |
 |------------|---------|---------|
 | 序号         | int64   | -       |
-| 股票代码       | object  | -       |
-| 股票简称       | object  | -       |
+| 股票代码       | str     | -       |
+| 股票简称       | str     | -       |
 | 解禁时间       | object  | -       |
-| 限售股类型      | object  | 注意单位：股 |
+| 限售股类型      | str     | 注意单位：股 |
 | 解禁数量       | float64 | 注意单位：股 |
 | 实际解禁数量     | float64 | 注意单位：股 |
 | 实际解禁市值     | float64 | 注意单位：元 |
@@ -14795,7 +14741,7 @@ print(stock_restricted_release_detail_em_df)
 | 占总市值比例     | float64 | -       |
 | 占流通市值比例    | float64 | -       |
 | 解禁前一交易日收盘价 | float64 | 注意单位：元 |
-| 限售股类型      | object  | -       |
+| 限售股类型      | str     | -       |
 | 解禁前20日涨跌幅  | float64 | 注意单位：% |
 | 解禁后20日涨跌幅  | float64 | 注意单位：% |
 
@@ -14841,14 +14787,14 @@ print(stock_restricted_release_queue_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 股东名称    | object  | -       |
+| 股东名称    | str     | -       |
 | 解禁数量    | int64   | 注意单位：股 |
 | 实际解禁数量  | int64   | 注意单位：股 |
 | 解禁市值    | float64 | 注意单位：元 |
 | 锁定期     | int64   | 注意单位：月 |
 | 剩余未解禁数量 | int64   | 注意单位：股 |
-| 限售股类型   | object  | -       |
-| 进度      | object  | -       |
+| 限售股类型   | str     | -       |
+| 进度      | str     | -       |
 
 接口示例
 
@@ -14890,10 +14836,10 @@ print(stock_restricted_release_stockholder_em_df)
 | 截止日期   | object  | -       |
 | 公告日期   | object  | -       |
 | 编号     | int64   | -       |
-| 股东名称   | object  | -       |
+| 股东名称   | str     | -       |
 | 持股数量   | int64   | 注意单位：股 |
 | 占流通股比例 | float64 | 注意单位：% |
-| 股本性质   | object  | -       |
+| 股本性质   | str     | -       |
 
 接口示例
 
@@ -14941,19 +14887,19 @@ print(stock_circulate_stock_holder_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| label  | object  | -        |
-| 板块     | object  | -        |
+| label  | str     | -        |
+| 板块     | str     | -        |
 | 公司家数   | int64   | -        |
 | 平均价格   | float64 | -        |
 | 涨跌额    | float64 | -        |
 | 涨跌幅    | float64 | 注意单位：%  |
 | 总成交量   | int64   | 注意单位：手  |
 | 总成交额   | int64   | 注意单位：万元 |
-| 股票代码   | object  | -        |
+| 股票代码   | str     | -        |
 | 个股-涨跌幅 | float64 | 注意单位：%  |
 | 个股-当前价 | float64 | -        |
 | 个股-涨跌额 | float64 | -        |
-| 股票名称   | object  | -        |
+| 股票名称   | str     | -        |
 
 接口示例
 
@@ -15039,9 +14985,9 @@ print(stock_industry_sina_df)
 
 | 名称            | 类型      | 描述  |
 |---------------|---------|-----|
-| symbol        | object  | -   |
-| code          | object  | -   |
-| name          | object  | -   |
+| symbol        | str     | -   |
+| code          | str     | -   |
+| name          | str     | -   |
 | trade         | float64 | -   |
 | pricechange   | float64 | -   |
 | changepercent | float64 | -   |
@@ -15053,7 +14999,7 @@ print(stock_industry_sina_df)
 | low           | float64 | -   |
 | volume        | int64   | -   |
 | amount        | int64   | -   |
-| ticktime      | object  | -   |
+| ticktime      | str     | -   |
 | per           | float64 | -   |
 | pb            | float64 | -   |
 | mktcap        | float64 | -   |
@@ -15109,8 +15055,8 @@ print(stock_sector_detail_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| code | object | -   |
-| name | object | -   |
+| code | str    | -   |
+| name | str    | -   |
 
 接口示例
 
@@ -15158,9 +15104,9 @@ print(stock_info_a_code_name_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 证券代码 | object | -   |
-| 证券简称 | object | -   |
-| 公司全称 | object | -   |
+| 证券代码 | str    | -   |
+| 证券简称 | str    | -   |
+| 公司全称 | str    | -   |
 | 上市日期 | object | -   |
 
 接口示例
@@ -15196,9 +15142,9 @@ print(stock_info_sh_name_code_df)
 
 目标地址：https://www.szse.cn/market/product/stock/list/index.html
 
-描述：深证证券交易所股票代码和股票简称数据
+描述：深圳证券交易所股票代码和股票简称数据
 
-限量：单次获取深证证券交易所股票代码和简称数据
+限量：单次获取深圳证券交易所股票代码和简称数据
 
 输入参数
 
@@ -15210,13 +15156,13 @@ print(stock_info_sh_name_code_df)
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| 板块     | object | -   |
-| A股代码   | object | -   |
-| A股简称   | object | -   |
-| A股上市日期 | object | -   |
-| A股总股本  | object | -   |
-| A股流通股本 | object | -   |
-| 所属行业   | object | -   |
+| 板块     | str    | -   |
+| A股代码   | str    | -   |
+| A股简称   | str    | -   |
+| A股上市日期 | str    | -   |
+| A股总股本  | str    | -   |
+| A股流通股本 | str    | -   |
+| 所属行业   | str    | -   |
 
 接口示例
 
@@ -15265,13 +15211,13 @@ print(stock_info_sz_name_code_df)
 
 | 名称   | 类型     | 描述      |
 |------|--------|---------|
-| 证券代码 | object | -       |
-| 证券简称 | object | -       |
+| 证券代码 | str    | -       |
+| 证券简称 | str    | -       |
 | 总股本  | int64  | 注意单位：股 |
 | 流通股本 | int64  | 注意单位：股 |
 | 上市日期 | object | -       |
-| 所属行业 | object | -       |
-| 地区   | object | -       |
+| 所属行业 | str    | -       |
+| 地区   | str    | -       |
 | 报告日期 | object | -       |
 
 接口示例
@@ -15307,9 +15253,9 @@ print(stock_info_bj_name_code_df)
 
 目标地址：https://www.szse.cn/market/stock/suspend/index.html
 
-描述：深证证券交易所终止/暂停上市股票
+描述：深圳证券交易所终止/暂停上市股票
 
-限量：单次获取深证证券交易所终止/暂停上市数据
+限量：单次获取深圳证券交易所终止/暂停上市数据
 
 输入参数
 
@@ -15321,8 +15267,8 @@ print(stock_info_bj_name_code_df)
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| 证券代码   | object | -   |
-| 证券简称   | object | -   |
+| 证券代码   | str    | -   |
+| 证券简称   | str    | -   |
 | 上市日期   | object | -   |
 | 终止上市日期 | object | -   |
 
@@ -15374,7 +15320,7 @@ print(stock_info_sz_delist_df)
 | 名称  | 类型     | 描述  |
 |-----|--------|-----|
 | 序号  | int64  | -   |
-| 代码  | object | -   |
+| 代码  | str    | -   |
 | 名称  | object | -   |
 
 接口示例
@@ -15424,8 +15370,8 @@ print(stock_staq_net_stop_df)
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| 公司代码   | object | -   |
-| 公司简称   | object | -   |
+| 公司代码   | str    | -   |
+| 公司简称   | str    | -   |
 | 上市日期   | object | -   |
 | 暂停上市日期 | object | -   |
 
@@ -15477,7 +15423,7 @@ print(stock_info_sh_delist_df)
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
 | index | int64  | -   |
-| name  | object | -   |
+| name  | str    | -   |
 
 接口示例
 
@@ -15507,7 +15453,7 @@ print(stock_info_change_name_list)
 
 目标地址：https://www.szse.cn/www/market/stock/changename/index.html
 
-描述：深证证券交易所-市场数据-股票数据-名称变更
+描述：深圳证券交易所-市场数据-股票数据-名称变更
 
 限量：单次获取所有历史数据
 
@@ -15522,10 +15468,10 @@ print(stock_info_change_name_list)
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
 | 变更日期  | object | -   |
-| 证券代码  | object | -   |
-| 证券简称  | object | -   |
-| 变更前全称 | object | -   |
-| 变更后全称 | object | -   |
+| 证券代码  | str    | -   |
+| 证券简称  | str    | -   |
+| 变更前全称 | str    | -   |
+| 变更后全称 | str    | -   |
 
 接口示例
 
@@ -15574,8 +15520,8 @@ print(stock_info_sz_change_name_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 基金名称   | object  | -       |
-| 基金代码   | object  | -       |
+| 基金名称   | str     | -       |
+| 基金代码   | str     | -       |
 | 持仓数量   | int64   | 注意单位：股 |
 | 占流通股比例 | float64 | 注意单位：% |
 | 持股市值   | int64   | 注意单位：元 |
@@ -15628,14 +15574,14 @@ print(stock_fund_stock_holder_df)
 
 | 名称    | 类型      | 描述         |
 |-------|---------|------------|
-| 编号    | object  | -          |
-| 股东名称  | object  | -          |
+| 编号    | str     | -          |
+| 股东名称  | str     | -          |
 | 持股数量  | float64 | 注意单位：股    |
 | 持股比例  | float64 | 注意单位：%    |
-| 股本性质  | object  | -          |
+| 股本性质  | str     | -          |
 | 截至日期  | object  | -          |
 | 公告日期  | object  | -          |
-| 股东说明  | object  | -          |
+| 股东说明  | str     | -          |
 | 股东总数  | float64 | -          |
 | 平均持股数 | float64 | 备注：按总股本计算 |
 
@@ -15688,8 +15634,8 @@ print(stock_main_stock_holder_df)
 
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
-| 证券代码     | object  | -       |
-| 证券简称     | object  | -       |
+| 证券代码     | str     | -       |
+| 证券简称     | str     | -       |
 | 机构数      | int64   | -       |
 | 机构数变化    | int64   | -       |
 | 持股比例     | float64 | 注意单位：% |
@@ -15745,7 +15691,7 @@ print(stock_institute_hold_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 持股机构类型   | object  | -        |
+| 持股机构类型   | str     | -        |
 | 持股机构代码   | object  | -        |
 | 持股机构简称   | object  | -        |
 | 持股机构全称   | object  | -        |
@@ -15923,15 +15869,15 @@ print(stock_institute_recommend_detail_df)
 
 | 名称      | 类型      | 描述  |
 |---------|---------|-----|
-| 证券代码    | object  | -   |
-| 证券简称    | object  | -   |
-| 发布日期    | object  | -   |
-| 研究机构简称  | object  | -   |
-| 研究员名称   | object  | -   |
-| 投资评级    | object  | -   |
-| 是否首次评级  | object  | -   |
-| 评级变化    | object  | -   |
-| 前一次投资评级 | object  | -   |
+| 证券代码    | str     | -   |
+| 证券简称    | str     | -   |
+| 发布日期    | str     | -   |
+| 研究机构简称  | str     | -   |
+| 研究员名称   | str     | -   |
+| 投资评级    | str     | -   |
+| 是否首次评级  | str     | -   |
+| 评级变化    | str     | -   |
+| 前一次投资评级 | str     | -   |
 | 目标价格-下限 | float64 | -   |
 | 目标价格-上限 | float64 | -   |
 
@@ -15982,9 +15928,9 @@ print(stock_rank_forecast_cninfo_df)
 
 | 名称            | 类型     | 描述     |
 |---------------|--------|--------|
-| symbol        | object | 股票代码   |
+| symbol        | str    | 股票代码   |
 | start_date    | object | 计入日期   |
-| industry_code | object | 申万行业代码 |
+| industry_code | str    | 申万行业代码 |
 | update_time   | object | 更新日期   |
 
 接口示例
@@ -16035,11 +15981,11 @@ print(stock_industry_clf_hist_sw_df)
 
 | 名称         | 类型      | 描述       |
 |------------|---------|----------|
-| 变动日期       | object  | -        |
-| 行业分类       | object  | -        |
+| 变动日期       | str     | -        |
+| 行业分类       | str     | -        |
 | 行业层级       | int64   | -        |
-| 行业编码       | object  | -        |
-| 行业名称       | object  | -        |
+| 行业编码       | str     | -        |
+| 行业名称       | str     | -        |
 | 公司数量       | float64 | -        |
 | 纳入计算公司数量   | float64 | -        |
 | 总市值-静态     | float64 | 注意单位：亿元 |
@@ -16095,11 +16041,11 @@ print(stock_industry_pe_ratio_cninfo_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| 公司名称  | object | -   |
+| 公司名称  | str    | -   |
 | 上会日期  | object | -   |
-| 审核类型  | object | -   |
-| 审议内容  | object | -   |
-| 审核结果  | object | -   |
+| 审核类型  | str    | -   |
+| 审议内容  | str    | -   |
+| 审核结果  | str    | -   |
 | 审核公告日 | object | -   |
 
 接口示例
@@ -16148,8 +16094,8 @@ print(stock_new_gh_cninfo_df)
 
 | 名称      | 类型      | 描述       |
 |---------|---------|----------|
-| 证劵代码    | object  | -        |
-| 证券简称    | object  | -        |
+| 证劵代码    | str     | -        |
+| 证券简称    | str     | -        |
 | 上市日期    | object  | -        |
 | 申购日期    | object  | -        |
 | 发行价     | float64 | 注意单位：元  |
@@ -16209,17 +16155,17 @@ print(stock_new_ipo_cninfo_df)
 
 | 名称       | 类型      | 描述 |
 |----------|---------|----|
-| 公司代码     | object  | -  |
-| 公司名称     | object  | -  |
-| 姓名       | object  | -  |
-| 职务       | object  | -  |
-| 股票种类     | object  | -  |
-| 货币种类     | object  | -  |
+| 公司代码     | str     | -  |
+| 公司名称     | str     | -  |
+| 姓名       | str     | -  |
+| 职务       | str     | -  |
+| 股票种类     | str     | -  |
+| 货币种类     | str     | -  |
 | 本次变动前持股数 | int64   | -  |
 | 变动数      | int64   | -  |
 | 本次变动平均价格 | float64 | -  |
 | 变动后持股数   | int64   | -  |
-| 变动原因     | object  | -  |
+| 变动原因     | str     | -  |
 | 变动日期     | object  | -  |
 | 填报日期     | object  | -  |
 
@@ -16286,18 +16232,18 @@ print(stock_share_hold_change_sse_df)
 
 | 名称         | 类型      | 描述         |
 |------------|---------|------------|
-| 证券代码       | object  | -          |
-| 证券简称       | object  | -          |
-| 董监高姓名      | object  | -          |
+| 证券代码       | str     | -          |
+| 证券简称       | str     | -          |
+| 董监高姓名      | str     | -          |
 | 变动日期       | object  | -          |
 | 变动股份数量     | float64 | 注意单位：万股   |
 | 成交均价       | float64 | -          |
-| 变动原因       | object  | -          |
+| 变动原因       | str     | -          |
 | 变动比例       | float64 | 注意单位：千分之一 |
 | 当日结存股数     | float64 | 注意单位：万股   |
-| 股份变动人姓名    | object  | -          |
-| 职务         | object  | -          |
-| 变动人与董监高的关系 | object  | -          |
+| 股份变动人姓名    | str     | -          |
+| 职务         | str     | -          |
+| 变动人与董监高的关系 | str     | -          |
 
 接口示例
 
@@ -16344,16 +16290,16 @@ print(stock_share_hold_change_szse_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 代码     | object  | -        |
-| 简称     | object  | -        |
-| 姓名     | object  | -        |
-| 职务     | object  | -        |
+| 代码     | str     | -        |
+| 简称     | str     | -        |
+| 姓名     | str     | -        |
+| 职务     | str     | -        |
 | 变动日期   | object  | -        |
 | 变动股数   | float64 | 注意单位：万股 |
 | 变动前持股数 | float64 | 注意单位：万股 |
 | 变动后持股数 | float64 | 注意单位：万股 |
 | 变动均价   | float64 | 注意单位：元  |
-| 变动原因   | object  | -        |
+| 变动原因   | str     | -        |
 
 接口示例
 
@@ -16398,8 +16344,8 @@ print(stock_share_hold_change_bse_df)
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
-| 证劵代码     | object  | -        |
-| 证券简称     | object  | -        |
+| 证劵代码     | str     | -        |
+| 证券简称     | str     | -        |
 | 变动日期     | object  | -        |
 | 本期股东人数   | int64   | -        |
 | 上期股东人数   | float64 | -        |
@@ -16455,12 +16401,12 @@ print(stock_hold_num_cninfo_df)
 
 | 名称     | 类型      | 描述     |
 |--------|---------|--------|
-| 证券代码   | object  | -      |
-| 证券简称   | object  | -      |
-| 交易市场   | object  | -      |
+| 证券代码   | str     | -      |
+| 证券简称   | str     | -      |
+| 交易市场   | str     | -      |
 | 公告日期   | object  | -      |
 | 变动日期   | object  | -      |
-| 变动原因   | object  | -      |
+| 变动原因   | str     | -      |
 | 总股本    | float64 | 单位：万股 |
 | 已流通股份  | float64 | 单位：万股 |
 | 已流通比例  | float64 | 单位：%  |
@@ -16513,14 +16459,14 @@ print(stock_hold_change_cninfo_df)
 
 | 名称      | 类型      | 描述       |
 |---------|---------|----------|
-| 证劵代码    | object  | -        |
-| 证券简称    | object  | -        |
+| 证劵代码    | str     | -        |
+| 证券简称    | str     | -        |
 | 变动日期    | object  | -        |
-| 实际控制人名称 | object  | -        |
+| 实际控制人名称 | str     | -        |
 | 控股数量    | float64 | 注意单位：万股 |
 | 控股比例    | float64 | 注意单位：%  |
-| 直接控制人名称 | object  | -        |
-| 控制类型    | object  | -        |
+| 直接控制人名称 | str     | -        |
+| 控制类型    | str     | -        |
 
 接口示例
 
@@ -16569,22 +16515,22 @@ print(stock_hold_control_cninfo_df)
 
 | 名称        | 类型      | 描述       |
 |-----------|---------|----------|
-| 证劵代码      | object  | -        |
-| 证券简称      | object  | -        |
+| 证劵代码      | str     | -        |
+| 证券简称      | str     | -        |
 | 截止日期      | object  | -        |
 | 公告日期      | object  | -        |
-| 高管姓名      | object  | -        |
-| 董监高姓名     | object  | -        |
-| 董监高职务     | object  | -        |
-| 变动人与董监高关系 | object  | -        |
+| 高管姓名      | str     | -        |
+| 董监高姓名     | str     | -        |
+| 董监高职务     | str     | -        |
+| 变动人与董监高关系 | str     | -        |
 | 期初持股数量    | float64 | 注意单位：万股 |
 | 期末持股数量    | float64 | 注意单位：万股 |
 | 变动数量      | float64 | -        |
 | 变动比例      | int64   | 注意单位：%  |
 | 成交均价      | float64 | 注意单位：元  |
 | 期末市值      | float64 | 注意单位：万元 |
-| 持股变动原因    | object  | -        |
-| 数据来源      | object  | -        |
+| 持股变动原因    | str     | -        |
+| 数据来源      | str     | -        |
 
 接口示例
 
@@ -16634,19 +16580,19 @@ print(stock_hold_management_detail_cninfo_df)
 | 名称         | 类型      | 描述 |
 |------------|---------|----|
 | 日期         | object  | -  |
-| 代码         | object  | -  |
+| 代码         | str     | -  |
 | 名称         | object  | -  |
-| 变动人        | object  | -  |
+| 变动人        | str     | -  |
 | 变动股数       | int64   | -  |
 | 成交均价       | int64   | -  |
 | 变动金额       | float64 | -  |
-| 变动原因       | object  | -  |
+| 变动原因       | str     | -  |
 | 变动比例       | float64 | -  |
 | 变动后持股数     | float64 | -  |
-| 持股种类       | object  | -  |
-| 董监高人员姓名    | object  | -  |
-| 职务         | object  | -  |
-| 变动人与董监高的关系 | object  | -  |
+| 持股种类       | str     | -  |
+| 董监高人员姓名    | str     | -  |
+| 职务         | str     | -  |
+| 变动人与董监高的关系 | str     | -  |
 | 开始时持有      | float64 | -  |
 | 结束后持有      | float64 | -  |
 
@@ -16699,19 +16645,19 @@ print(stock_hold_management_detail_em_df)
 | 名称         | 类型      | 描述 |
 |------------|---------|----|
 | 日期         | object  | -  |
-| 代码         | object  | -  |
+| 代码         | str     | -  |
 | 名称         | object  | -  |
-| 变动人        | object  | -  |
+| 变动人        | str     | -  |
 | 变动股数       | int64   | -  |
 | 成交均价       | int64   | -  |
 | 变动金额       | float64 | -  |
-| 变动原因       | object  | -  |
+| 变动原因       | str     | -  |
 | 变动比例       | float64 | -  |
 | 变动后持股数     | float64 | -  |
-| 持股种类       | object  | -  |
-| 董监高人员姓名    | object  | -  |
-| 职务         | object  | -  |
-| 变动人与董监高的关系 | object  | -  |
+| 持股种类       | str     | -  |
+| 董监高人员姓名    | str     | -  |
+| 职务         | str     | -  |
+| 变动人与董监高的关系 | str     | -  |
 | 开始时持有      | float64 | -  |
 | 结束后持有      | float64 | -  |
 
@@ -16756,9 +16702,9 @@ print(stock_hold_management_person_em_df)
 
 | 名称          | 类型      | 描述       |
 |-------------|---------|----------|
-| 证劵代码        | object  | -        |
-| 证券简称        | object  | -        |
-| 公告统计区间      | object  | -        |
+| 证劵代码        | str     | -        |
+| 证券简称        | str     | -        |
+| 公告统计区间      | str     | -        |
 | 担保笔数        | int64   | -        |
 | 担保金额        | float64 | 注意单位：万元 |
 | 归属于母公司所有者权益 | float64 | 注意单位：万元 |
@@ -16815,9 +16761,9 @@ print(stock_corporate_governance_guarantee_df)
 
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
-| 证券代码   | object  | -        |
-| 证券简称   | object  | -        |
-| 公告统计区间 | object  | -        |
+| 证券代码   | str     | -        |
+| 证券简称   | str     | -        |
+| 公告统计区间 | str     | -        |
 | 诉讼次数   | int64   | -        |
 | 诉讼金额   | float64 | 注意单位：万元 |
 
@@ -16867,15 +16813,15 @@ print(stock_cg_lawsuit_cninfo_df)
 
 | 名称         | 类型      | 描述       |
 |------------|---------|----------|
-| 股票代码       | object  | -        |
-| 股票简称       | object  | -        |
+| 股票代码       | str     | -        |
+| 股票简称       | str     | -        |
 | 公告日期       | object  | -        |
-| 出质人        | object  | -        |
-| 质权人        | object  | -        |
+| 出质人        | str     | -        |
+| 质权人        | str     | -        |
 | 质押数量       | float64 | 注意单位：万股 |
 | 占总股本比例     | float64 | 注意单位：%  |
 | 质押解除数量     | float64 | 注意单位：万股 |
-| 质押事项       | object  | 注意单位：万元 |
+| 质押事项       | str     | 注意单位：万元 |
 | 累计质押占总股本比例 | float64 | 注意单位：%  |
 
 接口示例
@@ -16969,11 +16915,11 @@ print(stock_cg_equity_mortgage_cninfo_df)
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
 | 日期    | object  | -   |
-| 个股名称  | object  | -   |
-| 评级    | object  | -   |
+| 个股名称  | str     | -   |
+| 评级    | str     | -   |
 | 先前目标价 | float64 | -   |
 | 最新目标价 | float64 | -   |
-| 机构名称  | object  | -   |
+| 机构名称  | str     | -   |
 
 接口示例
 
@@ -17021,8 +16967,8 @@ print(stock_price_js_df)
 
 | 名称              | 类型      | 描述       |
 |-----------------|---------|----------|
-| 简称              | object  | -        |
-| 代码              | object  | -        |
+| 简称              | str     | -        |
+| 代码              | str     | -        |
 | 当月净利润-净利润       | float64 | 注意单位：万元 |
 | 当月净利润-同比增长      | float64 | -        |
 | 当月净利润-环比增长      | float64 | -        |
@@ -17844,11 +17790,11 @@ print(stock_value_em_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 周期   | object | -   |
-| 看涨   | object | -   |
-| 看跌   | object | -   |
-| 看涨比例 | object | -   |
-| 看跌比例 | object | -   |
+| 周期   | str    | -   |
+| 看涨   | str    | -   |
+| 看跌   | str    | -   |
+| 看涨比例 | str    | -   |
+| 看跌比例 | str    | -   |
 
 接口示例
 
@@ -18195,12 +18141,12 @@ print(stock_a_below_net_asset_statistics_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 持有基金家数 | int64   | 注意单位：家 |
 | 持股总数   | int64   | 注意单位：股 |
 | 持股市值   | float64 | 注意单位：元 |
-| 持股变化   | object  | -       |
+| 持股变化   | str     | -       |
 | 持股变动数值 | int64   | 注意单位：股 |
 | 持股变动比例 | float64 | 注意单位：% |
 
@@ -18252,8 +18198,8 @@ print(stock_report_fund_hold_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 股票代码    | object  | -       |
-| 股票简称    | object  | -       |
+| 股票代码    | str     | -       |
+| 股票简称    | str     | -       |
 | 持股数     | int64   | 注意单位：股 |
 | 持股市值    | float64 | 注意单位：元 |
 | 占总股本比例  | float64 | 注意单位：% |
@@ -18306,10 +18252,10 @@ print(stock_report_fund_hold_detail_df)
 | 名称       | 类型      | 描述      |
 |----------|---------|---------|
 | 序号       | int64   | -       |
-| 代码       | object  | -       |
+| 代码       | str     | -       |
 | 名称       | object  | -       |
 | 上榜日      | object  | -       |
-| 解读       | object  | -       |
+| 解读       | str     | -       |
 | 收盘价      | float64 | -       |
 | 涨跌幅      | float64 | 注意单位：% |
 | 龙虎榜净买额   | float64 | 注意单位：元 |
@@ -18321,7 +18267,7 @@ print(stock_report_fund_hold_detail_df)
 | 成交额占总成交比 | float64 | 注意单位：% |
 | 换手率      | float64 | 注意单位：% |
 | 流通市值     | float64 | 注意单位：元 |
-| 上榜原因     | object  | -       |
+| 上榜原因     | str     | -       |
 | 上榜后1日    | float64 | 注意单位：% |
 | 上榜后2日    | float64 | 注意单位：% |
 | 上榜后5日    | float64 | 注意单位：% |
@@ -18374,7 +18320,7 @@ print(stock_lhb_detail_em_df)
 | 名称      | 类型      | 描述 |
 |---------|---------|----|
 | 序号      | int64   | -  |
-| 代码      | object  | -  |
+| 代码      | str     | -  |
 | 名称      | object  | -  |
 | 最近上榜日   | object  | -  |
 | 收盘价     | float64 | -  |
@@ -18443,7 +18389,7 @@ print(stock_lhb_stock_statistic_em_df)
 | 名称          | 类型      | 描述       |
 |-------------|---------|----------|
 | 序号          | int64   | -        |
-| 代码          | object  | -        |
+| 代码          | str     | -        |
 | 名称          | object  | -        |
 | 收盘价         | float64 | -        |
 | 涨跌幅         | float64 | -        |
@@ -18456,7 +18402,7 @@ print(stock_lhb_stock_statistic_em_df)
 | 机构净买额占总成交额比 | float64 | -        |
 | 换手率         | float64 | -        |
 | 流通市值        | float64 | 注意单位：亿元 |
-| 上榜原因        | object  | -        |
+| 上榜原因        | str     | -        |
 | 上榜日期        | object  | -        |
 
 接口示例
@@ -18507,7 +18453,7 @@ print(stock_lhb_jgmmtj_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 代码      | object  | -       |
+| 代码      | str     | -       |
 | 名称      | object  | -       |
 | 收盘价     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -18572,14 +18518,14 @@ print(stock_lhb_jgstatistic_em_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int64   | -       |
-| 营业部名称 | object  | -       |
+| 营业部名称 | str     | -       |
 | 上榜日   | object  | -       |
 | 买入个股数 | float64 | -       |
 | 卖出个股数 | float64 | -       |
 | 买入总金额 | float64 | 注意单位：元 |
 | 卖出总金额 | float64 | 注意单位：元 |
 | 总买卖净额 | float64 | 注意单位：元 |
-| 买入股票  | object  | -       |
+| 买入股票  | str     | -       |
 
 接口示例
 
@@ -18629,17 +18575,17 @@ print(stock_lhb_hyyyb_em_df)
 | 名称       | 类型      | 描述                     |
 |----------|---------|------------------------|
 | 序号       | int64   | -                      |
-| 营业部代码    | object  | -                      |
-| 营业部名称    | object  | -                      |
-| 营业部简称    | object  | -                      |
+| 营业部代码    | str     | -                      |
+| 营业部名称    | str     | -                      |
+| 营业部简称    | str     | -                      |
 | 交易日期     | object  | -                      |
-| 股票代码     | object  | -                      |
-| 股票名称     | object  | -                      |
+| 股票代码     | str     | -                      |
+| 股票名称     | str     | -                      |
 | 涨跌幅      | float64 | 注意单位：%                |
 | 买入金额     | float64 | 注意单位：元                |
 | 卖出金额     | float64 | 注意单位：元                |
 | 净额       | float64 | 注意单位：元                |
-| 上榜原因     | object  | -                      |
+| 上榜原因     | str     | -                      |
 | 1日后涨跌幅   | float64 | 注意单位：%                |
 | 2日后涨跌幅   | float64 | 注意单位：%                |
 | 3日后涨跌幅   | float64 | 注意单位：%                |
@@ -18696,7 +18642,7 @@ print(stock_lhb_yyb_detail_em_df)
 | 名称          | 类型      | 描述      |
 |-------------|---------|---------|
 | 序号          | int64   | -       |
-| 营业部名称       | object  | -       |
+| 营业部名称       | str     | -       |
 | 上榜后1天-买入次数  | int64   | -       |
 | 上榜后1天-平均涨幅  | float64 | 注意单位：% |
 | 上榜后1天-上涨概率  | float64 | 注意单位：% |
@@ -18761,7 +18707,7 @@ print(stock_lhb_yybph_em_df)
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
 | 序号      | int64   | -       |
-| 营业部名称   | object  | -       |
+| 营业部名称   | str     | -       |
 | 龙虎榜成交金额 | float64 | -       |
 | 上榜次数    | int64   | -       |
 | 买入额     | float64 | 注意单位：元 |
@@ -18819,12 +18765,12 @@ print(stock_lhb_traderstatistic_em_df)
 | 名称          | 类型      | 描述               |
 |-------------|---------|------------------|
 | 序号          | int64   | -                |
-| 交易营业部名称     | object  | -                |
+| 交易营业部名称     | str     | -                |
 | 买入金额        | float64 | -                |
 | 买入金额-占总成交比例 | float64 | -                |
 | 卖出金额-占总成交比例 | float64 | -                |
 | 净额          | float64 | -                |
-| 类型          | object  | 该字段主要处理多种龙虎榜标准问题 |
+| 类型          | str     | 该字段主要处理多种龙虎榜标准问题 |
 
 接口示例
 
@@ -18870,12 +18816,12 @@ print(stock_lhb_stock_detail_em_df)
 | 名称        | 类型     | 描述  |
 |-----------|--------|-----|
 | 序号        | int64  | -   |
-| 营业部名称     | object | -   |
+| 营业部名称     | str    | -   |
 | 上榜次数      | int64  | -   |
-| 合计动用资金    | object | -   |
+| 合计动用资金    | str    | -   |
 | 年内上榜次数    | int64  | -   |
 | 年内买入股票只数  | int64  | -   |
-| 年内3日跟买成功率 | object | -   |
+| 年内3日跟买成功率 | str    | -   |
 
 接口示例
 
@@ -18925,12 +18871,12 @@ print(stock_lh_yyb_most_df)
 | 名称       | 类型     | 描述  |
 |----------|--------|-----|
 | 序号       | int64  | -   |
-| 营业部名称    | object | -   |
+| 营业部名称    | str    | -   |
 | 今日最高操作   | int64  | -   |
-| 今日最高金额   | object | -   |
-| 今日最高买入金额 | object | -   |
-| 累计参与金额   | object | -   |
-| 累计买入金额   | object | -   |
+| 今日最高金额   | str    | -   |
+| 今日最高买入金额 | str    | -   |
+| 累计参与金额   | str    | -   |
+| 累计买入金额   | str    | -   |
 
 接口示例
 
@@ -18980,11 +18926,11 @@ print(stock_lh_yyb_capital_df)
 | 名称        | 类型     | 描述  |
 |-----------|--------|-----|
 | 序号        | int64  | -   |
-| 营业部名称     | object | -   |
+| 营业部名称     | str    | -   |
 | 携手营业部家数   | int64  | -   |
-| 年内最佳携手对象  | object | -   |
+| 年内最佳携手对象  | str    | -   |
 | 年内最佳携手股票数 | int64  | -   |
-| 年内最佳携手成功率 | object | -   |
+| 年内最佳携手成功率 | str    | -   |
 
 接口示例
 
@@ -19034,8 +18980,8 @@ print(stock_lh_yyb_control_df)
 | 名称   | 类型      | 描述       |
 |------|---------|----------|
 | 序号   | int64   | -        |
-| 股票代码 | object  | -        |
-| 股票名称 | object  | -        |
+| 股票代码 | str     | -        |
+| 股票名称 | str     | -        |
 | 收盘价  | float64 | 注意单位：元  |
 | 对应值  | float64 | 注意单位：%  |
 | 成交量  | float64 | 注意单位：万股 |
@@ -19133,8 +19079,8 @@ print(stock_lhb_detail_daily_sina_df)
 
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
-| 股票代码  | object  | -       |
-| 股票名称  | object  | -       |
+| 股票代码  | str     | -       |
+| 股票名称  | str     | -       |
 | 上榜次数  | int64   | -       |
 | 累积购买额 | float64 | 注意单位：万 |
 | 累积卖出额 | float64 | 注意单位：万 |
@@ -19189,13 +19135,13 @@ print(stock_lhb_ggtj_sina_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 营业部名称  | object  | -       |
+| 营业部名称  | str     | -       |
 | 上榜次数   | int64   | -       |
 | 累积购买额  | float64 | 注意单位：万 |
 | 买入席位数  | int64   | -       |
 | 累积卖出额  | float64 | 注意单位：万 |
 | 卖出席位数  | int64   | -       |
-| 买入前三股票 | object  | -       |
+| 买入前三股票 | str     | -       |
 
 接口示例
 
@@ -19244,8 +19190,8 @@ print(stock_lhb_yytj_sina_df)
 
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
-| 股票代码  | object  | -       |
-| 股票名称  | object  | -       |
+| 股票代码  | str     | -       |
+| 股票名称  | str     | -       |
 | 累积买入额 | float64 | 注意单位：万 |
 | 买入次数  | float64 | -       |
 | 累积卖出额 | float64 | 注意单位：万 |
@@ -19299,12 +19245,12 @@ print(stock_lhb_jgzz_sina_df)
 
 | 名称      | 类型      | 描述      |
 |---------|---------|---------|
-| 股票代码    | object  | -       |
-| 股票名称    | object  | -       |
+| 股票代码    | str     | -       |
+| 股票名称    | str     | -       |
 | 交易日期    | object  | -       |
 | 机构席位买入额 | float64 | 注意单位：万 |
 | 机构席位卖出额 | float64 | 注意单位：万 |
-| 类型      | object  | -       |
+| 类型      | str     | -       |
 
 接口示例
 
@@ -19354,15 +19300,15 @@ print(stock_lhb_jgmx_sina_df)
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
 | 序号     | int64  | -  |
-| 企业名称   | object | -  |
-| 最新状态   | object | -  |
-| 注册地    | object | -  |
-| 保荐机构   | object | -  |
-| 律师事务所  | object | -  |
-| 会计师事务所 | object | -  |
-| 拟上市地点  | object | -  |
+| 企业名称   | str    | -  |
+| 最新状态   | str    | -  |
+| 注册地    | str    | -  |
+| 保荐机构   | str    | -  |
+| 律师事务所  | str    | -  |
+| 会计师事务所 | str    | -  |
+| 拟上市地点  | str    | -  |
 | 更新日期   | object | -  |
-| 招股说明书  | object | -  |
+| 招股说明书  | str    | -  |
 
 接口示例
 
@@ -19413,17 +19359,17 @@ print(stock_ipo_declare_em_df)
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
 | 序号     | int64  | -  |
-| 企业名称   | object | -  |
-| 最新状态   | object | -  |
-| 注册地    | object | -  |
-| 行业     | object | -  |
-| 保荐机构   | object | -  |
-| 律师事务所  | object | -  |
-| 会计师事务所 | object | -  |
+| 企业名称   | str    | -  |
+| 最新状态   | str    | -  |
+| 注册地    | str    | -  |
+| 行业     | str    | -  |
+| 保荐机构   | str    | -  |
+| 律师事务所  | str    | -  |
+| 会计师事务所 | str    | -  |
 | 更新日期   | object | -  |
 | 受理日期   | object | -  |
-| 拟上市地点  | object | -  |
-| 招股说明书  | object | -  |
+| 拟上市地点  | str    | -  |
+| 招股说明书  | str    | -  |
 
 接口示例
 
@@ -19473,17 +19419,17 @@ print(stock_register_all_em_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int64  | -   |
-| 发行人全称  | object | -   |
-| 审核状态   | object | -   |
-| 注册地    | object | -   |
-| 证监会行业  | object | -   |
-| 保荐机构   | object | -   |
-| 律师事务所  | object | -   |
-| 会计师事务所 | object | -   |
+| 发行人全称  | str    | -   |
+| 审核状态   | str    | -   |
+| 注册地    | str    | -   |
+| 证监会行业  | str    | -   |
+| 保荐机构   | str    | -   |
+| 律师事务所  | str    | -   |
+| 会计师事务所 | str    | -   |
 | 更新日期   | object | -   |
 | 受理日期   | object | -   |
-| 拟上市地点  | object | -   |
-| 招股说明书  | object | -   |
+| 拟上市地点  | str    | -   |
+| 招股说明书  | str    | -   |
 
 接口示例
 
@@ -19557,17 +19503,17 @@ print(stock_register_kcb_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int32  | -   |
-| 发行人全称  | object | -   |
-| 审核状态   | object | -   |
-| 注册地    | object | -   |
-| 证监会行业  | object | -   |
-| 保荐机构   | object | -   |
-| 律师事务所  | object | -   |
-| 会计师事务所 | object | -   |
+| 发行人全称  | str    | -   |
+| 审核状态   | str    | -   |
+| 注册地    | str    | -   |
+| 证监会行业  | str    | -   |
+| 保荐机构   | str    | -   |
+| 律师事务所  | str    | -   |
+| 会计师事务所 | str    | -   |
 | 更新日期   | object | -   |
 | 受理日期   | object | -   |
-| 拟上市地点  | object | -   |
-| 招股说明书  | object | -   |
+| 拟上市地点  | str    | -   |
+| 招股说明书  | str    | -   |
 
 接口示例
 
@@ -19641,17 +19587,17 @@ print(stock_register_cyb_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int32  | -   |
-| 发行人全称  | object | -   |
-| 审核状态   | object | -   |
-| 注册地    | object | -   |
-| 证监会行业  | object | -   |
-| 保荐机构   | object | -   |
-| 律师事务所  | object | -   |
-| 会计师事务所 | object | -   |
+| 发行人全称  | str    | -   |
+| 审核状态   | str    | -   |
+| 注册地    | str    | -   |
+| 证监会行业  | str    | -   |
+| 保荐机构   | str    | -   |
+| 律师事务所  | str    | -   |
+| 会计师事务所 | str    | -   |
 | 更新日期   | object | -   |
 | 受理日期   | object | -   |
-| 拟上市地点  | object | -   |
-| 招股说明书  | object | -   |
+| 拟上市地点  | str    | -   |
+| 招股说明书  | str    | -   |
 
 接口示例
 
@@ -19725,17 +19671,17 @@ print(stock_register_sh_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int32  | -   |
-| 发行人全称  | object | -   |
-| 审核状态   | object | -   |
-| 注册地    | object | -   |
-| 证监会行业  | object | -   |
-| 保荐机构   | object | -   |
-| 律师事务所  | object | -   |
-| 会计师事务所 | object | -   |
+| 发行人全称  | str    | -   |
+| 审核状态   | str    | -   |
+| 注册地    | str    | -   |
+| 证监会行业  | str    | -   |
+| 保荐机构   | str    | -   |
+| 律师事务所  | str    | -   |
+| 会计师事务所 | str    | -   |
 | 更新日期   | object | -   |
 | 受理日期   | object | -   |
-| 拟上市地点  | object | -   |
-| 招股说明书  | object | -   |
+| 拟上市地点  | str    | -   |
+| 招股说明书  | str    | -   |
 
 接口示例
 
@@ -19809,17 +19755,17 @@ print(stock_register_sz_df)
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
 | 序号     | int32  | -   |
-| 发行人全称  | object | -   |
-| 审核状态   | object | -   |
-| 注册地    | object | -   |
-| 证监会行业  | object | -   |
-| 保荐机构   | object | -   |
-| 律师事务所  | object | -   |
-| 会计师事务所 | object | -   |
+| 发行人全称  | str    | -   |
+| 审核状态   | str    | -   |
+| 注册地    | str    | -   |
+| 证监会行业  | str    | -   |
+| 保荐机构   | str    | -   |
+| 律师事务所  | str    | -   |
+| 会计师事务所 | str    | -   |
 | 更新日期   | object | -   |
 | 受理日期   | object | -   |
-| 拟上市地点  | object | -   |
-| 招股说明书  | object | -   |
+| 拟上市地点  | str    | -   |
+| 招股说明书  | str    | -   |
 
 接口示例
 
@@ -19893,17 +19839,17 @@ print(stock_register_bj_df)
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
 | 序号           | int32   | -       |
-| 企业名称         | object  | -       |
-| 经营范围         | object  | -       |
+| 企业名称         | str     | -       |
+| 经营范围         | str     | -       |
 | 近三年营业收入-2019 | float64 | 注意单位：元 |
 | 近三年净利润-2019  | float64 | 注意单位：元 |
-| 近三年研发费用-2019 | object  | 注意单位：元 |
+| 近三年研发费用-2019 | str     | 注意单位：元 |
 | 近三年营业收入-2018 | float64 | 注意单位：元 |
 | 近三年净利润-2018  | float64 | 注意单位：元 |
-| 近三年研发费用-2018 | object  | 注意单位：元 |
-| 近三年营业收入-2017 | object  | 注意单位：元 |
-| 近三年净利润-2017  | object  | 注意单位：元 |
-| 近三年研发费用-2017 | object  | 注意单位：元 |
+| 近三年研发费用-2018 | str     | 注意单位：元 |
+| 近三年营业收入-2017 | str     | 注意单位：元 |
+| 近三年净利润-2017  | str     | 注意单位：元 |
+| 近三年研发费用-2017 | str     | 注意单位：元 |
 | 近两年累计净利润     | float64 | 注意单位：元 |
 
 接口示例
@@ -19952,17 +19898,17 @@ print(stock_register_db_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 增发代码   | object  | -       |
-| 发行方式   | object  | -       |
+| 发行方式   | str     | -       |
 | 发行总数   | int64   | 注意单位：股 |
 | 网上发行   | object  | 注意单位：股 |
 | 发行价格   | float64 | -       |
 | 最新价    | float64 | -       |
 | 发行日期   | object  | -       |
 | 增发上市日期 | object  | -       |
-| 锁定期    | object  | -       |
+| 锁定期    | str     | -       |
 
 接口示例
 
@@ -20011,11 +19957,11 @@ print(stock_qbzf_em_df)
 
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 配售代码   | object  | -       |
 | 配股数量   | int64   | 注意单位：股 |
-| 配股比例   | object  | -       |
+| 配股比例   | str     | -       |
 | 配股价    | float64 | -       |
 | 最新价    | float64 | -       |
 | 配股前总股本 | int64   | 注意单位：股 |
@@ -20073,8 +20019,8 @@ print(stock_pg_em_df)
 | 名称             | 类型      | 描述      |
 |----------------|---------|---------|
 | 序号             | int64   | -       |
-| 股票代码           | object  | -       |
-| 股票简称           | object  | -       |
+| 股票代码           | str     | -       |
+| 股票简称           | str     | -       |
 | 最新价            | float64 | -       |
 | 计划回购价格区间       | float64 | 注意单位：元 |
 | 计划回购数量区间-下限    | float64 | 注意单位：股 |
@@ -20084,7 +20030,7 @@ print(stock_pg_em_df)
 | 计划回购金额区间-下限    | float64 | 注意单位：元 |
 | 计划回购金额区间-上限    | float64 | 注意单位：元 |
 | 回购起始时间         | object  | -       |
-| 实施进度           | object  | -       |
+| 实施进度           | str     | -       |
 | 已回购股份价格区间-下限   | float64 | 注意单位：% |
 | 已回购股份价格区间-上限   | float64 | 注意单位：% |
 | 已回购股份数量        | float64 | 注意单位：股 |
@@ -20145,7 +20091,7 @@ print(stock_repurchase_em_df)
 | 境内自然人持股（受限） | float64 | -  |
 | 已流通股份       | float64 | -  |
 | 已上市流通A股     | int64   | -  |
-| 变动原因        | object  | -  |
+| 变动原因        | str     | -  |
 
 接口示例
 
@@ -20260,8 +20206,8 @@ print(stock_dzjy_sctj_df)
 |----------|---------|---------|
 | 序号       | int64   | -       |
 | 交易日期     | object  | -       |
-| 证券代码     | object  | -       |
-| 证券简称     | object  | -       |
+| 证券代码     | str     | -       |
+| 证券简称     | str     | -       |
 | 涨跌幅      | float64 | 注意单位：% |
 | 收盘价      | float64 | -       |
 | 成交价      | float64 | -       |
@@ -20269,8 +20215,8 @@ print(stock_dzjy_sctj_df)
 | 成交量      | float64 | 注意单位：股 |
 | 成交额      | float64 | 注意单位：元 |
 | 成交额/流通市值 | float64 | 注意单位：% |
-| 买方营业部    | object  | -       |
-| 卖方营业部    | object  | -       |
+| 买方营业部    | str     | -       |
+| 卖方营业部    | str     | -       |
 
 接口示例-A股
 
@@ -20305,13 +20251,13 @@ print(stock_dzjy_mrmx_df)
 |-------|---------|---------|
 | 序号    | int64   | -       |
 | 交易日期  | object  | -       |
-| 证券代码  | object  | -       |
-| 证券简称  | object  | -       |
+| 证券代码  | str     | -       |
+| 证券简称  | str     | -       |
 | 成交价   | float64 | -       |
 | 成交量   | float64 | 注意单位：股 |
 | 成交额   | float64 | 注意单位：元 |
-| 买方营业部 | object  | -       |
-| 卖方营业部 | object  | -       |
+| 买方营业部 | str     | -       |
+| 卖方营业部 | str     | -       |
 
 接口示例-B股
 
@@ -20337,13 +20283,13 @@ print(stock_dzjy_mrmx_df)
 |-------|---------|---------|
 | 序号    | int64   | -       |
 | 交易日期  | object  | -       |
-| 证券代码  | object  | -       |
-| 证券简称  | object  | -       |
+| 证券代码  | str     | -       |
+| 证券简称  | str     | -       |
 | 成交价   | float64 | -       |
 | 成交量   | float64 | 注意单位：股 |
 | 成交额   | float64 | 注意单位：元 |
-| 买方营业部 | object  | -       |
-| 卖方营业部 | object  | -       |
+| 买方营业部 | str     | -       |
+| 卖方营业部 | str     | -       |
 
 接口示例-基金
 
@@ -20370,13 +20316,13 @@ print(stock_dzjy_mrmx_df)
 |-------|---------|---------|
 | 序号    | int64   | -       |
 | 交易日期  | object  | -       |
-| 证券代码  | object  | -       |
-| 证券简称  | object  | -       |
+| 证券代码  | str     | -       |
+| 证券简称  | str     | -       |
 | 成交价   | float64 | -       |
 | 成交量   | float64 | 注意单位：股 |
 | 成交额   | float64 | 注意单位：元 |
-| 买方营业部 | object  | -       |
-| 卖方营业部 | object  | -       |
+| 买方营业部 | str     | -       |
+| 卖方营业部 | str     | -       |
 
 接口示例-债券
 
@@ -20428,8 +20374,8 @@ print(stock_dzjy_mrmx_df)
 |-----------|---------|----------|
 | 序号        | int64   | -        |
 | 交易日期      | object  | -        |
-| 证券代码      | object  | -        |
-| 证券简称      | object  | -        |
+| 证券代码      | str     | -        |
+| 证券简称      | str     | -        |
 | 涨跌幅       | float64 | 注意单位：%  |
 | 收盘价       | float64 | -        |
 | 成交均价      | float64 | -        |
@@ -20487,8 +20433,8 @@ print(stock_dzjy_mrtj_df)
 | 名称            | 类型      | 描述       |
 |---------------|---------|----------|
 | 序号            | int64   | -        |
-| 证券代码          | object  | -        |
-| 证券简称          | object  | -        |
+| 证券代码          | str     | -        |
+| 证券简称          | str     | -        |
 | 最新价           | float64 | -        |
 | 涨跌幅           | float64 | 注意单位：%  |
 | 最近上榜日         | object  | -        |
@@ -20558,7 +20504,7 @@ print(stock_dzjy_hygtj_df)
 | 成交金额统计-买入   | float64 | 注意单位：万元 |
 | 成交金额统计-卖出   | float64 | 注意单位：万元 |
 | 成交金额统计-净买入额 | float64 | 注意单位：万元 |
-| 买入的股票       | object  |          |
+| 买入的股票       | str     |          |
 
 接口示例
 
@@ -20608,7 +20554,7 @@ print(stock_dzjy_hyyybtj_df)
 | 名称          | 类型      | 描述      |
 |-------------|---------|---------|
 | 序号          | int64   | -       |
-| 营业部名称       | object  | -       |
+| 营业部名称       | str     | -       |
 | 上榜后1天-买入次数  | float64 | -       |
 | 上榜后1天-平均涨幅  | float64 | 注意单位：% |
 | 上榜后1天-上涨概率  | float64 | -       |
@@ -20670,14 +20616,14 @@ print(stock_dzjy_yybph_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
-| 一致行动人  | object  | -       |
-| 股东排名   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
+| 一致行动人  | str     | -       |
+| 股东排名   | str     | -       |
 | 持股数量   | int64   | -       |
 | 持股比例   | float64 | -       |
-| 持股数量变动 | object  | 注意单位：% |
-| 行业     | object  | -       |
+| 持股数量变动 | float64 | 注意单位：% |
+| 行业     | str     | -       |
 | 公告日期   | object  | -       |
 
 接口示例
@@ -20730,8 +20676,8 @@ print(stock_yzxdr_em_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 证券代码 | object  | -  |
-| 证券简称 | object  | -  |
+| 证券代码 | str     | -  |
+| 证券简称 | str     | -  |
 | 融资比例 | float64 | -  |
 | 融券比例 | float64 | -  |
 
@@ -20846,7 +20792,7 @@ print(stock_margin_account_info_df)
 
 | 名称     | 类型     | 描述      |
 |--------|--------|---------|
-| 信用交易日期 | object | -       |
+| 信用交易日期 | str    | -       |
 | 融资余额   | int64  | 注意单位：元 |
 | 融资买入额  | int64  | 注意单位：元 |
 | 融券余量   | int64  | -       |
@@ -20901,9 +20847,9 @@ print(stock_margin_sse_df)
 
 | 名称     | 类型     | 描述      |
 |--------|--------|---------|
-| 信用交易日期 | object | -       |
-| 标的证券代码 | object | -       |
-| 标的证券简称 | object | -       |
+| 信用交易日期 | str    | -       |
+| 标的证券代码 | str    | -       |
+| 标的证券简称 | str    | -       |
 | 融资余额   | int64  | 注意单位：元 |
 | 融资买入额  | int64  | 注意单位：元 |
 | 融资偿还额  | int64  | 注意单位：元 |
@@ -20989,7 +20935,7 @@ print(stock_margin_sse_df)
 
 目标地址：https://www.szse.cn/disclosure/margin/margin/index.html
 
-描述：深证证券交易所-融资融券数据-融资融券交易明细数据
+描述：深圳证券交易所-融资融券数据-融资融券交易明细数据
 
 限量：单次返回指定 date 的所有历史数据
 
@@ -21003,8 +20949,8 @@ print(stock_margin_sse_df)
 
 | 名称     | 类型     | 描述        |
 |--------|--------|-----------|
-| 证券代码   | object | -         |
-| 证券简称   | object | -         |
+| 证券代码   | str    | -         |
+| 证券简称   | str    | -         |
 | 融资买入额  | int64  | 注意单位：元   |
 | 融资余额   | int64  | 注意单位：元   |
 | 融券卖出量  | int64  | 注意单位：股/份 |
@@ -21059,14 +21005,14 @@ print(stock_margin_detail_sse_df)
 
 | 名称       | 类型     | 描述  |
 |----------|--------|-----|
-| 证券代码     | object | -   |
-| 证券简称     | object | -   |
-| 融资标的     | object | -   |
-| 融券标的     | object | -   |
-| 当日可融资    | object | -   |
-| 当日可融券    | object | -   |
-| 融券卖出价格限制 | object | -   |
-| 涨跌幅限制    | object | -   |
+| 证券代码     | str    | -   |
+| 证券简称     | str    | -   |
+| 融资标的     | str    | -   |
+| 融券标的     | str    | -   |
+| 当日可融资    | str    | -   |
+| 当日可融券    | str    | -   |
+| 融券卖出价格限制 | str    | -   |
+| 涨跌幅限制    | str    | -   |
 
 接口示例
 
@@ -21159,8 +21105,8 @@ print(stock_margin_bse_df)
 
 | 名称     | 类型     | 描述      |
 |--------|--------|---------|
-| 证券代码   | object | -       |
-| 证券简称   | object | -       |
+| 证券代码   | str    | -       |
+| 证券简称   | str    | -       |
 | 融资买入额  | int64  | 注意单位：元 |
 | 融资余额   | int64  | 注意单位：元 |
 | 融券卖出量  | int64  | 注意单位：股 |
@@ -21208,12 +21154,12 @@ print(stock_margin_detail_bse_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| 证券代码  | object | -   |
-| 证券简称  | object | -   |
-| 融资标的  | object | -   |
-| 融券标的  | object | -   |
-| 当日可融资 | object | -   |
-| 当日可融券 | object | -   |
+| 证券代码  | str    | -   |
+| 证券简称  | str    | -   |
+| 融资标的  | str    | -   |
+| 融券标的  | str    | -   |
+| 当日可融资 | str    | -   |
+| 当日可融券 | str    | -   |
 
 接口示例
 
@@ -21256,7 +21202,7 @@ print(stock_margin_underlying_info_bse_df)
 | 名称              | 类型      | 描述  |
 |-----------------|---------|-----|
 | 序号              | int64   | -   |
-| 代码              | object  | -   |
+| 代码              | str     | -   |
 | 名称              | object  | -   |
 | 研报数             | int64   | -   |
 | 机构投资评级（近六个月）-买入 | float64 | -   |
@@ -21321,8 +21267,8 @@ print(stock_profit_forecast_em_df)
 | 纯利/亏损 | float64 | 注意单位：百万元人民币/百万港元 |
 | 每股盈利  | float64 | 注意单位：分/港仙        |
 | 每股派息  | float64 | 注意单位：分/港仙        |
-| 证券商   | object  | -                |
-| 评级    | object  | -                |
+| 证券商   | str     | -                |
+| 评级    | str     | -                |
 | 目标价   | float64 | 注意单位：港元          |
 | 更新日期  | object  | -                |
 
@@ -21388,7 +21334,7 @@ print(stock_hk_profit_forecast_et_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| 年度    | object  | -   |
+| 年度    | str     | -   |
 | 预测机构数 | int64   | -   |
 | 最小值   | float64 | -   |
 | 均值    | float64 | -   |
@@ -21417,7 +21363,7 @@ print(stock_profit_forecast_ths_df)
 
 | 名称    | 类型      | 描述  |
 |-------|---------|-----|
-| 年度    | object  | -   |
+| 年度    | str     | -   |
 | 预测机构数 | int64   | -   |
 | 最小值   | float64 | -   |
 | 均值    | float64 | -   |
@@ -21446,14 +21392,14 @@ print(stock_profit_forecast_ths_df)
 
 | 名称             | 类型      | 描述  |
 |----------------|---------|-----|
-| 机构名称           | object  | -   |
-| 研究员            | object  | -   |
+| 机构名称           | str     | -   |
+| 研究员            | str     | -   |
 | 预测年报每股收益2022预测 | float64 | -   |
 | 预测年报每股收益2023预测 | float64 | -   |
 | 预测年报每股收益2024预测 | float64 | -   |
-| 预测年报净利润2022预测  | object  | -   |
-| 预测年报净利润2023预测  | object  | -   |
-| 预测年报净利润2024预测  | object  | -   |
+| 预测年报净利润2022预测  | str     | -   |
+| 预测年报净利润2023预测  | str     | -   |
+| 预测年报净利润2024预测  | str     | -   |
 | 报告日期           | object  | -   |
 
 接口示例-业绩预测详表-机构
@@ -21485,13 +21431,13 @@ print(stock_profit_forecast_ths_df)
 
 | 名称        | 类型     | 描述  |
 |-----------|--------|-----|
-| 预测指标      | object | -   |
-| 2019-实际值  | object | -   |
-| 2020-实际值  | object | -   |
-| 2021-实际值  | object | -   |
-| 预测2022-平均 | object | -   |
-| 预测2023-平均 | object | -   |
-| 预测2024-平均 | object | -   |
+| 预测指标      | str    | -   |
+| 2019-实际值  | str    | -   |
+| 2020-实际值  | str    | -   |
+| 2021-实际值  | str    | -   |
+| 预测2022-平均 | str    | -   |
+| 预测2023-平均 | str    | -   |
+| 预测2024-平均 | str    | -   |
 
 接口示例-业绩预测详表-详细指标预测
 
@@ -21596,7 +21542,7 @@ print(stock_board_concept_index_ths_df)
 
 | 名称 | 类型      | 描述 |
 |----|---------|----|
-| 项目 | object  | -  |
+| 项目 | str     | -  |
 | 值  | float64 | -  |
 
 接口示例
@@ -21645,8 +21591,8 @@ print(stock_board_concept_info_ths_df)
 | 名称       | 类型      | 描述     |
 |----------|---------|--------|
 | 排名       | int64   | -      |
-| 板块名称     | object  | -      |
-| 板块代码     | object  | -      |
+| 板块名称     | str     | -      |
+| 板块代码     | str     | -      |
 | 最新价      | float64 | -      |
 | 涨跌额      | float64 | -      |
 | 涨跌幅      | float64 | 注意单位：% |
@@ -21654,7 +21600,7 @@ print(stock_board_concept_info_ths_df)
 | 换手率      | float64 | 注意单位：% |
 | 上涨家数     | int64   | -      |
 | 下跌家数     | int64   | -      |
-| 领涨股票     | object  | -      |
+| 领涨股票     | str     | -      |
 | 领涨股票-涨跌幅 | float64 | 注意单位：% |
 
 接口示例
@@ -21696,15 +21642,15 @@ print(stock_board_concept_name_em_df)
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称     | 类型  | 描述 |
+|--------|-----|----|
+| symbol | str | symbol="可燃冰"；概念板块名称或代码（如 "BK0818"），可以通过 ak.stock_board_concept_name_em() 获取 |
 
 输出参数
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| item  | object  | -  |
+| item  | str     | -  |
 | value | float64 | -  |
 
 接口示例
@@ -21753,7 +21699,7 @@ print(stock_board_concept_spot_em_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
@@ -21822,7 +21768,7 @@ print(stock_board_concept_cons_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 日期  | object  | -       |
+| 日期  | str     | -       |
 | 开盘  | float64 | -       |
 | 收盘  | float64 | -       |
 | 最高  | float64 | -       |
@@ -21882,7 +21828,7 @@ print(stock_board_concept_hist_em_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 日期时间 | object  | -  |
+| 日期时间 | str     | -  |
 | 开盘   | float64 | -  |
 | 收盘   | float64 | -  |
 | 最高   | float64 | -  |
@@ -21922,7 +21868,7 @@ print(stock_board_concept_hist_min_em_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 日期时间 | object  | -       |
+| 日期时间 | str     | -       |
 | 开盘   | float64 | -       |
 | 收盘   | float64 | -       |
 | 最高   | float64 | -       |
@@ -21981,13 +21927,13 @@ print(stock_board_concept_hist_min_em_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 代码   | object  | -  |
-| 股票名称 | object  | -  |
+| 代码   | str     | -  |
+| 股票名称 | str     | -  |
 | 最新价  | float64 | -  |
 | 涨跌额  | float64 | -  |
-| 涨跌幅  | object  | -  |
-| 成交量  | object  | -  |
-| 成交额  | object  | -  |
+| 涨跌幅  | str     | -  |
+| 成交量  | str     | -  |
+| 成交额  | str     | -  |
 
 接口示例
 
@@ -22063,8 +22009,8 @@ print(stock_concept_cons_futu_df)
 | 名称      | 类型      | 描述       |
 |---------|---------|----------|
 | 序号      | int64   | -        |
-| 板块      | object  | -        |
-| 涨跌幅     | object  | 注意单位：%  |
+| 板块      | str     | -        |
+| 涨跌幅     | float64 | 注意单位：%  |
 | 总成交量    | float64 | 注意单位：万手 |
 | 总成交额    | float64 | 注意单位：亿元 |
 | 净流入     | float64 | 注意单位：亿元 |
@@ -22072,8 +22018,8 @@ print(stock_concept_cons_futu_df)
 | 下跌家数    | float64 | -        |
 | 均价      | float64 | -        |
 | 领涨股     | float64 | -        |
-| 领涨股-最新价 | object  | -        |
-| 领涨股-涨跌幅 | object  | 注意单位：%  |
+| 领涨股-最新价 | float64 | -        |
+| 领涨股-涨跌幅 | float64 | 注意单位：%  |
 
 接口示例
 
@@ -22180,8 +22126,8 @@ print(stock_board_industry_index_ths_df)
 | 名称       | 类型      | 描述     |
 |----------|---------|--------|
 | 排名       | int64   | -      |
-| 板块名称     | object  | -      |
-| 板块代码     | object  | -      |
+| 板块名称     | str     | -      |
+| 板块代码     | str     | -      |
 | 最新价      | float64 | -      |
 | 涨跌额      | float64 | -      |
 | 涨跌幅      | float64 | 注意单位：% |
@@ -22189,7 +22135,7 @@ print(stock_board_industry_index_ths_df)
 | 换手率      | float64 | 注意单位：% |
 | 上涨家数     | int64   | -      |
 | 下跌家数     | int64   | -      |
-| 领涨股票     | object  | -      |
+| 领涨股票     | str     | -      |
 | 领涨股票-涨跌幅 | float64 | 注意单位：% |
 
 接口示例
@@ -22239,7 +22185,7 @@ print(stock_board_industry_name_em_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| item  | object  | -  |
+| item  | str     | -  |
 | value | float64 | -  |
 
 接口示例
@@ -22288,7 +22234,7 @@ print(stock_board_industry_spot_em_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 代码     | object  | -       |
+| 代码     | str     | -       |
 | 名称     | object  | -       |
 | 最新价    | float64 | -       |
 | 涨跌幅    | float64 | 注意单位：% |
@@ -22381,7 +22327,7 @@ print(stock_board_industry_cons_em_df)
 
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
-| 日期  | object  | -       |
+| 日期  | str     | -       |
 | 开盘  | float64 | -       |
 | 收盘  | float64 | -       |
 | 最高  | float64 | -       |
@@ -22441,7 +22387,7 @@ print(stock_board_industry_hist_em_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 日期时间 | object  | -  |
+| 日期时间 | str     | -  |
 | 开盘   | float64 | -  |
 | 收盘   | float64 | -  |
 | 最高   | float64 | -  |
@@ -22481,7 +22427,7 @@ print(stock_board_industry_hist_min_em_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 日期时间 | object  | -       |
+| 日期时间 | str     | -       |
 | 开盘   | float64 | -       |
 | 收盘   | float64 | -       |
 | 最高   | float64 | -       |
@@ -22544,8 +22490,8 @@ print(stock_board_industry_hist_min_em_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 股票代码 | object  | -       |
-| 股票简称 | object  | -       |
+| 股票代码 | str     | -       |
+| 股票简称 | str     | -       |
 | 关注   | float64 | -       |
 | 最新价  | float64 | 注意单位：元 |
 
@@ -22596,8 +22542,8 @@ print(stock_hot_follow_xq_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 股票代码 | object  | -       |
-| 股票简称 | object  | -       |
+| 股票代码 | str     | -       |
+| 股票简称 | str     | -       |
 | 关注   | float64 | -       |
 | 最新价  | float64 | 注意单位：元 |
 
@@ -22648,8 +22594,8 @@ print(stock_hot_tweet_xq_df)
 
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
-| 股票代码 | object  | -       |
-| 股票简称 | object  | -       |
+| 股票代码 | str     | -       |
+| 股票简称 | str     | -       |
 | 关注   | float64 | -       |
 | 最新价  | float64 | 注意单位：元 |
 
@@ -22703,8 +22649,8 @@ print(stock_hot_deal_xq_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 当前排名 | int64   | -       |
-| 代码   | object  | -       |
-| 股票名称 | object  | -       |
+| 代码   | str     | -       |
+| 股票名称 | str     | -       |
 | 最新价  | float64 | -       |
 | 涨跌额  | float64 | -       |
 | 涨跌幅  | float64 | 注意单位：% |
@@ -22758,8 +22704,8 @@ print(stock_hot_rank_em_df)
 |---------|---------|---------|
 | 排名较昨日变动 | int64   | -       |
 | 当前排名    | int64   | -       |
-| 代码      | object  | -       |
-| 股票名称    | object  | -       |
+| 代码      | str     | -       |
+| 股票名称    | str     | -       |
 | 最新价     | float64 | -       |
 | 涨跌额     | float64 | -       |
 | 涨跌幅     | float64 | 注意单位：% |
@@ -22813,7 +22759,7 @@ print(stock_hot_up_em_df)
 |------|---------|---------|
 | 当前排名 | int64   | -       |
 | 代码   | object  | -       |
-| 股票名称 | object  | -       |
+| 股票名称 | str     | -       |
 | 最新价  | float64 | -       |
 | 涨跌幅  | float64 | 注意单位：% |
 
@@ -22865,9 +22811,9 @@ print(stock_hk_hot_rank_em_df)
 
 | 名称   | 类型      | 描述  |
 |------|---------|-----|
-| 时间   | object  | -   |
+| 时间   | str     | -   |
 | 排名   | int64   | -   |
-| 证券代码 | object  | -   |
+| 证券代码 | str     | -   |
 | 新晋粉丝 | float64 | -   |
 | 铁杆粉丝 | float64 | -   |
 
@@ -22918,9 +22864,9 @@ print(stock_hot_rank_detail_em_df)
 
 | 名称   | 类型      | 描述  |
 |------|---------|-----|
-| 时间   | object  | -   |
+| 时间   | str     | -   |
 | 排名   | int64   | -   |
-| 证券代码 | object  | -   |
+| 证券代码 | str     | -   |
 
 接口示例
 
@@ -22970,20 +22916,20 @@ print(stock_hk_hot_rank_detail_em_df)
 
 | 名称    | 类型             | 描述 |
 |-------|----------------|----|
-| 股票代码  | object         | -  |
-| 公司简称  | object         | -  |
-| 行业    | object         | -  |
-| 行业代码  | object         | -  |
-| 问题    | object         | -  |
-| 提问者   | object         | -  |
-| 来源    | object         | -  |
+| 股票代码  | str            | -  |
+| 公司简称  | str            | -  |
+| 行业    | str            | -  |
+| 行业代码  | str            | -  |
+| 问题    | str            | -  |
+| 提问者   | str            | -  |
+| 来源    | str            | -  |
 | 提问时间  | datetime64[ns] | -  |
 | 更新时间  | datetime64[ns] | -  |
-| 提问者编号 | object         | -  |
-| 问题编号  | object         | -  |
-| 回答ID  | object         | -  |
-| 回答内容  | object         | -  |
-| 回答者   | object         | -  |
+| 提问者编号 | str            | -  |
+| 问题编号  | str            | -  |
+| 回答ID  | str            | -  |
+| 回答内容  | str            | -  |
+| 回答者   | str            | -  |
 
 接口示例
 
@@ -23077,15 +23023,15 @@ print(stock_irm_ans_cninfo_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 股票代码 | object | -  |
-| 公司简称 | object | -  |
-| 问题   | object | -  |
-| 回答   | object | -  |
-| 问题时间 | object | -  |
-| 回答时间 | object | -  |
-| 问题来源 | object | -  |
-| 回答来源 | object | -  |
-| 用户名  | object | -  |
+| 股票代码 | str    | -  |
+| 公司简称 | str    | -  |
+| 问题   | str    | -  |
+| 回答   | str    | -  |
+| 问题时间 | str    | -  |
+| 回答时间 | str    | -  |
+| 问题来源 | str    | -  |
+| 回答来源 | str    | -  |
+| 用户名  | str    | -  |
 
 接口示例
 
@@ -23136,7 +23082,7 @@ print(stock_sns_sseinfo_df)
 
 | 名称   | 类型      | 描述  |
 |------|---------|-----|
-| 时间   | object  | -   |
+| 时间   | str     | -   |
 | 排名   | int64   | -   |
 
 接口示例
@@ -23185,7 +23131,7 @@ print(stock_hot_rank_detail_realtime_em_df)
 
 | 名称   | 类型      | 描述  |
 |------|---------|-----|
-| 时间   | object  | -   |
+| 时间   | str     | -   |
 | 排名   | int64   | -   |
 
 接口示例
@@ -23234,10 +23180,10 @@ print(stock_hk_hot_rank_detail_realtime_em_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 时间   | object | -   |
-| 股票代码 | object | -   |
-| 概念名称 | object | -   |
-| 概念代码 | object | -   |
+| 时间   | str    | -   |
+| 股票代码 | str    | -   |
+| 概念名称 | str    | -   |
+| 概念代码 | str    | -   |
 | 热度   | int64  | -   |
 
 接口示例
@@ -23285,15 +23231,15 @@ print(stock_hot_keyword_em_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| 股票代码   | object  | -   |
-| 股票名称   | object  | -   |
+| 股票代码   | str     | -   |
+| 股票名称   | str     | -   |
 | 变动日期   | object  | -   |
-| 变动人    | object  | -   |
+| 变动人    | str     | -   |
 | 变动股数   | int64   | -   |
 | 成交均价   | float64 | -   |
 | 变动后持股数 | float64 | -   |
-| 与董监高关系 | object  | -   |
-| 董监高职务  | object  | -   |
+| 与董监高关系 | str     | -   |
+| 董监高职务  | str     | -   |
 
 接口示例
 
@@ -23344,7 +23290,7 @@ print(stock_inner_trade_xq_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
+| item  | str    | -   |
 | value | object | -   |
 
 接口示例
@@ -23392,7 +23338,7 @@ print(stock_hot_rank_latest_em_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
+| item  | str    | -   |
 | value | object | -   |
 
 接口示例
@@ -23442,8 +23388,8 @@ print(stock_hk_hot_rank_latest_em_df)
 
 | 名称    | 类型     | 描述 |
 |-------|--------|----|
-| 名称/代码 | object | -  |
-| 涨跌幅   | object | -  |
+| 名称/代码 | str    | -  |
+| 涨跌幅   | str    | -  |
 | 综合热度  | int64  | -  |
 
 接口示例
@@ -23493,9 +23439,9 @@ print(stock_hot_search_baidu_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| 时间     | object  | -   |
-| 股票代码   | object  | -   |
-| 相关股票代码 | object  | -   |
+| 时间     | str     | -   |
+| 股票代码   | str     | -   |
+| 相关股票代码 | str     | -   |
 | 涨跌幅    | float64 | -   |
 
 接口示例
@@ -23544,10 +23490,10 @@ print(stock_hot_rank_relate_em_df)
 | 名称   | 类型     | 描述                   |
 |------|--------|----------------------|
 | 时间   | object | -                    |
-| 代码   | object | -                    |
+| 代码   | str    | -                    |
 | 名称   | object | -                    |
-| 板块   | object | -                    |
-| 相关信息 | object | 注意：不同的 symbol 的单位不同 |
+| 板块   | str    | -                    |
+| 相关信息 | str    | 注意：不同的 symbol 的单位不同 |
 
 接口示例
 
@@ -23596,13 +23542,13 @@ print(stock_changes_em_df)
 
 | 名称                  | 类型      | 描述        |
 |---------------------|---------|-----------|
-| 板块名称                | object  | -         |
+| 板块名称                | str     | -         |
 | 涨跌幅                 | float64 | 注意单位：%   |
 | 主力净流入               | float64 | 注意单位：万元  |
 | 板块异动总次数             | float64 | -         |
-| 板块异动最频繁个股及所属类型-股票代码 | object  | -         |
-| 板块异动最频繁个股及所属类型-股票名称 | object  | -         |
-| 板块异动最频繁个股及所属类型-买卖方向 | object  | -         |
+| 板块异动最频繁个股及所属类型-股票代码 | str     | -         |
+| 板块异动最频繁个股及所属类型-股票名称 | str     | -         |
+| 板块异动最频繁个股及所属类型-买卖方向 | str     | -         |
 | 板块具体异动类型列表及出现次数     | object  | 返回具体异动的字典 |
 
 接口示例
@@ -23655,7 +23601,7 @@ print(stock_board_change_em_df)
 | 名称     | 类型      | 描述             |
 |--------|---------|----------------|
 | 序号     | int64   | -              |
-| 代码     | object  | -              |
+| 代码     | str     | -              |
 | 名称     | object  | -              |
 | 涨跌幅    | float64 | 注意单位：%        |
 | 最新价    | float64 | -              |
@@ -23664,12 +23610,12 @@ print(stock_board_change_em_df)
 | 总市值    | float64 | -              |
 | 换手率    | float64 | 注意单位：%        |
 | 封板资金   | int64   | -              |
-| 首次封板时间 | object  | 注意格式：09:25:00 |
-| 最后封板时间 | object  | 注意格式：09:25:00 |
+| 首次封板时间 | str     | 注意格式：09:25:00 |
+| 最后封板时间 | str     | 注意格式：09:25:00 |
 | 炸板次数   | int64   | -              |
-| 涨停统计   | object  | -              |
+| 涨停统计   | str     | -              |
 | 连板数    | int64   | 注意格式：1 为首板    |
-| 所属行业   | object  | -              |
+| 所属行业   | str     | -              |
 
 接口示例
 
@@ -23719,7 +23665,7 @@ print(stock_zt_pool_em_df)
 | 名称     | 类型      | 描述             |
 |--------|---------|----------------|
 | 序号     | int32   | -              |
-| 代码     | object  | -              |
+| 代码     | str     | -              |
 | 名称     | object  | -              |
 | 涨跌幅    | float64 | 注意单位：%        |
 | 最新价    | int64   | -              |
@@ -23732,8 +23678,8 @@ print(stock_zt_pool_em_df)
 | 振幅     | float64 | 注意单位：%        |
 | 昨日封板时间 | int64   | 注意格式：09:25:00 |
 | 昨日连板数  | int64   | 注意格式：1 为首板    |
-| 涨停统计   | object  | -              |
-| 所属行业   | object  | -              |
+| 涨停统计   | str     | -              |
+| 所属行业   | str     | -              |
 
 接口示例
 
@@ -23831,7 +23777,7 @@ print(stock_zt_pool_previous_em_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 序号   | int64   | -       |
-| 代码   | object  | -       |
+| 代码   | str     | -       |
 | 名称   | object  | -       |
 | 涨跌幅  | float64 | 注意单位：% |
 | 最新价  | float64 | -       |
@@ -23841,11 +23787,11 @@ print(stock_zt_pool_previous_em_df)
 | 总市值  | float64 | -       |
 | 换手率  | float64 | 注意单位：% |
 | 涨速   | float64 | 注意单位：% |
-| 是否新高 | object  | -       |
+| 是否新高 | str     | -       |
 | 量比   | float64 | -       |
-| 涨停统计 | object  | -       |
-| 入选理由 | object  | -       |
-| 所属行业 | object  | -       |
+| 涨停统计 | str     | -       |
+| 入选理由 | str     | -       |
+| 所属行业 | str     | -       |
 
 接口示例
 
@@ -23895,7 +23841,7 @@ print(stock_zt_pool_strong_em_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 序号   | int32   | -       |
-| 代码   | object  | -       |
+| 代码   | str     | -       |
 | 名称   | object  | -       |
 | 涨跌幅  | float64 | 注意单位：% |
 | 最新价  | float64 | -       |
@@ -23908,8 +23854,8 @@ print(stock_zt_pool_strong_em_df)
 | 开板日期 | int64   | -       |
 | 上市日期 | int64   | -       |
 | 是否新高 | int64   | -       |
-| 涨停统计 | object  | -       |
-| 所属行业 | object  | -       |
+| 涨停统计 | str     | -       |
+| 所属行业 | str     | -       |
 
 接口示例
 
@@ -23959,7 +23905,7 @@ print(stock_zt_pool_sub_new_em_df)
 | 名称     | 类型      | 描述             |
 |--------|---------|----------------|
 | 序号     | int32   | -              |
-| 代码     | object  | -              |
+| 代码     | str     | -              |
 | 名称     | object  | -              |
 | 涨跌幅    | float64 | 注意单位：%        |
 | 最新价    | float64 | -              |
@@ -23969,11 +23915,11 @@ print(stock_zt_pool_sub_new_em_df)
 | 总市值    | float64 | -              |
 | 换手率    | float64 | 注意单位：%        |
 | 涨速     | int64   | -              |
-| 首次封板时间 | object  | 注意格式：09:25:00 |
+| 首次封板时间 | str     | 注意格式：09:25:00 |
 | 炸板次数   | int64   | -              |
 | 涨停统计   | int64   | -              |
-| 振幅     | object  | -              |
-| 所属行业   | object  | -              |
+| 振幅     | str     | -              |
+| 所属行业   | str     | -              |
 
 接口示例
 
@@ -24028,7 +23974,7 @@ print(stock_zt_pool_zbgc_em_df)
 | 名称     | 类型      | 描述             |
 |--------|---------|----------------|
 | 序号     | int64   | -              |
-| 代码     | object  | -              |
+| 代码     | str     | -              |
 | 名称     | object  | -              |
 | 涨跌幅    | float64 | 注意单位：%        |
 | 最新价    | float64 | -              |
@@ -24038,11 +23984,11 @@ print(stock_zt_pool_zbgc_em_df)
 | 动态市盈率  | float64 | -              |
 | 换手率    | float64 | 注意单位：%        |
 | 封单资金   | int64   | -              |
-| 最后封板时间 | object  | 注意格式：09:25:00 |
+| 最后封板时间 | str     | 注意格式：09:25:00 |
 | 板上成交额  | int64   | -              |
 | 连续跌停   | int64   | -              |
 | 开板次数   | int64   | -              |
-| 所属行业   | object  | -              |
+| 所属行业   | str     | -              |
 
 接口示例
 
@@ -24117,7 +24063,7 @@ print(stock_zt_pool_dtgc_em_df)
 
 | 名称    | 类型     | 描述  |
 |-------|--------|-----|
-| item  | object | -   |
+| item  | str    | -   |
 | value | object | -   |
 
 接口示例
@@ -24169,10 +24115,10 @@ print(stock_market_activity_legu_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 标题   | object | -  |
-| 摘要   | object | -  |
-| 发布时间 | object | -  |
-| 链接   | object | -  |
+| 标题   | str    | -  |
+| 摘要   | str    | -  |
+| 发布时间 | str    | -  |
+| 链接   | str    | -  |
 
 接口示例：
 
@@ -24221,10 +24167,10 @@ print(stock_info_cjzc_em_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 标题   | object | -  |
-| 摘要   | object | -  |
-| 发布时间 | object | -  |
-| 链接   | object | -  |
+| 标题   | str    | -  |
+| 摘要   | str    | -  |
+| 发布时间 | str    | -  |
+| 链接   | str    | -  |
 
 接口示例：
 
@@ -24273,8 +24219,8 @@ print(stock_info_global_em_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 时间   | object | -  |
-| 内容   | object | -  |
+| 时间   | str    | -  |
+| 内容   | str    | -  |
 
 接口示例
 
@@ -24331,10 +24277,10 @@ print(stock_info_global_sina_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 标题   | object | -  |
-| 内容   | object | -  |
-| 发布时间 | object | -  |
-| 链接   | object | -  |
+| 标题   | str    | -  |
+| 内容   | str    | -  |
+| 发布时间 | str    | -  |
+| 链接   | str    | -  |
 
 接口示例
 
@@ -24422,10 +24368,10 @@ print(stock_info_global_futu_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 标题   | object | -  |
-| 内容   | object | -  |
-| 发布时间 | object | -  |
-| 链接   | object | -  |
+| 标题   | str    | -  |
+| 内容   | str    | -  |
+| 发布时间 | str    | -  |
+| 链接   | str    | -  |
 
 接口示例
 
@@ -24485,8 +24431,8 @@ print(stock_info_global_ths_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 标题   | object | -   |
-| 内容   | object | -   |
+| 标题   | str    | -   |
+| 内容   | str    | -   |
 | 发布日期 | object | -   |
 | 发布时间 | object | -   |
 
@@ -24532,7 +24478,7 @@ print(stock_info_global_cls_df)
 
 #### 以万 2.5 佣金结构为例
 
-深证证券交易所
+深圳证券交易所
 
 | 项目   | 费用      | 收取部门    |
 |------|---------|---------|
@@ -24551,7 +24497,7 @@ print(stock_info_global_cls_df)
 
 #### 以万 1.2 佣金结构为例
 
-深证证券交易所
+深圳证券交易所
 
 | 项目   | 费用      | 收取部门    |
 |------|---------|---------|
@@ -24595,8 +24541,8 @@ print(stock_info_global_cls_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 涨跌幅    | float64 | 注意单位：% |
 | 换手率    | float64 | 注意单位：% |
 | 最新价    | float64 | 注意单位：元 |
@@ -24651,8 +24597,8 @@ print(stock_rank_cxg_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 涨跌幅    | float64 | 注意单位：% |
 | 换手率    | float64 | 注意单位：% |
 | 最新价    | float64 | 注意单位：元 |
@@ -24707,15 +24653,15 @@ print(stock_rank_cxd_ths_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int64   | -       |
-| 股票代码  | object  | -       |
-| 股票简称  | object  | -       |
+| 股票代码  | str     | -       |
+| 股票简称  | str     | -       |
 | 收盘价   | float64 | 注意单位：元 |
 | 最高价   | float64 | 注意单位：元 |
 | 最低价   | float64 | 注意单位：元 |
 | 连涨天数  | int64   | -       |
 | 连续涨跌幅 | float64 | 注意单位：% |
 | 累计换手率 | float64 | 注意单位：% |
-| 所属行业  | object  | -       |
+| 所属行业  | str     | -       |
 
 接口示例
 
@@ -24764,15 +24710,15 @@ print(stock_rank_lxsz_ths_df)
 | 名称    | 类型      | 描述      |
 |-------|---------|---------|
 | 序号    | int64   | -       |
-| 股票代码  | object  | -       |
-| 股票简称  | object  | -       |
+| 股票代码  | str     | -       |
+| 股票简称  | str     | -       |
 | 收盘价   | float64 | 注意单位：元 |
 | 最高价   | float64 | 注意单位：元 |
 | 最低价   | float64 | 注意单位：元 |
 | 连涨天数  | int64   | -       |
 | 连续涨跌幅 | float64 | 注意单位：% |
 | 累计换手率 | float64 | 注意单位：% |
-| 所属行业  | object  | -       |
+| 所属行业  | str     | -       |
 
 接口示例：
 
@@ -24822,15 +24768,15 @@ print(stock_rank_lxxd_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 涨跌幅    | float64 | 注意单位：% |
 | 最新价    | float64 | 注意单位：元 |
-| 成交量    | object  | 注意单位：股 |
-| 基准日成交量 | object  | 注意单位：股 |
+| 成交量    | str     | 注意单位：股 |
+| 基准日成交量 | str     | 注意单位：股 |
 | 放量天数   | int64   | -       |
 | 阶段涨跌幅  | float64 | 注意单位：% |
-| 所属行业   | object  | -       |
+| 所属行业   | str     | -       |
 
 接口示例
 
@@ -24880,15 +24826,15 @@ print(stock_rank_cxfl_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 涨跌幅    | float64 | 注意单位：% |
 | 最新价    | float64 | 注意单位：元 |
-| 成交量    | object  | 注意单位：股 |
-| 基准日成交量 | object  | 注意单位：股 |
+| 成交量    | str     | 注意单位：股 |
+| 基准日成交量 | str     | 注意单位：股 |
 | 缩量天数   | int64   | -       |
 | 阶段涨跌幅  | float64 | 注意单位：% |
-| 所属行业   | object  | -       |
+| 所属行业   | str     | -       |
 
 接口示例
 
@@ -24938,11 +24884,11 @@ print(stock_rank_cxsl_ths_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 序号   | int64   | -       |
-| 股票代码 | object  | -       |
-| 股票简称 | object  | -       |
+| 股票代码 | str     | -       |
+| 股票简称 | str     | -       |
 | 最新价  | float64 | 注意单位：元 |
-| 成交额  | object  | 注意单位：元 |
-| 成交量  | object  | 注意单位：股 |
+| 成交额  | str     | 注意单位：元 |
+| 成交量  | str     | 注意单位：股 |
 | 涨跌幅  | float64 | 注意单位：% |
 | 换手率  | float64 | 注意单位：% |
 
@@ -24994,11 +24940,11 @@ print(stock_rank_xstp_ths_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | 序号   | int64   | -       |
-| 股票代码 | object  | -       |
-| 股票简称 | object  | -       |
+| 股票代码 | str     | -       |
+| 股票简称 | str     | -       |
 | 最新价  | float64 | 注意单位：元 |
-| 成交额  | object  | 注意单位：元 |
-| 成交量  | object  | 注意单位：股 |
+| 成交额  | str     | 注意单位：元 |
+| 成交量  | str     | 注意单位：股 |
 | 涨跌幅  | float64 | 注意单位：% |
 | 换手率  | float64 | 注意单位：% |
 
@@ -25050,13 +24996,13 @@ print(stock_rank_xxtp_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 最新价    | float64 | 注意单位：元 |
 | 量价齐升天数 | int64   | -       |
 | 阶段涨幅   | float64 | 注意单位：% |
 | 累计换手率  | float64 | 注意单位：% |
-| 所属行业   | object  | -       |
+| 所属行业   | str     | -       |
 
 接口示例
 
@@ -25106,13 +25052,13 @@ print(stock_rank_ljqs_ths_df)
 | 名称     | 类型      | 描述      |
 |--------|---------|---------|
 | 序号     | int64   | -       |
-| 股票代码   | object  | -       |
-| 股票简称   | object  | -       |
+| 股票代码   | str     | -       |
+| 股票简称   | str     | -       |
 | 最新价    | float64 | 注意单位：元 |
 | 量价齐跌天数 | int64   | -       |
 | 阶段涨幅   | float64 | 注意单位：% |
 | 累计换手率  | float64 | 注意单位：% |
-| 所属行业   | object  | -       |
+| 所属行业   | str     | -       |
 
 接口示例
 
@@ -25163,15 +25109,15 @@ print(stock_rank_ljqd_ths_df)
 |------------|---------|---------|
 | 序号         | int64   | -       |
 | 举牌公告日      | object  | -       |
-| 股票代码       | object  | -       |
-| 股票简称       | object  | -       |
+| 股票代码       | str     | -       |
+| 股票简称       | str     | -       |
 | 现价         | float64 | 注意单位：元 |
 | 涨跌幅        | float64 | 注意单位：% |
-| 举牌方        | object  | -       |
-| 增持数量       | object  | 注意单位：股 |
+| 举牌方        | str     | -       |
+| 增持数量       | str     | 注意单位：股 |
 | 交易均价       | float64 | 注意单位：元 |
 | 增持数量占总股本比例 | float64 | 注意单位：% |
-| 变动后持股总数    | object  | 注意单位：股 |
+| 变动后持股总数    | str     | 注意单位：股 |
 | 变动后持股比例    | float64 | 注意单位：% |
 
 接口示例
@@ -25257,12 +25203,12 @@ print(stock_rank_xzjp_ths_df)
 
 | 名称    | 类型     | 描述 |
 |-------|--------|----|
-| 成分股代码 | object | -  |
-| 评级机构  | object | -  |
-| 评级    | object | -  |
-| 评级季度  | object | -  |
-| 标识    | object | -  |
-| 交易市场  | object | -  |
+| 成分股代码 | str    | -  |
+| 评级机构  | str    | -  |
+| 评级    | str    | -  |
+| 评级季度  | str    | -  |
+| 标识    | str    | -  |
+| 交易市场  | str    | -  |
 
 接口示例
 
@@ -25311,13 +25257,13 @@ print(stock_esg_rate_sina_df)
 
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
-| 股票代码   | object  | -  |
-| ESG评分  | object  | -  |
+| 股票代码   | str     | -  |
+| ESG评分  | str     | -  |
 | 环境总评   | float64 | -  |
 | 社会责任总评 | float64 | -  |
 | 治理总评   | float64 | -  |
 | 评级日期   | object  | -  |
-| 交易市场   | object  | -  |
+| 交易市场   | str     | -  |
 
 接口示例
 
@@ -25366,19 +25312,19 @@ print(stock_esg_msci_sina_df)
 
 | 名称       | 类型      | 描述 |
 |----------|---------|----|
-| 股票代码     | object  | -  |
-| ESG评分    | object  | -  |
+| 股票代码     | str     | -  |
+| ESG评分    | str     | -  |
 | ESG评分日期  | object  | -  |
 | 环境总评     | float64 | -  |
 | 环境总评日期   | float64 | -  |
 | 社会责任总评   | float64 | -  |
 | 社会责任总评日期 | object  | -  |
-| 治理总评     | object  | -  |
+| 治理总评     | str     | -  |
 | 治理总评日期   | object  | -  |
-| 争议总评     | object  | -  |
+| 争议总评     | str     | -  |
 | 争议总评日期   | object  | -  |
-| 行业       | object  | -  |
-| 交易所      | object  | -  |
+| 行业       | str     | -  |
+| 交易所      | str     | -  |
 
 接口示例
 
@@ -25427,11 +25373,11 @@ print(stock_esg_rft_sina_df)
 
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
-| 股票代码   | object | -  |
-| ESG评分  | object | -  |
-| 环境总评   | object | -  |
-| 社会责任总评 | object | -  |
-| 治理总评   | object | -  |
+| 股票代码   | str    | -  |
+| ESG评分  | str    | -  |
+| 环境总评   | str    | -  |
+| 社会责任总评 | str    | -  |
+| 治理总评   | str    | -  |
 | 评分日期   | object | -  |
 
 
@@ -25483,17 +25429,17 @@ print(stock_esg_zd_sina_df)
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
 | 日期     | object  | -  |
-| 股票代码   | object  | -  |
-| 交易市场   | object  | -  |
-| 股票名称   | object  | -  |
+| 股票代码   | str     | -  |
+| 交易市场   | str     | -  |
+| 股票名称   | str     | -  |
 | ESG评分  | float64 | -  |
-| ESG等级  | object  | -  |
+| ESG等级  | str     | -  |
 | 环境     | float64 | -  |
-| 环境等级   | object  | -  |
+| 环境等级   | str     | -  |
 | 社会     | float64 | -  |
-| 社会等级   | object  | -  |
+| 社会等级   | str     | -  |
 | 公司治理   | float64 | -  |
-| 公司治理等级 | object  | -  |
+| 公司治理等级 | str     | -  |
 
 接口示例
 

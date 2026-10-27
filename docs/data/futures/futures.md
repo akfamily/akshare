@@ -308,11 +308,11 @@
 
 | 名称          | 类型      | 描述 |
 |-------------|---------|----|
-| 交易所         | object  | -  |
-| 合约代码        | object  | -  |
-| 合约名称        | object  | -  |
-| 品种代码        | object  | -  |
-| 品种名称        | object  | -  |
+| 交易所         | str     | -  |
+| 合约代码        | str     | -  |
+| 合约名称        | str     | -  |
+| 品种代码        | str     | -  |
+| 品种名称        | str     | -  |
 | 合约乘数        | int64   | -  |
 | 最小跳动        | float64 | -  |
 | 开仓费率（按金额）   | float64 | -  |
@@ -337,13 +337,13 @@
 | 做空1手保证金     | float64 | -  |
 | 1Tick平仓盈亏   | float64 | -  |
 | 2Tick平仓盈亏   | float64 | -  |
-| 1Tick平仓收益率  | object  | -  |
-| 2Tick平仓收益率  | object  | -  |
+| 1Tick平仓收益率  | str     | -  |
+| 2Tick平仓收益率  | str     | -  |
 | 1Tick平今盈亏   | float64 | -  |
 | 2Tick平今盈亏   | float64 | -  |
-| 1Tick平今收益率  | object  | -  |
-| 2Tick平今收益率  | object  | -  |
-| 更新时间        | object  | -  |
+| 1Tick平今收益率  | str     | -  |
+| 2Tick平今收益率  | str     | -  |
+| 更新时间        | str     | -  |
 
 接口示例
 
@@ -392,9 +392,9 @@ print(futures_fees_info_df)
 
 | 名称           | 类型      | 描述      |
 |--------------|---------|---------|
-| 交易所名称        | object  | -       |
-| 合约名称         | object  | -       |
-| 合约代码         | object  | -       |
+| 交易所名称        | str     | -       |
+| 合约名称         | str     | -       |
+| 合约代码         | str     | -       |
 | 现价           | float64 | -       |
 | 涨停板          | float64 | -       |
 | 跌停板          | float64 | -       |
@@ -410,9 +410,9 @@ print(futures_fees_info_df)
 | 每跳毛利         | int64   | 注意单位：元 |
 | 手续费          | float64 | 注意：开+平 |
 | 每跳净利         | float64 | 注意单位：元 |
-| 备注           | object  | 是否主力合约  |
-| 手续费更新时间      | object  | -       |
-| 价格更新时间       | object  | -       |
+| 备注           | str     | 是否主力合约  |
+| 手续费更新时间      | str     | -       |
+| 价格更新时间       | str     | -       |
 
 接口示例
 
@@ -527,16 +527,16 @@ print(futures_comm_js_df)
 
 | 名称          | 类型      | 描述      |
 |-------------|---------|---------|
-| 交易所         | object  | -       |
-| 品种          | object  | -       |
-| 代码          | object  | -       |
+| 交易所         | str     | -       |
+| 品种          | str     | -       |
+| 代码          | str     | -       |
 | 交易保证金比例     | float64 | 注意单位：% |
 | 涨跌停板幅度      | float64 | 注意单位：% |
 | 合约乘数        | int64   | -       |
 | 最小变动价位      | float64 | -       |
 | 限价单每笔最大下单手数 | int64   | -       |
-| 特殊合约参数调整    | object  | -       |
-| 调整备注        | object  | -       |
+| 特殊合约参数调整    | str     | -       |
+| 调整备注        | float64 | -       |
 
 接口示例
 
@@ -939,7 +939,7 @@ print(get_rank_table_czce_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
 
-描述：大连商品交易所指定交易日的具体合约的持仓排名
+描述：大连商品交易所指定交易日的具体合约的持仓排名；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回所有合约的持仓排名数据，返回以合约名字为键，具体排名数据为值的字典
 
@@ -960,16 +960,16 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 |-------------------------|---------|---------|
 | long_open_interest      | object  | 持买单量    |
 | long_open_interest_chg  | float64 | 持买单量-增减 |
-| long_party_name         | object  | 会员简称    |
+| long_party_name         | str     | 会员简称    |
 | rank                    | float64 | 名次      |
 | short_open_interest     | float64 | 持卖单量    |
 | short_open_interest_chg | float64 | 持买单量-增减 |
-| short_party_name        | object  | 会员简称    |
+| short_party_name        | str     | 会员简称    |
 | vol                     | float64 | 成交量     |
 | vol_chg                 | float64 | 成交量-增减  |
-| vol_party_name          | object  | 会员简称    |
-| symbol                  | object  | 具体合约    |
-| variety                 | object  | 品种      |
+| vol_party_name          | str     | 会员简称    |
+| symbol                  | str     | 具体合约    |
+| variety                 | str     | 品种      |
 
 接口示例
 
@@ -1022,17 +1022,17 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 | 名称                      | 类型     | 描述      |
 |-------------------------|--------|---------|
 | rank                    | int64  | 名次      |
-| vol_party_name          | object | 会员简称    |
+| vol_party_name          | str    | 会员简称    |
 | vol                     | int64  | 成交量     |
 | vol_chg                 | int64  | 成交量-增减  |
-| long_party_name         | object | 会员简称    |
+| long_party_name         | str    | 会员简称    |
 | long_open_interest      | int64  | 持买单量    |
 | long_open_interest_chg  | int64  | 持买单量-增减 |
-| short_party_name        | object | 会员简称    |
+| short_party_name        | str    | 会员简称    |
 | short_open_interest     | int64  | 持卖单量    |
 | short_open_interest_chg | int64  | 持卖单量-增减 |
-| symbol                  | object | 具体合约    |
-| variety                 | object | 品种      |
+| symbol                  | str    | 具体合约    |
+| variety                 | str    | 品种      |
 
 接口示例
 
@@ -1230,7 +1230,7 @@ print(futures_warehouse_receipt_czce_df)
 
 目标地址：http://www.dce.com.cn/dce/channel/list/187.html
 
-描述：大连商品交易所-行情数据-统计数据-日统计-仓单日报；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），此时接口抛出 APIError
+描述：大连商品交易所-行情数据-统计数据-日统计-仓单日报；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），此时接口抛出 APIError，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回当前交易日的所有仓单日报数据
 
@@ -1244,10 +1244,10 @@ print(futures_warehouse_receipt_czce_df)
 
 | 名称           | 类型     | 描述 |
 |--------------|--------|----|
-| 品种代码         | object | -  |
-| 品种名称         | object | -  |
-| 仓库/分库        | object | -  |
-| 可选提货地点/分库-数量 | object | -  |
+| 品种代码         | str    | -  |
+| 品种名称         | str    | -  |
+| 仓库/分库        | str    | -  |
+| 可选提货地点/分库-数量 | str    | -  |
 | 昨日仓单量（手）     | int64  | -  |
 | 今日仓单量（手）     | int64  | -  |
 | 增减（手）        | int64  | -  |
@@ -1415,7 +1415,7 @@ print(futures_gfex_warehouse_receipt_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
 
-描述：大连商品交易所-期转现统计数据
+描述：大连商品交易所-期转现统计数据；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定交易日的期转现统计数据
 
@@ -1429,7 +1429,7 @@ print(futures_gfex_warehouse_receipt_df)
 
 | 名称      | 类型     | 描述      |
 |---------|--------|---------|
-| 合约代码    | object | -       |
+| 合约代码    | str    | -       |
 | 期转现发生日期 | object | -       |
 | 期转现数量   | int64  | 注意单位：手 |
 
@@ -1471,7 +1471,7 @@ print(futures_to_spot_dce_df)
 
 | 名称   | 类型     | 描述       |
 |------|--------|----------|
-| 合约代码 | object | -        |
+| 合约代码 | str    | -        |
 | 合约数量 | int64  | 注意：单边计算 |
 
 接口示例
@@ -1512,7 +1512,7 @@ print(futures_to_spot_czce_df)
 | 名称   | 类型      | 描述 |
 |------|---------|----|
 | 日期   | object  | -  |
-| 合约   | object  | -  |
+| 合约   | str     | -  |
 | 交割量  | float64 | -  |
 | 期转现量 | float64 | -  |
 
@@ -1572,7 +1572,7 @@ print(futures_to_spot_shfe_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
 
-描述：大连商品交易所-交割统计
+描述：大连商品交易所-交割统计；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定交易月份的交割统计数据
 
@@ -1586,8 +1586,8 @@ print(futures_to_spot_shfe_df)
 
 | 名称   | 类型     | 描述 |
 |------|--------|----|
-| 品种   | object | -  |
-| 合约   | object | -  |
+| 品种   | str    | -  |
+| 合约   | str    | -  |
 | 交割日期 | object | -  |
 | 交割量  | int64  | -  |
 | 交割金额 | int64  | -  |
@@ -1655,7 +1655,7 @@ print(futures_delivery_dce_df)
 
 | 名称   | 类型     | 描述             |
 |------|--------|----------------|
-| 品种   | object | -              |
+| 品种   | str    | -              |
 | 交割数量 | int64  | 按单边统计          |
 | 交割额  | int64  | 注意单位：元；按单边统计 |
 
@@ -1701,7 +1701,7 @@ print(futures_delivery_monthly_czce_df)
 
 | 名称       | 类型      | 描述                                        |
 |----------|---------|-------------------------------------------|
-| 品种       | object  | -                                         |
+| 品种       | str     | -                                         |
 | 交割量-本月   | int64   | 注意单位：手；交割量单边计算；交割数据统计期为上月 16 日到本月 15 日 |
 | 交割量-比重   | float64 | 注意单位：%                                   |
 | 交割量-本年累计 | int64   | 注意单位：手；交割量单边计算；交割数据统计期为上月 16 日到本月 15 日 |
@@ -1752,7 +1752,7 @@ print(futures_delivery_shfe_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
 
-描述：大连商品交易所-交割配对
+描述：大连商品交易所-交割配对；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定品种的的交割配对数据
 
@@ -1766,11 +1766,11 @@ print(futures_delivery_shfe_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| 合约号   | object  | -  |
+| 合约号   | str     | -  |
 | 配对日期  | object  | -  |
-| 买会员号  | object  | -  |
+| 买会员号  | str     | -  |
 | 配对手数  | int64   | -  |
-| 卖会员号  | object  | -  |
+| 卖会员号  | str     | -  |
 | 交割结算价 | float64 | -  |
 
 注意：
@@ -1827,13 +1827,13 @@ print(futures_delivery_match_dce_df)
 
 | 名称        | 类型      | 描述            |
 |-----------|---------|---------------|
-| 卖方会员      | object  | -             |
-| 卖方会员-会员简称 | object  | -             |
-| 买方会员      | object  | -             |
-| 买方会员-会员简称 | object  | -             |
+| 卖方会员      | str     | -             |
+| 卖方会员-会员简称 | str     | -             |
+| 买方会员      | str     | -             |
+| 买方会员-会员简称 | str     | -             |
 | 交割量       | float64 | 注意单位：手（单边计算） |
-| 配对日期      | object  | -             |
-| 合约代码      | object  | -             |
+| 配对日期      | str     | -             |
+| 合约代码      | str     | -             |
 
 接口示例
 
@@ -1899,7 +1899,7 @@ print(futures_delivery_match_czce_df)
 
 | 名称           | 类型      | 描述 |
 |--------------|---------|----|
-| 商品           | object  | -  |
+| 商品           | str     | -  |
 | 期货总量{随日期变动}  | int64   | -  |
 | 期货总量{随日期变动}} | int64   | -  |
 | 增减           | int64   | -  |
@@ -1961,7 +1961,7 @@ print(futures_stock_shfe_js_df)
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
 | 名次     | int64  | -  |
-| 会员简称   | object | -  |
+| 会员简称   | str    | -  |
 | 成交量    | int64  | -  |
 | 比上交易增减 | int64  | -  |
 
@@ -2015,13 +2015,13 @@ print(futures_hold_pos_sina_df)
 | 名称       | 类型  | 描述                                                  |
 |----------|-----|-----------------------------------------------------|
 | symbol   | str | symbol="铜"；期货品种                                    |
-| contract | str | indicator="市场价格"; choice of {"市场价格", "基差率", "主力基差"} |
+| indicator | str | indicator="市场价格"; choice of {"市场价格", "基差率", "主力基差"} |
 
 输出参数-市场价格
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 日期   | object  | -  |
+| 日期   | str     | -  |
 | 现货价格 | float64 | -  |
 | 主力合约 | float64 | -  |
 | 最近合约 | float64 | -  |
@@ -2056,7 +2056,7 @@ print(futures_spot_sys_df)
 
 | 名称  | 类型      | 描述 |
 |-----|---------|----|
-| 日期  | object  | -  |
+| 日期  | str     | -  |
 | 基差率 | float64 | -  |
 
 接口示例-基差率
@@ -2089,7 +2089,7 @@ print(futures_spot_sys_df)
 
 | 名称   | 类型      | 描述 |
 |------|---------|----|
-| 日期   | object  | -  |
+| 日期   | str     | -  |
 | 主力基差 | float64 | -  |
 
 接口示例-主力基差
@@ -2140,14 +2140,14 @@ print(futures_spot_sys_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| 合约代码  | object  | -  |
+| 合约代码  | str     | -  |
 | 上市日   | object  | -  |
 | 到期日   | object  | -  |
 | 开始交割日 | object  | -  |
 | 最后交割日 | object  | -  |
 | 挂牌基准价 | float64 | -  |
 | 交易日   | object  | -  |
-| 更新时间  | object  | -  |
+| 更新时间  | str     | -  |
 
 接口示例
 
@@ -2196,7 +2196,7 @@ print(futures_contract_info_shfe_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| 合约代码  | object  | -  |
+| 合约代码  | str     | -  |
 | 上市日   | object  | -  |
 | 到期日   | object  | -  |
 | 开始交割日 | object  | -  |
@@ -2237,7 +2237,7 @@ print(futures_contract_info_ine_df)
 
 目标地址：http://www.dce.com.cn/dce/channel/list/180.html
 
-描述：大连商品交易所-数据中心-业务数据-交易参数-合约信息
+描述：大连商品交易所-数据中心-业务数据-交易参数-合约信息；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回最近交易日的期货合约信息数据
 
@@ -2251,8 +2251,8 @@ print(futures_contract_info_ine_df)
 
 | 名称     | 类型      | 描述 |
 |--------|---------|----|
-| 品种     | object  | -  |
-| 合约代码   | object  | -  |
+| 品种     | str     | -  |
+| 合约代码   | str     | -  |
 | 交易单位   | int64   | -  |
 | 最小变动价位 | float64 | -  |
 | 开始交易日  | object  | -  |
@@ -2306,43 +2306,43 @@ print(futures_contract_info_dce_df)
 
 | 名称                        | 类型      | 描述 |
 |---------------------------|---------|----|
-| 产品名称                      | object  | -  |
-| 合约代码                      | object  | -  |
-| 产品代码                      | object  | -  |
-| 产品类型                      | object  | -  |
-| 交易所MIC编码                  | object  | -  |
-| 交易场所                      | object  | -  |
-| 交易时间节假日除外                 | object  | -  |
-| 交易国家ISO编码                 | object  | -  |
-| 交易币种ISO编码                 | object  | -  |
-| 结算币种ISO编码                 | object  | -  |
-| 到期时间待国家公布2025年节假日安排后进行调整  | object  | -  |
-| 结算方式                      | object  | -  |
-| 挂牌频率                      | object  | -  |
-| 最小变动价位                    | object  | -  |
-| 最小变动价值                    | object  | -  |
-| 交易单位                      | object  | -  |
-| 计量单位                      | object  | -  |
-| 最大下单量                     | object  | -  |
-| 日持仓限额期货公司会员不限仓            | object  | -  |
-| 大宗交易最小规模                  | object  | -  |
-| 是否受CESR监管                 | object  | -  |
-| 是否为灵活合约                   | object  | -  |
-| 上市周期该产品的所有合约月份            | object  | -  |
-| 交割通知日                     | object  | -  |
-| 第一交易日                     | object  | -  |
-| 最后交易日待国家公布2025年节假日安排后进行调整 | object  | -  |
-| 交割结算日                     | object  | -  |
-| 月份代码                      | object  | -  |
-| 年份代码                      | object  | -  |
-| 最后交割日                     | object  | -  |
+| 产品名称                      | str     | -  |
+| 合约代码                      | str     | -  |
+| 产品代码                      | str     | -  |
+| 产品类型                      | str     | -  |
+| 交易所MIC编码                  | str     | -  |
+| 交易场所                      | str     | -  |
+| 交易时间节假日除外                 | str     | -  |
+| 交易国家ISO编码                 | str     | -  |
+| 交易币种ISO编码                 | str     | -  |
+| 结算币种ISO编码                 | str     | -  |
+| 到期时间待国家公布2025年节假日安排后进行调整  | str     | -  |
+| 结算方式                      | str     | -  |
+| 挂牌频率                      | str     | -  |
+| 最小变动价位                    | str     | -  |
+| 最小变动价值                    | str     | -  |
+| 交易单位                      | str     | -  |
+| 计量单位                      | str     | -  |
+| 最大下单量                     | str     | -  |
+| 日持仓限额期货公司会员不限仓            | str     | -  |
+| 大宗交易最小规模                  | str     | -  |
+| 是否受CESR监管                 | str     | -  |
+| 是否为灵活合约                   | str     | -  |
+| 上市周期该产品的所有合约月份            | str     | -  |
+| 交割通知日                     | str     | -  |
+| 第一交易日                     | str     | -  |
+| 最后交易日待国家公布2025年节假日安排后进行调整 | str     | -  |
+| 交割结算日                     | str     | -  |
+| 月份代码                      | str     | -  |
+| 年份代码                      | str     | -  |
+| 最后交割日                     | str     | -  |
 | 车（船）板最后交割日                | object  | -  |
-| 合约交割月份本合约交割月份             | object  | -  |
-| 交易保证金率                    | object  | -  |
-| 涨跌停板                      | object  | -  |
-| 费用币种ISO编码                 | object  | -  |
+| 合约交割月份本合约交割月份             | str     | -  |
+| 交易保证金率                    | str     | -  |
+| 涨跌停板                      | str     | -  |
+| 费用币种ISO编码                 | str     | -  |
 | 交易手续费                     | float64 | -  |
-| 手续费收取方式                   | object  | -  |
+| 手续费收取方式                   | str     | -  |
 | 交割手续费                     | float64 | -  |
 | 平今仓手续费                    | float64 | -  |
 | 交易限额                      | float64 | -  |
@@ -2394,8 +2394,8 @@ print(futures_contract_info_czce_df)
 
 | 名称     | 类型     | 描述 |
 |--------|--------|----|
-| 品种     | object | -  |
-| 合约代码   | object | -  |
+| 品种     | str    | -  |
+| 合约代码   | str    | -  |
 | 交易单位   | int64  | -  |
 | 最小变动单位 | int64  | -  |
 | 开始交易日  | object | -  |
@@ -2457,17 +2457,17 @@ print(futures_contract_info_gfex_df)
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
-| 合约代码  | object  | -  |
-| 合约月份  | object  | -  |
+| 合约代码  | str     | -  |
+| 合约月份  | str     | -  |
 | 挂盘基准价 | float64 | -  |
 | 上市日   | object  | -  |
 | 最后交易日 | object  | -  |
-| 涨停板幅度 | object  | -  |
-| 跌停板幅度 | object  | -  |
+| 涨停板幅度 | str     | -  |
+| 跌停板幅度 | str     | -  |
 | 涨停板价位 | float64 | -  |
 | 跌停板价位 | float64 | -  |
 | 持仓限额  | int64   | -  |
-| 品种    | object  | -  |
+| 品种    | str     | -  |
 | 查询交易日 | object  | -  |
 
 接口示例
@@ -2513,7 +2513,7 @@ print(futures_contract_info_cffex_df)
 
 | 名称             | 类型  | 描述                                                    |
 |----------------|-----|-------------------------------------------------------|
-| subscribe_list | str | 需要订阅的合约代码；e.g.，按照示例获取                               |
+| symbol         | str | symbol="V2309"；合约代码，多个合约用英文逗号分隔，如 "V2205, P2205"    |
 | market         | str | market="CF"; market="CF": 商品期货，market="FF": 金融期货     |
 | adjust         | str | adjust='0'; adjust='1': 返回合约、交易所和最小变动单位的实时数据，返回数据会变慢 |
 
@@ -2521,8 +2521,8 @@ print(futures_contract_info_cffex_df)
 
 | 名称                | 类型      | 描述                            |
 |-------------------|---------|-------------------------------|
-| symbol            | object  | 品种                            |
-| time              | object  | 时间，e.g., 144050表示下午14点40分50秒 |
+| symbol            | str     | 品种                            |
+| time              | str     | 时间，e.g., 144050表示下午14点40分50秒 |
 | open              | float64 | 开盘                            |
 | high              | float64 | 高                             |
 | low               | float64 | 低                             |
@@ -2705,9 +2705,9 @@ while True:
 
 | 名称             | 类型      | 描述     |
 |----------------|---------|--------|
-| symbol         | object  | 合约代码   |
-| exchange       | object  | 交易所    |
-| name           | object  | 合约中文名称 |
+| symbol         | str     | 合约代码   |
+| exchange       | str     | 交易所    |
+| name           | str     | 合约中文名称 |
 | trade          | float64 | 最新价    |
 | settlement     | float64 | 动态结算   |
 | presettlement  | float64 | 昨日结算   |
@@ -2721,8 +2721,8 @@ while True:
 | askvol1        | int64   | 卖量     |
 | volume         | int64   | 成交量    |
 | position       | int64   | 持仓量    |
-| ticktime       | object  | 时间     |
-| tradedate      | object  | 日期     |
+| ticktime       | str     | 时间     |
+| tradedate      | str     | 日期     |
 | preclose       | float64 | 前收盘价   |
 | changepercent  | float64 | 涨跌幅    |
 | bid            | float64 | -      |
@@ -2806,7 +2806,7 @@ print(big_df)
 
 | 名称       | 类型      | 描述  |
 |----------|---------|-----|
-| datetime | object  | -   |
+| datetime | str     | -   |
 | open     | float64 | -   |
 | high     | float64 | -   |
 | low      | float64 | -   |
@@ -2922,7 +2922,7 @@ print(futures_hist_em_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| date   | object  | -   |
+| date   | str     | -   |
 | open   | float64 | 开盘价 |
 | high   | float64 | 最高价 |
 | low    | float64 | 最低价 |
@@ -2991,7 +2991,7 @@ print(futures_zh_daily_sina_df)
 
 目标地址：各交易所网站
 
-描述：提供各交易所各品种的网站的历史行情数据，其中 20040625, 20070604, 20081226, 20090119 原网页数据缺失
+描述：提供各交易所各品种的网站的历史行情数据，其中 20040625, 20070604, 20081226, 20090119 原网页数据缺失；其中 market="DCE"（大连商品交易所）目前因瑞数反爬虫验证无法获取数据（HTTP 412），详见[常见问题](https://akshare.akfamily.xyz/answer.html)
 
 限量：单次返回指定时间段指定交易所的所有期货品种历史数据
 
@@ -3009,15 +3009,15 @@ print(futures_zh_daily_sina_df)
 |---------------|-------|------|
 | symbol        | str   | 合约   |
 | date          | str   | 交易日  |
-| open          | float | 开盘价  |
-| high          | float | 最高价  |
-| low           | float | 最低价  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
 | close         | str   | 收盘价  |
 | volume        | str   | 成交量  |
 | open_interest | str   | 持仓量  |
-| turnover      | float | 成交额  |
-| settle        | float | 结算价  |
-| pre_settle    | float | 前结算价 |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
 | variety       | str   | 品种   |
 
 接口示例
@@ -3135,8 +3135,8 @@ print(futures_settle_df)
 
 | 名称     | 类型     | 描述  |
 |--------|--------|-----|
-| symbol | object | -   |
-| code   | object | -   |
+| symbol | str    | -   |
+| code   | str    | -   |
 
 接口示例
 
@@ -3211,8 +3211,8 @@ print(futures_hq_subscribe_exchange_symbol_df)
 | 持仓量   | float64 | -   |
 | 买价    | float64 | -   |
 | 卖价    | float64 | -   |
-| 行情时间  | object  | -   |
-| 日期    | object  | -   |
+| 行情时间  | str     | -   |
+| 日期    | str     | -   |
 
 接口示例-传入字符串
 
@@ -3303,7 +3303,7 @@ while True:
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
 | 序号  | int64   | -       |
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 最新价 | float64 | -       |
 | 涨跌额 | float64 | -       |
@@ -3365,7 +3365,7 @@ print(futures_global_spot_em_df)
 | 名称  | 类型      | 描述      |
 |-----|---------|---------|
 | 日期  | object  | -       |
-| 代码  | object  | -       |
+| 代码  | str     | -       |
 | 名称  | object  | -       |
 | 开盘  | float64 | -       |
 | 最新价 | float64 | -       |
@@ -3373,7 +3373,7 @@ print(futures_global_spot_em_df)
 | 最低  | float64 | -       |
 | 总量  | int64   | -       |
 | 涨幅  | float64 | 注意单位：% |
-| 持仓  | object  | -       |
+| 持仓  | str     | -       |
 | 日增  | int64   | -       |
 
 接口示例
@@ -3423,7 +3423,7 @@ print(futures_global_hist_em_df)
 
 | 名称     | 类型      | 描述  |
 |--------|---------|-----|
-| date   | object  | 交易日 |
+| date   | datetime64[us] | 交易日 |
 | open   | float64 | 开盘价 |
 | high   | float64 | 最高价 |
 | low    | float64 | 最低价 |
@@ -3529,7 +3529,7 @@ print(futures_foreign_detail_df)
 | 名称     | 类型      | 描述     |
 |--------|---------|--------|
 | DATE   | int64   | 日期     |
-| COM    | object  | 品种代码   |
+| COM    | str     | 品种代码   |
 | COM_MM | int64   | 品种到期月份 |
 | COM_YY | int64   | 品种年份   |
 | OPEN   | float64 | 开盘价    |
@@ -3539,7 +3539,7 @@ print(futures_foreign_detail_df)
 | SETTLE | float64 | 结算价    |
 | VOLUME | int64   | 交易量    |
 | OINT   | int64   | 未平仓合约  |
-| SERIES | object  | 合约代码   |
+| SERIES | str     | 合约代码   |
 
 接口示例
 
@@ -3824,8 +3824,8 @@ print(futures_display_main_sina_df)
 
 | 名称    | 类型     | 描述       |
 |-------|--------|----------|
-| item  | object | 合约具体的项目  |
-| value | object | 合约具体的项目值 |
+| item  | str    | 合约具体的项目  |
+| value | str    | 合约具体的项目值 |
 
 接口示例
 
@@ -3877,8 +3877,8 @@ print(futures_contract_detail_df)
 
 | 名称    | 类型     | 描述       |
 |-------|--------|----------|
-| item  | object | 合约具体的项目  |
-| value | object | 合约具体的项目值 |
+| item  | str    | 合约具体的项目  |
+| value | str    | 合约具体的项目值 |
 
 接口示例
 
@@ -3933,7 +3933,7 @@ print(futures_contract_detail_em_df)
 | 名称   | 类型      | 描述 |
 |------|---------|----|
 | 日期   | object  | -  |
-| 指数代码 | object  | -  |
+| 指数代码 | str     | -  |
 | 收盘点位 | float64 | -  |
 | 结算点位 | float64 | -  |
 | 涨跌   | float64 | -  |
@@ -3986,7 +3986,7 @@ print(futures_index_ccidx_df)
 
 | 名称     | 类型      | 描述        |
 |--------|---------|-----------|
-| 商品名称   | object  | -         |
+| 商品名称   | str     | -         |
 | 近5月    | float64 | 注意：具体的日期 |
 | 近4月    | float64 | 注意：具体的日期 |
 | 近3月    | float64 | 注意：具体的日期 |
@@ -3994,8 +3994,8 @@ print(futures_index_ccidx_df)
 | 近1月    | float64 | 注意：具体的日期 |
 | 最新价    | float64 | -         |
 | 近半年涨跌幅 | float64 | 注意单位：%   |
-| 生产商    | object  | 注意：字符串组成 |
-| 下游用户   | object  | 注意：字符串组成 |
+| 生产商    | str     | 注意：字符串组成 |
+| 下游用户   | str     | 注意：字符串组成 |
 
 接口示例
 
@@ -4300,8 +4300,8 @@ print(index_hog_spot_price_df)
 
 | 名称   | 类型     | 描述  |
 |------|--------|-----|
-| 发布时间 | object | -   |
-| 内容   | object | -   |
+| 发布时间 | datetime64[ms, Asia/Shanghai] | -   |
+| 内容   | str    | -   |
 
 接口示例
 

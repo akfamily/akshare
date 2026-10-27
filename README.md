@@ -34,7 +34,15 @@ aims to simplify the process of fetching financial data.
 
 ## Installation
 
-### General
+### uv (Recommended)
+
+```shell
+uv pip install akshare --upgrade
+```
+
+See the [uv environment guide](https://akshare.akfamily.xyz/uv.html) for installing uv and creating a virtual environment.
+
+### pip
 
 ```shell
 pip install akshare --upgrade
@@ -43,7 +51,9 @@ pip install akshare --upgrade
 ### China
 
 ```shell
-pip install akshare -i https://mirrors.aliyun.com/pypi/simple/ --upgrade
+uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.cn/simple
+# or
+pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### Docker
@@ -189,7 +199,7 @@ opening a pull request.
 4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
 6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
-7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.readthedocs.io/).
+7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.akfamily.xyz/).
 
 ## Show your style
 
@@ -251,7 +261,7 @@ Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagoboot
 
 Thanks for the data provided by [上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
 
-Thanks for the data provided by [深证证券交易所网站](http://www.szse.cn/);
+Thanks for the data provided by [深圳证券交易所网站](http://www.szse.cn/);
 
 Thanks for the data provided by [北京证券交易所网站](http://www.bse.cn/);
 

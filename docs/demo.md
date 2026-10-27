@@ -247,7 +247,7 @@ Finished backtest: 0:00:03
 [Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/akfamily/akshare) 的
 基础上，我们只需要 `pip install backtrader` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
 环境配置，请参考 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下
-载安装，由于源码安装比较繁琐，建议直接通过 `pip` 或 `conda` 来安装和使用。需要注意的是如果要输出图形，请安装 `pip install matplotlib==3.2.2`
+载安装，由于源码安装比较繁琐，建议直接通过 `pip` 或 `uv pip` 来安装和使用。如果要输出图形，还需要安装 `pip install matplotlib`
 
 ## Backtrader 系列教程
 
@@ -264,7 +264,7 @@ Finished backtest: 0:00:03
 from datetime import datetime
 
 import backtrader as bt  # 升级到最新版
-import matplotlib.pyplot as plt  # 由于 Backtrader 的问题，此处要求 pip install matplotlib==3.2.2
+import matplotlib.pyplot as plt
 import akshare as ak  # 升级到最新版
 import pandas as pd
 
@@ -366,7 +366,7 @@ from datetime import datetime
 
 import akshare as ak
 import backtrader as bt
-import matplotlib.pyplot as plt  # 由于 Backtrader 的问题，此处要求 pip install matplotlib==3.2.2
+import matplotlib.pyplot as plt
 import pandas as pd
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 设置画图时的中文显示

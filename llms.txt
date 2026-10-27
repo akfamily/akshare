@@ -13,7 +13,9 @@ top-level package.
 
 ## Install
 
-Use pip:
+Use uv (recommended) or pip:
+
+`uv pip install akshare --upgrade`
 
 `pip install akshare --upgrade`
 
@@ -157,7 +159,7 @@ Representative examples:
 - `ak.bond_zh_hs_cov_spot()`
 - `ak.macro_china_cpi()`
 - `ak.news_cctv()`
-- `ak.crypto_hist(...)`
+- `ak.crypto_js_spot()`
 
 ## Project Structure
 
