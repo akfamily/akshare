@@ -7,6 +7,16 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 - 查找接口：使用 :doc:`registry`，或浏览 :doc:`data/index`
 - 遇到问题：查看 :doc:`answer`，或在 `GitHub Issues <https://github.com/akfamily/akshare/issues>`_ 中反馈
 
+.. admonition:: 关注微信公众号【数据科学实战】
+   :class: tip
+
+   获取更多财经数据与量化投研知识，微信扫码或搜索“数据科学实战”即可关注。
+
+   .. image:: images/qrcode/ds.png
+      :width: 400px
+      :align: center
+      :alt: 微信公众号【数据科学实战】二维码
+
 .. toctree::
    :maxdepth: 1
    :caption: 入门
@@ -54,10 +64,3 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 .. note::
 
    推荐高性能量化投研框架 AKQuant，欢迎使用：https://github.com/akfamily/akquant
-
-   推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
-
-.. image:: images/qrcode/ds.png
-   :width: 400px
-   :align: center
-   :alt: WeChat QR code
