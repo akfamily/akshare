@@ -18,13 +18,13 @@ AKShare 数据字典
     fund/fund_public
     index/index
     macro/macro
-    dc/dc
+    crypto/crypto
     bank/bank
-    article/article
+    research/research
     energy/energy
-    event/event
-    hf/hf
+    migration/migration
+    high_freq/high_freq
     nlp/nlp
     qdii/qdii
-    others/others
-    tool/tool
+    alternative/alternative
+    calendar/calendar

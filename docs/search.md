@@ -192,33 +192,29 @@ print(list_categories_df)
 数据示例
 
 ```
-                    类目  接口数
-0              article    7
-1                 bank    1
-2                 bond   44
-3                  cal    3
-4             currency    5
-5                   dc    3
-6               energy    8
-7                event    2
-8                 fund   90
-9              futures   83
-10  futures_derivative    1
-11                  fx   11
-12                  hf    1
-13               index   94
-14       interest_rate   14
-15               macro  215
-16                 nlp    1
-17              option   46
-18              others   34
-19                qdii    3
-20               reits    1
-21                spot   15
-22               stock  388
-23       stock_feature    6
-24   stock_fundamental    4
-25                tool    1
+               类目  接口数
+0     alternative   34
+1            bank    1
+2            bond   44
+3        calendar    1
+4          crypto    3
+5        currency    5
+6          energy    8
+7            fund   91
+8         futures   84
+9              fx   11
+10      high_freq    1
+11          index   94
+12      indicator    3
+13  interest_rate   14
+14          macro  215
+15      migration    2
+16            nlp    1
+17         option   46
+18           qdii    3
+19       research    7
+20           spot   15
+21          stock  398
 ```
 
 ## 能力边界

@@ -88,24 +88,24 @@ Recommended workflow:
 
 ## Major Categories
 
-Common data categories include:
+Common data categories include (these are the `category` values accepted by
+`ak.search()`; run `ak.list_categories()` for the full list):
 
-- `stock`: stock market data, including A-share, Hong Kong stocks, U.S.
-  stocks, spot data, historical data, and stock information
-- `stock_feature`: rankings, capital flow, margin trading, technical data, and
-  market feature datasets
-- `stock_fundamental`: company fundamentals, financial statements, equity
-  structure, and disclosures
-- `fund`: public fund data, ETFs, rankings, holdings, managers, and net value
+- `stock`: stock market data, including A-share, Hong Kong and U.S. stocks,
+  quotes, fundamentals, capital flow, shareholders and research
+- `fund`: public and private fund data, ETFs, REITs, holdings and net value
 - `futures`: domestic and global futures market data
 - `option`: option market data
 - `bond`: bond and convertible bond data
 - `index`: market index data
-- `forex` and `fx`: foreign exchange data
-- `macro` and `economic`: macroeconomic and statistical data
-- `news`: financial news and information
+- `macro`: macroeconomic data for China, the U.S. and other economies
+- `fx` and `currency`: foreign exchange and currency conversion data
+- `interest_rate`: interest rate data
 - `crypto`: cryptocurrency market data
-- `tool`: trading calendar and utility datasets
+- `alternative`: alternative data such as box office, car sales and air quality
+- `research`: academic research datasets such as realized volatility and FRED-MD
+- `indicator`: quantitative indicators computed from market data
+- `calendar`: trading calendar
 
 ## Naming Conventions
 

@@ -77,6 +77,13 @@ redirects = {
     "data_tips": "faq.html#known-data-issues",
     "special": "acknowledgements.html",
     "dependency": "contributing.html",
+    # 1.19.7 数据字典类目目录改名
+    "data/dc/dc": "../crypto/crypto.html",
+    "data/event/event": "../migration/migration.html",
+    "data/article/article": "../research/research.html",
+    "data/others/others": "../alternative/alternative.html",
+    "data/tool/tool": "../calendar/calendar.html",
+    "data/hf/hf": "../high_freq/high_freq.html",
 }
 
 # 复制时去掉交互式提示符，粘贴后可以直接运行

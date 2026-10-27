@@ -89,6 +89,13 @@
 
 ## 更新说明详情
 
+1.19.7 refactor!: rename interface categories
+
+    1. 统一 `ak.search()`、`ak.interface_info()`、`ak.list_categories()` 中的类目名，不兼容旧类目名：dc 改为 crypto，event 改为 migration，article 改为 research，others 改为 alternative，tool 改为 calendar，hf 改为 high_freq
+    2. 没有文档条目的接口不再按代码子包单独成类：stock_feature、stock_fundamental 并入 stock，futures_derivative 并入 futures，reits 并入 fund，cal 改为 indicator；类目数由 25 个减为 22 个
+    3. 接口函数名不变；按旧类目名传入 `category=` 会返回空表，请改用新类目名
+    4. 数据字典对应页面的网址随目录改名，旧网址自动跳转
+
 1.19.6 remove: remove nlp_ownthink interface
 
     1. 移除思知知识图谱接口 nlp_ownthink：思知网站已下线知识图谱 API，请求会被重定向到网站首页，接口报 `JSONDecodeError`

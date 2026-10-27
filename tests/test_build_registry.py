@@ -306,8 +306,13 @@ def test_merge_uses_exports_as_primary_key():
 def test_merge_infers_category_from_module_when_undocumented():
     exports = {"no_doc_func": "akshare.stock_feature.stock_info"}
     records = merge_records(exports, {})
-    assert records[0]["category"] == "stock_feature"
+    assert records[0]["category"] == "stock"
     assert records[0]["desc"] is None
+
+
+def test_merge_keeps_package_name_when_not_mapped():
+    records = merge_records({"no_doc_func": "akshare.bond.bond_info"}, {})
+    assert records[0]["category"] == "bond"
 
 
 def test_serialize_is_deterministic():
