@@ -1,0 +1,26 @@
+/* 右侧栏的公众号二维码，见 _templates/wechat.html */
+.ak-wechat {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--pst-color-border);
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.ak-wechat-title {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.ak-wechat img {
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.ak-wechat-desc {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--pst-color-text-muted);
+}

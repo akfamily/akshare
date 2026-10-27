@@ -105,7 +105,24 @@ html_theme_options = {
     ],
     "footer_start": ["copyright", "last-updated"],
     "footer_end": ["sphinx-version", "theme-version"],
+    # 右侧栏顶部放公众号二维码（_templates/wechat.html）。首页正文已有大图，不再重复
+    "secondary_sidebar_items": {
+        "**": ["wechat", "page-toc", "sourcelink"],
+        "index": ["page-toc", "sourcelink"],
+    },
+    # 设置 logo 图片后主题默认不再显示站点标题，需显式给出文字
+    "logo": {
+        "image_light": "_static/akshare_icon.png",
+        "image_dark": "_static/akshare_icon.png",
+        "text": f"AKShare {version} 文档",
+    },
 }
+
+# 图标取自 assets/images/akshare_logo.jpg 左侧的方形标志，线条加粗后缩小，
+# 否则原图的细线在 16/32 像素下几乎看不见
+html_favicon = "_static/favicon.ico"
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # 左侧“章节导航”只列出当前页面下级的页面。数据字典以外的页面都没有下级页面，
 # 侧栏会只剩一个空标题，因此对这些页面直接去掉侧栏，把宽度留给正文。
