@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 贡献源码
+# AKShare 贡献源码
 
 ## 贡献指南
 

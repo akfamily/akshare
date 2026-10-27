@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 实盘交易
+# AKShare 实盘交易
 
 ## 证券实盘
 

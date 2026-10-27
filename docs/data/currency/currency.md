@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 货币数据
+# AKShare 货币数据
 
 ## 货币报价最新数据
 

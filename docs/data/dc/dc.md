@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 加密货币数据
+# AKShare 加密货币数据
 
 ## 实时数据
 

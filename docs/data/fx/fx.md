@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 外汇数据
+# AKShare 外汇数据
 
 ## 实时行情数据
 

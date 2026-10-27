@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) HTTP 部署
+# AKShare HTTP 部署
 
 ## 说明
 

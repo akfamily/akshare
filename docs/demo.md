@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 策略示例
+# AKShare 策略示例
 
 本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
 调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
@@ -244,8 +244,8 @@ Finished backtest: 0:00:03
 
 ### Backtrader 下载和安装
 
-[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/akfamily/akshare) 的
-基础上，我们只需要 `pip install backtrader` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
+[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 AKShare 的
+基础上，我们只需要 `pip install backtrader` 就可以实现一键安装。如果需要了解 AKShare 的
 环境配置，请参考 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下
 载安装，由于源码安装比较繁琐，建议直接通过 `pip` 或 `uv pip` 来安装和使用。如果要输出图形，还需要安装 `pip install matplotlib`
 

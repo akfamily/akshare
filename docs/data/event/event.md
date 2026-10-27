@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 迁徙数据
+# AKShare 迁徙数据
 
 ## 迁徙数据-百度
 

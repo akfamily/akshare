@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 利率数据
+# AKShare 利率数据
 
 ## 主要央行利率
 

@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 能源数据
+# AKShare 能源数据
 
 ## 碳排放
 

@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 版本更新
+# AKShare 版本更新
 
 ## 接口更名一览表
 

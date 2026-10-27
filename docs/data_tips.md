@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 数据说明
+# AKShare 数据说明
 
 ## 专栏介绍
 

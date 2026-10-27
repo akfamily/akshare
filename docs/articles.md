@@ -1,7 +1,7 @@
-# [AKShare](https://github.com/akfamily/akshare) 相关文章
+# AKShare 相关文章
 
 本专栏主要展示利用 [AKShare](https://github.com/akfamily/akshare) 进行数据获取、分析和案例展示相关的文章，
-供大家参考和更好的使用 [AKShare](https://github.com/akfamily/akshare) ！
+供大家参考和更好的使用 AKShare ！
 
 ## AKShare 的评价
 

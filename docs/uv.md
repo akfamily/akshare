@@ -1,10 +1,10 @@
-# [AKShare](https://github.com/akfamily/akshare) uv 环境配置
+# AKShare uv 环境配置
 
 ## uv 简介
 
-[uv](https://docs.astral.sh/uv/) 是 Astral 开发的 Python 包与项目管理工具，可以安装 Python、创建虚拟环境并安装依赖，速度快且不依赖其他工具，[AKShare](https://github.com/akfamily/akshare) 项目本身也使用 uv 进行开发。推荐使用 uv 来配置 [AKShare](https://github.com/akfamily/akshare) 的运行环境。
+[uv](https://docs.astral.sh/uv/) 是 Astral 开发的 Python 包与项目管理工具，可以安装 Python、创建虚拟环境并安装依赖，速度快且不依赖其他工具，[AKShare](https://github.com/akfamily/akshare) 项目本身也使用 uv 进行开发。推荐使用 uv 来配置 AKShare 的运行环境。
 
-如果需要在 R 语言或 MATLAB 中调用 [AKShare](https://github.com/akfamily/akshare)，先按本文的“方式一：虚拟环境”创建好环境，再参考 [R 语言调用支持](https://akshare.akfamily.xyz/installation.html#r) 和 [MATLAB 调用支持](https://akshare.akfamily.xyz/installation.html#matlab)。
+如果需要在 R 语言或 MATLAB 中调用 AKShare，先按本文的“方式一：虚拟环境”创建好环境，再参考 [R 语言调用支持](https://akshare.akfamily.xyz/installation.html#r) 和 [MATLAB 调用支持](https://akshare.akfamily.xyz/installation.html#matlab)。
 
 ## 安装 uv
 
@@ -36,7 +36,7 @@ pip install uv -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ## 安装 Python
 
-[AKShare](https://github.com/akfamily/akshare) 支持 Python 3.11 及以上版本，推荐使用 Python 3.13：
+AKShare 支持 Python 3.11 及以上版本，推荐使用 Python 3.13：
 
 ```
 uv python install 3.13
@@ -46,7 +46,7 @@ uv python install 3.13
 
 ## 方式一：虚拟环境
 
-该方式与直接使用 pip 最接近，适合在命令行或 JupyterLab 中直接使用 [AKShare](https://github.com/akfamily/akshare)，推荐新手使用。
+该方式与直接使用 pip 最接近，适合在命令行或 JupyterLab 中直接使用 AKShare，推荐新手使用。
 
 1. 创建并进入工作目录，在其中创建 Python 3.13 的虚拟环境：
 
@@ -68,7 +68,7 @@ macOS 和 Linux 中运行：
 source .venv/bin/activate
 ```
 
-3. 在虚拟环境中安装并更新 [AKShare](https://github.com/akfamily/akshare)：
+3. 在虚拟环境中安装并更新 AKShare：
 
 ```
 uv pip install akshare --upgrade
@@ -97,7 +97,7 @@ jupyter lab
 
 该方式适合编写量化研究代码、需要固定依赖版本的场景。uv 会在 `pyproject.toml` 和 `uv.lock` 中记录依赖及其版本，便于在其他计算机上复现相同的环境。
 
-1. 创建项目并添加 [AKShare](https://github.com/akfamily/akshare)：
+1. 创建项目并添加 AKShare：
 
 ```
 uv init ak_project --python 3.13
@@ -117,7 +117,7 @@ uv add akshare --default-index https://pypi.tuna.tsinghua.edu.cn/simple
 uv run python your_script.py
 ```
 
-3. 升级 [AKShare](https://github.com/akfamily/akshare) 到最新版本：
+3. 升级 AKShare 到最新版本：
 
 ```
 uv add akshare --upgrade-package akshare
@@ -154,4 +154,4 @@ export UV_DEFAULT_INDEX="https://pypi.tuna.tsinghua.edu.cn/simple"
 
 ### 导入 AKShare 失败
 
-运行代码时，文件名、文件夹名不能是 akshare，否则会与 [AKShare](https://github.com/akfamily/akshare) 本身冲突导致导入失败。
+运行代码时，文件名、文件夹名不能是 akshare，否则会与 AKShare 本身冲突导致导入失败。

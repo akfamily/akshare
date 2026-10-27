@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 自然语言处理
+# AKShare 自然语言处理
 
 ## 知识图谱
 

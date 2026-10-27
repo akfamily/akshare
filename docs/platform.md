@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 量化专题
+# AKShare 量化专题
 
 ## 开源平台
 

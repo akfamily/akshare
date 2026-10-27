@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 现货数据
+# AKShare 现货数据
 
 ## 99 现货走势
 

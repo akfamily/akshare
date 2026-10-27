@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare/) 快速入门
+# AKShare 快速入门
 
 ## 查找接口
 

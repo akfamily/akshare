@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 答疑专栏
+# AKShare 答疑专栏
 
 ## 专栏介绍
 

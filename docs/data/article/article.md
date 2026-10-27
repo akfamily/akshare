@@ -1,6 +1,6 @@
-# [AKShare](https://github.com/akfamily/akshare) 论文数据
+# AKShare 论文数据
 
-## [AKShare](https://github.com/akfamily/akshare) 波动率数据
+## AKShare 波动率数据
 
 ### 已实现波动率数据
 
@@ -163,7 +163,7 @@ print(article_rlab_rv_df)
 2019-11-08    0.199549
 ```
 
-## [AKShare](https://github.com/akfamily/akshare) 多因子数据
+## AKShare 多因子数据
 
 ### Current Research Returns
 
@@ -238,7 +238,7 @@ print(article_ff_crr_df)
 [32 rows x 4 columns]
 ```
 
-## [AKShare](https://github.com/akfamily/akshare) 政策不确定性数据
+## AKShare 政策不确定性数据
 
 ### 国家和地区指数
 
