@@ -62,7 +62,22 @@ release = get_version_string()
 # Markdown 表格，而 myst_parser 原生渲染 GFM 表格（本文档有 16000+ 行表格）。
 # sphinx_copybutton：代码块右上角的复制按钮，与 pandas 文档相同。
 # sphinx_design：首页的卡片布局（grid / grid-item-card），与 pandas 文档首页相同。
-extensions = ["myst_parser", "sphinx_copybutton", "sphinx_design"]
+# sphinx_reredirects：为改名或删除的页面生成跳转页，旧链接继续可用，无需在 Read the Docs 后台配置。
+extensions = ["myst_parser", "sphinx_copybutton", "sphinx_design", "sphinx_reredirects"]
+
+# 旧页面名 -> 新网址（相对于旧页面所在目录）。只增不减：删掉一条，对应的旧链接就会 404。
+redirects = {
+    "anaconda": "uv.html",
+    "registry": "search.html",
+    "answer": "faq.html",
+    "demo": "backtest.html",
+    "platform": "quant_platforms.html",
+    "deploy_http": "aktools.html",
+    "akdocker/akdocker": "../docker.html",
+    "data_tips": "faq.html#known-data-issues",
+    "special": "acknowledgements.html",
+    "dependency": "contributing.html",
+}
 
 # 复制时去掉交互式提示符，粘贴后可以直接运行
 copybutton_prompt_text = r">>> |\.\.\. |\$ "
@@ -132,7 +147,7 @@ html_css_files = ["custom.css"]
 _DOCS_DIR = pathlib.Path(__file__).parent
 html_sidebars = {
     page.relative_to(_DOCS_DIR).with_suffix("").as_posix(): []
-    for page in [*_DOCS_DIR.glob("*.md"), *_DOCS_DIR.glob("akdocker/*.md")]
+    for page in _DOCS_DIR.glob("*.md")
 }
 
 # 页脚显示文档构建日期。每次推送 main 都会触发 Read the Docs 重新构建，

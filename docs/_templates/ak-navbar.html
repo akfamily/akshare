@@ -6,8 +6,8 @@
     ("tutorial", "快速入门"),
     ("installation", "安装指导"),
     ("uv", "uv 环境配置"),
-    ("registry", "接口检索"),
-    ("answer", "常见问题"),
+    ("search", "接口检索"),
+    ("faq", "常见问题"),
     ("introduction", "项目概览"),
   ]),
   ("数据字典", [
@@ -19,21 +19,19 @@
     ("data/fund/fund_public", "公募基金数据"),
     ("data/index/index", "指数数据"),
     ("data/macro/macro", "宏观数据"),
-    ("data_tips", "数据说明"),
   ]),
   ("进阶", [
-    ("indicator", "指标计算"),
-    ("demo", "策略示例"),
-    ("platform", "量化专题"),
-    ("deploy_http", "HTTP 部署"),
-    ("akdocker/akdocker", "Docker 部署"),
+    ("backtest", "策略回测"),
+    ("indicator", "量化指标"),
+    ("quant_platforms", "量化平台"),
+    ("aktools", "HTTP API（AKTools）"),
+    ("docker", "Docker 部署"),
     ("articles", "相关文章"),
   ]),
   ("项目", [
     ("changelog", "更新日志"),
     ("contributing", "贡献指南"),
-    ("dependency", "依赖说明"),
-    ("special", "特别说明"),
+    ("acknowledgements", "致谢与声明"),
   ]),
 ] -%}
 {%- macro is_active(target) -%}

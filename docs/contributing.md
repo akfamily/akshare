@@ -1,4 +1,4 @@
-# AKShare 贡献源码
+# AKShare 贡献指南
 
 ## 贡献指南
 
@@ -41,8 +41,8 @@
 ### 文档撰写规范
 
 1. 在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新；
-2. 具体的接口文档路径（以股票接口的文档为例）为：akshare->docs->data->stock->stock.md，其中 stock 表示股票文件夹，stock.md 为具体的 Markdown 文件，需要在 stock.md 中对相应的接口文档进行修改或新增；
-3. 每个接口使用三级标题（`###`），放在对应的二级标题（`##`）分类下面，标题层级不能跳级；
+2. 接口文档位于 `docs/data/类目/` 目录下，一般每个类目一个 Markdown 文件，例如期货接口在 `docs/data/futures/futures.md`；股票和宏观数据按主题拆分为多个文件，例如股票行情接口在 `docs/data/stock/stock_quote.md`，请放到主题对应的文件中；目录名就是 `ak.search()` 中的类目名，不能修改；
+3. 每个接口使用三级标题（`###`），放在对应的二级标题（`##`）分类下面，标题层级不能跳级；标题前一行写 `(接口名)=` 作为固定锚点，例如 `(stock_zh_a_minute)=`，缺少时 CI 会报错；
 4. 以股票分时数据接口文档为例：
    1. 主要包含以下部分内容：
       1. 接口：填写具体的接口名称
@@ -57,6 +57,7 @@
    2. 示例如下：
 
 ````markdown
+(stock_zh_a_minute)=
 ### 分时数据-新浪
 
 接口：stock_zh_a_minute
@@ -114,6 +115,13 @@ print(stock_zh_a_minute_df)
 [1970 rows x 7 columns]
 ```
 ````
+
+### 依赖选择说明
+
+依赖及版本要求以 `pyproject.toml` 为准，这里说明两个关键依赖的选型原因：
+
+1. mini-racer：用于执行数据源网页中的 JavaScript 解密代码。Windows 和 macOS 上安装 [mini-racer](https://pypi.org/project/mini-racer/)（>=0.12.4），Linux 上安装 [py-mini-racer](https://pypi.org/project/py-mini-racer/)（>=0.6.0）和 [akracer](https://pypi.org/project/akracer/)（>=0.0.13），由 pip 按平台自动选择。没有选用 PyExecJS，因为它自 2018 年起停止维护；也没有选用 Js2Py，因为它运行部分 JavaScript 代码时不稳定
+2. pandas：用于采集后的数据清洗，要求 >=2.0.0，推荐使用最新版，AKShare 会优先支持最新版本
 
 ## 声明
 

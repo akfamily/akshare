@@ -78,7 +78,7 @@ print(ak.interface_info("bond_zh_hs_cov_min"))
 print(ak.list_categories())
 ```
 
-检索完全在本地进行，不发起网络请求。传入完整接口名时，该接口一定排在第一位，因此也适合用来确认一个记不全的接口名。需要注意这是关键词匹配而非语义检索，详见 [AKShare 接口检索](registry.md)。
+检索完全在本地进行，不发起网络请求。传入完整接口名时，该接口一定排在第一位，因此也适合用来确认一个记不全的接口名。需要注意这是关键词匹配而非语义检索，详见 [AKShare 接口检索](search.md)。
 
 也可以直接浏览 [AKShare 数据字典](data/index.rst)，它按股票、期货、基金、宏观等类目列出了全部接口。
 
@@ -88,11 +88,11 @@ AKShare 从各网站实时采集数据，接口报错大多与数据源有关，
 
 1. 升级到最新版本：`pip install akshare --upgrade`
 2. 出现超时或连接被断开时，稍后重试并降低访问频率；数据源对频繁访问会限流或断开连接
-3. 在 [AKShare 答疑专栏](answer.md) 中查找相同的报错
+3. 在 [AKShare 常见问题](faq.md) 中查找相同的报错
 4. 仍无法解决时，在 [GitHub Issues](https://github.com/akfamily/akshare/issues) 中反馈，并附上 AKShare 版本号（`ak.__version__`）、完整的报错信息和调用代码
 
 ## 下一步
 
 - [AKShare 数据字典](data/index.rst)：全部接口的详细说明
-- [AKShare 策略示例](demo.md)：结合 backtrader 等工具的完整案例
-- [AKShare HTTP 部署](deploy_http.md)：在 Python 以外的语言中使用 AKShare
+- [AKShare 策略回测](backtest.md)：结合 AKQuant、Backtrader 等框架的回测案例
+- [AKShare HTTP API（AKTools）](aktools.md)：在 Python 以外的语言中使用 AKShare

@@ -1,4 +1,4 @@
-# AKShare 特别说明
+# AKShare 致谢与声明
 
 ## 致谢
 
@@ -10,8 +10,6 @@
 
 感谢[生意社网站](http://www.100ppi.com)提供的相关数据；
 
-感谢[奇货可查网站](https://qhkch.com)提供的相关数据；
-
 感谢[中国银行间市场交易商协会网站](http://www.nafmii.org.cn)提供的相关数据；
 
 感谢[99期货网站](http://www.99qh.com)提供的相关数据；
@@ -21,8 +19,6 @@
 感谢[金十数据网站](https://www.jin10.com)提供的相关数据；
 
 感谢[和讯财经网站](http://www.hexun.com)提供的相关数据；
-
-感谢[新浪财经网站](https://finance.sina.com.cn)提供的相关数据；
 
 感谢[Oxford-Man Institute网站](https://realized.oxford-man.ox.ac.uk)提供的相关数据；
 

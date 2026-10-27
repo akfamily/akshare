@@ -1,6 +1,6 @@
-# AKShare 策略示例
+# AKShare 策略回测
 
-本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
+本策略回测文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
 调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
 
 本策略示例是基于 Python 编程语言的开源投研和交易框架 [PyBroker](https://www.pybroker.com) 和

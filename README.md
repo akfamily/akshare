@@ -143,7 +143,7 @@ Output:
 Passing a full interface name always ranks that interface first, which makes it
 a reliable way to confirm a half-remembered name. Note this is keyword matching
 rather than semantic search — see the
-[interface search docs](https://akshare.akfamily.xyz/registry.html) for what it
+[interface search docs](https://akshare.akfamily.xyz/search.html) for what it
 can and cannot do.
 
 ### Plot
@@ -170,11 +170,11 @@ mpf.plot(stock_us_daily_df, type="candle", mav=(3, 6, 9), volume=True, show_nont
 
 1. [Overview](https://akshare.akfamily.xyz/introduction.html)
 2. [Installation](https://akshare.akfamily.xyz/installation.html)
-3. [Interface Search](https://akshare.akfamily.xyz/registry.html)
+3. [Interface Search](https://akshare.akfamily.xyz/search.html)
 4. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
 5. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
 6. [Indicator](https://akshare.akfamily.xyz/indicator.html)
-7. [Data Tips](https://akshare.akfamily.xyz/data_tips.html)
+7. [FAQ](https://akshare.akfamily.xyz/faq.html)
 8. [Trade](https://akshare.akfamily.xyz/trade.html)
 
 ## Contribution

@@ -25,13 +25,13 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
          按类目浏览全部接口的参数、输出与示例
 
       .. grid-item-card:: 接口检索
-         :link: registry
+         :link: search
          :link-type: doc
 
          用 ak.search() 按关键词查找接口
 
       .. grid-item-card:: 常见问题
-         :link: answer
+         :link: faq
          :link-type: doc
 
          安装失败、接口报错等问题的解决办法
@@ -77,25 +77,24 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    installation
    uv
    tutorial
-   registry
-   answer
+   search
+   faq
 
 .. toctree::
    :hidden:
    :caption: 数据字典
 
    data/index
-   data_tips
 
 .. toctree::
    :hidden:
    :caption: 进阶
 
+   backtest
    indicator
-   demo
-   platform
-   deploy_http
-   akdocker/akdocker
+   quant_platforms
+   aktools
+   docker
    articles
 
 .. toctree::
@@ -104,8 +103,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
    changelog
    contributing
-   dependency
-   special
+   acknowledgements
 
 .. toctree::
    :hidden:

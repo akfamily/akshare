@@ -1,8 +1,8 @@
-# AKShare 答疑专栏
+# AKShare 常见问题
 
-## 专栏介绍
+## 说明
 
-本专栏的主要目的是为了解决在使用 [AKShare](https://github.com/akfamily/akshare) 中遇到的各种问题，主题包括但不限于：环境配置、AKShare 安装和升级、数据接口请求、代理配置等等。
+本页的主要目的是为了解决在使用 [AKShare](https://github.com/akfamily/akshare) 中遇到的各种问题，主题包括但不限于：环境配置、AKShare 安装和升级、数据接口请求、代理配置等等。
 
 ## 常见问题
 
@@ -75,3 +75,44 @@
     2. 只有 futures_warehouse_receipt_dce 会明确抛出带 412 状态码的 `APIError`，其他接口的报错各不相同，常见的有 `JSONDecodeError: Expecting value`、`BadZipFile: File is not a zip file`、`ValueError: No tables found`、`IndexError: list index out of range`，也有接口不报错而是返回空数据
     3. 受影响的接口：futures_contract_info_dce、futures_dce_position_rank、futures_dce_position_rank_other、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、get_dce_daily、get_dce_rank_table、option_hist_dce、get_receipt、get_roll_yield、get_roll_yield_bar；get_futures_daily、get_rank_sum、get_rank_sum_daily 中涉及大连商品交易所的部分同样无法获取
     4. 其他交易所的接口不受影响
+
+(known-data-issues)=
+## 已知数据问题
+
+以下记录数据源本身存在的异常，使用相关数据时请注意。
+
+### stock_zh_a_hist 后复权价格出现负值
+
+问题描述：股票 `600734` 后复权数据的开高低收字段出现负值
+
+代码复现：
+
+```python
+import akshare as ak
+
+stock_zh_a_hist_df = ak.stock_zh_a_hist(
+    symbol="600734",
+    period="daily",
+    start_date="20050501",
+    end_date="20050520",
+    adjust="hfq"
+)
+print(stock_zh_a_hist_df)
+```
+
+结果复现：
+
+```
+      日期    开盘    收盘    最高    最低  ...  成交额     振幅    涨跌幅   涨跌额   换手率
+0  2005-05-09 -0.13 -0.53  0.00 -0.53  ...  1571616.0   407.69 -507.69 -0.66  0.60
+1  2005-05-10 -0.53 -0.50 -0.36 -0.79  ...  1150869.0   -81.13    5.66  0.03  0.45
+2  2005-05-11 -0.50 -0.30 -0.20 -0.69  ...  1651719.0   -98.00   40.00  0.20  0.63
+3  2005-05-12 -0.33 -0.20  0.00 -0.43  ...  2175707.0  -143.33   33.33  0.10  0.81
+4  2005-05-13 -0.33 -0.13  0.07 -0.40  ...  1569427.0  -235.00   35.00  0.07  0.58
+5  2005-05-16 -0.30 -0.10  0.10 -0.40  ...  2324469.0  -384.62   23.08  0.03  0.85
+6  2005-05-17 -0.10  0.04  0.13 -0.23  ...  2682900.0  -360.00  140.00  0.14  0.96
+7  2005-05-18  0.00  0.20  0.27 -0.13  ...  2261494.0  1000.00  400.00  0.16  0.81
+8  2005-05-19  0.10  0.07  0.17 -0.06  ...  1589463.0   115.00  -65.00 -0.13  0.57
+9  2005-05-20  0.07  0.00  0.13 -0.03  ...  1355000.0   228.57 -100.00 -0.07  0.48
+[10 rows x 11 columns]
+```

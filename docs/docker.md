@@ -64,7 +64,7 @@ docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-shangha
 ### 注意事项
 
 1. 其中 Windows 系统的路径如：```C:\home``` 需要改写为：```/c/home``` 的形式；
-2. 在 Terminal 中运行上述指令后，会在 Terminal 中显示如下信息：![](../images/akdocker/akdocker_terminal.png)
+2. 在 Terminal 中运行上述指令后，会在 Terminal 中显示如下信息：![](images/akdocker/akdocker_terminal.png)
 3. 打开本地浏览器输入地址：```http://127.0.0.1:8888/lab?token=bbe7c8633c098b67df913dce522b82e00828b311a6fc954d```；
 4. 在本地浏览器中的 JupyterLab 界面进入 ```home``` 文件夹，该目录内容会与本地的 ```C:\home``` 保持同步，可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据；
 5. 如果在 JupyterLab 中的 AKShare 版本不是最新版，有以下两种方法：

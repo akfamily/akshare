@@ -18,3 +18,4 @@ pydata-sphinx-theme>=0.23.0
 myst-parser>=5.1.0
 sphinx-copybutton>=0.5.2
 sphinx-design>=0.7.0
+sphinx-reredirects>=1.1.0
