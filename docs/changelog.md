@@ -89,6 +89,14 @@
 
 ## 更新说明详情
 
+1.20.1 build: switch release to trusted publishing
+
+    1. 接口与代码无变化，可放心升级
+    2. PyPI 发布改用 Trusted Publishing，安装包附带 PEP 740 数字证明，可验证来自 akfamily/akshare 仓库
+    3. 发布 tag 由 release-vX.Y.Z 改为 vX.Y.Z，本版本对应 tag v1.20.1
+    4. 不再提供 Docker 镜像；需要 HTTP API 时请使用 `pip install aktools` 部署，详见 [HTTP API（AKTools）](https://akshare.akfamily.xyz/aktools.html)
+    5. 删除多余的 setup.py，打包配置统一由 pyproject.toml 提供
+
 1.20.0 refactor!: reorganize subpackages by interface category
 
     1. 重新整理 `akshare/` 目录，不兼容旧的模块路径：子包名与 `ak.search()` 的类目名一一对应，股票接口按数据字典的 9 个主题分到 `akshare/stock/` 下的子目录，文件名统一为“类目_主题_数据源.py”。`ak.接口名()` 与 `from akshare import 接口名` 的用法不受影响；按 `from akshare.子包.模块 import 接口名` 导入的代码需要按 [AKShare 1.20.0 模块路径迁移](https://akshare.akfamily.xyz/migration.html) 中的对照表修改
