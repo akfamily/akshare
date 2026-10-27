@@ -100,7 +100,6 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    indicator
    quant_platforms
    aktools
-   docker
    articles
 
 .. toctree::

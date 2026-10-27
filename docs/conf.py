@@ -73,7 +73,9 @@ redirects = {
     "demo": "backtest.html",
     "platform": "quant_platforms.html",
     "deploy_http": "aktools.html",
-    "akdocker/akdocker": "../docker.html",
+    "akdocker/akdocker": "../aktools.html",
+    # 1.20.1 移除 Docker 镜像，改用 pip 安装 AKTools
+    "docker": "aktools.html",
     "data_tips": "faq.html#known-data-issues",
     "special": "acknowledgements.html",
     "dependency": "contributing.html",

@@ -56,28 +56,6 @@ uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.
 pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### Docker
-
-#### Pull images
-
-```shell
-docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
-```
-
-#### Run Container
-
-```shell
-docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter python
-```
-
-#### Test
-
-```python
-import akshare as ak
-
-print(ak.__version__)
-```
-
 ## Usage
 
 ### Data

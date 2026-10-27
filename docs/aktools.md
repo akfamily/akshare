@@ -19,6 +19,18 @@ pip install aktools
 python -m aktools
 ```
 
+默认只监听 `127.0.0.1`，仅本机可以访问。部署在服务器上供其他机器调用时，需要指定监听地址和端口：
+
+```shell
+python -m aktools --host 0.0.0.0 --port 8080
+```
+
+启动后访问 `http://服务器地址:8080/docs` 查看接口文档。
+
+```{note}
+AKShare 不再提供 Docker 镜像。需要容器化部署时，可以参考 [AKTools 项目](https://github.com/akfamily/aktools) 自行构建镜像，在镜像中执行 `pip install aktools` 并以上面的命令启动。
+```
+
 ## 版本说明
 
 1. 仅体验 HTTP API 功能则只需要安装：`pip install aktools==0.0.68` 版本；

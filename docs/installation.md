@@ -5,7 +5,7 @@
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
 2. 目前 AKShare 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
 3. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](uv.md)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
-4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](docker.md)。
+4. 需要通过 HTTP 调用 AKShare 时，请使用 [AKTools](aktools.md) 部署 HTTP API 服务。
 
 ## 安装 AKShare
 
