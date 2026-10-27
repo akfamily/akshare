@@ -1,4 +1,4 @@
-# AKShare HTTP API（AKTools）
+# HTTP API（AKTools）
 
 ## 说明
 

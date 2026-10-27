@@ -1,4 +1,4 @@
-# AKShare QDII 数据
+# QDII 数据
 
 ## T+0 QDII 欧美市场
 

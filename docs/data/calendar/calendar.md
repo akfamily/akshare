@@ -1,4 +1,4 @@
-# AKShare 交易日历
+# 交易日历
 
 (tool_trade_date_hist_sina)=
 ## 交易日历

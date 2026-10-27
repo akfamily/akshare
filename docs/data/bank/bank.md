@@ -1,4 +1,4 @@
-# AKShare 银行监管处罚数据
+# 银行监管处罚数据
 
 (bank_fjcf_table_detail)=
 ## 银保监分局本级行政处罚

@@ -1,4 +1,4 @@
-# AKShare 现货数据
+# 现货数据
 
 (spot_price_qh)=
 ## 99 现货走势

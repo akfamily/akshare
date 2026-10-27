@@ -1,17 +1,17 @@
-# AKShare 安装指导
+# 安装指导
 
 ## 重要提示
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
 2. 目前 AKShare 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
-3. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
-4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](https://akshare.akfamily.xyz/docker.html)。
+3. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](uv.md)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
+4. 对于熟悉容器技术的小伙伴，可以安装 Docker 使用，指导教程如下：[AKShare Docker 部署](docker.md)。
 
 ## 安装 AKShare
 
 ### 使用 uv 安装（推荐）
 
-在已激活的 uv 虚拟环境中运行，安装 uv 和创建虚拟环境的完整步骤详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)：
+在已激活的 uv 虚拟环境中运行，安装 uv 和创建虚拟环境的完整步骤详见 [AKShare uv 环境配置](uv.md)：
 
 ```
 uv pip install akshare --upgrade
@@ -57,13 +57,16 @@ pip install akshare --upgrade -i https://pypi.org/simple
 4. 通过 `source myenv/bin/activate` 来激活创建好的虚拟环境
 5. 通过 `pip install akshare --upgrade` 来安装和升级 AKShare 到最新版本
 
+(install-r)=
 ## R 语言调用支持
 
-**推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 来部署 AKShare 的 HTTP API 使用，运行速度更快，更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.akfamily.xyz/)**
+```{tip}
+推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 部署 AKShare 的 HTTP API，运行速度更快、更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.akfamily.xyz/)。
+```
 
 ### 配置 Python 环境
 
-按 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html) 中的“方式一：虚拟环境”，创建名为 `ak_test` 的工作目录和虚拟环境，并在其中安装 AKShare。Python 需为 3.11 及以上版本，推荐 3.13。
+按 [AKShare uv 环境配置](uv.md) 中的“方式一：虚拟环境”，创建名为 `ak_test` 的工作目录和虚拟环境，并在其中安装 AKShare。Python 需为 3.11 及以上版本，推荐 3.13。
 
 ### 安装 R 语言
 
@@ -126,13 +129,16 @@ head(stock_df)  # 查看数据
 6 1991-04-09 47.80 47.80 47.80 47.80      4  19000    0  -0.50  -0.24  0
 ```
 
+(install-matlab)=
 ## MATLAB 调用支持
 
-**推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 来部署 AKShare 的 HTTP API 使用，运行速度更快，更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.akfamily.xyz/)**
+```{tip}
+推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 部署 AKShare 的 HTTP API，运行速度更快、更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.akfamily.xyz/)。
+```
 
 ### 配置 Python 环境
 
-按 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html) 中的“方式一：虚拟环境”创建虚拟环境并安装 AKShare，其中 Python 的版本需要符合
+按 [AKShare uv 环境配置](uv.md) 中的“方式一：虚拟环境”创建虚拟环境并安装 AKShare，其中 Python 的版本需要符合
 [Matlab 各版本对 Python 的支持](https://www.mathworks.com/support/requirements/python-compatibility.html?s_tid=srchtitle_site_search_1_python%20compatibility)
 ，同时满足 AKShare 对 Python 3.11 及以上版本的要求。比如 `Matlab R2023b` 支持 `Python` 的 `3.9, 3.10, 3.11` 版本，只能选用 3.11；`Matlab R2024b` 至 `R2025b` 最高支持 3.12；`Matlab R2026a` 起支持推荐的 3.13。创建虚拟环境时用 `--python` 指定版本，例如 `uv venv --python 3.12`。
 
@@ -372,7 +378,7 @@ Consider using the `--user` option or check the permissions.
 
 方法一
 
-在虚拟环境中安装，虚拟环境位于用户目录下，不需要管理员权限，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)
+在虚拟环境中安装，虚拟环境位于用户目录下，不需要管理员权限，详见 [AKShare uv 环境配置](uv.md)
 
 方法二
 
@@ -381,4 +387,4 @@ Consider using the `--user` option or check the permissions.
 ### 3. 提示其他的错误
 
 - 方法一：确认并升级您已安装 64 位的 **Python 3.11** 及以上版本
-- 方法二：使用虚拟环境来安装，推荐使用 uv，详见 [AKShare uv 环境配置](https://akshare.akfamily.xyz/uv.html)
+- 方法二：使用虚拟环境来安装，推荐使用 uv，详见 [AKShare uv 环境配置](uv.md)

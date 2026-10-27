@@ -1,10 +1,10 @@
-# AKShare uv 环境配置
+# uv 环境配置
 
 ## uv 简介
 
 [uv](https://docs.astral.sh/uv/) 是 Astral 开发的 Python 包与项目管理工具，可以安装 Python、创建虚拟环境并安装依赖，速度快且不依赖其他工具，[AKShare](https://github.com/akfamily/akshare) 项目本身也使用 uv 进行开发。推荐使用 uv 来配置 AKShare 的运行环境。
 
-如果需要在 R 语言或 MATLAB 中调用 AKShare，先按本文的“方式一：虚拟环境”创建好环境，再参考 [R 语言调用支持](https://akshare.akfamily.xyz/installation.html#r) 和 [MATLAB 调用支持](https://akshare.akfamily.xyz/installation.html#matlab)。
+如果需要在 R 语言或 MATLAB 中调用 AKShare，先按本文的“方式一：虚拟环境”创建好环境，再参考 {ref}`R 语言调用支持 <install-r>` 和 {ref}`MATLAB 调用支持 <install-matlab>`。
 
 ## 安装 uv
 

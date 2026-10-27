@@ -1,4 +1,4 @@
-# AKShare Docker 部署
+# Docker 部署
 
 目前 [AKShare](https://github.com/akfamily/akshare) 数据接口是基于 Python 开发的，鉴于部分小伙伴难以在短时间部署
 AKShare 的 Python 使用环境，特此提供基于 Docker 容器技术的使用教程。
@@ -69,4 +69,4 @@ docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-shangha
 4. 在本地浏览器中的 JupyterLab 界面进入 ```home``` 文件夹，该目录内容会与本地的 ```C:\home``` 保持同步，可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据；
 5. 如果在 JupyterLab 中的 AKShare 版本不是最新版，有以下两种方法：
    1. 在 JupyterLab 中运行 `!pip install akshare --upgrade` 命令来升级 AKShare 到最新版
-   2. 在容器中进行升级 AKShare 并保存为新的镜像文件后使用，参考：https://aktools.akfamily.xyz/aktools/ 中【升级镜像】部分
+   2. 在容器中进行升级 AKShare 并保存为新的镜像文件后使用，参考 <https://aktools.akfamily.xyz/aktools/> 中【升级镜像】部分

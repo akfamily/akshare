@@ -1,4 +1,4 @@
-# AKShare 汇率换算数据（Currencyscoop）
+# 汇率换算数据（Currencyscoop）
 
 (currency_latest)=
 ## 货币报价最新数据
@@ -23,7 +23,7 @@
 | symbols | str | symbols=""；默认返回全部，可以在此处设置 symbols="AUD"，则返回 AUD 的数据；可以在此处设置 symbols: str = "AUD,CNY"，则返回 AUD 和 CNY 的数据 |
 | api_key | str | api_key="此处输入 API";                                                                                         |
 
-更多相关参数可以访问：https://currencybeacon.com/api-documentation 和 https://currencybeacon.com/supported-currencies
+更多相关参数可以访问：<https://currencybeacon.com/api-documentation> 和 <https://currencybeacon.com/supported-currencies>
 
 输出参数
 

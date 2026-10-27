@@ -1,4 +1,4 @@
-# AKShare 加密货币数据
+# 加密货币数据
 
 (crypto_js_spot)=
 ## 实时数据
