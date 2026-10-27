@@ -104,6 +104,27 @@ def collect_doc_records(docs_dir: pathlib.Path) -> Dict[str, Dict]:
     return records
 
 
+LABEL_RE = re.compile(r"^\(([A-Za-z0-9_]+)\)=\s*$", re.M)
+
+
+def find_missing_labels(docs_dir: pathlib.Path) -> List[str]:
+    """
+    找出缺少 MyST 锚点标签的接口条目。
+
+    中文标题生成的锚点是按顺序编号的 #idN，会随前面的标题增减而错位，因此
+    每个接口都要在标题前写一行 "(接口名)="，以获得固定锚点 #接口名。
+
+    :param docs_dir: docs/data 目录
+    :return: 缺少标签的接口名，按字典序排列
+    """
+    names, labels = set(), set()
+    for path in sorted(docs_dir.rglob("*.md")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        names.update(match.group(1) for match in BLOCK_RE.finditer(text))
+        labels.update(match.group(1) for match in LABEL_RE.finditer(text))
+    return sorted(names - labels)
+
+
 # 非数据接口，必须显式排除。不可依赖「category 能否推断」判定：
 # 实测 1100 个顶层导出中 6 个不可推断 category，而这 6 个恰好只是异常类
 # （相对导入 from .exceptions）；__version__ / pro_api / set_token / get_token
@@ -339,6 +360,10 @@ def main() -> int:
         exports = collect_exports(init_path)
         docs = collect_doc_records(repo_root / "docs" / "data")
         problems = diff_baseline(exports, docs, baseline)
+        for name in find_missing_labels(repo_root / "docs" / "data"):
+            problems.append(
+                f"接口 {name} 的文档条目缺少锚点标签，请在其标题前加一行 ({name})="
+            )
         current = (repo_root / OUTPUT_RELPATH).read_text(encoding="utf-8")
         if current != text:
             problems.append(

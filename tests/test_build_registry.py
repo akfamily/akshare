@@ -7,6 +7,7 @@ from build_registry import (
     collect_doc_records,
     collect_exports,
     diff_baseline,
+    find_missing_labels,
     merge_records,
     parse_segment,
     parse_table,
@@ -190,6 +191,29 @@ def test_collect_doc_records_supports_fullwidth_colon(tmp_path):
     assert "stock_info_cjzc_em" in records
     assert records["stock_info_cjzc_em"]["desc"] == "全角冒号接口"
     assert records["prev_iface"]["desc"] == "前一个接口"
+
+
+def test_find_missing_labels_reports_entry_without_label(tmp_path):
+    stock_dir = tmp_path / "stock"
+    stock_dir.mkdir()
+    (stock_dir / "a.md").write_text(
+        "(labelled_iface)=\n### 有标签\n\n接口：labelled_iface\n\n"
+        "### 无标签\n\n接口：bare_iface\n",
+        encoding="utf-8",
+    )
+    assert find_missing_labels(tmp_path) == ["bare_iface"]
+
+
+def test_find_missing_labels_accepts_label_before_entry_line(tmp_path):
+    """同一标题下有两个接口时，第二个接口的标签写在其 "接口：" 行之前。"""
+    bond_dir = tmp_path / "bond"
+    bond_dir.mkdir()
+    (bond_dir / "a.md").write_text(
+        "(first_iface)=\n### 标题\n\n接口：first_iface\n\n"
+        "(second_iface)=\n接口：second_iface\n",
+        encoding="utf-8",
+    )
+    assert find_missing_labels(tmp_path) == []
 
 
 FAKE_INIT = '''"""模块文档字符串"""
