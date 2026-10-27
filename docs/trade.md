@@ -36,6 +36,17 @@
 :alt: 期货实盘咨询微信二维码
 ```
 ````
+
+````{grid-item-card} 工具推荐：期魔方
+:class-card: ak-promo-card
+:columns: 12
+:link: https://qmfquant.com
+
+期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
+
++++
+访问期魔方 →
+````
 `````
 
 (trade-stock)=
