@@ -115,6 +115,11 @@ exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 # 当前页的章节占满。
 html_theme = "pydata_sphinx_theme"
 html_theme_options = {
+    # 每个页面顶部的公告横幅（与 pandas 文档的版本公告相同的位置），用于推荐 AKQuant
+    "announcement": (
+        "推荐：高性能量化投研框架 AKQuant，与 AKShare 数据无缝衔接，"
+        "<a href='https://akquant.akfamily.xyz/'>立即了解</a>"
+    ),
     # 右侧页内目录默认只展开到二级标题，数据字典需要看到三级的接口分组
     "show_toc_level": 2,
     # 顶栏改用 _templates/ak-navbar.html 固定列出常用入口，见该文件说明

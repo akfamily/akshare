@@ -108,3 +108,15 @@ html[data-theme="dark"] .bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .n
   margin-bottom: 0.25rem;
   font-weight: 600;
 }
+
+/* 页面顶部公告横幅（conf.py 的 announcement）：使用品牌蓝，替换主题默认的紫色 */
+.bd-header-announcement {
+  background-color: #23238e;
+  color: #fff;
+}
+
+.bd-header-announcement a,
+.bd-header-announcement a:visited {
+  color: #ffd43b;
+  font-weight: 700;
+}
