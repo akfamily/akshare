@@ -1,15 +1,13 @@
-# main_dev_check
-name: Main and Dev Checks
+# main_dev_check（文件名保留不改，README 的状态徽章引用了它）
+name: Checks
 
 on:
   push:
     branches:
       - main
-      - dev
   pull_request:
     branches:
       - main
-      - dev
 
 env:
   # 与本地开发使用的 uv 版本保持一致，避免"本地通过、CI 失败"。

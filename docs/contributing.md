@@ -4,11 +4,11 @@
 
 ### 克隆及提交代码
 
-1. Fork [AKShare](https://github.com/akfamily/akshare) 仓库后克隆到本地，并切换到 [dev 分支](https://github.com/akfamily/akshare/tree/dev)，dev 分支中包含 AKShare 最新的开发代码
+1. Fork [AKShare](https://github.com/akfamily/akshare) 仓库后克隆到本地，在 main 分支的基础上新建一个分支进行修改，main 分支中包含 AKShare 最新的开发代码
 2. 安装 [uv](https://docs.astral.sh/uv/) 后，在仓库根目录运行 `uv sync` 安装开发环境，依赖版本由仓库中的 `uv.lock` 锁定
 3. 运行 `uv run pre-commit install` 安装提交前检查和提交信息检查两个 git 钩子
 4. 提交信息需要遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/) 规范，类型后面可以接中文描述，例如 `fix(index): 修复 index_all_cni 接口`
-5. 修改完成后向 dev 分支发起 Pull Request
+5. 修改完成后向 main 分支发起 Pull Request
 
 ### 代码及接口设计规范
 
