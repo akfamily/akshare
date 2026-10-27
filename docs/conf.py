@@ -94,8 +94,8 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     # 右侧页内目录默认只展开到二级标题，数据字典需要看到三级的接口分组
     "show_toc_level": 2,
-    # 页面标题都带 “AKShare ” 前缀，顶栏放 5 个链接会挤到第二行
-    "header_links_before_dropdown": 3,
+    # 顶栏改用 _templates/ak-navbar.html 固定列出常用入口，见该文件说明
+    "navbar_center": ["ak-navbar"],
     "icon_links": [
         {
             "name": "GitHub",
@@ -118,8 +118,8 @@ html_theme_options = {
     },
 }
 
-# 图标取自 assets/images/akshare_logo.jpg 左侧的方形标志，线条加粗后缩小，
-# 否则原图的细线在 16/32 像素下几乎看不见
+# 图标是 assets/images/akshare_logo.jpg 中一上一下两个箭头的简化版：品牌蓝圆角方块
+# 加白色粗箭头。原 logo 线条太细，直接缩小到 16/32 像素几乎看不清
 html_favicon = "_static/favicon.ico"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
