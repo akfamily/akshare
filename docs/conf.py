@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 import ast
+import pathlib
 import re
 from datetime import datetime
 
@@ -59,7 +60,7 @@ release = get_version_string()
 # ones.
 # 不再需要 sphinx_markdown_tables：它当年存在的唯一理由是 recommonmark 不支持
 # Markdown 表格，而 myst_parser 原生渲染 GFM 表格（本文档有 16000+ 行表格）。
-extensions = ["myst_parser", "sphinx_rtd_theme"]
+extensions = ["myst_parser"]
 
 # Add any paths that contain templates here, relative to this directory.
 
@@ -81,7 +82,35 @@ exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+# 与 pandas、numpy 文档相同的主题。选用它主要是为了右侧的“当前页面”目录：
+# 数据字典单页有数百个接口，sphinx_rtd_theme 没有页内目录，左侧导航又会被
+# 当前页的章节占满。
+html_theme = "pydata_sphinx_theme"
+html_theme_options = {
+    # 右侧页内目录默认只展开到二级标题，数据字典需要看到三级的接口分组
+    "show_toc_level": 2,
+    # 页面标题都带 “AKShare ” 前缀，顶栏放 5 个链接会挤到第二行
+    "header_links_before_dropdown": 3,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/akfamily/akshare",
+            "icon": "fa-brands fa-github",
+        },
+    ],
+    "footer_start": ["copyright", "last-updated"],
+    "footer_end": ["sphinx-version", "theme-version"],
+}
+
+# 左侧“章节导航”只列出当前页面下级的页面。数据字典以外的页面都没有下级页面，
+# 侧栏会只剩一个空标题，因此对这些页面直接去掉侧栏，把宽度留给正文。
+# 这里必须逐页写出页面名：若同时使用 "**" 与 "data/**" 两个通配模式，
+# Sphinx 会对数据字典页面报 “matches two patterns” 警告。
+_DOCS_DIR = pathlib.Path(__file__).parent
+html_sidebars = {
+    page.relative_to(_DOCS_DIR).with_suffix("").as_posix(): []
+    for page in [*_DOCS_DIR.glob("*.md"), *_DOCS_DIR.glob("akdocker/*.md")]
+}
 
 # 页脚显示文档构建日期。每次推送 main 都会触发 Read the Docs 重新构建，
 # 因此它就是文档的最近更新日期，取代了以前在 introduction.md 中手工维护的

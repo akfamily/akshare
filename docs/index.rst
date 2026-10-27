@@ -8,7 +8,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 - 遇到问题：查看 :doc:`answer`，或在 `GitHub Issues <https://github.com/akfamily/akshare/issues>`_ 中反馈
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 入门
 
    introduction
@@ -19,14 +19,14 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    answer
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 数据字典
 
    data/index
    data_tips
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 进阶
 
    indicator
@@ -37,7 +37,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    articles
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 项目
 
    changelog
@@ -46,7 +46,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    special
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 合作与推广
 
    trade
