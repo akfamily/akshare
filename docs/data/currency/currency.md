@@ -1,4 +1,4 @@
-# 汇率换算数据（Currencyscoop）
+# 汇率换算数据
 
 (currency_latest)=
 ## 货币报价最新数据

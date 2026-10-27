@@ -108,6 +108,6 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
 .. toctree::
    :hidden:
-   :caption: 合作与推广
+   :caption: 实盘交易
 
    trade
