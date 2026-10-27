@@ -7,9 +7,21 @@ on:
       # 1.20.0 及以前的 tag 为 release-vX.Y.Z，之后改为通行的 vX.Y.Z；旧 tag 保留不改
       - 'v*.*.*'
 
+# 默认只读；发布所需的权限在 job 中单独声明
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # PyPI Trusted Publishing：PyPI 端登记的可信发布者须与这里的
+    # 仓库 akfamily/akshare、工作流 release_and_deploy.yml、环境 pypi 完全一致
+    environment:
+      name: pypi
+      url: https://pypi.org/p/akshare
+    permissions:
+      id-token: write  # 向 PyPI 换取临时上传令牌（OIDC），无需保存 PyPI 密码
+      contents: write  # 创建 GitHub Release
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -48,11 +60,9 @@ jobs:
           done
           twine check dist/*
 
+      # 使用 Trusted Publishing 上传，同时为产物生成 PEP 740 数字证明（attestations）
       - name: Publish package to PyPI
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: twine upload dist/*
+        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
