@@ -133,6 +133,8 @@ html_theme_options = {
     "secondary_sidebar_items": {
         "**": ["wechat", "page-toc", "sourcelink"],
         "index": [],
+        # 实盘交易页已有合作方的联系二维码，不再显示公众号卡片
+        "trade": ["page-toc"],
     },
     # 设置 logo 图片后主题默认不再显示站点标题，需显式给出文字
     "logo": {
