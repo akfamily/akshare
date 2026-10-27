@@ -126,8 +126,9 @@ html_theme_options = {
             "icon": "fa-brands fa-github",
         },
     ],
-    "footer_start": ["copyright", "last-updated"],
-    "footer_end": ["sphinx-version", "theme-version"],
+    # 页脚只保留版权与更新日期，不显示 Sphinx 与主题的版本
+    "footer_start": ["copyright"],
+    "footer_end": ["last-updated"],
     # 右侧栏顶部放公众号二维码（_templates/wechat.html）。首页正文已有大图，不再重复
     "secondary_sidebar_items": {
         "**": ["wechat", "page-toc", "sourcelink"],
