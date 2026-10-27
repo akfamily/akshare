@@ -355,7 +355,7 @@ cerebro.plot(style='candlestick')  # 画图
 
 #### 可视化
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/Figure_0.png)
+![](images/strategy/Figure_0.png)
 
 ### 参数优化
 

@@ -12,7 +12,7 @@
 
 当下由**上市证券**专业量化服务团队提供支持，微信：cmdtzz168
 
-![gj_wechat](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/ad/gj_wechat.png)
+![gj_wechat](images/ad/gj_wechat.png)
 
 一、多维度的专业量化服务
 
@@ -43,7 +43,7 @@
 什么是量化交易服务？
 
 以服务客户为核心的增值服务，服务包括量化咨询、量化软件指导、策略编写、软件定制、外接托管等服务，为客户量化交易之路保驾护航。
-目前我们发现**某AA级期货公司**在此服务上比较专业。![futures](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/ad/futures.jpg)
+目前我们发现**某AA级期货公司**在此服务上比较专业。![futures](images/ad/futures.png)
 
 有什么样的量化交易服务综合方案？
 
@@ -64,7 +64,7 @@ AKShare 的金融数据能够给大家带来许多帮助，也可以结合其他
 
 四、速度优化，快人一步
 
-![futures_process](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/ad/futures_process.png)
+![futures_process](images/ad/futures_process.png)
 
 提供托管定制服务：通过专用网络、专用系统、专用席位、服务器托管等手段来保障高效、稳定的交易。
 

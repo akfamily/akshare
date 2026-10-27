@@ -12,7 +12,7 @@
 
    推荐关注微信公众号【数据科学实战】获取更多财经数据与量化投研知识
 
-.. image:: https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png
+.. image:: images/qrcode/ds.png
    :width: 400px
    :align: center
    :alt: WeChat QR code
@@ -33,7 +33,6 @@
    tutorial
    articles
    uv
-   anaconda
    platform
    demo
    changelog

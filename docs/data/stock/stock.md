@@ -24516,7 +24516,7 @@ print(stock_info_global_cls_df)
 
 #### 结构图
 
-![交易费用](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/cost_of_trade.svg)
+![交易费用](../../images/mindmap/cost_of_trade.svg)
 
 ## 技术指标
 
