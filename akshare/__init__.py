@@ -3310,6 +3310,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.19.3 fix: validate symbol of stock_fund_flow_individual, stock_fund_flow_concept and stock_fund_flow_industry
 1.19.4 remove: remove qhkc_web interface
 1.19.5 perf: speed up search interface
+1.19.6 remove: remove nlp_ownthink interface
 """
 
 from akshare._version import __version__
@@ -5301,7 +5302,7 @@ from akshare.currency.currency import (
 """
 知识图谱
 """
-from akshare.nlp.nlp_interface import nlp_ownthink, nlp_answer
+from akshare.nlp.nlp_interface import nlp_answer
 
 """
 微博舆情报告
@@ -6576,7 +6577,6 @@ __all__ = [
     "news_trade_notify_dividend_baidu",
     "news_trade_notify_suspend_baidu",
     "nlp_answer",
-    "nlp_ownthink",
     "online_value_artist",
     "option_cffex_hs300_daily_sina",
     "option_cffex_hs300_list_sina",

@@ -209,7 +209,7 @@ print(list_categories_df)
 13               index   94
 14       interest_rate   14
 15               macro  215
-16                 nlp    2
+16                 nlp    1
 17              option   46
 18              others   34
 19                qdii    3

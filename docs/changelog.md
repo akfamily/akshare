@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.19.6 remove: remove nlp_ownthink interface
+
+    1. 移除思知知识图谱接口 nlp_ownthink：思知网站已下线知识图谱 API，请求会被重定向到网站首页，接口报 `JSONDecodeError`
+    2. 同一数据源的智能问答接口 nlp_answer 仍可正常使用，不受影响
+
 1.19.5 perf: speed up search interface
 
     1. 优化 search 接口的检索速度：每条接口记录的待搜索字段只归一化一次，在主分与 2-gram 降级分两轮打分之间复用，空白压缩也改用更快的实现；单次检索耗时约减少一半，检索结果与排序不变
