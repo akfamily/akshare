@@ -175,3 +175,39 @@ master_doc = "index"
 # 未转义的下划线与星号（接口名如 stock_zh_a_hist），因此刻意不开启
 # 额外的行内语法扩展，避免把接口名误解析为强调。
 myst_heading_anchors = 3
+
+# 数据示例等未标语言的代码块是程序输出，不按 Python 高亮；接口示例写明了 python，不受影响
+highlight_language = "text"
+
+# 数据字典接口条目的固定段落（“接口：”“目标地址：”“描述：”“限量：”与
+# “输入参数”“输出参数”“接口示例”“数据示例”标签）在 Markdown 里是普通段落。
+# 构建时给它们加上样式类（见 _static/custom.css），源文件格式保持不变，
+# scripts/build_registry.py 仍按原格式解析。
+_AK_LABELS = ("输入参数", "输出参数", "接口示例", "数据示例")
+_AK_META = ("目标地址：", "描述：", "限量：")
+
+
+def _ak_mark_entry_paragraphs(app, doctree, docname):
+    """
+    为数据字典页面中接口条目的固定段落添加 CSS 类。
+
+    :param app: Sphinx 应用
+    :param doctree: 文档树
+    :param docname: 文档名
+    """
+    from docutils import nodes
+
+    if not docname.startswith("data/"):
+        return
+    for paragraph in doctree.findall(nodes.paragraph):
+        text = paragraph.astext().strip()
+        if text.startswith("接口："):
+            paragraph["classes"].append("ak-iface")
+        elif text.startswith(_AK_META):
+            paragraph["classes"].append("ak-meta")
+        elif text.startswith(_AK_LABELS) and len(text) <= 30 and "\n" not in text:
+            paragraph["classes"].append("ak-label")
+
+
+def setup(app):
+    app.connect("doctree-resolved", _ak_mark_entry_paragraphs)

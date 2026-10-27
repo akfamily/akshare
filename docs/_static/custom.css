@@ -60,3 +60,25 @@ html[data-theme="dark"] .bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .n
 .ak-promo-card.sd-card {
   border: 2px solid #ffa94d;
 }
+
+/* 数据字典接口条目，类名由 conf.py 的 _ak_mark_entry_paragraphs 添加 */
+.bd-article p.ak-iface {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--pst-font-family-monospace);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--pst-color-primary);
+}
+
+.bd-article p.ak-meta {
+  margin: 0 0 0.25rem;
+  font-size: 0.92rem;
+  color: var(--pst-color-text-muted);
+}
+
+.bd-article p.ak-label {
+  margin: 1.25rem 0 0.4rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--pst-color-primary);
+  font-weight: 600;
+}
