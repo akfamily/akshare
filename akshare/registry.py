@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/8/12
+Date: 2026/10/27
 Desc: 接口检索层，提供接口发现与元数据查询能力
 """
 
 import copy
 import json
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
@@ -58,9 +58,6 @@ def _tokenize(query: str) -> List[str]:
     return [token for token in _TOKEN_SPLIT_RE.split(query.strip()) if token]
 
 
-_WHITESPACE_RE = re.compile(r"\s+")
-
-
 def _normalize(text: str) -> str:
     """
     压缩字符串内的全部空白，用于消除源文档里 latin/数字与中日韩字符之间
@@ -69,24 +66,18 @@ def _normalize(text: str) -> str:
     :param text: 原始字符串
     :return: 空白压缩后的字符串
     """
-    return _WHITESPACE_RE.sub("", text)
+    # str.split() 认定的空白与正则 \s 完全一致，但对短字符串快得多；
+    # 检索时每条记录、每个 token 都要调用这里。
+    return "".join(text.split())
 
 
-def _score(tokens: List[str], record: Dict) -> float:
+def _prepare(record: Dict) -> Tuple[str, str, str, str]:
     """
-    对单条记录打分。
+    归一化单条记录的待搜索字段。
 
-    :param tokens: 已切分的查询 token
     :param record: registry 中的一条接口记录
-    :return: 匹配分，0 表示未命中
+    :return: 归一化后的（接口名，描述，类目，输出列名）
     """
-    if not tokens:
-        return 0.0
-    name = record["name"]
-    if len(tokens) == 1 and tokens[0] == name:
-        return WEIGHT_NAME_EXACT
-    desc = record.get("desc") or ""
-    category = record.get("category") or ""
     # 用 "\x00" 而非空格拼接列名：归一化会压掉真正的空白分隔符，若仍用
     # 空格拼接，两个相邻列名会首尾相连产生跨列名的假匹配（例如列名
     # "市盈率" 与 "动态" 拼接后变成 "市盈率动态"，让查询词 "率动" 误命中）。
@@ -94,11 +85,34 @@ def _score(tokens: List[str], record: Dict) -> float:
     columns = "\x00".join(
         column.get("name") or "" for column in record.get("outputs") or []
     )
-    # 每条记录只归一化一次待搜索字段，避免在下方 token 循环里重复计算。
-    norm_name = _normalize(name)
-    norm_desc = _normalize(desc)
-    norm_category = _normalize(category)
-    norm_columns = _normalize(columns)
+    return (
+        _normalize(record["name"]),
+        _normalize(record.get("desc") or ""),
+        _normalize(record.get("category") or ""),
+        _normalize(columns),
+    )
+
+
+def _score(
+    tokens: List[str],
+    record: Dict,
+    fields: Optional[Tuple[str, str, str, str]] = None,
+) -> float:
+    """
+    对单条记录打分。
+
+    :param tokens: 已切分的查询 token
+    :param record: registry 中的一条接口记录
+    :param fields: _prepare 的结果；为 None 时现场计算，传入可在多轮打分间复用
+    :return: 匹配分，0 表示未命中
+    """
+    if not tokens:
+        return 0.0
+    if len(tokens) == 1 and tokens[0] == record["name"]:
+        return WEIGHT_NAME_EXACT
+    if fields is None:
+        fields = _prepare(record)
+    norm_name, norm_desc, norm_category, norm_columns = fields
     total = 0.0
     hit_count = 0
     for token in tokens:
@@ -156,9 +170,11 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
     stripped = query.strip()
     scored = []
     for record in records:
-        score = _score(tokens, record)
+        # 主分与降级分共用同一份归一化字段，每条记录只归一化一次。
+        fields = _prepare(record)
+        score = _score(tokens, record, fields)
         if fallback_tokens:
-            score = max(score, _score(fallback_tokens, record))
+            score = max(score, _score(fallback_tokens, record, fields))
         if score > 0:
             # 与 _score 的精确名捷径判定保持一致：tokenize 会剥掉
             # ",，、;；/|" 等标点，若这里仍用未剥标点的原始 stripped 比较，

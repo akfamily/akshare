@@ -3,7 +3,7 @@ import pytest
 
 from akshare.exceptions import InvalidParameterError
 from akshare import registry
-from akshare.registry import _bigrams, _tokenize, _score
+from akshare.registry import _bigrams, _normalize, _prepare, _score, _tokenize
 
 RECORD = {
     "name": "stock_zh_a_hist",
@@ -108,6 +108,20 @@ def test_score_desc_gt_category_gt_output_when_each_hits_alone():
     category_only = _score(["kappa"], FIELD_RECORD)
     output_only = _score(["epsilon"], FIELD_RECORD)
     assert desc_only > category_only > output_only > 0
+
+
+# 源文档里除半角空格外，还会混入全角空格、不间断空格与换行。
+def test_normalize_strips_unicode_whitespace():
+    assert _normalize("A　股\xa0历史\n行情\t") == "A股历史行情"
+
+
+# _rank 会把 _prepare 的结果传给 _score 复用，传入与现场计算必须同分。
+@pytest.mark.parametrize(
+    "tokens", [["hist", "东方财富"], ["市盈率"], ["A股"], ["不存在的词"]]
+)
+def test_score_with_prepared_fields_matches_on_the_fly(tokens):
+    for record in (RECORD, UNDOC, WHITESPACE_RECORD, COLUMN_BOUNDARY_RECORD):
+        assert _score(tokens, record, _prepare(record)) == _score(tokens, record)
 
 
 FIXTURE = {
