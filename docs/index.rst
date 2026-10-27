@@ -41,7 +41,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
 .. container:: ak-home
 
-   .. grid:: 1 1 2 2
+   .. grid:: 1 1 3 3
       :gutter: 3
 
       .. grid-item-card:: AKQuant 量化投研框架
@@ -50,6 +50,12 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
          高性能量化投研框架，与 AKShare 数据无缝衔接，``pip install akquant`` 一键安装
 
+      .. grid-item-card:: 期魔方
+         :link: https://qmfquant.com
+         :class-card: ak-promo-card
+
+         本地化期货量化分析工具，无需复杂部署，支持数据分析和机器学习，研究功能免费开放
+
       .. grid-item-card:: 实盘交易服务
          :link: trade
          :link-type: doc
@@ -57,15 +63,15 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
          股票、期权、两融与期货的实盘 API 对接、费率优惠和量化定制服务
 
-.. admonition:: 关注微信公众号【数据科学实战】
-   :class: tip
+.. raw:: html
 
-   获取更多财经数据与量化投研知识，微信扫码或搜索“数据科学实战”即可关注。
-
-   .. image:: images/qrcode/ds.png
-      :width: 400px
-      :align: center
-      :alt: 微信公众号【数据科学实战】二维码
+   <div class="ak-wechat-banner">
+     <img src="_static/wechat_qrcode.jpg" alt="微信公众号【数据科学实战】二维码" width="104" height="104">
+     <div>
+       <p class="ak-wechat-banner-title">关注微信公众号【数据科学实战】</p>
+       <p>获取更多财经数据与量化投研知识，微信扫码或搜索“数据科学实战”即可关注。</p>
+     </div>
+   </div>
 
 .. 下面的目录不在首页显示，用于确定全站的页面结构；顶栏入口见 _templates/ak-navbar.html。
 

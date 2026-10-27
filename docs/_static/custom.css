@@ -82,3 +82,29 @@ html[data-theme="dark"] .bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .n
   border-left: 3px solid var(--pst-color-primary);
   font-weight: 600;
 }
+
+/* 首页的公众号横幅：小尺寸二维码加文字，见 docs/index.rst */
+.ak-wechat-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--pst-color-border);
+  border-left: 4px solid #07c160;
+  border-radius: 0.5rem;
+}
+
+.ak-wechat-banner img {
+  flex: none;
+  background: #fff;
+}
+
+.ak-wechat-banner p {
+  margin: 0;
+}
+
+.ak-wechat-banner .ak-wechat-banner-title {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
