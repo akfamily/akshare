@@ -4,7 +4,8 @@ name: Release and Deploy
 on:
   push:
     tags:
-      - 'release-v*.*.*'
+      # 1.20.0 及以前的 tag 为 release-vX.Y.Z，之后改为通行的 vX.Y.Z；旧 tag 保留不改
+      - 'v*.*.*'
 
 jobs:
   deploy:
@@ -36,7 +37,7 @@ jobs:
       # 两者分开是有意的：构建后端若取错版本号，只有看产物才能发现。
       - name: Verify built artifacts carry the tagged version
         run: |
-          version="${GITHUB_REF_NAME#release-v}"
+          version="${GITHUB_REF_NAME#v}"
           echo "期望版本: ${version}"
           ls -1 dist/
           for f in dist/*; do

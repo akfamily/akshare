@@ -8,7 +8,7 @@ Desc: 发布前校验版本元数据自洽，供 release_and_deploy.yml 在构�
 发错版本号只能改用下一个号，无法撤回。
 
 校验三处必须一致，正是 CLAUDE.md 发布清单要求同步的那几处：
-    1. git tag（release-v1.2.3）
+    1. git tag（v1.2.3；1.20.0 及以前为 release-v1.2.3）
     2. akshare/_version.py
     3. docs/changelog.md 的版本条目
 
@@ -22,7 +22,7 @@ import pathlib
 import re
 from typing import List
 
-TAG_RE = re.compile(r"^release-v(\d+\.\d+\.\d+)$")
+TAG_RE = re.compile(r"^v(\d+\.\d+\.\d+)$")
 VERSION_RE = re.compile(r'__version__\s*=\s*"([^"]+)"')
 
 
@@ -30,13 +30,13 @@ def parse_tag(tag: str) -> str:
     """
     从 git tag 中取出版本号。
 
-    :param tag: 形如 release-v1.18.91 的 tag 名
+    :param tag: 形如 v1.20.1 的 tag 名
     :return: 版本号字符串
     :rtype: str
     """
     match = TAG_RE.match(tag)
     if not match:
-        raise ValueError(f"tag 格式不合法，应为 release-vX.Y.Z，实际为 {tag!r}")
+        raise ValueError(f"tag 格式不合法，应为 vX.Y.Z，实际为 {tag!r}")
     return match.group(1)
 
 
@@ -98,7 +98,7 @@ def collect_problems(repo_root: pathlib.Path, tag: str) -> List[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="校验发布版本元数据是否自洽")
-    parser.add_argument("tag", help="git tag 名，形如 release-v1.18.91")
+    parser.add_argument("tag", help="git tag 名，形如 v1.20.1")
     args = parser.parse_args()
     repo_root = pathlib.Path(__file__).resolve().parent.parent
 

@@ -32,12 +32,12 @@ def make_repo(tmp_path, version="1.18.91", changelog_version=None):
 
 
 def test_parse_tag_extracts_version():
-    assert parse_tag("release-v1.18.91") == "1.18.91"
+    assert parse_tag("v1.18.91") == "1.18.91"
 
 
 @pytest.mark.parametrize(
     "tag",
-    ["v1.18.91", "release-v1.18", "release-1.18.91", "release-v1.18.91-rc1", ""],
+    ["release-v1.18.91", "v1.18", "1.18.91", "v1.18.91-rc1", "V1.18.91", ""],
 )
 def test_parse_tag_rejects_malformed(tag):
     """tag 格式必须严格，否则版本号可能被截取成意料之外的值。"""
@@ -68,24 +68,24 @@ def test_has_version_entry_requires_line_start():
 
 def test_collect_problems_passes_when_all_aligned(tmp_path):
     repo = make_repo(tmp_path)
-    assert collect_problems(repo, "release-v1.18.91") == []
+    assert collect_problems(repo, "v1.18.91") == []
 
 
 def test_collect_problems_detects_tag_version_mismatch(tmp_path):
     repo = make_repo(tmp_path, version="1.18.91")
-    problems = collect_problems(repo, "release-v1.18.99")
+    problems = collect_problems(repo, "v1.18.99")
     assert len(problems) == 1
     assert "不一致" in problems[0]
 
 
 def test_collect_problems_detects_missing_changelog_entry(tmp_path):
     repo = make_repo(tmp_path, version="1.18.91", changelog_version="1.18.90")
-    problems = collect_problems(repo, "release-v1.18.91")
+    problems = collect_problems(repo, "v1.18.91")
     assert any("changelog" in p for p in problems)
 
 
 def test_collect_problems_reports_every_problem_at_once(tmp_path):
     """一次报全，避免修一个再跑一次 CI 才发现下一个。"""
     repo = make_repo(tmp_path, version="1.18.91", changelog_version="1.18.89")
-    problems = collect_problems(repo, "release-v1.18.99")
+    problems = collect_problems(repo, "v1.18.99")
     assert len(problems) == 2
