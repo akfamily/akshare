@@ -2932,6 +2932,10 @@ part_2: 上海期货交易所隐含波动参考值
 
 ### 大连商品交易所
 
+```{warning}
+大连商品交易所网站目前启用了瑞数反爬虫验证，该接口暂时无法获取数据，详见[AKShare 答疑专栏](../../answer.md)。
+```
+
 接口：option_hist_dce
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html

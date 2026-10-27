@@ -5114,7 +5114,6 @@ print(stock_hk_financial_indicator_em_df)
 [1 rows x 21 columns]
 ```
 
-
 ### 分红派息
 
 接口：stock_hk_dividend_payout_em
@@ -5177,7 +5176,6 @@ print(stock_hk_dividend_payout_em_df)
 18  2007-05-14  2006  ...  2007/05/07-2007/05/11  2007-05-22
 [19 rows x 7 columns]
 ```
-
 
 ### 行业对比
 
@@ -5283,7 +5281,6 @@ print(stock_hk_valuation_comparison_em_df)
 0  03900  绿城中国 -86.44272         97  14.363182      -30.427808      121
 [1 rows x 18 columns]
 ```
-
 
 #### 规模对比
 
@@ -11468,7 +11465,9 @@ print(stock_individual_notice_report_df)
 
 限量：单次获取指定报表的所有年份数据的历史数据
 
-注意：原始数据中有 `国内票证结算` 和 `内部应收款` 字段重，返回数据中已经剔除
+```{note}
+原始数据中有 `国内票证结算` 和 `内部应收款` 字段重，返回数据中已经剔除
+```
 
 输入参数
 

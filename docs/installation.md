@@ -35,7 +35,9 @@ pip install akshare --upgrade
 pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-注意：程序运行时，文件名、文件夹名不能是 akshare
+```{warning}
+程序运行时，文件名、文件夹名不能是 akshare
+```
 
 ## 升级 AKShare
 

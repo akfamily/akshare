@@ -5,7 +5,9 @@
 
 本策略示例是基于 Python 编程语言的开源投研和交易框架 [PyBroker](https://www.pybroker.com) 和
 [Backtrader](https://www.backtrader.com) 来演示！
-注意：本教程的开发是基于：Python (64 位) 3.12.4 来进行的
+```{note}
+本教程的开发是基于：Python (64 位) 3.12.4 来进行的
+```
 
 ## AKQuant 介绍（强烈推荐）
 

@@ -4,7 +4,9 @@
 
 接口：currency_latest
 
-注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```{note}
+此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```
 
 目标地址：https://currencyscoop.com/
 
@@ -62,7 +64,9 @@ print(currency_latest_df)
 
 接口：currency_history
 
-注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```{note}
+此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```
 
 目标地址：https://currencyscoop.com/
 
@@ -119,7 +123,9 @@ print(currency_history_df)
 
 接口：currency_time_series
 
-注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```{note}
+此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```
 
 目标地址：https://currencyscoop.com/
 
@@ -194,7 +200,9 @@ print(currency_time_series_df)
 
 接口：currency_currencies
 
-注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```{note}
+此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```
 
 目标地址：https://currencyscoop.com/
 
@@ -255,7 +263,9 @@ print(currency_currencies_df)
 
 接口：currency_convert
 
-注意：此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```{note}
+此接口使用外部 API，免费账号每月限量访问 5000 次，可以在 [currencyscoop](https://currencyscoop.com/) 注册
+```
 
 目标地址：https://currencyscoop.com/
 
