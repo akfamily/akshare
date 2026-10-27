@@ -83,6 +83,11 @@ exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 #
 html_theme = "sphinx_rtd_theme"
 
+# 页脚显示文档构建日期。每次推送 main 都会触发 Read the Docs 重新构建，
+# 因此它就是文档的最近更新日期，取代了以前在 introduction.md 中手工维护的
+# “本文档更新时间”。
+html_last_updated_fmt = "%Y-%m-%d"
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".

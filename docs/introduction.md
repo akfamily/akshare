@@ -1,13 +1,13 @@
 # [AKShare](https://github.com/akfamily/akshare) 项目概览
 
-本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
-点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。
+AKShare 是基于 Python 的开源财经数据接口库，从东方财富、新浪财经、各交易所官网等公开数据源采集股票、期货、期权、基金、债券、外汇、宏观经济等数据，并统一整理为带中文列名的 pandas DataFrame。
 
-**风险提示**：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
-同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。
+```{warning}
+AKShare 采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。
+```
 
-1. 本文档更新时间：**2026-10-27**；
-2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues。
+- 如有 AKShare 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提出。
+- 非 Python 用户可以使用 AKShare 的 HTTP API 版本 [AKTools](https://aktools.akfamily.xyz/)。
 
 ## 引用
 
