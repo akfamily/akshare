@@ -24,3 +24,39 @@
   font-size: 0.75rem;
   color: var(--pst-color-text-muted);
 }
+
+/* 顶栏的合作推广入口（实盘交易、AKQuant），见 _templates/ak-navbar.html。
+   选择器要比主题的 .bd-header ul.navbar-nav > li.nav-item > .nav-link 更具体 */
+.bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .nav-link {
+  color: #d9480f;
+  font-weight: 700;
+}
+
+.bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .nav-link:hover {
+  color: #b33a0a;
+}
+
+html[data-theme="dark"] .bd-header ul.navbar-nav > li.nav-item.ak-nav-promo > .nav-link {
+  color: #ff922b;
+}
+
+/* 当前页面所在的下拉分组：与主题对普通导航项的高亮方式一致 */
+.bd-header ul.navbar-nav > li.nav-item.dropdown.current > .dropdown-toggle {
+  color: var(--pst-color-primary);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 0 var(--pst-color-primary);
+}
+
+/* 首页卡片：标题加粗、正文略小 */
+.ak-home .sd-card-title {
+  font-weight: 700;
+}
+
+.ak-home .sd-card-text {
+  font-size: 0.9rem;
+}
+
+/* 首页推荐卡片使用与顶栏推广入口一致的强调色边框 */
+.ak-promo-card.sd-card {
+  border: 2px solid #ffa94d;
+}

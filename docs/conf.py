@@ -61,7 +61,8 @@ release = get_version_string()
 # 不再需要 sphinx_markdown_tables：它当年存在的唯一理由是 recommonmark 不支持
 # Markdown 表格，而 myst_parser 原生渲染 GFM 表格（本文档有 16000+ 行表格）。
 # sphinx_copybutton：代码块右上角的复制按钮，与 pandas 文档相同。
-extensions = ["myst_parser", "sphinx_copybutton"]
+# sphinx_design：首页的卡片布局（grid / grid-item-card），与 pandas 文档首页相同。
+extensions = ["myst_parser", "sphinx_copybutton", "sphinx_design"]
 
 # 复制时去掉交互式提示符，粘贴后可以直接运行
 copybutton_prompt_text = r">>> |\.\.\. |\$ "
@@ -108,7 +109,7 @@ html_theme_options = {
     # 右侧栏顶部放公众号二维码（_templates/wechat.html）。首页正文已有大图，不再重复
     "secondary_sidebar_items": {
         "**": ["wechat", "page-toc", "sourcelink"],
-        "index": ["page-toc", "sourcelink"],
+        "index": [],
     },
     # 设置 logo 图片后主题默认不再显示站点标题，需显式给出文字
     "logo": {
