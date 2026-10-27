@@ -229,29 +229,6 @@ def replace_all_block(text: str, block: str) -> str:
 
 SCHEMA_VERSION = 1
 
-# 没有文档条目的接口按模块所在子包推断类目。子包名与 docs/data 下的类目目录
-# 不完全一致，这里把它们并入对应类目，避免 ak.list_categories() 出现
-# stock_feature、cal 这类只对代码结构有意义的类目。
-MODULE_CATEGORY = {
-    "stock_feature": "stock",
-    "stock_fundamental": "stock",
-    "futures_derivative": "futures",
-    "reits": "fund",
-    "cal": "indicator",
-    "article": "research",
-}
-
-
-def infer_category(module: str) -> str:
-    """
-    由模块路径推断类目，如 akshare.stock_feature.xxx 推断为 stock。
-
-    :param module: 模块路径
-    :return: 类目名
-    """
-    package = module.split(".")[1]
-    return MODULE_CATEGORY.get(package, package)
-
 
 def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
     """
@@ -272,7 +249,7 @@ def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
             {
                 "name": name,
                 "module": module,
-                "category": (doc or {}).get("category") or infer_category(module),
+                "category": (doc or {}).get("category") or module.split(".")[1],
                 "documented": doc is not None,
                 "desc": (doc or {}).get("desc"),
                 "url": (doc or {}).get("url"),

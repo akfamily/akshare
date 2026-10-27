@@ -5,9 +5,9 @@ Date: 2019/9/30 13:58
 Desc: 期权配置文件
 """
 
+from akshare.datasets import get_data_file
 import datetime
 import json
-import os
 import re
 
 # 中国金融期货交易所
@@ -88,8 +88,7 @@ def get_json_path(name, module_file):
     :param module_file: filename
     :return: str json_file_path
     """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
-    module_json_path = os.path.join(module_folder, "file_fold", name)
+    module_json_path = str(get_data_file(name))
     return module_json_path
 
 

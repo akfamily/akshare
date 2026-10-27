@@ -9,7 +9,7 @@ https://legulegu.com/stockdata/fund-position/pos-stock
 import pandas as pd
 import requests
 
-from akshare.stock_feature.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
 
 
 def fund_stock_position_lg() -> pd.DataFrame:

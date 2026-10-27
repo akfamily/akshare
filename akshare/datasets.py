@@ -31,6 +31,19 @@ def get_crypto_info_csv(file: str = "crypto_info.zip") -> pathlib.Path:
         return data_file_path
 
 
+def get_data_file(file: str) -> pathlib.Path:
+    """
+    获取 akshare/data 下内置数据文件的路径，如 calendar.json、jm.js
+    :param file: 文件名
+    :type file: str
+    :return: 文件路径
+    :rtype: pathlib.Path
+    """
+    with resources.path("akshare.data", file) as f:
+        data_file_path = f
+        return data_file_path
+
+
 def get_registry_json(file: str = "interfaces.json") -> pathlib.Path:
     """
     get path to data "interfaces.json" file.

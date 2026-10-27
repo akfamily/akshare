@@ -15,9 +15,11 @@
 1. 代码需要符合 **PEP 8** 要求，由 [Ruff](https://github.com/astral-sh/ruff) 进行格式化和检查；提交时 pre-commit 会自动运行，也可以手动运行 `uv run ruff format .` 和 `uv run ruff check .`
 2. 函数接口的设计参考 **stock_zh_a_hist_tx** 的结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**tx** 表示数据源为腾讯；常见的数据源后缀还有 **em**（东方财富）、**sina**（新浪财经）、**ths**（同花顺）等
 3. 接口函数需要增加注释，注释规则请参考 **stock_zh_a_hist_tx** 接口的源码
-4. 新增的接口需要在 `akshare/__init__.py` 中导入，用户才能通过 `ak.接口名` 调用
-5. 需要在接口函数的注释中增加目标网站的地址（不是具体的数据接口地址，而是网页的地址）
-6. 返回数据格式要求：
+4. 新增的接口需要在 `akshare/__init__.py` 中对应类目的分组里导入，用户才能通过 `ak.接口名` 调用
+5. 模块放在与接口类目同名的子包中，文件名为“类目_主题_数据源.py”，例如期货接口放在 `akshare/futures/`，宏观接口放在 `akshare/macro/`；股票接口按数据字典的主题放在 `akshare/stock/quote/`、`finance/`、`holder/`、`issue/`、`valuation/`、`flow/`、`board/`、`research/`、`other/` 之一；一个模块只放同一类目的接口
+6. 内置的 JS、JSON 等数据文件放在 `akshare/data/`，通过 `akshare/datasets.py` 中的函数获取路径，不要按模块文件的相对位置拼接路径
+7. 需要在接口函数的注释中增加目标网站的地址（不是具体的数据接口地址，而是网页的地址）
+8. 返回数据格式要求：
    1. 为了兼容 HTTP API 接口，所有返回的数据格式统一为 Pandas 中的 pandas.DataFrame 格式
 
 ### 标点符号规范

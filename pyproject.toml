@@ -107,7 +107,6 @@ include = ["akshare*"]
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
-    "akshare/__init__.py",  # 初始化导入库文件，必须包含本文件
     ".bzr",
     ".direnv",
     ".eggs",

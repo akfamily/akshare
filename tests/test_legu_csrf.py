@@ -18,7 +18,7 @@ import pytest
 import requests
 
 from akshare.exceptions import APIError, DataParsingError
-from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
+from akshare.stock.valuation.stock_a_indicator import get_cookie_csrf
 
 # 上游拒绝请求时实际返回的页面，正文取自真实响应（nginx/1.22.1，153 字节）
 NGINX_403_BODY = (

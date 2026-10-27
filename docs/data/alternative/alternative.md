@@ -1635,6 +1635,65 @@ print(hurun_rank_df)
 [100 rows x 6 columns]
 ```
 
+(fortune_rank)=
+## 财富世界 500 强
+
+接口：fortune_rank
+
+目标地址：https://www.fortunechina.com/fortune500/index.htm
+
+描述：财富中文网-历年《财富》世界 500 强榜单，从 1996 年至今；各年份网页公布的字段不同，返回结果统一为固定的 9 列，当年未公布的字段为空值
+
+限量：单次返回指定年份的 500 家公司
+
+输入参数
+
+| 名称   | 类型  | 描述                       |
+|------|-----|--------------------------|
+| year | str | year="2025"；从 1996 年至今 |
+
+输出参数
+
+| 名称   | 类型      | 描述                          |
+|------|---------|-----------------------------|
+| 排名   | Int64   | -                           |
+| 上年排名 | Int64   | 2006 年、2008～2019 年公布       |
+| 公司名称 | str     | -                           |
+| 国家   | str     | 2010 年未公布                  |
+| 营业收入 | float64 | 注意单位：百万美元                 |
+| 利润   | float64 | 注意单位：百万美元                 |
+| 资产   | float64 | 注意单位：百万美元；2008 年及以前公布，2007 年除外 |
+| 股东权益 | float64 | 注意单位：百万美元；1997、1998、2000～2005、2008 年公布 |
+| 雇员人数 | float64 | 2008 年及以前公布                |
+
+接口示例
+
+```python
+import akshare as ak
+
+fortune_rank_df = ak.fortune_rank(year="2025")
+print(fortune_rank_df)
+```
+
+数据示例
+
+```
+      排名  上年排名  ...  股东权益  雇员人数
+0      1  <NA>  ...   NaN   NaN
+1      2  <NA>  ...   NaN   NaN
+2      3  <NA>  ...   NaN   NaN
+3      4  <NA>  ...   NaN   NaN
+4      5  <NA>  ...   NaN   NaN
+..   ...   ...  ...   ...   ...
+495  496  <NA>  ...   NaN   NaN
+496  497  <NA>  ...   NaN   NaN
+497  498  <NA>  ...   NaN   NaN
+498  499  <NA>  ...   NaN   NaN
+499  500  <NA>  ...   NaN   NaN
+
+[500 rows x 9 columns]
+```
+
 ## 电影票房
 
 (movie_boxoffice_realtime)=

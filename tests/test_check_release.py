@@ -8,25 +8,20 @@ from check_release import (
 )
 
 
-def make_repo(tmp_path, version="1.18.91", init_version=None, changelog_version=None):
+def make_repo(tmp_path, version="1.18.91", changelog_version=None):
     """
-    造一个只含发布校验所需三个文件的最小仓库。
+    造一个只含发布校验所需两个文件的最小仓库。
 
     :param tmp_path: pytest 提供的临时目录
     :param version: 写入 _version.py 的版本号
-    :param init_version: 写入 __init__.py 版本历史的版本号，默认与 version 相同
     :param changelog_version: 写入 changelog 的版本号，默认与 version 相同
     :return: 仓库根目录
     """
-    init_version = version if init_version is None else init_version
     changelog_version = version if changelog_version is None else changelog_version
     (tmp_path / "akshare").mkdir()
     (tmp_path / "docs").mkdir()
     (tmp_path / "akshare" / "_version.py").write_text(
         f'__version__ = "{version}"\n', encoding="utf-8"
-    )
-    (tmp_path / "akshare" / "__init__.py").write_text(
-        f'"""\n{init_version} fix: fix some interface\n"""\n', encoding="utf-8"
     )
     (tmp_path / "docs" / "changelog.md").write_text(
         f"## 更新说明详情\n\n{changelog_version} fix: fix some interface\n\n"
@@ -89,16 +84,8 @@ def test_collect_problems_detects_missing_changelog_entry(tmp_path):
     assert any("changelog" in p for p in problems)
 
 
-def test_collect_problems_detects_missing_init_history(tmp_path):
-    repo = make_repo(tmp_path, version="1.18.91", init_version="1.18.90")
-    problems = collect_problems(repo, "release-v1.18.91")
-    assert any("__init__.py" in p for p in problems)
-
-
 def test_collect_problems_reports_every_problem_at_once(tmp_path):
     """一次报全，避免修一个再跑一次 CI 才发现下一个。"""
-    repo = make_repo(
-        tmp_path, version="1.18.91", init_version="1.18.90", changelog_version="1.18.89"
-    )
+    repo = make_repo(tmp_path, version="1.18.91", changelog_version="1.18.89")
     problems = collect_problems(repo, "release-v1.18.99")
-    assert len(problems) == 3
+    assert len(problems) == 2

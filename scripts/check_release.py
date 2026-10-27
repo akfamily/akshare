@@ -7,11 +7,12 @@ Desc: 发布前校验版本元数据自洽，供 release_and_deploy.yml 在构�
 必须在 twine upload 之前运行：PyPI 的版本号一经占用即不可重用，
 发错版本号只能改用下一个号，无法撤回。
 
-校验四处必须一致，正是 CLAUDE.md 发布清单要求同步的那几处：
+校验三处必须一致，正是 CLAUDE.md 发布清单要求同步的那几处：
     1. git tag（release-v1.2.3）
     2. akshare/_version.py
-    3. akshare/__init__.py 的版本历史 docstring
-    4. docs/changelog.md 的版本条目
+    3. docs/changelog.md 的版本条目
+
+1.20.0 起版本历史只记录在 docs/changelog.md，akshare/__init__.py 不再保留副本。
 
 本脚本只依赖标准库，因此 CI 中无需安装任何依赖即可运行。
 """
@@ -60,7 +61,7 @@ def has_version_entry(text: str, version: str) -> bool:
     """
     判断文本中是否存在以该版本号开头的行。
 
-    changelog 与 __init__.py 的版本历史都使用「1.18.91 type: desc」这一行首格式。
+    changelog 的版本条目使用「1.18.91 type: desc」这一行首格式。
 
     :param text: 待检查的全文
     :param version: 版本号
@@ -87,10 +88,6 @@ def collect_problems(repo_root: pathlib.Path, tag: str) -> List[str]:
         problems.append(
             f"tag 版本 {tag_version} 与 akshare/_version.py 的 {file_version} 不一致"
         )
-
-    init_text = (repo_root / "akshare" / "__init__.py").read_text(encoding="utf-8")
-    if not has_version_entry(init_text, file_version):
-        problems.append(f"akshare/__init__.py 的版本历史缺少 {file_version} 条目")
 
     changelog_text = (repo_root / "docs" / "changelog.md").read_text(encoding="utf-8")
     if not has_version_entry(changelog_text, file_version):

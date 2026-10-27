@@ -5,10 +5,9 @@ Date: 2025/7/21 15:00
 Desc: 期货配置文件
 """
 
+from akshare.datasets import get_data_file
 import datetime
 import json
-import os
-import pickle
 import re
 
 
@@ -535,31 +534,8 @@ def get_json_path(name, module_file):
     :param module_file: filename
     :return: str json_file_path
     """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
-    module_json_path = os.path.join(module_folder, "file_fold", name)
+    module_json_path = str(get_data_file(name))
     return module_json_path
-
-
-def get_pk_path(name, module_file):
-    """
-    获取 pickle 配置文件的路径（从模块所在目录查找）
-    :param name: 文件名
-    :param module_file: filename
-    :return: str json_file_path
-    """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
-    module_json_path = os.path.join(module_folder, "file_fold", name)
-    return module_json_path
-
-
-def get_pk_data(file_name):
-    """
-    获取交易日历至 2019 年结束，这里的交易日历需要按年更新
-    :return: json
-    """
-    setting_file_name = file_name
-    setting_file_path = get_pk_path(setting_file_name, __file__)
-    return pickle.load(open(setting_file_path, "rb"))
 
 
 def get_calendar():
