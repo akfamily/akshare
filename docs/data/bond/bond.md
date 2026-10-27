@@ -2,6 +2,7 @@
 
 ## 债券基础信息
 
+(bond_info_cm)=
 ### 债券查询
 
 接口：bond_info_cm
@@ -53,6 +54,7 @@ print(bond_info_cm_df)
 2  19万林投资CP001  041900126  重庆万林投资发展有限公司  短期融资券  2019-03-25    A-1  695327xh9n
 ```
 
+(bond_info_detail_cm)=
 ### 债券基础信息
 
 接口：bond_info_detail_cm
@@ -113,6 +115,7 @@ print(bond_info_detail_cm_df)
 
 ## 上交所债券
 
+(bond_cash_summary_sse)=
 ### 债券现券市场概览
 
 接口：bond_cash_summary_sse
@@ -164,6 +167,7 @@ print(bond_cash_summary_sse_df)
 9         合计  20469  132102.75  131997.40  2021-01-11
 ```
 
+(bond_deal_summary_sse)=
 ### 债券成交概览
 
 接口：bond_deal_summary_sse
@@ -222,6 +226,7 @@ print(bond_summary_sse_df)
 
 ## 债券基础数据
 
+(bond_debt_nafmii)=
 ### 银行间市场债券发行基础数据
 
 接口：bond_debt_nafmii
@@ -318,6 +323,7 @@ print(bond_debt_nafmii_df)
 
 ## 中国债券市场行情数据
 
+(bond_spot_quote)=
 ### 现券市场做市报价
 
 接口：bond_spot_quote
@@ -375,6 +381,7 @@ print(bond_spot_quote_df)
 14      平安证券  18进出03  102.35  102.52  2.295  2.1000
 ```
 
+(bond_spot_deal)=
 ### 现券市场成交行情
 
 接口：bond_spot_deal
@@ -429,6 +436,7 @@ print(bond_spot_deal_df)
 [1780 rows x 6 columns]
 ```
 
+(bond_china_yield)=
 ### 国债及其他债券收益率曲线
 
 接口：bond_china_yield
@@ -490,6 +498,7 @@ print(bond_china_yield_df)
 
 ## 沪深债券
 
+(bond_zh_hs_spot)=
 ### 实时行情数据
 
 接口：bond_zh_hs_spot
@@ -552,6 +561,7 @@ print(bond_zh_hs_spot_df)
 [400 rows x 13 columns]
 ```
 
+(bond_zh_hs_daily)=
 ### 历史行情数据
 
 接口：bond_zh_hs_daily
@@ -608,6 +618,7 @@ print(bond_zh_hs_daily_df)
 
 ## 沪深可转债
 
+(bond_cb_profile_sina)=
 ### 可转债-详情资料
 
 接口：bond_cb_profile_sina
@@ -671,6 +682,7 @@ print(bond_cb_profile_sina_df)
 24  外部信用增级方式                                                 --
 ```
 
+(bond_cb_summary_sina)=
 ### 可转债-债券概况
 
 接口：bond_cb_summary_sina
@@ -724,6 +736,7 @@ print(bond_cb_summary_sina_df)
 14        凸性          --
 ```
 
+(bond_zh_hs_cov_spot)=
 ### 实时行情数据
 
 接口：bond_zh_hs_cov_spot
@@ -773,6 +786,7 @@ print(bond_zh_hs_cov_spot_df)
 [560 rows x 15 columns]
 ```
 
+(bond_zh_hs_cov_daily)=
 ### 历史行情数据-日频
 
 接口：bond_zh_hs_cov_daily
@@ -827,6 +841,7 @@ print(bond_zh_hs_cov_daily_df)
 [1375 rows x 6 columns]
 ```
 
+(bond_zh_hs_cov_min)=
 ### 历史行情数据-分时
 
 接口：bond_zh_hs_cov_min
@@ -928,6 +943,7 @@ print(bond_zh_hs_cov_min_df)
 1487  2021-11-02 15:00:00  120.018  120.099  ...    764406.0  0.10  0.12
 ```
 
+(bond_zh_hs_cov_pre_min)=
 ### 历史行情数据-盘前分时
 
 接口：bond_zh_hs_cov_pre_min
@@ -983,6 +999,7 @@ print(bond_zh_hs_cov_pre_min_df)
 135  2022-07-27 11:30:00  128.81  128.78  ...    7    9016.0  128.4235
 ```
 
+(bond_zh_cov)=
 ### 可转债数据一览表
 
 接口：bond_zh_cov
@@ -1050,6 +1067,7 @@ print(bond_zh_cov_df)
 [920 rows x 19 columns]
 ```
 
+(bond_zh_cov_info)=
 ### 可转债详情
 
 接口：bond_zh_cov_info
@@ -1089,6 +1107,7 @@ print(bond_zh_cov_info_df)
 0        123121  123121.SZ       CNSESZ  ...                是         是           是
 ```
 
+(bond_zh_cov_info_ths)=
 ### 可转债详情-同花顺
 
 接口：bond_zh_cov_info_ths
@@ -1153,6 +1172,7 @@ print(bond_zh_cov_info_ths_df)
 [849 rows x 16 columns]
 ```
 
+(bond_cov_comparison)=
 ### 可转债比价表
 
 接口：bond_cov_comparison
@@ -1221,6 +1241,7 @@ print(bond_cov_comparison_df)
 [550 rows x 20 columns]
 ```
 
+(bond_zh_cov_value_analysis)=
 ### 可转债价值分析
 
 接口：bond_zh_cov_value_analysis
@@ -1330,6 +1351,7 @@ print(bond_zh_cov_value_analysis_df)
 
 ## 质押式回购
 
+(bond_sh_buy_back_em)=
 ### 上证质押式回购
 
 接口：bond_sh_buy_back_em
@@ -1388,6 +1410,7 @@ print(bond_sh_buy_back_em_df)
 [9 rows x 12 columns]
 ```
 
+(bond_sz_buy_back_em)=
 ### 深证质押式回购
 
 接口：bond_sz_buy_back_em
@@ -1446,6 +1469,7 @@ print(bond_sz_buy_back_em_df)
 [9 rows x 12 columns]
 ```
 
+(bond_buy_back_hist_em)=
 ### 质押式回购历史数据
 
 接口：bond_buy_back_hist_em
@@ -1501,6 +1525,7 @@ print(bond_buy_back_hist_em_df)
 [4570 rows x 7 columns]
 ```
 
+(bond_cb_jsl)=
 ## 可转债实时数据-集思录
 
 接口：bond_cb_jsl
@@ -1595,6 +1620,7 @@ print(bond_cb_jsl_df)
 [30 rows x 23 columns]
 ```
 
+(bond_cb_redeem_jsl)=
 ## 可转债强赎
 
 接口：bond_cb_redeem_jsl
@@ -1660,6 +1686,7 @@ print(bond_cb_redeem_jsl_df)
 443  113646  永吉转债  253.950  ...   0/15 | 30  公司股票在任何连续三十个交易日中至少有十五个交易日的...
 ```
 
+(bond_cb_index_jsl)=
 ## 集思录可转债等权指数
 
 接口：bond_cb_index_jsl
@@ -1736,6 +1763,7 @@ print(bond_cb_index_jsl_df)
 1150  2022-09-23  1998.653  ...   3856.021            -0.34
 ```
 
+(bond_cb_adj_logs_jsl)=
 ## 可转债转股价格调整记录-集思录
 
 接口：bond_cb_adj_logs_jsl
@@ -1781,6 +1809,7 @@ print(bond_convert_adj_logs_jsl_df)
 2  洪涛转债  2019-11-20    9.97    8.00  2019-11-21  3.10
 ```
 
+(bond_china_close_return)=
 ## 收盘收益率曲线历史数据
 
 接口：bond_china_close_return
@@ -1838,6 +1867,7 @@ print(bond_china_close_return_df)
 14  2023-11-01  11.000  2.7115  2.7252  3.0458
 ```
 
+(bond_zh_us_rate)=
 ## 中美国债收益率
 
 接口：bond_zh_us_rate
@@ -1899,6 +1929,7 @@ print(bond_zh_us_rate_df)
 [8600 rows x 13 columns]
 ```
 
+(bond_gb_zh_sina)=
 ## 中国国债收益率行情
 
 接口：bond_gb_zh_sina
@@ -1953,6 +1984,7 @@ print(bond_gb_zh_sina_df)
 [1000 rows x 6 columns]
 ```
 
+(bond_gb_us_sina)=
 ## 美国国债收益率行情
 
 接口：bond_gb_us_sina
@@ -2009,6 +2041,7 @@ print(bond_gb_us_sina_df)
 
 ## 债券发行
 
+(bond_treasure_issue_cninfo)=
 ### 国债发行
 
 接口：bond_treasure_issue_cninfo
@@ -2071,6 +2104,7 @@ print(bond_treasure_issue_cninfo_df)
 [104 rows x 15 columns]
 ```
 
+(bond_local_government_issue_cninfo)=
 ### 地方债发行
 
 接口：bond_local_government_issue_cninfo
@@ -2133,6 +2167,7 @@ print(bond_local_government_issue_cninfo_df)
 [1449 rows x 15 columns]
 ```
 
+(bond_corporate_issue_cninfo)=
 ### 企业债发行
 
 接口：bond_corporate_issue_cninfo
@@ -2197,6 +2232,7 @@ print(bond_corporate_issue_cninfo_df)
 [434 rows x 17 columns]
 ```
 
+(bond_cov_issue_cninfo)=
 ### 可转债发行
 
 接口：bond_cov_issue_cninfo
@@ -2279,6 +2315,7 @@ print(bond_cov_issue_cninfo_df)
 [15 rows x 31 columns]
 ```
 
+(bond_cov_stock_issue_cninfo)=
 ### 可转债转股
 
 接口：bond_cov_stock_issue_cninfo
@@ -2341,6 +2378,7 @@ print(bond_cov_stock_issue_cninfo_df)
 
 #### 综合类指数
 
+(bond_new_composite_index_cbond)=
 ##### 新综合指数
 
 接口：bond_new_composite_index_cbond
@@ -2390,6 +2428,7 @@ print(bond_new_composite_index_cbond_df)
 [5445 rows x 2 columns]
 ```
 
+(bond_composite_index_cbond)=
 ##### 综合指数
 
 接口：bond_composite_index_cbond
@@ -2439,6 +2478,7 @@ print(bond_composite_index_cbond_df)
 [5434 rows x 2 columns]
 ```
 
+(bond_treasury_index_cbond)=
 ##### 国债指数
 
 接口：bond_treasury_index_cbond
@@ -2490,6 +2530,7 @@ print(bond_treasury_index_cbond_df)
 
 ### 中债指数族系
 
+(bond_available_index_cbond)=
 #### 可选指数
 
 接口：bond_available_index_cbond
@@ -2538,6 +2579,7 @@ print(bond_available_index_cbond_df)
 [313 rows x 2 columns]
 ```
 
+(bond_index_general_cbond)=
 #### 指数族系查询
 
 接口：bond_index_general_cbond

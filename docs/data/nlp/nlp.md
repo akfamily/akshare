@@ -1,5 +1,6 @@
 # AKShare 自然语言处理
 
+(nlp_ownthink)=
 ## 知识图谱
 
 接口：nlp_ownthink
@@ -116,6 +117,7 @@ print(nlp_ownthink_df)
 ['中国通信学会', '学科']
 ```
 
+(nlp_answer)=
 ## 智能问答
 
 接口：nlp_answer

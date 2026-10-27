@@ -2,6 +2,7 @@
 
 ## 主要央行利率
 
+(macro_bank_usa_interest_rate)=
 ### 美联储利率决议报告
 
 接口：macro_bank_usa_interest_rate
@@ -57,6 +58,7 @@ print(macro_bank_usa_interest_rate_df)
 [287 rows x 5 columns]
 ```
 
+(macro_bank_euro_interest_rate)=
 ### 欧洲央行决议报告
 
 接口：macro_bank_euro_interest_rate
@@ -110,6 +112,7 @@ print(macro_bank_euro_interest_rate_df)
 [273 rows x 5 columns]
 ```
 
+(macro_bank_newzealand_interest_rate)=
 ### 新西兰联储决议报告
 
 接口：macro_bank_newzealand_interest_rate
@@ -163,6 +166,7 @@ print(macro_bank_newzealand_interest_rate_df)
 [235 rows x 5 columns]
 ```
 
+(macro_bank_china_interest_rate)=
 ### 中国央行决议报告
 
 接口：macro_bank_china_interest_rate
@@ -216,6 +220,7 @@ print(macro_bank_china_interest_rate_df)
 [218 rows x 5 columns]
 ```
 
+(macro_bank_switzerland_interest_rate)=
 ### 瑞士央行利率决议报告
 
 接口：macro_bank_switzerland_interest_rate
@@ -269,6 +274,7 @@ print(macro_bank_switzerland_interest_rate_df)
 [72 rows x 5 columns]
 ```
 
+(macro_bank_english_interest_rate)=
 ### 英国央行决议报告
 
 接口：macro_bank_english_interest_rate
@@ -322,6 +328,7 @@ print(macro_bank_english_interest_rate_df)
 [632 rows x 5 columns]
 ```
 
+(macro_bank_australia_interest_rate)=
 ### 澳洲联储决议报告
 
 接口：macro_bank_australia_interest_rate
@@ -375,6 +382,7 @@ print(macro_bank_australia_interest_rate_df)
 [522 rows x 5 columns]
 ```
 
+(macro_bank_japan_interest_rate)=
 ### 日本利率决议报告
 
 接口：macro_bank_japan_interest_rate
@@ -428,6 +436,7 @@ print(macro_bank_japan_interest_rate_df)
 [195 rows x 5 columns]
 ```
 
+(macro_bank_russia_interest_rate)=
 ### 俄罗斯利率决议报告
 
 接口：macro_bank_russia_interest_rate
@@ -481,6 +490,7 @@ print(macro_bank_russia_interest_rate_df)
 [219 rows x 5 columns]
 ```
 
+(macro_bank_india_interest_rate)=
 ### 印度利率决议报告
 
 接口：macro_bank_india_interest_rate
@@ -534,6 +544,7 @@ print(macro_bank_india_interest_rate_df)
 [227 rows x 5 columns]
 ```
 
+(macro_bank_brazil_interest_rate)=
 ### 巴西利率决议报告
 
 接口：macro_bank_brazil_interest_rate
@@ -587,6 +598,7 @@ print(macro_bank_brazil_interest_rate_df)
 [150 rows x 5 columns]
 ```
 
+(rate_interbank)=
 ## 银行间拆借利率
 
 接口：rate_interbank
@@ -753,6 +765,7 @@ print(rate_interbank_df)
 [4396 rows x 3 columns]
 ```
 
+(repo_rate_hist)=
 ## 回购定盘利率-历史
 
 接口：repo_rate_hist
@@ -809,6 +822,7 @@ print(repo_rate_hist_df)
 [62 rows x 7 columns]
 ```
 
+(repo_rate_query)=
 ## 回购定盘利率-近期
 
 接口：repo_rate_query

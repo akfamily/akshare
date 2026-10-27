@@ -4,6 +4,7 @@
 
 ### 会员信息
 
+(amac_member_info)=
 #### 会员机构综合查询
 
 接口：amac_member_info
@@ -61,6 +62,7 @@ print(amac_member_info_df)
 
 ### 从业人员信息
 
+(amac_person_fund_org_list)=
 #### 基金从业人员资格注册信息
 
 接口：amac_person_fund_org_list
@@ -116,6 +118,7 @@ print(amac_person_fund_org_list_df)
 [146 rows x 8 columns]
 ```
 
+(amac_person_bond_org_list)=
 #### 债券投资交易相关人员公示
 
 接口：amac_person_bond_org_list
@@ -170,6 +173,7 @@ print(amac_person_bond_org_list_df)
 
 ### 私募基金管理人公示
 
+(amac_manager_info)=
 #### 私募基金管理人综合查询
 
 接口：amac_manager_info
@@ -225,6 +229,7 @@ print(amac_manager_info_df)
 [21092 rows x 7 columns]
 ```
 
+(amac_manager_classify_info)=
 #### 私募基金管理人分类公示
 
 接口：amac_manager_classify_info
@@ -285,6 +290,7 @@ print(amac_manager_classify_info_df)
 [21092 rows x 12 columns]
 ```
 
+(amac_member_sub_info)=
 #### 证券公司私募基金子公司管理人信息公示
 
 接口：amac_member_sub_info
@@ -341,6 +347,7 @@ print(amac_member_sub_info_df)
 
 ### 基金产品
 
+(amac_fund_info)=
 #### 私募基金管理人基金产品
 
 接口：amac_fund_info
@@ -397,6 +404,7 @@ print(amac_fund_info_df)
 [10000 rows x 7 columns]
 ```
 
+(amac_securities_info)=
 #### 证券公司集合资管产品公示
 
 接口：amac_securities_info
@@ -455,6 +463,7 @@ print(amac_securities_info_df)
 [20291 rows x 10 columns]
 ```
 
+(amac_aoin_info)=
 #### 证券公司直投基金
 
 接口：amac_aoin_info
@@ -508,6 +517,7 @@ print(amac_aoin_info_df)
 [224 rows x 5 columns]
 ```
 
+(amac_fund_sub_info)=
 #### 证券公司私募投资基金
 
 接口：amac_fund_sub_info
@@ -562,6 +572,7 @@ print(amac_fund_sub_info_df)
 [1692 rows x 6 columns]
 ```
 
+(amac_fund_account_info)=
 #### 基金公司及子公司集合资管产品公示
 
 接口：amac_fund_account_info
@@ -614,6 +625,7 @@ print(amac_fund_account_info_df)
 [38249 rows x 4 columns]
 ```
 
+(amac_fund_abs)=
 #### 资产支持专项计划
 
 接口：amac_fund_abs
@@ -670,6 +682,7 @@ print(amac_fund_abs_df)
 [8340 rows x 8 columns]
 ```
 
+(amac_futures_info)=
 #### 期货公司集合资管产品公示
 
 接口：amac_futures_info
@@ -730,6 +743,7 @@ print(amac_futures_info_df)
 
 ### 诚信信息
 
+(amac_manager_cancelled_info)=
 #### 已注销私募基金管理人名单
 
 接口：amac_manager_cancelled_info

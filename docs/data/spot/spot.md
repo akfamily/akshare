@@ -1,5 +1,6 @@
 # AKShare 现货数据
 
+(spot_price_qh)=
 ## 99 现货走势
 
 接口：spot_price_qh
@@ -53,6 +54,7 @@ print(spot_price_qh_df)
 
 ## 上海黄金交易所
 
+(spot_hist_sge)=
 ### 历史行情数据
 
 接口：spot_hist_sge
@@ -106,6 +108,7 @@ print(spot_hist_sge_df)
 [1780 rows x 5 columns]
 ```
 
+(spot_quotations_sge)=
 ### 实时行情数据
 
 接口：spot_quotations_sge
@@ -158,6 +161,7 @@ print(spot_quotations_sge_df)
 [691 rows x 4 columns]
 ```
 
+(spot_golden_benchmark_sge)=
 ### 上海金基准价
 
 接口：spot_golden_benchmark_sge
@@ -209,6 +213,7 @@ print(spot_golden_benchmark_sge_df)
 [1806 rows x 3 columns]
 ```
 
+(spot_silver_benchmark_sge)=
 ### 上海银基准价
 
 接口：spot_silver_benchmark_sge
@@ -262,6 +267,7 @@ print(spot_silver_benchmark_sge_df)
 
 ## 生猪大数据
 
+(spot_hog_soozhu)=
 ### 各省均价实时排行榜
 
 接口：spot_hog_soozhu
@@ -329,6 +335,7 @@ print(spot_hog_soozhu_df)
 27   贵州  19.18 -0.16
 ```
 
+(spot_hog_year_trend_soozhu)=
 ### 今年以来全国出栏均价走势
 
 接口：spot_hog_year_trend_soozhu
@@ -379,6 +386,7 @@ print(spot_hog_year_trend_soozhu_df)
 [200 rows x 2 columns]
 ```
 
+(spot_hog_lean_price_soozhu)=
 ### 全国瘦肉型肉猪
 
 接口：spot_hog_lean_price_soozhu
@@ -432,6 +440,7 @@ print(spot_hog_lean_price_soozhu_df)
 14  2024-08-04  19.80
 ```
 
+(spot_hog_three_way_soozhu)=
 ### 全国三元仔猪
 
 接口：spot_hog_three_way_soozhu
@@ -485,6 +494,7 @@ print(spot_hog_three_way_soozhu_df)
 14  2024-08-06  718.02
 ```
 
+(spot_hog_crossbred_soozhu)=
 ### 全国后备二元母猪
 
 接口：spot_hog_crossbred_soozhu
@@ -538,6 +548,7 @@ print(spot_hog_crossbred_soozhu_df)
 14  2024-08-09  1960.00
 ```
 
+(spot_corn_price_soozhu)=
 ### 全国玉米价格走势
 
 接口：spot_corn_price_soozhu
@@ -591,6 +602,7 @@ print(spot_corn_price_soozhu_df)
 14  2024-08-10  2.57
 ```
 
+(spot_soybean_price_soozhu)=
 ### 全国豆粕价格走势
 
 接口：spot_soybean_price_soozhu
@@ -644,6 +656,7 @@ print(spot_soybean_price_soozhu_df)
 14  2024-08-11  3.18
 ```
 
+(spot_mixed_feed_soozhu)=
 ### 全国育肥猪合料（含自配料）半月走势
 
 接口：spot_mixed_feed_soozhu

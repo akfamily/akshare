@@ -288,6 +288,7 @@
 
 ## 期货基础数据
 
+(futures_fees_info)=
 ### 期货交易费用参照表
 
 接口：futures_fees_info
@@ -372,6 +373,7 @@ print(futures_fees_info_df)
 [769 rows x 36 columns]
 ```
 
+(futures_comm_info)=
 ### 期货手续费与保证金
 
 接口：futures_comm_info
@@ -441,6 +443,7 @@ print(futures_comm_info_df)
 [700 rows x 21 columns]
 ```
 
+(futures_comm_js)=
 #### 金十数据
 
 接口：futures_comm_js
@@ -507,6 +510,7 @@ print(futures_comm_js_df)
 [90 rows x 18 columns]
 ```
 
+(futures_rule)=
 ### 期货规则-交易日历表
 
 接口：futures_rule
@@ -565,6 +569,7 @@ print(futures_rule_df)
 [122 rows x 10 columns]
 ```
 
+(futures_inventory_99)=
 ### 库存数据-99期货网
 
 接口：futures_inventory_99
@@ -616,6 +621,7 @@ print(futures_inventory_99_df)
 [4019 rows x 3 columns]
 ```
 
+(futures_inventory_em)=
 ### 库存数据-东方财富
 
 接口：futures_inventory_em
@@ -937,6 +943,7 @@ print(get_rank_table_czce_df)
 3. 因此这里的品种排名和是各合约加总计算得来；郑州交易所公布了各合约排名和品种排名，因此这里都是交易所原始数据。
 ```
 
+(futures_dce_position_rank)=
 #### 大连商品交易所
 
 ```{warning}
@@ -1006,6 +1013,7 @@ print(futures_dce_detail_dict)
 }
 ```
 
+(futures_gfex_position_rank)=
 #### 广州期货交易所
 
 接口：futures_gfex_position_rank
@@ -1143,6 +1151,7 @@ print(futures_gfex_position_rank_dict)
 
 ### 仓单日报
 
+(futures_warehouse_receipt_czce)=
 #### 仓单日报-郑州商品交易所
 
 接口：futures_warehouse_receipt_czce
@@ -1232,6 +1241,7 @@ print(futures_warehouse_receipt_czce_df)
 372    总计   NaN   NaN   NaN  NaN  20641  -261  2203}
 ```
 
+(futures_warehouse_receipt_dce)=
 #### 仓单日报-大连商品交易所
 
 ```{warning}
@@ -1290,6 +1300,7 @@ print(futures_warehouse_receipt_dce_df)
 190  None    总计    None         None    315072    314394   -678
 ```
 
+(futures_shfe_warehouse_receipt)=
 #### 仓单日报-上海期货交易所
 
 接口：futures_shfe_warehouse_receipt
@@ -1344,6 +1355,7 @@ print(futures_shfe_warehouse_receipt_df["螺纹钢仓库"])
 16   螺纹钢仓库                 总计     85813      12396         2
 ```
 
+(futures_gfex_warehouse_receipt)=
 #### 仓单日报-广州期货交易所
 
 接口：futures_gfex_warehouse_receipt
@@ -1421,6 +1433,7 @@ print(futures_gfex_warehouse_receipt_df)
 26  工业硅  厦门国贸（外运天津滨海）    660    660    0}
 ```
 
+(futures_to_spot_dce)=
 ### 期转现-大商所
 
 ```{warning}
@@ -1467,6 +1480,7 @@ print(futures_to_spot_dce_df)
 2  eb2312  2023-12-20    176
 ```
 
+(futures_to_spot_czce)=
 ### 期转现-郑商所
 
 接口：futures_to_spot_czce
@@ -1507,6 +1521,7 @@ print(futures_to_spot_czce_df)
 1  CJ401    10
 ```
 
+(futures_to_spot_shfe)=
 ### 期转现-上期所
 
 接口：futures_to_spot_shfe
@@ -1583,6 +1598,7 @@ print(futures_to_spot_shfe_df)
 29  2023-12-15  sp2312   70060.0     0.0
 ```
 
+(futures_delivery_dce)=
 ### 交割统计-大商所
 
 ```{warning}
@@ -1656,6 +1672,7 @@ print(futures_delivery_dce_df)
 27     豆油   y2312  2023-12-19     67    5496680
 ```
 
+(futures_delivery_czce)=
 ### 交割统计-郑商所
 
 接口：futures_delivery_czce
@@ -1702,6 +1719,7 @@ print(futures_delivery_monthly_czce_df)
 6      合计  2050  137920670
 ```
 
+(futures_delivery_shfe)=
 ### 交割统计-上期所
 
 接口：futures_delivery_shfe
@@ -1767,6 +1785,7 @@ print(futures_delivery_shfe_df)
 23       总计   46767  100.000000    939027   14.213102
 ```
 
+(futures_delivery_match_dce)=
 ### 交割配对-大商所
 
 ```{warning}
@@ -1835,6 +1854,7 @@ print(futures_delivery_match_dce_df)
 [1420 rows x 6 columns]
 ```
 
+(futures_delivery_match_czce)=
 ### 交割配对-郑商所
 
 接口：futures_delivery_match_czce
@@ -1907,6 +1927,7 @@ print(futures_delivery_match_czce_df)
 
 ### 库存周报
 
+(futures_stock_shfe_js)=
 #### 上海期货交易所
 
 接口：futures_stock_shfe_js
@@ -1966,6 +1987,7 @@ print(futures_stock_shfe_js_df)
 17       20号胶          141624          140737     887   0.63
 ```
 
+(futures_hold_pos_sina)=
 ### 成交持仓
 
 接口：futures_hold_pos_sina
@@ -2028,6 +2050,7 @@ print(futures_hold_pos_sina_df)
 19  20    东方财富（代客）   7220  -1248.0
 ```
 
+(futures_spot_sys)=
 ### 现期图
 
 接口：futures_spot_sys
@@ -2148,6 +2171,7 @@ print(futures_spot_sys_df)
 
 ### 合约信息
 
+(futures_contract_info_shfe)=
 #### 上海期货交易所
 
 接口：futures_contract_info_shfe
@@ -2204,6 +2228,7 @@ print(futures_contract_info_shfe_df)
 [276 rows x 8 columns]
 ```
 
+(futures_contract_info_ine)=
 #### 上海国际能源交易中心
 
 接口：futures_contract_info_ine
@@ -2259,6 +2284,7 @@ print(futures_contract_info_ine_df)
 [62 rows x 7 columns]
 ```
 
+(futures_contract_info_dce)=
 #### 大连商品交易所
 
 ```{warning}
@@ -2318,6 +2344,7 @@ print(futures_contract_info_dce_df)
 [237 rows x 7 columns]
 ```
 
+(futures_contract_info_czce)=
 #### 郑州商品交易所
 
 接口：futures_contract_info_czce
@@ -2406,6 +2433,7 @@ print(futures_contract_info_czce_df)
 [218 rows x 40 columns]
 ```
 
+(futures_contract_info_gfex)=
 #### 广州期货交易所
 
 接口：futures_contract_info_gfex
@@ -2469,6 +2497,7 @@ print(futures_contract_info_gfex_df)
 19  工业硅  si2410     5       5  2024-02-23  2024-10-21  2024-10-24
 ```
 
+(futures_contract_info_cffex)=
 #### 中国金融期货交易所
 
 接口：futures_contract_info_cffex
@@ -2531,6 +2560,7 @@ print(futures_contract_info_cffex_df)
 
 ## 期货行情数据
 
+(futures_zh_spot)=
 ### 内盘-实时行情数据
 
 接口：futures_zh_spot
@@ -2717,6 +2747,7 @@ while True:
 3  113365.000  73086  353463074.600
 ```
 
+(futures_zh_realtime)=
 ### 内盘-实时行情数据（品种）
 
 接口：futures_zh_realtime
@@ -2817,6 +2848,7 @@ print(big_df)
 569  TS2212    cffex    2年期国债期货2212  ...  0.0  0.0          100.92
 ```
 
+(futures_zh_minute_sina)=
 ### 内盘-分时行情数据
 
 接口：futures_zh_minute_sina
@@ -2873,6 +2905,7 @@ print(futures_zh_minute_sina_df)
 [1023 rows x 7 columns]
 ```
 
+(futures_hist_em)=
 ### 内盘-历史行情数据-东财
 
 接口：futures_hist_em
@@ -2934,6 +2967,7 @@ print(futures_hist_em_df)
 [2641 rows x 10 columns]
 ```
 
+(futures_zh_daily_sina)=
 ### 内盘-历史行情数据-新浪
 
 接口：futures_zh_daily_sina
@@ -3017,6 +3051,7 @@ print(futures_zh_daily_sina_df)
 [115 rows x 8 columns]
 ```
 
+(get_futures_daily)=
 ### 内盘-历史行情数据-交易所
 
 ```{warning}
@@ -3082,6 +3117,7 @@ print(get_futures_daily_df)
 2753   JM99  20200716  1193.58  ...  1195.49    1197.92      JM
 ```
 
+(futures_settle)=
 ### 内盘-结算参数数据
 
 接口：futures_settle
@@ -3151,6 +3187,7 @@ print(futures_settle_df)
 [62 rows x 20 columns]
 ```
 
+(futures_hq_subscribe_exchange_symbol)=
 ### 外盘-品种代码表
 
 接口：futures_hq_subscribe_exchange_symbol
@@ -3215,6 +3252,7 @@ print(futures_hq_subscribe_exchange_symbol_df)
 25     欧洲碳排放   EUA
 ```
 
+(futures_foreign_commodity_realtime)=
 ### 外盘-实时行情数据
 
 接口：futures_foreign_commodity_realtime
@@ -3318,6 +3356,7 @@ while True:
 [29 rows x 14 columns]
 ```
 
+(futures_global_spot_em)=
 ### 外盘-实时行情数据-东财
 
 接口：futures_global_spot_em
@@ -3380,6 +3419,7 @@ print(futures_global_spot_em_df)
 [620 rows x 14 columns]
 ```
 
+(futures_global_hist_em)=
 ### 外盘-历史行情数据-东财
 
 接口：futures_global_hist_em
@@ -3439,6 +3479,7 @@ print(futures_global_hist_em_df)
 [3485 rows x 11 columns]
 ```
 
+(futures_foreign_hist)=
 ### 外盘-历史行情数据-新浪
 
 接口：futures_foreign_hist
@@ -3493,6 +3534,7 @@ print(futures_foreign_hist_df)
 [2546 rows x 8 columns]
 ```
 
+(futures_foreign_detail)=
 ### 外盘-合约详情
 
 接口：futures_foreign_detail
@@ -3544,6 +3586,7 @@ print(futures_foreign_detail_df)
 3    交易代码                             ZSD  ...    附加信息                     NaN
 ```
 
+(futures_settlement_price_sgx)=
 ### 新加坡交易所期货
 
 接口：futures_settlement_price_sgx
@@ -3604,6 +3647,7 @@ print(futures_settlement_price_sgx_df)
 [3170 rows x 12 columns]
 ```
 
+(futures_main_sina)=
 ## 期货连续合约
 
 接口：futures_main_sina
@@ -3759,6 +3803,7 @@ print(futures_display_main_sina_df)
 62    TS0    cffex    2年期国债期货连续
 ```
 
+(futures_contract_detail)=
 ## 期货合约详情-新浪
 
 接口：futures_contract_detail
@@ -3893,6 +3938,7 @@ print(futures_contract_detail_df)
 14    上市交易所                                            大连商品交易所
 ```
 
+(futures_contract_detail_em)=
 ## 期货合约详情-东财
 
 接口：futures_contract_detail_em
@@ -3948,6 +3994,7 @@ print(futures_contract_detail_em_df)
 
 ## 中证商品指数
 
+(futures_index_ccidx)=
 ### 中证商品指数
 
 接口：futures_index_ccidx
@@ -4002,6 +4049,7 @@ print(futures_index_ccidx_df)
 [965 rows x 6 columns]
 ```
 
+(futures_spot_stock)=
 ## 现货与股票
 
 接口：futures_spot_stock
@@ -4056,6 +4104,7 @@ print(futures_spot_stock_df)
 [7 rows x 10 columns]
 ```
 
+(futures_comex_inventory)=
 ## COMEX 库存数据
 
 接口：futures_comex_inventory
@@ -4110,6 +4159,7 @@ print(futures_comex_inventory_df)
 
 ## 生猪信息
 
+(futures_hog_core)=
 ### 核心数据
 
 接口：futures_hog_core
@@ -4160,6 +4210,7 @@ print(futures_hog_core_df)
 [367 rows x 2 columns]
 ```
 
+(futures_hog_cost)=
 ### 成本维度
 
 接口：futures_hog_cost
@@ -4210,6 +4261,7 @@ print(futures_hog_cost_df)
 [367 rows x 2 columns]
 ```
 
+(futures_hog_supply)=
 ### 供应维度
 
 接口：futures_hog_supply
@@ -4260,6 +4312,7 @@ print(futures_hog_supply_df)
 [90 rows x 2 columns]
 ```
 
+(index_hog_spot_price)=
 ## 生猪市场价格指数
 
 接口：index_hog_spot_price
@@ -4316,6 +4369,7 @@ print(index_hog_spot_price_df)
 [465 rows x 8 columns]
 ```
 
+(futures_news_shmet)=
 ## 期货资讯
 
 接口：futures_news_shmet

@@ -2,6 +2,7 @@
 
 ## 中国宏观
 
+(macro_cnbs)=
 ### 中国宏观杠杆率
 
 接口：macro_cnbs
@@ -63,6 +64,7 @@ print(macro_cnbs_df)
 
 #### 经济状况
 
+(macro_china_qyspjg)=
 ##### 企业商品价格指数
 
 接口：macro_china_qyspjg
@@ -123,6 +125,7 @@ print(macro_china_qyspjg_df)
 212  2005年01月份   104.67 -1.957662  ...   115.83   8.903723 -1.814021
 ```
 
+(macro_china_fdi)=
 ##### 外商直接投资数据
 
 接口：macro_china_fdi
@@ -177,6 +180,7 @@ print(macro_china_fdi_df)
 [185 rows x 6 columns]
 ```
 
+(macro_china_lpr)=
 ##### LPR品种数据
 
 接口：macro_china_lpr
@@ -230,6 +234,7 @@ print(macro_china_lpr_df)
 [1538 rows x 5 columns]
 ```
 
+(macro_china_urban_unemployment)=
 ##### 城镇调查失业率
 
 接口：macro_china_urban_unemployment
@@ -281,6 +286,7 @@ print(macro_china_urban_unemployment_df)
 [288 rows x 3 columns]
 ```
 
+(macro_china_shrzgm)=
 ##### 社会融资规模增量统计
 
 接口：macro_china_shrzgm
@@ -337,6 +343,7 @@ print(macro_china_shrzgm_df)
 86  202203     46531     32291  ...           287     3573           958.0
 ```
 
+(macro_china_gdp_yearly)=
 ##### 中国 GDP 年率
 
 接口：macro_china_gdp_yearly
@@ -436,6 +443,7 @@ print(macro_china_gdp_yearly_df)
 
 #### 物价水平
 
+(macro_china_cpi_yearly)=
 ##### 中国 CPI 年率报告
 
 接口：macro_china_cpi_yearly
@@ -489,6 +497,7 @@ print(macro_china_cpi_yearly_df)
 [459 rows x 5 columns]
 ```
 
+(macro_china_cpi_monthly)=
 ##### 中国 CPI 月率报告
 
 接口：macro_china_cpi_monthly
@@ -542,6 +551,7 @@ print(macro_china_cpi_monthly_df)
 [339 rows x 5 columns]
 ```
 
+(macro_china_ppi_yearly)=
 ##### 中国 PPI 年率报告
 
 接口：macro_china_ppi_yearly
@@ -597,6 +607,7 @@ print(macro_china_ppi_yearly_df)
 
 ### 贸易状况
 
+(macro_china_exports_yoy)=
 #### 以美元计算出口年率
 
 接口：macro_china_exports_yoy
@@ -650,6 +661,7 @@ print(macro_china_exports_yoy_df)
 [510 rows x 5 columns]
 ```
 
+(macro_china_imports_yoy)=
 #### 以美元计算进口年率
 
 接口：macro_china_imports_yoy
@@ -703,6 +715,7 @@ print(macro_china_imports_yoy_df)
 [348 rows x 5 columns]
 ```
 
+(macro_china_trade_balance)=
 #### 以美元计算贸易帐（亿美元）
 
 接口：macro_china_trade_balance
@@ -758,6 +771,7 @@ print(macro_china_trade_balance_df)
 
 ### 产业指标
 
+(macro_china_gyzjz)=
 #### 工业增加值增长
 
 接口：macro_china_gyzjz
@@ -810,6 +824,7 @@ print(macro_china_gyzjz_df)
 [170 rows x 4 columns]
 ```
 
+(macro_china_industrial_production_yoy)=
 #### 规模以上工业增加值年率
 
 接口：macro_china_industrial_production_yoy
@@ -863,6 +878,7 @@ print(macro_china_industrial_production_yoy_df)
 [397 rows x 5 columns]
 ```
 
+(macro_china_pmi_yearly)=
 #### 官方制造业 PMI
 
 接口：macro_china_pmi_yearly
@@ -916,6 +932,7 @@ print(macro_china_pmi_yearly_df)
 [233 rows x 5 columns]
 ```
 
+(macro_china_cx_pmi_yearly)=
 #### 财新制造业PMI终值
 
 接口：macro_china_cx_pmi_yearly
@@ -969,6 +986,7 @@ print(macro_china_cx_pmi_yearly_df)
 [201 rows x 5 columns]
 ```
 
+(macro_china_cx_services_pmi_yearly)=
 #### 财新服务业PMI
 
 接口：macro_china_cx_services_pmi_yearly
@@ -1022,6 +1040,7 @@ print(macro_china_cx_services_pmi_yearly_df)
 [148 rows x 5 columns]
 ```
 
+(macro_china_non_man_pmi)=
 #### 中国官方非制造业PMI
 
 接口：macro_china_non_man_pmi
@@ -1077,6 +1096,7 @@ print(macro_china_non_man_pmi_df)
 
 ### 金融指标
 
+(macro_china_fx_reserves_yearly)=
 #### 外汇储备（亿美元）
 
 接口：macro_china_fx_reserves_yearly
@@ -1130,6 +1150,7 @@ print(macro_china_fx_reserves_yearly_df)
 [111 rows x 5 columns]
 ```
 
+(macro_china_m2_yearly)=
 #### M2货币供应年率
 
 接口：macro_china_m2_yearly
@@ -1183,6 +1204,7 @@ print(macro_china_m2_yearly_df)
 [354 rows x 5 columns]
 ```
 
+(macro_china_new_house_price)=
 #### 新房价指数
 
 接口：macro_china_new_house_price
@@ -1240,6 +1262,7 @@ print(macro_china_new_house_price_df)
 [332 rows x 8 columns]
 ```
 
+(macro_china_enterprise_boom_index)=
 #### 企业景气及企业家信心指数
 
 接口：macro_china_enterprise_boom_index
@@ -1294,6 +1317,7 @@ print(macro_china_enterprise_boom_index_df)
 69  2005年第1季度     132.46      32.46  ...      135.85       35.85        5.04
 ```
 
+(macro_china_national_tax_receipts)=
 #### 全国税收收入
 
 接口：macro_china_national_tax_receipts
@@ -1345,6 +1369,7 @@ print(macro_china_national_tax_receipts_df)
 68    2005年第1季度    7249.16   10.7       NaN
 ```
 
+(macro_china_bank_financing)=
 #### 银行理财产品发行数量
 
 接口：macro_china_bank_financing
@@ -1400,6 +1425,7 @@ print(macro_china_bank_financing_df)
 217  2022-02-01  1779  -36.305048  ...  -54.893509  -66.204407  -78.496313
 ```
 
+(macro_china_insurance_income)=
 #### 原保险保费收入
 
 接口：macro_china_insurance_income
@@ -1455,6 +1481,7 @@ print(macro_china_insurance_income_df)
 209  2022-01-01  7.049640e+07 -70.092958  ... -5.768089  5.429366  12.398597
 ```
 
+(macro_china_mobile_number)=
 #### 手机出货量
 
 接口：macro_china_mobile_number
@@ -1510,6 +1537,7 @@ print(macro_china_mobile_number_df)
 121  2022-02-01  1486.4 -54.987584  ... -31.688037  132.832080   2.432637
 ```
 
+(macro_china_vegetable_basket)=
 #### 菜篮子产品批发价格指数
 
 接口：macro_china_vegetable_basket
@@ -1565,6 +1593,7 @@ print(macro_china_vegetable_basket_df)
 4104  2022-04-01  139.70  0.229588  ...  8.775208  8.622969  16.484616
 ```
 
+(macro_china_agricultural_product)=
 #### 农产品批发价格总指数
 
 接口：macro_china_agricultural_product
@@ -1620,6 +1649,7 @@ print(macro_china_agricultural_product_df)
 4104  2022-04-01  136.38  0.205731  ...  8.790683  9.156395  16.176846
 ```
 
+(macro_china_agricultural_index)=
 #### 农副指数
 
 接口：macro_china_agricultural_index
@@ -1675,6 +1705,7 @@ print(macro_china_agricultural_index_df)
 2975  2022-04-01  1289 -1.074444  ...  6.090535  21.489161  52.906287
 ```
 
+(macro_china_energy_index)=
 #### 能源指数
 
 接口：macro_china_energy_index
@@ -1730,6 +1761,7 @@ print(macro_china_energy_index_df)
 2976  2022-04-02  1208  0.082850  ...  47.858017  91.442155  47.858017
 ```
 
+(macro_china_commodity_price_index)=
 #### 大宗商品价格
 
 接口：macro_china_commodity_price_index
@@ -1785,6 +1817,7 @@ print(macro_china_commodity_price_index_df)
 2979  2022-04-04  1212  0.000000  ...  20.837488  70.704225  40.440324
 ```
 
+(macro_global_sox_index)=
 #### 费城半导体指数
 
 接口：macro_global_sox_index
@@ -1840,6 +1873,7 @@ print(macro_global_sox_index_df)
 6961  2022-03-31  3429.0 -2.268711  ...   9.730107  126.997398  145.716620
 ```
 
+(macro_china_yw_electronic_index)=
 #### 义乌小商品指数-电子元器件
 
 接口：macro_china_yw_electronic_index
@@ -1895,6 +1929,7 @@ print(macro_china_yw_electronic_index_df)
 759  2022-04-04  101.53 -1.484572  0.118332    1.53    1.53  1.469119    1.53
 ```
 
+(macro_china_construction_index)=
 #### 建材指数
 
 接口：macro_china_construction_index
@@ -1951,6 +1986,7 @@ print(macro_china_construction_index_df)
 [3184 rows x 8 columns]
 ```
 
+(macro_china_construction_price_index)=
 #### 建材价格指数
 
 接口：macro_china_construction_price_index
@@ -2006,6 +2042,7 @@ print(macro_china_construction_price_index_df)
 3845  2022-03-01  1097.41  0.860255  ...  1.419528  0.749139  2.051425
 ```
 
+(macro_china_lpi_index)=
 #### 物流景气指数
 
 接口：macro_china_lpi_index
@@ -2061,6 +2098,7 @@ print(macro_china_lpi_index_df)
 104  2022-03-01  48.7 -4.882812  ... -6.165703  -5.436893 -7.414449
 ```
 
+(macro_china_bdti_index)=
 #### 原油运输指数
 
 接口：macro_china_bdti_index
@@ -2116,6 +2154,7 @@ print(macro_china_bdti_index_df)
 4925  2022-04-11  1730  3.160405  ...  167.801858  55.296230  172.870662
 ```
 
+(macro_china_bsi_index)=
 #### 超灵便型船运价指数
 
 接口：macro_china_bsi_index
@@ -2171,6 +2210,7 @@ print(macro_china_bsi_index_df)
 3988  2022-04-12  2448 -1.010918  ...  37.993236  455.102041  244.303797
 ```
 
+(macro_shipping_bci)=
 #### 海岬型运费指数
 
 接口：macro_shipping_bci
@@ -2226,6 +2266,7 @@ print(macro_shipping_bci_df)
 5992  2023-03-09  1662   7.225806  ... -27.169150 -14.769231  546.774194
 ```
 
+(macro_shipping_bdi)=
 #### 波罗的海干散货指数
 
 接口：macro_shipping_bdi
@@ -2281,6 +2322,7 @@ print(macro_shipping_bdi_df)
 8581  2023-03-09  1379  3.918613  ... -46.090696 -27.459232  123.863636
 ```
 
+(macro_shipping_bpi)=
 #### 巴拿马型运费指数
 
 接口：macro_shipping_bpi
@@ -2336,6 +2378,7 @@ print(macro_shipping_bpi_df)
 5955  2023-03-09  1624  2.010050  ... -49.154665 -27.435210  52.202437
 ```
 
+(macro_shipping_bcti)=
 #### 成品油运输指数
 
 接口：macro_shipping_bcti
@@ -2391,6 +2434,7 @@ print(macro_shipping_bcti_df)
 5152  2023-03-09  871  5.320435  ... -15.682478  73.161034  21.478382
 ```
 
+(macro_china_new_financial_credit)=
 #### 新增信贷数据
 
 接口：macro_china_new_financial_credit
@@ -2444,6 +2488,7 @@ print(macro_china_new_financial_credit_df)
 177  2008年01月份   8058.0  42.292071  1561.443299    8058.0  42.292071
 ```
 
+(macro_china_cpi)=
 #### 居民消费价格指数
 
 接口：macro_china_cpi
@@ -2504,6 +2549,7 @@ print(macro_china_cpi_df)
 177  2008年01月份  107.0781   7.0781  ...   7.7209      1.2  107.7209
 ```
 
+(macro_china_gdp)=
 #### 国内生产总值
 
 接口：macro_china_gdp
@@ -2560,6 +2606,7 @@ print(macro_china_gdp_df)
 60  2006-03-01     47078.9         12.5  ...       13.1   22648.0       13.1
 ```
 
+(macro_china_ppi)=
 #### 工业品出厂价格指数
 
 接口：macro_china_ppi
@@ -2611,6 +2658,7 @@ print(macro_china_ppi_df)
 201  2006年01月份  103.050    3.05  103.0500
 ```
 
+(macro_china_pmi)=
 #### 采购经理人指数
 
 接口：macro_china_pmi
@@ -2663,6 +2711,7 @@ print(macro_china_pmi_df)
 177  2008年01月份    53.0 -3.811252     60.2  -0.331126
 ```
 
+(macro_china_gdzctz)=
 #### 中国城镇固定资产投资
 
 接口：macro_china_gdzctz
@@ -2715,6 +2764,7 @@ print(macro_china_gdzctz_df)
 162  2008年02月份       NaN    NaN    NaN    8121.29
 ```
 
+(macro_china_hgjck)=
 #### 海关进出口增减情况
 
 接口：macro_china_hgjck
@@ -2773,6 +2823,7 @@ print(macro_china_hgjck_df)
 177  2008年01月份  1.096400e+08        26.6  ...        26.6  9.017445e+07        27.6
 ```
 
+(macro_china_czsr)=
 #### 财政收入
 
 接口：macro_china_czsr
@@ -2827,6 +2878,7 @@ print(macro_china_czsr_df)
 [206 rows x 6 columns]
 ```
 
+(macro_china_whxd)=
 #### 外汇贷款数据
 
 接口：macro_china_whxd
@@ -2880,6 +2932,7 @@ print(macro_china_whxd_df)
 [213 rows x 5 columns]
 ```
 
+(macro_china_wbck)=
 #### 本外币存款
 
 接口：macro_china_wbck
@@ -2932,6 +2985,7 @@ print(macro_china_wbck_df)
 177  2008年01月份   1437.69  -72.142704  -59.893939   402489.07
 ```
 
+(macro_china_bond_public)=
 #### 新债发行
 
 接口：macro_china_bond_public
@@ -2988,6 +3042,7 @@ print(macro_china_bond_public_df)
 [381 rows x 8 columns]
 ```
 
+(macro_china_xfzxx)=
 #### 消费者信心指数
 
 接口：macro_china_xfzxx
@@ -3045,6 +3100,7 @@ print(macro_china_xfzxx_df)
 188  2007年01月份        112.4  ...      3.442029     -0.609225
 ```
 
+(macro_china_reserve_requirement_ratio)=
 #### 存款准备金率
 
 接口：macro_china_reserve_requirement_ratio
@@ -3145,6 +3201,7 @@ print(macro_china_reserve_requirement_ratio_df)
 52  2007年01月05日  ...                                               None
 ```
 
+(macro_china_consumer_goods_retail)=
 #### 社会消费品零售总额
 
 接口：macro_china_consumer_goods_retail
@@ -3198,6 +3255,7 @@ print(macro_china_consumer_goods_retail_df)
 166  2008年01月份   9077.3  21.2   0.687720    9077.3     21.2
 ```
 
+(macro_china_society_electricity)=
 #### 全社会用电分类情况表
 
 接口：macro_china_society_electricity
@@ -3263,6 +3321,7 @@ print(macro_china_society_electricity_df)
 [214 rows x 17 columns]
 ```
 
+(macro_china_society_traffic_volume)=
 #### 全社会客货运输量
 
 接口：macro_china_society_traffic_volume
@@ -3327,6 +3386,7 @@ print(macro_china_society_traffic_volume_df)
 [2408 rows x 16 columns]
 ```
 
+(macro_china_postal_telecommunicational)=
 #### 邮电业务基本情况
 
 接口：macro_china_postal_telecommunicational
@@ -3416,6 +3476,7 @@ print(macro_china_postal_telecommunicational_df)
 [304 rows x 41 columns]
 ```
 
+(macro_china_international_tourism_fx)=
 #### 国际旅游外汇收入构成
 
 接口：macro_china_international_tourism_fx
@@ -3468,6 +3529,7 @@ print(macro_china_international_tourism_fx_df)
 [256 rows x 4 columns]
 ```
 
+(macro_china_passenger_load_factor)=
 #### 民航客座率及载运率
 
 接口：macro_china_passenger_load_factor
@@ -3519,6 +3581,7 @@ print(macro_china_passenger_load_factor_df)
 [207 rows x 3 columns]
 ```
 
+(macro_china_freight_index)=
 #### 航贸运价指数
 
 接口：macro_china_freight_index
@@ -3574,6 +3637,7 @@ print(macro_china_freight_index_df)
 3849  2005-12-07            3709.0  ...                NaN               NaN
 ```
 
+(macro_china_central_bank_balance)=
 #### 央行货币当局资产负债
 
 接口：macro_china_central_bank_balance
@@ -3650,6 +3714,7 @@ print(macro_china_central_bank_balance_df)
 [319 rows x 28 columns]
 ```
 
+(macro_china_insurance)=
 #### 保险业经营情况
 
 接口：macro_china_insurance
@@ -3719,6 +3784,7 @@ print(macro_china_insurance_df)
 [310 rows x 21 columns]
 ```
 
+(macro_china_supply_of_money)=
 #### 货币供应量
 
 接口：macro_china_supply_of_money
@@ -3783,6 +3849,7 @@ print(macro_china_supply_of_money_df)
 511  1978.1           None               None  ...     None       None     None
 ```
 
+(macro_china_swap_rate)=
 #### FR007利率互换曲线历史数据
 
 接口：macro_china_swap_rate
@@ -3847,6 +3914,7 @@ print(macro_china_swap_rate_df)
 [945 rows x 15 columns]
 ```
 
+(macro_china_foreign_exchange_gold)=
 #### 央行黄金和外汇储备
 
 接口：macro_china_foreign_exchange_gold
@@ -3898,6 +3966,7 @@ print(macro_china_foreign_exchange_gold_df)
 [389 rows x 3 columns]
 ```
 
+(macro_china_retail_price_index)=
 #### 商品零售价格指数
 
 接口：macro_china_retail_price_index
@@ -3948,6 +4017,7 @@ print(macro_china_retail_price_index_df)
 3781  2002.1   书报杂志及电子出版物   101.00
 ```
 
+(macro_china_real_estate)=
 #### 国房景气指数
 
 接口：macro_china_real_estate
@@ -4003,6 +4073,7 @@ print(macro_china_real_estate_df)
 284  2022-07-01   95.26 -0.146751  ... -5.683168 -4.825657 -5.757816
 ```
 
+(macro_china_fx_gold)=
 #### 外汇和黄金储备
 
 接口：macro_china_fx_gold
@@ -4057,6 +4128,7 @@ print(macro_china_fx_gold_df)
 174  2022年07月份  1098.39  -3.963383 -3.500171  31040.7100  -4.073655   1.067929
 ```
 
+(macro_china_money_supply)=
 #### 中国货币供应量
 
 接口：macro_china_money_supply
@@ -4114,6 +4186,7 @@ print(macro_china_money_supply_df)
 177  2008年01月份          417846.17  ...            31.21        20.896562
 ```
 
+(macro_china_stock_market_cap)=
 #### 全国股票交易统计表
 
 接口：macro_china_stock_market_cap
@@ -4174,6 +4247,7 @@ print(macro_china_stock_market_cap_df)
 178  2008年01月份  14198.16  ...      4330.6970      1424.3500
 ```
 
+(macro_china_shibor_all)=
 #### 上海银行业同业拆借报告
 
 接口：macro_china_shibor_all
@@ -4243,6 +4317,7 @@ print(macro_china_shibor_all_df)
 [1758 rows x 17 columns]
 ```
 
+(macro_china_hk_market_info)=
 #### 人民币香港银行同业拆息
 
 接口：macro_china_hk_market_info
@@ -4314,6 +4389,7 @@ print(macro_china_hk_market_info_df)
 
 ### 其他指标
 
+(macro_china_daily_energy)=
 #### 中国日度沿海六大电库存
 
 接口：macro_china_daily_energy
@@ -4366,6 +4442,7 @@ print(macro_china_daily_energy_df)
 [1207 rows x 4 columns]
 ```
 
+(macro_china_rmb)=
 #### 人民币汇率中间价报告
 
 接口：macro_china_rmb
@@ -4464,6 +4541,7 @@ print(macro_china_rmb_df)
 790  2021-05-13      6.4612       354.0  ...          107.0     4.8427       -76.0
 ```
 
+(macro_china_market_margin_sz)=
 #### 深圳融资融券报告
 
 接口：macro_china_market_margin_sz
@@ -4519,6 +4597,7 @@ print(macro_china_market_margin_sz_df)
 [3379 rows x 7 columns]
 ```
 
+(macro_china_market_margin_sh)=
 #### 上海融资融券报告
 
 接口：macro_china_market_margin_sh
@@ -4574,6 +4653,7 @@ print(macro_china_market_margin_sh_df)
 [3357 rows x 7 columns]
 ```
 
+(macro_china_au_report)=
 #### 上海黄金交易所报告
 
 接口：macro_china_au_report
@@ -4637,6 +4717,7 @@ print(macro_china_au_report_df)
 
 ### 国家统计局通用接口
 
+(macro_china_nbs_nation)=
 #### 国家统计局全国数据
 
 接口：macro_china_nbs_nation
@@ -4681,6 +4762,7 @@ print(macro_china_nbs_nation_df)
 乡村人口(万人)    49104.0   49835.0   50992.0   52581.8832   54108.285000
 ```
 
+(macro_china_nbs_region)=
 #### 国家统计局地区数据
 
 接口：macro_china_nbs_region
@@ -4738,6 +4820,7 @@ region_income_df
 
 ### 金融市场
 
+(macro_stock_finance)=
 #### 股票筹资
 
 接口：macro_stock_finance
@@ -4809,6 +4892,7 @@ print(macro_stock_finance_df)
 29  2025-10   313.78  112.92   200.86     NaN
 ```
 
+(macro_rmb_loan)=
 #### 新增人民币贷款
 
 接口：macro_rmb_loan
@@ -4881,6 +4965,7 @@ print(macro_rmb_loan_df)
 29  2025-09     12900.0    -18.87%    118.64%  2703902.22      6.62%
 ```
 
+(macro_rmb_deposit)=
 #### 人民币存款余额
 
 接口：macro_rmb_deposit
@@ -4963,6 +5048,7 @@ print(macro_rmb_deposit_df)
 
 ## 中国香港宏观
 
+(macro_china_hk_cpi)=
 ### 消费者物价指数
 
 接口：macro_china_hk_cpi
@@ -5015,6 +5101,7 @@ print(macro_china_hk_cpi_df)
 [172 rows x 4 columns]
 ```
 
+(macro_china_hk_cpi_ratio)=
 ### 消费者物价指数年率
 
 接口：macro_china_hk_cpi_ratio
@@ -5067,6 +5154,7 @@ print(macro_china_hk_cpi_ratio_df)
 [172 rows x 4 columns]
 ```
 
+(macro_china_hk_rate_of_unemployment)=
 ### 失业率
 
 接口：macro_china_hk_rate_of_unemployment
@@ -5119,6 +5207,7 @@ print(macro_china_hk_rate_of_unemployment_df)
 [195 rows x 4 columns]
 ```
 
+(macro_china_hk_gbp)=
 ### GDP
 
 接口：macro_china_hk_gbp
@@ -5170,6 +5259,7 @@ print(macro_china_hk_gbp_df)
 64  2024第1季度  794640       NaN  2024-05-17
 ```
 
+(macro_china_hk_gbp_ratio)=
 ### GDP 同比
 
 接口：macro_china_hk_gbp_ratio
@@ -5222,6 +5312,7 @@ print(macro_china_hk_gbp_ratio_df)
 [65 rows x 4 columns]
 ```
 
+(macro_china_hk_building_volume)=
 ### 香港楼宇买卖合约数量
 
 接口：macro_china_hk_building_volume
@@ -5274,6 +5365,7 @@ print(macro_china_hk_building_volume_df)
 [195 rows x 4 columns]
 ```
 
+(macro_china_hk_building_amount)=
 ### 香港楼宇买卖合约成交金额
 
 接口：macro_china_hk_building_amount
@@ -5326,6 +5418,7 @@ print(macro_china_hk_building_amount_df)
 [195 rows x 4 columns]
 ```
 
+(macro_china_hk_trade_diff_ratio)=
 ### 香港商品贸易差额年率
 
 接口：macro_china_hk_trade_diff_ratio
@@ -5378,6 +5471,7 @@ print(macro_china_hk_trade_diff_ratio_df)
 [194 rows x 4 columns]
 ```
 
+(macro_china_hk_ppi)=
 ### 香港制造业 PPI 年率
 
 接口：macro_china_hk_ppi
@@ -5434,6 +5528,7 @@ print(macro_china_hk_ppi_df)
 
 ### 经济状况
 
+(macro_usa_gdp_monthly)=
 #### 美国GDP
 
 接口：macro_usa_gdp_monthly
@@ -5491,6 +5586,7 @@ print(macro_usa_gdp_monthly_df)
 
 ### 物价水平
 
+(macro_usa_cpi_monthly)=
 #### 美国CPI月率报告
 
 接口：macro_usa_cpi_monthly
@@ -5544,6 +5640,7 @@ print(macro_usa_cpi_monthly_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_cpi_yoy)=
 #### 美国CPI年率报告
 
 接口：macro_usa_cpi_yoy
@@ -5596,6 +5693,7 @@ print(macro_usa_cpi_yoy_df)
 [186 rows x 4 columns]
 ```
 
+(macro_usa_core_cpi_monthly)=
 #### 美国核心CPI月率报告
 
 接口：macro_usa_core_cpi_monthly
@@ -5651,6 +5749,7 @@ print(macro_usa_core_cpi_monthly_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_personal_spending)=
 #### 美国个人支出月率报告
 
 接口：macro_usa_personal_spending
@@ -5704,6 +5803,7 @@ print(macro_usa_personal_spending_df)
 [650 rows x 5 columns]
 ```
 
+(macro_usa_retail_sales)=
 #### 美国零售销售月率报告
 
 接口：macro_usa_retail_sales
@@ -5759,6 +5859,7 @@ print(macro_usa_retail_sales_df)
 [386 rows x 5 columns]
 ```
 
+(macro_usa_import_price)=
 #### 美国进口物价指数报告
 
 接口：macro_usa_import_price
@@ -5812,6 +5913,7 @@ print(macro_usa_import_price_df)
 [425 rows x 5 columns]
 ```
 
+(macro_usa_export_price)=
 #### 美国出口价格指数报告
 
 接口：macro_usa_export_price
@@ -5867,6 +5969,7 @@ print(macro_usa_export_price_df)
 
 ### 劳动力市场
 
+(macro_usa_lmci)=
 #### LMCI
 
 接口：macro_usa_lmci
@@ -5944,6 +6047,7 @@ print(macro_usa_lmci_df)
 
 #### 失业率
 
+(macro_usa_unemployment_rate)=
 ##### 美国失业率报告
 
 接口：macro_usa_unemployment_rate
@@ -5999,6 +6103,7 @@ print(macro_usa_unemployment_rate_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_job_cuts)=
 ##### 美国挑战者企业裁员人数报告
 
 接口：macro_usa_job_cuts
@@ -6054,6 +6159,7 @@ print(macro_usa_job_cuts_df)
 
 #### 就业人口
 
+(macro_usa_non_farm)=
 ##### 美国非农就业人数报告
 
 接口：macro_usa_non_farm
@@ -6109,6 +6215,7 @@ print(macro_usa_non_farm_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_adp_employment)=
 ##### 美国ADP就业人数报告
 
 接口：macro_usa_adp_employment
@@ -6164,6 +6271,7 @@ print(macro_usa_adp_employment_df)
 
 #### 消费者收入与支出
 
+(macro_usa_core_pce_price)=
 ##### 美国核心PCE物价指数年率报告
 
 接口：macro_usa_core_pce_price
@@ -6219,6 +6327,7 @@ print(macro_usa_core_pce_price_df)
 [654 rows x 5 columns]
 ```
 
+(macro_usa_real_consumer_spending)=
 ##### 美国实际个人消费支出季率初值报告
 
 接口：macro_usa_real_consumer_spending
@@ -6274,6 +6383,7 @@ print(macro_usa_real_consumer_spending_df)
 
 ### 贸易状况
 
+(macro_usa_trade_balance)=
 #### 美国贸易帐报告
 
 接口：macro_usa_trade_balance
@@ -6327,6 +6437,7 @@ print(macro_usa_trade_balance_df)
 [653 rows x 5 columns]
 ```
 
+(macro_usa_current_account)=
 #### 美国经常帐报告
 
 接口：macro_usa_current_account
@@ -6384,6 +6495,7 @@ print(macro_usa_current_account_df)
 
 #### 制造业
 
+(macro_usa_rig_count)=
 ##### 贝克休斯钻井报告
 
 接口：macro_usa_rig_count
@@ -6441,6 +6553,7 @@ print(macro_usa_rig_count_df)
 [1896 rows x 9 columns]
 ```
 
+(macro_usa_ppi)=
 ##### 美国生产者物价指数(PPI)报告
 
 接口：macro_usa_ppi
@@ -6494,6 +6607,7 @@ print(macro_usa_ppi_df)
 [196 rows x 5 columns]
 ```
 
+(macro_usa_core_ppi)=
 ##### 美国核心生产者物价指数(PPI)报告
 
 接口：macro_usa_core_ppi
@@ -6547,6 +6661,7 @@ print(macro_usa_core_ppi_df)
 [193 rows x 5 columns]
 ```
 
+(macro_usa_api_crude_stock)=
 ##### 美国 API 原油库存报告
 
 接口：macro_usa_api_crude_stock
@@ -6600,6 +6715,7 @@ print(macro_usa_api_crude_stock_df)
 [629 rows x 5 columns]
 ```
 
+(macro_usa_pmi)=
 ##### 美国Markit制造业PMI初值报告
 
 接口：macro_usa_pmi
@@ -6653,6 +6769,7 @@ print(macro_usa_pmi_df)
 [285 rows x 5 columns]
 ```
 
+(macro_usa_ism_pmi)=
 ##### 美国ISM制造业PMI报告
 
 接口：macro_usa_ism_pmi
@@ -6710,6 +6827,7 @@ print(macro_usa_ism_pmi_df)
 
 #### 工业
 
+(macro_usa_industrial_production)=
 ##### 美国工业产出月率报告
 
 接口：macro_usa_industrial_production
@@ -6765,6 +6883,7 @@ print(macro_usa_industrial_production_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_durable_goods_orders)=
 ##### 美国耐用品订单月率报告
 
 接口：macro_usa_durable_goods_orders
@@ -6818,6 +6937,7 @@ print(macro_usa_durable_goods_orders_df)
 [203 rows x 5 columns]
 ```
 
+(macro_usa_factory_orders)=
 ##### 美国工厂订单月率报告
 
 接口：macro_usa_factory_orders
@@ -6873,6 +6993,7 @@ print(macro_usa_factory_orders_df)
 
 #### 服务业
 
+(macro_usa_services_pmi)=
 ##### 美国Markit服务业PMI初值报告
 
 接口：macro_usa_services_pmi
@@ -6926,6 +7047,7 @@ print(macro_usa_services_pmi_df)
 [267 rows x 5 columns]
 ```
 
+(macro_usa_business_inventories)=
 ##### 美国商业库存月率报告
 
 接口：macro_usa_business_inventories
@@ -6979,6 +7101,7 @@ print(macro_usa_business_inventories_df)
 [386 rows x 5 columns]
 ```
 
+(macro_usa_ism_non_pmi)=
 ##### 美国ISM非制造业PMI报告
 
 接口：macro_usa_ism_non_pmi
@@ -7036,6 +7159,7 @@ print(macro_usa_ism_non_pmi_df)
 
 #### 房地产
 
+(macro_usa_nahb_house_market_index)=
 ##### 美国NAHB房产市场指数报告
 
 接口：macro_usa_nahb_house_market_index
@@ -7089,6 +7213,7 @@ print(macro_usa_nahb_house_market_index_df)
 [472 rows x 5 columns]
 ```
 
+(macro_usa_house_starts)=
 ##### 美国新屋开工总数年化报告
 
 接口：macro_usa_house_starts
@@ -7142,6 +7267,7 @@ print(macro_usa_house_starts_df)
 [650 rows x 5 columns]
 ```
 
+(macro_usa_new_home_sales)=
 ##### 美国新屋销售总数年化报告
 
 接口：macro_usa_new_home_sales
@@ -7195,6 +7321,7 @@ print(macro_usa_new_home_sales_df)
 [651 rows x 5 columns]
 ```
 
+(macro_usa_building_permits)=
 ##### 美国营建许可总数报告
 
 接口：macro_usa_building_permits
@@ -7248,6 +7375,7 @@ print(macro_usa_building_permits_df)
 [211 rows x 5 columns]
 ```
 
+(macro_usa_exist_home_sales)=
 ##### 美国成屋销售总数年化报告
 
 接口：macro_usa_exist_home_sales
@@ -7301,6 +7429,7 @@ print(macro_usa_exist_home_sales_df)
 [652 rows x 5 columns]
 ```
 
+(macro_usa_house_price_index)=
 ##### 美国FHFA房价指数月率报告
 
 接口：macro_usa_house_price_index
@@ -7354,6 +7483,7 @@ print(macro_usa_house_price_index_df)
 [397 rows x 5 columns]
 ```
 
+(macro_usa_spcs20)=
 ##### 美国S&P/CS20座大城市房价指数年率报告
 
 接口：macro_usa_spcs20
@@ -7407,6 +7537,7 @@ print(macro_usa_spcs20_df)
 [280 rows x 5 columns]
 ```
 
+(macro_usa_pending_home_sales)=
 ##### 美国成屋签约销售指数月率报告
 
 接口：macro_usa_pending_home_sales
@@ -7462,6 +7593,7 @@ print(macro_usa_pending_home_sales_df)
 
 ### 领先指标
 
+(macro_usa_phs)=
 #### 未决房屋销售月率
 
 接口：macro_usa_phs
@@ -7513,6 +7645,7 @@ print(macro_usa_phs_df)
 170  2008年01月 -1.5  0.0  2008-02-28
 ```
 
+(macro_usa_cb_consumer_confidence)=
 #### 美国谘商会消费者信心指数报告
 
 接口：macro_usa_cb_consumer_confidence
@@ -7566,6 +7699,7 @@ print(macro_usa_cb_consumer_confidence_df)
 [655 rows x 5 columns]
 ```
 
+(macro_usa_nfib_small_business)=
 #### 美国NFIB小型企业信心指数报告
 
 接口：macro_usa_nfib_small_business
@@ -7619,6 +7753,7 @@ print(macro_usa_nfib_small_business_df)
 [506 rows x 5 columns]
 ```
 
+(macro_usa_michigan_consumer_sentiment)=
 #### 美国密歇根大学消费者信心指数初值报告
 
 接口：macro_usa_michigan_consumer_sentiment
@@ -7674,6 +7809,7 @@ print(macro_usa_michigan_consumer_sentiment_df)
 
 ### 其他
 
+(macro_usa_eia_crude_rate)=
 #### 美国EIA原油库存报告
 
 接口：macro_usa_eia_crude_rate
@@ -7727,6 +7863,7 @@ print(macro_usa_eia_crude_rate_df)
 [1152 rows x 5 columns]
 ```
 
+(macro_usa_initial_jobless)=
 #### 美国初请失业金人数报告
 
 接口：macro_usa_initial_jobless
@@ -7780,6 +7917,7 @@ print(macro_usa_initial_jobless_df)
 [1298 rows x 5 columns]
 ```
 
+(macro_usa_crude_inner)=
 #### 美国原油产量报告
 
 接口：macro_usa_crude_inner
@@ -7846,6 +7984,7 @@ print(macro_usa_crude_inner_df)
 
 #### 经济状况
 
+(macro_euro_gdp_yoy)=
 ##### 欧元区季度GDP年率报告
 
 接口：macro_euro_gdp_yoy
@@ -7900,6 +8039,7 @@ print(macro_euro_gdp_yoy_df)
 
 #### 物价水平
 
+(macro_euro_cpi_mom)=
 ##### 欧元区CPI月率报告
 
 接口：macro_euro_cpi_mom
@@ -7952,6 +8092,7 @@ print(macro_euro_cpi_mom_df)
 425  欧元区CPI月率  2022-11-17  NaN  1.2  1.2
 ```
 
+(macro_euro_cpi_yoy)=
 ##### 欧元区CPI年率报告
 
 接口：macro_euro_cpi_yoy
@@ -8004,6 +8145,7 @@ print(macro_euro_cpi_yoy_df)
 560  欧元区CPI年率  2022-11-17   NaN  10.0  10.7
 ```
 
+(macro_euro_ppi_mom)=
 ##### 欧元区PPI月率报告
 
 接口：macro_euro_ppi_mom
@@ -8056,6 +8198,7 @@ print(macro_euro_ppi_mom_df)
 503  欧元区PPI月率  2022-11-04  NaN  1.7  5.0
 ```
 
+(macro_euro_retail_sales_mom)=
 ##### 欧元区零售销售月率报告
 
 接口：macro_euro_retail_sales_mom
@@ -8110,6 +8253,7 @@ print(macro_euro_retail_sales_mom_df)
 
 #### 劳动力市场
 
+(macro_euro_employment_change_qoq)=
 ##### 欧元区季调后就业人数季率报告
 
 接口：macro_euro_employment_change_qoq
@@ -8162,6 +8306,7 @@ print(macro_euro_employment_change_qoq_df)
 74  欧元区季调后就业人数季率  2022-09-07  0.4  0.3  0.7
 ```
 
+(macro_euro_unemployment_rate_mom)=
 ##### 欧元区失业率报告
 
 接口：macro_euro_unemployment_rate_mom
@@ -8216,6 +8361,7 @@ print(macro_euro_unemployment_rate_mom_df)
 
 ### 贸易状况
 
+(macro_euro_trade_balance)=
 #### 欧元区未季调贸易帐报告
 
 接口：macro_euro_trade_balance
@@ -8268,6 +8414,7 @@ print(macro_euro_trade_balance_df)
 285  欧元区未季调贸易帐  2022-11-15    NaN    NaN -509.0
 ```
 
+(macro_euro_current_account_mom)=
 #### 欧元区经常帐报告
 
 接口：macro_euro_current_account_mom
@@ -8322,6 +8469,7 @@ print(macro_euro_current_account_mom_df)
 
 ### 产业指标
 
+(macro_euro_industrial_production_mom)=
 #### 欧元区工业产出月率报告
 
 接口：macro_euro_industrial_production_mom
@@ -8374,6 +8522,7 @@ print(macro_euro_industrial_production_mom_df)
 384  欧元区工业产出月率  2022-11-14  NaN  NaN  1.5
 ```
 
+(macro_euro_manufacturing_pmi)=
 #### 欧元区制造业PMI初值报告
 
 接口：macro_euro_manufacturing_pmi
@@ -8426,6 +8575,7 @@ print(macro_euro_manufacturing_pmi_df)
 357  欧元区制造业PMI初值  2022-11-23   NaN   NaN  46.4
 ```
 
+(macro_euro_services_pmi)=
 #### 欧元区服务业PMI终值报告
 
 接口：macro_euro_services_pmi
@@ -8480,6 +8630,7 @@ print(macro_euro_services_pmi_df)
 
 ### 领先指标
 
+(macro_euro_zew_economic_sentiment)=
 #### 欧元区ZEW经济景气指数报告
 
 接口：macro_euro_zew_economic_sentiment
@@ -8532,6 +8683,7 @@ print(macro_euro_zew_economic_sentiment_df)
 178  欧元区ZEW经济景气指数  2022-11-15   NaN   NaN -59.7
 ```
 
+(macro_euro_sentix_investor_confidence)=
 #### 欧元区Sentix投资者信心指数报告
 
 接口：macro_euro_sentix_investor_confidence
@@ -8586,6 +8738,7 @@ print(macro_euro_sentix_investor_confidence_df)
 
 ## 德国宏观
 
+(macro_germany_ifo)=
 ### IFO商业景气指数
 
 接口：macro_germany_ifo
@@ -8637,6 +8790,7 @@ print(macro_germany_ifo_df)
 177  2022年10月  84.4  84.3  2022-10-25
 ```
 
+(macro_germany_cpi_monthly)=
 ### 消费者物价指数月率终值
 
 接口：macro_germany_cpi_monthly
@@ -8688,6 +8842,7 @@ print(macro_germany_cpi_monthly_df)
 175  2022年09月  0.4  2.2  2022-10-19
 ```
 
+(macro_germany_cpi_yearly)=
 ### 消费者物价指数年率终值
 
 接口：macro_germany_cpi_yearly
@@ -8739,6 +8894,7 @@ print(macro_germany_cpi_yearly_df)
 176  2022年09月  8.8  10.9  2022-10-19
 ```
 
+(macro_germany_trade_adjusted)=
 ### 贸易帐-季调后
 
 接口：macro_germany_trade_adjusted
@@ -8790,6 +8946,7 @@ print(macro_germany_trade_adjusted_df)
 177  2022年10月   3.7   NaN  2022-12-02
 ```
 
+(macro_germany_gdp)=
 ### GDP
 
 接口：macro_germany_gdp
@@ -8888,6 +9045,7 @@ print(macro_germany_gdp_df)
 57  2022第2季度   8.602949   7.763706  2022-08-25
 ```
 
+(macro_germany_retail_sale_monthly)=
 ### 实际零售销售月率
 
 接口：macro_germany_retail_sale_monthly
@@ -8939,6 +9097,7 @@ print(macro_germany_retail_sale_monthly_df)
 177  2022年10月  14.1   NaN  2022-11-11
 ```
 
+(macro_germany_retail_sale_yearly)=
 ### 实际零售销售年率
 
 接口：macro_germany_retail_sale_yearly
@@ -8994,6 +9153,7 @@ print(macro_germany_retail_sale_yearly_df)
 14  2022年12月  5.3  NaN  2023-01-17
 ```
 
+(macro_germany_zew)=
 ### ZEW 经济景气指数
 
 接口：macro_germany_zew
@@ -9047,6 +9207,7 @@ print(macro_germany_zew_df)
 
 ## 瑞士宏观
 
+(macro_swiss_svme)=
 ### SVME 采购经理人指数
 
 接口：macro_swiss_svme
@@ -9098,6 +9259,7 @@ print(macro_swiss_svme_df)
 178  2022年10月  57.1  54.9  2022-11-01
 ```
 
+(macro_swiss_trade)=
 ### 贸易帐
 
 接口：macro_swiss_trade
@@ -9198,6 +9360,7 @@ print(macro_swiss_trade_df)
 59  2022第3季度  38.030  40.030  2022-10-20
 ```
 
+(macro_swiss_cpi_yearly)=
 ### 消费者物价指数年率
 
 接口：macro_swiss_cpi_yearly
@@ -9253,6 +9416,7 @@ print(macro_swiss_cpi_yearly_df)
 14  2021第4季度 -0.8  1.5  2022-01-04
 ```
 
+(macro_swiss_gdp_quarterly)=
 ### GDP 季率
 
 接口：macro_swiss_gdp_quarterly
@@ -9352,6 +9516,7 @@ print(macro_swiss_gdp_quarterly_df)
 58  2022年06月  0.5  0.3  2022-09-05
 ```
 
+(macro_swiss_gbd_yearly)=
 ### GDP 年率
 
 接口：macro_swiss_gbd_yearly
@@ -9407,6 +9572,7 @@ print(macro_swiss_gbd_yearly_df)
 14  2021年12月 -1.6  3.7  2022-02-28
 ```
 
+(macro_swiss_gbd_bank_rate)=
 ### 央行公布利率决议
 
 接口：macro_swiss_gbd_bank_rate
@@ -9509,6 +9675,7 @@ print(macro_swiss_gbd_bank_rate_df)
 
 ## 日本宏观
 
+(macro_japan_bank_rate)=
 ### 央行公布利率决议
 
 接口：macro_japan_bank_rate
@@ -9560,6 +9727,7 @@ print(macro_japan_bank_rate_df)
 152  2022年10月 -0.1 -0.1  2022-10-28
 ```
 
+(macro_japan_cpi_yearly)=
 ### 全国消费者物价指数年率
 
 接口：macro_japan_cpi_yearly
@@ -9611,6 +9779,7 @@ print(macro_japan_cpi_yearly_df)
 177  2022年10月  3.0  NaN  2022-11-18
 ```
 
+(macro_japan_core_cpi_yearly)=
 ### 全国核心消费者物价指数年率
 
 接口：macro_japan_core_cpi_yearly
@@ -9662,6 +9831,7 @@ print(macro_japan_core_cpi_yearly_df)
 177  2022年10月  0.9  NaN  2022-11-18
 ```
 
+(macro_japan_unemployment_rate)=
 ### 失业率
 
 接口：macro_japan_unemployment_rate
@@ -9713,6 +9883,7 @@ print(macro_japan_unemployment_rate_df)
 177  2022年10月  2.7  NaN  2022-11-29
 ```
 
+(macro_japan_head_indicator)=
 ### 领先指标终值
 
 接口：macro_japan_head_indicator
@@ -9766,6 +9937,7 @@ print(macro_japan_head_indicator_df)
 
 ## 英国宏观
 
+(macro_uk_halifax_monthly)=
 ### Halifax 房价指数月率
 
 接口：macro_uk_halifax_monthly
@@ -9817,6 +9989,7 @@ print(macro_uk_halifax_monthly_df)
 178  2022年11月 -0.4  NaN  2022-12-07
 ```
 
+(macro_uk_halifax_yearly)=
 ### Halifax 房价指数年率
 
 接口：macro_uk_halifax_yearly
@@ -9868,6 +10041,7 @@ print(macro_uk_halifax_yearly_df)
 178  2022年11月   8.3   NaN  2022-12-07
 ```
 
+(macro_uk_trade)=
 ### 贸易帐
 
 接口：macro_uk_trade
@@ -9919,6 +10093,7 @@ print(macro_uk_trade_df)
 175  2022年08月  -7793  -7080  2022-10-12
 ```
 
+(macro_uk_bank_rate)=
 ### 央行公布利率决议
 
 接口：macro_uk_bank_rate
@@ -9970,6 +10145,7 @@ print(macro_uk_bank_rate_df)
 154  2022年11月  2.25  3.00  2022-11-03
 ```
 
+(macro_uk_core_cpi_yearly)=
 ### 核心消费者物价指数年率
 
 接口：macro_uk_core_cpi_yearly
@@ -10021,6 +10197,7 @@ print(macro_uk_core_cpi_yearly_df)
 176  2022年09月  6.3  6.5  2022-10-19
 ```
 
+(macro_uk_core_cpi_monthly)=
 ### 核心消费者物价指数月率
 
 接口：macro_uk_core_cpi_monthly
@@ -10072,6 +10249,7 @@ print(macro_uk_cpi_monthly_df)
 174  2022年09月  0.8  0.6  2022-10-19
 ```
 
+(macro_uk_cpi_yearly)=
 ### 消费者物价指数年率
 
 接口：macro_uk_cpi_yearly
@@ -10123,6 +10301,7 @@ print(macro_uk_cpi_yearly_df)
 176  2022年09月   9.900000  10.100000  2022-10-19
 ```
 
+(macro_uk_cpi_monthly)=
 ### 消费者物价指数月率
 
 接口：macro_uk_cpi_monthly
@@ -10174,6 +10353,7 @@ print(macro_uk_cpi_monthly_df)
 174  2022年09月  0.8  0.6  2022-10-19
 ```
 
+(macro_uk_retail_monthly)=
 ### 零售销售月率
 
 接口：macro_uk_retail_monthly
@@ -10225,6 +10405,7 @@ print(macro_uk_retail_monthly_df)
 176  2022年10月 -1.5  NaN  2022-11-18
 ```
 
+(macro_uk_retail_yearly)=
 ### 零售销售年率
 
 接口：macro_uk_retail_yearly
@@ -10276,6 +10457,7 @@ print(macro_uk_retail_yearly_df)
 174  2022年10月 -0.4  NaN  2022-11-18
 ```
 
+(macro_uk_rightmove_yearly)=
 ### Rightmove 房价指数年率
 
 接口：macro_uk_rightmove_yearly
@@ -10327,6 +10509,7 @@ print(macro_uk_rightmove_yearly_df)
 152  2022年09月   8.2   8.7  2022-09-26
 ```
 
+(macro_uk_rightmove_monthly)=
 ### Rightmove 房价指数月率
 
 接口：macro_uk_rightmove_monthly
@@ -10378,6 +10561,7 @@ print(macro_uk_rightmove_monthly_df)
 152  2022年09月 -1.3  0.7  2022-09-26
 ```
 
+(macro_uk_gdp_quarterly)=
 ### GDP 季率初值
 
 接口：macro_uk_gdp_quarterly
@@ -10476,6 +10660,7 @@ print(macro_uk_gdp_quarterly_df)
 57  2022第3季度   0.2   NaN  2022-12-22
 ```
 
+(macro_uk_gdp_yearly)=
 ### GDP 年率初值
 
 接口：macro_uk_gdp_yearly
@@ -10529,6 +10714,7 @@ print(macro_uk_gdp_yearly_df)
 12  2021第4季度 -6.3  6.6  2022-03-31
 ```
 
+(macro_uk_unemployment_rate)=
 ### 失业率
 
 接口：macro_uk_unemployment_rate
@@ -10582,6 +10768,7 @@ print(macro_uk_unemployment_rate_df)
 
 ## 澳大利亚宏观
 
+(macro_australia_retail_rate_monthly)=
 ### 零售销售月率
 
 接口：macro_australia_retail_rate_monthly
@@ -10634,6 +10821,7 @@ print(macro_australia_retail_rate_monthly_df)
 [204 rows x 4 columns]
 ```
 
+(macro_australia_trade)=
 ### 贸易帐
 
 接口：macro_australia_trade
@@ -10686,6 +10874,7 @@ print(macro_australia_trade_df)
 [188 rows x 4 columns]
 ```
 
+(macro_australia_unemployment_rate)=
 ### 失业率
 
 接口：macro_australia_unemployment_rate
@@ -10738,6 +10927,7 @@ print(macro_australia_unemployment_rate_df)
 [205 rows x 4 columns]
 ```
 
+(macro_australia_ppi_quarterly)=
 ### 生产者物价指数季率
 
 接口：macro_australia_ppi_quarterly
@@ -10790,6 +10980,7 @@ print(macro_australia_ppi_quarterly_df)
 [68 rows x 4 columns]
 ```
 
+(macro_australia_cpi_quarterly)=
 ### 消费者物价指数季率
 
 接口：macro_australia_cpi_quarterly
@@ -10842,6 +11033,7 @@ print(macro_australia_cpi_quarterly_df)
 [68 rows x 4 columns]
 ```
 
+(macro_australia_cpi_yearly)=
 ### 消费者物价指数年率
 
 接口：macro_australia_cpi_yearly
@@ -10894,6 +11086,7 @@ print(macro_australia_cpi_yearly_df)
 [68 rows x 4 columns]
 ```
 
+(macro_australia_bank_rate)=
 ### 央行公布利率决议
 
 接口：macro_australia_bank_rate
@@ -10948,6 +11141,7 @@ print(macro_australia_bank_rate_df)
 
 ## 加拿大宏观
 
+(macro_canada_new_house_rate)=
 ### 新屋开工
 
 接口：macro_canada_new_house_rate
@@ -10999,6 +11193,7 @@ print(macro_canada_new_house_rate_df)
 177  2008年01月  18.75  22.27  2008-02-09
 ```
 
+(macro_canada_unemployment_rate)=
 ### 失业率
 
 接口：macro_canada_unemployment_rate
@@ -11050,6 +11245,7 @@ print(macro_canada_unemployment_rate_df)
 178  2008年01月  5.9  5.8  2008-02-08
 ```
 
+(macro_canada_trade)=
 ### 贸易帐
 
 接口：macro_canada_trade
@@ -11101,6 +11297,7 @@ print(macro_canada_trade_df)
 177  2008年01月  2350  3260.0  2008-03-07
 ```
 
+(macro_canada_retail_rate_monthly)=
 ### 零售销售月率
 
 接口：macro_canada_retail_rate_monthly
@@ -11152,6 +11349,7 @@ print(macro_canada_retail_rate_monthly_df)
 171  2008年01月  0.6  1.5  2008-03-23
 ```
 
+(macro_canada_bank_rate)=
 ### 央行公布利率决议
 
 接口：macro_canada_bank_rate
@@ -11203,6 +11401,7 @@ print(macro_canada_bank_rate_df)
 149  2008年01月   NaN  4.00  2008-01-15
 ```
 
+(macro_canada_core_cpi_yearly)=
 ### 核心消费者物价指数年率
 
 接口：macro_canada_core_cpi_yearly
@@ -11254,6 +11453,7 @@ print(macro_canada_core_cpi_yearly_df)
 177  2008年01月  1.476015  1.381215  2008-02-21
 ```
 
+(macro_canada_core_cpi_monthly)=
 ### 核心消费者物价指数月率
 
 接口：macro_canada_core_cpi_monthly
@@ -11305,6 +11505,7 @@ print(macro_canada_core_cpi_monthly_df)
 177  2008年01月 -0.271985  0.090909  2008-02-21
 ```
 
+(macro_canada_cpi_yearly)=
 ### 消费者物价指数年率
 
 接口：macro_canada_cpi_yearly
@@ -11356,6 +11557,7 @@ print(macro_canada_cpi_yearly_df)
 178  2008年01月  2.376600  2.193784  2008-02-20
 ```
 
+(macro_canada_cpi_monthly)=
 ### 消费者物价指数月率
 
 接口：macro_canada_cpi_monthly
@@ -11407,6 +11609,7 @@ print(macro_canada_cpi_monthly_df)
 176  2008年01月  0.089366 -0.178571  2008-02-20
 ```
 
+(macro_canada_gdp_monthly)=
 ### GDP 月率
 
 接口：macro_canada_gdp_monthly
@@ -11460,6 +11663,7 @@ print(macro_canada_gdp_monthly_df)
 
 ## 重要机构
 
+(macro_cons_gold)=
 ### 全球最大黄金 ETF—SPDR Gold Trust 持仓报告
 
 接口：macro_cons_gold
@@ -11513,6 +11717,7 @@ print(macro_cons_gold_df)
 [2406 rows x 5 columns]
 ```
 
+(macro_cons_silver)=
 ### 全球最大白银ETF--iShares Silver Trust持仓报告
 
 接口：macro_cons_silver
@@ -11566,6 +11771,7 @@ print(macro_cons_silver_df)
 [1188 rows x 5 columns]
 ```
 
+(macro_cons_opec_month)=
 ### 欧佩克报告
 
 接口：macro_cons_opec_month
@@ -11630,6 +11836,7 @@ print(macro_cons_opec_month_df)
 
 ### 伦敦金属交易所
 
+(macro_euro_lme_holding)=
 #### 持仓报告
 
 接口：macro_euro_lme_holding
@@ -11682,6 +11889,7 @@ print(macro_euro_lme_holding_df)
 [756 rows x 19 columns]
 ```
 
+(macro_euro_lme_stock)=
 #### 库存报告
 
 接口：macro_euro_lme_stock
@@ -11736,6 +11944,7 @@ print(macro_euro_lme_stock_df)
 
 ### 美国商品期货交易委员会
 
+(macro_usa_cftc_nc_holding)=
 #### 外汇类非商业持仓报告
 
 接口：macro_usa_cftc_nc_holding
@@ -11788,6 +11997,7 @@ print(macro_usa_cftc_nc_holding_df)
 [1807 rows x 28 columns]
 ```
 
+(macro_usa_cftc_c_holding)=
 #### 商品类非商业持仓报告
 
 接口：macro_usa_cftc_c_holding
@@ -11840,6 +12050,7 @@ print(macro_usa_cftc_c_holding_df)
 [1807 rows x 37 columns]
 ```
 
+(macro_usa_cftc_merchant_currency_holding)=
 #### 外汇类商业持仓报告
 
 接口：macro_usa_cftc_merchant_currency_holding
@@ -11892,6 +12103,7 @@ print(macro_usa_cftc_merchant_currency_holding_df)
 [1807 rows x 28 columns]
 ```
 
+(macro_usa_cftc_merchant_goods_holding)=
 #### 商品类商业持仓报告
 
 接口：macro_usa_cftc_merchant_goods_holding
@@ -11946,6 +12158,7 @@ print(macro_usa_cftc_merchant_goods_holding_df)
 
 ### 芝加哥交易所
 
+(macro_usa_cme_merchant_goods_holding)=
 #### 贵金属
 
 接口：macro_usa_cme_merchant_goods_holding
@@ -11999,6 +12212,7 @@ print(macro_usa_cme_merchant_goods_holding_df)
 
 ## 全球宏观
 
+(macro_info_ws)=
 ### 宏观日历
 
 接口：macro_info_ws
@@ -12072,6 +12286,7 @@ print(macro_info_ws_df)
 [28 rows x 8 columns]
 ```
 
+(news_economic_baidu)=
 ### 全球宏观事件
 
 接口：news_economic_baidu

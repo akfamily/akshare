@@ -2,6 +2,7 @@
 
 ## 迁徙数据-百度
 
+(migration_area_baidu)=
 ### 迁入与迁出地详情
 
 接口：migration_area_baidu
@@ -55,6 +56,7 @@ print(migration_area_baidu_df)
 [100 rows x 3 columns]
 ```
 
+(migration_scale_baidu)=
 ### 迁徙规模
 
 接口：migration_scale_baidu

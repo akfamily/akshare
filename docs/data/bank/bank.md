@@ -1,5 +1,6 @@
 # AKShare 银行数据
 
+(bank_fjcf_table_detail)=
 ## 银保监分局本级行政处罚
 
 接口：bank_fjcf_table_detail

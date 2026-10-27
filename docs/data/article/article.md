@@ -4,6 +4,7 @@
 
 ### 已实现波动率数据
 
+(article_oman_rv)=
 #### Oxford-Man
 
 接口：article_oman_rv
@@ -113,6 +114,7 @@ print(article_oman_rv_df)
 2019-11-08     6.75
 ```
 
+(article_rlab_rv)=
 #### Risk-Lab
 
 接口：article_rlab_rv
@@ -165,6 +167,7 @@ print(article_rlab_rv_df)
 
 ## AKShare 多因子数据
 
+(article_ff_crr)=
 ### Current Research Returns
 
 接口：article_ff_crr
@@ -240,6 +243,7 @@ print(article_ff_crr_df)
 
 ## AKShare 政策不确定性数据
 
+(article_epu_index)=
 ### 国家和地区指数
 
 接口：article_epu_index

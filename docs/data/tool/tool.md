@@ -1,5 +1,6 @@
 # AKShare 工具箱
 
+(tool_trade_date_hist_sina)=
 ## 交易日历
 
 接口：tool_trade_date_hist_sina
