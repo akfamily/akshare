@@ -59,16 +59,17 @@ def read_version(path: pathlib.Path) -> str:
 
 def has_version_entry(text: str, version: str) -> bool:
     """
-    判断文本中是否存在以该版本号开头的行。
+    判断文本中是否存在以该版本号开头的行（允许前置 Markdown 标题标记）。
 
-    changelog 的版本条目使用「1.18.91 type: desc」这一行首格式。
+    changelog 的版本条目使用「### 1.18.91 type: desc」标题格式；
+    同时兼容旧的不带标题标记的「1.18.91 type: desc」行首格式。
 
     :param text: 待检查的全文
     :param version: 版本号
     :return: 是否存在对应条目
     :rtype: bool
     """
-    return re.search(rf"^{re.escape(version)} ", text, re.M) is not None
+    return re.search(rf"^(?:#+ )?{re.escape(version)} ", text, re.M) is not None
 
 
 def collect_problems(repo_root: pathlib.Path, tag: str) -> List[str]:

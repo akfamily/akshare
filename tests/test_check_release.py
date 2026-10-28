@@ -24,8 +24,8 @@ def make_repo(tmp_path, version="1.18.91", changelog_version=None):
         f'__version__ = "{version}"\n', encoding="utf-8"
     )
     (tmp_path / "docs" / "changelog.md").write_text(
-        f"## 更新说明详情\n\n{changelog_version} fix: fix some interface\n\n"
-        "    1. 修复某个接口\n",
+        f"## 1.18.x\n\n### {changelog_version} fix: fix some interface\n\n"
+        "1. 修复某个接口\n",
         encoding="utf-8",
     )
     return tmp_path
@@ -64,6 +64,14 @@ def test_has_version_entry_requires_line_start():
     assert has_version_entry(text, "1.18.91")
     assert not has_version_entry(text, "1.18.9")
     assert not has_version_entry("见 1.18.91 的说明\n", "1.18.91")
+
+
+def test_has_version_entry_accepts_heading():
+    """版本条目是标题时同样识别，但标题里的版本号仍须完整匹配。"""
+    text = "### 1.18.91 fix: something\n"
+    assert has_version_entry(text, "1.18.91")
+    assert not has_version_entry(text, "1.18.9")
+    assert not has_version_entry("## 1.18.x\n", "1.18.91")
 
 
 def test_collect_problems_passes_when_all_aligned(tmp_path):
