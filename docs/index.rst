@@ -107,6 +107,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    :caption: 项目
 
    changelog
+   changelog_archive
    migration
    contributing
    acknowledgements
