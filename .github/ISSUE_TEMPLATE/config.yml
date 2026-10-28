@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: AKShare 文档
+    url: https://akshare.akfamily.xyz
+    about: 接口的输入参数、输出参数与使用示例
+  - name: 财经数据与量化投研知识社区
+    url: https://t.zsxq.com/ZCxUG
+    about: 使用问题、新增数据源等其他需求请在这里交流

@@ -1,0 +1,90 @@
+name: AKShare-接口报错
+description: 反馈 AKShare 接口调用报错或返回数据异常
+title: "[接口报错] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > 由于开源项目维护工作量较大，本模板只接受接口报错问题。如有更多问题，推荐加入【财经数据与量化投研】知识社区：https://t.zsxq.com/ZCxUG 。
+
+        > 推荐使用 **AKQuant** 进行量化投研：https://akquant.akfamily.xyz
+
+        提交前请先将 AKShare 升级到**最新版**，并阅读文档中对应接口的使用方式：https://akshare.akfamily.xyz
+
+        ```bash
+        pip install akshare --upgrade  # Python 版本需要大于等于 3.11
+        ```
+
+        **不符合提交规范的 issue 会被关闭！** 如需给已有接口补充字段，请改用“AKShare-接口改进”模板。
+  - type: checkboxes
+    id: precheck
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 已升级到最新版 AKShare，问题仍然存在
+          required: true
+        - label: 已阅读文档中该接口的输入参数说明
+          required: true
+  - type: input
+    id: interface
+    attributes:
+      label: 接口名称
+      placeholder: stock_zh_a_hist
+    validations:
+      required: true
+  - type: input
+    id: akshare-version
+    attributes:
+      label: AKShare 版本
+      description: 运行 `python -c "import akshare; print(akshare.__version__)"` 查看
+      placeholder: 1.20.2
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python 版本
+      description: 运行 `python --version` 查看，目前只支持 3.11 及以上版本
+      placeholder: 3.13.1
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      description: 目前只支持 64 位主流操作系统
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: 调用代码
+      description: 可直接运行、能复现问题的最少代码
+      render: python
+      placeholder: |
+        import akshare as ak
+
+        df = ak.stock_zh_a_hist(symbol="000001")
+        print(df)
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: 报错信息
+      description: 完整的报错信息（Traceback）或异常数据的描述，也可以粘贴截图
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+      description: 期望获得的正确结果
+    validations:
+      required: true

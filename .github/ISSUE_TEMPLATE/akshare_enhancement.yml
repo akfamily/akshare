@@ -1,0 +1,42 @@
+name: AKShare-接口改进
+description: 为已有接口补充字段或改进输出
+title: "[接口改进] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > 本模板用于给已有接口补充字段或改进输出。接口报错请改用“AKShare-接口报错”模板；新增数据源等其他需求，推荐在【财经数据与量化投研】知识社区交流：https://t.zsxq.com/ZCxUG 。
+
+        > 推荐使用 **AKQuant** 进行量化投研：https://akquant.akfamily.xyz
+  - type: input
+    id: interface
+    attributes:
+      label: 接口名称
+      placeholder: stock_board_concept_name_em
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: 需求描述
+      description: 希望补充的字段或改进的内容，以及原因
+      placeholder: 希望“领涨股票”同时返回股票代码。股票名称会因加去 ST 等原因变化，按名称关联不可靠。
+    validations:
+      required: true
+  - type: dropdown
+    id: upstream
+    attributes:
+      label: 数据源页面是否已提供该数据
+      description: AKShare 只能整理数据源公开展示的数据
+      options:
+        - 是
+        - 否
+        - 不确定
+    validations:
+      required: true
+  - type: input
+    id: upstream-url
+    attributes:
+      label: 数据源页面地址
+      description: 能看到该数据的网页地址（选填）
