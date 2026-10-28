@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/3/12 17:00
+Date: 2026/10/28 18:00
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
@@ -39,7 +39,7 @@ def _fetch_stock_board_concept_name_em() -> pd.DataFrame:
         "fid": "f12",
         "fs": "m:90 t:3 f:!50",
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,"
-        "f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
+        "f22,f33,f11,f62,f128,f124,f107,f104,f105,f136,f140,f141",
     }
     last_exception = None
     for url in url_list:
@@ -61,35 +61,24 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = _fetch_stock_board_concept_name_em()
-    temp_df.columns = [
-        "排名",
-        "最新价",
-        "涨跌幅",
-        "涨跌额",
-        "换手率",
-        "_",
-        "板块代码",
-        "板块名称",
-        "_",
-        "_",
-        "_",
-        "_",
-        "总市值",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "上涨家数",
-        "下跌家数",
-        "_",
-        "_",
-        "领涨股票",
-        "_",
-        "_",
-        "领涨股票-涨跌幅",
-    ]
+    temp_df.rename(
+        columns={
+            "index": "排名",
+            "f2": "最新价",
+            "f3": "涨跌幅",
+            "f4": "涨跌额",
+            "f8": "换手率",
+            "f12": "板块代码",
+            "f14": "板块名称",
+            "f20": "总市值",
+            "f104": "上涨家数",
+            "f105": "下跌家数",
+            "f128": "领涨股票",
+            "f136": "领涨股票-涨跌幅",
+            "f140": "领涨股票-代码",
+        },
+        inplace=True,
+    )
     temp_df = temp_df[
         [
             "排名",
@@ -104,6 +93,7 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
             "下跌家数",
             "领涨股票",
             "领涨股票-涨跌幅",
+            "领涨股票-代码",
         ]
     ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")

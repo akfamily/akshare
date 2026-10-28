@@ -89,6 +89,11 @@
 
 ## 更新说明详情
 
+1.20.2 fix: fix stock_board_concept_name_em interface
+
+    1. stock_board_concept_name_em、stock_board_industry_name_em 新增“领涨股票-代码”字段，股票名称变更（如加去 ST）时可按代码关联
+    2. 两个接口改为按东方财富字段名映射列名，上游新增字段时不再报 Length mismatch
+
 1.20.1 build: switch release to trusted publishing
 
     1. 接口与代码无变化，可放心升级

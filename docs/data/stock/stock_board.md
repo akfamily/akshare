@@ -652,6 +652,7 @@ print(stock_board_concept_info_ths_df)
 | 下跌家数     | int64   | -      |
 | 领涨股票     | str     | -      |
 | 领涨股票-涨跌幅 | float64 | 注意单位：% |
+| 领涨股票-代码  | str     | -      |
 
 接口示例
 
@@ -1195,6 +1196,7 @@ print(stock_board_industry_index_ths_df)
 | 下跌家数     | int64   | -      |
 | 领涨股票     | str     | -      |
 | 领涨股票-涨跌幅 | float64 | 注意单位：% |
+| 领涨股票-代码  | str     | -      |
 
 接口示例
 
