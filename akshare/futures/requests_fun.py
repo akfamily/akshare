@@ -8,6 +8,7 @@ Desc: 请求网站内容的函数：在链接失败后可重复 20 次
 import time
 from io import StringIO
 from typing import Dict
+import warnings
 
 import pandas as pd
 import requests
@@ -44,9 +45,9 @@ def requests_link(
                 return r
             else:
                 raise ValueError("请提供正确的请求方式")
-        except:  # noqa: E722
+        except Exception:
             i += 1
-            print(f"第{str(i)}次链接失败, 最多尝试 20 次")
+            warnings.warn(f"第{str(i)}次链接失败, 最多尝试 20 次")
             time.sleep(5)
             if i > 20:
                 return None
@@ -85,7 +86,7 @@ def pandas_read_html_link(
                 raise ValueError("请提供正确的请求方式")
         except requests.exceptions.Timeout as e:
             i += 1
-            print(f"第{str(i)}次链接失败, 最多尝试20次", e)
+            warnings.warn(f"第{str(i)}次链接失败, 最多尝试20次 {e}")
             time.sleep(5)
             if i > 20:
                 return None

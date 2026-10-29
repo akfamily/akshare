@@ -243,11 +243,11 @@
 
 | 旧模块 | 接口 | 新模块 |
 |---|---|---|
-| `akshare.bond.bond_china_money` | macro_china_swap_rate、macro_china_bond_public | `akshare.macro.macro_china_money` |
+| `akshare.bond.bond_china_money` | macro_china_swap_rate, macro_china_bond_public | `akshare.macro.macro_china_money` |
 | `akshare.economic.macro_other` | crypto_js_spot | `akshare.crypto.crypto_js_spot` |
 | `akshare.economic.macro_other` | macro_fx_sentiment | `akshare.fx.fx_sentiment_jin10` |
 | `akshare.news.news_baidu` | news_economic_baidu | `akshare.macro.macro_news_baidu` |
-| `akshare.news.news_baidu` | news_trade_notify_suspend_baidu、news_trade_notify_dividend_baidu、news_report_time_baidu | `akshare.stock.issue.stock_news_baidu` |
+| `akshare.news.news_baidu` | news_trade_notify_suspend_baidu, news_trade_notify_dividend_baidu, news_report_time_baidu | `akshare.stock.issue.stock_news_baidu` |
 
 `akshare.bond.bond_china_money` 中的 bond_china_close_return、bond_china_close_return_map 保留在原模块。
 

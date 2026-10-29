@@ -13,6 +13,7 @@ https://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.p
 
 from datetime import datetime
 from io import StringIO
+import warnings
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -595,13 +596,13 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
             # try for pandas >= 2.1.0
             concat_df["截止日期"] = concat_df["截止日期"].ffill()
             concat_df["公告日期"] = concat_df["公告日期"].ffill()
-        except:  # noqa: E722
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
                 concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
 
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
 
@@ -665,13 +666,13 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
             # try for pandas >= 2.1.0
             concat_df["截止日期"] = concat_df["截止日期"].ffill()
             concat_df["截止日期"] = concat_df["截止日期"].ffill()
-        except:  # noqa: E722
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
                 concat_df["截止日期"] = concat_df["截止日期"].fillna(method="bfill")
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
 
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
     big_df.dropna(inplace=True)
@@ -735,7 +736,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
             concat_df["公告日期"] = concat_df["公告日期"].ffill()
             concat_df["股东总数"] = concat_df["股东总数"].ffill()
             concat_df["平均持股数"] = concat_df["平均持股数"].ffill()
-        except:  # noqa: E722
+        except Exception:
             try:
                 # try for pandas < 2.1.0
                 concat_df["截至日期"] = concat_df["截至日期"].fillna(method="ffill")
@@ -743,7 +744,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
                 concat_df["股东总数"] = concat_df["股东总数"].fillna(method="ffill")
                 concat_df["平均持股数"] = concat_df["平均持股数"].fillna(method="ffill")
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
 
         concat_df["股东总数"] = concat_df["股东总数"].str.strip("查看变化趋势")
         concat_df["平均持股数"] = concat_df["平均持股数"].str.strip(

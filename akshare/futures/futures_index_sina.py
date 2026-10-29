@@ -78,7 +78,7 @@ def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
                 .str.contains("0")
             ].iloc[0, :3]
             subscribe_list.append(main_contract)
-        except:  # noqa: E722
+        except Exception:
             # print(item, "无主力连续合约")
             continue
     # print("主力连续合约获取成功")

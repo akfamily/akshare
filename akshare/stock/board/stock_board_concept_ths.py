@@ -171,7 +171,7 @@ def stock_board_concept_index_ths(
 
         try:
             demjson.decode(data_text[data_text.find("{") : -1])
-        except:  # noqa: E722
+        except Exception:
             continue
         temp_df = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))

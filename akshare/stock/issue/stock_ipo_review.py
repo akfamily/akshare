@@ -7,6 +7,7 @@ https://data.eastmoney.com/xg/gh/default.html
 """
 
 import json
+import warnings
 
 import pandas as pd
 
@@ -64,7 +65,7 @@ def stock_ipo_review_em() -> pd.DataFrame:
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         except Exception as e:
-            print(f"第 {page} 页解析失败: {e}")
+            warnings.warn(f"第 {page} 页解析失败: {e}")
             continue
 
     big_df.reset_index(drop=True, inplace=True)

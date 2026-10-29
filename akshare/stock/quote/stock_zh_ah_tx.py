@@ -220,7 +220,7 @@ def stock_zh_ah_daily(
                 temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"]["day"])
             else:
                 temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"][f"{adjust}day"])
-        except:  # noqa
+        except Exception:
             continue
         if adjust != "" and not temp_df.empty:
             temp_df.columns = [
@@ -246,7 +246,7 @@ def stock_zh_ah_daily(
                     "成交量",
                     "_",
                 ]
-            except:  # noqa
+            except Exception:
                 temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量"]
             temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

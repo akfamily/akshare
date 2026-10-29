@@ -10,6 +10,7 @@ P.S. 注意采集速度，容易封禁 IP，如果不能访问请稍后再试
 import json
 import time
 from functools import lru_cache
+import warnings
 
 import pandas as pd
 import py_mini_racer
@@ -189,16 +190,13 @@ def match_main_contract(symbol: str = "cffex") -> str:
         data_df = pd.DataFrame(data_json)
         try:
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
-            print(main_contract["symbol"].values[0])
             subscribe_exchange_list.append(main_contract["symbol"].values[0])
-        except:  # noqa: E722
+        except Exception:
             if len(data_df) == 1:
                 subscribe_exchange_list.append(data_df["symbol"].values[0])
-                print(data_df["symbol"].values[0])
             else:
-                print(item, "无主力合约")
+                warnings.warn(f"{item} 无主力合约")
             continue
-    print(f"{symbol}主力合约获取成功")
     return ",".join([item for item in subscribe_exchange_list])
 
 
@@ -445,7 +443,7 @@ def futures_zh_spot(
                     "_",
                     "_",
                 ]
-            except:  # noqa: E722
+            except Exception:
                 data_df.columns = [
                     "symbol",
                     "time",

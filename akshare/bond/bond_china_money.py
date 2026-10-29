@@ -115,7 +115,7 @@ def bond_china_close_return_map() -> pd.DataFrame:
     try:
         r = http.get(url, headers=headers)
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         session = __bond_register_service()
         r = session.get(url, headers=headers)
         data_json = r.json()

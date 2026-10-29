@@ -13,6 +13,7 @@ Desc: 期货结算信息
 """
 
 import datetime
+import warnings
 
 import pandas as pd
 from io import StringIO
@@ -193,7 +194,7 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
         return pd.DataFrame()
     try:
         data_df = pd.read_csv(StringIO(r.text), skiprows=1)
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
@@ -242,7 +243,7 @@ def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
         return pd.DataFrame()
     try:
         data_df = _parse_pipe_data(r.text)
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
@@ -309,7 +310,7 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
         if json_data.get("code") != "0":
             return pd.DataFrame()
         data_list = json_data.get("data", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -374,7 +375,7 @@ def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     try:
         data_json = r.json()
         data_list = data_json.get("o_cursor", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -435,7 +436,7 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     try:
         data_json = r.json()
         data_list = data_json.get("o_cursor", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -499,7 +500,7 @@ def futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.DataFram
     elif market.upper() == "INE":
         df = futures_settle_ine(date)
     else:
-        print(f"Unsupported market: {market}")
+        warnings.warn(f"Unsupported market: {market}")
         return pd.DataFrame(columns=SETTLE_OUTPUT_COLUMNS)
     temp_df = _normalize_settle_columns(df)
     return temp_df

@@ -90,7 +90,7 @@ def _stock_notice_report(
             temp_columns_df = pd.DataFrame(
                 [item["columns"][0] for item in data_json["data"]["list"]]
             )
-        except:  # noqa: E722
+        except Exception:
             continue
         del temp_df["codes"]
         del temp_df["columns"]

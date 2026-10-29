@@ -8,6 +8,7 @@ Desc: 新浪财经-科创板-实时行情数据和历史行情数据（包含前
 import ast
 import datetime
 import re
+import warnings
 
 from akshare.utils import demjson
 import pandas as pd
@@ -159,7 +160,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
             # try for pandas < 2.1.0
             temp_df.fillna(method="ffill", inplace=True)
         except Exception as e:
-            print("Error:", e)
+            warnings.warn(f"Error: {e}")
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
@@ -200,7 +201,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
@@ -231,7 +232,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]

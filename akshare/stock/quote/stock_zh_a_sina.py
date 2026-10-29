@@ -9,6 +9,7 @@ https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 import ast
 import json
 import re
+import warnings
 
 import pandas as pd
 import py_mini_racer
@@ -192,12 +193,12 @@ def stock_zh_a_daily(
     del data_df["date"]
     try:
         del data_df["prevclose"]
-    except:  # noqa: E722
+    except Exception:
         pass
     try:
         del data_df["postVol"]
         del data_df["postAmt"]
-    except:  # noqa: E722
+    except Exception:
         pass
     data_df = data_df.astype("float")
     r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
@@ -377,7 +378,7 @@ def stock_zh_a_minute(
     try:
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :7]
-    except:  # noqa: E722
+    except Exception:
         url = f"https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_{symbol}_{period}_1658852984203=/CN_MarketDataService.getKLineData"
         params = {
             "symbol": symbol,
@@ -390,11 +391,11 @@ def stock_zh_a_minute(
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :7]
     if temp_df.empty:
-        print(f"{symbol} 股票数据不存在，请检查是否已退市")
+        warnings.warn(f"{symbol} 股票数据不存在，请检查是否已退市")
         return pd.DataFrame()
     try:
         stock_zh_a_daily(symbol=symbol, adjust="qfq")
-    except:  # noqa: E722
+    except Exception:
         return temp_df
 
     if adjust == "":

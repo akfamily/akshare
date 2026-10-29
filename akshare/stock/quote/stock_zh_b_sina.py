@@ -312,7 +312,7 @@ def stock_zh_b_minute(
         return pd.DataFrame()
     try:
         stock_zh_b_daily(symbol=symbol, adjust="qfq")
-    except:  # noqa: E722
+    except Exception:
         return temp_df
 
     if adjust == "":

@@ -209,7 +209,7 @@ def macro_cons_opec_month() -> pd.DataFrame:
                     "欧佩克产量",
                 ]
             ].iloc[-2, :]
-        except:  # noqa: E722
+        except Exception:
             temp_df = temp_df[
                 [
                     "阿尔及利亚",
