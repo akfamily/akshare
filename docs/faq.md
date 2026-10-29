@@ -53,7 +53,7 @@ import akshare as ak
 
 ak.set_proxies({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"})
 ak.set_timeout(30)        # 单位为秒；也可传 (连接超时, 读取超时)，如 (10, 120)
-ak.set_timeout(None)      # 不限时，恢复 1.20.3 及以前的行为
+ak.set_timeout(None)      # 不限时
 
 with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}):
     stock_zh_a_daily_df = ak.stock_zh_a_daily(symbol="sh600000")  # 仅此代码块内使用该代理
@@ -61,7 +61,7 @@ with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.
 
 未调用 `ak.set_proxies` 时，沿用 `HTTP_PROXY`、`HTTPS_PROXY` 环境变量和系统代理设置。`ak.get_proxies()`、`ak.get_timeout()` 返回当前设置。
 
-少数需要模拟浏览器指纹或特殊 SSL 设置的接口暂不受这两项设置影响，包括 `stock_news_em`、百度股市通系列（`stock_hk_valuation_baidu`、`stock_us_valuation_baidu`、`news_economic_baidu`、`news_trade_notify_suspend_baidu` 等）、国家统计局系列（`macro_china_nbs_nation`、`macro_china_nbs_region`）、`macro_china_urban_unemployment` 和 `amac_person_bond_org_list`。
+自 1.20.5 起，这两项设置对全部接口生效。其中 `stock_news_em`、百度股市通系列、国家统计局系列等少数需要模拟浏览器指纹的接口经 curl_cffi 发送请求，它把二元组的两项之和当作整个请求的总时长上限，默认即 70 秒，而不是两次收到数据之间的间隔。
 
 ### 使用代理时报错
 

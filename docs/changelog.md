@@ -8,6 +8,15 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-5)=
+### 1.20.5 fix: fix futures_comm_info and stock_us_valuation_baidu interface
+
+1. 修复 futures_comm_info 接口：一次调用由 14 个请求减为 2 个，不再因自身请求过多被九期网限流；上游返回 429 时抛出 RateLimitError，其他错误状态码抛出 APIError，页面改版时抛出 DataParsingError，不再报出 No tables found 或 'NoneType' object has no attribute 'previous'
+2. 修复 stock_us_valuation_baidu 接口：上游地址由 gushitong.baidu.com 迁至 finance.baidu.com，原实现不跟随 301 跳转而报 JSONDecodeError
+3. ak.set_proxies、ak.set_timeout 扩展到经 curl_cffi、urllib3、http.client 取数的接口，包括 stock_news_em、stock_hk_valuation_baidu、news_economic_baidu、news_trade_notify_suspend_baidu、news_report_time_baidu、news_trade_notify_dividend_baidu、macro_china_nbs_nation、macro_china_nbs_region、macro_china_urban_unemployment 与 amac_person_bond_org_list
+4. ak.set_proxies、ak.set_timeout 扩展到由 pandas 直接读取网址的接口，包括 index_option_50etf_qvix 等 18 个期权波动率指数接口、article_epu_index、fred_md、fred_qd、macro_cnbs、currency_boc_safe、hf_sp_500、futures_hist_daily_cffex、stock_zh_index_value_csindex、repo_rate_query 与 stock_szse_sector_summary；这类请求原先没有超时，上游无响应时会一直等待。至此全部接口均受这两项设置控制
+5. 移除未被使用的依赖 decorator、jsonpath 与 tabulate
+
 (v1-20-4)=
 ### 1.20.4 feat: add global timeout and proxy settings
 

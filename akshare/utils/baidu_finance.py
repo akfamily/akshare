@@ -11,6 +11,8 @@ import re
 import pandas as pd
 from curl_cffi import requests
 
+from akshare.utils import http
+
 
 def _get_baidu_cookie(headers: dict) -> str:
     """
@@ -22,7 +24,7 @@ def _get_baidu_cookie(headers: dict) -> str:
     """
     try:
         # 使用Session保持Cookie上下文
-        with requests.Session() as session:
+        with http.CurlSession() as session:
             session.headers.update(headers)
 
             # 第一步：获取基础Cookie (BAIDUID系列)
@@ -134,7 +136,7 @@ def _baidu_finance_calendar(
 
     # 第一次请求
     params = base_params.copy()
-    response = requests.get(
+    response = http.curl_get(
         url=url, params=params, headers=headers, impersonate="chrome110"
     )
     response.raise_for_status()
@@ -158,7 +160,7 @@ def _baidu_finance_calendar(
         if page > 0:  # 第一页已在前面获取
             params = base_params.copy()
             params["pn"] = str(page)
-            response = requests.get(url=url, params=params, headers=headers)
+            response = http.curl_get(url=url, params=params, headers=headers)
             response.raise_for_status()
             data_json = response.json()
 

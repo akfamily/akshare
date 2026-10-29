@@ -705,7 +705,7 @@ def futures_hist_daily_cffex(date: str = "20260403") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.cffex.com.cn/sj/hqsj/rtj/{date[:6]}/{date[6:]}/{date}_1.csv"
-    data_df = pd.read_csv(url, encoding="gbk")
+    data_df = pd.read_csv(http.get_buffer(url), encoding="gbk")
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]

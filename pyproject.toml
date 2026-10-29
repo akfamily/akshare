@@ -49,9 +49,6 @@ dependencies = [
     "urllib3>=1.25.8",
     "tqdm>=4.43.0",
     "openpyxl>=3.0.3",
-    "jsonpath>=0.82",
-    "tabulate>=0.8.6",
-    "decorator>=4.4.2",
     "mini-racer>=0.12.4; platform_system != 'Linux'",
     "py-mini-racer>=0.6.0; platform_system == 'Linux'",
     "akracer>=0.0.13; platform_system == 'Linux'",
@@ -155,7 +152,7 @@ target-version = "py311"
 # ast.literal_eval，存量为零）；S501 禁止 verify=False，存量以 # noqa: S501 标记，
 # 只拦新增。
 #
-# TID251 要求数据接口经 akshare.utils.http 发请求，从而统一应用全局超时与代理
+# TID251 要求数据接口经 akshare.utils.http 发请求（含 curl_cffi 版本），从而统一应用全局超时与代理
 # （ak.set_timeout / ak.set_proxies）。它覆盖了 S113（请求未设超时）的用途，
 # 因此不再单独启用 S113。
 select = ["E4", "E7", "E9", "F", "S307", "S501", "TID251"]
@@ -179,6 +176,13 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 "requests.head".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
 "requests.patch".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
 "requests.options".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"curl_cffi.requests.get".msg = "改用 akshare.utils.http.curl_get，以应用全局超时与代理"
+"curl_cffi.requests.post".msg = "改用 akshare.utils.http.curl_post，以应用全局超时与代理"
+"curl_cffi.requests.request".msg = "改用 akshare.utils.http.curl_request，以应用全局超时与代理"
+"curl_cffi.requests.Session".msg = "改用 akshare.utils.http.CurlSession，以应用全局超时与代理"
+"urllib3.PoolManager".msg = "改用 akshare.utils.http.Session 并挂载自定义 HTTPAdapter，以应用全局超时与代理"
+"http.client.HTTPSConnection".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
+"http.client.HTTPConnection".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
 
 [tool.ruff.lint.per-file-ignores]
 # 封装本身，以及不发真实请求的测试与仓库脚本

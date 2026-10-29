@@ -10,6 +10,8 @@ http://www.econ.yale.edu/~shiller/data.htm
 
 import pandas as pd
 
+from akshare.utils import http
+
 
 def hf_sp_500(year: str = "2017") -> pd.DataFrame:
     """
@@ -20,7 +22,7 @@ def hf_sp_500(year: str = "2017") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://github.com/FutureSharks/financial-data/raw/master/pyfinancialdata/data/stocks/histdata/SPXUSD/DAT_ASCII_SPXUSD_M1_{year}.csv"
-    temp_df = pd.read_table(url, header=None, sep=";")
+    temp_df = pd.read_table(http.get_buffer(url), header=None, sep=";")
     temp_df.columns = ["date", "open", "high", "low", "close", "price"]
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df["open"] = pd.to_numeric(temp_df["open"])

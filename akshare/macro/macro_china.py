@@ -12,7 +12,6 @@ import ssl
 import time
 
 import pandas as pd
-from curl_cffi import requests as curl_requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 
@@ -355,7 +354,7 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
         "showType": "1",
         "rootId": "fc982599aa684be7969d7b90b1bd0e84",
     }
-    r = curl_requests.post(
+    r = http.curl_post(
         url, json=payload, headers=headers, impersonate="chrome", timeout=30
     )
     data_json = r.json()
