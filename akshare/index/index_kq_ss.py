@@ -7,7 +7,8 @@ http://ss.kqindex.cn:9559/rinder_web_kqsszs/index/index_page.do
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
@@ -40,7 +41,7 @@ def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
         "时尚评价指数": "04",
     }
     params = {"structCode": symbol_map[symbol]}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(

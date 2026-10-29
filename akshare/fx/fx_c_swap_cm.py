@@ -9,8 +9,9 @@ https://www.chinamoney.org.cn/chinese/bkcurvfsw
 import ssl
 
 import pandas as pd
-import requests
 from requests.adapters import HTTPAdapter
+
+from akshare.utils import http
 
 
 class LegacySSLAdapter(HTTPAdapter):
@@ -29,7 +30,7 @@ def fx_c_swap_cm():
     :return: 外汇掉期 C-Swap 定盘曲线
     :rtype: pandas.DataFrame
     """
-    session = requests.Session()
+    session = http.Session()
     session.mount(prefix="https://", adapter=LegacySSLAdapter())
     url = "https://www.chinamoney.org.cn/r/cms/www/chinamoney/data/fx/fx-c-sw-curv-USD.CNY.json"
     payload = {

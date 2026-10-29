@@ -7,7 +7,7 @@ https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -32,7 +32,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -49,7 +49,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
             "pageNo": page,
             "pageNum": page,
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         for col in temp_df.columns:

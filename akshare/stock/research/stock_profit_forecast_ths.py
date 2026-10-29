@@ -9,8 +9,8 @@ https://basic.10jqka.com.cn/new/600519/worth.html
 from io import StringIO
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -28,7 +28,7 @@ def stock_profit_forecast_ths(
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/worth.html"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gbk"
     if "本年度暂无机构做出业绩预测" in r.text:
         # 处理 `本年度暂无机构做出业绩预测` 的情况

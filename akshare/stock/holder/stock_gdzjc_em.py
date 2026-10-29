@@ -7,8 +7,8 @@ https://data.eastmoney.com/executive/gdzjc.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -40,7 +40,7 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
         "client": "WEB",
         "filter": symbol_map[symbol],
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -51,7 +51,7 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

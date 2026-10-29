@@ -11,12 +11,12 @@ from functools import lru_cache
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
 from akshare.utils import demjson
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -51,7 +51,7 @@ def _get_stock_board_industry_name_ths() -> dict:
         "Cookie": f"v={v_code}",
     }
     url = "https://q.10jqka.com.cn/thshy/detail/code/881272/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     code_list = [
         item["href"].split("/")[-2]
@@ -103,7 +103,7 @@ def stock_board_industry_info_ths(symbol: str = "半导体") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     name_list = [
         item.text.strip()
@@ -154,7 +154,7 @@ def stock_board_industry_index_ths(
             "Host": "d.10jqka.com.cn",
             "Cookie": f"v={v_code}",
         }
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         data_text = r.text
 
         try:
@@ -237,7 +237,7 @@ def stock_xgsr_ths() -> pd.DataFrame:
         "hexin-v": v_code,
     }
     url = "https://data.10jqka.com.cn/ipo/xgsr/field/SSRQ/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
@@ -251,7 +251,7 @@ def stock_xgsr_ths() -> pd.DataFrame:
             "Cookie": f"v={v_code}",
             "hexin-v": v_code,
         }
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
@@ -289,7 +289,7 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
         "hexin-v": v_code,
     }
     url = "https://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
@@ -303,7 +303,7 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
             "Cookie": f"v={v_code}",
             "hexin-v": v_code,
         }
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
@@ -345,14 +345,14 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     url = "http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/1/ajax/1/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/{page}/ajax/1/"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 

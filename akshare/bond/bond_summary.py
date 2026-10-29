@@ -9,7 +9,8 @@ http://bond.sse.com.cn/data/statistics/overview/turnover/
 from io import BytesIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def bond_cash_summary_sse(date: str = "20210111") -> pd.DataFrame:
@@ -31,7 +32,7 @@ def bond_cash_summary_sse(date: str = "20210111") -> pd.DataFrame:
         "sqlId": "COMMON_SSEBOND_SCSJ_SCTJ_SCGL_ZQXQSCGL_CX_L",
         "TRADE_DATE": f"{date[:4]}-{date[4:6]}-{date[6:]}",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     temp_df.columns = [
         "债券现货",
@@ -66,7 +67,7 @@ def bond_deal_summary_sse(date: str = "20210104") -> pd.DataFrame:
         "sqlId": "COMMON_SSEBOND_SCSJ_SCTJ_SCGL_ZQCJGL_CX_L",
         "TRADE_DATE": f"{date[:4]}-{date[4:6]}-{date[6:]}",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df.columns = [
         "债券类型",

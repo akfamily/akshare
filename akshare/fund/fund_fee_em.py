@@ -10,8 +10,9 @@ import re
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.DataFrame:
@@ -26,7 +27,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
     :rtype: pandas.DataFrame
     """
     url = f"https://fundf10.eastmoney.com/jjfl_{symbol}.html"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="html.parser")
     tables_dict = {}
     title_elements = soup.find_all(name="h4", class_="t")

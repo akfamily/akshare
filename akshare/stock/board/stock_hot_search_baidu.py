@@ -9,7 +9,8 @@ https://gushitong.baidu.com/hotlist?mainTab=hotSearch&market=all
 from datetime import datetime
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hot_search_baidu(
@@ -48,7 +49,7 @@ def stock_hot_search_baidu(
         "rn": "12",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Result"]["list"]["body"])
     temp_df.rename(

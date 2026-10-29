@@ -9,8 +9,8 @@ https://data.eastmoney.com/xg/gh/default.html
 import json
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
@@ -44,7 +44,7 @@ def stock_ipo_review_em() -> pd.DataFrame:
         return json.loads(json_str)
 
     # 首次请求获取总页数
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     r.raise_for_status()
     data_json = parse_jsonp(r.text)
 
@@ -57,7 +57,7 @@ def stock_ipo_review_em() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params["pageNumber"] = str(page)
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         r.raise_for_status()
         try:
             data_json = parse_jsonp(r.text)

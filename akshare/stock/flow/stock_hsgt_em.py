@@ -8,9 +8,9 @@ https://data.eastmoney.com/hsgtcg/
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
@@ -38,7 +38,7 @@ def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -182,7 +182,7 @@ def stock_hsgt_hold_stock_em(
     :rtype: pandas.DataFrame
     """
     url = "https://data.eastmoney.com/hsgtcg/list.html"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     date = (
         soup.find(name="div", attrs={"class": "title"})
@@ -224,14 +224,14 @@ def stock_hsgt_hold_stock_em(
         "client": "WEB",
         "filter": filter_str,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -373,14 +373,14 @@ def stock_hsgt_stock_statistics_em(
                 {"filter": f"""(INTERVAL_TYPE="1")(RN=1)(TRADE_DATE='{start_date}')"""}
             )
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -468,14 +468,14 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -576,14 +576,14 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -684,14 +684,14 @@ def stock_hsgt_stock_statistics_em(
                 }
             )
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, int(total_page) + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -811,7 +811,7 @@ def stock_hsgt_institution_statistics_em(
             "filter": f"""(MARKET_TYPE="S")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df.columns = [
@@ -874,14 +874,14 @@ def stock_hsgt_institution_statistics_em(
             "filter": f"""(MARKET_TYPE="N")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            r = http.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -942,14 +942,14 @@ def stock_hsgt_institution_statistics_em(
             "filter": f"""(MARKET_TYPE="001")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            r = http.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -1010,14 +1010,14 @@ def stock_hsgt_institution_statistics_em(
             "filter": f"""(MARKET_TYPE="003")(HOLD_DATE>='{start_date}')(HOLD_DATE<='{end_date}')""",
         }
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params, headers=headers)
+            r = http.get(url, params=params, headers=headers)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -1099,14 +1099,14 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
         "client": "WEB",
         "filter": f'(MUTUAL_TYPE="00{symbol_map[symbol]}")',
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     temp_list = []
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_list.append(temp_df)
@@ -1201,7 +1201,7 @@ def stock_hsgt_board_rank_em(
     :rtype: pandas.DataFrame
     """
     url = "https://data.eastmoney.com/hsgtcg/hy.html"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     current_date = soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
     symbol_map = {
@@ -1231,7 +1231,7 @@ def stock_hsgt_board_rank_em(
         "client": "WEB",
         "filter": f"""(BOARD_TYPE="{symbol_map[symbol]}")(TRADE_DATE='{current_date}')(INTERVAL_TYPE="{indicator_map[indicator]}")""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
@@ -1348,13 +1348,13 @@ def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
         "client": "WEB",
         "filter": f"""(SECUCODE="{symbol}.HK")(MUTUAL_TYPE="002")""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     temp_df = pd.DataFrame(data_json["result"]["data"])
     for page in range(1, total_page + 1):
         params.update({"pageNumber": str(page)})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         if page == 1:
             temp_df = pd.DataFrame(data_json["result"]["data"])
@@ -1441,13 +1441,13 @@ def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
         "client": "WEB",
         "filter": f"""(SECURITY_CODE="{symbol}")(INTERVAL_TYPE="1")""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     temp_df = pd.DataFrame(data_json["result"]["data"])
     for page in range(1, total_page + 1):
         params.update({"pageNumber": str(page)})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         if page == 1:
             temp_df = pd.DataFrame(data_json["result"]["data"])
@@ -1555,7 +1555,7 @@ def stock_hsgt_individual_detail_em(
         >='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE
         <='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     try:
         data_json["result"]["pages"]
@@ -1567,14 +1567,14 @@ def stock_hsgt_individual_detail_em(
                 <='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

@@ -7,9 +7,9 @@ https://legulegu.com/stockdata/ashares-congestion
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def stock_a_congestion_lg() -> pd.DataFrame:
@@ -22,7 +22,7 @@ def stock_a_congestion_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/ashares-congestion"
     token = get_token_lg()
     params = {"token": token}
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/ashares-congestion"),

@@ -11,6 +11,8 @@ from typing import Dict, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 
+from akshare.utils import http
+
 
 def request_with_retry(
     url: str,
@@ -43,7 +45,7 @@ def request_with_retry(
     for attempt in range(max_retries):
         try:
             # 每次请求创建新的 Session，避免复用连接
-            with requests.Session() as session:
+            with http.Session() as session:
                 # 禁用连接池复用
                 adapter = HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 session.mount("http://", adapter)

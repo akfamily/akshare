@@ -7,7 +7,8 @@ https://data.eastmoney.com/hsgt/hsgtDetail/scgk.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hsgt_fund_min_em(symbol: str = "北向资金") -> pd.DataFrame:
@@ -26,7 +27,7 @@ def stock_hsgt_fund_min_em(symbol: str = "北向资金") -> pd.DataFrame:
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "_": "1707125786160",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
 
     if symbol == "南向资金":

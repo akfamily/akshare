@@ -7,10 +7,10 @@ https://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_ths(file: str = "cninfo.js") -> str:
@@ -79,7 +79,7 @@ def stock_cg_lawsuit_cninfo(
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "market": symbol_map[symbol],
     }
-    r = requests.post(url, headers=headers, params=params, timeout=30)
+    r = http.post(url, headers=headers, params=params, timeout=30)
     data_json = r.json()
     records = data_json.get("records", [])
     if not records:

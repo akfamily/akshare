@@ -9,8 +9,8 @@ https://data.eastmoney.com/notices/hsa/5.html
 import math
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -60,7 +60,7 @@ def _stock_notice_report(
         params["begin_time"] = begin_date
     if end_date:
         params["end_time"] = end_date
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = math.ceil(data_json["data"]["total_hits"] / 100)
     big_df = pd.DataFrame()
@@ -71,7 +71,7 @@ def _stock_notice_report(
                 "page_index": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
 

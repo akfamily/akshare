@@ -7,7 +7,8 @@ https://datacenter.jin10.com/reportType/dc_bitcoin_current
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def crypto_js_spot() -> pd.DataFrame:
@@ -24,7 +25,7 @@ def crypto_js_spot() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
     data_df["reported_at"] = pd.to_datetime(data_df["reported_at"])

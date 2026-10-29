@@ -6,8 +6,9 @@ Desc: 美股目标价 or 港股目标价
 https://www.ushknews.com/report.html
 """
 
-import requests
 import pandas as pd
+
+from akshare.utils import http
 
 
 def stock_price_js(symbol: str = "us") -> pd.DataFrame:
@@ -42,7 +43,7 @@ def stock_price_js(symbol: str = "us") -> pd.DataFrame:
         "x-app-id": "BNsiR9uq7yfW0LVz",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["data"]["list"])
     temp_df.columns = [

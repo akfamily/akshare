@@ -6,12 +6,13 @@ Desc: 唯爱期货-期权保证金
 https://www.iweiai.com/qihuo/yuanyou
 """
 
-import requests
 import pandas as pd
 from io import StringIO
 
 from bs4 import BeautifulSoup
 from functools import lru_cache
+
+from akshare.utils import http
 
 
 @lru_cache()
@@ -22,7 +23,7 @@ def option_margin_symbol() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.iweiai.com/qiquan/yuanyou"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.content, features="lxml")
     symbol_text = [
         item.get_text() for item in soup.find_all("a") if "qiquan" in item["href"]
@@ -47,7 +48,7 @@ def option_margin(symbol: str = "原油期权") -> pd.DataFrame:
     url = option_margin_symbol_df[option_margin_symbol_df["symbol"] == symbol][
         "url"
     ].values[0]
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.content, features="lxml")
     updated_time = soup.find_all("small")[0].get_text().strip("最近更新：")
     temp_df = pd.read_html(StringIO(r.text))[0]

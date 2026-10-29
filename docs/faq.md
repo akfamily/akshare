@@ -39,6 +39,29 @@ uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.
 1. 重新运行接口函数
 2. 更换 IP 地址，可以使用代理访问
 3. 降低数据访问的频率
+4. 网络较慢时调大超时，见下文“设置代理与超时”
+
+自 1.20.4 起，所有接口默认连接超时 10 秒、读取超时 60 秒，上游长时间无响应时会抛出 `ConnectTimeout` 或 `ReadTimeout`，不再无限等待。读取超时指两次收到数据之间的最长间隔，持续传输的大文件不受影响。
+
+(faq-proxy)=
+### 设置代理与超时
+
+代理与超时是全局设置，运行中修改立即生效：
+
+```python
+import akshare as ak
+
+ak.set_proxies({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"})
+ak.set_timeout(30)        # 单位为秒；也可传 (连接超时, 读取超时)，如 (10, 120)
+ak.set_timeout(None)      # 不限时，恢复 1.20.3 及以前的行为
+
+with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}):
+    stock_zh_a_daily_df = ak.stock_zh_a_daily(symbol="sh600000")  # 仅此代码块内使用该代理
+```
+
+未调用 `ak.set_proxies` 时，沿用 `HTTP_PROXY`、`HTTPS_PROXY` 环境变量和系统代理设置。`ak.get_proxies()`、`ak.get_timeout()` 返回当前设置。
+
+少数需要模拟浏览器指纹或特殊 SSL 设置的接口暂不受这两项设置影响，包括 `stock_news_em`、百度股市通系列（`stock_hk_valuation_baidu`、`stock_us_valuation_baidu`、`news_economic_baidu`、`news_trade_notify_suspend_baidu` 等）、国家统计局系列（`macro_china_nbs_nation`、`macro_china_nbs_region`）、`macro_china_urban_unemployment` 和 `amac_person_bond_org_list`。
 
 ### 使用代理时报错
 

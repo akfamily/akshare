@@ -9,7 +9,8 @@ https://fund.10jqka.com.cn/datacenter/jz/kfs/etf/
 import json
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
@@ -40,7 +41,7 @@ def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
         f"https://fund.10jqka.com.cn/data/Net/info/"
         f"{inner_symbol}_rate_desc_{inner_date}_0_1_9999_0_0_0_jsonp_g.html"
     )
-    r = requests.get(url, timeout=15)
+    r = http.get(url, timeout=15)
     data_text = r.text[2:-1]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["data"]).T

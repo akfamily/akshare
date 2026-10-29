@@ -11,10 +11,10 @@ import datetime
 import random
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.exceptions import APIError
+from akshare.utils import http
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:
@@ -113,7 +113,7 @@ def _post_endata_json(
     :return: JSON 响应
     :rtype: dict[str, object]
     """
-    response = requests.post(
+    response = http.post(
         url,
         data=payload,
         headers=_get_endata_headers(referer_path=referer_path),

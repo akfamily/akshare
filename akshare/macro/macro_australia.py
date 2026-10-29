@@ -7,7 +7,8 @@ https://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 # 零售销售月率
@@ -33,7 +34,7 @@ def macro_australia_retail_rate_monthly() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -84,7 +85,7 @@ def macro_australia_trade() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -135,7 +136,7 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -186,7 +187,7 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -237,7 +238,7 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -288,7 +289,7 @@ def macro_australia_cpi_yearly() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -339,7 +340,7 @@ def macro_australia_bank_rate() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [

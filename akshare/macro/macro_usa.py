@@ -11,7 +11,8 @@ import datetime
 import time
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
@@ -35,7 +36,7 @@ def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
     params = params
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -99,7 +100,7 @@ def macro_usa_phs() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -144,7 +145,7 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     data_list = data_json["result"]["data"]
     temp_df = pd.DataFrame(
@@ -473,7 +474,7 @@ def macro_usa_rig_count() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
-    res = requests.get(
+    res = http.get(
         url="https://cdn.jin10.com/data_center/reports/baker.json", params=params
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
@@ -968,7 +969,7 @@ def macro_usa_crude_inner() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
-    res = requests.get(
+    res = http.get(
         url="https://cdn.jin10.com/data_center/reports/usa_oil.json", params=params
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
@@ -1004,7 +1005,7 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_4.json", params=params
     )
     json_data = r.json()
@@ -1035,7 +1036,7 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_2.json", params=params
     )
     json_data = r.json()
@@ -1066,7 +1067,7 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_3.json", params=params
     )
     json_data = r.json()
@@ -1097,7 +1098,7 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_1.json", params=params
     )
     json_data = r.json()
@@ -1128,7 +1129,7 @@ def macro_usa_cme_merchant_goods_holding():
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cme_3.json", params=params
     )
     json_data = r.json()

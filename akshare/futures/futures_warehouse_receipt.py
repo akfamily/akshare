@@ -17,10 +17,10 @@ import re
 from io import BytesIO, StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.exceptions import APIError
+from akshare.utils import http
 
 
 def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
@@ -43,7 +43,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
-    r = requests.get(url, verify=False, headers=headers)  # noqa: S501
+    r = http.get(url, verify=False, headers=headers)  # noqa: S501
     temp_df = pd.read_excel(BytesIO(r.content))
     index_list = temp_df[temp_df.iloc[:, 0].str.find("品种") == 0.0].index.to_list()
     index_list.append(len(temp_df))
@@ -76,7 +76,7 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
         "tradeDate": date,
         "varietyId": "all",
     }
-    r = requests.post(url, json=payload, timeout=15)
+    r = http.post(url, json=payload, timeout=15)
     # 瑞数反爬虫对未通过浏览器验证的请求返回 412 挑战页，其 cookie 需每次请求前由 JS 重新生成
     if r.status_code == 412:
         raise APIError(
@@ -128,7 +128,7 @@ def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
     :rtype: dict
     """
     url = f"https://www.shfe.com.cn/data/tradedata/future/stockdata/dailystock_{date}/ZH/all.html"
-    r = requests.get(url, headers=headers, timeout=15)
+    r = http.get(url, headers=headers, timeout=15)
     r.raise_for_status()
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, features="lxml")
@@ -222,7 +222,7 @@ def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
         f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.dat"
     )
     if date >= "20140519":
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["o_cursor"])
         temp_df["VARNAME"] = temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
@@ -235,7 +235,7 @@ def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
             big_dict[item] = temp_df[temp_df["VARNAME"] == item]
     else:
         url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.html"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
             temp_df.iloc[:, 3].str.contains("单位：") == 1
@@ -275,7 +275,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
-    r = requests.post(url=url, data=payload, headers=headers, timeout=15)
+    r = http.post(url=url, data=payload, headers=headers, timeout=15)
     r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])

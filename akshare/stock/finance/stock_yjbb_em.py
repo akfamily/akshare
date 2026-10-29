@@ -8,8 +8,8 @@ https://data.eastmoney.com/bbsj/202003/yjbb.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -35,7 +35,7 @@ def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
         "columns": "ALL",
         "filter": f"(REPORTDATE='{'-'.join([date[:4], date[4:6], date[6:]])}')",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -47,7 +47,7 @@ def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_list.append(temp_df)

@@ -7,9 +7,9 @@ https://www.legulegu.com/stockdata/a-ttm-lyr
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def stock_a_ttm_lyr() -> pd.DataFrame:
@@ -35,7 +35,7 @@ def stock_a_ttm_lyr() -> pd.DataFrame:
         }
     )
     # 使用独立的 session
-    session = requests.Session()
+    session = http.Session()
     r = session.get(
         url,
         params=params,

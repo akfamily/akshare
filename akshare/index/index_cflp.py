@@ -7,7 +7,8 @@ http://index.0256.cn/expx.htm
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def index_price_cflp(symbol: str = "周指数") -> pd.DataFrame:
@@ -42,7 +43,7 @@ def index_price_cflp(symbol: str = "周指数") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/90.0.4430.212 Safari/537.36",
     }
-    r = requests.post(url, data=params, headers=headers)
+    r = http.post(url, data=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [
@@ -91,7 +92,7 @@ def index_volume_cflp(symbol: str = "月指数") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/90.0.4430.212 Safari/537.36",
     }
-    r = requests.post(url, data=params, headers=headers)
+    r = http.post(url, data=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [

@@ -13,6 +13,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, NetworkError
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -58,7 +59,7 @@ def _request_xq_hot_data(url: str, params: dict[str, Any]) -> dict[str, Any]:
     :raises APIError: 上游接口返回异常
     """
     try:
-        r = requests.get(url, params=params, headers=_get_xq_hot_headers())
+        r = http.get(url, params=params, headers=_get_xq_hot_headers())
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(

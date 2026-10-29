@@ -1388,7 +1388,7 @@ from akshare.calendar.calendar_trade_date_hist import tool_trade_date_hist_sina
 # ---- 自然语言处理（akshare/nlp） ----
 from akshare.nlp.nlp_interface import nlp_answer
 
-# ---- 公共 API：账户、接口检索与异常 ----
+# ---- 公共 API：账户、网络配置、接口检索与异常 ----
 from .exceptions import (
     AkshareException,
     APIError,
@@ -1399,6 +1399,13 @@ from .exceptions import (
 )
 from akshare.pro.data_pro import pro_api
 from akshare.utils.token_process import set_token, get_token
+from akshare.utils.context import (
+    ProxyContext,
+    get_proxies,
+    get_timeout,
+    set_proxies,
+    set_timeout,
+)
 from akshare.registry import search, interface_info, list_categories
 
 # === __all__ 开始：由 scripts/build_registry.py 生成，请勿手工编辑 ===
@@ -1408,6 +1415,7 @@ __all__ = [
     "DataParsingError",
     "InvalidParameterError",
     "NetworkError",
+    "ProxyContext",
     "RateLimitError",
     "air_city_table",
     "air_quality_hebei",
@@ -1666,6 +1674,7 @@ __all__ = [
     "get_futures_daily",
     "get_gfex_daily",
     "get_ine_daily",
+    "get_proxies",
     "get_rank_sum",
     "get_rank_sum_daily",
     "get_rank_table_czce",
@@ -1674,6 +1683,7 @@ __all__ = [
     "get_roll_yield_bar",
     "get_shfe_daily",
     "get_shfe_rank_table",
+    "get_timeout",
     "get_token",
     "get_us_stock_name",
     "hf_sp_500",
@@ -2062,6 +2072,8 @@ __all__ = [
     "rv_from_futures_zh_minute_sina",
     "rv_from_stock_zh_a_hist_min_em",
     "search",
+    "set_proxies",
+    "set_timeout",
     "set_token",
     "spot_corn_price_soozhu",
     "spot_golden_benchmark_sge",

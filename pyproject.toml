@@ -153,8 +153,12 @@ target-version = "py311"
 #
 # 另外启用两条 flake8-bandit 安全规则：S307 禁止对上游响应调用 eval（已全部改为
 # ast.literal_eval，存量为零）；S501 禁止 verify=False，存量以 # noqa: S501 标记，
-# 只拦新增。S113（请求未设超时）存量逾千处，留待网络层统一默认超时后再启用。
-select = ["E4", "E7", "E9", "F", "S307", "S501"]
+# 只拦新增。
+#
+# TID251 要求数据接口经 akshare.utils.http 发请求，从而统一应用全局超时与代理
+# （ak.set_timeout / ak.set_proxies）。它覆盖了 S113（请求未设超时）的用途，
+# 因此不再单独启用 S113。
+select = ["E4", "E7", "E9", "F", "S307", "S501", "TID251"]
 ignore = []
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
@@ -163,6 +167,24 @@ unfixable = []
 
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"requests.get".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
+"requests.post".msg = "改用 akshare.utils.http.post，以应用全局超时与代理"
+"requests.request".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.Session".msg = "改用 akshare.utils.http.Session，以应用全局超时与代理"
+"requests.session".msg = "改用 akshare.utils.http.Session，以应用全局超时与代理"
+"requests.put".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.delete".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.head".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.patch".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.options".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+
+[tool.ruff.lint.per-file-ignores]
+# 封装本身，以及不发真实请求的测试与仓库脚本
+"akshare/utils/http.py" = ["TID251"]
+"tests/**" = ["TID251"]
+"scripts/**" = ["TID251"]
 
 [tool.ruff.format]
 # Like Black, use double quotes for strings.

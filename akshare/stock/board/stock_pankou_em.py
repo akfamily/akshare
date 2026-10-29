@@ -7,7 +7,8 @@ https://quote.eastmoney.com/changes/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
@@ -54,7 +55,7 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wzchanges",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["allstock"])
     temp_df["tm"] = pd.to_datetime(temp_df["tm"], format="%H%M%S").dt.time
@@ -94,7 +95,7 @@ def stock_board_change_em() -> pd.DataFrame:
         "pageindex": "0",
         "pagesize": "5000",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"]["allbk"])
     data_df.columns = [

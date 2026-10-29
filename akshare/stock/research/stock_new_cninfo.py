@@ -8,9 +8,9 @@ https://webapi.cninfo.com.cn/#/xinguList
 
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
@@ -55,7 +55,7 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, headers=headers)
+    r = http.post(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -105,7 +105,7 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
         "timetype": "36",
         "market": "ALL",
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [

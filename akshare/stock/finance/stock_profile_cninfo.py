@@ -8,9 +8,9 @@ https://webapi.cninfo.com.cn/#/company
 
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_ths(file: str = "cninfo.js") -> str:
@@ -59,7 +59,7 @@ def stock_profile_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "Referer": "https://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     columns = [
         "公司名称",

@@ -9,7 +9,8 @@ https://money.finance.sina.com.cn/bond/info/sz128039.html
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def bond_cb_profile_sina(symbol: str = "sz128039") -> pd.DataFrame:
@@ -22,7 +23,7 @@ def bond_cb_profile_sina(symbol: str = "sz128039") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://money.finance.sina.com.cn/bond/info/{symbol}.html"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = ["item", "value"]
     return temp_df
@@ -38,7 +39,7 @@ def bond_cb_summary_sina(symbol: str = "sh155255") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://money.finance.sina.com.cn/bond/quotes/{symbol}.html"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[10]
     part1 = temp_df.iloc[:, 0:2].copy()
     part1.columns = ["item", "value"]

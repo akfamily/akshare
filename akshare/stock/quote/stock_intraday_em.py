@@ -9,12 +9,13 @@ https://quote.eastmoney.com/f1.html?newcode=0.000001
 import json
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __event_stream(url, params):
     # 使用 stream=True 参数来启用流式请求
-    response = requests.get(url, params=params, stream=True)
+    response = http.get(url, params=params, stream=True)
     event_data = ""
 
     for line in response.iter_lines():

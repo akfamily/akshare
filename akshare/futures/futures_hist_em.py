@@ -11,7 +11,8 @@ from functools import lru_cache
 from typing import Tuple, Dict
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __futures_hist_separate_char_and_numbers_em(symbol: str = "焦煤2506") -> tuple:
@@ -38,16 +39,16 @@ def __fetch_exchange_symbol_raw_em() -> list:
     """
     url = "https://futsse-static.eastmoney.com/redis"
     params = {"msgid": "gnweb"}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     all_exchange_symbol_list = []
     for item in data_json:
         params = {"msgid": str(item["mktid"])}
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         inner_data_json = r.json()
         for num in range(1, len(inner_data_json) + 1):
             params = {"msgid": str(item["mktid"]) + f"_{num}"}
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             inner_data_json = r.json()
             all_exchange_symbol_list.extend(inner_data_json)
     return all_exchange_symbol_list
@@ -133,7 +134,7 @@ def futures_hist_em(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "forcect": "1",
     }
-    r = requests.get(url, timeout=15, params=params)
+    r = http.get(url, timeout=15, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:

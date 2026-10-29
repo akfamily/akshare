@@ -22,11 +22,11 @@ http://www.cnemission.com/article/hqxx/
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from akshare.utils import demjson
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -44,7 +44,7 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
         "lcnK": "53f75bfcefff58e4046ccfa42171636c",
         "brand": "TAN",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("(") + 1 : -1])
     temp_df = pd.DataFrame(data_json[symbol])
@@ -81,7 +81,7 @@ def energy_carbon_bj() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.bjets.com.cn/article/jyxx/"
-    r = requests.get(url, verify=False, headers=headers)  # noqa: S501
+    r = http.get(url, verify=False, headers=headers)  # noqa: S501
     soup = BeautifulSoup(r.text, features="lxml")
     total_page = (
         soup.find("table")
@@ -100,7 +100,7 @@ def energy_carbon_bj() -> pd.DataFrame:
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
-        r = requests.get(url, verify=False, headers=headers)  # noqa: S501
+        r = http.get(url, verify=False, headers=headers)  # noqa: S501
         r.encoding = "utf-8"
         df = pd.read_html(StringIO(r.text))[0]
         temp_df = pd.concat(objs=[temp_df, df], ignore_index=True)
@@ -139,7 +139,7 @@ def energy_carbon_sz() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsCN/index.htm"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
     big_df = pd.read_html(StringIO(r.text), header=0)[0]
@@ -147,7 +147,7 @@ def energy_carbon_sz() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsCN/index_{page}.htm"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
@@ -171,7 +171,7 @@ def energy_carbon_eu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsOuter/index.htm"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
     big_df = pd.read_html(StringIO(r.text), header=0)[0]
@@ -179,7 +179,7 @@ def energy_carbon_eu() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsOuter/index_{page}.htm"
-        r = requests.get(url)
+        r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
@@ -203,7 +203,7 @@ def energy_carbon_hb() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.hbets.cn/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     data_text = (
         soup.find(name="div", attrs={"class": "threeLeft"}).find_all("script")[1].text
@@ -252,7 +252,7 @@ def energy_carbon_gz() -> pd.DataFrame:
         "beginTime": "2010-01-01",
         "endTime": "2030-09-12",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text), header=0)[1]
     temp_df.columns = [
         "日期",

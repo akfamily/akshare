@@ -9,7 +9,8 @@ https://fundf10.eastmoney.com/jbgk_015641.html
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fund_overview_em(symbol: str = "015641") -> pd.DataFrame:
@@ -22,7 +23,7 @@ def fund_overview_em(symbol: str = "015641") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://fundf10.eastmoney.com/jbgk_{symbol}.html"
-    r = requests.get(url)
+    r = http.get(url)
     html_content = pd.read_html(StringIO(r.text))
 
     if len(html_content) == 0:

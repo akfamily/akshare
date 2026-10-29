@@ -11,7 +11,8 @@ import re
 from typing import Any
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def _bse_headers(referer: str) -> dict[str, str]:
@@ -83,7 +84,7 @@ def stock_margin_bse(date: str = "20260721") -> pd.DataFrame:
         "transDate": _bse_normalize_date(date),
         "page": "0",
     }
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         headers=_bse_headers("https://www.bse.cn/disclosure/rzrq_trans_list.html"),
@@ -142,7 +143,7 @@ def stock_margin_detail_bse(date: str = "20260721") -> pd.DataFrame:
     page = 0
     total_pages = 1
     while page < total_pages:
-        r = requests.post(
+        r = http.post(
             url,
             params={"callback": "cb"},
             data={"transDate": normalized_date, "page": str(page)},
@@ -203,7 +204,7 @@ def stock_margin_underlying_info_bse(date: str = "20260722") -> pd.DataFrame:
     page = 0
     total_pages = 1
     while page < total_pages:
-        r = requests.post(
+        r = http.post(
             url,
             params={"callback": "cb"},
             data={"transDate": normalized_date, "zqdm": "", "page": str(page)},

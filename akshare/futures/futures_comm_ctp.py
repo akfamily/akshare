@@ -10,8 +10,9 @@ from datetime import datetime
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def futures_fees_info() -> pd.DataFrame:
@@ -22,7 +23,7 @@ def futures_fees_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://openctp.cn/fees.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, features="lxml")
     datetime_str = soup.find("p").string.strip("Generated at ").strip(".")

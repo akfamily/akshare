@@ -7,9 +7,9 @@ https://legulegu.com/stockdata/fund-position/pos-stock
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def fund_stock_position_lg() -> pd.DataFrame:
@@ -27,7 +27,7 @@ def fund_stock_position_lg() -> pd.DataFrame:
         "category": "总仓位",
         "marketId": "5",
     }
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/fund-position/pos-stock"),
@@ -63,7 +63,7 @@ def fund_balance_position_lg() -> pd.DataFrame:
         "category": "总仓位",
         "marketId": "5",
     }
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(
@@ -101,7 +101,7 @@ def fund_linghuo_position_lg() -> pd.DataFrame:
         "category": "总仓位",
         "marketId": "5",
     }
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(

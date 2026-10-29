@@ -10,7 +10,6 @@ import datetime
 import re
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.bond.cons import (
@@ -21,6 +20,7 @@ from akshare.bond.cons import (
 )
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import demjson
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -34,7 +34,7 @@ def get_zh_bond_hs_page_count() -> int:
     params = {
         "node": "hs_z",
     }
-    res = requests.get(zh_sina_bond_hs_count_url, params=params)
+    res = http.get(zh_sina_bond_hs_count_url, params=params)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -62,7 +62,7 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
     end_page = int(end_page) + 1 if int(end_page) + 1 <= page_count else page_count
     for page in tqdm(range(start_page, end_page), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
-        r = requests.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
+        r = http.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(r.text)
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -124,7 +124,7 @@ def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
     :return: 指定沪深债券代码的日 K 线数据
     :rtype: pandas.DataFrame
     """
-    r = requests.get(
+    r = http.get(
         zh_sina_bond_hs_hist_url.format(
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
         )
