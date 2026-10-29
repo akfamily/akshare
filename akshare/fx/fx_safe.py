@@ -29,7 +29,7 @@ def currency_boc_safe() -> pd.DataFrame:
     soup = BeautifulSoup(r.text, features="lxml")
     content = soup.find(name="a", string=re.compile("人民币汇率"))["href"]
     url = f"https://www.safe.gov.cn{content}"
-    temp_df = pd.read_excel(url)
+    temp_df = pd.read_excel(http.get_buffer(url))
     temp_df.sort_values(by=["日期"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
     start_date = (

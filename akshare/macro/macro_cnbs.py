@@ -8,6 +8,8 @@ http://114.115.232.154:8080/
 
 import pandas as pd
 
+from akshare.utils import http
+
 
 def macro_cnbs() -> pd.DataFrame:
     """
@@ -18,7 +20,7 @@ def macro_cnbs() -> pd.DataFrame:
     """
     url = "http://114.115.232.154:8080/handler/download.ashx"
     temp_df = pd.read_excel(
-        url, sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
+        http.get_buffer(url), sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
     )
 
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")

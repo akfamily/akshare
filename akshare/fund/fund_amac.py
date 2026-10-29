@@ -6,7 +6,10 @@ Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版：https://gs.amac.org.cn
 """
 
+import ssl
+
 import pandas as pd
+from requests.adapters import HTTPAdapter
 
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
@@ -194,6 +197,26 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     return manager_data_out
 
 
+class _LegacySSLAdapter(HTTPAdapter):
+    """
+    允许旧式 TLS 重协商的适配器：human.amac.org.cn 不支持 RFC 5746，
+    OpenSSL 3 默认拒绝与其握手；直连与经代理两条路径都需替换 SSL 上下文
+    """
+
+    def __init__(self, **kwargs):
+        self._ssl_context = ssl.create_default_context()
+        self._ssl_context.options |= ssl.OP_LEGACY_SERVER_CONNECT
+        super().__init__(**kwargs)
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["ssl_context"] = self._ssl_context
+        return super().init_poolmanager(*args, **kwargs)
+
+    def proxy_manager_for(self, proxy, **proxy_kwargs):
+        proxy_kwargs["ssl_context"] = self._ssl_context
+        return super().proxy_manager_for(proxy, **proxy_kwargs)
+
+
 # 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
 def amac_person_bond_org_list() -> pd.DataFrame:
     """
@@ -202,16 +225,10 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     :return: 债券投资交易相关人员公示
     :rtype: pandas.DataFrame
     """
-    import urllib3
-    import ssl
-
-    ctx = ssl.create_default_context()
-    ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
-    # 使用自定义的 SSL 上下文发起 HTTPS 请求
-    pool = urllib3.PoolManager(ssl_context=ctx)
-
+    session = http.Session()
+    session.mount("https://", _LegacySSLAdapter())
     url = "https://human.amac.org.cn/web/api/publicityAddress?rand=0.6288001872566391&pageNum=1&pageSize=5000"
-    r = pool.request(method="GET", url=url)
+    r = session.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
     temp_df.reset_index(inplace=True)

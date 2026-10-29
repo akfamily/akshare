@@ -105,3 +105,74 @@ def test_positional_arguments_match_requests(sent):
     http.post("https://example.com/api", "raw-body")
     assert sent[0][0].url == "https://example.com/api?page=2"
     assert sent[1][0].body == "raw-body"
+
+
+@pytest.fixture
+def curl_sent(monkeypatch):
+    """
+    记录 curl_cffi Session.request 收到的参数，不发真实请求
+    """
+    from curl_cffi import requests as curl_requests
+
+    monkeypatch.setattr(config, "timeout", DEFAULT_TIMEOUT)
+    monkeypatch.setattr(config, "proxies", None)
+    calls = []
+
+    def fake_request(self, method, url, *args, **kwargs):
+        calls.append((method, url, kwargs))
+        return curl_requests.Response()
+
+    monkeypatch.setattr(curl_requests.Session, "request", fake_request)
+    return calls
+
+
+@pytest.mark.parametrize(
+    "call",
+    [
+        lambda: http.curl_get("https://example.com", impersonate="chrome"),
+        lambda: http.curl_post("https://example.com", json={"a": 1}),
+        lambda: http.CurlSession(impersonate="chrome").get("https://example.com"),
+    ],
+    ids=["curl-get", "curl-post", "curl-session-get"],
+)
+def test_curl_defaults_reach_session(curl_sent, call):
+    ak.set_proxies(PROXY)
+    call()
+    kwargs = curl_sent[-1][2]
+    assert kwargs["timeout"] == DEFAULT_TIMEOUT
+    assert kwargs["proxies"] == PROXY
+
+
+def test_curl_explicit_timeout_wins(curl_sent):
+    http.curl_get("https://example.com", timeout=30)
+    assert curl_sent[-1][2]["timeout"] == 30
+
+
+def test_get_buffer_returns_content_with_defaults(monkeypatch, sent):
+    def fake_send(self, request, **kwargs):
+        sent.append((request, kwargs))
+        response = requests.Response()
+        response.status_code = 200
+        response._content = b"a,b\n1,2\n"
+        return response
+
+    monkeypatch.setattr(requests.Session, "send", fake_send)
+    buffer = http.get_buffer("https://example.com/data.csv")
+    assert buffer.read() == b"a,b\n1,2\n"
+    assert sent[-1][1]["timeout"] == DEFAULT_TIMEOUT
+
+
+def test_get_buffer_raises_on_error_status(monkeypatch, sent):
+    """
+    与 pandas 直接读 URL 一样，错误状态码要报错，而不是把错误页当数据解析
+    """
+
+    def fake_send(self, request, **kwargs):
+        response = requests.Response()
+        response.status_code = 403
+        response.url = request.url
+        return response
+
+    monkeypatch.setattr(requests.Session, "send", fake_send)
+    with pytest.raises(requests.HTTPError, match="403"):
+        http.get_buffer("https://example.com/data.csv")

@@ -8,6 +8,8 @@ https://www.policyuncertainty.com/index.html
 
 import pandas as pd
 
+from akshare.utils import http
+
 
 def article_epu_index(symbol: str = "China") -> pd.DataFrame:
     """
@@ -28,7 +30,9 @@ def article_epu_index(symbol: str = "China") -> pd.DataFrame:
     if symbol == "Hong Kong":
         symbol = "HK"
         epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/{symbol}_EPU_Data_Annotated.xlsx",
+            io=http.get_buffer(
+                f"http://www.policyuncertainty.com/media/{symbol}_EPU_Data_Annotated.xlsx"
+            ),
             engine="openpyxl",
         )
         return epu_df
@@ -40,18 +44,22 @@ def article_epu_index(symbol: str = "China") -> pd.DataFrame:
         symbol = "Spain"
     if symbol in ["Ireland", "Chile", "Colombia", "Netherlands", "Singapore", "Sweden"]:
         epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.xlsx",
+            io=http.get_buffer(
+                f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.xlsx"
+            ),
             engine="openpyxl",
         )
         return epu_df
     if symbol == "Greece":
         epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/FKT_{symbol}_Policy_Uncertainty_Data.xlsx",
+            io=http.get_buffer(
+                f"http://www.policyuncertainty.com/media/FKT_{symbol}_Policy_Uncertainty_Data.xlsx"
+            ),
             engine="openpyxl",
         )
         return epu_df
     url = f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.csv"
-    epu_df = pd.read_csv(url)
+    epu_df = pd.read_csv(http.get_buffer(url))
     return epu_df
 
 

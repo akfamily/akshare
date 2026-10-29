@@ -6,11 +6,9 @@ Desc: 百度股市通-美股-财务报表-估值数据
 https://gushitong.baidu.com/stock/us-NVDA
 """
 
-import http.client
-import json
-import urllib
-
 import pandas as pd
+
+from akshare.utils import http
 
 
 def stock_us_valuation_baidu(
@@ -44,10 +42,10 @@ def stock_us_valuation_baidu(
         "skip_industry": "1",
         "finClientType": "pc",
     }
-    conn = http.client.HTTPSConnection("gushitong.baidu.com")
-    conn.request(method="GET", url=f"/opendata?{urllib.parse.urlencode(params)}")
-    r = conn.getresponse()
-    data_json = json.loads(r.read())
+    # gushitong.baidu.com/opendata 已 301 跳转到 finance.baidu.com
+    url = "https://finance.baidu.com/opendata"
+    r = http.get(url, params=params)
+    data_json = r.json()
     temp_df = pd.DataFrame(
         data_json["Result"][0]["DisplayData"]["resultData"]["tplData"]["result"][
             "chartInfo"

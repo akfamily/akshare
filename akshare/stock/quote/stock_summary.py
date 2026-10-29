@@ -173,7 +173,7 @@ def stock_szse_sector_summary(
             "成交笔数-占总计",
         ]
     else:
-        temp_df = pd.read_html(url, encoding="gbk")[1]
+        temp_df = pd.read_html(http.get_buffer(url), encoding="gbk")[1]
         temp_df.columns = [
             "项目名称",
             "项目名称-英文",

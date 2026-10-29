@@ -9,7 +9,8 @@ https://so.eastmoney.com/news/s?keyword=603777
 import json
 
 import pandas as pd
-from curl_cffi import requests
+
+from akshare.utils import http
 
 
 def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
@@ -63,7 +64,7 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
         "sec-fetch-site": "same-site",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.curl_get(url, params=params, headers=headers)
     data_text = r.text
     data_json = json.loads(
         data_text.strip("jQuery35101792940631092459_1764599530165(")[:-1]

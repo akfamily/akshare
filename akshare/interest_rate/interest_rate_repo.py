@@ -21,7 +21,7 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
     """
     if symbol == "回购定盘利率":
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/frr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
+        temp_df = pd.read_csv(http.get_buffer(url), header=None)
         temp_df.dropna(axis=1, inplace=True)
         temp_df.columns = ["date", "FR001", "FR007", "FR014"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
@@ -32,7 +32,7 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
         return temp_df
     else:
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/fdr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
+        temp_df = pd.read_csv(http.get_buffer(url), header=None)
         temp_df.dropna(axis=1, inplace=True)
         temp_df.columns = ["date", "FDR001", "FDR007", "FDR014"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date

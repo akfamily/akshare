@@ -9,6 +9,8 @@ FRED-MD and FRED-QD are large macroeconomic databases designed for the empirical
 
 import pandas as pd
 
+from akshare.utils import http
+
 
 def fred_md(date: str = "2020-01") -> pd.DataFrame:
     """
@@ -21,7 +23,7 @@ def fred_md(date: str = "2020-01") -> pd.DataFrame:
     url = (
         f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/monthly/{date}.csv"
     )
-    temp_df = pd.read_csv(url)
+    temp_df = pd.read_csv(http.get_buffer(url))
     return temp_df
 
 
@@ -34,7 +36,7 @@ def fred_qd(date: str = "2020-01") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/quarterly/{date}.csv"
-    temp_df = pd.read_csv(url)
+    temp_df = pd.read_csv(http.get_buffer(url))
     return temp_df
 
 

@@ -612,7 +612,9 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                 date.day,
             )
             try:
-                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
+                temp_df = pd.read_excel(
+                    http.get_buffer(url[:-3] + "excel"), header=0, skiprows=3
+                )
                 temp_df.dropna(how="any", axis=0, inplace=True)
                 temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
