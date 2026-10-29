@@ -31,6 +31,7 @@ aims to simplify the process of fetching financial data.
 **Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.akfamily.xyz/)
+- HTTP API & MCP server: [AKTools](https://aktools.akfamily.xyz/) lets other programming languages and AI assistants (Claude, Cursor) use AKShare data
 
 ## Installation
 
@@ -177,7 +178,7 @@ opening a pull request.
 4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
 6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
-7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.akfamily.xyz/).
+7. Provide HTTP API and MCP server for other programming languages and AI assistants: [AKTools](https://aktools.akfamily.xyz/).
 
 ## Show your style
 
