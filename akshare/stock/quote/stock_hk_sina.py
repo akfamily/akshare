@@ -6,6 +6,8 @@ Desc: 新浪财经-港股-实时行情数据和历史行情数据（包含前复
 https://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 
+import ast
+
 import pandas as pd
 from py_mini_racer import MiniRacer
 import requests
@@ -137,7 +139,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         r = requests.get(hk_sina_stock_hist_hfq_url.format(symbol))
         try:
             hfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if len(hfq_factor_df) == 1:
                 data_df.reset_index(inplace=True)
@@ -185,7 +187,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         r = requests.get(hk_sina_stock_hist_qfq_url.format(symbol))
         try:
             qfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if len(qfq_factor_df) == 1:
                 data_df.reset_index(inplace=True)
@@ -231,7 +233,9 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
 
     if adjust == "hfq-factor":
         r = requests.get(hk_sina_stock_hist_hfq_url.format(symbol))
-        hfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        hfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         hfq_factor_df.columns = ["date", "hfq_factor", "cash"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
@@ -241,7 +245,9 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
 
     if adjust == "qfq-factor":
         r = requests.get(hk_sina_stock_hist_qfq_url.format(symbol))
-        qfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        qfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]

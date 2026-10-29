@@ -7,6 +7,7 @@ Desc: 腾讯-股票-实时行情-成交明细
 港股报价延时 15 分钟
 """
 
+import ast
 import warnings
 
 import pandas as pd
@@ -37,7 +38,9 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
             r = requests.get(url, params=params)
             text_data = r.text
             temp_df = (
-                pd.DataFrame(eval(text_data[text_data.find("[") :])[1].split("|"))
+                pd.DataFrame(
+                    ast.literal_eval(text_data[text_data.find("[") :])[1].split("|")
+                )
                 .iloc[:, 0]
                 .str.split("/", expand=True)
             )

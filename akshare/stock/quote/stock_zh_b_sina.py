@@ -6,6 +6,7 @@ Desc: 新浪财经-B股-实时行情数据和历史行情数据（包含前复�
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 
+import ast
 import json
 import re
 from functools import lru_cache
@@ -146,7 +147,7 @@ def stock_zh_b_daily(
         if method == "hfq":
             r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
             hfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if hfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
@@ -158,7 +159,7 @@ def stock_zh_b_daily(
         else:
             r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
             qfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if qfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
@@ -221,7 +222,9 @@ def stock_zh_b_daily(
 
     if adjust == "hfq":
         r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
-        hfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        hfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
@@ -250,7 +253,9 @@ def stock_zh_b_daily(
 
     if adjust == "qfq":
         r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
-        qfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        qfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]

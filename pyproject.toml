@@ -150,7 +150,11 @@ target-version = "py311"
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
 # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
 # McCabe complexity (`C901`) by default.
-select = ["E4", "E7", "E9", "F"]
+#
+# 另外启用两条 flake8-bandit 安全规则：S307 禁止对上游响应调用 eval（已全部改为
+# ast.literal_eval，存量为零）；S501 禁止 verify=False，存量以 # noqa: S501 标记，
+# 只拦新增。S113（请求未设超时）存量逾千处，留待网络层统一默认超时后再启用。
+select = ["E4", "E7", "E9", "F", "S307", "S501"]
 ignore = []
 
 # Allow fix for all enabled rules (when `--fix`) is provided.

@@ -6,6 +6,7 @@ Desc: 新浪财经-美股实时行情数据和历史行情数据
 https://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 
+import ast
 import json
 from functools import lru_cache
 
@@ -141,7 +142,9 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     data_df = data_df.astype("float")
     url = us_sina_stock_hist_qfq_url.format(symbol)
     res = requests.get(url)
-    qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
+    qfq_factor_df = pd.DataFrame(
+        ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
+    )
     qfq_factor_df.rename(
         columns={
             "c": "adjust",

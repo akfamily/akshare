@@ -43,7 +43,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
-    r = requests.get(url, verify=False, headers=headers)
+    r = requests.get(url, verify=False, headers=headers)  # noqa: S501
     temp_df = pd.read_excel(BytesIO(r.content))
     index_list = temp_df[temp_df.iloc[:, 0].str.find("品种") == 0.0].index.to_list()
     index_list.append(len(temp_df))

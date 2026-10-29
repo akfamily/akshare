@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-3)=
+### 1.20.3 fix: replace eval with ast.literal_eval
+
+1. stock_zh_a_daily、stock_zh_b_daily、stock_zh_kcb_daily、stock_hk_daily、stock_us_daily、stock_zh_a_tick_tx_js、fund_etf_dividend_sina、fund_fh_em、fund_cf_em、fund_fh_rank_em、option_cffex_sz50_daily_sina、option_cffex_hs300_daily_sina、option_cffex_zz1000_daily_sina、macro_euro_lme_holding、macro_euro_lme_stock 及 4 个 macro_usa_cftc_* 接口解析上游响应时由 eval 改为 ast.literal_eval，避免执行响应中的任意代码；其中 stock_zh_a_tick_tx_js 经明文 HTTP 取数，原写法可被中间人利用；返回结果不变
+2. Ruff 启用 S307、S501 规则，禁止新增 eval 与 verify=False
+
 (v1-20-2)=
 ### 1.20.2 fix: fix stock_board_concept_name_em interface
 

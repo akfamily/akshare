@@ -55,7 +55,7 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = requests.get(url, verify=False)
+        r = requests.get(url, verify=False)  # noqa: S501
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1,]
         day_df = month_df[

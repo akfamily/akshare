@@ -155,7 +155,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
             url,
             params=params,
             json={"orgType": symbol_map[symbol], "page": "1"},
-            verify=False,
+            verify=False,  # noqa: S501
             headers=headers,
         )
         data_json = r.json()
@@ -250,14 +250,14 @@ def amac_manager_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -304,14 +304,14 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -375,14 +375,14 @@ def amac_member_sub_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -429,7 +429,7 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = int(data_json["totalPages"])
     if total_page > int(end_page):
@@ -440,7 +440,7 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
     tqdm = get_tqdm()
     for page in tqdm(range(int(start_page) - 1, real_end_page), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -486,14 +486,14 @@ def amac_securities_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -540,14 +540,14 @@ def amac_aoin_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -587,14 +587,14 @@ def amac_fund_sub_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -643,14 +643,14 @@ def amac_fund_account_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -688,14 +688,14 @@ def amac_fund_abs() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -747,14 +747,14 @@ def amac_futures_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -805,14 +805,14 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers)  # noqa: S501
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

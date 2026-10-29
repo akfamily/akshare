@@ -11,6 +11,7 @@ Desc: 金十数据中心-经济指标-欧元区
 金十数据中心-经济指标-欧元区-领先指标
 """
 
+import ast
 import time
 
 import pandas as pd
@@ -855,7 +856,9 @@ def macro_euro_lme_holding() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
@@ -885,7 +888,9 @@ def macro_euro_lme_stock() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df.sort_index(inplace=True)

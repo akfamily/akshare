@@ -6,6 +6,7 @@ Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
 
+import ast
 import datetime
 import time
 
@@ -1012,7 +1013,9 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
@@ -1041,7 +1044,9 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
@@ -1070,7 +1075,9 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
@@ -1099,7 +1106,9 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")

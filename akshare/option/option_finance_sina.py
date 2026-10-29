@@ -11,6 +11,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 https://stock.finance.sina.com.cn/option/quotes.html
 """
 
+import ast
 import datetime
 import json
 from functools import lru_cache
@@ -312,7 +313,7 @@ def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[
@@ -353,7 +354,7 @@ def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[
@@ -396,7 +397,7 @@ def option_cffex_zz1000_daily_sina(
     r = requests.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[

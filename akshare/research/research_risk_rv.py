@@ -102,7 +102,7 @@ def article_oman_rv_short(symbol: str = "FTSE") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
     }
 
-    res = requests.get(url, headers=headers, verify=False)
+    res = requests.get(url, headers=headers, verify=False)  # noqa: S501
     soup = BeautifulSoup(res.text, "lxml")
     soup_text = soup.find("p").get_text()
     data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("}") + 1])
@@ -154,7 +154,7 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
     print("由于服务器在国外, 请稍后, 如果访问失败, 请使用代理工具")
     url = "https://dachxiu.chicagobooth.edu/data.php"
     payload = {"ticker": symbol}
-    res = requests.get(url, params=payload, verify=False)
+    res = requests.get(url, params=payload, verify=False)  # noqa: S501
     soup = BeautifulSoup(res.text, "lxml")
     title_fore = (
         pd.DataFrame(soup.find("p").get_text().split(symbol)).iloc[0, 0].strip()

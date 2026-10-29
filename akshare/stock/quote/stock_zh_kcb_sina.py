@@ -5,6 +5,7 @@ Date: 2023/7/6 19:28
 Desc: 新浪财经-科创板-实时行情数据和历史行情数据（包含前复权和后复权因子）
 """
 
+import ast
 import datetime
 import re
 
@@ -182,7 +183,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "hfq":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
+            ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
@@ -213,7 +214,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "qfq":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
+            ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
@@ -244,7 +245,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "hfq-factor":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
+            ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
@@ -256,7 +257,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "qfq-factor":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])["data"]
+            ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)

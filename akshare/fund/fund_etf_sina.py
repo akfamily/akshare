@@ -6,6 +6,8 @@ Desc: 新浪财经-基金行情
 https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
 
+import ast
+
 import pandas as pd
 import py_mini_racer
 import requests
@@ -164,7 +166,7 @@ def fund_etf_dividend_sina(symbol: str = "sh510050") -> pd.DataFrame:
     text = r.text
     if text.startswith("var"):
         json_str = text.split("=")[1].strip().rsplit("}", maxsplit=1)[0].strip()
-        data = eval(json_str + "}")  # 这里使用eval而不是json.loads因为数据格式特殊
+        data = ast.literal_eval(json_str + "}")
 
         if isinstance(data, dict) and "data" in data:
             df = pd.DataFrame(data["data"])
