@@ -398,7 +398,7 @@ print(fx_swap_quote_df)
 
 接口：fx_c_swap_cm
 
-目标地址：https://www.chinamoney.org.cn/chinese/bkcurvfsw
+目标地址：https://www.chinamoney.com.cn/chinese/bkcurvfsw
 
 描述：中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
 
