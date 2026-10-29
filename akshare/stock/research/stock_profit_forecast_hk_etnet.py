@@ -9,7 +9,8 @@ https://data.eastmoney.com/report/profitforecast.jshtml
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_profit_forecast_et(
@@ -29,7 +30,7 @@ def stock_hk_profit_forecast_et(
     params = {
         "code": str(int(symbol)),
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     if indicator == "评级总览":
         temp_df = pd.read_html(StringIO(r.text))[0]
         inner_list = [item for item in temp_df.iloc[0, 0].split(" ") if item != ""]

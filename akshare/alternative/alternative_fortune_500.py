@@ -12,10 +12,10 @@ from functools import lru_cache
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.exceptions import InvalidParameterError
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 FORTUNE_COLUMNS = [
@@ -40,7 +40,7 @@ def _fortune_rank_year_url_map() -> dict:
     :rtype: dict
     """
     url = "https://www.fortunechina.com/fortune500/index.htm"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     url_2023 = "https://www.fortunechina.com/fortune500/c/2023-08/02/content_436874.htm"
     node_list = soup.find_all(name="div", attrs={"class": "swiper-slide"})
@@ -115,7 +115,7 @@ def fortune_rank(year: str = "2025") -> pd.DataFrame:
             f"year 可选 {min(year_url_map)} 至 {max(year_url_map)}，收到 {year}"
         )
     url = year_url_map[year]
-    r = requests.get(url, timeout=15)
+    r = http.get(url, timeout=15)
     r.encoding = "utf-8"
     if int(year) < 2007:
         # 最后一行是页面的说明文字
@@ -126,7 +126,7 @@ def fortune_rank(year: str = "2025") -> pd.DataFrame:
         tqdm = get_tqdm()
         for page in tqdm(range(2, 11), leave=False):
             page_url = url.rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm"
-            r = requests.get(page_url, timeout=15)
+            r = http.get(page_url, timeout=15)
             r.encoding = "utf-8"
             page_df = _fortune_read_table(r.text, header_in_first_row=True)
             temp_df = pd.concat(objs=[temp_df, page_df], ignore_index=True)

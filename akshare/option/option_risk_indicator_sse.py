@@ -6,7 +6,8 @@ Desc: 上海证券交易所-产品-股票期权-期权风险指标
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
@@ -37,7 +38,7 @@ def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/101.0.4951.67 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df = temp_df[

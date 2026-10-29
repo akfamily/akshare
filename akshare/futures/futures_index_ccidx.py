@@ -7,7 +7,8 @@ http://www.ccidx.com/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFrame:
@@ -25,7 +26,7 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     }
     url = "http://www.ccidx.com/CCI-ZZZS/index/getDateLine"
     params = {"indexId": futures_index_map[symbol]}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item for item in data_json["data"]["dateLineJson"]])
     temp_df.rename(

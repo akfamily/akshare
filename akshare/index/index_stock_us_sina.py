@@ -7,12 +7,12 @@ https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.stock.cons import (
     zh_js_decode,
 )
+from akshare.utils import http
 
 
 def index_us_stock_sina(symbol: str = ".INX") -> pd.DataFrame:
@@ -25,7 +25,7 @@ def index_us_stock_sina(symbol: str = ".INX") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/staticdata/us/{symbol}"
-    r = requests.get(url)
+    r = http.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
     dict_list = js_code.call("d", r.text.split("=")[1].split(";")[0].replace('"', ""))

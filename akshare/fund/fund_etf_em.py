@@ -9,8 +9,8 @@ https://quote.eastmoney.com/sh513500.html
 from functools import lru_cache
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -274,17 +274,17 @@ def fund_etf_hist_em(
         # market_id = code_id_dict[symbol]
         market_id = get_market_id(symbol)
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, timeout=15, params=params)
         data_json = r.json()
     except KeyError:
         market_id = 1
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, timeout=15, params=params)
         data_json = r.json()
         if not data_json["data"]:
             market_id = 0
             params.update({"secid": f"{market_id}.{symbol}"})
-            r = requests.get(url, timeout=15, params=params)
+            r = http.get(url, timeout=15, params=params)
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
@@ -367,7 +367,7 @@ def fund_etf_hist_min_em(
             "iscr": "0",
             "secid": f"{get_market_id(symbol)}.{symbol}",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, timeout=15, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -406,7 +406,7 @@ def fund_etf_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, timeout=15, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]

@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 
 import numpy as np
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __convert_date_format(date: str) -> str:
@@ -51,7 +52,7 @@ def macro_info_ws(date: str = "20240514") -> pd.DataFrame:
     new_datetime = datetime_obj + one_day
     date_str = new_datetime.strftime("%Y-%m-%d %H:%M:%S")
     params = {"start": __format_date(date), "end": __format_date(date_str)}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["items"])
     temp_df["public_date"] = pd.to_datetime(

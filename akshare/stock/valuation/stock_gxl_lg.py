@@ -7,9 +7,9 @@ https://legulegu.com/stockdata/guxilv
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def stock_a_gxl_lg(symbol: str = "上证A股") -> pd.DataFrame:
@@ -30,7 +30,7 @@ def stock_a_gxl_lg(symbol: str = "上证A股") -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/guxilv"
     token = get_token_lg()
     params = {"token": token}
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/guxilv"),
@@ -61,7 +61,7 @@ def stock_hk_gxl_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/hs"
     token = get_token_lg()
     params = {"token": token, "indexCode": "HSI"}
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/market/hk/dv/hsi"),

@@ -9,10 +9,10 @@ https://webapi.cninfo.com.cn/api/stock/p_stock2110
 
 import numpy as np
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_ths(file: str = "cninfo.js") -> str:
@@ -72,7 +72,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     cols_map = {
@@ -146,7 +146,7 @@ def stock_industry_change_cninfo(
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     cols_map = {

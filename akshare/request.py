@@ -1,9 +1,9 @@
 import time
 
-import requests
 from requests.exceptions import RequestException
 
 from akshare.exceptions import NetworkError, APIError, RateLimitError, DataParsingError
+from akshare.utils import http
 from akshare.utils.context import config
 
 
@@ -25,9 +25,7 @@ def make_request_with_retry_json(
         proxies = config.proxies
     for attempt in range(max_retries):
         try:
-            response = requests.get(
-                url, params=params, headers=headers, proxies=proxies
-            )
+            response = http.get(url, params=params, headers=headers, proxies=proxies)
             if response.status_code == 200:
                 try:
                     data = response.json()
@@ -80,9 +78,7 @@ def make_request_with_retry_text(
         proxies = config.proxies
     for attempt in range(max_retries):
         try:
-            response = requests.get(
-                url, params=params, headers=headers, proxies=proxies
-            )
+            response = http.get(url, params=params, headers=headers, proxies=proxies)
             if response.status_code == 200:
                 try:
                     data = response.text

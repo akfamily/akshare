@@ -6,9 +6,9 @@ Desc: 中国债券信息网-中债指数-中债指数族系-总指数-综合类�
 """
 
 import pandas as pd
-import requests
 
 from akshare.bond.cons import INDEX_MAPPING, PERIOD_MAPPING, INDICATOR_MAPPING
+from akshare.utils import http
 
 
 def bond_available_index_cbond():
@@ -50,7 +50,7 @@ def bond_index_general_cbond(
         "lx": "1",
         "locale": "zh_CN",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     raw_json = r.json()
     key_col_map = {
         f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
@@ -108,7 +108,7 @@ def bond_treasury_index_cbond(
         "lx": "1",
         "locale": "zh_CN",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     raw_json = r.json()
     key_col_map = {
         f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
@@ -193,7 +193,7 @@ def bond_new_composite_index_cbond(
         "": "",  # noqa: F601
         "locale": "",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],
@@ -273,7 +273,7 @@ def bond_composite_index_cbond(
         "": "",  # noqa: F601
         "locale": "",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],

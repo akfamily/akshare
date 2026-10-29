@@ -9,8 +9,9 @@ https://www.100ppi.com/sf/792.html
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def __get_sys_spot_futures_dict() -> dict:
@@ -21,7 +22,7 @@ def __get_sys_spot_futures_dict() -> dict:
     :rtype: dict
     """
     url = "https://www.100ppi.com/sf/792.html"
-    res = requests.get(url)
+    res = http.get(url)
     soup = BeautifulSoup(res.text, features="lxml")
     temp_item = soup.find(name="div", attrs={"class": "q8"}).find_all("li")
     name_url_dict = dict(
@@ -46,7 +47,7 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     """
     name_url_dict = __get_sys_spot_futures_dict()
     url = name_url_dict[symbol]
-    r = requests.get("https://www.100ppi.com" + url)
+    r = http.get("https://www.100ppi.com" + url)
     if indicator == "市场价格":
         table_df_one = pd.read_html(StringIO(r.text), header=0, index_col=0)[1].T
         table_df_one["现货价格"] = pd.to_numeric(

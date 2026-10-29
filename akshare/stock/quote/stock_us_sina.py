@@ -11,7 +11,6 @@ import json
 from functools import lru_cache
 
 import pandas as pd
-import requests
 import py_mini_racer
 from tqdm import tqdm
 
@@ -22,6 +21,7 @@ from akshare.stock.cons import (
     us_sina_stock_dict_payload,
     us_sina_stock_hist_qfq_url,
 )
+from akshare.utils import http
 
 
 @lru_cache()
@@ -40,7 +40,7 @@ def __get_us_page_count() -> int:
     js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-    res = requests.get(
+    res = http.get(
         us_sina_stock_list_url.format(dict_list),
         params=us_sina_stock_dict_payload,
     )
@@ -73,7 +73,7 @@ def get_us_stock_name() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = requests.get(
+        res = http.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
@@ -104,7 +104,7 @@ def stock_us_spot() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = requests.get(
+        res = http.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
@@ -130,7 +130,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/staticdata/us/{symbol}"
-    res = requests.get(url)
+    res = http.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
     dict_list = js_code.call("d", res.text.split("=")[1].split(";")[0].replace('"', ""))
@@ -141,7 +141,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     del data_df["date"]
     data_df = data_df.astype("float")
     url = us_sina_stock_hist_qfq_url.format(symbol)
-    res = requests.get(url)
+    res = http.get(url)
     qfq_factor_df = pd.DataFrame(
         ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
     )

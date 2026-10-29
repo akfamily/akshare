@@ -7,7 +7,8 @@ https://data.10jqka.com.cn/ipo/bond/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def bond_zh_cov_info_ths() -> pd.DataFrame:
@@ -22,7 +23,7 @@ def bond_zh_cov_info_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
     temp_df.rename(

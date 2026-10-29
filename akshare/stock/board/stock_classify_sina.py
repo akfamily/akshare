@@ -9,9 +9,10 @@ http://vip.stock.finance.sina.com.cn/mkt/
 import math
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def stock_classify_board() -> dict:
@@ -21,7 +22,7 @@ def stock_classify_board() -> dict:
     :rtype: dict
     """
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodes"
-    r = requests.get(url)
+    r = http.get(url)
     data_json = r.json()
     big_dict = {}
     class_name_list = [
@@ -59,7 +60,7 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
     for num in tqdm(range(len(stock_classify_board_dict[symbol]["code"])), leave=False):
         url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
         params = {"node": stock_classify_board_dict[symbol]["code"][num]}
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         page_num = math.ceil(int(r.json()) / 80)
         url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
         big_df = pd.DataFrame()
@@ -73,7 +74,7 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
                 "symbol": "",
                 "_s_r_a": "init",
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json)
             big_df = pd.concat([big_df, temp_df], ignore_index=True)

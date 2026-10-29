@@ -7,9 +7,9 @@ http://i.gasgoo.com/data/ranking
 """
 
 import pandas as pd
-import requests
 
 from akshare.utils import demjson
+from akshare.utils import http
 
 
 def car_sale_rank_gasgoo(symbol: str = "车企榜", date: str = "202109") -> pd.DataFrame:
@@ -66,7 +66,7 @@ def car_sale_rank_gasgoo(symbol: str = "车企榜", date: str = "202109") -> pd.
         "Chrome/95.0.4638.69 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, json=payload, headers=headers)
+    r = http.post(url, json=payload, headers=headers)
     data_json = r.json()
     data_json = demjson.decode(data_json["d"])
     temp_df = pd.DataFrame(data_json)

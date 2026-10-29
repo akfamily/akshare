@@ -9,7 +9,8 @@ https://data.10jqka.com.cn/macro/finance/
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def macro_stock_finance() -> pd.DataFrame:
@@ -24,7 +25,7 @@ def macro_stock_finance() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.rename(
         columns={
@@ -59,7 +60,7 @@ def macro_rmb_loan() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
     temp_df.columns = [
         "月份",
@@ -91,7 +92,7 @@ def macro_rmb_deposit() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
     temp_df.columns = [
         "月份",

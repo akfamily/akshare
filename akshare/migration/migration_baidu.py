@@ -8,9 +8,9 @@ Desc: 百度地图慧眼-百度迁徙数据
 import json
 
 import pandas as pd
-import requests
 
 from akshare.migration.cons import province_dict, city_dict
+from akshare.utils import http
 
 
 def migration_area_baidu(
@@ -45,7 +45,7 @@ def migration_area_baidu(
         "type": indicator,
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text[r.text.find("({") + 1 : r.text.rfind(");")]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -80,7 +80,7 @@ def migration_scale_baidu(
         "id": inner_dict[area],
         "type": indicator,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)

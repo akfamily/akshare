@@ -24,12 +24,12 @@ from io import BytesIO
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
 from akshare.futures.symbol_var import symbol_varieties
+from akshare.utils import http
 
 calendar = cons.get_calendar()
 rank_columns = [
@@ -450,7 +450,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/"
             f"{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
         )
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
 
     temp_pinzhong_index = [
@@ -547,7 +547,7 @@ def _get_dce_contract_list(date, var):
 
     while 1:
         try:
-            r = requests.post(url, params=params, headers=headers)
+            r = http.post(url, params=params, headers=headers)
             soup = BeautifulSoup(r.text, "lxml")
             contract_list = [
                 re.findall(
@@ -666,7 +666,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     "contract.variety_id": var.lower(),
                     "contract": "",
                 }
-                r = requests.post(temp_url, data=payload)
+                r = http.post(temp_url, data=payload)
                 if r.status_code != 200:
                     big_dict[symbol] = {}
                 else:
@@ -761,7 +761,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         )
         # url = 'http://www.cffex.com.cn/sj/ccpm/201908/05/IF_1.csv'
         # url = 'http://www.cffex.com.cn/sj/ccpm/202308/08/IF_1.csv'
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         # 20200316 开始数据结构变化，统一格式
         if r.status_code == 200:
             try:
@@ -841,7 +841,7 @@ def futures_dce_position_rank(
         "tradeType": "1",
         "lang": "zh",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     big_dict = dict()
     with zipfile.ZipFile(BytesIO(r.content), mode="r") as z:
         for i in z.namelist():
@@ -1073,7 +1073,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
         "contract.variety_id": "c",
         "contract": "",
     }
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     soup = BeautifulSoup(r.text, features="lxml")
     symbol_list = [
         item["onclick"].strip("javascript:setVariety(").strip("');")
@@ -1091,7 +1091,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
             "contract.variety_id": symbol,
             "contract": "",
         }
-        r = requests.post(url, data=payload)
+        r = http.post(url, data=payload)
         soup = BeautifulSoup(r.text, features="lxml")
         contract_list = [
             item["onclick"].strip("javascript:setContract_id('").strip("');")
@@ -1111,7 +1111,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
                         "contract.variety_id": symbol,
                         "contract": "",
                     }
-                    r = requests.post(url, data=payload)
+                    r = http.post(url, data=payload)
                     temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     temp_df.columns = [
                         "rank",
@@ -1161,7 +1161,7 @@ def __futures_gfex_vars_list() -> list:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, headers=headers)
+    r = http.post(url=url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     var_list = temp_df["varietyId"].tolist()
@@ -1188,7 +1188,7 @@ def __futures_gfex_contract_list(symbol: str = "si", date: str = "20240729") -> 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    r = http.post(url=url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     if temp_df.empty:
@@ -1231,7 +1231,7 @@ def __futures_gfex_contract_data(
                 "data_type": page,
             }
         )
-        r = requests.post(url=url, data=payload, headers=headers)
+        r = http.post(url=url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if "qtySub" in temp_df.columns:

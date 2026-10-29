@@ -8,7 +8,8 @@ https://currencyscoop.com/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def currency_latest(
@@ -28,7 +29,7 @@ def currency_latest(
     """
     params = {"base": base, "symbols": symbols, "api_key": api_key}
     url = "https://api.currencyscoop.com/v1/latest"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df["date"] = pd.to_datetime(temp_df["date"])
     temp_df.reset_index(inplace=True)
@@ -55,7 +56,7 @@ def currency_history(
     """
     params = {"base": base, "date": date, "symbols": symbols, "api_key": api_key}
     url = "https://api.currencyscoop.com/v1/historical"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df.reset_index(inplace=True)
@@ -95,7 +96,7 @@ def currency_time_series(
         "symbols": symbols,
     }
     url = "https://api.currencyscoop.com/v1/timeseries"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df = temp_df.T
     temp_df.reset_index(inplace=True)
@@ -117,7 +118,7 @@ def currency_currencies(c_type: str = "fiat", api_key: str = "") -> pd.DataFrame
     """
     params = {"type": c_type, "api_key": api_key}
     url = "https://api.currencyscoop.com/v1/currencies"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["response"])
     return temp_df
@@ -150,7 +151,7 @@ def currency_convert(
         "api_key": api_key,
     }
     url = "https://api.currencyscoop.com/v1/convert"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_se = pd.Series(r.json()["response"])
     temp_se["timestamp"] = pd.to_datetime(temp_se["timestamp"], unit="s")
     temp_df = temp_se.to_frame()

@@ -10,8 +10,8 @@ https://quote.eastmoney.com/sz166009.html
 from functools import lru_cache
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -154,7 +154,7 @@ def fund_lof_hist_em(
         "beg": start_date,
         "end": end_date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
@@ -226,7 +226,7 @@ def fund_lof_hist_min_em(
             "iscr": "0",
             "secid": f"{code_id_dict[symbol]}.{symbol}",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -265,7 +265,7 @@ def fund_lof_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]

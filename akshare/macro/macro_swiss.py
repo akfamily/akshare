@@ -7,7 +7,8 @@ http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
@@ -34,7 +35,7 @@ def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.rename(

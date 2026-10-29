@@ -14,6 +14,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, NetworkError
+from akshare.utils import http
 
 
 def _convert_timestamp(timestamp_ms: int) -> str:
@@ -48,7 +49,7 @@ def _get_xq_quote_data(
     """
     from akshare.stock.cons import xq_a_token
 
-    session = requests.Session()
+    session = http.Session()
     xq_token = token or xq_a_token
     headers = {
         "cookie": f"xq_a_token={xq_token};",

@@ -12,12 +12,12 @@ from functools import lru_cache
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
 from akshare.utils import demjson
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -52,7 +52,7 @@ def _get_stock_board_concept_name_ths() -> dict:
         "Cookie": f"v={v_code}",
     }
     url = "https://q.10jqka.com.cn/gn/detail/code/307822/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     code_list = [
         item["href"].split("/")[-2]
@@ -106,7 +106,7 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     name_list = [
         item.text.strip()
@@ -150,7 +150,7 @@ def stock_board_concept_index_ths(
         "Chrome/89.0.4389.90 Safari/537.36",
     }
     url = f"https://q.10jqka.com.cn/gn/detail/code/{symbol_code}"
-    r = requests.get(url=url, headers=headers)
+    r = http.get(url=url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     inner_code = soup.find(name="input", attrs={"id": "clid"})["value"]
     big_df = pd.DataFrame()
@@ -166,7 +166,7 @@ def stock_board_concept_index_ths(
             "Host": "d.10jqka.com.cn",
             "Cookie": f"v={v_code}",
         }
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         data_text = r.text
 
         try:
@@ -249,14 +249,14 @@ def __stock_board_concept_summary_ths() -> Dict:
         "Cookie": f"v={v_code}",
     }
     url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_dict = dict()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         try:
             soup = BeautifulSoup(r.text, features="lxml")
             temp_dict = {
@@ -287,14 +287,14 @@ def stock_board_concept_summary_ths() -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         try:
             temp_df = pd.read_html(StringIO(r.text))[0]
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

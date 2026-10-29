@@ -11,8 +11,9 @@ from datetime import datetime
 from functools import lru_cache
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 @lru_cache(maxsize=32)
@@ -27,7 +28,7 @@ def __get_99_symbol_map() -> pd.DataFrame:
 
     warnings.filterwarnings("ignore")
     url = "https://www.99qh.com/data/stockIn"
-    r = requests.get(url, verify=False)  # noqa: S501
+    r = http.get(url, verify=False)  # noqa: S501
     soup = BeautifulSoup(r.text, features="lxml")
     raw_data = soup.find(attrs={"id": "__NEXT_DATA__"}).text
     data_json = json.loads(raw_data)
@@ -84,7 +85,7 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
         "endDate": f"{datetime.now().date().isoformat()}",
         "appCategory": "web",
     }
-    r = requests.get(url, params, headers=headers, verify=False)  # noqa: S501
+    r = http.get(url, params, headers=headers, verify=False)  # noqa: S501
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df.columns = ["日期", "收盘价", "库存"]

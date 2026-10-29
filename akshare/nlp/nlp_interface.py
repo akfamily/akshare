@@ -6,7 +6,7 @@ Desc: 思知-智能问答
 https://ownthink.com/robot.html
 """
 
-import requests
+from akshare.utils import http
 
 
 def nlp_answer(question: str = "人工智能") -> str:
@@ -20,7 +20,7 @@ def nlp_answer(question: str = "人工智能") -> str:
     """
     url = "https://api.ownthink.com/bot"
     params = {"spoken": question}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     json_data = r.json()
     answer = json_data["data"]["info"]["text"]
     return answer

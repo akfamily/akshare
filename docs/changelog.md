@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-4)=
+### 1.20.4 feat: add global timeout and proxy settings
+
+1. 所有基于 requests 的接口默认连接超时 10 秒、读取超时 60 秒，上游无响应时抛出 ConnectTimeout 或 ReadTimeout，不再无限等待；可用 ak.set_timeout 调整，ak.set_timeout(None) 恢复不限时
+2. 新增 ak.set_proxies、ak.get_proxies、ak.set_timeout、ak.get_timeout 与 ak.ProxyContext，全局代理与超时对上述接口全部生效；原 akshare.utils.context 中的同名函数未导出，且只对 3 个模块生效
+3. 新增 akshare.utils.http 作为统一的请求入口，315 个模块改经它发请求，Ruff 启用 TID251 禁止直接调用 requests.get、requests.post 与 requests.Session
+4. stock_news_em、百度股市通系列、国家统计局系列等约 10 个经 curl_cffi 或其他 HTTP 库取数的接口暂不受上述设置影响，详见{ref}`常见问题 <faq-proxy>`
+
 (v1-20-3)=
 ### 1.20.3 fix: replace eval with ast.literal_eval
 

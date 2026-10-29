@@ -11,7 +11,8 @@ import ast
 import warnings
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
@@ -35,7 +36,7 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
                 "c": symbol,
                 "p": page,
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             text_data = r.text
             temp_df = (
                 pd.DataFrame(

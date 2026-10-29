@@ -17,6 +17,7 @@ import requests
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
+from akshare.utils import http
 
 calendar = cons.get_calendar()
 
@@ -35,7 +36,7 @@ def _futures_daily_czce(
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/exchange/{dataset}.zip"
-    r = requests.get(url)
+    r = http.get(url)
     with zipfile.ZipFile(BytesIO(r.content)) as file:
         with file.open(f"{dataset}.txt") as my_file:
             data = my_file.read().decode("gb2312")
@@ -123,7 +124,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/108.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     try:
         with zipfile.ZipFile(BytesIO(r.content)) as file:
             with file.open(f"{date}_1.csv") as my_file:
@@ -229,7 +230,7 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     try:
         data_json = r.json()
     except:  # noqa: E722
@@ -288,7 +289,7 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
     url = f"https://www.ine.cn/data/tradedata/future/dailydata/kx{day.strftime('%Y%m%d')}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     result_df = pd.DataFrame()
     try:
         data_json = r.json()
@@ -366,7 +367,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
-            r = requests.get(url, headers=headers)
+            r = http.get(url, headers=headers)
             if datetime.date(2015, 11, 12) <= day <= datetime.date(2017, 12, 27):
                 html = str(r.content, encoding="gbk")
             else:
@@ -547,7 +548,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
         "tradeType": "1",
         "varietyId": "all",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(

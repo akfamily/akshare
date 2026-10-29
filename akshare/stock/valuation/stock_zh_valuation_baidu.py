@@ -7,7 +7,8 @@ https://gushitong.baidu.com/stock/ab-002044
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zh_valuation_baidu(
@@ -42,7 +43,7 @@ def stock_zh_valuation_baidu(
         "skip_industry": "1",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(
         data_json["Result"][0]["DisplayData"]["resultData"]["tplData"]["result"][

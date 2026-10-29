@@ -7,8 +7,9 @@ https://data.eastmoney.com/dxf/detail.html
 """
 
 import pandas as pd
-import requests
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def stock_restricted_release_summary_em(
@@ -51,7 +52,7 @@ def stock_restricted_release_summary_em(
         '{start_date_str}')(FREE_DATE<='{end_date_str}')""",
         "reportName": "RPT_LIFTDAY_STA",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
@@ -132,7 +133,7 @@ def stock_restricted_release_detail_em(
         "client": "WEB",
         "filter": f"""(FREE_DATE>='{start_date_str}')(FREE_DATE<='{end_date_str}')""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -142,7 +143,7 @@ def stock_restricted_release_detail_em(
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -229,7 +230,7 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not data_json["result"]:
         return pd.DataFrame()
@@ -325,7 +326,7 @@ def stock_restricted_release_stockholder_em(
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)

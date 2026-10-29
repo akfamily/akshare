@@ -9,7 +9,8 @@ https://www.szse.cn/disclosure/margin/object/index.html
 import warnings
 from io import BytesIO
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
@@ -35,7 +36,7 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(
@@ -66,7 +67,7 @@ def stock_margin_szse(date: str = "20240411") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json[0]["data"])
     temp_df.columns = [
@@ -115,7 +116,7 @@ def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(

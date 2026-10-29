@@ -11,13 +11,13 @@ from io import StringIO
 from typing import Any, Optional
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from requests import Response
 from requests.exceptions import RequestException
 
 from akshare.exceptions import APIError, DataParsingError
 from akshare.utils import demjson
+from akshare.utils import http
 
 
 def _get_fund_archives_data(
@@ -63,7 +63,7 @@ def _get_fund_archives_data(
         "X-Requested-With": "XMLHttpRequest",
     }
     try:
-        response: Response = requests.get(url, params=params, headers=headers)
+        response: Response = http.get(url, params=params, headers=headers)
         response.raise_for_status()
     except RequestException as err:
         raise APIError(f"FundArchivesDatas request failed: {err}") from err
@@ -245,7 +245,7 @@ def fund_portfolio_industry_allocation_em(
         "year": date,
         "callback": "jQuery183006997159478989867_1648016188499",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_list = []

@@ -7,7 +7,8 @@ https://data.eastmoney.com/other/qqlhb.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_lhb_em(
@@ -40,7 +41,7 @@ def option_lhb_em(
         "client": "WEB",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     if indicator == "期权交易情况-认沽交易量":

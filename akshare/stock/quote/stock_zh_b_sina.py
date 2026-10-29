@@ -12,7 +12,6 @@ import re
 from functools import lru_cache
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.stock.cons import (
@@ -24,6 +23,7 @@ from akshare.stock.cons import (
     zh_sina_a_stock_amount_url,
 )
 from akshare.utils import demjson
+from akshare.utils import http
 
 
 @lru_cache()
@@ -38,7 +38,7 @@ def _get_zh_b_page_count() -> int:
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"
         "Market_Center.getHQNodeStockCount?node=hs_b"
     )
-    r = requests.get(url)
+    r = http.get(url)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -66,7 +66,7 @@ def stock_zh_b_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in range(1, page_count + 1):
         zh_sina_stock_payload_copy.update({"page": page})
-        r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
+        r = http.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
@@ -145,7 +145,7 @@ def stock_zh_b_daily(
 
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
-            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            r = http.get(zh_sina_a_stock_hfq_url.format(symbol))
             hfq_factor_df = pd.DataFrame(
                 ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -157,7 +157,7 @@ def stock_zh_b_daily(
             hfq_factor_df.reset_index(inplace=True)
             return hfq_factor_df
         else:
-            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            r = http.get(zh_sina_a_stock_qfq_url.format(symbol))
             qfq_factor_df = pd.DataFrame(
                 ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -172,7 +172,7 @@ def stock_zh_b_daily(
     if adjust in ("hfq-factor", "qfq-factor"):
         return _fq_factor(adjust.split("-")[0])
 
-    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    r = http.get(zh_sina_a_stock_hist_url.format(symbol))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -185,7 +185,7 @@ def stock_zh_b_daily(
     del data_df["prevclose"]
 
     data_df = data_df.astype("float")
-    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
+    r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
     amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
@@ -221,7 +221,7 @@ def stock_zh_b_daily(
         return temp_df
 
     if adjust == "hfq":
-        r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+        r = http.get(zh_sina_a_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
             ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -252,7 +252,7 @@ def stock_zh_b_daily(
         return temp_df
 
     if adjust == "qfq":
-        r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+        r = http.get(zh_sina_a_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
             ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -306,7 +306,7 @@ def stock_zh_b_minute(
         "scale": period,
         "datalen": "1970",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
     if temp_df.empty:
         return pd.DataFrame()

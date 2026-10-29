@@ -12,6 +12,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, NetworkError
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -36,7 +37,7 @@ def _get_xq_company_data(
     """
     from akshare.stock.cons import xq_a_token
 
-    session = requests.Session()
+    session = http.Session()
     xq_token = token or xq_a_token
     request_headers = headers.copy()
     request_headers.update({"cookie": f"xq_a_token={xq_token};"})

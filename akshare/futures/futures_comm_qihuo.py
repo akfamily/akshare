@@ -9,8 +9,9 @@ https://www.9qihuo.com/qihuoshouxufei
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFrame:
@@ -138,7 +139,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     common_temp_df["每跳毛利"] = pd.to_numeric(common_temp_df["每跳毛利"])
     common_temp_df["手续费"] = pd.to_numeric(common_temp_df["手续费"])
     common_temp_df["每跳净利"] = pd.to_numeric(common_temp_df["每跳净利"])
-    session = requests.Session()
+    session = http.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/125.0.0.0 Safari/537.36",
@@ -178,7 +179,7 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     :return: 期货手续费
     :rtype: pandas.DataFrame
     """
-    session = requests.Session()
+    session = http.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/125.0.0.0 Safari/537.36",

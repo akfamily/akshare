@@ -15,10 +15,10 @@ Desc: 期货结算信息
 import datetime
 
 import pandas as pd
-import requests
 from io import StringIO
 
 from akshare.futures import cons
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 gfex_headers = {
@@ -184,7 +184,7 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"http://www.cffex.com.cn/sj/jscs/{date[:4]}{date[4:6]}/{date[6:8]}/{date}_1.csv"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gbk"
     if r.status_code != 200:
         return pd.DataFrame()
@@ -236,7 +236,7 @@ def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataClearParams.txt"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "utf-8"
     if r.status_code != 200:
         return pd.DataFrame()
@@ -298,7 +298,7 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
     date = day.strftime("%Y%m%d")
     url = "http://www.gfex.com.cn/u/interfacesWebTtQueryTradPara/loadDayList"
     payload = {"trade_type": "0"}
-    r = requests.post(url, data=payload, headers=gfex_headers)
+    r = http.post(url, data=payload, headers=gfex_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     # 检查是否返回了反爬虫的 JavaScript 代码
@@ -368,7 +368,7 @@ def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/js{date}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     try:
@@ -429,7 +429,7 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"https://www.ine.cn/data/tradedata/future/dailydata/js{date}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     try:

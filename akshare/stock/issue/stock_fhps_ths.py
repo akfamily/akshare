@@ -9,7 +9,8 @@ https://basic.10jqka.com.cn/new/603444/bonus.html
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_fhps_detail_ths(symbol: str = "603444") -> pd.DataFrame:
@@ -27,7 +28,7 @@ def stock_fhps_detail_ths(symbol: str = "603444") -> pd.DataFrame:
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gbk"
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["董事会日期"] = pd.to_datetime(
