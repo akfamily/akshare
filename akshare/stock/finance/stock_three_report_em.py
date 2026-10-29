@@ -101,7 +101,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
     data_json = r.json()
     try:
         temp_df = pd.DataFrame(data_json["data"])
-    except:  # noqa: E722
+    except Exception:
         company_type = "3"
         params.update({"companyType": company_type})
         r = http.get(url, params=params)

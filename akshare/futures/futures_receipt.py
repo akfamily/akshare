@@ -109,7 +109,7 @@ def get_shfe_receipt_1(
         shfe_20101029["date"] = date
         return shfe_20101029
     elif date in ["20100416", "20130821"]:
-        print("20100416、20130821交易所数据丢失")
+        warnings.warn("20100416、20130821交易所数据丢失")
         return pd.DataFrame()
     else:
         var_list = [
@@ -180,7 +180,7 @@ def get_shfe_receipt_2(
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = r.json()
-    except:  # noqa
+    except Exception:
         return pd.DataFrame()
     data = pd.DataFrame(context["o_cursor"])
     if len(data.columns) < 1:
@@ -398,7 +398,7 @@ def get_czce_receipt_3(
     :rtype: pandas.DataFrame
     """
     if not isinstance(vars_list, list):
-        print("vars_list: 必须是列表")
+        warnings.warn("vars_list: 必须是列表")
         return pd.DataFrame()
     date = (
         cons.convert_date(date).strftime("%Y%m%d")
@@ -450,7 +450,7 @@ def get_czce_receipt_3(
         reg = re.compile(r"[A-Z]+")
         try:
             symbol = reg.findall(inner_df.iloc[0, 0])[0]
-        except:  # noqa
+        except Exception:
             continue
         symbol_list.append(symbol)
         inner_df.columns = inner_df.iloc[1, :]
@@ -462,7 +462,7 @@ def get_czce_receipt_3(
                     inner_df["仓单数量(完税)"].iloc[-1]
                     + int(inner_df["仓单数量(保税)"].iloc[-1])
                 )  # 20210316 TA 分为保税和完税
-            except:  # noqa
+            except Exception:
                 receipt_list.append(0)
         elif symbol == "MA":
             try:
@@ -471,16 +471,16 @@ def get_czce_receipt_3(
                         inner_df["仓单数量(完税)"].iloc[-2]
                         + int(inner_df["仓单数量(保税)"].iloc[-2])
                     )  # 20210316 MA 分为保税和完税
-                except:  # noqa
+                except Exception:
                     receipt_list.append(
                         inner_df["仓单数量(完税)"].iloc[-2]
                     )  # 处理 MA 的特殊格式
-            except:  # noqa
+            except Exception:
                 receipt_list.append(0)
         else:
             try:
                 receipt_list.append(inner_df["仓单数量"].iloc[-1])
-            except:  # noqa
+            except Exception:
                 receipt_list.append(0)
         if symbol == "MA":
             receipt_chg_list.append(inner_df["当日增减"].iloc[-2])
@@ -601,14 +601,15 @@ def get_receipt(
         if start_date.strftime("%Y%m%d") not in calendar:
             warnings.warn(f"{start_date.strftime('%Y%m%d')} 非交易日")
         else:
-            print(start_date)
             for market, market_vars in cons.market_exchange_symbols.items():
                 f = None
                 if market == "dce":
                     if start_date >= datetime.date(2009, 4, 7):
                         f = get_dce_receipt
                     else:
-                        print("20090407 起，大连商品交易所每个交易日更新仓单数据")
+                        warnings.warn(
+                            "20090407 起，大连商品交易所每个交易日更新仓单数据"
+                        )
                         f = None
                 elif market == "shfe":
                     if (
@@ -627,13 +628,17 @@ def get_receipt(
                         f = get_shfe_receipt_3
                     else:
                         f = None
-                        print("20081006 起，上海期货交易所每个交易日更新仓单数据")
+                        warnings.warn(
+                            "20081006 起，上海期货交易所每个交易日更新仓单数据"
+                        )
                 elif market == "gfex":
                     if start_date > datetime.date(2022, 12, 22):
                         f = get_gfex_receipt
                     else:
                         f = None
-                        print("20081006 起，上海期货交易所每个交易日更新仓单数据")
+                        warnings.warn(
+                            "20081006 起，上海期货交易所每个交易日更新仓单数据"
+                        )
                 elif market == "czce":
                     if (
                         datetime.date(2008, 3, 3)
@@ -651,7 +656,9 @@ def get_receipt(
                         f = get_czce_receipt_3
                     else:
                         f = None
-                        print("20080303 起，郑州商品交易所每个交易日更新仓单数据")
+                        warnings.warn(
+                            "20080303 起，郑州商品交易所每个交易日更新仓单数据"
+                        )
                 get_vars = [var for var in vars_list if var in market_vars]
                 if market != "cffex" and get_vars != []:
                     if f is not None:

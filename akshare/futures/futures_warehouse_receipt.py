@@ -117,7 +117,7 @@ def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
     上海期货交易所指定交割仓库期货仓单日报（2025-11-18 起的网页版）
     自 2025-11-18 起，交易所不再提供 dailydata/{date}dailystock.dat 数据文件（返回 404），
     改为按品种分表的网页 stockdata/dailystock_{date}/ZH/all.html；
-    键为品种名称（如 "螺纹钢仓库"、"铜"、"铜(BC)"），
+    键为品种名称，如“螺纹钢仓库”“铜”“铜(BC)”，
     值为包含 VARNAME, REGNAME, WHABBRNAME, WRTWGHTS, WRTCHANGE, ROWSTATUS 的 pandas.DataFrame，
     其中 ROWSTATUS 为 "0" 表示仓库，"1" 表示合计，"2" 表示总计
     :param date: 交易日，e.g., "20260924"

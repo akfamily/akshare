@@ -9,6 +9,7 @@ https://finance.sina.com.cn/stock/usstock/sector.shtml
 import ast
 import json
 from functools import lru_cache
+import warnings
 
 import pandas as pd
 import py_mini_racer
@@ -179,7 +180,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="ffill", inplace=True)
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
         try:
             # try for pandas >= 2.1.0
             temp_df.bfill(inplace=True)
@@ -188,7 +189,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
                 # try for pandas < 2.1.0
                 temp_df.fillna(method="bfill", inplace=True)
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
 
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["qfq_factor"] + temp_df["adjust"]

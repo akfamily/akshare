@@ -13,6 +13,8 @@ tocdepth: 2
 
 1. 修复 fx_c_swap_cm 接口：www.chinamoney.org.cn 已无法完成 TLS 握手，改用 www.chinamoney.com.cn
 2. 修复 fred_md、fred_qd 接口：原 S3 地址已返回 403，改从 www.stlouisfed.org 获取；当年以前的各期从官方历史压缩包中读取，首次调用需下载约 20～40 MB，同一进程内不重复下载；没有对应一期时抛出 InvalidParameterError 并给出可选范围
+3. 84 处裸 except 改为 except Exception，翻页等循环中按 Ctrl+C 可正常中断，不再被当作“没有下一页”而返回部分数据
+4. 库代码中的提示信息由 print 改为 warnings.warn，可用 warnings.filterwarnings 统一屏蔽，同一处的相同提示只显示一次；match_main_contract、get_receipt、get_rank_sum_daily 中打印进度的回显已移除
 
 (v1-20-5)=
 ### 1.20.5 fix: fix futures_comm_info and stock_us_valuation_baidu interface

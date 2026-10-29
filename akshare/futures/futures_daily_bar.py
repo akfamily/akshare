@@ -10,6 +10,7 @@ import json
 import re
 import zipfile
 from io import BytesIO, StringIO
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -47,7 +48,7 @@ def _futures_daily_czce(
                 try:
                     data_df[column] = data_df[column].str.strip("\t")
                     data_df[column] = data_df[column].str.replace(",", "")
-                except:  # noqa: E722
+                except Exception:
                     data_df[column] = data_df[column]
     data_df["昨结算"] = pd.to_numeric(data_df["昨结算"])
     data_df["今开盘"] = pd.to_numeric(data_df["今开盘"])
@@ -130,7 +131,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
             with file.open(f"{date}_1.csv") as my_file:
                 data = my_file.read().decode("gb2312")
                 data_df = pd.read_csv(StringIO(data))
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
@@ -233,7 +234,7 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     r = http.post(url, data=payload, headers=headers)
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     result_df = pd.DataFrame(data_json["data"])
     result_df = result_df[~result_df["variety"].str.contains("小计")]
@@ -293,7 +294,7 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     result_df = pd.DataFrame()
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
@@ -302,7 +303,7 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
         result_df["symbol"] = (
             temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
         )
-    except:  # noqa: E722
+    except Exception:
         result_df["symbol"] = (
             temp_df["PRODUCTID"]
             .str.upper()
@@ -320,13 +321,13 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     result_df["open_interest"] = temp_df["OPENINTEREST"]
     try:
         result_df["turnover"] = temp_df["TURNOVER"]
-    except:  # noqa: E722
+    except Exception:
         result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
         result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
-    except:  # noqa: E722
+    except Exception:
         result_df["variety"] = (
             temp_df["PRODUCTID"]
             .str.upper()
@@ -374,10 +375,8 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                 html = r.text
         except requests.exceptions.HTTPError as reason:
             if reason.response.status_code != 404:
-                print(
-                    cons.CZCE_DAILY_URL_3
-                    % (day.strftime("%Y"), day.strftime("%Y%m%d")),
-                    reason,
+                warnings.warn(
+                    f"{cons.CZCE_DAILY_URL_3 % (day.strftime('%Y'), day.strftime('%Y%m%d'))} {reason}"
                 )
             return pd.DataFrame()
         if html.find("您的访问出错了") >= 0 or html.find("无期权每日行情交易记录") >= 0:
@@ -487,7 +486,9 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
         )
     except requests.HTTPError as reason:
         if reason.response != 404:
-            print(cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")), reason)
+            warnings.warn(
+                f"{cons.SHFE_DAILY_URL_20250630 % day.strftime('%Y%m%d')} {reason}"
+            )
         return pd.DataFrame()
 
     if len(json_data["o_curinstrument"]) == 0:
@@ -664,7 +665,7 @@ def get_futures_daily(
     elif market.upper() == "GFEX":
         f = get_gfex_daily
     else:
-        print("Invalid Market Symbol")
+        warnings.warn("Invalid Market Symbol")
         return pd.DataFrame()
 
     start_date = (

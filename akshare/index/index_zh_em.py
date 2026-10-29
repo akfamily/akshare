@@ -129,7 +129,7 @@ def index_zh_a_hist(
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
         )
-    except:  # noqa: E722
+    except Exception:
         # 兼容 000859(中证国企一路一带) 和 000861(中证央企创新)
         params = {
             "secid": f"2.{symbol}",
@@ -274,7 +274,7 @@ def index_zh_a_hist_min_em(
                 "beg": "0",
                 "end": "20500000",
             }
-        except:  # noqa: E722
+        except Exception:
             params = {
                 "secid": f"0.{symbol}",
                 "ut": "7eea3edcaed734bea9cbfc24409ed989",

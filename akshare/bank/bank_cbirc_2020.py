@@ -147,7 +147,7 @@ def bank_fjcf_table_detail(
                 table_list = table_list[2:]
                 table_list.insert(2, pd.NA)
             else:
-                print(
+                warnings.warn(
                     f"{item} 异常，请通过 https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId={item} 查看"
                 )
                 continue
@@ -162,7 +162,7 @@ def bank_fjcf_table_detail(
             table_df.columns = ["内容"]
             big_df = pd.concat(objs=[big_df, table_df.T], ignore_index=True)
             # 解决有些页面缺少字段的问题，都放到 try 里面
-        except:  # noqa: E722
+        except Exception:
             warnings.warn(f"{item} 不是表格型数据，将跳过采集")
             continue
     if big_df.empty:

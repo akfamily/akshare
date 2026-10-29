@@ -371,7 +371,7 @@ def fund_lcx_rank_em() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)

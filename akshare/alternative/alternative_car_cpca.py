@@ -37,7 +37,7 @@ def car_market_total_cpca(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -101,7 +101,7 @@ def car_market_total_cpca(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -183,7 +183,7 @@ def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> p
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -207,7 +207,7 @@ def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> p
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -231,7 +231,7 @@ def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> p
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -255,7 +255,7 @@ def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> p
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -298,7 +298,7 @@ def __car_market_man_rank_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -322,7 +322,7 @@ def __car_market_man_rank_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -346,7 +346,7 @@ def __car_market_man_rank_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -370,7 +370,7 @@ def __car_market_man_rank_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -432,7 +432,7 @@ def __car_market_cate_cpca_pifa(symbol: str = "MPV") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -456,7 +456,7 @@ def __car_market_cate_cpca_pifa(symbol: str = "MPV") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -480,7 +480,7 @@ def __car_market_cate_cpca_pifa(symbol: str = "MPV") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -506,7 +506,7 @@ def __car_market_cate_cpca_pifa(symbol: str = "MPV") -> pd.DataFrame:
             try:
                 temp_suv_year_list.append(item[temp_df.columns[2]])
                 temp_jiaoche_year_list.append(item[temp_df.columns[3]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_mpv_year_df = pd.DataFrame(temp_mpv_year_list)
         temp_suv_year_df = pd.DataFrame(temp_suv_year_list)
@@ -550,7 +550,7 @@ def __car_market_cate_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -574,7 +574,7 @@ def __car_market_cate_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -598,7 +598,7 @@ def __car_market_cate_cpca_lingshou(
             temp_previous_year_list.append(item[temp_df.columns[1]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[2]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -624,7 +624,7 @@ def __car_market_cate_cpca_lingshou(
             try:
                 temp_suv_year_list.append(item[temp_df.columns[2]])
                 temp_jiaoche_year_list.append(item[temp_df.columns[3]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_mpv_year_df = pd.DataFrame(temp_mpv_year_list)
         temp_suv_year_df = pd.DataFrame(temp_suv_year_list)
@@ -741,7 +741,7 @@ def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -765,7 +765,7 @@ def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -789,7 +789,7 @@ def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
             temp_previous_year_list.append(item[temp_df.columns[2]])
             try:
                 temp_current_year_list.append(item[temp_df.columns[1]])
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_current_year_df = pd.DataFrame(temp_current_year_list)
         temp_previous_year_df = pd.DataFrame(temp_previous_year_list)

@@ -64,7 +64,7 @@ def news_cctv(date: str = "20240424") -> pd.DataFrame:
                     .strip()
                     .replace("\n", " ")
                 )
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_df = pd.DataFrame(
             data=[[date] * len(title_list), title_list, content_list],
@@ -115,7 +115,7 @@ def news_cctv(date: str = "20240424") -> pd.DataFrame:
                     .strip()
                     .replace("\n", " ")
                 )
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_df = pd.DataFrame(
             data=[[date] * len(title_list), title_list, content_list],
@@ -168,7 +168,7 @@ def news_cctv(date: str = "20240424") -> pd.DataFrame:
                     .strip()
                     .replace("\n", " ")
                 )
-            except:  # noqa: E722
+            except Exception:
                 continue
         temp_df = pd.DataFrame(
             data=[[date] * len(title_list), title_list, content_list],

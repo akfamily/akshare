@@ -6,6 +6,7 @@ Desc: 存储和读取 Token 文件
 """
 
 import os
+import warnings
 
 import pandas as pd
 
@@ -26,7 +27,7 @@ def get_token():
         df = pd.read_csv(fp)
         return str(df.iloc[0]["token"])
     else:
-        print(cons.TOKEN_ERR_MSG)
+        warnings.warn(str(cons.TOKEN_ERR_MSG))
         return
 
 

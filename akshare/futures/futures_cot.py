@@ -91,11 +91,10 @@ def get_rank_sum_daily(
     )
     records = pd.DataFrame()
     while start_day <= end_day:
-        print(start_day)
         if start_day.strftime("%Y%m%d") in calendar:
             data = get_rank_sum(start_day, vars_list)
             if data is False:
-                print(
+                warnings.warn(
                     f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
@@ -303,7 +302,7 @@ def get_shfe_rank_table(
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(year=2002, month=1, day=7):
-        print("shfe数据源开始日期为 20020107，跳过")
+        warnings.warn("shfe数据源开始日期为 20020107，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -312,7 +311,7 @@ def get_shfe_rank_table(
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = json.loads(r.text)
-    except:  # noqa: E722
+    except Exception:
         return {}
     df = pd.DataFrame(context["o_cursor"])
 
@@ -349,7 +348,7 @@ def get_shfe_rank_table(
     ]:
         try:
             del df[col]
-        except:  # noqa: E722
+        except Exception:
             pass
     get_vars = [var for var in vars_list if var in df["variety"].tolist()]
     big_dict = {}
@@ -435,7 +434,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
     }
     temp_df = pd.DataFrame()
     if date < datetime.date(2015, 10, 8):
-        print("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
+        warnings.warn("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -557,8 +556,8 @@ def _get_dce_contract_list(date, var):
                 for item in soup.find_all(attrs={"name": "contract"})
             ]
             contract_list = [var.lower() + item for item in contract_list]
-            return contract_list  # noqa: E722
-        except:  # noqa: E722
+            return contract_list
+        except Exception:
             time.sleep(5)
             continue
 
@@ -587,11 +586,11 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    print("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
+    warnings.warn("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
     date_string = date
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
-        print(Exception("大连商品交易所数据源开始日期为 20060104，跳过"))
+        warnings.warn("大连商品交易所数据源开始日期为 20060104，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -656,7 +655,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     "short_open_interest_chg"
                 ].astype(float)
                 big_dict[symbol] = temp_df
-            except:  # noqa: E722
+            except Exception:
                 temp_url = "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
                 payload = {
                     "memberDealPosiQuotes.variety": var.lower(),
@@ -743,7 +742,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2010, 4, 16):
-        print(Exception("CFFEX 数据源开始日期为 20100416，跳过"))
+        warnings.warn("CFFEX 数据源开始日期为 20100416，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -769,7 +768,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
             try:
                 # 当所需要的合约没有数据时
                 temp_df = pd.read_table(BytesIO(r.content), encoding="gbk", header=None)
-            except:  # noqa: E722
+            except Exception:
                 continue
             need_index = temp_df.iloc[:, 0].str.contains("交易日")
             if sum(need_index) > 2:
@@ -957,7 +956,7 @@ def futures_dce_position_rank(
                         encoding="gb2312",
                         skiprows=3,
                     )
-                except:  # noqa: E722
+                except Exception:
                     data = pd.read_table(
                         z.open(i),
                         header=None,
@@ -1317,7 +1316,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
             futures_contract_list = __futures_gfex_contract_list(
                 symbol=item.lower(), date=date
             )
-        except:  # noqa: E722
+        except Exception:
             return big_dict
         for name in futures_contract_list:
             try:
@@ -1325,7 +1324,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                     symbol=item.lower(), contract_id=name, date=date
                 )
                 big_dict[name] = temp_df
-            except:  # noqa: E722
+            except Exception:
                 return big_dict
     return big_dict
 

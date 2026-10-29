@@ -214,7 +214,7 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     for i, item in enumerate(index_flag):
         try:
             temp_inner_df = temp_df[index_flag[i] + 1 : index_flag[i + 1]]
-        except:  # noqa: E722
+        except Exception:
             temp_inner_df = temp_df[index_flag[i] + 1 :]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]

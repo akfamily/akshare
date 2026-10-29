@@ -8,6 +8,7 @@ https://data.10jqka.com.cn/rank/cxg/
 
 import re
 from io import StringIO
+import warnings
 
 import pandas as pd
 import py_mini_racer
@@ -345,7 +346,7 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -437,7 +438,7 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -545,7 +546,7 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -645,7 +646,7 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -730,7 +731,7 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -818,7 +819,7 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "html.parser")
         table = soup.find("table", class_="m-table J-ajax-table")
         if not table:
-            print("未找到表格")
+            warnings.warn("未找到表格")
             exit()
 
         rows = table.find("tbody").find_all("tr")
@@ -889,7 +890,7 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "html.parser")
     table = soup.find("table", class_="m-table J-ajax-table")
     if not table:
-        print("未找到表格")
+        warnings.warn("未找到表格")
         exit()
 
     rows = table.find("tbody").find_all("tr")

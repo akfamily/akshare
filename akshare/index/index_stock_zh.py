@@ -402,7 +402,7 @@ def stock_zh_index_daily_tx(
             inner_temp_df = pd.DataFrame(
                 demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
             )
-        except:  # noqa: E722
+        except Exception:
             inner_temp_df = pd.DataFrame(
                 demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )

@@ -154,7 +154,7 @@ def get_roll_yield_bar(
                             ),
                         ]
                     )
-            except:  # noqa: E722
+            except Exception:
                 pass
             start_day += datetime.timedelta(days=1)
         return df_l

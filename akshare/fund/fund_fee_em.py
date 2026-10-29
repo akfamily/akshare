@@ -8,6 +8,7 @@ https://fundf10.eastmoney.com/jjfl_015641.html
 
 import re
 from io import StringIO
+import warnings
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -54,7 +55,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 df = pd.read_html(StringIO(table_html))[0]
                 tables_dict[title_text] = df
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
                 continue
 
     if indicator == "交易状态":

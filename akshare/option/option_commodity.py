@@ -171,7 +171,7 @@ def __option_czce_daily_convert_numeric_columns(df):
     def convert_to_float(x):
         try:
             return float(str(x).replace(",", ""))
-        except:  # noqa: E722
+        except Exception:
             return x
 
     # 创建 DataFrame 的副本以避免 SettingWithCopyWarning
@@ -356,7 +356,7 @@ def option_hist_czce(
                 return new_df
             else:
                 return pd.DataFrame()
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()
@@ -436,7 +436,7 @@ def option_hist_shfe(
             ]
             contract_df.reset_index(inplace=True, drop=True)
             return contract_df
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()
@@ -495,7 +495,7 @@ def option_vol_shfe(
             ]
             volatility_df.reset_index(inplace=True, drop=True)
             return volatility_df
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()

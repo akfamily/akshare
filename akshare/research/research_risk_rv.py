@@ -6,6 +6,7 @@ Desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quan
 """
 
 import json
+import warnings
 
 import pandas as pd
 import urllib3
@@ -152,7 +153,7 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
     4. “The Distribution of Exchange Rate Volatility”, by Torben Andersen, Tim Bollerslev, Francis X. Diebold, and Paul Labys. Journal of the American Statistical Association, 96 (2001), 42-55.
     5. “Econometric Analysis of Realized Volatility and Its Use in Estimating Stochastic Volatility Models”, by Ole E Barndorff‐Nielsen and Neil Shephard. Journal of the Royal Statistical Society: Series B, 64 (2002), 253-280.
     """
-    print("由于服务器在国外, 请稍后, 如果访问失败, 请使用代理工具")
+    warnings.warn("由于服务器在国外, 请稍后, 如果访问失败, 请使用代理工具")
     url = "https://dachxiu.chicagobooth.edu/data.php"
     payload = {"ticker": symbol}
     res = http.get(url, params=payload, verify=False)  # noqa: S501

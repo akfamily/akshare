@@ -20,6 +20,7 @@ https://datacenter.jin10.com/economic
 
 import datetime
 import time
+import warnings
 
 import pandas as pd
 import requests
@@ -76,7 +77,7 @@ def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame
             params["max_date"] = next_date
 
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
+        warnings.warn(f"Error fetching data: {e}")
         return pd.DataFrame()
 
     # Convert to DataFrame
