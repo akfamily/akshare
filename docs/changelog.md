@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-7)=
+### 1.20.7 fix: stop retrying when eastmoney push2 rate-limits
+
+1. 东方财富 push2 行情服务器限流时直接断开连接，原先会被当作普通网络故障在几秒内连续重试，而被封期间的请求会延长限流；现在识别出来后立即抛出 RateLimitError 并说明原因与等待时间，不再重试。涉及实时行情、历史 K 线、板块、资金流等使用 push2 的接口，详见{ref}`常见问题 <faq-eastmoney-ratelimit>`
+2. 原先各自实现的重试统一为 akshare.utils.http.request_with_retry：连接失败、超时与 429、5xx 状态码最多尝试 3 次，按指数退避等待；其他状态码不再重试
+3. 期货的 get_shfe_rank_table、get_receipt、futures_spot_price、get_shfe_daily 等接口，链接失败时由固定等待 5 秒、最多重试 20 次改为上述策略，最坏情况下的等待由近 2 分钟缩短到数秒
+4. get_dce_rank_table 获取合约列表时，原先遇到任何错误都会无限重试，上游故障或改版时接口一直不返回；现在用尽重试次数后抛出异常
+
 (v1-20-6)=
 ### 1.20.6 fix: fix fx_c_swap_cm, fred_md and fred_qd interface
 
