@@ -26,14 +26,13 @@ def stock_industry_clf_hist_sw() -> pd.DataFrame:
     temp_df = pd.read_excel(
         io.BytesIO(r.content), dtype={"股票代码": "str", "行业代码": "str"}
     )
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "股票代码": "symbol",
             "计入日期": "start_date",
             "行业代码": "industry_code",
             "更新日期": "update_time",
         },
-        inplace=True,
     )
     temp_df["start_date"] = pd.to_datetime(
         temp_df["start_date"], errors="coerce"

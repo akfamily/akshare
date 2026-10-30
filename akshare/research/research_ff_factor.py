@@ -156,8 +156,8 @@ def article_ff_crr() -> pd.DataFrame:
     all_df = pd.concat([all_df, table_two])
     temp_df.columns = table_two.columns
     all_df = pd.concat([all_df, temp_df])
-    all_df.reset_index(inplace=True)
-    all_df.rename(columns={"index": "item"}, inplace=True)
+    all_df = all_df.reset_index()
+    all_df = all_df.rename(columns={"index": "item"})
     return all_df
 
 

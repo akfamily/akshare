@@ -98,7 +98,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df["铁杆粉丝"] = (
         pd.DataFrame(data_json["data"])["oldUidRate"].str.strip("%").astype(float) / 100
     )
-    temp_df.sort_values(["时间"], inplace=True)
+    temp_df = temp_df.sort_values(["时间"])
     return temp_df
 
 
@@ -167,7 +167,7 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

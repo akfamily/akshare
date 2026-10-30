@@ -558,7 +558,7 @@ def macro_china_nbs_nation(
             )
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
     temp_df = temp_df.reindex(index=indicator_order, columns=period_names)
-    temp_df.dropna(axis=1, how="all", inplace=True)
+    temp_df = temp_df.dropna(axis=1, how="all")
     temp_df.index.name = None
     temp_df.columns.name = None
     return temp_df
@@ -642,7 +642,7 @@ def macro_china_nbs_region(
                 )
         temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
         temp_df = temp_df.reindex(index=region_order, columns=period_names)
-        temp_df.dropna(axis=1, how="all", inplace=True)
+        temp_df = temp_df.dropna(axis=1, how="all")
         temp_df.index.name = None
         temp_df.columns.name = title_name
         return temp_df
@@ -687,7 +687,7 @@ def macro_china_nbs_region(
             )
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
     temp_df = temp_df.reindex(index=indicator_order, columns=period_names)
-    temp_df.dropna(axis=1, how="all", inplace=True)
+    temp_df = temp_df.dropna(axis=1, how="all")
     temp_df.index.name = None
     temp_df.columns.name = region_item["show_name"]
     return temp_df

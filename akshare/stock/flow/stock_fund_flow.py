@@ -126,7 +126,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
         big_df.columns = [
@@ -226,7 +226,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
         big_df.columns = [
@@ -334,7 +334,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
         big_df.columns = [

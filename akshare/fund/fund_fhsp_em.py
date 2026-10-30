@@ -71,7 +71,7 @@ def fund_fh_em(
             r = http.get(url, params=params)
             data_list.append(get_df_from_response(r))
     big_df = pd.concat(objs=data_list, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     # 处理空数据时报错的问题
     if big_df.empty:
@@ -164,7 +164,7 @@ def fund_cf_em(
             r = http.get(url, params=params)
             data_list.append(get_df_from_response(r))
     big_df = pd.concat(objs=data_list, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.loc[:, "index"] = big_df["index"] + 1
     # 处理空数据时报错的问题
     if big_df.empty:
@@ -229,7 +229,7 @@ def fund_fh_rank_em() -> pd.DataFrame:
         temp_df = pd.DataFrame(temp_list)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     # 处理空数据时报错的问题
     if big_df.empty:

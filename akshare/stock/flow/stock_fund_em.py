@@ -175,7 +175,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)
     temp_df = pd.concat(temp_list, ignore_index=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     if indicator == "今日":
         temp_df.columns = [
@@ -584,10 +584,10 @@ def stock_sector_fund_flow_rank(
                 "今日小单净流入-净占比",
             ],
         )
-        temp_df.sort_values(["今日主力净流入-净额"], ascending=False, inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.sort_values(["今日主力净流入-净额"], ascending=False)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = range(1, len(temp_df) + 1)
-        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
+        temp_df = temp_df.rename({"index": "序号"}, axis=1)
     elif indicator == "5日":
         temp_df.columns = [
             "-",
@@ -643,10 +643,10 @@ def stock_sector_fund_flow_rank(
                 "5日小单净流入-净占比",
             ],
         )
-        temp_df.sort_values(["5日主力净流入-净额"], ascending=False, inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.sort_values(["5日主力净流入-净额"], ascending=False)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = range(1, len(temp_df) + 1)
-        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
+        temp_df = temp_df.rename({"index": "序号"}, axis=1)
     elif indicator == "10日":
         temp_df.columns = [
             "-",
@@ -702,10 +702,10 @@ def stock_sector_fund_flow_rank(
                 "10日小单净流入-净占比",
             ],
         )
-        temp_df.sort_values(["10日主力净流入-净额"], ascending=False, inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.sort_values(["10日主力净流入-净额"], ascending=False)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = range(1, len(temp_df) + 1)
-        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
+        temp_df = temp_df.rename({"index": "序号"}, axis=1)
     return temp_df
 
 
@@ -765,9 +765,9 @@ def stock_sector_fund_flow_summary(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = temp_df["index"].astype(int) + 1
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "index": "序号",
                 "f12": "代码",
@@ -785,7 +785,6 @@ def stock_sector_fund_flow_summary(
                 "f84": "今日小单净流入-净额",
                 "f87": "今日小单净流入-净占比",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -854,9 +853,9 @@ def stock_sector_fund_flow_summary(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = temp_df["index"].astype(int) + 1
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "index": "序号",
                 "f12": "代码",
@@ -874,7 +873,6 @@ def stock_sector_fund_flow_summary(
                 "f172": "5日小单净流入-净额",
                 "f173": "5日小单净流入-净占比",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -943,9 +941,9 @@ def stock_sector_fund_flow_summary(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = temp_df["index"].astype(int) + 1
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "index": "序号",
                 "f12": "代码",
@@ -963,7 +961,6 @@ def stock_sector_fund_flow_summary(
                 "f182": "10日小单净流入-净额",
                 "f183": "10日小单净流入-净占比",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -1253,7 +1250,7 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
         "fs": symbol_map[symbol],
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f12": "代码",
@@ -1270,7 +1267,6 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
             "f160": "10日排行榜-10日涨跌",
             "f100": "所属板块",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

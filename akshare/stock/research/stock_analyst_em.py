@@ -47,7 +47,7 @@ def stock_analyst_rank_em(year: str = "2024") -> pd.DataFrame:
         data_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, data_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = list(range(1, len(big_df) + 1))
     big_df.columns = [
         "序号",
@@ -131,7 +131,7 @@ def stock_analyst_detail_em(
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
             "序号",
@@ -189,7 +189,7 @@ def stock_analyst_detail_em(
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
             "序号",
@@ -247,7 +247,7 @@ def stock_analyst_detail_em(
         temp_df.columns = ["date", "value"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
-        temp_df.sort_values(["date"], inplace=True, ignore_index=True)
+        temp_df = temp_df.sort_values(["date"], ignore_index=True)
         return temp_df
 
 

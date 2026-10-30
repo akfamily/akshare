@@ -108,7 +108,7 @@ def _code_id_map() -> dict:
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df["market_id"] = 1
-    temp_df.rename(columns={"f12": "sh_code", "market_id": "sh_id"}, inplace=True)
+    temp_df = temp_df.rename(columns={"f12": "sh_code", "market_id": "sh_id"})
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
@@ -180,7 +180,7 @@ def bond_zh_hs_cov_min(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -231,7 +231,7 @@ def bond_zh_hs_cov_min(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -294,7 +294,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
         "最新价",
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -648,7 +648,7 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
     r = http.get(url, params=params, timeout=15)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "DATE": "日期",
             "SWAPVALUE": "转股价值",
@@ -657,7 +657,6 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
             "SWAPOR": "转股溢价率",
             "FCLOSE": "收盘价",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

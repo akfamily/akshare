@@ -30,14 +30,13 @@ def stock_ebs_lg() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "date": "日期",
             "close": "沪深300指数",
             "peSpread": "股债利差",
             "peSpreadAverage": "股债利差均线",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

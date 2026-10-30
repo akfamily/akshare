@@ -46,14 +46,13 @@ def stock_info_cjzc_em() -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df = big_df[["title", "summary", "showTime", "uniqueUrl"]]
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "title": "标题",
             "summary": "摘要",
             "showTime": "发布时间",
             "uniqueUrl": "链接",
         },
-        inplace=True,
     )
     return big_df
 
@@ -81,14 +80,13 @@ def stock_info_global_em() -> pd.DataFrame:
     temp_df["code"] = [
         f"https://finance.eastmoney.com/a/{item}.html" for item in temp_df["code"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "summary": "摘要",
             "showTime": "发布时间",
             "code": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -147,14 +145,13 @@ def stock_info_global_futu() -> pd.DataFrame:
         datetime.fromtimestamp(int(item)).strftime("%Y-%m-%d %H:%M:%S")
         for item in temp_df["time"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "content": "内容",
             "time": "发布时间",
             "detailUrl": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -180,14 +177,13 @@ def stock_info_global_ths() -> pd.DataFrame:
         datetime.fromtimestamp(int(item)).strftime("%Y-%m-%d %H:%M:%S")
         for item in temp_df["rtime"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "digest": "内容",
             "rtime": "发布时间",
             "url": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -224,13 +220,13 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
         "Asia/Shanghai"
     )
     big_df.columns = ["标题", "内容", "发布时间", "等级"]
-    big_df.sort_values(["发布时间"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["发布时间"])
+    big_df = big_df.reset_index(drop=True)
     big_df["发布日期"] = big_df["发布时间"].dt.date
     big_df["发布时间"] = big_df["发布时间"].dt.time
     if symbol == "重点":
         big_df = big_df[(big_df["等级"] == "B") | (big_df["等级"] == "A")]
-        big_df.reset_index(inplace=True, drop=True)
+        big_df = big_df.reset_index(drop=True)
         big_df = big_df[["标题", "内容", "发布日期", "发布时间"]]
         return big_df
     else:

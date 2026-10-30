@@ -531,7 +531,7 @@ def option_sse_codes_sina(
     data_temp = data_text.replace('"', ",").split(",")
     temp_list = [i[7:] for i in data_temp if i.startswith("CON_OP_")]
     temp_df = pd.DataFrame(temp_list)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -848,7 +848,7 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
     temp_df = pd.DataFrame()
     for item in data_text["result"]["data"]:
         temp_df = pd.concat(objs=[temp_df, pd.DataFrame(item)], ignore_index=True)
-    temp_df.ffill(inplace=True)
+    temp_df = temp_df.ffill()
     temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
     temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
     temp_df["price"] = pd.to_numeric(temp_df["price"], errors="coerce")

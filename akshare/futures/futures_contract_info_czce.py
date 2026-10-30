@@ -48,7 +48,7 @@ def futures_contract_info_czce(date: str = "20240228") -> pd.DataFrame:
         data.append(row_data)
 
     temp_df = pd.DataFrame(data)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "Name": "产品名称",
             "CtrCd": "合约代码",
@@ -91,7 +91,6 @@ def futures_contract_info_czce(date: str = "20240228") -> pd.DataFrame:
             "IntraDayTrdFee": "平今仓手续费",
             "TradingLimit": "交易限额",
         },
-        inplace=True,
     )
 
     temp_df["交易手续费"] = pd.to_numeric(temp_df["交易手续费"], errors="coerce")

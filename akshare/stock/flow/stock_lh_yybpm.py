@@ -35,7 +35,7 @@ def stock_lh_yyb_most() -> pd.DataFrame:
         r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -58,7 +58,7 @@ def stock_lh_yyb_capital() -> pd.DataFrame:
         r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -81,7 +81,7 @@ def stock_lh_yyb_control() -> pd.DataFrame:
         r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 

@@ -61,7 +61,7 @@ def option_comm_info(symbol: str = "工业硅期权") -> pd.DataFrame:
     temp_df = temp_df.iloc[3:, :]
     temp_df.columns = columns
     temp_df["交易所"] = market_symbol
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df.index.name = None
     temp_df.columns.name = None
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")

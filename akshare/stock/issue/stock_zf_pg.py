@@ -54,7 +54,7 @@ def stock_qbzf_em() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECURITY_NAME_ABBR": "股票简称",
             "SECURITY_CODE": "股票代码",
@@ -68,7 +68,6 @@ def stock_qbzf_em() -> pd.DataFrame:
             "ISSUE_LISTING_DATE": "增发上市日期",
             "LOCKIN_PERIOD": "锁定期",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

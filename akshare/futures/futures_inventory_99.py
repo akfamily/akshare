@@ -89,7 +89,7 @@ def futures_inventory_99(symbol: str = "豆一") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df.columns = ["日期", "收盘价", "库存"]
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["库存"] = pd.to_numeric(temp_df["库存"], errors="coerce")

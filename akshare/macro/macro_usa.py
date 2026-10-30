@@ -72,8 +72,8 @@ def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
     big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
     big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -161,7 +161,7 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df.sort_values(by=["时间"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["时间"], ignore_index=True)
     return temp_df
 
 
@@ -488,9 +488,9 @@ def macro_usa_rig_count() -> pd.DataFrame:
     big_df["美国天然气钻井_钻井数"] = temp_df["美国天然气钻井"].apply(lambda x: x[0])
     big_df["美国天然气钻井_变化"] = temp_df["美国天然气钻井"].apply(lambda x: x[1])
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -989,9 +989,9 @@ def macro_usa_crude_inner() -> pd.DataFrame:
         lambda x: x[1]
     )
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1010,7 +1010,7 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
@@ -1020,9 +1020,9 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1041,7 +1041,7 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
@@ -1051,9 +1051,9 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1072,7 +1072,7 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
@@ -1082,9 +1082,9 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1103,7 +1103,7 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
@@ -1113,9 +1113,9 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1142,7 +1142,7 @@ def macro_usa_cme_merchant_goods_holding():
     big_df.columns = ["pz", "tc", "-", "-", "-", "成交量", "-", "-", "日期"]
     big_df["品种"] = big_df["pz"] + "-" + big_df["tc"]
     big_df = big_df[["日期", "品种", "成交量"]]
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 

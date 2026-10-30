@@ -36,7 +36,7 @@ def stock_value_em(symbol: str = "300766") -> pd.DataFrame:
     data_json = make_request_with_retry_json(url, params=params)
     temp_json = data_json["result"]["data"]
     temp_df = pd.DataFrame(temp_json)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "TRADE_DATE": "数据日期",
             "CLOSE_PRICE": "当日收盘价",
@@ -52,7 +52,6 @@ def stock_value_em(symbol: str = "300766") -> pd.DataFrame:
             "PCF_OCF_TTM": "市现率",
             "PS_TTM": "市销率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -74,7 +73,7 @@ def stock_value_em(symbol: str = "300766") -> pd.DataFrame:
     temp_df["数据日期"] = pd.to_datetime(temp_df["数据日期"], errors="coerce").dt.date
     for item in temp_df.columns[1:]:
         temp_df[item] = pd.to_numeric(temp_df[item], errors="coerce")
-    temp_df.sort_values(by="数据日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="数据日期", ignore_index=True)
     return temp_df
 
 

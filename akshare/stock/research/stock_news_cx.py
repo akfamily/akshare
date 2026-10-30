@@ -33,7 +33,7 @@ def stock_news_main_cx() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["data"]["data"])
     temp_df = temp_df[["tag", "summary", "url"]]
     temp_df.columns = ["tag", "summary", "url"]
-    temp_df.dropna(inplace=True)
+    temp_df = temp_df.dropna()
     return temp_df
 
 

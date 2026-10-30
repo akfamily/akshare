@@ -107,7 +107,7 @@ def currency_boc_sina(
     )
     big_df["央行中间价"] = pd.to_numeric(big_df["央行中间价"], errors="coerce")
     big_df["中行折算价"] = pd.to_numeric(big_df["中行折算价"], errors="coerce")
-    big_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 

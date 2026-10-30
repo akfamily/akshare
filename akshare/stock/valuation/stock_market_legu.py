@@ -34,7 +34,7 @@ def stock_market_activity_legu() -> pd.DataFrame:
     temp_df = pd.concat(
         objs=[temp_df_one, temp_df_two, temp_df_three], ignore_index=True
     )
-    temp_df.dropna(how="all", axis=0, inplace=True)
+    temp_df = temp_df.dropna(how="all", axis=0)
     soup = BeautifulSoup(r.text, features="lxml")
     item_str = soup.find(name="div", attrs={"class": "metric-activity"}).text.strip()
     inner_temp_df = pd.DataFrame([item.strip() for item in item_str.split("\n")]).T
@@ -46,7 +46,7 @@ def stock_market_activity_legu() -> pd.DataFrame:
     inner_temp_df = pd.DataFrame(["统计日期", item_str]).T
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

@@ -56,9 +56,9 @@ def stock_lhb_detail_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "SECURITY_CODE": "代码",
@@ -83,7 +83,6 @@ def stock_lhb_detail_em(
             "D5_CLOSE_ADJCHRATE": "上榜后5日",
             "D10_CLOSE_ADJCHRATE": "上榜后10日",
         },
-        inplace=True,
     )
 
     big_df = big_df[
@@ -164,7 +163,7 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -265,7 +264,7 @@ def stock_lhb_jgmmtj_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -370,9 +369,9 @@ def stock_lhb_jgstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "SECURITY_CODE": "代码",
@@ -391,7 +390,6 @@ def stock_lhb_jgstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
             "M6_CLOSE_ADJCHRATE": "近6个月涨跌幅",
             "Y1_CLOSE_ADJCHRATE": "近1年涨跌幅",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -468,7 +466,7 @@ def stock_lhb_hyyyb_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -547,9 +545,9 @@ def stock_lhb_yybph_em(symbol: str = "近一月") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "OPERATEDEPT_NAME": "营业部名称",
@@ -569,7 +567,6 @@ def stock_lhb_yybph_em(symbol: str = "近一月") -> pd.DataFrame:
             "AVERAGE_INCREASE_10DAY": "上榜后10天-平均涨幅",
             "RISE_PROBABILITY_10DAY": "上榜后10天-上涨概率",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -683,9 +680,9 @@ def stock_lhb_traderstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "OPERATEDEPT_NAME": "营业部名称",
@@ -696,7 +693,6 @@ def stock_lhb_traderstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
             "ACT_SELL": "卖出额",
             "TOTAL_SELLER_SALESTIMES": "卖出次数",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -744,7 +740,7 @@ def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -801,7 +797,7 @@ def stock_lhb_stock_detail_em(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
 
     if flag == "买入":
@@ -848,8 +844,8 @@ def stock_lhb_stock_detail_em(
         temp_df["卖出金额-占总成交比例"] = pd.to_numeric(
             temp_df["卖出金额-占总成交比例"], errors="coerce"
         )
-        temp_df.sort_values("类型", inplace=True, ignore_index=True)
-        temp_df.reset_index(inplace=True, drop=True)
+        temp_df = temp_df.sort_values("类型", ignore_index=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     else:
         temp_df.columns = [
@@ -895,8 +891,8 @@ def stock_lhb_stock_detail_em(
         temp_df["卖出金额-占总成交比例"] = pd.to_numeric(
             temp_df["卖出金额-占总成交比例"], errors="coerce"
         )
-        temp_df.sort_values("类型", inplace=True, ignore_index=True)
-        temp_df.reset_index(inplace=True, drop=True)
+        temp_df = temp_df.sort_values("类型", ignore_index=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     return temp_df
 
@@ -963,10 +959,10 @@ def stock_lhb_yyb_detail_em(symbol: str = "10188715") -> pd.DataFrame:
     }
 
     # 重命名列
-    big_df.rename(columns=column_map, inplace=True)
+    big_df = big_df.rename(columns=column_map)
 
     # 添加序号列
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["序号"] = big_df.index + 1
 
     # 选择需要的列并排序

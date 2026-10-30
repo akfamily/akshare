@@ -23,13 +23,12 @@ def index_news_sentiment_scope() -> pd.DataFrame:
     r = http.get(url=url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "tradeDate": "日期",
             "maIndex1": "市场情绪指数",
             "marketClose": "沪深300指数",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

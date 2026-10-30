@@ -34,7 +34,7 @@ def stock_sgt_settlement_exchange_rate_szse() -> pd.DataFrame:
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(r.content, engine="openpyxl")
-    temp_df.sort_values(by="适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["买入结算汇兑比率"] = pd.to_numeric(
         temp_df["买入结算汇兑比率"], errors="coerce"
@@ -63,7 +63,7 @@ def stock_sgt_reference_exchange_rate_szse() -> pd.DataFrame:
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(r.content, engine="openpyxl")
-    temp_df.sort_values(by="适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["参考汇率买入价"] = pd.to_numeric(
         temp_df["参考汇率买入价"], errors="coerce"
@@ -103,7 +103,7 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "currencyType": "货币种类",
             "buyPrice": "参考汇率买入价",
@@ -111,7 +111,6 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
             "validDate": "适用日期",
             "sellPrice": "参考汇率卖出价",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -121,7 +120,7 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
             "货币种类",
         ]
     ]
-    temp_df.sort_values("适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values("适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["参考汇率买入价"] = pd.to_numeric(
         temp_df["参考汇率买入价"], errors="coerce"
@@ -161,7 +160,7 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "currencyType": "货币种类",
             "buyPrice": "买入结算汇兑比率",
@@ -169,7 +168,6 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
             "validDate": "适用日期",
             "sellPrice": "卖出结算汇兑比率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -179,7 +177,7 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
             "货币种类",
         ]
     ]
-    temp_df.sort_values("适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values("适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["买入结算汇兑比率"] = pd.to_numeric(
         temp_df["买入结算汇兑比率"], errors="coerce"

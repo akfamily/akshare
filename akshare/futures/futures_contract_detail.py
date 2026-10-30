@@ -77,8 +77,8 @@ def futures_contract_detail_em(symbol: str = "v2602F") -> pd.DataFrame:
         "zcjybzj": "最初交易保证金",
         "jgfs": "交割方式",
     }
-    temp_df.rename(index=column_mapping, inplace=True)
-    temp_df.reset_index(drop=False, inplace=True)
+    temp_df = temp_df.rename(index=column_mapping)
+    temp_df = temp_df.reset_index(drop=False)
     temp_df.columns = ["item", "value"]
     return temp_df
 

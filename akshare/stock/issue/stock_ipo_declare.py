@@ -44,10 +44,10 @@ def stock_ipo_declare_em() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -60,7 +60,6 @@ def stock_ipo_declare_em() -> pd.DataFrame:
             "END_DATE": "更新日期",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
 
     # 招股说明书链接处理（类似原有代码）

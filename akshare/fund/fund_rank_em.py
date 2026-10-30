@@ -79,7 +79,7 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -178,7 +178,7 @@ def fund_exchange_rank_em() -> pd.DataFrame:
     json_data = demjson.decode(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -268,7 +268,7 @@ def fund_money_rank_em() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -374,7 +374,7 @@ def fund_lcx_rank_em() -> pd.DataFrame:
     except Exception:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -454,7 +454,7 @@ def fund_hk_rank_em() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",

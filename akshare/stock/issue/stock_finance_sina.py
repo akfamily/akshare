@@ -78,7 +78,7 @@ def stock_financial_report_sina(
             },
             orient="index",
         )
-        temp_tail_df.reset_index(inplace=True)
+        temp_tail_df = temp_tail_df.reset_index()
         temp_tail_df.columns = ["item_title", "item_value"]
         temp_df = pd.concat(objs=[temp_df, temp_tail_df], ignore_index=True)
         temp_df.columns = ["项目", date_str]
@@ -126,37 +126,37 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
 
     big_one_df = big_df.loc["常用指标":"每股指标"]
     big_one_df = big_one_df.iloc[1:-1, :]
-    big_one_df.reset_index(inplace=True)
+    big_one_df = big_one_df.reset_index()
     big_one_df.insert(0, "选项", "常用指标")
 
     big_two_df = big_df.loc["每股指标":"盈利能力"]
     big_two_df = big_two_df.iloc[1:-1, :]
-    big_two_df.reset_index(inplace=True)
+    big_two_df = big_two_df.reset_index()
     big_two_df.insert(0, "选项", "每股指标")
 
     big_three_df = big_df.loc["盈利能力":"成长能力"]
     big_three_df = big_three_df.iloc[1:-1, :]
-    big_three_df.reset_index(inplace=True)
+    big_three_df = big_three_df.reset_index()
     big_three_df.insert(0, "选项", "盈利能力")
 
     big_four_df = big_df.loc["成长能力":"收益质量"]
     big_four_df = big_four_df.iloc[1:-1, :]
-    big_four_df.reset_index(inplace=True)
+    big_four_df = big_four_df.reset_index()
     big_four_df.insert(0, "选项", "成长能力")
 
     big_five_df = big_df.loc["收益质量":"财务风险"]
     big_five_df = big_five_df.iloc[1:-1, :]
-    big_five_df.reset_index(inplace=True)
+    big_five_df = big_five_df.reset_index()
     big_five_df.insert(0, "选项", "收益质量")
 
     big_six_df = big_df.loc["财务风险":"营运能力"]
     big_six_df = big_six_df.iloc[1:-1, :]
-    big_six_df.reset_index(inplace=True)
+    big_six_df = big_six_df.reset_index()
     big_six_df.insert(0, "选项", "财务风险")
 
     big_seven_df = big_df.loc["营运能力":]
     big_seven_df = big_seven_df.iloc[1:-1, :]
-    big_seven_df.reset_index(inplace=True)
+    big_seven_df = big_seven_df.reset_index()
     big_seven_df.insert(0, "选项", "营运能力")
 
     big_df = pd.concat(
@@ -315,10 +315,10 @@ def stock_financial_analysis_indicator(
         big_df.index = temp_df.columns.tolist()[1:]
         out_df = pd.concat(objs=[out_df, big_df])
 
-    out_df.dropna(inplace=True)
-    out_df.reset_index(inplace=True)
-    out_df.rename(columns={"index": "日期"}, inplace=True)
-    out_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    out_df = out_df.dropna()
+    out_df = out_df.reset_index()
+    out_df = out_df.rename(columns={"index": "日期"})
+    out_df = out_df.sort_values(by=["日期"], ignore_index=True)
     out_df["日期"] = pd.to_datetime(out_df["日期"], errors="coerce").dt.date
     for item in out_df.columns[1:]:
         out_df[item] = pd.to_numeric(out_df[item], errors="coerce")
@@ -516,7 +516,7 @@ def stock_add_stock(symbol: str = "688166") -> pd.DataFrame:
         temp_df = pd.read_html(StringIO(r.text))[13 + i].iloc[:, 1]
         big_df[temp_df.name.split(" ")[1].split("：")[1][:10]] = temp_df
     big_df = big_df.T
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.columns = [
         "公告日期",
         "发行方式",
@@ -585,7 +585,7 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(
             objs=[temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :]],
             axis=1,
@@ -632,7 +632,7 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     big_df["编号"] = pd.to_numeric(big_df["编号"], errors="coerce")
     big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
     big_df["占流通股比例"] = pd.to_numeric(big_df["占流通股比例"], errors="coerce")
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -659,7 +659,7 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(objs=[temp_truncated, truncated_df.iloc[0, 1:]], axis=1)
         concat_df.columns = truncated_df.iloc[1, :].tolist() + ["截止日期"]
         try:
@@ -675,8 +675,8 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
                 warnings.warn(f"Error: {e}")
 
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
-    big_df.dropna(inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.dropna()
+    big_df = big_df.reset_index(drop=True)
     big_df.columns = [
         "基金名称",
         "基金代码",
@@ -716,7 +716,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[5:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(
             objs=[
                 temp_truncated,
@@ -751,10 +751,10 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
             "(按总股本计算) 查看变化趋势"
         )
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
-    big_df.dropna(inplace=True, how="all")
-    big_df.reset_index(inplace=True, drop=True)
-    big_df.rename(
-        columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}, inplace=True
+    big_df = big_df.dropna(how="all")
+    big_df = big_df.reset_index(drop=True)
+    big_df = big_df.rename(
+        columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}
     )
     big_df.columns.name = None
     big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")

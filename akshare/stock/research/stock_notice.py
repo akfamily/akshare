@@ -97,7 +97,7 @@ def _stock_notice_report(
         temp_df = pd.concat(objs=[temp_df, temp_columns_df, temp_codes_df], axis=1)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "art_code": "编码",
             "display_time": "-",
@@ -112,7 +112,6 @@ def _stock_notice_report(
             "short_name": "名称",
             "stock_code": "代码",
         },
-        inplace=True,
     )
     url = "https://data.eastmoney.com/notices/detail/"
     big_df["网址"] = url + big_df["代码"] + "/" + big_df["编码"] + ".html"

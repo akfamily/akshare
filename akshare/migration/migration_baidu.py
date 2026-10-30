@@ -84,7 +84,7 @@ def migration_scale_baidu(
     json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["日期", "迁徙规模指数"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["迁徙规模指数"] = pd.to_numeric(temp_df["迁徙规模指数"], errors="coerce")

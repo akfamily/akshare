@@ -89,11 +89,10 @@ def fund_scale_daily_szse(
     if temp_df.empty:
         return pd.DataFrame(columns=columns)
 
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "基金规模(份)": "基金份额",
         },
-        inplace=True,
     )
 
     if "基金代码" in temp_df.columns:

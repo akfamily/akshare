@@ -254,8 +254,8 @@ def movie_boxoffice_realtime() -> pd.DataFrame:
         "Int64"
     )
     temp_df["排序"] = pd.to_numeric(temp_df["排序"], errors="coerce").astype("Int64")
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -331,8 +331,8 @@ def movie_boxoffice_daily(date: str = "20240219") -> pd.DataFrame:
         "Int64"
     )
     temp_df["排序"] = pd.to_numeric(temp_df["排序"], errors="coerce").astype("Int64")
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -428,8 +428,8 @@ def movie_boxoffice_monthly(date: str = "20240218") -> pd.DataFrame:
     temp_df["上映日期"] = pd.to_datetime(temp_df["上映日期"], errors="coerce").dt.date
     temp_df["月内天数"] = pd.to_numeric(temp_df["月内天数"], errors="coerce")
     temp_df["排序"] = pd.to_numeric(temp_df["排序"], errors="coerce").astype("Int64")
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -493,8 +493,8 @@ def movie_boxoffice_yearly(date: str = "20240218") -> pd.DataFrame:
     temp_df["国家及地区"] = (
         temp_df["国家及地区"].astype("string").str.replace(" ", "", regex=False)
     )
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -572,8 +572,8 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
     temp_df["国家及地区"] = (
         temp_df["国家及地区"].astype("string").str.replace(" ", "", regex=False)
     )
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -633,8 +633,8 @@ def movie_boxoffice_cinema_daily(date: str = "20240219") -> pd.DataFrame:
     temp_df["场均票价"] = pd.to_numeric(temp_df["场均票价"], errors="coerce")
     temp_df["上座率"] = pd.to_numeric(temp_df["上座率"], errors="coerce")
     temp_df["排序"] = pd.to_numeric(temp_df["排序"], errors="coerce").astype("Int64")
-    temp_df.sort_values(["排序"], inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.sort_values(["排序"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

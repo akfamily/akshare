@@ -84,7 +84,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
         "F003V": "行业类型编码",
         "F004V": "行业类型",
     }
-    temp_df.rename(columns=cols_map, inplace=True)
+    temp_df = temp_df.rename(columns=cols_map)
     # 行业按分级排序
     tmp = temp_df[["类目编码"]].copy()
     tmp["len"] = temp_df["类目编码"].str.len()
@@ -97,7 +97,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
         )
         level += 1
     temp_df["Level"] = temp_df["Level"].astype(int)
-    temp_df.rename(columns={"Level": "分级"}, inplace=True)
+    temp_df = temp_df.rename(columns={"Level": "分级"})
     temp_df["终止日期"] = pd.to_datetime(temp_df["终止日期"], errors="coerce").dt.date
     return temp_df
 
@@ -164,8 +164,8 @@ def stock_industry_change_cninfo(
         "F008C": "最新记录标识",
     }
     ignore_cols = ["最新记录标识"]
-    temp_df.rename(columns=cols_map, inplace=True)
-    temp_df.fillna(np.nan, inplace=True)
+    temp_df = temp_df.rename(columns=cols_map)
+    temp_df = temp_df.fillna(np.nan)
     temp_df["变更日期"] = pd.to_datetime(temp_df["变更日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]
     return data_df

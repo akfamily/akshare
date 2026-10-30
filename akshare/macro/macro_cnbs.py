@@ -24,9 +24,9 @@ def macro_cnbs() -> pd.DataFrame:
     )
 
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")
-    temp_df.dropna(axis=1, inplace=True)
+    temp_df = temp_df.dropna(axis=1)
 
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "Period": "年份",
             "Household": "居民部门",
@@ -38,7 +38,6 @@ def macro_cnbs() -> pd.DataFrame:
             "Financial sector(asset side)": "金融部门资产方",
             "Financial sector(liability side)": "金融部门负债方",
         },
-        inplace=True,
     )
 
     column_order = [

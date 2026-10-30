@@ -63,7 +63,7 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     big_df["below_net_asset_ratio"] = pd.to_numeric(
         big_df["below_net_asset_ratio"], errors="coerce"
     )
-    big_df.sort_values(["date"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["date"], ignore_index=True)
     return big_df
 
 

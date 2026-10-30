@@ -52,11 +52,11 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
         inner_df = temp_df[index_list[inner_index] : index_list[inner_index + 1]]
         inner_key = re.findall(pattern=r"[a-zA-Z]+", string=inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
-        inner_df.dropna(axis=0, how="all", inplace=True)
-        inner_df.dropna(axis=1, how="all", inplace=True)
+        inner_df = inner_df.dropna(axis=0, how="all")
+        inner_df = inner_df.dropna(axis=1, how="all")
         inner_df.columns = inner_df.iloc[0, :].to_list()
         inner_df = inner_df.iloc[1:, :]
-        inner_df.reset_index(inplace=True, drop=True)
+        inner_df = inner_df.reset_index(drop=True)
         big_dict[inner_key] = inner_df
     return big_dict
 
@@ -86,7 +86,7 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
     r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["entityList"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "variety": "品种名称",
             "whAbbr": "仓库/分库",
@@ -96,7 +96,6 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
             "diff": "增减（手）",
             "varietyOrder": "品种代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -251,11 +250,11 @@ def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
             else:
                 temp_index_end = index_list[inner_index + 1]
             inner_df = temp_df[temp_index_start:temp_index_end]
-            inner_df.reset_index(inplace=True, drop=True)
+            inner_df = inner_df.reset_index(drop=True)
             inner_key = inner_df.iloc[0, 0]
             inner_df.columns = inner_df.iloc[1].to_list()
             inner_df = inner_df[2:]
-            inner_df.reset_index(inplace=True, drop=True)
+            inner_df = inner_df.reset_index(drop=True)
             big_dict[inner_key] = inner_df
     return big_dict
 
@@ -282,7 +281,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     symbol_list = list(
         set([item.upper() for item in temp_df["varietyOrder"].tolist() if item != ""])
     )
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "varietyOrder": "symbol",
             "variety": "品种",
@@ -291,7 +290,6 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
             "wbillQty": "今日仓单量",
             "diff": "增减",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -305,9 +303,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         ]
     ]
     temp_df["whType"] = pd.to_numeric(temp_df["whType"], errors="coerce")
-    temp_df.dropna(
-        subset=["whType"], how="any", axis=0, ignore_index=True, inplace=True
-    )
+    temp_df = temp_df.dropna(subset=["whType"], how="any", axis=0, ignore_index=True)
     big_dict = dict()
     for symbol in symbol_list:
         inner_temp_df = temp_df[temp_df["symbol"] == symbol.lower()].copy()
@@ -327,7 +323,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
             inner_temp_df["今日仓单量"], errors="coerce"
         )
         inner_temp_df["增减"] = pd.to_numeric(inner_temp_df["增减"], errors="coerce")
-        inner_temp_df.reset_index(inplace=True, drop=True)
+        inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol] = inner_temp_df
     return big_dict
 

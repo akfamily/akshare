@@ -35,9 +35,9 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -52,7 +52,6 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[
@@ -107,9 +106,9 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -124,7 +123,6 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

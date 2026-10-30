@@ -80,9 +80,9 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
+    temp_df = temp_df.rename(columns={"index": "序号"})
     temp_df["代码"] = temp_df["编码"].astype(str) + "." + temp_df["简称"]
     temp_df = temp_df[
         [

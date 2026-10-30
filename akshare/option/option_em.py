@@ -124,9 +124,9 @@ def option_current_cffex_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "rz": "日增",
@@ -145,7 +145,6 @@ def option_current_cffex_em() -> pd.DataFrame:
             "zjsj": "昨结",
             "cje": "成交额",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

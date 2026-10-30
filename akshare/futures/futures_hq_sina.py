@@ -95,7 +95,7 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
         "欧洲碳排放": "EUA",
     }
     temp_df = pd.DataFrame.from_dict(inner_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["symbol", "code"]
     return temp_df
 
@@ -201,7 +201,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
         "持仓量",
         "日期",
     ]
-    data_df.dropna(how="all", inplace=True)
+    data_df = data_df.dropna(how="all")
     data_df["最新价"] = pd.to_numeric(data_df["最新价"], errors="coerce")
     data_df["人民币报价"] = pd.to_numeric(data_df["人民币报价"], errors="coerce")
     data_df["买价"] = pd.to_numeric(data_df["买价"], errors="coerce")
@@ -253,7 +253,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     ).T
     price_mul.columns = ["symbol", "price"]
     price_mul = price_mul[price_mul["symbol"].isin(data_df["名称"])]
-    price_mul.reset_index(inplace=True, drop=True)
+    price_mul = price_mul.reset_index(drop=True)
     price_mul["price"] = pd.to_numeric(price_mul["price"], errors="coerce")
 
     # 获取汇率数据
@@ -269,7 +269,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     # 计算人民币报价
     data_df["最新价"] = pd.to_numeric(data_df["最新价"], errors="coerce")
     data_df["人民币报价"] = data_df["最新价"] * price_mul["price"] * float(usd_rmb)
-    data_df.dropna(thresh=4, inplace=True)
+    data_df = data_df.dropna(thresh=4)
     return data_df
 
 

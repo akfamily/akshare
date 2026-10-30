@@ -19,7 +19,7 @@ def bond_available_index_cbond():
     :rtype: list
     """
     temp_df = pd.DataFrame(list(INDEX_MAPPING.keys()))
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
     temp_df.columns = ["index", "value"]
     return temp_df
@@ -62,8 +62,8 @@ def bond_index_general_cbond(
         pd.to_numeric(temp_df.index), unit="ms", utc=True
     ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
-    temp_df.rename(columns=key_col_map, inplace=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.rename(columns=key_col_map)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
@@ -120,8 +120,8 @@ def bond_treasury_index_cbond(
         pd.to_numeric(temp_df.index), unit="ms", utc=True
     ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
-    temp_df.rename(columns=key_col_map, inplace=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.rename(columns=key_col_map)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
@@ -199,7 +199,7 @@ def bond_new_composite_index_cbond(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],
         orient="index",
     )
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = temp_df["date"].astype(float)
     temp_df["date"] = (
@@ -279,7 +279,7 @@ def bond_composite_index_cbond(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],
         orient="index",
     )
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(
         temp_df["date"].astype(int), errors="coerce", unit="ms"

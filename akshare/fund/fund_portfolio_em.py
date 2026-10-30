@@ -120,28 +120,24 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
             StringIO(data_json["content"]), converters={"股票代码": str}
         )[item]
         del temp_df["相关资讯"]
-        temp_df.rename(columns={"占净值 比例": "占净值比例"}, inplace=True)
+        temp_df = temp_df.rename(columns={"占净值 比例": "占净值比例"})
         temp_df["占净值比例"] = (
             temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数 （万股）": "持股数", "持仓市值 （万元）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元人民币）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "持股数 （万股）": "持股数",
                 "持仓市值 （万元人民币）": "持仓市值",
             },
-            inplace=True,
         )
 
         temp_df["季度"] = item_label[item]
@@ -157,9 +153,9 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
         big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
         big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
         del big_df["序号"]
-        big_df.reset_index(inplace=True, drop=False)
+        big_df = big_df.reset_index(drop=False)
         big_df["index"] = big_df["index"] + 1
-        big_df.rename(columns={"index": "序号"}, inplace=True)
+        big_df = big_df.rename(columns={"index": "序号"})
     return big_df
 
 
@@ -195,7 +191,7 @@ def fund_portfolio_bond_hold_em(
         temp_df["占净值比例"] = (
             temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         )
-        temp_df.rename(columns={"持仓市值（万元）": "持仓市值"}, inplace=True)
+        temp_df = temp_df.rename(columns={"持仓市值（万元）": "持仓市值"})
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
             [
@@ -252,7 +248,7 @@ def fund_portfolio_industry_allocation_em(
     for item in data_json["Data"]["QuarterInfos"]:
         temp_list.extend(item["HYPZInfo"])
     temp_df = pd.DataFrame(temp_list)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -349,9 +345,9 @@ def fund_portfolio_change_em(
         ]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     del big_df["序号"]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(columns={"index": "序号"}, inplace=True)
+    big_df = big_df.rename(columns={"index": "序号"})
 
     big_df["本期累计买入金额"] = pd.to_numeric(
         big_df["本期累计买入金额"], errors="coerce"

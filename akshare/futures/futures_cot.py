@@ -484,7 +484,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             "short_open_interest",
             "short_open_interest_chg",
         ]
-        inner_temp_df.reset_index(inplace=True, drop=True)
+        inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol_list[i]] = inner_temp_df
         inner_temp_df = temp_df[temp_symbol_index_list[i + 1] + 2 : -1]
         inner_temp_df.columns = [
@@ -499,7 +499,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             "short_open_interest",
             "short_open_interest_chg",
         ]
-        inner_temp_df.reset_index(inplace=True, drop=True)
+        inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
     for key, value in big_dict.items():
@@ -609,11 +609,11 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                 temp_df = pd.read_excel(
                     http.get_buffer(url[:-3] + "excel"), header=0, skiprows=3
                 )
-                temp_df.dropna(how="any", axis=0, inplace=True)
+                temp_df = temp_df.dropna(how="any", axis=0)
                 temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
                 del temp_df["名次.2"]
-                temp_df.rename(
+                temp_df = temp_df.rename(
                     columns={
                         "名次": "rank",
                         "会员简称": "vol_party_name",
@@ -626,7 +626,6 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                         "持卖单量": "short_open_interest",
                         "增减.2": "short_open_interest_chg",
                     },
-                    inplace=True,
                 )
                 temp_df["symbol"] = symbol.upper()
                 temp_df["var"] = var
@@ -669,7 +668,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     del temp_df["名次.1"]
                     del temp_df["名次.2"]
-                    temp_df.rename(
+                    temp_df = temp_df.rename(
                         columns={
                             "名次": "rank",
                             "会员简称": "vol_party_name",
@@ -682,7 +681,6 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                             "持卖单量": "short_open_interest",
                             "增减.2": "short_open_interest_chg",
                         },
-                        inplace=True,
                     )
                     temp_df["symbol"] = symbol.upper()
                     temp_df["var"] = var
@@ -772,7 +770,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
                 )
                 table.columns = table.iloc[0, :]
                 table = table.iloc[2:, :].copy()
-                table.reset_index(inplace=True, drop=True)
+                table = table.reset_index(drop=True)
             else:
                 table = pd.read_csv(BytesIO(r.content), encoding="gbk")
         else:
@@ -862,7 +860,7 @@ def futures_dce_position_rank(
                     start_list[0] :,
                     data.columns[data.iloc[start_list[0], :].notnull()],
                 ]
-                data.reset_index(inplace=True, drop=True)
+                data = data.reset_index(drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 end_list = data[
                     data.iloc[:, 0].str.contains(r"(?:总计|合计)", na=False)
@@ -1231,26 +1229,24 @@ def __futures_gfex_contract_data(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if "qtySub" in temp_df.columns:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={
                     "abbr": "vol_party_name",
                     "todayQty": "vol",
                     "qtySub": "vol_chg",
                 },
-                inplace=True,
             )
         else:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={
                     "abbr": "vol_party_name",
                     "todayQty": "vol",
                     "todayQtyChg": "vol_chg",
                 },
-                inplace=True,
             )
         temp_df = temp_df[["vol_party_name", "vol", "vol_chg"]]
         big_df = pd.concat(objs=[big_df, temp_df], axis=1, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     big_df.columns = [
         "rank",

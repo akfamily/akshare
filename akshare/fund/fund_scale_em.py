@@ -40,7 +40,7 @@ def fund_scale_change_em() -> pd.DataFrame:
         data_json = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     big_df.columns = [
         "序号",
@@ -96,7 +96,7 @@ def fund_hold_structure_em() -> pd.DataFrame:
         data_json = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     big_df.columns = [
         "序号",

@@ -50,7 +50,7 @@ def stock_yjkb_em(date: str = "20211231") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "序号",
@@ -167,7 +167,7 @@ def stock_yjyg_em(date: str = "20200331") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "序号",
@@ -302,9 +302,9 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     big_df.insert(0, "序号", range(1, len(big_df) + 1))
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECURITY_CODE": "股票代码",
             "SECURITY_NAME_ABBR": "股票简称",
@@ -314,7 +314,6 @@ def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.Data
             "THIRD_CHANGE_DATE": "三次变更日期",
             "ACTUAL_PUBLISH_DATE": "实际披露时间",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

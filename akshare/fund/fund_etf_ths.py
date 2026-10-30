@@ -45,10 +45,10 @@ def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
     data_text = r.text[2:-1]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["data"]).T
-    temp_df.reset_index(inplace=True, drop=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "code": "基金代码",
@@ -66,7 +66,6 @@ def fund_etf_category_ths(symbol: str = "ETF", date: str = "") -> pd.DataFrame:
             "shstat": "赎回状态",
             "sgstat": "申购状态",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

@@ -49,7 +49,7 @@ def fund_announcement_dividend_em(symbol: str = "000001") -> pd.DataFrame:
         "报告ID",
     ]
     temp_df = temp_df[["基金代码", "公告标题", "基金名称", "公告日期", "报告ID"]]
-    temp_df.sort_values(by=["公告日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["公告日期"], ignore_index=True)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     return temp_df
 
@@ -90,7 +90,7 @@ def fund_announcement_report_em(symbol: str = "000001") -> pd.DataFrame:
         "报告ID",
     ]
     temp_df = temp_df[["基金代码", "公告标题", "基金名称", "公告日期", "报告ID"]]
-    temp_df.sort_values(by=["公告日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["公告日期"], ignore_index=True)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     return temp_df
 
@@ -130,7 +130,7 @@ def fund_announcement_personnel_em(symbol: str = "000001") -> pd.DataFrame:
         "报告ID",
     ]
     temp_df = temp_df[["基金代码", "公告标题", "基金名称", "公告日期", "报告ID"]]
-    temp_df.sort_values(by=["公告日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["公告日期"], ignore_index=True)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     return temp_df
 

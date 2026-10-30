@@ -88,7 +88,7 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
         temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
     temp_df = temp_df[~temp_df["品种"].str.contains("小计|总计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["交割日期"] = pd.to_datetime(temp_df["交割日期"], errors="coerce").dt.date
     temp_df["交割量"] = pd.to_numeric(temp_df["交割量"], errors="coerce")
     temp_df["交割金额"] = pd.to_numeric(temp_df["交割金额"], errors="coerce")
@@ -118,7 +118,7 @@ def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
         temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
     temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|总计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["期转现发生日期"] = pd.to_datetime(
         temp_df["期转现发生日期"], errors="coerce"
     ).dt.date
@@ -192,7 +192,7 @@ def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
     temp_df["合约数量"] = temp_df["合约数量"].astype(str).str.replace(",", "")
     temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"], errors="coerce")
     temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|合计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -218,7 +218,7 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
             temp_inner_df = temp_df[index_flag[i] + 1 :]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]
-        temp_inner_df.reset_index(drop=True, inplace=True)
+        temp_inner_df = temp_inner_df.reset_index(drop=True)
         date_contract_str = (
             temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
         )

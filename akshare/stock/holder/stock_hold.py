@@ -79,11 +79,11 @@ def stock_institute_hold_detail(
     big_df = pd.DataFrame()
     for item in json_data["data"].keys():
         inner_temp_df = pd.DataFrame(json_data["data"][item]).T.iloc[:-1, :]
-        inner_temp_df.reset_index(inplace=True)
+        inner_temp_df = inner_temp_df.reset_index()
         big_df = pd.concat(objs=[big_df, inner_temp_df], ignore_index=True)
     if not big_df.empty:
         big_df["index"] = big_df["index"].str.split("_", expand=True)[0]
-        big_df.rename(columns={"index": "institute"}, inplace=True)
+        big_df = big_df.rename(columns={"index": "institute"})
         big_df = big_df.iloc[:, :12]
         big_df.columns = [
             "持股机构类型",

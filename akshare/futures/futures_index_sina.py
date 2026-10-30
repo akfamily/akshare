@@ -96,7 +96,7 @@ def futures_display_main_sina() -> pd.DataFrame:
     temp_df = pd.DataFrame()
     for item in ["dce", "czce", "shfe", "cffex", "gfex"]:
         temp_df = pd.concat([temp_df, match_main_contract(symbol=item)])
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -135,10 +135,10 @@ def futures_main_sina(
         "动态结算价",
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.set_index(keys=["日期"], inplace=True)
+    temp_df = temp_df.set_index(keys=["日期"])
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df = temp_df[start_date:end_date]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
     temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")

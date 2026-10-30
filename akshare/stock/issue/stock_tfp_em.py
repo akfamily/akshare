@@ -43,7 +43,7 @@ def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.columns = [
         "序号",
         "代码",

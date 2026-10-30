@@ -59,26 +59,26 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
         table_df_one["最近合约"] = pd.to_numeric(
             table_df_one["最近合约"], errors="coerce"
         )
-        table_df_one.reset_index(inplace=True)
+        table_df_one = table_df_one.reset_index()
         table_df_one.columns.name = None
-        table_df_one.rename(columns={"index": "日期"}, inplace=True)
+        table_df_one = table_df_one.rename(columns={"index": "日期"})
         return table_df_one
     elif indicator == "基差率":
         table_df_two = pd.read_html(StringIO(r.text), header=0, index_col=0)[2].T
         table_df_two["基差率"] = table_df_two["基差率"].str.replace("%", "")
         table_df_two["基差率"] = pd.to_numeric(table_df_two["基差率"], errors="coerce")
-        table_df_two.reset_index(inplace=True)
+        table_df_two = table_df_two.reset_index()
         table_df_two.columns.name = None
-        table_df_two.rename(columns={"index": "日期"}, inplace=True)
+        table_df_two = table_df_two.rename(columns={"index": "日期"})
         return table_df_two
     else:
         table_df_three = pd.read_html(StringIO(r.text), header=0, index_col=0)[3].T
         table_df_three["主力基差"] = pd.to_numeric(
             table_df_three["主力基差"], errors="coerce"
         )
-        table_df_three.reset_index(inplace=True)
+        table_df_three = table_df_three.reset_index()
         table_df_three.columns.name = None
-        table_df_three.rename(columns={"index": "日期"}, inplace=True)
+        table_df_three = table_df_three.rename(columns={"index": "日期"})
         return table_df_three
 
 

@@ -124,9 +124,9 @@ def stock_share_change_cninfo(
         "F050N": "控股股东、实际控制人",
     }
     ignore_cols = ["最新记录标识", "其他"]
-    temp_df.rename(columns=cols_map, inplace=True)
+    temp_df = temp_df.rename(columns=cols_map)
     pd.set_option("future.no_silent_downcasting", True)
-    temp_df.fillna(np.nan, inplace=True)
+    temp_df = temp_df.fillna(np.nan)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]

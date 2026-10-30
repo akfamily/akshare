@@ -76,7 +76,7 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
         "内盘": data_json["data"]["f161"],
     }
     temp_df = pd.DataFrame.from_dict(tick_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

@@ -68,10 +68,10 @@ def stock_ipo_review_em() -> pd.DataFrame:
             warnings.warn(f"第 {page} 页解析失败: {e}")
             continue
 
-    big_df.reset_index(drop=True, inplace=True)
+    big_df = big_df.reset_index(drop=True)
     big_df.insert(0, "序号", big_df.index + 1)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "ORG_NAME": "企业名称",
             "SECURITY_NAME_ABBR": "股票简称",
@@ -86,7 +86,6 @@ def stock_ipo_review_em() -> pd.DataFrame:
             "NOTICE_DATE": "公告日期",
             "LISTING_DATE": "上市日期",
         },
-        inplace=True,
     )
 
     big_df = big_df[

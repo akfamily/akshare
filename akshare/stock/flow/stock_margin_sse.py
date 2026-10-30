@@ -44,14 +44,13 @@ def stock_margin_ratio_pa(symbol: str = "深市", date: str = "20260113") -> pd.
     r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fiMarginRatio": "融资比例",
             "secuCode": "证券代码",
             "secuName": "证券简称",
             "slMarginRatio": "融券比例",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

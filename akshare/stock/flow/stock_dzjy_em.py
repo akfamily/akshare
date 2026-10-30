@@ -40,7 +40,7 @@ def stock_dzjy_sctj() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     big_df.columns = [
         "序号",
@@ -112,7 +112,7 @@ def stock_dzjy_mrmx(
     if not data_json["result"]["data"]:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     if symbol in {"A股"}:
         temp_df.columns = [
@@ -242,7 +242,7 @@ def stock_dzjy_mrtj(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -332,7 +332,7 @@ def stock_dzjy_hygtj(symbol: str = "近三月") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -439,7 +439,7 @@ def stock_dzjy_hyyybtj(symbol: str = "近3日") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -523,7 +523,7 @@ def stock_dzjy_yybph(symbol: str = "近三月") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",

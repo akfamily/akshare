@@ -125,7 +125,7 @@ def stock_hk_hot_rank_latest_em(symbol: str = "00700") -> pd.DataFrame:
     r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

@@ -75,8 +75,8 @@ def macro_cons_gold() -> pd.DataFrame:
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -140,8 +140,8 @@ def macro_cons_silver() -> pd.DataFrame:
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -226,12 +226,12 @@ def macro_cons_opec_month() -> pd.DataFrame:
                     "欧佩克产量",
                 ]
             ].iloc[-1, :]
-        temp_df.dropna(inplace=True)
+        temp_df = temp_df.dropna()
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df = big_df.astype(float)
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
     big_df.columns.name = None
     return big_df
 

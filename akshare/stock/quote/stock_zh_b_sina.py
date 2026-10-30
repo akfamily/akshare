@@ -154,7 +154,7 @@ def stock_zh_b_daily(
             hfq_factor_df.columns = ["date", "hfq_factor"]
             hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
             del hfq_factor_df["date"]
-            hfq_factor_df.reset_index(inplace=True)
+            hfq_factor_df = hfq_factor_df.reset_index()
             return hfq_factor_df
         else:
             r = http.get(zh_sina_a_stock_qfq_url.format(symbol))
@@ -166,7 +166,7 @@ def stock_zh_b_daily(
             qfq_factor_df.columns = ["date", "qfq_factor"]
             qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
             del qfq_factor_df["date"]
-            qfq_factor_df.reset_index(inplace=True)
+            qfq_factor_df = qfq_factor_df.reset_index()
             return qfq_factor_df
 
     if adjust in ("hfq-factor", "qfq-factor"):
@@ -193,7 +193,7 @@ def stock_zh_b_daily(
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="outer"
     )
-    temp_df.ffill(inplace=True)
+    temp_df = temp_df.ffill()
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
@@ -208,16 +208,16 @@ def stock_zh_b_daily(
     ]
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = round(temp_df["open"], 2)
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates()
+        temp_df = temp_df.reset_index()
         return temp_df
 
     if adjust == "hfq":
@@ -231,11 +231,11 @@ def stock_zh_b_daily(
         temp_df = pd.merge(
             temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        temp_df.ffill(inplace=True)
+        temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
@@ -247,8 +247,8 @@ def stock_zh_b_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.reset_index()
         return temp_df
 
     if adjust == "qfq":
@@ -262,11 +262,11 @@ def stock_zh_b_daily(
         temp_df = pd.merge(
             temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        temp_df.ffill(inplace=True)
+        temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
@@ -278,8 +278,8 @@ def stock_zh_b_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.reset_index()
         return temp_df
 
 
@@ -327,7 +327,7 @@ def stock_zh_b_minute(
                 for item in temp_df["time"]
             ]
         ]
-        need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
+        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_b_daily_qfq_df = stock_zh_b_daily(symbol=symbol, adjust="qfq")
         stock_zh_b_daily_qfq_df.index = pd.to_datetime(stock_zh_b_daily_qfq_df["date"])
@@ -341,7 +341,7 @@ def stock_zh_b_minute(
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
         temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     if adjust == "hfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
@@ -352,7 +352,7 @@ def stock_zh_b_minute(
                 for item in temp_df["time"]
             ]
         ]
-        need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
+        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_b_daily_hfq_df = stock_zh_b_daily(symbol=symbol, adjust="hfq")
         stock_zh_b_daily_hfq_df.index = pd.to_datetime(stock_zh_b_daily_hfq_df["date"])
@@ -366,7 +366,7 @@ def stock_zh_b_minute(
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
         temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 

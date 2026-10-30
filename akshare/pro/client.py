@@ -62,7 +62,7 @@ class DataApi:
                     temp_df = pd.DataFrame(data_json[fields][item])
                     temp_df["code"] = item
                     big_df = big_df.append(temp_df, ignore_index=True)
-                big_df.reset_index(inplace=True, drop=True)
+                big_df = big_df.reset_index(drop=True)
                 return big_df
             else:
                 return pd.DataFrame(data_json[fields])

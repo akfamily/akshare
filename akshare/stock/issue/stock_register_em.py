@@ -43,9 +43,9 @@ def stock_register_all_em() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -60,7 +60,6 @@ def stock_register_all_em() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -117,9 +116,9 @@ def stock_register_kcb() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -134,7 +133,6 @@ def stock_register_kcb() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -191,9 +189,9 @@ def stock_register_cyb() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -208,7 +206,6 @@ def stock_register_cyb() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -265,9 +262,9 @@ def stock_register_bj() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -282,7 +279,6 @@ def stock_register_bj() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -339,9 +335,9 @@ def stock_register_sh() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -356,7 +352,6 @@ def stock_register_sh() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -413,9 +408,9 @@ def stock_register_sz() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -430,7 +425,6 @@ def stock_register_sz() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -486,14 +480,13 @@ def stock_register_db() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "ORG_NAME": "企业名称",
         },
-        inplace=True,
     )
 
     big_df = big_df[

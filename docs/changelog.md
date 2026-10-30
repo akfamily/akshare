@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-8)=
+### 1.20.8 build: raise dependency floors and drop pandas inplace
+
+1. 上调依赖下限：pandas>=2.2.2、lxml>=4.9.2、beautifulsoup4>=4.11.2、html5lib>=1.1、openpyxl>=3.1.0、xlrd>=2.0.1。原先的下限在 Python 3.11 上无法使用：lxml 4.2.1 没有预编译包且源码编译失败，pandas 2.0.0 不兼容 numpy 2，部分接口用到的 DataFrame.map 需要 pandas 2.1 及以上，xlrd 与 openpyxl 低于 pandas 自身要求的版本，在最低版本环境下 currency_boc_safe、stock_zh_index_value_csindex 等接口会报错
+2. 962 处 pandas 的 inplace=True 写法改为使用返回值。pandas 3.1 已弃用 inplace 并计划在 pandas 4 中移除，原先每次调用会产生大量 Pandas4Warning，如 stock_financial_report_sina 单次调用 118 条
+3. CI 新增 lowest-deps 检查，在 Python 3.11 上按声明的最低版本安装依赖并运行测试
+
 (v1-20-7)=
 ### 1.20.7 fix: stop retrying when eastmoney push2 rate-limits
 

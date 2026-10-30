@@ -72,7 +72,7 @@ def futures_spot_price_daily(
         start_day += datetime.timedelta(days=1)
     if len(df_list) > 0:
         temp_df = pd.concat(df_list)
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 
@@ -125,7 +125,7 @@ def futures_spot_price(
                     records.index = records["symbol"]
                     var_list_in_market = [i for i in vars_list if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
-                    temp_df.reset_index(drop=True, inplace=True)
+                    temp_df = temp_df.reset_index(drop=True)
                     return temp_df
                 else:
                     time.sleep(3)
@@ -280,7 +280,7 @@ def _check_information(df_data, date):
     )
     # records.loc[:, "date"] = date.strftime("%Y%m%d")
     records.insert(0, "date", date.strftime("%Y%m%d"))
-    records.reset_index(inplace=True, drop=True)
+    records = records.reset_index(drop=True)
     return records
 
 
@@ -366,7 +366,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         "180日内主力基差平均",
     ]
     basis["主力合约变动百分比"] = basis["主力合约变动百分比"].str.strip("%")
-    basis.reset_index(inplace=True, drop=True)
+    basis = basis.reset_index(drop=True)
     return basis
 
 

@@ -143,7 +143,7 @@ def _fund_value_estimation_index_em() -> pd.DataFrame:
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     if big_df.empty:
         return big_df
-    big_df.drop_duplicates(subset=["基金代码"], inplace=True, ignore_index=True)
+    big_df = big_df.drop_duplicates(subset=["基金代码"], ignore_index=True)
     big_df["序号"] = range(1, len(big_df) + 1)
     return big_df
 
@@ -166,7 +166,7 @@ def fund_purchase_em() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var reData="))
     temp_df = pd.DataFrame(data_json["datas"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -783,7 +783,7 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
             "SHZT": "赎回状态",
         }
     )
-    big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["净值日期"], ignore_index=True)
     big_df = big_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
     big_df["净值日期"] = pd.to_datetime(big_df["净值日期"], errors="coerce").dt.date
     big_df["每万份收益"] = pd.to_numeric(big_df["每万份收益"], errors="coerce")
@@ -921,7 +921,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
             "分红送配",
         ]
     ]
-    temp_df.sort_values(["净值日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(["净值日期"], ignore_index=True)
     temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"], errors="coerce").dt.date
     temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
     temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"], errors="coerce")
@@ -1044,7 +1044,7 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
             "SHZT": "赎回状态",
         }
     )
-    big_df.sort_values(by=["净值日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["净值日期"], ignore_index=True)
     big_df = big_df[
         ["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]
     ]
@@ -1071,7 +1071,7 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
     temp_df = temp_df.iloc[1:, 1:]
     temp_df.columns = temp_df_columns
     temp_df["基金简称"] = temp_df["基金简称"].str.replace("行情吧档案", "")
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df.columns = [
         "基金代码",
         "基金简称",
@@ -1148,7 +1148,7 @@ def fund_etf_fund_info_em(
     big_df["单位净值"] = pd.to_numeric(big_df["单位净值"], errors="coerce")
     big_df["累计净值"] = pd.to_numeric(big_df["累计净值"], errors="coerce")
     big_df["日增长率"] = pd.to_numeric(big_df["日增长率"], errors="coerce")
-    big_df.sort_values(["净值日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["净值日期"], ignore_index=True)
     return big_df
 
 
@@ -1245,9 +1245,9 @@ def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
             f"{value_day}-单位净值",
         ]
     ]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
+    temp_df = temp_df.rename(columns={"index": "序号"})
     return temp_df
 
 

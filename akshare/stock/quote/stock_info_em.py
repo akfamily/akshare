@@ -41,7 +41,7 @@ def stock_individual_info_em(
     r = http.get(url, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     del temp_df["rc"]
     del temp_df["rt"]
     del temp_df["svr"]
@@ -64,7 +64,7 @@ def stock_individual_info_em(
     # ``dlmkts`` or ``dsc``. Keep only the mapped key and nested ``data`` value.
     temp_df = temp_df[["index", "data"]]
     temp_df.columns = ["item", "value"]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

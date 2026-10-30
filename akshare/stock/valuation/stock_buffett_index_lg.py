@@ -38,7 +38,7 @@ def stock_buffett_index_lg() -> pd.DataFrame:
         "quantileInRecent10Years": "近十年分位数",
     }
     existing_rename = {k: v for k, v in rename_map.items() if k in temp_df.columns}
-    temp_df.rename(columns=existing_rename, inplace=True)
+    temp_df = temp_df.rename(columns=existing_rename)
 
     base_cols = ["日期", "收盘价", "总市值", "GDP"]
     optional_cols = ["近十年分位数", "总历史分位数"]

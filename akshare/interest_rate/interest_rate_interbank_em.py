@@ -126,8 +126,8 @@ def rate_interbank(
     big_df["报告日"] = pd.to_datetime(big_df["报告日"], errors="coerce").dt.date
     big_df["利率"] = pd.to_numeric(big_df["利率"], errors="coerce")
     big_df["涨跌"] = pd.to_numeric(big_df["涨跌"], errors="coerce")
-    big_df.sort_values(["报告日"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["报告日"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 

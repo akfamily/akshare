@@ -40,7 +40,7 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "NUM": "序号",
             "SEC_CODE": "基金代码",
@@ -49,7 +49,6 @@ def fund_etf_scale_sse(date: str = "20250115") -> pd.DataFrame:
             "STAT_DATE": "统计日期",
             "TOT_VOL": "基金份额",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

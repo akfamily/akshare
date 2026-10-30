@@ -114,11 +114,11 @@ def stock_zh_a_hist_tx(
         big_df["volume"] = big_df["volume"] * 100
     big_df["turnover"] = big_df["turnover"] / 100
     big_df["amount"] = big_df["amount"] * 10000
-    big_df.drop_duplicates(inplace=True, ignore_index=True)
+    big_df = big_df.drop_duplicates(ignore_index=True)
     big_df.index = pd.to_datetime(big_df["date"], errors="coerce")
-    big_df.sort_index(inplace=True)
+    big_df = big_df.sort_index()
     big_df = big_df[start_date:end_date]
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 

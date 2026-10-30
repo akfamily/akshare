@@ -23,7 +23,7 @@ def index_global_name_table() -> pd.DataFrame:
         index_global_sina_symbol_map, orient="index", columns=["代码"]
     )
     temp_df.index.name = "指数名称"
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     return temp_df
 
 
@@ -44,7 +44,7 @@ def index_global_hist_sina(symbol: str = "OMX") -> pd.DataFrame:
     r = http.get(url=url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "d": "date",
             "o": "open",
@@ -53,7 +53,6 @@ def index_global_hist_sina(symbol: str = "OMX") -> pd.DataFrame:
             "c": "close",
             "v": "volume",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

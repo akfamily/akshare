@@ -49,9 +49,9 @@ def stock_financial_abstract_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
-    temp_df.sort_values(by="报告期", ignore_index=True, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
+    temp_df = temp_df.sort_values(by="报告期", ignore_index=True)
     return temp_df
 
 
@@ -84,8 +84,8 @@ def stock_financial_debt_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -122,8 +122,8 @@ def stock_financial_benefit_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -160,8 +160,8 @@ def stock_financial_cash_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -611,17 +611,16 @@ def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
         for i in range(0, len(row), step):
             new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
-        temp_df.sort_values(by="变动日期", ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by="变动日期", ignore_index=True)
         temp_df["变动日期"] = pd.to_datetime(
             temp_df["变动日期"], errors="coerce"
         ).dt.date
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "变动数量（股）": "变动数量",
                 "交易均价（元）": "交易均价",
                 "剩余股数（股）": "剩余股数",
             },
-            inplace=True,
         )
         return temp_df
     return pd.DataFrame()
@@ -659,17 +658,16 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
         for i in range(0, len(row), step):
             new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
-        temp_df.sort_values(by="公告日期", ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by="公告日期", ignore_index=True)
         temp_df["公告日期"] = pd.to_datetime(
             temp_df["公告日期"], errors="coerce"
         ).dt.date
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "变动数量(股)": "变动数量",
                 "交易均价(元)": "交易均价",
                 "剩余股份总数(股)": "剩余股份总数",
             },
-            inplace=True,
         )
         return temp_df
     return pd.DataFrame()

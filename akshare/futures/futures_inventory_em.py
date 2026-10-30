@@ -56,8 +56,8 @@ def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = ["-", "日期", "库存", "增减"]
     temp_df = temp_df[["日期", "库存", "增减"]]
-    temp_df.sort_values(["日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(["日期"])
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["库存"] = pd.to_numeric(temp_df["库存"], errors="coerce")
     temp_df["增减"] = pd.to_numeric(temp_df["增减"], errors="coerce")
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date

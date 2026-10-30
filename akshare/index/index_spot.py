@@ -39,7 +39,7 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
     temp_df["指数"] = pd.to_numeric(temp_df["指数"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df.dropna(inplace=True, ignore_index=True)
+    temp_df = temp_df.dropna(ignore_index=True)
     return temp_df
 
 

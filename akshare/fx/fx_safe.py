@@ -30,8 +30,8 @@ def currency_boc_safe() -> pd.DataFrame:
     content = soup.find(name="a", string=re.compile("人民币汇率"))["href"]
     url = f"https://www.safe.gov.cn{content}"
     temp_df = pd.read_excel(http.get_buffer(url))
-    temp_df.sort_values(by=["日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["日期"])
+    temp_df = temp_df.reset_index(drop=True)
     start_date = (
         (pd.Timestamp(temp_df["日期"].tolist()[-1]) + pd.Timedelta(days=1))
         .isoformat()
@@ -46,8 +46,8 @@ def currency_boc_safe() -> pd.DataFrame:
     }
     r = http.post(url, data=payload)
     current_temp_df = pd.read_html(StringIO(r.text))[-1]
-    current_temp_df.sort_values(by=["日期"], inplace=True)
-    current_temp_df.reset_index(inplace=True, drop=True)
+    current_temp_df = current_temp_df.sort_values(by=["日期"])
+    current_temp_df = current_temp_df.reset_index(drop=True)
     big_df = pd.concat(objs=[temp_df, current_temp_df], ignore_index=True)
     column_name_list = big_df.columns[1:]
     for item in column_name_list:
