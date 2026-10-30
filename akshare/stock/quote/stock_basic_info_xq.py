@@ -14,6 +14,7 @@ import requests
 from akshare.exceptions import APIError, NetworkError
 from akshare.utils import http
 from akshare.utils.cons import headers
+from akshare.utils.params import resolve_timeout
 
 
 def _get_xq_company_data(
@@ -36,6 +37,8 @@ def _get_xq_company_data(
     :raises APIError: 上游接口返回异常或需要有效登录态
     """
     from akshare.stock.cons import xq_a_token
+
+    timeout = resolve_timeout(timeout)
 
     session = http.Session()
     xq_token = token or xq_a_token

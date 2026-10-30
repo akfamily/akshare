@@ -17,6 +17,7 @@ from tqdm import tqdm
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
 from akshare.utils import http
+from akshare.utils.params import to_int
 
 
 def bank_fjcf_total_num(item: str = "分局本级") -> int:
@@ -83,10 +84,12 @@ def bank_fjcf_page_url(
     :param item: choice of {"机关", "本级", "分局本级"}
     :type item: str
     :param begin: 开始页数
-    :type begin: str
+    :type begin: int
     :return: 需要的字段
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
+    begin = to_int(begin, "begin")
     item_id_list = {
         "机关": "4113",
         "本级": "4114",

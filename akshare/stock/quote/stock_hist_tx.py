@@ -14,6 +14,7 @@ from akshare.index.index_stock_zh import get_tx_start_year
 from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+from akshare.utils.params import resolve_timeout
 
 
 def _normalize_tx_symbol(symbol: str) -> str:
@@ -78,7 +79,7 @@ def stock_zh_a_hist_tx(
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,{adjust}",
             "r": "0.8205512681390605",
         }
-        r = http.get(url, params=params, timeout=timeout)
+        r = http.get(url, params=params, timeout=resolve_timeout(timeout))
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][symbol]
         if "day" in data_json.keys():

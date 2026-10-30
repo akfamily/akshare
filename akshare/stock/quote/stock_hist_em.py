@@ -10,6 +10,7 @@ import pandas as pd
 
 from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
+from akshare.utils.params import resolve_timeout
 
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
@@ -989,7 +990,7 @@ def stock_zh_a_hist(
         "beg": start_date,
         "end": end_date,
     }
-    r = http.get(url, params=params, timeout=timeout)
+    r = http.get(url, params=params, timeout=resolve_timeout(timeout))
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()

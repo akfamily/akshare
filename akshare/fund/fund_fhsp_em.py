@@ -12,6 +12,7 @@ import pandas as pd
 
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+from akshare.utils.params import to_int
 
 
 def fund_fh_em(
@@ -41,6 +42,7 @@ def fund_fh_em(
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
 
     def get_df_from_response(response):
         text = response.text
@@ -133,6 +135,7 @@ def fund_cf_em(
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
 
     def get_df_from_response(response):
         text = response.text

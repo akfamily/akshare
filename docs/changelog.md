@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-13)=
+### 1.20.13 fix: accept text values for numeric and boolean parameters
+
+1. 要求数字或布尔值的参数现在也接受文本，便于经 HTTP（如 AKTools）、MCP 或配置文件调用：涉及 stock_zh_a_hist、stock_zh_a_hist_tx、stock_individual_info_em、stock_individual_spot_xq、stock_individual_basic_info_xq、stock_individual_basic_info_us_xq、stock_individual_basic_info_hk_xq 与 6 个 fund_individual_*_xq 接口的 timeout，fund_fh_em、fund_cf_em、bank_fjcf_table_detail 的 page，bank_fjcf_table_detail 的 begin，以及 search 的 limit、documented_only。原先 timeout="5" 报 `Timeout value … must be an int, float or None`，page="-1" 被当作第 -1 页，documented_only="false" 被当作真；无法转换时抛出 InvalidParameterError
+2. 上述接口的 timeout 未指定时，原先等于不设超时，ak.set_timeout 对它们不起作用；现在使用 ak.set_timeout 设置的全局超时，默认连接 10 秒、读取 60 秒
+
 (v1-20-12)=
 ### 1.20.12 perf: reduce requests of sina macro interfaces
 

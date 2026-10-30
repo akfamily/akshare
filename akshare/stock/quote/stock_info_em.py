@@ -9,6 +9,7 @@ https://quote.eastmoney.com/concept/sh603777.html?from=classic
 import pandas as pd
 
 from akshare.utils import http
+from akshare.utils.params import resolve_timeout
 
 
 def stock_individual_info_em(
@@ -38,7 +39,7 @@ def stock_individual_info_em(
         "f275,f276,f265,f266,f289,f290,f286,f285,f292,f293,f294,f295,f43",
         "secid": f"{market_code}.{symbol}",
     }
-    r = http.get(url, params=params, timeout=timeout)
+    r = http.get(url, params=params, timeout=resolve_timeout(timeout))
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df = temp_df.reset_index()
