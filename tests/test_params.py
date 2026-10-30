@@ -5,12 +5,12 @@ Date: 2026/10/30
 Desc: 接口参数类型转换测试
 
 经 HTTP（AKTools 的 /api/public）、MCP 或配置文件调用时，参数值往往只能是文本。少数
-接口的参数要求数字或布尔值：stock_zh_a_hist?timeout=5 会报
-Timeout value … must be an int, float or None；fund_fh_em(page="-1") 不等于 -1；
+接口的参数要求数字或布尔值：fund_fh_em(page="-1") 不等于 -1，
 search(documented_only="false") 作为布尔值为真。这些参数现在同时接受原生类型与文本。
 
-另外，这些接口原先把 timeout=None 显式传给请求函数，等于不设超时，ak.set_timeout 对它们
-不起作用。全程不联网。
+原先 13 个接口另有 timeout 参数，stock_zh_a_hist?timeout=5 会报
+Timeout value … must be an int, float or None，且默认 None 等于不设超时、绕过
+ak.set_timeout。1.20.13 起删除这些参数，超时统一由 ak.set_timeout 设置。全程不联网。
 """
 
 import inspect
@@ -23,7 +23,7 @@ import requests
 import akshare as ak
 from akshare.exceptions import InvalidParameterError
 from akshare.utils.context import DEFAULT_TIMEOUT, config
-from akshare.utils.params import resolve_timeout, to_bool, to_int
+from akshare.utils.params import to_bool, to_int
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -62,22 +62,6 @@ def test_to_bool_rejects():
         to_bool("maybe", "flag")
 
 
-def test_resolve_timeout(monkeypatch):
-    monkeypatch.setattr(config, "timeout", DEFAULT_TIMEOUT)
-    assert resolve_timeout(None) == DEFAULT_TIMEOUT
-    assert resolve_timeout("") == DEFAULT_TIMEOUT
-    assert resolve_timeout("5") == 5.0
-    assert resolve_timeout(2.5) == 2.5
-    monkeypatch.setattr(config, "timeout", 7)
-    assert resolve_timeout(None) == 7
-
-
-@pytest.mark.parametrize("value", ["abc", "0", -1, True])
-def test_resolve_timeout_rejects(value):
-    with pytest.raises(InvalidParameterError, match="timeout"):
-        resolve_timeout(value)
-
-
 @pytest.fixture
 def sent(monkeypatch):
     """记录交给传输层的 timeout，并返回一个空响应，不联网"""
@@ -97,14 +81,24 @@ def sent(monkeypatch):
     return calls
 
 
-@pytest.mark.parametrize(
-    "timeout, expected", [("5", 5.0), (5, 5), (None, DEFAULT_TIMEOUT)]
-)
-def test_stock_zh_a_hist_timeout(sent, timeout, expected):
-    ak.stock_zh_a_hist(
-        symbol="000001", start_date="20240101", end_date="20240110", timeout=timeout
-    )
-    assert sent == [expected]
+def test_stock_zh_a_hist_uses_global_timeout(sent, monkeypatch):
+    """接口不再提供 timeout 参数，请求使用 ak.set_timeout 设置的全局超时"""
+    ak.stock_zh_a_hist(symbol="000001", start_date="20240101", end_date="20240110")
+    monkeypatch.setattr(config, "timeout", 7)
+    ak.stock_zh_a_hist(symbol="000001", start_date="20240101", end_date="20240110")
+    assert sent == [DEFAULT_TIMEOUT, 7]
+
+
+def test_interfaces_have_no_timeout_param():
+    """超时统一由 ak.set_timeout 设置，公开接口不再提供 timeout 参数"""
+    offenders = [
+        name
+        for name in ak.__all__
+        if inspect.isfunction(getattr(ak, name))
+        and "timeout" in inspect.signature(getattr(ak, name)).parameters
+        and name not in {"set_timeout"}
+    ]
+    assert not offenders, offenders
 
 
 def test_search_accepts_text_params():
@@ -133,9 +127,9 @@ def _numeric_params():
 
 
 def test_numeric_params_accept_text():
-    """新增数字或布尔参数时，必须在模块里经 to_int、to_bool、resolve_timeout 或 int()、float() 转换"""
+    """新增数字或布尔参数时，必须在模块里经 to_int、to_bool 或 int()、float() 转换"""
     params = list(_numeric_params())
-    assert len(params) >= 20
+    assert len(params) >= 5
     missing = []
     for name, param in params:
         source = pathlib.Path(inspect.getsourcefile(getattr(ak, name))).read_text(
@@ -144,7 +138,6 @@ def test_numeric_params_accept_text():
         patterns = (
             f"to_int({param}",
             f"to_bool({param}",
-            f"resolve_timeout({param}",
             f"int({param})",
             f"float({param})",
         )
