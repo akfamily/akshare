@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/2 22:40
+Date: 2026/10/30
 Desc: 真气网-空气质量
 https://www.zq12369.com/environment.php
 空气质量在线监测分析平台的空气质量数据
@@ -9,13 +9,14 @@ https://www.aqistudy.cn/
 """
 
 from akshare.datasets import get_data_file
-import json
 import re
+import warnings
 from io import StringIO
 
 import pandas as pd
 from py_mini_racer import MiniRacer
 
+from akshare.exceptions import APIError, DataParsingError
 from akshare.utils import jsonish
 from akshare.utils import http
 
@@ -44,7 +45,7 @@ def _get_file_content(file_name: str = "crypto.js") -> str:
     """
     setting_file_name = file_name
     setting_file_path = _get_js_path(setting_file_name, __file__)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf-8") as f:
         file_data = f.read()
     return file_data
 
@@ -138,77 +139,93 @@ def air_quality_watch_point(
     return temp_df
 
 
+def _zhenqi_page_keys() -> dict:
+    """
+    读取真气网首页内联脚本中的加解密密钥 akb33、akb34、akb35、akb36、akb48
+    站点会更换这些值，因此每次调用时读取，不写死在代码中
+    :return: 变量名到值的映射
+    :rtype: dict
+    :raises DataParsingError: 页面中未找到密钥
+    """
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/142.0.0.0 Safari/537.36",
+    }
+    r = http.get("https://www.zq12369.com/", headers=headers)
+    keys = dict(re.findall(r'var (akb\d+)\s*=\s*"([^"]*)"', r.text))
+    missing = {"akb33", "akb34", "akb35", "akb36", "akb48"} - keys.keys()
+    if missing:
+        raise DataParsingError(
+            f"真气网首页中未找到加密密钥 {sorted(missing)}，上游可能已改版"
+        )
+    return keys
+
+
 def air_quality_hist(
     city: str = "杭州",
     period: str = "day",
-    start_date: str = "20190327",
-    end_date: str = "20200427",
+    start_date: str = "20260901",
+    end_date: str = "20261028",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
     https://www.zq12369.com/
+    上游只提供最近约一年的数据，更早的日期返回空表
     :param city: 调用 ak.air_city_table() 接口获取所有城市列表
     :type city: str
-    :param period: "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据
+    :param period: "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据，上游目前返回其他城市的数据，会报错
     :type period: str
-    :param start_date: e.g., "20190327"
+    :param start_date: e.g., "20260901"
     :type start_date: str
-    :param end_date: e.g., "20200327"
+    :param end_date: e.g., "20261028"
     :type end_date: str
     :return: 指定城市和数据频率下在指定时间段内的空气质量数据
     :rtype: pandas.DataFrame
     """
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
-    url = "https://www.zq12369.com/api/newzhenqiapi.php"
-    file_data = _get_file_content(file_name="outcrypto.js")
+    # 2026-10 起站点改为按 akb33 决定加密顺序、密钥写在页面里；原先内置的
+    # encode_param 写死了旧顺序与旧密钥，服务端无法解密请求，返回的内容也解不开
+    keys = _zhenqi_page_keys()
     ctx = MiniRacer()
-    ctx.eval(file_data)
-    app_id = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
-    method = "CETCITYPERIOD"
-    timestamp = ctx.eval("timestamp = new Date().getTime()")
-    p_text = json.dumps(
-        {
-            "city": city,
-            "endTime": f"{end_date} 23:45:39",
-            "startTime": f"{start_date} 00:00:00",
-            "type": period.upper(),
-        },
-        ensure_ascii=False,
-        indent=None,
-    ).replace(' "', '"')
-    secret = ctx.call("hex_md5", app_id + method + str(timestamp) + "WEB" + p_text)
-    payload = {
-        "appId": "4f0e3a273d547ce6b7147bfa7ceb4b6e",
-        "method": "CETCITYPERIOD",
-        "timestamp": int(timestamp),
-        "clienttype": "WEB",
-        "object": {
-            "city": city,
-            "type": period.upper(),
-            "startTime": f"{start_date} 00:00:00",
-            "endTime": f"{end_date} 23:45:39",
-        },
-        "secret": secret,
+    ctx.eval(_get_file_content(file_name="crypto.js"))
+    ctx.eval("".join(f'var {k} = "{v}";\n' for k, v in keys.items()))
+    ctx.eval("var b = new Base64();\n" + _get_file_content(file_name="outcrypto.js"))
+    obj = {
+        "city": city,
+        "type": period.upper(),
+        "startTime": f"{start_date} 00:00:00",
+        "endTime": f"{end_date} 23:45:39",
     }
-    need = (
-        json.dumps(payload, ensure_ascii=False, indent=None, sort_keys=False)
-        .replace(' "', '"')
-        .replace("\\", "")
-        .replace('p": ', 'p":')
-        .replace('t": ', 't":')
-    )
-
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
-        "Chrome/100.0.4896.75 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/142.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
+        "Referer": "https://www.zq12369.com/",
     }
-    params = {"param": ctx.call("encode_param", need)}
-    r = http.post(url, data=params, headers=headers)
-    temp_text = ctx.call("decryptData", r.text)
-    data_json = jsonish.loads(ctx.call("b.decode", temp_text))
-    temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
+    r = http.post(
+        "https://www.zq12369.com/api/newzhenqiapi.php",
+        data={"param": ctx.call("getParam", "CETCITYPERIOD", obj)},
+        headers=headers,
+    )
+    data_json = jsonish.loads(ctx.call("b.decode", ctx.call("decryptData", r.text)))
+    if not data_json.get("success"):
+        raise APIError(f"真气网返回错误：{data_json.get('errmsg')}")
+    rows = data_json["result"]["data"]["rows"]
+    if not rows:
+        warnings.warn(
+            "真气网未返回数据；上游只提供最近约一年的数据，请检查日期范围与城市名称"
+        )
+        return pd.DataFrame()
+    temp_df = pd.DataFrame(rows)
+    # 2026-10 实测月度数据无论请求哪个城市、哪个时段，都返回郑州 2021-08～2022-08，
+    # 返回其他城市的数据比报错更糟，因此城市名不符时直接报错
+    if "cityname" in temp_df.columns and not (temp_df["cityname"] == city).all():
+        returned = "、".join(temp_df["cityname"].astype(str).unique()[:3])
+        raise APIError(
+            f"真气网返回的是{returned}的数据而非{city}，上游数据有误；"
+            "月度数据可改用 period='day' 后自行按月汇总"
+        )
     temp_df.index = temp_df["time"]
     del temp_df["time"]
     temp_df = temp_df.astype(float, errors="ignore")
@@ -284,8 +301,8 @@ if __name__ == "__main__":
     air_quality_hist_df = air_quality_hist(
         city="北京",
         period="day",
-        start_date="20220801",
-        end_date="20240402",
+        start_date="20260901",
+        end_date="20261028",
     )
     print(air_quality_hist_df)
 

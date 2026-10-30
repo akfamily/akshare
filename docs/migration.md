@@ -85,7 +85,7 @@
 | `akshare.news.news_cctv` | `akshare.alternative.alternative_news_cctv` |
 | `akshare.news.news_stock` | `akshare.stock.research.stock_news_stock` |
 | `akshare.other.other_car_cpca` | `akshare.alternative.alternative_car_cpca` |
-| `akshare.other.other_car_gasgoo` | `akshare.alternative.alternative_car_gasgoo` |
+| `akshare.other.other_car_gasgoo` | `akshare.alternative.alternative_car_gasgoo`（1.20.11 起随 car_sale_rank_gasgoo 一并移除） |
 | `akshare.other.other_taptap` | `akshare.alternative.alternative_taptap` |
 | `akshare.rate.repo_rate` | `akshare.interest_rate.interest_rate_repo` |
 | `akshare.reits.reits_basic` | `akshare.fund.fund_reits` |
