@@ -243,12 +243,17 @@ def get_shfe_receipt_3(
     from io import StringIO
 
     temp_tables = pd.read_html(StringIO(r.text))
-    len(temp_tables)
     records = pd.DataFrame()
     for table_num in range(1, len(temp_tables)):
-        temp_df = pd.read_html(StringIO(r.text))[table_num]
+        temp_df = temp_tables[table_num]
+        # 交易所新增品种时 chinese_to_english 不认识其名称，跳过该表而不是让整个接口报错
+        try:
+            var = chinese_to_english(temp_df.iloc[0, 1])
+        except ValueError:
+            warnings.warn(f"上期所仓单中有未识别的品种：{temp_df.iloc[0, 1]}，已跳过")
+            continue
         data_dict = {
-            "var": chinese_to_english(temp_df.iloc[0, 1]),
+            "var": var,
             "receipt": int(temp_df.iloc[-1, 2]),
             "receipt_chg": int(temp_df.iloc[-1, 3]),
             "date": date,

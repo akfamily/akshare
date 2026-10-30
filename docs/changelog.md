@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-10)=
+### 1.20.10 fix: fix get_receipt interface
+
+1. 修复 get_receipt 接口：上期所仓单页面新增 `20号胶(仓库)`、`20号胶(厂库)` 两个品种，品种映射中没有这两个名称，所有包含上期所品种的调用都报 ValueError: list.index(x): x not in list；现已映射为 NR，此后遇到未识别的新品种时给出警告并跳过，不再整体报错
+2. 期货接口使用的 requests_link、pandas_read_html_link 重试用尽后原先返回 None，用户只能看到 'NoneType' object has no attribute 'text'；现在抛出原始的网络异常，如 ConnectTimeout、ProxyError
+3. get_shfe_daily、get_czce_daily 原先处理 404 的分支从不执行：前者把响应对象与整数比较，两者都没有检查状态码；现在 404 返回空表，其他错误状态码给出警告后返回空表
+
 (v1-20-9)=
 ### 1.20.9 refactor: replace demjson with jsonish
 
