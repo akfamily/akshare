@@ -17,7 +17,6 @@ http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
 import datetime
 import json
 import re
-import time
 import warnings
 import zipfile
 from io import BytesIO
@@ -544,22 +543,18 @@ def _get_dce_contract_list(date, var):
         "contract": "",
     }
 
-    while 1:
-        try:
-            r = http.post(url, params=params, headers=headers)
-            soup = BeautifulSoup(r.text, "lxml")
-            contract_list = [
-                re.findall(
-                    r"\d+",
-                    item["onclick"].strip("javascript:setContract_id('").strip("');"),
-                )[0]
-                for item in soup.find_all(attrs={"name": "contract"})
-            ]
-            contract_list = [var.lower() + item for item in contract_list]
-            return contract_list
-        except Exception:
-            time.sleep(5)
-            continue
+    # 原先遇到任何异常都等 5 秒后无限重试，上游故障或改版时接口会一直不返回
+    r = http.request_with_retry("post", url, params=params, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    contract_list = [
+        re.findall(
+            r"\d+",
+            item["onclick"].strip("javascript:setContract_id('").strip("');"),
+        )[0]
+        for item in soup.find_all(attrs={"name": "contract"})
+    ]
+    contract_list = [var.lower() + item for item in contract_list]
+    return contract_list
 
 
 def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) -> dict:

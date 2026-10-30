@@ -11,8 +11,21 @@ from typing import List, Dict
 
 import pandas as pd
 
-from akshare.utils.request import request_with_retry
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+
+
+def _get_page(url: str, params: Dict, timeout):
+    """
+    取一页东方财富分页数据；每次新建连接，失败时按 http.request_with_retry 的策略重试
+    :return: 响应对象
+    :rtype: requests.Response
+    """
+    r = http.request_with_retry(
+        "get", url, params=params, timeout=timeout, fresh_session=True
+    )
+    r.raise_for_status()
+    return r
 
 
 def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
@@ -31,7 +44,7 @@ def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
     # 复制参数以避免修改原始参数
     params = base_params.copy()
     # 获取第一页数据，用于确定分页信息
-    r = request_with_retry(url, params=params, timeout=timeout)
+    r = _get_page(url, params, timeout)
     data_json = r.json()
     # 计算分页信息
     per_page_num = len(data_json["data"]["diff"])
@@ -47,7 +60,7 @@ def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
         params.update({"pn": page})
         # 添加随机延迟，避免请求过于频繁
         time.sleep(random.uniform(0.5, 1.5))
-        r = request_with_retry(url, params=params, timeout=timeout)
+        r = _get_page(url, params, timeout)
         data_json = r.json()
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)

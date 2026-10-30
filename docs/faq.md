@@ -70,6 +70,16 @@ with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.
 1. 检查代理地址的协议：大多数本地代理软件提供的是 HTTP 代理，`https` 一项也应写成 `http://` 开头，例如 `{"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}`
 2. 不要通过降低 urllib3 版本来规避，旧版本存在已知安全漏洞
 
+(faq-eastmoney-ratelimit)=
+### 东方财富行情接口报 RemoteDisconnected 或限流
+
+报错信息：`Push2RateLimitError: 东方财富 push2 行情服务器断开了连接……`；1.20.6 及以前为 `ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))`
+
+1. 原因：东方财富 push2 行情服务器在短时间内收到较多请求时，会临时拒绝来自该 IP 的连接。实时行情、历史 K 线、板块、资金流等接口都使用这类服务器，需要翻页的接口最容易触发，例如 stock_zh_a_spot_em 一次调用要请求约 60 页
+2. 首次限流一般约 5 分钟后恢复；恢复后如果马上又大量请求，会更快再次被限流，恢复时间也更长，实测超过 15 分钟仍未恢复
+3. 等待期间不要重复调用东方财富的行情接口，否则会延长限流。东方财富数据中心、基金、F10 财务报表等接口使用其他服务器，实测不受影响
+4. 自 1.20.7 起，识别到限流后立即报错，不再自动重试。该异常同时是 `ak.RateLimitError` 与 `requests.ConnectionError` 的子类，可以用 `except ak.RateLimitError` 单独捕获
+
 ### 升级到 1.20.0 后找不到模块
 
 报错信息：`ModuleNotFoundError: No module named 'akshare.xxx'`
