@@ -126,7 +126,6 @@ print(fund_info_ths_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -2730,7 +2729,6 @@ print(fund_hk_rank_em_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -2862,7 +2860,6 @@ print(fund_value_estimation_em_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -2909,7 +2906,6 @@ print(fund_individual_analysis_xq_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -2955,7 +2951,6 @@ print(fund_individual_profit_probability_xq_df)
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
 | date    | str   | date="20231231"；季度日期   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -3100,7 +3095,6 @@ print(fund_fee_em_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="000001"；基金代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 

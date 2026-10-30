@@ -42,7 +42,6 @@ def stock_zh_a_hist_tx(
     start_date: str = "19000101",
     end_date: str = "20500101",
     adjust: str = "",
-    timeout: float = None,
 ) -> pd.DataFrame:
     """
     腾讯证券-日频-股票历史数据
@@ -55,8 +54,6 @@ def stock_zh_a_hist_tx(
     :type end_date: str
     :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 历史行情数据，其中 volume 统一为股，amount 统一为元
     :rtype: pandas.DataFrame
     """
@@ -78,7 +75,7 @@ def stock_zh_a_hist_tx(
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,{adjust}",
             "r": "0.8205512681390605",
         }
-        r = http.get(url, params=params, timeout=timeout)
+        r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][symbol]
         if "day" in data_json.keys():

@@ -30,9 +30,7 @@ def _convert_timestamp(timestamp_ms: int) -> str:
     return datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def _get_xq_quote_data(
-    symbol: str, token: Optional[str] = None, timeout: Optional[float] = None
-) -> dict[str, Any]:
+def _get_xq_quote_data(symbol: str, token: Optional[str] = None) -> dict[str, Any]:
     """
     获取雪球个股行情接口的原始数据
 
@@ -40,8 +38,6 @@ def _get_xq_quote_data(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: 设置超时时间
-    :type timeout: Optional[float]
     :return: 个股行情原始数据
     :rtype: dict[str, Any]
     :raises NetworkError: 网络请求异常
@@ -59,8 +55,8 @@ def _get_xq_quote_data(
     }
     url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
     try:
-        session.get(url="https://xueqiu.com", headers=headers, timeout=timeout)
-        r = session.get(url, headers=headers, timeout=timeout)
+        session.get(url="https://xueqiu.com", headers=headers)
+        r = session.get(url, headers=headers)
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(f"Failed to request Xueqiu quote endpoint: {err}") from err
@@ -82,7 +78,6 @@ def _get_xq_quote_data(
 def stock_individual_spot_xq(
     symbol: str = "SH600000",
     token: Optional[str] = None,
-    timeout: Optional[float] = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
@@ -91,8 +86,6 @@ def stock_individual_spot_xq(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: choice of None or a positive float number
-    :type timeout: Optional[float]
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     :raises APIError: 雪球接口需要有效登录态时抛出
@@ -143,7 +136,7 @@ def stock_individual_spot_xq(
         "volume": "成交量",
         "time": "时间",
     }
-    quote_data = _get_xq_quote_data(symbol=symbol, token=token, timeout=timeout)
+    quote_data = _get_xq_quote_data(symbol=symbol, token=token)
     temp_df = pd.json_normalize(quote_data)
     temp_df.columns = [
         *map(

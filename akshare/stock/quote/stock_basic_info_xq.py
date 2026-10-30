@@ -17,7 +17,7 @@ from akshare.utils.cons import headers
 
 
 def _get_xq_company_data(
-    url: str, symbol: str, token: Optional[str] = None, timeout: Optional[float] = None
+    url: str, symbol: str, token: Optional[str] = None
 ) -> dict[str, Any]:
     """
     获取雪球公司简介接口的原始数据
@@ -28,8 +28,6 @@ def _get_xq_company_data(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: 设置超时时间
-    :type timeout: Optional[float]
     :return: 公司简介接口原始数据
     :rtype: dict[str, Any]
     :raises NetworkError: 网络请求异常
@@ -42,10 +40,8 @@ def _get_xq_company_data(
     request_headers = headers.copy()
     request_headers.update({"cookie": f"xq_a_token={xq_token};"})
     try:
-        session.get(url="https://xueqiu.com", headers=request_headers, timeout=timeout)
-        r = session.get(
-            url, params={"symbol": symbol}, headers=request_headers, timeout=timeout
-        )
+        session.get(url="https://xueqiu.com", headers=request_headers)
+        r = session.get(url, params={"symbol": symbol}, headers=request_headers)
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(f"Failed to request Xueqiu company endpoint: {err}") from err
@@ -86,7 +82,6 @@ def _build_xq_company_df(data: dict[str, Any]) -> pd.DataFrame:
 def stock_individual_basic_info_xq(
     symbol: str = "SH601127",
     token: Optional[str] = None,
-    timeout: Optional[float] = None,
 ) -> pd.DataFrame:
     """
     雪球-个股-公司概况-公司简介
@@ -95,21 +90,18 @@ def stock_individual_basic_info_xq(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: 设置超时时间
-    :type timeout: Optional[float]
     :return: 公司简介
     :rtype: pandas.DataFrame
     :raises APIError: 雪球接口需要有效登录态时抛出
     """
     url = "https://stock.xueqiu.com/v5/stock/f10/cn/company.json"
-    data = _get_xq_company_data(url=url, symbol=symbol, token=token, timeout=timeout)
+    data = _get_xq_company_data(url=url, symbol=symbol, token=token)
     return _build_xq_company_df(data=data)
 
 
 def stock_individual_basic_info_us_xq(
     symbol: str = "NVDA",
     token: Optional[str] = None,
-    timeout: Optional[float] = None,
 ) -> pd.DataFrame:
     """
     雪球-个股-公司概况-公司简介
@@ -118,21 +110,18 @@ def stock_individual_basic_info_us_xq(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: 设置超时时间
-    :type timeout: Optional[float]
     :return: 公司简介
     :rtype: pandas.DataFrame
     :raises APIError: 雪球接口需要有效登录态时抛出
     """
     url = "https://stock.xueqiu.com/v5/stock/f10/us/company.json"
-    data = _get_xq_company_data(url=url, symbol=symbol, token=token, timeout=timeout)
+    data = _get_xq_company_data(url=url, symbol=symbol, token=token)
     return _build_xq_company_df(data=data)
 
 
 def stock_individual_basic_info_hk_xq(
     symbol: str = "02097",
     token: Optional[str] = None,
-    timeout: Optional[float] = None,
 ) -> pd.DataFrame:
     """
     雪球-个股-公司概况-公司简介
@@ -141,14 +130,12 @@ def stock_individual_basic_info_hk_xq(
     :type symbol: str
     :param token: 雪球财经的 xq_a_token
     :type token: Optional[str]
-    :param timeout: 设置超时时间
-    :type timeout: Optional[float]
     :return: 公司简介
     :rtype: pandas.DataFrame
     :raises APIError: 雪球接口需要有效登录态时抛出
     """
     url = "https://stock.xueqiu.com/v5/stock/f10/hk/company.json"
-    data = _get_xq_company_data(url=url, symbol=symbol, token=token, timeout=timeout)
+    data = _get_xq_company_data(url=url, symbol=symbol, token=token)
     return _build_xq_company_df(data=data)
 
 

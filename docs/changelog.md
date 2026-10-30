@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-13)=
+### 1.20.13 fix!: remove timeout parameter and accept text values for numeric parameters
+
+**不兼容的改动：删除 13 个接口的 timeout 参数，超时统一由 `ak.set_timeout` 设置。** 涉及 stock_zh_a_hist、stock_zh_a_hist_tx、stock_individual_info_em、stock_individual_spot_xq、stock_individual_basic_info_xq、stock_individual_basic_info_us_xq、stock_individual_basic_info_hk_xq，以及 fund_individual_basic_info_xq、fund_individual_achievement_xq、fund_individual_analysis_xq、fund_individual_profit_probability_xq、fund_individual_detail_info_xq、fund_individual_detail_hold_xq。原先传 timeout 的调用会报 TypeError，请删去该参数，改为在程序开头调用 `ak.set_timeout(秒数)`。
+
+1. 删除上述接口的 timeout 参数：全部 1000 余个接口中只有这 13 个单独提供该参数；其默认值 None 原先等于不设超时，ak.set_timeout 对它们不起作用；以文本传入时（如经 AKTools 的 stock_zh_a_hist?timeout=5）还会报 `Timeout value … must be an int, float or None`。现在这些接口与其他接口一样使用全局超时，默认连接 10 秒、读取 60 秒
+2. 要求整数或布尔值的参数同时接受文本，便于经 HTTP、MCP 或配置文件调用：fund_fh_em、fund_cf_em 的 page，bank_fjcf_table_detail 的 page 与 begin，search 的 limit 与 documented_only。原先 page="-1" 被当作第 -1 页，documented_only="false" 被当作真；无法转换时抛出 InvalidParameterError
+
 (v1-20-12)=
 ### 1.20.12 perf: reduce requests of sina macro interfaces
 

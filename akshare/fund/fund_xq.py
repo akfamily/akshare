@@ -11,16 +11,12 @@ import pandas as pd
 from akshare.utils import http
 
 
-def fund_individual_basic_info_xq(
-    symbol: str = "000001", timeout: float = None
-) -> pd.DataFrame:
+def fund_individual_basic_info_xq(symbol: str = "000001") -> pd.DataFrame:
     """
     雪球基金-基金详情
     https://danjuanfunds.com/djapi/fund/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 基金信息
     :rtype: pandas.DataFrame
     """
@@ -29,7 +25,7 @@ def fund_individual_basic_info_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = http.get(url, headers=headers, timeout=timeout)
+    r = http.get(url, headers=headers)
     json_data = r.json()["data"]
     temp_df = pd.json_normalize(json_data)
     temp_df = temp_df.rename(
@@ -75,16 +71,12 @@ def fund_individual_basic_info_xq(
     return temp_df
 
 
-def fund_individual_achievement_xq(
-    symbol: str = "000001", timeout: float = None
-) -> pd.DataFrame:
+def fund_individual_achievement_xq(symbol: str = "000001") -> pd.DataFrame:
     """
     雪球基金-基金业绩
     https://danjuanfunds.com/djapi/fundx/base/fund/achievement/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 基金业绩
     :rtype: pandas.DataFrame
     """
@@ -93,7 +85,7 @@ def fund_individual_achievement_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = http.get(url, headers=headers, timeout=timeout)
+    r = http.get(url, headers=headers)
     json_data = r.json()["data"]
     combined_df = None
     type_dict = {
@@ -129,16 +121,12 @@ def fund_individual_achievement_xq(
     return combined_df
 
 
-def fund_individual_analysis_xq(
-    symbol: str = "000001", timeout: float = None
-) -> pd.DataFrame:
+def fund_individual_analysis_xq(symbol: str = "000001") -> pd.DataFrame:
     """
     雪球基金-基金数据分析
     https://danjuanfunds.com/djapi/fund/base/quote/data/index/analysis/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 基金数据分析
     :rtype: pandas.DataFrame
     """
@@ -147,7 +135,7 @@ def fund_individual_analysis_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = http.get(url, headers=headers, timeout=timeout)
+    r = http.get(url, headers=headers)
     json_data = r.json()["data"]["index_data_list"]
     temp_df = pd.json_normalize(json_data)
     temp_df = temp_df[
@@ -182,16 +170,12 @@ def fund_individual_analysis_xq(
     return temp_df
 
 
-def fund_individual_profit_probability_xq(
-    symbol: str = "000001", timeout: float = None
-) -> pd.DataFrame:
+def fund_individual_profit_probability_xq(symbol: str = "000001") -> pd.DataFrame:
     """
     雪球基金-盈利概率-历史任意时点买入，持有满 X 年，盈利概率 Y%
     https://danjuanfunds.com/djapi/fundx/base/fund/profit/ratio/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 盈利概率
     :rtype: pandas.DataFrame
     """
@@ -200,7 +184,7 @@ def fund_individual_profit_probability_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = http.get(url, headers=headers, timeout=timeout)
+    r = http.get(url, headers=headers)
     json_data = r.json()["data"]["data_list"]
     temp_df = pd.DataFrame.from_dict(json_data, orient="columns")
     temp_df = temp_df[
@@ -221,16 +205,12 @@ def fund_individual_profit_probability_xq(
     return temp_df
 
 
-def fund_individual_detail_info_xq(
-    symbol: str = "000001", timeout: float = None
-) -> pd.DataFrame:
+def fund_individual_detail_info_xq(symbol: str = "000001") -> pd.DataFrame:
     """
     雪球基金-交易规则
     https://danjuanfunds.com/djapi/fund/detail/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 交易规则
     :rtype: pandas.DataFrame
     """
@@ -239,7 +219,7 @@ def fund_individual_detail_info_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = http.get(url, headers=headers, timeout=timeout)
+    r = http.get(url, headers=headers)
     json_data = r.json()["data"]
     combined_df = None
     rate_type_dict = {
@@ -268,7 +248,7 @@ def fund_individual_detail_info_xq(
 
 
 def fund_individual_detail_hold_xq(
-    symbol: str = "002804", date: str = "20231231", timeout: float = None
+    symbol: str = "002804", date: str = "20231231"
 ) -> pd.DataFrame:
     """
     雪球基金-持仓
@@ -277,8 +257,6 @@ def fund_individual_detail_hold_xq(
     :type symbol: str
     :param date: 财报日期
     :type date: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 雪球基金-持仓
     :rtype: pandas.DataFrame
     """
@@ -291,7 +269,7 @@ def fund_individual_detail_hold_xq(
         "fund_code": f"{symbol}",
         "report_date": f"{'-'.join([date[:4], date[4:6], date[6:]])}",
     }
-    r = http.get(url, headers=headers, params=params, timeout=timeout)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"]["chart_list"], orient="columns")
     temp_df = temp_df[

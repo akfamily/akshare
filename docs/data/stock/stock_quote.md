@@ -389,7 +389,6 @@ print(stock_sse_deal_daily_df)
 | 名称      | 类型    | 描述                      |
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="603777"；股票代码   |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -439,7 +438,6 @@ print(stock_individual_info_em_df)
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="SH601127"；股票代码 |
 | token   | str   | token=None；雪球 xq_a_token |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -1225,7 +1223,6 @@ print(stock_zh_a_spot_df)
 |---------|-------|----------------------------------------------------------------|
 | symbol  | str   | symbol="SH600000"；证券代码，可以是 A 股个股代码，A 股场内基金代码，A 股指数，美股代码，美股指数 |
 | token   | str   | token=None；雪球 xq_a_token                                        |
-| timeout | float | timeout=None；默认不设置超时参数                                        |
 
 输出参数
 
@@ -1308,7 +1305,6 @@ print(stock_individual_spot_xq_df)
 | start_date | str   | start_date='20210301'；开始查询的日期                           |
 | end_date   | str   | end_date='20210616'；结束查询的日期                             |
 | adjust     | str   | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据               |
-| timeout    | float | timeout=None；默认不设置超时参数                                  |
 
 股票数据复权
 
@@ -1663,7 +1659,6 @@ print(hfq_factor_df)
 | start_date | str   | start_date='19000101'；开始查询的日期             |
 | end_date   | str   | end_date='20500101'；结束查询的日期               |
 | adjust     | str   | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据 |
-| timeout    | float | timeout=None；默认不设置超时参数                    |
 
 股票数据复权
 
@@ -3874,7 +3869,6 @@ print(stock_us_hist_df)
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="NVDA"；股票代码     |
 | token   | str   | token=None；雪球 xq_a_token |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 
@@ -4461,7 +4455,6 @@ print(stock_hk_spot_df)
 |---------|-------|-------------------------|
 | symbol  | str   | symbol="02097"；股票代码    |
 | token   | str   | token=None；雪球 xq_a_token |
-| timeout | float | timeout=None；默认不设置超时参数 |
 
 输出参数
 

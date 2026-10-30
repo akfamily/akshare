@@ -955,7 +955,6 @@ def stock_zh_a_hist(
     start_date: str = "19700101",
     end_date: str = "20500101",
     adjust: str = "",
-    timeout: float = None,
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日行情
@@ -970,8 +969,6 @@ def stock_zh_a_hist(
     :type end_date: str
     :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
-    :param timeout: choice of None or a positive float number
-    :type timeout: float
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
@@ -989,7 +986,7 @@ def stock_zh_a_hist(
         "beg": start_date,
         "end": end_date,
     }
-    r = http.get(url, params=params, timeout=timeout)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
