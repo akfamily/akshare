@@ -1359,8 +1359,6 @@ from akshare.research.research_epu_index import article_epu_index
 from akshare.research.research_ff_factor import article_ff_crr
 from akshare.research.research_fred_md import fred_md, fred_qd
 from akshare.research.research_risk_rv import (
-    article_oman_rv,
-    article_oman_rv_short,
     article_rlab_rv,
 )
 
@@ -1436,8 +1434,6 @@ __all__ = [
     "amac_securities_info",
     "article_epu_index",
     "article_ff_crr",
-    "article_oman_rv",
-    "article_oman_rv_short",
     "article_rlab_rv",
     "bank_fjcf_table_detail",
     "bond_available_index_cbond",
