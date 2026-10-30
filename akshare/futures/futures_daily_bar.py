@@ -369,6 +369,8 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         output_columns = cons.OUTPUT_COLUMNS
         try:
             r = http.get(url, headers=headers)
+            # 不调用 raise_for_status 时下面的 except 永远不会触发
+            r.raise_for_status()
             if datetime.date(2015, 11, 12) <= day <= datetime.date(2017, 12, 27):
                 html = str(r.content, encoding="gbk")
             else:
@@ -477,19 +479,16 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
+    url = cons.SHFE_DAILY_URL_20250630 % day.strftime("%Y%m%d")
     try:
-        json_data = json.loads(
-            requests_link(
-                cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")),
-                headers=cons.shfe_headers,
-            ).text
-        )
+        r = requests_link(url, headers=cons.shfe_headers)
+        r.raise_for_status()
     except requests.HTTPError as reason:
-        if reason.response != 404:
-            warnings.warn(
-                f"{cons.SHFE_DAILY_URL_20250630 % day.strftime('%Y%m%d')} {reason}"
-            )
+        # 没有数据的日期返回 404，静默返回空表；其他错误状态码给出警告
+        if reason.response.status_code != 404:
+            warnings.warn(f"{url} {reason}")
         return pd.DataFrame()
+    json_data = json.loads(r.text)
 
     if len(json_data["o_curinstrument"]) == 0:
         return pd.DataFrame()
