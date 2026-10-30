@@ -25,13 +25,10 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
     :return: 指数结果
     :rtype: pandas.DataFrame
     """
-    import urllib3
-
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if symbol == "月景气指数":
         url = "https://apiserver.chinagoods.com/yiwuindex/v1/active/industry/class/history/bi?gcCode="
-        r = http.get(url, verify=False)  # noqa: S501
+        r = http.get(url)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df = temp_df[
@@ -56,7 +53,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
     else:
         symbol_map = {"周价格指数": "piweek", "月价格指数": "month"}
         url = f"https://apiserver.chinagoods.com/yiwuindex/v1/active/industry/class/history/{symbol_map[symbol]}?gcCode="
-        r = http.get(url, verify=False)  # noqa: S501
+        r = http.get(url)
         data_json = r.json()
         columns_name = {
             "indextimeno": "期数",

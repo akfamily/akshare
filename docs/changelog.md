@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-16)=
+### 1.20.16 fix: enable TLS certificate verification for all requests
+
+1. 恢复全部请求的证书校验：原先 51 处请求关闭了证书校验（verify=False），可能被中间人篡改数据。逐站实测，其中 38 处所在站点的证书完全正常，直接恢复校验；涉及中国证券投资基金业协会（amac_*）、北京碳排放权交易平台、义乌指数、九期网、福布斯中国、国泰君安期货等
+2. 申万宏源研究（index_hist_sw、index_realtime_sw、index_analysis_daily_sw 等 8 个接口）的服务器缺少中间证书，浏览器会自动补全而程序不会，这是原先关闭校验的原因；现在随包附带该中间证书（由 DigiCert Global Root G2 签发，有效期至 2032 年），恢复校验
+3. 删除 9 处 urllib3.disable_warnings 调用：它对整个进程生效，导入这些模块后，用户自己程序中的证书警告也会被屏蔽
+4. 修复 forbes_rank 接口报 `FileNotFoundError`：新版 pandas 不再把 read_html 收到的文本当作网页内容
+
 (v1-20-15)=
 ### 1.20.15 fix: make result order deterministic and fix futures_gfex_warehouse_receipt
 

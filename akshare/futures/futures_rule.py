@@ -22,12 +22,10 @@ def futures_rule(date: str = "20231205") -> pd.DataFrame:
     :return: 交易日历数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings()
     url = " https://www.gtjaqh.com/pc/calendar"
     params = {"date": f"{date}"}
-    r = http.get(url, params=params, verify=False)  # noqa: S501
+    r = http.get(url, params=params)
     big_df = pd.read_html(StringIO(r.text), header=1)[0]
     big_df["交易保证金比例"] = big_df["交易保证金比例"].str.strip("%")
     big_df["交易保证金比例"] = pd.to_numeric(big_df["交易保证金比例"], errors="coerce")

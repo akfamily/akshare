@@ -32,9 +32,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
-    import urllib3
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     if int(date) > 20251101:
         url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xlsx"
     else:
@@ -43,7 +41,7 @@ def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/83.0.4103.116 Safari/537.36"
     }
-    r = http.get(url, verify=False, headers=headers)  # noqa: S501
+    r = http.get(url, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
     index_list = temp_df[temp_df.iloc[:, 0].str.find("品种") == 0.0].index.to_list()
     index_list.append(len(temp_df))

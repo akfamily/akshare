@@ -90,9 +90,7 @@ def _futures_comm_qihuo_process(
     :return: 处理后的数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     common_temp_df = df.copy()
     common_temp_df["合约名称"] = (
         common_temp_df["合约品种"].str.split("(", expand=True).iloc[:, 0].str.strip()

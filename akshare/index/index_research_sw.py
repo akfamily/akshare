@@ -1,17 +1,59 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/10/23 13:00
+Date: 2026/10/30
 Desc: 申万宏源研究-指数系列
 https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 """
 
 import math
+import ssl
+from functools import lru_cache
 
+import certifi
 import pandas as pd
+from requests.adapters import HTTPAdapter
 
+from akshare.datasets import get_data_file
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+
+
+class _IntermediateCAAdapter(HTTPAdapter):
+    """
+    补上申万宏源研究服务器缺失的中间证书
+    www.swsresearch.com 只发送站点证书，不发送中间证书 GeoTrust G2 TLS CN RSA4096 SHA256 2022 CA1。
+    浏览器会按证书里的地址自动补全，requests 不会，因此原先只能关闭证书校验。这里在 certifi
+    的根证书之外加载该中间证书（取自证书中的 caIssuers 地址，由 DigiCert Global Root G2 签发，
+    有效期至 2032-12-14），恢复证书校验；直连与经代理两条路径都需替换 SSL 上下文
+    """
+
+    def __init__(self, **kwargs):
+        self._ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self._ssl_context.load_verify_locations(
+            cafile=str(get_data_file("swsresearch_intermediate.pem"))
+        )
+        super().__init__(**kwargs)
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["ssl_context"] = self._ssl_context
+        return super().init_poolmanager(*args, **kwargs)
+
+    def proxy_manager_for(self, proxy, **proxy_kwargs):
+        proxy_kwargs["ssl_context"] = self._ssl_context
+        return super().proxy_manager_for(proxy, **proxy_kwargs)
+
+
+@lru_cache(maxsize=1)
+def _sw_session() -> http.Session:
+    """
+    访问申万宏源研究所用的会话，已挂载补全中间证书的适配器
+    :return: 会话
+    :rtype: akshare.utils.http.Session
+    """
+    session = http.Session()
+    session.mount("https://www.swsresearch.com", _IntermediateCAAdapter())
+    return session
 
 
 def _empty_realtime_index_df(columns: list[str]) -> pd.DataFrame:
@@ -51,7 +93,7 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36",
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.rename(
@@ -108,7 +150,7 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.rename(
@@ -149,7 +191,7 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["results"])
     temp_df = temp_df.reset_index()
@@ -203,7 +245,7 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.post(url, json=payload, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().post(url, json=payload, headers=headers)
     data_json = r.json()
     if not data_json.get("data") or not data_json["data"].get("list"):
         return _empty_realtime_index_df(
@@ -252,7 +294,7 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     if not data_json.get("data"):
         return _empty_realtime_index_df(
@@ -274,7 +316,7 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+        r = _sw_session().get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -343,7 +385,7 @@ def index_analysis_daily_sw(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
@@ -351,7 +393,7 @@ def index_analysis_daily_sw(
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+        r = _sw_session().get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -404,7 +446,7 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["bargaindate"] = pd.to_datetime(
@@ -442,7 +484,7 @@ def index_analysis_weekly_sw(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
@@ -450,7 +492,7 @@ def index_analysis_weekly_sw(
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+        r = _sw_session().get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -516,7 +558,7 @@ def index_analysis_monthly_sw(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/114.0.0.0 Safari/537.36"
     }
-    r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+    r = _sw_session().get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
@@ -524,7 +566,7 @@ def index_analysis_monthly_sw(
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
+        r = _sw_session().get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
