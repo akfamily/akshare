@@ -117,7 +117,6 @@ def _post_endata_json(
         url,
         data=payload,
         headers=_get_endata_headers(referer_path=referer_path),
-        timeout=30,
     )
     response.raise_for_status()
     data_json = response.json()

@@ -144,3 +144,32 @@ def test_numeric_params_accept_text():
         if not any(p in source for p in patterns):
             missing.append(f"{name}.{param}")
     assert not missing, f"以下参数没有转换文本输入：{missing}"
+
+
+# 有意保留的固定超时：FRED 历史压缩包达数十 MB，需放宽总时长；pro 客户端的超时由用户传入；
+# multi_decrypt 的超时限制的是 JS 执行时间而非 HTTP 请求
+_ALLOWED_TIMEOUTS = {
+    "akshare/research/research_fred_md.py",
+    "akshare/pro/client.py",
+    "akshare/utils/multi_decrypt.py",
+}
+
+
+def test_no_hardcoded_request_timeout():
+    """请求超时统一由 ak.set_timeout 设置，接口代码不应再写死 timeout=15 之类的值"""
+    import ast
+
+    offenders = []
+    for path in sorted((ROOT / "akshare").rglob("*.py")):
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in _ALLOWED_TIMEOUTS:
+            continue
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call):
+                for kw in node.keywords:
+                    if kw.arg == "timeout":
+                        offenders.append(f"{rel}:{node.lineno}")
+    assert not offenders, (
+        f"以下请求写死了 timeout，请删去，改由 ak.set_timeout 控制：{offenders}"
+    )

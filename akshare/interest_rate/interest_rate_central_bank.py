@@ -60,9 +60,7 @@ def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame
     interest_rate_data = []
     try:
         while True:
-            response = http.get(
-                url=base_url, params=params, headers=headers, timeout=10
-            )
+            response = http.get(url=base_url, params=params, headers=headers)
             data = response.json()
             if not data.get("data", {}).get("values"):
                 break

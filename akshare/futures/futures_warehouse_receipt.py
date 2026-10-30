@@ -76,7 +76,7 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
         "tradeDate": date,
         "varietyId": "all",
     }
-    r = http.post(url, json=payload, timeout=15)
+    r = http.post(url, json=payload)
     # 瑞数反爬虫对未通过浏览器验证的请求返回 412 挑战页，其 cookie 需每次请求前由 JS 重新生成
     if r.status_code == 412:
         raise APIError(
@@ -127,7 +127,7 @@ def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
     :rtype: dict
     """
     url = f"https://www.shfe.com.cn/data/tradedata/future/stockdata/dailystock_{date}/ZH/all.html"
-    r = http.get(url, headers=headers, timeout=15)
+    r = http.get(url, headers=headers)
     r.raise_for_status()
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, features="lxml")
@@ -274,7 +274,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         "Chrome/83.0.4103.116 Safari/537.36"
     }
     payload = {"gen_date": date}
-    r = http.post(url=url, data=payload, headers=headers, timeout=15)
+    r = http.post(url=url, data=payload, headers=headers)
     r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])

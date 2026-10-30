@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-14)=
+### 1.20.14 fix: honor ak.set_timeout everywhere and fix stock_zh_a_daily for delisted stocks
+
+1. 删除接口代码中写死的请求超时：29 个模块中 45 处 timeout=15、30 等写死的值，以及约 60 个东方财富翻页接口共用的 fetch_paginated_data 的默认超时，使这些接口不受 ak.set_timeout 控制；现在全部使用全局超时，默认连接 10 秒、读取 60 秒。下载数十 MB 历史压缩包的 fred_md、fred_qd 保留更长的超时
+2. 修复 stock_zh_a_daily 查询已退市股票（如 sh600001）报 `JSONDecodeError` 的问题：新浪仍提供其历史行情，但没有股本数据；现在照常返回行情，outstanding_share 与 turnover 为空并给出警告
+3. stock_zh_a_daily 查询不存在的代码时，由 `KeyError: 'date'` 改为抛出 InvalidParameterError 并提示检查股票代码
+
 (v1-20-13)=
 ### 1.20.13 fix!: remove timeout parameter and accept text values for numeric parameters
 

@@ -306,7 +306,7 @@ def stock_cash_flow_sheet_by_report_em(
         "reportDateType": "0",
         "code": symbol,
     }
-    r = http.get(url, params=params, timeout=10)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date

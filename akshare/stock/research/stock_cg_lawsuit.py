@@ -79,7 +79,7 @@ def stock_cg_lawsuit_cninfo(
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "market": symbol_map[symbol],
     }
-    r = http.post(url, headers=headers, params=params, timeout=30)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     records = data_json.get("records", [])
     if not records:

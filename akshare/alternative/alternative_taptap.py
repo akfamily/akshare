@@ -34,7 +34,6 @@ _TAPTAP_X_UA = (
 )
 
 # 内部参数（不对外暴露）
-_TAPTAP_TIMEOUT = 15.0
 _TAPTAP_SLEEP = 0.4
 _TAPTAP_PAGE_SIZE = 10
 _TAPTAP_MAX_LOOPS = 200
@@ -97,7 +96,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
             "type_name": type_name,
             "X-UA": _TAPTAP_X_UA,
         }
-        r = session.get(_TAPTAP_BASE_URL, params=params, timeout=_TAPTAP_TIMEOUT)
+        r = session.get(_TAPTAP_BASE_URL, params=params)
         r.raise_for_status()
         js = r.json()
         if not js.get("success"):

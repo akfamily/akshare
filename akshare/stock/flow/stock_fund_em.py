@@ -170,7 +170,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
                 "pn": page,
             }
         )
-        r = http.get(url, params=params, timeout=15)
+        r = http.get(url, params=params)
         data_json = r.json()
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)
@@ -506,7 +506,7 @@ def stock_sector_fund_flow_rank(
                 "pn": page,
             }
         )
-        r = http.get(url, params=params, headers=headers, timeout=15)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         inner_temp_df = pd.DataFrame(data_json["data"]["diff"])
         temp_list.append(inner_temp_df)

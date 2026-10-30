@@ -134,7 +134,7 @@ def futures_hist_em(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "forcect": "1",
     }
-    r = http.get(url, timeout=15, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:

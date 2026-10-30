@@ -24,11 +24,10 @@ from akshare.stock.cons import (
     zh_sina_a_stock_qfq_url,
     zh_sina_a_stock_amount_url,
 )
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
-
-_SINA_A_SPOT_TIMEOUT: int = 15
 
 
 def _get_zh_a_page_count() -> int:
@@ -38,7 +37,7 @@ def _get_zh_a_page_count() -> int:
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    res = http.get(zh_sina_a_stock_count_url, timeout=_SINA_A_SPOT_TIMEOUT)
+    res = http.get(zh_sina_a_stock_count_url)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -64,7 +63,6 @@ def stock_zh_a_spot() -> pd.DataFrame:
         r = http.get(
             zh_sina_a_stock_url,
             params=zh_sina_stock_payload_copy,
-            timeout=_SINA_A_SPOT_TIMEOUT,
         )
         data_json = jsonish.loads(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
@@ -183,6 +181,10 @@ def stock_zh_a_daily(
         return _fq_factor(adjust.split("-")[0])
 
     r = http.get(zh_sina_a_stock_hist_url.format(symbol))
+    if r.status_code == 404:
+        raise InvalidParameterError(
+            f"新浪财经没有 {symbol} 的历史行情，请检查股票代码，格式如 sh600000、sz000001、bj920000"
+        )
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -202,9 +204,24 @@ def stock_zh_a_daily(
         pass
     data_df = data_df.astype("float")
     r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
-    amount_data_df = pd.DataFrame(amount_data_json)
-    amount_data_df.columns = ["date", "outstanding_share"]
+    # 已退市的股票有历史行情，但股本接口返回 (null)；此时照常返回行情，股本与换手率留空。
+    # 原先直接解析空文本，报出与原因无关的 JSONDecodeError
+    if "[" in r.text:
+        amount_data_json = jsonish.loads(
+            r.text[r.text.find("[") : r.text.rfind("]") + 1]
+        )
+        price_columns = None
+    else:
+        warnings.warn(
+            f"新浪财经没有 {symbol} 的股本数据（通常是已退市的股票），"
+            "outstanding_share 与 turnover 为空"
+        )
+        amount_data_json = []
+        price_columns = ["open", "high", "low", "close", "volume", "amount"]
+    # 上游每条记录为 {"date": ..., "amount": ...}，amount 为股本（万股）
+    amount_data_df = pd.DataFrame(amount_data_json, columns=["date", "amount"]).rename(
+        columns={"amount": "outstanding_share"}
+    )
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]
     temp_df = pd.merge(
@@ -233,7 +250,7 @@ def stock_zh_a_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df = temp_df.dropna()
+        temp_df = temp_df.dropna(subset=price_columns)
         temp_df = temp_df.drop_duplicates()
         temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
@@ -255,7 +272,9 @@ def stock_zh_a_daily(
         )
         temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df = temp_df.dropna()
+        temp_df = temp_df.dropna(
+            subset=None if price_columns is None else price_columns + ["hfq_factor"]
+        )
         temp_df = temp_df.drop_duplicates(
             subset=["open", "high", "low", "close", "volume", "amount"]
         )
@@ -269,7 +288,7 @@ def stock_zh_a_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df = temp_df.dropna()
+        temp_df = temp_df.dropna(subset=price_columns)
         temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         return temp_df
@@ -291,7 +310,9 @@ def stock_zh_a_daily(
         )
         temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df = temp_df.dropna()
+        temp_df = temp_df.dropna(
+            subset=None if price_columns is None else price_columns + ["qfq_factor"]
+        )
         temp_df = temp_df.drop_duplicates(
             subset=["open", "high", "low", "close", "volume", "amount"]
         )
@@ -305,7 +326,7 @@ def stock_zh_a_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df = temp_df.dropna()
+        temp_df = temp_df.dropna(subset=price_columns)
         temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         return temp_df

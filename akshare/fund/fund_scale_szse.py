@@ -79,7 +79,7 @@ def fund_scale_daily_szse(
         "jjlb": symbol_map[symbol]["jjlb"],
         "random": str(random.random()),
     }
-    r = http.get(url, params=params, headers=headers, timeout=15)
+    r = http.get(url, params=params, headers=headers)
     r.raise_for_status()
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")

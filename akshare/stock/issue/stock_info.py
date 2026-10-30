@@ -39,7 +39,7 @@ def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
         "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
-    r = http.get(url, params=params, timeout=15)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
