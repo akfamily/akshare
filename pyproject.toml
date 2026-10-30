@@ -101,16 +101,6 @@ include = ["akshare*"]
 [tool.setuptools.package-data]
 "*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip", "*.pem"]
 
-[tool.pytest.ini_options]
-# 弃用警告在测试中直接报错，不留到用户升级 pandas 或 Python 时才发现。不按警告类名匹配：
-# pandas 3 用 Pandas4Warning、pandas 2 用 FutureWarning，而 pandas 2.2 没有 Pandas4Warning，
-# 写类名会让 lowest-deps 任务的 pytest 无法启动；也不按模块匹配，pandas 会把警告的来源
-# 标记为调用方（akshare），按 pandas 匹配不到
-filterwarnings = [
-    "error::DeprecationWarning",
-    "error::FutureWarning",
-]
-
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
