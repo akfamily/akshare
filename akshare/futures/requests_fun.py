@@ -7,27 +7,19 @@ Desc: 请求网站内容的函数：链接失败时按 akshare.utils.http.reques
 
 from io import StringIO
 from typing import Dict
-import warnings
 
 import pandas as pd
-import requests
 
 from akshare.utils import http
 
 
 def _request(url: str, method: str, data: Dict, headers: Dict):
     """
-    发送带重试的请求；用尽次数后仍失败时给出警告并返回 None
+    发送带重试的请求；用尽次数后仍失败时抛出最后一次的网络异常
     """
     if method not in ("get", "post"):
         raise ValueError("请提供正确的请求方式")
-    try:
-        return http.request_with_retry(
-            method, url, timeout=20, data=data, headers=headers
-        )
-    except requests.exceptions.RequestException as e:
-        warnings.warn(f"{url} 链接失败，已尝试 3 次：{e}")
-        return None
+    return http.request_with_retry(method, url, timeout=20, data=data, headers=headers)
 
 
 def requests_link(
@@ -44,11 +36,13 @@ def requests_link(
     :param method: string 访问方法："get", "post"
     :param data: dict 上传数据：键值对
     :param headers: dict 游览器请求头：键值对
-    :return: requests.response 爬取返回内容：response；链接失败时为 None
+    :return: requests.response 爬取返回内容：response；状态码不做检查，由调用方处理
+    :raises requests.RequestException: 用尽重试次数后仍连接失败或超时
     """
+    # 1.20.9 及以前失败时返回 None，调用方都没有检查，用户只能看到
+    # 'NoneType' object has no attribute 'text' 这类与原因无关的报错
     r = _request(url, method, data, headers)
-    if r is not None:
-        r.encoding = encoding
+    r.encoding = encoding
     return r
 
 
@@ -66,10 +60,9 @@ def pandas_read_html_link(
     :param method: string 访问方法："get", "post"
     :param data: dict 上传数据：键值对
     :param headers: dict 游览器请求头：键值对
-    :return: list 网页中的表格；链接失败时为 None
+    :return: list 网页中的表格
+    :raises requests.RequestException: 用尽重试次数后仍连接失败或超时
     """
     r = _request(url, method, data, headers)
-    if r is None:
-        return None
     r.encoding = encoding
     return pd.read_html(StringIO(r.text), encoding=encoding)

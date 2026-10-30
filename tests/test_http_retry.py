@@ -204,19 +204,37 @@ def test_make_request_with_retry_json_contract(script):
         make_request_with_retry_json(PUSH2_URL)
 
 
-def test_requests_link_returns_none_after_retries(script):
-    from akshare.futures.requests_fun import requests_link
+def test_requests_link_raises_after_retries(script):
+    """
+    原先失败时返回 None，调用方都没有检查，用户看到的是 'NoneType' object has no attribute 'text'
+    """
+    from akshare.futures.requests_fun import pandas_read_html_link, requests_link
 
     calls, sleeps = script(
-        *[requests.exceptions.ConnectTimeout("down") for _ in range(3)]
+        *[requests.exceptions.ConnectTimeout("down") for _ in range(6)]
     )
+    with pytest.raises(requests.exceptions.ConnectTimeout):
+        requests_link("https://www.shfe.com.cn/data")
+    with pytest.raises(requests.exceptions.ConnectTimeout):
+        pandas_read_html_link("https://www.shfe.com.cn/data")
+    assert len(calls) == 6
+    # 原先固定等 5 秒、最多 20 次，最坏要等近 2 分钟
+    assert sum(sleeps) < 20
+
+
+def test_get_shfe_daily_status_handling(script):
+    from akshare.futures.futures_daily_bar import get_shfe_daily
+
+    script(404)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        assert requests_link("https://www.shfe.com.cn/data") is None
-    assert len(calls) == 3
-    # 原先固定等 5 秒、最多 20 次，最坏要等近 2 分钟
-    assert sum(sleeps) < 10
-    assert any("链接失败" in str(w.message) for w in caught)
+        assert get_shfe_daily(date="20261028").empty
+    assert not caught
+    script(403)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        assert get_shfe_daily(date="20261028").empty
+    assert any("403" in str(w.message) for w in caught)
 
 
 def test_requests_link_rejects_bad_method_without_request(script):
