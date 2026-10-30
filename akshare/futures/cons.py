@@ -141,27 +141,6 @@ zh_sina_spot_headers = {
     "Chrome/78.0.3904.97 Safari/537.36",
 }
 
-# 99 期货
-inventory_temp_headers = {
-    "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Connection": "keep-alive",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Cookie": "UM_distinctid=16c378978de5cc-02cfeac5f7869b-c343162-1fa400-16c378978df8d7; "
-    "__utmz=181566328.1570520149.3.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; "
-    "ASP.NET_SessionId=wj5gxuzl3fvvr25503tquq55; __utmc=181566328; _fxaid=1D9A634AB9F5D026585"
-    "6F7E85E7BC196%1D%2BOOl1inxPE7181fmKs5HCs%2BdLO%2Fq%2FbSvf46UVjo%2BE7w%3D%1DPYphpUa9OlzW"
-    "UzatrOQTXLPOVillbwMhTIJas%2ByfkyVL2Hd5XA1GOSslksqDkMTccXvQ2duLNsc0CHT4789JrYNbakJrpzrxL"
-    "nwtBC5GCTssKHGEpor6EwAZfWJgBUlCs4JYFcGUnh3jIO69A4LsOlRMOGf4c9cd%2FbohSjTx3VA%3D; __utma"
-    "=181566328.1348268634.1564299852.1571066568.1571068391.7; tgw_l7_route=eb1311426274fc07"
-    "631b2135a6431f7d; __utmt=1; __utmb=181566328.7.10.1571068391",
-    "Host": "service.99qh.com",
-    "Referer": "http://service.99qh.com/Storage/Storage.aspx?page=99qh",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
-}
-
 # 键值对：键为交易所代码，值为具体合约代码
 market_exchange_symbols = {
     "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS", "TL"],
