@@ -25,7 +25,7 @@ import pandas as pd
 import py_mini_racer
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
@@ -164,7 +164,7 @@ def fund_purchase_em() -> pd.DataFrame:
     }
     r = http.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text.strip("var reData="))
+    data_json = jsonish.loads(data_text.strip("var reData="))
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
@@ -225,7 +225,7 @@ def fund_name_em() -> pd.DataFrame:
     url = "https://fund.eastmoney.com/js/fundcode_search.js"
     r = http.get(url, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data.strip("var r = ")[:-1])
+    data_json = jsonish.loads(text_data.strip("var r = ")[:-1])
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["基金代码", "拼音缩写", "基金简称", "基金类型", "拼音全称"]
     return temp_df
@@ -405,7 +405,7 @@ def fund_open_fund_daily_em() -> pd.DataFrame:
     }
     res = http.get(url, params=params, headers=headers)
     text_data = res.text
-    data_json = demjson.decode(text_data.strip("var db="))
+    data_json = jsonish.loads(text_data.strip("var db="))
     temp_df = pd.DataFrame(data_json["datas"])
     show_day = data_json["showday"]
     temp_df.columns = [
@@ -955,7 +955,7 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
     }
     res = http.get(url, params=params, headers=headers)
     text_data = res.text
-    data_json = demjson.decode(text_data.strip("var db="))
+    data_json = jsonish.loads(text_data.strip("var db="))
     temp_df = pd.DataFrame(data_json["datas"])
     show_day = data_json["showday"]
     temp_df.columns = [

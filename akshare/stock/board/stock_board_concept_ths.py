@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -170,10 +170,10 @@ def stock_board_concept_index_ths(
         data_text = r.text
 
         try:
-            demjson.decode(data_text[data_text.find("{") : -1])
+            jsonish.loads(data_text[data_text.find("{") : -1])
         except Exception:
             continue
-        temp_df = demjson.decode(data_text[data_text.find("{") : -1])
+        temp_df = jsonish.loads(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))
         temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

@@ -16,7 +16,7 @@ from io import StringIO
 import pandas as pd
 from py_mini_racer import MiniRacer
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -133,7 +133,7 @@ def air_quality_watch_point(
     }
     r = http.post(url, data=payload, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(ctx.call("decode_result", data_text))
+    data_json = jsonish.loads(ctx.call("decode_result", data_text))
     temp_df = pd.DataFrame(data_json["rows"])
     return temp_df
 
@@ -207,7 +207,7 @@ def air_quality_hist(
     params = {"param": ctx.call("encode_param", need)}
     r = http.post(url, data=params, headers=headers)
     temp_text = ctx.call("decryptData", r.text)
-    data_json = demjson.decode(ctx.call("b.decode", temp_text))
+    data_json = jsonish.loads(ctx.call("b.decode", temp_text))
     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
     temp_df.index = temp_df["time"]
     del temp_df["time"]

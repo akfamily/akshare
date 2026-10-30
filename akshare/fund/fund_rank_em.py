@@ -12,7 +12,7 @@ from datetime import datetime, date
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -76,7 +76,7 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     }
     r = http.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df = temp_df.reset_index()
@@ -175,7 +175,7 @@ def fund_exchange_rank_em() -> pd.DataFrame:
     }
     r = http.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
+    json_data = jsonish.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df = temp_df.reset_index()

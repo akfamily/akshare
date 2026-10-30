@@ -18,7 +18,7 @@ from urllib3.poolmanager import PoolManager
 from akshare.macro.cons import (
     JS_CHINA_ENERGY_DAILY_URL,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -3247,14 +3247,14 @@ def macro_china_society_electricity() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     for i in range(1, page_num):
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
@@ -3300,7 +3300,7 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
     tqdm = get_tqdm()
@@ -3308,7 +3308,7 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3358,7 +3358,7 @@ def macro_china_postal_telecommunicational() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
     tqdm = get_tqdm()
@@ -3366,7 +3366,7 @@ def macro_china_postal_telecommunicational() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3392,7 +3392,7 @@ def macro_china_international_tourism_fx() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3400,7 +3400,7 @@ def macro_china_international_tourism_fx() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3426,7 +3426,7 @@ def macro_china_passenger_load_factor() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3434,7 +3434,7 @@ def macro_china_passenger_load_factor() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3460,7 +3460,7 @@ def _macro_china_freight_index() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3468,7 +3468,7 @@ def _macro_china_freight_index() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3537,7 +3537,7 @@ def macro_china_central_bank_balance() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3545,7 +3545,7 @@ def macro_china_central_bank_balance() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3571,7 +3571,7 @@ def macro_china_insurance() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3579,7 +3579,7 @@ def macro_china_insurance() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3605,7 +3605,7 @@ def macro_china_supply_of_money() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3613,7 +3613,7 @@ def macro_china_supply_of_money() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3639,7 +3639,7 @@ def macro_china_foreign_exchange_gold() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3647,7 +3647,7 @@ def macro_china_foreign_exchange_gold() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
@@ -3674,7 +3674,7 @@ def macro_china_retail_price_index() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -3])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
@@ -3682,7 +3682,7 @@ def macro_china_retail_price_index() -> pd.DataFrame:
         params.update({"from": i * 31})
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -3])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]

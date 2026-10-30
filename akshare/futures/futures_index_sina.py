@@ -15,7 +15,7 @@ from akshare.futures.cons import (
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -31,9 +31,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
     r = http.get(zh_subscribe_exchange_symbol_url)
     r.encoding = "gb2312"
     data_text = r.text
-    data_json = demjson.decode(
-        data_text[data_text.find("{") : data_text.find("};") + 1]
-    )
+    data_json = jsonish.loads(data_text[data_text.find("{") : data_text.find("};") + 1])
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -67,7 +65,7 @@ def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
         res = http.get(
             zh_match_main_contract_url, params=zh_match_main_contract_payload
         )
-        data_json = demjson.decode(res.text)
+        data_json = jsonish.loads(res.text)
         data_df = pd.DataFrame(data_json)
         try:
             main_contract = data_df[

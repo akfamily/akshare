@@ -11,7 +11,7 @@ import math
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from tqdm import tqdm
 
@@ -102,7 +102,7 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
         }
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text)
+        data_json = jsonish.loads(data_text)
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df["trade"] = pd.to_numeric(big_df["trade"], errors="coerce")

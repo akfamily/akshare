@@ -11,7 +11,7 @@ import datetime
 import pandas as pd
 
 from akshare.index.index_stock_zh import get_tx_start_year
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -80,9 +80,7 @@ def stock_zh_a_hist_tx(
         }
         r = http.get(url, params=params, timeout=timeout)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
-            symbol
-        ]
+        data_json = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][symbol]
         if "day" in data_json.keys():
             temp_df = pd.DataFrame(data_json["day"])
         elif "hfqday" in data_json.keys():

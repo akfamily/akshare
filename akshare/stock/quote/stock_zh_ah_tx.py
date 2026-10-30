@@ -17,7 +17,7 @@ from akshare.stock.cons import (
     hk_stock_headers,
     hk_stock_payload,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -32,7 +32,7 @@ def _get_zh_stock_ah_page_count() -> int:
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
     r = http.get(hk_url, params=hk_payload_copy, headers=hk_headers)
-    data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
+    data_json = jsonish.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
     page_count = data_json["data"]["page_count"]
     return page_count
 
@@ -50,7 +50,7 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = http.get(hk_url, params=hk_payload, headers=hk_headers)
-        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
+        data_json = jsonish.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         big_df = pd.concat(
             objs=[
                 big_df,
@@ -120,7 +120,7 @@ def stock_zh_ah_name() -> pd.DataFrame:
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = http.get(hk_url, params=hk_payload, headers=hk_headers)
-        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
+        data_json = jsonish.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         big_df = pd.concat(
             objs=[
                 big_df,
@@ -214,7 +214,7 @@ def stock_zh_ah_daily(
                 params=hk_stock_payload_copy,
                 headers=hk_stock_headers,
             )
-        data_json = demjson.decode(r.text[r.text.find("{") : r.text.rfind("}") + 1])
+        data_json = jsonish.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
         try:
             if adjust == "":
                 temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"]["day"])

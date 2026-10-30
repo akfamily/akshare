@@ -24,7 +24,7 @@ from akshare.stock.cons import (
     zh_sina_a_stock_qfq_url,
     zh_sina_a_stock_amount_url,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -66,7 +66,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
             params=zh_sina_stock_payload_copy,
             timeout=_SINA_A_SPOT_TIMEOUT,
         )
-        data_json = demjson.decode(r.text)
+        data_json = jsonish.loads(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
 
     big_df = big_df.astype(
@@ -202,7 +202,7 @@ def stock_zh_a_daily(
         pass
     data_df = data_df.astype("float")
     r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
+    amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.columns = ["date", "outstanding_share"]
     amount_data_df.index = pd.to_datetime(amount_data_df.date)

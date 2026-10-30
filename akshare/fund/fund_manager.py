@@ -8,7 +8,7 @@ https://fund.eastmoney.com/manager/default.html
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -33,7 +33,7 @@ def fund_manager_em() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text.strip("var returnjson= "))
+    data_json = jsonish.loads(data_text.strip("var returnjson= "))
     total_page = data_json["pages"]
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -44,7 +44,7 @@ def fund_manager_em() -> pd.DataFrame:
         )
         r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text.strip("var returnjson= "))
+        data_json = jsonish.loads(data_text.strip("var returnjson= "))
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()

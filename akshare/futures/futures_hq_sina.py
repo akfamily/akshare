@@ -12,7 +12,7 @@ from typing import Union, List
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -30,7 +30,7 @@ def _get_real_name_list() -> list:
     need_text = data_text[
         data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2") - 2
     ].replace("\n\t", "")
-    data_json = demjson.decode(need_text)
+    data_json = jsonish.loads(need_text)
     name_list = [item[0].strip() for item in data_json.values()]
     return name_list
 
@@ -46,7 +46,7 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     r = http.get(url)
     r.encoding = "gb2312"
     data_text = r.text
-    data_json = demjson.decode(
+    data_json = jsonish.loads(
         data_text[
             data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2 = ") - 2
         ]
@@ -244,7 +244,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     ].string.strip()
     raw_text = data_text[data_text.find("oHF_1 = ") : data_text.find("oHF_2")]
     need_text = raw_text[raw_text.find("{") : raw_text.rfind("}") + 1]
-    data_json = demjson.decode(need_text)
+    data_json = jsonish.loads(need_text)
     price_mul = pd.DataFrame(
         [
             [item[0] for item in data_json.values()],

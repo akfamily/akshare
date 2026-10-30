@@ -8,7 +8,7 @@ https://fund.eastmoney.com/data/xinfound.html
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -30,7 +30,7 @@ def fund_new_found_em() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text.strip("var newfunddata="))
+    data_json = jsonish.loads(data_text.strip("var newfunddata="))
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df.columns = [
         "基金代码",

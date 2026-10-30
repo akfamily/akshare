@@ -10,7 +10,7 @@ from io import StringIO
 import pandas as pd
 import time
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -23,7 +23,7 @@ def bond_cb_index_jsl() -> pd.DataFrame:
     """
     url = "https://www.jisilu.cn/webapi/cb/index_history/"
     r = http.get(url)
-    data_dict = demjson.decode(r.text)["data"]
+    data_dict = jsonish.loads(r.text)["data"]
     temp_df = pd.DataFrame(data_dict)
     return temp_df
 

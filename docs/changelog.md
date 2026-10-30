@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-9)=
+### 1.20.9 refactor: replace demjson with jsonish
+
+1. 移除内嵌的 demjson 2.2.4（约 7000 行，2015 年后已停止维护），改用新增的 akshare.utils.jsonish 解析上游返回的 JavaScript 对象字面量，涉及新浪、天天基金、腾讯等数据源的 60 余个接口
+2. 解析速度显著提升：fund_open_fund_daily_em 等需解析数 MB 数据的接口，解析耗时由约 10 秒降至 0.1 秒以内；以 817 份真实响应计，总耗时由 75.9 秒降至 2.9 秒，解析结果与 demjson 逐份一致
+3. 数组中的空位（如 fund_new_found_em 的部分字段）由 demjson 的 undefined 对象改为 None，在 DataFrame 中表现为正常的空值
+4. 无法解析时抛出 DataParsingError，并附上出错位置附近的原文
+
 (v1-20-8)=
 ### 1.20.8 build: raise dependency floors and drop pandas inplace
 

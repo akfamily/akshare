@@ -13,7 +13,7 @@ from io import BytesIO, StringIO
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -49,7 +49,7 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
             }
             r = http.get(url, params=params)
             temp_df = pd.concat(
-                objs=[temp_df, pd.DataFrame(demjson.decode(r.text))], ignore_index=True
+                objs=[temp_df, pd.DataFrame(jsonish.loads(r.text))], ignore_index=True
             )
         return temp_df
 
@@ -63,7 +63,7 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
         "_s_r_a": "setlen",
     }
     r = http.get(url, params=params)
-    temp = pd.DataFrame(demjson.decode(r.text))
+    temp = pd.DataFrame(jsonish.loads(r.text))
     return temp
 
 
