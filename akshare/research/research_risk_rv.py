@@ -1,116 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/20 20:51
-Desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quantitative Finance Realized Library
+Date: 2026/10/30
+Desc: 修大成主页-Risk Lab-Realized Volatility
 """
 
-import json
 import warnings
 
 import pandas as pd
 from bs4 import BeautifulSoup
 
 from akshare.utils import http
-
-
-def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2") -> pd.DataFrame:
-    """
-    Oxford-Man Institute of Quantitative Finance Realized Library 的数据
-    :param symbol: str ['AEX', 'AORD', 'BFX', 'BSESN', 'BVLG', 'BVSP', 'DJI', 'FCHI', 'FTMIB', 'FTSE', 'GDAXI', 'GSPTSE', 'HSI', 'IBEX', 'IXIC', 'KS11', 'KSE', 'MXX', 'N225', 'NSEI', 'OMXC20', 'OMXHPI', 'OMXSPI', 'OSEAX', 'RUT', 'SMSI', 'SPX', 'SSEC', 'SSMI', 'STI', 'STOXX50E']
-    :param index: str 指标 ['medrv', 'rk_twoscale', 'bv', 'rv10', 'rv5', 'rk_th2', 'rv10_ss', 'rsv', 'rv5_ss', 'bv_ss', 'rk_parzen', 'rsv_ss']
-    :return: pandas.DataFrame
-
-    The Oxford-Man Institute's "realised library" contains daily non-parametric measures of how volatility financial assets or indexes were in the past. Each day's volatility measure depends solely on financial data from that day. They are driven by the use of the latest innovations in econometric modelling and theory to design them, while we draw our high frequency data from the Thomson Reuters DataScope Tick History database. Realised measures are not volatility forecasts. However, some researchers use these measures as an input into forecasting models. The aim of this line of research is to make financial markets more transparent by exposing how volatility changes through time.
-
-    This Library is used as the basis of some of our own research, which effects its scope, and is made available here to encourage the more widespread exploitation of these methods. It is given 'as is' and solely for informational purposes, please read the disclaimer.
-
-    The volatility data can be visually explored. We make the complete up-to-date dataset available for download. Lists of assets covered and realized measures available are also available.
-    | Symbol    | Name                                      | Earliest Available | Latest Available  |
-    |-----------|-------------------------------------------|--------------------|-------------------|
-    | .AEX      | AEX index                                 | January 03, 2000   | November 28, 2019 |
-    | .AORD     | All Ordinaries                            | January 04, 2000   | November 28, 2019 |
-    | .BFX      | Bell 20 Index                             | January 03, 2000   | November 28, 2019 |
-    | .BSESN    | S&P BSE Sensex                            | January 03, 2000   | November 28, 2019 |
-    | .BVLG     | PSI All-Share Index                       | October 15, 2012   | November 28, 2019 |
-    | .BVSP     | BVSP BOVESPA Index                        | January 03, 2000   | November 28, 2019 |
-    | .DJI      | Dow Jones Industrial Average              | January 03, 2000   | November 27, 2019 |
-    | .FCHI     | CAC 40                                    | January 03, 2000   | November 28, 2019 |
-    | .FTMIB    | FTSE MIB                                  | June 01, 2009      | November 28, 2019 |
-    | .FTSE     | FTSE 100                                  | January 04, 2000   | November 28, 2019 |
-    | .GDAXI    | DAX                                       | January 03, 2000   | November 28, 2019 |
-    | .GSPTSE   | S&P/TSX Composite index                   | May 02, 2002       | November 28, 2019 |
-    | .HSI      | HANG SENG Index                           | January 03, 2000   | November 28, 2019 |
-    | .IBEX     | IBEX 35 Index                             | January 03, 2000   | November 28, 2019 |
-    | .IXIC     | Nasdaq 100                                | January 03, 2000   | November 27, 2019 |
-    | .KS11     | Korea Composite Stock Price Index (KOSPI) | January 04, 2000   | November 28, 2019 |
-    | .KSE      | Karachi SE 100 Index                      | January 03, 2000   | November 28, 2019 |
-    | .MXX      | IPC Mexico                                | January 03, 2000   | November 28, 2019 |
-    | .N225     | Nikkei 225                                | February 02, 2000  | November 28, 2019 |
-    | .NSEI     | NIFTY 50                                  | January 03, 2000   | November 28, 2019 |
-    | .OMXC20   | OMX Copenhagen 20 Index                   | October 03, 2005   | November 28, 2019 |
-    | .OMXHPI   | OMX Helsinki All Share Index              | October 03, 2005   | November 28, 2019 |
-    | .OMXSPI   | OMX Stockholm All Share Index             | October 03, 2005   | November 28, 2019 |
-    | .OSEAX    | Oslo Exchange All-share Index             | September 03, 2001 | November 28, 2019 |
-    | .RUT      | Russel 2000                               | January 03, 2000   | November 27, 2019 |
-    | .SMSI     | Madrid General Index                      | July 04, 2005      | November 28, 2019 |
-    | .SPX      | S&P 500 Index                             | January 03, 2000   | November 27, 2019 |
-    | .SSEC     | Shanghai Composite Index                  | January 04, 2000   | November 28, 2019 |
-    | .SSMI     | Swiss Stock Market Index                  | January 04, 2000   | November 28, 2019 |
-    | .STI      | Straits Times Index                       | January 03, 2000   | November 28, 2019 |
-    | .STOXX50E | EURO STOXX 50                             | January 03, 2000   | November 28, 2019 |
-    """
-    url = "https://realized.oxford-man.ox.ac.uk/theme/js/visualization-data.js?20191111113154"
-    res = http.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
-    soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("};") + 1])
-    date_list = data_json[f".{symbol}"]["dates"]
-    temp_df = pd.DataFrame([date_list, data_json[f".{symbol}"][index]["data"]]).T
-    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit="ms")
-    temp_df = temp_df.iloc[:, 1]
-    temp_df.index.name = "date"
-    temp_df.name = f"{symbol}-{index}"
-    return temp_df
-
-
-def article_oman_rv_short(symbol: str = "FTSE") -> pd.DataFrame:
-    """
-    Oxford-Man Institute of Quantitative Finance Realized Library 的数据
-    :param symbol: str FTSE: FTSE 100, GDAXI: DAX, RUT: Russel 2000, SPX: S&P 500 Index, STOXX50E: EURO STOXX 50, SSEC: Shanghai Composite Index, N225: Nikkei 225
-    :return: pandas.DataFrame
-
-    The Oxford-Man Institute's "realised library" contains daily non-parametric measures of how volatility financial assets or indexes were in the past. Each day's volatility measure depends solely on financial data from that day. They are driven by the use of the latest innovations in econometric modelling and theory to design them, while we draw our high frequency data from the Thomson Reuters DataScope Tick History database. Realised measures are not volatility forecasts. However, some researchers use these measures as an input into forecasting models. The aim of this line of research is to make financial markets more transparent by exposing how volatility changes through time.
-
-    This Library is used as the basis of some of our own research, which effects its scope, and is made available here to encourage the more widespread exploitation of these methods. It is given 'as is' and solely for informational purposes, please read the disclaimer.
-
-    The volatility data can be visually explored. We make the complete up-to-date dataset available for download. Lists of assets covered and realized measures available are also available.
-    """
-    url = "https://realized.oxford-man.ox.ac.uk/theme/js/front-page-chart.js"
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "realized.oxford-man.ox.ac.uk",
-        "Pragma": "no-cache",
-        "Referer": "https://realized.oxford-man.ox.ac.uk/?from=groupmessage&isappinstalled=0",
-        "Sec-Fetch-Mode": "no-cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
-    }
-
-    res = http.get(url, headers=headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("}") + 1])
-    temp_df = pd.DataFrame(data_json[f".{symbol}"]["data"])
-    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit="ms")
-    temp_df = temp_df.iloc[:, 1]
-    temp_df.index.name = "date"
-    temp_df.name = f"{symbol}"
-    return temp_df
 
 
 def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
@@ -182,9 +82,3 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
 if __name__ == "__main__":
     article_rlab_rv_df = article_rlab_rv(symbol="39693")
     print(article_rlab_rv_df)
-
-    article_oman_rv_short_df = article_oman_rv_short(symbol="FTSE")
-    print(article_oman_rv_short_df)
-
-    article_oman_rv_df = article_oman_rv(symbol="FTSE", index="rk_th2")
-    print(article_oman_rv_df)

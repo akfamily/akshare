@@ -84,3 +84,25 @@ def test_shfe_receipt_skips_unknown_variety(monkeypatch):
         df = futures_receipt.get_shfe_receipt_3(date="20261028", vars_list=["CU", "NR"])
     assert dict(zip(df["var"], df["receipt"])) == {"CU": 100, "NR": 7}
     assert any("某新品种" in str(w.message) for w in caught)
+
+
+def test_option_comm_info_parses_update_times(monkeypatch):
+    """九期网把“手续费更新时间”改为“期权手续费更新时间”后，原先用 strip 去前缀会残留文字"""
+    from akshare.option import option_comm_qihuo
+
+    html = (
+        "<div>（期权手续费更新时间：2026-10-30 00:50:17.461，"
+        "价格更新时间：2026-10-30 15:00:06.774。）<a id='dlink'></a></div>"
+        "<table><tr><td>广州期货交易所</td></tr><tr><td>期权品种</td></tr>"
+        "<tr><td>期权品种</td><td>现价</td><td>成交量</td><td>每跳毛利/元</td><td>每跳净利/元</td></tr>"
+        "<tr><td>工业硅期权</td><td>1</td><td>114</td><td>5</td><td>2.9</td></tr></table>"
+    )
+    symbols = pd.DataFrame({"品种名称": ["工业硅期权"], "品种代码": ["si_o"]})
+    monkeypatch.setattr(option_comm_qihuo, "option_comm_symbol", lambda: symbols)
+    monkeypatch.setattr(
+        option_comm_qihuo, "_option_comm_page", lambda params=None: html
+    )
+    df = option_comm_qihuo.option_comm_info(symbol="工业硅期权")
+    assert df["手续费更新时间"].iloc[0] == "2026-10-30 00:50:17.461"
+    assert df["价格更新时间"].iloc[0] == "2026-10-30 15:00:06.774"
+    assert df["交易所"].iloc[0] == "广州期货交易所"

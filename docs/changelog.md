@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-17)=
+### 1.20.17 fix: fix option_comm_info and futures_inventory_99, remove article_oman_rv
+
+1. 修复 option_comm_info、option_comm_symbol 接口：九期网拒绝不带浏览器请求头的请求并返回 403，接口报 `'NoneType' object has no attribute 'find_all'`；现在带上请求头。同时修正“手续费更新时间”一列：上游文字改为“期权手续费更新时间”后，原先的写法会残留前缀文字；品种名称不存在时抛出 InvalidParameterError
+2. 修复 futures_inventory_99 接口：代码中写死的 _pcc 令牌已过期，数据接口返回 HTTP 412，接口报 `JSONDecodeError`；现在每次调用时向 fx168 重新获取令牌
+3. 移除 article_oman_rv、article_oman_rv_short 接口：Oxford-Man Institute 已停止提供 Realized Library，数据站点 realized.oxford-man.ox.ac.uk 已下线，官方说明没有替代计划。同一模块的 article_rlab_rv 不受影响
+
 (v1-20-16)=
 ### 1.20.16 fix: enable TLS certificate verification for all requests
 

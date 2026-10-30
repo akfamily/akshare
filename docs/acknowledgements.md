@@ -20,7 +20,7 @@
 
 感谢[和讯财经网站](http://www.hexun.com)提供的相关数据；
 
-感谢[Oxford-Man Institute网站](https://realized.oxford-man.ox.ac.uk)提供的相关数据；
+感谢[Oxford-Man Institute](https://oxford-man.ox.ac.uk/research/realized-library/)曾经提供的 Realized Library 数据（该数据库已停止提供）；
 
 感谢[DACHENG-XIU网站](https://dachxiu.chicagobooth.edu)提供的相关数据；
 
