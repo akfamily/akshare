@@ -17,9 +17,10 @@ import pytest
 from akshare.exceptions import InvalidParameterError
 from akshare.stock.quote import stock_zh_a_sina
 
+# 新浪解密后的日期带 UTC 时区，形如 1999-11-10T00:00:00.000Z
 ROWS = [
     {
-        "date": "2024-01-02",
+        "date": "2024-01-02T00:00:00.000Z",
         "open": 10,
         "high": 11,
         "low": 9,
@@ -28,7 +29,7 @@ ROWS = [
         "amount": 10500,
     },
     {
-        "date": "2024-01-03",
+        "date": "2024-01-03T00:00:00.000Z",
         "open": 10.5,
         "high": 12,
         "low": 10,
@@ -79,6 +80,7 @@ def test_normal_symbol(fake_sina):
     )
     assert len(df) == 2
     assert df["outstanding_share"].tolist() == [1000000.0, 2000000.0]
+    assert [str(d) for d in df["date"]] == ["2024-01-02", "2024-01-03"]
 
 
 def test_delisted_symbol_returns_prices_without_share_data(fake_sina):

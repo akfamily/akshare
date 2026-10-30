@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-18)=
+### 1.20.18 fix: remove pandas and Python deprecated usages
+
+1. get_receipt 中 2014 年以前上期所与 2010 年以前郑商所仓单的处理代码使用了 pandas 3 已移除的 fillna(method=...)，改用 ffill()；这两段历史数据所依赖的上游页面目前本身也无法访问
+2. 将 pro 客户端与一个未导出的辅助函数中的 DataFrame.append（pandas 2 已移除）改为 pd.concat
+3. stock_zh_a_daily 不再发出 `Pandas4Warning: Indexing a DatetimeIndex with a sequence of datetime.date objects is deprecated`，该写法在 pandas 4 中将报错；返回结果不变
+4. 删除 stock_us_daily、stock_zh_kcb_daily、stock_financial_report_sina 等接口中兼容 pandas 2.1 以前版本的回退代码，pandas 下限已是 2.2.2
+5. 内置数据文件的路径改用 importlib.resources.files()，不再发出 Python 3.11 起的 `DeprecationWarning: path is deprecated`
+6. 测试中由 akshare 代码触发的 DeprecationWarning 与 FutureWarning 改为报错，在最低与最新版本依赖下均无此类警告
+
 (v1-20-17)=
 ### 1.20.17 fix: fix option_comm_info and futures_inventory_99, remove article_oman_rv
 
