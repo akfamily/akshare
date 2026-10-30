@@ -113,13 +113,13 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    for item in {
+    for item in [
         "科技类",
         "金融类",
         "医药食品类",
         "媒体类",
         "汽车能源类",
         "制造零售类",
-    }:
+    ]:
         stock_us_famous_spot_em_df = stock_us_famous_spot_em(symbol=item)
         print(stock_us_famous_spot_em_df)

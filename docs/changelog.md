@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-15)=
+### 1.20.15 fix: make result order deterministic and fix futures_gfex_warehouse_receipt
+
+1. 修复 get_shfe_rank_table、get_rank_sum 等接口每次运行返回顺序不同的问题：原先遍历 set 去重，Python 对字符串的哈希每个进程随机，同一份上游数据每次得到的行序或字典键序都不一样；现在按上游数据中首次出现的顺序。涉及 get_shfe_rank_table、get_cffex_rank_table、get_rank_sum、get_roll_yield_bar、futures_shfe_warehouse_receipt、futures_gfex_warehouse_receipt，返回内容不变
+2. 修复 futures_gfex_warehouse_receipt 接口报 `KeyError: "['whType'] not in index"`：广州期货交易所不再返回 whType 字段，原先据此过滤“小计”“总计”行；现在按仓库名为空过滤，结果与文档示例一致
+
 (v1-20-14)=
 ### 1.20.14 fix: honor ak.set_timeout everywhere and fix stock_zh_a_daily for delisted stocks
 
