@@ -139,7 +139,7 @@ def get_shfe_receipt_1(
                 data_cut = data.loc[indexes[i] : indexes[i + 1] - 1, :]
             else:
                 data_cut = data.loc[indexes[i] : last_index, :]
-                data_cut = data_cut.fillna(method="pad")
+                data_cut = data_cut.ffill()
             data_dict = dict()
             data_dict["var"] = chinese_to_english(data_cut[0].tolist()[0])
             data_dict["receipt"] = int(data_cut[2].tolist()[-1])
@@ -302,10 +302,10 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     for i in list(range(len(indexes))):
         if i != len(indexes) - 1:
             data_cut = data.loc[indexes[i] : ends[i], :]
-            data_cut = data_cut.fillna(method="pad")
+            data_cut = data_cut.ffill()
         else:
             data_cut = data.loc[indexes[i] :, :]
-            data_cut = data_cut.fillna(method="pad")
+            data_cut = data_cut.ffill()
         if "PTA" in data_cut[0].tolist()[0]:
             var = "TA"
         else:

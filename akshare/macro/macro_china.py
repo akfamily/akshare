@@ -3478,7 +3478,7 @@ def _macro_china_freight_index() -> pd.DataFrame:
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     return big_df
 

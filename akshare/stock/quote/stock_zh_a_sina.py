@@ -191,7 +191,12 @@ def stock_zh_a_daily(
         "d", r.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.date
+    # 与股本、复权因子表一样用不带时区的 Timestamp 作索引；混用 datetime.date 时 pandas 合并会
+    # 发出 Pandas4Warning，pandas 4 起将报错。上游日期形如 1999-11-10T00:00:00.000Z（UTC 零点），
+    # 去掉时区后日期不变。返回前 reset_index 后再转为 date，结果类型不变
+    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.tz_localize(
+        None
+    )
     del data_df["date"]
     try:
         del data_df["prevclose"]
