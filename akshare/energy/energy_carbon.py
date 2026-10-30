@@ -30,49 +30,6 @@ from akshare.utils import http
 from akshare.utils.cons import headers
 
 
-def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
-    """
-    碳交易网-行情信息
-    http://www.tanjiaoyi.com/
-    :param symbol: choice of {'湖北', '上海', '北京', '重庆', '广东', '天津', '深圳', '福建'}
-    :type symbol: str
-    :return: 行情信息
-    :rtype: pandas.DataFrame
-    """
-    url = "http://k.tanjiaoyi.com:8080/KDataController/getHouseDatasInAverage.do"
-    params = {
-        "lcnK": "53f75bfcefff58e4046ccfa42171636c",
-        "brand": "TAN",
-    }
-    r = http.get(url, params=params)
-    data_text = r.text
-    data_json = jsonish.loads(data_text[data_text.find("(") + 1 : -1])
-    temp_df = pd.DataFrame(data_json[symbol])
-    temp_df.columns = [
-        "成交价",
-        "_",
-        "成交量",
-        "地点",
-        "成交额",
-        "日期",
-        "_",
-    ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "成交价",
-            "成交量",
-            "成交额",
-            "地点",
-        ]
-    ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df["成交价"] = pd.to_numeric(temp_df["成交价"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    return temp_df
-
-
 def energy_carbon_bj() -> pd.DataFrame:
     """
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
@@ -283,12 +240,6 @@ def energy_carbon_gz() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    energy_carbon_domestic_df = energy_carbon_domestic(symbol="湖北")
-    print(energy_carbon_domestic_df)
-
-    energy_carbon_domestic_df = energy_carbon_domestic(symbol="深圳")
-    print(energy_carbon_domestic_df)
-
     energy_carbon_bj_df = energy_carbon_bj()
     print(energy_carbon_bj_df)
 

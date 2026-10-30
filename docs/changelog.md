@@ -8,6 +8,15 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-11)=
+### 1.20.11 fix: fix air_quality_hist interface and remove dead interfaces
+
+1. 修复 air_quality_hist 接口：真气网更换了请求加密的顺序与密钥，并改为写在页面里，原先内置的加密代码已无法使用，接口报 `JSONDecodeError`；现在每次调用时从真气网首页读取当前密钥，并使用站点当前的加解密代码
+2. air_quality_hist 的默认日期改为近期：上游只提供最近约一年的数据，更早的日期返回空表并给出警告；月度数据上游目前无论查询哪个城市都返回郑州 2021-08～2022-08 的数据，现在城市名不符时报错，而不是返回其他城市的数据
+3. 更新 air_quality_watch_point 文档的示例日期：上游只提供近期的数据，原示例的日期返回空表
+4. 移除盖世汽车销量排行接口 car_sale_rank_gasgoo：盖世汽车启用了腾讯人机验证码，程序无法完成验证，接口报 `JSONDecodeError`
+5. 移除碳交易网行情接口 energy_carbon_domestic：其数据服务返回 HTTP 500 并要求登录，接口报 `JSONDecodeError`；北京、深圳、湖北、广州等交易所的碳排放接口不受影响
+
 (v1-20-10)=
 ### 1.20.10 fix: fix get_receipt interface
 

@@ -1289,7 +1289,6 @@ from akshare.spot.spot_sge import (
 # ---- 能源（akshare/energy） ----
 from akshare.energy.energy_carbon import (
     energy_carbon_bj,
-    energy_carbon_domestic,
     energy_carbon_eu,
     energy_carbon_gz,
     energy_carbon_hb,
@@ -1328,7 +1327,6 @@ from akshare.alternative.alternative_car_cpca import (
     car_market_segment_cpca,
     car_market_total_cpca,
 )
-from akshare.alternative.alternative_car_gasgoo import car_sale_rank_gasgoo
 from akshare.alternative.alternative_fortune_500 import fortune_rank
 from akshare.alternative.alternative_fortune_bloomberg import (
     index_bloomberg_billionaires,
@@ -1493,7 +1491,6 @@ __all__ = [
     "car_market_man_rank_cpca",
     "car_market_segment_cpca",
     "car_market_total_cpca",
-    "car_sale_rank_gasgoo",
     "crypto_bitcoin_cme",
     "crypto_bitcoin_hold_report",
     "crypto_js_spot",
@@ -1507,7 +1504,6 @@ __all__ = [
     "currency_time_series",
     "drewry_wci_index",
     "energy_carbon_bj",
-    "energy_carbon_domestic",
     "energy_carbon_eu",
     "energy_carbon_gz",
     "energy_carbon_hb",
