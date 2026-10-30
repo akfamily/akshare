@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-12)=
+### 1.20.12 perf: reduce requests of sina macro interfaces
+
+1. 新浪财经宏观数据接口由每页 31 条改为每页 1000 条：macro_china_insurance 一次调用的请求数由 307 次降到 10 次，耗时由约 83 秒降到约 4 秒；macro_china_retail_price_index、macro_china_supply_of_money、macro_china_society_electricity 等共 8 个接口同样受益，返回结果不变
+2. macro_china_society_traffic_volume、macro_china_postal_telecommunicational 保持每页 31 条：其上游按“非累计”“累计”两组返回数据，按页切分的结果随页长变化，1000 条一页会漏掉 2021 年 1 月等月份
+3. news_cctv 去掉标题中的“[视频]”与正文开头的“央视网消息（新闻联播）：”时，原先按字符集合删除两端字符，以“视频”结尾的标题会被截掉末尾两字，正文以“新”“央”等字开头时也会被误删；现在只删除前缀
+4. 移除 get_rank_table_czce、stock_news_em、news_cctv 请求头中写死的过期 Cookie，去掉后返回结果不变；同时删除不再使用的请求头常量
+
 (v1-20-11)=
 ### 1.20.11 fix: fix air_quality_hist interface and remove dead interfaces
 

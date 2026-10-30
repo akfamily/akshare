@@ -3230,6 +3230,16 @@ def macro_china_consumer_goods_retail() -> pd.DataFrame:
     return temp_df
 
 
+# 新浪财经宏观数据接口 MacPage_Service.get_pagedata 的每页条数。原先每页 31 条，
+# macro_china_insurance 一次调用要请求约 300 次；上游接受更大的值，实测 9 个接口
+# 1000 条一页与 31 条一页取到的数据逐行一致
+_SINA_MAC_PAGE_SIZE = 1000
+# 数据分“非累计”“累计”两组返回的接口，上游按页切分的结果随页长变化：1000 条一页会
+# 漏掉 2021.1 等月份，而 31 条一页不会。count 是两组之和，按它翻页会越过“非累计”的末尾，
+# 上游此时返回重复行，原先这些重复行一并保留。这两个接口保持 31 条一页
+_SINA_MAC_SPLIT_PAGE_SIZE = 31
+
+
 def macro_china_society_electricity() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-全社会用电分类情况表
@@ -3242,16 +3252,16 @@ def macro_china_society_electricity() -> pd.DataFrame:
         "cate": "industry",
         "event": "6",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     for i in range(1, page_num):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3295,17 +3305,17 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
         "cate": "industry",
         "event": "10",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_SPLIT_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_SPLIT_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_SPLIT_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3353,17 +3363,17 @@ def macro_china_postal_telecommunicational() -> pd.DataFrame:
         "cate": "industry",
         "event": "11",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_SPLIT_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_SPLIT_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_SPLIT_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3387,17 +3397,17 @@ def macro_china_international_tourism_fx() -> pd.DataFrame:
         "cate": "industry",
         "event": "15",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3421,17 +3431,17 @@ def macro_china_passenger_load_factor() -> pd.DataFrame:
         "cate": "industry",
         "event": "20",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3455,17 +3465,17 @@ def _macro_china_freight_index() -> pd.DataFrame:
         "cate": "industry",
         "event": "22",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3532,17 +3542,17 @@ def macro_china_central_bank_balance() -> pd.DataFrame:
         "cate": "fininfo",
         "event": "8",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3566,17 +3576,17 @@ def macro_china_insurance() -> pd.DataFrame:
         "cate": "fininfo",
         "event": "19",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3600,17 +3610,17 @@ def macro_china_supply_of_money() -> pd.DataFrame:
         "cate": "fininfo",
         "event": "1",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num)):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3634,17 +3644,17 @@ def macro_china_foreign_exchange_gold() -> pd.DataFrame:
         "cate": "fininfo",
         "event": "5",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])
@@ -3669,17 +3679,17 @@ def macro_china_retail_price_index() -> pd.DataFrame:
         "cate": "price",
         "event": "12",
         "from": "0",
-        "num": "31",
+        "num": str(_SINA_MAC_PAGE_SIZE),
         "condition": "",
     }
     r = http.get(url, params=params)
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / 31)
+    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
     big_df = pd.DataFrame(data_json["data"])
     tqdm = get_tqdm()
     for i in tqdm(range(1, page_num), leave=False):
-        params.update({"from": i * 31})
+        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
         r = http.get(url, params=params)
         data_text = r.text
         data_json = jsonish.loads(data_text[data_text.find("{") : -3])

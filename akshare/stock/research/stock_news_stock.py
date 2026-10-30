@@ -52,7 +52,6 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
         "accept-language": "en,zh-CN;q=0.9,zh;q=0.8",
         "cache-control": "no-cache",
         "connection": "keep-alive",
-        "cookie": "qgqp_b_id=652bf4c98a74e210088f372a17d4e27b; st_nvi=ulN5JAj9FUocz3p4klMME9f20; emshistory=%5B%22603777%22%5D; nid18=010d039dd427dc4d187090491f47d7ad; nid18_create_time=1764582801999; gviem=gSdeY51VWSuTzM3kWaagtf560; gviem_create_time=1764582801999; st_si=55269775884615; st_pvi=66803244437563; st_sp=2025-11-19%2014%3A19%3A16; st_inirUrl=https%3A%2F%2Fso.eastmoney.com%2Fnews%2Fs; st_sn=2; st_psi=20251201223210488-118000300905-0940816858; st_asi=delete",
         "host": "search-api-web.eastmoney.com",
         "pragma": "no-cache",
         "referer": "https://so.eastmoney.com/news/s?keyword=603777",
