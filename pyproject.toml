@@ -99,7 +99,7 @@ version = {attr = "akshare._version.__version__"}
 include = ["akshare*"]
 
 [tool.setuptools.package-data]
-"*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip"]
+"*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip", "*.pem"]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -149,8 +149,8 @@ target-version = "py311"
 # McCabe complexity (`C901`) by default.
 #
 # 另外启用两条 flake8-bandit 安全规则：S307 禁止对上游响应调用 eval（已全部改为
-# ast.literal_eval，存量为零）；S501 禁止 verify=False，存量以 # noqa: S501 标记，
-# 只拦新增。
+# ast.literal_eval，存量为零）；S501 禁止 verify=False（1.20.16 起存量为零：证书不完整的
+# 站点改为补全中间证书，见 index_research_sw.py）。
 #
 # TID251 要求数据接口经 akshare.utils.http 发请求（含 curl_cffi 版本），从而统一应用全局超时与代理
 # （ak.set_timeout / ak.set_proxies）。它覆盖了 S113（请求未设超时）的用途，

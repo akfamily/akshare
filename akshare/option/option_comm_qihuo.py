@@ -17,11 +17,9 @@ from akshare.utils import http
 
 @lru_cache()
 def option_comm_symbol() -> pd.DataFrame:
-    import urllib3
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     url = "https://www.9qihuo.com/qiquanshouxufei"
-    r = http.get(url, verify=False)  # noqa: S501
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     name = [
         item.string.strip()
@@ -45,16 +43,14 @@ def option_comm_info(symbol: str = "工业硅期权") -> pd.DataFrame:
     :return: 期权手续费
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     symbol_df = option_comm_symbol()
     symbol_str = symbol_df[symbol_df["品种名称"].str.contains(symbol)][
         "品种代码"
     ].values[0]
     params = {"heyue": symbol_str}
     url = "https://www.9qihuo.com/qiquanshouxufei"
-    r = http.get(url, params=params, verify=False)  # noqa: S501
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     market_symbol = temp_df.iloc[0, 0]
     columns = temp_df.iloc[2, :]

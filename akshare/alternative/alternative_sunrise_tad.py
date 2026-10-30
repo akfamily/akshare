@@ -49,14 +49,12 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings()
     if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = http.get(url, verify=False)  # noqa: S501
+        r = http.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1,]
         day_df = month_df[
@@ -82,9 +80,7 @@ def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFra
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings()
     if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]

@@ -38,7 +38,7 @@ def energy_carbon_bj() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.bjets.com.cn/article/jyxx/"
-    r = http.get(url, verify=False, headers=headers)  # noqa: S501
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     total_page = (
         soup.find("table")
@@ -57,7 +57,7 @@ def energy_carbon_bj() -> pd.DataFrame:
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
-        r = http.get(url, verify=False, headers=headers)  # noqa: S501
+        r = http.get(url, headers=headers)
         r.encoding = "utf-8"
         df = pd.read_html(StringIO(r.text))[0]
         temp_df = pd.concat(objs=[temp_df, df], ignore_index=True)
