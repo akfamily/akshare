@@ -54,9 +54,9 @@ def stock_zdhtmx_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DIM_SCODE": "-",
@@ -86,7 +86,6 @@ def stock_zdhtmx_em(
             "RCHANGE20DC": "-",
             "ZSNDYYSRBL": "占上年度营业收入比例",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

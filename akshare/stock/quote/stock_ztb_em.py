@@ -47,7 +47,7 @@ def stock_zt_pool_em(date: str = "20241008") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -133,7 +133,7 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -210,7 +210,7 @@ def stock_zt_pool_strong_em(date: str = "20241231") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -297,7 +297,7 @@ def stock_zt_pool_sub_new_em(date: str = "20241231") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -385,7 +385,7 @@ def stock_zt_pool_zbgc_em(date: str = "20241011") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -465,7 +465,7 @@ def stock_zt_pool_dtgc_em(date: str = "20241011") -> pd.DataFrame:
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",

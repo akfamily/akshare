@@ -80,7 +80,7 @@ def air_city_table() -> pd.DataFrame:
         r = http.get(url, params=params)
         temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, :]
         del temp_df["降序"]
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["index"] = temp_df.index + 1
         temp_df.columns = [
             "序号",

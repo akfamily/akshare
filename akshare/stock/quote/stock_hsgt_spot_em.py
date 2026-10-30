@@ -33,9 +33,9 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f193": "名称",
@@ -48,7 +48,6 @@ def stock_zh_ah_spot_em() -> pd.DataFrame:
             "f189": "比价",
             "f188": "溢价",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -95,7 +94,7 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "f12": "代码",
             "f14": "名称",
@@ -109,7 +108,6 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
             "f5": "成交量",
             "f6": "成交额",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[
@@ -136,10 +134,10 @@ def stock_hsgt_sh_hk_spot_em() -> pd.DataFrame:
     temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce") / 1000
     temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce") / 100000000
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce") / 100000000
-    temp_df.sort_values(["代码"], ignore_index=True, inplace=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.sort_values(["代码"], ignore_index=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
+    temp_df = temp_df.rename(columns={"index": "序号"})
     return temp_df
 
 

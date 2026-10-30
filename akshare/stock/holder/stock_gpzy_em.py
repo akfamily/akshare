@@ -80,8 +80,8 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["A股质押总比例"] = big_df["A股质押总比例"] / 100
     big_df["A股质押总比例"] = pd.to_numeric(big_df["A股质押总比例"], errors="coerce")
-    big_df.sort_values(["交易日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["交易日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -120,7 +120,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -219,7 +219,7 @@ def _stock_gpzy_pledge_ratio_detail_em(filter: str = None) -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -332,7 +332,7 @@ def stock_gpzy_distribute_statistics_company_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -401,7 +401,7 @@ def stock_gpzy_distribute_statistics_bank_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -469,7 +469,7 @@ def stock_gpzy_industry_data_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",

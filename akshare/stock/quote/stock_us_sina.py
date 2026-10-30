@@ -146,13 +146,12 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     qfq_factor_df = pd.DataFrame(
         ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
     )
-    qfq_factor_df.rename(
+    qfq_factor_df = qfq_factor_df.rename(
         columns={
             "c": "adjust",
             "d": "date",
             "f": "qfq_factor",
         },
-        inplace=True,
     )
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
     del qfq_factor_df["date"]
@@ -174,20 +173,20 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         )
         try:
             # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
+            temp_df = temp_df.ffill()
         except Exception:
             try:
                 # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
+                temp_df = temp_df.fillna(method="ffill")
             except Exception as e:
                 warnings.warn(f"Error: {e}")
         try:
             # try for pandas >= 2.1.0
-            temp_df.bfill(inplace=True)
+            temp_df = temp_df.bfill()
         except Exception:
             try:
                 # try for pandas < 2.1.0
-                temp_df.fillna(method="bfill", inplace=True)
+                temp_df = temp_df.fillna(method="bfill")
             except Exception as e:
                 warnings.warn(f"Error: {e}")
 
@@ -200,21 +199,21 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         temp_df = temp_df.astype("float")
         # 处理复权因子错误的情况-开始
         check_df = temp_df[["open", "high", "low", "close"]].copy()
-        check_df.dropna(inplace=True)
+        check_df = check_df.dropna()
         if check_df.empty:
-            data_df.reset_index(inplace=True)
+            data_df = data_df.reset_index()
             return data_df
         # 处理复权因子错误的情况-结束
         result_data = temp_df.iloc[:, :-2]
-        result_data.reset_index(inplace=True)
+        result_data = result_data.reset_index()
         return result_data
 
     if adjust == "qfq-factor":
-        qfq_factor_df.reset_index(inplace=True)
+        qfq_factor_df = qfq_factor_df.reset_index()
         return qfq_factor_df
 
     if adjust == "":
-        data_df.reset_index(inplace=True)
+        data_df = data_df.reset_index()
         return data_df
 
 

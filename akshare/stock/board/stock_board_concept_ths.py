@@ -77,7 +77,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     """
     code_name_ths_map = _get_stock_board_concept_name_ths()
     temp_df = pd.DataFrame.from_dict(code_name_ths_map, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["name", "code"]
     temp_df = temp_df[
         [
@@ -221,7 +221,7 @@ def stock_board_concept_index_ths(
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df.index = pd.to_datetime(big_df["日期"], errors="coerce")
     big_df = big_df[start_date:end_date]
-    big_df.reset_index(drop=True, inplace=True)
+    big_df = big_df.reset_index(drop=True)
     big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
     big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
     big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")

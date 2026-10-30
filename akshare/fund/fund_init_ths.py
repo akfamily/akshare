@@ -57,7 +57,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
 
     # 转换为 DataFrame
     temp_df = pd.DataFrame(data_json).T
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
 
     # 根据 symbol 筛选数据
     if symbol == "发行中":
@@ -78,7 +78,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
         )
 
     # 重命名列
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "code": "基金代码",
             "name": "基金名称",
@@ -95,7 +95,6 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
             "zzfx": "发行中",
             "buy": "可购买",
         },
-        inplace=True,
     )
 
     # 选择需要的列

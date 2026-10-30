@@ -171,7 +171,7 @@ def futures_hist_em(
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
     temp_df = temp_df[start_date:end_date]
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

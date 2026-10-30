@@ -101,7 +101,7 @@ def option_finance_board(
         ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
-        raw_data.reset_index(inplace=True)
+        raw_data = raw_data.reset_index()
         raw_data.columns = [
             "日期",
             "合约交易代码",
@@ -124,7 +124,7 @@ def option_finance_board(
         ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
-        raw_data.reset_index(inplace=True)
+        raw_data = raw_data.reset_index()
         raw_data.columns = [
             "日期",
             "合约交易代码",
@@ -147,7 +147,7 @@ def option_finance_board(
         ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
-        raw_data.reset_index(inplace=True)
+        raw_data = raw_data.reset_index()
         raw_data.columns = [
             "日期",
             "合约交易代码",
@@ -170,7 +170,7 @@ def option_finance_board(
         ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
-        raw_data.reset_index(inplace=True)
+        raw_data = raw_data.reset_index()
         raw_data.columns = [
             "日期",
             "合约交易代码",
@@ -193,7 +193,7 @@ def option_finance_board(
         ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
-        raw_data.reset_index(inplace=True)
+        raw_data = raw_data.reset_index()
         raw_data.columns = [
             "日期",
             "合约交易代码",
@@ -244,7 +244,7 @@ def option_finance_board(
         big_df["end_month"] = big_df["期权行权日"].dt.month.astype(str).str.zfill(2)
         big_df = big_df[big_df["end_month"] == end_month]
         del big_df["end_month"]
-        big_df.reset_index(inplace=True, drop=True)
+        big_df = big_df.reset_index(drop=True)
         return big_df
     elif symbol == "沪深300股指期权":
         headers = {
@@ -262,7 +262,7 @@ def option_finance_board(
         )
         raw_df = raw_df[raw_df["end_month"] == end_month]
         del raw_df["end_month"]
-        raw_df.reset_index(inplace=True, drop=True)
+        raw_df = raw_df.reset_index(drop=True)
         return raw_df
     elif symbol == "中证1000股指期权":
         headers = {
@@ -281,7 +281,7 @@ def option_finance_board(
         )
         raw_df = raw_df[raw_df["end_month"] == end_month]
         del raw_df["end_month"]
-        raw_df.reset_index(inplace=True, drop=True)
+        raw_df = raw_df.reset_index(drop=True)
         return raw_df
     elif symbol == "上证50股指期权":
         headers = {
@@ -300,7 +300,7 @@ def option_finance_board(
         )
         raw_df = raw_df[raw_df["end_month"] == end_month]
         del raw_df["end_month"]
-        raw_df.reset_index(inplace=True, drop=True)
+        raw_df = raw_df.reset_index(drop=True)
         return raw_df
     else:
         return pd.DataFrame()

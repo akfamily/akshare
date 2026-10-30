@@ -148,7 +148,7 @@ def bond_info_cm(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["resultList"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "bondDefinedCode": "查询代码",
             "bondName": "债券简称",
@@ -163,7 +163,6 @@ def bond_info_cm(
             "isin": "-",
             "inptTp": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -209,7 +208,7 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     if data_dict["exerciseInfoList"]:
         del data_dict["exerciseInfoList"]
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["name", "value"]
     return temp_df
 

@@ -47,9 +47,9 @@ def stock_dxsyl_em() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "SECURITY_CODE": "股票代码",
@@ -69,7 +69,6 @@ def stock_dxsyl_em() -> pd.DataFrame:
             "LD_CLOSE_CHANGE": "首日涨幅",
             "LISTING_DATE": "上市日期",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -166,7 +165,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "ORG_CODE": "-",
                 "SECURITY_CODE": "代码",
@@ -206,7 +205,6 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "VA_AMT": "参与申购资金",
                 "ISSUE_PRICE_ADJFACTOR": "-",
             },
-            inplace=True,
         )
         big_df["最新价格-累计涨幅"] = big_df["首日收盘价"] / big_df["最新价格-价格"]
 
@@ -301,7 +299,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "SECURITY_CODE": "股票代码",
                 "SECURITY_NAME": "股票简称",
@@ -352,7 +350,6 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "MAIN_BUSINESS": "_",
                 "IS_REGISTRATION": "_",
             },
-            inplace=True,
         )
         big_df = big_df[
             [

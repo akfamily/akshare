@@ -37,7 +37,7 @@ def macro_germany_core(symbol: str = "EMG00179154") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "COUNTRY": "-",
             "INDICATOR_ID": "-",
@@ -49,7 +49,6 @@ def macro_germany_core(symbol: str = "EMG00179154") -> pd.DataFrame:
             "PRE_VALUE": "前值",
             "INDICATOR_IDOLD": "-",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -62,7 +61,7 @@ def macro_germany_core(symbol: str = "EMG00179154") -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
-    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(["发布日期"], ignore_index=True)
     return temp_df
 
 

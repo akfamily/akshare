@@ -51,7 +51,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         temp_df["市场信心指数"] = pd.to_numeric(
             temp_df["市场信心指数"], errors="coerce"
         )
-        temp_df.sort_values(["期数"], inplace=True, ignore_index=True)
+        temp_df = temp_df.sort_values(["期数"], ignore_index=True)
         return temp_df
     else:
         symbol_map = {"周价格指数": "piweek", "月价格指数": "month"}
@@ -82,7 +82,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         temp_df["出口价格指数"] = pd.to_numeric(
             temp_df["出口价格指数"], errors="coerce"
         )
-        temp_df.sort_values(by=["期数"], inplace=True, ignore_index=True)
+        temp_df = temp_df.sort_values(by=["期数"], ignore_index=True)
         return temp_df
 
 

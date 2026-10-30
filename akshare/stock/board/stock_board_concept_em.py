@@ -62,7 +62,7 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = _fetch_stock_board_concept_name_em()
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "排名",
             "f2": "最新价",
@@ -78,7 +78,6 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
             "f136": "领涨股票-涨跌幅",
             "f140": "领涨股票-代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -158,8 +157,8 @@ def stock_board_concept_spot_em(symbol: str = "可燃冰") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_dict = r.json()
     result = pd.DataFrame.from_dict(data_dict["data"], orient="index")
-    result.rename(field_map, inplace=True)
-    result.reset_index(inplace=True)
+    result = result.rename(field_map)
+    result = result.reset_index()
     result.columns = ["item", "value"]
     result["value"] = pd.to_numeric(result["value"], errors="coerce")
 

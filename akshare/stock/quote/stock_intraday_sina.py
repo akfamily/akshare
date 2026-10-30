@@ -56,7 +56,7 @@ def stock_intraday_sina(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.sort_values(by=["ticktime"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["ticktime"], ignore_index=True)
     big_df["price"] = pd.to_numeric(big_df["price"], errors="coerce")
     big_df["volume"] = pd.to_numeric(big_df["volume"], errors="coerce")
     big_df["prev_price"] = pd.to_numeric(big_df["prev_price"], errors="coerce")

@@ -33,7 +33,7 @@ def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
     r = http.post(url, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "swIndexCode": "指数代码",
             "swIndexName": "指数名称",
@@ -41,7 +41,6 @@ def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
             "lastMarkup": "日涨跌幅",
             "yearMarkup": "年涨跌幅",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -79,7 +78,7 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
     r = http.post(url, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "bargaindate": "日期",
             "swIndexName": "指数名称",
@@ -90,7 +89,6 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
             "openindex": "开盘指数",
             "markup": "涨跌幅",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

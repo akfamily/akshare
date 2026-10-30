@@ -59,7 +59,7 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
             "成交金额",
             "性质",
         ]
-        big_df.reset_index(drop=True, inplace=True)
+        big_df = big_df.reset_index(drop=True)
         property_map = {
             "S": "卖盘",
             "B": "买盘",

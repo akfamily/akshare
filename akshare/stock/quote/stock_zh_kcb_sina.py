@@ -154,11 +154,11 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     )
     try:
         # try for pandas >= 2.1.0
-        temp_df.ffill(inplace=True)
+        temp_df = temp_df.ffill()
     except Exception:
         try:
             # try for pandas < 2.1.0
-            temp_df.fillna(method="ffill", inplace=True)
+            temp_df = temp_df.fillna(method="ffill")
         except Exception as e:
             warnings.warn(f"Error: {e}")
     temp_df = temp_df.astype(float)
@@ -177,7 +177,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     ]
 
     if not adjust:
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
@@ -195,11 +195,11 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         )
         try:
             # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
+            temp_df = temp_df.ffill()
         except Exception:
             try:
                 # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
+                temp_df = temp_df.fillna(method="ffill")
             except Exception as e:
                 warnings.warn(f"Error: {e}")
         temp_df = temp_df.astype(float)
@@ -208,7 +208,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
         temp_df = temp_df.iloc[:, :-1]
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
@@ -226,11 +226,11 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         )
         try:
             # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
+            temp_df = temp_df.ffill()
         except Exception:
             try:
                 # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
+                temp_df = temp_df.fillna(method="ffill")
             except Exception as e:
                 warnings.warn(f"Error: {e}")
         temp_df = temp_df.astype(float)
@@ -239,7 +239,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
         temp_df = temp_df.iloc[:, :-1]
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.reset_index()
         temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         return temp_df
 
@@ -251,7 +251,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
-        hfq_factor_df.reset_index(inplace=True)
+        hfq_factor_df = hfq_factor_df.reset_index()
         hfq_factor_df["date"] = pd.to_datetime(hfq_factor_df["date"]).dt.date
         return hfq_factor_df
 
@@ -263,7 +263,7 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
-        qfq_factor_df.reset_index(inplace=True)
+        qfq_factor_df = qfq_factor_df.reset_index()
         qfq_factor_df["date"] = pd.to_datetime(qfq_factor_df["date"]).dt.date
         return qfq_factor_df
 

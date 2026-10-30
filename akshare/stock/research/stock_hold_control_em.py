@@ -53,7 +53,7 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECURITY_CODE": "代码",
             "DERIVE_SECURITY_CODE": "-",
@@ -75,7 +75,6 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
             "BEGIN_HOLD_NUM": "开始时持有",
             "END_HOLD_NUM": "结束后持有",
         },
-        inplace=True,
     )
 
     big_df = big_df[
@@ -138,7 +137,7 @@ def stock_hold_management_person_em(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "SECURITY_CODE": "代码",
             "DERIVE_SECURITY_CODE": "-",
@@ -160,7 +159,6 @@ def stock_hold_management_person_em(
             "BEGIN_HOLD_NUM": "开始时持有",
             "END_HOLD_NUM": "结束后持有",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

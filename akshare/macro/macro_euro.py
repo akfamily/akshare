@@ -75,7 +75,7 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -131,7 +131,7 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -190,7 +190,7 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -248,7 +248,7 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -307,7 +307,7 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -363,7 +363,7 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -422,7 +422,7 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -481,7 +481,7 @@ def macro_euro_trade_balance() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -540,7 +540,7 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -599,7 +599,7 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -658,7 +658,7 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -717,7 +717,7 @@ def macro_euro_services_pmi() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -775,7 +775,7 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -833,7 +833,7 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -853,7 +853,7 @@ def macro_euro_lme_holding() -> pd.DataFrame:
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
@@ -864,9 +864,9 @@ def macro_euro_lme_holding() -> pd.DataFrame:
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
     big_df = big_df.iloc[:-1, :].copy()
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -894,9 +894,9 @@ def macro_euro_lme_stock() -> pd.DataFrame:
             )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
-    big_df.sort_index(inplace=True)
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
+    big_df = big_df.sort_index()
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
     return big_df
 
 

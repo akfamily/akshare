@@ -46,7 +46,7 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
         item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
     ]
     temp_df = pd.DataFrame({symbol: contract})
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = ["序号", "合约"]
     return temp_df

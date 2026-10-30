@@ -168,7 +168,7 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -184,7 +184,6 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

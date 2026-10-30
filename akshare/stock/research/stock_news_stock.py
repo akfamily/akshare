@@ -71,7 +71,7 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
     )
     temp_df = pd.DataFrame(data_json["result"]["cmsArticleWebOld"])
     temp_df["url"] = "http://finance.eastmoney.com/a/" + temp_df["code"] + ".html"
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "date": "发布时间",
             "mediaName": "文章来源",
@@ -81,7 +81,6 @@ def stock_news_em(symbol: str = "603777") -> pd.DataFrame:
             "url": "新闻链接",
             "image": "-",
         },
-        inplace=True,
     )
     temp_df["关键词"] = symbol
     temp_df = temp_df[

@@ -43,7 +43,7 @@ def stock_zh_a_spot_tx() -> pd.DataFrame:
         page_json = r.json()
         page_df = pd.DataFrame(page_json["data"]["rank_list"])
         temp_df = pd.concat([temp_df, page_df], ignore_index=True)
-    temp_df.drop_duplicates(subset=["code"], inplace=True, ignore_index=True)
+    temp_df = temp_df.drop_duplicates(subset=["code"], ignore_index=True)
     return temp_df
 
 

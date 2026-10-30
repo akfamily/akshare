@@ -236,7 +236,7 @@ def stock_hsgt_hold_stock_em(
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "序号",
@@ -1123,7 +1123,7 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
     else:
         index_name = "恒生指数"
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "MUTUAL_TYPE": "-",
             "TRADE_DATE": "日期",
@@ -1140,7 +1140,6 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
             "INDEX_CHANGE_RATE": f"{index_name}-涨跌幅",
             "HOLD_MARKET_CAP": "持股市值",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -1160,7 +1159,7 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     big_df["当日资金流入"] = (
         pd.to_numeric(big_df["当日资金流入"], errors="coerce") / 100
     )
@@ -1234,7 +1233,7 @@ def stock_hsgt_board_rank_em(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -1364,7 +1363,7 @@ def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
                 ignore_index=True,
             )
 
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "SECURITY_INNER_CODE": "-",
             "SECUCODE": "-",
@@ -1384,7 +1383,6 @@ def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
             "HOLD_MARKETCAP_CHG5": "持股市值变化-5日",
             "HOLD_MARKETCAP_CHG10": "持股市值变化-10日",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -1416,7 +1414,7 @@ def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
     temp_df["持股市值变化-10日"] = pd.to_numeric(
         temp_df["持股市值变化-10日"], errors="coerce"
     )
-    temp_df.sort_values("持股日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values("持股日期", ignore_index=True)
     return temp_df
 
 
@@ -1457,7 +1455,7 @@ def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
                 ignore_index=True,
             )
 
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "SECURITY_INNER_CODE": "-",
             "SECUCODE": "-",
@@ -1477,7 +1475,6 @@ def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
             "ADD_SHARES_REPAIR": "今日增持股数",
             "PREDICT_AMC": "今日增持资金",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -1505,7 +1502,7 @@ def __stock_hsgt_individual_zh_a_em(symbol: str = "002008") -> pd.DataFrame:
     temp_df["今日持股市值变化"] = pd.to_numeric(
         temp_df["今日持股市值变化"], errors="coerce"
     )
-    temp_df.sort_values("持股日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values("持股日期", ignore_index=True)
     return temp_df
 
 
@@ -1578,7 +1575,7 @@ def stock_hsgt_individual_detail_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECUCODE": "-",
             "SECURITY_CODE": "-",
@@ -1598,7 +1595,6 @@ def stock_hsgt_individual_detail_em(
             "HOLD_MARKET_CAPTEN": "持股市值变化-10日",
             "PARTICIPANT_CODE": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

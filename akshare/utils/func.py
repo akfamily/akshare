@@ -67,8 +67,8 @@ def fetch_paginated_data(url: str, base_params: Dict, timeout: int = 15):
     # 合并所有数据
     temp_df = pd.concat(temp_list, ignore_index=True)
     temp_df["f3"] = pd.to_numeric(temp_df["f3"], errors="coerce")
-    temp_df.sort_values(by=["f3"], ascending=False, inplace=True, ignore_index=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.sort_values(by=["f3"], ascending=False, ignore_index=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
     return temp_df
 

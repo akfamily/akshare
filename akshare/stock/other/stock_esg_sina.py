@@ -38,7 +38,7 @@ def stock_esg_msci_sina() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "agency_id": "-",
             "agency_name": "评级机构",
@@ -80,7 +80,6 @@ def stock_esg_msci_sina() -> pd.DataFrame:
             "created_time": "创建时间",
             "esg_rating": "ESG评分",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -111,7 +110,7 @@ def stock_esg_rft_sina() -> pd.DataFrame:
     r = http.get(url)
     data_json = r.json()
     big_df = pd.DataFrame(data_json["result"]["data"]["data"])
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "symbol": "股票代码",
             "esg_score": "ESG评分",
@@ -127,7 +126,6 @@ def stock_esg_rft_sina() -> pd.DataFrame:
             "industry": "行业",
             "exchange": "交易所",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -194,7 +192,7 @@ def stock_esg_rate_sina() -> pd.DataFrame:
             ]
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "symbol": "成分股代码",
             "agency_name": "评级机构",
@@ -203,7 +201,6 @@ def stock_esg_rate_sina() -> pd.DataFrame:
             "remark": "标识",
             "market": "交易市场",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -239,7 +236,7 @@ def stock_esg_zd_sina() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
         temp_list.append(temp_df)
     big_df = pd.concat(temp_list, ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "ticker": "股票代码",
             "esg_score": "ESG评分",
@@ -248,7 +245,6 @@ def stock_esg_zd_sina() -> pd.DataFrame:
             "social_score": "社会责任总评",
             "governance_score": "治理总评",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -285,7 +281,7 @@ def stock_esg_hz_sina() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "date": "日期",
             "symbol": "股票代码",
@@ -300,7 +296,6 @@ def stock_esg_hz_sina() -> pd.DataFrame:
             "g_score": "公司治理",
             "g_score_grade": "公司治理等级",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

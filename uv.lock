@@ -59,18 +59,18 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "akracer", marker = "sys_platform == 'linux'", specifier = ">=0.0.13" },
-    { name = "beautifulsoup4", specifier = ">=4.9.1" },
+    { name = "beautifulsoup4", specifier = ">=4.11.2" },
     { name = "curl-cffi", specifier = ">=0.13.0" },
-    { name = "html5lib", specifier = ">=1.0.1" },
-    { name = "lxml", specifier = ">=4.2.1" },
+    { name = "html5lib", specifier = ">=1.1" },
+    { name = "lxml", specifier = ">=4.9.2" },
     { name = "mini-racer", marker = "sys_platform != 'linux'", specifier = ">=0.12.4" },
-    { name = "openpyxl", specifier = ">=3.0.3" },
-    { name = "pandas", specifier = ">=2.0.0" },
+    { name = "openpyxl", specifier = ">=3.1.0" },
+    { name = "pandas", specifier = ">=2.2.2" },
     { name = "py-mini-racer", marker = "sys_platform == 'linux'", specifier = ">=0.6.0" },
     { name = "requests", specifier = ">=2.22.0" },
     { name = "tqdm", specifier = ">=4.43.0" },
     { name = "urllib3", specifier = ">=1.25.8" },
-    { name = "xlrd", specifier = ">=1.2.0" },
+    { name = "xlrd", specifier = ">=2.0.1" },
 ]
 
 [package.metadata.requires-dev]

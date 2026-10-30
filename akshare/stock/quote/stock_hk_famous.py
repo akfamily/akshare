@@ -72,9 +72,9 @@ def stock_hk_famous_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
+    temp_df = temp_df.rename(columns={"index": "序号"})
     temp_df = temp_df[
         [
             "序号",

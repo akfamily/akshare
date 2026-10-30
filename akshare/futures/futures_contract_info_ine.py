@@ -29,7 +29,7 @@ def futures_contract_info_ine(date: str = "20241129") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["ContractBaseInfo"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "BASISPRICE": "挂牌基准价",
             "ENDDELIVDATE": "最后交割日",
@@ -39,7 +39,6 @@ def futures_contract_info_ine(date: str = "20241129") -> pd.DataFrame:
             "STARTDELIVDATE": "开始交割日",
             "TRADINGDAY": "交易日",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

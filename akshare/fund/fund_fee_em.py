@@ -86,9 +86,8 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
             "|", expand=True
         )
         if splited.shape[1] == 1:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={"原费率|天天基金优惠费率 银行卡购买|活期宝购买": "原费率"},
-                inplace=True,
             )
             temp_df["天天基金优惠费率-银行卡购买"] = temp_df["原费率"]
             temp_df["天天基金优惠费率-活期宝购买"] = temp_df["原费率"]

@@ -140,7 +140,7 @@ def stock_concept_cons_futu(symbol: str = "特朗普概念股") -> pd.DataFrame:
             temp_df = pd.DataFrame(data_json["data"]["list"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "stockCode": "代码",
                 "name": "股票名称",
@@ -150,7 +150,6 @@ def stock_concept_cons_futu(symbol: str = "特朗普概念股") -> pd.DataFrame:
                 "tradeVolumn": "成交量",
                 "tradeTrunover": "成交额",
             },
-            inplace=True,
         )
         big_df = big_df[
             [

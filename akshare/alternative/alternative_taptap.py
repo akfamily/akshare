@@ -133,7 +133,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
         "app.rec_text": "推荐语",
         "app.released_time": "发布时间戳",
     }
-    df.rename(columns=rename_map, inplace=True)
+    df = df.rename(columns=rename_map)
     if "评分" in df.columns:
         df["评分"] = pd.to_numeric(df["评分"], errors="coerce").astype("float64")
     for col in ["总点击量", "游玩次数", "评论数", "粉丝数"]:

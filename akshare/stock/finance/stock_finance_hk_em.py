@@ -195,7 +195,7 @@ def stock_financial_hk_analysis_indicator_em(
             temp_df["CURRENCY"] = (
                 temp_df["REPORT_DATE_KEY"].map(currency_map).fillna(temp_df["CURRENCY"])
             )
-            temp_df.drop(columns=["REPORT_DATE_KEY"], inplace=True)
+            temp_df = temp_df.drop(columns=["REPORT_DATE_KEY"])
     return temp_df
 
 

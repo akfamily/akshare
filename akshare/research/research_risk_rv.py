@@ -172,7 +172,7 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
     temp_df = temp_df.iloc[:, 0].str.split(" ", expand=True)
     temp_df = temp_df.iloc[:, 1:]
     temp_df.iloc[:, -1] = temp_df.iloc[:, -1].str.replace(r"\n", "")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.index = pd.to_datetime(temp_df.iloc[:, 1], format="%Y%m%d", errors="coerce")
     temp_df = temp_df.iloc[:, 1:]
     data_se = temp_df.iloc[:, 1]

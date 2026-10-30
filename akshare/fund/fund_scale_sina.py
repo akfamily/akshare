@@ -45,9 +45,9 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "symbol": "基金代码",
@@ -69,7 +69,6 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
             "zjzfe": "最近总份额",
             "jjglr_code": "-",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -116,9 +115,9 @@ def fund_scale_close_sina() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "symbol": "基金代码",
@@ -140,7 +139,6 @@ def fund_scale_close_sina() -> pd.DataFrame:
             "zjzfe": "最近总份额",
             "jjglr_code": "-",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -187,9 +185,9 @@ def fund_scale_structured_sina() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "symbol": "基金代码",
@@ -211,7 +209,6 @@ def fund_scale_structured_sina() -> pd.DataFrame:
             "zjzfe": "最近总份额",
             "jjglr_code": "-",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

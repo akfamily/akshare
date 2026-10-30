@@ -63,7 +63,7 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
     r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F003N": "持股总市值",
             "F002N": "持股总数",
@@ -73,7 +73,6 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
             "SECCODE": "股票代码",
             "ENDDATE": "报告期",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -130,7 +129,7 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
     r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F004N": "行业规模",
             "F003N": "基金覆盖家数",
@@ -139,7 +138,6 @@ def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFra
             "ENDDATE": "报告期",
             "F005N": "占净资产比例",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -189,7 +187,7 @@ def fund_report_asset_allocation_cninfo() -> pd.DataFrame:
     r = http.post(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F001N": "基金覆盖家数",
             "F008N": "现金货币类占净资产比例",
@@ -198,7 +196,6 @@ def fund_report_asset_allocation_cninfo() -> pd.DataFrame:
             "ENDDATE": "报告期",
             "F005N": "基金市场净资产规模",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

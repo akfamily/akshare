@@ -78,7 +78,7 @@ def _build_xq_company_df(data: dict[str, Any]) -> pd.DataFrame:
     if not data:
         return pd.DataFrame(columns=["item", "value"])
     temp_df = pd.DataFrame(data)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

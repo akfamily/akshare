@@ -86,7 +86,7 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
     r = http.post(url, params=params, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "bond_id": "代码",
             "bond_nm": "转债名称",
@@ -112,7 +112,6 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "turnover_rt": "换手率",
             "ytm_rt": "到期税前收益",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[
@@ -201,7 +200,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     r = http.post(url, params=params, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "bond_id": "代码",
             "bond_nm": "名称",
@@ -237,7 +236,6 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "after_next_put_dt": "-",
             "force_redeem_price": "强赎触发价",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

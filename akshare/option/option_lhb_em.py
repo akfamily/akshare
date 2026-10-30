@@ -97,7 +97,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权持仓情况-认沽持仓量":
         temp_df = temp_df.iloc[7:14, :]
@@ -152,7 +152,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权交易情况-认购交易量":
         temp_df = temp_df.iloc[14:21, :]
@@ -207,11 +207,11 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权持仓情况-认购持仓量":
         temp_df = temp_df.iloc[21:, :]
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "MEMBER_RANK": "名次",
                 "MEMBER_NAME_ABBR": "机构",
@@ -224,7 +224,6 @@ def option_lhb_em(
                 "SECURITY_CODE": "证券代码",
                 "TARGET_NAME": "标的名称",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -250,7 +249,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 

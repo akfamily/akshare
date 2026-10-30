@@ -27,7 +27,7 @@ def fx_c_swap_cm():
     r = http.post(url, data=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "curveTime": "日期时间",
             "tenor": "期限品种",
@@ -35,7 +35,6 @@ def fx_c_swap_cm():
             "dataSource": "掉期点数据源",
             "swapAllPrc": "全价汇率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

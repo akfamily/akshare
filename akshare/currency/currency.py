@@ -32,8 +32,8 @@ def currency_latest(
     r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df["date"] = pd.to_datetime(temp_df["date"])
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "currency"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "currency"})
     return temp_df
 
 
@@ -59,8 +59,8 @@ def currency_history(
     r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "currency"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "currency"})
     return temp_df
 
 
@@ -99,8 +99,8 @@ def currency_time_series(
     r = http.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "date"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "date"})
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     return temp_df
 
@@ -155,7 +155,7 @@ def currency_convert(
     temp_se = pd.Series(r.json()["response"])
     temp_se["timestamp"] = pd.to_datetime(temp_se["timestamp"], unit="s")
     temp_df = temp_se.to_frame()
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

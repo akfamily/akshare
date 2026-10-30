@@ -36,7 +36,7 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
     r = http.post(url, data=payload)
     data_json = r.json()  # 数据类型为 json 格式
     temp_df = pd.DataFrame(data_json["rows"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "firstIssueAmount": "金额",
             "isReg": "注册或备案",
@@ -46,7 +46,6 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
             "releaseTime": "更新日期",
             "projPhase": "项目状态",
         },
-        inplace=True,
     )
     if "注册通知书文号" not in temp_df.columns:
         temp_df["注册通知书文号"] = pd.NA

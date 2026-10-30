@@ -61,12 +61,11 @@ def spot_price_table_qh() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = __get_item_of_spot_price_qh()
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "qhExchangeName": "交易所名称",
             "name": "品种名称",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -107,10 +106,10 @@ def spot_price_qh(symbol: str = "螺纹钢") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
-        columns={"date": "日期", "fp": "期货收盘价", "sp": "现货价格"}, inplace=True
+    temp_df = temp_df.rename(
+        columns={"date": "日期", "fp": "期货收盘价", "sp": "现货价格"}
     )
-    temp_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["期货收盘价"] = pd.to_numeric(temp_df["期货收盘价"], errors="coerce")
     temp_df["现货价格"] = pd.to_numeric(temp_df["现货价格"], errors="coerce")

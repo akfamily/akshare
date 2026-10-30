@@ -498,8 +498,8 @@ def stock_balance_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Da
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(
-        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    temp_df = temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, ignore_index=True
     )
     return temp_df
 
@@ -531,8 +531,8 @@ def stock_profit_sheet_by_report_delisted_em(symbol: str = "SZ000013") -> pd.Dat
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(
-        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    temp_df = temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, ignore_index=True
     )
     return temp_df
 
@@ -566,8 +566,8 @@ def stock_cash_flow_sheet_by_report_delisted_em(
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
-    temp_df.sort_values(
-        by=["REPORT_DATE"], ascending=False, inplace=True, ignore_index=True
+    temp_df = temp_df.sort_values(
+        by=["REPORT_DATE"], ascending=False, ignore_index=True
     )
     return temp_df
 

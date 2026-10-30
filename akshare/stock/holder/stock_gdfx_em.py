@@ -46,7 +46,7 @@ def stock_gdfx_free_holding_statistics_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -149,7 +149,7 @@ def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -252,7 +252,7 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -343,7 +343,7 @@ def stock_gdfx_holding_change_em(date: str = "20210930") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -413,7 +413,7 @@ def stock_gdfx_free_top_10_em(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["sdltgd"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "名次",
@@ -470,7 +470,7 @@ def stock_gdfx_top_10_em(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["sdgd"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "名次",
@@ -537,9 +537,9 @@ def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "HOLDER_NAME": "股东名称",
@@ -558,7 +558,6 @@ def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
             "UPDATE_DATE": "公告日",
             "REPORT_DATE_NAME": "报告名称",
         },
-        inplace=True,
     )
 
     big_df = big_df[
@@ -634,9 +633,9 @@ def stock_gdfx_holding_detail_em(
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "HOLDER_NAME": "股东名称",
@@ -652,7 +651,6 @@ def stock_gdfx_holding_detail_em(
             "HOLDER_MARKET_CAP": "期末持股-流通市值",
             "NOTICE_DATE": "公告日",
         },
-        inplace=True,
     )
 
     big_df = big_df[
@@ -721,9 +719,9 @@ def stock_gdfx_free_holding_analyse_em(date: str = "20230930") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "HOLDER_NAME": "股东名称",
@@ -741,7 +739,6 @@ def stock_gdfx_free_holding_analyse_em(date: str = "20230930") -> pd.DataFrame:
             "D30_ADJCHRATE": "公告日后涨跌幅-30个交易日",
             "D60_ADJCHRATE": "公告日后涨跌幅-60个交易日",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -819,9 +816,9 @@ def stock_gdfx_holding_analyse_em(date: str = "20230331") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "SECUCODE": "-",
@@ -844,7 +841,6 @@ def stock_gdfx_holding_analyse_em(date: str = "20230331") -> pd.DataFrame:
             "D30_ADJCHRATE": "公告日后涨跌幅-30个交易日",
             "D60_ADJCHRATE": "公告日后涨跌幅-60个交易日",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -923,7 +919,7 @@ def stock_gdfx_free_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -986,7 +982,7 @@ def stock_gdfx_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",

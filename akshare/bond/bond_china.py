@@ -174,8 +174,8 @@ def bond_china_yield(
     data_df["7年"] = pd.to_numeric(data_df["7年"], errors="coerce")
     data_df["10年"] = pd.to_numeric(data_df["10年"], errors="coerce")
     data_df["30年"] = pd.to_numeric(data_df["30年"], errors="coerce")
-    data_df.sort_values(by="日期", inplace=True)
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.sort_values(by="日期")
+    data_df = data_df.reset_index(drop=True)
     return data_df
 
 

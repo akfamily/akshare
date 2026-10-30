@@ -27,7 +27,7 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
         "country": "国家",
         "timePeriod": "统计周期",
     }
-    temp_df.rename(columns=rename_dict, inplace=True)
+    temp_df = temp_df.rename(columns=rename_dict)
     required_cols = ["公布", "预期", "前值", "重要性"]
     for col in required_cols:
         if col not in temp_df.columns:

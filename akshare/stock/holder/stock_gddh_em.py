@@ -47,7 +47,7 @@ def stock_gddh_em() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECURITY_CODE": "代码",
             "SECURITY_NAME_ABBR": "简称",
@@ -62,7 +62,6 @@ def stock_gddh_em() -> pd.DataFrame:
             "SERIAL_NUM": "序列号",
             "PROPOSAL": "提案",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

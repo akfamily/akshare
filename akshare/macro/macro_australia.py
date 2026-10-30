@@ -58,7 +58,7 @@ def macro_australia_retail_rate_monthly() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -109,7 +109,7 @@ def macro_australia_trade() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -160,7 +160,7 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -211,7 +211,7 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -262,7 +262,7 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -313,7 +313,7 @@ def macro_australia_cpi_yearly() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 
@@ -364,7 +364,7 @@ def macro_australia_bank_rate() -> pd.DataFrame:
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="发布日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="发布日期", ignore_index=True)
     return temp_df
 
 

@@ -70,10 +70,10 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
             warnings.warn(f"第 {page} 页解析失败: {e}")
             continue
 
-    big_df.reset_index(drop=True, inplace=True)
+    big_df = big_df.reset_index(drop=True)
     big_df.insert(0, "序号", big_df.index + 1)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "TUTOR_OBJECT": "企业名称",
             "TUTOR_ORG": "辅导机构",
@@ -83,7 +83,6 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
             "REPORT_TITLE": "报告标题",
             "RECORD_DATE": "备案日期",
         },
-        inplace=True,
     )
 
     big_df = big_df[

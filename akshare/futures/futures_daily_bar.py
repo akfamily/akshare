@@ -43,7 +43,7 @@ def _futures_daily_czce(
             data = my_file.read().decode("gb2312")
             data_df = pd.read_table(StringIO(data), sep=r"|", header=1)
             data_df.columns = [item.strip() for item in data_df.columns]
-            data_df.dropna(axis=1, inplace=True)
+            data_df = data_df.dropna(axis=1)
             for column in data_df.columns:
                 try:
                     data_df[column] = data_df[column].str.strip("\t")
@@ -103,7 +103,7 @@ def _futures_daily_czce(
     ]
     temp_df = data_df[data_df["date"] == pd.Timestamp(date)].copy()
     temp_df["date"] = date
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -138,7 +138,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
     data_df = data_df[~data_df["合约代码"].str.contains("MO")]
     data_df = data_df[~data_df["合约代码"].str.contains("HO")]
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.reset_index(drop=True)
     data_df["合约代码"] = data_df["合约代码"].str.strip()
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]
@@ -519,10 +519,10 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
         df["turnover"] = df["TURNOVER"].apply(lambda x: 0 if x == "" else x)
     except KeyError:
         df["turnover"] = np.nan
-    df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
+    df = df.rename(columns=cons.SHFE_COLUMNS)
     df = df[~df["symbol"].str.contains("efp")]
     df = df[cons.OUTPUT_COLUMNS]
-    df.reset_index(inplace=True)
+    df = df.reset_index()
     return df
 
 
@@ -552,7 +552,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
     r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "variety": "品种名称",
             "contractId": "合约",
@@ -569,7 +569,6 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
             "diffI": "持仓量变化",
             "turnover": "成交额",
         },
-        inplace=True,
     )
     temp_df = temp_df[~temp_df["品种名称"].str.contains("小计")]
     temp_df = temp_df[~temp_df["品种名称"].str.contains("总计")]
@@ -632,7 +631,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
             "pre_settle": "float",
         }
     )
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -712,7 +711,7 @@ def futures_hist_daily_cffex(date: str = "20260403") -> pd.DataFrame:
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
     data_df = data_df[~data_df["合约代码"].str.contains("MO")]
     data_df = data_df[~data_df["合约代码"].str.contains("HO")]
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.reset_index(drop=True)
     data_df["合约代码"] = data_df["合约代码"].str.strip()
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]

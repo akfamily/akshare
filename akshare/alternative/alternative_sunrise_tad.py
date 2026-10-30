@@ -63,8 +63,8 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
             month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]
         ].copy()
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
-        day_df.reset_index(inplace=True)
-        day_df.rename(columns={"index": "date"}, inplace=True)
+        day_df = day_df.reset_index()
+        day_df = day_df.rename(columns={"index": "date"})
         day_df["date"] = pd.to_datetime(day_df["date"]).dt.date
         return day_df
     else:
@@ -93,12 +93,11 @@ def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFra
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1,].copy()
         month_df.index = [date[:-2]] * len(month_df)
-        month_df.reset_index(inplace=True)
-        month_df.rename(
+        month_df = month_df.reset_index()
+        month_df = month_df.rename(
             columns={
                 "index": "date",
             },
-            inplace=True,
         )
         return month_df
     else:

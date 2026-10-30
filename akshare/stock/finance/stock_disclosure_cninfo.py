@@ -93,14 +93,13 @@ def __format_announcement_df(big_df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(
             columns=["代码", "简称", "公告标题", "公告时间", "公告链接"]
         )
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "secCode": "代码",
             "secName": "简称",
             "announcementTitle": "公告标题",
             "announcementTime": "公告时间",
         },
-        inplace=True,
     )
     big_df = big_df[["代码", "简称", "公告标题", "公告时间", "announcementId", "orgId"]]
     big_df["公告时间"] = pd.to_datetime(

@@ -126,8 +126,8 @@ def energy_carbon_bj() -> pd.DataFrame:
     temp_df["成交额"] = temp_df["成交额"].str.replace(",", "")
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="日期", inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by="日期")
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -158,8 +158,8 @@ def energy_carbon_sz() -> pd.DataFrame:
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
     big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df.sort_values(by="交易日期", inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(by="交易日期")
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -190,8 +190,8 @@ def energy_carbon_eu() -> pd.DataFrame:
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
     big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df.sort_values(by="交易日期", inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(by="交易日期")
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -212,7 +212,7 @@ def energy_carbon_hb() -> pd.DataFrame:
     end_pos = data_text.rfind("cjj =") - 31  # 找到 JSON 数组结束的位置
     data_json = demjson.decode(data_text[start_pos:end_pos])
     temp_df = pd.DataFrame.from_dict(data_json)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "riqi": "日期",
             "cjj": "成交价",
@@ -220,7 +220,6 @@ def energy_carbon_hb() -> pd.DataFrame:
             "zx": "最新",
             "zd": "涨跌",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -278,8 +277,8 @@ def energy_carbon_gz() -> pd.DataFrame:
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["成交数量"] = pd.to_numeric(temp_df["成交数量"], errors="coerce")
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
-    temp_df.sort_values(by="日期", inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by="日期")
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

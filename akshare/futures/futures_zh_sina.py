@@ -327,7 +327,7 @@ def futures_zh_spot(
             data_df["last_settle_price"] = pd.to_numeric(
                 data_df["last_settle_price"], errors="coerce"
             )
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
         else:
             data_df.columns = [
@@ -407,7 +407,7 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
     else:
         if market == "CF":
@@ -529,7 +529,7 @@ def futures_zh_spot(
             data_df["last_settle_price"] = pd.to_numeric(
                 data_df["last_settle_price"], errors="coerce"
             )
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
         else:
             data_df.columns = [
@@ -606,7 +606,7 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
-            data_df.dropna(subset=["current_price"], inplace=True, ignore_index=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
 
 

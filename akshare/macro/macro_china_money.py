@@ -129,7 +129,7 @@ def macro_china_swap_rate(
     big_df["5Y"] = pd.to_numeric(big_df["5Y"], errors="coerce")
     big_df["7Y"] = pd.to_numeric(big_df["7Y"], errors="coerce")
     big_df["10Y"] = pd.to_numeric(big_df["10Y"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 

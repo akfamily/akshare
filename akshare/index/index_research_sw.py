@@ -54,7 +54,7 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "swindexcode": "代码",
             "bargaindate": "日期",
@@ -67,7 +67,6 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
             "bargainamount": "成交量",
             "bargainsum": "成交额",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -112,7 +111,7 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "l1": "代码",
             "l2": "名称",
@@ -120,7 +119,6 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
             "trading_date": "日期",
             "trading_time": "时间",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -154,9 +152,9 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers, verify=False)  # noqa: S501
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["results"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "stockcode": "证券代码",
@@ -164,7 +162,6 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
             "newweight": "最新权重",
             "beginningdate": "计入日期",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -213,7 +210,7 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
             ["指数代码", "指数名称", "昨收盘", "日涨跌幅", "年涨跌幅"]
         )
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "swIndexCode": "指数代码",
             "swIndexName": "指数名称",
@@ -221,7 +218,6 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
             "lastMarkup": "日涨跌幅",
             "yearMarkup": "年涨跌幅",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -359,7 +355,7 @@ def index_analysis_daily_sw(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "swindexcode": "指数代码",
             "swindexname": "指数名称",
@@ -376,7 +372,6 @@ def index_analysis_daily_sw(
             "negotiablessharesum2": "平均流通市值",
             "dp": "股息率",
         },
-        inplace=True,
     )
     big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
     big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
@@ -390,7 +385,7 @@ def index_analysis_daily_sw(
     big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
     big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
     big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
-    big_df.sort_values(by=["发布日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["发布日期"], ignore_index=True)
     return big_df
 
 
@@ -416,7 +411,7 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
         temp_df["bargaindate"], errors="coerce"
     ).dt.date
     temp_df.columns = ["date"]
-    temp_df.sort_values(by=["date"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["date"], ignore_index=True)
     return temp_df
 
 
@@ -459,7 +454,7 @@ def index_analysis_weekly_sw(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "swindexcode": "指数代码",
             "swindexname": "指数名称",
@@ -476,7 +471,6 @@ def index_analysis_weekly_sw(
             "negotiablessharesum2": "平均流通市值",
             "dp": "股息率",
         },
-        inplace=True,
     )
     big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
     big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
@@ -491,7 +485,7 @@ def index_analysis_weekly_sw(
     big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
     big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
 
-    big_df.sort_values(by=["发布日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["发布日期"], ignore_index=True)
     return big_df
 
 
@@ -534,7 +528,7 @@ def index_analysis_monthly_sw(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "swindexcode": "指数代码",
             "swindexname": "指数名称",
@@ -551,7 +545,6 @@ def index_analysis_monthly_sw(
             "negotiablessharesum2": "平均流通市值",
             "dp": "股息率",
         },
-        inplace=True,
     )
     big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
     big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
@@ -565,7 +558,7 @@ def index_analysis_monthly_sw(
     big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
     big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
     big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
-    big_df.sort_values(by=["发布日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["发布日期"], ignore_index=True)
     return big_df
 
 

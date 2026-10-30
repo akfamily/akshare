@@ -235,12 +235,11 @@ def stock_lhb_jgmx_sina() -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "机构席位买入额(万)": "机构席位买入额",
             "机构席位卖出额(万)": "机构席位卖出额",
         },
-        inplace=True,
     )
     big_df["机构席位买入额"] = pd.to_numeric(big_df["机构席位买入额"], errors="coerce")
     big_df["机构席位卖出额"] = pd.to_numeric(big_df["机构席位卖出额"], errors="coerce")

@@ -423,7 +423,7 @@ def get_czce_receipt_3(
             ]
         ]
     ]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     range_list_one = list(
         temp_df[
             [
@@ -549,22 +549,21 @@ def get_gfex_receipt(
     result_df.loc[:, "var"] = [
         item.upper() for item in temp_df["varietyOrder"].tolist()
     ]
-    result_df.reset_index(drop=True, inplace=True)
-    result_df.rename(
+    result_df = result_df.reset_index(drop=True)
+    result_df = result_df.rename(
         columns={
             "wbillQty": "receipt",
             "diff": "receipt_chg",
         },
-        inplace=True,
     )
     result_df = result_df[["var", "receipt", "receipt_chg", "date"]]
-    result_df.set_index(keys=["var"], inplace=True)
+    result_df = result_df.set_index(keys=["var"])
     if "LC" not in result_df.index:
         vars_list.remove("LC")
     if "PS" not in result_df.index:
         vars_list.remove("PS")
     result_df = result_df.loc[vars_list, :]
-    result_df.reset_index(inplace=True)
+    result_df = result_df.reset_index()
     return result_df
 
 
@@ -664,7 +663,7 @@ def get_receipt(
                     if f is not None:
                         records = pd.concat([records, f(start_date, get_vars)])
         start_date += datetime.timedelta(days=1)
-    records.reset_index(drop=True, inplace=True)
+    records = records.reset_index(drop=True)
     if records.empty:
         return records
     return records

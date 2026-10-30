@@ -112,7 +112,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         big_df = pd.concat([big_df, page_df], ignore_index=True)
 
     temp_df = big_df
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "END_DATE": "变更日期",
             "TOTAL_SHARES": "总股本",
@@ -124,7 +124,6 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
             "LIMITED_DOMESTIC_NOSTATE": "境内法人持股(受限)",
             "LIMITED_DOMESTIC_NATURAL": "境内自然人持股(受限)",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

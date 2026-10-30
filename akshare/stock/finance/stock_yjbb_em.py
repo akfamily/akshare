@@ -52,7 +52,7 @@ def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_list.append(temp_df)
     big_df = pd.concat(big_list, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "序号",

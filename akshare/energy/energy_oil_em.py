@@ -41,8 +41,8 @@ def energy_oil_hist() -> pd.DataFrame:
     temp_df["柴油价格"] = pd.to_numeric(temp_df["柴油价格"], errors="coerce")
     temp_df["汽油涨跌"] = pd.to_numeric(temp_df["汽油涨跌"], errors="coerce")
     temp_df["柴油涨跌"] = pd.to_numeric(temp_df["柴油涨跌"], errors="coerce")
-    temp_df.sort_values(by=["调整日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["调整日期"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

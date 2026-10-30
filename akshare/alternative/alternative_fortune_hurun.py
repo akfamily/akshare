@@ -82,7 +82,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             except requests.exceptions.JSONDecodeError:
                 offset = offset + 40
                 continue
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "hs_Rank_Rich_Ranking": "排名",
                 "hs_Rank_Rich_Wealth": "财富",
@@ -91,7 +91,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_Rich_ComName_Cn": "企业",
                 "hs_Rank_Rich_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         big_df = big_df[
             [
@@ -108,7 +107,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["rows"])
     if indicator == "胡润百富榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_Rich_Ranking": "排名",
                 "hs_Rank_Rich_Wealth": "财富",
@@ -117,7 +116,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_Rich_ComName_Cn": "企业",
                 "hs_Rank_Rich_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -129,7 +127,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润全球富豪榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_Global_Ranking": "排名",
                 "hs_Rank_Global_Wealth": "财富",
@@ -138,7 +136,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_Global_ComName_Cn": "企业",
                 "hs_Rank_Global_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -150,7 +147,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润印度榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_India_Ranking": "排名",
                 "hs_Rank_India_Wealth": "财富",
@@ -159,7 +156,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_India_ComName_Cn": "企业",
                 "hs_Rank_India_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -171,7 +167,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润全球独角兽榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_Unicorn_Ranking": "排名",
                 "hs_Rank_Unicorn_Wealth": "财富",
@@ -180,7 +176,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_Unicorn_ComName_Cn": "企业",
                 "hs_Rank_Unicorn_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -192,14 +187,13 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "中国瞪羚企业榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_CGazelles_ComHeadquarters_Cn": "企业总部",
                 "hs_Rank_CGazelles_Name_Cn": "掌门人/联合创始人",
                 "hs_Rank_CGazelles_ComName_Cn": "企业信息",
                 "hs_Rank_CGazelles_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -210,14 +204,13 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "全球瞪羚企业榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_GGazelles_ComHeadquarters_Cn": "企业总部",
                 "hs_Rank_GGazelles_Name_Cn": "掌门人/联合创始人",
                 "hs_Rank_GGazelles_ComName_Cn": "企业信息",
                 "hs_Rank_GGazelles_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -228,14 +221,13 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润Under30s创业领袖榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_U30_ComHeadquarters_Cn": "企业总部",
                 "hs_Rank_U30_ChaName_Cn": "姓名",
                 "hs_Rank_U30_ComName_Cn": "企业信息",
                 "hs_Rank_U30_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -246,7 +238,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润中国500强民营企业":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_CTop500_Ranking": "排名",
                 "hs_Rank_CTop500_Wealth": "企业估值",
@@ -255,7 +247,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_CTop500_ComName_Cn": "企业信息",
                 "hs_Rank_CTop500_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -268,7 +259,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润世界500强":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_GTop500_Ranking": "排名",
                 "hs_Rank_GTop500_Wealth": "企业估值",
@@ -277,7 +268,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_GTop500_ComName_Cn": "企业信息",
                 "hs_Rank_GTop500_Industry_Cn": "行业",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -290,7 +280,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
             ]
         ]
     elif indicator == "胡润艺术榜":
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "hs_Rank_Art_Ranking": "排名",
                 "hs_Rank_Art_Turnover": "成交额",
@@ -299,7 +289,6 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
                 "hs_Rank_Art_Age": "年龄",
                 "hs_Rank_Art_ArtCategory_Cn": "艺术类别",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [

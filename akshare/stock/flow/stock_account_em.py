@@ -89,7 +89,7 @@ def stock_account_statistics_em() -> pd.DataFrame:
     temp_df["上证指数-涨跌幅"] = pd.to_numeric(
         temp_df["上证指数-涨跌幅"], errors="coerce"
     )
-    temp_df.sort_values(["数据日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(["数据日期"], ignore_index=True)
     return temp_df
 
 

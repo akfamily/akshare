@@ -60,7 +60,7 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["rows"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "indexId": "问题编号",
             "contentType": "-",
@@ -92,7 +92,6 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
             "favoriteCount": "-",
             "forwardCount": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -153,7 +152,7 @@ def stock_irm_ans_cninfo(symbol: str = "1513586704097333248") -> pd.DataFrame:
     temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index").T
     if "replyDate" not in temp_df.columns:
         return pd.DataFrame()
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "questionContent": "问题",
             "questioner": "提问者",
@@ -163,7 +162,6 @@ def stock_irm_ans_cninfo(symbol: str = "1513586704097333248") -> pd.DataFrame:
             "stockCode": "股票代码",
             "shortName": "公司简称",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

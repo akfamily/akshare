@@ -54,7 +54,7 @@ def stock_fhps_detail_ths(symbol: str = "603444") -> pd.DataFrame:
         temp_df["B股除权除息日"] = pd.to_datetime(
             temp_df["B股除权除息日"], format="%Y-%m-%d", errors="coerce"
         ).dt.date
-    temp_df.sort_values(by=["董事会日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["董事会日期"], ignore_index=True)
     return temp_df
 
 

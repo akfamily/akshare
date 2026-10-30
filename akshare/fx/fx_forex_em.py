@@ -35,7 +35,7 @@ def forex_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f12": "代码",
@@ -48,7 +48,6 @@ def forex_spot_em() -> pd.DataFrame:
             "f16": "最低",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

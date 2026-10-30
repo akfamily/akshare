@@ -54,9 +54,9 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "REPORT_DATE": "日期",
@@ -73,7 +73,6 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
             "OPENPOSTOCK_WECHANGE": "-",
             "OPENPOSI_STOCK_SUM": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -90,7 +89,7 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
         big_df[f"COMEX{symbol}库存量-盎司"], errors="coerce"
     )
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     big_df["序号"] = range(1, len(big_df) + 1)
     return big_df
 

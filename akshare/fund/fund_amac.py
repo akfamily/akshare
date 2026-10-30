@@ -175,7 +175,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.reset_index(inplace=True)
+    manager_data_out = manager_data_out.reset_index()
     manager_data_out["index"] = manager_data_out.index + 1
     manager_data_out.columns = [
         "序号",
@@ -231,7 +231,7 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     r = session.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -716,7 +716,7 @@ def amac_fund_abs() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "编号",
@@ -855,7 +855,7 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     manager_data_out["注销时间"] = pd.to_datetime(
         manager_data_out["注销时间"], unit="ms"
     ).dt.date
-    manager_data_out.sort_values(["注销时间"], ignore_index=True, inplace=True)
+    manager_data_out = manager_data_out.sort_values(["注销时间"], ignore_index=True)
     return manager_data_out
 
 

@@ -152,9 +152,9 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -171,7 +171,6 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -239,7 +238,7 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -256,7 +255,6 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -418,10 +416,10 @@ def stock_zh_index_daily_tx(
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
     temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
-    temp_df.drop_duplicates(inplace=True, ignore_index=True)
+    temp_df = temp_df.drop_duplicates(ignore_index=True)
     temp_df = temp_df[temp_df["date"] >= dt_start.date()]
     temp_df = temp_df[temp_df["date"] <= dt_end.date()]
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

@@ -59,7 +59,7 @@ def spot_hog_year_trend_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -83,7 +83,7 @@ def spot_hog_lean_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -107,7 +107,7 @@ def spot_hog_three_way_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -131,7 +131,7 @@ def spot_hog_crossbred_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -155,7 +155,7 @@ def spot_corn_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -179,7 +179,7 @@ def spot_soybean_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -203,7 +203,7 @@ def spot_mixed_feed_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 

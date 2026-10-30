@@ -120,7 +120,7 @@ def index_hist_cni(
     temp_df["涨跌幅"] = temp_df["涨跌幅"].str.replace("%", "")
     temp_df["涨跌幅"] = temp_df["涨跌幅"].astype("float")
     temp_df["涨跌幅"] = temp_df["涨跌幅"] / 100
-    temp_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(["日期"], ignore_index=True)
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
     temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")

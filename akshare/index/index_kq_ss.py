@@ -44,7 +44,7 @@ def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "id": "_",
             "indexValue": "指数",
@@ -57,7 +57,6 @@ def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
             "structName": "_",
             "version": "_",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -66,10 +65,10 @@ def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
         ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df.sort_values("日期", inplace=True)
+    temp_df = temp_df.sort_values("日期")
     temp_df["涨跌值"] = temp_df["指数"].diff()
     temp_df["涨跌幅"] = temp_df["指数"].pct_change()
-    temp_df.sort_values("日期", ascending=True, inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values("日期", ascending=True, ignore_index=True)
     return temp_df
 
 

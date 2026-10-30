@@ -32,7 +32,7 @@ def fund_individual_basic_info_xq(
     r = http.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     temp_df = pd.json_normalize(json_data)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fd_code": "基金代码",
             "fd_name": "基金名称",
@@ -49,7 +49,6 @@ def fund_individual_basic_info_xq(
             "invest_target": "投资目标",
             "performance_bench_mark": "业绩比较基准",
         },
-        inplace=True,
     )
     if "评级机构" not in temp_df.columns:
         temp_df["评级机构"] = pd.NA

@@ -41,7 +41,7 @@ def spot_symbol_table_sge() -> pd.DataFrame:
         "NYAuTN12",
     ]
     temp_df = pd.DataFrame(temp_list)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["序号", "品种"]
     temp_df["序号"] = temp_df["序号"] + 1
     return temp_df
@@ -102,7 +102,7 @@ def spot_quotations_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     temp_df = temp_df[temp_df["时间"].astype(str) < update_time]
     # 按时间排序
     temp_df = temp_df.sort_values(by=["时间"])
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
