@@ -10,7 +10,7 @@ from io import StringIO
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -75,7 +75,7 @@ def stock_institute_hold_detail(
     }
     r = http.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -2])
+    json_data = jsonish.loads(text_data[text_data.find("{") : -2])
     big_df = pd.DataFrame()
     for item in json_data["data"].keys():
         inner_temp_df = pd.DataFrame(json_data["data"][item]).T.iloc[:-1, :]

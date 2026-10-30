@@ -16,7 +16,7 @@ from requests import Response
 from requests.exceptions import RequestException
 
 from akshare.exceptions import APIError, DataParsingError
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -30,7 +30,7 @@ def _get_fund_archives_data(
     获取天天基金基金档案接口数据。
 
     该接口当前仍返回 JS 片段而非标准 JSON，因此需要在请求成功后
-    手动提取对象字面量并交由 ``demjson`` 解析。
+    手动提取对象字面量并交由 ``jsonish`` 解析。
 
     :param symbol: 基金代码
     :type symbol: str
@@ -75,7 +75,7 @@ def _get_fund_archives_data(
         raise DataParsingError("FundArchivesDatas response is not a valid JS object")
 
     # 响应为 ``var apidata = {...};`` 形式，这里只截取对象字面量部分。
-    data_json = demjson.decode(data_text[start : end + 1])
+    data_json = jsonish.loads(data_text[start : end + 1])
     if not isinstance(data_json, dict) or "content" not in data_json:
         raise DataParsingError("FundArchivesDatas response missing content field")
     return data_json
@@ -243,7 +243,7 @@ def fund_portfolio_industry_allocation_em(
     }
     r = http.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -1])
     temp_list = []
     for item in data_json["Data"]["QuarterInfos"]:
         temp_list.extend(item["HYPZInfo"])

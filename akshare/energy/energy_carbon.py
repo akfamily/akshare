@@ -25,7 +25,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.cons import headers
 
@@ -46,7 +46,7 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("(") + 1 : -1])
+    data_json = jsonish.loads(data_text[data_text.find("(") + 1 : -1])
     temp_df = pd.DataFrame(data_json[symbol])
     temp_df.columns = [
         "成交价",
@@ -210,7 +210,7 @@ def energy_carbon_hb() -> pd.DataFrame:
     )
     start_pos = data_text.find("cjj = '[") + 7  # 找到 JSON 数组开始的位置
     end_pos = data_text.rfind("cjj =") - 31  # 找到 JSON 数组结束的位置
-    data_json = demjson.decode(data_text[start_pos:end_pos])
+    data_json = jsonish.loads(data_text[start_pos:end_pos])
     temp_df = pd.DataFrame.from_dict(data_json)
     temp_df = temp_df.rename(
         columns={

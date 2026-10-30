@@ -22,7 +22,7 @@ from akshare.stock.cons import (
     zh_sina_a_stock_qfq_url,
     zh_sina_a_stock_amount_url,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -67,7 +67,7 @@ def stock_zh_b_spot() -> pd.DataFrame:
     for page in range(1, page_count + 1):
         zh_sina_stock_payload_copy.update({"page": page})
         r = http.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(r.text)
+        data_json = jsonish.loads(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
         "代码",
@@ -186,7 +186,7 @@ def stock_zh_b_daily(
 
     data_df = data_df.astype("float")
     r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
+    amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]

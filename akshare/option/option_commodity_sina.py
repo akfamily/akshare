@@ -9,7 +9,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -149,7 +149,7 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
     params = {"symbol": symbol}
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("[") : -2])
+    data_json = jsonish.loads(data_text[data_text.find("[") : -2])
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["open", "high", "low", "close", "volume", "date"]
     temp_df = temp_df[["date", "open", "high", "low", "close", "volume"]]

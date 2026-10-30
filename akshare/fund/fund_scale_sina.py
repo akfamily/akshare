@@ -8,7 +8,7 @@ https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -43,7 +43,7 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
+    data_json = jsonish.loads(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -113,7 +113,7 @@ def fund_scale_close_sina() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
+    data_json = jsonish.loads(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -183,7 +183,7 @@ def fund_scale_structured_sina() -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("({") + 1 : -2])
+    data_json = jsonish.loads(data_text[data_text.find("({") + 1 : -2])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)

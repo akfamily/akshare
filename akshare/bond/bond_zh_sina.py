@@ -19,7 +19,7 @@ from akshare.bond.cons import (
     zh_sina_bond_hs_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -63,7 +63,7 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
     for page in tqdm(range(start_page, end_page), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         r = http.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
-        data_json = demjson.decode(r.text)
+        data_json = jsonish.loads(r.text)
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.columns = [

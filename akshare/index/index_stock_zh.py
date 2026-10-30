@@ -20,7 +20,7 @@ from akshare.index.cons import (
     zh_sina_index_stock_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
@@ -70,7 +70,7 @@ def stock_zh_index_spot_sina() -> pd.DataFrame:
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_stock_payload_copy.update({"page": page})
         res = http.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(res.text)
+        data_json = jsonish.loads(res.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df = big_df.map(_replace_comma)
     big_df["trade"] = pd.to_numeric(big_df["trade"], errors="coerce")
@@ -332,7 +332,7 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    if not demjson.decode(data_text[data_text.find("={") + 1 :])["data"]:
+    if not jsonish.loads(data_text[data_text.find("={") + 1 :])["data"]:
         url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
         params = {
             "_var": "kline_dayqfq",
@@ -341,11 +341,11 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
         }
         r = http.get(url, params=params)
         data_text = r.text
-        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
+        start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][
             symbol
         ]["day"][0][0]
         return start_date
-    start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
+    start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
 
 
@@ -398,11 +398,11 @@ def stock_zh_index_daily_tx(
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+                jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["day"]
             )
         except Exception:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+                jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
     if temp_df.shape[1] == 6:

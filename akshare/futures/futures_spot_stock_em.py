@@ -8,7 +8,7 @@ https://data.eastmoney.com/ifdata/xhgp.html
 
 import pandas as pd
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -47,7 +47,7 @@ def futures_spot_stock(symbol: str = "能源") -> pd.DataFrame:
     }
     r = http.get(url, headers=headers)
     data_text = r.text
-    temp_json = demjson.decode(
+    temp_json = jsonish.loads(
         data_text[
             data_text.find("pagedata") : data_text.find(
                 "/newstatic/js/common/emdataview.js"

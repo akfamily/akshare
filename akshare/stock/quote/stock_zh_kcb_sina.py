@@ -10,7 +10,7 @@ import datetime
 import re
 import warnings
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 import pandas as pd
 from tqdm import tqdm
 
@@ -55,7 +55,7 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
         zh_sina_stock_payload_copy.update({"page": page})
         zh_sina_stock_payload_copy.update({"_s_r_a": "page"})
         res = http.get(zh_sina_kcb_stock_url, params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(res.text)
+        data_json = jsonish.loads(res.text)
         big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
         "代码",
@@ -138,14 +138,14 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
             symbol, datetime.datetime.now().strftime("%Y_%m_%d"), symbol
         )
     )
-    data_json = demjson.decode(res.text[res.text.find("[") : res.text.rfind("]") + 1])
+    data_json = jsonish.loads(res.text[res.text.find("[") : res.text.rfind("]") + 1])
     data_df = pd.DataFrame(data_json)
     data_df.index = pd.to_datetime(data_df["d"])
     data_df.index.name = "date"
     del data_df["d"]
 
     r = http.get(zh_sina_kcb_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
+    amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]

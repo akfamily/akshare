@@ -12,7 +12,7 @@ import pandas as pd
 import py_mini_racer
 
 from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from akshare.utils import jsonish
 from akshare.utils import http
 
 
@@ -44,7 +44,7 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("([") + 1 : -2])
+    data_json = jsonish.loads(data_text[data_text.find("([") + 1 : -2])
     temp_df = pd.DataFrame(data_json)
     if symbol == "封闭式基金":
         temp_df.columns = [
