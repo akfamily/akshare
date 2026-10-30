@@ -28,8 +28,6 @@ from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
-_SINA_A_SPOT_TIMEOUT: int = 15
-
 
 def _get_zh_a_page_count() -> int:
     """
@@ -38,7 +36,7 @@ def _get_zh_a_page_count() -> int:
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    res = http.get(zh_sina_a_stock_count_url, timeout=_SINA_A_SPOT_TIMEOUT)
+    res = http.get(zh_sina_a_stock_count_url)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -64,7 +62,6 @@ def stock_zh_a_spot() -> pd.DataFrame:
         r = http.get(
             zh_sina_a_stock_url,
             params=zh_sina_stock_payload_copy,
-            timeout=_SINA_A_SPOT_TIMEOUT,
         )
         data_json = jsonish.loads(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)

@@ -115,7 +115,7 @@ def fortune_rank(year: str = "2025") -> pd.DataFrame:
             f"year 可选 {min(year_url_map)} 至 {max(year_url_map)}，收到 {year}"
         )
     url = year_url_map[year]
-    r = http.get(url, timeout=15)
+    r = http.get(url)
     r.encoding = "utf-8"
     if int(year) < 2007:
         # 最后一行是页面的说明文字
@@ -126,7 +126,7 @@ def fortune_rank(year: str = "2025") -> pd.DataFrame:
         tqdm = get_tqdm()
         for page in tqdm(range(2, 11), leave=False):
             page_url = url.rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm"
-            r = http.get(page_url, timeout=15)
+            r = http.get(page_url)
             r.encoding = "utf-8"
             page_df = _fortune_read_table(r.text, header_in_first_row=True)
             temp_df = pd.concat(objs=[temp_df, page_df], ignore_index=True)

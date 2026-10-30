@@ -353,9 +353,7 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
         "showType": "1",
         "rootId": "fc982599aa684be7969d7b90b1bd0e84",
     }
-    r = http.curl_post(
-        url, json=payload, headers=headers, impersonate="chrome", timeout=30
-    )
+    r = http.curl_post(url, json=payload, headers=headers, impersonate="chrome")
     data_json = r.json()
     if not data_json.get("success") or "data" not in data_json:
         return pd.DataFrame(columns=["date", "item", "value"])

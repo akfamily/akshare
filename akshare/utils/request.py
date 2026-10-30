@@ -15,7 +15,6 @@ from akshare.utils import http
 def request_with_retry(
     url: str,
     params: Dict = None,
-    timeout: int = 15,
     max_retries: int = 3,
     base_delay: float = 1.0,
     random_delay_range: Tuple[float, float] = (0.5, 1.5),
@@ -26,8 +25,6 @@ def request_with_retry(
     :type url: str
     :param params: 请求参数
     :type params: dict
-    :param timeout: 超时时间（秒）
-    :type timeout: int
     :param max_retries: 最大重试次数
     :type max_retries: int
     :param base_delay: 基础延迟时间（秒），用于指数退避
@@ -42,7 +39,6 @@ def request_with_retry(
         "get",
         url,
         params=params,
-        timeout=timeout,
         max_retries=max_retries,
         base_delay=base_delay,
         fresh_session=True,

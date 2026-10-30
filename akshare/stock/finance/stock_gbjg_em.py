@@ -90,7 +90,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         "client": "PC",
         "v": "047483522105257925",
     }
-    r = http.get(url, params=params, timeout=30)
+    r = http.get(url, params=params)
     data_json = r.json()
     result = data_json.get("result") or {}
     data_list = result.get("data") or []
@@ -102,7 +102,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
     # 逐页拉取，避免老股票较长的股本结构历史被静默截断。
     for page in range(2, total_pages + 1):
         params.update({"pageNumber": str(page)})
-        r = http.get(url, params=params, timeout=30)
+        r = http.get(url, params=params)
         page_json = r.json()
         page_result = page_json.get("result") or {}
         page_data = page_result.get("data") or []

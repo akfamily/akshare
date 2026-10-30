@@ -1075,7 +1075,7 @@ def stock_zh_a_hist_min_em(
             "iscr": "0",
             "secid": f"{market_code}.{symbol}",
         }
-        r = http.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -1114,7 +1114,7 @@ def stock_zh_a_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = http.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -1191,7 +1191,7 @@ def stock_zh_a_hist_pre_min_em(
         "iscca": "0",
         "secid": f"{market_code}.{symbol}",
     }
-    r = http.get(url, timeout=15, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
@@ -1424,7 +1424,7 @@ def stock_hk_hist(
         "end": "20500000",
         "lmt": "1000000",
     }
-    r = http.get(url, timeout=15, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:
@@ -1498,7 +1498,7 @@ def stock_hk_hist_min_em(
             "ndays": "5",
             "secid": f"116.{symbol}",
         }
-        r = http.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -1537,7 +1537,7 @@ def stock_hk_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = http.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -1717,7 +1717,7 @@ def stock_us_hist(
         "end": "20500000",
         "lmt": "1000000",
     }
-    r = http.get(url, timeout=15, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["klines"]:
         return pd.DataFrame()
@@ -1777,7 +1777,7 @@ def stock_us_hist_min_em(
         "ndays": "5",
         "secid": f"{symbol.split('.')[0]}.{symbol.split('.')[1]}",
     }
-    r = http.get(url, params=params, timeout=15)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["trends"]:
         return pd.DataFrame()

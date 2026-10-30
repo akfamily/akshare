@@ -23,7 +23,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.10jqka.com.cn/datacenter/xfjj/"
-    r = http.get(url, timeout=15)
+    r = http.get(url)
     r.encoding = "utf-8"
 
     # 从页面中提取 jsonData

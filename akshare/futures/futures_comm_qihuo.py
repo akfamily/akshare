@@ -45,10 +45,8 @@ def _futures_comm_qihuo_page() -> str:
     # 自身就会触发 429，而 429 页面里没有表格，最终报出与限流无关的
     # ValueError: No tables found 或 AttributeError: 'NoneType' object has no attribute 'previous'
     session = http.Session()
-    session.get("https://www.9qihuo.com/", headers=_HEADERS, timeout=10)
-    r = session.get(
-        "https://www.9qihuo.com/qihuoshouxufei", headers=_HEADERS, timeout=10
-    )
+    session.get("https://www.9qihuo.com/", headers=_HEADERS)
+    r = session.get("https://www.9qihuo.com/qihuoshouxufei", headers=_HEADERS)
     if r.status_code == 429:
         raise RateLimitError("9qihuo 返回 429，访问过于频繁，请稍后再试")
     if not r.ok:

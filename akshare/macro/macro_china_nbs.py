@@ -65,7 +65,6 @@ def _get_nbs_session() -> http.CurlSession:
         _NBS_SESSION.get(
             "https://data.stats.gov.cn/dg/website/page.html#/pc/national/monthData",
             headers=_get_nbs_headers("monthData"),
-            timeout=30,
         )
     return _NBS_SESSION
 
@@ -117,7 +116,6 @@ def _get_nbs_tree(pid: str, code: int, route: str) -> List[Dict]:
         url,
         params={"pid": pid, "code": code},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -158,7 +156,6 @@ def _get_nbs_indicators(cid: str, route: str) -> List[Dict]:
         url,
         params={"cid": cid, "dt": "", "name": ""},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", {}).get("list", [])
@@ -181,7 +178,6 @@ def _get_nbs_da_catalogs(cid: str, route: str) -> List[Dict]:
         url,
         params={"indicatorCid": cid},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -204,7 +200,6 @@ def _get_nbs_da_members(da_cid: str, route: str) -> List[Dict]:
         url,
         params={"daCid": da_cid},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -509,7 +504,6 @@ def _post_nbs_es_data(
         url,
         json=payload,
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])

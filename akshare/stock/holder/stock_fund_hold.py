@@ -10,7 +10,6 @@ import pandas as pd
 
 from akshare.utils import http
 
-_FUND_HOLD_TIMEOUT: int = 15
 _STOCK_REPORT_FUND_HOLD_COLUMNS: list[str] = [
     "序号",
     "股票代码",
@@ -68,7 +67,7 @@ def stock_report_fund_hold(
         "p": "1",
         "pageNo": "1",
     }
-    r = http.get(url, params=params, timeout=_FUND_HOLD_TIMEOUT)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["pages"]
     big_df_list: list[pd.DataFrame] = []
@@ -84,7 +83,7 @@ def stock_report_fund_hold(
             "p": page,
             "pageNo": page,
         }
-        r = http.get(url, params=params, timeout=_FUND_HOLD_TIMEOUT)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if not temp_df.empty:

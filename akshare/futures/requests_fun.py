@@ -19,7 +19,7 @@ def _request(url: str, method: str, data: Dict, headers: Dict):
     """
     if method not in ("get", "post"):
         raise ValueError("请提供正确的请求方式")
-    return http.request_with_retry(method, url, timeout=20, data=data, headers=headers)
+    return http.request_with_retry(method, url, data=data, headers=headers)
 
 
 def requests_link(

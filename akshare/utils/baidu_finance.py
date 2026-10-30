@@ -31,7 +31,6 @@ def _get_baidu_cookie(headers: dict) -> str:
             resp1 = session.get(
                 "https://finance.baidu.com/calendar",
                 impersonate="chrome110",
-                timeout=10,
             )
             resp1.raise_for_status()
 
@@ -57,7 +56,7 @@ def _get_baidu_cookie(headers: dict) -> str:
             )
 
             # 第二步请求 (自动携带第一步的Cookie)
-            resp2 = session.get(hm_url, impersonate="chrome110", timeout=10)
+            resp2 = session.get(hm_url, impersonate="chrome110")
             resp2.raise_for_status()
 
             # 验证必要Cookie

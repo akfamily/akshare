@@ -645,7 +645,7 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "p": "1",
         "ps": "8000",
     }
-    r = http.get(url, params=params, timeout=15)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.rename(

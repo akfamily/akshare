@@ -88,7 +88,6 @@ def stock_margin_bse(date: str = "20260721") -> pd.DataFrame:
         url,
         params=params,
         headers=_bse_headers("https://www.bse.cn/disclosure/rzrq_trans_list.html"),
-        timeout=30,
     )
     data_json = _parse_bse_jsonp(r.text)
     data_list = data_json[0]
@@ -148,7 +147,6 @@ def stock_margin_detail_bse(date: str = "20260721") -> pd.DataFrame:
             params={"callback": "cb"},
             data={"transDate": normalized_date, "page": str(page)},
             headers=headers,
-            timeout=30,
         )
         data_json = _parse_bse_jsonp(r.text)
         page_info = data_json[0][0]
@@ -209,7 +207,6 @@ def stock_margin_underlying_info_bse(date: str = "20260722") -> pd.DataFrame:
             params={"callback": "cb"},
             data={"transDate": normalized_date, "zqdm": "", "page": str(page)},
             headers=headers,
-            timeout=30,
         )
         data_json = _parse_bse_jsonp(r.text)
         page_info = data_json[0][0]
