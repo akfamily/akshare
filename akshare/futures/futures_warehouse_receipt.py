@@ -230,7 +230,7 @@ def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
             temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
         )
         big_dict = {}
-        for item in set(temp_df["VARNAME"]):
+        for item in dict.fromkeys(temp_df["VARNAME"]):
             big_dict[item] = temp_df[temp_df["VARNAME"] == item]
     else:
         url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/{date}dailystock.html"
@@ -279,7 +279,9 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     symbol_list = list(
-        set([item.upper() for item in temp_df["varietyOrder"].tolist() if item != ""])
+        dict.fromkeys(
+            item.upper() for item in temp_df["varietyOrder"].tolist() if item != ""
+        )
     )
     temp_df = temp_df.rename(
         columns={
@@ -294,7 +296,6 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     temp_df = temp_df[
         [
             "symbol",
-            "whType",
             "品种",
             "仓库/分库",
             "昨日仓单量",
@@ -302,8 +303,10 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
             "增减",
         ]
     ]
-    temp_df["whType"] = pd.to_numeric(temp_df["whType"], errors="coerce")
-    temp_df = temp_df.dropna(subset=["whType"], how="any", axis=0, ignore_index=True)
+    # 去掉“碳酸锂小计”“总计”等汇总行，它们的仓库名为空。上游原先另有 whType 字段，
+    # 汇总行的值不是数字，代码据此过滤；2026-10 起上游不再返回该字段，接口报 KeyError
+    temp_df = temp_df[temp_df["仓库/分库"].fillna("").str.strip() != ""]
+    temp_df = temp_df.reset_index(drop=True)
     big_dict = dict()
     for symbol in symbol_list:
         inner_temp_df = temp_df[temp_df["symbol"] == symbol.lower()].copy()

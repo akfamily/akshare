@@ -84,7 +84,7 @@ def __stock_financial_us_report_em(
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_tuple = tuple(set(temp_df["REPORT"].tolist()))
+    temp_tuple = tuple(dict.fromkeys(temp_df["REPORT"].tolist()))
     if indicator == "年报":
         tuple_data = tuple(item.strip() for item in temp_tuple if "FY" in item)
     elif indicator == "单季报":

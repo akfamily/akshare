@@ -116,7 +116,7 @@ def get_roll_yield_bar(
                     get_futures_daily(start_date=date, end_date=date, market=market),
                 ]
             )
-        var_list = list(set(df["variety"]))
+        var_list = list(dict.fromkeys(df["variety"]))
         for i_remove in ["IO", "MO", "HO"]:
             if i_remove in var_list:
                 var_list.remove(i_remove)

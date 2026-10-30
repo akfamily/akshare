@@ -147,7 +147,7 @@ if __name__ == "__main__":
     stock_board_change_em_df = stock_board_change_em()
     print(stock_board_change_em_df)
 
-    for item in {
+    for item in [
         "火箭发射",
         "快速反弹",
         "大笔买入",
@@ -170,6 +170,6 @@ if __name__ == "__main__":
         "向下缺口",
         "60日新低",
         "60日大幅下跌",
-    }:
+    ]:
         stock_changes_em_df = stock_changes_em(symbol=item)
         print(stock_changes_em_df)

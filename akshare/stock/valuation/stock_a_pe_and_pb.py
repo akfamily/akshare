@@ -568,7 +568,7 @@ if __name__ == "__main__":
     stock_market_pe_lg_df = stock_market_pe_lg(symbol="科创版")
     print(stock_market_pe_lg_df)
 
-    for item in {"上证", "深证", "创业板", "科创版"}:
+    for item in ["上证", "深证", "创业板", "科创版"]:
         print(item)
         stock_market_pe_lg_df = stock_market_pe_lg(symbol=item)
         print(stock_market_pe_lg_df)
@@ -593,7 +593,7 @@ if __name__ == "__main__":
         stock_index_pe_lg_df = stock_index_pe_lg(symbol=item)
         print(stock_index_pe_lg_df)
 
-    for item in {"上证", "深证", "创业板", "科创版"}:
+    for item in ["上证", "深证", "创业板", "科创版"]:
         stock_market_pb_lg_df = stock_market_pb_lg(symbol=item)
         print(stock_market_pb_lg_df)
 

@@ -186,7 +186,7 @@ def get_shfe_receipt_2(
     if len(data.columns) < 1:
         return pd.DataFrame()
     records = pd.DataFrame()
-    for var in set(data["VARNAME"].tolist()):
+    for var in dict.fromkeys(data["VARNAME"].tolist()):
         data_cut = data[data["VARNAME"] == var]
         if "BC" in var:
             data_dict = {
