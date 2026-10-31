@@ -8,6 +8,19 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-20)=
+### 1.20.20 docs: add MCP (AI assistant) guide
+
+1. 新增文档页面“AI 助手（MCP）”，介绍如何通过 AKTools 的 MCP 服务在 Claude、Cursor 等 AI 助手中用自然语言获取 AKShare 数据，包括 stdio 与 HTTP 两种接入方式、各客户端的配置写法、提供的 3 个工具及局域网访问与访问令牌；页面已加入顶栏“进阶”菜单
+2. llms.txt 补充 MCP 接入说明，HTTP API（AKTools）页面的版本说明改为 AKTools 当前提供的功能
+3. 本版本没有代码改动，接口行为不变
+
+(v1-20-19)=
+### 1.20.19 fix: remove bundled swsresearch intermediate certificate
+
+1. 删除 1.20.16 起随包附带的申万宏源研究中间证书 swsresearch_intermediate.pem：这是一张公开的 CA 证书，不含私钥，但 .pem 文件会被代码泄露扫描工具当作敏感文件报警
+2. 申万宏源研究（index_hist_sw、index_realtime_sw、index_analysis_daily_sw 等 8 个接口）的服务器仍然缺少中间证书，因此这些请求改为不校验证书，其他接口仍全部校验。调用这些接口时会出现 urllib3 的 `InsecureRequestWarning` 警告，属预期现象
+
 (v1-20-18)=
 ### 1.20.18 fix: remove pandas and Python deprecated usages
 

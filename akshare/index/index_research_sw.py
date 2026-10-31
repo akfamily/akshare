@@ -1,58 +1,32 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/10/30
+Date: 2026/11/1
 Desc: 申万宏源研究-指数系列
 https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 """
 
 import math
-import ssl
 from functools import lru_cache
 
-import certifi
 import pandas as pd
-from requests.adapters import HTTPAdapter
 
-from akshare.datasets import get_data_file
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
-
-
-class _IntermediateCAAdapter(HTTPAdapter):
-    """
-    补上申万宏源研究服务器缺失的中间证书
-    www.swsresearch.com 只发送站点证书，不发送中间证书 GeoTrust G2 TLS CN RSA4096 SHA256 2022 CA1。
-    浏览器会按证书里的地址自动补全，requests 不会，因此原先只能关闭证书校验。这里在 certifi
-    的根证书之外加载该中间证书（取自证书中的 caIssuers 地址，由 DigiCert Global Root G2 签发，
-    有效期至 2032-12-14），恢复证书校验；直连与经代理两条路径都需替换 SSL 上下文
-    """
-
-    def __init__(self, **kwargs):
-        self._ssl_context = ssl.create_default_context(cafile=certifi.where())
-        self._ssl_context.load_verify_locations(
-            cafile=str(get_data_file("swsresearch_intermediate.pem"))
-        )
-        super().__init__(**kwargs)
-
-    def init_poolmanager(self, *args, **kwargs):
-        kwargs["ssl_context"] = self._ssl_context
-        return super().init_poolmanager(*args, **kwargs)
-
-    def proxy_manager_for(self, proxy, **proxy_kwargs):
-        proxy_kwargs["ssl_context"] = self._ssl_context
-        return super().proxy_manager_for(proxy, **proxy_kwargs)
 
 
 @lru_cache(maxsize=1)
 def _sw_session() -> http.Session:
     """
-    访问申万宏源研究所用的会话，已挂载补全中间证书的适配器
+    访问申万宏源研究所用的会话，已关闭证书校验
+    www.swsresearch.com 只发送站点证书，不发送中间证书 GeoTrust G2 TLS CN RSA4096 SHA256
+    2022 CA1。浏览器会按证书里的地址自动补全，requests 不会，校验必然失败，因此只对这个会话
+    关闭证书校验；会话只用于本模块对该站点的请求，其他接口不受影响
     :return: 会话
     :rtype: akshare.utils.http.Session
     """
     session = http.Session()
-    session.mount("https://www.swsresearch.com", _IntermediateCAAdapter())
+    session.verify = False
     return session
 
 

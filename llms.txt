@@ -77,6 +77,36 @@ ak.search("A股 历史行情")
 ak.interface_info("stock_zh_a_hist")
 ```
 
+## Using AKShare From AI Assistants (MCP)
+
+AKShare itself is a Python library and does not run an MCP server. The
+companion project AKTools (`https://github.com/akfamily/aktools`) provides
+one, registered in the official MCP Registry as `io.github.akfamily/aktools`.
+AI assistants such as Claude Code, Claude Desktop and Cursor can launch it
+over stdio without a separate install step (requires uv):
+
+```shell
+claude mcp add aktools -- uvx --from aktools aktools-mcp
+```
+
+Other clients use the command `uvx` with args
+`["--from", "aktools", "aktools-mcp"]`. A running `python -m aktools` HTTP
+server also exposes the same server over Streamable HTTP at
+`http://127.0.0.1:8080/mcp`.
+
+It exposes three generic tools rather than one tool per interface:
+
+- `search_interfaces(keyword)`: find interface names by keyword.
+- `describe_interface(name)`: parameters, defaults and descriptions.
+- `get_data(name, params, max_rows)`: call the interface; returns up to
+  `max_rows` rows (default 100, max 1000) plus the total row count.
+
+Pass every parameter value as text, e.g. `{"symbol": "000001",
+"start_date": "20240101"}`. Proxy and timeout are set through the
+`AKTOOLS_PROXY` / `AKTOOLS_TIMEOUT` environment variables of the MCP client
+config. Docs: `https://akshare.akfamily.xyz/mcp.html` and
+`https://aktools.akfamily.xyz/guide/mcp/`.
+
 ## Core Usage Pattern
 
 Recommended workflow:
