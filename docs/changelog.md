@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-20)=
+### 1.20.20 docs: add MCP (AI assistant) guide
+
+1. 新增文档页面“AI 助手（MCP）”，介绍如何通过 AKTools 的 MCP 服务在 Claude、Cursor 等 AI 助手中用自然语言获取 AKShare 数据，包括 stdio 与 HTTP 两种接入方式、各客户端的配置写法、提供的 3 个工具及局域网访问与访问令牌；页面已加入顶栏“进阶”菜单
+2. llms.txt 补充 MCP 接入说明，HTTP API（AKTools）页面的版本说明改为 AKTools 当前提供的功能
+3. 本版本没有代码改动，接口行为不变
+
 (v1-20-19)=
 ### 1.20.19 fix: remove bundled swsresearch intermediate certificate
 

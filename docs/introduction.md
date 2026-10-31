@@ -8,6 +8,7 @@ AKShare 采集的数据皆来自公开的数据源，不涉及任何个人隐私
 
 - 如有 AKShare 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提出。
 - 非 Python 用户可以使用 AKShare 的 HTTP API 版本 [AKTools](https://aktools.akfamily.xyz/)。
+- 在 Claude、Cursor 等 AI 助手中使用 AKShare 数据，请参考{doc}`AI 助手（MCP） <mcp>`。
 
 ## 引用
 
@@ -44,7 +45,7 @@ AKShare 主要改进如下：
 4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题；
 5. 持续更新财经数据接口，同时优化源代码；
 6. 提供完善的接口文档，提高 AKShare 的易用性；
-7. 对于非 Python 用户，提供 HTTP API 接口工具 [AKTools](https://aktools.akfamily.xyz/)。
+7. 对于非 Python 用户和 AI 助手，提供 HTTP API 与 MCP 服务工具 [AKTools](https://aktools.akfamily.xyz/)。
 
 ## AKShare 的初衷
 
