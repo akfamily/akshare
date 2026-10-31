@@ -7,7 +7,8 @@ https://quote.eastmoney.com/center/gridlist.html#hk_wellknown
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_famous_spot_em() -> pd.DataFrame:
@@ -33,7 +34,7 @@ def stock_hk_famous_spot_em() -> pd.DataFrame:
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
         "f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"]).T
     temp_df.columns = [
@@ -71,9 +72,9 @@ def stock_hk_famous_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.rename(columns={"index": "序号"}, inplace=True)
+    temp_df = temp_df.rename(columns={"index": "序号"})
     temp_df = temp_df[
         [
             "序号",

@@ -9,8 +9,8 @@ https://data.eastmoney.com/notices/hsa/5.html
 import math
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -60,7 +60,7 @@ def _stock_notice_report(
         params["begin_time"] = begin_date
     if end_date:
         params["end_time"] = end_date
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = math.ceil(data_json["data"]["total_hits"] / 100)
     big_df = pd.DataFrame()
@@ -71,7 +71,7 @@ def _stock_notice_report(
                 "page_index": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
 
@@ -90,14 +90,14 @@ def _stock_notice_report(
             temp_columns_df = pd.DataFrame(
                 [item["columns"][0] for item in data_json["data"]["list"]]
             )
-        except:  # noqa: E722
+        except Exception:
             continue
         del temp_df["codes"]
         del temp_df["columns"]
         temp_df = pd.concat(objs=[temp_df, temp_columns_df, temp_codes_df], axis=1)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "art_code": "编码",
             "display_time": "-",
@@ -112,7 +112,6 @@ def _stock_notice_report(
             "short_name": "名称",
             "stock_code": "代码",
         },
-        inplace=True,
     )
     url = "https://data.eastmoney.com/notices/detail/"
     big_df["网址"] = url + big_df["代码"] + "/" + big_df["编码"] + ".html"

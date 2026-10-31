@@ -7,8 +7,8 @@ https://data.eastmoney.com/xg/xg/sbqy.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
@@ -33,21 +33,21 @@ def stock_ipo_declare_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -60,7 +60,6 @@ def stock_ipo_declare_em() -> pd.DataFrame:
             "END_DATE": "更新日期",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
 
     # 招股说明书链接处理（类似原有代码）

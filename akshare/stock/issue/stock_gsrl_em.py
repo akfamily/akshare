@@ -7,7 +7,8 @@ https://data.eastmoney.com/gsrl/gsdt.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_gsrl_gsdt_em(date: str = "20230808") -> pd.DataFrame:
@@ -31,12 +32,12 @@ def stock_gsrl_gsdt_em(date: str = "20230808") -> pd.DataFrame:
         "reportName": "RPT_ORGOP_ALL",
         "filter": f"""(TRADE_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "SECURITY_CODE": "代码",
@@ -46,7 +47,6 @@ def stock_gsrl_gsdt_em(date: str = "20230808") -> pd.DataFrame:
             "EVENT_CONTENT": "具体事项",
             "TRADE_DATE": "交易日",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

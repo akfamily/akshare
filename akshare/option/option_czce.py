@@ -31,7 +31,8 @@ import warnings
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_hist_yearly_czce(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
@@ -72,7 +73,7 @@ def option_hist_yearly_czce(symbol: str = "SR", year: str = "2021") -> pd.DataFr
         warnings.warn(f"{year} year, symbol {symbol} is not on trade")
         return pd.DataFrame()
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Option/{year}/OptionDataAllHistory/{symbol}OPTIONS{year}.txt"
-    r = requests.get(url)
+    r = http.get(url)
     option_df = pd.read_table(StringIO(r.text), skiprows=1, sep="|", low_memory=False)
     return option_df
 

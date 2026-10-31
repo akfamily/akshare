@@ -9,7 +9,8 @@ https://fund.10jqka.com.cn/datacenter/xfjj/
 import json
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
@@ -22,7 +23,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.10jqka.com.cn/datacenter/xfjj/"
-    r = requests.get(url, timeout=15)
+    r = http.get(url)
     r.encoding = "utf-8"
 
     # 从页面中提取 jsonData
@@ -56,7 +57,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
 
     # 转换为 DataFrame
     temp_df = pd.DataFrame(data_json).T
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
 
     # 根据 symbol 筛选数据
     if symbol == "发行中":
@@ -77,7 +78,7 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
         )
 
     # 重命名列
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "code": "基金代码",
             "name": "基金名称",
@@ -94,7 +95,6 @@ def fund_new_found_ths(symbol: str = "全部") -> pd.DataFrame:
             "zzfx": "发行中",
             "buy": "可购买",
         },
-        inplace=True,
     )
 
     # 选择需要的列

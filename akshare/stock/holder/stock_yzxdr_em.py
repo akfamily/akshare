@@ -7,10 +7,10 @@ https://data.eastmoney.com/yzxdr/
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
 
 
 def stock_yzxdr_em(date: str = "20240930") -> pd.DataFrame:
@@ -39,9 +39,9 @@ def stock_yzxdr_em(date: str = "20240930") -> pd.DataFrame:
         "filter": f"(enddate='{date}')",
         "rt": "53575609",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -1])
     total_pages = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -52,13 +52,13 @@ def stock_yzxdr_em(date: str = "20240930") -> pd.DataFrame:
                 "filter": f"(enddate='{date}')",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") : -1])
+        data_json = jsonish.loads(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
         "序号",

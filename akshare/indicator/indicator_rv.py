@@ -42,7 +42,7 @@ def rv_from_stock_zh_a_hist_min_em(
         period=period,
         adjust=adjust,
     )
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "时间": "Date",
             "开盘": "Open",
@@ -50,11 +50,10 @@ def rv_from_stock_zh_a_hist_min_em(
             "最低": "Low",
             "收盘": "Close",
         },
-        inplace=True,
     )
     temp_df = temp_df[temp_df["Open"] != 0]
     temp_df["Date"] = pd.to_datetime(temp_df["Date"])
-    temp_df.set_index(keys="Date", inplace=True)
+    temp_df = temp_df.set_index(keys="Date")
     return temp_df
 
 
@@ -74,7 +73,7 @@ def rv_from_futures_zh_minute_sina(
     from akshare.futures.futures_zh_sina import futures_zh_minute_sina
 
     temp_df = futures_zh_minute_sina(symbol=symbol, period=period)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "datetime": "Date",
             "open": "Open",
@@ -82,10 +81,9 @@ def rv_from_futures_zh_minute_sina(
             "low": "Low",
             "close": "Close",
         },
-        inplace=True,
     )
     temp_df["Date"] = pd.to_datetime(temp_df["Date"])
-    temp_df.set_index(keys="Date", inplace=True)
+    temp_df = temp_df.set_index(keys="Date")
     return temp_df
 
 
@@ -148,8 +146,8 @@ def volatility_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     k = 0.34 / (1.34 + (n + 1) / (n - 1))
     yang_zhang_rv = np.sqrt((1 - k) * rs_var + vc_and_vo["oi"] + vc_and_vo["ci"] * k)
     yang_zhang_rv_df = pd.DataFrame(yang_zhang_rv)
-    yang_zhang_rv_df.rename(columns={0: "yz_rv"}, inplace=True)
-    yang_zhang_rv_df.reset_index(inplace=True)
+    yang_zhang_rv_df = yang_zhang_rv_df.rename(columns={0: "yz_rv"})
+    yang_zhang_rv_df = yang_zhang_rv_df.reset_index()
     yang_zhang_rv_df.columns = ["date", "rv"]
     yang_zhang_rv_df["date"] = pd.to_datetime(
         yang_zhang_rv_df["date"], errors="coerce"

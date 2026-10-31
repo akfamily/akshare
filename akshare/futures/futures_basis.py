@@ -72,7 +72,7 @@ def futures_spot_price_daily(
         start_day += datetime.timedelta(days=1)
     if len(df_list) > 0:
         temp_df = pd.concat(df_list)
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 
@@ -125,20 +125,18 @@ def futures_spot_price(
                     records.index = records["symbol"]
                     var_list_in_market = [i for i in vars_list if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
-                    temp_df.reset_index(drop=True, inplace=True)
+                    temp_df = temp_df.reset_index(drop=True)
                     return temp_df
                 else:
                     time.sleep(3)
-            except Exception as e:  # noqa: E722
-                print(
+            except Exception as e:
+                warnings.warn(
                     f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败[错误信息:{e}]，第{str(i)}次尝试，最多5次"
                 )
                 i += 1
                 if i > 5:
-                    print(
-                        f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败, 如果当前交易日是 2018-09-12, "
-                        f"由于生意社源数据缺失, 无法访问, 否则为重复访问已超过5次，您的地址被网站墙了，"
-                        f"请保存好返回数据，稍后从该日期起重试"
+                    warnings.warn(
+                        f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败, 如果当前交易日是 2018-09-12, 由于生意社源数据缺失, 无法访问, 否则为重复访问已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                     )
                     return pd.DataFrame()
 
@@ -282,7 +280,7 @@ def _check_information(df_data, date):
     )
     # records.loc[:, "date"] = date.strftime("%Y%m%d")
     records.insert(0, "date", date.strftime("%Y%m%d"))
-    records.reset_index(inplace=True, drop=True)
+    records = records.reset_index(drop=True)
     return records
 
 
@@ -368,7 +366,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         "180日内主力基差平均",
     ]
     basis["主力合约变动百分比"] = basis["主力合约变动百分比"].str.strip("%")
-    basis.reset_index(inplace=True, drop=True)
+    basis = basis.reset_index(drop=True)
     return basis
 
 

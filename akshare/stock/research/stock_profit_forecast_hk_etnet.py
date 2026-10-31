@@ -9,7 +9,8 @@ https://data.eastmoney.com/report/profitforecast.jshtml
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_profit_forecast_et(
@@ -29,7 +30,7 @@ def stock_hk_profit_forecast_et(
     params = {
         "code": str(int(symbol)),
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     if indicator == "评级总览":
         temp_df = pd.read_html(StringIO(r.text))[0]
         inner_list = [item for item in temp_df.iloc[0, 0].split(" ") if item != ""]
@@ -40,16 +41,16 @@ def stock_hk_profit_forecast_et(
     elif indicator == "去年度业绩表现":
         temp_df = pd.read_html(StringIO(r.text))[2]
         temp_df_upper = temp_df.iloc[:, :2].copy()
-        temp_df_upper.reset_index(inplace=True, drop=True)
+        temp_df_upper = temp_df_upper.reset_index(drop=True)
         temp_df_upper.columns = ["item", "value"]
         temp_df_down = temp_df.iloc[:, 3:].copy()
-        temp_df_down.reset_index(inplace=True, drop=True)
+        temp_df_down = temp_df_down.reset_index(drop=True)
         temp_df_down.columns = ["item", "value"]
         temp_df = pd.concat(objs=[temp_df_upper, temp_df_down], ignore_index=True)
         return temp_df
     elif indicator == "综合盈利预测":
         temp_df = pd.read_html(StringIO(r.text), header=0)[3]
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
                 "纯利/(亏损)  (百万港元)": "纯利/亏损",
@@ -64,7 +65,6 @@ def stock_hk_profit_forecast_et(
                 "最低  (百万元人民币)": "最低",
                 "最低  (百万港元)": "最低",
             },
-            inplace=True,
         )
         temp_df["纯利/亏损"] = pd.to_numeric(temp_df["纯利/亏损"], errors="coerce")
         temp_df["每股盈利/每股亏损"] = pd.to_numeric(
@@ -80,7 +80,7 @@ def stock_hk_profit_forecast_et(
     elif indicator == "盈利预测概览":
         temp_df = pd.read_html(StringIO(r.text), header=0)[4]
         del temp_df["目标价* (港元).1"]
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
                 "纯利/(亏损)  (百万港元)": "纯利/亏损",
@@ -90,9 +90,8 @@ def stock_hk_profit_forecast_et(
                 "每股派息*  (港仙)": "每股派息",
                 "目标价* (港元)": "目标价",
             },
-            inplace=True,
         )
-        temp_df.dropna(inplace=True)
+        temp_df = temp_df.dropna()
         temp_df["纯利/亏损"] = pd.to_numeric(temp_df["纯利/亏损"], errors="coerce")
         temp_df["每股盈利"] = pd.to_numeric(temp_df["每股盈利"], errors="coerce")
         temp_df["每股派息"] = pd.to_numeric(temp_df["每股派息"], errors="coerce")

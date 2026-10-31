@@ -11,8 +11,9 @@ from datetime import datetime
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def currency_boc_safe() -> pd.DataFrame:
@@ -23,14 +24,14 @@ def currency_boc_safe() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.safe.gov.cn/safe/2020/1218/17833.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, features="lxml")
     content = soup.find(name="a", string=re.compile("人民币汇率"))["href"]
     url = f"https://www.safe.gov.cn{content}"
-    temp_df = pd.read_excel(url)
-    temp_df.sort_values(by=["日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = pd.read_excel(http.get_buffer(url))
+    temp_df = temp_df.sort_values(by=["日期"])
+    temp_df = temp_df.reset_index(drop=True)
     start_date = (
         (pd.Timestamp(temp_df["日期"].tolist()[-1]) + pd.Timedelta(days=1))
         .isoformat()
@@ -43,10 +44,10 @@ def currency_boc_safe() -> pd.DataFrame:
         "endDate": end_date,
         "queryYN": "true",
     }
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     current_temp_df = pd.read_html(StringIO(r.text))[-1]
-    current_temp_df.sort_values(by=["日期"], inplace=True)
-    current_temp_df.reset_index(inplace=True, drop=True)
+    current_temp_df = current_temp_df.sort_values(by=["日期"])
+    current_temp_df = current_temp_df.reset_index(drop=True)
     big_df = pd.concat(objs=[temp_df, current_temp_df], ignore_index=True)
     column_name_list = big_df.columns[1:]
     for item in column_name_list:

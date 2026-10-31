@@ -11,13 +11,13 @@ from io import StringIO
 from typing import Any, Optional
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from requests import Response
 from requests.exceptions import RequestException
 
 from akshare.exceptions import APIError, DataParsingError
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def _get_fund_archives_data(
@@ -30,7 +30,7 @@ def _get_fund_archives_data(
     获取天天基金基金档案接口数据。
 
     该接口当前仍返回 JS 片段而非标准 JSON，因此需要在请求成功后
-    手动提取对象字面量并交由 ``demjson`` 解析。
+    手动提取对象字面量并交由 ``jsonish`` 解析。
 
     :param symbol: 基金代码
     :type symbol: str
@@ -63,7 +63,7 @@ def _get_fund_archives_data(
         "X-Requested-With": "XMLHttpRequest",
     }
     try:
-        response: Response = requests.get(url, params=params, headers=headers)
+        response: Response = http.get(url, params=params, headers=headers)
         response.raise_for_status()
     except RequestException as err:
         raise APIError(f"FundArchivesDatas request failed: {err}") from err
@@ -75,7 +75,7 @@ def _get_fund_archives_data(
         raise DataParsingError("FundArchivesDatas response is not a valid JS object")
 
     # 响应为 ``var apidata = {...};`` 形式，这里只截取对象字面量部分。
-    data_json = demjson.decode(data_text[start : end + 1])
+    data_json = jsonish.loads(data_text[start : end + 1])
     if not isinstance(data_json, dict) or "content" not in data_json:
         raise DataParsingError("FundArchivesDatas response missing content field")
     return data_json
@@ -120,28 +120,24 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
             StringIO(data_json["content"]), converters={"股票代码": str}
         )[item]
         del temp_df["相关资讯"]
-        temp_df.rename(columns={"占净值 比例": "占净值比例"}, inplace=True)
+        temp_df = temp_df.rename(columns={"占净值 比例": "占净值比例"})
         temp_df["占净值比例"] = (
             temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数 （万股）": "持股数", "持仓市值 （万元）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元人民币）": "持仓市值"},
-            inplace=True,
         )
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "持股数 （万股）": "持股数",
                 "持仓市值 （万元人民币）": "持仓市值",
             },
-            inplace=True,
         )
 
         temp_df["季度"] = item_label[item]
@@ -157,9 +153,9 @@ def fund_portfolio_hold_em(symbol: str = "000001", date: str = "2024") -> pd.Dat
         big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
         big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
         del big_df["序号"]
-        big_df.reset_index(inplace=True, drop=False)
+        big_df = big_df.reset_index(drop=False)
         big_df["index"] = big_df["index"] + 1
-        big_df.rename(columns={"index": "序号"}, inplace=True)
+        big_df = big_df.rename(columns={"index": "序号"})
     return big_df
 
 
@@ -195,7 +191,7 @@ def fund_portfolio_bond_hold_em(
         temp_df["占净值比例"] = (
             temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         )
-        temp_df.rename(columns={"持仓市值（万元）": "持仓市值"}, inplace=True)
+        temp_df = temp_df.rename(columns={"持仓市值（万元）": "持仓市值"})
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
             [
@@ -245,14 +241,14 @@ def fund_portfolio_industry_allocation_em(
         "year": date,
         "callback": "jQuery183006997159478989867_1648016188499",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -1])
     temp_list = []
     for item in data_json["Data"]["QuarterInfos"]:
         temp_list.extend(item["HYPZInfo"])
     temp_df = pd.DataFrame(temp_list)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -349,9 +345,9 @@ def fund_portfolio_change_em(
         ]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     del big_df["序号"]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(columns={"index": "序号"}, inplace=True)
+    big_df = big_df.rename(columns={"index": "序号"})
 
     big_df["本期累计买入金额"] = pd.to_numeric(
         big_df["本期累计买入金额"], errors="coerce"

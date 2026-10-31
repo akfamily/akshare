@@ -10,8 +10,8 @@ https://quote.eastmoney.com/sz166009.html
 from functools import lru_cache
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -65,7 +65,7 @@ def fund_lof_spot_em() -> pd.DataFrame:
         "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "f12": "代码",
             "f14": "名称",
@@ -82,7 +82,6 @@ def fund_lof_spot_em() -> pd.DataFrame:
             "f21": "流通市值",
             "f20": "总市值",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -154,7 +153,7 @@ def fund_lof_hist_em(
         "beg": start_date,
         "end": end_date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
@@ -173,7 +172,7 @@ def fund_lof_hist_em(
         "换手率",
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"])
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -226,7 +225,7 @@ def fund_lof_hist_min_em(
             "iscr": "0",
             "secid": f"{code_id_dict[symbol]}.{symbol}",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -243,7 +242,7 @@ def fund_lof_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -265,7 +264,7 @@ def fund_lof_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -285,7 +284,7 @@ def fund_lof_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

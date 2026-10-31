@@ -7,10 +7,10 @@ https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame:
@@ -23,7 +23,7 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
     :rtype: dict
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
         item.find("a")["href"]
@@ -37,7 +37,7 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
     ]
     comm_list_dict = {key: value for key, value in zip(commodity_list, url_list)}
     url = "https://stock.finance.sina.com.cn" + comm_list_dict[symbol]
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     symbol = (
         soup.find(attrs={"id": "option_symbol"}).find(attrs={"class": "selected"}).text
@@ -46,7 +46,7 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
         item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
     ]
     temp_df = pd.DataFrame({symbol: contract})
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = ["序号", "合约"]
     return temp_df
@@ -66,7 +66,7 @@ def option_commodity_contract_table_sina(
     :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
         item.find("a")["href"]
@@ -86,7 +86,7 @@ def option_commodity_contract_table_sina(
         "exchange": comm_list_dict[symbol].split("/")[-1],
         "pinzhong": contract,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     up_df = pd.DataFrame(data_json["result"]["data"]["up"])
     down_df = pd.DataFrame(data_json["result"]["data"]["down"])
@@ -147,9 +147,9 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
     """
     url = "https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_m2009C30002020_7_17=/FutureOptionAllService.getOptionDayline"
     params = {"symbol": symbol}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("[") : -2])
+    data_json = jsonish.loads(data_text[data_text.find("[") : -2])
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["open", "high", "low", "close", "volume", "date"]
     temp_df = temp_df[["date", "open", "high", "low", "close", "volume"]]

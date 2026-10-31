@@ -8,6 +8,8 @@ http://114.115.232.154:8080/
 
 import pandas as pd
 
+from akshare.utils import http
+
 
 def macro_cnbs() -> pd.DataFrame:
     """
@@ -18,13 +20,13 @@ def macro_cnbs() -> pd.DataFrame:
     """
     url = "http://114.115.232.154:8080/handler/download.ashx"
     temp_df = pd.read_excel(
-        url, sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
+        http.get_buffer(url), sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
     )
 
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")
-    temp_df.dropna(axis=1, inplace=True)
+    temp_df = temp_df.dropna(axis=1)
 
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "Period": "年份",
             "Household": "居民部门",
@@ -36,7 +38,6 @@ def macro_cnbs() -> pd.DataFrame:
             "Financial sector(asset side)": "金融部门资产方",
             "Financial sector(liability side)": "金融部门负债方",
         },
-        inplace=True,
     )
 
     column_order = [

@@ -9,8 +9,9 @@ https://www.100ppi.com/sf/792.html
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def __get_sys_spot_futures_dict() -> dict:
@@ -21,7 +22,7 @@ def __get_sys_spot_futures_dict() -> dict:
     :rtype: dict
     """
     url = "https://www.100ppi.com/sf/792.html"
-    res = requests.get(url)
+    res = http.get(url)
     soup = BeautifulSoup(res.text, features="lxml")
     temp_item = soup.find(name="div", attrs={"class": "q8"}).find_all("li")
     name_url_dict = dict(
@@ -46,7 +47,7 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     """
     name_url_dict = __get_sys_spot_futures_dict()
     url = name_url_dict[symbol]
-    r = requests.get("https://www.100ppi.com" + url)
+    r = http.get("https://www.100ppi.com" + url)
     if indicator == "市场价格":
         table_df_one = pd.read_html(StringIO(r.text), header=0, index_col=0)[1].T
         table_df_one["现货价格"] = pd.to_numeric(
@@ -58,26 +59,26 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
         table_df_one["最近合约"] = pd.to_numeric(
             table_df_one["最近合约"], errors="coerce"
         )
-        table_df_one.reset_index(inplace=True)
+        table_df_one = table_df_one.reset_index()
         table_df_one.columns.name = None
-        table_df_one.rename(columns={"index": "日期"}, inplace=True)
+        table_df_one = table_df_one.rename(columns={"index": "日期"})
         return table_df_one
     elif indicator == "基差率":
         table_df_two = pd.read_html(StringIO(r.text), header=0, index_col=0)[2].T
         table_df_two["基差率"] = table_df_two["基差率"].str.replace("%", "")
         table_df_two["基差率"] = pd.to_numeric(table_df_two["基差率"], errors="coerce")
-        table_df_two.reset_index(inplace=True)
+        table_df_two = table_df_two.reset_index()
         table_df_two.columns.name = None
-        table_df_two.rename(columns={"index": "日期"}, inplace=True)
+        table_df_two = table_df_two.rename(columns={"index": "日期"})
         return table_df_two
     else:
         table_df_three = pd.read_html(StringIO(r.text), header=0, index_col=0)[3].T
         table_df_three["主力基差"] = pd.to_numeric(
             table_df_three["主力基差"], errors="coerce"
         )
-        table_df_three.reset_index(inplace=True)
+        table_df_three = table_df_three.reset_index()
         table_df_three.columns.name = None
-        table_df_three.rename(columns={"index": "日期"}, inplace=True)
+        table_df_three = table_df_three.rename(columns={"index": "日期"})
         return table_df_three
 
 

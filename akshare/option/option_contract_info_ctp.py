@@ -7,7 +7,8 @@ http://openctp.cn/instruments.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_contract_info_ctp() -> pd.DataFrame:
@@ -18,7 +19,7 @@ def option_contract_info_ctp() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://dict.openctp.cn/instruments?types=option"
-    r = requests.get(url)
+    r = http.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
 

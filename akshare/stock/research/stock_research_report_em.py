@@ -8,8 +8,8 @@ https://data.eastmoney.com/report/stock.jshtml
 
 import datetime
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -41,7 +41,7 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
         "pageNum": "1",
         "pageNumber": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["TotalPage"]
     current_year = data_json["currentYear"]
@@ -56,11 +56,11 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     predict_this_year_eps_title = f"{current_year}-盈利预测-收益"
     predict_this_year_pe_title = f"{current_year}-盈利预测-市盈率"
@@ -71,7 +71,7 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
     big_df["pdfUrl"] = big_df["infoCode"].apply(
         lambda x: f"https://pdf.dfcfw.com/pdf/H3_{x}_1.pdf"
     )
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "title": "报告名称",
@@ -127,7 +127,6 @@ def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
             "orgType": "-",
             "pdfUrl": "报告PDF链接",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

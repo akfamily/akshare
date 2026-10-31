@@ -7,7 +7,7 @@ https://data.eastmoney.com/shibor/shibor.aspx
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -86,7 +86,7 @@ def rate_interbank(
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -100,7 +100,7 @@ def rate_interbank(
                 "pageNum": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -126,8 +126,8 @@ def rate_interbank(
     big_df["报告日"] = pd.to_datetime(big_df["报告日"], errors="coerce").dt.date
     big_df["利率"] = pd.to_numeric(big_df["利率"], errors="coerce")
     big_df["涨跌"] = pd.to_numeric(big_df["涨跌"], errors="coerce")
-    big_df.sort_values(["报告日"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["报告日"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 

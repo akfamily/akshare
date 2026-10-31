@@ -9,7 +9,8 @@ import time
 from typing import Optional
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 # ============================================================
@@ -33,7 +34,6 @@ _TAPTAP_X_UA = (
 )
 
 # 内部参数（不对外暴露）
-_TAPTAP_TIMEOUT = 15.0
 _TAPTAP_SLEEP = 0.4
 _TAPTAP_PAGE_SIZE = 10
 _TAPTAP_MAX_LOOPS = 200
@@ -84,7 +84,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
             f"symbol 仅支持 {list(_TAPTAP_RANK_TYPE_MAP.keys())}, 当前传入: {symbol}"
         )
     type_name = _TAPTAP_RANK_TYPE_MAP[symbol]
-    session = requests.Session()
+    session = http.Session()
     session.headers.update(_TAPTAP_HEADERS)
     all_games = []
     total: Optional[int] = None
@@ -96,7 +96,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
             "type_name": type_name,
             "X-UA": _TAPTAP_X_UA,
         }
-        r = session.get(_TAPTAP_BASE_URL, params=params, timeout=_TAPTAP_TIMEOUT)
+        r = session.get(_TAPTAP_BASE_URL, params=params)
         r.raise_for_status()
         js = r.json()
         if not js.get("success"):
@@ -132,7 +132,7 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
         "app.rec_text": "推荐语",
         "app.released_time": "发布时间戳",
     }
-    df.rename(columns=rename_map, inplace=True)
+    df = df.rename(columns=rename_map)
     if "评分" in df.columns:
         df["评分"] = pd.to_numeric(df["评分"], errors="coerce").astype("float64")
     for col in ["总点击量", "游玩次数", "评论数", "粉丝数"]:

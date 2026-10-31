@@ -9,7 +9,8 @@ https://www.timeanddate.com
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def sunrise_city_list() -> list:
@@ -20,7 +21,7 @@ def sunrise_city_list() -> list:
     :rtype: list
     """
     url = "https://www.timeanddate.com/astronomy/china"
-    r = requests.get(url)
+    r = http.get(url)
     city_list = []
     china_city_one_df = pd.read_html(StringIO(r.text))[1]
     china_city_two_df = pd.read_html(StringIO(r.text))[2]
@@ -48,22 +49,20 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings()
     if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = requests.get(url, verify=False)
+        r = http.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1,]
         day_df = month_df[
             month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]
         ].copy()
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
-        day_df.reset_index(inplace=True)
-        day_df.rename(columns={"index": "date"}, inplace=True)
+        day_df = day_df.reset_index()
+        day_df = day_df.rename(columns={"index": "date"})
         day_df["date"] = pd.to_datetime(day_df["date"]).dt.date
         return day_df
     else:
@@ -81,23 +80,20 @@ def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFra
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame
     """
-    import urllib3
 
-    urllib3.disable_warnings()
     if city in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = requests.get(url)
+        r = http.get(url)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1,].copy()
         month_df.index = [date[:-2]] * len(month_df)
-        month_df.reset_index(inplace=True)
-        month_df.rename(
+        month_df = month_df.reset_index()
+        month_df = month_df.rename(
             columns={
                 "index": "date",
             },
-            inplace=True,
         )
         return month_df
     else:

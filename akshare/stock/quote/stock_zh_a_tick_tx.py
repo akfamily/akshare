@@ -7,10 +7,12 @@ Desc: 腾讯-股票-实时行情-成交明细
 港股报价延时 15 分钟
 """
 
+import ast
 import warnings
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
@@ -34,16 +36,18 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
                 "c": symbol,
                 "p": page,
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             text_data = r.text
             temp_df = (
-                pd.DataFrame(eval(text_data[text_data.find("[") :])[1].split("|"))
+                pd.DataFrame(
+                    ast.literal_eval(text_data[text_data.find("[") :])[1].split("|")
+                )
                 .iloc[:, 0]
                 .str.split("/", expand=True)
             )
             page += 1
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        except:  # noqa: E722
+        except Exception:
             break
     if not big_df.empty:
         big_df = big_df.iloc[:, 1:].copy()
@@ -55,7 +59,7 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
             "成交金额",
             "性质",
         ]
-        big_df.reset_index(drop=True, inplace=True)
+        big_df = big_df.reset_index(drop=True)
         property_map = {
             "S": "卖盘",
             "B": "买盘",

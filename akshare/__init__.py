@@ -1290,7 +1290,6 @@ from akshare.spot.spot_sge import (
 # ---- 能源（akshare/energy） ----
 from akshare.energy.energy_carbon import (
     energy_carbon_bj,
-    energy_carbon_domestic,
     energy_carbon_eu,
     energy_carbon_gz,
     energy_carbon_hb,
@@ -1329,7 +1328,6 @@ from akshare.alternative.alternative_car_cpca import (
     car_market_segment_cpca,
     car_market_total_cpca,
 )
-from akshare.alternative.alternative_car_gasgoo import car_sale_rank_gasgoo
 from akshare.alternative.alternative_fortune_500 import fortune_rank
 from akshare.alternative.alternative_fortune_bloomberg import (
     index_bloomberg_billionaires,
@@ -1362,8 +1360,6 @@ from akshare.research.research_epu_index import article_epu_index
 from akshare.research.research_ff_factor import article_ff_crr
 from akshare.research.research_fred_md import fred_md, fred_qd
 from akshare.research.research_risk_rv import (
-    article_oman_rv,
-    article_oman_rv_short,
     article_rlab_rv,
 )
 
@@ -1389,7 +1385,7 @@ from akshare.calendar.calendar_trade_date_hist import tool_trade_date_hist_sina
 # ---- 自然语言处理（akshare/nlp） ----
 from akshare.nlp.nlp_interface import nlp_answer
 
-# ---- 公共 API：账户、接口检索与异常 ----
+# ---- 公共 API：账户、网络配置、接口检索与异常 ----
 from .exceptions import (
     AkshareException,
     APIError,
@@ -1400,6 +1396,13 @@ from .exceptions import (
 )
 from akshare.pro.data_pro import pro_api
 from akshare.utils.token_process import set_token, get_token
+from akshare.utils.context import (
+    ProxyContext,
+    get_proxies,
+    get_timeout,
+    set_proxies,
+    set_timeout,
+)
 from akshare.registry import search, interface_info, list_categories
 
 # === __all__ 开始：由 scripts/build_registry.py 生成，请勿手工编辑 ===
@@ -1409,6 +1412,7 @@ __all__ = [
     "DataParsingError",
     "InvalidParameterError",
     "NetworkError",
+    "ProxyContext",
     "RateLimitError",
     "air_city_table",
     "air_quality_hebei",
@@ -1431,8 +1435,6 @@ __all__ = [
     "amac_securities_info",
     "article_epu_index",
     "article_ff_crr",
-    "article_oman_rv",
-    "article_oman_rv_short",
     "article_rlab_rv",
     "bank_fjcf_table_detail",
     "bond_available_index_cbond",
@@ -1486,7 +1488,6 @@ __all__ = [
     "car_market_man_rank_cpca",
     "car_market_segment_cpca",
     "car_market_total_cpca",
-    "car_sale_rank_gasgoo",
     "crypto_bitcoin_cme",
     "crypto_bitcoin_hold_report",
     "crypto_js_spot",
@@ -1500,7 +1501,6 @@ __all__ = [
     "currency_time_series",
     "drewry_wci_index",
     "energy_carbon_bj",
-    "energy_carbon_domestic",
     "energy_carbon_eu",
     "energy_carbon_gz",
     "energy_carbon_hb",
@@ -1669,6 +1669,7 @@ __all__ = [
     "get_futures_daily",
     "get_gfex_daily",
     "get_ine_daily",
+    "get_proxies",
     "get_rank_sum",
     "get_rank_sum_daily",
     "get_rank_table_czce",
@@ -1677,6 +1678,7 @@ __all__ = [
     "get_roll_yield_bar",
     "get_shfe_daily",
     "get_shfe_rank_table",
+    "get_timeout",
     "get_token",
     "get_us_stock_name",
     "hf_sp_500",
@@ -2065,6 +2067,8 @@ __all__ = [
     "rv_from_futures_zh_minute_sina",
     "rv_from_stock_zh_a_hist_min_em",
     "search",
+    "set_proxies",
+    "set_timeout",
     "set_token",
     "spot_corn_price_soozhu",
     "spot_golden_benchmark_sge",

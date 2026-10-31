@@ -13,12 +13,13 @@ Desc: 期货结算信息
 """
 
 import datetime
+import warnings
 
 import pandas as pd
-import requests
 from io import StringIO
 
 from akshare.futures import cons
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 gfex_headers = {
@@ -184,7 +185,7 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"http://www.cffex.com.cn/sj/jscs/{date[:4]}{date[4:6]}/{date[6:8]}/{date}_1.csv"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gbk"
     if r.status_code != 200:
         return pd.DataFrame()
@@ -193,7 +194,7 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
         return pd.DataFrame()
     try:
         data_df = pd.read_csv(StringIO(r.text), skiprows=1)
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
@@ -236,13 +237,13 @@ def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataClearParams.txt"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "utf-8"
     if r.status_code != 200:
         return pd.DataFrame()
     try:
         data_df = _parse_pipe_data(r.text)
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
@@ -298,7 +299,7 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
     date = day.strftime("%Y%m%d")
     url = "http://www.gfex.com.cn/u/interfacesWebTtQueryTradPara/loadDayList"
     payload = {"trade_type": "0"}
-    r = requests.post(url, data=payload, headers=gfex_headers)
+    r = http.post(url, data=payload, headers=gfex_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     # 检查是否返回了反爬虫的 JavaScript 代码
@@ -309,7 +310,7 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
         if json_data.get("code") != "0":
             return pd.DataFrame()
         data_list = json_data.get("data", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -368,13 +369,13 @@ def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"https://www.shfe.com.cn/data/tradedata/future/dailydata/js{date}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     try:
         data_json = r.json()
         data_list = data_json.get("o_cursor", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -429,13 +430,13 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     date = day.strftime("%Y%m%d")
     url = f"https://www.ine.cn/data/tradedata/future/dailydata/js{date}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     if r.status_code != 200:
         return pd.DataFrame()
     try:
         data_json = r.json()
         data_list = data_json.get("o_cursor", [])
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     if not data_list:
         return pd.DataFrame()
@@ -499,7 +500,7 @@ def futures_settle(date: str = "20260119", market: str = "CFFEX") -> pd.DataFram
     elif market.upper() == "INE":
         df = futures_settle_ine(date)
     else:
-        print(f"Unsupported market: {market}")
+        warnings.warn(f"Unsupported market: {market}")
         return pd.DataFrame(columns=SETTLE_OUTPUT_COLUMNS)
     temp_df = _normalize_settle_columns(df)
     return temp_df

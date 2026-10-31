@@ -6,11 +6,11 @@ Desc: 新浪财经-美股实时行情数据和历史行情数据
 https://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 
+import ast
 import json
 from functools import lru_cache
 
 import pandas as pd
-import requests
 import py_mini_racer
 from tqdm import tqdm
 
@@ -21,6 +21,7 @@ from akshare.stock.cons import (
     us_sina_stock_dict_payload,
     us_sina_stock_hist_qfq_url,
 )
+from akshare.utils import http
 
 
 @lru_cache()
@@ -39,7 +40,7 @@ def __get_us_page_count() -> int:
     js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-    res = requests.get(
+    res = http.get(
         us_sina_stock_list_url.format(dict_list),
         params=us_sina_stock_dict_payload,
     )
@@ -72,7 +73,7 @@ def get_us_stock_name() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = requests.get(
+        res = http.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
@@ -103,7 +104,7 @@ def stock_us_spot() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = requests.get(
+        res = http.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
         )
@@ -129,7 +130,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/staticdata/us/{symbol}"
-    res = requests.get(url)
+    res = http.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
     dict_list = js_code.call("d", res.text.split("=")[1].split(";")[0].replace('"', ""))
@@ -140,15 +141,16 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     del data_df["date"]
     data_df = data_df.astype("float")
     url = us_sina_stock_hist_qfq_url.format(symbol)
-    res = requests.get(url)
-    qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
-    qfq_factor_df.rename(
+    res = http.get(url)
+    qfq_factor_df = pd.DataFrame(
+        ast.literal_eval(res.text.split("=")[1].split("\n")[0])["data"]
+    )
+    qfq_factor_df = qfq_factor_df.rename(
         columns={
             "c": "adjust",
             "d": "date",
             "f": "qfq_factor",
         },
-        inplace=True,
     )
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
     del qfq_factor_df["date"]
@@ -168,24 +170,8 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="left"
         )
-        try:
-            # try for pandas >= 2.1.0
-            temp_df.ffill(inplace=True)
-        except Exception:
-            try:
-                # try for pandas < 2.1.0
-                temp_df.fillna(method="ffill", inplace=True)
-            except Exception as e:
-                print("Error:", e)
-        try:
-            # try for pandas >= 2.1.0
-            temp_df.bfill(inplace=True)
-        except Exception:
-            try:
-                # try for pandas < 2.1.0
-                temp_df.fillna(method="bfill", inplace=True)
-            except Exception as e:
-                print("Error:", e)
+        temp_df = temp_df.ffill()
+        temp_df = temp_df.bfill()
 
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["qfq_factor"] + temp_df["adjust"]
@@ -196,21 +182,21 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         temp_df = temp_df.astype("float")
         # 处理复权因子错误的情况-开始
         check_df = temp_df[["open", "high", "low", "close"]].copy()
-        check_df.dropna(inplace=True)
+        check_df = check_df.dropna()
         if check_df.empty:
-            data_df.reset_index(inplace=True)
+            data_df = data_df.reset_index()
             return data_df
         # 处理复权因子错误的情况-结束
         result_data = temp_df.iloc[:, :-2]
-        result_data.reset_index(inplace=True)
+        result_data = result_data.reset_index()
         return result_data
 
     if adjust == "qfq-factor":
-        qfq_factor_df.reset_index(inplace=True)
+        qfq_factor_df = qfq_factor_df.reset_index()
         return qfq_factor_df
 
     if adjust == "":
-        data_df.reset_index(inplace=True)
+        data_df = data_df.reset_index()
         return data_df
 
 

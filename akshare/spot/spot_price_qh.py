@@ -9,8 +9,9 @@ https://www.99qh.com/data/spotTrend
 import json
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def __get_item_of_spot_price_qh() -> pd.DataFrame:
@@ -21,7 +22,7 @@ def __get_item_of_spot_price_qh() -> pd.DataFrame:
     :rtype: str
     """
     url = "https://www.99qh.com/data/spotTrend"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     data_text = soup.find(name="script", attrs={"id": "__NEXT_DATA__"}).text
     data_json = json.loads(data_text)
@@ -47,7 +48,7 @@ def __get_token_of_spot_price_qh() -> str:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     token = r.headers["_pcc"]
     return token
 
@@ -60,12 +61,11 @@ def spot_price_table_qh() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = __get_item_of_spot_price_qh()
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "qhExchangeName": "交易所名称",
             "name": "品种名称",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -103,13 +103,13 @@ def spot_price_qh(symbol: str = "螺纹钢") -> pd.DataFrame:
         "endDate": "2050-01-01",
         "appCategory": "web",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
-        columns={"date": "日期", "fp": "期货收盘价", "sp": "现货价格"}, inplace=True
+    temp_df = temp_df.rename(
+        columns={"date": "日期", "fp": "期货收盘价", "sp": "现货价格"}
     )
-    temp_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["期货收盘价"] = pd.to_numeric(temp_df["期货收盘价"], errors="coerce")
     temp_df["现货价格"] = pd.to_numeric(temp_df["现货价格"], errors="coerce")

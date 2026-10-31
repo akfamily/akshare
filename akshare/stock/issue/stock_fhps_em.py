@@ -7,8 +7,8 @@ https://data.eastmoney.com/yjfp/
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -40,14 +40,14 @@ def stock_fhps_em(date: str = "20231231") -> pd.DataFrame:
         "filter": f"""(REPORT_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
 
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_pages = int(data_json["result"]["pages"])
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_pages + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -134,7 +134,7 @@ def stock_fhps_em(date: str = "20231231") -> pd.DataFrame:
     big_df["最新公告日期"] = pd.to_datetime(
         big_df["最新公告日期"], errors="coerce"
     ).dt.date
-    big_df.sort_values(["最新公告日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["最新公告日期"], ignore_index=True)
     return big_df
 
 
@@ -162,14 +162,14 @@ def stock_fhps_detail_em(symbol: str = "300073") -> pd.DataFrame:
         "filter": f"""(SECURITY_CODE="{symbol}")""",
     }
 
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_pages = int(data_json["result"]["pages"])
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_pages + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -261,7 +261,7 @@ def stock_fhps_detail_em(symbol: str = "300073") -> pd.DataFrame:
     big_df["每股未分配利润"] = pd.to_numeric(big_df["每股未分配利润"], errors="coerce")
     big_df["净利润同比增长"] = pd.to_numeric(big_df["净利润同比增长"], errors="coerce")
     big_df["总股本"] = pd.to_numeric(big_df["总股本"], errors="coerce")
-    big_df.sort_values(["报告期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["报告期"], ignore_index=True)
     return big_df
 
 

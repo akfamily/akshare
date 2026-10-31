@@ -17,19 +17,18 @@ http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
 import datetime
 import json
 import re
-import time
 import warnings
 import zipfile
 from io import BytesIO
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
 from akshare.futures.symbol_var import symbol_varieties
+from akshare.utils import http
 
 calendar = cons.get_calendar()
 rank_columns = [
@@ -91,11 +90,10 @@ def get_rank_sum_daily(
     )
     records = pd.DataFrame()
     while start_day <= end_day:
-        print(start_day)
         if start_day.strftime("%Y%m%d") in calendar:
             data = get_rank_sum(start_day, vars_list)
             if data is False:
-                print(
+                warnings.warn(
                     f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
@@ -168,7 +166,7 @@ def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols
 
     for symbol, table in big_dict.items():
         table = table.map(lambda x: 0 if x == "" else x)
-        for symbol_inner in set(table["symbol"]):
+        for symbol_inner in dict.fromkeys(table["symbol"]):
             var = symbol_varieties(symbol_inner)
             if var in vars_list:
                 if var in czce_var:
@@ -303,7 +301,7 @@ def get_shfe_rank_table(
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(year=2002, month=1, day=7):
-        print("shfe数据源开始日期为 20020107，跳过")
+        warnings.warn("shfe数据源开始日期为 20020107，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -312,7 +310,7 @@ def get_shfe_rank_table(
     r = requests_link(url, encoding="utf-8", headers=cons.shfe_headers)
     try:
         context = json.loads(r.text)
-    except:  # noqa: E722
+    except Exception:
         return {}
     df = pd.DataFrame(context["o_cursor"])
 
@@ -349,13 +347,13 @@ def get_shfe_rank_table(
     ]:
         try:
             del df[col]
-        except:  # noqa: E722
+        except Exception:
             pass
     get_vars = [var for var in vars_list if var in df["variety"].tolist()]
     big_dict = {}
     for var in get_vars:
         df_var = df[df["variety"] == var]
-        for symbol in set(df_var["symbol"]):
+        for symbol in dict.fromkeys(df_var["symbol"]):
             df_symbol = df_var[df_var["symbol"] == symbol].copy()
             df_symbol["symbol"] = df_symbol["symbol"].str.upper()
             big_dict[symbol] = df_symbol.reset_index(drop=True)
@@ -378,11 +376,6 @@ def _czce_df_read(url, skip_rows, encoding="utf-8", header=0):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/84.0.4147.89 Safari/537.36",
         "Host": "www.czce.com.cn",
-        "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; "
-        "XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh."
-        "MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0."
-        "JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ."
-        "N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
     }
     r = requests_link(url, encoding, headers=headers)
 
@@ -435,7 +428,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
     }
     temp_df = pd.DataFrame()
     if date < datetime.date(2015, 10, 8):
-        print("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
+        warnings.warn("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -450,7 +443,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/"
             f"{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
         )
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
 
     temp_pinzhong_index = [
@@ -486,7 +479,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             "short_open_interest",
             "short_open_interest_chg",
         ]
-        inner_temp_df.reset_index(inplace=True, drop=True)
+        inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol_list[i]] = inner_temp_df
         inner_temp_df = temp_df[temp_symbol_index_list[i + 1] + 2 : -1]
         inner_temp_df.columns = [
@@ -501,7 +494,7 @@ def get_rank_table_czce(date: str = "20251103") -> dict:
             "short_open_interest",
             "short_open_interest_chg",
         ]
-        inner_temp_df.reset_index(inplace=True, drop=True)
+        inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
     for key, value in big_dict.items():
@@ -545,22 +538,18 @@ def _get_dce_contract_list(date, var):
         "contract": "",
     }
 
-    while 1:
-        try:
-            r = requests.post(url, params=params, headers=headers)
-            soup = BeautifulSoup(r.text, "lxml")
-            contract_list = [
-                re.findall(
-                    r"\d+",
-                    item["onclick"].strip("javascript:setContract_id('").strip("');"),
-                )[0]
-                for item in soup.find_all(attrs={"name": "contract"})
-            ]
-            contract_list = [var.lower() + item for item in contract_list]
-            return contract_list  # noqa: E722
-        except:  # noqa: E722
-            time.sleep(5)
-            continue
+    # 原先遇到任何异常都等 5 秒后无限重试，上游故障或改版时接口会一直不返回
+    r = http.request_with_retry("post", url, params=params, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    contract_list = [
+        re.findall(
+            r"\d+",
+            item["onclick"].strip("javascript:setContract_id('").strip("');"),
+        )[0]
+        for item in soup.find_all(attrs={"name": "contract"})
+    ]
+    contract_list = [var.lower() + item for item in contract_list]
+    return contract_list
 
 
 def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) -> dict:
@@ -587,11 +576,11 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    print("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
+    warnings.warn("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
     date_string = date
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
-        print(Exception("大连商品交易所数据源开始日期为 20060104，跳过"))
+        warnings.warn("大连商品交易所数据源开始日期为 20060104，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -612,12 +601,14 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                 date.day,
             )
             try:
-                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
-                temp_df.dropna(how="any", axis=0, inplace=True)
+                temp_df = pd.read_excel(
+                    http.get_buffer(url[:-3] + "excel"), header=0, skiprows=3
+                )
+                temp_df = temp_df.dropna(how="any", axis=0)
                 temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
                 del temp_df["名次.2"]
-                temp_df.rename(
+                temp_df = temp_df.rename(
                     columns={
                         "名次": "rank",
                         "会员简称": "vol_party_name",
@@ -630,7 +621,6 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                         "持卖单量": "short_open_interest",
                         "增减.2": "short_open_interest_chg",
                     },
-                    inplace=True,
                 )
                 temp_df["symbol"] = symbol.upper()
                 temp_df["var"] = var
@@ -654,7 +644,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     "short_open_interest_chg"
                 ].astype(float)
                 big_dict[symbol] = temp_df
-            except:  # noqa: E722
+            except Exception:
                 temp_url = "http://portal.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
                 payload = {
                     "memberDealPosiQuotes.variety": var.lower(),
@@ -666,14 +656,14 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     "contract.variety_id": var.lower(),
                     "contract": "",
                 }
-                r = requests.post(temp_url, data=payload)
+                r = http.post(temp_url, data=payload)
                 if r.status_code != 200:
                     big_dict[symbol] = {}
                 else:
                     temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     del temp_df["名次.1"]
                     del temp_df["名次.2"]
-                    temp_df.rename(
+                    temp_df = temp_df.rename(
                         columns={
                             "名次": "rank",
                             "会员简称": "vol_party_name",
@@ -686,7 +676,6 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                             "持卖单量": "short_open_interest",
                             "增减.2": "short_open_interest_chg",
                         },
-                        inplace=True,
                     )
                     temp_df["symbol"] = symbol.upper()
                     temp_df["var"] = var
@@ -741,7 +730,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2010, 4, 16):
-        print(Exception("CFFEX 数据源开始日期为 20100416，跳过"))
+        warnings.warn("CFFEX 数据源开始日期为 20100416，跳过")
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -761,13 +750,13 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         )
         # url = 'http://www.cffex.com.cn/sj/ccpm/201908/05/IF_1.csv'
         # url = 'http://www.cffex.com.cn/sj/ccpm/202308/08/IF_1.csv'
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         # 20200316 开始数据结构变化，统一格式
         if r.status_code == 200:
             try:
                 # 当所需要的合约没有数据时
                 temp_df = pd.read_table(BytesIO(r.content), encoding="gbk", header=None)
-            except:  # noqa: E722
+            except Exception:
                 continue
             need_index = temp_df.iloc[:, 0].str.contains("交易日")
             if sum(need_index) > 2:
@@ -776,7 +765,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
                 )
                 table.columns = table.iloc[0, :]
                 table = table.iloc[2:, :].copy()
-                table.reset_index(inplace=True, drop=True)
+                table = table.reset_index(drop=True)
             else:
                 table = pd.read_csv(BytesIO(r.content), encoding="gbk")
         else:
@@ -784,7 +773,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         table = table.dropna(how="any")
         table = table.map(lambda x: x.strip() if isinstance(x, str) else x)
         del table["交易日"]
-        for symbol in set(table["合约"]):
+        for symbol in dict.fromkeys(table["合约"]):
             table_cut = table[table["合约"] == symbol]
             table_cut.columns = ["symbol", "rank"] + rank_columns
             table_cut = _table_cut_cal(pd.DataFrame(table_cut), symbol)
@@ -841,7 +830,7 @@ def futures_dce_position_rank(
         "tradeType": "1",
         "lang": "zh",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     big_dict = dict()
     with zipfile.ZipFile(BytesIO(r.content), mode="r") as z:
         for i in z.namelist():
@@ -866,7 +855,7 @@ def futures_dce_position_rank(
                     start_list[0] :,
                     data.columns[data.iloc[start_list[0], :].notnull()],
                 ]
-                data.reset_index(inplace=True, drop=True)
+                data = data.reset_index(drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 end_list = data[
                     data.iloc[:, 0].str.contains(r"(?:总计|合计)", na=False)
@@ -955,7 +944,7 @@ def futures_dce_position_rank(
                         encoding="gb2312",
                         skiprows=3,
                     )
-                except:  # noqa: E722
+                except Exception:
                     data = pd.read_table(
                         z.open(i),
                         header=None,
@@ -1073,7 +1062,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
         "contract.variety_id": "c",
         "contract": "",
     }
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     soup = BeautifulSoup(r.text, features="lxml")
     symbol_list = [
         item["onclick"].strip("javascript:setVariety(").strip("');")
@@ -1091,7 +1080,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
             "contract.variety_id": symbol,
             "contract": "",
         }
-        r = requests.post(url, data=payload)
+        r = http.post(url, data=payload)
         soup = BeautifulSoup(r.text, features="lxml")
         contract_list = [
             item["onclick"].strip("javascript:setContract_id('").strip("');")
@@ -1111,7 +1100,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
                         "contract.variety_id": symbol,
                         "contract": "",
                     }
-                    r = requests.post(url, data=payload)
+                    r = http.post(url, data=payload)
                     temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     temp_df.columns = [
                         "rank",
@@ -1161,7 +1150,7 @@ def __futures_gfex_vars_list() -> list:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, headers=headers)
+    r = http.post(url=url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     var_list = temp_df["varietyId"].tolist()
@@ -1188,7 +1177,7 @@ def __futures_gfex_contract_list(symbol: str = "si", date: str = "20240729") -> 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    r = http.post(url=url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     if temp_df.empty:
@@ -1231,30 +1220,28 @@ def __futures_gfex_contract_data(
                 "data_type": page,
             }
         )
-        r = requests.post(url=url, data=payload, headers=headers)
+        r = http.post(url=url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if "qtySub" in temp_df.columns:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={
                     "abbr": "vol_party_name",
                     "todayQty": "vol",
                     "qtySub": "vol_chg",
                 },
-                inplace=True,
             )
         else:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={
                     "abbr": "vol_party_name",
                     "todayQty": "vol",
                     "todayQtyChg": "vol_chg",
                 },
-                inplace=True,
             )
         temp_df = temp_df[["vol_party_name", "vol", "vol_chg"]]
         big_df = pd.concat(objs=[big_df, temp_df], axis=1, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
     big_df.columns = [
         "rank",
@@ -1315,7 +1302,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
             futures_contract_list = __futures_gfex_contract_list(
                 symbol=item.lower(), date=date
             )
-        except:  # noqa: E722
+        except Exception:
             return big_dict
         for name in futures_contract_list:
             try:
@@ -1323,7 +1310,7 @@ def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
                     symbol=item.lower(), contract_id=name, date=date
                 )
                 big_dict[name] = temp_df
-            except:  # noqa: E722
+            except Exception:
                 return big_dict
     return big_dict
 

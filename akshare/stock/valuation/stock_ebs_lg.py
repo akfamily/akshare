@@ -7,9 +7,9 @@ https://legulegu.com/stockdata/equity-bond-spread
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def stock_ebs_lg() -> pd.DataFrame:
@@ -22,7 +22,7 @@ def stock_ebs_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/equity-bond-spread"
     token = get_token_lg()
     params = {"token": token, "code": "000300.SH"}
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/equity-bond-spread"),
@@ -30,14 +30,13 @@ def stock_ebs_lg() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "date": "日期",
             "close": "沪深300指数",
             "peSpread": "股债利差",
             "peSpreadAverage": "股债利差均线",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

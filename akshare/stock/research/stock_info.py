@@ -12,9 +12,9 @@ import time
 from urllib.parse import urlencode
 
 import pandas as pd
-import requests
 
 from akshare.request import make_request_with_retry_json
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -40,20 +40,19 @@ def stock_info_cjzc_em() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in range(1, 3):
         params.update({"page_index": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df = big_df[["title", "summary", "showTime", "uniqueUrl"]]
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "title": "标题",
             "summary": "摘要",
             "showTime": "发布时间",
             "uniqueUrl": "链接",
         },
-        inplace=True,
     )
     return big_df
 
@@ -74,21 +73,20 @@ def stock_info_global_em() -> pd.DataFrame:
         "pageSize": "200",
         "req_trace": "1710315450384",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["fastNewsList"])
     temp_df = temp_df[["title", "summary", "showTime", "code"]]
     temp_df["code"] = [
         f"https://finance.eastmoney.com/a/{item}.html" for item in temp_df["code"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "summary": "摘要",
             "showTime": "发布时间",
             "code": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -111,7 +109,7 @@ def stock_info_global_sina() -> pd.DataFrame:
         "pagesize": "20",
         "type": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     time_list = [
         item["create_time"] for item in data_json["result"]["data"]["feed"]["list"]
@@ -139,7 +137,7 @@ def stock_info_global_futu() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
         " Chrome/111.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["data"]["news"])
     temp_df = temp_df[["title", "content", "time", "detailUrl"]]
@@ -147,14 +145,13 @@ def stock_info_global_futu() -> pd.DataFrame:
         datetime.fromtimestamp(int(item)).strftime("%Y-%m-%d %H:%M:%S")
         for item in temp_df["time"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "content": "内容",
             "time": "发布时间",
             "detailUrl": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -172,7 +169,7 @@ def stock_info_global_ths() -> pd.DataFrame:
         "tag": "",
         "track": "website",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df = temp_df[["title", "digest", "rtime", "url"]]
@@ -180,14 +177,13 @@ def stock_info_global_ths() -> pd.DataFrame:
         datetime.fromtimestamp(int(item)).strftime("%Y-%m-%d %H:%M:%S")
         for item in temp_df["rtime"]
     ]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "title": "标题",
             "digest": "内容",
             "rtime": "发布时间",
             "url": "链接",
         },
-        inplace=True,
     )
     return temp_df
 
@@ -224,13 +220,13 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
         "Asia/Shanghai"
     )
     big_df.columns = ["标题", "内容", "发布时间", "等级"]
-    big_df.sort_values(["发布时间"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["发布时间"])
+    big_df = big_df.reset_index(drop=True)
     big_df["发布日期"] = big_df["发布时间"].dt.date
     big_df["发布时间"] = big_df["发布时间"].dt.time
     if symbol == "重点":
         big_df = big_df[(big_df["等级"] == "B") | (big_df["等级"] == "A")]
-        big_df.reset_index(inplace=True, drop=True)
+        big_df = big_df.reset_index(drop=True)
         big_df = big_df[["标题", "内容", "发布日期", "发布时间"]]
         return big_df
     else:

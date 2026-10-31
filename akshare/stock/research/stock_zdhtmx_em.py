@@ -7,7 +7,7 @@ https://data.eastmoney.com/zdht/mx.html
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -39,7 +39,7 @@ def stock_zdhtmx_em(
         "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')
         (DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -50,13 +50,13 @@ def stock_zdhtmx_em(
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DIM_SCODE": "-",
@@ -86,7 +86,6 @@ def stock_zdhtmx_em(
             "RCHANGE20DC": "-",
             "ZSNDYYSRBL": "占上年度营业收入比例",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

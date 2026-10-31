@@ -9,9 +9,9 @@ https://webapi.cninfo.com.cn/api/stock/p_stock2215
 import numpy as np
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
@@ -72,7 +72,7 @@ def stock_share_change_cninfo(
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     cols_map = {
@@ -124,9 +124,9 @@ def stock_share_change_cninfo(
         "F050N": "控股股东、实际控制人",
     }
     ignore_cols = ["最新记录标识", "其他"]
-    temp_df.rename(columns=cols_map, inplace=True)
+    temp_df = temp_df.rename(columns=cols_map)
     pd.set_option("future.no_silent_downcasting", True)
-    temp_df.fillna(np.nan, inplace=True)
+    temp_df = temp_df.fillna(np.nan)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"], errors="coerce").dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]

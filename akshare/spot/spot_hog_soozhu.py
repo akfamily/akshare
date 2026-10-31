@@ -7,8 +7,9 @@ https://www.soozhu.com/price/data/center/
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def spot_hog_soozhu() -> pd.DataFrame:
@@ -18,7 +19,7 @@ def spot_hog_soozhu() -> pd.DataFrame:
     :return: 各省均价实时排行榜
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -45,7 +46,7 @@ def spot_hog_year_trend_soozhu() -> pd.DataFrame:
     :return: 今年以来全国出栏均价走势
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -58,7 +59,7 @@ def spot_hog_year_trend_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -69,7 +70,7 @@ def spot_hog_lean_price_soozhu() -> pd.DataFrame:
     :return: 全国瘦肉型肉猪
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -82,7 +83,7 @@ def spot_hog_lean_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -93,7 +94,7 @@ def spot_hog_three_way_soozhu() -> pd.DataFrame:
     :return: 全国三元仔猪
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -106,7 +107,7 @@ def spot_hog_three_way_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -117,7 +118,7 @@ def spot_hog_crossbred_soozhu() -> pd.DataFrame:
     :return: 全国后备二元母猪
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -130,7 +131,7 @@ def spot_hog_crossbred_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -141,7 +142,7 @@ def spot_corn_price_soozhu() -> pd.DataFrame:
     :return: 全国玉米价格走势
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -154,7 +155,7 @@ def spot_corn_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -165,7 +166,7 @@ def spot_soybean_price_soozhu() -> pd.DataFrame:
     :return: 全国豆粕价格走势
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -178,7 +179,7 @@ def spot_soybean_price_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 
@@ -189,7 +190,7 @@ def spot_mixed_feed_soozhu() -> pd.DataFrame:
     :return: 全国育肥猪合料（含自配料）半月走势
     :rtype: pandas.DataFrame
     """
-    session = requests.session()
+    session = http.Session()
     url = "https://www.soozhu.com/price/data/center/"
     r = session.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -202,7 +203,7 @@ def spot_mixed_feed_soozhu() -> pd.DataFrame:
     temp_df.columns = ["日期", "价格"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
     return temp_df
 
 

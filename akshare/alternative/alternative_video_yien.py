@@ -10,10 +10,10 @@ https://www.endata.com.cn/Video/index.html
 """
 
 from akshare.datasets import get_data_file
+from akshare.utils import http
 import json
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 
@@ -70,7 +70,7 @@ def video_tv() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {"tvType": 2, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
@@ -101,7 +101,7 @@ def video_variety_show() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {"tvType": 8, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])

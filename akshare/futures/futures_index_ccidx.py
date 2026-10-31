@@ -7,7 +7,8 @@ http://www.ccidx.com/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFrame:
@@ -25,10 +26,10 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     }
     url = "http://www.ccidx.com/CCI-ZZZS/index/getDateLine"
     params = {"indexId": futures_index_map[symbol]}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item for item in data_json["data"]["dateLineJson"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "tradeDate": "日期",
             "indexId": "指数代码",
@@ -37,7 +38,6 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
             "dailyIncreaseAndDecrease": "涨跌",
             "dailyIncreaseAndDecreasePercentage": "涨跌幅",
         },
-        inplace=True,
     )
 
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
@@ -45,8 +45,8 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     temp_df["结算点位"] = pd.to_numeric(temp_df["结算点位"], errors="coerce")
     temp_df["涨跌"] = pd.to_numeric(temp_df["涨跌"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df.sort_values(by=["日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["日期"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

@@ -9,8 +9,8 @@ https://quote.eastmoney.com/sh513500.html
 from functools import lru_cache
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -70,7 +70,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
         ),
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "f12": "代码",
             "f14": "名称",
@@ -110,7 +110,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f297": "数据日期",
             "f124": "更新时间",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -274,17 +273,17 @@ def fund_etf_hist_em(
         # market_id = code_id_dict[symbol]
         market_id = get_market_id(symbol)
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
     except KeyError:
         market_id = 1
         params.update({"secid": f"{market_id}.{symbol}"})
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         if not data_json["data"]:
             market_id = 0
             params.update({"secid": f"{market_id}.{symbol}"})
-            r = requests.get(url, timeout=15, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
@@ -303,7 +302,7 @@ def fund_etf_hist_em(
         "换手率",
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -367,7 +366,7 @@ def fund_etf_hist_min_em(
             "iscr": "0",
             "secid": f"{get_market_id(symbol)}.{symbol}",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -384,7 +383,7 @@ def fund_etf_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -406,7 +405,7 @@ def fund_etf_hist_min_em(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, timeout=15, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -426,7 +425,7 @@ def fund_etf_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

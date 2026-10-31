@@ -14,6 +14,7 @@ import pandas as pd
 
 from akshare.datasets import get_registry_json
 from akshare.exceptions import DataParsingError, InvalidParameterError
+from akshare.utils.params import to_bool, to_int
 
 _REGISTRY: Optional[Dict] = None
 
@@ -205,6 +206,8 @@ def search(
     :rtype: pandas.DataFrame
     :raises InvalidParameterError: 当 limit 为负数时
     """
+    limit = to_int(limit, "limit")
+    documented_only = to_bool(documented_only, "documented_only")
     if limit < 0:
         raise InvalidParameterError(f"limit 不能为负数，收到 {limit}")
     if not query.strip():

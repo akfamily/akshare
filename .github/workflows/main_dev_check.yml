@@ -14,7 +14,7 @@ env:
   # 升级时请连同开发者本地的 uv 一起升，并重新生成 uv.lock。
   UV_VERSION: "0.13.5"
 
-# 三个 job 相互独立并行，任何一个失败都不阻塞其余两个的反馈。
+# 四个 job 相互独立并行，任何一个失败都不阻塞其余几个的反馈。
 # 注意 astral-sh/setup-uv 自 v8 起不再发布浮动大版本标签（@v9 无法解析），
 # 必须写完整版本号，由 Dependabot 的 github-actions 生态负责跟进升级。
 jobs:
@@ -73,6 +73,40 @@ jobs:
 
       - name: Test with pytest
         run: uv run --locked --no-default-groups --group test pytest
+
+  # 按 pyproject.toml 声明的最低版本安装依赖再跑测试，确认版本下限真实可用。
+  # 下限从未被测试时会悄悄失效：1.20.7 之前声明的 lxml>=4.2.1 在 Python 3.11 上没有
+  # 预编译包、源码也编译不过，pandas>=2.0.0 不兼容 numpy 2，xlrd、openpyxl 低于
+  # pandas 自身要求的版本。用 Python 3.11 是因为它是 requires-python 的下界；
+  # 用 Linux 是因为 py-mini-racer 与 akracer 只在 Linux 上安装。
+  # --only-binary 只用于依赖：akshare 本体需从源码构建，所以分三步安装。
+  # 本 job 不在 main 规则集的必需检查之列，失败时提示需要上调下限，而不阻塞合并。
+  lowest-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.2
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          python-version: "3.11"
+
+      - name: Install lowest declared dependencies
+        run: |
+          uv venv
+          uv pip compile pyproject.toml --resolution lowest-direct --only-binary :all: -o lowest.txt
+          cat lowest.txt
+          uv pip install --only-binary :all: -r lowest.txt
+          uv pip install --no-deps .
+          uv pip install pytest
+
+      - name: Import and test with pytest
+        run: |
+          .venv/bin/python -c "import akshare, pandas, numpy; print(akshare.__version__, pandas.__version__, numpy.__version__)"
+          .venv/bin/python -m pytest
 
   # build_registry.py 只依赖标准库（argparse/ast/json/pathlib/re/typing），
   # 无需安装项目或任何第三方包，因此这里保持最轻量的裸 Python。

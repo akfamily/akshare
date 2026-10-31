@@ -16,8 +16,9 @@ https://110.249.223.67/publish
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def air_quality_hebei() -> pd.DataFrame:
@@ -28,7 +29,7 @@ def air_quality_hebei() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://218.11.10.130:8080/api/hour/130000.xml"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.content, features="xml")
     data = []
     cities = soup.find_all("City")

@@ -9,9 +9,9 @@ https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web
 from typing import Dict
 
 import pandas as pd
-import requests
 
 from akshare.exceptions import APIError
+from akshare.utils import http
 
 
 def _get_hk_financial_report_list(stock: str) -> pd.DataFrame:
@@ -34,7 +34,7 @@ def _get_hk_financial_report_list(stock: str) -> pd.DataFrame:
         "client": "PC",
         "v": "02092616586970355",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     result_data = data_json.get("result", {}).get("data", [])
     if not result_data:
@@ -103,7 +103,7 @@ def stock_financial_hk_report_em(
             "client": "PC",
             "v": "01975982096513973",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
@@ -122,7 +122,7 @@ def stock_financial_hk_report_em(
             "client": "PC",
             "v": "01975982096513973",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
@@ -141,7 +141,7 @@ def stock_financial_hk_report_em(
             "client": "PC",
             "v": "01975982096513973",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
@@ -179,7 +179,7 @@ def stock_financial_hk_analysis_indicator_em(
         params.update({"filter": f"""(SECUCODE="{symbol}.HK")(DATE_TYPE_CODE="001")"""})
     else:
         params.update({"filter": f"""(SECUCODE="{symbol}.HK")"""})
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     if (
@@ -195,7 +195,7 @@ def stock_financial_hk_analysis_indicator_em(
             temp_df["CURRENCY"] = (
                 temp_df["REPORT_DATE_KEY"].map(currency_map).fillna(temp_df["CURRENCY"])
             )
-            temp_df.drop(columns=["REPORT_DATE_KEY"], inplace=True)
+            temp_df = temp_df.drop(columns=["REPORT_DATE_KEY"])
     return temp_df
 
 

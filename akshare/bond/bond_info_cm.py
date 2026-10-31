@@ -9,9 +9,9 @@ https://www.chinamoney.com.cn/chinese/scsjzqxx/
 import functools
 
 import pandas as pd
-import requests
 
 from akshare.bond.bond_china import bond_china_close_return_map
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -32,7 +32,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/109.0.0.0 Safari/537.36"
         }
-        r = requests.post(url, headers=headers)
+        r = http.post(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["enty"])
         temp_df.columns = ["code", "name"]
@@ -50,7 +50,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/109.0.0.0 Safari/537.36"
         }
-        r = requests.post(url, headers=headers)
+        r = http.post(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"][f"{symbol_map[symbol]}"])
         if temp_df.shape[1] == 1:
@@ -137,18 +137,18 @@ def bond_info_cm(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/109.0.0.0 Safari/537.36"
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()
     total_page = data_json["data"]["pageTotal"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         payload.update({"pageNo": page})
-        r = requests.post(url, data=payload, headers=headers)
+        r = http.post(url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["resultList"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "bondDefinedCode": "查询代码",
             "bondName": "债券简称",
@@ -163,7 +163,6 @@ def bond_info_cm(
             "isin": "-",
             "inptTp": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -201,7 +200,7 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
         "origin": "https://www.chinamoney.com.cn",
         "referer": "https://www.chinamoney.com.cn/chinese/zqjc/?bondDefinedCode=egfjh08154",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()
     data_dict = data_json["data"]["bondBaseInfo"]
     if data_dict["creditRateEntyList"]:
@@ -209,7 +208,7 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     if data_dict["exerciseInfoList"]:
         del data_dict["exerciseInfoList"]
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["name", "value"]
     return temp_df
 

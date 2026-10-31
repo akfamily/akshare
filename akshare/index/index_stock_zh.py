@@ -12,7 +12,6 @@ import re
 
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.index.cons import (
     zh_sina_index_stock_payload,
@@ -21,7 +20,8 @@ from akshare.index.cons import (
     zh_sina_index_stock_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
@@ -47,7 +47,7 @@ def get_zh_index_page_count() -> int:
     :return: 需要抓取的指数的总页数
     :rtype: int
     """
-    res = requests.get(zh_sina_index_stock_count_url)
+    res = http.get(zh_sina_index_stock_count_url)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -69,8 +69,8 @@ def stock_zh_index_spot_sina() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_stock_payload_copy.update({"page": page})
-        res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(res.text)
+        res = http.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
+        data_json = jsonish.loads(res.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df = big_df.map(_replace_comma)
     big_df["trade"] = pd.to_numeric(big_df["trade"], errors="coerce")
@@ -149,12 +149,12 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
         "f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -171,7 +171,6 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -239,7 +238,7 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -256,7 +255,6 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -300,7 +298,7 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     params = {"d": "2020_2_4"}
-    res = requests.get(zh_sina_index_stock_hist_url.format(symbol), params=params)
+    res = http.get(zh_sina_index_stock_hist_url.format(symbol), params=params)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -332,22 +330,22 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
         "_var": "trend_qfq",
         "r": "0.3506048543943414",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
-    if not demjson.decode(data_text[data_text.find("={") + 1 :])["data"]:
+    if not jsonish.loads(data_text[data_text.find("={") + 1 :])["data"]:
         url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
         params = {
             "_var": "kline_dayqfq",
             "param": f"{symbol},day,,,320,qfq",
             "r": "0.751892490072597",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_text = r.text
-        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
+        start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][
             symbol
         ]["day"][0][0]
         return start_date
-    start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
+    start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
 
 
@@ -396,15 +394,15 @@ def stock_zh_index_daily_tx(
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
             "r": "0.8205512681390605",
         }
-        res = requests.get(url, params=params)
+        res = http.get(url, params=params)
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+                jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["day"]
             )
-        except:  # noqa: E722
+        except Exception:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+                jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
     if temp_df.shape[1] == 6:
@@ -418,10 +416,10 @@ def stock_zh_index_daily_tx(
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
     temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
-    temp_df.drop_duplicates(inplace=True, ignore_index=True)
+    temp_df = temp_df.drop_duplicates(ignore_index=True)
     temp_df = temp_df[temp_df["date"] >= dt_start.date()]
     temp_df = temp_df[temp_df["date"] <= dt_end.date()]
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -463,7 +461,7 @@ def stock_zh_index_daily_em(
         "beg": start_date,
         "end": end_date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     if temp_df.empty:

@@ -7,7 +7,8 @@ https://quote.eastmoney.com/sz000001.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
@@ -34,7 +35,7 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
         "f276,f265,f266,f289,f290,f286,f285,f292,f293,f294,f295",
         "secid": f"{market_code}.{symbol}",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     tick_dict = {
         "sell_5": data_json["data"]["f31"],
@@ -75,7 +76,7 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
         "内盘": data_json["data"]["f161"],
     }
     temp_df = pd.DataFrame.from_dict(tick_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

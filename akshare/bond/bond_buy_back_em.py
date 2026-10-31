@@ -8,7 +8,7 @@ https://quote.eastmoney.com/center/gridlist.html#bond_sz_buyback
 
 import pandas as pd
 
-import requests
+from akshare.utils import http
 
 
 def bond_sh_buy_back_em() -> pd.DataFrame:
@@ -32,12 +32,12 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
         "dect": "1",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -52,7 +52,6 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[
@@ -104,12 +103,12 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
         "dect": "1",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -124,7 +123,6 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[
@@ -180,7 +178,7 @@ def bond_buy_back_hist_em(symbol: str = "204001"):
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64",
         "forcect": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [

@@ -9,14 +9,14 @@ https://finance.sina.com.cn/futuremarket/index.shtml
 from io import StringIO
 
 import pandas as pd
-import requests
 
 from akshare.futures.cons import (
     zh_subscribe_exchange_symbol_url,
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
@@ -28,12 +28,10 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
     :return: 订阅指定交易所品种的代码
     :rtype: pandas.DataFrame
     """
-    r = requests.get(zh_subscribe_exchange_symbol_url)
+    r = http.get(zh_subscribe_exchange_symbol_url)
     r.encoding = "gb2312"
     data_text = r.text
-    data_json = demjson.decode(
-        data_text[data_text.find("{") : data_text.find("};") + 1]
-    )
+    data_json = jsonish.loads(data_text[data_text.find("{") : data_text.find("};") + 1])
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -64,10 +62,10 @@ def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
     exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         zh_match_main_contract_payload.update({"node": item})
-        res = requests.get(
+        res = http.get(
             zh_match_main_contract_url, params=zh_match_main_contract_payload
         )
-        data_json = demjson.decode(res.text)
+        data_json = jsonish.loads(res.text)
         data_df = pd.DataFrame(data_json)
         try:
             main_contract = data_df[
@@ -78,7 +76,7 @@ def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
                 .str.contains("0")
             ].iloc[0, :3]
             subscribe_list.append(main_contract)
-        except:  # noqa: E722
+        except Exception:
             # print(item, "无主力连续合约")
             continue
     # print("主力连续合约获取成功")
@@ -96,7 +94,7 @@ def futures_display_main_sina() -> pd.DataFrame:
     temp_df = pd.DataFrame()
     for item in ["dce", "czce", "shfe", "cffex", "gfex"]:
         temp_df = pd.concat([temp_df, match_main_contract(symbol=item)])
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -120,7 +118,7 @@ def futures_main_sina(
     trade_date = "20210817"
     trade_date = trade_date[:4] + "_" + trade_date[4:6] + "_" + trade_date[6:]
     url = f"https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_{symbol}{trade_date}=/InnerFuturesNewService.getDailyKLine?symbol={symbol}&_={trade_date}"
-    r = requests.get(url)
+    r = http.get(url)
     data_text = r.text
     data_json = data_text[data_text.find("([") + 1 : data_text.rfind("])") + 1]
     temp_df = pd.read_json(StringIO(data_json))
@@ -135,10 +133,10 @@ def futures_main_sina(
         "动态结算价",
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.set_index(keys=["日期"], inplace=True)
+    temp_df = temp_df.set_index(keys=["日期"])
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df = temp_df[start_date:end_date]
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
     temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")

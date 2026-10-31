@@ -9,8 +9,8 @@ https://quote.eastmoney.com/f1.html?newcode=0.000001
 import math
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -44,7 +44,7 @@ def stock_intraday_sina(
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/107.0.0.0 Safari/537.36",
     }
-    r = requests.get(url=url, params=params, headers=headers)
+    r = http.get(url=url, params=params, headers=headers)
     data_json = r.json()
     total_page = math.ceil(int(data_json) / 60)
     url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_Bill.GetBillList"
@@ -52,11 +52,11 @@ def stock_intraday_sina(
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url=url, params=params, headers=headers)
+        r = http.get(url=url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.sort_values(by=["ticktime"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(by=["ticktime"], ignore_index=True)
     big_df["price"] = pd.to_numeric(big_df["price"], errors="coerce")
     big_df["volume"] = pd.to_numeric(big_df["volume"], errors="coerce")
     big_df["prev_price"] = pd.to_numeric(big_df["prev_price"], errors="coerce")

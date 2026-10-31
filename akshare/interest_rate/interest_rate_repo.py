@@ -6,7 +6,8 @@ Desc: 中国外汇交易中心暨全国银行间同业拆借中心-回购定盘�
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
@@ -20,25 +21,25 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
     """
     if symbol == "回购定盘利率":
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/frr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
-        temp_df.dropna(axis=1, inplace=True)
+        temp_df = pd.read_csv(http.get_buffer(url), header=None)
+        temp_df = temp_df.dropna(axis=1)
         temp_df.columns = ["date", "FR001", "FR007", "FR014"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["FR001"] = pd.to_numeric(temp_df["FR001"], errors="coerce")
         temp_df["FR007"] = pd.to_numeric(temp_df["FR007"], errors="coerce")
         temp_df["FR014"] = pd.to_numeric(temp_df["FR014"], errors="coerce")
-        temp_df.sort_values(by=["date"], ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by=["date"], ignore_index=True)
         return temp_df
     else:
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/fdr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
-        temp_df.dropna(axis=1, inplace=True)
+        temp_df = pd.read_csv(http.get_buffer(url), header=None)
+        temp_df = temp_df.dropna(axis=1)
         temp_df.columns = ["date", "FDR001", "FDR007", "FDR014"]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["FDR001"] = pd.to_numeric(temp_df["FDR001"], errors="coerce")
         temp_df["FDR007"] = pd.to_numeric(temp_df["FDR007"], errors="coerce")
         temp_df["FDR014"] = pd.to_numeric(temp_df["FDR014"], errors="coerce")
-        temp_df.sort_values(by=["date"], ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by=["date"], ignore_index=True)
         return temp_df
 
 
@@ -66,7 +67,7 @@ def repo_rate_hist(
         "startDate": start_date,
         "endDate": end_date,
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df = pd.DataFrame([item for item in temp_df["frValueMap"].to_list()])
@@ -88,7 +89,7 @@ def repo_rate_hist(
     temp_df["FDR001"] = pd.to_numeric(temp_df["FDR001"], errors="coerce")
     temp_df["FDR007"] = pd.to_numeric(temp_df["FDR007"], errors="coerce")
     temp_df["FDR014"] = pd.to_numeric(temp_df["FDR014"], errors="coerce")
-    temp_df.sort_values(["date"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(["date"], ignore_index=True)
     return temp_df
 
 

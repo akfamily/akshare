@@ -7,8 +7,8 @@ https://data.eastmoney.com/report/profitforecast.jshtml
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -36,7 +36,7 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     }
     if symbol:
         params.update({"filter": f'(INDUSTRY_BOARD="{symbol}")'})
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     page_num = int(data_json["result"]["pages"])
     big_df = pd.DataFrame()
@@ -50,12 +50,12 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
                 "pageNum": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     year1 = str(big_df["YEAR1"].mode().values[0])
     year2 = str(big_df["YEAR2"].mode().values[0])
@@ -155,7 +155,7 @@ def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     big_df[f"{year4}预测每股收益"] = pd.to_numeric(
         big_df[f"{year4}预测每股收益"], errors="coerce"
     )
-    big_df.sort_values(["研报数"], ascending=False, inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["研报数"], ascending=False, ignore_index=True)
     big_df["序号"] = range(1, len(big_df) + 1)
     return big_df
 

@@ -10,6 +10,7 @@ import json
 import re
 import zipfile
 from io import BytesIO, StringIO
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -17,6 +18,7 @@ import requests
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
+from akshare.utils import http
 
 calendar = cons.get_calendar()
 
@@ -35,18 +37,18 @@ def _futures_daily_czce(
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/exchange/{dataset}.zip"
-    r = requests.get(url)
+    r = http.get(url)
     with zipfile.ZipFile(BytesIO(r.content)) as file:
         with file.open(f"{dataset}.txt") as my_file:
             data = my_file.read().decode("gb2312")
             data_df = pd.read_table(StringIO(data), sep=r"|", header=1)
             data_df.columns = [item.strip() for item in data_df.columns]
-            data_df.dropna(axis=1, inplace=True)
+            data_df = data_df.dropna(axis=1)
             for column in data_df.columns:
                 try:
                     data_df[column] = data_df[column].str.strip("\t")
                     data_df[column] = data_df[column].str.replace(",", "")
-                except:  # noqa: E722
+                except Exception:
                     data_df[column] = data_df[column]
     data_df["昨结算"] = pd.to_numeric(data_df["昨结算"])
     data_df["今开盘"] = pd.to_numeric(data_df["今开盘"])
@@ -101,7 +103,7 @@ def _futures_daily_czce(
     ]
     temp_df = data_df[data_df["date"] == pd.Timestamp(date)].copy()
     temp_df["date"] = date
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -123,20 +125,20 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/108.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     try:
         with zipfile.ZipFile(BytesIO(r.content)) as file:
             with file.open(f"{date}_1.csv") as my_file:
                 data = my_file.read().decode("gb2312")
                 data_df = pd.read_csv(StringIO(data))
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
     data_df = data_df[~data_df["合约代码"].str.contains("MO")]
     data_df = data_df[~data_df["合约代码"].str.contains("HO")]
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.reset_index(drop=True)
     data_df["合约代码"] = data_df["合约代码"].str.strip()
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]
@@ -229,10 +231,10 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     result_df = pd.DataFrame(data_json["data"])
     result_df = result_df[~result_df["variety"].str.contains("小计")]
@@ -288,11 +290,11 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
     url = f"https://www.ine.cn/data/tradedata/future/dailydata/kx{day.strftime('%Y%m%d')}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    r = http.get(url, headers=cons.shfe_headers)
     result_df = pd.DataFrame()
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
@@ -301,7 +303,7 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
         result_df["symbol"] = (
             temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
         )
-    except:  # noqa: E722
+    except Exception:
         result_df["symbol"] = (
             temp_df["PRODUCTID"]
             .str.upper()
@@ -319,13 +321,13 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     result_df["open_interest"] = temp_df["OPENINTEREST"]
     try:
         result_df["turnover"] = temp_df["TURNOVER"]
-    except:  # noqa: E722
+    except Exception:
         result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
         result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
-    except:  # noqa: E722
+    except Exception:
         result_df["variety"] = (
             temp_df["PRODUCTID"]
             .str.upper()
@@ -366,17 +368,17 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
-            r = requests.get(url, headers=headers)
+            r = http.get(url, headers=headers)
+            # 不调用 raise_for_status 时下面的 except 永远不会触发
+            r.raise_for_status()
             if datetime.date(2015, 11, 12) <= day <= datetime.date(2017, 12, 27):
                 html = str(r.content, encoding="gbk")
             else:
                 html = r.text
         except requests.exceptions.HTTPError as reason:
             if reason.response.status_code != 404:
-                print(
-                    cons.CZCE_DAILY_URL_3
-                    % (day.strftime("%Y"), day.strftime("%Y%m%d")),
-                    reason,
+                warnings.warn(
+                    f"{cons.CZCE_DAILY_URL_3 % (day.strftime('%Y'), day.strftime('%Y%m%d'))} {reason}"
                 )
             return pd.DataFrame()
         if html.find("您的访问出错了") >= 0 or html.find("无期权每日行情交易记录") >= 0:
@@ -477,17 +479,16 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
+    url = cons.SHFE_DAILY_URL_20250630 % day.strftime("%Y%m%d")
     try:
-        json_data = json.loads(
-            requests_link(
-                cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")),
-                headers=cons.shfe_headers,
-            ).text
-        )
+        r = requests_link(url, headers=cons.shfe_headers)
+        r.raise_for_status()
     except requests.HTTPError as reason:
-        if reason.response != 404:
-            print(cons.SHFE_DAILY_URL_20250630 % (day.strftime("%Y%m%d")), reason)
+        # 没有数据的日期返回 404，静默返回空表；其他错误状态码给出警告
+        if reason.response.status_code != 404:
+            warnings.warn(f"{url} {reason}")
         return pd.DataFrame()
+    json_data = json.loads(r.text)
 
     if len(json_data["o_curinstrument"]) == 0:
         return pd.DataFrame()
@@ -517,10 +518,10 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
         df["turnover"] = df["TURNOVER"].apply(lambda x: 0 if x == "" else x)
     except KeyError:
         df["turnover"] = np.nan
-    df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
+    df = df.rename(columns=cons.SHFE_COLUMNS)
     df = df[~df["symbol"].str.contains("efp")]
     df = df[cons.OUTPUT_COLUMNS]
-    df.reset_index(inplace=True)
+    df = df.reset_index()
     return df
 
 
@@ -547,10 +548,10 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
         "tradeType": "1",
         "varietyId": "all",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "variety": "品种名称",
             "contractId": "合约",
@@ -567,7 +568,6 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
             "diffI": "持仓量变化",
             "turnover": "成交额",
         },
-        inplace=True,
     )
     temp_df = temp_df[~temp_df["品种名称"].str.contains("小计")]
     temp_df = temp_df[~temp_df["品种名称"].str.contains("总计")]
@@ -630,7 +630,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
             "pre_settle": "float",
         }
     )
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -663,7 +663,7 @@ def get_futures_daily(
     elif market.upper() == "GFEX":
         f = get_gfex_daily
     else:
-        print("Invalid Market Symbol")
+        warnings.warn("Invalid Market Symbol")
         return pd.DataFrame()
 
     start_date = (
@@ -704,13 +704,13 @@ def futures_hist_daily_cffex(date: str = "20260403") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.cffex.com.cn/sj/hqsj/rtj/{date[:6]}/{date[6:]}/{date}_1.csv"
-    data_df = pd.read_csv(url, encoding="gbk")
+    data_df = pd.read_csv(http.get_buffer(url), encoding="gbk")
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
     data_df = data_df[~data_df["合约代码"].str.contains("MO")]
     data_df = data_df[~data_df["合约代码"].str.contains("HO")]
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.reset_index(drop=True)
     data_df["合约代码"] = data_df["合约代码"].str.strip()
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]

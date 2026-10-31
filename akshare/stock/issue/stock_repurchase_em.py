@@ -7,8 +7,9 @@ https://data.eastmoney.com/gphg/hglist.html
 """
 
 import pandas as pd
-import requests
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def stock_repurchase_em() -> pd.DataFrame:
@@ -28,17 +29,17 @@ def stock_repurchase_em() -> pd.DataFrame:
         "columns": "ALL",
         "source": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         {
             "DIM_SCODE": "股票代码",
             "SECURITYSHORTNAME": "股票简称",
@@ -59,7 +60,6 @@ def stock_repurchase_em() -> pd.DataFrame:
             "UPDATEDATE": "最新公告日期",
         },
         axis="columns",
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -82,13 +82,12 @@ def stock_repurchase_em() -> pd.DataFrame:
             "最新公告日期",
         ]
     ]
-    big_df.reset_index(inplace=True)
-    big_df.rename(
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(
         {
             "index": "序号",
         },
         axis="columns",
-        inplace=True,
     )
     big_df["序号"] = big_df.index + 1
     process_map = {

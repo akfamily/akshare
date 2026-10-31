@@ -6,11 +6,13 @@ Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
 
+import ast
 import datetime
 import time
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
@@ -34,7 +36,7 @@ def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
     params = params
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -70,8 +72,8 @@ def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
     big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
     big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -98,7 +100,7 @@ def macro_usa_phs() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -143,7 +145,7 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     data_list = data_json["result"]["data"]
     temp_df = pd.DataFrame(
@@ -159,7 +161,7 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df.sort_values(by=["时间"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["时间"], ignore_index=True)
     return temp_df
 
 
@@ -472,7 +474,7 @@ def macro_usa_rig_count() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
-    res = requests.get(
+    res = http.get(
         url="https://cdn.jin10.com/data_center/reports/baker.json", params=params
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
@@ -486,9 +488,9 @@ def macro_usa_rig_count() -> pd.DataFrame:
     big_df["美国天然气钻井_钻井数"] = temp_df["美国天然气钻井"].apply(lambda x: x[0])
     big_df["美国天然气钻井_变化"] = temp_df["美国天然气钻井"].apply(lambda x: x[1])
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -967,7 +969,7 @@ def macro_usa_crude_inner() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
-    res = requests.get(
+    res = http.get(
         url="https://cdn.jin10.com/data_center/reports/usa_oil.json", params=params
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
@@ -987,9 +989,9 @@ def macro_usa_crude_inner() -> pd.DataFrame:
         lambda x: x[1]
     )
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1003,22 +1005,24 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_4.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1032,22 +1036,24 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_2.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1061,22 +1067,24 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_3.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1090,22 +1098,24 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cftc_1.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.fillna(value="[0, 0, 0]", inplace=True)
+    temp_df = temp_df.fillna(value="[0, 0, 0]")
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):
-            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df = temp_df.loc[:, item].apply(
+                lambda x: ast.literal_eval(str(x))[i]
+            )
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
             big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df = big_df.astype("float")
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
-    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
+    big_df = big_df.sort_values(by=["日期"], ignore_index=True)
     return big_df
 
 
@@ -1119,7 +1129,7 @@ def macro_usa_cme_merchant_goods_holding():
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
-    r = requests.get(
+    r = http.get(
         url="https://cdn.jin10.com/data_center/reports/cme_3.json", params=params
     )
     json_data = r.json()
@@ -1132,7 +1142,7 @@ def macro_usa_cme_merchant_goods_holding():
     big_df.columns = ["pz", "tc", "-", "-", "-", "成交量", "-", "-", "日期"]
     big_df["品种"] = big_df["pz"] + "-" + big_df["tc"]
     big_df = big_df[["日期", "品种", "成交量"]]
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 

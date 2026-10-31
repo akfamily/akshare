@@ -9,9 +9,9 @@ https://basic.10jqka.com.cn/new/000063/finance.html
 import json
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -29,7 +29,7 @@ def stock_financial_abstract_ths(
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/finance.html"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     data_text = soup.find(name="p", attrs={"id": "main"}).string
     data_json = json.loads(data_text)
@@ -49,9 +49,9 @@ def stock_financial_abstract_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
-    temp_df.sort_values(by="报告期", ignore_index=True, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
+    temp_df = temp_df.sort_values(by="报告期", ignore_index=True)
     return temp_df
 
 
@@ -70,7 +70,7 @@ def stock_financial_debt_ths(
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_debt.json"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -84,8 +84,8 @@ def stock_financial_debt_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -104,7 +104,7 @@ def stock_financial_benefit_ths(
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_benefit.json"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -122,8 +122,8 @@ def stock_financial_benefit_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -142,7 +142,7 @@ def stock_financial_cash_ths(
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_cash.json"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = json.loads(json.loads(r.text)["flashData"])
     df_index = [
         item[0] if isinstance(item, list) else item for item in data_json["title"]
@@ -160,8 +160,8 @@ def stock_financial_cash_ths(
             data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
         )
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.rename(columns={"index": "报告期"}, inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df = temp_df.rename(columns={"index": "报告期"})
     return temp_df
 
 
@@ -226,7 +226,7 @@ def stock_financial_abstract_new_ths(
         "size": "50",
         "period": period,
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
     financial_data = data_json["data"]["data"]
@@ -323,7 +323,7 @@ def stock_financial_debt_new_ths(
         "size": "50",
         "period": period,
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
     financial_data = data_json["data"]["data"]
@@ -420,7 +420,7 @@ def stock_financial_benefit_new_ths(
         "size": "50",
         "period": period,
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
     financial_data = data_json["data"]["data"]
@@ -517,7 +517,7 @@ def stock_financial_cash_new_ths(
         "size": "50",
         "period": period,
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     # 提取财务数据
     financial_data = data_json["data"]["data"]
@@ -589,7 +589,7 @@ def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/event.html"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, features="lxml")
     soup_find = soup.find(name="table", attrs={"class": "data_table_1 m_table m_hl"})
@@ -611,17 +611,16 @@ def stock_management_change_ths(symbol: str = "688981") -> pd.DataFrame:
         for i in range(0, len(row), step):
             new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
-        temp_df.sort_values(by="变动日期", ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by="变动日期", ignore_index=True)
         temp_df["变动日期"] = pd.to_datetime(
             temp_df["变动日期"], errors="coerce"
         ).dt.date
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "变动数量（股）": "变动数量",
                 "交易均价（元）": "交易均价",
                 "剩余股数（股）": "剩余股数",
             },
-            inplace=True,
         )
         return temp_df
     return pd.DataFrame()
@@ -637,7 +636,7 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/event.html"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, features="lxml")
     soup_find = soup.find(name="table", attrs={"class": "m_table data_table_1 m_hl"})
@@ -659,17 +658,16 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
         for i in range(0, len(row), step):
             new_rows.append(row[i : i + step])
         temp_df = pd.DataFrame(new_rows, columns=column_names)
-        temp_df.sort_values(by="公告日期", ignore_index=True, inplace=True)
+        temp_df = temp_df.sort_values(by="公告日期", ignore_index=True)
         temp_df["公告日期"] = pd.to_datetime(
             temp_df["公告日期"], errors="coerce"
         ).dt.date
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "变动数量(股)": "变动数量",
                 "交易均价(元)": "交易均价",
                 "剩余股份总数(股)": "剩余股份总数",
             },
-            inplace=True,
         )
         return temp_df
     return pd.DataFrame()

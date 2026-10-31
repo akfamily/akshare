@@ -6,9 +6,9 @@ Desc: 中国债券信息网-中债指数-中债指数族系-总指数-综合类�
 """
 
 import pandas as pd
-import requests
 
 from akshare.bond.cons import INDEX_MAPPING, PERIOD_MAPPING, INDICATOR_MAPPING
+from akshare.utils import http
 
 
 def bond_available_index_cbond():
@@ -19,7 +19,7 @@ def bond_available_index_cbond():
     :rtype: list
     """
     temp_df = pd.DataFrame(list(INDEX_MAPPING.keys()))
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
     temp_df.columns = ["index", "value"]
     return temp_df
@@ -50,7 +50,7 @@ def bond_index_general_cbond(
         "lx": "1",
         "locale": "zh_CN",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     raw_json = r.json()
     key_col_map = {
         f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
@@ -62,8 +62,8 @@ def bond_index_general_cbond(
         pd.to_numeric(temp_df.index), unit="ms", utc=True
     ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
-    temp_df.rename(columns=key_col_map, inplace=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.rename(columns=key_col_map)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
@@ -108,7 +108,7 @@ def bond_treasury_index_cbond(
         "lx": "1",
         "locale": "zh_CN",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     raw_json = r.json()
     key_col_map = {
         f"{INDICATOR_MAPPING[indicator]}_{p_code}": freq_col
@@ -120,8 +120,8 @@ def bond_treasury_index_cbond(
         pd.to_numeric(temp_df.index), unit="ms", utc=True
     ).tz_convert("Asia/Shanghai")
     temp_df.index.name = "date"
-    temp_df.rename(columns=key_col_map, inplace=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.rename(columns=key_col_map)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
@@ -193,13 +193,13 @@ def bond_new_composite_index_cbond(
         "": "",  # noqa: F601
         "locale": "",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],
         orient="index",
     )
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = temp_df["date"].astype(float)
     temp_df["date"] = (
@@ -273,13 +273,13 @@ def bond_composite_index_cbond(
         "": "",  # noqa: F601
         "locale": "",
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(
         data_json[f"{indicator_map[indicator]}_{period_map[period]}"],
         orient="index",
     )
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(
         temp_df["date"].astype(int), errors="coerce", unit="ms"

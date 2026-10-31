@@ -7,7 +7,7 @@ https://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR00
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 from akshare.bond.bond_china_money import bond_china_close_return_map
 
@@ -61,7 +61,7 @@ def macro_china_swap_rate(
         "Chrome/107.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, data=params, headers=headers)
+    r = http.post(url, data=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -129,7 +129,7 @@ def macro_china_swap_rate(
     big_df["5Y"] = pd.to_numeric(big_df["5Y"], errors="coerce")
     big_df["7Y"] = pd.to_numeric(big_df["7Y"], errors="coerce")
     big_df["10Y"] = pd.to_numeric(big_df["10Y"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 
@@ -155,14 +155,14 @@ def macro_china_bond_public() -> pd.DataFrame:
         "pageSize": "10",
         "limit": "1",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()
     total_page = int(data_json["data"]["pageTotalSize"]) + 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page), leave=False):
         payload.update({"pageNo": page})
-        r = requests.post(url, data=payload, headers=headers)
+        r = http.post(url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["records"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

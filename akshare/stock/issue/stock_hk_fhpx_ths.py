@@ -9,7 +9,8 @@ https://stockpage.10jqka.com.cn/HK0700/bonus/
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
@@ -27,7 +28,7 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "utf-8"
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [
@@ -42,7 +43,7 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
         "以股代息",
     ]
     # 剔除异常格式，由以股代息产生的异常
-    temp_df.dropna(subset=["派息日", "除净日"], inplace=True, ignore_index=True)
+    temp_df = temp_df.dropna(subset=["派息日", "除净日"], ignore_index=True)
     temp_df["公告日期"] = pd.to_datetime(
         temp_df["公告日期"], format="%Y-%m-%d", errors="coerce"
     ).dt.date
@@ -58,7 +59,7 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
     temp_df["过户日期起止日-截止"] = pd.to_datetime(
         temp_df["过户日期起止日-截止"], format="%Y-%m-%d", errors="coerce"
     ).dt.date
-    temp_df.sort_values(["公告日期"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(["公告日期"], ignore_index=True)
     return temp_df
 
 

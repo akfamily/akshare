@@ -13,6 +13,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, InvalidParameterError
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -61,7 +62,7 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = _fetch_stock_board_concept_name_em()
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "排名",
             "f2": "最新价",
@@ -77,7 +78,6 @@ def __stock_board_concept_name_em() -> pd.DataFrame:
             "f136": "领涨股票-涨跌幅",
             "f140": "领涨股票-代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -154,11 +154,11 @@ def stock_board_concept_spot_em(symbol: str = "可燃冰") -> pd.DataFrame:
         fltt="1",
         secid=f"90.{em_code}",
     )
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_dict = r.json()
     result = pd.DataFrame.from_dict(data_dict["data"], orient="index")
-    result.rename(field_map, inplace=True)
-    result.reset_index(inplace=True)
+    result = result.rename(field_map)
+    result = result.reset_index()
     result.columns = ["item", "value"]
     result["value"] = pd.to_numeric(result["value"], errors="coerce")
 
@@ -233,7 +233,7 @@ def stock_board_concept_hist_em(
         "smplmt": "10000",
         "lmt": "1000000",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     try:
         data_json = r.json()
     except ValueError as err:
@@ -317,7 +317,7 @@ def stock_board_concept_hist_min_em(
             "ndays": "1",
             "secid": f"90.{stock_board_code}",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -351,7 +351,7 @@ def stock_board_concept_hist_min_em(
             "end": "20500101",
             "lmt": "1000000",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]

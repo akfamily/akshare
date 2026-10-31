@@ -13,10 +13,11 @@ import warnings
 from io import StringIO
 
 import pandas as pd
-import requests
 from tqdm import tqdm
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
+from akshare.utils import http
+from akshare.utils.params import to_int
 
 
 def bank_fjcf_total_num(item: str = "分局本级") -> int:
@@ -40,7 +41,7 @@ def bank_fjcf_total_num(item: str = "分局本级") -> int:
         "pageSize": "18",
         "pageIndex": "1",
     }
-    res = requests.get(main_url, params=params, headers=cbirc_headers)
+    res = http.get(main_url, params=params, headers=cbirc_headers)
     return int(res.json()["data"]["total"])
 
 
@@ -67,7 +68,7 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
         "pageSize": "18",
         "pageIndex": str(begin),
     }
-    res = requests.get(main_url, params=params, headers=cbirc_headers)
+    res = http.get(main_url, params=params, headers=cbirc_headers)
     if res.json()["data"]["total"] / 18 > int(res.json()["data"]["total"] / 18):
         total_page = int(res.json()["data"]["total"] / 18) + 1
         return total_page
@@ -83,10 +84,12 @@ def bank_fjcf_page_url(
     :param item: choice of {"机关", "本级", "分局本级"}
     :type item: str
     :param begin: 开始页数
-    :type begin: str
+    :type begin: int
     :return: 需要的字段
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
+    begin = to_int(begin, "begin")
     item_id_list = {
         "机关": "4113",
         "本级": "4114",
@@ -101,7 +104,7 @@ def bank_fjcf_page_url(
             "pageSize": "18",
             "pageIndex": str(i_page),
         }
-        res = requests.get(main_url, params=params, headers=cbirc_headers)
+        res = http.get(main_url, params=params, headers=cbirc_headers)
         temp_df = pd.concat([temp_df, pd.DataFrame(res.json()["data"]["rows"])])
     return temp_df[
         ["docId", "docSubtitle", "publishDate", "docFileUrl", "docTitle", "generaltype"]
@@ -126,7 +129,7 @@ def bank_fjcf_table_detail(
     big_df = pd.DataFrame()
     for item in id_list:
         url = f"https://www.nfra.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId={item}.json"
-        res = requests.get(url)
+        res = http.get(url)
         try:
             table_list = pd.read_html(StringIO(res.json()["data"]["docClob"]))[0]
             if table_list.shape[1] == 2:
@@ -147,7 +150,7 @@ def bank_fjcf_table_detail(
                 table_list = table_list[2:]
                 table_list.insert(2, pd.NA)
             else:
-                print(
+                warnings.warn(
                     f"{item} 异常，请通过 https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId={item} 查看"
                 )
                 continue
@@ -162,7 +165,7 @@ def bank_fjcf_table_detail(
             table_df.columns = ["内容"]
             big_df = pd.concat(objs=[big_df, table_df.T], ignore_index=True)
             # 解决有些页面缺少字段的问题，都放到 try 里面
-        except:  # noqa: E722
+        except Exception:
             warnings.warn(f"{item} 不是表格型数据，将跳过采集")
             continue
     if big_df.empty:

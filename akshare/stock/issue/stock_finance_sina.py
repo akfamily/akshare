@@ -15,9 +15,9 @@ from datetime import datetime
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -43,7 +43,7 @@ def stock_financial_report_sina(
         "page": "1",
         "num": "1000",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     df_columns = [
         item["date_value"] for item in data_json["result"]["data"]["report_date"]
@@ -77,7 +77,7 @@ def stock_financial_report_sina(
             },
             orient="index",
         )
-        temp_tail_df.reset_index(inplace=True)
+        temp_tail_df = temp_tail_df.reset_index()
         temp_tail_df.columns = ["item_title", "item_value"]
         temp_df = pd.concat(objs=[temp_df, temp_tail_df], ignore_index=True)
         temp_df.columns = ["项目", date_str]
@@ -108,7 +108,7 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
         "page": "1",
         "num": "1000",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     key_list = list(data_json["result"]["data"]["report_list"].keys())
     temp_df = pd.DataFrame(
@@ -125,37 +125,37 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
 
     big_one_df = big_df.loc["常用指标":"每股指标"]
     big_one_df = big_one_df.iloc[1:-1, :]
-    big_one_df.reset_index(inplace=True)
+    big_one_df = big_one_df.reset_index()
     big_one_df.insert(0, "选项", "常用指标")
 
     big_two_df = big_df.loc["每股指标":"盈利能力"]
     big_two_df = big_two_df.iloc[1:-1, :]
-    big_two_df.reset_index(inplace=True)
+    big_two_df = big_two_df.reset_index()
     big_two_df.insert(0, "选项", "每股指标")
 
     big_three_df = big_df.loc["盈利能力":"成长能力"]
     big_three_df = big_three_df.iloc[1:-1, :]
-    big_three_df.reset_index(inplace=True)
+    big_three_df = big_three_df.reset_index()
     big_three_df.insert(0, "选项", "盈利能力")
 
     big_four_df = big_df.loc["成长能力":"收益质量"]
     big_four_df = big_four_df.iloc[1:-1, :]
-    big_four_df.reset_index(inplace=True)
+    big_four_df = big_four_df.reset_index()
     big_four_df.insert(0, "选项", "成长能力")
 
     big_five_df = big_df.loc["收益质量":"财务风险"]
     big_five_df = big_five_df.iloc[1:-1, :]
-    big_five_df.reset_index(inplace=True)
+    big_five_df = big_five_df.reset_index()
     big_five_df.insert(0, "选项", "收益质量")
 
     big_six_df = big_df.loc["财务风险":"营运能力"]
     big_six_df = big_six_df.iloc[1:-1, :]
-    big_six_df.reset_index(inplace=True)
+    big_six_df = big_six_df.reset_index()
     big_six_df.insert(0, "选项", "财务风险")
 
     big_seven_df = big_df.loc["营运能力":]
     big_seven_df = big_seven_df.iloc[1:-1, :]
-    big_seven_df.reset_index(inplace=True)
+    big_seven_df = big_seven_df.reset_index()
     big_seven_df.insert(0, "选项", "营运能力")
 
     big_df = pd.concat(
@@ -219,7 +219,7 @@ def stock_financial_analysis_indicator_em(
             "source": "HSF10",
             "client": "PC",
         }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     return temp_df
@@ -249,7 +249,7 @@ def stock_financial_analysis_indicator(
             "Chrome/138.0.0.0 Safari/537.36"
         )
     }
-    session = requests.Session()
+    session = http.Session()
     r = session.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     year_container = soup.find(attrs={"id": "con02-1"})
@@ -314,10 +314,10 @@ def stock_financial_analysis_indicator(
         big_df.index = temp_df.columns.tolist()[1:]
         out_df = pd.concat(objs=[out_df, big_df])
 
-    out_df.dropna(inplace=True)
-    out_df.reset_index(inplace=True)
-    out_df.rename(columns={"index": "日期"}, inplace=True)
-    out_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
+    out_df = out_df.dropna()
+    out_df = out_df.reset_index()
+    out_df = out_df.rename(columns={"index": "日期"})
+    out_df = out_df.sort_values(by=["日期"], ignore_index=True)
     out_df["日期"] = pd.to_datetime(out_df["日期"], errors="coerce").dt.date
     for item in out_df.columns[1:]:
         out_df[item] = pd.to_numeric(out_df[item], errors="coerce")
@@ -333,7 +333,7 @@ def stock_history_dividend() -> pd.DataFrame:
     """
     url = "https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml"
     params = {"p": "1", "num": "50000"}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["代码"] = temp_df["代码"].astype(str).str.zfill(6)
     temp_df.columns = [
@@ -374,7 +374,7 @@ def stock_history_dividend_detail(
     """
     if indicator == "分红":
         url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/{symbol}.phtml"
-        r = requests.get(url)
+        r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text))[12]
         temp_df.columns = [item[2] for item in temp_df.columns.tolist()]
         temp_df.columns = [
@@ -413,7 +413,7 @@ def stock_history_dividend_detail(
                 "type": "1",
                 "end_date": date,
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             temp_df = pd.read_html(StringIO(r.text))[12]
             temp_df.columns = ["item", "value"]
             return temp_df
@@ -421,7 +421,7 @@ def stock_history_dividend_detail(
             return temp_df
     else:
         url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/{symbol}.phtml"
-        r = requests.get(url)
+        r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text))[13]
         temp_df.columns = [item[1] for item in temp_df.columns.tolist()]
         temp_df.columns = [
@@ -472,7 +472,7 @@ def stock_history_dividend_detail(
                 "type": "1",
                 "end_date": date,
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             temp_df = pd.read_html(StringIO(r.text))[12]
             temp_df.columns = ["item", "value"]
             return temp_df
@@ -490,7 +490,7 @@ def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/{stock}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[12]
     temp_df.columns = ["item", "value"]
     return temp_df
@@ -506,7 +506,7 @@ def stock_add_stock(symbol: str = "688166") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[12]
     if temp_df.at[0, 0] == "对不起，暂时没有相关增发记录":
         raise f"股票 {symbol} 无增发记录"
@@ -515,7 +515,7 @@ def stock_add_stock(symbol: str = "688166") -> pd.DataFrame:
         temp_df = pd.read_html(StringIO(r.text))[13 + i].iloc[:, 1]
         big_df[temp_df.name.split(" ")[1].split("：")[1][:10]] = temp_df
     big_df = big_df.T
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.columns = [
         "公告日期",
         "发行方式",
@@ -538,7 +538,7 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={symbol}"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [
         "代码",
@@ -572,7 +572,7 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     """
     pd.set_option("future.no_silent_downcasting", True)
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
@@ -584,24 +584,15 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(
             objs=[temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :]],
             axis=1,
         )
         concat_df.columns = concat_df.iloc[0, :]
         concat_df = concat_df.iloc[1:, :]
-        try:
-            # try for pandas >= 2.1.0
-            concat_df["截止日期"] = concat_df["截止日期"].ffill()
-            concat_df["公告日期"] = concat_df["公告日期"].ffill()
-        except:  # noqa: E722
-            try:
-                # try for pandas < 2.1.0
-                concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
-                concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
-            except Exception as e:
-                print("Error:", e)
+        concat_df["截止日期"] = concat_df["截止日期"].ffill()
+        concat_df["公告日期"] = concat_df["公告日期"].ffill()
 
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
 
@@ -631,7 +622,7 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     big_df["编号"] = pd.to_numeric(big_df["编号"], errors="coerce")
     big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
     big_df["占流通股比例"] = pd.to_numeric(big_df["占流通股比例"], errors="coerce")
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -645,7 +636,7 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :6]
     temp_df.columns = [*range(6)]
     big_df = pd.DataFrame()
@@ -658,24 +649,15 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(objs=[temp_truncated, truncated_df.iloc[0, 1:]], axis=1)
         concat_df.columns = truncated_df.iloc[1, :].tolist() + ["截止日期"]
-        try:
-            # try for pandas >= 2.1.0
-            concat_df["截止日期"] = concat_df["截止日期"].ffill()
-            concat_df["截止日期"] = concat_df["截止日期"].ffill()
-        except:  # noqa: E722
-            try:
-                # try for pandas < 2.1.0
-                concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
-                concat_df["截止日期"] = concat_df["截止日期"].fillna(method="bfill")
-            except Exception as e:
-                print("Error:", e)
+        concat_df["截止日期"] = concat_df["截止日期"].ffill()
+        concat_df["截止日期"] = concat_df["截止日期"].ffill()
 
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
-    big_df.dropna(inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.dropna()
+    big_df = big_df.reset_index(drop=True)
     big_df.columns = [
         "基金名称",
         "基金代码",
@@ -704,7 +686,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/{stock}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
@@ -715,7 +697,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[5:, :]
-        temp_truncated.reset_index(inplace=True, drop=True)
+        temp_truncated = temp_truncated.reset_index(drop=True)
         concat_df = pd.concat(
             objs=[
                 temp_truncated,
@@ -729,31 +711,20 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
         )
         concat_df.columns = concat_df.iloc[0, :]
         concat_df = concat_df.iloc[1:, :].copy()
-        try:
-            # try for pandas >= 2.1.0
-            concat_df["截至日期"] = concat_df["截至日期"].ffill()
-            concat_df["公告日期"] = concat_df["公告日期"].ffill()
-            concat_df["股东总数"] = concat_df["股东总数"].ffill()
-            concat_df["平均持股数"] = concat_df["平均持股数"].ffill()
-        except:  # noqa: E722
-            try:
-                # try for pandas < 2.1.0
-                concat_df["截至日期"] = concat_df["截至日期"].fillna(method="ffill")
-                concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
-                concat_df["股东总数"] = concat_df["股东总数"].fillna(method="ffill")
-                concat_df["平均持股数"] = concat_df["平均持股数"].fillna(method="ffill")
-            except Exception as e:
-                print("Error:", e)
+        concat_df["截至日期"] = concat_df["截至日期"].ffill()
+        concat_df["公告日期"] = concat_df["公告日期"].ffill()
+        concat_df["股东总数"] = concat_df["股东总数"].ffill()
+        concat_df["平均持股数"] = concat_df["平均持股数"].ffill()
 
         concat_df["股东总数"] = concat_df["股东总数"].str.strip("查看变化趋势")
         concat_df["平均持股数"] = concat_df["平均持股数"].str.strip(
             "(按总股本计算) 查看变化趋势"
         )
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
-    big_df.dropna(inplace=True, how="all")
-    big_df.reset_index(inplace=True, drop=True)
-    big_df.rename(
-        columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}, inplace=True
+    big_df = big_df.dropna(how="all")
+    big_df = big_df.reset_index(drop=True)
+    big_df = big_df.rename(
+        columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}
     )
     big_df.columns.name = None
     big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")

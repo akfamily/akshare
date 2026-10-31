@@ -7,8 +7,8 @@ https://www.legulegu.com/stockdata/high-low-statistics
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -22,7 +22,7 @@ def stock_a_high_low_statistics(symbol: str = "all") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://www.legulegu.com/stockdata/member-ship/get-high-low-statistics/{symbol}"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     del temp_df["indexCode"]
@@ -34,7 +34,7 @@ def stock_a_high_low_statistics(symbol: str = "all") -> pd.DataFrame:
     temp_df["low60"] = pd.to_numeric(temp_df["low60"], errors="coerce")
     temp_df["high120"] = pd.to_numeric(temp_df["high120"], errors="coerce")
     temp_df["low120"] = pd.to_numeric(temp_df["low120"], errors="coerce")
-    temp_df.sort_values(by=["date"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["date"], ignore_index=True)
     return temp_df
 
 

@@ -9,7 +9,8 @@ https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=S
 import re
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def _normalize_em_secu_code(symbol: str) -> str:
@@ -89,7 +90,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         "client": "PC",
         "v": "047483522105257925",
     }
-    r = requests.get(url, params=params, timeout=30)
+    r = http.get(url, params=params)
     data_json = r.json()
     result = data_json.get("result") or {}
     data_list = result.get("data") or []
@@ -101,7 +102,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
     # 逐页拉取，避免老股票较长的股本结构历史被静默截断。
     for page in range(2, total_pages + 1):
         params.update({"pageNumber": str(page)})
-        r = requests.get(url, params=params, timeout=30)
+        r = http.get(url, params=params)
         page_json = r.json()
         page_result = page_json.get("result") or {}
         page_data = page_result.get("data") or []
@@ -111,7 +112,7 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
         big_df = pd.concat([big_df, page_df], ignore_index=True)
 
     temp_df = big_df
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "END_DATE": "变更日期",
             "TOTAL_SHARES": "总股本",
@@ -123,7 +124,6 @@ def stock_zh_a_gbjg_em(symbol: str = "603392.SH") -> pd.DataFrame:
             "LIMITED_DOMESTIC_NOSTATE": "境内法人持股(受限)",
             "LIMITED_DOMESTIC_NATURAL": "境内自然人持股(受限)",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

@@ -7,7 +7,8 @@ https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_security_profile_em(symbol: str = "03900") -> pd.DataFrame:
@@ -35,7 +36,7 @@ def stock_hk_security_profile_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "04748497219912483",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     field_mapping = {
@@ -54,7 +55,7 @@ def stock_hk_security_profile_em(symbol: str = "03900") -> pd.DataFrame:
         "TRADE_UNIT": "每手股数",
         "YEAR_SETTLE_DAY": "年结日",
     }
-    temp_df.rename(columns=field_mapping, inplace=True)
+    temp_df = temp_df.rename(columns=field_mapping)
     temp_df = temp_df[
         [
             "证券代码",
@@ -101,7 +102,7 @@ def stock_hk_company_profile_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "04748497219912483",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     field_mapping = {
@@ -125,7 +126,7 @@ def stock_hk_company_profile_em(symbol: str = "03900") -> pd.DataFrame:
         "SECURITY_CODE": "证券代码",
         "YEAR_SETTLE_DAY": "年结日",
     }
-    temp_df.rename(columns=field_mapping, inplace=True)
+    temp_df = temp_df.rename(columns=field_mapping)
     temp_df = temp_df[
         [
             "公司名称",
@@ -178,7 +179,7 @@ def stock_hk_financial_indicator_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "07945646099062258",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     field_mapping = {
@@ -205,7 +206,7 @@ def stock_hk_financial_indicator_em(symbol: str = "03900") -> pd.DataFrame:
         "PB_TTM": "市净率",
         "ROA": "总资产回报率(%)",
     }
-    temp_df.rename(columns=field_mapping, inplace=True)
+    temp_df = temp_df.rename(columns=field_mapping)
     temp_df = temp_df[
         [
             "基本每股收益(元)",
@@ -258,7 +259,7 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "035584639294227527",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
 
     field_mapping = {
@@ -285,7 +286,7 @@ def stock_hk_dividend_payout_em(symbol: str = "03900") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=columns)
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[columns]
         temp_df["最新公告日期"] = pd.to_datetime(
             temp_df["最新公告日期"], errors="coerce"

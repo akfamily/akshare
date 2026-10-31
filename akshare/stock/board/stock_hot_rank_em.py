@@ -7,7 +7,8 @@ https://guba.eastmoney.com/rank/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hot_rank_em() -> pd.DataFrame:
@@ -25,7 +26,7 @@ def stock_hot_rank_em() -> pd.DataFrame:
         "pageNo": 1,
         "pageSize": 100,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_rank_df = pd.DataFrame(data_json["data"])
 
@@ -41,7 +42,7 @@ def stock_hot_rank_em() -> pd.DataFrame:
         "secids": ",".join(temp_rank_df["mark"]),
     }
     url = "https://push2.eastmoney.com/api/qt/ulist.np/get"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = ["最新价", "涨跌幅", "代码", "股票名称"]
@@ -81,7 +82,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "srcSecurityCode": symbol,
         "yearType": "5",
     }
-    r = requests.post(url_rank, json=payload)
+    r = http.post(url_rank, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["证券代码"] = symbol
@@ -89,7 +90,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df = temp_df[["时间", "排名", "证券代码"]]
 
     url_follow = "https://emappdata.eastmoney.com/stockrank/getHisProfileList"
-    r = requests.post(url_follow, json=payload)
+    r = http.post(url_follow, json=payload)
     data_json = r.json()
     temp_df["新晋粉丝"] = (
         pd.DataFrame(data_json["data"])["newUidRate"].str.strip("%").astype(float) / 100
@@ -97,7 +98,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df["铁杆粉丝"] = (
         pd.DataFrame(data_json["data"])["oldUidRate"].str.strip("%").astype(float) / 100
     )
-    temp_df.sort_values(["时间"], inplace=True)
+    temp_df = temp_df.sort_values(["时间"])
     return temp_df
 
 
@@ -117,7 +118,7 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "marketType": "",
         "srcSecurityCode": symbol,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.columns = ["时间", "排名"]
@@ -139,7 +140,7 @@ def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "globalId": "786e4c21-70dc-435a-93bb-38",
         "srcSecurityCode": symbol,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     del temp_df["flag"]
@@ -163,10 +164,10 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "marketType": "",
         "srcSecurityCode": symbol,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 
@@ -186,7 +187,7 @@ def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
         "globalId": "786e4c21-70dc-435a-93bb-38",
         "srcSecurityCode": symbol,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"])
     temp_df.columns = ["时间", "-", "股票代码", "-", "相关股票代码", "涨跌幅", "-"]

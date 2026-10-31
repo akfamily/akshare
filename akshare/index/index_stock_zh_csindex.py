@@ -7,7 +7,8 @@ https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/lis
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zh_index_hist_csindex(
@@ -34,7 +35,7 @@ def stock_zh_index_hist_csindex(
         "startDate": start_date,
         "endDate": end_date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.columns = [
@@ -82,7 +83,7 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
         f"https://oss-ch.csindex.com.cn/static/"
         f"html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
     )
-    temp_df = pd.read_excel(url)
+    temp_df = pd.read_excel(http.get_buffer(url))
     temp_df.columns = [
         "日期",
         "指数代码",

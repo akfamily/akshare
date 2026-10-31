@@ -7,7 +7,8 @@ https://data.eastmoney.com/other/qqlhb.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_lhb_em(
@@ -40,7 +41,7 @@ def option_lhb_em(
         "client": "WEB",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     if indicator == "期权交易情况-认沽交易量":
@@ -96,7 +97,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权持仓情况-认沽持仓量":
         temp_df = temp_df.iloc[7:14, :]
@@ -151,7 +152,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权交易情况-认购交易量":
         temp_df = temp_df.iloc[14:21, :]
@@ -206,11 +207,11 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     elif indicator == "期权持仓情况-认购持仓量":
         temp_df = temp_df.iloc[21:, :]
-        temp_df.rename(
+        temp_df = temp_df.rename(
             columns={
                 "MEMBER_RANK": "名次",
                 "MEMBER_NAME_ABBR": "机构",
@@ -223,7 +224,6 @@ def option_lhb_em(
                 "SECURITY_CODE": "证券代码",
                 "TARGET_NAME": "标的名称",
             },
-            inplace=True,
         )
         temp_df = temp_df[
             [
@@ -249,7 +249,7 @@ def option_lhb_em(
         temp_df["占总交易量比例"] = pd.to_numeric(
             temp_df["占总交易量比例"], errors="coerce"
         )
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 

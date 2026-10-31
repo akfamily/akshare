@@ -9,7 +9,8 @@ https://investor.szse.cn/market/option/day/index.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
@@ -39,10 +40,10 @@ def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/101.0.4951.67 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "CONTRACT_VOLUME": "合约数量",
             "CALL_VOLUME": "认购成交量",
@@ -57,7 +58,6 @@ def option_daily_stats_sse(date: str = "20240626") -> pd.DataFrame:
             "LEAVES_PUT_QTY": "未平仓认沽合约数",
             "SECURITY_ABBR": "合约标的名称",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -99,10 +99,10 @@ def option_daily_stats_szse(date: str = "20240626") -> pd.DataFrame:
         "txtQueryDate": "-".join([date[:4], date[4:6], date[6:]]),
         "random": "0.0652692406565949",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json[0]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "bddm": "合约标的代码",
             "bdmc": "合约标的名称",
@@ -114,7 +114,6 @@ def option_daily_stats_szse(date: str = "20240626") -> pd.DataFrame:
             "wpcrchys": "未平仓认购合约数",
             "wpcrphys": "未平仓认沽合约数",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

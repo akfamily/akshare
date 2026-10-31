@@ -1,44 +1,33 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/9/9 14:57
+Date: 2026/10/30
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
-https://www.chinamoney.org.cn/chinese/bkcurvfsw
+https://www.chinamoney.com.cn/chinese/bkcurvfsw
 """
 
-import ssl
-
 import pandas as pd
-import requests
-from requests.adapters import HTTPAdapter
 
-
-class LegacySSLAdapter(HTTPAdapter):
-    def init_poolmanager(self, *args, **kwargs):
-        context = ssl.create_default_context()
-        # 允许不安全的 legacy renegotiation
-        context.options |= ssl.OP_LEGACY_SERVER_CONNECT
-        kwargs["ssl_context"] = context
-        return super().init_poolmanager(*args, **kwargs)
+from akshare.utils import http
 
 
 def fx_c_swap_cm():
     """
     中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
-    https://www.chinamoney.org.cn/chinese/bkcurvfsw
+    https://www.chinamoney.com.cn/chinese/bkcurvfsw
     :return: 外汇掉期 C-Swap 定盘曲线
     :rtype: pandas.DataFrame
     """
-    session = requests.Session()
-    session.mount(prefix="https://", adapter=LegacySSLAdapter())
-    url = "https://www.chinamoney.org.cn/r/cms/www/chinamoney/data/fx/fx-c-sw-curv-USD.CNY.json"
+    # www.chinamoney.org.cn 已无法完成 TLS 握手，同一路径在 www.chinamoney.com.cn
+    # 下可正常访问，且无需再放开旧式 TLS 重协商
+    url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/fx-c-sw-curv-USD.CNY.json"
     payload = {
         "t": "1757402201554",
     }
-    r = session.post(url, data=payload)
+    r = http.post(url, data=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "curveTime": "日期时间",
             "tenor": "期限品种",
@@ -46,7 +35,6 @@ def fx_c_swap_cm():
             "dataSource": "掉期点数据源",
             "swapAllPrc": "全价汇率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

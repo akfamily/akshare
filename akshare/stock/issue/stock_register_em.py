@@ -7,8 +7,8 @@ https://data.eastmoney.com/kcb/?type=nsb
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
@@ -32,20 +32,20 @@ def stock_register_all_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -60,7 +60,6 @@ def stock_register_all_em() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -106,20 +105,20 @@ def stock_register_kcb() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="科创板")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -134,7 +133,6 @@ def stock_register_kcb() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -180,20 +178,20 @@ def stock_register_cyb() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="创业板")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -208,7 +206,6 @@ def stock_register_cyb() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -254,20 +251,20 @@ def stock_register_bj() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="北交所")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -282,7 +279,6 @@ def stock_register_bj() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -328,20 +324,20 @@ def stock_register_sh() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="沪主板")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -356,7 +352,6 @@ def stock_register_sh() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -402,20 +397,20 @@ def stock_register_sz() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PREDICT_LISTING_MARKET="深主板")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "DECLARE_ORG": "企业名称",
@@ -430,7 +425,6 @@ def stock_register_sz() -> pd.DataFrame:
             "PREDICT_LISTING_MARKET": "拟上市地点",
             "INFO_CODE": "招股说明书",
         },
-        inplace=True,
     )
     big_df["招股说明书"] = [
         f"https://pdf.dfcfw.com/pdf/H2_{item}_1.pdf" for item in big_df["招股说明书"]
@@ -475,25 +469,24 @@ def stock_register_db() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(ORG_TYPE_CODE="03")',
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "ORG_NAME": "企业名称",
         },
-        inplace=True,
     )
 
     big_df = big_df[

@@ -15,6 +15,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from akshare.exceptions import APIError, DataParsingError
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -30,7 +31,7 @@ def get_cookie_csrf(url: str = "") -> dict:
     :raises DataParsingError: 页面取回成功但其中没有 _csrf 标签
     """
     # 创建独立的 session，避免污染全局状态
-    session = requests.Session()
+    session = http.Session()
     session.headers.update(headers)
     # 必须先校验状态码：上游拒绝请求时返回的 nginx 403 错误页里没有 _csrf 标签，
     # 若直接交给下面的解析流程，就会在 None 上取 .attrs，而抛出的
@@ -88,11 +89,11 @@ def stock_hk_indicator_eniu(
     """
     if indicator == "港股":
         url = "https://eniu.com/static/data/stock_list.json"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df = temp_df[temp_df["stock_id"].str.contains("hk")]
-        temp_df.reset_index(inplace=True, drop=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     if indicator == "市盈率":
         url = f"https://eniu.com/chart/peh/{symbol}"
@@ -104,7 +105,7 @@ def stock_hk_indicator_eniu(
         url = f"https://eniu.com/chart/roeh/{symbol}"
     else:
         url = f"https://eniu.com/chart/marketvalueh/{symbol}"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     return temp_df

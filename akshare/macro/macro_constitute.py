@@ -10,8 +10,9 @@ import datetime
 import time
 
 import pandas as pd
-import requests
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def macro_cons_gold() -> pd.DataFrame:
@@ -38,7 +39,7 @@ def macro_cons_gold() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -74,8 +75,8 @@ def macro_cons_gold() -> pd.DataFrame:
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -103,7 +104,7 @@ def macro_cons_silver() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -139,8 +140,8 @@ def macro_cons_silver() -> pd.DataFrame:
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -172,7 +173,7 @@ def macro_cons_opec_month() -> pd.DataFrame:
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    res = requests.get(
+    res = http.get(
         url=f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
         headers=headers,
     )  # 日期序列
@@ -180,7 +181,7 @@ def macro_cons_opec_month() -> pd.DataFrame:
     bar = tqdm(reversed(all_date_list))
     for item in bar:
         bar.set_description(f"Please wait for a moment, now downloading {item}'s data")
-        res = requests.get(
+        res = http.get(
             url=f"https://datacenter-api.jin10.com/reports/list?"
             f"category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers,
@@ -208,7 +209,7 @@ def macro_cons_opec_month() -> pd.DataFrame:
                     "欧佩克产量",
                 ]
             ].iloc[-2, :]
-        except:  # noqa: E722
+        except Exception:
             temp_df = temp_df[
                 [
                     "阿尔及利亚",
@@ -225,12 +226,12 @@ def macro_cons_opec_month() -> pd.DataFrame:
                     "欧佩克产量",
                 ]
             ].iloc[-1, :]
-        temp_df.dropna(inplace=True)
+        temp_df = temp_df.dropna()
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df = big_df.astype(float)
-    big_df.reset_index(inplace=True)
-    big_df.rename(columns={"index": "日期"}, inplace=True)
+    big_df = big_df.reset_index()
+    big_df = big_df.rename(columns={"index": "日期"})
     big_df.columns.name = None
     return big_df
 

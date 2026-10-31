@@ -8,10 +8,12 @@ https://fundf10.eastmoney.com/jjfl_015641.html
 
 import re
 from io import StringIO
+import warnings
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.DataFrame:
@@ -26,7 +28,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
     :rtype: pandas.DataFrame
     """
     url = f"https://fundf10.eastmoney.com/jjfl_{symbol}.html"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="html.parser")
     tables_dict = {}
     title_elements = soup.find_all(name="h4", class_="t")
@@ -53,7 +55,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 df = pd.read_html(StringIO(table_html))[0]
                 tables_dict[title_text] = df
             except Exception as e:
-                print("Error:", e)
+                warnings.warn(f"Error: {e}")
                 continue
 
     if indicator == "交易状态":
@@ -84,9 +86,8 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
             "|", expand=True
         )
         if splited.shape[1] == 1:
-            temp_df.rename(
+            temp_df = temp_df.rename(
                 columns={"原费率|天天基金优惠费率 银行卡购买|活期宝购买": "原费率"},
-                inplace=True,
             )
             temp_df["天天基金优惠费率-银行卡购买"] = temp_df["原费率"]
             temp_df["天天基金优惠费率-活期宝购买"] = temp_df["原费率"]

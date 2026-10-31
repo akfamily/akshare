@@ -20,9 +20,12 @@ https://datacenter.jin10.com/economic
 
 import datetime
 import time
+import warnings
 
 import pandas as pd
 import requests
+
+from akshare.utils import http
 
 
 def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame:
@@ -57,9 +60,7 @@ def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame
     interest_rate_data = []
     try:
         while True:
-            response = requests.get(
-                url=base_url, params=params, headers=headers, timeout=10
-            )
+            response = http.get(url=base_url, params=params, headers=headers)
             data = response.json()
             if not data.get("data", {}).get("values"):
                 break
@@ -74,7 +75,7 @@ def __get_interest_rate_data(attr_id: str, name: str = "利率") -> pd.DataFrame
             params["max_date"] = next_date
 
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
+        warnings.warn(f"Error fetching data: {e}")
         return pd.DataFrame()
 
     # Convert to DataFrame

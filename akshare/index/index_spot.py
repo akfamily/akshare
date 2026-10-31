@@ -7,7 +7,8 @@ https://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
@@ -26,7 +27,7 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
         "澳大利亚粉矿价格": "PB",
     }
     params = {"symbol": symbol_url_dict[symbol], "table": "0"}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     r.encoding = "gbk"
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
@@ -38,7 +39,7 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
     temp_df["指数"] = pd.to_numeric(temp_df["指数"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df.dropna(inplace=True, ignore_index=True)
+    temp_df = temp_df.dropna(ignore_index=True)
     return temp_df
 
 

@@ -7,7 +7,7 @@ https://quote.eastmoney.com/center/qqsc.html
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -121,12 +121,12 @@ def option_current_cffex_em() -> pd.DataFrame:
         "blockName": "callback",
         "_:": "1706689899924",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "rz": "日增",
@@ -145,7 +145,6 @@ def option_current_cffex_em() -> pd.DataFrame:
             "zjsj": "昨结",
             "cje": "成交额",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

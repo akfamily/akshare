@@ -145,6 +145,11 @@ When helping users with AKShare:
   upstream source still provides updated data.
 - Inspect returned columns before making assumptions about field names, units,
   or semantics.
+- Network settings are global and apply to every interface:
+  `ak.set_proxies({"http": ..., "https": ...})`, `ak.set_timeout(seconds)`
+  (default `(10, 60)` connect/read seconds), and `with ak.ProxyContext(...):`
+  for a temporary proxy. When no proxy is set, the standard `HTTP_PROXY` /
+  `HTTPS_PROXY` environment variables are honoured.
 
 ## Example Function Families
 
@@ -182,6 +187,13 @@ When adding or fixing a public interface:
   `ak.function_name(...)`.
 - Update the corresponding documentation under `docs/data/`.
 - Update `docs/changelog.md` for user-visible fixes or new interfaces.
+- Send HTTP requests through `akshare.utils.http` (`http.get`, `http.post`,
+  `http.Session`), not `requests.get` directly, so the global timeout and proxy
+  settings apply; Ruff rule TID251 enforces this. For retries use
+  `http.request_with_retry(method, url, ...)` instead of a hand-written loop;
+  it backs off on connection errors, timeouts, 429 and 5xx, and raises
+  `RateLimitError` at once when Eastmoney's push2 servers drop the connection
+  (an IP rate limit that retrying only prolongs).
 
 ## Preferred Guidance Style
 

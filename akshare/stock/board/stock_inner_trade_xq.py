@@ -12,6 +12,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, NetworkError
+from akshare.utils import http
 
 
 def _get_xq_inner_trade_data() -> dict[str, Any]:
@@ -49,7 +50,7 @@ def _get_xq_inner_trade_data() -> dict[str, Any]:
         "X-Requested-With": "XMLHttpRequest",
     }
     try:
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(

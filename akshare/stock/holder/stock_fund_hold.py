@@ -7,9 +7,9 @@ http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 """
 
 import pandas as pd
-import requests
 
-_FUND_HOLD_TIMEOUT: int = 15
+from akshare.utils import http
+
 _STOCK_REPORT_FUND_HOLD_COLUMNS: list[str] = [
     "序号",
     "股票代码",
@@ -67,7 +67,7 @@ def stock_report_fund_hold(
         "p": "1",
         "pageNo": "1",
     }
-    r = requests.get(url, params=params, timeout=_FUND_HOLD_TIMEOUT)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["pages"]
     big_df_list: list[pd.DataFrame] = []
@@ -83,7 +83,7 @@ def stock_report_fund_hold(
             "p": page,
             "pageNo": page,
         }
-        r = requests.get(url, params=params, timeout=_FUND_HOLD_TIMEOUT)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if not temp_df.empty:
@@ -134,10 +134,10 @@ def stock_report_fund_hold_detail(
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",

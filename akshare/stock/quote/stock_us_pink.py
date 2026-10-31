@@ -7,8 +7,8 @@ https://quote.eastmoney.com/center/gridlist.html#us_pinksheet
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -34,7 +34,7 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
         "dect": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     import math
 
@@ -43,7 +43,7 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pn": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["diff"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -82,9 +82,9 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
         "_",
         "_",
     ]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
-    big_df.rename(columns={"index": "序号"}, inplace=True)
+    big_df = big_df.rename(columns={"index": "序号"})
     big_df["代码"] = big_df["编码"].astype(str) + "." + big_df["简称"]
     big_df = big_df[
         [

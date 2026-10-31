@@ -8,8 +8,8 @@ https://cn.investing.com/currencies/eur-usd-historical-data
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -48,7 +48,7 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         url = "https://cn.investing.com/currencies/Service/region"
         params = {"region_ID": region_id, "currency_ID": "false"}
 
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         soup = BeautifulSoup(r.text, features="lxml")
         region_code.extend(
             [
@@ -66,7 +66,7 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         "region_ID": name_id_map[symbol].split("-")[1],
         "currency_ID": name_id_map[symbol].split("-")[0],
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
 
     temp_code = [item["href"].split("/")[-1] for item in soup.find_all("a")]  # need

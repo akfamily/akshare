@@ -10,9 +10,9 @@ P.S. 注意采集速度，容易封禁 IP，如果不能访问请稍后再试
 import json
 import time
 from functools import lru_cache
+import warnings
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.futures.cons import (
@@ -21,7 +21,8 @@ from akshare.futures.cons import (
     zh_match_main_contract_payload,
 )
 from akshare.futures.futures_contract_detail import futures_contract_detail
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 @lru_cache()
@@ -35,11 +36,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     url = (
         "https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
     )
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "gb2312"
     data_text = r.text
     raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
-    data_json = demjson.decode(raw_json)
+    data_json = jsonish.loads(raw_json)
     czce_mark_list = [item[1] for item in data_json["czce"][1:]]
     dce_mark_list = [item[1] for item in data_json["dce"][1:]]
     shfe_mark_list = [item[1] for item in data_json["shfe"][1:]]
@@ -109,7 +110,7 @@ def futures_zh_realtime(symbol: str = "PTA") -> pd.DataFrame:
         "node": symbol_mark_map[symbol],
         "base": "futures",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
 
@@ -145,12 +146,10 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
-    r = requests.get(zh_subscribe_exchange_symbol_url)
+    r = http.get(zh_subscribe_exchange_symbol_url)
     r.encoding = "gbk"
     data_text = r.text
-    data_json = demjson.decode(
-        data_text[data_text.find("{") : data_text.find("};") + 1]
-    )
+    data_json = jsonish.loads(data_text[data_text.find("{") : data_text.find("};") + 1])
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -182,23 +181,20 @@ def match_main_contract(symbol: str = "cffex") -> str:
     for item in exchange_symbol_list:
         # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
-        res = requests.get(
+        res = http.get(
             zh_match_main_contract_url, params=zh_match_main_contract_payload
         )
-        data_json = demjson.decode(res.text)
+        data_json = jsonish.loads(res.text)
         data_df = pd.DataFrame(data_json)
         try:
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
-            print(main_contract["symbol"].values[0])
             subscribe_exchange_list.append(main_contract["symbol"].values[0])
-        except:  # noqa: E722
+        except Exception:
             if len(data_df) == 1:
                 subscribe_exchange_list.append(data_df["symbol"].values[0])
-                print(data_df["symbol"].values[0])
             else:
-                print(item, "无主力合约")
+                warnings.warn(f"{item} 无主力合约")
             continue
-    print(f"{symbol}主力合约获取成功")
     return ",".join([item for item in subscribe_exchange_list])
 
 
@@ -236,7 +232,7 @@ def futures_zh_spot(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_df = pd.DataFrame(
         [
             item.strip().split("=")[1].split(",")
@@ -329,7 +325,7 @@ def futures_zh_spot(
             data_df["last_settle_price"] = pd.to_numeric(
                 data_df["last_settle_price"], errors="coerce"
             )
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
         else:
             data_df.columns = [
@@ -409,7 +405,7 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
     else:
         if market == "CF":
@@ -445,7 +441,7 @@ def futures_zh_spot(
                     "_",
                     "_",
                 ]
-            except:  # noqa: E722
+            except Exception:
                 data_df.columns = [
                     "symbol",
                     "time",
@@ -531,7 +527,7 @@ def futures_zh_spot(
             data_df["last_settle_price"] = pd.to_numeric(
                 data_df["last_settle_price"], errors="coerce"
             )
-            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
         else:
             data_df.columns = [
@@ -608,7 +604,7 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
-            data_df.dropna(subset=["current_price"], inplace=True, ignore_index=True)
+            data_df = data_df.dropna(subset=["current_price"], ignore_index=True)
             return data_df
 
 
@@ -628,7 +624,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
         "symbol": symbol,
         "type": period,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "datetime",
@@ -666,7 +662,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
         "symbol": symbol,
         "type": "_".join([date[:4], date[4:6], date[6:]]),
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "date",

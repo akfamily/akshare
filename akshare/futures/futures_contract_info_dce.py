@@ -7,7 +7,8 @@ http://www.dce.com.cn/dalianshangpin/ywfw/ywcs/jycs/hyxxcx/index.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_contract_info_dce() -> pd.DataFrame:
@@ -23,10 +24,10 @@ def futures_contract_info_dce() -> pd.DataFrame:
         "tradeType": "1",
         "varietyId": "all",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "contractId": "合约",
             "variety": "品种名称",
@@ -38,7 +39,6 @@ def futures_contract_info_dce() -> pd.DataFrame:
             "endDeliveryDate": "最后交割日",
             "tradeType": "",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

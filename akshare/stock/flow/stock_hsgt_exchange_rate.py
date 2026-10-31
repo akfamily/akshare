@@ -12,7 +12,8 @@ import warnings
 from datetime import datetime
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_sgt_settlement_exchange_rate_szse() -> pd.DataFrame:
@@ -29,11 +30,11 @@ def stock_sgt_settlement_exchange_rate_szse() -> pd.DataFrame:
         "TABKEY": "tab2",
         "random": "0.9184251620553985",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(r.content, engine="openpyxl")
-    temp_df.sort_values(by="适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["买入结算汇兑比率"] = pd.to_numeric(
         temp_df["买入结算汇兑比率"], errors="coerce"
@@ -58,11 +59,11 @@ def stock_sgt_reference_exchange_rate_szse() -> pd.DataFrame:
         "TABKEY": "tab1",
         "random": "0.9184251620553985",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(r.content, engine="openpyxl")
-    temp_df.sort_values(by="适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["参考汇率买入价"] = pd.to_numeric(
         temp_df["参考汇率买入价"], errors="coerce"
@@ -99,10 +100,10 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/105.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "currencyType": "货币种类",
             "buyPrice": "参考汇率买入价",
@@ -110,7 +111,6 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
             "validDate": "适用日期",
             "sellPrice": "参考汇率卖出价",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -120,7 +120,7 @@ def stock_sgt_reference_exchange_rate_sse() -> pd.DataFrame:
             "货币种类",
         ]
     ]
-    temp_df.sort_values("适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values("适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["参考汇率买入价"] = pd.to_numeric(
         temp_df["参考汇率买入价"], errors="coerce"
@@ -157,10 +157,10 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/105.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "currencyType": "货币种类",
             "buyPrice": "买入结算汇兑比率",
@@ -168,7 +168,6 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
             "validDate": "适用日期",
             "sellPrice": "卖出结算汇兑比率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -178,7 +177,7 @@ def stock_sgt_settlement_exchange_rate_sse() -> pd.DataFrame:
             "货币种类",
         ]
     ]
-    temp_df.sort_values("适用日期", inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values("适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["买入结算汇兑比率"] = pd.to_numeric(
         temp_df["买入结算汇兑比率"], errors="coerce"

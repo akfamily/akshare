@@ -9,8 +9,8 @@ http://www.swhyresearch.com/institute_sw/allIndex/downloadCenter/industryType
 import io
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -22,18 +22,17 @@ def stock_industry_clf_hist_sw() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls"  # 此处为 https
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_excel(
         io.BytesIO(r.content), dtype={"股票代码": "str", "行业代码": "str"}
     )
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "股票代码": "symbol",
             "计入日期": "start_date",
             "行业代码": "industry_code",
             "更新日期": "update_time",
         },
-        inplace=True,
     )
     temp_df["start_date"] = pd.to_datetime(
         temp_df["start_date"], errors="coerce"

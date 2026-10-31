@@ -22,55 +22,12 @@ http://www.cnemission.com/article/hqxx/
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 from akshare.utils.cons import headers
-
-
-def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
-    """
-    碳交易网-行情信息
-    http://www.tanjiaoyi.com/
-    :param symbol: choice of {'湖北', '上海', '北京', '重庆', '广东', '天津', '深圳', '福建'}
-    :type symbol: str
-    :return: 行情信息
-    :rtype: pandas.DataFrame
-    """
-    url = "http://k.tanjiaoyi.com:8080/KDataController/getHouseDatasInAverage.do"
-    params = {
-        "lcnK": "53f75bfcefff58e4046ccfa42171636c",
-        "brand": "TAN",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("(") + 1 : -1])
-    temp_df = pd.DataFrame(data_json[symbol])
-    temp_df.columns = [
-        "成交价",
-        "_",
-        "成交量",
-        "地点",
-        "成交额",
-        "日期",
-        "_",
-    ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "成交价",
-            "成交量",
-            "成交额",
-            "地点",
-        ]
-    ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df["成交价"] = pd.to_numeric(temp_df["成交价"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    return temp_df
 
 
 def energy_carbon_bj() -> pd.DataFrame:
@@ -81,7 +38,7 @@ def energy_carbon_bj() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.bjets.com.cn/article/jyxx/"
-    r = requests.get(url, verify=False, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     total_page = (
         soup.find("table")
@@ -100,7 +57,7 @@ def energy_carbon_bj() -> pd.DataFrame:
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
-        r = requests.get(url, verify=False, headers=headers)
+        r = http.get(url, headers=headers)
         r.encoding = "utf-8"
         df = pd.read_html(StringIO(r.text))[0]
         temp_df = pd.concat(objs=[temp_df, df], ignore_index=True)
@@ -126,8 +83,8 @@ def energy_carbon_bj() -> pd.DataFrame:
     temp_df["成交额"] = temp_df["成交额"].str.replace(",", "")
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df.sort_values(by="日期", inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by="日期")
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -139,7 +96,7 @@ def energy_carbon_sz() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsCN/index.htm"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
     big_df = pd.read_html(StringIO(r.text), header=0)[0]
@@ -147,7 +104,7 @@ def energy_carbon_sz() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsCN/index_{page}.htm"
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
@@ -158,8 +115,8 @@ def energy_carbon_sz() -> pd.DataFrame:
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
     big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df.sort_values(by="交易日期", inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(by="交易日期")
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -171,7 +128,7 @@ def energy_carbon_eu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsOuter/index.htm"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
     big_df = pd.read_html(StringIO(r.text), header=0)[0]
@@ -179,7 +136,7 @@ def energy_carbon_eu() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsOuter/index_{page}.htm"
-        r = requests.get(url)
+        r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
@@ -190,8 +147,8 @@ def energy_carbon_eu() -> pd.DataFrame:
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
     big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df.sort_values(by="交易日期", inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(by="交易日期")
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -203,16 +160,16 @@ def energy_carbon_hb() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.hbets.cn/"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     data_text = (
         soup.find(name="div", attrs={"class": "threeLeft"}).find_all("script")[1].text
     )
     start_pos = data_text.find("cjj = '[") + 7  # 找到 JSON 数组开始的位置
     end_pos = data_text.rfind("cjj =") - 31  # 找到 JSON 数组结束的位置
-    data_json = demjson.decode(data_text[start_pos:end_pos])
+    data_json = jsonish.loads(data_text[start_pos:end_pos])
     temp_df = pd.DataFrame.from_dict(data_json)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "riqi": "日期",
             "cjj": "成交价",
@@ -220,7 +177,6 @@ def energy_carbon_hb() -> pd.DataFrame:
             "zx": "最新",
             "zd": "涨跌",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -252,7 +208,7 @@ def energy_carbon_gz() -> pd.DataFrame:
         "beginTime": "2010-01-01",
         "endTime": "2030-09-12",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text), header=0)[1]
     temp_df.columns = [
         "日期",
@@ -278,18 +234,12 @@ def energy_carbon_gz() -> pd.DataFrame:
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["成交数量"] = pd.to_numeric(temp_df["成交数量"], errors="coerce")
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
-    temp_df.sort_values(by="日期", inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by="日期")
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
 if __name__ == "__main__":
-    energy_carbon_domestic_df = energy_carbon_domestic(symbol="湖北")
-    print(energy_carbon_domestic_df)
-
-    energy_carbon_domestic_df = energy_carbon_domestic(symbol="深圳")
-    print(energy_carbon_domestic_df)
-
     energy_carbon_bj_df = energy_carbon_bj()
     print(energy_carbon_bj_df)
 

@@ -7,7 +7,8 @@ http://www.gfex.com.cn/gfex/hyxx/ywcs.shtml
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_contract_info_gfex() -> pd.DataFrame:
@@ -25,10 +26,10 @@ def futures_contract_info_gfex() -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "tradeType": "-",
             "variety": "品种",
@@ -40,7 +41,6 @@ def futures_contract_info_gfex() -> pd.DataFrame:
             "endTradeDate": "最后交易日",
             "endDeliveryDate0": "最后交割日",
         },
-        inplace=True,
     )
     temp_df["交易单位"] = pd.to_numeric(temp_df["交易单位"], errors="coerce")
     temp_df["最小变动单位"] = pd.to_numeric(temp_df["最小变动单位"], errors="coerce")

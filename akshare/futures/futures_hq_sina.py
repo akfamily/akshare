@@ -10,10 +10,10 @@ import time
 from typing import Union, List
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def _get_real_name_list() -> list:
@@ -24,13 +24,13 @@ def _get_real_name_list() -> list:
     :rtype: list
     """
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "gb2312"
     data_text = r.text
     need_text = data_text[
         data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2") - 2
     ].replace("\n\t", "")
-    data_json = demjson.decode(need_text)
+    data_json = jsonish.loads(need_text)
     name_list = [item[0].strip() for item in data_json.values()]
     return name_list
 
@@ -43,10 +43,10 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     :rtype: list
     """
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "gb2312"
     data_text = r.text
-    data_json = demjson.decode(
+    data_json = jsonish.loads(
         data_text[
             data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2 = ") - 2
         ]
@@ -95,7 +95,7 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
         "欧洲碳排放": "EUA",
     }
     temp_df = pd.DataFrame.from_dict(inner_dict, orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["symbol", "code"]
     return temp_df
 
@@ -133,7 +133,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_df = pd.DataFrame(
         [
@@ -201,7 +201,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
         "持仓量",
         "日期",
     ]
-    data_df.dropna(how="all", inplace=True)
+    data_df = data_df.dropna(how="all")
     data_df["最新价"] = pd.to_numeric(data_df["最新价"], errors="coerce")
     data_df["人民币报价"] = pd.to_numeric(data_df["人民币报价"], errors="coerce")
     data_df["买价"] = pd.to_numeric(data_df["买价"], errors="coerce")
@@ -236,7 +236,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
 
     # 获取转换比例数据
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, features="lxml")
     data_text = soup.find_all(name="script", attrs={"type": "text/javascript"})[
@@ -244,7 +244,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     ].string.strip()
     raw_text = data_text[data_text.find("oHF_1 = ") : data_text.find("oHF_2")]
     need_text = raw_text[raw_text.find("{") : raw_text.rfind("}") + 1]
-    data_json = demjson.decode(need_text)
+    data_json = jsonish.loads(need_text)
     price_mul = pd.DataFrame(
         [
             [item[0] for item in data_json.values()],
@@ -253,12 +253,12 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     ).T
     price_mul.columns = ["symbol", "price"]
     price_mul = price_mul[price_mul["symbol"].isin(data_df["名称"])]
-    price_mul.reset_index(inplace=True, drop=True)
+    price_mul = price_mul.reset_index(drop=True)
     price_mul["price"] = pd.to_numeric(price_mul["price"], errors="coerce")
 
     # 获取汇率数据
     url = "https://hq.sinajs.cn/?list=USDCNY"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     usd_rmb = float(
         data_text[data_text.find('"') + 1 : data_text.find(",美元人民币")].split(",")[
@@ -269,7 +269,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     # 计算人民币报价
     data_df["最新价"] = pd.to_numeric(data_df["最新价"], errors="coerce")
     data_df["人民币报价"] = data_df["最新价"] * price_mul["price"] * float(usd_rmb)
-    data_df.dropna(thresh=4, inplace=True)
+    data_df = data_df.dropna(thresh=4)
     return data_df
 
 

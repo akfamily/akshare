@@ -8,17 +8,18 @@ https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&referen
 
 from functools import lru_cache
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
-def __bond_register_service() -> requests.Session:
+def __bond_register_service() -> http.Session:
     """
     将服务注册到网站中，则该 IP 在 24 小时内可以直接访问
     https://www.chinamoney.com.cn
     :return: 访问过的 Session
-    :rtype: requests.Session
+    :rtype: akshare.utils.http.Session
     """
-    session = requests.Session()
+    session = http.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/108.0.0.0 Safari/537.36",
@@ -112,9 +113,9 @@ def bond_china_close_return_map() -> pd.DataFrame:
     }
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
     try:
-        r = requests.get(url, headers=headers)
+        r = http.get(url, headers=headers)
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         session = __bond_register_service()
         r = session.get(url, headers=headers)
         data_json = r.json()
@@ -159,7 +160,7 @@ def bond_china_close_return(
         "pageNum": "1",
         "pageSize": "50",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     del temp_df["newDateValue"]

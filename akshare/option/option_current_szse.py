@@ -8,7 +8,8 @@ Desc: 深圳证券交易所-期权子网-行情数据-当日合约
 from io import BytesIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def option_current_day_szse() -> pd.DataFrame:
@@ -29,7 +30,7 @@ def option_current_day_szse() -> pd.DataFrame:
         "CATALOGID": "option_drhy",
         "TABKEY": "tab1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["序号"] = pd.to_numeric(temp_df["序号"], errors="coerce")
     temp_df["行权价"] = pd.to_numeric(temp_df["行权价"], errors="coerce")

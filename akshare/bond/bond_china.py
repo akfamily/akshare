@@ -11,9 +11,9 @@ https://www.chinamoney.com.cn/chinese/mkdatabond/
 from io import StringIO
 
 import pandas as pd
-import requests
 
 from akshare.bond.bond_china_money import bond_china_close_return_map
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -30,7 +30,7 @@ def bond_spot_quote() -> pd.DataFrame:
         "flag": "1",
         "lang": "cn",
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    r = http.post(url=url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -94,7 +94,7 @@ def bond_spot_deal() -> pd.DataFrame:
         "lang": "cn",
         "bondName": "",
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    r = http.post(url=url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -162,7 +162,7 @@ def bond_china_yield(
         "qxId": "ycqx",
         "locale": "cn_ZH",
     }
-    res = requests.get(url, params=params, headers=headers)
+    res = http.get(url, params=params, headers=headers)
     data_text = res.text.replace("&nbsp", "")
     data_df = pd.read_html(StringIO(data_text), header=0)[1]
     data_df["日期"] = pd.to_datetime(data_df["日期"], errors="coerce").dt.date
@@ -174,8 +174,8 @@ def bond_china_yield(
     data_df["7年"] = pd.to_numeric(data_df["7年"], errors="coerce")
     data_df["10年"] = pd.to_numeric(data_df["10年"], errors="coerce")
     data_df["30年"] = pd.to_numeric(data_df["30年"], errors="coerce")
-    data_df.sort_values(by="日期", inplace=True)
-    data_df.reset_index(inplace=True, drop=True)
+    data_df = data_df.sort_values(by="日期")
+    data_df = data_df.reset_index(drop=True)
     return data_df
 
 

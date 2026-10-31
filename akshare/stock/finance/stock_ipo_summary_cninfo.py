@@ -7,10 +7,10 @@ https://webapi.cninfo.com.cn/#/company
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_ths(file: str = "cninfo.js") -> str:
@@ -58,7 +58,7 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "Referer": "https://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["records"][0], orient="index").T
     temp_df.columns = [

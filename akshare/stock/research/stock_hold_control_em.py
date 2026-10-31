@@ -7,8 +7,9 @@ https://data.eastmoney.com/executive/list.html
 """
 
 import pandas as pd
-import requests
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def stock_hold_management_detail_em() -> pd.DataFrame:
@@ -34,7 +35,7 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -47,12 +48,12 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
                 "pageNum": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SECURITY_CODE": "代码",
             "DERIVE_SECURITY_CODE": "-",
@@ -74,7 +75,6 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
             "BEGIN_HOLD_NUM": "开始时持有",
             "END_HOLD_NUM": "结束后持有",
         },
-        inplace=True,
     )
 
     big_df = big_df[
@@ -134,10 +134,10 @@ def stock_hold_management_person_em(
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "SECURITY_CODE": "代码",
             "DERIVE_SECURITY_CODE": "-",
@@ -159,7 +159,6 @@ def stock_hold_management_person_em(
             "BEGIN_HOLD_NUM": "开始时持有",
             "END_HOLD_NUM": "结束后持有",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

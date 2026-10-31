@@ -9,6 +9,7 @@ from akshare.datasets import get_data_file
 import datetime
 import json
 import re
+import warnings
 
 # 中国金融期货交易所
 
@@ -112,7 +113,7 @@ def last_trading_day(day):
 
     if isinstance(day, str):
         if day not in calendar:
-            print("Today is not trading day: " + day)
+            warnings.warn("Today is not trading day: " + day)
             return False
         pos = calendar.index(day)
         last_day = calendar[pos - 1]
@@ -121,7 +122,7 @@ def last_trading_day(day):
     elif isinstance(day, datetime.date):
         d_str = day.strftime("%Y%m%d")
         if d_str not in calendar:
-            print("Today is not working day: " + d_str)
+            warnings.warn("Today is not working day: " + d_str)
             return False
         pos = calendar.index(d_str)
         last_day = calendar[pos - 1]

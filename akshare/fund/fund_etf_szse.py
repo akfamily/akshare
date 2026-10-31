@@ -9,7 +9,8 @@ https://fund.szse.cn/marketdata/fundslist/index.html
 import warnings
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fund_etf_scale_szse() -> pd.DataFrame:
@@ -31,15 +32,14 @@ def fund_etf_scale_szse() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(r.content, engine="openpyxl", dtype={"基金代码": str})
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "当前规模(份)": "基金份额",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

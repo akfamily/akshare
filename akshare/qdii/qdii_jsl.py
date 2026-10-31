@@ -28,7 +28,7 @@ def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     }
     data_json = make_request_with_retry_json(url, params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fund_id": "代码",
             "fund_nm": "名称",
@@ -49,7 +49,6 @@ def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
             "mt_fee": "托管费",
             "issuer_nm": "基金公司",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -100,7 +99,7 @@ def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
     headers = {"cookie": cookie}
     data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fund_id": "代码",
             "fund_nm": "名称",
@@ -121,7 +120,6 @@ def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
             "mt_fee": "托管费",
             "issuer_nm": "基金公司",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -172,7 +170,7 @@ def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
     headers = {"cookie": cookie}
     data_json = make_request_with_retry_json(url, params=params, headers=headers)
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fund_id": "代码",
             "fund_nm": "名称",
@@ -192,7 +190,6 @@ def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
             "mt_fee": "托管费",
             "issuer_nm": "基金公司",
         },
-        inplace=True,
     )
 
     temp_df = temp_df[

@@ -12,7 +12,8 @@ import re
 from typing import Dict, List, Literal, Union
 
 import pandas as pd
-from curl_cffi import requests as curl_requests
+
+from akshare.utils import http
 
 _NBS_SESSION = None
 _KIND_CONFIG: Dict[str, Dict[str, Union[int, str]]] = {
@@ -51,20 +52,19 @@ def _get_nbs_headers(route: str) -> Dict[str, str]:
     }
 
 
-def _get_nbs_session() -> curl_requests.Session:
+def _get_nbs_session() -> http.CurlSession:
     """
     获取已预热的国家统计局会话。
 
     :return: 已预热会话
-    :rtype: curl_requests.Session
+    :rtype: akshare.utils.http.CurlSession
     """
     global _NBS_SESSION
     if _NBS_SESSION is None:
-        _NBS_SESSION = curl_requests.Session(impersonate="chrome")
+        _NBS_SESSION = http.CurlSession(impersonate="chrome")
         _NBS_SESSION.get(
             "https://data.stats.gov.cn/dg/website/page.html#/pc/national/monthData",
             headers=_get_nbs_headers("monthData"),
-            timeout=30,
         )
     return _NBS_SESSION
 
@@ -116,7 +116,6 @@ def _get_nbs_tree(pid: str, code: int, route: str) -> List[Dict]:
         url,
         params={"pid": pid, "code": code},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -157,7 +156,6 @@ def _get_nbs_indicators(cid: str, route: str) -> List[Dict]:
         url,
         params={"cid": cid, "dt": "", "name": ""},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", {}).get("list", [])
@@ -180,7 +178,6 @@ def _get_nbs_da_catalogs(cid: str, route: str) -> List[Dict]:
         url,
         params={"indicatorCid": cid},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -203,7 +200,6 @@ def _get_nbs_da_members(da_cid: str, route: str) -> List[Dict]:
         url,
         params={"daCid": da_cid},
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -508,7 +504,6 @@ def _post_nbs_es_data(
         url,
         json=payload,
         headers=_get_nbs_headers(route),
-        timeout=30,
     )
     data_json = r.json()
     return data_json.get("data", [])
@@ -557,7 +552,7 @@ def macro_china_nbs_nation(
             )
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
     temp_df = temp_df.reindex(index=indicator_order, columns=period_names)
-    temp_df.dropna(axis=1, how="all", inplace=True)
+    temp_df = temp_df.dropna(axis=1, how="all")
     temp_df.index.name = None
     temp_df.columns.name = None
     return temp_df
@@ -641,7 +636,7 @@ def macro_china_nbs_region(
                 )
         temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
         temp_df = temp_df.reindex(index=region_order, columns=period_names)
-        temp_df.dropna(axis=1, how="all", inplace=True)
+        temp_df = temp_df.dropna(axis=1, how="all")
         temp_df.index.name = None
         temp_df.columns.name = title_name
         return temp_df
@@ -686,7 +681,7 @@ def macro_china_nbs_region(
             )
     temp_df = pd.DataFrame.from_dict(data_dict, orient="index")
     temp_df = temp_df.reindex(index=indicator_order, columns=period_names)
-    temp_df.dropna(axis=1, how="all", inplace=True)
+    temp_df = temp_df.dropna(axis=1, how="all")
     temp_df.index.name = None
     temp_df.columns.name = region_item["show_name"]
     return temp_df

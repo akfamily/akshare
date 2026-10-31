@@ -89,7 +89,7 @@ def test_latest_szse_and_public_exports(monkeypatch):
             )
         return response(xml_content(True))
 
-    monkeypatch.setattr(module.requests, "get", get)
+    monkeypatch.setattr(module.http, "get", get)
     assert ak.fund_etf_pcf("159502").loc[0, "基金代码"] == "159502"
     assert calls[-1][0].endswith("pcf_159502_20261029.xml")
     assert callable(ak.fund_etf_holdings_tx)
@@ -153,7 +153,7 @@ def quote_mock(monkeypatch, missing=None):
             ).encode()
         )
 
-    monkeypatch.setattr(module.requests, "get", get)
+    monkeypatch.setattr(module.http, "get", get)
     return calls
 
 
@@ -195,7 +195,7 @@ def test_quote_batching(monkeypatch):
         batches.append(url.split("q=")[1].split(","))
         return response(b'v_sh000001="1~name~000001~10";')
 
-    monkeypatch.setattr(module.requests, "get", get)
+    monkeypatch.setattr(module.http, "get", get)
     result = module._quote_prices(
         [f"sh{index:06}" for index in range(101)] + ["sh000001"]
     )
@@ -212,7 +212,7 @@ def test_sse_request_and_cny_valuation(monkeypatch):
             return response(xml_content(encoding="gb18030"))
         return response(b'v_sz000001="1~name~000001~10";')
 
-    monkeypatch.setattr(module.requests, "get", get)
+    monkeypatch.setattr(module.http, "get", get)
     result = ak.fund_etf_holdings_tx("510300")
     assert result.loc[0, "市值"] == 1000
     assert result.loc[0, "人民币汇率"] == 1
@@ -222,13 +222,13 @@ def test_sse_request_and_cny_valuation(monkeypatch):
 
 def test_missing_announcement_and_http_error(monkeypatch):
     monkeypatch.setattr(
-        module.requests, "get", lambda *args, **kwargs: response(b'[{"data": []}]')
+        module.http, "get", lambda *args, **kwargs: response(b'[{"data": []}]')
     )
     with pytest.raises(DataParsingError):
         ak.fund_etf_pcf("159502")
     failed = response(b"error")
     failed.status_code = 503
-    monkeypatch.setattr(module.requests, "get", lambda *args, **kwargs: failed)
+    monkeypatch.setattr(module.http, "get", lambda *args, **kwargs: failed)
     with pytest.raises(requests.HTTPError):
         ak.fund_etf_pcf("510300")
 
@@ -271,6 +271,6 @@ def test_invalid_fx_raises(monkeypatch, value):
             ).encode()
         )
 
-    monkeypatch.setattr(module.requests, "get", get)
+    monkeypatch.setattr(module.http, "get", get)
     with pytest.raises(DataParsingError):
         ak.fund_etf_holdings_tx("159502")

@@ -7,7 +7,8 @@ https://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def bond_gb_zh_sina(symbol: str = "中国10年期国债") -> pd.DataFrame:
@@ -31,7 +32,7 @@ def bond_gb_zh_sina(symbol: str = "中国10年期国债") -> pd.DataFrame:
         "中国30年期国债": "CN30YT",
     }
     url = f"https://bond.finance.sina.com.cn/hq/gb/daily?symbol={symbol_map[symbol]}"
-    r = requests.get(url)
+    r = http.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -76,7 +77,7 @@ def bond_gb_us_sina(symbol: str = "美国10年期国债") -> pd.DataFrame:
         "美国30年期国债": "US30YT",
     }
     url = f"https://bond.finance.sina.com.cn/hq/gb/daily?symbol={symbol_map[symbol]}"
-    r = requests.get(url)
+    r = http.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [

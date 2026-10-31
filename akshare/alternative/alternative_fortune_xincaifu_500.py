@@ -9,7 +9,8 @@ http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
 import json
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
@@ -34,12 +35,12 @@ def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
         "pageNo": "1",
         "from": "jsonp",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["data"]["rows"])
     temp_df.columns
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "assets": "财富",
             "year": "年份",
@@ -53,7 +54,6 @@ def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
             "rankLst": "-",
             "age": "年龄",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

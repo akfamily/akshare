@@ -39,6 +39,29 @@ uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.
 1. 重新运行接口函数
 2. 更换 IP 地址，可以使用代理访问
 3. 降低数据访问的频率
+4. 网络较慢时调大超时，见下文“设置代理与超时”
+
+自 1.20.4 起，所有接口默认连接超时 10 秒、读取超时 60 秒，上游长时间无响应时会抛出 `ConnectTimeout` 或 `ReadTimeout`，不再无限等待。读取超时指两次收到数据之间的最长间隔，持续传输的大文件不受影响。
+
+(faq-proxy)=
+### 设置代理与超时
+
+代理与超时是全局设置，运行中修改立即生效：
+
+```python
+import akshare as ak
+
+ak.set_proxies({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"})
+ak.set_timeout(30)        # 单位为秒；也可传 (连接超时, 读取超时)，如 (10, 120)
+ak.set_timeout(None)      # 不限时
+
+with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}):
+    stock_zh_a_daily_df = ak.stock_zh_a_daily(symbol="sh600000")  # 仅此代码块内使用该代理
+```
+
+未调用 `ak.set_proxies` 时，沿用 `HTTP_PROXY`、`HTTPS_PROXY` 环境变量和系统代理设置。`ak.get_proxies()`、`ak.get_timeout()` 返回当前设置。
+
+自 1.20.5 起，这两项设置对全部接口生效。其中 `stock_news_em`、百度股市通系列、国家统计局系列等少数需要模拟浏览器指纹的接口经 curl_cffi 发送请求，它把二元组的两项之和当作整个请求的总时长上限，默认即 70 秒，而不是两次收到数据之间的间隔。
 
 ### 使用代理时报错
 
@@ -46,6 +69,16 @@ uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.
 
 1. 检查代理地址的协议：大多数本地代理软件提供的是 HTTP 代理，`https` 一项也应写成 `http://` 开头，例如 `{"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}`
 2. 不要通过降低 urllib3 版本来规避，旧版本存在已知安全漏洞
+
+(faq-eastmoney-ratelimit)=
+### 东方财富行情接口报 RemoteDisconnected 或限流
+
+报错信息：`Push2RateLimitError: 东方财富 push2 行情服务器断开了连接……`；1.20.6 及以前为 `ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))`
+
+1. 原因：东方财富 push2 行情服务器在短时间内收到较多请求时，会临时拒绝来自该 IP 的连接。实时行情、历史 K 线、板块、资金流等接口都使用这类服务器，需要翻页的接口最容易触发，例如 stock_zh_a_spot_em 一次调用要请求约 60 页
+2. 首次限流一般约 5 分钟后恢复；恢复后如果马上又大量请求，会更快再次被限流，恢复时间也更长，实测超过 15 分钟仍未恢复
+3. 等待期间不要重复调用东方财富的行情接口，否则会延长限流。东方财富数据中心、基金、F10 财务报表等接口使用其他服务器，实测不受影响
+4. 自 1.20.7 起，识别到限流后立即报错，不再自动重试。该异常同时是 `ak.RateLimitError` 与 `requests.ConnectionError` 的子类，可以用 `except ak.RateLimitError` 单独捕获
 
 ### 升级到 1.20.0 后找不到模块
 

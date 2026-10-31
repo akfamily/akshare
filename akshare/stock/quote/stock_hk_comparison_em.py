@@ -7,7 +7,8 @@ https://emweb.securities.eastmoney.com/PC_HKF10/pages/home/index.html?code=03900
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_growth_comparison_em(symbol: str = "03900") -> pd.DataFrame:
@@ -36,7 +37,7 @@ def stock_hk_growth_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "03313416193688571",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     field_mapping = {
         "CORRE_SECURITY_CODE": "代码",
@@ -53,7 +54,7 @@ def stock_hk_growth_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
     return temp_df
 
@@ -85,7 +86,7 @@ def stock_hk_valuation_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "03445297742754925",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     field_mapping = {
         "CORRE_SECURITY_CODE": "代码",
@@ -110,7 +111,7 @@ def stock_hk_valuation_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
     return temp_df
 
@@ -142,7 +143,7 @@ def stock_hk_scale_comparison_em(symbol: str = "03900") -> pd.DataFrame:
         "client": "PC",
         "v": "07839693368708753",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     field_mapping = {
         "CORRE_SECURITY_CODE": "代码",
@@ -159,7 +160,7 @@ def stock_hk_scale_comparison_em(symbol: str = "03900") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
     return temp_df
 

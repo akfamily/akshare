@@ -10,9 +10,9 @@ import json
 import math
 
 import pandas as pd
-import requests
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 from tqdm import tqdm
 
 
@@ -27,23 +27,23 @@ def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
     """
     if indicator == "新浪行业":
         url = "http://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php"
-        r = requests.get(url)
+        r = http.get(url)
     if indicator == "启明星行业":
         url = "http://biz.finance.sina.com.cn/hq/qmxIndustryHq.php"
-        r = requests.get(url)
+        r = http.get(url)
         r.encoding = "gb2312"
     if indicator == "概念":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
         params = {"param": "class"}
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
     if indicator == "地域":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
         params = {"param": "area"}
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
     if indicator == "行业":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
         params = {"param": "industry"}
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
     text_data = r.text
     json_data = json.loads(text_data[text_data.find("{") :])
     temp_df = pd.DataFrame([value.split(",") for key, value in json_data.items()])
@@ -85,7 +85,7 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
     """
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
     params = {"node": sector}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     total_num = int(r.json())
     total_page_num = math.ceil(int(total_num) / 80)
     big_df = pd.DataFrame()
@@ -100,9 +100,9 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
             "symbol": "",
             "_s_r_a": "page",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text)
+        data_json = jsonish.loads(data_text)
         temp_df = pd.DataFrame(data_json)
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df["trade"] = pd.to_numeric(big_df["trade"], errors="coerce")

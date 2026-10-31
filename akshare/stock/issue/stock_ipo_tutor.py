@@ -7,10 +7,11 @@ https://data.eastmoney.com/xg/ipo/fd.html
 """
 
 import json
+import warnings
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
@@ -46,7 +47,7 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
         return json.loads(json_str)
 
     # 首次请求获取总页数
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     r.raise_for_status()  # 如果请求失败，抛出异常
     data_json = parse_jsonp(r.text)
 
@@ -59,20 +60,20 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params["pageNumber"] = str(page)
-        r = requests.get(url, params=params, headers=headers)
+        r = http.get(url, params=params, headers=headers)
         r.raise_for_status()
         try:
             data_json = parse_jsonp(r.text)
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         except Exception as e:
-            print(f"第 {page} 页解析失败: {e}")
+            warnings.warn(f"第 {page} 页解析失败: {e}")
             continue
 
-    big_df.reset_index(drop=True, inplace=True)
+    big_df = big_df.reset_index(drop=True)
     big_df.insert(0, "序号", big_df.index + 1)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "TUTOR_OBJECT": "企业名称",
             "TUTOR_ORG": "辅导机构",
@@ -82,7 +83,6 @@ def stock_ipo_tutor_em() -> pd.DataFrame:
             "REPORT_TITLE": "报告标题",
             "RECORD_DATE": "备案日期",
         },
-        inplace=True,
     )
 
     big_df = big_df[

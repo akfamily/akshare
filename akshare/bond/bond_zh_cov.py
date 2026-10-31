@@ -11,7 +11,6 @@ import re
 
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.bond.cons import (
     zh_sina_bond_hs_cov_count_url,
@@ -20,7 +19,8 @@ from akshare.bond.cons import (
     zh_sina_bond_hs_cov_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
@@ -35,7 +35,7 @@ def _get_zh_bond_hs_cov_page_count() -> int:
     params = {
         "node": "hskzz_z",
     }
-    r = requests.get(zh_sina_bond_hs_cov_count_url, params=params)
+    r = http.get(zh_sina_bond_hs_cov_count_url, params=params)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -56,8 +56,8 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
-        res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
-        data_json = demjson.decode(res.text)
+        res = http.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
+        data_json = jsonish.loads(res.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     return big_df
 
@@ -71,7 +71,7 @@ def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     :return: 指定沪深可转债代码的日 K 线数据
     :rtype: pandas.DataFrame
     """
-    r = requests.get(
+    r = http.get(
         zh_sina_bond_hs_cov_hist_url.format(
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
         )
@@ -108,7 +108,7 @@ def _code_id_map() -> dict:
     }
     temp_df = fetch_paginated_data(url, params)
     temp_df["market_id"] = 1
-    temp_df.rename(columns={"f12": "sh_code", "market_id": "sh_id"}, inplace=True)
+    temp_df = temp_df.rename(columns={"f12": "sh_code", "market_id": "sh_id"})
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
@@ -163,7 +163,7 @@ def bond_zh_hs_cov_min(
             "ut": "f057cbcbce2a86e2866ab8877db1d059",
             "ndays": "1",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -180,7 +180,7 @@ def bond_zh_hs_cov_min(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -211,7 +211,7 @@ def bond_zh_hs_cov_min(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "forcect": "1",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -231,7 +231,7 @@ def bond_zh_hs_cov_min(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -280,7 +280,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
         "iscca": "0",
         "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
@@ -294,7 +294,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
         "最新价",
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
-    temp_df.reset_index(drop=True, inplace=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -329,14 +329,14 @@ def bond_zh_cov() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -581,7 +581,7 @@ def bond_zh_cov_info(
                 "f240~10~SECURITY_CODE~REDEEM_TRIG_PRICE,f23~01~CONVERT_STOCK_CODE~PBV_RATIO",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -592,7 +592,7 @@ def bond_zh_cov_info(
                 "quoteColumns": "",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -605,7 +605,7 @@ def bond_zh_cov_info(
                 "sortTypes": "1",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -616,7 +616,7 @@ def bond_zh_cov_info(
                 "quoteColumns": "",
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -645,10 +645,10 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "p": "1",
         "ps": "8000",
     }
-    r = requests.get(url, params=params, timeout=15)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "DATE": "日期",
             "SWAPVALUE": "转股价值",
@@ -657,7 +657,6 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
             "SWAPOR": "转股溢价率",
             "FCLOSE": "收盘价",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

@@ -7,7 +7,8 @@ Desc:中国银行间市场交易商协会(https://www.nafmii.org.cn/)
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
@@ -32,10 +33,10 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
         "rows": 50,
     }
     payload.update({"page": page})
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     data_json = r.json()  # 数据类型为 json 格式
     temp_df = pd.DataFrame(data_json["rows"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "firstIssueAmount": "金额",
             "isReg": "注册或备案",
@@ -45,7 +46,6 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
             "releaseTime": "更新日期",
             "projPhase": "项目状态",
         },
-        inplace=True,
     )
     if "注册通知书文号" not in temp_df.columns:
         temp_df["注册通知书文号"] = pd.NA

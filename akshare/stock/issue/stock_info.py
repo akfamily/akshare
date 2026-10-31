@@ -12,7 +12,7 @@ from io import BytesIO
 from io import StringIO
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -39,7 +39,7 @@ def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
         "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
-    r = requests.get(url, params=params, timeout=15)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
@@ -152,11 +152,11 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
         "pageHelp.pageNo": "1",
         "pageHelp.endPage": "1",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     col_stock_code = "B_STOCK_CODE" if symbol == "主板B股" else "A_STOCK_CODE"
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             col_stock_code: "证券代码",
             "SEC_NAME_CN": "证券简称",
@@ -165,7 +165,6 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
             "FULL_NAME": "公司全称",
             "LIST_DATE": "上市日期",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -202,7 +201,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/110.0.0.0 Safari/537.36"
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("[") : -1])
     total_page = data_json[0]["totalPages"]
@@ -210,7 +209,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(total_page), leave=False):
         payload.update({"page": page})
-        r = requests.post(url, data=payload, headers=headers)
+        r = http.post(url, data=payload, headers=headers)
         data_text = r.text
         data_json = json.loads(data_text[data_text.find("[") : -1])
         temp_df = data_json[0]["content"]
@@ -325,17 +324,16 @@ def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
         "pageHelp.pageNo": "1",
         "pageHelp.endPage": "1",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "COMPANY_ABBR": "公司简称",
             "DELIST_DATE": "暂停上市日期",
             "LIST_DATE": "上市日期",
             "COMPANY_CODE": "公司代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -369,7 +367,7 @@ def stock_info_sz_delist(symbol: str = "终止上市公司") -> pd.DataFrame:
         "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
@@ -398,13 +396,13 @@ def stock_info_sz_change_name(symbol: str = "全称变更") -> pd.DataFrame:
         "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
         temp_df["变更日期"] = pd.to_datetime(temp_df["变更日期"]).dt.date
-        temp_df.sort_values(["变更日期"], inplace=True, ignore_index=True)
+        temp_df = temp_df.sort_values(["变更日期"], ignore_index=True)
         return temp_df
 
 
@@ -418,9 +416,9 @@ def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
     :rtype: list
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/{symbol}.phtml"
-    r = requests.get(url)
+    r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[3].iloc[:, :2]
-    temp_df.dropna(inplace=True)
+    temp_df = temp_df.dropna()
     temp_df.columns = ["item", "value"]
     temp_df["item"] = temp_df["item"].str.split("：", expand=True)[0]
     try:
@@ -428,7 +426,7 @@ def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
             temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
         )
         big_df = pd.DataFrame(name_list)
-        big_df.reset_index(inplace=True)
+        big_df = big_df.reset_index()
         big_df["index"] = big_df.index + 1
         big_df.columns = ["index", "name"]
         return big_df

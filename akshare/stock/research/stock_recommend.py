@@ -9,10 +9,9 @@ http://stock.finance.sina.com.cn/stock/go.php/vIR_RatingNewest/index.phtml
 from io import StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
-_SINA_RECOMMEND_TIMEOUT = 15
+from akshare.utils import http
 
 
 def _read_sina_recommend_table(html_text: str) -> pd.DataFrame:
@@ -41,7 +40,7 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "40",
         "p": "1",
     }
-    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
+    r = http.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
     indicator_map = {
         item.find("a").text: item.find("a")["href"]
@@ -52,7 +51,7 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         "num": "10000",
         "p": "1",
     }
-    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
+    r = http.get(url, params=params)
     if symbol == "股票综合评级":
         temp_df = _read_sina_recommend_table(r.text).iloc[:, :9]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
@@ -103,7 +102,7 @@ def stock_institute_recommend_detail(symbol: str = "000001") -> pd.DataFrame:
         "num": "5000",
         "p": "1",
     }
-    r = requests.get(url, params=params, timeout=_SINA_RECOMMEND_TIMEOUT)
+    r = http.get(url, params=params)
     temp_df = _read_sina_recommend_table(r.text).iloc[:, :8]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})

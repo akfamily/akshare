@@ -8,8 +8,8 @@ Desc: 东方财富网-指数行情数据
 from functools import lru_cache
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -84,7 +84,7 @@ def index_zh_a_hist(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         if data_json["data"] is None:
             params = {
@@ -97,7 +97,7 @@ def index_zh_a_hist(
                 "beg": "0",
                 "end": "20500000",
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -110,7 +110,7 @@ def index_zh_a_hist(
                     "beg": "0",
                     "end": "20500000",
                 }
-                r = requests.get(url, params=params)
+                r = http.get(url, params=params)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -123,13 +123,13 @@ def index_zh_a_hist(
                         "beg": "0",
                         "end": "20500000",
                     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     try:
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
         )
-    except:  # noqa: E722
+    except Exception:
         # 兼容 000859(中证国企一路一带) 和 000861(中证央企创新)
         params = {
             "secid": f"2.{symbol}",
@@ -141,7 +141,7 @@ def index_zh_a_hist(
             "beg": "0",
             "end": "20500000",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -161,7 +161,7 @@ def index_zh_a_hist(
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
     temp_df = temp_df[start_date:end_date]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -214,7 +214,7 @@ def index_zh_a_hist_min_em(
                 "ndays": "5",
                 "secid": f"1.{symbol}",
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -224,7 +224,7 @@ def index_zh_a_hist_min_em(
                     "ndays": "5",
                     "secid": f"0.{symbol}",
                 }
-                r = requests.get(url, params=params)
+                r = http.get(url, params=params)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -234,7 +234,7 @@ def index_zh_a_hist_min_em(
                         "ndays": "5",
                         "secid": f"47.{symbol}",
                     }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -251,7 +251,7 @@ def index_zh_a_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -274,7 +274,7 @@ def index_zh_a_hist_min_em(
                 "beg": "0",
                 "end": "20500000",
             }
-        except:  # noqa: E722
+        except Exception:
             params = {
                 "secid": f"0.{symbol}",
                 "ut": "7eea3edcaed734bea9cbfc24409ed989",
@@ -285,7 +285,7 @@ def index_zh_a_hist_min_em(
                 "beg": "0",
                 "end": "20500000",
             }
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -298,7 +298,7 @@ def index_zh_a_hist_min_em(
                     "beg": "0",
                     "end": "20500000",
                 }
-                r = requests.get(url, params=params)
+                r = http.get(url, params=params)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -311,7 +311,7 @@ def index_zh_a_hist_min_em(
                         "beg": "0",
                         "end": "20500000",
                     }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -331,7 +331,7 @@ def index_zh_a_hist_min_em(
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
         temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
         temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

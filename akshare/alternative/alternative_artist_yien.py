@@ -9,11 +9,11 @@ https://www.endata.com.cn/Marketing/Artist/business.html
 """
 
 from akshare.datasets import get_data_file
+from akshare.utils import http
 import datetime
 import json
 
 import pandas as pd  # type: ignore
-import requests
 import py_mini_racer  # type: ignore
 
 
@@ -76,7 +76,7 @@ def business_value_artist() -> pd.DataFrame:
         "PageSize": "100",
         "MethodName": "Data_GetList_Star",
     }
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
@@ -114,7 +114,7 @@ def online_value_artist() -> pd.DataFrame:
         "PageSize": 100,
         "MethodName": "Data_GetList_Star",
     }
-    r = requests.post(url, data=payload)
+    r = http.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])

@@ -7,7 +7,8 @@ https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=0
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zh_growth_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
@@ -33,7 +34,7 @@ def stock_zh_growth_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
         "client": "PC",
         "v": "02747607708067783",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
 
     field_mapping = {
@@ -63,7 +64,7 @@ def stock_zh_growth_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
 
     return temp_df
@@ -91,7 +92,7 @@ def stock_zh_valuation_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
         "source": "HSF10",
         "client": "PC",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     field_mapping_result = {
@@ -121,7 +122,7 @@ def stock_zh_valuation_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
         "TOTAL_COUNT": "证券数量",
         "PAIMING": "排名",
     }
-    temp_df.rename(columns=field_mapping_result, inplace=True)
+    temp_df = temp_df.rename(columns=field_mapping_result)
     temp_df = temp_df[
         [
             "排名",
@@ -182,7 +183,7 @@ def stock_zh_dupont_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
         "client": "PC",
         "v": "05086361194054821",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
 
     field_mapping = {
@@ -210,7 +211,7 @@ def stock_zh_dupont_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
 
     return temp_df
@@ -242,7 +243,7 @@ def stock_zh_scale_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
         "client": "PC",
         "v": "005391946600478148",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
 
     field_mapping = {
@@ -261,7 +262,7 @@ def stock_zh_scale_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
     temp_df = pd.DataFrame(columns=field_mapping.values())
     if data_json["result"] is not None:
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        temp_df.rename(columns=field_mapping, inplace=True)
+        temp_df = temp_df.rename(columns=field_mapping)
         temp_df = temp_df[field_mapping.values()]
 
     return temp_df

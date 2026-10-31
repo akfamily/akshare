@@ -7,7 +7,8 @@ https://data.eastmoney.com/tfpxx/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
@@ -31,18 +32,18 @@ def stock_tfp_em(date: str = "20240426") -> pd.DataFrame:
         "client": "WEB",
         "filter": f"""(MARKET="全部")(DATETIME='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in range(1, total_page + 1):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.columns = [
         "序号",
         "代码",

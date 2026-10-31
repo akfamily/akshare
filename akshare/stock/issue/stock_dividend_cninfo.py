@@ -8,9 +8,9 @@ https://webapi.cninfo.com.cn/#/company?companyid=600009
 
 import pandas as pd
 import py_mini_racer
-import requests
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_ths(file: str = "cninfo.js") -> str:
@@ -58,10 +58,10 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F006D": "实施方案公告日期",
             "F044V": "分红类型",
@@ -75,7 +75,6 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
             "F007V": "实施方案分红说明",
             "F001V": "报告时间",
         },
-        inplace=True,
     )
 
     temp_df["实施方案公告日期"] = pd.to_datetime(
@@ -89,7 +88,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
     ).dt.date
     temp_df["除权日"] = pd.to_datetime(temp_df["除权日"], errors="coerce").dt.date
     temp_df["派息日"] = pd.to_datetime(temp_df["派息日"], errors="coerce").dt.date
-    temp_df.sort_values(by="实施方案公告日期", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by="实施方案公告日期", ignore_index=True)
     temp_df = temp_df[
         [
             "实施方案公告日期",

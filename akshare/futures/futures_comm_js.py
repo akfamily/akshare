@@ -9,7 +9,8 @@ https://www.jin10.com/
 import json
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
@@ -38,7 +39,7 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
         ),
         "order": "date,desc",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.rename(

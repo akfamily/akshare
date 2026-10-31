@@ -12,9 +12,9 @@ from datetime import datetime, timedelta, timezone
 from xml.etree import ElementTree
 
 import pandas as pd
-import requests
 
 from akshare.exceptions import DataParsingError
+from akshare.utils import http
 
 
 def _parse_pcf(content: bytes, symbol: str, szse: bool) -> pd.DataFrame:
@@ -108,7 +108,7 @@ def fund_etf_pcf(symbol: str = "510300") -> pd.DataFrame:
     szse = symbol.startswith("15")
     if szse:
         today = datetime.now(timezone(timedelta(hours=8))).date()
-        r = requests.get(
+        r = http.get(
             "https://www.szse.cn/api/report/ShowReport/data",
             params={
                 "SHOWTYPE": "JSON",
@@ -119,23 +119,20 @@ def fund_etf_pcf(symbol: str = "510300") -> pd.DataFrame:
                 "txtEnd": today.isoformat(),
             },
             headers={"Referer": "https://www.szse.cn/"},
-            timeout=30,
         )
         r.raise_for_status()
         # 公告索引覆盖休市日，选择最近公布的清单。
         dates = re.findall(rf"pcf_{symbol}_(\d{{8}})", str(r.json()))
         if not dates:
             raise DataParsingError(f"{symbol} 申购赎回清单公告缺失")
-        r = requests.get(
+        r = http.get(
             f"https://reportdocs.static.szse.cn/files/text/ETFDown/pcf_{symbol}_{max(dates)}.xml",
-            timeout=30,
         )
     else:
-        r = requests.get(
+        r = http.get(
             "https://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do",
             params={"fundCode": symbol},
             headers={"Referer": "https://www.sse.com.cn/"},
-            timeout=30,
         )
     r.raise_for_status()
     return _parse_pcf(r.content, symbol, szse)
@@ -146,9 +143,8 @@ def _quote_prices(symbols: list) -> pd.Series:
     prices = {}
     symbols = list(dict.fromkeys(symbols))
     for offset in range(0, len(symbols), 50):
-        r = requests.get(
+        r = http.get(
             "https://qt.gtimg.cn/q=" + ",".join(symbols[offset : offset + 50]),
-            timeout=30,
         )
         r.raise_for_status()
         r.encoding = "gbk"

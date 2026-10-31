@@ -12,7 +12,8 @@ from io import BytesIO
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def __fetch_ftse_index_futu(date: str = "20231108") -> int:
@@ -37,7 +38,7 @@ def __fetch_ftse_index_futu(date: str = "20231108") -> int:
         "ut": "f057cbcbce2a86e2866ab8877db1d059",
         "forcect": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
@@ -71,7 +72,7 @@ def futures_settlement_price_sgx(date: str = "20231107") -> pd.DataFrame:
     """
     num = __fetch_ftse_index_futu(date)
     url = f"https://links.sgx.com/1.0.0/derivatives-daily/{num}/FUTURE.zip"
-    r = requests.get(url)
+    r = http.get(url)
     with zipfile.ZipFile(BytesIO(r.content)) as file:
         with file.open(file.namelist()[0]) as my_file:
             data = my_file.read().decode()

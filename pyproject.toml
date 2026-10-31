@@ -39,19 +39,16 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "beautifulsoup4>=4.9.1",
-    "lxml>=4.2.1",
-    "pandas>=2.0.0",
+    "beautifulsoup4>=4.11.2",
+    "lxml>=4.9.2",
+    "pandas>=2.2.2",
     "requests>=2.22.0",
     "curl_cffi>=0.13.0",
-    "html5lib>=1.0.1",
-    "xlrd>=1.2.0",
+    "html5lib>=1.1",
+    "xlrd>=2.0.1",
     "urllib3>=1.25.8",
     "tqdm>=4.43.0",
-    "openpyxl>=3.0.3",
-    "jsonpath>=0.82",
-    "tabulate>=0.8.6",
-    "decorator>=4.4.2",
+    "openpyxl>=3.1.0",
     "mini-racer>=0.12.4; platform_system != 'Linux'",
     "py-mini-racer>=0.6.0; platform_system == 'Linux'",
     "akracer>=0.0.13; platform_system == 'Linux'",
@@ -102,7 +99,7 @@ version = {attr = "akshare._version.__version__"}
 include = ["akshare*"]
 
 [tool.setuptools.package-data]
-"*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip"]
+"*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip", "*.pem"]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -150,7 +147,15 @@ target-version = "py311"
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
 # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
 # McCabe complexity (`C901`) by default.
-select = ["E4", "E7", "E9", "F"]
+#
+# 另外启用两条 flake8-bandit 安全规则：S307 禁止对上游响应调用 eval（已全部改为
+# ast.literal_eval，存量为零）；S501 禁止 verify=False（1.20.16 起存量为零：证书不完整的
+# 站点改为补全中间证书，见 index_research_sw.py）。
+#
+# TID251 要求数据接口经 akshare.utils.http 发请求（含 curl_cffi 版本），从而统一应用全局超时与代理
+# （ak.set_timeout / ak.set_proxies）。它覆盖了 S113（请求未设超时）的用途，
+# 因此不再单独启用 S113。
+select = ["E4", "E7", "E9", "F", "S307", "S501", "TID251"]
 ignore = []
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
@@ -159,6 +164,31 @@ unfixable = []
 
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"requests.get".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
+"requests.post".msg = "改用 akshare.utils.http.post，以应用全局超时与代理"
+"requests.request".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.Session".msg = "改用 akshare.utils.http.Session，以应用全局超时与代理"
+"requests.session".msg = "改用 akshare.utils.http.Session，以应用全局超时与代理"
+"requests.put".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.delete".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.head".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.patch".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"requests.options".msg = "改用 akshare.utils.http.request，以应用全局超时与代理"
+"curl_cffi.requests.get".msg = "改用 akshare.utils.http.curl_get，以应用全局超时与代理"
+"curl_cffi.requests.post".msg = "改用 akshare.utils.http.curl_post，以应用全局超时与代理"
+"curl_cffi.requests.request".msg = "改用 akshare.utils.http.curl_request，以应用全局超时与代理"
+"curl_cffi.requests.Session".msg = "改用 akshare.utils.http.CurlSession，以应用全局超时与代理"
+"urllib3.PoolManager".msg = "改用 akshare.utils.http.Session 并挂载自定义 HTTPAdapter，以应用全局超时与代理"
+"http.client.HTTPSConnection".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
+"http.client.HTTPConnection".msg = "改用 akshare.utils.http.get，以应用全局超时与代理"
+
+[tool.ruff.lint.per-file-ignores]
+# 封装本身，以及不发真实请求的测试与仓库脚本
+"akshare/utils/http.py" = ["TID251"]
+"tests/**" = ["TID251"]
+"scripts/**" = ["TID251"]
 
 [tool.ruff.format]
 # Like Black, use double quotes for strings.

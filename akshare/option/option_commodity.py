@@ -19,7 +19,6 @@ import warnings
 from io import StringIO
 
 import pandas as pd
-import requests
 
 from akshare.option.cons import (
     get_calendar,
@@ -27,6 +26,7 @@ from akshare.option.cons import (
     CZCE_DAILY_OPTION_URL_3,
     SHFE_HEADERS,
 )
+from akshare.utils import http
 
 
 def option_hist_dce(
@@ -78,10 +78,10 @@ def option_hist_dce(
         "tradeType": "2",
         "varietyId": f"{option_code_map[symbol]}",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "variety": "品种名称",
             "contractId": "合约",
@@ -101,7 +101,6 @@ def option_hist_dce(
             "matchQtySum": "行权量",
             "impliedVolatility": "隐含波动率(%)",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -171,7 +170,7 @@ def __option_czce_daily_convert_numeric_columns(df):
     def convert_to_float(x):
         try:
             return float(str(x).replace(",", ""))
-        except:  # noqa: E722
+        except Exception:
             return x
 
     # 创建 DataFrame 的副本以避免 SettingWithCopyWarning
@@ -207,7 +206,7 @@ def option_hist_czce(
     if day > datetime.date(year=2010, month=8, day=24):
         url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
         try:
-            r = requests.get(url)
+            r = http.get(url)
             f = StringIO(r.text)
             table_df = pd.read_table(f, encoding="utf-8", skiprows=1, sep="|")
             table_df.columns = [
@@ -230,133 +229,133 @@ def option_hist_czce(
             ]
             if symbol == "白糖期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SR")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "棉花期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "甲醇期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("MA")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "PTA期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("TA")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "动力煤期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("ZC")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "菜籽粕期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("RM")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "菜籽油期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("OI")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "花生期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PK")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "短纤期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "对二甲苯期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PX")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "烧碱期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SH")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "纯碱期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SA")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "短纤期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "锰硅期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SM")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "硅铁期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SF")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "尿素期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("UR")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "苹果期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("AP")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "红枣期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("CJ")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "玻璃期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("FG")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "瓶片期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PR")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             elif symbol == "丙烯期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PL")]
-                temp_df.reset_index(inplace=True, drop=True)
+                temp_df = temp_df.reset_index(drop=True)
                 temp_df = temp_df.iloc[:-1, :].copy()
                 new_df = __option_czce_daily_convert_numeric_columns(temp_df)
                 return new_df
             else:
                 return pd.DataFrame()
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()
@@ -384,7 +383,7 @@ def option_hist_shfe(
     if day > datetime.date(year=2010, month=8, day=24):
         url = f"""https://www.shfe.com.cn/data/tradedata/option/dailydata/kx{day.strftime("%Y%m%d")}.dat"""
         try:
-            r = requests.get(url, headers=SHFE_HEADERS)
+            r = http.get(url, headers=SHFE_HEADERS)
             json_data = r.json()
             table_df = pd.DataFrame(
                 [
@@ -395,7 +394,7 @@ def option_hist_shfe(
                 ]
             )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
-            contract_df.rename(
+            contract_df = contract_df.rename(
                 columns={
                     "INSTRUMENTID": "合约代码",
                     "OPENPRICE": "开盘价",
@@ -413,7 +412,6 @@ def option_hist_shfe(
                     "DELTA": "德尔塔",
                     "EXECVOLUME": "行权量",
                 },
-                inplace=True,
             )
             contract_df = contract_df[
                 [
@@ -434,9 +432,9 @@ def option_hist_shfe(
                     "行权量",
                 ]
             ]
-            contract_df.reset_index(inplace=True, drop=True)
+            contract_df = contract_df.reset_index(drop=True)
             return contract_df
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()
@@ -464,13 +462,13 @@ def option_vol_shfe(
     if day > datetime.date(year=2010, month=8, day=24):
         url = f"""https://www.shfe.com.cn/data/tradedata/option/dailydata/kx{day.strftime("%Y%m%d")}.dat"""
         try:
-            r = requests.get(url, headers=SHFE_HEADERS)
+            r = http.get(url, headers=SHFE_HEADERS)
             json_data = r.json()
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
             ]
-            volatility_df.rename(
+            volatility_df = volatility_df.rename(
                 columns={
                     "INSTRUMENTID": "合约系列",
                     "VOLUME": "成交量",
@@ -480,7 +478,6 @@ def option_vol_shfe(
                     "EXECVOLUME": "行权量",
                     "SIGMA": "隐含波动率",
                 },
-                inplace=True,
             )
             volatility_df = volatility_df[
                 [
@@ -493,9 +490,9 @@ def option_vol_shfe(
                     "隐含波动率",
                 ]
             ]
-            volatility_df.reset_index(inplace=True, drop=True)
+            volatility_df = volatility_df.reset_index(drop=True)
             return volatility_df
-        except:  # noqa: E722
+        except Exception:
             return pd.DataFrame()
     else:
         return pd.DataFrame()
@@ -538,10 +535,10 @@ def option_hist_gfex(
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "variety": "商品名称",
             "diffI": "持仓量变化",
@@ -562,7 +559,6 @@ def option_hist_gfex(
             "openInterest": "持仓量",
             "volumn": "成交量",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -586,7 +582,7 @@ def option_hist_gfex(
         ]
     ]
     temp_df = temp_df[temp_df["商品名称"].str.contains(symbol)]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -630,16 +626,15 @@ def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "seriesId": "合约系列",
             "varietyId": "-",
             "hisVolatility": "隐含波动率",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -648,7 +643,7 @@ def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
         ]
     ]
     temp_df = temp_df[temp_df["合约系列"].str.contains(symbol_code_map[symbol])]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 

@@ -7,10 +7,10 @@ http://webapi.cninfo.com.cn/#/thematicStatistics
 """
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.datasets import get_ths_js
+from akshare.utils import http
 
 
 def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
@@ -65,10 +65,10 @@ def bond_treasure_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F009D": "缴款日",
             "SECNAME": "债券简称",
@@ -86,7 +86,6 @@ def bond_treasure_issue_cninfo(
             "F002V": "交易市场",
             "F013V": "发行方式",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -161,10 +160,10 @@ def bond_local_government_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F009D": "缴款日",
             "SECNAME": "债券简称",
@@ -182,7 +181,6 @@ def bond_local_government_issue_cninfo(
             "F002V": "交易市场",
             "F013V": "发行方式",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -257,10 +255,10 @@ def bond_corporate_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "SECNAME": "债券简称",
             "DECLAREDATE": "公告日期",
@@ -280,7 +278,6 @@ def bond_corporate_issue_cninfo(
             "F013V": "发行方式",
             "F023V": "募资用途说明",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -357,10 +354,10 @@ def bond_cov_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    r = http.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F029D": "发行起始日",
             "SECNAME": "债券简称",
@@ -394,7 +391,6 @@ def bond_cov_issue_cninfo(
             "F021V": "募资用途说明",
             "F031V": "网上申购代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -506,10 +502,10 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
         "Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, headers=headers)
+    r = http.post(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "F003N": "转股价格",
             "SECNAME": "债券简称",
@@ -522,7 +518,6 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
             "F001V": "转股代码",
             "SECCODE": "债券代码",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [

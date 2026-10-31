@@ -11,9 +11,9 @@ https://help.1234567.com.cn/list_236.html
 from datetime import datetime, date
 
 import pandas as pd
-import requests
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def __one_year_ago(date_str: str) -> date:
@@ -74,12 +74,12 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
         "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = jsonish.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -173,12 +173,12 @@ def fund_exchange_rank_em() -> pd.DataFrame:
         "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
+    json_data = jsonish.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -265,10 +265,10 @@ def fund_money_rank_em() -> pd.DataFrame:
         "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -368,13 +368,13 @@ def fund_lcx_rank_em() -> pd.DataFrame:
         "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     try:
         data_json = r.json()
-    except:  # noqa: E722
+    except Exception:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
@@ -451,10 +451,10 @@ def fund_hk_rank_em() -> pd.DataFrame:
         "Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",

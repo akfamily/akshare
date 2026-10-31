@@ -7,7 +7,8 @@ https://guba.eastmoney.com/rank/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_hk_hot_rank_em() -> pd.DataFrame:
@@ -25,7 +26,7 @@ def stock_hk_hot_rank_em() -> pd.DataFrame:
         "pageNo": 1,
         "pageSize": 100,
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_rank_df = pd.DataFrame(data_json["data"])
     temp_rank_df["mark"] = ["116." + item[3:] for item in temp_rank_df["sc"]]
@@ -37,7 +38,7 @@ def stock_hk_hot_rank_em() -> pd.DataFrame:
         "secids": ",".join(temp_rank_df["mark"]),
     }
     url = "https://push2.eastmoney.com/api/qt/ulist.np/get"
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = ["最新价", "涨跌幅", "代码", "股票名称"]
@@ -73,7 +74,7 @@ def stock_hk_hot_rank_detail_em(symbol: str = "00700") -> pd.DataFrame:
         "marketType": "000003",
         "srcSecurityCode": f"HK|{symbol}",
     }
-    r = requests.post(url_rank, json=payload)
+    r = http.post(url_rank, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["证券代码"] = symbol
@@ -98,7 +99,7 @@ def stock_hk_hot_rank_detail_realtime_em(symbol: str = "00700") -> pd.DataFrame:
         "marketType": "000003",
         "srcSecurityCode": f"HK|{symbol}",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.columns = ["时间", "排名"]
@@ -121,10 +122,10 @@ def stock_hk_hot_rank_latest_em(symbol: str = "00700") -> pd.DataFrame:
         "marketType": "000003",
         "srcSecurityCode": f"HK|{symbol}",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
 

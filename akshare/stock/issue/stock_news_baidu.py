@@ -29,7 +29,7 @@ def _process_suspend_data(data_list: list) -> pd.DataFrame:
         "isSkip": "是否跳过",
         "end": "复牌时间",
     }
-    temp_df.rename(columns=rename_dict, inplace=True)
+    temp_df = temp_df.rename(columns=rename_dict)
     if "复牌时间" not in temp_df.columns:
         temp_df["复牌时间"] = "-"
     temp_df = temp_df[
@@ -89,7 +89,7 @@ def _process_dividend_data(data_list: list) -> pd.DataFrame:
         "transfer": "转增",
         "physical": "实物",
     }
-    temp_df.rename(columns=rename_dict, inplace=True)
+    temp_df = temp_df.rename(columns=rename_dict)
 
     # 确保必要列存在
     if "分红" not in temp_df.columns:
@@ -162,7 +162,7 @@ def _process_report_data(data_list: list) -> pd.DataFrame:
         "capitalization": "总市值",
         "date": "发布日期",
     }
-    temp_df.rename(columns=rename_dict, inplace=True)
+    temp_df = temp_df.rename(columns=rename_dict)
 
     # 确保必要列存在
     if "财报类型" not in temp_df.columns:

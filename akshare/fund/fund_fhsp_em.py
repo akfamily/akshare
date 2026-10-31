@@ -6,10 +6,13 @@ Desc: 天天基金网-基金数据-分红送配
 https://fund.eastmoney.com/data/fundfenhong.html
 """
 
-import pandas as pd
-import requests
+import ast
 
+import pandas as pd
+
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+from akshare.utils.params import to_int
 
 
 def fund_fh_em(
@@ -39,10 +42,13 @@ def fund_fh_em(
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
 
     def get_df_from_response(response):
         text = response.text
-        return pd.DataFrame(eval(text[text.find("[[") : text.find(";var jjfh_jjgs")]))
+        return pd.DataFrame(
+            ast.literal_eval(text[text.find("[[") : text.find(";var jjfh_jjgs")])
+        )
 
     url = "https://fund.eastmoney.com/Data/funddataIndex_Interface.aspx"
     params = {
@@ -54,18 +60,20 @@ def fund_fh_em(
         "ftype": typ,
         "year": year,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_list = [get_df_from_response(r)]
     if page == -1:
         data_text = r.text
-        total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
+        total_page = ast.literal_eval(
+            data_text[data_text.find("=") + 1 : data_text.find(";")]
+        )[0]
         tqdm = get_tqdm()
         for p in tqdm(range(2, total_page + 1), leave=False):
             params.update({"page": str(p)})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_list.append(get_df_from_response(r))
     big_df = pd.concat(objs=data_list, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     # 处理空数据时报错的问题
     if big_df.empty:
@@ -127,12 +135,13 @@ def fund_cf_em(
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
+    page = to_int(page, "page")
 
     def get_df_from_response(response):
         text = response.text
         code = text[text.find("[[") : text.find(";var jjcf_jjgs")]
         if code:
-            return pd.DataFrame(eval(code))
+            return pd.DataFrame(ast.literal_eval(code))
         return pd.DataFrame()
 
     url = "https://fund.eastmoney.com/Data/funddataIndex_Interface.aspx"
@@ -145,18 +154,20 @@ def fund_cf_em(
         "ftype": typ,
         "year": year,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_list = [get_df_from_response(r)]
     if page == -1:
         data_text = r.text
-        total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
+        total_page = ast.literal_eval(
+            data_text[data_text.find("=") + 1 : data_text.find(";")]
+        )[0]
         tqdm = get_tqdm()
         for p in tqdm(range(2, total_page + 1), leave=False):
             params.update({"page": str(p)})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_list.append(get_df_from_response(r))
     big_df = pd.concat(objs=data_list, ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df.loc[:, "index"] = big_df["index"] + 1
     # 处理空数据时报错的问题
     if big_df.empty:
@@ -204,22 +215,24 @@ def fund_fh_rank_em() -> pd.DataFrame:
         "gs": "",
         "ftype": "",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
-    total_page = eval(data_text[data_text.find("=") + 1 : data_text.find(";")])[0]
+    total_page = ast.literal_eval(
+        data_text[data_text.find("=") + 1 : data_text.find(";")]
+    )[0]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": str(page)})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_text = r.text
-        temp_list = eval(
+        temp_list = ast.literal_eval(
             data_text[data_text.find("[[") : data_text.find(";var fhph_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     # 处理空数据时报错的问题
     if big_df.empty:

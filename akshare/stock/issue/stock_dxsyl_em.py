@@ -10,8 +10,8 @@ https://data.eastmoney.com/xg/xg/default_2.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -36,20 +36,20 @@ def stock_dxsyl_em() -> pd.DataFrame:
         "client": "WEB",
         "filter": """((APPLY_DATE>'2010-01-01')(|@APPLY_DATE="NULL"))((LISTING_DATE>'2010-01-01')(|@LISTING_DATE="NULL"))(TRADE_MARKET_CODE!="069001017")""",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "SECURITY_CODE": "股票代码",
@@ -69,7 +69,6 @@ def stock_dxsyl_em() -> pd.DataFrame:
             "LD_CLOSE_CHANGE": "首日涨幅",
             "LISTING_DATE": "上市日期",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -154,19 +153,19 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             "source": "NEEQSELECT",
             "client": "WEB",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, 1 + int(total_page)), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "ORG_CODE": "-",
                 "SECURITY_CODE": "代码",
@@ -206,7 +205,6 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "VA_AMT": "参与申购资金",
                 "ISSUE_PRICE_ADJFACTOR": "-",
             },
-            inplace=True,
         )
         big_df["最新价格-累计涨幅"] = big_df["首日收盘价"] / big_df["最新价格-价格"]
 
@@ -290,18 +288,18 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             "source": "WEB",
             "client": "WEB",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
-            r = requests.get(url, params=params)
+            r = http.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-        big_df.rename(
+        big_df = big_df.rename(
             columns={
                 "SECURITY_CODE": "股票代码",
                 "SECURITY_NAME": "股票简称",
@@ -352,7 +350,6 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
                 "MAIN_BUSINESS": "_",
                 "IS_REGISTRATION": "_",
             },
-            inplace=True,
         )
         big_df = big_df[
             [

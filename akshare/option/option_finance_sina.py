@@ -11,16 +11,17 @@ https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 https://stock.finance.sina.com.cn/option/quotes.html
 """
 
+import ast
 import datetime
 import json
 from functools import lru_cache
 from typing import Dict, List, Tuple
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.option.option_em import option_current_em
+from akshare.utils import http
 from akshare.utils.func import set_df_columns
 
 
@@ -33,7 +34,7 @@ def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
     :rtype: dict
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[0].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
@@ -50,7 +51,7 @@ def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     :rtype: dict
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[1].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
@@ -66,7 +67,7 @@ def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     :rtype: dict
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/mo/cffex"
-    r = requests.get(url)
+    r = http.get(url)
     soup = BeautifulSoup(r.text, features="lxml")
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[2].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
@@ -90,7 +91,7 @@ def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
         "exchange": "cffex",
         "pinzhong": symbol,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : data_text.rfind("}") + 1])
     option_call_df = pd.DataFrame(
@@ -163,7 +164,7 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
         "exchange": "cffex",
         "pinzhong": symbol,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : data_text.rfind("}") + 1])
     option_call_df = pd.DataFrame(
@@ -236,7 +237,7 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
         "exchange": "cffex",
         "pinzhong": symbol,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : data_text.rfind("}") + 1])
     option_call_df = pd.DataFrame(
@@ -309,10 +310,10 @@ def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
         f"=/FutureOptionAllService.getOptionDayline"
     )
     params = {"symbol": symbol}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[
@@ -350,10 +351,10 @@ def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
         f"=/FutureOptionAllService.getOptionDayline"
     )
     params = {"symbol": symbol}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[
@@ -393,10 +394,10 @@ def option_cffex_zz1000_daily_sina(
         f"=/FutureOptionAllService.getOptionDayline"
     )
     params = {"symbol": symbol}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        ast.literal_eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     data_df = data_df[
@@ -432,7 +433,7 @@ def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName"
     params = {"exchange": f"{exchange}", "cate": f"{symbol}"}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     date_list = data_json["result"]["data"]["contractMonth"]
     return ["".join(i.split("-")) for i in date_list][1:]
@@ -458,7 +459,7 @@ def option_sse_expire_day_sina(
         "cate": f"{symbol}",
         "date": f"{trade_date[:4]}-{trade_date[4:]}",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     data = data_json["result"]["data"]
     if int(data["remainderDays"]) < 0:
@@ -468,7 +469,7 @@ def option_sse_expire_day_sina(
             "cate": f"{'XD' + symbol}",
             "date": f"{trade_date[:4]}-{trade_date[4:]}",
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         data = data_json["result"]["data"]
     return data["expireDay"], int(data["remainderDays"])
@@ -525,12 +526,12 @@ def option_sse_codes_sina(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_temp = data_text.replace('"', ",").split(",")
     temp_list = [i[7:] for i in data_temp if i.startswith("CON_OP_")]
     temp_df = pd.DataFrame(temp_list)
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -566,7 +567,7 @@ def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -641,7 +642,7 @@ def option_sse_underlying_spot_price_sina(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -704,7 +705,7 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -756,7 +757,7 @@ def option_sse_minute_sina(symbol: str = "10003720") -> pd.DataFrame:
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = data_json["result"]["data"]
     data_df = pd.DataFrame(temp_df)
@@ -799,7 +800,7 @@ def option_sse_daily_sina(symbol: str = "10003889") -> pd.DataFrame:
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
     temp_df = pd.DataFrame(data_json)
@@ -842,12 +843,12 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_text = r.json()
     temp_df = pd.DataFrame()
     for item in data_text["result"]["data"]:
         temp_df = pd.concat(objs=[temp_df, pd.DataFrame(item)], ignore_index=True)
-    temp_df.ffill(inplace=True)
+    temp_df = temp_df.ffill()
     temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
     temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
     temp_df["price"] = pd.to_numeric(temp_df["price"], errors="coerce")
@@ -891,7 +892,7 @@ def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
         "ndays": "1",
         "cb": "quotepushdata1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])

@@ -8,6 +8,130 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-18)=
+### 1.20.18 fix: remove pandas and Python deprecated usages
+
+1. get_receipt 中 2014 年以前上期所与 2010 年以前郑商所仓单的处理代码使用了 pandas 3 已移除的 fillna(method=...)，改用 ffill()；这两段历史数据所依赖的上游页面目前本身也无法访问
+2. 将 pro 客户端与一个未导出的辅助函数中的 DataFrame.append（pandas 2 已移除）改为 pd.concat
+3. stock_zh_a_daily 不再发出 `Pandas4Warning: Indexing a DatetimeIndex with a sequence of datetime.date objects is deprecated`，该写法在 pandas 4 中将报错；返回结果不变
+4. 删除 stock_us_daily、stock_zh_kcb_daily、stock_financial_report_sina 等接口中兼容 pandas 2.1 以前版本的回退代码，pandas 下限已是 2.2.2
+5. 内置数据文件的路径改用 importlib.resources.files()，不再发出 Python 3.11 起的 `DeprecationWarning: path is deprecated`
+6. 测试中由 akshare 代码触发的 DeprecationWarning 与 FutureWarning 改为报错，在最低与最新版本依赖下均无此类警告
+
+(v1-20-17)=
+### 1.20.17 fix: fix option_comm_info and futures_inventory_99, remove article_oman_rv
+
+1. 修复 option_comm_info、option_comm_symbol 接口：九期网拒绝不带浏览器请求头的请求并返回 403，接口报 `'NoneType' object has no attribute 'find_all'`；现在带上请求头。同时修正“手续费更新时间”一列：上游文字改为“期权手续费更新时间”后，原先的写法会残留前缀文字；品种名称不存在时抛出 InvalidParameterError
+2. 修复 futures_inventory_99 接口：代码中写死的 _pcc 令牌已过期，数据接口返回 HTTP 412，接口报 `JSONDecodeError`；现在每次调用时向 fx168 重新获取令牌
+3. 移除 article_oman_rv、article_oman_rv_short 接口：Oxford-Man Institute 已停止提供 Realized Library，数据站点 realized.oxford-man.ox.ac.uk 已下线，官方说明没有替代计划。同一模块的 article_rlab_rv 不受影响
+
+(v1-20-16)=
+### 1.20.16 fix: enable TLS certificate verification for all requests
+
+1. 恢复全部请求的证书校验：原先 51 处请求关闭了证书校验（verify=False），可能被中间人篡改数据。逐站实测，其中 38 处所在站点的证书完全正常，直接恢复校验；涉及中国证券投资基金业协会（amac_*）、北京碳排放权交易平台、义乌指数、九期网、福布斯中国、国泰君安期货等
+2. 申万宏源研究（index_hist_sw、index_realtime_sw、index_analysis_daily_sw 等 8 个接口）的服务器缺少中间证书，浏览器会自动补全而程序不会，这是原先关闭校验的原因；现在随包附带该中间证书（由 DigiCert Global Root G2 签发，有效期至 2032 年），恢复校验
+3. 删除 9 处 urllib3.disable_warnings 调用：它对整个进程生效，导入这些模块后，用户自己程序中的证书警告也会被屏蔽
+4. 修复 forbes_rank 接口报 `FileNotFoundError`：新版 pandas 不再把 read_html 收到的文本当作网页内容
+
+(v1-20-15)=
+### 1.20.15 fix: make result order deterministic and fix futures_gfex_warehouse_receipt
+
+1. 修复 get_shfe_rank_table、get_rank_sum 等接口每次运行返回顺序不同的问题：原先遍历 set 去重，Python 对字符串的哈希每个进程随机，同一份上游数据每次得到的行序或字典键序都不一样；现在按上游数据中首次出现的顺序。涉及 get_shfe_rank_table、get_cffex_rank_table、get_rank_sum、get_roll_yield_bar、futures_shfe_warehouse_receipt、futures_gfex_warehouse_receipt，返回内容不变
+2. 修复 futures_gfex_warehouse_receipt 接口报 `KeyError: "['whType'] not in index"`：广州期货交易所不再返回 whType 字段，原先据此过滤“小计”“总计”行；现在按仓库名为空过滤，结果与文档示例一致
+
+(v1-20-14)=
+### 1.20.14 fix: honor ak.set_timeout everywhere and fix stock_zh_a_daily for delisted stocks
+
+1. 删除接口代码中写死的请求超时：29 个模块中 45 处 timeout=15、30 等写死的值，以及约 60 个东方财富翻页接口共用的 fetch_paginated_data 的默认超时，使这些接口不受 ak.set_timeout 控制；现在全部使用全局超时，默认连接 10 秒、读取 60 秒。下载数十 MB 历史压缩包的 fred_md、fred_qd 保留更长的超时
+2. 修复 stock_zh_a_daily 查询已退市股票（如 sh600001）报 `JSONDecodeError` 的问题：新浪仍提供其历史行情，但没有股本数据；现在照常返回行情，outstanding_share 与 turnover 为空并给出警告
+3. stock_zh_a_daily 查询不存在的代码时，由 `KeyError: 'date'` 改为抛出 InvalidParameterError 并提示检查股票代码
+
+(v1-20-13)=
+### 1.20.13 fix!: remove timeout parameter and accept text values for numeric parameters
+
+**不兼容的改动：删除 13 个接口的 timeout 参数，超时统一由 `ak.set_timeout` 设置。** 涉及 stock_zh_a_hist、stock_zh_a_hist_tx、stock_individual_info_em、stock_individual_spot_xq、stock_individual_basic_info_xq、stock_individual_basic_info_us_xq、stock_individual_basic_info_hk_xq，以及 fund_individual_basic_info_xq、fund_individual_achievement_xq、fund_individual_analysis_xq、fund_individual_profit_probability_xq、fund_individual_detail_info_xq、fund_individual_detail_hold_xq。原先传 timeout 的调用会报 TypeError，请删去该参数，改为在程序开头调用 `ak.set_timeout(秒数)`。
+
+1. 删除上述接口的 timeout 参数：全部 1000 余个接口中只有这 13 个单独提供该参数；其默认值 None 原先等于不设超时，ak.set_timeout 对它们不起作用；以文本传入时（如经 AKTools 的 stock_zh_a_hist?timeout=5）还会报 `Timeout value … must be an int, float or None`。现在这些接口与其他接口一样使用全局超时，默认连接 10 秒、读取 60 秒
+2. 要求整数或布尔值的参数同时接受文本，便于经 HTTP、MCP 或配置文件调用：fund_fh_em、fund_cf_em 的 page，bank_fjcf_table_detail 的 page 与 begin，search 的 limit 与 documented_only。原先 page="-1" 被当作第 -1 页，documented_only="false" 被当作真；无法转换时抛出 InvalidParameterError
+
+(v1-20-12)=
+### 1.20.12 perf: reduce requests of sina macro interfaces
+
+1. 新浪财经宏观数据接口由每页 31 条改为每页 1000 条：macro_china_insurance 一次调用的请求数由 307 次降到 10 次，耗时由约 83 秒降到约 4 秒；macro_china_retail_price_index、macro_china_supply_of_money、macro_china_society_electricity 等共 8 个接口同样受益，返回结果不变
+2. macro_china_society_traffic_volume、macro_china_postal_telecommunicational 保持每页 31 条：其上游按“非累计”“累计”两组返回数据，按页切分的结果随页长变化，1000 条一页会漏掉 2021 年 1 月等月份
+3. news_cctv 去掉标题中的“[视频]”与正文开头的“央视网消息（新闻联播）：”时，原先按字符集合删除两端字符，以“视频”结尾的标题会被截掉末尾两字，正文以“新”“央”等字开头时也会被误删；现在只删除前缀
+4. 移除 get_rank_table_czce、stock_news_em、news_cctv 请求头中写死的过期 Cookie，去掉后返回结果不变；同时删除不再使用的请求头常量
+
+(v1-20-11)=
+### 1.20.11 fix: fix air_quality_hist interface and remove dead interfaces
+
+1. 修复 air_quality_hist 接口：真气网更换了请求加密的顺序与密钥，并改为写在页面里，原先内置的加密代码已无法使用，接口报 `JSONDecodeError`；现在每次调用时从真气网首页读取当前密钥，并使用站点当前的加解密代码
+2. air_quality_hist 的默认日期改为近期：上游只提供最近约一年的数据，更早的日期返回空表并给出警告；月度数据上游目前无论查询哪个城市都返回郑州 2021-08～2022-08 的数据，现在城市名不符时报错，而不是返回其他城市的数据
+3. 更新 air_quality_watch_point 文档的示例日期：上游只提供近期的数据，原示例的日期返回空表
+4. 移除盖世汽车销量排行接口 car_sale_rank_gasgoo：盖世汽车启用了腾讯人机验证码，程序无法完成验证，接口报 `JSONDecodeError`
+5. 移除碳交易网行情接口 energy_carbon_domestic：其数据服务返回 HTTP 500 并要求登录，接口报 `JSONDecodeError`；北京、深圳、湖北、广州等交易所的碳排放接口不受影响
+
+(v1-20-10)=
+### 1.20.10 fix: fix get_receipt interface
+
+1. 修复 get_receipt 接口：上期所仓单页面新增 `20号胶(仓库)`、`20号胶(厂库)` 两个品种，品种映射中没有这两个名称，所有包含上期所品种的调用都报 ValueError: list.index(x): x not in list；现已映射为 NR，此后遇到未识别的新品种时给出警告并跳过，不再整体报错
+2. 期货接口使用的 requests_link、pandas_read_html_link 重试用尽后原先返回 None，用户只能看到 'NoneType' object has no attribute 'text'；现在抛出原始的网络异常，如 ConnectTimeout、ProxyError
+3. get_shfe_daily、get_czce_daily 原先处理 404 的分支从不执行：前者把响应对象与整数比较，两者都没有检查状态码；现在 404 返回空表，其他错误状态码给出警告后返回空表
+
+(v1-20-9)=
+### 1.20.9 refactor: replace demjson with jsonish
+
+1. 移除内嵌的 demjson 2.2.4（约 7000 行，2015 年后已停止维护），改用新增的 akshare.utils.jsonish 解析上游返回的 JavaScript 对象字面量，涉及新浪、天天基金、腾讯等数据源的 60 余个接口
+2. 解析速度显著提升：fund_open_fund_daily_em 等需解析数 MB 数据的接口，解析耗时由约 10 秒降至 0.1 秒以内；以 817 份真实响应计，总耗时由 75.9 秒降至 2.9 秒，解析结果与 demjson 逐份一致
+3. 数组中的空位（如 fund_new_found_em 的部分字段）由 demjson 的 undefined 对象改为 None，在 DataFrame 中表现为正常的空值
+4. 无法解析时抛出 DataParsingError，并附上出错位置附近的原文
+
+(v1-20-8)=
+### 1.20.8 build: raise dependency floors and drop pandas inplace
+
+1. 上调依赖下限：pandas>=2.2.2、lxml>=4.9.2、beautifulsoup4>=4.11.2、html5lib>=1.1、openpyxl>=3.1.0、xlrd>=2.0.1。原先的下限在 Python 3.11 上无法使用：lxml 4.2.1 没有预编译包且源码编译失败，pandas 2.0.0 不兼容 numpy 2，部分接口用到的 DataFrame.map 需要 pandas 2.1 及以上，xlrd 与 openpyxl 低于 pandas 自身要求的版本，在最低版本环境下 currency_boc_safe、stock_zh_index_value_csindex 等接口会报错
+2. 962 处 pandas 的 inplace=True 写法改为使用返回值。pandas 3.1 已弃用 inplace 并计划在 pandas 4 中移除，原先每次调用会产生大量 Pandas4Warning，如 stock_financial_report_sina 单次调用 118 条
+3. CI 新增 lowest-deps 检查，在 Python 3.11 上按声明的最低版本安装依赖并运行测试
+
+(v1-20-7)=
+### 1.20.7 fix: stop retrying when eastmoney push2 rate-limits
+
+1. 东方财富 push2 行情服务器限流时直接断开连接，原先会被当作普通网络故障在几秒内连续重试，而被封期间的请求会延长限流；现在识别出来后立即抛出 RateLimitError 并说明原因与等待时间，不再重试。涉及实时行情、历史 K 线、板块、资金流等使用 push2 的接口，详见{ref}`常见问题 <faq-eastmoney-ratelimit>`
+2. 原先各自实现的重试统一为 akshare.utils.http.request_with_retry：连接失败、超时与 429、5xx 状态码最多尝试 3 次，按指数退避等待；其他状态码不再重试
+3. 期货的 get_shfe_rank_table、get_receipt、futures_spot_price、get_shfe_daily 等接口，链接失败时由固定等待 5 秒、最多重试 20 次改为上述策略，最坏情况下的等待由近 2 分钟缩短到数秒
+4. get_dce_rank_table 获取合约列表时，原先遇到任何错误都会无限重试，上游故障或改版时接口一直不返回；现在用尽重试次数后抛出异常
+
+(v1-20-6)=
+### 1.20.6 fix: fix fx_c_swap_cm, fred_md and fred_qd interface
+
+1. 修复 fx_c_swap_cm 接口：www.chinamoney.org.cn 已无法完成 TLS 握手，改用 www.chinamoney.com.cn
+2. 修复 fred_md、fred_qd 接口：原 S3 地址已返回 403，改从 www.stlouisfed.org 获取；当年以前的各期从官方历史压缩包中读取，首次调用需下载约 20～40 MB，同一进程内不重复下载；没有对应一期时抛出 InvalidParameterError 并给出可选范围
+3. 84 处裸 except 改为 except Exception，翻页等循环中按 Ctrl+C 可正常中断，不再被当作“没有下一页”而返回部分数据
+4. 库代码中的提示信息由 print 改为 warnings.warn，可用 warnings.filterwarnings 统一屏蔽，同一处的相同提示只显示一次；match_main_contract、get_receipt、get_rank_sum_daily 中打印进度的回显已移除
+
+(v1-20-5)=
+### 1.20.5 fix: fix futures_comm_info and stock_us_valuation_baidu interface
+
+1. 修复 futures_comm_info 接口：一次调用由 14 个请求减为 2 个，不再因自身请求过多被九期网限流；上游返回 429 时抛出 RateLimitError，其他错误状态码抛出 APIError，页面改版时抛出 DataParsingError，不再报出 No tables found 或 'NoneType' object has no attribute 'previous'
+2. 修复 stock_us_valuation_baidu 接口：上游地址由 gushitong.baidu.com 迁至 finance.baidu.com，原实现不跟随 301 跳转而报 JSONDecodeError
+3. ak.set_proxies、ak.set_timeout 扩展到经 curl_cffi、urllib3、http.client 取数的接口，包括 stock_news_em、stock_hk_valuation_baidu、news_economic_baidu、news_trade_notify_suspend_baidu、news_report_time_baidu、news_trade_notify_dividend_baidu、macro_china_nbs_nation、macro_china_nbs_region、macro_china_urban_unemployment 与 amac_person_bond_org_list
+4. ak.set_proxies、ak.set_timeout 扩展到由 pandas 直接读取网址的接口，包括 index_option_50etf_qvix 等 18 个期权波动率指数接口、article_epu_index、fred_md、fred_qd、macro_cnbs、currency_boc_safe、hf_sp_500、futures_hist_daily_cffex、stock_zh_index_value_csindex、repo_rate_query 与 stock_szse_sector_summary；这类请求原先没有超时，上游无响应时会一直等待。至此全部接口均受这两项设置控制
+5. 移除未被使用的依赖 decorator、jsonpath 与 tabulate
+
+(v1-20-4)=
+### 1.20.4 feat: add global timeout and proxy settings
+
+1. 所有基于 requests 的接口默认连接超时 10 秒、读取超时 60 秒，上游无响应时抛出 ConnectTimeout 或 ReadTimeout，不再无限等待；可用 ak.set_timeout 调整，ak.set_timeout(None) 恢复不限时
+2. 新增 ak.set_proxies、ak.get_proxies、ak.set_timeout、ak.get_timeout 与 ak.ProxyContext，全局代理与超时对上述接口全部生效；原 akshare.utils.context 中的同名函数未导出，且只对 3 个模块生效
+3. 新增 akshare.utils.http 作为统一的请求入口，315 个模块改经它发请求，Ruff 启用 TID251 禁止直接调用 requests.get、requests.post 与 requests.Session
+4. stock_news_em、百度股市通系列、国家统计局系列等约 10 个经 curl_cffi 或其他 HTTP 库取数的接口暂不受上述设置影响，详见{ref}`常见问题 <faq-proxy>`
+
+(v1-20-3)=
+### 1.20.3 fix: replace eval with ast.literal_eval
+
+1. stock_zh_a_daily、stock_zh_b_daily、stock_zh_kcb_daily、stock_hk_daily、stock_us_daily、stock_zh_a_tick_tx_js、fund_etf_dividend_sina、fund_fh_em、fund_cf_em、fund_fh_rank_em、option_cffex_sz50_daily_sina、option_cffex_hs300_daily_sina、option_cffex_zz1000_daily_sina、macro_euro_lme_holding、macro_euro_lme_stock 及 4 个 macro_usa_cftc_* 接口解析上游响应时由 eval 改为 ast.literal_eval，避免执行响应中的任意代码；其中 stock_zh_a_tick_tx_js 经明文 HTTP 取数，原写法可被中间人利用；返回结果不变
+2. Ruff 启用 S307、S501 规则，禁止新增 eval 与 verify=False
+
 (v1-20-2)=
 ### 1.20.2 fix: fix stock_board_concept_name_em interface
 

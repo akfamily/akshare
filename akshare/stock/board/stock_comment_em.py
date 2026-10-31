@@ -11,8 +11,8 @@ import re
 import time
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -36,19 +36,19 @@ def stock_comment_em() -> pd.DataFrame:
         "filter": "",
         "token": "894050c76af8597a853f5b408b759f5d",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -136,14 +136,14 @@ def stock_comment_detail_zlkp_jgcyd_em(symbol: str = "600000") -> pd.DataFrame:
         "sortColumns": "TRADE_DATE",
         "sortTypes": "-1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df[["TRADE_DATE", "ORG_PARTICIPATE"]]
     temp_df.columns = ["交易日", "机构参与度"]
     temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
-    temp_df.sort_values(["交易日"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(["交易日"])
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["机构参与度"] = pd.to_numeric(temp_df["机构参与度"], errors="coerce") * 100
     return temp_df
 
@@ -167,20 +167,19 @@ def stock_comment_detail_zhpj_lspf_em(symbol: str = "600000") -> pd.DataFrame:
         "sortColumns": "DIAGNOSE_DATE",
         "sortTypes": "1",
     }
-    r = requests.get(url=url, params=params)
+    r = http.get(url=url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "TOTAL_SCORE": "评分",
             "DIAGNOSE_DATE": "交易日",
         },
-        inplace=True,
     )
     temp_df = temp_df[["交易日", "评分"]]
     temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
-    temp_df.sort_values(by=["交易日"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["交易日"])
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["评分"] = pd.to_numeric(temp_df["评分"], errors="coerce")
     return temp_df
 
@@ -205,20 +204,19 @@ def stock_comment_detail_scrd_focus_em(symbol: str = "600000") -> pd.DataFrame:
         "sortTypes": "-1",
         "pageSize": "30",
     }
-    r = requests.get(url=url, params=params)
+    r = http.get(url=url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "MARKET_FOCUS": "用户关注指数",
             "TRADE_DATE": "交易日",
         },
-        inplace=True,
     )
     temp_df = temp_df[["交易日", "用户关注指数"]]
     temp_df["交易日"] = pd.to_datetime(temp_df["交易日"], errors="coerce").dt.date
-    temp_df.sort_values(by=["交易日"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["交易日"])
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["用户关注指数"] = pd.to_numeric(temp_df["用户关注指数"], errors="coerce")
     return temp_df
 
@@ -254,7 +252,7 @@ def stock_comment_detail_scrd_desire_em(
         "Accept": "*/*",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     jsonp_data = r.text
     json_str = re.search(r"\((.*)\)", jsonp_data).group(1)
     data_json = json.loads(json_str)
@@ -284,7 +282,7 @@ def stock_comment_detail_scrd_desire_em(
     ]
     temp_df = temp_df[column_order]
     del temp_df["内部代码"]
-    temp_df.sort_values(by=["交易日期"], ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(by=["交易日期"], ignore_index=True)
     return temp_df
 
 

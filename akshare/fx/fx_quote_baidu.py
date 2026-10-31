@@ -6,8 +6,11 @@ Desc: 百度股市通-外汇-行情榜单
 https://finance.baidu.com/top/foreign-rmb
 """
 
+import warnings
+
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fx_quote_baidu(symbol: str = "人民币", token: str = "") -> pd.DataFrame:
@@ -42,11 +45,11 @@ def fx_quote_baidu(symbol: str = "人民币", token: str = "") -> pd.DataFrame:
             "rn": "20",
             "finClientType": "pc",
         }
-        r = requests.get(url, params=params, headers=headers, timeout=10)
+        r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         # 显式检查返回码，便于调试
         if data_json.get("ResultCode") != "0":
-            print(f"[pn={num}] 接口返回异常: {data_json}")
+            warnings.warn(f"[pn={num}] 接口返回异常: {data_json}")
             break
         result = data_json.get("Result")
         if not result:  # 空列表 → 已到末页

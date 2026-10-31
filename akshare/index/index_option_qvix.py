@@ -11,6 +11,8 @@ http://1.optbbs.com/s/vix.shtml?300ETF
 import pandas as pd
 from functools import lru_cache
 
+from akshare.utils import http
+
 
 @lru_cache
 def __get_optbbs_daily() -> pd.DataFrame:
@@ -21,7 +23,7 @@ def __get_optbbs_daily() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/k.csv"
-    temp_df = pd.read_csv(url, encoding="gbk")
+    temp_df = pd.read_csv(http.get_buffer(url), encoding="gbk")
     return temp_df
 
 
@@ -56,7 +58,7 @@ def index_option_50etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix50.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -96,7 +98,7 @@ def index_option_300etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix300.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -136,7 +138,7 @@ def index_option_500etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix500.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -176,7 +178,7 @@ def index_option_cyb_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vixcyb.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -216,7 +218,7 @@ def index_option_kcb_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vixkcb.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -256,7 +258,7 @@ def index_option_100etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix100.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -296,7 +298,7 @@ def index_option_300index_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vixindex.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -336,7 +338,7 @@ def index_option_1000index_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vixindex1000.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -376,7 +378,7 @@ def index_option_50index_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix50index.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",

@@ -18,7 +18,8 @@ https://quote.eastmoney.com/ztb/detail#type=ztgc
 from datetime import datetime, timedelta
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_zt_pool_em(date: str = "20241008") -> pd.DataFrame:
@@ -39,14 +40,14 @@ def stock_zt_pool_em(date: str = "20241008") -> pd.DataFrame:
         "sort": "fbt:asc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if data_json["data"] is None:
         return pd.DataFrame()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -125,14 +126,14 @@ def stock_zt_pool_previous_em(date: str = "20240415") -> pd.DataFrame:
         "sort": "zs:desc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if data_json["data"] is None:
         return pd.DataFrame()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -202,14 +203,14 @@ def stock_zt_pool_strong_em(date: str = "20241231") -> pd.DataFrame:
         "sort": "zdp:desc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if data_json["data"] is None:
         return pd.DataFrame()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -291,12 +292,12 @@ def stock_zt_pool_sub_new_em(date: str = "20241231") -> pd.DataFrame:
         "sort": "ods:asc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -377,14 +378,14 @@ def stock_zt_pool_zbgc_em(date: str = "20241011") -> pd.DataFrame:
         "sort": "fbt:asc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if data_json["data"] is None:
         return pd.DataFrame()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
@@ -459,12 +460,12 @@ def stock_zt_pool_dtgc_em(date: str = "20241011") -> pd.DataFrame:
         "sort": "fund:asc",
         "date": date,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",

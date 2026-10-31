@@ -9,7 +9,8 @@ https://data.10jqka.com.cn/macro/finance/
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def macro_stock_finance() -> pd.DataFrame:
@@ -24,9 +25,9 @@ def macro_stock_finance() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "月份": "月份",
             "募集资金(亿元)": "募集资金",
@@ -34,7 +35,6 @@ def macro_stock_finance() -> pd.DataFrame:
             "增发募集资金(亿元)": "增发募集资金",
             "配股募集资金(亿元)": "配股募集资金",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         ["月份", "募集资金", "首发募集资金", "增发募集资金", "配股募集资金"]
@@ -43,7 +43,7 @@ def macro_stock_finance() -> pd.DataFrame:
     temp_df["首发募集资金"] = pd.to_numeric(temp_df["首发募集资金"], errors="coerce")
     temp_df["增发募集资金"] = pd.to_numeric(temp_df["增发募集资金"], errors="coerce")
     temp_df["配股募集资金"] = pd.to_numeric(temp_df["配股募集资金"], errors="coerce")
-    temp_df.sort_values(by=["月份"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["月份"], ignore_index=True)
     return temp_df
 
 
@@ -59,7 +59,7 @@ def macro_rmb_loan() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
     temp_df.columns = [
         "月份",
@@ -75,7 +75,7 @@ def macro_rmb_loan() -> pd.DataFrame:
     temp_df["累计人民币贷款-总额"] = pd.to_numeric(
         temp_df["累计人民币贷款-总额"], errors="coerce"
     )
-    temp_df.sort_values(by=["月份"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["月份"], ignore_index=True)
     return temp_df
 
 
@@ -91,7 +91,7 @@ def macro_rmb_deposit() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text), skiprows=0)[0]
     temp_df.columns = [
         "月份",
@@ -121,7 +121,7 @@ def macro_rmb_deposit() -> pd.DataFrame:
     temp_df["新增其他存款-数量"] = pd.to_numeric(
         temp_df["新增其他存款-数量"], errors="coerce"
     )
-    temp_df.sort_values(by=["月份"], inplace=True, ignore_index=True)
+    temp_df = temp_df.sort_values(by=["月份"], ignore_index=True)
     return temp_df
 
 

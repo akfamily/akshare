@@ -6,12 +6,12 @@ Desc: 新浪财经-B股-实时行情数据和历史行情数据（包含前复�
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 
+import ast
 import json
 import re
 from functools import lru_cache
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from akshare.stock.cons import (
@@ -22,7 +22,8 @@ from akshare.stock.cons import (
     zh_sina_a_stock_qfq_url,
     zh_sina_a_stock_amount_url,
 )
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 @lru_cache()
@@ -37,7 +38,7 @@ def _get_zh_b_page_count() -> int:
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"
         "Market_Center.getHQNodeStockCount?node=hs_b"
     )
-    r = requests.get(url)
+    r = http.get(url)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -65,8 +66,8 @@ def stock_zh_b_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in range(1, page_count + 1):
         zh_sina_stock_payload_copy.update({"page": page})
-        r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(r.text)
+        r = http.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
+        data_json = jsonish.loads(r.text)
         big_df = pd.concat(objs=[big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
         "代码",
@@ -144,34 +145,34 @@ def stock_zh_b_daily(
 
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
-            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            r = http.get(zh_sina_a_stock_hfq_url.format(symbol))
             hfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if hfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
             hfq_factor_df.columns = ["date", "hfq_factor"]
             hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
             del hfq_factor_df["date"]
-            hfq_factor_df.reset_index(inplace=True)
+            hfq_factor_df = hfq_factor_df.reset_index()
             return hfq_factor_df
         else:
-            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            r = http.get(zh_sina_a_stock_qfq_url.format(symbol))
             qfq_factor_df = pd.DataFrame(
-                eval(r.text.split("=")[1].split("\n")[0])["data"]
+                ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
             if qfq_factor_df.shape[0] == 0:
                 raise ValueError("sina hfq factor not available")
             qfq_factor_df.columns = ["date", "qfq_factor"]
             qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
             del qfq_factor_df["date"]
-            qfq_factor_df.reset_index(inplace=True)
+            qfq_factor_df = qfq_factor_df.reset_index()
             return qfq_factor_df
 
     if adjust in ("hfq-factor", "qfq-factor"):
         return _fq_factor(adjust.split("-")[0])
 
-    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    r = http.get(zh_sina_a_stock_hist_url.format(symbol))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -184,15 +185,15 @@ def stock_zh_b_daily(
     del data_df["prevclose"]
 
     data_df = data_df.astype("float")
-    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
+    r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
+    amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="outer"
     )
-    temp_df.ffill(inplace=True)
+    temp_df = temp_df.ffill()
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
@@ -207,32 +208,34 @@ def stock_zh_b_daily(
     ]
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = round(temp_df["open"], 2)
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates()
+        temp_df = temp_df.reset_index()
         return temp_df
 
     if adjust == "hfq":
-        r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
-        hfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        r = http.get(zh_sina_a_stock_hfq_url.format(symbol))
+        hfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
         temp_df = pd.merge(
             temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        temp_df.ffill(inplace=True)
+        temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
@@ -244,24 +247,26 @@ def stock_zh_b_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.reset_index()
         return temp_df
 
     if adjust == "qfq":
-        r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
-        qfq_factor_df = pd.DataFrame(eval(r.text.split("=")[1].split("\n")[0])["data"])
+        r = http.get(zh_sina_a_stock_qfq_url.format(symbol))
+        qfq_factor_df = pd.DataFrame(
+            ast.literal_eval(r.text.split("=")[1].split("\n")[0])["data"]
+        )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
         temp_df = pd.merge(
             temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
         )
-        temp_df.ffill(inplace=True)
+        temp_df = temp_df.ffill()
         temp_df = temp_df.astype(float)
-        temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"], inplace=True
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.drop_duplicates(
+            subset=["open", "high", "low", "close", "volume"]
         )
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
@@ -273,8 +278,8 @@ def stock_zh_b_daily(
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
-        temp_df.dropna(inplace=True)
-        temp_df.reset_index(inplace=True)
+        temp_df = temp_df.dropna()
+        temp_df = temp_df.reset_index()
         return temp_df
 
 
@@ -301,13 +306,13 @@ def stock_zh_b_minute(
         "scale": period,
         "datalen": "1970",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
     if temp_df.empty:
         return pd.DataFrame()
     try:
         stock_zh_b_daily(symbol=symbol, adjust="qfq")
-    except:  # noqa: E722
+    except Exception:
         return temp_df
 
     if adjust == "":
@@ -322,7 +327,7 @@ def stock_zh_b_minute(
                 for item in temp_df["time"]
             ]
         ]
-        need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
+        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_b_daily_qfq_df = stock_zh_b_daily(symbol=symbol, adjust="qfq")
         stock_zh_b_daily_qfq_df.index = pd.to_datetime(stock_zh_b_daily_qfq_df["date"])
@@ -336,7 +341,7 @@ def stock_zh_b_minute(
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
         temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
     if adjust == "hfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
@@ -347,7 +352,7 @@ def stock_zh_b_minute(
                 for item in temp_df["time"]
             ]
         ]
-        need_df.drop_duplicates(subset=["date"], keep="last", inplace=True)
+        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_b_daily_hfq_df = stock_zh_b_daily(symbol=symbol, adjust="hfq")
         stock_zh_b_daily_hfq_df.index = pd.to_datetime(stock_zh_b_daily_hfq_df["date"])
@@ -361,7 +366,7 @@ def stock_zh_b_minute(
         merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
         merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
         temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df.reset_index(drop=True, inplace=True)
+        temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 

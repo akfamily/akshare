@@ -7,8 +7,8 @@ https://www.szse.cn/disclosure/margin/object/index.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -34,7 +34,7 @@ def stock_margin_account_info() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url=url, params=params)
+    r = http.get(url=url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     tqdm = get_tqdm()
@@ -48,12 +48,12 @@ def stock_margin_account_info() -> pd.DataFrame:
                 "pageNum": page,
             }
         )
-        r = requests.get(url=url, params=params)
+        r = http.get(url=url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "STATISTICS_DATE": "日期",
             "FIN_BALANCE": "融资余额",
@@ -69,7 +69,6 @@ def stock_margin_account_info() -> pd.DataFrame:
             "TOTAL_GUARANTEE": "担保物总价值",
             "AVG_GUARANTEE_RATIO": "平均维持担保比例",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -92,7 +91,7 @@ def stock_margin_account_info() -> pd.DataFrame:
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     for item in big_df.columns[1:]:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
-    big_df.sort_values(["日期"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     return big_df
 
 

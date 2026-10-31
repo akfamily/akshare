@@ -7,8 +7,8 @@ https://data.eastmoney.com/pmetal/comex/by.html
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -38,7 +38,7 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
         "client": "WEB",
         "filter": f'(INDICATOR_ID1="{symbol_map[symbol]}")(@STORAGE_TON<>"NULL")',
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -49,14 +49,14 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "index": "序号",
             "REPORT_DATE": "日期",
@@ -73,7 +73,6 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
             "OPENPOSTOCK_WECHANGE": "-",
             "OPENPOSI_STOCK_SUM": "-",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -90,7 +89,7 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
         big_df[f"COMEX{symbol}库存量-盎司"], errors="coerce"
     )
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["日期"], ignore_index=True)
     big_df["序号"] = range(1, len(big_df) + 1)
     return big_df
 

@@ -14,7 +14,7 @@ Desc: 东方财富网-数据中心-特色数据-股权质押
 import math
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -37,13 +37,13 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in range(1, total_page + 1):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -80,8 +80,8 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["A股质押总比例"] = big_df["A股质押总比例"] / 100
     big_df["A股质押总比例"] = pd.to_numeric(big_df["A股质押总比例"], errors="coerce")
-    big_df.sort_values(["交易日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df = big_df.sort_values(["交易日期"])
+    big_df = big_df.reset_index(drop=True)
     return big_df
 
 
@@ -108,19 +108,19 @@ def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
         "client": "WEB",
         "filter": f"(TRADE_DATE='{trade_date}')",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -186,7 +186,7 @@ def _get_page_num_gpzy_market_pledge_ratio_detail(filter: str = None) -> int:
         "client": "WEB",
         "filter": filter,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = math.ceil(int(data_json["result"]["count"]) / 500)
     return total_page
@@ -215,11 +215,11 @@ def _stock_gpzy_pledge_ratio_detail_em(filter: str = None) -> pd.DataFrame:
             "client": "WEB",
             "filter": filter,
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
     big_df.columns = [
         "序号",
@@ -329,10 +329,10 @@ def stock_gpzy_distribute_statistics_company_em() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PFORG_TYPE="证券")',
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -398,10 +398,10 @@ def stock_gpzy_distribute_statistics_bank_em() -> pd.DataFrame:
         "client": "WEB",
         "filter": '(PFORG_TYPE="银行")',
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
@@ -466,10 +466,10 @@ def stock_gpzy_industry_data_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",

@@ -8,7 +8,8 @@ Desc: 东方财富-基金
 from io import StringIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def fund_aum_em() -> pd.DataFrame:
@@ -20,7 +21,7 @@ def fund_aum_em() -> pd.DataFrame:
     """
     url = "https://fund.eastmoney.com/Company/home/gspmlist"
     params = {"fundType": "0"}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     del temp_df["相关链接"]
     del temp_df["天相评级"]
@@ -51,7 +52,7 @@ def fund_aum_trend_em() -> pd.DataFrame:
     """
     url = "https://fund.eastmoney.com/Company/home/GetFundTotalScaleForChart"
     payload = {"fundType": "0"}
-    r = requests.get(url, data=payload)
+    r = http.get(url, data=payload)
     data_json = r.json()
     temp_df = pd.DataFrame()
     temp_df["date"] = data_json["x"]
@@ -72,7 +73,7 @@ def fund_aum_hist_em(year: str = "2023") -> pd.DataFrame:
     """
     url = "https://fund.eastmoney.com/Company/home/HistoryScaleTable"
     params = {"year": year}
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [
         "序号",

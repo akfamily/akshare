@@ -7,8 +7,8 @@ https://data.eastmoney.com/gdhs/
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -51,7 +51,7 @@ def stock_zh_a_gdhs(symbol: str = "20230930") -> pd.DataFrame:
             "client": "WEB",
             "filter": f"(END_DATE='{symbol[:4] + '-' + symbol[4:6] + '-' + symbol[6:]}')",
         }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -62,7 +62,7 @@ def stock_zh_a_gdhs(symbol: str = "20230930") -> pd.DataFrame:
                 "pageNumber": page_num,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -151,7 +151,7 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -162,7 +162,7 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
                 "pageNumber": page_num,
             }
         )
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -223,7 +223,7 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000001") -> pd.DataFrame:
     big_df["股东户数公告日期"] = pd.to_datetime(
         big_df["股东户数公告日期"], errors="coerce"
     ).dt.date
-    big_df.sort_values(by=["股东户数统计截止日"], ignore_index=True, inplace=True)
+    big_df = big_df.sort_values(by=["股东户数统计截止日"], ignore_index=True)
     return big_df
 
 

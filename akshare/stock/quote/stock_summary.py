@@ -13,10 +13,10 @@ from ast import literal_eval
 from io import BytesIO, StringIO
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from akshare.exceptions import InvalidParameterError
+from akshare.utils import http
 
 
 def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
@@ -36,7 +36,7 @@ def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
         "txtQueryDate": "-".join([date[:4], date[4:6], date[6:]]),
         "random": "0.39339437497296137",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
@@ -67,7 +67,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
         "DATETIME": "-".join([date[:4], date[4:6]]),
         "random": "0.39349437497296137",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
@@ -82,7 +82,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
         "优先股交易额(元)": "优先股交易额",
         "期权交易额(元)": "期权交易额",
     }
-    temp_df.rename(columns=column_map, inplace=True)
+    temp_df = temp_df.rename(columns=column_map)
     temp_df["总交易额"] = temp_df["总交易额"].str.replace(",", "")
     temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"], errors="coerce")
     temp_df["占市场"] = pd.to_numeric(temp_df["占市场"], errors="coerce")
@@ -121,7 +121,7 @@ def stock_szse_sector_summary(
     :rtype: pandas.DataFrame
     """
     url = "https://www.szse.cn/market/periodical/month/index.html"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, features="lxml")
     tags_list = soup.find_all(name="div", attrs={"class": "g-container"})[1].find_all(
@@ -151,7 +151,7 @@ def stock_szse_sector_summary(
             f"当前最新可用月份为 {latest_date}"
         )
     url = f"https://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, features="lxml")
     url = [
@@ -159,7 +159,7 @@ def stock_szse_sector_summary(
     ][0]["href"]
 
     if symbol == "当月":
-        r = requests.get(url)
+        r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text), encoding="gbk")[0]
         temp_df.columns = [
             "项目名称",
@@ -173,7 +173,7 @@ def stock_szse_sector_summary(
             "成交笔数-占总计",
         ]
     else:
-        temp_df = pd.read_html(url, encoding="gbk")[1]
+        temp_df = pd.read_html(http.get_buffer(url), encoding="gbk")[1]
         temp_df.columns = [
             "项目名称",
             "项目名称-英文",
@@ -222,10 +222,10 @@ def stock_sse_summary() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]).T
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = [
         "流通股本",
         "总市值",
@@ -269,11 +269,11 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     if len(temp_df.columns) == 5:
         # 20250228
         temp_df.columns = [
@@ -344,7 +344,7 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
         temp_df["单日情况"], categories=desired_order, ordered=True
     )
     # 按照指标排序
-    temp_df.sort_values("单日情况", ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values("单日情况", ignore_index=True)
     temp_df["股票"] = pd.to_numeric(temp_df["股票"], errors="coerce")
     temp_df["主板A"] = pd.to_numeric(temp_df["主板A"], errors="coerce")
     temp_df["主板B"] = pd.to_numeric(temp_df["主板B"], errors="coerce")

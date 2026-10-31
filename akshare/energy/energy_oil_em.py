@@ -7,7 +7,8 @@ https://data.eastmoney.com/cjsj/oil_default.html
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def energy_oil_hist() -> pd.DataFrame:
@@ -31,7 +32,7 @@ def energy_oil_hist() -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = ["调整日期", "汽油价格", "柴油价格", "汽油涨跌", "柴油涨跌"]
@@ -40,8 +41,8 @@ def energy_oil_hist() -> pd.DataFrame:
     temp_df["柴油价格"] = pd.to_numeric(temp_df["柴油价格"], errors="coerce")
     temp_df["汽油涨跌"] = pd.to_numeric(temp_df["汽油涨跌"], errors="coerce")
     temp_df["柴油涨跌"] = pd.to_numeric(temp_df["柴油涨跌"], errors="coerce")
-    temp_df.sort_values(by=["调整日期"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.sort_values(by=["调整日期"])
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -67,7 +68,7 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
         "pageSize": "1000",
         "source": "WEB",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
     temp_df.columns = [

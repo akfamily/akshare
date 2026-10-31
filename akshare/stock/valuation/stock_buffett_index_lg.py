@@ -7,9 +7,9 @@ https://legulegu.com/stockdata/marketcap-gdp
 """
 
 import pandas as pd
-import requests
 
 from akshare.stock.valuation.stock_a_indicator import get_token_lg, get_cookie_csrf
+from akshare.utils import http
 
 
 def stock_buffett_index_lg() -> pd.DataFrame:
@@ -22,7 +22,7 @@ def stock_buffett_index_lg() -> pd.DataFrame:
     token = get_token_lg()
     url = "https://legulegu.com/api/stockdata/marketcap-gdp/get-marketcap-gdp"
     params = {"token": token}
-    r = requests.get(
+    r = http.get(
         url,
         params=params,
         **get_cookie_csrf(url="https://legulegu.com/stockdata/marketcap-gdp"),
@@ -38,7 +38,7 @@ def stock_buffett_index_lg() -> pd.DataFrame:
         "quantileInRecent10Years": "近十年分位数",
     }
     existing_rename = {k: v for k, v in rename_map.items() if k in temp_df.columns}
-    temp_df.rename(columns=existing_rename, inplace=True)
+    temp_df = temp_df.rename(columns=existing_rename)
 
     base_cols = ["日期", "收盘价", "总市值", "GDP"]
     optional_cols = ["近十年分位数", "总历史分位数"]

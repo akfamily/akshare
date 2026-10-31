@@ -14,8 +14,9 @@ https://www.sse.com.cn/disclosure/credibility/supervision/change/
 import json
 
 import pandas as pd
-import requests
 from tqdm import tqdm
+
+from akshare.utils import http
 
 
 def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
@@ -49,7 +50,7 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/93.0.4577.63 Safari/537.36",
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     total_page = data_json["pageHelp"]["pageCount"]
     big_df = pd.DataFrame()
@@ -61,11 +62,11 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
                 "pageHelp.endPage": page,
             }
         )
-        r = requests.get(url, headers=headers, params=params)
+        r = http.get(url, headers=headers, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "STOCK_TYPE": "股票种类",
             "COMPANY_ABBR": "公司名称",
@@ -82,7 +83,6 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
             "CHANGE_NUM": "变动数",
             "CURRENT_NUM": "本次变动前持股数",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -137,7 +137,7 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
         "random": "0.7874198771222201",
     }
     params if symbol == "全部" else params.update({"txtDMorJC": symbol})
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_json = r.json()
     total_page = data_json[0]["metadata"]["pagecount"]
     big_df = pd.DataFrame()
@@ -147,11 +147,11 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
                 "PAGENO": page,
             }
         )
-        r = requests.get(url, headers=headers, params=params)
+        r = http.get(url, headers=headers, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json[0]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "zqdm": "证券代码",
             "zqjc": "证券简称",
@@ -166,7 +166,6 @@ def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
             "zw": "职务",
             "gxlb": "变动人与董监高的关系",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -218,7 +217,7 @@ def stock_share_hold_change_bse(symbol: str = "430489") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/93.0.4577.63 Safari/537.36",
     }
-    r = requests.get(url, headers=headers, params=params)
+    r = http.get(url, headers=headers, params=params)
     data_text = r.text
     data_text = data_text.strip("null(").strip(")")
     data_json = json.loads(data_text)
@@ -230,13 +229,13 @@ def stock_share_hold_change_bse(symbol: str = "430489") -> pd.DataFrame:
                 "page": page,
             }
         )
-        r = requests.get(url, headers=headers, params=params)
+        r = http.get(url, headers=headers, params=params)
         data_text = r.text
         data_text = data_text.strip("null(").strip(")")
         data_json = json.loads(data_text)
         temp_df = pd.DataFrame(data_json[0]["result"]["content"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "changeAmount": "变动股数",
             "changeDate": "变动日期",
@@ -253,7 +252,6 @@ def stock_share_hold_change_bse(symbol: str = "430489") -> pd.DataFrame:
             "stockCode": "代码",
             "stockName": "简称",
         },
-        inplace=True,
     )
     big_df = big_df[
         [

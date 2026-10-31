@@ -8,7 +8,8 @@ Desc: 期货-期转现-交割
 from io import StringIO, BytesIO
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
@@ -27,7 +28,7 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["ExchangeDelivery"])
     temp_df.columns = [
@@ -81,13 +82,13 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = http.post(url, params=params, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["交割日期"] = (
         temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
     temp_df = temp_df[~temp_df["品种"].str.contains("小计|总计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["交割日期"] = pd.to_datetime(temp_df["交割日期"], errors="coerce").dt.date
     temp_df["交割量"] = pd.to_numeric(temp_df["交割量"], errors="coerce")
     temp_df["交割金额"] = pd.to_numeric(temp_df["交割金额"], errors="coerce")
@@ -111,13 +112,13 @@ def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
         "ftsDealQuotes.begin_month": date,
         "ftsDealQuotes.end_month": date,
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["期转现发生日期"] = (
         temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
     temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|总计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     temp_df["期转现发生日期"] = pd.to_datetime(
         temp_df["期转现发生日期"], errors="coerce"
     ).dt.date
@@ -140,7 +141,7 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
         "contract.contract_id": "all",
         "contract.variety_id": symbol,
     }
-    r = requests.post(url, params=params)
+    r = http.post(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["配对日期"] = (
         temp_df["配对日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
@@ -174,7 +175,7 @@ def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=1)
 
@@ -191,7 +192,7 @@ def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
     temp_df["合约数量"] = temp_df["合约数量"].astype(str).str.replace(",", "")
     temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"], errors="coerce")
     temp_df = temp_df[~temp_df["合约代码"].str.contains("小计|合计")]
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
@@ -205,7 +206,7 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataDelsettle.xls"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=0)
     index_flag = temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].index.values
@@ -213,11 +214,11 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     for i, item in enumerate(index_flag):
         try:
             temp_inner_df = temp_df[index_flag[i] + 1 : index_flag[i + 1]]
-        except:  # noqa: E722
+        except Exception:
             temp_inner_df = temp_df[index_flag[i] + 1 :]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]
-        temp_inner_df.reset_index(drop=True, inplace=True)
+        temp_inner_df = temp_inner_df.reset_index(drop=True)
         date_contract_str = (
             temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
         )
@@ -251,7 +252,7 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataSettlematched.xls"
-    r = requests.get(url)
+    r = http.get(url)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=1)
     temp_df.columns = [
@@ -281,7 +282,7 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.encoding = "utf-8"
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["o_curdelivery"])

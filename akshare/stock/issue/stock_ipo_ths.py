@@ -7,8 +7,9 @@ https://data.10jqka.com.cn/ipo/xgsgyzq/
 """
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import http
 
 
 def stock_ipo_ths(symbol: str = "全部A股") -> pd.DataFrame:
@@ -38,7 +39,7 @@ def stock_ipo_ths(symbol: str = "全部A股") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.raise_for_status()
     soup = BeautifulSoup(r.text, "lxml")
 
@@ -90,7 +91,7 @@ def stock_ipo_hk_ths() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     r.raise_for_status()
     soup = BeautifulSoup(r.text, "lxml")
 

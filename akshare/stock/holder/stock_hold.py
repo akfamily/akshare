@@ -9,9 +9,9 @@ https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.pht
 from io import StringIO
 
 import pandas as pd
-import requests
 
-from akshare.utils import demjson
+from akshare.utils import jsonish
+from akshare.utils import http
 
 
 def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
@@ -30,7 +30,7 @@ def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
         "reportdate": symbol[:-1],
         "quarter": symbol[-1],
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["证券代码"] = temp_df["证券代码"].astype(str).str.zfill(6)
     del temp_df["明细"]
@@ -73,17 +73,17 @@ def stock_institute_hold_detail(
         "symbol": stock,
         "quarter": quarter,
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -2])
+    json_data = jsonish.loads(text_data[text_data.find("{") : -2])
     big_df = pd.DataFrame()
     for item in json_data["data"].keys():
         inner_temp_df = pd.DataFrame(json_data["data"][item]).T.iloc[:-1, :]
-        inner_temp_df.reset_index(inplace=True)
+        inner_temp_df = inner_temp_df.reset_index()
         big_df = pd.concat(objs=[big_df, inner_temp_df], ignore_index=True)
     if not big_df.empty:
         big_df["index"] = big_df["index"].str.split("_", expand=True)[0]
-        big_df.rename(columns={"index": "institute"}, inplace=True)
+        big_df = big_df.rename(columns={"index": "institute"})
         big_df = big_df.iloc[:, :12]
         big_df.columns = [
             "持股机构类型",

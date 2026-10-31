@@ -7,7 +7,8 @@ https://www.sse.com.cn/market/othersdata/margin/sum/
 """
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def stock_margin_ratio_pa(symbol: str = "深市", date: str = "20260113") -> pd.DataFrame:
@@ -40,17 +41,16 @@ def stock_margin_ratio_pa(symbol: str = "深市", date: str = "20260113") -> pd.
         "requestId": "194055910e2075c03e25fabf6ffc5a7f",
         "channel": "pa18",
     }
-    r = requests.post(url, json=payload)
+    r = http.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "fiMarginRatio": "融资比例",
             "secuCode": "证券代码",
             "secuName": "证券简称",
             "slMarginRatio": "融券比例",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -96,7 +96,7 @@ def stock_margin_sse(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [
@@ -163,7 +163,7 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/88.0.4324.150 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [

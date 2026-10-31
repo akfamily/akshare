@@ -11,12 +11,12 @@ https://quote.eastmoney.com/gb/zsHSTECF2L.html
 import re
 
 import pandas as pd
-import requests
 import py_mini_racer
 
 from functools import lru_cache
 
 from akshare.stock.cons import hk_js_decode
+from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
@@ -41,7 +41,7 @@ def get_hk_index_page_count() -> int:
     :return: 需要抓取的指数的总页数
     :rtype: int
     """
-    res = requests.get(
+    res = http.get(
         "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getNameCount?node=zs_hk"
     )
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
@@ -66,7 +66,7 @@ def stock_hk_index_spot_sina() -> pd.DataFrame:
         "hkSSE180GV,hkSSE380,hkSSE50,hkSSECEQT,hkSSECOMP,hkSSEDIV,hkSSEITOP,hkSSEMCAP,hkSSEMEGA,hkVHSI"
     )
     headers = {"Referer": "https://vip.stock.finance.sina.com.cn/"}
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     data_text = r.text
     data_list = [
         item.split('"')[1].split(",")
@@ -129,7 +129,7 @@ def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     """
     url = f"https://finance.sina.com.cn/stock/hkstock/{symbol}/klc2_kl.js"
     params = {"d": "2023_5_01"}
-    res = requests.get(url, params=params)
+    res = http.get(url, params=params)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -168,7 +168,7 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
     }
     temp_df = fetch_paginated_data(url, params)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f2": "最新价",
@@ -184,7 +184,6 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
             "f17": "今开",
             "f18": "昨收",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -261,7 +260,7 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
         "ut": "f057cbcbce2a86e2866ab8877db1d059",
         "forcect": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [

@@ -7,9 +7,9 @@ https://quote.eastmoney.com/center/gridlist.html#global_qtzs
 """
 
 import pandas as pd
-import requests
 
 from akshare.index.cons import index_global_em_symbol_map
+from akshare.utils import http
 
 
 def index_global_spot_em() -> pd.DataFrame:
@@ -39,12 +39,12 @@ def index_global_spot_em() -> pd.DataFrame:
         "dect": "1",
         "wbp2u": "|0|0|0|web",
     }
-    r = requests.get(url=url, params=params)
+    r = http.get(url=url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"]).T
-    temp_df.reset_index(inplace=True)
+    temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"].astype(int) + 1
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "index": "序号",
             "f12": "代码",
@@ -59,7 +59,6 @@ def index_global_spot_em() -> pd.DataFrame:
             "f7": "振幅",
             "f124": "最新行情时间",
         },
-        inplace=True,
     )
     temp_df = temp_df[
         [
@@ -114,7 +113,7 @@ def index_global_hist_em(symbol: str = "美元指数") -> pd.DataFrame:
         "ut": "f057cbcbce2a86e2866ab8877db1d059",
         "forcect": "1",
     }
-    r = requests.get(url=url, params=params)
+    r = http.get(url=url, params=params)
     data_json = r.json()
 
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])

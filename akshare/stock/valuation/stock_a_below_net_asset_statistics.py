@@ -7,8 +7,8 @@ https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
 
 import pandas as pd
-import requests
 
+from akshare.utils import http
 from akshare.utils.cons import headers
 
 
@@ -32,7 +32,7 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
         "marketId": symbol_map[symbol],
         "token": "325843825a2745a2a8f9b9e3355cb864",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     if temp_df.empty:
@@ -63,7 +63,7 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     big_df["below_net_asset_ratio"] = pd.to_numeric(
         big_df["below_net_asset_ratio"], errors="coerce"
     )
-    big_df.sort_values(["date"], inplace=True, ignore_index=True)
+    big_df = big_df.sort_values(["date"], ignore_index=True)
     return big_df
 
 

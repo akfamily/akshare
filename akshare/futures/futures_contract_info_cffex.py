@@ -9,7 +9,8 @@ http://www.cffex.com.cn/jycs/
 import xml.etree.ElementTree as ET
 
 import pandas as pd
-import requests
+
+from akshare.utils import http
 
 
 def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
@@ -25,7 +26,7 @@ def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
     }
     url = f"http://www.cffex.com.cn/sj/jycs/{date[:6]}/{date[6:]}/index.xml"
-    r = requests.get(url, headers=headers)
+    r = http.get(url, headers=headers)
     xml_data = r.text
     # 解析 XML
     tree = ET.ElementTree(ET.fromstring(xml_data))
@@ -43,7 +44,7 @@ def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
         data.append(row_data)
 
     temp_df = pd.DataFrame(data)
-    temp_df.rename(
+    temp_df = temp_df.rename(
         columns={
             "TRADING_DAY": "查询交易日",
             "PRODUCT_ID": "品种",
@@ -58,7 +59,6 @@ def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
             "LOWERLIMITPRICE": "跌停板价位",
             "LONG_LIMIT": "持仓限额",
         },
-        inplace=True,
     )
     temp_df["挂盘基准价"] = pd.to_numeric(temp_df["挂盘基准价"], errors="coerce")
     temp_df["涨停板价位"] = pd.to_numeric(temp_df["涨停板价位"], errors="coerce")
@@ -93,7 +93,7 @@ def futures_contract_info_cffex(date: str = "20240228") -> pd.DataFrame:
             "查询交易日",
         ]
     ]
-    temp_df.sort_values(["合约代码"], ascending=False, ignore_index=True, inplace=True)
+    temp_df = temp_df.sort_values(["合约代码"], ascending=False, ignore_index=True)
     return temp_df
 
 

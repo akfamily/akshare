@@ -7,7 +7,7 @@ https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
 
 import pandas as pd
-import requests
+from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -32,7 +32,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         "pageNo": "1",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -49,7 +49,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
             "pageNo": page,
             "pageNum": page,
         }
-        r = requests.get(url, params=params)
+        r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         for col in temp_df.columns:
@@ -66,7 +66,7 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         ):
             break
 
-    big_df.rename(
+    big_df = big_df.rename(
         columns={
             "SOLAR_DATE": "日期",
             "EMM00166462": "中国国债收益率5年",
@@ -82,7 +82,6 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
             "EMM00000024": "中国GDP年增率",
             "EMG00159635": "美国GDP年增率",
         },
-        inplace=True,
     )
     big_df = big_df[
         [
@@ -134,10 +133,10 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         big_df["美国国债收益率10年-2年"], errors="coerce"
     )
     big_df["美国GDP年增率"] = pd.to_numeric(big_df["美国GDP年增率"], errors="coerce")
-    big_df.sort_values("日期", inplace=True)
-    big_df.set_index(["日期"], inplace=True)
+    big_df = big_df.sort_values("日期")
+    big_df = big_df.set_index(["日期"])
     big_df = big_df[pd.to_datetime(start_date) :]
-    big_df.reset_index(inplace=True)
+    big_df = big_df.reset_index()
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     return big_df
 

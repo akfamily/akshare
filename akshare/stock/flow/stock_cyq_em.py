@@ -10,7 +10,8 @@ from datetime import datetime
 
 import pandas as pd
 import py_mini_racer
-import requests
+
+from akshare.utils import http
 
 
 def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
@@ -230,7 +231,7 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
         "end": datetime.now().date().strftime("%Y%m%d"),
         "lmt": "210",
     }
-    r = requests.get(url, params=params)
+    r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
@@ -304,7 +305,7 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
     temp_df["70成本-高"] = pd.to_numeric(temp_df["70成本-高"], errors="coerce")
     temp_df["70集中度"] = pd.to_numeric(temp_df["70集中度"], errors="coerce")
     temp_df = temp_df.iloc[-90:, :].copy()
-    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.reset_index(drop=True)
     return temp_df
 
 
