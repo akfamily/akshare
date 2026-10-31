@@ -18,6 +18,7 @@ from akshare.stock.cons import (
     hk_sina_stock_hist_qfq_url,
 )
 from akshare.utils import http
+from akshare.utils.func import ffill_to_index
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -126,9 +127,16 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         "d", r.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"]).dt.date
+    # 用不带时区的 Timestamp 作索引，与复权因子表一致；混用 datetime.date 时 pandas 合并会
+    # 发出 Pandas4Warning。返回前 reset_index 后再转为 date，结果类型不变
+    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.tz_localize(
+        None
+    )
+    data_df.index.name = "date"
     del data_df["date"]
     data_df = data_df.astype("float")
+    # 同一日期只保留一行；不能按开高低收量去重，冷门港股不同交易日的价量常常完全相同（#7477）
+    data_df = data_df[~data_df.index.duplicated(keep="first")].sort_index()
 
     if adjust == "":
         data_df = data_df.reset_index()
@@ -152,24 +160,8 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         hfq_factor_df.columns = ["date", "hfq_factor", "cash"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
-
-        # 处理复权因子
-        temp_date_range = pd.date_range(
-            "1900-01-01", hfq_factor_df.index[0].isoformat()
-        )
-        temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
-        new_range = pd.merge(
-            temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
-        )
-        new_range = new_range.ffill()
-        new_range = new_range.iloc[:, [1, 2]]
-        temp_df = pd.merge(
-            data_df, new_range, left_index=True, right_index=True, how="outer"
-        )
-        temp_df = temp_df.ffill()
-        temp_df = temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"]
-        )
+        # 复权因子按除权日期记录，对齐到交易日；不再 outer merge，以免带进非交易日的行
+        temp_df = data_df.join(ffill_to_index(hfq_factor_df, data_df.index))
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"] + temp_df["cash"]
@@ -201,23 +193,8 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
-
-        temp_date_range = pd.date_range(
-            "1900-01-01", qfq_factor_df.index[0].isoformat()
-        )
-        temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
-        new_range = pd.merge(
-            temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
-        )
-        new_range = new_range.ffill()
-        new_range = new_range.iloc[:, [1]]
-        temp_df = pd.merge(
-            data_df, new_range, left_index=True, right_index=True, how="outer"
-        )
-        temp_df = temp_df.ffill()
-        temp_df = temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"]
-        )
+        # 复权因子按除权日期记录，对齐到交易日；不再 outer merge，以免带进非交易日的行
+        temp_df = data_df.join(ffill_to_index(qfq_factor_df, data_df.index))
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["qfq_factor"]

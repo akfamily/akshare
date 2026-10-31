@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-21)=
+### 1.20.21 fix: fix stock_hk_daily, stock_zh_a_daily and stock_zh_a_minute, add fund_etf_pcf
+
+1. 新增 fund_etf_pcf 接口，获取沪深交易所 ETF 最新每日申购赎回清单；新增 fund_etf_holdings_tx 接口，按申赎篮子的证券数量、腾讯最新价与人民币汇率估算各证券的市值占比（#7461，感谢 @zhangjw777）
+2. 修复 stock_hk_daily、stock_zh_a_daily、stock_zh_b_daily 静默丢失交易日的问题：原先合并复权因子与股本后按开盘价、最高价、最低价、收盘价、成交量去重，价量与更早某个交易日完全相同的真实交易日会被当作重复行删掉，冷门股尤为常见，如 stock_hk_daily(symbol="03866", adjust="qfq") 少了 25 个交易日（#7477）。现在复权因子与股本按日期对齐到交易日，三种复权方式返回的日期与不复权数据一致，原有日期的数值不变
+3. stock_zh_a_daily 与 stock_zh_b_daily 在上游同一天有两条股本记录时，当天与之后各交易日统一取同一条，原先当天取前一条、之后取后一条，导致 outstanding_share 与 turnover 在这一天不一致
+4. stock_zh_a_minute 与 stock_zh_b_minute 不再每次都多取一次前复权日线（#7478）：adjust="" 时请求数从 4 个降为 1 个，也不再为解密新浪数据新建 V8 实例，批量获取分钟数据时内存不再持续增长；adjust="qfq" 或 "hfq" 时只取一次对应口径的日线。取不到复权日线（如指数）时仍返回不复权的数据，并发出警告
+
 (v1-20-20)=
 ### 1.20.20 docs: add MCP (AI assistant) guide
 

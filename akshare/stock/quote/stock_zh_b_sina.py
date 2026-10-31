@@ -8,6 +8,7 @@ https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 
 import ast
 import json
+import warnings
 import re
 from functools import lru_cache
 
@@ -24,6 +25,7 @@ from akshare.stock.cons import (
 )
 from akshare.utils import jsonish
 from akshare.utils import http
+from akshare.utils.func import ffill_to_index
 
 
 @lru_cache()
@@ -179,21 +181,26 @@ def stock_zh_b_daily(
         "d", r.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"]).dt.date
+    # 用不带时区的 Timestamp 作索引，与股本、复权因子表一致；混用 datetime.date 时 pandas 合并会
+    # 发出 Pandas4Warning。返回前 reset_index 后再转为 date，结果类型不变
+    data_df.index = pd.to_datetime(data_df["date"], errors="coerce").dt.tz_localize(
+        None
+    )
+    data_df.index.name = "date"
     del data_df["date"]
     del data_df["amount"]
     del data_df["prevclose"]
 
     data_df = data_df.astype("float")
+    # 同一日期只保留一行；不能按开高低收量去重，不同交易日的价量可能完全相同（#7477）
+    data_df = data_df[~data_df.index.duplicated(keep="first")].sort_index()
     r = http.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
     amount_data_json = jsonish.loads(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]
-    temp_df = pd.merge(
-        data_df, amount_data_df, left_index=True, right_index=True, how="outer"
-    )
-    temp_df = temp_df.ffill()
+    # 股本按变动日期记录，对齐到交易日；不再 outer merge，以免带进非交易日的行
+    temp_df = data_df.join(ffill_to_index(amount_data_df, data_df.index))
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
@@ -208,15 +215,11 @@ def stock_zh_b_daily(
     ]
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
-        temp_df = temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"]
-        )
         temp_df["open"] = round(temp_df["open"], 2)
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df = temp_df.dropna()
-        temp_df = temp_df.drop_duplicates()
         temp_df = temp_df.reset_index()
         return temp_df
 
@@ -228,15 +231,9 @@ def stock_zh_b_daily(
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
-        temp_df = pd.merge(
-            temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
-        )
-        temp_df = temp_df.ffill()
+        temp_df = temp_df.join(ffill_to_index(hfq_factor_df, temp_df.index))
         temp_df = temp_df.astype(float)
         temp_df = temp_df.dropna()
-        temp_df = temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"]
-        )
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
@@ -259,15 +256,9 @@ def stock_zh_b_daily(
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
-        temp_df = pd.merge(
-            temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
-        )
-        temp_df = temp_df.ffill()
+        temp_df = temp_df.join(ffill_to_index(qfq_factor_df, temp_df.index))
         temp_df = temp_df.astype(float)
         temp_df = temp_df.dropna()
-        temp_df = temp_df.drop_duplicates(
-            subset=["open", "high", "low", "close", "volume"]
-        )
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
@@ -310,64 +301,39 @@ def stock_zh_b_minute(
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
     if temp_df.empty:
         return pd.DataFrame()
-    try:
-        stock_zh_b_daily(symbol=symbol, adjust="qfq")
-    except Exception:
-        return temp_df
-
     if adjust == "":
         return temp_df
-
-    if adjust == "qfq":
-        temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
-        # 处理没有最后一分钟的情况
-        need_df = temp_df[
-            [
-                True if "09:31:00" <= item <= "15:00:00" else False
-                for item in temp_df["time"]
-            ]
-        ]
-        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
-        need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_b_daily_qfq_df = stock_zh_b_daily(symbol=symbol, adjust="qfq")
-        stock_zh_b_daily_qfq_df.index = pd.to_datetime(stock_zh_b_daily_qfq_df["date"])
-        result_df = stock_zh_b_daily_qfq_df.iloc[-len(need_df) :, :]["close"].astype(
-            float
-        ) / need_df["close"].astype(float)
-        temp_df.index = pd.to_datetime(temp_df["date"])
-        merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
-        merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
-        merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
-        merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
-        merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
-        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df = temp_df.reset_index(drop=True)
+    if adjust not in ("qfq", "hfq"):
+        return pd.DataFrame()
+    # 只在需要复权时取一次对应口径的日线；原先无论 adjust 为何都先多取一次前复权日线（#7478）
+    try:
+        daily_df = stock_zh_b_daily(symbol=symbol, adjust=adjust)
+    except Exception as e:
+        warnings.warn(f"{symbol} 没有复权日线数据（{e}），返回不复权的分钟数据")
         return temp_df
-    if adjust == "hfq":
-        temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
-        # 处理没有最后一分钟的情况
-        need_df = temp_df[
-            [
-                True if "09:31:00" <= item <= "15:00:00" else False
-                for item in temp_df["time"]
-            ]
+    temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
+    # 处理没有最后一分钟的情况
+    need_df = temp_df[
+        [
+            True if "09:31:00" <= item <= "15:00:00" else False
+            for item in temp_df["time"]
         ]
-        need_df = need_df.drop_duplicates(subset=["date"], keep="last")
-        need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_b_daily_hfq_df = stock_zh_b_daily(symbol=symbol, adjust="hfq")
-        stock_zh_b_daily_hfq_df.index = pd.to_datetime(stock_zh_b_daily_hfq_df["date"])
-        result_df = stock_zh_b_daily_hfq_df.iloc[-len(need_df) :, :]["close"].astype(
-            float
-        ) / need_df["close"].astype(float)
-        temp_df.index = pd.to_datetime(temp_df["date"])
-        merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
-        merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
-        merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
-        merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
-        merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
-        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
-        temp_df = temp_df.reset_index(drop=True)
-        return temp_df
+    ]
+    need_df = need_df.drop_duplicates(subset=["date"], keep="last")
+    need_df.index = pd.to_datetime(need_df["date"])
+    daily_df.index = pd.to_datetime(daily_df["date"])
+    result_df = daily_df.iloc[-len(need_df) :, :]["close"].astype(float) / need_df[
+        "close"
+    ].astype(float)
+    temp_df.index = pd.to_datetime(temp_df["date"])
+    merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
+    merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
+    merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
+    merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
+    merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
+    temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
+    temp_df = temp_df.reset_index(drop=True)
+    return temp_df
 
 
 if __name__ == "__main__":

@@ -69,6 +69,22 @@ def fetch_paginated_data(url: str, base_params: Dict):
     return temp_df
 
 
+def ffill_to_index(df: pd.DataFrame, index: pd.Index) -> pd.DataFrame:
+    """
+    把按变动日期记录的数据（股本、复权因子等）对齐到指定日期：每个日期取不晚于它的最近一条记录
+    先在两组日期的并集上前向填充，再只保留指定日期，因此变动日不是交易日时也能取到正确的值，
+    且不会多出非交易日的行。早于第一条记录的日期为 NaN；同一日期有多条记录时取最后一条
+    :param df: 以 DatetimeIndex 为索引的变动记录，可以无序
+    :type df: pandas.DataFrame
+    :param index: 需要对齐到的日期，通常是交易日
+    :type index: pandas.Index
+    :return: 以 index 为索引、列与 df 相同的数据
+    :rtype: pandas.DataFrame
+    """
+    df = df[~df.index.duplicated(keep="last")].sort_index()
+    return df.reindex(df.index.union(index)).ffill().reindex(index)
+
+
 def set_df_columns(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
     """
     设置 pandas.DataFrame 为空的情况
