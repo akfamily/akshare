@@ -807,8 +807,8 @@ from akshare.fund.fund_etf_sina import (
     fund_etf_dividend_sina,
     fund_etf_hist_sina,
 )
+from akshare.fund.fund_etf_pcf import fund_etf_holdings_tx, fund_etf_pcf
 from akshare.fund.fund_etf_sse import fund_etf_scale_sse
-from akshare.fund.fund_etf_pcf import fund_etf_pcf, fund_etf_holdings_tx
 from akshare.fund.fund_etf_szse import fund_etf_scale_szse
 from akshare.fund.fund_etf_ths import fund_etf_category_ths, fund_etf_spot_ths
 from akshare.fund.fund_fee_em import fund_fee_em

@@ -8,7 +8,7 @@ import pytest
 import requests
 
 import akshare as ak
-from akshare.exceptions import DataParsingError
+from akshare.exceptions import DataParsingError, InvalidParameterError
 from akshare.fund import fund_etf_pcf as module
 
 
@@ -97,7 +97,7 @@ def test_latest_szse_and_public_exports(monkeypatch):
 
 @pytest.mark.parametrize("symbol", ["600519", "sh510300", "15950", "510300x"])
 def test_invalid_symbol(symbol):
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidParameterError):
         ak.fund_etf_pcf(symbol)
 
 

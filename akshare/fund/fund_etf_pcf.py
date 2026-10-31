@@ -13,7 +13,7 @@ from xml.etree import ElementTree
 
 import pandas as pd
 
-from akshare.exceptions import DataParsingError
+from akshare.exceptions import DataParsingError, InvalidParameterError
 from akshare.utils import http
 
 
@@ -81,7 +81,10 @@ def _parse_pcf(content: bytes, symbol: str, szse: bool) -> pd.DataFrame:
         temp_df.insert(
             0,
             key,
-            value if key == "基金代码" else pd.to_numeric(value, errors="coerce"),
+            # 统一为浮点数：沪市清单写作 900000，深市写作 1000000.00，否则两市类型不一致
+            value
+            if key == "基金代码"
+            else float(pd.to_numeric(value, errors="coerce")),
         )
     trading_day = pd.to_datetime(
         root.findtext("TradingDay", ""), format="%Y%m%d", errors="coerce"
@@ -104,7 +107,7 @@ def fund_etf_pcf(symbol: str = "510300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     if re.fullmatch(r"(?:5\d{5}|15\d{4})", symbol) is None:
-        raise ValueError("请输入沪市 5 开头或深市 15 开头的六位 ETF 代码")
+        raise InvalidParameterError("请输入沪市 5 开头或深市 15 开头的六位 ETF 代码")
     szse = symbol.startswith("15")
     if szse:
         today = datetime.now(timezone(timedelta(hours=8))).date()
