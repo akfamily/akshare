@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-19)=
+### 1.20.19 fix: remove bundled swsresearch intermediate certificate
+
+1. 删除 1.20.16 起随包附带的申万宏源研究中间证书 swsresearch_intermediate.pem：这是一张公开的 CA 证书，不含私钥，但 .pem 文件会被代码泄露扫描工具当作敏感文件报警
+2. 申万宏源研究（index_hist_sw、index_realtime_sw、index_analysis_daily_sw 等 8 个接口）的服务器仍然缺少中间证书，因此这些请求改为不校验证书，其他接口仍全部校验。调用这些接口时会出现 urllib3 的 `InsecureRequestWarning` 警告，属预期现象
+
 (v1-20-18)=
 ### 1.20.18 fix: remove pandas and Python deprecated usages
 
