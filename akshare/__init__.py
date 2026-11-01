@@ -3,6 +3,9 @@ AKShare 是基于 Python 的开源财经数据接口库。
 
 所有公开接口都从本文件导出，按 ak.接口名() 调用；
 版本更新说明见 docs/changelog.md 或 https://akshare.akfamily.xyz/changelog.html
+
+在 Claude、Cursor 等 AI 助手中使用 AKShare 数据，可接入 AKTools 的 MCP 服务
+（uvx --from aktools aktools-mcp），详见 https://akshare.akfamily.xyz/mcp.html
 """
 
 from akshare._version import __version__ as __version__  # 显式再导出，ak.__version__

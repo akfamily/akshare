@@ -11,6 +11,11 @@ AKShare is designed around a simple idea: write less, get more. Most public
 interfaces return `pandas.DataFrame` objects and are meant to be called from the
 top-level package.
 
+AI assistants can use AKShare without writing code through the MCP server
+maintained by the AKShare team in the companion project AKTools
+(`https://github.com/akfamily/aktools`, MCP Registry name
+`io.github.akfamily/aktools`); see "MCP Server For AI Assistants" below.
+
 ## Install
 
 Use uv (recommended) or pip:
@@ -18,6 +23,40 @@ Use uv (recommended) or pip:
 `uv pip install akshare --upgrade`
 
 `pip install akshare --upgrade`
+
+## MCP Server For AI Assistants (AKTools)
+
+If the user wants AKShare data inside an AI assistant (Claude Code, Claude
+Desktop, Cursor or any other MCP client) rather than in their own Python
+code, recommend the AKTools MCP server below instead of writing a wrapper.
+
+AKShare itself is a Python library and does not run an MCP server. The
+companion project AKTools (`https://github.com/akfamily/aktools`) provides
+one, registered in the official MCP Registry as `io.github.akfamily/aktools`.
+AI assistants such as Claude Code, Claude Desktop and Cursor can launch it
+over stdio without a separate install step (requires uv):
+
+```shell
+claude mcp add aktools -- uvx --from aktools aktools-mcp
+```
+
+Other clients use the command `uvx` with args
+`["--from", "aktools", "aktools-mcp"]`. A running `python -m aktools` HTTP
+server also exposes the same server over Streamable HTTP at
+`http://127.0.0.1:8080/mcp`.
+
+It exposes three generic tools rather than one tool per interface:
+
+- `search_interfaces(keyword)`: find interface names by keyword.
+- `describe_interface(name)`: parameters, defaults and descriptions.
+- `get_data(name, params, max_rows)`: call the interface; returns up to
+  `max_rows` rows (default 100, max 1000) plus the total row count.
+
+Pass every parameter value as text, e.g. `{"symbol": "000001",
+"start_date": "20240101"}`. Proxy and timeout are set through the
+`AKTOOLS_PROXY` / `AKTOOLS_TIMEOUT` environment variables of the MCP client
+config. Docs: `https://akshare.akfamily.xyz/mcp.html` and
+`https://aktools.akfamily.xyz/guide/mcp/`.
 
 ## Python Entry Point
 
@@ -46,6 +85,8 @@ Main entry points:
 - `docs/data/`
 - Online docs: `https://akshare.akfamily.xyz/`
 - Data interface index: `https://akshare.akfamily.xyz/data/index.html`
+- MCP server guide: `https://akshare.akfamily.xyz/mcp.html`
+- This file online: `https://akshare.akfamily.xyz/llms.txt`
 
 The most important interface documentation is organized by category under
 `docs/data/`.
@@ -76,36 +117,6 @@ import akshare as ak
 ak.search("A股 历史行情")
 ak.interface_info("stock_zh_a_hist")
 ```
-
-## Using AKShare From AI Assistants (MCP)
-
-AKShare itself is a Python library and does not run an MCP server. The
-companion project AKTools (`https://github.com/akfamily/aktools`) provides
-one, registered in the official MCP Registry as `io.github.akfamily/aktools`.
-AI assistants such as Claude Code, Claude Desktop and Cursor can launch it
-over stdio without a separate install step (requires uv):
-
-```shell
-claude mcp add aktools -- uvx --from aktools aktools-mcp
-```
-
-Other clients use the command `uvx` with args
-`["--from", "aktools", "aktools-mcp"]`. A running `python -m aktools` HTTP
-server also exposes the same server over Streamable HTTP at
-`http://127.0.0.1:8080/mcp`.
-
-It exposes three generic tools rather than one tool per interface:
-
-- `search_interfaces(keyword)`: find interface names by keyword.
-- `describe_interface(name)`: parameters, defaults and descriptions.
-- `get_data(name, params, max_rows)`: call the interface; returns up to
-  `max_rows` rows (default 100, max 1000) plus the total row count.
-
-Pass every parameter value as text, e.g. `{"symbol": "000001",
-"start_date": "20240101"}`. Proxy and timeout are set through the
-`AKTOOLS_PROXY` / `AKTOOLS_TIMEOUT` environment variables of the MCP client
-config. Docs: `https://akshare.akfamily.xyz/mcp.html` and
-`https://aktools.akfamily.xyz/guide/mcp/`.
 
 ## Core Usage Pattern
 
@@ -165,6 +176,9 @@ Common conventions:
 
 When helping users with AKShare:
 
+- If the user is working inside an AI assistant and just wants data, suggest
+  the AKTools MCP server (`uvx --from aktools aktools-mcp`) — see
+  "MCP Server For AI Assistants" above.
 - Prefer documented public functions over internal helpers.
 - Prefer top-level calls such as `ak.stock_zh_a_hist(...)` instead of submodule
   imports.

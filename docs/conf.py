@@ -155,6 +155,9 @@ html_theme_options = {
 # 加白色粗箭头。原 logo 线条太细，直接缩小到 16/32 像素几乎看不清
 html_favicon = "_static/favicon.ico"
 html_static_path = ["_static"]
+# 把仓库根目录的 llms.txt 原样发布到站点根目录（https://akshare.akfamily.xyz/llms.txt），
+# AI 助手和爬虫按 llms.txt 约定从这里了解本库及 AKTools 的 MCP 服务
+html_extra_path = ["../llms.txt"]
 html_css_files = ["custom.css"]
 
 # 左侧“章节导航”只列出当前页面下级的页面。数据字典以外的页面都没有下级页面，

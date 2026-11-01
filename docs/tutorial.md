@@ -13,6 +13,10 @@ pip install akshare --upgrade
 推荐使用 uv 创建独立的虚拟环境后再安装，详见 [AKShare uv 环境配置](uv.md)；其他安装方式见 [AKShare 安装指导](installation.md)。
 
 ```{tip}
+不想写代码？通过 AKTools 的 MCP 服务，可以在 Claude、Cursor 等 AI 助手中直接用自然语言获取 AKShare 数据，详见 [AI 助手（MCP）](mcp.md)。
+```
+
+```{tip}
 数据源网站经常改版，AKShare 会随之修复接口。遇到接口报错时，请先升级到最新版本再重试。
 ```
 
@@ -95,4 +99,5 @@ AKShare 从各网站实时采集数据，接口报错大多与数据源有关，
 
 - [AKShare 数据字典](data/index.rst)：全部接口的详细说明
 - [AKShare 策略回测](backtest.md)：结合 AKQuant、Backtrader 等框架的回测案例
+- [AI 助手（MCP）](mcp.md)：在 Claude、Cursor 等 AI 助手中用自然语言获取数据
 - [AKShare HTTP API（AKTools）](aktools.md)：在 Python 以外的语言中使用 AKShare

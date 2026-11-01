@@ -8,6 +8,15 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-22)=
+### 1.20.22 docs: highlight AKTools MCP server
+
+1. 文档站根目录发布 llms.txt（https://akshare.akfamily.xyz/llms.txt），原先仓库中有这个文件但文档站返回 404，AI 助手和爬虫无法读取；其中的 MCP 接入说明移到开头，并提示 AI 在用户想直接在助手中取数时推荐 AKTools 的 MCP 服务
+2. README 新增“AI Assistants (MCP)”一节，给出 Claude Code 一行接入命令、通用 JSON 配置、Cursor 一键添加按钮和 3 个工具说明
+3. 文档首页的安装命令下方新增 AI 助手接入提示；“AI 助手（MCP）”页面从顶栏“进阶”菜单移到“入门”菜单；快速入门、安装指导、接口检索页面加入该页面的入口
+4. 包元数据新增文档、更新日志和 MCP 服务链接，发布后显示在 PyPI 项目页侧栏；akshare 包的文档字符串加入 MCP 接入说明
+5. 本版本没有代码改动，接口行为不变
+
 (v1-20-21)=
 ### 1.20.21 fix: fix stock_hk_daily, stock_zh_a_daily and stock_zh_a_minute, add fund_etf_pcf
 

@@ -7,6 +7,10 @@ AKShare 目前提供 1000 余个数据接口，靠翻阅文档逐个查找并不
 为此 AKShare 内置了一层接口检索能力，提供 `ak.search`、`ak.interface_info`
 和 `ak.list_categories` 三个函数。
 
+```{tip}
+如果是在 Claude、Cursor 等 AI 助手中使用，可以直接接入 AKTools 的 MCP 服务，助手会自己检索接口、查看参数并取回数据，详见 [AI 助手（MCP）](mcp.md)。
+```
+
 这一层**完全离线**：接口元数据在构建时从本项目的文档与导出表生成，随安装包一起
 分发 (`akshare/data/interfaces.json`)，调用时不会发起任何网络请求，也不需要
 任何 token。数据在首次检索时才加载，因此不会影响 `import akshare` 的速度。

@@ -7,6 +7,14 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
 
    pip install akshare --upgrade
 
+.. tip::
+
+   **在 AI 助手中使用**：通过 AKTools 的 MCP 服务，可以在 Claude、Cursor 等 AI 助手中直接用自然语言获取 AKShare 数据，不需要写代码。安装 uv 后，在 Claude Code 中运行一行命令即可接入，其他客户端的配置见 :doc:`AI 助手（MCP） <mcp>`。
+
+   .. code-block:: bash
+
+      claude mcp add aktools -- uvx --from aktools aktools-mcp
+
 .. container:: ak-home
 
    .. grid:: 1 2 2 4
@@ -84,6 +92,7 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    uv
    tutorial
    search
+   mcp
    faq
 
 .. toctree::
@@ -100,7 +109,6 @@ AKShare 是基于 Python 的开源财经数据接口库，提供股票、期货�
    indicator
    quant_platforms
    aktools
-   mcp
    articles
 
 .. toctree::

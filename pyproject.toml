@@ -56,6 +56,9 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/akfamily/akshare"
+Documentation = "https://akshare.akfamily.xyz/"
+Changelog = "https://akshare.akfamily.xyz/changelog.html"
+"MCP Server (AKTools)" = "https://akshare.akfamily.xyz/mcp.html"
 
 # 开发依赖走 PEP 735 dependency-groups 而非 extra。extra 会随包发布，
 # 原先的 dev extra 意味着终端用户 pip install akshare[dev] 会被装上

@@ -31,7 +31,52 @@ aims to simplify the process of fetching financial data.
 **Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.akfamily.xyz/)
-- HTTP API & MCP server: [AKTools](https://aktools.akfamily.xyz/) lets other programming languages and AI assistants (Claude, Cursor) use AKShare data
+- **MCP server for AI assistants**: [AKTools](https://github.com/akfamily/aktools) lets Claude, Cursor and other MCP clients fetch AKShare data in natural language — see [AI Assistants (MCP)](#ai-assistants-mcp)
+- HTTP API: [AKTools](https://aktools.akfamily.xyz/) also serves AKShare over HTTP for other programming languages
+
+## AI Assistants (MCP)
+
+AKShare is a Python library and does not run an MCP server itself. Its companion
+project [AKTools](https://github.com/akfamily/aktools) ships one — registered in
+the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.akfamily/aktools)
+as `io.github.akfamily/aktools` — so AI assistants such as Claude Code, Claude
+Desktop and Cursor can look up and call every AKShare interface from a
+natural-language question, e.g. *"贵州茅台 2024 年 10 月 8 日到 11 日的前复权日线行情"*.
+
+No separate install is needed beyond [uv](https://docs.astral.sh/uv/):
+
+```shell
+claude mcp add aktools -- uvx --from aktools aktools-mcp
+```
+
+Claude Desktop, Cursor and other clients:
+
+```json
+{
+  "mcpServers": {
+    "aktools": {
+      "command": "uvx",
+      "args": ["--from", "aktools", "aktools-mcp"]
+    }
+  }
+}
+```
+
+[![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
+
+Instead of registering 1000+ tools, it exposes three generic ones that the
+assistant chains together:
+
+| Tool | Purpose |
+| --- | --- |
+| `search_interfaces` | Find interface names by keyword |
+| `describe_interface` | Show an interface's parameters, defaults and description |
+| `get_data` | Call an interface and return up to `max_rows` rows (default 100, max 1000) |
+
+A running `python -m aktools` server also exposes the same tools over Streamable
+HTTP at `http://127.0.0.1:8080/mcp`. See the
+[MCP guide](https://akshare.akfamily.xyz/mcp.html) (中文) for HTTP mode, proxies,
+access tokens and LAN access.
 
 ## Installation
 
@@ -150,11 +195,12 @@ mpf.plot(stock_us_daily_df, type="candle", mav=(3, 6, 9), volume=True, show_nont
 1. [Overview](https://akshare.akfamily.xyz/introduction.html)
 2. [Installation](https://akshare.akfamily.xyz/installation.html)
 3. [Interface Search](https://akshare.akfamily.xyz/search.html)
-4. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
-5. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
-6. [Indicator](https://akshare.akfamily.xyz/indicator.html)
-7. [FAQ](https://akshare.akfamily.xyz/faq.html)
-8. [Trade](https://akshare.akfamily.xyz/trade.html)
+4. [AI Assistants (MCP)](https://akshare.akfamily.xyz/mcp.html)
+5. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
+6. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
+7. [Indicator](https://akshare.akfamily.xyz/indicator.html)
+8. [FAQ](https://akshare.akfamily.xyz/faq.html)
+9. [Trade](https://akshare.akfamily.xyz/trade.html)
 
 ## Contribution
 
