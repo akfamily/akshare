@@ -47,10 +47,14 @@ server also exposes the same server over Streamable HTTP at
 
 It exposes three generic tools rather than one tool per interface:
 
-- `search_interfaces(keyword)`: find interface names by keyword.
-- `describe_interface(name)`: parameters, defaults and descriptions.
-- `get_data(name, params, max_rows)`: call the interface; returns up to
-  `max_rows` rows (default 100, max 1000) plus the total row count.
+- `search_interfaces(keyword)`: ranked search; space-separated keywords
+  combine, e.g. `A股 日线`.
+- `describe_interface(name)`: parameters, defaults and descriptions, plus
+  returned columns, data range and a usage example.
+- `get_data(name, params, max_rows, offset)`: call the interface; returns up
+  to `max_rows` rows (default 100, max 1000) plus the total row count.
+  A negative `offset` counts from the end, e.g. `-20` for the latest 20 rows
+  of date-ascending data.
 
 Pass every parameter value as text, e.g. `{"symbol": "000001",
 "start_date": "20240101"}`. Proxy and timeout are set through the
