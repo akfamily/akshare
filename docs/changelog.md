@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-23)=
+### 1.20.23 fix: fix stock_zh_a_hist_tx interface
+
+1. 修复 stock_zh_a_hist_tx 获取北交所股票时报错 KeyError: 'day' 的问题（#7481，#7482，感谢 @Bruce848647703）：腾讯的 weekTrends 对北交所股票一律返回空数据，原先改取最近 320 根前复权日 K 线，返回的键名是 qfqday 而不是 day
+2. 北交所股票的最早交易日改为从日 K 线每次 640 条向前翻页查找，原先只看最近 320 根，即使传入更早的 start_date 也只返回约 15 个月的数据，如 bj920599 现在从 2021-02-22 开始，共 1381 行；腾讯没有返回任何日 K 线时抛出 APIError，不再报 KeyError
+3. stock_zh_a_hist_tx 的 symbol 支持不带市场标识的 920 开头北交所代码，如 symbol="920599"
+
 (v1-20-22)=
 ### 1.20.22 docs: highlight AKTools MCP server
 
