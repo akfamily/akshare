@@ -4,9 +4,10 @@
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
 2. 目前 AKShare 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
-3. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](uv.md)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
-4. 需要通过 HTTP 调用 AKShare 时，请使用 [AKTools](aktools.md) 部署 HTTP API 服务；
-5. 需要在 Claude、Cursor 等 AI 助手中使用 AKShare 数据时，不必安装 AKShare，按 [AI 助手（MCP）](mcp.md) 接入 AKTools 的 MCP 服务即可。
+3. Linux 需要 glibc 2.27 及以上（如 Ubuntu 18.04、Debian 10、CentOS 8 及更新的版本），可用 `ldd --version` 查看；CentOS 7 等更早的系统无法安装 AKShare 1.20.25 及以后的版本；
+4. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](uv.md)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
+5. 需要通过 HTTP 调用 AKShare 时，请使用 [AKTools](aktools.md) 部署 HTTP API 服务；
+6. 需要在 Claude、Cursor 等 AI 助手中使用 AKShare 数据时，不必安装 AKShare，按 [AI 助手（MCP）](mcp.md) 接入 AKTools 的 MCP 服务即可。
 
 ## 安装 AKShare
 
@@ -50,7 +51,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 
 ## 树莓派支持
 
-目前 AKShare 已支持在树莓派 4B 上安装和使用，具体安装方法如下：
+目前 AKShare 已支持在树莓派 4B 上安装和使用（需要 64 位系统），具体安装方法如下：
 
 1. 安装 [Raspberry Pi OS (64-bit)](https://www.raspberrypi.com/software/operating-systems/) 操作系统，目前支持树莓派于 20231010 发布的 64 位版本
 2. 通过 `sudo apt-get install python3-venv` 安装虚拟环境支持

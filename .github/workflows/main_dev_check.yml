@@ -78,7 +78,7 @@ jobs:
   # 下限从未被测试时会悄悄失效：1.20.7 之前声明的 lxml>=4.2.1 在 Python 3.11 上没有
   # 预编译包、源码也编译不过，pandas>=2.0.0 不兼容 numpy 2，xlrd、openpyxl 低于
   # pandas 自身要求的版本。用 Python 3.11 是因为它是 requires-python 的下界；
-  # 用 Linux 是因为 py-mini-racer 与 akracer 只在 Linux 上安装。
+  # 用 Linux 是因为 mini-racer 的下限 0.13.0 正是 Linux 预编译包放宽到 glibc 2.27 的版本。
   # --only-binary 只用于依赖：akshare 本体需从源码构建，所以分三步安装。
   # 本 job 不在 main 规则集的必需检查之列，失败时提示需要上调下限，而不阻塞合并。
   lowest-deps:
