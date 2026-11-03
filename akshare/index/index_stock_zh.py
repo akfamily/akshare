@@ -341,10 +341,13 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
         }
         r = http.get(url, params=params)
         data_text = r.text
-        start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][
-            symbol
-        ]["day"][0][0]
-        return start_date
+        data_json = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][symbol]
+        # 兜底请求带 qfq 参数，返回的键名可能是 qfqday；后复权为 hfqday，不复权才是 day
+        for key in ("day", "qfqday", "hfqday"):
+            if data_json.get(key):
+                return data_json[key][0][0]
+        # 完全没有历史数据时返回一个足够早的日期，避免调用方解析报错
+        return "1990-01-01"
     start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
 
