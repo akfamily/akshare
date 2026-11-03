@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-24)=
+### 1.20.24 fix: fix stock_zh_a_hist_tx interface
+
+1. 修复 stock_zh_a_hist_tx 传入 YYYYMMDD 格式的 end_date 时多发请求的问题：原先按“-”切分取结束年份，“20231027”这类文档规定的格式切不开，结束年份总被当作今年，一直请求到当前年份；返回的数据会按日期截取，结果不受影响
+2. stock_zh_a_hist_tx 每次请求本就覆盖两个自然年，原先却逐年步进，每年的数据都下载两遍再去重；现在按两年步进，请求数约减半。如 symbol="sz000001", start_date="20200101", end_date="20231027" 由 8 次请求降为 3 次，sh600000 全部历史由 29 次降为 15 次，返回的数据与修改前完全一致
+3. stock_zh_a_hist_tx 的 start_date 与 end_date 同时支持 YYYYMMDD 与 YYYY-MM-DD 两种格式；格式不对或 start_date 晚于 end_date 时抛出 InvalidParameterError，查询区间内没有数据时返回带列名的空表，不再报 ValueError 或 IndexError
+4. 文档站的作者元数据与 LICENSE 的版权人改为 AKFamily
+
 (v1-20-23)=
 ### 1.20.23 fix: fix stock_zh_a_hist_tx interface
 

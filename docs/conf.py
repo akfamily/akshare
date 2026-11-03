@@ -45,7 +45,7 @@ source_suffix = {
 
 project = "AKShare"
 copyright = f"2019–{datetime.now().year}, AKShare Developers"
-author = "Albert King"
+author = "AKFamily"
 version = get_version_string()
 
 templates_path = ["_templates"]

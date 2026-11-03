@@ -10,10 +10,45 @@ import datetime
 
 import pandas as pd
 
+from akshare.exceptions import InvalidParameterError
 from akshare.index.index_stock_zh import get_tx_start_year
 from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+
+_TX_YEARS_PER_REQUEST = 2
+_TX_COLUMNS = [
+    "date",
+    "open",
+    "close",
+    "high",
+    "low",
+    "volume",
+    "turnover",
+    "amount",
+]
+
+
+def _parse_tx_date(value: str, name: str) -> datetime.date:
+    """
+    解析 YYYYMMDD 或 YYYY-MM-DD 格式的日期。
+
+    :param value: 日期文本
+    :type value: str
+    :param name: 参数名，用于报错信息
+    :type name: str
+    :return: 日期
+    :rtype: datetime.date
+    """
+    text = str(value).strip().replace("-", "")
+    if len(text) == 8 and text.isdigit():
+        try:
+            return datetime.datetime.strptime(text, "%Y%m%d").date()
+        except ValueError:
+            pass
+    raise InvalidParameterError(
+        f"{name} 应为 YYYYMMDD 或 YYYY-MM-DD 格式的日期，如 '20240101'，收到 {value!r}"
+    )
 
 
 def _normalize_tx_symbol(symbol: str) -> str:
@@ -50,9 +85,9 @@ def stock_zh_a_hist_tx(
     https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
     :type symbol: str
-    :param start_date: 开始日期
+    :param start_date: 开始日期，格式 YYYYMMDD 或 YYYY-MM-DD
     :type start_date: str
-    :param end_date: 结束日期
+    :param end_date: 结束日期，格式 YYYYMMDD 或 YYYY-MM-DD
     :type end_date: str
     :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
@@ -60,18 +95,22 @@ def stock_zh_a_hist_tx(
     :rtype: pandas.DataFrame
     """
     symbol = _normalize_tx_symbol(symbol=symbol)
-    init_start_date = get_tx_start_year(symbol=symbol)
-    if int(start_date.replace("-", "")) < int(init_start_date.replace("-", "")):
-        start_date = init_start_date
+    start = _parse_tx_date(value=start_date, name="start_date")
+    end = _parse_tx_date(value=end_date, name="end_date")
+    if start > end:
+        raise InvalidParameterError(
+            f"start_date（{start_date}）不能晚于 end_date（{end_date}）"
+        )
+    init_start = _parse_tx_date(
+        value=get_tx_start_year(symbol=symbol), name="get_tx_start_year"
+    )
+    start = max(start, init_start)
     url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
-    range_start = int(start_date[:4])
-    if int(end_date.split("-")[0]) > datetime.date.today().year:
-        range_end = datetime.date.today().year + 1
-    else:
-        range_end = int(end_date.split("-")[0]) + 1
+    # 每次请求覆盖两个自然年（约 490 个交易日，低于单次 640 条的上限），按两年步进
+    range_end = min(end.year, datetime.date.today().year) + 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
-    for year in tqdm(range(range_start, range_end), leave=False):
+    for year in tqdm(range(start.year, range_end, _TX_YEARS_PER_REQUEST), leave=False):
         params = {
             "_var": f"kline_day{adjust}{year}",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,{adjust}",
@@ -87,17 +126,10 @@ def stock_zh_a_hist_tx(
         else:
             temp_df = pd.DataFrame(data_json["qfqday"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    if big_df.empty:
+        return pd.DataFrame(columns=_TX_COLUMNS)
     big_df = big_df.iloc[:, [0, 1, 2, 3, 4, 5, 7, 8]]
-    big_df.columns = [
-        "date",
-        "open",
-        "close",
-        "high",
-        "low",
-        "volume",
-        "turnover",
-        "amount",
-    ]
+    big_df.columns = _TX_COLUMNS
     big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
     big_df["open"] = pd.to_numeric(big_df["open"], errors="coerce")
     big_df["close"] = pd.to_numeric(big_df["close"], errors="coerce")
@@ -114,7 +146,7 @@ def stock_zh_a_hist_tx(
     big_df = big_df.drop_duplicates(ignore_index=True)
     big_df.index = pd.to_datetime(big_df["date"], errors="coerce")
     big_df = big_df.sort_index()
-    big_df = big_df[start_date:end_date]
+    big_df = big_df[pd.Timestamp(start) : pd.Timestamp(end)]
     big_df = big_df.reset_index(drop=True)
     return big_df
 

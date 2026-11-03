@@ -1656,8 +1656,8 @@ print(hfq_factor_df)
 | 名称         | 类型    | 描述                                         |
 |------------|-------|--------------------------------------------|
 | symbol     | str   | symbol='sz000001'；带市场标识                   |
-| start_date | str   | start_date='19000101'；开始查询的日期             |
-| end_date   | str   | end_date='20500101'；结束查询的日期               |
+| start_date | str   | start_date='19000101'；开始查询的日期，格式 YYYYMMDD 或 YYYY-MM-DD |
+| end_date   | str   | end_date='20500101'；结束查询的日期，格式 YYYYMMDD 或 YYYY-MM-DD   |
 | adjust     | str   | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据 |
 
 股票数据复权
