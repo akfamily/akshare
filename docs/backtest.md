@@ -138,9 +138,9 @@ kelly_criterion                          0.032959
 PyBroker 支持在 Windows、macOS 和 Linux 中的 Python 3.9（建议使用 Python 3.11）及以上版本使用。其安装非常简单，
 只需要 ```pip install lib-pybroker``` 就可以实现一键安装。
 
-## PyBroker 系列教程
+## PyBroker 文档
 
-1. [AKBroker-开源项目](https://akbroker.akfamily.xyz)
+1. [PyBroker 官方文档](https://www.pybroker.com/)
 
 ## PyBroker 策略示例
 
