@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2025/10/15 22:30
+Date: 2026/11/3 18:00
 Desc: 腾讯证券-行情首页-沪深京A股
 https://quote.eastmoney.com/
 """
@@ -32,7 +32,9 @@ def _normalize_tx_symbol(symbol: str) -> str:
         return f"sh{normalized_symbol}"
     if normalized_symbol.startswith(("000", "001", "002", "003", "200", "300", "301")):
         return f"sz{normalized_symbol}"
-    if normalized_symbol.startswith(("430", "440", "830", "831", "832", "833", "839")):
+    if normalized_symbol.startswith(
+        ("430", "440", "830", "831", "832", "833", "839", "920")
+    ):
         return f"bj{normalized_symbol}"
     return normalized_symbol
 
@@ -120,5 +122,10 @@ def stock_zh_a_hist_tx(
 if __name__ == "__main__":
     stock_zh_a_hist_tx_df = stock_zh_a_hist_tx(
         symbol="sz000001", start_date="20200101", end_date="20231027", adjust="hfq"
+    )
+    print(stock_zh_a_hist_tx_df)
+
+    stock_zh_a_hist_tx_df = stock_zh_a_hist_tx(
+        symbol="920599", start_date="19000101", end_date="20261102", adjust=""
     )
     print(stock_zh_a_hist_tx_df)

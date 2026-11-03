@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/5/2 16:30
+Date: 2026/11/3 18:00
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -19,6 +19,7 @@ from akshare.index.cons import (
     zh_sina_index_stock_count_url,
     zh_sina_index_stock_hist_url,
 )
+from akshare.exceptions import APIError
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import jsonish
 from akshare.utils import http
@@ -314,6 +315,58 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     return temp_df
 
 
+_TX_KLINE_PAGE_SIZE = 640
+_TX_KLINE_MAX_PAGES = 30
+
+
+def _get_tx_first_kline_date(symbol: str) -> str:
+    """
+    腾讯证券-从日 K 线向前翻页，找到最早的交易日
+    北交所股票的 weekTrends 返回空数据，需要改用该方式；每页最多 640 条，
+    不足一页即已到达最早的交易日
+    https://gu.qq.com/bj920599/gp
+    :param symbol: 带市场标识的股票代码
+    :type symbol: str
+    :return: 最早的交易日，格式 YYYY-MM-DD
+    :rtype: str
+    """
+    url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
+    earliest_date = ""
+    end_date = ""
+    for _ in range(_TX_KLINE_MAX_PAGES):
+        params = {
+            "_var": "kline_day",
+            "param": f"{symbol},day,,{end_date},{_TX_KLINE_PAGE_SIZE},",
+            "r": "0.751892490072597",
+        }
+        r = http.get(url, params=params)
+        data_text = r.text
+        data_json = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"]
+        symbol_json = data_json.get(symbol) if isinstance(data_json, dict) else None
+        symbol_json = symbol_json if isinstance(symbol_json, dict) else {}
+        # 不复权的键名是 day；腾讯偶尔按复权口径返回 qfqday 或 hfqday
+        rows = next(
+            (
+                symbol_json[key]
+                for key in ("day", "qfqday", "hfqday")
+                if symbol_json.get(key)
+            ),
+            [],
+        )
+        if not rows or rows[0][0] == earliest_date:
+            break
+        earliest_date = rows[0][0]
+        if len(rows) < _TX_KLINE_PAGE_SIZE:
+            break
+        end_date = earliest_date
+    if not earliest_date:
+        raise APIError(
+            f"腾讯证券未返回 {symbol} 的日 K 线数据，请确认代码及其市场标识是否正确",
+            status_code=r.status_code,
+        )
+    return earliest_date
+
+
 def get_tx_start_year(symbol: str = "sh000919") -> str:
     """
     腾讯证券-获取所有股票数据的第一天，注意这个数据是腾讯证券的历史数据第一天
@@ -333,18 +386,7 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     r = http.get(url, params=params)
     data_text = r.text
     if not jsonish.loads(data_text[data_text.find("={") + 1 :])["data"]:
-        url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
-        params = {
-            "_var": "kline_dayqfq",
-            "param": f"{symbol},day,,,320,qfq",
-            "r": "0.751892490072597",
-        }
-        r = http.get(url, params=params)
-        data_text = r.text
-        start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][
-            symbol
-        ]["day"][0][0]
-        return start_date
+        return _get_tx_first_kline_date(symbol=symbol)
     start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
 
