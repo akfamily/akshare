@@ -14,27 +14,16 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "akracer"
-version = "0.0.14"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/1e/c6/f38feed5b961d73e1b4cb049fdb45338356e0f5b828b230c00d0e51f3137/akracer-0.0.14.tar.gz", hash = "sha256:e084c14bf6d9a02d5da375e3af1cba3d46f103aa1cf3a2010593b3e95bf1c29a", size = 10047643, upload-time = "2025-09-10T13:47:34.811Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/53/cb/1041355b14cd4b76ac082e8c676858f6eddb78f0ba37c59284adf36e5103/akracer-0.0.14-py3-none-any.whl", hash = "sha256:629eaccd0e1d18366804b797eb2692ed47bed0028f55b5a5af3cc277d521df04", size = 10076442, upload-time = "2025-09-10T13:47:29.061Z" },
-]
-
-[[package]]
 name = "akshare"
 source = { editable = "." }
 dependencies = [
-    { name = "akracer", marker = "sys_platform == 'linux'" },
     { name = "beautifulsoup4" },
     { name = "curl-cffi" },
     { name = "html5lib" },
     { name = "lxml" },
-    { name = "mini-racer", marker = "sys_platform != 'linux'" },
+    { name = "mini-racer" },
     { name = "openpyxl" },
     { name = "pandas" },
-    { name = "py-mini-racer", marker = "sys_platform == 'linux'" },
     { name = "requests" },
     { name = "tqdm" },
     { name = "urllib3" },
@@ -58,15 +47,13 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "akracer", marker = "sys_platform == 'linux'", specifier = ">=0.0.13" },
     { name = "beautifulsoup4", specifier = ">=4.11.2" },
     { name = "curl-cffi", specifier = ">=0.13.0" },
     { name = "html5lib", specifier = ">=1.1" },
     { name = "lxml", specifier = ">=4.9.2" },
-    { name = "mini-racer", marker = "sys_platform != 'linux'", specifier = ">=0.12.4" },
+    { name = "mini-racer", specifier = ">=0.13.0" },
     { name = "openpyxl", specifier = ">=3.1.0" },
     { name = "pandas", specifier = ">=2.2.2" },
-    { name = "py-mini-racer", marker = "sys_platform == 'linux'", specifier = ">=0.6.0" },
     { name = "requests", specifier = ">=2.22.0" },
     { name = "tqdm", specifier = ">=4.43.0" },
     { name = "urllib3", specifier = ">=1.25.8" },
@@ -1060,6 +1047,10 @@ sdist = { url = "https://files.pythonhosted.org/packages/71/b0/5b200bdf093433f19
 wheels = [
     { url = "https://files.pythonhosted.org/packages/27/2c/5857ee4e1714db8956aa878dc90255557458c124f93163704e7de948be03/mini_racer-0.14.1-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:a401ecdf5f73d4714b76dc3a4c9b5780059cf4c59a5b64cff7497dc6c219d5a0", size = 19988474, upload-time = "2026-02-01T05:53:03.998Z" },
     { url = "https://files.pythonhosted.org/packages/09/bf/ecaad0c208b9d8bd8f2141f7fa5e520b66915945a2ed56c520524df75fcb/mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463", size = 18511166, upload-time = "2026-02-01T05:53:07.059Z" },
+    { url = "https://files.pythonhosted.org/packages/56/0c/5260cc29908777c91391dd8b61be9042a3d1c089e6bfc798cd403e44e87d/mini_racer-0.14.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:7f93d91973ddb2da4e899e06ecb426bfe7ea103cd1c92687ec9c38f206f375eb", size = 21929528, upload-time = "2026-02-01T05:53:10.22Z" },
+    { url = "https://files.pythonhosted.org/packages/c2/3c/c5bd479784826bbbc69f713aae2bcfd5ef353ba4e5e0e661666938474535/mini_racer-0.14.1-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:cdf3a088e1363f16a695288f882abf76b3705b8e1df21418208b87ed010037a4", size = 22178205, upload-time = "2026-02-01T05:53:13.407Z" },
+    { url = "https://files.pythonhosted.org/packages/eb/d4/89905a4238be7ea9afec2f10533668f68898c82914ddd91b2729be547eca/mini_racer-0.14.1-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:6788f31608c6c5d0faac4e6b4f36fc5498885f951e510717e8825eaebae6a4c5", size = 21837359, upload-time = "2026-02-01T05:53:16.762Z" },
+    { url = "https://files.pythonhosted.org/packages/11/1d/735c5d74239bd0d7d3b271d7f3c91f337c7f937d748dadc2c1c9579df475/mini_racer-0.14.1-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:ad4b5c15993caab571fac3d67e0d55157b358bd439e629e0fef26c45a12c8bab", size = 22178200, upload-time = "2026-02-01T05:53:19.414Z" },
     { url = "https://files.pythonhosted.org/packages/78/60/e0708ea8533e928f10f985be35af4c02dd2b61f4a7501dc88e8c927d85e5/mini_racer-0.14.1-py3-none-win_amd64.whl", hash = "sha256:4abd58c62c9955988dbc0cbf5a798914334fe570d2b192f8890bec20135ab6d1", size = 15515732, upload-time = "2026-02-01T05:53:22.276Z" },
     { url = "https://files.pythonhosted.org/packages/99/fd/7fb43e269c44e5d44ef02fbd164fc11833d8293b47ddcd48e4fb1649f4d2/mini_racer-0.14.1-py3-none-win_arm64.whl", hash = "sha256:440bef1269655b1da94b550612b50669de9881c3d88b805c139f7f1b5ec8ae7b", size = 14829128, upload-time = "2026-02-01T05:53:24.983Z" },
 ]
@@ -1477,15 +1468,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/7d/ea/39b988c938f75cb75d7045b5c69f8bfed47ee2152c8837fb403de29d6fb8/prompt_toolkit-3.0.53.tar.gz", hash = "sha256:9ec8a0ad96d5c56148b3f914aa79c1564c3fde5d2e6b876e7bc327e353cf8fa6", size = 435492, upload-time = "2026-07-26T20:56:14.758Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/6f/84908cad2d6aa5144abcf7b42709fe4fdb459bc640ec7ac5786e7693dabc/prompt_toolkit-3.0.53-py3-none-any.whl", hash = "sha256:01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2", size = 392288, upload-time = "2026-07-26T20:56:12.512Z" },
-]
-
-[[package]]
-name = "py-mini-racer"
-version = "0.6.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/50/97/a578b918b2e5923dd754cb60bb8b8aeffc85255ffb92566e3c65b148ff72/py_mini_racer-0.6.0.tar.gz", hash = "sha256:f71e36b643d947ba698c57cd9bd2232c83ca997b0802fc2f7f79582377040c11", size = 5994836, upload-time = "2021-04-22T07:58:35.993Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/29/a9/8ce0ca222ef04d602924a1e099be93f5435ca6f3294182a30574d4159ca2/py_mini_racer-0.6.0-py2.py3-none-manylinux1_x86_64.whl", hash = "sha256:42896c24968481dd953eeeb11de331f6870917811961c9b26ba09071e07180e2", size = 5416149, upload-time = "2021-04-22T07:58:25.615Z" },
 ]
 
 [[package]]

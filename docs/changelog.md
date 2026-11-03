@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-25)=
+### 1.20.25 fix: replace py-mini-racer and akracer with mini-racer
+
+1. 所有平台统一使用 [mini-racer](https://pypi.org/project/mini-racer/)（>=0.13.0）执行数据源的 JavaScript 解密代码，Linux 上不再安装 py-mini-racer 和 akracer。py-mini-racer 自 2021 年的 0.6.0 起停止更新，mini-racer 是它的接续维护版本，导入名同为 `py_mini_racer`，接口代码无需改动
+2. 修复 ARM64 Linux（如树莓派、ARM 服务器）上所有依赖 JavaScript 解密的接口报 `RuntimeError: Native library not available` 的问题：py-mini-racer 与 akracer 会写入同一个 `py_mini_racer` 目录，py-mini-racer 后装时覆盖了 akracer 的 ARM 适配代码，是否出错取决于安装顺序
+3. Linux 需要 glibc 2.27 及以上（如 Ubuntu 18.04、Debian 10、CentOS 8 及更新的版本）；CentOS 7 等 glibc 更低的系统无法安装 mini-racer，请继续使用 1.20.24 或升级系统
+4. 新增 JavaScript 引擎的离线回归测试，在 Linux、macOS、Windows 上验证新浪数据解码与同花顺、巨潮 token 生成
+
 (v1-20-24)=
 ### 1.20.24 fix: fix stock_zh_a_hist_tx interface
 

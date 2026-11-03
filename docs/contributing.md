@@ -122,7 +122,7 @@ print(stock_zh_a_minute_df)
 
 依赖及版本要求以 `pyproject.toml` 为准，这里说明两个关键依赖的选型原因：
 
-1. mini-racer：用于执行数据源网页中的 JavaScript 解密代码。Windows 和 macOS 上安装 [mini-racer](https://pypi.org/project/mini-racer/)（>=0.12.4），Linux 上安装 [py-mini-racer](https://pypi.org/project/py-mini-racer/)（>=0.6.0）和 [akracer](https://pypi.org/project/akracer/)（>=0.0.13），由 pip 按平台自动选择。没有选用 PyExecJS，因为它自 2018 年起停止维护；也没有选用 Js2Py，因为它运行部分 JavaScript 代码时不稳定
+1. mini-racer：用于执行数据源网页中的 JavaScript 解密代码。所有平台统一安装 [mini-racer](https://pypi.org/project/mini-racer/)（>=0.13.0），它是已停止更新的 py-mini-racer 的接续维护版本，导入名同为 `py_mini_racer`，提供 Windows、macOS 以及 x86_64、ARM64 Linux 的预编译包，Linux 需要 glibc 2.27 及以上。没有选用 PyExecJS，因为它自 2018 年起停止维护；也没有选用 Js2Py，因为它运行部分 JavaScript 代码时不稳定
 2. pandas：用于采集后的数据清洗，要求 >=2.0.0，推荐使用最新版，AKShare 会优先支持最新版本
 
 ## 声明
