@@ -67,9 +67,7 @@ def _normalize_tx_symbol(symbol: str) -> str:
         return f"sh{normalized_symbol}"
     if normalized_symbol.startswith(("000", "001", "002", "003", "200", "300", "301")):
         return f"sz{normalized_symbol}"
-    if normalized_symbol.startswith(
-        ("430", "440", "830", "831", "832", "833", "839", "920")
-    ):
+    if normalized_symbol.startswith(("43", "44", "83", "87", "88", "92")):
         return f"bj{normalized_symbol}"
     return normalized_symbol
 

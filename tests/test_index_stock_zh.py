@@ -61,6 +61,17 @@ def test_week_trends_path_unchanged(monkeypatch: pytest.MonkeyPatch) -> None:
     assert calls == []
 
 
+def test_week_trends_error_payload_falls_back_to_kline(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    symbol = "bj871981"
+    pages = {"": _kline_text(symbol, "day", _rows("2020-12-22", 51))}
+    error_week = 'trend_qfq={"code":-1,"msg":[],"data":"invalid code"}'
+    calls = _install(monkeypatch, error_week, pages)
+    assert index_stock_zh.get_tx_start_year(symbol=symbol) == "2020-12-22"
+    assert len(calls) == 1
+
+
 def test_fallback_pages_back_to_first_trading_day(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -104,7 +115,14 @@ def test_fallback_without_data_raises(monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.mark.parametrize(
     ("raw", "expected"),
-    [("920599", "bj920599"), ("830799", "bj830799"), ("BJ920599", "bj920599")],
+    [
+        ("920599", "bj920599"),
+        ("830799", "bj830799"),
+        ("834000", "bj834000"),
+        ("871981", "bj871981"),
+        ("880001", "bj880001"),
+        ("BJ920599", "bj920599"),
+    ],
 )
 def test_normalize_beijing_symbols(raw: str, expected: str) -> None:
     assert _normalize_tx_symbol(symbol=raw) == expected
