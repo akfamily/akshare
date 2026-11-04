@@ -77,11 +77,12 @@ def _normalize_tx_symbol(symbol: str) -> str:
 def _tx_volume_multiplier(symbol: str) -> int:
     """返回腾讯成交量换算为股的乘数。
 
-    腾讯对多数 A 股板块返回“手”，对科创板（sh688）和指数（sh000/sz399）
-    直接返回“股”。深市主板 000xxx 同样是“手”，不能排除，否则会与
-    创业板、主板其他板块出现 100 倍的口径差异。
+    腾讯只对科创板股票（sh688）和科创板 CDR（sh689）返回“股”，其余均为“手”，
+    包括沪深主板、创业板、北交所、B 股、ETF 以及指数（sh000/sz399，含科创 50）。
+    依据：成交额除以成交量，按“手”换算后落在当日最低价与最高价之间；
+    指数的成交额除以成交量约为 1000～8000 元，只能是每手金额。
     """
-    if symbol.startswith(("sh688", "sh000", "sz399")):
+    if symbol.startswith(("sh688", "sh689")):
         return 1
     return 100
 

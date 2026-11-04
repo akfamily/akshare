@@ -120,16 +120,24 @@ def test_start_after_end_raises(monkeypatch: pytest.MonkeyPatch) -> None:
         ("sz002594", 100),
         ("sh600000", 100),
         ("bj920599", 100),
+        ("sh900901", 100),
+        ("sh510300", 100),
+        ("sz159915", 100),
+        ("sh000001", 100),
+        ("sh000688", 100),
+        ("sz399001", 100),
         ("sh688981", 1),
-        ("sh000001", 1),
-        ("sz399001", 1),
+        ("sh689009", 1),
     ],
 )
 def test_tx_volume_multiplier(symbol: str, expected: int) -> None:
     assert stock_hist_tx._tx_volume_multiplier(symbol) == expected
 
 
-@pytest.mark.parametrize(("symbol", "multiplier"), [("sz000651", 100), ("sh688981", 1)])
+@pytest.mark.parametrize(
+    ("symbol", "multiplier"),
+    [("sz000651", 100), ("sh000001", 100), ("sh688981", 1), ("sh689009", 1)],
+)
 def test_volume_is_normalized_to_shares(
     monkeypatch: pytest.MonkeyPatch, symbol: str, multiplier: int
 ) -> None:
