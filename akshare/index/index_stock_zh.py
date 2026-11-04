@@ -385,10 +385,12 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     }
     r = http.get(url, params=params)
     data_text = r.text
-    if not jsonish.loads(data_text[data_text.find("={") + 1 :])["data"]:
+    payload = jsonish.loads(data_text[data_text.find("={") + 1 :])
+    trend_data = payload.get("data")
+    # 非法代码返回 {"code": -1, "data": "invalid code"}，只有列表才是有效行情
+    if not isinstance(trend_data, list) or not trend_data:
         return _get_tx_first_kline_date(symbol=symbol)
-    start_date = jsonish.loads(data_text[data_text.find("={") + 1 :])["data"][0][0]
-    return start_date
+    return trend_data[0][0]
 
 
 def stock_zh_index_daily_tx(
