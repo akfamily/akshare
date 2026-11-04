@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/14 11:10
+Date: 2026/11/4 21:40
 Desc: 国家金融与发展实验室-中国宏观杠杆率数据
-http://114.115.232.154:8080/
+http://www.nifd.cn/cdata/
 """
 
 import pandas as pd
@@ -14,11 +14,11 @@ from akshare.utils import http
 def macro_cnbs() -> pd.DataFrame:
     """
     国家金融与发展实验室-中国宏观杠杆率数据
-    http://114.115.232.154:8080/
+    http://www.nifd.cn/cdata/
     :return: 中国宏观杠杆率数据
     :rtype: pandas.DataFrame
     """
-    url = "http://114.115.232.154:8080/handler/download.ashx"
+    url = "http://www.nifd.cn/cdata/handler/download.ashx"
     temp_df = pd.read_excel(
         http.get_buffer(url), sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
     )
