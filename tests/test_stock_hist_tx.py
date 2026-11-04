@@ -109,3 +109,49 @@ def test_start_after_end_raises(monkeypatch: pytest.MonkeyPatch) -> None:
         stock_hist_tx.stock_zh_a_hist_tx(
             symbol=SYMBOL, start_date="20240101", end_date="20231231"
         )
+
+
+@pytest.mark.parametrize(
+    ("symbol", "expected"),
+    [
+        ("sz000651", 100),
+        ("sz000001", 100),
+        ("sz300533", 100),
+        ("sz002594", 100),
+        ("sh600000", 100),
+        ("bj920599", 100),
+        ("sh900901", 100),
+        ("sh510300", 100),
+        ("sz159915", 100),
+        ("sh000001", 100),
+        ("sh000688", 100),
+        ("sz399001", 100),
+        ("sh688981", 1),
+        ("sh689009", 1),
+    ],
+)
+def test_tx_volume_multiplier(symbol: str, expected: int) -> None:
+    assert stock_hist_tx._tx_volume_multiplier(symbol) == expected
+
+
+@pytest.mark.parametrize(
+    ("symbol", "multiplier"),
+    [("sz000651", 100), ("sh000001", 100), ("sh688981", 1), ("sh689009", 1)],
+)
+def test_volume_is_normalized_to_shares(
+    monkeypatch: pytest.MonkeyPatch, symbol: str, multiplier: int
+) -> None:
+    def fake_get(url: str, params: dict):
+        if "weekTrends" in url:
+            text = 'trend_qfq={"data":[["1996-11-18","1"]]}'
+        else:
+            rows = [_row("2026-11-03")]
+            text = "kline_day=" + json.dumps({"data": {symbol: {"day": rows}}})
+        return type("FakeResponse", (), {"text": text, "status_code": 200})()
+
+    monkeypatch.setattr(stock_hist_tx.http, "get", fake_get)
+    df = stock_hist_tx.stock_zh_a_hist_tx(
+        symbol=symbol, start_date="20261103", end_date="20261103"
+    )
+
+    assert df["volume"].iloc[0] == 1000 * multiplier

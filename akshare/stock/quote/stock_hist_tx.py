@@ -72,6 +72,19 @@ def _normalize_tx_symbol(symbol: str) -> str:
     return normalized_symbol
 
 
+def _tx_volume_multiplier(symbol: str) -> int:
+    """返回腾讯成交量换算为股的乘数。
+
+    腾讯只对科创板股票（sh688）和科创板 CDR（sh689）返回“股”，其余均为“手”，
+    包括沪深主板、创业板、北交所、B 股、ETF 以及指数（sh000/sz399，含科创 50）。
+    依据：成交额除以成交量，按“手”换算后落在当日最低价与最高价之间；
+    指数的成交额除以成交量约为 1000～8000 元，只能是每手金额。
+    """
+    if symbol.startswith(("sh688", "sh689")):
+        return 1
+    return 100
+
+
 def stock_zh_a_hist_tx(
     symbol: str = "sz000001",
     start_date: str = "19000101",
@@ -136,9 +149,7 @@ def stock_zh_a_hist_tx(
     big_df["volume"] = pd.to_numeric(big_df["volume"], errors="coerce")
     big_df["turnover"] = pd.to_numeric(big_df["turnover"], errors="coerce")
     big_df["amount"] = pd.to_numeric(big_df["amount"], errors="coerce")
-    # 腾讯主板/创业板成交量单位为手，科创板及指数通常已是股，这里统一为股。
-    if not symbol.startswith(("sh688", "sz399", "sh000", "sz000")):
-        big_df["volume"] = big_df["volume"] * 100
+    big_df["volume"] = big_df["volume"] * _tx_volume_multiplier(symbol)
     big_df["turnover"] = big_df["turnover"] / 100
     big_df["amount"] = big_df["amount"] * 10000
     big_df = big_df.drop_duplicates(ignore_index=True)
