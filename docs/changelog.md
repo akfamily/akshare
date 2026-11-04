@@ -15,6 +15,7 @@ tocdepth: 2
 2. 修复 ARM64 Linux（如树莓派、ARM 服务器）上所有依赖 JavaScript 解密的接口报 `RuntimeError: Native library not available` 的问题：py-mini-racer 与 akracer 会写入同一个 `py_mini_racer` 目录，py-mini-racer 后装时覆盖了 akracer 的 ARM 适配代码，是否出错取决于安装顺序
 3. Linux 需要 glibc 2.27 及以上（如 Ubuntu 18.04、Debian 10、CentOS 8 及更新的版本）；CentOS 7 等 glibc 更低的系统无法安装 mini-racer，请继续使用 1.20.24 或升级系统
 4. 新增 JavaScript 引擎的离线回归测试，在 Linux、macOS、Windows 上验证新浪数据解码与同花顺、巨潮 token 生成
+5. 升级注意：从旧版本升级时，pip 不会卸载不再依赖的 py-mini-racer 和 akracer，它们与 mini-racer 共用 `py_mini_racer` 目录，残留时 JavaScript 解密接口会报 `AttributeError: function 'mr_init_v8' not found`（#7487）。请执行 `pip uninstall -y py-mini-racer akracer mini-racer` 后再 `pip install --no-cache-dir "mini-racer>=0.13.0"`，详见{doc}`常见问题 <faq>`
 
 (v1-20-24)=
 ### 1.20.24 fix: fix stock_zh_a_hist_tx interface

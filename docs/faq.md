@@ -21,6 +21,35 @@ uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.
 
 请安装 64 位版本的 Python。
 
+### MiniRacer 报错 function 'mr_init_v8' not found
+
+报错信息：`AttributeError: function 'mr_init_v8' not found`
+
+同一原因引起的报错还有：
+
+- `AttributeError: module 'py_mini_racer' has no attribute 'MiniRacer'`
+- `AttributeError: 'NoneType' object has no attribute 'mr_free_context'`
+
+巨潮、同花顺、新浪等依赖 JavaScript 解密的接口都会出现这类报错，原因不在接口本身，而是 `site-packages/py_mini_racer` 目录里混入了其他包的文件。1.20.25 起 AKShare 在所有平台改用 mini-racer，它与旧包 py-mini-racer、akracer 使用同一个导入名 `py_mini_racer`，安装在同一个目录，混装时文件会互相覆盖或被误删，而升级 AKShare 时 pip 不会卸载不再依赖的旧包。例如 Windows 上 mini-racer 的代码加载了 py-mini-racer 0.6.0 留下的 `mini_racer.dll`，就会报 `mr_init_v8` 找不到。
+
+先关闭所有正在运行的 Python 和 Jupyter（已经运行的进程会继续使用旧文件），再执行：
+
+```
+pip uninstall -y py-mini-racer akracer mini-racer
+pip install --no-cache-dir "mini-racer>=0.13.0"
+```
+
+三个包要一起卸载后再重装：只卸载 py-mini-racer 会把两者共用的文件一并删掉，mini-racer 也会随之损坏。未安装的包会提示跳过，不影响执行。
+
+用下面的代码验证，输出 `2` 即恢复正常：
+
+```python
+import py_mini_racer
+print(py_mini_racer.MiniRacer().eval("1 + 1"))
+```
+
+如果仍然报错，请在 [GitHub Issues](https://github.com/akfamily/akshare/issues) 中附上 `pip list` 中与 racer 相关的几行（Windows 用 `pip list | findstr /i racer`，Linux、macOS 用 `pip list | grep -i racer`）和 `pip show -f mini-racer` 的输出。
+
 ## 接口调用报错
 
 ### 提示 akshare 没有某个接口
