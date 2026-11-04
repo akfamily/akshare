@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-26)=
+### 1.20.26 fix: fix stock_zh_a_hist_tx interface
+
+1. 修复 stock_zh_a_hist_tx 返回的 volume 单位不一致的问题（#7485，#7488，感谢 @Bruce848647703，感谢 @tomyin1314 提供核对数据）：文档规定 volume 单位为股，但深市主板（sz000 开头，如 sz000651）原先被当作指数没有换算，仍为手，比创业板等其他股票小 100 倍；现在与其他股票一样换算为股
+2. stock_zh_a_hist_tx 获取指数（sh000、sz399 开头，如 sh000001、sz399001、sh000688）时，volume 同样由手换算为股，数值变为原来的 100 倍：腾讯返回的指数成交量实际是手（成交额除以成交量约 1000～8000 元，只能是每手金额），原先误当作股。科创板股票（sh688）和科创板 CDR（sh689，如 sh689009）腾讯本就返回股，保持不变，sh689 原先被多乘 100 的问题一并修正
+3. 修复 stock_zh_a_hist_tx 传入 87、88 开头（以及 834～838 开头）的北交所代码时报 InvalidParameterError 的问题（#7484，感谢 @Bruce848647703）：这些代码原先没有补上 bj 前缀，腾讯对无效代码返回 `"invalid code"`，又被当作行情列表取出首个字符，报出与日期格式无关的错误；现在按 43、44、83、87、88、92 开头统一补 bj 前缀，get_tx_start_year 遇到非列表的返回也改走日 K 线兜底
+
 (v1-20-25)=
 ### 1.20.25 fix: replace py-mini-racer and akracer with mini-racer
 
