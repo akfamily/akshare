@@ -786,7 +786,6 @@ from akshare.fund.fund_aum_em import fund_aum_em, fund_aum_hist_em, fund_aum_tre
 from akshare.fund.fund_em import (
     fund_etf_fund_daily_em,
     fund_etf_fund_info_em,
-    fund_financial_fund_daily_em,
     fund_financial_fund_info_em,
     fund_graded_fund_daily_em,
     fund_graded_fund_info_em,
@@ -1537,7 +1536,6 @@ __all__ = [
     "fund_fee_em",
     "fund_fh_em",
     "fund_fh_rank_em",
-    "fund_financial_fund_daily_em",
     "fund_financial_fund_info_em",
     "fund_graded_fund_daily_em",
     "fund_graded_fund_info_em",

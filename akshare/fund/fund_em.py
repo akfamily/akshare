@@ -786,84 +786,11 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     return big_df
 
 
-def fund_financial_fund_daily_em() -> pd.DataFrame:
-    """
-    东方财富网站-天天基金网-基金数据-理财型基金收益
-    # 该接口暂无数据
-    https://fund.eastmoney.com/lcjj.html#1_1__0__ljjz,desc_1_os1
-    :return: 当前交易日的所有理财型基金收益
-    :rtype: pandas.DataFrame
-    """
-    url = "https://api.fund.eastmoney.com/FundNetValue/GetLCJJJZ"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": "https://fund.eastmoney.com/lcjj.html",
-    }
-    params = {
-        "letter": "",
-        "jjgsid": "0",
-        "searchtext": "",
-        "sort": "ljjz,desc",
-        "page": "1,100",
-        "AttentionCodes": "",
-        "cycle": "",
-        "OnlySale": "1",
-    }
-    r = http.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["Data"]["List"])
-    if temp_df.empty:
-        return pd.DataFrame()
-    show_day = data_json["Data"]["showday"]
-    data_df = temp_df[
-        [
-            "Id",
-            "actualsyi",
-            "cycle",
-            "fcode",
-            "kfr",
-            "mui",
-            "shortname",
-            "syi",
-            "zrmui",
-            "zrsyi",
-        ]
-    ]
-    data_df.columns = [
-        "序号",
-        "上一期年化收益率",
-        "封闭期",
-        "基金代码",
-        "申购状态",
-        f"{show_day[0]}-万份收益",
-        "基金简称",
-        f"{show_day[0]}-7日年华",
-        f"{show_day[1]}-万份收益",
-        f"{show_day[1]}-7日年华",
-    ]
-    data_df = data_df[
-        [
-            "序号",
-            "基金代码",
-            "基金简称",
-            "上一期年化收益率",
-            f"{show_day[0]}-万份收益",
-            f"{show_day[0]}-7日年华",
-            f"{show_day[1]}-万份收益",
-            f"{show_day[1]}-7日年华",
-            "封闭期",
-            "申购状态",
-        ]
-    ]
-    return data_df
-
-
 def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     https://fundf10.eastmoney.com/jjjz_000791.html
-    :param symbol: 理财型基金代码，可以通过 ak.fund_financial_fund_daily_em() 来获取
+    :param symbol: 基金代码，可以通过 ak.fund_name_em() 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     :rtype: pandas.DataFrame
@@ -1394,9 +1321,6 @@ if __name__ == "__main__":
 
     fund_money_fund_info_em_df = fund_money_fund_info_em(symbol="000009")
     print(fund_money_fund_info_em_df)
-
-    fund_financial_fund_daily_em_df = fund_financial_fund_daily_em()
-    print(fund_financial_fund_daily_em_df)
 
     fund_financial_fund_info_em_df = fund_financial_fund_info_em(symbol="000134")
     print(fund_financial_fund_info_em_df)
