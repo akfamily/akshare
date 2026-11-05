@@ -13,6 +13,7 @@ import warnings
 import math
 import pandas as pd
 
+from akshare.utils.http import DceBlockedError
 from akshare.futures import cons
 from akshare.futures.futures_daily_bar import get_futures_daily
 from akshare.futures.symbol_var import symbol_market, symbol_varieties
@@ -154,6 +155,9 @@ def get_roll_yield_bar(
                             ),
                         ]
                     )
+            except DceBlockedError:
+                # 大商所拒绝访问时逐日都会失败，直接报错而不是返回空表
+                raise
             except Exception:
                 pass
             start_day += datetime.timedelta(days=1)

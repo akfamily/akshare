@@ -96,14 +96,15 @@ mini-racer 用于执行数据源的 JavaScript 解密代码，只为以下环境
 
 大连商品交易所网站目前启用了瑞数反爬虫验证，程序发出的请求会被拒绝并返回 HTTP 412。这不是 AKShare 或本地环境的问题，暂时没有可用的解决办法；其他交易所的接口不受影响。
 
-只有 futures_warehouse_receipt_dce 会明确抛出带 412 状态码的 `APIError`。其他接口的报错各不相同，常见的有：
+自 1.20.31 起，这些接口在被拒绝时统一抛出 `DceBlockedError`（`APIError` 的子类，`status_code` 为 412），报错信息会说明原因。更早的版本报错各不相同，常见的有 `JSONDecodeError: Expecting value`、`BadZipFile: File is not a zip file`、`ValueError: No tables found`、`IndexError: list index out of range`，也有接口不报错而返回空数据，升级到最新版即可看到明确的报错。大商所解除限制后，这些接口无需修改即可恢复。
 
-- `JSONDecodeError: Expecting value`
-- `BadZipFile: File is not a zip file`
-- `ValueError: No tables found`
-- `IndexError: list index out of range`
+大商所合约的成交持仓排名可以改用新浪财经的数据，按单个合约查询，合约需未到期，如：
 
-也有接口不报错，而是返回空数据。
+```python
+import akshare as ak
+
+ak.futures_hold_pos_sina(symbol="多单持仓", contract="M2701", date="20261104")
+```
 
 受影响的接口：
 

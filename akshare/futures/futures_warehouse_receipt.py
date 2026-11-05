@@ -19,7 +19,6 @@ from io import BytesIO, StringIO
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.exceptions import APIError
 from akshare.utils import http
 
 
@@ -74,13 +73,8 @@ def futures_warehouse_receipt_dce(date: str = "20251027") -> pd.DataFrame:
         "tradeDate": date,
         "varietyId": "all",
     }
+    # 大商所拒绝程序访问（HTTP 412）时，http 层抛出 DceBlockedError（APIError 的子类）
     r = http.post(url, json=payload)
-    # 瑞数反爬虫对未通过浏览器验证的请求返回 412 挑战页，其 cookie 需每次请求前由 JS 重新生成
-    if r.status_code == 412:
-        raise APIError(
-            "大连商品交易所网站启用了瑞数反爬虫验证，暂时无法通过程序获取仓单日报数据",
-            status_code=r.status_code,
-        )
     r.raise_for_status()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["entityList"])
