@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-29)=
+### 1.20.29 fix: fix option_finance_sse_underlying and option_finance_board interface
+
+1. 修复 option_finance_sse_underlying 报 `TypeError: Invalid value ... for dtype 'float64'` 的问题：原代码把更新时间写入数值列，pandas 3 不再允许；现按请求参数 select 的字段顺序命名各列，更新日期整列赋值。同时修正“代码”列：上游不返回代码，原代码把第一行写死为 510300，查询华夏上证50ETF期权等其他品种时代码也显示为 510300；现取请求地址中的标的代码，如 510050、588000
+2. 修复 option_finance_board 在 symbol="嘉实沪深300ETF期权" 时返回其他标的合约的问题：深交所期权列表包含沪深300ETF、创业板ETF、中证500ETF、深证100ETF 全部 4 个标的的期权，原代码未按标的筛选，返回当月全部合约；现只保留标的为沪深300ETF 的合约，并改为按上游字段名映射列名。其余品种返回结果不变
+3. 模块 `__main__` 中示例的到期月份由已过期的 2306 改为 2612
+
 (v1-20-28)=
 ### 1.20.28 fix!: fix index_cx interfaces, car_market_cate_cpca and fund_hk_fund_hist_em, remove fund_financial_fund_daily_em
 

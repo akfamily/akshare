@@ -93,7 +93,7 @@
  "akshare/option/option_commodity.py": 1,
  "akshare/option/option_commodity_sina.py": 3,
  "akshare/option/option_em.py": 1,
- "akshare/option/option_finance.py": 12,
+ "akshare/option/option_finance.py": 10,
  "akshare/option/option_finance_sina.py": 7,
  "akshare/option/option_lhb_em.py": 3,
  "akshare/option/option_margin.py": 1,
