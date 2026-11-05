@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-28)=
+### 1.20.28 refactor: map macro_china columns by upstream field name
+
+1. macro_china 模块中 41 个接口改为按上游字段名映射列名：原先按位置给列命名（`temp_df.columns = ["-", "月份", ...]`），上游一增加或调整字段就报 `Length mismatch` 或错列；现改为 `rename(columns={"TIME": "月份", ...})` 后显式选列，上游增加字段时返回结果不受影响。涉及 macro_china_cpi、macro_china_ppi、macro_china_pmi、macro_china_gdp、macro_china_money_supply、macro_china_fdi、macro_china_shrzgm、macro_china_new_house_price、macro_shipping_bdi 等接口，逐一实测改动前后返回的列名、类型和数值完全一致
+2. 金十数据等返回无字段名二维数组的 5 处只能按位置命名，保持不变
+3. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 674 处
+
 (v1-20-27)=
 ### 1.20.27 fix: fix macro_cnbs interface
 

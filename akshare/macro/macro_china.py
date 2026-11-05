@@ -224,15 +224,16 @@ def macro_china_fdi() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "ACTUAL_FOREIGN": "当月",
+            "ACTUAL_FOREIGN_SAME": "当月-同比增长",
+            "ACTUAL_FOREIGN_SEQUENTIAL": "当月-环比增长",
+            "ACTUAL_FOREIGN_ACCUMULATE": "累计",
+            "FOREIGN_ACCUMULATE_SAME": "累计-同比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -266,17 +267,19 @@ def macro_china_shrzgm() -> pd.DataFrame:
     r = session.post(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df.columns = [
-        "月份",
-        "其中-未贴现银行承兑汇票",
-        "其中-委托贷款",
-        "其中-委托贷款外币贷款",
-        "其中-人民币贷款",
-        "其中-企业债券",
-        "社会融资规模增量",
-        "其中-非金融企业境内股票融资",
-        "其中-信托贷款",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "date": "月份",
+            "ndbab": "其中-未贴现银行承兑汇票",
+            "entrustloan": "其中-委托贷款",
+            "forcloan": "其中-委托贷款外币贷款",
+            "rmblaon": "其中-人民币贷款",
+            "bibae": "其中-企业债券",
+            "tiosfs": "社会融资规模增量",
+            "sfinfe": "其中-非金融企业境内股票融资",
+            "trustloan": "其中-信托贷款",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -1084,17 +1087,18 @@ def macro_china_new_house_price(
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "日期",
-        "城市",
-        "新建商品住宅价格指数-同比",
-        "新建商品住宅价格指数-环比",
-        "新建商品住宅价格指数-定基",
-        "二手住宅价格指数-同比",
-        "二手住宅价格指数-环比",
-        "二手住宅价格指数-定基",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "CITY": "城市",
+            "FIRST_COMHOUSE_SAME": "新建商品住宅价格指数-同比",
+            "FIRST_COMHOUSE_SEQUENTIAL": "新建商品住宅价格指数-环比",
+            "FIRST_COMHOUSE_BASE": "新建商品住宅价格指数-定基",
+            "SECOND_HOUSE_SAME": "二手住宅价格指数-同比",
+            "SECOND_HOUSE_SEQUENTIAL": "二手住宅价格指数-环比",
+            "SECOND_HOUSE_BASE": "二手住宅价格指数-定基",
+        }
+    )
     temp_df = temp_df[
         [
             "日期",
@@ -1156,16 +1160,17 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "季度",
-        "企业景气指数-指数",
-        "企业家信心指数-指数",
-        "企业景气指数-同比",
-        "企业景气指数-环比",
-        "企业家信心指数-同比",
-        "企业家信心指数-环比",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "季度",
+            "BOOM_INDEX": "企业景气指数-指数",
+            "FAITH_INDEX": "企业家信心指数-指数",
+            "BOOM_INDEX_SAME": "企业景气指数-同比",
+            "BOOM_INDEX_SEQUENTIAL": "企业景气指数-环比",
+            "FAITH_INDEX_SAME": "企业家信心指数-同比",
+            "FAITH_INDEX_SEQUENTIAL": "企业家信心指数-环比",
+        }
+    )
     temp_df = temp_df[
         [
             "季度",
@@ -1224,7 +1229,14 @@ def macro_china_national_tax_receipts() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = ["-", "季度", "税收收入合计", "较上年同期", "季度环比"]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "季度",
+            "TAX_INCOME": "税收收入合计",
+            "TAX_INCOME_SAME": "较上年同期",
+            "TAX_INCOME_SEQUENTIAL": "季度环比",
+        }
+    )
     temp_df = temp_df[["季度", "税收收入合计", "较上年同期", "季度环比"]]
 
     temp_df["税收收入合计"] = pd.to_numeric(temp_df["税收收入合计"], errors="coerce")
@@ -1257,15 +1269,29 @@ def macro_china_bank_financing() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df["最新值"] = pd.to_numeric(temp_df["最新值"])
@@ -1303,15 +1329,29 @@ def macro_china_insurance_income() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df["最新值"] = pd.to_numeric(temp_df["最新值"])
@@ -1350,15 +1390,29 @@ def macro_china_mobile_number() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.drop_duplicates()
-    temp_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df["最新值"] = pd.to_numeric(temp_df["最新值"])
@@ -1405,15 +1459,29 @@ def macro_china_vegetable_basket() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1460,15 +1528,29 @@ def macro_china_agricultural_product() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1515,15 +1597,29 @@ def macro_china_agricultural_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1570,15 +1666,29 @@ def macro_china_energy_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1625,15 +1735,29 @@ def macro_china_commodity_price_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1680,15 +1804,29 @@ def macro_global_sox_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1735,15 +1873,29 @@ def macro_china_yw_electronic_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1793,15 +1945,29 @@ def macro_china_construction_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"], errors="coerce")
@@ -1848,15 +2014,29 @@ def macro_china_construction_price_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1903,15 +2083,29 @@ def macro_china_lpi_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -1958,15 +2152,29 @@ def macro_china_bdti_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -2013,15 +2221,29 @@ def macro_china_bsi_index() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"])
@@ -2068,15 +2290,29 @@ def _em_macro_1(em_id) -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df.drop_duplicates()
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"], errors="coerce")
@@ -2161,15 +2397,16 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "RMB_LOAN": "当月",
+            "RMB_LOAN_SAME": "当月-同比增长",
+            "RMB_LOAN_SEQUENTIAL": "当月-环比增长",
+            "RMB_LOAN_ACCUMULATE": "累计",
+            "LOAN_ACCUMULATE_SAME": "累计-同比增长",
+        }
+    )
     temp_df = temp_df[
         ["月份", "当月", "当月-同比增长", "当月-环比增长", "累计", "累计-同比增长"]
     ]
@@ -2212,16 +2449,17 @@ def macro_china_fx_gold() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "黄金储备-数值",
-        "黄金储备-同比",
-        "黄金储备-环比",
-        "国家外汇储备-数值",
-        "国家外汇储备-同比",
-        "国家外汇储备-环比",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "GOLD_RESERVES": "黄金储备-数值",
+            "GOLD_RESERVES_SAME": "黄金储备-同比",
+            "GOLD_RESERVES_SEQUENTIAL": "黄金储备-环比",
+            "FOREX": "国家外汇储备-数值",
+            "FOREX_SAME": "国家外汇储备-同比",
+            "FOREX_SEQUENTIAL": "国家外汇储备-环比",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2275,22 +2513,23 @@ def macro_china_stock_market_cap() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "数据日期",
-        "发行总股本-上海",
-        "市价总值-上海",
-        "成交金额-上海",
-        "成交量-上海",
-        "A股最高综合股价指数-上海",
-        "A股最低综合股价指数-上海",
-        "发行总股本-深圳",
-        "市价总值-深圳",
-        "成交金额-深圳",
-        "成交量-深圳",
-        "A股最高综合股价指数-深圳",
-        "A股最低综合股价指数-深圳",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "数据日期",
+            "TOTAL_SHARES_SH": "发行总股本-上海",
+            "TOTAL_MARKE_SH": "市价总值-上海",
+            "DEAL_AMOUNT_SH": "成交金额-上海",
+            "VOLUME_SH": "成交量-上海",
+            "HIGH_INDEX_SH": "A股最高综合股价指数-上海",
+            "LOW_INDEX_SH": "A股最低综合股价指数-上海",
+            "TOTAL_SZARES_SZ": "发行总股本-深圳",
+            "TOTAL_MARKE_SZ": "市价总值-深圳",
+            "DEAL_AMOUNT_SZ": "成交金额-深圳",
+            "VOLUME_SZ": "成交量-深圳",
+            "HIGH_INDEX_SZ": "A股最高综合股价指数-深圳",
+            "LOW_INDEX_SZ": "A股最低综合股价指数-深圳",
+        }
+    )
     temp_df = temp_df[
         [
             "数据日期",
@@ -2360,19 +2599,20 @@ def macro_china_money_supply() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "货币和准货币(M2)-数量(亿元)",
-        "货币和准货币(M2)-同比增长",
-        "货币和准货币(M2)-环比增长",
-        "货币(M1)-数量(亿元)",
-        "货币(M1)-同比增长",
-        "货币(M1)-环比增长",
-        "流通中的现金(M0)-数量(亿元)",
-        "流通中的现金(M0)-同比增长",
-        "流通中的现金(M0)-环比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASIC_CURRENCY": "货币和准货币(M2)-数量(亿元)",
+            "BASIC_CURRENCY_SAME": "货币和准货币(M2)-同比增长",
+            "BASIC_CURRENCY_SEQUENTIAL": "货币和准货币(M2)-环比增长",
+            "CURRENCY": "货币(M1)-数量(亿元)",
+            "CURRENCY_SAME": "货币(M1)-同比增长",
+            "CURRENCY_SEQUENTIAL": "货币(M1)-环比增长",
+            "FREE_CASH": "流通中的现金(M0)-数量(亿元)",
+            "FREE_CASH_SAME": "流通中的现金(M0)-同比增长",
+            "FREE_CASH_SEQUENTIAL": "流通中的现金(M0)-环比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2444,22 +2684,23 @@ def macro_china_cpi() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "全国-同比增长",
-        "全国-当月",
-        "全国-环比增长",
-        "全国-累计",
-        "城市-同比增长",
-        "城市-当月",
-        "城市-环比增长",
-        "城市-累计",
-        "农村-同比增长",
-        "农村-当月",
-        "农村-环比增长",
-        "农村-累计",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "NATIONAL_SAME": "全国-同比增长",
+            "NATIONAL_BASE": "全国-当月",
+            "NATIONAL_SEQUENTIAL": "全国-环比增长",
+            "NATIONAL_ACCUMULATE": "全国-累计",
+            "CITY_SAME": "城市-同比增长",
+            "CITY_BASE": "城市-当月",
+            "CITY_SEQUENTIAL": "城市-环比增长",
+            "CITY_ACCUMULATE": "城市-累计",
+            "RURAL_SAME": "农村-同比增长",
+            "RURAL_BASE": "农村-当月",
+            "RURAL_SEQUENTIAL": "农村-环比增长",
+            "RURAL_ACCUMULATE": "农村-累计",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2518,18 +2759,19 @@ def macro_china_gdp() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "季度",
-        "国内生产总值-绝对值",
-        "第一产业-绝对值",
-        "第二产业-绝对值",
-        "第三产业-绝对值",
-        "国内生产总值-同比增长",
-        "第一产业-同比增长",
-        "第二产业-同比增长",
-        "第三产业-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "季度",
+            "DOMESTICL_PRODUCT_BASE": "国内生产总值-绝对值",
+            "FIRST_PRODUCT_BASE": "第一产业-绝对值",
+            "SECOND_PRODUCT_BASE": "第二产业-绝对值",
+            "THIRD_PRODUCT_BASE": "第三产业-绝对值",
+            "SUM_SAME": "国内生产总值-同比增长",
+            "FIRST_SAME": "第一产业-同比增长",
+            "SECOND_SAME": "第二产业-同比增长",
+            "THIRD_SAME": "第三产业-同比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "季度",
@@ -2594,13 +2836,14 @@ def macro_china_ppi() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "当月同比增长",
-        "累计",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASE": "当月",
+            "BASE_SAME": "当月同比增长",
+            "BASE_ACCUMULATE": "累计",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2639,14 +2882,15 @@ def macro_china_pmi() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "制造业-指数",
-        "制造业-同比增长",
-        "非制造业-指数",
-        "非制造业-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "MAKE_INDEX": "制造业-指数",
+            "MAKE_SAME": "制造业-同比增长",
+            "NMAKE_INDEX": "非制造业-指数",
+            "NMAKE_SAME": "非制造业-同比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2692,14 +2936,15 @@ def macro_china_gdzctz() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "自年初累计",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASE": "当月",
+            "BASE_SAME": "同比增长",
+            "BASE_SEQUENTIAL": "环比增长",
+            "BASE_ACCUMULATE": "自年初累计",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2831,15 +3076,16 @@ def macro_china_czsr() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASE": "当月",
+            "BASE_SAME": "当月-同比增长",
+            "BASE_SEQUENTIAL": "当月-环比增长",
+            "BASE_ACCUMULATE": "累计",
+            "ACCUMULATE_SAME": "累计-同比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2884,14 +3130,15 @@ def macro_china_whxd() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASE": "当月",
+            "BASE_SAME": "同比增长",
+            "BASE_SEQUENTIAL": "环比增长",
+            "BASE_ACCUMULATE": "累计",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2934,14 +3181,15 @@ def macro_china_wbck() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "BASE": "当月",
+            "BASE_SAME": "同比增长",
+            "BASE_SEQUENTIAL": "环比增长",
+            "BASE_ACCUMULATE": "累计",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -2985,19 +3233,20 @@ def macro_china_xfzxx() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = [
-        "-",
-        "月份",
-        "消费者信心指数-指数值",
-        "消费者信心指数-同比增长",
-        "消费者信心指数-环比增长",
-        "消费者满意指数-指数值",
-        "消费者满意指数-同比增长",
-        "消费者满意指数-环比增长",
-        "消费者预期指数-指数值",
-        "消费者预期指数-同比增长",
-        "消费者预期指数-环比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "CONSUMERS_FAITH_INDEX": "消费者信心指数-指数值",
+            "FAITH_INDEX_SAME": "消费者信心指数-同比增长",
+            "FAITH_INDEX_SEQUENTIAL": "消费者信心指数-环比增长",
+            "CONSUMERS_ASTIS_INDEX": "消费者满意指数-指数值",
+            "ASTIS_INDEX_SAME": "消费者满意指数-同比增长",
+            "ASTIS_INDEX_SEQUENTIAL": "消费者满意指数-环比增长",
+            "CONSUMERS_EXPECT_INDEX": "消费者预期指数-指数值",
+            "EXPECT_INDEX_SAME": "消费者预期指数-同比增长",
+            "EXPECT_INDEX_SEQUENTIAL": "消费者预期指数-环比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -3067,12 +3316,14 @@ def macro_china_gyzjz() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "发布时间",
-        "月份",
-        "同比增长",
-        "累计增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "发布时间",
+            "TIME": "月份",
+            "BASE_SAME": "同比增长",
+            "BASE_ACCUMULATE": "累计增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -3113,20 +3364,21 @@ def macro_china_reserve_requirement_ratio() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "公布时间",
-        "生效时间",
-        "大型金融机构-调整前",
-        "大型金融机构-调整后",
-        "大型金融机构-调整幅度",
-        "中小金融机构-调整前",
-        "中小金融机构-调整后",
-        "中小金融机构-调整幅度",
-        "消息公布次日指数涨跌-上证",
-        "消息公布次日指数涨跌-深证",
-        "备注",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "PUBLISH_DATE": "公布时间",
+            "TRADE_DATE": "生效时间",
+            "INTEREST_RATE_BB": "大型金融机构-调整前",
+            "INTEREST_RATE_BA": "大型金融机构-调整后",
+            "CHANGE_RATE_B": "大型金融机构-调整幅度",
+            "INTEREST_RATE_SB": "中小金融机构-调整前",
+            "INTEREST_RATE_SA": "中小金融机构-调整后",
+            "CHANGE_RATE_S": "中小金融机构-调整幅度",
+            "NEXT_SH_RATE": "消息公布次日指数涨跌-上证",
+            "NEXT_SZ_RATE": "消息公布次日指数涨跌-深证",
+            "REMARK": "备注",
+        }
+    )
     temp_df = temp_df[
         [
             "公布时间",
@@ -3201,15 +3453,16 @@ def macro_china_consumer_goods_retail() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-        "累计-同比增长",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "TIME": "月份",
+            "RETAIL_TOTAL": "当月",
+            "RETAIL_TOTAL_SAME": "同比增长",
+            "RETAIL_TOTAL_SEQUENTIAL": "环比增长",
+            "RETAIL_TOTAL_ACCUMULATE": "累计",
+            "RETAIL_ACCUMULATE_SAME": "累计-同比增长",
+        }
+    )
     temp_df = temp_df[
         [
             "月份",
@@ -3736,15 +3989,29 @@ def macro_china_real_estate() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "日期",
-        "最新值",
-        "涨跌幅",
-        "近3月涨跌幅",
-        "近6月涨跌幅",
-        "近1年涨跌幅",
-        "近2年涨跌幅",
-        "近3年涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "REPORT_DATE": "日期",
+            "INDICATOR_VALUE": "最新值",
+            "CHANGE_RATE": "涨跌幅",
+            "CHANGERATE_3M": "近3月涨跌幅",
+            "CHANGERATE_6M": "近6月涨跌幅",
+            "CHANGERATE_1Y": "近1年涨跌幅",
+            "CHANGERATE_2Y": "近2年涨跌幅",
+            "CHANGERATE_3Y": "近3年涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "最新值",
+            "涨跌幅",
+            "近3月涨跌幅",
+            "近6月涨跌幅",
+            "近1年涨跌幅",
+            "近2年涨跌幅",
+            "近3年涨跌幅",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["最新值"] = pd.to_numeric(big_df["最新值"], errors="coerce")
