@@ -9,11 +9,14 @@ tocdepth: 2
 ## 1.20.x
 
 (v1-20-28)=
-### 1.20.28 refactor: map macro_china columns by upstream field name
+### 1.20.28 fix: fix car_market_cate_cpca and fund_hk_fund_hist_em interface
 
-1. macro_china 模块中 41 个接口改为按上游字段名映射列名：原先按位置给列命名（`temp_df.columns = ["-", "月份", ...]`），上游一增加或调整字段就报 `Length mismatch` 或错列；现改为 `rename(columns={"TIME": "月份", ...})` 后显式选列，上游增加字段时返回结果不受影响。涉及 macro_china_cpi、macro_china_ppi、macro_china_pmi、macro_china_gdp、macro_china_money_supply、macro_china_fdi、macro_china_shrzgm、macro_china_new_house_price、macro_shipping_bdi 等接口，逐一实测改动前后返回的列名、类型和数值完全一致
-2. 金十数据等返回无字段名二维数组的 5 处只能按位置命名，保持不变
-3. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 674 处
+1. 修复 fund_hk_fund_hist_em 返回错列数据的问题：上游增加了 `_id` 字段并调整了字段顺序，按位置命名后“净值日期”列实为币种“元”、“单位净值”列实为内部编号、“日增长值”列实为基金代码，分红送配详情同样整体错位，且不报错；现按 PDATE、NAV、NAVCHG、NAVCHGRT、BYEAR、REGDATE、EXDDATE、ISSDATE、BONUS 等字段名映射，单位净值、日增长值、日增长率、分红金额转为 float64，与文档一致
+2. 修复 car_market_cate_cpca 在 symbol 为“轿车”“MPV”“SUV”时报 `KeyError: '2026年'` 的问题：上游把当年字段排到上年之前，并增加了“同比”字段，原代码按位置取年份列，取到了当年尚无数据的月份；现按“YYYY年”字段名识别年份，返回列统一为月份、上年、当年，与文档一致
+3. 乘联会模块（car_market_total_cpca、car_market_man_rank_cpca、car_market_cate_cpca、car_market_fuel_cpca）改为按字段名取数，原来 8 个辅助函数、约 30 个复制的分支合并为两个公共函数；逐一实测 `__main__` 中原本正常的 25 个调用，改动前后返回的列名、类型和数值完全一致
+4. macro_china 模块中 41 个接口改为按上游字段名映射列名：原先按位置给列命名（`temp_df.columns = ["-", "月份", ...]`），上游一增加或调整字段就报 `Length mismatch` 或错列；现改为 `rename(columns={"TIME": "月份", ...})` 后显式选列，上游增加字段时返回结果不受影响。涉及 macro_china_cpi、macro_china_ppi、macro_china_pmi、macro_china_gdp、macro_china_money_supply、macro_china_fdi、macro_china_shrzgm、macro_china_new_house_price、macro_shipping_bdi 等接口，逐一实测改动前后返回的列名、类型和数值完全一致；金十数据等返回无字段名二维数组的 5 处只能按位置命名，保持不变
+5. fund_open_fund_info_em 的单位净值走势、累计净值走势、同类排名走势、同类排名百分比改为按字段名映射，改动前后返回结果一致
+6. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 641 处
 
 (v1-20-27)=
 ### 1.20.27 fix: fix macro_cnbs interface

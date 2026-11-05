@@ -1,7 +1,6 @@
 {
  "akshare/alternative/alternative_air_zhenqi.py": 1,
  "akshare/alternative/alternative_artist_yien.py": 2,
- "akshare/alternative/alternative_car_cpca.py": 27,
  "akshare/alternative/alternative_fortune_bloomberg.py": 1,
  "akshare/alternative/alternative_movie_yien.py": 6,
  "akshare/alternative/alternative_video_yien.py": 2,
@@ -25,7 +24,7 @@
  "akshare/fund/fund_amac.py": 14,
  "akshare/fund/fund_announcement_em.py": 3,
  "akshare/fund/fund_aum_em.py": 2,
- "akshare/fund/fund_em.py": 22,
+ "akshare/fund/fund_em.py": 16,
  "akshare/fund/fund_etf_em.py": 3,
  "akshare/fund/fund_etf_sina.py": 3,
  "akshare/fund/fund_fhsp_em.py": 3,
