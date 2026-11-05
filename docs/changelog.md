@@ -9,14 +9,18 @@ tocdepth: 2
 ## 1.20.x
 
 (v1-20-28)=
-### 1.20.28 fix: fix car_market_cate_cpca and fund_hk_fund_hist_em interface
+### 1.20.28 fix!: fix index_cx interfaces, car_market_cate_cpca and fund_hk_fund_hist_em
 
-1. 修复 fund_hk_fund_hist_em 返回错列数据的问题：上游增加了 `_id` 字段并调整了字段顺序，按位置命名后“净值日期”列实为币种“元”、“单位净值”列实为内部编号、“日增长值”列实为基金代码，分红送配详情同样整体错位，且不报错；现按 PDATE、NAV、NAVCHG、NAVCHGRT、BYEAR、REGDATE、EXDDATE、ISSDATE、BONUS 等字段名映射，单位净值、日增长值、日增长率、分红金额转为 float64，与文档一致
-2. 修复 car_market_cate_cpca 在 symbol 为“轿车”“MPV”“SUV”时报 `KeyError: '2026年'` 的问题：上游把当年字段排到上年之前，并增加了“同比”字段，原代码按位置取年份列，取到了当年尚无数据的月份；现按“YYYY年”字段名识别年份，返回列统一为月份、上年、当年，与文档一致
-3. 乘联会模块（car_market_total_cpca、car_market_man_rank_cpca、car_market_cate_cpca、car_market_fuel_cpca）改为按字段名取数，原来 8 个辅助函数、约 30 个复制的分支合并为两个公共函数；逐一实测 `__main__` 中原本正常的 25 个调用，改动前后返回的列名、类型和数值完全一致
-4. macro_china 模块中 41 个接口改为按上游字段名映射列名：原先按位置给列命名（`temp_df.columns = ["-", "月份", ...]`），上游一增加或调整字段就报 `Length mismatch` 或错列；现改为 `rename(columns={"TIME": "月份", ...})` 后显式选列，上游增加字段时返回结果不受影响。涉及 macro_china_cpi、macro_china_ppi、macro_china_pmi、macro_china_gdp、macro_china_money_supply、macro_china_fdi、macro_china_shrzgm、macro_china_new_house_price、macro_shipping_bdi 等接口，逐一实测改动前后返回的列名、类型和数值完全一致；金十数据等返回无字段名二维数组的 5 处只能按位置命名，保持不变
-5. fund_open_fund_info_em 的单位净值走势、累计净值走势、同类排名走势、同类排名百分比改为按字段名映射，改动前后返回结果一致
-6. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 641 处
+**不兼容的改动：移除财新数字经济指数的 5 个接口 index_dei_cx、index_ii_cx、index_si_cx、index_fi_cx、index_bi_cx。** 财新数据平台改版后已不再发布数字经济指数（数字经济指数、产业指数、溢出指数、融合指数、基础指数），新版财新指数页面 https://yun.ccxe.com.cn/dataindices/indices 中没有这组指数，也没有替代的数据端点；原接口已全部报 `JSONDecodeError`，调用这些接口的代码请删除。
+
+1. 修复财新指数的 14 个接口（index_pmi_com_cx、index_pmi_man_cx、index_pmi_ser_cx、index_nei_cx、index_li_cx、index_ci_cx、index_ti_cx、index_neaw_cx、index_awpr_cx、index_cci_cx、index_qli_cx、index_ai_cx、index_bei_cx、index_neei_cx）报 `JSONDecodeError` 的问题：财新数据平台改版，原接口 https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo 返回 404 页面；现改用新版页面的 https://yun.ccxe.com.cn/dataindices/ 下各指数接口，返回的列名与类型不变，上游报错时抛出 APIError。PMI 自 2025 年 7 月起由“财新中国 PMI”更名为“标普中国 PMI”，数据持续更新，文档原先写的“更新至 202507 截止”已删除
+2. 财新指数返回结果的细微变化：首期（首日）的变化值、变化幅度由 0 改为空值，上游对首期不再给出变化值；中国新经济指数系列（index_nei_cx 等 6 个）的日期由月末改为当月 1 日，上游只提供年月；可投资指数（index_cci_cx、index_qli_cx 等 5 个）的上游不再返回涨跌幅，改由指数值计算，单位为 %，与原数据一致
+3. 修复 fund_hk_fund_hist_em 返回错列数据的问题：上游增加了 `_id` 字段并调整了字段顺序，按位置命名后“净值日期”列实为币种“元”、“单位净值”列实为内部编号、“日增长值”列实为基金代码，分红送配详情同样整体错位，且不报错；现按 PDATE、NAV、NAVCHG、NAVCHGRT、BYEAR、REGDATE、EXDDATE、ISSDATE、BONUS 等字段名映射，单位净值、日增长值、日增长率、分红金额转为 float64，与文档一致
+4. 修复 car_market_cate_cpca 在 symbol 为“轿车”“MPV”“SUV”时报 `KeyError: '2026年'` 的问题：上游把当年字段排到上年之前，并增加了“同比”字段，原代码按位置取年份列，取到了当年尚无数据的月份；现按“YYYY年”字段名识别年份，返回列统一为月份、上年、当年，与文档一致
+5. 乘联会模块（car_market_total_cpca、car_market_man_rank_cpca、car_market_cate_cpca、car_market_fuel_cpca）改为按字段名取数，原来 8 个辅助函数、约 30 个复制的分支合并为两个公共函数；逐一实测 `__main__` 中原本正常的 25 个调用，改动前后返回的列名、类型和数值完全一致
+6. macro_china 模块中 41 个接口改为按上游字段名映射列名：原先按位置给列命名（`temp_df.columns = ["-", "月份", ...]`），上游一增加或调整字段就报 `Length mismatch` 或错列；现改为 `rename(columns={"TIME": "月份", ...})` 后显式选列，上游增加字段时返回结果不受影响。涉及 macro_china_cpi、macro_china_ppi、macro_china_pmi、macro_china_gdp、macro_china_money_supply、macro_china_fdi、macro_china_shrzgm、macro_china_new_house_price、macro_shipping_bdi 等接口，逐一实测改动前后返回的列名、类型和数值完全一致；金十数据等返回无字段名二维数组的 5 处只能按位置命名，保持不变
+7. fund_open_fund_info_em 的单位净值走势、累计净值走势、同类排名走势、同类排名百分比改为按字段名映射，改动前后返回结果一致
+8. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 622 处
 
 (v1-20-27)=
 ### 1.20.27 fix: fix macro_cnbs interface

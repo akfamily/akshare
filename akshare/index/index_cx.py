@@ -1,566 +1,222 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# !/usr/bin/env python
 """
-Date: 2025/8/7 18:30
-Desc: 财新数据-指数报告-数字经济指数
-https://yun.ccxe.com.cn/indices/dei
+Date: 2026/11/5 20:00
+Desc: 财新数据-财新指数
+https://yun.ccxe.com.cn/dataindices/indices
 """
 
 import pandas as pd
 
+from akshare.exceptions import APIError
 from akshare.utils import http
+
+
+def _cx_index_data(index: str, data: dict) -> dict:
+    """
+    财新数据-财新指数-图表数据
+    https://yun.ccxe.com.cn/dataindices/indices
+    :param index: 指数接口名，如 "pmi"、"nei"、"cci"
+    :type index: str
+    :param data: 请求参数；宏观经济指数传 type，可投资指数传 month（空字符串为全部）
+    :type data: dict
+    :return: 上游返回的 data 字段，含 month（日期）、data（指数值）等列表
+    :rtype: dict
+    """
+    url = f"https://yun.ccxe.com.cn/dataindices/{index}"
+    r = http.post(url, data=data)
+    data_json = r.json()
+    if data_json.get("code") != 0 or not data_json.get("data"):
+        raise APIError(f"财新数据返回错误：{data_json.get('msg')}", r.status_code)
+    return data_json["data"]
+
+
+def _cx_macro_index(
+    index: str, sub_id: str, name: str, change_field: str
+) -> pd.DataFrame:
+    """
+    财新数据-财新指数-宏观经济指数（月度）
+    https://yun.ccxe.com.cn/dataindices/indices
+    :param index: 指数接口名，"pmi" 或 "nei"
+    :type index: str
+    :param sub_id: 子指数代码，如 "COM"、"NEI"、"NEAW"
+    :type sub_id: str
+    :param name: 指数值列的列名
+    :type name: str
+    :param change_field: 与上期差值所在的字段；pmi 为 change，nei 为 changeData（nei 的 change 为百分比）
+    :type change_field: str
+    :return: 日期、指数值、变化值（与上期的差值，首期为空）
+    :rtype: pandas.DataFrame
+    """
+    data = _cx_index_data(index, {"type": sub_id})
+    temp_df = pd.DataFrame(
+        {"日期": data["month"], name: data["data"], "变化值": data[change_field]}
+    )
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df[name] = pd.to_numeric(temp_df[name], errors="coerce")
+    temp_df["变化值"] = pd.to_numeric(temp_df["变化值"], errors="coerce")
+    return temp_df
+
+
+def _cx_investment_index(index: str, name: str, change_name: str) -> pd.DataFrame:
+    """
+    财新数据-财新指数-可投资指数（日度）
+    https://yun.ccxe.com.cn/dataindices/indices
+    :param index: 指数接口名，如 "cci"、"qli"、"ind"
+    :type index: str
+    :param name: 指数值列的列名
+    :type name: str
+    :param change_name: 涨跌幅列的列名
+    :type change_name: str
+    :return: 日期、指数值、涨跌幅（相对上一交易日，单位为 %，首日为空）；上游只提供指数值，涨跌幅由指数值计算
+    :rtype: pandas.DataFrame
+    """
+    data = _cx_index_data(index, {"month": ""})
+    temp_df = pd.DataFrame({"日期": data["month"], name: data["data"]})
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df[name] = pd.to_numeric(temp_df[name], errors="coerce")
+    temp_df[change_name] = temp_df[name].pct_change() * 100
+    return temp_df
 
 
 def index_pmi_com_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-财新中国 PMI-综合 PMI
-    https://yun.ccxe.com.cn/indices/pmi
-    :return: 财新中国 PMI-综合 PMI
+    财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-综合 PMI
+    https://yun.ccxe.com.cn/dataindices/indices
+    :return: 综合 PMI
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "com"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "综合PMI", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "综合PMI",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("pmi", "COM", "综合PMI", "change")
 
 
 def index_pmi_man_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-财新中国 PMI-制造业 PMI
-    https://yun.ccxe.com.cn/indices/pmi
-    :return: 财新中国 PMI-制造业 PMI
+    财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-制造业 PMI
+    https://yun.ccxe.com.cn/dataindices/indices
+    :return: 制造业 PMI
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "man"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "制造业PMI", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "制造业PMI",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("pmi", "MAN", "制造业PMI", "change")
 
 
 def index_pmi_ser_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-财新中国 PMI-服务业 PMI
-    https://yun.ccxe.com.cn/indices/pmi
-    :return: 财新中国 PMI-服务业 PMI
+    财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-服务业 PMI
+    https://yun.ccxe.com.cn/dataindices/indices
+    :return: 服务业 PMI
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "ser"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "服务业PMI", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "服务业PMI",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
-
-
-def index_dei_cx() -> pd.DataFrame:
-    """
-    财新数据-指数报告-数字经济指数
-    https://yun.ccxe.com.cn/indices/dei
-    :return: 数字经济指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "dei"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "数字经济指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "数字经济指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
-
-
-def index_ii_cx() -> pd.DataFrame:
-    """
-    财新数据-指数报告-产业指数
-    https://yun.ccxe.com.cn/indices/dei
-    :return: 产业指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "ii"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "产业指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "产业指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
-
-
-def index_si_cx() -> pd.DataFrame:
-    """
-    财新数据-指数报告-溢出指数
-    https://yun.ccxe.com.cn/indices/dei
-    :return: 溢出指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "si"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "溢出指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "溢出指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
-
-
-def index_fi_cx() -> pd.DataFrame:
-    """
-    财新数据-指数报告-融合指数
-    https://yun.ccxe.com.cn/indices/dei
-    :return: 融合指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "fi"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "融合指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "融合指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
-
-
-def index_bi_cx() -> pd.DataFrame:
-    """
-    财新数据-指数报告-基础指数
-    https://yun.ccxe.com.cn/indices/dei
-    :return: 基础指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "bi"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "基础指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "基础指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("pmi", "SER", "服务业PMI", "change")
 
 
 def index_nei_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-中国新经济指数
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 中国新经济指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "nei"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "中国新经济指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "中国新经济指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "NEI", "中国新经济指数", "changeData")
 
 
 def index_li_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-劳动力投入指数
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数-劳动力投入指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 劳动力投入指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "li"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "劳动力投入指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "劳动力投入指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "LI", "劳动力投入指数", "changeData")
 
 
 def index_ci_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-资本投入指数
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数-资本投入指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 资本投入指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "ci"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "资本投入指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "资本投入指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "CI", "资本投入指数", "changeData")
 
 
 def index_ti_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-科技投入指数
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数-科技投入指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 科技投入指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "ti"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "科技投入指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "科技投入指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "TI", "科技投入指数", "changeData")
 
 
 def index_neaw_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-新经济行业入职平均工资水平
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数-新经济行业入职平均工资水平
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 新经济行业入职平均工资水平
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "neaw"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "新经济行业入职平均工资水平", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "新经济行业入职平均工资水平",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "NEAW", "新经济行业入职平均工资水平", "changeData")
 
 
 def index_awpr_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-新经济入职工资溢价水平
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-中国新经济指数-新经济入职工资溢价水平
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 新经济入职工资溢价水平
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {"type": "awpr"}
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "新经济入职工资溢价水平", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "新经济入职工资溢价水平",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_macro_index("nei", "AWPR", "新经济入职工资溢价水平", "changeData")
 
 
 def index_cci_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-大宗商品指数
-    https://yun.ccxe.com.cn/indices/nei
+    财新数据-财新指数-大宗商品指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 大宗商品指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {
-        "type": "cci",
-        "code": "1000050",
-        "month": "-1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化值", "大宗商品指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "大宗商品指数",
-            "变化值",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_investment_index("cci", "大宗商品指数", "变化值")
 
 
 def index_qli_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-高质量因子
-    https://yun.ccxe.com.cn/indices/qli
-    :return: 高质量因子
+    财新数据-财新指数-高质量因子指数
+    https://yun.ccxe.com.cn/dataindices/indices
+    :return: 高质量因子指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {
-        "type": "qli",
-        "code": "1000050",
-        "month": "-1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化幅度", "高质量因子指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "高质量因子指数",
-            "变化幅度",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_investment_index("qli", "高质量因子指数", "变化幅度")
 
 
 def index_ai_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-AI策略指数
-    https://yun.ccxe.com.cn/indices/ai
+    财新数据-财新指数-AI策略指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: AI策略指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {
-        "type": "ai",
-        "code": "1000050",
-        "month": "-1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化幅度", "AI策略指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "AI策略指数",
-            "变化幅度",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_investment_index("ai", "AI策略指数", "变化幅度")
 
 
 def index_bei_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-基石经济指数
-    https://yun.ccxe.com.cn/indices/bei
+    财新数据-财新指数-基石经济指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 基石经济指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {
-        "type": "ind",
-        "code": "930927",
-        "month": "-1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化幅度", "基石经济指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "基石经济指数",
-            "变化幅度",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_investment_index("ind", "基石经济指数", "变化幅度")
 
 
 def index_neei_cx() -> pd.DataFrame:
     """
-    财新数据-指数报告-新动能指数
-    https://yun.ccxe.com.cn/indices/neei
+    财新数据-财新指数-新动能指数
+    https://yun.ccxe.com.cn/dataindices/indices
     :return: 新动能指数
     :rtype: pandas.DataFrame
     """
-    url = "https://yun.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
-    params = {
-        "type": "ind",
-        "code": "930928",
-        "month": "1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = ["变化幅度", "新动能指数", "日期"]
-    temp_df = temp_df[
-        [
-            "日期",
-            "新动能指数",
-            "变化幅度",
-        ]
-    ]
-    temp_df["日期"] = (
-        pd.to_datetime(temp_df["日期"], unit="ms", utc=True)
-        .dt.tz_convert("Asia/Shanghai")
-        .dt.date
-    )
-    return temp_df
+    return _cx_investment_index("indTwo", "新动能指数", "变化幅度")
 
 
 if __name__ == "__main__":
@@ -572,21 +228,6 @@ if __name__ == "__main__":
 
     index_pmi_ser_cx_df = index_pmi_ser_cx()
     print(index_pmi_ser_cx_df)
-
-    index_dei_cx_df = index_dei_cx()
-    print(index_dei_cx_df)
-
-    index_ii_cx_df = index_ii_cx()
-    print(index_ii_cx_df)
-
-    index_si_cx_df = index_si_cx()
-    print(index_si_cx_df)
-
-    index_fi_cx_df = index_fi_cx()
-    print(index_fi_cx_df)
-
-    index_bi_cx_df = index_bi_cx()
-    print(index_bi_cx_df)
 
     index_nei_cx_df = index_nei_cx()
     print(index_nei_cx_df)
