@@ -57,23 +57,18 @@ def stock_restricted_release_summary_em(
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.columns = [
-        "序号",
-        "解禁时间",
-        "当日解禁股票家数",
-        "实际解禁数量",
-        "实际解禁市值",
-        "沪深300指数",
-        "沪深300指数涨跌幅",
-        "解禁数量",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "FREE_DATE": "解禁时间",
+            "LIFT_ORG_NUM": "当日解禁股票家数",
+            "LIFT_NUM": "实际解禁数量",
+            "MARKET_CAP": "实际解禁市值",
+            "INDEX_PRICE": "沪深300指数",
+            "CHANGE_RATE": "沪深300指数涨跌幅",
+            "PLAN_LIFT_NUM": "解禁数量",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -150,23 +145,22 @@ def stock_restricted_release_detail_em(
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "解禁时间",
-        "实际解禁数量",
-        "解禁数量",
-        "实际解禁市值",
-        "占解禁前流通市值比例",
-        "解禁前一交易日收盘价",
-        "解禁前20日涨跌幅",
-        "解禁后20日涨跌幅",
-        "限售股类型",
-        "-",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_CODE": "股票代码",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "FREE_DATE": "解禁时间",
+            "CURRENT_FREE_SHARES": "实际解禁数量",
+            "ABLE_FREE_SHARES": "解禁数量",
+            "LIFT_MARKET_CAP": "实际解禁市值",
+            "FREE_RATIO": "占解禁前流通市值比例",
+            "NEW": "解禁前一交易日收盘价",
+            "B20_ADJCHRATE": "解禁前20日涨跌幅",
+            "A20_ADJCHRATE": "解禁后20日涨跌幅",
+            "FREE_SHARES_TYPE": "限售股类型",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -237,23 +231,23 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "解禁时间",
-        "实际解禁数量",
-        "解禁数量",
-        "实际解禁数量市值",
-        "占流通市值比例",
-        "解禁前一交易日收盘价",
-        "解禁前20日涨跌幅",
-        "解禁后20日涨跌幅",
-        "限售股类型",
-        "占总市值比例",
-        "未解禁数量",
-        "解禁股东数",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "FREE_DATE": "解禁时间",
+            "CURRENT_FREE_SHARES": "实际解禁数量",
+            "ABLE_FREE_SHARES": "解禁数量",
+            "LIFT_MARKET_CAP": "实际解禁数量市值",
+            "FREE_RATIO": "占流通市值比例",
+            "NEW": "解禁前一交易日收盘价",
+            "B20_ADJCHRATE": "解禁前20日涨跌幅",
+            "A20_ADJCHRATE": "解禁后20日涨跌幅",
+            "FREE_SHARES_TYPE": "限售股类型",
+            "TOTAL_RATIO": "占总市值比例",
+            "NON_FREE_SHARES": "未解禁数量",
+            "BATCH_HOLDER_NUM": "解禁股东数",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -331,16 +325,31 @@ def stock_restricted_release_stockholder_em(
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df["index"] + 1
-    temp_df.columns = [
-        "序号",
-        "股东名称",
-        "解禁数量",
-        "实际解禁数量",
-        "解禁市值",
-        "锁定期",
-        "剩余未解禁数量",
-        "限售股类型",
-        "进度",
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "LIMITED_HOLDER_NAME": "股东名称",
+            "ADD_LISTING_SHARES": "解禁数量",
+            "ACTUAL_LISTED_SHARES": "实际解禁数量",
+            "ADD_LISTING_CAP": "解禁市值",
+            "LOCK_MONTH": "锁定期",
+            "RESIDUAL_LIMITED_SHARES": "剩余未解禁数量",
+            "FREE_SHARES_TYPE": "限售股类型",
+            "PLAN_FEATURE": "进度",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "序号",
+            "股东名称",
+            "解禁数量",
+            "实际解禁数量",
+            "解禁市值",
+            "锁定期",
+            "剩余未解禁数量",
+            "限售股类型",
+            "进度",
+        ]
     ]
     temp_df["解禁数量"] = pd.to_numeric(temp_df["解禁数量"], errors="coerce")
     temp_df["实际解禁数量"] = pd.to_numeric(temp_df["实际解禁数量"], errors="coerce")

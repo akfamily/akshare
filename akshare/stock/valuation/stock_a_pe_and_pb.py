@@ -359,11 +359,10 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
                 "pe",
             ]
         ]
-        temp_df.columns = [
-            "日期",
-            "指数",
-            "平均市盈率",
-        ]
+        temp_df = temp_df.rename(
+            columns={"date": "日期", "close": "指数", "pe": "平均市盈率"}
+        )
+        temp_df = temp_df[["日期", "指数", "平均市盈率"]]
         return temp_df
     else:
         url = "https://legulegu.com/api/stockdata/get-ke-chuang-ban-pe"
@@ -387,11 +386,10 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
                 "pe",
             ]
         ]
-        temp_df.columns = [
-            "日期",
-            "总市值",
-            "市盈率",
-        ]
+        temp_df = temp_df.rename(
+            columns={"date": "日期", "close": "总市值", "pe": "市盈率"}
+        )
+        temp_df = temp_df[["日期", "总市值", "市盈率"]]
         return temp_df
 
 
@@ -445,15 +443,29 @@ def stock_index_pe_lg(symbol: str = "沪深300") -> pd.DataFrame:
             "middleTtmPe",
         ]
     ]
-    temp_df.columns = [
-        "日期",
-        "指数",
-        "等权静态市盈率",
-        "静态市盈率",
-        "静态市盈率中位数",
-        "等权滚动市盈率",
-        "滚动市盈率",
-        "滚动市盈率中位数",
+    temp_df = temp_df.rename(
+        columns={
+            "date": "日期",
+            "close": "指数",
+            "lyrPe": "等权静态市盈率",
+            "addLyrPe": "静态市盈率",
+            "middleLyrPe": "静态市盈率中位数",
+            "ttmPe": "等权滚动市盈率",
+            "addTtmPe": "滚动市盈率",
+            "middleTtmPe": "滚动市盈率中位数",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "日期",
+            "指数",
+            "等权静态市盈率",
+            "静态市盈率",
+            "静态市盈率中位数",
+            "等权滚动市盈率",
+            "滚动市盈率",
+            "滚动市盈率中位数",
+        ]
     ]
     return temp_df
 

@@ -133,22 +133,19 @@ def stock_analyst_detail_em(
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df = temp_df.reset_index()
         temp_df["index"] = list(range(1, len(temp_df) + 1))
-        temp_df.columns = [
-            "序号",
-            "最新评级日期",
-            "-",
-            "-",
-            "-",
-            "-",
-            "股票代码",
-            "-",
-            "股票名称",
-            "调入日期",
-            "当前评级名称",
-            "成交价格(前复权)",
-            "最新价格",
-            "阶段涨跌幅",
-        ]
+        temp_df = temp_df.rename(
+            columns={
+                "index": "序号",
+                "RATING_DATE": "最新评级日期",
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME_ABBR": "股票名称",
+                "CHANGE_DATE": "调入日期",
+                "RATING_NAME": "当前评级名称",
+                "CLOSE_FORWARD_ADJPRICE": "成交价格(前复权)",
+                "NEW_PRICE": "最新价格",
+                "CURRENT_CHANGE": "阶段涨跌幅",
+            }
+        )
         temp_df = temp_df[
             [
                 "序号",
@@ -191,20 +188,18 @@ def stock_analyst_detail_em(
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df = temp_df.reset_index()
         temp_df["index"] = list(range(1, len(temp_df) + 1))
-        temp_df.columns = [
-            "序号",
-            "-",
-            "-",
-            "-",
-            "股票代码",
-            "-",
-            "股票名称",
-            "调入日期",
-            "调出日期",
-            "调入时评级名称",
-            "调出原因",
-            "累计涨跌幅",
-        ]
+        temp_df = temp_df.rename(
+            columns={
+                "index": "序号",
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME_ABBR": "股票名称",
+                "CHANGE_DATE": "调入日期",
+                "BFCHANGE_DATE": "调出日期",
+                "RATING_NAME": "调入时评级名称",
+                "REASON": "调出原因",
+                "CHANGE_RATE": "累计涨跌幅",
+            }
+        )
         temp_df = temp_df[
             [
                 "序号",
@@ -244,7 +239,10 @@ def stock_analyst_detail_em(
                 "INDEX_HVALUE",
             ]
         ]
-        temp_df.columns = ["date", "value"]
+        temp_df = temp_df.rename(
+            columns={"TRADE_DATE": "date", "INDEX_HVALUE": "value"}
+        )
+        temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
         temp_df = temp_df.sort_values(["date"], ignore_index=True)

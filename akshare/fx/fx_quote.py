@@ -32,13 +32,9 @@ def fx_spot_quote() -> pd.DataFrame:
     res = http.post(FX_SPOT_URL, data=payload, headers=SHORT_HEADERS)
     temp_df = pd.DataFrame(res.json()["records"])
     temp_df = temp_df[["ccyPair", "bidPrc", "askPrc", "midprice", "time"]]
-    temp_df.columns = [
-        "货币对",
-        "买报价",
-        "卖报价",
-        "-",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={"ccyPair": "货币对", "bidPrc": "买报价", "askPrc": "卖报价"}
+    )
     temp_df = temp_df[["货币对", "买报价", "卖报价"]]
     temp_df["买报价"] = pd.to_numeric(temp_df["买报价"], errors="coerce")
     temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"], errors="coerce")
@@ -66,15 +62,18 @@ def fx_swap_quote() -> pd.DataFrame:
             "label_1Y",
         ]
     ]
-    temp_df.columns = [
-        "货币对",
-        "1周",
-        "1月",
-        "3月",
-        "6月",
-        "9月",
-        "1年",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "ccyPair": "货币对",
+            "label_1W": "1周",
+            "label_1M": "1月",
+            "label_3M": "3月",
+            "label_6M": "6月",
+            "label_9M": "9月",
+            "label_1Y": "1年",
+        }
+    )
+    temp_df = temp_df[["货币对", "1周", "1月", "3月", "6月", "9月", "1年"]]
     return temp_df
 
 
@@ -89,13 +88,9 @@ def fx_pair_quote() -> pd.DataFrame:
     res = http.post(FX_PAIR_URL, data=payload, headers=SHORT_HEADERS)
     temp_df = pd.DataFrame(res.json()["records"])
     temp_df = temp_df[["ccyPair", "bidPrc", "askPrc", "midprice", "time"]]
-    temp_df.columns = [
-        "货币对",
-        "买报价",
-        "卖报价",
-        "-",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={"ccyPair": "货币对", "bidPrc": "买报价", "askPrc": "卖报价"}
+    )
     temp_df = temp_df[["货币对", "买报价", "卖报价"]]
     temp_df["买报价"] = pd.to_numeric(temp_df["买报价"], errors="coerce")
     temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"], errors="coerce")

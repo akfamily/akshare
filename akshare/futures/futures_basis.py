@@ -354,16 +354,23 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
         left_index=True,
         right_index=True,
     )
-    basis.columns = [
-        "商品",
-        "现货价格",
-        "主力合约代码",
-        "主力合约价格",
-        "主力合约基差",
-        "主力合约变动百分比",
-        "180日内主力基差最高",
-        "180日内主力基差最低",
-        "180日内主力基差平均",
+    basis = basis.rename(
+        columns={
+            "主力合约基差(%)": "主力合约变动百分比",
+        }
+    )
+    basis = basis[
+        [
+            "商品",
+            "现货价格",
+            "主力合约代码",
+            "主力合约价格",
+            "主力合约基差",
+            "主力合约变动百分比",
+            "180日内主力基差最高",
+            "180日内主力基差最低",
+            "180日内主力基差平均",
+        ]
     ]
     basis["主力合约变动百分比"] = basis["主力合约变动百分比"].str.strip("%")
     basis = basis.reset_index(drop=True)

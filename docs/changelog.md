@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-34)=
+### 1.20.34 refactor: map columns by upstream field name in report, restricted, analyst, legu, fx and cni modules
+
+1. stock_report_em（资产负债表、利润表、现金流量表，4 处）、stock_restricted_em（限售解禁，4 处）、stock_analyst_em（分析师指数，3 处）、stock_a_pe_and_pb（乐咕乐股市盈率，3 处）、fx_quote（人民币外汇报价，3 处）、index_cni（国证指数，2 处）、futures_basis（现货与基差，1 处）由按位置命名改为按上游字段名或表头映射；逐一实测改动前后返回结果一致，其中外汇报价为实时数据，确认货币对与列名一致、仅报价随行情变化
+2. 模块 index_cni 的 `__main__` 中 index_detail_hist_cni 示例多传了不存在的 date 参数，运行即报 TypeError，现已去掉；接口本身与文档不受影响
+3. stock_zh_ah_tx、stock_market_legu、fund_rating、stock_board_concept_ths 的上游返回无字段名的数组，保持按位置命名
+4. 按位置赋列名的写法降至 491 处
+
 (v1-20-33)=
 ### 1.20.33 fix: fix fund_hk_rank_em, futures_settle_gfex and stock_gpzy_distribute_statistics interfaces
 

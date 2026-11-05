@@ -149,14 +149,13 @@ def index_detail_cni(symbol: str = "399001") -> pd.DataFrame:
     r = http.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
-    temp_df.columns = [
-        "日期",
-        "样本代码",
-        "样本简称",
-        "所属行业",
-        "总市值",
-        "权重",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "总市值(亿元)": "总市值",
+            "权重（%）": "权重",
+        }
+    )
+    temp_df = temp_df[["日期", "样本代码", "样本简称", "所属行业", "总市值", "权重"]]
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["权重"] = pd.to_numeric(temp_df["权重"], errors="coerce")
     return temp_df
@@ -176,14 +175,13 @@ def index_detail_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     r = http.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
-    temp_df.columns = [
-        "日期",
-        "样本代码",
-        "样本简称",
-        "所属行业",
-        "总市值",
-        "权重",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "总市值(亿元)": "总市值",
+            "权重（%）": "权重",
+        }
+    )
+    temp_df = temp_df[["日期", "样本代码", "样本简称", "所属行业", "总市值", "权重"]]
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"])
     temp_df["权重"] = pd.to_numeric(temp_df["权重"])
     return temp_df
@@ -225,7 +223,7 @@ if __name__ == "__main__":
     index_detail_cni_df = index_detail_cni(symbol="399001")
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101", date="202404")
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101")
     print(index_detail_hist_cni_df)
 
     index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol="399005")
