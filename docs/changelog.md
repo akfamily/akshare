@@ -9,13 +9,15 @@ tocdepth: 2
 ## 1.20.x
 
 (v1-20-30)=
-### 1.20.30 fix!: fix stock_rank_lxxd_ths interface
+### 1.20.30 fix!: fix stock_rank_lxxd_ths and stock_gdfx_em interfaces
 
 **不兼容的改动：stock_rank_lxxd_ths（连续下跌）的“连涨天数”列更名为“连跌天数”，数值不变。** 同花顺该页面的表头为“连跌天数”，原代码与文档沿用了连续上涨接口的列名；按旧列名取值的代码请改用新列名。
 
 1. stock_technology_ths 模块中 11 个技术选股接口（stock_rank_cxg_ths、stock_rank_lxsz_ths、stock_rank_cxfl_ths、stock_rank_ljqs_ths、stock_rank_xzjp_ths 等）由按位置命名改为按网页表头映射列名，同花顺调整表头顺序或增加列时不再错列；除上述更名外，逐一实测 17 个调用改动前后返回结果一致
 2. macro_canada（10 个接口）、macro_australia（7 个接口）与 macro_usa 中东方财富全球宏观数据的 2 处，由按位置命名改为按上游字段名映射（REPORT_DATE_CH→时间、PUBLISH_DATE→发布日期、VALUE→现值、PRE_VALUE→前值）；逐一实测 58 个调用改动前后返回结果一致
-3. 按位置赋列名的写法降至 564 处
+3. 修复 stock_gdfx_free_holding_statistics_em、stock_gdfx_holding_statistics_em、stock_gdfx_holding_change_em 报 `Length mismatch` 的问题：东方财富在这几个接口的返回中增加了 SEAB_JOIN_LIS 等字段，原代码按位置命名，列数对不上即报错；现按上游字段名映射，返回的列名与类型不变
+4. stock_gdfx_em 模块其余 9 处改为按上游字段名映射。十大股东与十大流通股东的持股变动接口中，上游市值（HOLDER_MARKET_CAP）与收盘价（CLOSE_PRICE）两个字段的位置正好相反，按位置命名时上游再调整一次顺序，“流通市值统计”就会变成收盘价且不报错；改为按字段名后不再有此风险。逐一实测改动前后返回结果一致
+5. 按位置赋列名的写法降至 556 处
 
 (v1-20-29)=
 ### 1.20.29 fix!: fix option_finance_sse_underlying and option_finance_board interface

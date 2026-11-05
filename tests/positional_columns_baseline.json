@@ -134,7 +134,6 @@
  "akshare/stock/flow/stock_margin_sse.py": 2,
  "akshare/stock/flow/stock_margin_szse.py": 2,
  "akshare/stock/holder/stock_fund_hold.py": 1,
- "akshare/stock/holder/stock_gdfx_em.py": 8,
  "akshare/stock/holder/stock_gdhs.py": 2,
  "akshare/stock/holder/stock_gdzjc_em.py": 1,
  "akshare/stock/holder/stock_gpzy_em.py": 6,

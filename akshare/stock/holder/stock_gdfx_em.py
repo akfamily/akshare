@@ -48,25 +48,24 @@ def stock_gdfx_free_holding_statistics_em(
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "股东名称",
-        "股东类型",
-        "-",
-        "统计次数",
-        "公告日后涨幅统计-10个交易日-平均涨幅",
-        "公告日后涨幅统计-10个交易日-最大涨幅",
-        "公告日后涨幅统计-10个交易日-最小涨幅",
-        "公告日后涨幅统计-30个交易日-平均涨幅",
-        "公告日后涨幅统计-30个交易日-最大涨幅",
-        "公告日后涨幅统计-30个交易日-最小涨幅",
-        "公告日后涨幅统计-60个交易日-平均涨幅",
-        "公告日后涨幅统计-60个交易日-最大涨幅",
-        "公告日后涨幅统计-60个交易日-最小涨幅",
-        "持有个股",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "STATISTICS_TIMES": "统计次数",
+            "AVG_CHANGE_10TD": "公告日后涨幅统计-10个交易日-平均涨幅",
+            "MAX_CHANGE_10TD": "公告日后涨幅统计-10个交易日-最大涨幅",
+            "MIN_CHANGE_10TD": "公告日后涨幅统计-10个交易日-最小涨幅",
+            "AVG_CHANGE_30TD": "公告日后涨幅统计-30个交易日-平均涨幅",
+            "MAX_CHANGE_30TD": "公告日后涨幅统计-30个交易日-最大涨幅",
+            "MIN_CHANGE_30TD": "公告日后涨幅统计-30个交易日-最小涨幅",
+            "AVG_CHANGE_60TD": "公告日后涨幅统计-60个交易日-平均涨幅",
+            "MAX_CHANGE_60TD": "公告日后涨幅统计-60个交易日-最大涨幅",
+            "MIN_CHANGE_60TD": "公告日后涨幅统计-60个交易日-最小涨幅",
+            "SEAB_JOIN": "持有个股",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -151,25 +150,24 @@ def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "股东名称",
-        "股东类型",
-        "-",
-        "统计次数",
-        "公告日后涨幅统计-10个交易日-平均涨幅",
-        "公告日后涨幅统计-10个交易日-最大涨幅",
-        "公告日后涨幅统计-10个交易日-最小涨幅",
-        "公告日后涨幅统计-30个交易日-平均涨幅",
-        "公告日后涨幅统计-30个交易日-最大涨幅",
-        "公告日后涨幅统计-30个交易日-最小涨幅",
-        "公告日后涨幅统计-60个交易日-平均涨幅",
-        "公告日后涨幅统计-60个交易日-最大涨幅",
-        "公告日后涨幅统计-60个交易日-最小涨幅",
-        "持有个股",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "STATISTICS_TIMES": "统计次数",
+            "AVG_CHANGE_10TD": "公告日后涨幅统计-10个交易日-平均涨幅",
+            "MAX_CHANGE_10TD": "公告日后涨幅统计-10个交易日-最大涨幅",
+            "MIN_CHANGE_10TD": "公告日后涨幅统计-10个交易日-最小涨幅",
+            "AVG_CHANGE_30TD": "公告日后涨幅统计-30个交易日-平均涨幅",
+            "MAX_CHANGE_30TD": "公告日后涨幅统计-30个交易日-最大涨幅",
+            "MIN_CHANGE_30TD": "公告日后涨幅统计-30个交易日-最小涨幅",
+            "AVG_CHANGE_60TD": "公告日后涨幅统计-60个交易日-平均涨幅",
+            "MAX_CHANGE_60TD": "公告日后涨幅统计-60个交易日-最大涨幅",
+            "MIN_CHANGE_60TD": "公告日后涨幅统计-60个交易日-最小涨幅",
+            "SEAB_JOIN": "持有个股",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -254,29 +252,20 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "股东名称",
-        "-",
-        "股东类型",
-        "-",
-        "-",
-        "-",
-        "期末持股只数统计-总持有",
-        "期末持股只数统计-新进",
-        "期末持股只数统计-增加",
-        "期末持股只数统计-减少",
-        "期末持股只数统计-不变",
-        "-",
-        "流通市值统计",
-        "持有个股",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "HOLDER_NUM": "期末持股只数统计-总持有",
+            "HOLDADD_NUM": "期末持股只数统计-新进",
+            "HOLDUP_NUM": "期末持股只数统计-增加",
+            "HOLDDOWN_NUM": "期末持股只数统计-减少",
+            "HOLDUNCHANGED_NUM": "期末持股只数统计-不变",
+            "HOLDER_MARKET_CAP": "流通市值统计",
+            "SEAB_JOIN": "持有个股",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -345,28 +334,20 @@ def stock_gdfx_holding_change_em(date: str = "20210930") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "股东名称",
-        "-",
-        "股东类型",
-        "-",
-        "-",
-        "-",
-        "期末持股只数统计-总持有",
-        "期末持股只数统计-新进",
-        "期末持股只数统计-增加",
-        "期末持股只数统计-减少",
-        "期末持股只数统计-不变",
-        "-",
-        "-",
-        "持有个股",
-        "流通市值统计",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "HOLDER_NUM": "期末持股只数统计-总持有",
+            "HOLDADD_NUM": "期末持股只数统计-新进",
+            "HOLDUP_NUM": "期末持股只数统计-增加",
+            "HOLDDOWN_NUM": "期末持股只数统计-减少",
+            "HOLDUNCHANGED_NUM": "期末持股只数统计-不变",
+            "SEAB_JOIN": "持有个股",
+            "HOLDER_MARKET_CAP": "流通市值统计",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -415,20 +396,18 @@ def stock_gdfx_free_top_10_em(
     temp_df = pd.DataFrame(data_json["sdltgd"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "名次",
-        "-",
-        "-",
-        "-",
-        "-",
-        "股东名称",
-        "股东性质",
-        "股份类型",
-        "持股数",
-        "占总流通股本持股比例",
-        "增减",
-        "变动比率",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "名次",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东性质",
+            "SHARES_TYPE": "股份类型",
+            "HOLD_NUM": "持股数",
+            "FREE_HOLDNUM_RATIO": "占总流通股本持股比例",
+            "HOLD_NUM_CHANGE": "增减",
+            "CHANGE_RATIO": "变动比率",
+        }
+    )
     temp_df = temp_df[
         [
             "名次",
@@ -472,19 +451,17 @@ def stock_gdfx_top_10_em(
     temp_df = pd.DataFrame(data_json["sdgd"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "名次",
-        "-",
-        "-",
-        "-",
-        "-",
-        "股东名称",
-        "股份类型",
-        "持股数",
-        "占总股本持股比例",
-        "增减",
-        "变动比率",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "名次",
+            "HOLDER_NAME": "股东名称",
+            "SHARES_TYPE": "股份类型",
+            "HOLD_NUM": "持股数",
+            "HOLD_NUM_RATIO": "占总股本持股比例",
+            "HOLD_NUM_CHANGE": "增减",
+            "CHANGE_RATIO": "变动比率",
+        }
+    )
     temp_df = temp_df[
         [
             "名次",
@@ -921,18 +898,17 @@ def stock_gdfx_free_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "股东名称",
-        "股东类型",
-        "-",
-        "协同股东名称",
-        "协同股东类型",
-        "协同次数",
-        "-",
-        "个股详情",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "COOPERAT_HOLDER_NAME": "协同股东名称",
+            "COOPERAT_HOLDER_TYPE": "协同股东类型",
+            "COOPERAT_NUM": "协同次数",
+            "PINGJIE": "个股详情",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -984,18 +960,17 @@ def stock_gdfx_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "股东名称",
-        "股东类型",
-        "-",
-        "协同股东名称",
-        "协同股东类型",
-        "协同次数",
-        "-",
-        "个股详情",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "HOLDER_NAME": "股东名称",
+            "HOLDER_TYPE": "股东类型",
+            "COOPERAT_HOLDER_NAME": "协同股东名称",
+            "COOPERAT_HOLDER_TYPE": "协同股东类型",
+            "COOPERAT_NUM": "协同次数",
+            "PINGJIE": "个股详情",
+        }
+    )
     big_df = big_df[
         [
             "序号",
