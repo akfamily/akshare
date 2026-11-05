@@ -174,6 +174,19 @@ def _format_date(date: str) -> str:
     return datetime.datetime.strptime(date, "%Y%m%d").strftime("%Y-%m-%d")
 
 
+def _recent_date(date: str) -> str:
+    """
+    处理日票房的日期参数：空字符串表示前一天，其余按 YYYYMMDD 解析
+    :param date: 日期，如 "20261104"；空字符串表示前一天
+    :type date: str
+    :return: YYYY-MM-DD 格式日期
+    :rtype: str
+    """
+    if not date:
+        return (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+    return _format_date(date=date)
+
+
 def _calc_first_week_days(value: object) -> object:
     """
     根据上映日期估算首周天数。
@@ -250,16 +263,16 @@ def movie_boxoffice_realtime() -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_daily(date: str = "20240219") -> pd.DataFrame:
+def movie_boxoffice_daily(date: str = "") -> pd.DataFrame:
     """
     电影票房-单日票房
     https://www.endata.com.cn/BoxOffice/BO/Day/index.html
-    :param date: 日期，只能查询当天及前 2 天，更早的日期需要登录艺恩账号
+    :param date: 日期，如 "20261104"，默认为空字符串，表示前一天；只能查询当天及前 2 天，更早的日期需要登录艺恩账号
     :type date: str
     :return: 每日票房
     :rtype: pandas.DataFrame
     """
-    date_str = _format_date(date=date)
+    date_str = _recent_date(date=date)
     url = "https://ys.endata.cn/enlib-api/api/movie/getMovie_BoxOffice_Day_List.do"
     payload = {
         "r": random.random(),
@@ -597,16 +610,16 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_cinema_daily(date: str = "20240219") -> pd.DataFrame:
+def movie_boxoffice_cinema_daily(date: str = "") -> pd.DataFrame:
     """
     电影票房-影院票房-日票房排行
     https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
-    :param date: 日期，只能查询当天及前 2 天，更早的日期需要登录艺恩账号
+    :param date: 日期，如 "20261104"，默认为空字符串，表示前一天；只能查询当天及前 2 天，更早的日期需要登录艺恩账号
     :type date: str
     :return: 影票房-影院票房-日票房排行
     :rtype: pandas.DataFrame
     """
-    date_str = _format_date(date=date)
+    date_str = _recent_date(date=date)
     url = "https://ys.endata.cn/enlib-api/api/cinema/getcinemaboxoffice_day_list.do"
     payload = {
         "r": random.random(),
@@ -659,13 +672,10 @@ def movie_boxoffice_cinema_daily(date: str = "20240219") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # 日票房只能匿名查询当天及前 2 天
-    yesterday = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y%m%d")
-
     movie_boxoffice_realtime_df = movie_boxoffice_realtime()
     print(movie_boxoffice_realtime_df)
 
-    movie_boxoffice_daily_df = movie_boxoffice_daily(date=yesterday)
+    movie_boxoffice_daily_df = movie_boxoffice_daily()
     print(movie_boxoffice_daily_df)
 
     movie_boxoffice_monthly_df = movie_boxoffice_monthly(date="20240218")
@@ -679,5 +689,5 @@ if __name__ == "__main__":
     )
     print(movie_boxoffice_yearly_first_week_df)
 
-    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date=yesterday)
+    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily()
     print(movie_boxoffice_cinema_daily_df)

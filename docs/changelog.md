@@ -13,7 +13,7 @@ tocdepth: 2
 
 **不兼容的改动：移除艺恩周票房接口 movie_boxoffice_weekly、movie_boxoffice_cinema_weekly。** 2026-11-05 实测，艺恩的周榜对最近一周和历史周都返回“没有权限”，必须登录账号才能获取，匿名无法使用；这两个接口此前也不发请求、直接报错。调用这两个接口的代码请删除。
 
-1. 艺恩日票房 movie_boxoffice_daily、影院日票房 movie_boxoffice_cinema_daily 只能匿名查询当天及前 2 天的数据，更早的日期需要登录。原先查询更早的日期只报“没有权限”，现在报错信息说明可查询的日期范围；文档的限量说明、参数说明、接口示例与数据示例改用可查询的日期，模块 `__main__` 改为查询前一天
+1. 艺恩日票房 movie_boxoffice_daily、影院日票房 movie_boxoffice_cinema_daily 只能匿名查询当天及前 2 天的数据，更早的日期需要登录。原先查询更早的日期只报“没有权限”，现在报错信息说明可查询的日期范围；date 参数的默认值由已无法查询的 "20240219" 改为空字符串，表示前一天，不传参数即可取得最新数据；文档的限量说明、参数说明、接口示例与数据示例改用可查询的日期
 2. 修复 stock_ipo_benefit_ths 报 `AttributeError: 'NoneType' object has no attribute 'text'` 的问题：同花顺 IPO 受益股页面目前没有数据，表格为空且不显示分页信息，原代码找不到分页信息即报错；现在按 1 页处理，上游无数据时返回带有原列名的空表
 3. stock_lhb_em（龙虎榜，5 处）、alternative_movie_yien（艺恩票房，4 处）、fund_xq（雪球基金，5 处）、stock_board_industry_ths（同花顺行业一览表，1 处）由按位置命名改为按上游字段名或网页表头映射；逐一实测 30 个调用改动前后返回结果一致。spot_sge（上海黄金交易所）上游返回无字段名的数组，保持按位置命名
 4. 按位置赋列名的写法降至 526 处
