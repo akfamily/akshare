@@ -79,14 +79,27 @@ def amac_member_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "机构（会员）名称",
-        "会员代表",
-        "会员类型",
-        "会员编号",
-        "入会时间",
-        "机构类型",
-        "是否星标",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "managerName": "机构（会员）名称",
+            "memberBehalf": "会员代表",
+            "memberType": "会员类型",
+            "memberCode": "会员编号",
+            "memberDate": "入会时间",
+            "primaryInvestType": "机构类型",
+            "markStar": "是否星标",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "机构（会员）名称",
+            "会员代表",
+            "会员类型",
+            "会员编号",
+            "入会时间",
+            "机构类型",
+            "是否星标",
+        ]
     ]
     manager_data_out["入会时间"] = pd.to_datetime(
         manager_data_out["入会时间"], unit="ms"
@@ -176,15 +189,29 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     manager_data_out = manager_data_out[keys_list]
     manager_data_out = manager_data_out.reset_index()
     manager_data_out["index"] = manager_data_out.index + 1
-    manager_data_out.columns = [
-        "序号",
-        "机构名称",
-        "机构类型",
-        "员工人数",
-        "基金从业资格",
-        "基金销售业务资格",
-        "基金经理",
-        "投资经理",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "index": "序号",
+            "orgName": "机构名称",
+            "orgType": "机构类型",
+            "workerTotalNum": "员工人数",
+            "operNum": "基金从业资格",
+            "salesmanNum": "基金销售业务资格",
+            "investmentManagerNum": "投资经理",
+            "fundManagerNum": "基金经理",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "序号",
+            "机构名称",
+            "机构类型",
+            "员工人数",
+            "基金从业资格",
+            "基金销售业务资格",
+            "基金经理",
+            "投资经理",
+        ]
     ]
     manager_data_out["员工人数"] = pd.to_numeric(manager_data_out["员工人数"])
     manager_data_out["基金从业资格"] = pd.to_numeric(manager_data_out["基金从业资格"])
@@ -232,14 +259,14 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["list"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.columns = [
-        "序号",
-        "_",
-        "_",
-        "机构名称",
-        "机构类型",
-        "公示网址",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "orgName": "机构名称",
+            "orgClass": "机构类型",
+            "publicityAddress": "公示网址",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -288,14 +315,27 @@ def amac_manager_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "私募基金管理人名称",
-        "法定代表人/执行事务合伙人(委派代表)姓名",
-        "机构类型",
-        "注册地",
-        "登记编号",
-        "成立时间",
-        "登记时间",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "managerName": "私募基金管理人名称",
+            "artificialPersonName": "法定代表人/执行事务合伙人(委派代表)姓名",
+            "primaryInvestType": "机构类型",
+            "registerProvince": "注册地",
+            "registerNo": "登记编号",
+            "establishDate": "成立时间",
+            "registerDate": "登记时间",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "私募基金管理人名称",
+            "法定代表人/执行事务合伙人(委派代表)姓名",
+            "机构类型",
+            "注册地",
+            "登记编号",
+            "成立时间",
+            "登记时间",
+        ]
     ]
     manager_data_out["成立时间"] = pd.to_datetime(
         manager_data_out["成立时间"], unit="ms"
@@ -347,19 +387,37 @@ def amac_manager_classify_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "私募基金管理人名称",
-        "法定代表人/执行事务合伙人(委派代表)姓名",
-        "机构类型",
-        "登记编号",
-        "注册地",
-        "办公地",
-        "成立时间",
-        "登记时间",
-        "在管基金数量",
-        "会员类型",
-        "是否有提示信息",
-        "是否有诚信信息",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "managerName": "私募基金管理人名称",
+            "artificialPersonName": "法定代表人/执行事务合伙人(委派代表)姓名",
+            "primaryInvestType": "机构类型",
+            "registerNo": "登记编号",
+            "registerProvince": "注册地",
+            "officeAdrAgg": "办公地",
+            "establishDate": "成立时间",
+            "registerDate": "登记时间",
+            "fundCount": "在管基金数量",
+            "memberType": "会员类型",
+            "hasSpecialTips": "是否有提示信息",
+            "hasCreditTips": "是否有诚信信息",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "私募基金管理人名称",
+            "法定代表人/执行事务合伙人(委派代表)姓名",
+            "机构类型",
+            "登记编号",
+            "注册地",
+            "办公地",
+            "成立时间",
+            "登记时间",
+            "在管基金数量",
+            "会员类型",
+            "是否有提示信息",
+            "是否有诚信信息",
+        ]
     ]
     manager_data_out["成立时间"] = pd.to_datetime(
         manager_data_out["成立时间"], unit="ms"
@@ -412,13 +470,18 @@ def amac_member_sub_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "机构（会员）名称",
-        "会员代表",
-        "会员类型",
-        "会员编号",
-        "入会时间",
-        "公司类型",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "managerName": "机构（会员）名称",
+            "memberBehalf": "会员代表",
+            "memberType": "会员类型",
+            "memberCode": "会员编号",
+            "memberDate": "入会时间",
+            "primaryInvestType": "公司类型",
+        }
+    )
+    manager_data_out = manager_data_out[
+        ["机构（会员）名称", "会员代表", "会员类型", "会员编号", "入会时间", "公司类型"]
     ]
     manager_data_out["入会时间"] = pd.to_datetime(
         manager_data_out["入会时间"], unit="ms"
@@ -470,14 +533,27 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
         "mandatorName",
     ]  # 定义要取的 value 的 keys
     manager_data_out = big_df[keys_list].copy()
-    manager_data_out.columns = [
-        "基金名称",
-        "私募基金管理人名称",
-        "私募基金管理人类型",
-        "运行状态",
-        "备案时间",
-        "建立时间",
-        "托管人名称",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "fundName": "基金名称",
+            "managerName": "私募基金管理人名称",
+            "managerType": "私募基金管理人类型",
+            "workingState": "运行状态",
+            "putOnRecordDate": "备案时间",
+            "establishDate": "建立时间",
+            "mandatorName": "托管人名称",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "基金名称",
+            "私募基金管理人名称",
+            "私募基金管理人类型",
+            "运行状态",
+            "备案时间",
+            "建立时间",
+            "托管人名称",
+        ]
     ]
     manager_data_out["建立时间"] = pd.to_datetime(
         manager_data_out["建立时间"], unit="ms"
@@ -527,17 +603,33 @@ def amac_securities_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "产品名称",
-        "产品编码",
-        "管理人名称",
-        "成立日期",
-        "到期时间",
-        "投资类型",
-        "是否分级",
-        "托管人名称",
-        "备案日期",
-        "运作状态",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "cpmc": "产品名称",
+            "cpbm": "产品编码",
+            "gljg": "管理人名称",
+            "slrq": "成立日期",
+            "dqr": "到期时间",
+            "tzlx": "投资类型",
+            "sffj": "是否分级",
+            "tgjg": "托管人名称",
+            "barq": "备案日期",
+            "yzzt": "运作状态",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "产品名称",
+            "产品编码",
+            "管理人名称",
+            "成立日期",
+            "到期时间",
+            "投资类型",
+            "是否分级",
+            "托管人名称",
+            "备案日期",
+            "运作状态",
+        ]
     ]
     return manager_data_out
 
@@ -576,12 +668,17 @@ def amac_aoin_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "产品编码",
-        "产品名称",
-        "直投子公司",
-        "管理机构",
-        "设立日期",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "code": "产品编码",
+            "name": "产品名称",
+            "aoinName": "直投子公司",
+            "managerName": "管理机构",
+            "createDate": "设立日期",
+        }
+    )
+    manager_data_out = manager_data_out[
+        ["产品编码", "产品名称", "直投子公司", "管理机构", "设立日期"]
     ]
     manager_data_out["设立日期"] = pd.to_datetime(
         manager_data_out["设立日期"], unit="ms"
@@ -624,13 +721,25 @@ def amac_fund_sub_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "产品编码",
-        "产品名称",
-        "私募基金管理人名称",
-        "托管人名称",
-        "成立日期",
-        "备案日期",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "productCode": "产品编码",
+            "productName": "产品名称",
+            "mgrName": "私募基金管理人名称",
+            "trustee": "托管人名称",
+            "foundDate": "成立日期",
+            "registeredDate": "备案日期",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "产品编码",
+            "产品名称",
+            "私募基金管理人名称",
+            "托管人名称",
+            "成立日期",
+            "备案日期",
+        ]
     ]
     manager_data_out["备案日期"] = pd.to_datetime(
         manager_data_out["备案日期"], unit="ms"
@@ -678,11 +787,16 @@ def amac_fund_account_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "成立日期",
-        "产品编码",
-        "产品名称",
-        "管理人名称",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "registerDate": "成立日期",
+            "registerCode": "产品编码",
+            "name": "产品名称",
+            "manager": "管理人名称",
+        }
+    )
+    manager_data_out = manager_data_out[
+        ["成立日期", "产品编码", "产品名称", "管理人名称"]
     ]
     manager_data_out["成立日期"] = pd.to_datetime(
         manager_data_out["成立日期"], unit="ms"
@@ -717,17 +831,29 @@ def amac_fund_abs() -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
-    big_df.columns = [
-        "编号",
-        "_",
-        "_",
-        "专项计划全称",
-        "备案编号",
-        "管理人",
-        "托管人",
-        "备案通过时间",
-        "成立日期",
-        "预期到期时间",
+    big_df = big_df.rename(
+        columns={
+            "index": "编号",
+            "productName": "专项计划全称",
+            "productCode": "备案编号",
+            "orgName": "管理人",
+            "trustee": "托管人",
+            "registeredDate": "备案通过时间",
+            "fundFoundDate": "成立日期",
+            "fundDueDate": "预期到期时间",
+        }
+    )
+    big_df = big_df[
+        [
+            "编号",
+            "专项计划全称",
+            "备案编号",
+            "管理人",
+            "托管人",
+            "备案通过时间",
+            "成立日期",
+            "预期到期时间",
+        ]
     ]
     big_df["备案通过时间"] = pd.to_datetime(big_df["备案通过时间"], unit="ms").dt.date
     big_df["成立日期"] = pd.to_datetime(big_df["成立日期"], unit="ms").dt.date
@@ -788,17 +914,33 @@ def amac_futures_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "产品名称",
-        "产品编码",
-        "管理人名称",
-        "托管人名称",
-        "成立日期",
-        "投资类型",
-        "是否分级",
-        "备案日期",
-        "到期日",
-        "运作状态",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "mpiName": "产品名称",
+            "mpiProductCode": "产品编码",
+            "aoiName": "管理人名称",
+            "mpiTrustee": "托管人名称",
+            "mpiCreateDate": "成立日期",
+            "tzlx": "投资类型",
+            "sfjgh": "是否分级",
+            "registeredDate": "备案日期",
+            "dueDate": "到期日",
+            "fundStatus": "运作状态",
+        }
+    )
+    manager_data_out = manager_data_out[
+        [
+            "产品名称",
+            "产品编码",
+            "管理人名称",
+            "托管人名称",
+            "成立日期",
+            "投资类型",
+            "是否分级",
+            "备案日期",
+            "到期日",
+            "运作状态",
+        ]
     ]
     return manager_data_out
 
@@ -841,12 +983,17 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "管理人名称",
-        "统一社会信用代码",
-        "登记时间",
-        "注销时间",
-        "注销类型",
+    manager_data_out = manager_data_out.rename(
+        columns={
+            "orgName": "管理人名称",
+            "orgCode": "统一社会信用代码",
+            "orgSignDate": "登记时间",
+            "cancelDate": "注销时间",
+            "status": "注销类型",
+        }
+    )
+    manager_data_out = manager_data_out[
+        ["管理人名称", "统一社会信用代码", "登记时间", "注销时间", "注销类型"]
     ]
     manager_data_out["登记时间"] = pd.to_datetime(
         manager_data_out["登记时间"], unit="ms"

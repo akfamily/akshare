@@ -21,7 +21,6 @@
  "akshare/currency/currency.py": 1,
  "akshare/energy/energy_carbon.py": 2,
  "akshare/energy/energy_oil_em.py": 2,
- "akshare/fund/fund_amac.py": 14,
  "akshare/fund/fund_announcement_em.py": 3,
  "akshare/fund/fund_aum_em.py": 2,
  "akshare/fund/fund_em.py": 15,

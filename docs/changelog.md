@@ -24,7 +24,9 @@ tocdepth: 2
 7. fund_open_fund_info_em 的单位净值走势、累计净值走势、同类排名走势、同类排名百分比改为按字段名映射，改动前后返回结果一致
 8. stock_history_dividend、stock_history_dividend_detail、stock_restricted_release_queue_sina、stock_circulate_stock_holder、stock_fund_stock_holder 共 6 处改为按网页表头映射列名（如“累计股息(%)”→“累计股息”）；futures_hog_core、futures_hog_cost 共 5 处改为按上游字段名映射；逐一实测改动前后返回结果一致
 9. 文档：index_option_50etf_qvix 等 9 个期权波动率指数日线接口的限量说明中注明上游服务器响应较慢，单次调用通常需要 1～2 分钟，可用 ak.set_timeout 调大读取超时
-10. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 610 处
+10. 修复 amac_person_fund_org_list 中“基金经理”与“投资经理”两列数据对调的问题：按位置命名时取数顺序与上游页面不一致，“基金经理”列实为投资经理人数，反之亦然；现按中基协页面脚本的字段对应关系（fundManagerNum 为基金经理、investmentManagerNum 为投资经理）映射
+11. 中基协（fund_amac）模块 14 处改为按上游字段名映射列名，其余 13 个接口逐一实测改动前后返回结果一致
+12. 新增 tests/test_positional_columns.py：按位置赋列名的写法记录在 tests/positional_columns_baseline.json 中，只许减少、不许新增，目前共 596 处
 
 (v1-20-27)=
 ### 1.20.27 fix: fix macro_cnbs interface
