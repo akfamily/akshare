@@ -18,7 +18,7 @@
 | bond_name   | str | bond_name=""；默认为空                                      |
 | bond_code   | str | bond_code=""；默认为空                                      |
 | bond_issue  | str | bond_issue=""；默认为空，通过 ak.bond_info_cm_query() 查询相关参数  |
-| bond_type   | str | bond_type=""；默认为空，通过 ak.bond_info_cm_query() 查询相关参数   |
+| bond_type   | str | bond_type=""；通过 ak.bond_info_cm_query(symbol="债券类型") 查询相关参数；中国货币网要求必须指定债券类型，为空时须传入 bond_name 或 bond_code，此时依次按各债券类型查询，查询较慢 |
 | coupon_type | str | coupon_type=""；默认为空，通过 ak.bond_info_cm_query() 查询相关参数 |
 | issue_year  | str | issue_year=""；默认为空                                     |
 | underwriter | str | underwriter=""；默认为空，通过 ak.bond_info_cm_query() 查询相关参数 |
@@ -67,7 +67,7 @@ print(bond_info_cm_df)
 
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
-| symbol | str | symbol="19万林投资CP001"；通过 ak.bond_info_cm() 查询 债券简称 |
+| symbol | str | symbol="24国开10"；债券简称，可通过 ak.bond_info_cm() 查询 |
 
 输出参数
 
@@ -81,26 +81,27 @@ print(bond_info_cm_df)
 ```python
 import akshare as ak
 
-bond_info_detail_cm_df = ak.bond_info_detail_cm(symbol="19万林投资CP001")
+bond_info_detail_cm_df = ak.bond_info_detail_cm(symbol="24国开10")
 print(bond_info_detail_cm_df)
 ```
 
 数据示例
 
 ```
-        name                       value
-0        bondFullName  重庆万林投资发展有限公司2019年度第一期短期融资券
-1     bondDefinedCode                  695327xh9n
-2            bondName                 19万林投资CP001
-3            bondCode                   041900126
-4            isinCode                         ---
-..                ...                         ...
-59        chrgngMthds                         ---
-60             crdtEv                         ---
-61     brchStlmntMthd                         ---
-62  rgstrtnCnfrmtnDay                         ---
-63             inptTp                           0
-[64 rows x 2 columns]
+                 name               value
+0        bondFullName  国家开发银行2024年第十期金融债券
+1     bondDefinedCode          beced3rkhi
+2            bondName              24国开10
+3            bondCode              240210
+4            isinCode                 ---
+..                ...                 ...
+58        chrgngMthds                 ---
+59             crdtEv                 ---
+60     brchStlmntMthd                 ---
+61  rgstrtnCnfrmtnDay                 ---
+62             inptTp                   0
+
+[63 rows x 2 columns]
 ```
 
 ## 债券基础名词

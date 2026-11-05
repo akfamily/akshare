@@ -294,17 +294,19 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "指数代码",
-        "指数名称",
-        "昨收盘",
-        "今开盘",
-        "成交额",
-        "最高价",
-        "最低价",
-        "最新价",
-        "成交量",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "swindexcode": "指数代码",
+            "swindexname": "指数名称",
+            "l3": "昨收盘",
+            "l4": "今开盘",
+            "l5": "成交额",
+            "l6": "最高价",
+            "l7": "最低价",
+            "l8": "最新价",
+            "l11": "成交量",
+        }
+    )
     big_df = big_df[
         [
             "指数代码",
@@ -426,7 +428,8 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
     temp_df["bargaindate"] = pd.to_datetime(
         temp_df["bargaindate"], errors="coerce"
     ).dt.date
-    temp_df.columns = ["date"]
+    temp_df = temp_df.rename(columns={"bargaindate": "date"})
+    temp_df = temp_df[["date"]]
     temp_df = temp_df.sort_values(by=["date"], ignore_index=True)
     return temp_df
 

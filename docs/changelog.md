@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-35)=
+### 1.20.35 fix: fix bond_info_cm and bond_info_detail_cm interface
+
+1. 修复 bond_info_cm 只按债券简称或代码查询时、以及 bond_info_detail_cm 报 `KeyError: 'pageTotal'` 的问题：中国货币网要求查询债券信息时必须指定债券类型，否则返回“债券类型必选”。现在未传 bond_type 但传入 bond_name 或 bond_code 时，依次按各债券类型查询，查到即停（查不到时约需 20 秒）；什么条件都不传时抛出 APIError 说明原因。连续请求时上游偶发返回非 JSON 内容，现会重试。bond_info_detail_cm 的默认值与文档示例改为 24国开10，文档补充 bond_type 的说明
+2. fx_china_bank_sina（1 处）、index_research_sw（申万指数，2 处）、stock_board_industry_ths（1 处）、stock_info（股票列表，4 处）由按位置命名改为按上游字段名或表头映射；逐一实测 29 个调用改动前后返回结果一致。此前用于前后对比的采集脚本会漏掉带 lru_cache 等装饰器的函数，这几个模块中被漏掉的调用这次一并补测
+3. 按位置赋列名的写法降至 483 处
+
 (v1-20-34)=
 ### 1.20.34 refactor: map columns by upstream field name in report, restricted, analyst, legu, fx and cni modules
 

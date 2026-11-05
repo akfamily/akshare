@@ -91,13 +91,21 @@ def currency_boc_sina(
         r = http.get(url, params=params)
         temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "日期",
-        "中行汇买价",
-        "中行钞买价",
-        "中行钞卖价/汇卖价",
-        "央行中间价",
-        "中行折算价",
+    big_df = big_df.rename(
+        columns={
+            "中行汇买价(元)": "中行汇买价",
+            "中行钞买价(元)": "中行钞买价",
+        }
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "中行汇买价",
+            "中行钞买价",
+            "中行钞卖价/汇卖价",
+            "央行中间价",
+            "中行折算价",
+        ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["中行汇买价"] = pd.to_numeric(big_df["中行汇买价"], errors="coerce")

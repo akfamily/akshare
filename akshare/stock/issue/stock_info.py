@@ -215,56 +215,19 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         temp_df = data_json[0]["content"]
         temp_df = pd.DataFrame(temp_df)
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "上市日期",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "流通股本",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "所属行业",
-        "-",
-        "-",
-        "-",
-        "-",
-        "报告日期",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "地区",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "券商",
-        "总股本",
-        "-",
-        "证券代码",
-        "-",
-        "证券简称",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "fxssrq": "上市日期",
+            "xxfxsgb": "流通股本",
+            "xxhyzl": "所属行业",
+            "xxjsrq": "报告日期",
+            "xxssdq": "地区",
+            "xxzbqs": "券商",
+            "xxzgb": "总股本",
+            "xxzqdm": "证券代码",
+            "xxzqjc": "证券简称",
+        }
+    )
     big_df = big_df[
         [
             "证券代码",
@@ -450,19 +413,20 @@ def stock_info_a_code_name() -> pd.DataFrame:
     big_df = pd.concat(
         objs=[big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True
     )
-    big_df.columns = ["证券代码", "证券简称"]
+    big_df = big_df.rename(columns={"A股代码": "证券代码", "A股简称": "证券简称"})
+    big_df = big_df[["证券代码", "证券简称"]]
 
     stock_kcb = stock_info_sh_name_code(symbol="科创板")
     stock_kcb = stock_kcb[["证券代码", "证券简称"]]
 
     stock_bse = stock_info_bj_name_code()
     stock_bse = stock_bse[["证券代码", "证券简称"]]
-    stock_bse.columns = ["证券代码", "证券简称"]
 
     big_df = pd.concat(objs=[big_df, stock_sh], ignore_index=True)
     big_df = pd.concat(objs=[big_df, stock_kcb], ignore_index=True)
     big_df = pd.concat(objs=[big_df, stock_bse], ignore_index=True)
-    big_df.columns = ["code", "name"]
+    big_df = big_df.rename(columns={"证券代码": "code", "证券简称": "name"})
+    big_df = big_df[["code", "name"]]
     return big_df
 
 

@@ -309,17 +309,28 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "收盘价",
-        "涨跌幅",
-        "市值",
-        "参股家数",
-        "投资总额",
-        "投资占市值比",
-        "参股对象",
+    big_df = big_df.rename(
+        columns={
+            "收盘价 （元）": "收盘价",
+            "涨跌幅 （%）": "涨跌幅",
+            "市值 （元）": "市值",
+            "投资总额 （元）": "投资总额",
+            "投资占市值比 （%）": "投资占市值比",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "收盘价",
+            "涨跌幅",
+            "市值",
+            "参股家数",
+            "投资总额",
+            "投资占市值比",
+            "参股对象",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["序号"] = pd.to_numeric(big_df["序号"], errors="coerce")
