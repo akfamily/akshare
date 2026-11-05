@@ -151,7 +151,6 @@
  "akshare/stock/issue/stock_stop.py": 1,
  "akshare/stock/issue/stock_tfp_em.py": 1,
  "akshare/stock/issue/stock_zf_pg.py": 1,
- "akshare/stock/other/stock_technology_ths.py": 11,
  "akshare/stock/quote/stock_ask_bid_em.py": 1,
  "akshare/stock/quote/stock_basic_info_xq.py": 1,
  "akshare/stock/quote/stock_hist_em.py": 20,

@@ -86,15 +86,22 @@ def stock_rank_cxg_ths(symbol: str = "创月新高") -> pd.DataFrame:
         html_fixed = re.sub(r'\srowspan="\d+"', "", r.text)
         temp_df = pd.read_html(StringIO(html_fixed), header=0)[0]  # 20260214 新增
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "涨跌幅",
-        "换手率",
-        "最新价",
-        "前期高点",
-        "前期高点日期",
+    big_df = big_df.rename(
+        columns={
+            "最新价(元)": "最新价",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "涨跌幅",
+            "换手率",
+            "最新价",
+            "前期高点",
+            "前期高点日期",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].str.strip("%")
@@ -162,15 +169,22 @@ def stock_rank_cxd_ths(symbol: str = "创月新低") -> pd.DataFrame:
         html_fixed = re.sub(r'\srowspan="\d+"', "", r.text)
         temp_df = pd.read_html(StringIO(html_fixed), header=0)[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "涨跌幅",
-        "换手率",
-        "最新价",
-        "前期低点",
-        "前期低点日期",
+    big_df = big_df.rename(
+        columns={
+            "最新价(元)": "最新价",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "涨跌幅",
+            "换手率",
+            "最新价",
+            "前期低点",
+            "前期低点日期",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].str.strip("%")
@@ -223,17 +237,26 @@ def stock_rank_lxsz_ths() -> pd.DataFrame:
         r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text), converters={"股票代码": str})[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "收盘价",
-        "最高价",
-        "最低价",
-        "连涨天数",
-        "连续涨跌幅",
-        "累计换手率",
-        "所属行业",
+    big_df = big_df.rename(
+        columns={
+            "收盘价(元)": "收盘价",
+            "最高价(元)": "最高价",
+            "最低价(元)": "最低价",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "收盘价",
+            "最高价",
+            "最低价",
+            "连涨天数",
+            "连续涨跌幅",
+            "累计换手率",
+            "所属行业",
+        ]
     ]
     big_df["连续涨跌幅"] = big_df["连续涨跌幅"].str.strip("%")
     big_df["累计换手率"] = big_df["累计换手率"].str.strip("%")
@@ -284,17 +307,26 @@ def stock_rank_lxxd_ths() -> pd.DataFrame:
         r = http.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text), converters={"股票代码": str})[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "收盘价",
-        "最高价",
-        "最低价",
-        "连涨天数",
-        "连续涨跌幅",
-        "累计换手率",
-        "所属行业",
+    big_df = big_df.rename(
+        columns={
+            "收盘价(元)": "收盘价",
+            "最高价(元)": "最高价",
+            "最低价(元)": "最低价",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "收盘价",
+            "最高价",
+            "最低价",
+            "连跌天数",
+            "连续涨跌幅",
+            "累计换手率",
+            "所属行业",
+        ]
     ]
     big_df["连续涨跌幅"] = big_df["连续涨跌幅"].str.strip("%")
     big_df["累计换手率"] = big_df["累计换手率"].str.strip("%")
@@ -303,7 +335,7 @@ def stock_rank_lxxd_ths() -> pd.DataFrame:
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
     big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
-    big_df["连涨天数"] = pd.to_numeric(big_df["连涨天数"], errors="coerce")
+    big_df["连跌天数"] = pd.to_numeric(big_df["连跌天数"], errors="coerce")
     return big_df
 
 
@@ -377,17 +409,19 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "涨跌幅",
-        "最新价",
-        "成交量",
-        "基准日成交量",
-        "放量天数",
-        "阶段涨跌幅",
-        "所属行业",
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "涨跌幅",
+            "最新价",
+            "成交量",
+            "基准日成交量",
+            "放量天数",
+            "阶段涨跌幅",
+            "所属行业",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
@@ -469,17 +503,24 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "涨跌幅",
-        "最新价",
-        "成交量",
-        "基准日成交量",
-        "缩量天数",
-        "阶段涨跌幅",
-        "所属行业",
+    big_df = big_df.rename(
+        columns={
+            "放量天数": "缩量天数",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "涨跌幅",
+            "最新价",
+            "成交量",
+            "基准日成交量",
+            "缩量天数",
+            "阶段涨跌幅",
+            "所属行业",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
@@ -573,15 +614,17 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "最新价",
-        "成交额",
-        "成交量",
-        "涨跌幅",
-        "换手率",
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "最新价",
+            "成交额",
+            "成交量",
+            "涨跌幅",
+            "换手率",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
@@ -673,15 +716,17 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "最新价",
-        "成交额",
-        "成交量",
-        "涨跌幅",
-        "换手率",
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "最新价",
+            "成交额",
+            "成交量",
+            "涨跌幅",
+            "换手率",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
@@ -760,15 +805,17 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "最新价",
-        "量价齐升天数",
-        "阶段涨幅",
-        "累计换手率",
-        "所属行业",
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "最新价",
+            "量价齐升天数",
+            "阶段涨幅",
+            "累计换手率",
+            "所属行业",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
@@ -848,15 +895,17 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
 
         temp_df = pd.DataFrame(data)
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "股票代码",
-        "股票简称",
-        "最新价",
-        "量价齐跌天数",
-        "阶段涨幅",
-        "累计换手率",
-        "所属行业",
+    big_df = big_df[
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "最新价",
+            "量价齐跌天数",
+            "阶段涨幅",
+            "累计换手率",
+            "所属行业",
+        ]
     ]
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
@@ -934,20 +983,22 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
 
     temp_df = pd.DataFrame(data)
     big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
-        "序号",
-        "举牌公告日",
-        "股票代码",
-        "股票简称",
-        "现价",
-        "涨跌幅",
-        "举牌方",
-        "增持数量",
-        "交易均价",
-        "增持数量占总股本比例",
-        "变动后持股总数",
-        "变动后持股比例",
-        "历史数据",
+    big_df = big_df[
+        [
+            "序号",
+            "举牌公告日",
+            "股票代码",
+            "股票简称",
+            "现价",
+            "涨跌幅",
+            "举牌方",
+            "增持数量",
+            "交易均价",
+            "增持数量占总股本比例",
+            "变动后持股总数",
+            "变动后持股比例",
+            "历史数据",
+        ]
     ]
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.zfill(6)
     big_df["增持数量占总股本比例"] = (
