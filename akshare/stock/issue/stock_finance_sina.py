@@ -336,16 +336,25 @@ def stock_history_dividend() -> pd.DataFrame:
     r = http.get(url, params=params)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["代码"] = temp_df["代码"].astype(str).str.zfill(6)
-    temp_df.columns = [
-        "代码",
-        "名称",
-        "上市日期",
-        "累计股息",
-        "年均股息",
-        "分红次数",
-        "融资总额",
-        "融资次数",
-        "详细",
+    temp_df = temp_df.rename(
+        columns={
+            "累计股息(%)": "累计股息",
+            "年均股息(%)": "年均股息",
+            "融资总额(亿)": "融资总额",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "代码",
+            "名称",
+            "上市日期",
+            "累计股息",
+            "年均股息",
+            "分红次数",
+            "融资总额",
+            "融资次数",
+            "详细",
+        ]
     ]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
     temp_df["累计股息"] = pd.to_numeric(temp_df["累计股息"], errors="coerce")
@@ -377,16 +386,25 @@ def stock_history_dividend_detail(
         r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text))[12]
         temp_df.columns = [item[2] for item in temp_df.columns.tolist()]
-        temp_df.columns = [
-            "公告日期",
-            "送股",
-            "转增",
-            "派息",
-            "进度",
-            "除权除息日",
-            "股权登记日",
-            "红股上市日",
-            "查看详细",
+        temp_df = temp_df.rename(
+            columns={
+                "送股(股)": "送股",
+                "转增(股)": "转增",
+                "派息(税前)(元)": "派息",
+            }
+        )
+        temp_df = temp_df[
+            [
+                "公告日期",
+                "送股",
+                "转增",
+                "派息",
+                "进度",
+                "除权除息日",
+                "股权登记日",
+                "红股上市日",
+                "查看详细",
+            ]
         ]
         del temp_df["查看详细"]
         if temp_df.iloc[0, 0] == "暂时没有数据！":
@@ -424,18 +442,28 @@ def stock_history_dividend_detail(
         r = http.get(url)
         temp_df = pd.read_html(StringIO(r.text))[13]
         temp_df.columns = [item[1] for item in temp_df.columns.tolist()]
-        temp_df.columns = [
-            "公告日期",
-            "配股方案",
-            "配股价格",
-            "基准股本",
-            "除权日",
-            "股权登记日",
-            "缴款起始日",
-            "缴款终止日",
-            "配股上市日",
-            "募集资金合计",
-            "查看详细",
+        temp_df = temp_df.rename(
+            columns={
+                "配股方案(每10股配股股数)": "配股方案",
+                "配股价格(元)": "配股价格",
+                "基准股本(股)": "基准股本",
+                "募集资金合计(元)": "募集资金合计",
+            }
+        )
+        temp_df = temp_df[
+            [
+                "公告日期",
+                "配股方案",
+                "配股价格",
+                "基准股本",
+                "除权日",
+                "股权登记日",
+                "缴款起始日",
+                "缴款终止日",
+                "配股上市日",
+                "募集资金合计",
+                "查看详细",
+            ]
         ]
         del temp_df["查看详细"]
         if temp_df.iloc[0, 0] == "暂时没有数据！":
@@ -540,14 +568,22 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={symbol}"
     r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[0]
-    temp_df.columns = [
-        "代码",
-        "名称",
-        "解禁日期",
-        "解禁数量",
-        "解禁股流通市值",
-        "上市批次",
-        "公告日期",
+    temp_df = temp_df.rename(
+        columns={
+            "解禁数量(万股)": "解禁数量",
+            "解禁股流通市值(亿元)": "解禁股流通市值",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "代码",
+            "名称",
+            "解禁日期",
+            "解禁数量",
+            "解禁股流通市值",
+            "上市批次",
+            "公告日期",
+        ]
     ]
     temp_df["解禁日期"] = pd.to_datetime(temp_df["解禁日期"], errors="coerce").dt.date
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
@@ -607,14 +643,22 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
             "股本性质",
         ]
     ]
-    big_df.columns = [
-        "截止日期",
-        "公告日期",
-        "编号",
-        "股东名称",
-        "持股数量",
-        "占流通股比例",
-        "股本性质",
+    big_df = big_df.rename(
+        columns={
+            "持股数量(股)": "持股数量",
+            "占流通股比例(%)": "占流通股比例",
+        }
+    )
+    big_df = big_df[
+        [
+            "截止日期",
+            "公告日期",
+            "编号",
+            "股东名称",
+            "持股数量",
+            "占流通股比例",
+            "股本性质",
+        ]
     ]
 
     big_df["截止日期"] = pd.to_datetime(big_df["截止日期"], errors="coerce").dt.date
@@ -658,14 +702,24 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, concat_df], axis=0, ignore_index=True)
     big_df = big_df.dropna()
     big_df = big_df.reset_index(drop=True)
-    big_df.columns = [
-        "基金名称",
-        "基金代码",
-        "持仓数量",
-        "占流通股比例",
-        "持股市值",
-        "占净值比例",
-        "截止日期",
+    big_df = big_df.rename(
+        columns={
+            "持仓数量(股)": "持仓数量",
+            "占流通股比例(%)": "占流通股比例",
+            "持股市值（元）": "持股市值",
+            "占净值比例（%）": "占净值比例",
+        }
+    )
+    big_df = big_df[
+        [
+            "基金名称",
+            "基金代码",
+            "持仓数量",
+            "占流通股比例",
+            "持股市值",
+            "占净值比例",
+            "截止日期",
+        ]
     ]
     big_df["持仓数量"] = pd.to_numeric(big_df["持仓数量"], errors="coerce")
     big_df["占流通股比例"] = pd.to_numeric(big_df["占流通股比例"], errors="coerce")

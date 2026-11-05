@@ -26,7 +26,7 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
         r = http.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df.columns = ["value", "date"]
+        temp_df = temp_df.rename(columns={"pigprice": "value", "pricedate": "date"})
         temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
@@ -37,7 +37,7 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
         r = http.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df.columns = ["value", "date"]
+        temp_df = temp_df.rename(columns={"pig_in": "value", "pricedate": "date"})
         temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
@@ -48,7 +48,7 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
         r = http.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df.columns = ["value", "date"]
+        temp_df = temp_df.rename(columns={"pig_local": "value", "pricedate": "date"})
         temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
@@ -70,7 +70,7 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
         r = http.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df.columns = ["value", "date"]
+        temp_df = temp_df.rename(columns={"maizeprice": "value", "pricedate": "date"})
         temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
@@ -81,7 +81,7 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
         r = http.post(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        temp_df.columns = ["value", "date"]
+        temp_df = temp_df.rename(columns={"bean": "value", "pricedate": "date"})
         temp_df = temp_df[["date", "value"]]
         temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
