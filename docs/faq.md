@@ -108,9 +108,9 @@ ak.futures_hold_pos_sina(symbol="多单持仓", contract="M2701", date="20261104
 
 受影响的接口：
 
-- 期货：futures_contract_info_dce、futures_dce_position_rank、futures_dce_position_rank_other、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、get_dce_daily、get_dce_rank_table、get_receipt、get_roll_yield、get_roll_yield_bar
+- 期货：futures_contract_info_dce、futures_dce_position_rank、futures_dce_position_rank_other、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、futures_daily_dce、futures_rank_table_dce、futures_receipt、futures_roll_yield、futures_roll_yield_bar
 - 期权：option_hist_dce
-- 部分受影响：get_futures_daily、get_rank_sum、get_rank_sum_daily 中涉及大连商品交易所的部分
+- 部分受影响：futures_daily、futures_rank_sum、futures_rank_sum_daily 中涉及大连商品交易所的部分
 
 ## 网络与代理
 

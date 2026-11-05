@@ -572,7 +572,7 @@ def get_gfex_receipt(
     return result_df
 
 
-def get_receipt(
+def futures_receipt(
     start_date: str = None,
     end_date: str = None,
     vars_list: List = cons.contract_symbols,
@@ -675,7 +675,7 @@ def get_receipt(
 
 
 if __name__ == "__main__":
-    get_receipt_df = get_receipt(
+    futures_receipt_df = futures_receipt(
         start_date="20260130", end_date="20260130", vars_list=["RB"]
     )
-    print(get_receipt_df)
+    print(futures_receipt_df)

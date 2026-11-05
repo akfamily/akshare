@@ -223,17 +223,17 @@ def test_requests_link_raises_after_retries(script):
 
 
 def test_get_shfe_daily_status_handling(script):
-    from akshare.futures.futures_daily_bar import get_shfe_daily
+    from akshare.futures.futures_daily_bar import futures_daily_shfe
 
     script(404)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        assert get_shfe_daily(date="20261028").empty
+        assert futures_daily_shfe(date="20261028").empty
     assert not caught
     script(403)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        assert get_shfe_daily(date="20261028").empty
+        assert futures_daily_shfe(date="20261028").empty
     assert any("403" in str(w.message) for w in caught)
 
 
@@ -309,8 +309,8 @@ def test_get_roll_yield_bar_reraises_dce_block(monkeypatch):
     def blocked(*args, **kwargs):
         raise http.DceBlockedError("blocked", status_code=412)
 
-    monkeypatch.setattr(futures_roll_yield, "get_roll_yield", blocked)
+    monkeypatch.setattr(futures_roll_yield, "futures_roll_yield", blocked)
     with pytest.raises(http.DceBlockedError):
-        futures_roll_yield.get_roll_yield_bar(
+        futures_roll_yield.futures_roll_yield_bar(
             type_method="date", var="M", start_day="20261103", end_day="20261104"
         )

@@ -53,7 +53,7 @@ def __get_us_page_count() -> int:
 
 
 @lru_cache()
-def get_us_stock_name() -> pd.DataFrame:
+def stock_us_name_sina() -> pd.DataFrame:
     """
     u.s. stock's english name, chinese name and symbol
     you should use symbol to get apply into the next function
@@ -122,7 +122,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     备注：
     1. CIEN 新浪复权因子错误
     2. AI 新浪复权因子错误，该股票刚上市未发生复权，但是返回复权因子
-    :param symbol: 可以使用 get_us_stock_name 获取
+    :param symbol: 可以使用 stock_us_name_sina 获取
     :type symbol: str
     :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据；qfq-factor: 返回前复权因子和调整；
     :type adjust: str
@@ -201,7 +201,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_us_stock_name_df = get_us_stock_name()
+    stock_us_stock_name_df = stock_us_name_sina()
     print(stock_us_stock_name_df)
 
     stock_us_spot_df = stock_us_spot()

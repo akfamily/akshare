@@ -5,7 +5,7 @@ Date: 2026/10/30
 Desc: 禁止遍历 set 产生结果顺序的测试
 
 Python 对字符串的哈希每个进程随机，遍历 set(...) 的顺序因此每次运行都不同：
-get_shfe_rank_table 返回的字典、get_rank_sum 返回的行，同一份上游数据每次顺序都不一样，
+futures_rank_table_shfe 返回的字典、futures_rank_sum 返回的行，同一份上游数据每次顺序都不一样，
 结果无法复现。去重请用 dict.fromkeys(...)，它保留首次出现的顺序。全程不联网。
 """
 

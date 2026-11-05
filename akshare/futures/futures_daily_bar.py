@@ -107,7 +107,7 @@ def _futures_daily_czce(
     return temp_df
 
 
-def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
+def futures_daily_cffex(date: str = "20100416") -> pd.DataFrame:
     """
     中国金融期货交易所-日频率交易数据
     http://www.cffex.com.cn/rtj/
@@ -198,7 +198,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     return data_df
 
 
-def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
+def futures_daily_gfex(date: str = "20221223") -> pd.DataFrame:
     """
     广州期货交易所-日频率-量价数据
     广州期货交易所：工业硅（上市时间：20221222）
@@ -274,7 +274,7 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     return result_df
 
 
-def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
+def futures_daily_ine(date: str = "20241129") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心：原油期货（上市时间：20180326）；20号胶期货（上市时间：20190812）
@@ -340,7 +340,7 @@ def get_ine_daily(date: str = "20241129") -> pd.DataFrame:
     return result_df
 
 
-def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
+def futures_daily_czce(date: str = "20050525") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
     http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
@@ -452,7 +452,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         return _futures_daily_czce_df
 
 
-def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
+def futures_daily_shfe(date: str = "20220415") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
@@ -525,7 +525,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     return df
 
 
-def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
+def futures_daily_dce(date: str = "20251027") -> pd.DataFrame:
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
@@ -634,7 +634,7 @@ def get_dce_daily(date: str = "20251027") -> pd.DataFrame:
     return temp_df
 
 
-def get_futures_daily(
+def futures_daily(
     start_date: str = "20220208",
     end_date: str = "20220208",
     market: str = "CFFEX",
@@ -651,17 +651,17 @@ def get_futures_daily(
     :rtype: pandas.DataFrame
     """
     if market.upper() == "CFFEX":
-        f = get_cffex_daily
+        f = futures_daily_cffex
     elif market.upper() == "CZCE":
-        f = get_czce_daily
+        f = futures_daily_czce
     elif market.upper() == "SHFE":
-        f = get_shfe_daily
+        f = futures_daily_shfe
     elif market.upper() == "DCE":
-        f = get_dce_daily
+        f = futures_daily_dce
     elif market.upper() == "INE":
-        f = get_ine_daily
+        f = futures_daily_ine
     elif market.upper() == "GFEX":
-        f = get_gfex_daily
+        f = futures_daily_gfex
     else:
         warnings.warn("Invalid Market Symbol")
         return pd.DataFrame()
@@ -752,28 +752,28 @@ def futures_hist_daily_cffex(date: str = "20260403") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(
+    futures_daily_df = futures_daily(
         start_date="20250708", end_date="20250708", market="DCE"
     )
-    print(get_futures_daily_df)
+    print(futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20251029")
-    print(get_dce_daily_df)
+    futures_daily_dce_df = futures_daily_dce(date="20251029")
+    print(futures_daily_dce_df)
 
-    get_cffex_daily_df = get_cffex_daily(date="20260401")
-    print(get_cffex_daily_df)
+    futures_daily_cffex_df = futures_daily_cffex(date="20260401")
+    print(futures_daily_cffex_df)
 
-    get_ine_daily_df = get_ine_daily(date="20230818")
-    print(get_ine_daily_df)
+    futures_daily_ine_df = futures_daily_ine(date="20230818")
+    print(futures_daily_ine_df)
 
-    get_czce_daily_df = get_czce_daily(date="20210513")
-    print(get_czce_daily_df)
+    futures_daily_czce_df = futures_daily_czce(date="20210513")
+    print(futures_daily_czce_df)
 
-    get_shfe_daily_df = get_shfe_daily(date="20250630")
-    print(get_shfe_daily_df)
+    futures_daily_shfe_df = futures_daily_shfe(date="20250630")
+    print(futures_daily_shfe_df)
 
-    get_gfex_daily_df = get_gfex_daily(date="20221228")
-    print(get_gfex_daily_df)
+    futures_daily_gfex_df = futures_daily_gfex(date="20221228")
+    print(futures_daily_gfex_df)
 
     futures_hist_daily_cffex_df = futures_hist_daily_cffex(date="20260302")
     print(futures_hist_daily_cffex_df)

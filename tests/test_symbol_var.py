@@ -6,7 +6,7 @@ Desc: chinese_to_english 品种映射与上期所仓单解析测试
 
 chinese_to_english 由两个按位置一一对应的列表组成，只能在末尾成对追加；
 2026-10 上期所仓单页面新增了 20 号胶的仓库与厂库两张表，映射里没有这两个名称，
-get_receipt 因此对所有含上期所品种的调用报 ValueError: list.index(x): x not in list。
+futures_receipt 因此对所有含上期所品种的调用报 ValueError: list.index(x): x not in list。
 全程不联网。
 """
 

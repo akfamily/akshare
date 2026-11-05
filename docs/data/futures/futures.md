@@ -677,7 +677,7 @@ print(futures_inventory_em_df)
 
 展期收益率是由不同交割月的价差除以相隔月份数计算得来，它反映了市场对该品种在近期交割和远期交割的价差预期。
 
-在 [AKShare](https://github.com/akfamily/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据。
+在 [AKShare](https://github.com/akfamily/akshare) 中可以通过 **futures_roll_yield_bar** 接口下载展期收益率数据。
 
 这里展期收益率列表的序列类型分为三种，分别可以通过：
 
@@ -692,7 +692,7 @@ print(futures_inventory_em_df)
 ```python
 import akshare as ak
 
-ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030")  # 需要收盘收运行
+ak.futures_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030")  # 需要收盘收运行
 ```
 
 其中 "symbol" 类型，调用方法例子为：
@@ -700,7 +700,7 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_da
 ```python
 import akshare as ak
 
-ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008")  # 需要收盘收运行
+ak.futures_roll_yield_bar(type_method="symbol", var="RB", date="20191008")  # 需要收盘收运行
 ```
 
 其中 "var" 类型，调用方法例子为：
@@ -708,15 +708,15 @@ ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008")  # 需要
 ```python
 import akshare as ak
 
-ak.get_roll_yield_bar(type_method="var", date="20191008")  # 需要收盘收运行
+ak.futures_roll_yield_bar(type_method="var", date="20191008")  # 需要收盘收运行
 ```
 
-利用 **get_roll_yield** 接口，可以找到特定合约特定日期的主力合约次主力合约展期收益率，或通过 symbol1 和 symbol2 变量自定义某两个合约的展期收益率。
+利用 **futures_roll_yield** 接口，可以找到特定合约特定日期的主力合约次主力合约展期收益率，或通过 symbol1 和 symbol2 变量自定义某两个合约的展期收益率。
 
 ```python
 import akshare as ak
 
-ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")  # 需要收盘收运行
+ak.futures_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")  # 需要收盘收运行
 ```
 
 ```{note}
@@ -730,7 +730,7 @@ ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")
 ```python
 import akshare as ak
 
-ak.get_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", "NI"])
+ak.futures_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", "NI"])
 ```
 
 ```{note}
@@ -911,8 +911,8 @@ print(futures_spot_price_daily_df)
 ```python
 import akshare as ak
 
-get_rank_sum_daily_df = ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
-print(get_rank_sum_daily_df)
+futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
+print(futures_rank_sum_daily_df)
 ```
 
 获取某交易日某品种的持仓排名榜
@@ -920,10 +920,10 @@ print(get_rank_sum_daily_df)
 ```python
 import akshare as ak
 
-ak.get_dce_rank_table()
-ak.get_cffex_rank_table()
-ak.get_rank_table_czce()
-ak.get_shfe_rank_table()
+ak.futures_rank_table_dce()
+ak.futures_rank_table_cffex()
+ak.futures_rank_table_czce()
+ak.futures_rank_table_shfe()
 ```
 
 代码示例：
@@ -931,8 +931,8 @@ ak.get_shfe_rank_table()
 ```python
 import akshare as ak
 
-get_rank_table_czce_df = ak.get_rank_table_czce(date='20200213')
-print(get_rank_table_czce_df)
+futures_rank_table_czce_df = ak.futures_rank_table_czce(date='20200213')
+print(futures_rank_table_czce_df)
 ```
 
 ```{note}
@@ -3051,14 +3051,14 @@ print(futures_zh_daily_sina_df)
 [115 rows x 8 columns]
 ```
 
-(get_futures_daily)=
+(futures_daily)=
 ### 内盘-历史行情数据-交易所
 
 ```{warning}
 其中 `market="DCE"`（大连商品交易所）目前因瑞数反爬虫验证无法获取数据，其他交易所不受影响，详见{ref}`AKShare 常见问题 <faq-dce>`。
 ```
 
-接口：get_futures_daily
+接口：futures_daily
 
 目标地址：各交易所网站
 
@@ -3096,8 +3096,8 @@ print(futures_zh_daily_sina_df)
 ```python
 import akshare as ak
 
-get_futures_daily_df = ak.get_futures_daily(start_date="20200701", end_date="20200716", market="DCE")
-print(get_futures_daily_df)
+futures_daily_df = ak.futures_daily(start_date="20200701", end_date="20200716", market="DCE")
+print(futures_daily_df)
 ```
 
 数据示例

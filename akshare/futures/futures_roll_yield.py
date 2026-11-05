@@ -15,13 +15,13 @@ import pandas as pd
 
 from akshare.utils.http import DceBlockedError
 from akshare.futures import cons
-from akshare.futures.futures_daily_bar import get_futures_daily
+from akshare.futures.futures_daily_bar import futures_daily
 from akshare.futures.symbol_var import symbol_market, symbol_varieties
 
 calendar = cons.get_calendar()
 
 
-def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
+def futures_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     """
     指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
     Parameters
@@ -41,7 +41,7 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         var = symbol_varieties(symbol1)
     if not isinstance(df, pd.DataFrame):
         market = symbol_market(var)
-        df = get_futures_daily(start_date=date, end_date=date, market=market)
+        df = futures_daily(start_date=date, end_date=date, market=market)
     if var:
         df = df[
             ~df["symbol"].str.contains("efp")
@@ -72,7 +72,7 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         return math.log(close2 / close1) / c * 12, symbol1, symbol2
 
 
-def get_roll_yield_bar(
+def futures_roll_yield_bar(
     type_method: str = "var",
     var: str = "RB",
     date: str = "20201030",
@@ -102,9 +102,7 @@ def get_roll_yield_bar(
     )
 
     if type_method == "symbol":
-        df = get_futures_daily(
-            start_date=date, end_date=date, market=symbol_market(var)
-        )
+        df = futures_daily(start_date=date, end_date=date, market=symbol_market(var))
         df = df[df["variety"] == var]
         return df
 
@@ -114,7 +112,7 @@ def get_roll_yield_bar(
             df = pd.concat(
                 [
                     df,
-                    get_futures_daily(start_date=date, end_date=date, market=market),
+                    futures_daily(start_date=date, end_date=date, market=market),
                 ]
             )
         var_list = list(dict.fromkeys(df["variety"]))
@@ -123,7 +121,7 @@ def get_roll_yield_bar(
                 var_list.remove(i_remove)
         df_l = pd.DataFrame()
         for var in var_list:
-            ry = get_roll_yield(date, var, df=df)
+            ry = futures_roll_yield(date, var, df=df)
             if ry:
                 df_l = pd.concat(
                     [
@@ -143,7 +141,7 @@ def get_roll_yield_bar(
         df_l = pd.DataFrame()
         while start_day <= end_day:
             try:
-                ry = get_roll_yield(start_day, var)
+                ry = futures_roll_yield(start_day, var)
                 if ry:
                     df_l = pd.concat(
                         [
@@ -165,19 +163,21 @@ def get_roll_yield_bar(
 
 
 if __name__ == "__main__":
-    get_roll_yield_bar_range_df = get_roll_yield_bar(
+    futures_roll_yield_bar_range_df = futures_roll_yield_bar(
         type_method="date",
         var="RB",
         start_day="20230801",
         end_day="20230810",
     )
-    print(get_roll_yield_bar_range_df)
+    print(futures_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_range_df = get_roll_yield_bar(
+    futures_roll_yield_bar_range_df = futures_roll_yield_bar(
         type_method="var",
         date="20191008",
     )
-    print(get_roll_yield_bar_range_df)
+    print(futures_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="var", date="20210201")
-    print(get_roll_yield_bar_symbol)
+    futures_roll_yield_bar_symbol = futures_roll_yield_bar(
+        type_method="var", date="20210201"
+    )
+    print(futures_roll_yield_bar_symbol)

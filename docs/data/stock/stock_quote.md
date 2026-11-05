@@ -3733,7 +3733,7 @@ us_stock_current_df = ak.stock_us_spot()
 print(us_stock_current_df)
 ```
 
-数据示例(美股股票代码可通过 ak.get_us_stock_name() 函数返回值)
+数据示例(美股股票代码可通过 ak.stock_us_name_sina() 函数返回值)
 
 ```
                                                  name  \
@@ -3999,10 +3999,10 @@ print(stock_us_hist_min_em_df)
 
 | 名称     | 类型  | 描述                                                                  |
 |--------|-----|---------------------------------------------------------------------|
-| symbol | str | 美股代码，可以通过 **ak.get_us_stock_name()** 函数返回所有美股代码，由于美股数据量大，建议按需要获取 |
+| symbol | str | 美股代码，可以通过 **ak.stock_us_name_sina()** 函数返回所有美股代码，由于美股数据量大，建议按需要获取 |
 | adjust | str | adjust="qfq" 则返回前复权后的数据，默认 adjust=""，则返回未复权的数据                     |
 
-**ak.get_us_stock_name()**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use
+**ak.stock_us_name_sina()**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use
 symbol!
 
 输出参数-历史数据

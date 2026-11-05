@@ -9,9 +9,11 @@ tocdepth: 2
 ## 1.20.x
 
 (v1-20-31)=
-### 1.20.31 fix: raise a clear error for all dce interfaces, map columns by upstream field name
+### 1.20.31 fix!: rename get_ interfaces, raise a clear error for all dce interfaces
 
-1. 大连商品交易所全站启用瑞数反爬虫验证，程序请求返回 HTTP 412；原先只有 futures_warehouse_receipt_dce 给出明确报错，其余 15 个接口报 `BadZipFile`、`JSONDecodeError`、`IndexError` 等难以理解的错误，get_roll_yield_bar 甚至返回空表。现在在统一的 HTTP 入口识别大商所的 412，涉及大商所的 16 个接口（futures_dce_position_rank、get_dce_daily、get_futures_daily(market="DCE")、option_hist_dce 等）统一抛出 DceBlockedError（APIError 的子类，status_code 为 412）并说明原因；大商所解除限制后无需改代码即可恢复。常见问题“大连商品交易所相关接口报错或返回空数据”一节同步更新，并补充用 futures_hold_pos_sina 按合约获取大商所成交持仓排名的替代方法
+**不兼容的改动：17 个以 get_ 开头的数据接口按 `futures_<主题>_<交易所>` 的命名规则改名，旧名称不再保留，调用旧名称会报 AttributeError。** 改名对照见文末的{ref}`接口更名一览表 <changelog-rename>`：get_shfe_daily→futures_daily_shfe、get_dce_daily→futures_daily_dce、get_czce_daily→futures_daily_czce、get_cffex_daily→futures_daily_cffex、get_ine_daily→futures_daily_ine、get_gfex_daily→futures_daily_gfex、get_futures_daily→futures_daily、get_shfe_rank_table→futures_rank_table_shfe、get_dce_rank_table→futures_rank_table_dce、get_cffex_rank_table→futures_rank_table_cffex、get_rank_table_czce→futures_rank_table_czce、get_rank_sum→futures_rank_sum、get_rank_sum_daily→futures_rank_sum_daily、get_receipt→futures_receipt、get_roll_yield→futures_roll_yield、get_roll_yield_bar→futures_roll_yield_bar、get_us_stock_name→stock_us_name_sina。参数与返回结果均不变，请把代码中的旧名称替换为新名称。配置类函数 get_proxies、get_timeout、get_token 不受影响。
+
+1. 大连商品交易所全站启用瑞数反爬虫验证，程序请求返回 HTTP 412；原先只有 futures_warehouse_receipt_dce 给出明确报错，其余 15 个接口报 `BadZipFile`、`JSONDecodeError`、`IndexError` 等难以理解的错误，futures_roll_yield_bar 甚至返回空表。现在在统一的 HTTP 入口识别大商所的 412，涉及大商所的 16 个接口（futures_dce_position_rank、futures_daily_dce、futures_daily(market="DCE")、option_hist_dce 等）统一抛出 DceBlockedError（APIError 的子类，status_code 为 412）并说明原因；大商所解除限制后无需改代码即可恢复。常见问题“大连商品交易所相关接口报错或返回空数据”一节同步更新，并补充用 futures_hold_pos_sina 按合约获取大商所成交持仓排名的替代方法
 2. futures_zh_spot 传入无效或已到期的合约（如 V2405）时，原先报难以理解的 `Length mismatch`，现在抛出 InvalidParameterError 并提示检查合约代码；模块 `__main__` 中已到期的示例合约 V2405、V2409 改为 V2701、V2705
 3. stock_dzjy_em（大宗交易，6 处）、stock_fund_flow（同花顺资金流向，6 处）、stock_summary（深交所市场总貌，1 处）、futures_zh_sina（新浪期货分钟与日线，2 处）由按位置命名改为按上游字段名或网页表头映射；逐一实测 38 个调用，改动前后返回结果一致
 4. 表头含查询月份（stock_szse_sector_summary）或排序箭头（stock_fund_flow_big_deal 的“成交时间↓”）的表格，按表头名映射反而更脆弱，保持按位置命名
@@ -279,6 +281,23 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.31      | get_shfe_daily                              | futures_daily_shfe                          | 20261105 |
+| 1.20.31      | get_dce_daily                               | futures_daily_dce                           | 20261105 |
+| 1.20.31      | get_czce_daily                              | futures_daily_czce                          | 20261105 |
+| 1.20.31      | get_cffex_daily                             | futures_daily_cffex                         | 20261105 |
+| 1.20.31      | get_ine_daily                               | futures_daily_ine                           | 20261105 |
+| 1.20.31      | get_gfex_daily                              | futures_daily_gfex                          | 20261105 |
+| 1.20.31      | get_futures_daily                           | futures_daily                               | 20261105 |
+| 1.20.31      | get_shfe_rank_table                         | futures_rank_table_shfe                     | 20261105 |
+| 1.20.31      | get_dce_rank_table                          | futures_rank_table_dce                      | 20261105 |
+| 1.20.31      | get_cffex_rank_table                        | futures_rank_table_cffex                    | 20261105 |
+| 1.20.31      | get_rank_table_czce                         | futures_rank_table_czce                     | 20261105 |
+| 1.20.31      | get_rank_sum                                | futures_rank_sum                            | 20261105 |
+| 1.20.31      | get_rank_sum_daily                          | futures_rank_sum_daily                      | 20261105 |
+| 1.20.31      | get_receipt                                 | futures_receipt                             | 20261105 |
+| 1.20.31      | get_roll_yield                              | futures_roll_yield                          | 20261105 |
+| 1.20.31      | get_roll_yield_bar                          | futures_roll_yield_bar                      | 20261105 |
+| 1.20.31      | get_us_stock_name                           | stock_us_name_sina                          | 20261105 |
 | 1.17.81      | get_czce_rank_table                         | get_rank_table_czce                         | 20251103 |
 | 1.17.81      | futures_czce_warehouse_receipt              | futures_warehouse_receipt_czce              | 20251103 |
 | 1.17.72      | futures_dce_warehouse_receipt               | futures_warehouse_receipt_dce               | 20251027 |
