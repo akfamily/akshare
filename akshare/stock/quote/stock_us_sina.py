@@ -8,6 +8,7 @@ https://finance.sina.com.cn/stock/usstock/sector.shtml
 
 import ast
 import json
+import math
 from functools import lru_cache
 
 import pandas as pd
@@ -21,7 +22,68 @@ from akshare.stock.cons import (
     us_sina_stock_dict_payload,
     us_sina_stock_hist_qfq_url,
 )
+from akshare.exceptions import APIError
 from akshare.utils import http
+
+
+def _us_list_error(response) -> bool:
+    """
+    判断新浪美股列表接口是否返回了错误；新浪偶发以 200 状态码返回后端数据库错误，
+    如 {"__ERROR":"HY000","__ERRORMSG":"... MySQL server has gone away"}，重试同一页即可恢复
+    :param response: 响应对象
+    :type response: requests.Response
+    :return: 是否为错误响应
+    :rtype: bool
+    """
+    return '"__ERROR"' in response.text or '"data"' not in response.text
+
+
+def _us_list_page(js_code, page: int) -> dict:
+    """
+    新浪财经-美股-列表的单页数据，遇到新浪偶发的后端错误时重试
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
+    :param js_code: 已加载签名脚本的 JS 引擎
+    :type js_code: py_mini_racer.MiniRacer
+    :param page: 页码，从 1 开始
+    :type page: int
+    :return: 上游返回的 JSON，含 count（股票总数）与 data（当页数据）
+    :rtype: dict
+    :raises APIError: 重试后仍返回错误
+    """
+    us_js_decode = (
+        f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
+    )
+    dict_list = js_code.call("d", us_js_decode)  # 执行 js 解密代码
+    params = dict(us_sina_stock_dict_payload, page=str(page))
+    res = http.request_with_retry(
+        "GET",
+        us_sina_stock_list_url.format(dict_list),
+        params=params,
+        retry_if=_us_list_error,
+    )
+    text = res.text[res.text.find("({") + 1 : res.text.rfind(");")]
+    try:
+        data_json = json.loads(text)
+    except ValueError:
+        data_json = {}
+    if "data" not in data_json:
+        raise APIError(
+            f"新浪财经美股列表第 {page} 页重试后仍返回错误："
+            f"{data_json.get('__ERRORMSG') or res.text[:200]}",
+            status_code=res.status_code,
+        )
+    return data_json
+
+
+def _us_list_js_code():
+    """
+    创建加载了新浪签名脚本的 JS 引擎，翻页时复用同一个实例
+    :return: JS 引擎
+    :rtype: py_mini_racer.MiniRacer
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(js_hash_text)
+    return js_code
 
 
 @lru_cache()
@@ -32,27 +94,25 @@ def __get_us_page_count() -> int:
     :return: 美股总页数
     :rtype: int
     """
-    page = "1"
-    us_js_decode = (
-        f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
-    )
-    js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_hash_text)
-    dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
-    us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-    res = http.get(
-        us_sina_stock_list_url.format(dict_list),
-        params=us_sina_stock_dict_payload,
-    )
-    data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
-    if not isinstance(int(data_json["count"]) / 20, int):
-        page_count = int(int(data_json["count"]) / 20) + 1
-    else:
-        page_count = int(int(data_json["count"]) / 20)
-    return page_count
+    data_json = _us_list_page(_us_list_js_code(), 1)
+    return math.ceil(int(data_json["count"]) / 20)
 
 
-@lru_cache()
+def _us_list_all() -> pd.DataFrame:
+    """
+    新浪财经-美股-列表的全部数据
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
+    :return: 全部美股的列表数据
+    :rtype: pandas.DataFrame
+    """
+    js_code = _us_list_js_code()
+    frames = [
+        pd.DataFrame(_us_list_page(js_code, page)["data"])
+        for page in tqdm(range(1, __get_us_page_count() + 1), leave=False)
+    ]
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
 def stock_us_name_sina() -> pd.DataFrame:
     """
     u.s. stock's english name, chinese name and symbol
@@ -61,26 +121,7 @@ def stock_us_name_sina() -> pd.DataFrame:
     :return: stock's english name, chinese name and symbol
     :rtype: pandas.DataFrame
     """
-    big_df = pd.DataFrame()
-    page_count = __get_us_page_count()
-    for page in tqdm(range(1, page_count + 1), leave=False):
-        us_js_decode = (
-            "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
-                page
-            )
-        )
-        js_code = py_mini_racer.MiniRacer()
-        js_code.eval(js_hash_text)
-        dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
-        us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = http.get(
-            us_sina_stock_list_url.format(dict_list),
-            params=us_sina_stock_dict_payload,
-        )
-        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
-        big_df = pd.concat(
-            objs=[big_df, pd.DataFrame(data_json["data"])], ignore_index=True
-        )
+    big_df = _us_list_all()
     return big_df[["name", "cname", "symbol"]]
 
 
@@ -91,28 +132,7 @@ def stock_us_spot() -> pd.DataFrame:
     :return: 美股所有股票实时行情
     :rtype: pandas.DataFrame
     """
-    big_df = pd.DataFrame()
-    page_count = __get_us_page_count()
-    for page in tqdm(range(1, page_count + 1), leave=False):
-        # page = "1"
-        us_js_decode = (
-            "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
-                page
-            )
-        )
-        js_code = py_mini_racer.MiniRacer()
-        js_code.eval(js_hash_text)
-        dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
-        us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = http.get(
-            us_sina_stock_list_url.format(dict_list),
-            params=us_sina_stock_dict_payload,
-        )
-        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
-        big_df = pd.concat(
-            objs=[big_df, pd.DataFrame(data_json["data"])], ignore_index=True
-        )
-    return big_df
+    return _us_list_all()
 
 
 def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:

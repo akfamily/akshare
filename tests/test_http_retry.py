@@ -314,3 +314,27 @@ def test_get_roll_yield_bar_reraises_dce_block(monkeypatch):
         futures_roll_yield.futures_roll_yield_bar(
             type_method="date", var="M", start_day="20261103", end_day="20261104"
         )
+
+
+def test_retry_if_retries_successful_status_with_bad_body(script):
+    calls, sleeps = script({"__ERROR": "HY000"}, {"__ERROR": "HY000"}, {"data": [1]})
+    r = http.request_with_retry(
+        "GET", DATACENTER_URL, retry_if=lambda resp: "__ERROR" in resp.text
+    )
+    assert r.json() == {"data": [1]}
+    assert len(calls) == 3 and len(sleeps) == 2
+
+
+def test_retry_if_exhausted_returns_last_response(script):
+    calls, _ = script(*[{"__ERROR": "HY000"}] * 3)
+    r = http.request_with_retry(
+        "GET", DATACENTER_URL, retry_if=lambda resp: "__ERROR" in resp.text
+    )
+    assert r.json() == {"__ERROR": "HY000"}
+    assert len(calls) == 3
+
+
+def test_retry_if_not_given_keeps_old_behaviour(script):
+    calls, _ = script({"__ERROR": "HY000"})
+    assert http.request_with_retry("GET", DATACENTER_URL).json() == {"__ERROR": "HY000"}
+    assert len(calls) == 1

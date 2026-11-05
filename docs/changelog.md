@@ -17,7 +17,9 @@ tocdepth: 2
 2. futures_zh_spot 传入无效或已到期的合约（如 V2405）时，原先报难以理解的 `Length mismatch`，现在抛出 InvalidParameterError 并提示检查合约代码；模块 `__main__` 中已到期的示例合约 V2405、V2409 改为 V2701、V2705
 3. stock_dzjy_em（大宗交易，6 处）、stock_fund_flow（同花顺资金流向，6 处）、stock_summary（深交所市场总貌，1 处）、futures_zh_sina（新浪期货分钟与日线，2 处）由按位置命名改为按上游字段名或网页表头映射；逐一实测 38 个调用，改动前后返回结果一致
 4. 表头含查询月份（stock_szse_sector_summary）或排序箭头（stock_fund_flow_big_deal 的“成交时间↓”）的表格，按表头名映射反而更脆弱，保持按位置命名
-5. 按位置赋列名的写法降至 541 处
+5. 修复 stock_us_name_sina、stock_us_spot 翻页途中报 `KeyError: 'data'` 的问题：新浪美股列表每页固定 20 条，取全部美股需翻 900 多页，连续翻页时新浪偶发以 200 状态码返回后端数据库错误（`MySQL server has gone away`），原先直接报错且已翻的页全部作废；现在同一页按指数退避重试，重试后仍失败时抛出带页码和新浪错误信息的 APIError。同时不再修改共享的请求参数字典，翻页时复用同一个 JS 引擎，并修正总页数在股票数为 20 的整数倍时多算一页的问题
+6. http.request_with_retry 新增 retry_if 参数，用于上游以 200 状态码返回错误内容时重试
+7. 按位置赋列名的写法降至 541 处
 
 (v1-20-30)=
 ### 1.20.30 fix!: fix stock_rank_lxxd_ths and stock_gdfx_em interfaces

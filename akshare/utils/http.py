@@ -190,6 +190,7 @@ def request_with_retry(
     max_retries: int = 3,
     base_delay: float = 1.0,
     fresh_session: bool = False,
+    retry_if=None,
     **kwargs,
 ) -> requests.Response:
     """
@@ -206,7 +207,10 @@ def request_with_retry(
     :type base_delay: float
     :param fresh_session: 每次请求都新建连接、不复用连接池；部分东方财富接口复用连接时会被断开
     :type fresh_session: bool
-    :return: 响应对象；用尽次数后若仍是 429 或 5xx，返回最后一次的响应
+    :param retry_if: 可选，接收响应、返回是否需要重试的函数；用于上游以 200 状态码返回错误
+        内容的情况（如新浪偶发的数据库错误），与 429、5xx 一样按指数退避重试
+    :type retry_if: Callable[[requests.Response], bool]
+    :return: 响应对象；用尽次数后若仍是 429、5xx 或 retry_if 判定需要重试，返回最后一次的响应
     :rtype: requests.Response
     :raises Push2RateLimitError: 东方财富 push2 限流
     :raises requests.RequestException: 用尽次数后仍连接失败或超时，抛出最后一次的异常
@@ -227,7 +231,10 @@ def request_with_retry(
         except _RETRY_EXCEPTIONS as exc:
             last_exc = exc
         else:
-            if response.status_code not in _RETRY_STATUS or attempt == max_retries - 1:
+            retry = response.status_code in _RETRY_STATUS or (
+                retry_if is not None and retry_if(response)
+            )
+            if not retry or attempt == max_retries - 1:
                 return response
             last_exc = None
         if attempt < max_retries - 1:
