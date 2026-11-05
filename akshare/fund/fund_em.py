@@ -1201,6 +1201,11 @@ def fund_hk_fund_hist_em(
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_one_df = pd.DataFrame(data_json["Data"])
+        if temp_one_df.empty:
+            # 已停止披露净值的基金返回空列表
+            return pd.DataFrame(
+                columns=["净值日期", "单位净值", "日增长值", "日增长率", "单位"]
+            )
         temp_one_df = temp_one_df.rename(
             columns={
                 "PDATE": "净值日期",
@@ -1235,6 +1240,17 @@ def fund_hk_fund_hist_em(
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_one_df = pd.DataFrame(data_json["Data"])
+        if temp_one_df.empty:
+            return pd.DataFrame(
+                columns=[
+                    "年份",
+                    "权益登记日",
+                    "除息日",
+                    "分红发放日",
+                    "分红金额",
+                    "单位",
+                ]
+            )
         temp_one_df = temp_one_df.rename(
             columns={
                 "BYEAR": "年份",

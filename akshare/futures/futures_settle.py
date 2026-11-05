@@ -198,13 +198,25 @@ def futures_settle_cffex(date: str = "20260119") -> pd.DataFrame:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
-    data_df.columns = [
-        "symbol",
-        "long_margin_ratio",
-        "short_margin_ratio",
-        "trade_fee_ratio",
-        "delivery_fee_ratio",
-        "close_today_fee_ratio",
+    data_df = data_df.rename(
+        columns={
+            "期货合约": "symbol",
+            "合约多头保证金标准": "long_margin_ratio",
+            "合约空头保证金标准": "short_margin_ratio",
+            "交易手续费标准": "trade_fee_ratio",
+            "交割手续费标准": "delivery_fee_ratio",
+            "平今仓收取率": "close_today_fee_ratio",
+        }
+    )
+    data_df = data_df[
+        [
+            "symbol",
+            "long_margin_ratio",
+            "short_margin_ratio",
+            "trade_fee_ratio",
+            "delivery_fee_ratio",
+            "close_today_fee_ratio",
+        ]
     ]
     data_df = data_df[data_df["symbol"].notna()]
     data_df = data_df[data_df["symbol"].str.contains(r"^[A-Z]+", na=False, regex=True)]
@@ -247,19 +259,37 @@ def futures_settle_czce(date: str = "20260119") -> pd.DataFrame:
         return pd.DataFrame()
     if data_df.shape[0] < 5:
         return pd.DataFrame()
-    data_df.columns = [
-        "symbol",
-        "settle_price",
-        "is_single_market",
-        "single_market_days",
-        "margin_ratio",
-        "limit_ratio",
-        "trade_fee",
-        "fee_type",
-        "delivery_fee",
-        "close_today_fee",
-        "position_limit",
-        "trade_limit",
+    data_df = data_df.rename(
+        columns={
+            "合约代码": "symbol",
+            "当日结算价": "settle_price",
+            "是否单边市": "is_single_market",
+            "连续单边市天数": "single_market_days",
+            "交易保证金率(%)": "margin_ratio",
+            "涨跌停板(%)": "limit_ratio",
+            "交易手续费": "trade_fee",
+            "手续费收取方式": "fee_type",
+            "交割手续费": "delivery_fee",
+            "日内平今仓交易手续费": "close_today_fee",
+            "日持仓限额": "position_limit",
+            "交易限额": "trade_limit",
+        }
+    )
+    data_df = data_df[
+        [
+            "symbol",
+            "settle_price",
+            "is_single_market",
+            "single_market_days",
+            "margin_ratio",
+            "limit_ratio",
+            "trade_fee",
+            "fee_type",
+            "delivery_fee",
+            "close_today_fee",
+            "position_limit",
+            "trade_limit",
+        ]
     ]
     data_df = data_df[data_df["symbol"].notna()]
     data_df = data_df[~data_df["symbol"].str.contains("小计|合计|总计", na=False)]
@@ -319,22 +349,25 @@ def futures_settle_gfex(date: str = "20260119") -> pd.DataFrame:
     if not data_list:
         return pd.DataFrame()
     data_df = pd.DataFrame(data_list)
-    data_df.columns = [
-        "symbol",
-        "spec_buy_rate",
-        "spec_buy",
-        "hedge_buy_rate",
-        "hedge_buy",
-        "rise_limit_rate",
-        "rise_limit",
-        "fall_limit",
-        "agent_tot_buy_posi_quota",
-        "self_tot_buy_posi_quota",
-        "client_buy_posi_quota",
-        "self_tot_buy_ser_limit",
-        "client_buy_ser_limit",
-        "trade_type",
-    ]
+    data_df = data_df.rename(
+        columns={
+            "contractId": "symbol",
+            "specBuyRate": "spec_buy_rate",
+            "specBuy": "spec_buy",
+            "hedgeBuyRate": "hedge_buy_rate",
+            "hedgeBuy": "hedge_buy",
+            "riseLimitRate": "rise_limit_rate",
+            "riseLimit": "rise_limit",
+            "fallLimit": "fall_limit",
+            "agentTotBuyPosiQuota": "agent_tot_buy_posi_quota",
+            "selfTotBuyPosiQuota": "self_tot_buy_posi_quota",
+            "clientBuyPosiQuota": "client_buy_posi_quota",
+        }
+    )
+    # 广期所自 2026 年起不再返回自营与客户持仓限额两个字段，保留列名并填空值
+    for column in ("self_tot_buy_posi_quota", "client_buy_posi_quota"):
+        if column not in data_df.columns:
+            data_df[column] = float("nan")
     data_df["variety"] = data_df["symbol"].str.extract(r"([A-Za-z]+)")
     data_df["date"] = date
     data_df = data_df[
@@ -380,23 +413,45 @@ def futures_settle_shfe(date: str = "20260119") -> pd.DataFrame:
     if not data_list:
         return pd.DataFrame()
     data_df = pd.DataFrame(data_list)
-    data_df.columns = [
-        "symbol",
-        "trade_fee_ratio",
-        "close_today_fee_ratio",
-        "delivery_fee_unit",
-        "spec_long_margin_ratio",
-        "hedge_long_margin_ratio",
-        "delivery_fee_ratio",
-        "product_id",
-        "product_name",
-        "close_today_fee_unit",
-        "trade_fee_unit",
-        "hedge_short_margin_ratio",
-        "settle_price",
-        "uni_direction",
-        "spec_short_margin_ratio",
-        "is_close_today",
+    data_df = data_df.rename(
+        columns={
+            "INSTRUMENTID": "symbol",
+            "TRADEFEERATIO": "trade_fee_ratio",
+            "TTRADEFEERATIO": "close_today_fee_ratio",
+            "COMMODITYDELIVFEEUNIT": "delivery_fee_unit",
+            "SPECLONGMARGINRATIO": "spec_long_margin_ratio",
+            "HEDGLONGMARGINRATIO": "hedge_long_margin_ratio",
+            "COMMODITYDELIVFEERATIO": "delivery_fee_ratio",
+            "PRODUCTID": "product_id",
+            "PRODUCTNAME": "product_name",
+            "TTRADEFEEUNIT": "close_today_fee_unit",
+            "TRADEFEEUNIT": "trade_fee_unit",
+            "HEDGSHORTMARGINRATIO": "hedge_short_margin_ratio",
+            "SETTLEMENTPRICE": "settle_price",
+            "UNIDIRECT": "uni_direction",
+            "SPECSHORTMARGINRATIO": "spec_short_margin_ratio",
+            "ISUNITODAY": "is_close_today",
+        }
+    )
+    data_df = data_df[
+        [
+            "symbol",
+            "trade_fee_ratio",
+            "close_today_fee_ratio",
+            "delivery_fee_unit",
+            "spec_long_margin_ratio",
+            "hedge_long_margin_ratio",
+            "delivery_fee_ratio",
+            "product_id",
+            "product_name",
+            "close_today_fee_unit",
+            "trade_fee_unit",
+            "hedge_short_margin_ratio",
+            "settle_price",
+            "uni_direction",
+            "spec_short_margin_ratio",
+            "is_close_today",
+        ]
     ]
     data_df["variety"] = data_df["symbol"].str.extract(r"([A-Za-z]+)")
     data_df["date"] = date
@@ -441,23 +496,45 @@ def futures_settle_ine(date: str = "20260119") -> pd.DataFrame:
     if not data_list:
         return pd.DataFrame()
     data_df = pd.DataFrame(data_list)
-    data_df.columns = [
-        "symbol",
-        "trade_fee_ratio",
-        "close_today_fee_ratio",
-        "delivery_fee_unit",
-        "spec_long_margin_ratio",
-        "hedge_long_margin_ratio",
-        "delivery_fee_ratio",
-        "product_id",
-        "product_name",
-        "close_today_fee_unit",
-        "trade_fee_unit",
-        "hedge_short_margin_ratio",
-        "settle_price",
-        "uni_direction",
-        "spec_short_margin_ratio",
-        "is_close_today",
+    data_df = data_df.rename(
+        columns={
+            "INSTRUMENTID": "symbol",
+            "TRADEFEERATIO": "trade_fee_ratio",
+            "TTRADEFEERATIO": "close_today_fee_ratio",
+            "COMMODITYDELIVFEEUNIT": "delivery_fee_unit",
+            "SPECLONGMARGINRATIO": "spec_long_margin_ratio",
+            "HEDGLONGMARGINRATIO": "hedge_long_margin_ratio",
+            "COMMODITYDELIVFEERATIO": "delivery_fee_ratio",
+            "PRODUCTID": "product_id",
+            "PRODUCTNAME": "product_name",
+            "TTRADEFEEUNIT": "close_today_fee_unit",
+            "TRADEFEEUNIT": "trade_fee_unit",
+            "HEDGSHORTMARGINRATIO": "hedge_short_margin_ratio",
+            "SETTLEMENTPRICE": "settle_price",
+            "UNIDIRECT": "uni_direction",
+            "SPECSHORTMARGINRATIO": "spec_short_margin_ratio",
+            "ISUNITODAY": "is_close_today",
+        }
+    )
+    data_df = data_df[
+        [
+            "symbol",
+            "trade_fee_ratio",
+            "close_today_fee_ratio",
+            "delivery_fee_unit",
+            "spec_long_margin_ratio",
+            "hedge_long_margin_ratio",
+            "delivery_fee_ratio",
+            "product_id",
+            "product_name",
+            "close_today_fee_unit",
+            "trade_fee_unit",
+            "hedge_short_margin_ratio",
+            "settle_price",
+            "uni_direction",
+            "spec_short_margin_ratio",
+            "is_close_today",
+        ]
     ]
     data_df["variety"] = data_df["symbol"].str.extract(r"([A-Za-z]+)")
     data_df["date"] = date

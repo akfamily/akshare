@@ -270,36 +270,28 @@ def fund_money_rank_em() -> pd.DataFrame:
     temp_df = pd.DataFrame(json_data["Data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
-    temp_df.columns = [
-        "序号",
-        "近1年",
-        "近2年",
-        "近3年",
-        "近5年",
-        "_",
-        "_",
-        "基金代码",
-        "基金简称",
-        "日期",
-        "万份收益",
-        "年化收益率7日",
-        "_",
-        "年化收益率14日",
-        "年化收益率28日",
-        "近1月",
-        "近3月",
-        "近6月",
-        "今年来",
-        "成立来",
-        "_",
-        "手续费",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "SYL_1N": "近1年",
+            "SYL_2N": "近2年",
+            "SYL_3N": "近3年",
+            "SYL_5N": "近5年",
+            "FCODE": "基金代码",
+            "SHORTNAME": "基金简称",
+            "FSRQ": "日期",
+            "DWJZ": "万份收益",
+            "LJJZ": "年化收益率7日",
+            "FTYI": "年化收益率14日",
+            "TEYI": "年化收益率28日",
+            "SYL_Y": "近1月",
+            "SYL_3Y": "近3月",
+            "SYL_6Y": "近6月",
+            "SYL_JN": "今年来",
+            "SYL_LN": "成立来",
+            "RATE": "手续费",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -456,29 +448,29 @@ def fund_hk_rank_em() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = list(range(1, len(temp_df) + 1))
-    temp_df.columns = [
-        "序号",
-        "_",
-        "香港基金代码",
-        "基金代码",
-        "_",
-        "基金简称",
-        "可购买",
-        "日期",
-        "单位净值",
-        "日增长率",
-        "_",
-        "近1周",
-        "近1月",
-        "近3月",
-        "近6月",
-        "近1年",
-        "近2年",
-        "近3年",
-        "今年来",
-        "成立来",
-        "币种",
-    ]
+    # 上游每条记录的字段顺序不固定，只能按字段名对应
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "HKFCODE": "香港基金代码",
+            "FCODE": "基金代码",
+            "SHORTNAME": "基金简称",
+            "CURRENCY": "币种",
+            "JZRQ": "日期",
+            "NAV": "单位净值",
+            "NAVCHGRT": "日增长率",
+            "W": "近1周",
+            "M": "近1月",
+            "Q": "近3月",
+            "HY": "近6月",
+            "Y": "近1年",
+            "TWY": "近2年",
+            "TRY": "近3年",
+            "SY": "今年来",
+            "SE": "成立来",
+            "ISBUY": "可购买",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -512,7 +504,6 @@ def fund_hk_rank_em() -> pd.DataFrame:
     temp_df["近2年"] = pd.to_numeric(temp_df["近2年"], errors="coerce")
     temp_df["近3年"] = pd.to_numeric(temp_df["近3年"], errors="coerce")
     temp_df["今年来"] = pd.to_numeric(temp_df["今年来"], errors="coerce")
-    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
     temp_df["成立来"] = pd.to_numeric(temp_df["成立来"], errors="coerce")
     temp_df["可购买"] = temp_df["可购买"].map(
         lambda x: "可购买" if x == "1" else "不可购买"

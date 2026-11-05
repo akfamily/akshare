@@ -64,7 +64,8 @@ def bond_index_general_cbond(
     temp_df.index.name = "date"
     temp_df = temp_df.rename(columns=key_col_map)
     temp_df = temp_df.reset_index()
-    temp_df.columns = ["date", "value"]
+    temp_df = temp_df.rename(columns={"date": "date", "总值": "value"})
+    temp_df = temp_df[["date", "value"]]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
 
@@ -122,7 +123,8 @@ def bond_treasury_index_cbond(
     temp_df.index.name = "date"
     temp_df = temp_df.rename(columns=key_col_map)
     temp_df = temp_df.reset_index()
-    temp_df.columns = ["date", "value"]
+    temp_df = temp_df.rename(columns={"date": "date", "总值": "value"})
+    temp_df = temp_df[["date", "value"]]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     return temp_df
 

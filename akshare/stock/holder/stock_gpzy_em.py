@@ -48,16 +48,18 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.columns = [
-        "交易日期",
-        "质押总股数",
-        "质押总市值",
-        "沪深300指数",
-        "涨跌幅",
-        "A股质押总比例",
-        "质押公司数量",
-        "质押笔数",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "TRADE_DATE": "交易日期",
+            "TOTAL_PLEDGED_SHARES": "质押总股数",
+            "PLEDGE_MARKET_VALUE": "质押总市值",
+            "CSI_300_INDEX": "沪深300指数",
+            "CSI_300_CHG": "涨跌幅",
+            "PM_RATIO": "A股质押总比例",
+            "PLEDGE_CO_NUM": "质押公司数量",
+            "DAILY_STATISTICS": "质押笔数",
+        }
+    )
     big_df = big_df[
         [
             "交易日期",
@@ -122,23 +124,23 @@ def stock_gpzy_pledge_ratio_em(date: str = "20240906") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "股票代码",
-        "股票简称",
-        "交易日期",
-        "质押比例",
-        "质押股数",
-        "质押笔数",
-        "无限售股质押数",
-        "限售股质押数",
-        "质押市值",
-        "所属行业",
-        "近一年涨跌幅",
-        "所属行业代码",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_CODE": "股票代码",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "TRADE_DATE": "交易日期",
+            "PLEDGE_RATIO": "质押比例",
+            "REPURCHASE_BALANCE": "质押股数",
+            "PLEDGE_DEAL_NUM": "质押笔数",
+            "REPURCHASE_UNLIMITED_BALANCE": "无限售股质押数",
+            "REPURCHASE_LIMITED_BALANCE": "限售股质押数",
+            "PLEDGE_MARKET_CAP": "质押市值",
+            "INDUSTRY": "所属行业",
+            "Y1_CLOSE_ADJCHRATE": "近一年涨跌幅",
+            "INDUSTRY_CODE": "所属行业代码",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -221,50 +223,25 @@ def _stock_gpzy_pledge_ratio_detail_em(filter: str = None) -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "股票简称",
-        "_",
-        "股票代码",
-        "股东名称",
-        "_",
-        "_",
-        "_",
-        "公告日期",
-        "质押机构",
-        "质押股份数量",
-        "占所持股份比例",
-        "占总股本比例",
-        "质押日收盘价",
-        "质押开始日期",
-        "质押结束日期",
-        "状态",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "预估平仓线",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "最新价",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "SECURITY_CODE": "股票代码",
+            "HOLDER_NAME": "股东名称",
+            "NOTICE_DATE": "公告日期",
+            "PF_ORG": "质押机构",
+            "PF_NUM": "质押股份数量",
+            "PF_HOLD_RATIO": "占所持股份比例",
+            "PF_TSR": "占总股本比例",
+            "CLOSE_FORWARD_ADJPRICE": "质押日收盘价",
+            "PF_START_DATE": "质押开始日期",
+            "ACTUAL_UNFREEZE_DATE": "质押结束日期",
+            "UNFREEZE_STATE": "状态",
+            "OPENLINE": "预估平仓线",
+            "CLOSE_PRICE": "最新价",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -327,30 +304,26 @@ def stock_gpzy_distribute_statistics_company_em() -> pd.DataFrame:
         "quoteColumns": "",
         "source": "WEB",
         "client": "WEB",
-        "filter": '(PFORG_TYPE="证券")',
+        # 2026-11 东方财富把机构类型由“证券”改为“证券Ⅱ”（末尾为罗马数字 Ⅱ），按旧值筛选返回空
+        "filter": '(PFORG_TYPE="证券Ⅱ")',
     }
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "_",
-        "_",
-        "_",
-        "_",
-        "质押机构",
-        "_",
-        "质押公司数量",
-        "质押笔数",
-        "质押数量",
-        "未达预警线比例",
-        "达到预警线未达平仓线比例",
-        "达到平仓线比例",
-        "_",
-        "_",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_NAME_ABBR": "质押机构",
+            "ORG_NUM": "质押公司数量",
+            "PLEDGE_DEAL_NUM": "质押笔数",
+            "PLEDGE_NUM": "质押数量",
+            "WARNING_STATE_1_RATE": "未达预警线比例",
+            "WARNING_STATE_2_RATE": "达到预警线未达平仓线比例",
+            "WARNING_STATE_3_RATE": "达到平仓线比例",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -396,30 +369,26 @@ def stock_gpzy_distribute_statistics_bank_em() -> pd.DataFrame:
         "quoteColumns": "",
         "source": "WEB",
         "client": "WEB",
-        "filter": '(PFORG_TYPE="银行")',
+        # 2026-11 东方财富把机构类型由“银行”改为“银行Ⅱ”（末尾为罗马数字 Ⅱ），按旧值筛选返回空
+        "filter": '(PFORG_TYPE="银行Ⅱ")',
     }
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "_",
-        "_",
-        "_",
-        "_",
-        "质押机构",
-        "_",
-        "质押公司数量",
-        "质押笔数",
-        "质押数量",
-        "未达预警线比例",
-        "达到预警线未达平仓线比例",
-        "达到平仓线比例",
-        "_",
-        "_",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_NAME_ABBR": "质押机构",
+            "ORG_NUM": "质押公司数量",
+            "PLEDGE_DEAL_NUM": "质押笔数",
+            "PLEDGE_NUM": "质押数量",
+            "WARNING_STATE_1_RATE": "未达预警线比例",
+            "WARNING_STATE_2_RATE": "达到预警线未达平仓线比例",
+            "WARNING_STATE_3_RATE": "达到平仓线比例",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -471,17 +440,18 @@ def stock_gpzy_industry_data_em() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "-",
-        "行业",
-        "统计时间",
-        "平均质押比例",
-        "公司家数",
-        "质押总笔数",
-        "质押总股本",
-        "最新质押市值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "INDUSTRY": "行业",
+            "TRADE_DATE": "统计时间",
+            "AVERAGE_PLEDGE_RATIO": "平均质押比例",
+            "ORG_NUM": "公司家数",
+            "PLEDGE_TOTAL_NUM": "质押总笔数",
+            "TOTAL_PLEDGE_SHARES": "质押总股本",
+            "PLEDGE_TOTAL_MARKETCAP": "最新质押市值",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",

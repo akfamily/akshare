@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-33)=
+### 1.20.33 fix: fix fund_hk_rank_em, futures_settle_gfex and stock_gpzy_distribute_statistics interfaces
+
+1. 修复 fund_hk_rank_em 返回错列数据的问题：天天基金香港基金排行每条记录的字段顺序不固定，原代码按位置命名，“基金代码”列实为币种、“基金简称”列实为基金代码、“日期”列为 1970 年、“可购买”列实为基金全称，且不报错；现按 HKFCODE、FCODE、SHORTNAME、CURRENCY、JZRQ、NAV、W、M、Q、HY、Y、TWY、TRY、SY、SE、ISBUY 等字段名映射，并与 fund_hk_fund_hist_em 的净值交叉核对一致
+2. 修复 fund_hk_fund_hist_em 查询已停止披露净值的基金时报 KeyError 的问题，现在返回带列名的空表
+3. 修复 futures_settle_gfex 以及 futures_settle(market="GFEX") 报 `Length mismatch` 的问题：广州期货交易所不再返回自营与客户持仓限额两个字段；现按字段名映射，self_tot_buy_posi_quota、client_buy_posi_quota 两列保留并填空值
+4. 修复 stock_gpzy_distribute_statistics_company_em、stock_gpzy_distribute_statistics_bank_em 报 `TypeError: 'NoneType' object is not subscriptable` 的问题：东方财富把质押机构类型由“证券”“银行”改为“证券Ⅱ”“银行Ⅱ”，按旧值筛选返回空；现改用新值，并按字段名映射列名
+5. stock_gpzy_em（4 处）、futures_settle（4 处）、bond_cbond（2 处）、fund_rank_em（fund_money_rank_em 1 处）由按位置命名改为按上游字段名映射；前三个模块逐一实测改动前后返回结果一致，fund_money_rank_em 因上游数据在两次采集之间更新，未做前后对比
+6. 按位置赋列名的写法降至 511 处
+
 (v1-20-32)=
 ### 1.20.32 fix!: fix stock_ipo_benefit_ths, remove movie_boxoffice_weekly and movie_boxoffice_cinema_weekly
 
