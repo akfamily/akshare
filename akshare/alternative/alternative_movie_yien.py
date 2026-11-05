@@ -121,10 +121,14 @@ def _post_endata_json(
     response.raise_for_status()
     data_json = response.json()
     if data_json.get("status") != 1:
-        raise APIError(
-            message=str(data_json.get("des", "艺恩接口返回异常")),
-            status_code=data_json.get("status"),
-        )
+        message = str(data_json.get("des", "艺恩接口返回异常"))
+        if message == "没有权限":
+            # 2026-11-05 实测：日票房、影院日票房只能匿名查询当天及前 2 天，更早的日期需登录
+            message = (
+                "艺恩返回“没有权限”：日票房、影院日票房只能查询当天及前 2 天的数据，"
+                "更早的日期需要登录艺恩账号，请改用最近的日期"
+            )
+        raise APIError(message=message, status_code=data_json.get("status"))
     return data_json
 
 
@@ -183,23 +187,6 @@ def _calc_first_week_days(value: object) -> object:
     if pd.isna(release_date):
         return pd.NA
     return 7 - release_date.weekday()
-
-
-def _raise_week_permission_error(interface_name: str) -> None:
-    """
-    抛出艺恩周榜权限异常。
-
-    :param interface_name: 接口名称
-    :type interface_name: str
-    :raises APIError: 当周榜接口需要权限时抛出
-    """
-    raise APIError(
-        message=(
-            f"{interface_name} 上游艺恩公开周榜接口当前需要权限或直接返回系统错误, "
-            "暂无法匿名获取"
-        ),
-        status_code=-1,
-    )
 
 
 def movie_boxoffice_realtime() -> pd.DataFrame:
@@ -267,7 +254,7 @@ def movie_boxoffice_daily(date: str = "20240219") -> pd.DataFrame:
     """
     电影票房-单日票房
     https://www.endata.com.cn/BoxOffice/BO/Day/index.html
-    :param date: 只能设置当前日期的前一天的票房数据
+    :param date: 日期，只能查询当天及前 2 天，更早的日期需要登录艺恩账号
     :type date: str
     :return: 每日票房
     :rtype: pandas.DataFrame
@@ -338,19 +325,6 @@ def movie_boxoffice_daily(date: str = "20240219") -> pd.DataFrame:
     temp_df = temp_df.sort_values(["排序"])
     temp_df = temp_df.reset_index(drop=True)
     return temp_df
-
-
-def movie_boxoffice_weekly(date: str = "20240218") -> pd.DataFrame:
-    """
-    电影票房-单周票房
-    https://www.endata.com.cn/BoxOffice/BO/Week/oneWeek.html
-    :param date: 只能获取指定日期所在完整周的票房数据
-    :type date: str
-    :return: 单周票房
-    :rtype: pandas.DataFrame
-    """
-    _ = date
-    _raise_week_permission_error(interface_name="movie_boxoffice_weekly")
 
 
 def movie_boxoffice_monthly(date: str = "20240218") -> pd.DataFrame:
@@ -627,7 +601,7 @@ def movie_boxoffice_cinema_daily(date: str = "20240219") -> pd.DataFrame:
     """
     电影票房-影院票房-日票房排行
     https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
-    :param date: 当前日期前一日的票房数据
+    :param date: 日期，只能查询当天及前 2 天，更早的日期需要登录艺恩账号
     :type date: str
     :return: 影票房-影院票房-日票房排行
     :rtype: pandas.DataFrame
@@ -684,28 +658,15 @@ def movie_boxoffice_cinema_daily(date: str = "20240219") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_cinema_weekly(date: str = "20240219") -> pd.DataFrame:
-    """
-    电影票房-影院票房-周票房排行
-    https://www.endata.com.cn/BoxOffice/BO/Cinema/week.html
-    :param date: 当前日期前完整一周的票房数据
-    :type date: str
-    :return: 影票房-影院票房-轴票房排行
-    :rtype: pandas.DataFrame
-    """
-    _ = date
-    _raise_week_permission_error(interface_name="movie_boxoffice_cinema_weekly")
-
-
 if __name__ == "__main__":
+    # 日票房只能匿名查询当天及前 2 天
+    yesterday = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y%m%d")
+
     movie_boxoffice_realtime_df = movie_boxoffice_realtime()
     print(movie_boxoffice_realtime_df)
 
-    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20240219")
+    movie_boxoffice_daily_df = movie_boxoffice_daily(date=yesterday)
     print(movie_boxoffice_daily_df)
-
-    movie_boxoffice_weekly_df = movie_boxoffice_weekly(date="20240218")
-    print(movie_boxoffice_weekly_df)
 
     movie_boxoffice_monthly_df = movie_boxoffice_monthly(date="20240218")
     print(movie_boxoffice_monthly_df)
@@ -718,8 +679,5 @@ if __name__ == "__main__":
     )
     print(movie_boxoffice_yearly_first_week_df)
 
-    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date="20240219")
+    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date=yesterday)
     print(movie_boxoffice_cinema_daily_df)
-
-    movie_boxoffice_cinema_weekly_df = movie_boxoffice_cinema_weekly(date="20240219")
-    print(movie_boxoffice_cinema_weekly_df)

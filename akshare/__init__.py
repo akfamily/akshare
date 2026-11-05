@@ -1338,11 +1338,9 @@ from akshare.alternative.alternative_fortune_hurun import hurun_rank
 from akshare.alternative.alternative_fortune_xincaifu_500 import xincaifu_rank
 from akshare.alternative.alternative_movie_yien import (
     movie_boxoffice_cinema_daily,
-    movie_boxoffice_cinema_weekly,
     movie_boxoffice_daily,
     movie_boxoffice_monthly,
     movie_boxoffice_realtime,
-    movie_boxoffice_weekly,
     movie_boxoffice_yearly,
     movie_boxoffice_yearly_first_week,
 )
@@ -1987,11 +1985,9 @@ __all__ = [
     "migration_area_baidu",
     "migration_scale_baidu",
     "movie_boxoffice_cinema_daily",
-    "movie_boxoffice_cinema_weekly",
     "movie_boxoffice_daily",
     "movie_boxoffice_monthly",
     "movie_boxoffice_realtime",
-    "movie_boxoffice_weekly",
     "movie_boxoffice_yearly",
     "movie_boxoffice_yearly_first_week",
     "news_cctv",
