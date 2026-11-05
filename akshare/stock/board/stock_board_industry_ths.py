@@ -291,7 +291,9 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
     url = "https://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
     r = http.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
-    page_num = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
+    # 上游没有受益股时表格为空，也没有分页信息，按 1 页处理并返回空表
+    page_info = soup.find(name="span", attrs={"class": "page_info"})
+    page_num = page_info.text.split("/")[1] if page_info else 1
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
@@ -356,19 +358,31 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
-    big_df.columns = [
-        "序号",
-        "板块",
-        "涨跌幅",
-        "总成交量",
-        "总成交额",
-        "净流入",
-        "上涨家数",
-        "下跌家数",
-        "均价",
-        "领涨股",
-        "领涨股-最新价",
-        "领涨股-涨跌幅",
+    big_df = big_df.rename(
+        columns={
+            "涨跌幅(%)": "涨跌幅",
+            "总成交量（万手）": "总成交量",
+            "总成交额（亿元）": "总成交额",
+            "净流入（亿元）": "净流入",
+            "最新价": "领涨股-最新价",
+            "涨跌幅(%).1": "领涨股-涨跌幅",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "板块",
+            "涨跌幅",
+            "总成交量",
+            "总成交额",
+            "净流入",
+            "上涨家数",
+            "下跌家数",
+            "均价",
+            "领涨股",
+            "领涨股-最新价",
+            "领涨股-涨跌幅",
+        ]
     ]
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["总成交量"] = pd.to_numeric(big_df["总成交量"], errors="coerce")

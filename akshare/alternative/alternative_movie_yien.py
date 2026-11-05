@@ -238,13 +238,18 @@ def movie_boxoffice_realtime() -> pd.DataFrame:
             "TotalBoxOffice",
         ]
     ]
-    temp_df.columns = [
-        "排序",
-        "影片名称",
-        "实时票房",
-        "票房占比",
-        "上映天数",
-        "累计票房",
+    temp_df = temp_df.rename(
+        columns={
+            "Irank": "排序",
+            "MovieName": "影片名称",
+            "BoxOffice": "实时票房",
+            "BoxOfficePercent": "票房占比",
+            "ReleaseDay": "上映天数",
+            "TotalBoxOffice": "累计票房",
+        }
+    )
+    temp_df = temp_df[
+        ["排序", "影片名称", "实时票房", "票房占比", "上映天数", "累计票房"]
     ]
     temp_df["实时票房"] = pd.to_numeric(temp_df["实时票房"], errors="coerce") / 10000
     temp_df["累计票房"] = pd.to_numeric(temp_df["累计票房"], errors="coerce") / 10000
@@ -396,15 +401,29 @@ def movie_boxoffice_monthly(date: str = "20240218") -> pd.DataFrame:
             "ReleaseDay",
         ]
     ]
-    temp_df.columns = [
-        "排序",
-        "影片名称",
-        "单月票房",
-        "月度占比",
-        "平均票价",
-        "场均人次",
-        "上映日期",
-        "月内天数",
+    temp_df = temp_df.rename(
+        columns={
+            "Irank": "排序",
+            "MovieName": "影片名称",
+            "BoxOffice": "单月票房",
+            "BoxOfficePercent": "月度占比",
+            "AvgBoxOffice": "平均票价",
+            "AvgShowAudienceCount": "场均人次",
+            "ReleaseDate": "上映日期",
+            "ReleaseDay": "月内天数",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "排序",
+            "影片名称",
+            "单月票房",
+            "月度占比",
+            "平均票价",
+            "场均人次",
+            "上映日期",
+            "月内天数",
+        ]
     ]
     temp_df["口碑指数"] = pd.NA
     temp_df = temp_df[
@@ -474,15 +493,29 @@ def movie_boxoffice_yearly(date: str = "20240218") -> pd.DataFrame:
             "ReleaseDate",
         ]
     ]
-    temp_df.columns = [
-        "排序",
-        "影片名称",
-        "类型",
-        "总票房",
-        "平均票价",
-        "场均人次",
-        "国家及地区",
-        "上映日期",
+    temp_df = temp_df.rename(
+        columns={
+            "Irank": "排序",
+            "MovieName": "影片名称",
+            "GenreMain": "类型",
+            "TotalBoxOffice": "总票房",
+            "AvgBoxOffice": "平均票价",
+            "AvgShowAudienceCount": "场均人次",
+            "Country": "国家及地区",
+            "ReleaseDate": "上映日期",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "排序",
+            "影片名称",
+            "类型",
+            "总票房",
+            "平均票价",
+            "场均人次",
+            "国家及地区",
+            "上映日期",
+        ]
     ]
     temp_df["总票房"] = pd.to_numeric(temp_df["总票房"], errors="coerce") / 10000
     temp_df["平均票价"] = pd.to_numeric(temp_df["平均票价"], errors="coerce")
@@ -539,15 +572,29 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
             "ReleaseDate",
         ]
     ]
-    temp_df.columns = [
-        "排序",
-        "影片名称",
-        "类型",
-        "首周票房",
-        "占总票房比重",
-        "场均人次",
-        "国家及地区",
-        "上映日期",
+    temp_df = temp_df.rename(
+        columns={
+            "Irank": "排序",
+            "MovieName": "影片名称",
+            "GenreMain": "类型",
+            "WeekBoxOffice": "首周票房",
+            "WeekBoxPercent": "占总票房比重",
+            "AvgShowAudienceCount": "场均人次",
+            "Country": "国家及地区",
+            "ReleaseDate": "上映日期",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "排序",
+            "影片名称",
+            "类型",
+            "首周票房",
+            "占总票房比重",
+            "场均人次",
+            "国家及地区",
+            "上映日期",
+        ]
     ]
     temp_df["首周天数"] = temp_df["上映日期"].map(_calc_first_week_days).astype("Int64")
     temp_df = temp_df[

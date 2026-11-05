@@ -104,12 +104,17 @@ def fund_individual_achievement_xq(symbol: str = "000001") -> pd.DataFrame:
                 "self_nav_rank",
             ]
         ]
-        temp_df.columns = [
-            "业绩类型",
-            "周期",
-            "本产品区间收益",
-            "本产品最大回撒",
-            "周期收益同类排名",
+        temp_df = temp_df.rename(
+            columns={
+                "type": "业绩类型",
+                "period_time": "周期",
+                "self_nav": "本产品区间收益",
+                "self_max_draw_down": "本产品最大回撒",
+                "self_nav_rank": "周期收益同类排名",
+            }
+        )
+        temp_df = temp_df[
+            ["业绩类型", "周期", "本产品区间收益", "本产品最大回撒", "周期收益同类排名"]
         ]
         combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
     combined_df = combined_df.map(
@@ -148,13 +153,25 @@ def fund_individual_analysis_xq(symbol: str = "000001") -> pd.DataFrame:
             "self_index.max_draw_down",
         ]
     ]
-    temp_df.columns = [
-        "周期",
-        "较同类风险收益比",
-        "较同类抗风险波动",
-        "年化波动率",
-        "年化夏普比率",
-        "最大回撤",
+    temp_df = temp_df.rename(
+        columns={
+            "index_time_period": "周期",
+            "investment_cost_performance": "较同类风险收益比",
+            "risk_control": "较同类抗风险波动",
+            "self_index.volatility_rank": "年化波动率",
+            "self_index.sharpe_rank": "年化夏普比率",
+            "self_index.max_draw_down": "最大回撤",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "周期",
+            "较同类风险收益比",
+            "较同类抗风险波动",
+            "年化波动率",
+            "年化夏普比率",
+            "最大回撤",
+        ]
     ]
     temp_df = temp_df.map(lambda x: x if "%" not in str(x) else x.replace("%", ""))
     temp_df[["年化波动率", "最大回撤"]] *= 100
@@ -194,11 +211,14 @@ def fund_individual_profit_probability_xq(symbol: str = "000001") -> pd.DataFram
             "average_income",
         ]
     ]
-    temp_df.columns = [
-        "持有时长",
-        "盈利概率",
-        "平均收益",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "holding_time": "持有时长",
+            "profit_ratio": "盈利概率",
+            "average_income": "平均收益",
+        }
+    )
+    temp_df = temp_df[["持有时长", "盈利概率", "平均收益"]]
     temp_df = temp_df.map(lambda x: x if "%" not in str(x) else x.replace("%", ""))
     temp_df["盈利概率"] = pd.to_numeric(temp_df["盈利概率"], errors="coerce")
     temp_df["平均收益"] = pd.to_numeric(temp_df["平均收益"], errors="coerce")
@@ -237,11 +257,10 @@ def fund_individual_detail_info_xq(symbol: str = "000001") -> pd.DataFrame:
                 "value",
             ]
         ]
-        temp_df.columns = [
-            "费用类型",
-            "条件或名称",
-            "费用",
-        ]
+        temp_df = temp_df.rename(
+            columns={"rate_type": "费用类型", "name": "条件或名称", "value": "费用"}
+        )
+        temp_df = temp_df[["费用类型", "条件或名称", "费用"]]
         combined_df = pd.concat(objs=[combined_df, temp_df], ignore_index=True)
         combined_df["费用"] = pd.to_numeric(combined_df["费用"], errors="coerce")
     return combined_df
@@ -278,10 +297,8 @@ def fund_individual_detail_hold_xq(
             "percent",
         ]
     ]
-    temp_df.columns = [
-        "资产类型",
-        "仓位占比",
-    ]
+    temp_df = temp_df.rename(columns={"type_desc": "资产类型", "percent": "仓位占比"})
+    temp_df = temp_df[["资产类型", "仓位占比"]]
     temp_df["仓位占比"] = pd.to_numeric(temp_df["仓位占比"], errors="coerce")
     return temp_df
 

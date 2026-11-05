@@ -165,33 +165,30 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "-",
-        "代码",
-        "最近上榜日",
-        "名称",
-        "近1个月涨跌幅",
-        "近3个月涨跌幅",
-        "近6个月涨跌幅",
-        "近1年涨跌幅",
-        "涨跌幅",
-        "收盘价",
-        "-",
-        "龙虎榜总成交额",
-        "龙虎榜净买额",
-        "-",
-        "-",
-        "机构买入净额",
-        "上榜次数",
-        "龙虎榜买入额",
-        "龙虎榜卖出额",
-        "机构买入总额",
-        "机构卖出总额",
-        "买方机构次数",
-        "卖方机构次数",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_CODE": "代码",
+            "LATEST_TDATE": "最近上榜日",
+            "SECURITY_NAME_ABBR": "名称",
+            "IPCT1M": "近1个月涨跌幅",
+            "IPCT3M": "近3个月涨跌幅",
+            "IPCT6M": "近6个月涨跌幅",
+            "IPCT1Y": "近1年涨跌幅",
+            "CHANGE_RATE": "涨跌幅",
+            "CLOSE_PRICE": "收盘价",
+            "BILLBOARD_DEAL_AMT": "龙虎榜总成交额",
+            "BILLBOARD_NET_BUY": "龙虎榜净买额",
+            "ORG_NET_BUY": "机构买入净额",
+            "BILLBOARD_TIMES": "上榜次数",
+            "BILLBOARD_BUY_AMT": "龙虎榜买入额",
+            "BILLBOARD_SELL_AMT": "龙虎榜卖出额",
+            "ORG_BUY_AMT": "机构买入总额",
+            "ORG_SELL_AMT": "机构卖出总额",
+            "ORG_BUY_TIMES": "买方机构次数",
+            "ORG_SELL_TIMES": "卖方机构次数",
+        }
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -266,34 +263,26 @@ def stock_lhb_jgmmtj_em(
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "-",
-        "名称",
-        "代码",
-        "上榜日期",
-        "收盘价",
-        "涨跌幅",
-        "买方机构数",
-        "卖方机构数",
-        "机构买入总额",
-        "机构卖出总额",
-        "机构买入净额",
-        "市场总成交额",
-        "机构净买额占总成交额比",
-        "换手率",
-        "流通市值",
-        "上榜原因",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_NAME_ABBR": "名称",
+            "SECURITY_CODE": "代码",
+            "TRADE_DATE": "上榜日期",
+            "CLOSE_PRICE": "收盘价",
+            "CHANGE_RATE": "涨跌幅",
+            "BUY_TIMES": "买方机构数",
+            "SELL_TIMES": "卖方机构数",
+            "BUY_AMT": "机构买入总额",
+            "SELL_AMT": "机构卖出总额",
+            "NET_BUY_AMT": "机构买入净额",
+            "ACCUM_AMOUNT": "市场总成交额",
+            "RATIO": "机构净买额占总成交额比",
+            "TURNOVERRATE": "换手率",
+            "FREECAP": "流通市值",
+            "EXPLANATION": "上榜原因",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -468,21 +457,20 @@ def stock_lhb_hyyyb_em(
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "营业部名称",
-        "上榜日",
-        "买入个股数",
-        "卖出个股数",
-        "买入总金额",
-        "卖出总金额",
-        "总买卖净额",
-        "-",
-        "营业部代码",
-        "买入股票",
-        "-",
-        "-",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "OPERATEDEPT_NAME": "营业部名称",
+            "ONLIST_DATE": "上榜日",
+            "BUYER_APPEAR_NUM": "买入个股数",
+            "SELLER_APPEAR_NUM": "卖出个股数",
+            "TOTAL_BUYAMT": "买入总金额",
+            "TOTAL_SELLAMT": "卖出总金额",
+            "TOTAL_NETAMT": "总买卖净额",
+            "OPERATEDEPT_CODE": "营业部代码",
+            "SECURITY_NAME_ABBR": "买入股票",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -742,12 +730,9 @@ def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "股票代码",
-        "交易日",
-        "-",
-    ]
+    temp_df = temp_df.rename(
+        columns={"index": "序号", "SECURITY_CODE": "股票代码", "TRADE_DATE": "交易日"}
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -801,29 +786,18 @@ def stock_lhb_stock_detail_em(
     temp_df["index"] = temp_df.index + 1
 
     if flag == "买入":
-        temp_df.columns = [
-            "序号",
-            "-",
-            "-",
-            "-",
-            "-",
-            "交易营业部名称",
-            "类型",
-            "-",
-            "-",
-            "-",
-            "-",
-            "买入金额",
-            "卖出金额",
-            "净额",
-            "-",
-            "-",
-            "-",
-            "-",
-            "买入金额-占总成交比例",
-            "卖出金额-占总成交比例",
-            "-",
-        ]
+        temp_df = temp_df.rename(
+            columns={
+                "index": "序号",
+                "OPERATEDEPT_NAME": "交易营业部名称",
+                "EXPLANATION": "类型",
+                "BUY": "买入金额",
+                "SELL": "卖出金额",
+                "NET": "净额",
+                "TOTAL_BUYRIO": "买入金额-占总成交比例",
+                "TOTAL_SELLRIO": "卖出金额-占总成交比例",
+            }
+        )
         temp_df = temp_df[
             [
                 "序号",
