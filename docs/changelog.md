@@ -14,7 +14,8 @@ tocdepth: 2
 **不兼容的改动：stock_rank_lxxd_ths（连续下跌）的“连涨天数”列更名为“连跌天数”，数值不变。** 同花顺该页面的表头为“连跌天数”，原代码与文档沿用了连续上涨接口的列名；按旧列名取值的代码请改用新列名。
 
 1. stock_technology_ths 模块中 11 个技术选股接口（stock_rank_cxg_ths、stock_rank_lxsz_ths、stock_rank_cxfl_ths、stock_rank_ljqs_ths、stock_rank_xzjp_ths 等）由按位置命名改为按网页表头映射列名，同花顺调整表头顺序或增加列时不再错列；除上述更名外，逐一实测 17 个调用改动前后返回结果一致
-2. 按位置赋列名的写法降至 583 处
+2. macro_canada（10 个接口）、macro_australia（7 个接口）与 macro_usa 中东方财富全球宏观数据的 2 处，由按位置命名改为按上游字段名映射（REPORT_DATE_CH→时间、PUBLISH_DATE→发布日期、VALUE→现值、PRE_VALUE→前值）；逐一实测 58 个调用改动前后返回结果一致
+3. 按位置赋列名的写法降至 564 处
 
 (v1-20-29)=
 ### 1.20.29 fix!: fix option_finance_sse_underlying and option_finance_board interface

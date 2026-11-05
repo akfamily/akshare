@@ -103,16 +103,14 @@ def macro_usa_phs() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -151,12 +149,14 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
     temp_df = pd.DataFrame(
         data_list, columns=["REPORT_DATE", "PUBLISH_DATE", "VALUE", "PRE_VALUE"]
     )
-    temp_df.columns = [
-        "时间",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df["时间"] = pd.to_datetime(temp_df["时间"], errors="coerce").dt.date
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")

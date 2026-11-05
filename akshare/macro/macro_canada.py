@@ -37,17 +37,14 @@ def macro_canada_new_house_rate() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -88,17 +85,14 @@ def macro_canada_unemployment_rate() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -139,17 +133,14 @@ def macro_canada_trade() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -190,17 +181,14 @@ def macro_canada_retail_rate_monthly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -241,17 +229,14 @@ def macro_canada_bank_rate() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -292,17 +277,14 @@ def macro_canada_core_cpi_yearly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -343,17 +325,14 @@ def macro_canada_core_cpi_monthly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -394,17 +373,14 @@ def macro_canada_cpi_yearly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -445,17 +421,14 @@ def macro_canada_cpi_monthly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
@@ -496,17 +469,14 @@ def macro_canada_gdp_monthly() -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "时间",
-        "-",
-        "发布日期",
-        "现值",
-        "前值",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "REPORT_DATE_CH": "时间",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+        }
+    )
     temp_df = temp_df[
         [
             "时间",
