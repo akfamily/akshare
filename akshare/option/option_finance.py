@@ -61,8 +61,8 @@ def option_finance_sse_underlying(symbol: str = "华夏科创50ETF期权") -> pd
             "change": "涨跌",
             "chg_rate": "涨跌幅",
             "amp_rate": "振幅",
-            "volume": "成交量(手)",
-            "amount": "成交额(万元)",
+            "volume": "成交量(份)",
+            "amount": "成交额(元)",
         }
     )
     # 上游不返回代码字段（为空），取请求地址末尾的标的代码
@@ -79,8 +79,8 @@ def option_finance_sse_underlying(symbol: str = "华夏科创50ETF期权") -> pd
             "涨跌",
             "涨跌幅",
             "振幅",
-            "成交量(手)",
-            "成交额(万元)",
+            "成交量(份)",
+            "成交额(元)",
             "更新日期",
         ]
     ]

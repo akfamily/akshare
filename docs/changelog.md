@@ -9,7 +9,9 @@ tocdepth: 2
 ## 1.20.x
 
 (v1-20-29)=
-### 1.20.29 fix: fix option_finance_sse_underlying and option_finance_board interface
+### 1.20.29 fix!: fix option_finance_sse_underlying and option_finance_board interface
+
+**不兼容的改动：option_finance_sse_underlying 的 `成交量(手)`、`成交额(万元)` 两列更名为 `成交量(份)`、`成交额(元)`，数值不变。** 原列名标注的单位有误：上交所返回的成交量单位为份、成交额单位为元，5 个品种的成交额除以成交量均与当前价一致（如华夏上证50ETF期权 1991302797÷681494179≈2.92，当前价 2.93）。按旧列名取值的代码请改用新列名。
 
 1. 修复 option_finance_sse_underlying 报 `TypeError: Invalid value ... for dtype 'float64'` 的问题：原代码把更新时间写入数值列，pandas 3 不再允许；现按请求参数 select 的字段顺序命名各列，更新日期整列赋值。同时修正“代码”列：上游不返回代码，原代码把第一行写死为 510300，查询华夏上证50ETF期权等其他品种时代码也显示为 510300；现取请求地址中的标的代码，如 510050、588000
 2. 修复 option_finance_board 在 symbol="嘉实沪深300ETF期权" 时返回其他标的合约的问题：深交所期权列表包含沪深300ETF、创业板ETF、中证500ETF、深证100ETF 全部 4 个标的的期权，原代码未按标的筛选，返回当月全部合约；现只保留标的为沪深300ETF 的合约，并改为按上游字段名映射列名。其余品种返回结果不变
