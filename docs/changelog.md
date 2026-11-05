@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-31)=
+### 1.20.31 refactor: map columns by upstream field name in dzjy, fund_flow, summary and futures_zh_sina
+
+1. futures_zh_spot 传入无效或已到期的合约（如 V2405）时，原先报难以理解的 `Length mismatch`，现在抛出 InvalidParameterError 并提示检查合约代码；模块 `__main__` 中已到期的示例合约 V2405、V2409 改为 V2701、V2705
+2. stock_dzjy_em（大宗交易，6 处）、stock_fund_flow（同花顺资金流向，6 处）、stock_summary（深交所市场总貌，1 处）、futures_zh_sina（新浪期货分钟与日线，2 处）由按位置命名改为按上游字段名或网页表头映射；逐一实测 38 个调用，改动前后返回结果一致
+3. 表头含查询月份（stock_szse_sector_summary）或排序箭头（stock_fund_flow_big_deal 的“成交时间↓”）的表格，按表头名映射反而更脆弱，保持按位置命名
+4. 按位置赋列名的写法降至 541 处
+
 (v1-20-30)=
 ### 1.20.30 fix!: fix stock_rank_lxxd_ths and stock_gdfx_em interfaces
 

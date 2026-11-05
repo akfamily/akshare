@@ -42,16 +42,31 @@ def stock_dzjy_sctj() -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df["index"] + 1
-    big_df.columns = [
-        "序号",
-        "交易日期",
-        "上证指数",
-        "上证指数涨跌幅",
-        "大宗交易成交总额",
-        "溢价成交总额",
-        "溢价成交总额占比",
-        "折价成交总额",
-        "折价成交总额占比",
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "TRADE_DATE": "交易日期",
+            "SZ_INDEX": "上证指数",
+            "SZ_CHANGE_RATE": "上证指数涨跌幅",
+            "BLOCKTRADE_DEAL_AMT": "大宗交易成交总额",
+            "PREMIUM_DEAL_AMT": "溢价成交总额",
+            "PREMIUM_RATIO": "溢价成交总额占比",
+            "DISCOUNT_DEAL_AMT": "折价成交总额",
+            "DISCOUNT_RATIO": "折价成交总额占比",
+        }
+    )
+    big_df = big_df[
+        [
+            "序号",
+            "交易日期",
+            "上证指数",
+            "上证指数涨跌幅",
+            "大宗交易成交总额",
+            "溢价成交总额",
+            "溢价成交总额占比",
+            "折价成交总额",
+            "折价成交总额占比",
+        ]
     ]
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
     big_df["上证指数"] = pd.to_numeric(big_df["上证指数"], errors="coerce")
@@ -167,27 +182,31 @@ def stock_dzjy_mrmx(
             temp_df["成交额/流通市值"], errors="coerce"
         )
     if symbol in {"B股", "基金", "债券"}:
-        temp_df.columns = [
-            "序号",
-            "交易日期",
-            "证券代码",
-            "-",
-            "证券简称",
-            "-",
-            "-",
-            "成交价",
-            "-",
-            "成交量",
-            "成交额",
-            "-",
-            "买方营业部",
-            "卖方营业部",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
+        temp_df = temp_df.rename(
+            columns={
+                "index": "序号",
+                "TRADE_DATE": "交易日期",
+                "SECURITY_CODE": "证券代码",
+                "SECURITY_NAME_ABBR": "证券简称",
+                "DEAL_PRICE": "成交价",
+                "DEAL_VOLUME": "成交量",
+                "DEAL_AMT": "成交额",
+                "BUYER_NAME": "买方营业部",
+                "SELLER_NAME": "卖方营业部",
+            }
+        )
+        temp_df = temp_df[
+            [
+                "序号",
+                "交易日期",
+                "证券代码",
+                "证券简称",
+                "成交价",
+                "成交量",
+                "成交额",
+                "买方营业部",
+                "卖方营业部",
+            ]
         ]
         temp_df["交易日期"] = pd.to_datetime(
             temp_df["交易日期"], errors="coerce"
@@ -244,24 +263,37 @@ def stock_dzjy_mrtj(
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df = temp_df.reset_index()
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "交易日期",
-        "证券代码",
-        "-",
-        "证券简称",
-        "涨跌幅",
-        "收盘价",
-        "成交价",
-        "折溢率",
-        "成交笔数",
-        "成交总量",
-        "成交总额",
-        "成交总额/流通市值",
-        "_",
-        "_",
-        "_",
-        "_",
+    temp_df = temp_df.rename(
+        columns={
+            "index": "序号",
+            "TRADE_DATE": "交易日期",
+            "SECURITY_CODE": "证券代码",
+            "SECURITY_NAME_ABBR": "证券简称",
+            "CHANGE_RATE": "涨跌幅",
+            "CLOSE_PRICE": "收盘价",
+            "AVERAGE_PRICE": "成交价",
+            "PREMIUM_RATIO": "折溢率",
+            "DEAL_NUM": "成交笔数",
+            "VOLUME": "成交总量",
+            "DEAL_AMT": "成交总额",
+            "TURNOVERRATE": "成交总额/流通市值",
+        }
+    )
+    temp_df = temp_df[
+        [
+            "序号",
+            "交易日期",
+            "证券代码",
+            "证券简称",
+            "涨跌幅",
+            "收盘价",
+            "成交价",
+            "折溢率",
+            "成交笔数",
+            "成交总量",
+            "成交总额",
+            "成交总额/流通市值",
+        ]
     ]
     temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"], errors="coerce").dt.date
     temp_df = temp_df[
@@ -334,26 +366,26 @@ def stock_dzjy_hygtj(symbol: str = "近三月") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "证券代码",
-        "_",
-        "证券简称",
-        "最新价",
-        "涨跌幅",
-        "最近上榜日",
-        "总成交额",
-        "折溢率",
-        "成交总额/流通市值",
-        "上榜次数-总计",
-        "上榜次数-溢价",
-        "上榜次数-折价",
-        "上榜日后平均涨跌幅-1日",
-        "上榜日后平均涨跌幅-5日",
-        "上榜日后平均涨跌幅-10日",
-        "上榜日后平均涨跌幅-20日",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "SECURITY_CODE": "证券代码",
+            "SECURITY_NAME_ABBR": "证券简称",
+            "CLOSE_PRICE": "最新价",
+            "CHANGE_RATE": "涨跌幅",
+            "TRADE_DATE": "最近上榜日",
+            "DEAL_AMT": "总成交额",
+            "PREMIUM_RATIO": "折溢率",
+            "SUM_TURNOVERRATE": "成交总额/流通市值",
+            "DEAL_NUM": "上榜次数-总计",
+            "PREMIUM_TIMES": "上榜次数-溢价",
+            "DISCOUNT_TIMES": "上榜次数-折价",
+            "D1_AVG_ADJCHRATE": "上榜日后平均涨跌幅-1日",
+            "D5_AVG_ADJCHRATE": "上榜日后平均涨跌幅-5日",
+            "D10_AVG_ADJCHRATE": "上榜日后平均涨跌幅-10日",
+            "D20_AVG_ADJCHRATE": "上榜日后平均涨跌幅-20日",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -441,19 +473,19 @@ def stock_dzjy_hyyybtj(symbol: str = "近3日") -> pd.DataFrame:
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "_",
-        "营业部名称",
-        "最近上榜日",
-        "买入的股票",
-        "次数总计-买入",
-        "次数总计-卖出",
-        "成交金额统计-买入",
-        "成交金额统计-卖出",
-        "成交金额统计-净买入额",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "OPERATEDEPT_NAME": "营业部名称",
+            "ONLIST_DATE": "最近上榜日",
+            "STOCK_DETAILS": "买入的股票",
+            "BUYER_NUM": "次数总计-买入",
+            "SELLER_NUM": "次数总计-卖出",
+            "TOTAL_BUYAMT": "成交金额统计-买入",
+            "TOTAL_SELLAMT": "成交金额统计-卖出",
+            "TOTAL_NETAMT": "成交金额统计-净买入额",
+        }
+    )
     big_df = big_df[
         [
             "序号",
@@ -525,25 +557,24 @@ def stock_dzjy_yybph(symbol: str = "近三月") -> pd.DataFrame:
 
     big_df = big_df.reset_index()
     big_df["index"] = big_df.index + 1
-    big_df.columns = [
-        "序号",
-        "_",
-        "营业部名称",
-        "上榜后1天-买入次数",
-        "上榜后1天-平均涨幅",
-        "上榜后1天-上涨概率",
-        "上榜后5天-买入次数",
-        "上榜后5天-平均涨幅",
-        "上榜后5天-上涨概率",
-        "上榜后10天-买入次数",
-        "上榜后10天-平均涨幅",
-        "上榜后10天-上涨概率",
-        "上榜后20天-买入次数",
-        "上榜后20天-平均涨幅",
-        "上榜后20天-上涨概率",
-        "_",
-        "_",
-    ]
+    big_df = big_df.rename(
+        columns={
+            "index": "序号",
+            "OPERATEDEPT_NAME": "营业部名称",
+            "D1_BUYER_NUM": "上榜后1天-买入次数",
+            "D1_AVERAGE_INCREASE": "上榜后1天-平均涨幅",
+            "D1_RISE_PROBABILITY": "上榜后1天-上涨概率",
+            "D5_BUYER_NUM": "上榜后5天-买入次数",
+            "D5_AVERAGE_INCREASE": "上榜后5天-平均涨幅",
+            "D5_RISE_PROBABILITY": "上榜后5天-上涨概率",
+            "D10_BUYER_NUM": "上榜后10天-买入次数",
+            "D10_AVERAGE_INCREASE": "上榜后10天-平均涨幅",
+            "D10_RISE_PROBABILITY": "上榜后10天-上涨概率",
+            "D20_BUYER_NUM": "上榜后20天-买入次数",
+            "D20_AVERAGE_INCREASE": "上榜后20天-平均涨幅",
+            "D20_RISE_PROBABILITY": "上榜后20天-上涨概率",
+        }
+    )
     big_df = big_df[
         [
             "序号",

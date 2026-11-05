@@ -42,7 +42,15 @@ def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].map(lambda x: x.replace(",", ""))
-    temp_df.columns = ["证券类别", "数量", "成交金额", "总市值", "流通市值"]
+    temp_df = temp_df.rename(
+        columns={
+            "数量(只)": "数量",
+            "成交金额(元)": "成交金额",
+            "总市值(元)": "总市值",
+            "流通市值(元)": "流通市值",
+        }
+    )
+    temp_df = temp_df[["证券类别", "数量", "成交金额", "总市值", "流通市值"]]
     temp_df["数量"] = pd.to_numeric(temp_df["数量"], errors="coerce")
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")

@@ -20,6 +20,7 @@ from akshare.futures.cons import (
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
+from akshare.exceptions import InvalidParameterError
 from akshare.futures.futures_contract_detail import futures_contract_detail
 from akshare.utils import jsonish
 from akshare.utils import http
@@ -240,6 +241,11 @@ def futures_zh_spot(
             if item.strip() != ""
         ]
     )
+    if data_df.shape[1] <= 1:
+        # 新浪对无效或已到期的合约返回空字符串，此时只解析出一列
+        raise InvalidParameterError(
+            f"新浪没有返回合约 {symbol} 的行情，请检查合约代码是否有效、是否已到期"
+        )
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
     if adjust == "1":
@@ -626,15 +632,18 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.Data
     }
     r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = [
-        "datetime",
-        "open",
-        "high",
-        "low",
-        "close",
-        "volume",
-        "hold",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "d": "datetime",
+            "o": "open",
+            "h": "high",
+            "l": "low",
+            "c": "close",
+            "v": "volume",
+            "p": "hold",
+        }
+    )
+    temp_df = temp_df[["datetime", "open", "high", "low", "close", "volume", "hold"]]
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
@@ -664,15 +673,20 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = [
-        "date",
-        "open",
-        "high",
-        "low",
-        "close",
-        "volume",
-        "hold",
-        "settle",
+    temp_df = temp_df.rename(
+        columns={
+            "d": "date",
+            "o": "open",
+            "h": "high",
+            "l": "low",
+            "c": "close",
+            "v": "volume",
+            "p": "hold",
+            "s": "settle",
+        }
+    )
+    temp_df = temp_df[
+        ["date", "open", "high", "low", "close", "volume", "hold", "settle"]
     ]
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
@@ -688,10 +702,10 @@ if __name__ == "__main__":
     match_main_contract_df = match_main_contract(symbol="gfex")
     print(match_main_contract_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="V2405,V2409", market="CF", adjust="0")
+    futures_zh_spot_df = futures_zh_spot(symbol="V2701,V2705", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="V2405", market="CF", adjust="0")
+    futures_zh_spot_df = futures_zh_spot(symbol="V2701", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
     futures_symbol_mark_df = futures_symbol_mark()

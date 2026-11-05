@@ -129,27 +129,46 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
-        big_df.columns = [
-            "序号",
-            "股票代码",
-            "股票简称",
-            "最新价",
-            "涨跌幅",
-            "换手率",
-            "流入资金",
-            "流出资金",
-            "净额",
-            "成交额",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "流入资金(元)": "流入资金",
+                "流出资金(元)": "流出资金",
+                "净额(元)": "净额",
+                "成交额(元)": "成交额",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "股票代码",
+                "股票简称",
+                "最新价",
+                "涨跌幅",
+                "换手率",
+                "流入资金",
+                "流出资金",
+                "净额",
+                "成交额",
+            ]
         ]
     else:
-        big_df.columns = [
-            "序号",
-            "股票代码",
-            "股票简称",
-            "最新价",
-            "阶段涨跌幅",
-            "连续换手率",
-            "资金流入净额",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "资金流入净额(元)": "资金流入净额",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "股票代码",
+                "股票简称",
+                "最新价",
+                "阶段涨跌幅",
+                "连续换手率",
+                "资金流入净额",
+            ]
         ]
     return big_df
 
@@ -229,18 +248,31 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
-        big_df.columns = [
-            "序号",
-            "行业",
-            "行业指数",
-            "行业-涨跌幅",
-            "流入资金",
-            "流出资金",
-            "净额",
-            "公司家数",
-            "领涨股",
-            "领涨股-涨跌幅",
-            "当前价",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "涨跌幅": "行业-涨跌幅",
+                "流入资金(亿)": "流入资金",
+                "流出资金(亿)": "流出资金",
+                "净额(亿)": "净额",
+                "涨跌幅.1": "领涨股-涨跌幅",
+                "当前价(元)": "当前价",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "行业",
+                "行业指数",
+                "行业-涨跌幅",
+                "流入资金",
+                "流出资金",
+                "净额",
+                "公司家数",
+                "领涨股",
+                "领涨股-涨跌幅",
+                "当前价",
+            ]
         ]
         big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
         big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
@@ -249,15 +281,25 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             big_df["领涨股-涨跌幅"], errors="coerce"
         )
     else:
-        big_df.columns = [
-            "序号",
-            "行业",
-            "公司家数",
-            "行业指数",
-            "阶段涨跌幅",
-            "流入资金",
-            "流出资金",
-            "净额",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "流入资金(亿)": "流入资金",
+                "流出资金(亿)": "流出资金",
+                "净额(亿)": "净额",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "行业",
+                "公司家数",
+                "行业指数",
+                "阶段涨跌幅",
+                "流入资金",
+                "流出资金",
+                "净额",
+            ]
         ]
     return big_df
 
@@ -337,18 +379,31 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     big_df = big_df.reset_index()
     big_df["index"] = range(1, len(big_df) + 1)
     if symbol == "即时":
-        big_df.columns = [
-            "序号",
-            "行业",
-            "行业指数",
-            "行业-涨跌幅",
-            "流入资金",
-            "流出资金",
-            "净额",
-            "公司家数",
-            "领涨股",
-            "领涨股-涨跌幅",
-            "当前价",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "涨跌幅": "行业-涨跌幅",
+                "流入资金(亿)": "流入资金",
+                "流出资金(亿)": "流出资金",
+                "净额(亿)": "净额",
+                "涨跌幅.1": "领涨股-涨跌幅",
+                "当前价(元)": "当前价",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "行业",
+                "行业指数",
+                "行业-涨跌幅",
+                "流入资金",
+                "流出资金",
+                "净额",
+                "公司家数",
+                "领涨股",
+                "领涨股-涨跌幅",
+                "当前价",
+            ]
         ]
         big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
         big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
@@ -357,15 +412,25 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             big_df["领涨股-涨跌幅"], errors="coerce"
         )
     else:
-        big_df.columns = [
-            "序号",
-            "行业",
-            "公司家数",
-            "行业指数",
-            "阶段涨跌幅",
-            "流入资金",
-            "流出资金",
-            "净额",
+        big_df = big_df.rename(
+            columns={
+                "index": "序号",
+                "流入资金(亿)": "流入资金",
+                "流出资金(亿)": "流出资金",
+                "净额(亿)": "净额",
+            }
+        )
+        big_df = big_df[
+            [
+                "序号",
+                "行业",
+                "公司家数",
+                "行业指数",
+                "阶段涨跌幅",
+                "流入资金",
+                "流出资金",
+                "净额",
+            ]
         ]
     return big_df
 
