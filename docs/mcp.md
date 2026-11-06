@@ -148,6 +148,21 @@ python -m aktools --host 0.0.0.0
 未设置[访问令牌](https://aktools.akfamily.xyz/deploy/#token)时，能访问到 `/mcp` 的人都可以通过它获取数据。多人共用或经公网访问时，请设置访问令牌。
 ```
 
+(mcp-akquant)=
+## 与 AKQuant 联用
+
+[AKQuant](https://akquant.akfamily.xyz/) 是 AKFamily 的量化回测框架，也有自己的官方 MCP 服务，已上架 [MCP 官方注册表](https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.akfamily/akquant)，名称为 `io.github.akfamily/akquant`。两个服务一起接入后，AI 助手可以自己查找并取回 AKShare 数据、编写策略、运行回测并解读结果。
+
+在 WorkBuddy、DeepSeek Harness、Codex、Claude Code 等助手中输入：
+
+> 安装 AKShare 和 AKQuant 各自的官方 MCP，运行一个示例策略并报告结果
+
+助手会自己完成安装。手动配置方法见 [AKQuant 的 MCP 文档](https://akquant.akfamily.xyz/guide/mcp/)。
+
+```{warning}
+AKQuant 会在本机直接运行策略代码，没有沙箱隔离。回测结果与改进建议由 AI 生成，仅供学习和研究，不构成投资建议。
+```
+
 ## 更多详情
 
 [参见 AKTools 文档中的 AI 助手（MCP）](https://aktools.akfamily.xyz/guide/mcp/)
