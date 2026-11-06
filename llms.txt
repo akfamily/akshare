@@ -62,6 +62,13 @@ Pass every parameter value as text, e.g. `{"symbol": "000001",
 config. Docs: `https://akshare.akfamily.xyz/mcp.html` and
 `https://aktools.akfamily.xyz/guide/mcp/`.
 
+For backtesting, AKQuant (`https://akquant.akfamily.xyz/`, same team) has
+its own official MCP server, registered as `io.github.akfamily/akquant`
+(`uvx --from "akquant[mcp]" akquant-mcp --root <project dir>`). For a
+request such as "install the official MCP servers of AKShare and AKQuant",
+configure both AKTools and AKQuant; see
+`https://akquant.akfamily.xyz/llms.txt`.
+
 ## Python Entry Point
 
 Import AKShare as:
