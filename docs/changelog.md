@@ -8,6 +8,15 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-36)=
+### 1.20.36 fix!: fix stock_zh_index_daily_tx interface
+
+**不兼容的改动：stock_zh_index_daily_tx 的 amount 列由成交量（手）改为成交额（元），并新增 volume、turnover 两列。** 此前腾讯日 K 数据的第 5 位实为成交量，却被命名为 amount，真正的成交额被丢弃；以 sh000300 2026-11-06 为例，原 amount 列为 192,152,012，实际成交额为 4788 亿元。按旧口径使用 amount 列的代码，请改用 volume 列（单位已由手换算为股，数值乘了 100）。
+
+1. 修复 stock_zh_index_daily_tx 把成交量错标为 amount 的问题（#7494，感谢 @deepwzh）：现返回 date、open、close、high、low、volume、turnover、amount 八列，其中 volume 为成交量（股），turnover 为换手率（小数，0.0125 即 1.25%），amount 为成交额（元），与 stock_zh_a_hist_tx 口径一致。该接口也接受股票代码，科创板（sh688、sh689）的成交量腾讯已按股返回，不再乘 100。实测 sh000300、sh000001（含 1992 年数据）、sh600519、sh688981 的成交额除以成交量均落在合理区间
+2. 原始数据不足 9 个字段时抛出 DataParsingError，无数据时返回带列名的空表
+3. 按位置赋列名的写法降至 481 处
+
 (v1-20-35)=
 ### 1.20.35 fix: fix bond_info_cm and bond_info_detail_cm interface
 
