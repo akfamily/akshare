@@ -449,17 +449,25 @@ def stock_zh_index_daily_tx(
                 jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
-    if temp_df.shape[1] == 6:
-        temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
-    else:
-        temp_df = temp_df.iloc[:, :6]
-        temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
+    temp_df = temp_df.iloc[:, [0, 1, 2, 3, 4, 5, 7, 8]]
+    temp_df.columns = [
+        "date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "volume",
+        "turnover",
+        "amount",
+    ]
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
     temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce") * 100
+    temp_df["turnover"] = pd.to_numeric(temp_df["turnover"], errors="coerce") / 100
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce") * 10000
     temp_df = temp_df.drop_duplicates(ignore_index=True)
     temp_df = temp_df[temp_df["date"] >= dt_start.date()]
     temp_df = temp_df[temp_df["date"] <= dt_end.date()]
