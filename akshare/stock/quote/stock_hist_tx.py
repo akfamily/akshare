@@ -11,22 +11,17 @@ import datetime
 import pandas as pd
 
 from akshare.exceptions import InvalidParameterError
-from akshare.index.index_stock_zh import get_tx_start_year
+from akshare.index.index_stock_zh import (
+    _TX_COLUMNS,
+    _TX_KLINE_FIELDS,
+    _tx_volume_multiplier,
+    get_tx_start_year,
+)
 from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 _TX_YEARS_PER_REQUEST = 2
-_TX_COLUMNS = [
-    "date",
-    "open",
-    "close",
-    "high",
-    "low",
-    "volume",
-    "turnover",
-    "amount",
-]
 
 
 def _parse_tx_date(value: str, name: str) -> datetime.date:
@@ -70,19 +65,6 @@ def _normalize_tx_symbol(symbol: str) -> str:
     if normalized_symbol.startswith(("43", "44", "83", "87", "88", "92")):
         return f"bj{normalized_symbol}"
     return normalized_symbol
-
-
-def _tx_volume_multiplier(symbol: str) -> int:
-    """返回腾讯成交量换算为股的乘数。
-
-    腾讯只对科创板股票（sh688）和科创板 CDR（sh689）返回“股”，其余均为“手”，
-    包括沪深主板、创业板、北交所、B 股、ETF 以及指数（sh000/sz399，含科创 50）。
-    依据：成交额除以成交量，按“手”换算后落在当日最低价与最高价之间；
-    指数的成交额除以成交量约为 1000～8000 元，只能是每手金额。
-    """
-    if symbol.startswith(("sh688", "sh689")):
-        return 1
-    return 100
 
 
 def stock_zh_a_hist_tx(
@@ -139,7 +121,7 @@ def stock_zh_a_hist_tx(
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     if big_df.empty:
         return pd.DataFrame(columns=_TX_COLUMNS)
-    big_df = big_df.iloc[:, [0, 1, 2, 3, 4, 5, 7, 8]]
+    big_df = big_df.iloc[:, _TX_KLINE_FIELDS]
     big_df.columns = _TX_COLUMNS
     big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
     big_df["open"] = pd.to_numeric(big_df["open"], errors="coerce")

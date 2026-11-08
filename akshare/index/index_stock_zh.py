@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/11/3 18:00
+Date: 2026/11/8 18:00
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -19,7 +19,7 @@ from akshare.index.cons import (
     zh_sina_index_stock_count_url,
     zh_sina_index_stock_hist_url,
 )
-from akshare.exceptions import APIError
+from akshare.exceptions import APIError, DataParsingError
 from akshare.stock.cons import hk_js_decode
 from akshare.utils import jsonish
 from akshare.utils import http
@@ -316,7 +316,33 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
 
 
 _TX_KLINE_PAGE_SIZE = 640
+# 腾讯 newfqkline 日 K 数组依次为日期、开、收、高、低、成交量、占位、换手率（%）、
+# 成交额（万元）及若干占位；取下标 _TX_KLINE_FIELDS，依次对应 _TX_COLUMNS
+_TX_KLINE_FIELDS = [0, 1, 2, 3, 4, 5, 7, 8]
+_TX_COLUMNS = [
+    "date",
+    "open",
+    "close",
+    "high",
+    "low",
+    "volume",
+    "turnover",
+    "amount",
+]
 _TX_KLINE_MAX_PAGES = 30
+
+
+def _tx_volume_multiplier(symbol: str) -> int:
+    """返回腾讯成交量换算为股的乘数。
+
+    腾讯只对科创板股票（sh688）和科创板 CDR（sh689）返回“股”，其余均为“手”，
+    包括沪深主板、创业板、北交所、B 股、ETF 以及指数（sh000/sz399，含科创 50）。
+    依据：成交额除以成交量，按“手”换算后落在当日最低价与最高价之间；
+    指数的成交额除以成交量约为 1000～8000 元，只能是每手金额。
+    """
+    if symbol.startswith(("sh688", "sh689")):
+        return 1
+    return 100
 
 
 def _get_tx_first_kline_date(symbol: str) -> str:
@@ -409,7 +435,8 @@ def stock_zh_index_daily_tx(
     :type start_date: str
     :param end_date: 结束日期，格式 "YYYYMMDD"，为空则到当前日期
     :type end_date: str
-    :return: 前复权的股票和指数数据
+    :return: 前复权的股票和指数数据，其中 volume 统一为股，turnover 为换手率（小数），
+        amount 统一为元
     :rtype: pandas.DataFrame
     """
     if start_date:
@@ -449,25 +476,26 @@ def stock_zh_index_daily_tx(
                 jsonish.loads(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
-    temp_df = temp_df.iloc[:, [0, 1, 2, 3, 4, 5, 7, 8]]
-    temp_df.columns = [
-        "date",
-        "open",
-        "close",
-        "high",
-        "low",
-        "volume",
-        "turnover",
-        "amount",
-    ]
+    if temp_df.empty:
+        return pd.DataFrame(columns=_TX_COLUMNS)
+    if temp_df.shape[1] <= max(_TX_KLINE_FIELDS):
+        raise DataParsingError(
+            f"腾讯日 K 数据只有 {temp_df.shape[1]} 个字段，缺少成交额等字段，"
+            "无法按日期、开、收、高、低、成交量、占位、换手率、成交额的顺序解析"
+        )
+    temp_df = temp_df.iloc[:, _TX_KLINE_FIELDS]
+    temp_df.columns = _TX_COLUMNS
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
     temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce") * 100
-    temp_df["turnover"] = pd.to_numeric(temp_df["turnover"], errors="coerce") / 100
-    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce") * 10000
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
+    temp_df["turnover"] = pd.to_numeric(temp_df["turnover"], errors="coerce")
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
+    temp_df["volume"] = temp_df["volume"] * _tx_volume_multiplier(symbol)
+    temp_df["turnover"] = temp_df["turnover"] / 100
+    temp_df["amount"] = temp_df["amount"] * 10000
     temp_df = temp_df.drop_duplicates(ignore_index=True)
     temp_df = temp_df[temp_df["date"] >= dt_start.date()]
     temp_df = temp_df[temp_df["date"] <= dt_end.date()]

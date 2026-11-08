@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/11/03
-Desc: akshare.index.index_stock_zh.get_tx_start_year 的离线测试
+Date: 2026/11/08
+Desc: akshare.index.index_stock_zh 中腾讯接口的离线测试
 
 北交所股票的 weekTrends 返回空数据，get_tx_start_year 改为从日 K 线向前翻页，
-直到某页不足 640 条，取最早的交易日；此处用假响应固定该行为，全程不联网。
+直到某页不足 640 条，取最早的交易日。stock_zh_index_daily_tx 的原始数组依次为
+日期、开、收、高、低、成交量、占位、换手率（%）、成交额（万元）、占位、占位，
+输出 volume 统一为股、turnover 为小数、amount 统一为元。
+此处用假响应固定这些行为，全程不联网。
 """
 
 import json
 
 import pytest
 
-from akshare.exceptions import APIError
+from akshare.exceptions import APIError, DataParsingError
 from akshare.index import index_stock_zh
 from akshare.stock.quote.stock_hist_tx import _normalize_tx_symbol
 
@@ -126,3 +129,88 @@ def test_fallback_without_data_raises(monkeypatch: pytest.MonkeyPatch) -> None:
 )
 def test_normalize_beijing_symbols(raw: str, expected: str) -> None:
     assert _normalize_tx_symbol(symbol=raw) == expected
+
+
+def _daily_row(date: str) -> list:
+    """取自 sh000300 2026-11-06 的真实返回"""
+    return [
+        date,
+        "4017.94",
+        "4054.28",
+        "4069.07",
+        "4013.79",
+        "192152012.00",
+        {},
+        "0.57",
+        "47884039.99",
+        "0.00",
+        "0.00",
+    ]
+
+
+def _install_daily(
+    monkeypatch: pytest.MonkeyPatch, symbol: str, rows: list, key: str = "day"
+) -> None:
+    def fake_get(url: str, params: dict) -> FakeResponse:
+        if "weekTrends" in url:
+            return FakeResponse('trend_qfq={"data":[["1991-04-03","1"]]}')
+        return FakeResponse(_kline_text(symbol, key, rows))
+
+    monkeypatch.setattr(index_stock_zh.http, "get", fake_get)
+
+
+@pytest.mark.parametrize(
+    ("symbol", "multiplier"),
+    [("sh000300", 100), ("sz399001", 100), ("sh600519", 100), ("sh688981", 1)],
+)
+def test_daily_tx_columns_and_units(
+    monkeypatch: pytest.MonkeyPatch, symbol: str, multiplier: int
+) -> None:
+    rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
+    _install_daily(monkeypatch, symbol, rows)
+    df = index_stock_zh.stock_zh_index_daily_tx(
+        symbol=symbol, start_date="20261105", end_date="20261106"
+    )
+    assert list(df.columns) == index_stock_zh._TX_COLUMNS
+    row = df.iloc[-1]
+    assert str(row["date"]) == "2026-11-06"
+    assert row["volume"] == pytest.approx(192152012 * multiplier)
+    assert row["turnover"] == pytest.approx(0.0057)
+    assert row["amount"] == pytest.approx(478840399900)
+
+
+def test_daily_tx_reads_qfqday_key(monkeypatch: pytest.MonkeyPatch) -> None:
+    rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
+    _install_daily(monkeypatch, "sh000300", rows, key="qfqday")
+    df = index_stock_zh.stock_zh_index_daily_tx(
+        symbol="sh000300", start_date="20261105", end_date="20261106"
+    )
+    assert len(df) == 2
+
+
+def test_daily_tx_filters_date_range(monkeypatch: pytest.MonkeyPatch) -> None:
+    rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
+    _install_daily(monkeypatch, "sh000300", rows)
+    df = index_stock_zh.stock_zh_index_daily_tx(
+        symbol="sh000300", start_date="20261106", end_date="20261106"
+    )
+    assert [str(d) for d in df["date"]] == ["2026-11-06"]
+
+
+def test_daily_tx_short_rows_raise(monkeypatch: pytest.MonkeyPatch) -> None:
+    _install_daily(monkeypatch, "sh000300", [_daily_row("2026-11-06")[:6]])
+    with pytest.raises(DataParsingError, match="6 个字段"):
+        index_stock_zh.stock_zh_index_daily_tx(
+            symbol="sh000300", start_date="20261106", end_date="20261106"
+        )
+
+
+def test_daily_tx_without_rows_returns_empty_frame(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _install_daily(monkeypatch, "sh000300", [])
+    df = index_stock_zh.stock_zh_index_daily_tx(
+        symbol="sh000300", start_date="20261106", end_date="20261106"
+    )
+    assert df.empty
+    assert list(df.columns) == index_stock_zh._TX_COLUMNS
