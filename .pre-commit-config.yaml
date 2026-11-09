@@ -17,13 +17,14 @@ repos:
       - id: detect-private-key
   - repo: local
     hooks:
-      # 文档接口描述或 akshare/__init__.py 导入变动后，先重建接口注册表与
-      # __all__，避免提交后再被 CI 的 registry-check 拦下。
+      # 文档接口描述、akshare/__init__.py 导入或接口源码变动后，先重建接口注册表与
+      # __all__，避免提交后再被 CI 的 registry-check 拦下。接口源码也在其中，是因为
+      # rate_limit 字段由源码中实际请求的服务器地址静态推断。
       - id: build-interface-registry
         name: build interface registry
         entry: python scripts/build_registry.py
         language: system
-        files: ^(docs/data/.*\.md|akshare/__init__\.py)$
+        files: ^(docs/data/.*\.md|akshare/.*\.py)$
         pass_filenames: false
         require_serial: true
       # ruff 版本的唯一来源是 pyproject.toml 的 lint 组（经 uv.lock 锁定），

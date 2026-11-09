@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/8/12
-Desc: 构建期脚本，解析 docs/data 与 akshare/__init__.py 生成接口元数据
+Desc: 构建期脚本，解析 docs/data、akshare/__init__.py 与各接口源码生成接口元数据
 """
 
 import argparse
@@ -10,7 +10,7 @@ import ast
 import json
 import pathlib
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set, Tuple
 
 
 def parse_table(segment: str, header: str) -> List[Dict[str, Optional[str]]]:
@@ -232,10 +232,224 @@ def replace_all_block(text: str, block: str) -> str:
     return text.rstrip("\n") + "\n\n" + block
 
 
+def collect_export_targets(init_path: pathlib.Path) -> Dict[str, Tuple[str, str]]:
+    """
+    静态解析 __init__.py，提取公开数据接口的定义位置。
+
+    与 collect_exports 的区别是同时保留导入时的原名：__init__.py 中用 as
+    改名导出的接口，在其模块里仍以原名定义，追踪源码时需要原名。
+
+    :param init_path: akshare/__init__.py 路径
+    :return: 接口名 -> (模块路径，模块中的函数名)
+    """
+    tree = ast.parse(init_path.read_text(encoding="utf-8"))
+    targets: Dict[str, Tuple[str, str]] = {}
+    for node in tree.body:
+        if not isinstance(node, ast.ImportFrom):
+            continue
+        if not node.module or not node.module.startswith("akshare."):
+            continue
+        for alias in node.names:
+            name = alias.asname or alias.name
+            if name in EXCLUDE:
+                continue
+            targets[name] = (node.module, alias.name)
+    return targets
+
+
+# 东方财富 push2 系行情服务器：push2、push2his、push2ex、push2delay 及 82.push2 等编号子域。
+# 短时间内请求较多时会临时封禁来源 IP（实测约 5 页翻页即触发），而数据中心
+# （datacenter-web）、基金、F10 等其他东方财富服务器不受影响。本脚本只依赖标准库、
+# 不导入 akshare，因此这里复制 akshare/utils/http.py 中 _PUSH2_HOST 的规则，
+# 由 tests/test_build_registry.py 校验两处一致。
+PUSH2_HOST_PATTERN = r"(?:\d+\.)?push2(?:his|ex|delay)?\.eastmoney\.com"
+# 在源码字符串中查找时，前面不能紧跟字母、数字或连字符，以免把 xpush2 一类的
+# 其他主机名误判为 push2；f"https://{n}.push2.eastmoney.com" 这类 f-string
+# 被拆出的 ".push2.eastmoney.com/..." 片段也能命中
+PUSH2_IN_TEXT_RE = re.compile(rf"(?<![A-Za-z0-9-]){PUSH2_HOST_PATTERN}")
+RATE_LIMIT_EASTMONEY_PUSH2 = "eastmoney_push2"
+# 沿函数调用追踪辅助函数的最大层数
+MAX_CALL_DEPTH = 3
+
+
+def _module_path(package_parent: pathlib.Path, module: str) -> Optional[pathlib.Path]:
+    """模块路径转为源文件路径，找不到时返回 None。"""
+    base = package_parent.joinpath(*module.split("."))
+    for path in (base.with_suffix(".py"), base / "__init__.py"):
+        if path.exists():
+            return path
+    return None
+
+
+def _resolve_relative(module: str, is_package: bool, level: int, target: str) -> str:
+    """把模块内的相对导入（from .x import y）转为绝对模块路径。"""
+    parts = module.split(".")
+    if not is_package:
+        parts = parts[:-1]
+    if level > 1:
+        parts = parts[: -(level - 1)]
+    return ".".join(parts + ([target] if target else []))
+
+
+def _strings_hit_push2(node: ast.AST) -> bool:
+    """节点（含子节点）中的字符串常量是否含 push2 行情服务器地址。"""
+    for sub in ast.walk(node):
+        if isinstance(sub, ast.Constant) and isinstance(sub.value, str):
+            if PUSH2_IN_TEXT_RE.search(sub.value):
+                return True
+    return False
+
+
+class ModuleIndex:
+    """
+    按需解析 akshare 的模块源码，供静态追踪接口实际请求的服务器。
+
+    只解析源码、不执行任何代码，因此与本脚本其余部分一样只依赖标准库。
+    """
+
+    def __init__(self, package_parent: pathlib.Path):
+        """
+        :param package_parent: akshare 包所在的目录，即仓库根目录
+        """
+        self.package_parent = package_parent
+        self._cache: Dict[str, Optional[Dict]] = {}
+
+    def get(self, module: str) -> Optional[Dict]:
+        """
+        返回模块的函数定义、导入名与含 push2 地址的模块级常量。
+
+        :param module: 模块路径，如 "akshare.stock.quote.stock_hist_em"
+        :return: 含 functions/imports/push2_constants 三个键的 dict，模块不存在时为 None
+        """
+        if module in self._cache:
+            return self._cache[module]
+        path = _module_path(self.package_parent, module)
+        if path is None:
+            self._cache[module] = None
+            return None
+        tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"))
+        is_package = path.name == "__init__.py"
+        functions: Dict[str, ast.AST] = {}
+        imports: Dict[str, Tuple[str, str]] = {}
+        push2_constants: Set[str] = set()
+        for node in tree.body:
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                functions[node.name] = node
+            elif isinstance(node, ast.ImportFrom):
+                if node.level:
+                    source = _resolve_relative(
+                        module, is_package, node.level, node.module or ""
+                    )
+                else:
+                    source = node.module or ""
+                if not source.startswith("akshare"):
+                    continue
+                for alias in node.names:
+                    imports[alias.asname or alias.name] = (source, alias.name)
+            elif isinstance(node, (ast.Assign, ast.AnnAssign)) and node.value:
+                if isinstance(node, ast.Assign):
+                    targets = node.targets
+                else:
+                    targets = [node.target]
+                if _strings_hit_push2(node.value):
+                    push2_constants.update(
+                        t.id for t in targets if isinstance(t, ast.Name)
+                    )
+        info = {
+            "functions": functions,
+            "imports": imports,
+            "push2_constants": push2_constants,
+        }
+        self._cache[module] = info
+        return info
+
+
+def _function_body(node: ast.AST) -> List[ast.stmt]:
+    """去掉函数开头的文档字符串：文档里写的是网页地址，不是实际请求的地址。"""
+    body = list(node.body)
+    if (
+        body
+        and isinstance(body[0], ast.Expr)
+        and isinstance(body[0].value, ast.Constant)
+        and isinstance(body[0].value.value, str)
+    ):
+        body = body[1:]
+    return body
+
+
+def requests_push2(index: ModuleIndex, module: str, func_name: str) -> bool:
+    """
+    静态判断接口是否请求东方财富 push2 行情服务器。
+
+    检查函数体（不含文档字符串）中的字符串常量与用到的模块级常量，并沿
+    函数名调用追踪同模块或从 akshare 导入的辅助函数，最多 MAX_CALL_DEPTH 层。
+    通过属性调用（如 obj.method()）发出的请求、运行时才拼出主机名的地址追踪不到。
+
+    :param index: 模块源码索引
+    :param module: 接口所在模块
+    :param func_name: 模块中的函数名
+    :return: 是否请求 push2 行情服务器
+    """
+    stack = [(module, func_name, 0)]
+    seen: Set[Tuple[str, str]] = set()
+    while stack:
+        mod, name, depth = stack.pop()
+        if (mod, name) in seen:
+            continue
+        seen.add((mod, name))
+        info = index.get(mod)
+        if info is None:
+            continue
+        node = info["functions"].get(name)
+        if node is None:
+            # 名字是从别的模块导入的（含包 __init__.py 的转导出），到定义处继续找
+            if name in info["imports"]:
+                stack.append((*info["imports"][name], depth))
+            continue
+        for stmt in _function_body(node):
+            if _strings_hit_push2(stmt):
+                return True
+            for sub in ast.walk(stmt):
+                if isinstance(sub, ast.Name) and sub.id in info["push2_constants"]:
+                    return True
+                if (
+                    depth < MAX_CALL_DEPTH
+                    and isinstance(sub, ast.Call)
+                    and isinstance(sub.func, ast.Name)
+                ):
+                    stack.append((mod, sub.func.id, depth + 1))
+    return False
+
+
+def collect_rate_limits(repo_root: pathlib.Path) -> Dict[str, Optional[str]]:
+    """
+    给每个公开数据接口标注它会受到的访问限制。
+
+    目前只识别东方财富 push2 行情服务器，值为 "eastmoney_push2"，其余为 None。
+
+    :param repo_root: 仓库根目录
+    :return: 接口名 -> 访问限制标识
+    """
+    index = ModuleIndex(repo_root)
+    targets = collect_export_targets(repo_root / "akshare" / "__init__.py")
+    return {
+        name: (
+            RATE_LIMIT_EASTMONEY_PUSH2
+            if requests_push2(index, module, original)
+            else None
+        )
+        for name, (module, original) in targets.items()
+    }
+
+
 SCHEMA_VERSION = 1
 
 
-def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
+def merge_records(
+    exports: Dict[str, str],
+    docs: Dict[str, Dict],
+    rate_limits: Optional[Dict[str, Optional[str]]] = None,
+) -> List[Dict]:
     """
     以导出表为主键集合合并文档信息。
 
@@ -244,8 +458,10 @@ def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
 
     :param exports: 接口名 -> 模块路径
     :param docs: 接口名 -> 文档元数据
+    :param rate_limits: 接口名 -> 访问限制标识，见 collect_rate_limits
     :return: 按 name 字典序排序的记录列表
     """
+    rate_limits = rate_limits or {}
     records = []
     for name in sorted(exports):
         module = exports[name]
@@ -262,6 +478,7 @@ def merge_records(exports: Dict[str, str], docs: Dict[str, Dict]) -> List[Dict]:
                 "params": (doc or {}).get("params") or [],
                 "outputs": (doc or {}).get("outputs") or [],
                 "example": (doc or {}).get("example"),
+                "rate_limit": rate_limits.get(name),
             }
         )
     return records
@@ -313,7 +530,7 @@ def build(repo_root: pathlib.Path) -> str:
     """
     exports = collect_exports(repo_root / "akshare" / "__init__.py")
     docs = collect_doc_records(repo_root / "docs" / "data")
-    return serialize(merge_records(exports, docs))
+    return serialize(merge_records(exports, docs, collect_rate_limits(repo_root)))
 
 
 OUTPUT_RELPATH = pathlib.Path("akshare") / "data" / "interfaces.json"

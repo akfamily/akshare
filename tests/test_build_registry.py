@@ -1,4 +1,5 @@
 import json
+import pytest
 
 from build_registry import (
     ALL_BEGIN,
@@ -488,3 +489,183 @@ def test_write_if_changed_creates_missing_file_with_lf(tmp_path):
     target = tmp_path / "a.json"
     assert write_if_changed(target, "new\n") is True
     assert target.read_bytes() == b"new\n"
+
+
+# ---- rate_limit：静态识别请求东方财富 push2 行情服务器的接口 ----
+
+from build_registry import (  # noqa: E402
+    PUSH2_HOST_PATTERN,
+    PUSH2_IN_TEXT_RE,
+    RATE_LIMIT_EASTMONEY_PUSH2,
+    ModuleIndex,
+    collect_export_targets,
+    collect_rate_limits,
+    requests_push2,
+)
+
+
+def test_push2_pattern_matches_runtime_detection():
+    # 构建脚本不能 import akshare，只能复制规则；两处不一致时，登记里的
+    # rate_limit 与运行时抛出的 Push2RateLimitError 就会对不上
+    from akshare.utils import http
+
+    assert http._PUSH2_HOST.pattern == f"^{PUSH2_HOST_PATTERN}$"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "https://push2.eastmoney.com/api/qt/clist/get",
+        "https://push2his.eastmoney.com/api/qt/stock/kline/get",
+        "https://push2ex.eastmoney.com/getTopicZTPool",
+        "https://push2delay.eastmoney.com/api/qt/clist/get",
+        "https://82.push2.eastmoney.com/api/qt/clist/get",
+        ".push2his.eastmoney.com/api/qt/stock/kline/get",  # f-string 拆出的片段
+    ],
+)
+def test_push2_in_text_matches_quote_servers(text):
+    assert PUSH2_IN_TEXT_RE.search(text)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "https://datacenter-web.eastmoney.com/api/data/v1/get",
+        "https://data.eastmoney.com/cjsj/cpi.html",
+        "https://fund.eastmoney.com/js/fundcode_search.js",
+        "https://xpush2.eastmoney.com/api",
+        "https://quote.eastmoney.com/center/gridlist.html",
+    ],
+)
+def test_push2_in_text_ignores_other_servers(text):
+    assert not PUSH2_IN_TEXT_RE.search(text)
+
+
+PUSH2_FAKE_INIT = """
+from akshare.quote.hist import quote_direct, quote_via_helper as quote_alias
+from akshare.quote.hist import quote_via_constant, quote_docstring_only
+from akshare.quote.hist import quote_via_relative_import, macro_datacenter
+from akshare.quote.hist import quote_too_deep
+"""
+
+PUSH2_FAKE_HIST = '''
+from .helpers import remote_helper
+
+KLINE_URL = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
+
+
+def _helper():
+    return "https://82.push2.eastmoney.com/api/qt/clist/get"
+
+
+def _level3():
+    return "https://push2.eastmoney.com/api"
+
+
+def _level2():
+    return _level3()
+
+
+def _level1():
+    return _level2()
+
+
+def _level0():
+    return _level1()
+
+
+def quote_direct():
+    """https://datacenter-web.eastmoney.com/ 文档里的地址不算"""
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
+    return url
+
+
+def quote_via_helper():
+    return _helper()
+
+
+def quote_via_constant():
+    return KLINE_URL
+
+
+def quote_docstring_only():
+    """
+    https://push2.eastmoney.com/ 只出现在文档字符串里
+    """
+    return "https://datacenter-web.eastmoney.com/api/data/v1/get"
+
+
+def quote_via_relative_import():
+    return remote_helper()
+
+
+def macro_datacenter():
+    return "https://datacenter-web.eastmoney.com/api/data/v1/get"
+
+
+def quote_too_deep():
+    return _level0()
+'''
+
+PUSH2_FAKE_HELPERS = """
+def remote_helper():
+    return f"https://{82}.push2.eastmoney.com/api/qt/clist/get"
+"""
+
+
+@pytest.fixture
+def push2_repo(tmp_path):
+    package = tmp_path / "akshare"
+    (package / "quote").mkdir(parents=True)
+    (package / "__init__.py").write_text(PUSH2_FAKE_INIT, encoding="utf-8")
+    (package / "quote" / "__init__.py").write_text("", encoding="utf-8")
+    (package / "quote" / "hist.py").write_text(PUSH2_FAKE_HIST, encoding="utf-8")
+    (package / "quote" / "helpers.py").write_text(PUSH2_FAKE_HELPERS, encoding="utf-8")
+    return tmp_path
+
+
+def test_collect_export_targets_keeps_original_name(push2_repo):
+    targets = collect_export_targets(push2_repo / "akshare" / "__init__.py")
+    assert targets["quote_alias"] == ("akshare.quote.hist", "quote_via_helper")
+    assert targets["quote_direct"] == ("akshare.quote.hist", "quote_direct")
+
+
+def test_collect_rate_limits_traces_requested_servers(push2_repo):
+    limits = collect_rate_limits(push2_repo)
+    assert limits == {
+        "quote_direct": RATE_LIMIT_EASTMONEY_PUSH2,
+        "quote_alias": RATE_LIMIT_EASTMONEY_PUSH2,  # 同模块辅助函数，as 改名导出
+        "quote_via_constant": RATE_LIMIT_EASTMONEY_PUSH2,  # 模块级常量
+        "quote_via_relative_import": RATE_LIMIT_EASTMONEY_PUSH2,  # 相对导入 + f-string
+        "quote_docstring_only": None,  # 文档字符串里的地址不是请求地址
+        "macro_datacenter": None,  # 东方财富数据中心不限流
+        "quote_too_deep": None,  # 超过 MAX_CALL_DEPTH 层的调用不再追踪
+    }
+
+
+def test_requests_push2_handles_missing_module_and_function(push2_repo):
+    index = ModuleIndex(push2_repo)
+    assert requests_push2(index, "akshare.not_exist", "f") is False
+    assert requests_push2(index, "akshare.quote.hist", "not_exist") is False
+
+
+def test_merge_records_carries_rate_limit():
+    exports = {"a_func": "akshare.stock.a", "b_func": "akshare.stock.b"}
+    records = merge_records(exports, {}, {"a_func": RATE_LIMIT_EASTMONEY_PUSH2})
+    assert {r["name"]: r["rate_limit"] for r in records} == {
+        "a_func": RATE_LIMIT_EASTMONEY_PUSH2,
+        "b_func": None,
+    }
+    # 不传 rate_limits 时字段仍然存在，值为 None
+    assert merge_records(exports, {})[0]["rate_limit"] is None
+
+
+def test_real_registry_marks_push2_interfaces():
+    import akshare as ak
+
+    assert ak.interface_info("stock_zh_a_hist")["rate_limit"] == "eastmoney_push2"
+    assert ak.interface_info("stock_zh_a_spot_em")["rate_limit"] == "eastmoney_push2"
+    # 东方财富数据中心（宏观、龙虎榜）与其他数据源不受 push2 限流影响
+    assert ak.interface_info("macro_china_cpi")["rate_limit"] is None
+    assert ak.interface_info("stock_lhb_detail_em")["rate_limit"] is None
+    assert ak.interface_info("stock_zh_a_daily")["rate_limit"] is None
