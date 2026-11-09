@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-37)=
+### 1.20.37 feat: add rate_limit to the interface registry
+
+1. 接口元数据新增 rate_limit 字段（#7495）：请求东方财富 push2 行情服务器的 97 个接口记为 "eastmoney_push2"，其余为 None，可通过 ak.interface_info 查看。这类服务器在短时间内请求较多时会临时封禁来源 IP，所有东方财富行情接口约 5 分钟以上无法使用，详见{ref}`常见问题 <faq-eastmoney-ratelimit>`；东方财富数据中心、基金、F10 等接口不受影响。只看接口名无法区分，例如 stock_zh_a_hist 没有 _em 后缀却请求 push2his，宏观、龙虎榜等带 _em 的接口则不受限
+2. 该字段由 scripts/build_registry.py 静态分析接口源码中实际请求的地址生成，不再只依赖文档；pre-commit 的接口注册表检查改为在接口源码变动时也运行
+
 (v1-20-36)=
 ### 1.20.36 fix!: fix stock_zh_index_daily_tx interface
 

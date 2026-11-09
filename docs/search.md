@@ -112,6 +112,7 @@ print(search_df)
 | params      | list | 输入参数列表，每项含 name/type/desc 三个键            |
 | outputs    | list | 输出字段列表，每项含 name/type/desc 三个键            |
 | example    | str  | 调用示例代码，未收录时为 None                        |
+| rate_limit | str  | 访问限制：请求东方财富 push2 行情服务器的接口为 "eastmoney_push2"，频繁访问会被临时限流（见{ref}`常见问题 <faq-eastmoney-ratelimit>`），其他接口为 None |
 
 接口示例
 
@@ -143,6 +144,7 @@ print(interface_info_dict)
   "params": [
     {"desc": "-", "name": "-", "type": "-"}
   ],
+  "rate_limit": null,
   "url": "https://www.bjets.com.cn/article/jyxx/"
 }
 ```
