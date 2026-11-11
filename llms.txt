@@ -48,13 +48,26 @@ server also exposes the same server over Streamable HTTP at
 It exposes three generic tools rather than one tool per interface:
 
 - `search_interfaces(keyword)`: ranked search; space-separated keywords
-  combine, e.g. `A股 日线`.
-- `describe_interface(name)`: parameters, defaults and descriptions, plus
-  returned columns, data range and a usage example.
+  combine, e.g. `A股 日线`. Each result carries `source`, the data source
+  in Chinese (e.g. `新浪财经`, `东方财富`).
+- `describe_interface(name)`: `source`, `rate_limit`, parameters, defaults
+  and descriptions, plus returned columns, data range and a usage example.
 - `get_data(name, params, max_rows, offset)`: call the interface; returns up
   to `max_rows` rows (default 100, max 1000) plus the total row count.
   A negative `offset` counts from the end, e.g. `-20` for the latest 20 rows
   of date-ascending data.
+
+The same data often has several sources (A-share daily bars:
+`stock_zh_a_hist` from Eastmoney, `stock_zh_a_daily` from Sina,
+`stock_zh_a_hist_tx` from Tencent). Interfaces with `rate_limit:
+"eastmoney_push2"` (source `东方财富·行情（频繁访问易限流）`, about 100
+quote, K-line, board and fund-flow interfaces) hit Eastmoney's push2 quote
+servers, which ban the client IP for 5+ minutes after a burst of requests;
+all of them fail during the ban. For bulk or repeated quote fetching prefer
+another source; other Eastmoney interfaces (macro, financial statements)
+are not limited. On a ban `get_data` returns a 429 error that says how long
+to wait and, when confident, lists up to 3 same-data interfaces from other
+sources (AKTools >= 0.1.5).
 
 Pass every parameter value as text, e.g. `{"symbol": "000001",
 "start_date": "20240101"}`. Proxy and timeout are set through the
@@ -110,7 +123,9 @@ names without manually grepping through `docs/data/`:
 - `ak.search(query)`: keyword search across interface names, descriptions,
   categories, and output columns. Returns a ranked `pandas.DataFrame`.
 - `ak.interface_info(name)`: full metadata for one interface, including
-  input parameters, output columns, and an example snippet.
+  input parameters, output columns, an example snippet, and `rate_limit`
+  (`"eastmoney_push2"` for interfaces on Eastmoney's IP-banning push2 quote
+  servers, else `None`; since 1.20.37).
 - `ak.list_categories()`: lists all categories with interface counts.
 
 This registry is entirely offline: its data ships inside the package and
