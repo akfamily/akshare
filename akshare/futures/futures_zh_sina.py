@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/20 16:00
+Date: 2026/11/12 14:00
 Desc: 新浪财经-国内期货-实时数据获取
 https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度，容易封禁 IP，如果不能访问请稍后再试
@@ -151,21 +151,37 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     r.encoding = "gbk"
     data_text = r.text
     data_json = jsonish.loads(data_text[data_text.find("{") : data_text.find("};") + 1])
-    if symbol == "czce":
-        data_json["czce"].remove("郑州商品交易所")
-        return pd.DataFrame(data_json["czce"])
-    if symbol == "dce":
-        data_json["dce"].remove("大连商品交易所")
-        return pd.DataFrame(data_json["dce"])
-    if symbol == "shfe":
-        data_json["shfe"].remove("上海期货交易所")
-        return pd.DataFrame(data_json["shfe"])
-    if symbol == "cffex":
-        data_json["cffex"].remove("中国金融期货交易所")
-        return pd.DataFrame(data_json["cffex"])
-    if symbol == "gfex":
-        data_json["gfex"].remove("广州期货交易所")
-        return pd.DataFrame(data_json["gfex"])
+    # 各交易所的首个元素是交易所名称；部分品种多一个字段，按最长的行补齐
+    row_list = [item for item in data_json[symbol] if isinstance(item, list)]
+    width = max(len(item) for item in row_list)
+    return pd.DataFrame([item + [None] * (width - len(item)) for item in row_list])
+
+
+def _pick_main_contract(data_df: pd.DataFrame) -> str | None:
+    """
+    从某个品种的合约行情中选出主力合约
+    新浪以“连续”行（如 PS0）镜像主力合约，取与其字段一致最多的真实合约；
+    没有“连续”行的品种（如 10 年期国债期货）取持仓量最大的合约
+    :param data_df: 某个品种的合约行情，已剔除停止交易的合约
+    :type data_df: pandas.DataFrame
+    :return: 主力合约代码，没有真实合约时返回 None
+    :rtype: str | None
+    """
+    is_continuous = data_df["symbol"].str.fullmatch(r"[A-Za-z]+0")
+    real_df = data_df[~is_continuous]
+    if real_df.empty:
+        return None
+    if is_continuous.any():
+        continuous = data_df[is_continuous].iloc[0]
+        field_list = [
+            item
+            for item in data_df.columns
+            if item not in ("symbol", "exchange", "name")
+        ]
+        score = real_df[field_list].eq(continuous[field_list]).sum(axis=1)
+        return real_df.loc[score.idxmax(), "symbol"]
+    position = pd.to_numeric(real_df["position"], errors="coerce").fillna(0)
+    return real_df.loc[position.idxmax(), "symbol"]
 
 
 def match_main_contract(symbol: str = "cffex") -> str:
@@ -177,26 +193,32 @@ def match_main_contract(symbol: str = "cffex") -> str:
     :return: 主力合约的字符串
     :rtype: str
     """
-    subscribe_exchange_list = []
     exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
+    data_dict = {}
     for item in exchange_symbol_list:
-        # item = 'sngz_qh'
-        zh_match_main_contract_payload.update({"node": item})
-        res = http.get(
-            zh_match_main_contract_url, params=zh_match_main_contract_payload
-        )
-        data_json = jsonish.loads(res.text)
-        data_df = pd.DataFrame(data_json)
-        try:
-            main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
-            subscribe_exchange_list.append(main_contract["symbol"].values[0])
-        except Exception:
-            if len(data_df) == 1:
-                subscribe_exchange_list.append(data_df["symbol"].values[0])
-            else:
-                warnings.warn(f"{item} 无主力合约")
+        payload = {**zh_match_main_contract_payload, "node": item}
+        res = http.get(zh_match_main_contract_url, params=payload)
+        data_df = pd.DataFrame(jsonish.loads(res.text))
+        if data_df.empty or "symbol" not in data_df.columns:
+            warnings.warn(f"{item} 无主力合约")
             continue
-    return ",".join([item for item in subscribe_exchange_list])
+        data_df["tradedate"] = pd.to_datetime(data_df["tradedate"], errors="coerce")
+        data_dict[item] = data_df
+    if not data_dict:
+        return ""
+    # 已停止交易的品种（如动力煤、强麦）仍会返回数年前的行情，按交易日期剔除
+    latest_date = max(item["tradedate"].max() for item in data_dict.values())
+    subscribe_exchange_list = []
+    for item, data_df in data_dict.items():
+        data_df = data_df[data_df["tradedate"] >= latest_date - pd.Timedelta(days=30)]
+        if data_df.empty:
+            continue
+        main_contract = _pick_main_contract(data_df)
+        if main_contract is None:
+            warnings.warn(f"{item} 无主力合约")
+            continue
+        subscribe_exchange_list.append(main_contract)
+    return ",".join(subscribe_exchange_list)
 
 
 def futures_zh_spot(

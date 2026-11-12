@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-38)=
+### 1.20.38 fix: fix match_main_contract interface
+
+1. 修复 `match_main_contract` 接口：新浪没有提供“连续”行的品种（如 10 年期国债期货）不再告警“无主力合约”并被漏掉，改为取持仓量最大的合约；有“连续”行的品种改为取与其字段一致最多的合约，不再要求全部字段完全相同（[#7497](https://github.com/akfamily/akshare/issues/7497)）
+2. `match_main_contract` 接口不再返回已停止交易品种的过期合约（如动力煤 `ZC2212`、强麦 `WH2303`、粳稻 `JR2301`），早籼稻、晚籼稻也不再告警
+3. 修复上期所品种列表各行字段数不一致时触发的 pandas 弃用告警
+
 (v1-20-37)=
 ### 1.20.37 feat: add rate_limit to the interface registry
 
