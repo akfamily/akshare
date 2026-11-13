@@ -622,7 +622,6 @@ from akshare.futures.futures_settle import (
 from akshare.futures.futures_settlement_price_sgx import futures_settlement_price_sgx
 from akshare.futures.futures_spot_stock_em import futures_spot_stock
 from akshare.futures.futures_spot_sys import futures_spot_sys
-from akshare.futures.futures_stock_js import futures_stock_shfe_js
 from akshare.futures.futures_to_spot import (
     futures_delivery_czce,
     futures_delivery_dce,
@@ -1566,7 +1565,6 @@ __all__ = [
     "futures_spot_price_previous",
     "futures_spot_stock",
     "futures_spot_sys",
-    "futures_stock_shfe_js",
     "futures_symbol_mark",
     "futures_to_spot_czce",
     "futures_to_spot_dce",

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/10/28
+Date: 2026/11/13
 Desc: 金十数据-外汇-投机情绪报告
 https://datacenter.jin10.com/reportType/dc_ssi_trends
 """
@@ -10,12 +10,11 @@ from datetime import datetime
 
 import pandas as pd
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
-def macro_fx_sentiment(
-    start_date: str = "20221011", end_date: str = "20221017"
-) -> pd.DataFrame:
+def macro_fx_sentiment(start_date: str = "", end_date: str = "") -> pd.DataFrame:
     """
     金十数据-外汇-投机情绪报告
     外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
@@ -24,13 +23,16 @@ def macro_fx_sentiment(
     名词释义：外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
     工具使用策略：Shark-fx声明表示，基于“主流通常都是错误的”的事实，当空头头寸超过60%，交易者就应该建立多头仓位；同理，当市场多头头寸超过60%，交易者则应该建立空头仓位。此外，当多空仓位比例接近50%的情况下，我们则倾向于建议交易者不要进场，保持观望。
     https://datacenter.jin10.com/reportType/dc_ssi_trends
-    :param start_date: 具体交易日
+    :param start_date: 开始日期，如 "20261112"；只能查询最近一个月，默认为当天
     :type start_date: str
-    :param end_date: 具体交易日，与 end_date 相同
+    :param end_date: 结束日期，如 "20261112"；默认为当天
     :type end_date: str
     :return: 投机情绪报告
     :rtype: pandas.DataFrame
     """
+    today = datetime.now().date().isoformat().replace("-", "")
+    start_date = start_date or today
+    end_date = end_date or today
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://datacenter-api.jin10.com/sentiment/datas"
@@ -57,6 +59,12 @@ def macro_fx_sentiment(
     }
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
+    if data_json.get("status") != 200:
+        # 上游只保留最近一个月，超出范围时返回 {"status": 403, "message": ...}
+        raise InvalidParameterError(
+            f"金十数据未返回 {start_date} 至 {end_date} 的投机情绪报告："
+            f"{data_json.get('message', data_json)}"
+        )
     temp_df = pd.DataFrame(data_json["data"]["values"]).T
     temp_df = temp_df.reset_index()
     temp_df = temp_df.rename(columns={"index": "date"})

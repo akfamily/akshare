@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-43)=
+### 1.20.43 fix!: fix macro_fx_sentiment and remove futures_stock_shfe_js
+
+**不兼容的改动：移除 futures_stock_shfe_js（金十数据-上海期货交易所指定交割仓库库存周报）。** 金十数据该报告对任何日期都返回空数据，可查询的日期列表也为空，接口此前不报错但只返回空表。上期所的仓单数据可改用 futures_shfe_warehouse_receipt，库存数据可改用 futures_inventory_em、futures_inventory_99。
+
+1. 修复 macro_fx_sentiment 按默认参数调用报 `KeyError: 'data'` 的问题：金十数据只保留最近一个月的投机情绪报告，而默认日期是 2022 年。现在 start_date、end_date 默认为当天；日期超出范围时抛出 InvalidParameterError 并给出金十返回的原因。上游的品种已由 13 个增加到 25 个（新增比特币、以太坊、原油、白银及主要股指等），文档的输出参数与示例同步更新
+
 (v1-20-42)=
 ### 1.20.42 fix!: remove 84 discontinued Jin10 macro interfaces and rename 66 macro interfaces
 
