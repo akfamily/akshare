@@ -4,7 +4,7 @@
 
 ## 安装
 
-AKShare 支持 Python 3.11 及以上版本，推荐 Python 3.13。在命令行中运行：
+AKShare 支持 Python 3.11.5 及以上版本，推荐 Python 3.13。在命令行中运行：
 
 ```
 pip install akshare --upgrade

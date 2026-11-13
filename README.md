@@ -25,7 +25,7 @@
 
 ## Overview
 
-[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.11 or higher and
+[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.11.5 or higher and
 aims to simplify the process of fetching financial data.
 
 **Write less, get more!**

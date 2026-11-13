@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-40)=
+### 1.20.40 build!: require Python 3.11.5 or later
+
+**不兼容的改动：最低 Python 版本由 3.11 提高到 3.11.5。**使用 Python 3.11.0～3.11.4 的环境会停留在 1.20.39，请升级到 3.11.5 或更高的版本（3.12 及以上不受影响）。
+
+1. 最低 Python 版本提高到 3.11.5。原因是 AKShare 通过 beautifulsoup4 依赖的选择器库 soupsieve 在 4.0 修复了一个拒绝服务漏洞（GHSA-mmhr-3c5m-f64f），修复版要求 Python 3.11.5，更低的版本只能安装到有漏洞的 2.x。与 AKTools 0.1.7 的要求一致
+2. 锁文件中的 soupsieve 由 2.9.2 升级到 4.1。AKShare 中只有 `fund_value_estimation_em` 接口用到 CSS 选择器，已在 4.1 下实测解析正常
+
 (v1-20-39)=
 ### 1.20.39 feat: add synonyms to search and alternatives to the interface registry
 

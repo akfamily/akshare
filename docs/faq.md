@@ -80,7 +80,7 @@ mini-racer 用于执行数据源的 JavaScript 解密代码，只为以下环境
 
 报错信息：`AttributeError: module 'akshare' has no attribute 'xxx'`
 
-1. 检查 Python 版本，需要 Python 3.11 及以上，推荐 Python 3.13
+1. 检查 Python 版本，需要 Python 3.11.5 及以上，推荐 Python 3.13
 2. 检查是否安装了最新版本的 AKShare，如果不是请先升级
 3. 在文档中确认该接口是否存在。接口可能已改名或被移除，见[更新日志](changelog.md)及文末的接口更名一览表
 4. 检查运行的 Python 文件名，不能命名为 `akshare.py`，否则会与安装的 AKShare 冲突
