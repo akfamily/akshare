@@ -50,8 +50,9 @@ It exposes three generic tools rather than one tool per interface:
 - `search_interfaces(keyword)`: ranked search; space-separated keywords
   combine, e.g. `A股 日线`. Each result carries `source`, the data source
   in Chinese (e.g. `新浪财经`, `东方财富`).
-- `describe_interface(name)`: `source`, `rate_limit`, parameters, defaults
-  and descriptions, plus returned columns, data range and a usage example.
+- `describe_interface(name)`: `source`, `rate_limit`, `alternatives`
+  (same-data interfaces from other sources), parameters, defaults and
+  descriptions, plus returned columns, data range and a usage example.
 - `get_data(name, params, max_rows, offset)`: call the interface; returns up
   to `max_rows` rows (default 100, max 1000) plus the total row count.
   A negative `offset` counts from the end, e.g. `-20` for the latest 20 rows
@@ -66,8 +67,13 @@ servers, which ban the client IP for 5+ minutes after a burst of requests;
 all of them fail during the ban. For bulk or repeated quote fetching prefer
 another source; other Eastmoney interfaces (macro, financial statements)
 are not limited. On a ban `get_data` returns a 429 error that says how long
-to wait and, when confident, lists up to 3 same-data interfaces from other
-sources (AKTools >= 0.1.5).
+to wait and lists the registered same-data interfaces from other sources
+(the hand-curated `alternatives`; none are guessed; AKTools >= 0.1.6).
+
+Search by data type (`港股 日线`, `期货 分钟`), not by security name or code.
+An empty search result carries a `hint`; an unknown interface name (typo,
+or renamed such as `get_futures_daily` -> `futures_daily`) returns an error
+listing the closest names.
 
 Pass every parameter value as text, e.g. `{"symbol": "000001",
 "start_date": "20240101"}`. Proxy and timeout are set through the
