@@ -51,7 +51,7 @@ def _process_suspend_data(data_list: list) -> pd.DataFrame:
     return temp_df
 
 
-def news_trade_notify_suspend_baidu(
+def stock_calendar_suspend_baidu(
     date: str = "20251126", cookie: str = None
 ) -> pd.DataFrame:
     """
@@ -125,7 +125,7 @@ def _process_dividend_data(data_list: list) -> pd.DataFrame:
     return temp_df
 
 
-def news_trade_notify_dividend_baidu(
+def stock_calendar_dividend_baidu(
     date: str = "20251126", cookie: str = None
 ) -> pd.DataFrame:
     """
@@ -204,7 +204,9 @@ def _process_report_data(data_list: list) -> pd.DataFrame:
     return temp_df
 
 
-def news_report_time_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFrame:
+def stock_calendar_report_baidu(
+    date: str = "20251126", cookie: str = None
+) -> pd.DataFrame:
     """
     百度股市通-财报发行
     https://finance.baidu.com/calendar
@@ -218,15 +220,11 @@ def news_report_time_baidu(date: str = "20251126", cookie: str = None) -> pd.Dat
 
 
 if __name__ == "__main__":
-    news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(
-        date="20251126"
-    )
-    print(news_trade_notify_suspend_baidu_df)
+    stock_calendar_suspend_baidu_df = stock_calendar_suspend_baidu(date="20251126")
+    print(stock_calendar_suspend_baidu_df)
 
-    news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(
-        date="20251126"
-    )
-    print(news_trade_notify_dividend_baidu_df)
+    stock_calendar_dividend_baidu_df = stock_calendar_dividend_baidu(date="20251126")
+    print(stock_calendar_dividend_baidu_df)
 
-    news_report_time_baidu_df = news_report_time_baidu(date="20251126")
-    print(news_report_time_baidu_df)
+    stock_calendar_report_baidu_df = stock_calendar_report_baidu(date="20251126")
+    print(stock_calendar_report_baidu_df)

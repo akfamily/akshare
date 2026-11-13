@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def bond_sh_buy_back_em() -> pd.DataFrame:
+def bond_repo_sh_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-上证质押式回购
     https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback
@@ -82,7 +82,7 @@ def bond_sh_buy_back_em() -> pd.DataFrame:
     return temp_df
 
 
-def bond_sz_buy_back_em() -> pd.DataFrame:
+def bond_repo_sz_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-深证质押式回购
     https://quote.eastmoney.com/center/gridlist.html#bond_sz_buyback
@@ -153,7 +153,7 @@ def bond_sz_buy_back_em() -> pd.DataFrame:
     return temp_df
 
 
-def bond_buy_back_hist_em(symbol: str = "204001"):
+def bond_repo_hist_em(symbol: str = "204001"):
     """
     东方财富网-行情中心-债券市场-质押式回购-历史数据
     https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback
@@ -219,14 +219,14 @@ def bond_buy_back_hist_em(symbol: str = "204001"):
 
 
 if __name__ == "__main__":
-    bond_sh_buy_back_em_df = bond_sh_buy_back_em()
-    print(bond_sh_buy_back_em_df)
+    bond_repo_sh_em_df = bond_repo_sh_em()
+    print(bond_repo_sh_em_df)
 
-    bond_sz_buy_back_em_df = bond_sz_buy_back_em()
-    print(bond_sz_buy_back_em_df)
+    bond_repo_sz_em_df = bond_repo_sz_em()
+    print(bond_repo_sz_em_df)
 
-    bond_buy_back_hist_em_df = bond_buy_back_hist_em(symbol="204001")
-    print(bond_buy_back_hist_em_df)
+    bond_repo_hist_em_df = bond_repo_hist_em(symbol="204001")
+    print(bond_repo_hist_em_df)
 
-    bond_buy_back_hist_em_df = bond_buy_back_hist_em(symbol="131810")
-    print(bond_buy_back_hist_em_df)
+    bond_repo_hist_em_df = bond_repo_hist_em(symbol="131810")
+    print(bond_repo_hist_em_df)

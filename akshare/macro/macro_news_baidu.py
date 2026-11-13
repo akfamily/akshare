@@ -58,7 +58,7 @@ def _process_economic_data(data_list: list) -> pd.DataFrame:
     return temp_df
 
 
-def news_economic_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFrame:
+def macro_calendar_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFrame:
     """
     百度股市通-经济数据
     https://finance.baidu.com/calendar
@@ -75,5 +75,5 @@ def news_economic_baidu(date: str = "20251126", cookie: str = None) -> pd.DataFr
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20251126")
-    print(news_economic_baidu_df)
+    macro_calendar_baidu_df = macro_calendar_baidu(date="20251126")
+    print(macro_calendar_baidu_df)

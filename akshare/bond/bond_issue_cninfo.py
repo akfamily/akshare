@@ -27,7 +27,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def bond_treasure_issue_cninfo(
+def bond_treasury_issue_cninfo(
     start_date: str = "20210910", end_date: str = "20211109"
 ) -> pd.DataFrame:
     """
@@ -545,10 +545,10 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_treasure_issue_cninfo_df = bond_treasure_issue_cninfo(
+    bond_treasury_issue_cninfo_df = bond_treasury_issue_cninfo(
         start_date="20210910", end_date="20211109"
     )
-    print(bond_treasure_issue_cninfo_df)
+    print(bond_treasury_issue_cninfo_df)
 
     bond_local_government_issue_cninfo_df = bond_local_government_issue_cninfo(
         start_date="20210911", end_date="20211110"

@@ -11,7 +11,7 @@ from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
-def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
+def bond_zh_us_yield_em(start_date: str = "19901219") -> pd.DataFrame:
     """
     东方财富网-数据中心-经济数据-中美国债收益率
     https://data.eastmoney.com/cjsj/zmgzsyl.html
@@ -142,5 +142,5 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_zh_us_rate_df = bond_zh_us_rate(start_date="19901219")
-    print(bond_zh_us_rate_df)
+    bond_zh_us_yield_em_df = bond_zh_us_yield_em(start_date="19901219")
+    print(bond_zh_us_yield_em_df)

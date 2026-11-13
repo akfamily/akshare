@@ -141,10 +141,10 @@ print(stock_tfp_em_df)
 [37 rows x 9 columns]
 ```
 
-(news_trade_notify_suspend_baidu)=
+(stock_calendar_suspend_baidu)=
 ## 停复牌
 
-接口：news_trade_notify_suspend_baidu
+接口：stock_calendar_suspend_baidu
 
 目标地址：https://gushitong.baidu.com/calendar
 
@@ -175,8 +175,8 @@ print(stock_tfp_em_df)
 ```python
 import akshare as ak
 
-news_trade_notify_suspend_baidu_df = ak.news_trade_notify_suspend_baidu(date="20241107")
-print(news_trade_notify_suspend_baidu_df)
+stock_calendar_suspend_baidu_df = ak.stock_calendar_suspend_baidu(date="20241107")
+print(stock_calendar_suspend_baidu_df)
 ```
 
 数据示例
@@ -193,10 +193,10 @@ print(news_trade_notify_suspend_baidu_df)
 [7 rows x 6 columns]
 ```
 
-(news_trade_notify_dividend_baidu)=
+(stock_calendar_dividend_baidu)=
 ## 分红派息
 
-接口：news_trade_notify_dividend_baidu
+接口：stock_calendar_dividend_baidu
 
 目标地址：https://gushitong.baidu.com/calendar
 
@@ -230,8 +230,8 @@ print(news_trade_notify_suspend_baidu_df)
 ```python
 import akshare as ak
 
-news_trade_notify_dividend_baidu_df = ak.news_trade_notify_dividend_baidu(date="20251126")
-print(news_trade_notify_dividend_baidu_df)
+stock_calendar_dividend_baidu_df = ak.stock_calendar_dividend_baidu(date="20251126")
+print(stock_calendar_dividend_baidu_df)
 ```
 
 数据示例

@@ -45,7 +45,7 @@ def upstream(monkeypatch):
 
     monkeypatch.setattr(m, "_bond_info_cm_post", fake_post)
     monkeypatch.setattr(m, "bond_info_cm_query", lambda symbol: TYPES)
-    monkeypatch.setattr(m, "bond_china_close_return_map", lambda: None)
+    monkeypatch.setattr(m, "bond_zh_close_yield_map_cm", lambda: None)
     monkeypatch.setattr(m.time, "sleep", lambda s: None)
     m.bond_info_cm.cache_clear()
     yield calls

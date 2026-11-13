@@ -12,7 +12,7 @@ from io import StringIO
 
 import pandas as pd
 
-from akshare.bond.bond_china_money import bond_china_close_return_map
+from akshare.bond.bond_china_money import bond_zh_close_yield_map_cm
 from akshare.utils import http
 from akshare.utils.cons import headers
 
@@ -24,7 +24,7 @@ def bond_spot_quote() -> pd.DataFrame:
     :return: 现券市场做市报价
     :rtype: pandas.DataFrame
     """
-    bond_china_close_return_map()
+    bond_zh_close_yield_map_cm()
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbMktMakQuot"
     payload = {
         "flag": "1",

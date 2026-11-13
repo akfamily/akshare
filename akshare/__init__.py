@@ -89,15 +89,11 @@ from akshare.stock.finance.stock_finance_hk_em import (
     stock_financial_hk_report_em,
 )
 from akshare.stock.finance.stock_finance_ths import (
-    stock_financial_abstract_new_ths,
-    stock_financial_abstract_ths,
-    stock_financial_benefit_new_ths,
-    stock_financial_benefit_ths,
-    stock_financial_cash_new_ths,
-    stock_financial_cash_ths,
-    stock_financial_debt_new_ths,
-    stock_financial_debt_ths,
+    stock_balance_sheet_ths,
+    stock_cash_flow_sheet_ths,
+    stock_financial_key_indicator_ths,
     stock_management_change_ths,
+    stock_profit_sheet_ths,
     stock_shareholder_change_ths,
 )
 from akshare.stock.finance.stock_finance_us_em import (
@@ -308,9 +304,9 @@ from akshare.stock.issue.stock_ipo_review import stock_ipo_review_em
 from akshare.stock.issue.stock_ipo_ths import stock_ipo_hk_ths, stock_ipo_ths
 from akshare.stock.issue.stock_ipo_tutor import stock_ipo_tutor_em
 from akshare.stock.issue.stock_news_baidu import (
-    news_report_time_baidu,
-    news_trade_notify_dividend_baidu,
-    news_trade_notify_suspend_baidu,
+    stock_calendar_dividend_baidu,
+    stock_calendar_report_baidu,
+    stock_calendar_suspend_baidu,
 )
 from akshare.stock.issue.stock_register_em import (
     stock_register_all_em,
@@ -336,7 +332,6 @@ from akshare.stock.issue.stock_zf_pg import stock_pg_em, stock_qbzf_em
 from akshare.stock.other.stock_esg_sina import (
     stock_esg_hz_sina,
     stock_esg_msci_sina,
-    stock_esg_rate_sina,
     stock_esg_rft_sina,
     stock_esg_zd_sina,
 )
@@ -470,9 +465,9 @@ from akshare.stock.research.stock_cg_equity_mortgage import (
 from akshare.stock.research.stock_cg_guarantee import stock_cg_guarantee_cninfo
 from akshare.stock.research.stock_cg_lawsuit import stock_cg_lawsuit_cninfo
 from akshare.stock.research.stock_hold_control_cninfo import (
-    stock_hold_change_cninfo,
     stock_hold_control_cninfo,
     stock_hold_management_detail_cninfo,
+    stock_share_change_all_cninfo,
 )
 from akshare.stock.research.stock_hold_control_em import (
     stock_hold_management_detail_em,
@@ -484,12 +479,12 @@ from akshare.stock.research.stock_industry_pe_cninfo import (
 )
 from akshare.stock.research.stock_industry_sw import stock_industry_clf_hist_sw
 from akshare.stock.research.stock_info import (
-    stock_info_cjzc_em,
-    stock_info_global_cls,
-    stock_info_global_em,
-    stock_info_global_futu,
-    stock_info_global_sina,
-    stock_info_global_ths,
+    stock_news_cjzc_em,
+    stock_news_global_cls,
+    stock_news_global_em,
+    stock_news_global_futu,
+    stock_news_global_sina,
+    stock_news_global_ths,
 )
 from akshare.stock.research.stock_new_cninfo import (
     stock_new_gh_cninfo,
@@ -507,7 +502,7 @@ from akshare.stock.research.stock_profit_forecast_hk_etnet import (
 )
 from akshare.stock.research.stock_profit_forecast_ths import stock_profit_forecast_ths
 from akshare.stock.research.stock_qsjy_em import stock_qsjy_em
-from akshare.stock.research.stock_rank_forecast import stock_rank_forecast_cninfo
+from akshare.stock.research.stock_rank_forecast import stock_rating_forecast_cninfo
 from akshare.stock.research.stock_recommend import (
     stock_institute_recommend,
     stock_institute_recommend_detail,
@@ -518,7 +513,7 @@ from akshare.stock.research.stock_share_hold import (
     stock_share_hold_change_sse,
     stock_share_hold_change_szse,
 )
-from akshare.stock.research.stock_us_js import stock_price_js
+from akshare.stock.research.stock_us_js import stock_target_price_js
 from akshare.stock.research.stock_zdhtmx_em import stock_zdhtmx_em
 
 # ---- 股票-估值与市场指标（akshare/stock/valuation） ----
@@ -711,9 +706,9 @@ from akshare.option.option_value_analysis_em import option_value_analysis_em
 
 # ---- 债券（akshare/bond） ----
 from akshare.bond.bond_buy_back_em import (
-    bond_buy_back_hist_em,
-    bond_sh_buy_back_em,
-    bond_sz_buy_back_em,
+    bond_repo_hist_em,
+    bond_repo_sh_em,
+    bond_repo_sz_em,
 )
 from akshare.bond.bond_cb_sina import bond_cb_profile_sina, bond_cb_summary_sina
 from akshare.bond.bond_cb_ths import bond_zh_cov_info_ths
@@ -726,8 +721,8 @@ from akshare.bond.bond_cbond import (
 )
 from akshare.bond.bond_china import bond_china_yield, bond_spot_deal, bond_spot_quote
 from akshare.bond.bond_china_money import (
-    bond_china_close_return,
-    bond_china_close_return_map,
+    bond_zh_close_yield_cm,
+    bond_zh_close_yield_map_cm,
 )
 from akshare.bond.bond_convert import (
     bond_cb_adj_logs_jsl,
@@ -735,7 +730,7 @@ from akshare.bond.bond_convert import (
     bond_cb_jsl,
     bond_cb_redeem_jsl,
 )
-from akshare.bond.bond_em import bond_zh_us_rate
+from akshare.bond.bond_em import bond_zh_us_yield_em
 from akshare.bond.bond_gb_sina import bond_gb_us_sina, bond_gb_zh_sina
 from akshare.bond.bond_info_cm import (
     bond_info_cm,
@@ -747,7 +742,7 @@ from akshare.bond.bond_issue_cninfo import (
     bond_cov_issue_cninfo,
     bond_cov_stock_issue_cninfo,
     bond_local_government_issue_cninfo,
-    bond_treasure_issue_cninfo,
+    bond_treasury_issue_cninfo,
 )
 from akshare.bond.bond_nafmii import bond_debt_nafmii
 from akshare.bond.bond_summary import bond_cash_summary_sse, bond_deal_summary_sse
@@ -787,18 +782,18 @@ from akshare.fund.fund_announcement_em import (
 )
 from akshare.fund.fund_aum_em import fund_aum_em, fund_aum_hist_em, fund_aum_trend_em
 from akshare.fund.fund_em import (
-    fund_etf_fund_daily_em,
-    fund_etf_fund_info_em,
-    fund_financial_fund_info_em,
-    fund_graded_fund_daily_em,
-    fund_graded_fund_info_em,
+    fund_exchange_nav_em,
+    fund_exchange_nav_hist_em,
+    fund_financial_nav_hist_em,
+    fund_graded_nav_em,
+    fund_graded_nav_hist_em,
     fund_hk_fund_hist_em,
     fund_info_index_em,
-    fund_money_fund_daily_em,
-    fund_money_fund_info_em,
+    fund_money_yield_em,
+    fund_money_yield_hist_em,
     fund_name_em,
-    fund_open_fund_daily_em,
     fund_open_fund_info_em,
+    fund_open_nav_em,
     fund_purchase_em,
     fund_value_estimation_em,
 )
@@ -971,8 +966,8 @@ from akshare.index.index_stock_zh_csindex import (
     stock_zh_index_value_csindex,
 )
 from akshare.index.index_sugar import (
-    index_inner_quote_sugar_msweet,
-    index_outer_quote_sugar_msweet,
+    index_inner_quota_sugar_msweet,
+    index_outer_quota_sugar_msweet,
     index_sugar_msweet,
 )
 from akshare.index.index_sw import (
@@ -1153,7 +1148,7 @@ from akshare.macro.macro_japan import (
     macro_japan_head_indicator,
     macro_japan_unemployment_rate,
 )
-from akshare.macro.macro_news_baidu import news_economic_baidu
+from akshare.macro.macro_news_baidu import macro_calendar_baidu
 from akshare.macro.macro_swiss import (
     macro_swiss_cpi_yearly,
     macro_swiss_gbd_bank_rate,
@@ -1436,7 +1431,6 @@ __all__ = [
     "article_rlab_rv",
     "bank_fjcf_table_detail",
     "bond_available_index_cbond",
-    "bond_buy_back_hist_em",
     "bond_cash_summary_sse",
     "bond_cb_adj_logs_jsl",
     "bond_cb_index_jsl",
@@ -1444,8 +1438,6 @@ __all__ = [
     "bond_cb_profile_sina",
     "bond_cb_redeem_jsl",
     "bond_cb_summary_sina",
-    "bond_china_close_return",
-    "bond_china_close_return_map",
     "bond_china_yield",
     "bond_composite_index_cbond",
     "bond_corporate_issue_cninfo",
@@ -1462,12 +1454,15 @@ __all__ = [
     "bond_info_detail_cm",
     "bond_local_government_issue_cninfo",
     "bond_new_composite_index_cbond",
-    "bond_sh_buy_back_em",
+    "bond_repo_hist_em",
+    "bond_repo_sh_em",
+    "bond_repo_sz_em",
     "bond_spot_deal",
     "bond_spot_quote",
-    "bond_sz_buy_back_em",
-    "bond_treasure_issue_cninfo",
     "bond_treasury_index_cbond",
+    "bond_treasury_issue_cninfo",
+    "bond_zh_close_yield_cm",
+    "bond_zh_close_yield_map_cm",
     "bond_zh_cov",
     "bond_zh_cov_info",
     "bond_zh_cov_info_ths",
@@ -1478,7 +1473,7 @@ __all__ = [
     "bond_zh_hs_cov_spot",
     "bond_zh_hs_daily",
     "bond_zh_hs_spot",
-    "bond_zh_us_rate",
+    "bond_zh_us_yield_em",
     "business_value_artist",
     "car_market_cate_cpca",
     "car_market_country_cpca",
@@ -1522,8 +1517,6 @@ __all__ = [
     "fund_etf_category_sina",
     "fund_etf_category_ths",
     "fund_etf_dividend_sina",
-    "fund_etf_fund_daily_em",
-    "fund_etf_fund_info_em",
     "fund_etf_hist_em",
     "fund_etf_hist_min_em",
     "fund_etf_hist_sina",
@@ -1533,13 +1526,15 @@ __all__ = [
     "fund_etf_scale_szse",
     "fund_etf_spot_em",
     "fund_etf_spot_ths",
+    "fund_exchange_nav_em",
+    "fund_exchange_nav_hist_em",
     "fund_exchange_rank_em",
     "fund_fee_em",
     "fund_fh_em",
     "fund_fh_rank_em",
-    "fund_financial_fund_info_em",
-    "fund_graded_fund_daily_em",
-    "fund_graded_fund_info_em",
+    "fund_financial_nav_hist_em",
+    "fund_graded_nav_em",
+    "fund_graded_nav_hist_em",
     "fund_hk_fund_hist_em",
     "fund_hk_rank_em",
     "fund_hold_structure_em",
@@ -1557,15 +1552,15 @@ __all__ = [
     "fund_lof_hist_min_em",
     "fund_lof_spot_em",
     "fund_manager_em",
-    "fund_money_fund_daily_em",
-    "fund_money_fund_info_em",
     "fund_money_rank_em",
+    "fund_money_yield_em",
+    "fund_money_yield_hist_em",
     "fund_name_em",
     "fund_new_found_em",
     "fund_new_found_ths",
-    "fund_open_fund_daily_em",
     "fund_open_fund_info_em",
     "fund_open_fund_rank_em",
+    "fund_open_nav_em",
     "fund_overview_em",
     "fund_portfolio_bond_hold_em",
     "fund_portfolio_change_em",
@@ -1706,7 +1701,7 @@ __all__ = [
     "index_hist_fund_sw",
     "index_hist_sw",
     "index_hog_spot_price",
-    "index_inner_quote_sugar_msweet",
+    "index_inner_quota_sugar_msweet",
     "index_kq_fashion",
     "index_kq_fz",
     "index_li_cx",
@@ -1733,7 +1728,7 @@ __all__ = [
     "index_option_cyb_qvix",
     "index_option_kcb_min_qvix",
     "index_option_kcb_qvix",
-    "index_outer_quote_sugar_msweet",
+    "index_outer_quota_sugar_msweet",
     "index_pmi_com_cx",
     "index_pmi_man_cx",
     "index_pmi_ser_cx",
@@ -1773,6 +1768,7 @@ __all__ = [
     "macro_bank_russia_interest_rate",
     "macro_bank_switzerland_interest_rate",
     "macro_bank_usa_interest_rate",
+    "macro_calendar_baidu",
     "macro_canada_bank_rate",
     "macro_canada_core_cpi_monthly",
     "macro_canada_core_cpi_yearly",
@@ -1991,10 +1987,6 @@ __all__ = [
     "movie_boxoffice_yearly",
     "movie_boxoffice_yearly_first_week",
     "news_cctv",
-    "news_economic_baidu",
-    "news_report_time_baidu",
-    "news_trade_notify_dividend_baidu",
-    "news_trade_notify_suspend_baidu",
     "nlp_answer",
     "online_value_artist",
     "option_cffex_hs300_daily_sina",
@@ -2090,6 +2082,7 @@ __all__ = [
     "stock_balance_sheet_by_report_delisted_em",
     "stock_balance_sheet_by_report_em",
     "stock_balance_sheet_by_yearly_em",
+    "stock_balance_sheet_ths",
     "stock_bid_ask_em",
     "stock_bj_a_spot_em",
     "stock_board_change_em",
@@ -2112,10 +2105,14 @@ __all__ = [
     "stock_board_industry_spot_em",
     "stock_board_industry_summary_ths",
     "stock_buffett_index_lg",
+    "stock_calendar_dividend_baidu",
+    "stock_calendar_report_baidu",
+    "stock_calendar_suspend_baidu",
     "stock_cash_flow_sheet_by_quarterly_em",
     "stock_cash_flow_sheet_by_report_delisted_em",
     "stock_cash_flow_sheet_by_report_em",
     "stock_cash_flow_sheet_by_yearly_em",
+    "stock_cash_flow_sheet_ths",
     "stock_cg_equity_mortgage_cninfo",
     "stock_cg_guarantee_cninfo",
     "stock_cg_lawsuit_cninfo",
@@ -2142,25 +2139,17 @@ __all__ = [
     "stock_ebs_lg",
     "stock_esg_hz_sina",
     "stock_esg_msci_sina",
-    "stock_esg_rate_sina",
     "stock_esg_rft_sina",
     "stock_esg_zd_sina",
     "stock_fhps_detail_em",
     "stock_fhps_detail_ths",
     "stock_fhps_em",
     "stock_financial_abstract",
-    "stock_financial_abstract_new_ths",
-    "stock_financial_abstract_ths",
     "stock_financial_analysis_indicator",
     "stock_financial_analysis_indicator_em",
-    "stock_financial_benefit_new_ths",
-    "stock_financial_benefit_ths",
-    "stock_financial_cash_new_ths",
-    "stock_financial_cash_ths",
-    "stock_financial_debt_new_ths",
-    "stock_financial_debt_ths",
     "stock_financial_hk_analysis_indicator_em",
     "stock_financial_hk_report_em",
+    "stock_financial_key_indicator_ths",
     "stock_financial_report_sina",
     "stock_financial_us_analysis_indicator_em",
     "stock_financial_us_report_em",
@@ -2221,7 +2210,6 @@ __all__ = [
     "stock_hk_spot_em",
     "stock_hk_valuation_baidu",
     "stock_hk_valuation_comparison_em",
-    "stock_hold_change_cninfo",
     "stock_hold_control_cninfo",
     "stock_hold_management_detail_cninfo",
     "stock_hold_management_detail_em",
@@ -2265,12 +2253,6 @@ __all__ = [
     "stock_info_a_code_name",
     "stock_info_bj_name_code",
     "stock_info_change_name",
-    "stock_info_cjzc_em",
-    "stock_info_global_cls",
-    "stock_info_global_em",
-    "stock_info_global_futu",
-    "stock_info_global_sina",
-    "stock_info_global_ths",
     "stock_info_sh_delist",
     "stock_info_sh_name_code",
     "stock_info_sz_change_name",
@@ -2337,11 +2319,16 @@ __all__ = [
     "stock_new_a_spot_em",
     "stock_new_gh_cninfo",
     "stock_new_ipo_cninfo",
+    "stock_news_cjzc_em",
     "stock_news_em",
+    "stock_news_global_cls",
+    "stock_news_global_em",
+    "stock_news_global_futu",
+    "stock_news_global_sina",
+    "stock_news_global_ths",
     "stock_news_main_cx",
     "stock_notice_report",
     "stock_pg_em",
-    "stock_price_js",
     "stock_profile_cninfo",
     "stock_profit_forecast_em",
     "stock_profit_forecast_ths",
@@ -2349,13 +2336,13 @@ __all__ = [
     "stock_profit_sheet_by_report_delisted_em",
     "stock_profit_sheet_by_report_em",
     "stock_profit_sheet_by_yearly_em",
+    "stock_profit_sheet_ths",
     "stock_qbzf_em",
     "stock_qsjy_em",
     "stock_rank_cxd_ths",
     "stock_rank_cxfl_ths",
     "stock_rank_cxg_ths",
     "stock_rank_cxsl_ths",
-    "stock_rank_forecast_cninfo",
     "stock_rank_ljqd_ths",
     "stock_rank_ljqs_ths",
     "stock_rank_lxsz_ths",
@@ -2363,6 +2350,7 @@ __all__ = [
     "stock_rank_xstp_ths",
     "stock_rank_xxtp_ths",
     "stock_rank_xzjp_ths",
+    "stock_rating_forecast_cninfo",
     "stock_register_all_em",
     "stock_register_bj",
     "stock_register_cyb",
@@ -2390,6 +2378,7 @@ __all__ = [
     "stock_sgt_settlement_exchange_rate_sse",
     "stock_sgt_settlement_exchange_rate_szse",
     "stock_sh_a_spot_em",
+    "stock_share_change_all_cninfo",
     "stock_share_change_cninfo",
     "stock_share_hold_change_bse",
     "stock_share_hold_change_sse",
@@ -2408,6 +2397,7 @@ __all__ = [
     "stock_szse_area_summary",
     "stock_szse_sector_summary",
     "stock_szse_summary",
+    "stock_target_price_js",
     "stock_tfp_em",
     "stock_us_daily",
     "stock_us_famous_spot_em",

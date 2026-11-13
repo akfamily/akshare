@@ -195,7 +195,7 @@ def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
     return temp_df
 
 
-def stock_hold_change_cninfo(symbol: str = "全部") -> pd.DataFrame:
+def stock_share_change_all_cninfo(symbol: str = "全部") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-股本变动
     https://webapi.cninfo.com.cn/#/thematicStatistics
@@ -283,5 +283,5 @@ if __name__ == "__main__":
     )
     print(stock_hold_management_detail_cninfo_df)
 
-    stock_hold_change_cninfo_df = stock_hold_change_cninfo(symbol="全部")
-    print(stock_hold_change_cninfo_df)
+    stock_share_change_all_cninfo_df = stock_share_change_all_cninfo(symbol="全部")
+    print(stock_share_change_all_cninfo_df)

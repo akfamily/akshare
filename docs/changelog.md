@@ -8,6 +8,25 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-41)=
+### 1.20.41 fix!: rename 34 interfaces whose names used the wrong financial terms
+
+**不兼容的改动：34 个接口因名称用词与金融含义不符而改名，4 个已被替换的同花顺旧接口和已无法使用的 stock_esg_rate_sina 移除，旧名称不再保留，调用旧名称会报 AttributeError。** 改名对照见文末的{ref}`接口更名一览表 <changelog-rename>`：stock_financial_debt_new_ths→stock_balance_sheet_ths、stock_financial_benefit_new_ths→stock_profit_sheet_ths、stock_financial_cash_new_ths→stock_cash_flow_sheet_ths、stock_financial_abstract_new_ths→stock_financial_key_indicator_ths、bond_buy_back_hist_em→bond_repo_hist_em、bond_sh_buy_back_em→bond_repo_sh_em、bond_sz_buy_back_em→bond_repo_sz_em、bond_china_close_return→bond_zh_close_yield_cm、bond_china_close_return_map→bond_zh_close_yield_map_cm、bond_zh_us_rate→bond_zh_us_yield_em、bond_treasure_issue_cninfo→bond_treasury_issue_cninfo、stock_rank_forecast_cninfo→stock_rating_forecast_cninfo、stock_hold_change_cninfo→stock_share_change_all_cninfo、stock_price_js→stock_target_price_js、fund_open_fund_daily_em→fund_open_nav_em、fund_etf_fund_daily_em→fund_exchange_nav_em、fund_etf_fund_info_em→fund_exchange_nav_hist_em、fund_graded_fund_daily_em→fund_graded_nav_em、fund_graded_fund_info_em→fund_graded_nav_hist_em、fund_financial_fund_info_em→fund_financial_nav_hist_em、fund_money_fund_daily_em→fund_money_yield_em、fund_money_fund_info_em→fund_money_yield_hist_em、stock_info_global_em→stock_news_global_em、stock_info_global_sina→stock_news_global_sina、stock_info_global_futu→stock_news_global_futu、stock_info_global_ths→stock_news_global_ths、stock_info_global_cls→stock_news_global_cls、stock_info_cjzc_em→stock_news_cjzc_em、news_report_time_baidu→stock_calendar_report_baidu、news_trade_notify_dividend_baidu→stock_calendar_dividend_baidu、news_trade_notify_suspend_baidu→stock_calendar_suspend_baidu、news_economic_baidu→macro_calendar_baidu、index_inner_quote_sugar_msweet→index_inner_quota_sugar_msweet、index_outer_quote_sugar_msweet→index_outer_quota_sugar_msweet。参数与返回结果均不变，请把代码中的旧名称替换为新名称。
+
+1. 同花顺三大报表与重要指标接口去掉过渡词 new，并改用准确的报表名称：原名中的 debt（债务）、benefit（福利）并不是资产负债表、利润表的意思
+2. 移除 stock_financial_debt_ths、stock_financial_benefit_ths、stock_financial_cash_ths、stock_financial_abstract_ths：这 4 个接口此前已撤下文档并由上一条的接口替换。旧接口返回以报告期为行、指标为列的宽表，新接口返回每行一个指标的长表，需要宽表时可用 `df.pivot(index="report_date", columns="metric_name", values="value")` 转换
+3. 质押式回购由 buy_back（股票回购）改为 repo；收盘收益率曲线、中美国债收益率由 return、rate 改为 yield，并补上数据源后缀；国债发行由 treasure 改为 treasury
+4. 投资评级由 rank（排名）改为 rating；全市场股本变动由 hold_change（持股变动）改为 share_change_all；美港目标价改为 target_price
+5. 天天基金的净值接口：原 `*_fund_daily_em` 是当日净值快照、`*_fund_info_em` 是历史净值，现分别改为 `*_nav_em`、`*_nav_hist_em`；场内交易基金不限于 ETF，由 etf_fund 改为 exchange；货币型基金返回的是万份收益与 7 日年化收益率，改为 yield。fund_open_fund_info_em、fund_hk_fund_hist_em 除净值外还返回累计收益率、同类排名、分红送配等，名称不变
+6. 财经快讯类接口由 stock_info_* 改为 stock_news_*；百度股市通的财报披露、分红派息、停复牌、经济日历是日历数据而不是新闻，改为 stock_calendar_*、macro_calendar_baidu
+7. 沐甜科技配额内、配额外进口糖估算指数的 quote 更正为 quota
+8. 贡献指南新增“接口命名规范”：名称结构、类目前缀、数据源后置以及金融用词对照表；新增 tests/test_naming.py，新接口不符合规范时测试失败，存量问题记录在 tests/naming_baseline.json 中分批改名
+9. 移除 stock_esg_rate_sina（新浪财经 ESG 评级数据）：新浪该接口每页超过 50 条即返回 504，每页 20 条时单次请求约 15 秒，全部 5.4 万只证券需翻 2700 多页、约 11 小时，也不支持按股票筛选，已无法实用。各评级机构的 ESG 评级可改用 stock_esg_msci_sina、stock_esg_rft_sina、stock_esg_zd_sina、stock_esg_hz_sina
+10. 修复 index_inner_quota_sugar_msweet 报 `TypeError: Invalid value '4045.2' for dtype 'str'` 的问题（pandas 3 不允许向字符串列写入浮点数）。同时沐甜科技的 3 个接口（index_sugar_msweet、index_inner_quota_sugar_msweet、index_outer_quota_sugar_msweet）由按位置命名改为按上游指标名取列：上游调整过字段顺序，index_outer_quota_sugar_msweet 此前不报错但后 4 列错位，“泰国糖进口利润空间”实为泰国糖进口成本、“巴西糖进口利润空间”实为日照现货价、“泰国糖进口成本”实为巴西糖进口利润空间、“日照现货价”实为泰国糖进口利润空间，现已更正。上游个别带多余空格或小数点的数值（如 `12..88`）改为统一清洗，不再按行号写死修正值；数值列统一为 float64
+11. 修复 stock_target_price_js 报 `JSONDecodeError` 的问题：原请求头声明接受 br 压缩，未安装 brotli 时无法解压返回内容；同时改为按上游字段名映射列名
+12. bond_zh_close_yield_cm 此前只返回前 50 条，查询国债单日的 54 个期限会丢掉最后 4 个、查询多日时只有第一天，现按上游页数翻页取全；日期超出近 3 个月时原先报 `KeyError: 'newDateValue'`，现返回空表并给出告警；改为按上游字段名映射列名，文档示例改用近期日期
+13. 其余接口只改名称、实现未变。除 3 个请求东方财富 push2 的质押式回购接口未实测外，其余接口均已逐一调用，返回正常
+
 (v1-20-40)=
 ### 1.20.40 build!: require Python 3.11.5 or later
 
@@ -354,6 +373,40 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.41      | stock_financial_debt_new_ths                | stock_balance_sheet_ths                     | 20261113 |
+| 1.20.41      | stock_financial_benefit_new_ths             | stock_profit_sheet_ths                      | 20261113 |
+| 1.20.41      | stock_financial_cash_new_ths                | stock_cash_flow_sheet_ths                   | 20261113 |
+| 1.20.41      | stock_financial_abstract_new_ths            | stock_financial_key_indicator_ths           | 20261113 |
+| 1.20.41      | bond_buy_back_hist_em                       | bond_repo_hist_em                           | 20261113 |
+| 1.20.41      | bond_sh_buy_back_em                         | bond_repo_sh_em                             | 20261113 |
+| 1.20.41      | bond_sz_buy_back_em                         | bond_repo_sz_em                             | 20261113 |
+| 1.20.41      | bond_china_close_return                     | bond_zh_close_yield_cm                      | 20261113 |
+| 1.20.41      | bond_china_close_return_map                 | bond_zh_close_yield_map_cm                  | 20261113 |
+| 1.20.41      | bond_zh_us_rate                             | bond_zh_us_yield_em                         | 20261113 |
+| 1.20.41      | bond_treasure_issue_cninfo                  | bond_treasury_issue_cninfo                  | 20261113 |
+| 1.20.41      | stock_rank_forecast_cninfo                  | stock_rating_forecast_cninfo                | 20261113 |
+| 1.20.41      | stock_hold_change_cninfo                    | stock_share_change_all_cninfo               | 20261113 |
+| 1.20.41      | stock_price_js                              | stock_target_price_js                       | 20261113 |
+| 1.20.41      | fund_open_fund_daily_em                     | fund_open_nav_em                            | 20261113 |
+| 1.20.41      | fund_etf_fund_daily_em                      | fund_exchange_nav_em                        | 20261113 |
+| 1.20.41      | fund_etf_fund_info_em                       | fund_exchange_nav_hist_em                   | 20261113 |
+| 1.20.41      | fund_graded_fund_daily_em                   | fund_graded_nav_em                          | 20261113 |
+| 1.20.41      | fund_graded_fund_info_em                    | fund_graded_nav_hist_em                     | 20261113 |
+| 1.20.41      | fund_financial_fund_info_em                 | fund_financial_nav_hist_em                  | 20261113 |
+| 1.20.41      | fund_money_fund_daily_em                    | fund_money_yield_em                         | 20261113 |
+| 1.20.41      | fund_money_fund_info_em                     | fund_money_yield_hist_em                    | 20261113 |
+| 1.20.41      | stock_info_global_em                        | stock_news_global_em                        | 20261113 |
+| 1.20.41      | stock_info_global_sina                      | stock_news_global_sina                      | 20261113 |
+| 1.20.41      | stock_info_global_futu                      | stock_news_global_futu                      | 20261113 |
+| 1.20.41      | stock_info_global_ths                       | stock_news_global_ths                       | 20261113 |
+| 1.20.41      | stock_info_global_cls                       | stock_news_global_cls                       | 20261113 |
+| 1.20.41      | stock_info_cjzc_em                          | stock_news_cjzc_em                          | 20261113 |
+| 1.20.41      | news_report_time_baidu                      | stock_calendar_report_baidu                 | 20261113 |
+| 1.20.41      | news_trade_notify_dividend_baidu            | stock_calendar_dividend_baidu               | 20261113 |
+| 1.20.41      | news_trade_notify_suspend_baidu             | stock_calendar_suspend_baidu                | 20261113 |
+| 1.20.41      | news_economic_baidu                         | macro_calendar_baidu                        | 20261113 |
+| 1.20.41      | index_inner_quote_sugar_msweet              | index_inner_quota_sugar_msweet              | 20261113 |
+| 1.20.41      | index_outer_quote_sugar_msweet              | index_outer_quota_sugar_msweet              | 20261113 |
 | 1.20.31      | get_shfe_daily                              | futures_daily_shfe                          | 20261105 |
 | 1.20.31      | get_dce_daily                               | futures_daily_dce                           | 20261105 |
 | 1.20.31      | get_czce_daily                              | futures_daily_czce                          | 20261105 |

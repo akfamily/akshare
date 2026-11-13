@@ -383,7 +383,7 @@ def fund_info_index_em(
     return temp_df
 
 
-def fund_open_fund_daily_em() -> pd.DataFrame:
+def fund_open_nav_em() -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
     https://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
@@ -455,7 +455,7 @@ def fund_open_fund_info_em(
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
     https://fund.eastmoney.com/fund.html
-    :param symbol: 基金代码；可以通过调用 ak.fund_open_fund_daily_em() 获取所有开放式基金代码
+    :param symbol: 基金代码；可以通过调用 ak.fund_open_nav_em() 获取所有开放式基金代码
     :type symbol: str
     :param indicator: 需要获取的指标
     :type indicator: str
@@ -699,7 +699,7 @@ def fund_open_fund_info_em(
     return pd.DataFrame()
 
 
-def fund_money_fund_daily_em() -> pd.DataFrame:
+def fund_money_yield_em() -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-货币型基金收益
     https://fund.eastmoney.com/HBJJ_pjsyl.html
@@ -733,11 +733,11 @@ def fund_money_fund_daily_em() -> pd.DataFrame:
     return temp_df
 
 
-def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
+def fund_money_yield_hist_em(symbol: str = "000009") -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-货币型基金收益-历史净值数据
     https://fundf10.eastmoney.com/jjjz_004186.html
-    :param symbol: 货币型基金代码，可以通过 fund_money_fund_daily_em 来获取
+    :param symbol: 货币型基金代码，可以通过 fund_money_yield_em 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-货币型基金收益-历史净值数据
     :rtype: pandas.DataFrame
@@ -786,7 +786,7 @@ def fund_money_fund_info_em(symbol: str = "000009") -> pd.DataFrame:
     return big_df
 
 
-def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
+def fund_financial_nav_hist_em(symbol: str = "000134") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     https://fundf10.eastmoney.com/jjjz_000791.html
@@ -851,7 +851,7 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     return temp_df
 
 
-def fund_graded_fund_daily_em() -> pd.DataFrame:
+def fund_graded_nav_em() -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-分级基金净值
     https://fund.eastmoney.com/fjjj.html#1_1__0__zdf,desc_1
@@ -921,11 +921,11 @@ def fund_graded_fund_daily_em() -> pd.DataFrame:
     return data_df
 
 
-def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
+def fund_graded_nav_hist_em(symbol: str = "150232") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     https://fundf10.eastmoney.com/jjjz_150232.html
-    :param symbol: 分级基金代码，可以通过 ak.fund_money_fund_daily_em() 来获取
+    :param symbol: 分级基金代码，可以通过 ak.fund_money_yield_em() 来获取
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     :rtype: pandas.DataFrame
@@ -977,7 +977,7 @@ def fund_graded_fund_info_em(symbol: str = "150232") -> pd.DataFrame:
     return big_df
 
 
-def fund_etf_fund_daily_em() -> pd.DataFrame:
+def fund_exchange_nav_em() -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-场内交易基金
     https://fund.eastmoney.com/cnjy_dwjz.html
@@ -1010,7 +1010,7 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
     return temp_df
 
 
-def fund_etf_fund_info_em(
+def fund_exchange_nav_hist_em(
     fund: str = "511280",
     start_date: str = "20000101",
     end_date: str = "20500101",
@@ -1018,7 +1018,7 @@ def fund_etf_fund_info_em(
     """
     东方财富网站-天天基金网-基金数据-场内交易基金-历史净值明细
     https://fundf10.eastmoney.com/jjjz_511280.html
-    :param fund: 场内交易基金代码，可以通过 fund_etf_fund_daily_em 来获取
+    :param fund: 场内交易基金代码，可以通过 fund_exchange_nav_em 来获取
     :type fund: str
     :param start_date: 开始统计时间
     :type start_date: str
@@ -1287,8 +1287,8 @@ if __name__ == "__main__":
     fund_info_index_em_df = fund_info_index_em(symbol="债券指数", indicator="全部")
     print(fund_info_index_em_df)
 
-    fund_open_fund_daily_em_df = fund_open_fund_daily_em()
-    print(fund_open_fund_daily_em_df)
+    fund_open_nav_em_df = fund_open_nav_em()
+    print(fund_open_nav_em_df)
     time.sleep(3)
 
     fund_open_fund_info_em_df = fund_open_fund_info_em(
@@ -1332,28 +1332,28 @@ if __name__ == "__main__":
     )
     print(fund_open_fund_info_em_df)
 
-    fund_money_fund_daily_em_df = fund_money_fund_daily_em()
-    print(fund_money_fund_daily_em_df)
+    fund_money_yield_em_df = fund_money_yield_em()
+    print(fund_money_yield_em_df)
 
-    fund_money_fund_info_em_df = fund_money_fund_info_em(symbol="000009")
-    print(fund_money_fund_info_em_df)
+    fund_money_yield_hist_em_df = fund_money_yield_hist_em(symbol="000009")
+    print(fund_money_yield_hist_em_df)
 
-    fund_financial_fund_info_em_df = fund_financial_fund_info_em(symbol="000134")
-    print(fund_financial_fund_info_em_df)
+    fund_financial_nav_hist_em_df = fund_financial_nav_hist_em(symbol="000134")
+    print(fund_financial_nav_hist_em_df)
 
-    fund_graded_fund_daily_em_df = fund_graded_fund_daily_em()
-    print(fund_graded_fund_daily_em_df)
+    fund_graded_nav_em_df = fund_graded_nav_em()
+    print(fund_graded_nav_em_df)
 
-    fund_graded_fund_info_em_df = fund_graded_fund_info_em(symbol="150232")
-    print(fund_graded_fund_info_em_df)
+    fund_graded_nav_hist_em_df = fund_graded_nav_hist_em(symbol="150232")
+    print(fund_graded_nav_hist_em_df)
 
-    fund_etf_fund_daily_em_df = fund_etf_fund_daily_em()
-    print(fund_etf_fund_daily_em_df)
+    fund_exchange_nav_em_df = fund_exchange_nav_em()
+    print(fund_exchange_nav_em_df)
 
-    fund_etf_fund_info_em_df = fund_etf_fund_info_em(
+    fund_exchange_nav_hist_em_df = fund_exchange_nav_hist_em(
         fund="511280", start_date="20000101", end_date="20500101"
     )
-    print(fund_etf_fund_info_em_df)
+    print(fund_exchange_nav_hist_em_df)
 
     fund_value_estimation_em_df = fund_value_estimation_em(symbol="全部")
     print(fund_value_estimation_em_df)

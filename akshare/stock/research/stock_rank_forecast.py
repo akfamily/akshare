@@ -27,7 +27,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def stock_rank_forecast_cninfo(date: str = "20230817") -> pd.DataFrame:
+def stock_rating_forecast_cninfo(date: str = "20230817") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-评级预测-投资评级
     https://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
@@ -95,5 +95,5 @@ def stock_rank_forecast_cninfo(date: str = "20230817") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_rank_forecast_cninfo_df = stock_rank_forecast_cninfo(date="20230817")
-    print(stock_rank_forecast_cninfo_df)
+    stock_rating_forecast_cninfo_df = stock_rating_forecast_cninfo(date="20230817")
+    print(stock_rating_forecast_cninfo_df)

@@ -9,7 +9,7 @@ https://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR00
 import pandas as pd
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
-from akshare.bond.bond_china_money import bond_china_close_return_map
+from akshare.bond.bond_china_money import bond_zh_close_yield_map_cm
 
 
 def macro_china_swap_rate(
@@ -25,7 +25,7 @@ def macro_china_swap_rate(
     :return: FR007利率互换曲线历史数据
     :rtype: pandas.DataFrame
     """
-    bond_china_close_return_map()
+    bond_zh_close_yield_map_cm()
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/IfccHis"
@@ -140,7 +140,7 @@ def macro_china_bond_public() -> pd.DataFrame:
     :return: 债券发行
     :rtype: pandas.DataFrame
     """
-    bond_china_close_return_map()
+    bond_zh_close_yield_map_cm()
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "

@@ -185,12 +185,12 @@ def test_collect_doc_records_supports_fullwidth_colon(tmp_path):
     stock_dir.mkdir()
     (stock_dir / "a.md").write_text(
         "接口: prev_iface\n\n描述: 前一个接口\n\n"
-        "接口：stock_info_cjzc_em\n\n描述: 全角冒号接口\n",
+        "接口：stock_news_cjzc_em\n\n描述: 全角冒号接口\n",
         encoding="utf-8",
     )
     records = collect_doc_records(tmp_path)
-    assert "stock_info_cjzc_em" in records
-    assert records["stock_info_cjzc_em"]["desc"] == "全角冒号接口"
+    assert "stock_news_cjzc_em" in records
+    assert records["stock_news_cjzc_em"]["desc"] == "全角冒号接口"
     assert records["prev_iface"]["desc"] == "前一个接口"
 
 

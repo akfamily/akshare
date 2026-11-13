@@ -625,10 +625,10 @@ print(macro_info_ws_df)
 [28 rows x 8 columns]
 ```
 
-(news_economic_baidu)=
+(macro_calendar_baidu)=
 ### 全球宏观事件
 
-接口：news_economic_baidu
+接口：macro_calendar_baidu
 
 目标地址：https://gushitong.baidu.com/calendar
 
@@ -661,8 +661,8 @@ print(macro_info_ws_df)
 ```python
 import akshare as ak
 
-news_economic_baidu_df = ak.news_economic_baidu(date="20241107")
-print(news_economic_baidu_df)
+macro_calendar_baidu_df = ak.macro_calendar_baidu(date="20241107")
+print(macro_calendar_baidu_df)
 ```
 
 数据示例

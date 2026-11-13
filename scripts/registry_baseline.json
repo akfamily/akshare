@@ -1,8 +1,8 @@
 {
   "orphaned": [],
   "undocumented": [
-    "bond_china_close_return_map",
     "bond_info_cm_query",
+    "bond_zh_close_yield_map_cm",
     "fred_md",
     "fred_qd",
     "futures_daily_cffex",
@@ -57,10 +57,6 @@
     "stock_board_industry_info_ths",
     "stock_board_industry_name_ths",
     "stock_classify_sina",
-    "stock_financial_abstract_ths",
-    "stock_financial_benefit_ths",
-    "stock_financial_cash_ths",
-    "stock_financial_debt_ths",
     "stock_js_weibo_nlp_time",
     "stock_lhb_stock_detail_date_em",
     "stock_us_name_sina",

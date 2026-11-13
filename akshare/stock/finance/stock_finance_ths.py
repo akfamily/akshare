@@ -6,163 +6,11 @@ Desc: 同花顺-财务指标-主要指标
 https://basic.10jqka.com.cn/new/000063/finance.html
 """
 
-import json
-
 import pandas as pd
 from bs4 import BeautifulSoup
 
 from akshare.utils import http
 from akshare.utils.cons import headers
-
-
-def stock_financial_abstract_ths(
-    symbol: str = "000063", indicator: str = "按报告期"
-) -> pd.DataFrame:
-    """
-    同花顺-财务指标-主要指标
-    https://basic.10jqka.com.cn/new/000063/finance.html
-    :param symbol: 股票代码
-    :type symbol: str
-    :param indicator: 指标；choice of {"按报告期", "按年度", "按单季度"}
-    :type indicator: str
-    :return: 同花顺-财务指标-主要指标
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://basic.10jqka.com.cn/new/{symbol}/finance.html"
-    r = http.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    data_text = soup.find(name="p", attrs={"id": "main"}).string
-    data_json = json.loads(data_text)
-    df_index = [
-        item[0] if isinstance(item, list) else item for item in data_json["title"]
-    ]
-    if indicator == "按报告期":
-        temp_df = pd.DataFrame(
-            data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
-        )
-    elif indicator == "按单季度":
-        temp_df = pd.DataFrame(
-            data_json["simple"][1:], columns=data_json["simple"][0], index=df_index[1:]
-        )
-    else:
-        temp_df = pd.DataFrame(
-            data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
-        )
-    temp_df = temp_df.T
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "报告期"})
-    temp_df = temp_df.sort_values(by="报告期", ignore_index=True)
-    return temp_df
-
-
-def stock_financial_debt_ths(
-    symbol: str = "000063", indicator: str = "按报告期"
-) -> pd.DataFrame:
-    """
-    同花顺-财务指标-资产负债表
-    https://basic.10jqka.com.cn/new/000063/finance.html
-    https://basic.10jqka.com.cn/api/stock/finance/000063_debt.json
-    :param symbol: 股票代码
-    :type symbol: str
-    :param indicator: 指标；choice of {"按报告期", "按年度"}
-    :type indicator: str
-    :return: 同花顺-财务指标-资产负债表
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_debt.json"
-    r = http.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)["flashData"])
-    df_index = [
-        item[0] if isinstance(item, list) else item for item in data_json["title"]
-    ]
-    if indicator == "按报告期":
-        temp_df = pd.DataFrame(
-            data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
-        )
-    else:
-        temp_df = pd.DataFrame(
-            data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
-        )
-    temp_df = temp_df.T
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "报告期"})
-    return temp_df
-
-
-def stock_financial_benefit_ths(
-    symbol: str = "000063", indicator: str = "按报告期"
-) -> pd.DataFrame:
-    """
-    同花顺-财务指标-利润表
-    https://basic.10jqka.com.cn/new/000063/finance.html
-    https://basic.10jqka.com.cn/api/stock/finance/000063_benefit.json
-    :param symbol: 股票代码
-    :type symbol: str
-    :param indicator: 指标；choice of {"按报告期","按单季度", "按年度"}
-    :type indicator: str
-    :return: 同花顺-财务指标-利润表
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_benefit.json"
-    r = http.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)["flashData"])
-    df_index = [
-        item[0] if isinstance(item, list) else item for item in data_json["title"]
-    ]
-    if indicator == "按报告期":
-        temp_df = pd.DataFrame(
-            data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
-        )
-    elif indicator == "按单季度":
-        temp_df = pd.DataFrame(
-            data_json["simple"][1:], columns=data_json["simple"][0], index=df_index[1:]
-        )
-    else:
-        temp_df = pd.DataFrame(
-            data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
-        )
-    temp_df = temp_df.T
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "报告期"})
-    return temp_df
-
-
-def stock_financial_cash_ths(
-    symbol: str = "000063", indicator: str = "按报告期"
-) -> pd.DataFrame:
-    """
-    同花顺-财务指标-现金流量表
-    https://basic.10jqka.com.cn/new/000063/finance.html
-    https://basic.10jqka.com.cn/api/stock/finance/000063_cash.json
-    :param symbol: 股票代码
-    :type symbol: str
-    :param indicator: 指标；choice of {"按报告期","按单季度", "按年度"}
-    :type indicator: str
-    :return: 同花顺-财务指标-现金流量表
-    :rtype: pandas.DataFrame
-    """
-    url = f"https://basic.10jqka.com.cn/api/stock/finance/{symbol}_cash.json"
-    r = http.get(url, headers=headers)
-    data_json = json.loads(json.loads(r.text)["flashData"])
-    df_index = [
-        item[0] if isinstance(item, list) else item for item in data_json["title"]
-    ]
-    if indicator == "按报告期":
-        temp_df = pd.DataFrame(
-            data_json["report"][1:], columns=data_json["report"][0], index=df_index[1:]
-        )
-    elif indicator == "按单季度":
-        temp_df = pd.DataFrame(
-            data_json["simple"][1:], columns=data_json["simple"][0], index=df_index[1:]
-        )
-    else:
-        temp_df = pd.DataFrame(
-            data_json["year"][1:], columns=data_json["year"][0], index=df_index[1:]
-        )
-    temp_df = temp_df.T
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "报告期"})
-    return temp_df
 
 
 def __get_market_code(stock_code: str = "000063") -> int:
@@ -191,7 +39,7 @@ def __get_market_code(stock_code: str = "000063") -> int:
     return 0
 
 
-def stock_financial_abstract_new_ths(
+def stock_financial_key_indicator_ths(
     symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
@@ -288,7 +136,7 @@ def stock_financial_abstract_new_ths(
     return df
 
 
-def stock_financial_debt_new_ths(
+def stock_balance_sheet_ths(
     symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
@@ -385,7 +233,7 @@ def stock_financial_debt_new_ths(
     return df
 
 
-def stock_financial_benefit_new_ths(
+def stock_profit_sheet_ths(
     symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
@@ -482,7 +330,7 @@ def stock_financial_benefit_new_ths(
     return df
 
 
-def stock_financial_cash_new_ths(
+def stock_cash_flow_sheet_ths(
     symbol: str = "000063", indicator: str = "按报告期"
 ) -> pd.DataFrame:
     """
@@ -674,68 +522,63 @@ def stock_shareholder_change_ths(symbol: str = "688981") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_financial_abstract_new_ths_df = stock_financial_abstract_new_ths(
+    stock_financial_key_indicator_ths_df = stock_financial_key_indicator_ths(
         symbol="000063", indicator="按报告期"
     )
-    print(stock_financial_abstract_new_ths_df)
+    print(stock_financial_key_indicator_ths_df)
 
-    stock_financial_abstract_new_ths_df = stock_financial_abstract_new_ths(
+    stock_financial_key_indicator_ths_df = stock_financial_key_indicator_ths(
         symbol="000063", indicator="按年度"
     )
-    print(stock_financial_abstract_new_ths_df)
+    print(stock_financial_key_indicator_ths_df)
 
-    stock_financial_abstract_new_ths_df = stock_financial_abstract_new_ths(
+    stock_financial_key_indicator_ths_df = stock_financial_key_indicator_ths(
         symbol="000063", indicator="一季度"
     )
-    print(stock_financial_abstract_new_ths_df)
+    print(stock_financial_key_indicator_ths_df)
 
-    stock_financial_debt_new_ths_df = stock_financial_debt_new_ths(
+    stock_balance_sheet_ths_df = stock_balance_sheet_ths(
         symbol="002004", indicator="按报告期"
     )
-    print(stock_financial_debt_new_ths_df)
+    print(stock_balance_sheet_ths_df)
 
-    stock_financial_debt_new_ths_df = stock_financial_debt_new_ths(
+    stock_balance_sheet_ths_df = stock_balance_sheet_ths(
         symbol="000063", indicator="按年度"
     )
-    print(stock_financial_debt_new_ths_df)
+    print(stock_balance_sheet_ths_df)
 
-    stock_financial_benefit_new_ths_df = stock_financial_benefit_new_ths(
+    stock_profit_sheet_ths_df = stock_profit_sheet_ths(
         symbol="000063", indicator="按报告期"
     )
-    print(stock_financial_benefit_new_ths_df)
+    print(stock_profit_sheet_ths_df)
 
-    stock_financial_benefit_new_ths_df = stock_financial_benefit_new_ths(
+    stock_profit_sheet_ths_df = stock_profit_sheet_ths(
         symbol="000063", indicator="按年度"
     )
-    print(stock_financial_benefit_new_ths_df)
+    print(stock_profit_sheet_ths_df)
 
-    stock_financial_benefit_new_ths_df = stock_financial_benefit_new_ths(
+    stock_profit_sheet_ths_df = stock_profit_sheet_ths(
         symbol="000063", indicator="一季度"
     )
-    print(stock_financial_benefit_new_ths_df)
+    print(stock_profit_sheet_ths_df)
 
-    stock_financial_cash_new_ths_df = stock_financial_cash_new_ths(
+    stock_cash_flow_sheet_ths_df = stock_cash_flow_sheet_ths(
         symbol="000063", indicator="按报告期"
     )
-    print(stock_financial_cash_new_ths_df)
+    print(stock_cash_flow_sheet_ths_df)
 
-    stock_financial_cash_new_ths_df = stock_financial_cash_new_ths(
+    stock_cash_flow_sheet_ths_df = stock_cash_flow_sheet_ths(
         symbol="000063", indicator="按年度"
     )
-    print(stock_financial_cash_new_ths_df)
+    print(stock_cash_flow_sheet_ths_df)
 
-    stock_financial_cash_new_ths_df = stock_financial_cash_new_ths(
+    stock_cash_flow_sheet_ths_df = stock_cash_flow_sheet_ths(
         symbol="000063", indicator="一季度"
     )
-    print(stock_financial_cash_new_ths_df)
+    print(stock_cash_flow_sheet_ths_df)
 
     stock_management_change_ths_df = stock_management_change_ths(symbol="688981")
     print(stock_management_change_ths_df)
 
     stock_shareholder_change_ths_df = stock_shareholder_change_ths(symbol="688981")
     print(stock_shareholder_change_ths_df)
-
-    stock_financial_abstract_ths_df = stock_financial_abstract_ths(
-        symbol="000063", indicator="按报告期"
-    )
-    print(stock_financial_abstract_ths_df)

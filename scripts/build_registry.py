@@ -49,7 +49,7 @@ def parse_table(segment: str, header: str) -> List[Dict[str, Optional[str]]]:
 
 
 # 冒号必须同时容错半角 ":" 与全角 "："。实测拆分前的 docs/data/stock/stock.md 中有 10 个
-# 接口条目使用全角冒号（stock_info_global_em/sina/ths/futu/cls、stock_info_cjzc_em、
+# 接口条目使用全角冒号（stock_news_global_em/sina/ths/futu/cls、stock_news_cjzc_em、
 # stock_rank_cxg/cxd/lxsz/lxxd_ths），它们都是真实导出的接口。只匹配半角会让这些
 # 条目不被识别为边界，其正文被并入前一条记录，接口本身则从 registry 中彻底消失。
 BLOCK_RE = re.compile(r"^接口[:：]\s*(\S+)\s*$", re.M)

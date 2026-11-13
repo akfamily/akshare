@@ -13,7 +13,7 @@
 ### 代码及接口设计规范
 
 1. 代码需要符合 **PEP 8** 要求，由 [Ruff](https://github.com/astral-sh/ruff) 进行格式化和检查；提交时 pre-commit 会自动运行，也可以手动运行 `uv run ruff format .` 和 `uv run ruff check .`
-2. 函数接口的设计参考 **stock_zh_a_hist_tx** 的结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**tx** 表示数据源为腾讯；常见的数据源后缀还有 **em**（东方财富）、**sina**（新浪财经）、**ths**（同花顺）等
+2. 接口名称遵循下文的“接口命名规范”，结构参考 **stock_zh_a_hist_tx**
 3. 接口函数需要增加注释，注释规则请参考 **stock_zh_a_hist_tx** 接口的源码
 4. 新增的接口需要在 `akshare/__init__.py` 中对应类目的分组里导入，用户才能通过 `ak.接口名` 调用
 5. 模块放在与接口类目同名的子包中，文件名为“类目_主题_数据源.py”，例如期货接口放在 `akshare/futures/`，宏观接口放在 `akshare/macro/`；股票接口按数据字典的主题放在 `akshare/stock/quote/`、`finance/`、`holder/`、`issue/`、`valuation/`、`flow/`、`board/`、`research/`、`other/` 之一；一个模块只放同一类目的接口
@@ -21,6 +21,42 @@
 7. 需要在接口函数的注释中增加目标网站的地址（不是具体的数据接口地址，而是网页的地址）
 8. 返回数据格式要求：
    1. 为了兼容 HTTP API 接口，所有返回的数据格式统一为 Pandas 中的 pandas.DataFrame 格式
+
+### 接口命名规范
+
+接口名是对外契约，改名即不兼容改动，新增接口时请一次定准。存量接口中不符合本规范的部分记录在 `tests/naming_baseline.json` 中，正在分批改名；新接口必须符合，否则 `tests/test_naming.py` 会失败。
+
+1. 结构为“类目_市场或品种_主题_频率_数据源”，全部小写、以下划线分隔，没有的部分省略。以 **stock_zh_a_hist_tx** 为例：**stock** 为类目，**zh** 为国家或地区，**a** 为市场或品种，**hist** 表示历史行情，**tx** 表示数据源为腾讯
+2. 第一段必须是接口所属的类目，即 `docs/data/` 下的目录名，如指数行情以 `index_` 开头，而不是 `stock_zh_index_`
+3. 数据源或交易所标记放在末尾：**em**（东方财富）、**sina**（新浪财经）、**ths**（同花顺）、**tx**（腾讯）、**cninfo**（巨潮资讯）、**xq**（雪球）、**jsl**（集思录）、**lg**（乐咕乐股）、**js**（金十数据）、**sse**、**szse**、**bse**、**shfe**、**dce**、**czce**、**cffex**、**gfex**、**ine** 等，如 `futures_daily_dce`。同一种数据有多个数据源时必须带数据源后缀，不能靠调换词序区分
+4. 用词要与金融含义一致，一个概念只用一种写法，一个词只表示一个概念：
+
+| 含义 | 用词 | 不要使用 |
+|------|------|----------|
+| 实时行情（股票、基金、指数） | spot | - |
+| 实时行情（期货、期权、债券、外汇、现货、加密货币） | realtime | spot，在这些类目中只表示现货、即期、现券 |
+| 历史行情，可选日、周、月等周期 | hist | history |
+| 只有日线的历史行情 | daily | 不用于表示“当日快照” |
+| 分钟行情 | min | minute |
+| 同比（年率）、环比（月率）、季率 | yoy、mom、qoq | yearly、monthly、quarterly，它们只表示数据频率 |
+| 可转债 | cb | cov |
+| 质押式回购 | repo | buy_back，它指股票回购 |
+| 收益率 | yield | return、rate |
+| 评级 | rating | rank（排名）、rate（利率、比率） |
+| 净值 | nav | info |
+| 库存 | inventory | stock |
+| 手续费 | fee | comm |
+| 商品 | commodity | comm |
+| 外汇 | fx | forex、currency |
+| 资产负债表、利润表、现金流量表 | balance_sheet、profit_sheet、cash_flow_sheet | debt、benefit、cash |
+| 新闻、快讯 | news | info |
+| 日历类数据（财报披露、分红、停复牌、经济日历） | calendar | news |
+| 成份股 | cons | component、components |
+
+5. 国家和地区使用固定写法：zh（中国内地的证券市场）、china（中国宏观数据）、hk、us（美国证券市场）、usa（美国宏观数据）、uk、euro、japan、germany、swiss、canada、australia
+6. 有通行英文名称的概念使用英文，如财政收入、固定资产投资等宏观指标，不使用拼音首字母缩写。数据源网站的栏目名没有通行译名时（如龙虎榜 lhb、大宗交易 dzjy）沿用已有的拼音缩写，不再新造
+7. 不使用 new、v2 等过渡性的词；接口被替换时直接移除旧接口
+8. 接口更名需要在 `docs/changelog.md` 文末的“接口更名一览表”中登记
 
 ### 标点符号规范
 

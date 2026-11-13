@@ -404,10 +404,10 @@ print(stock_sy_hy_em_df)
 [86 rows x 6 columns]
 ```
 
-(news_report_time_baidu)=
+(stock_calendar_report_baidu)=
 ## 财报发行
 
-接口：news_report_time_baidu
+接口：stock_calendar_report_baidu
 
 目标地址：https://gushitong.baidu.com/calendar
 
@@ -436,8 +436,8 @@ print(stock_sy_hy_em_df)
 ```python
 import akshare as ak
 
-news_report_time_baidu_df = ak.news_report_time_baidu(date="20241107")
-print(news_report_time_baidu_df)
+stock_calendar_report_baidu_df = ak.stock_calendar_report_baidu(date="20241107")
+print(stock_calendar_report_baidu_df)
 ```
 
 数据示例
@@ -2092,14 +2092,14 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 
 ### 财务报表-同花顺
 
-(stock_financial_debt_new_ths)=
+(stock_balance_sheet_ths)=
 #### 资产负债表
 
-接口：stock_financial_debt_new_ths
+接口：stock_balance_sheet_ths
 
 目标地址：https://basic.10jqka.com.cn/astockpc/astockmain/index.html#/financen?code=000063
 
-描述：同花顺-财务指标-资产负债表；替换 stock_financial_debt_ths 接口
+描述：同花顺-财务指标-资产负债表
 
 限量：单次获取资产负债表所有历史数据
 
@@ -2130,8 +2130,8 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 ```python
 import akshare as ak
 
-stock_financial_debt_new_ths_df = ak.stock_financial_debt_new_ths(symbol="000063", indicator="一季度")
-print(stock_financial_debt_new_ths_df)
+stock_balance_sheet_ths_df = ak.stock_balance_sheet_ths(symbol="000063", indicator="一季度")
+print(stock_balance_sheet_ths_df)
 ```
 
 数据示例
@@ -2152,14 +2152,14 @@ print(stock_financial_debt_new_ths_df)
 [2164 rows x 10 columns]
 ```
 
-(stock_financial_benefit_new_ths)=
+(stock_profit_sheet_ths)=
 #### 利润表
 
-接口：stock_financial_benefit_new_ths
+接口：stock_profit_sheet_ths
 
 目标地址：https://basic.10jqka.com.cn/astockpc/astockmain/index.html#/financen?code=000063
 
-描述：同花顺-财务指标-利润表；替换 stock_financial_benefit_ths 接口
+描述：同花顺-财务指标-利润表
 
 限量：单次获取利润表所有历史数据
 
@@ -2190,8 +2190,8 @@ print(stock_financial_debt_new_ths_df)
 ```python
 import akshare as ak
 
-stock_financial_benefit_new_ths_df = ak.stock_financial_benefit_new_ths(symbol="000063", indicator="按报告期")
-print(stock_financial_benefit_new_ths_df)
+stock_profit_sheet_ths_df = ak.stock_profit_sheet_ths(symbol="000063", indicator="按报告期")
+print(stock_profit_sheet_ths_df)
 ```
 
 数据示例
@@ -2212,14 +2212,14 @@ print(stock_financial_benefit_new_ths_df)
 [2550 rows x 10 columns]
 ```
 
-(stock_financial_cash_new_ths)=
+(stock_cash_flow_sheet_ths)=
 #### 现金流量表
 
-接口：stock_financial_cash_new_ths
+接口：stock_cash_flow_sheet_ths
 
 目标地址：https://basic.10jqka.com.cn/astockpc/astockmain/index.html#/financen?code=000063
 
-描述：同花顺-财务指标-现金流量表；替换 stock_financial_cash_ths 接口
+描述：同花顺-财务指标-现金流量表
 
 限量：单次获取现金流量表所有历史数据
 
@@ -2250,8 +2250,8 @@ print(stock_financial_benefit_new_ths_df)
 ```python
 import akshare as ak
 
-stock_financial_cash_new_ths_df = ak.stock_financial_cash_new_ths(symbol="000063", indicator="按年度")
-print(stock_financial_cash_new_ths_df)
+stock_cash_flow_sheet_ths_df = ak.stock_cash_flow_sheet_ths(symbol="000063", indicator="按年度")
+print(stock_cash_flow_sheet_ths_df)
 ```
 
 数据示例
@@ -2659,14 +2659,14 @@ print(stock_financial_abstract_df)
 78  营运能力   应付账款周转率  5.311671e+00  ...           NaN  2.140125e+01           NaN
 ```
 
-(stock_financial_abstract_new_ths)=
+(stock_financial_key_indicator_ths)=
 ### 关键指标-同花顺
 
-接口：stock_financial_abstract_new_ths
+接口：stock_financial_key_indicator_ths
 
 目标地址：https://basic.10jqka.com.cn/new/000063/finance.html
 
-描述：同花顺-财务指标-重要指标；替换 stock_financial_abstract_ths 接口
+描述：同花顺-财务指标-重要指标
 
 限量：单次获取指定 symbol 的所有数据
 
@@ -2697,8 +2697,8 @@ print(stock_financial_abstract_df)
 ```python
 import akshare as ak
 
-stock_financial_abstract_new_ths_df = ak.stock_financial_abstract_new_ths(symbol="000063", indicator="按报告期")
-print(stock_financial_abstract_new_ths_df)
+stock_financial_key_indicator_ths_df = ak.stock_financial_key_indicator_ths(symbol="000063", indicator="按报告期")
+print(stock_financial_key_indicator_ths_df)
 ```
 
 数据示例

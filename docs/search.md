@@ -74,12 +74,12 @@ print(search_df)
 数据示例-限定类目
 
 ```
-                           接口名    类目                                描述  有无文档   匹配分
-0        fund_etf_category_ths  fund              同花顺理财-基金数据-每日净值-实时行情  True  10.5
-1        fund_etf_fund_info_em  fund   东方财富网站-天天基金网-基金数据-场内交易基金-历史净值数据  True  10.5
-2            fund_etf_spot_ths  fund          同花顺理财-基金数据-每日净值-ETF-实时行情  True  10.5
-3  fund_financial_fund_info_em  fund  东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细  True  10.5
-4      fund_money_fund_info_em  fund       东方财富网-天天基金网-基金数据-货币型基金-历史净值  True  10.5
+                          接口名    类目                                描述  有无文档   匹配分
+0       fund_etf_category_ths  fund              同花顺理财-基金数据-每日净值-实时行情  True  10.5
+1           fund_etf_spot_ths  fund          同花顺理财-基金数据-每日净值-ETF-实时行情  True  10.5
+2   fund_exchange_nav_hist_em  fund   东方财富网站-天天基金网-基金数据-场内交易基金-历史净值数据  True  10.5
+3  fund_financial_nav_hist_em  fund  东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细  True  10.5
+4    fund_money_yield_hist_em  fund       东方财富网-天天基金网-基金数据-货币型基金-历史净值  True  10.5
 ```
 
 ## 接口元数据

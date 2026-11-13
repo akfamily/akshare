@@ -1415,10 +1415,10 @@ print(fund_etf_holdings_tx_df)
 
 ## 基金净值
 
-(fund_open_fund_daily_em)=
+(fund_open_nav_em)=
 ### 开放式基金-实时数据
 
-接口：fund_open_fund_daily_em
+接口：fund_open_nav_em
 
 目标地址：http://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
 
@@ -1453,8 +1453,8 @@ print(fund_etf_holdings_tx_df)
 ```python
 import akshare as ak
 
-fund_open_fund_daily_em_df = ak.fund_open_fund_daily_em()
-print(fund_open_fund_daily_em_df)
+fund_open_nav_em_df = ak.fund_open_nav_em()
+print(fund_open_nav_em_df)
 ```
 
 数据示例
@@ -1489,7 +1489,7 @@ print(fund_open_fund_daily_em_df)
 
 | 名称        | 类型  | 描述                                                                                             |
 |-----------|-----|------------------------------------------------------------------------------------------------|
-| symbol    | str | symbol="710001"；需要基金代码，可以通过调用 **ak.fund_open_fund_daily_em()** 获取                            |
+| symbol    | str | symbol="710001"；需要基金代码，可以通过调用 **ak.fund_open_nav_em()** 获取                            |
 | indicator | str | indicator="单位净值走势"；参见 **fund_open_fund_info_em** 参数一览表                                       |
 | period    | str | period="成立来"；该参数只对 `累计收益率走势` 有效，choice of {"1月", "3月", "6月", "1年", "3年", "5年", "今年来", "成立来"} |
 
@@ -1741,10 +1741,10 @@ print(fund_open_fund_info_em_df)
 8  2015年  2015-12-15  份额折算  1:1.0180
 ```
 
-(fund_money_fund_daily_em)=
+(fund_money_yield_em)=
 ### 货币型基金-实时数据
 
-接口：fund_money_fund_daily_em
+接口：fund_money_yield_em
 
 目标地址：http://fund.eastmoney.com/HBJJ_pjsyl.html
 
@@ -1781,8 +1781,8 @@ print(fund_open_fund_info_em_df)
 ```python
 import akshare as ak
 
-fund_money_fund_daily_em_df = ak.fund_money_fund_daily_em()
-print(fund_money_fund_daily_em_df)
+fund_money_yield_em_df = ak.fund_money_yield_em()
+print(fund_money_yield_em_df)
 ```
 
 数据示例
@@ -1802,10 +1802,10 @@ print(fund_money_fund_daily_em_df)
 452  519507       万家货币B        ---         ---  ...  2013-08-15    郅元  0费率   购买
 ```
 
-(fund_money_fund_info_em)=
+(fund_money_yield_hist_em)=
 ### 货币型基金-历史数据
 
-接口：fund_money_fund_info_em
+接口：fund_money_yield_hist_em
 
 目标地址：https://fundf10.eastmoney.com/jjjz_000009.html
 
@@ -1819,7 +1819,7 @@ print(fund_money_fund_daily_em_df)
 
 | 名称     | 类型  | 描述                                                                   |
 |--------|-----|----------------------------------------------------------------------|
-| symbol | str | symbol="000009"；需要基金代码，可以通过调用 **ak.fund_money_fund_daily_em()** 获取 |
+| symbol | str | symbol="000009"；需要基金代码，可以通过调用 **ak.fund_money_yield_em()** 获取 |
 
 输出参数
 
@@ -1836,8 +1836,8 @@ print(fund_money_fund_daily_em_df)
 ```python
 import akshare as ak
 
-fund_money_fund_info_em_df = ak.fund_money_fund_info_em(symbol="000009")
-print(fund_money_fund_info_em_df)
+fund_money_yield_hist_em_df = ak.fund_money_yield_hist_em(symbol="000009")
+print(fund_money_yield_hist_em_df)
 ```
 
 数据示例
@@ -1858,10 +1858,10 @@ print(fund_money_fund_info_em_df)
 [4192 rows x 5 columns]
 ```
 
-(fund_financial_fund_info_em)=
+(fund_financial_nav_hist_em)=
 ### 理财型基金-历史数据
 
-接口：fund_financial_fund_info_em
+接口：fund_financial_nav_hist_em
 
 目标地址：http://fundf10.eastmoney.com/jjjz_000791.html
 
@@ -1892,8 +1892,8 @@ print(fund_money_fund_info_em_df)
 ```python
 import akshare as ak
 
-fund_financial_fund_info_em_df = ak.fund_financial_fund_info_em(symbol="000134")
-print(fund_financial_fund_info_em_df)
+fund_financial_nav_hist_em_df = ak.fund_financial_nav_hist_em(symbol="000134")
+print(fund_financial_nav_hist_em_df)
 ```
 
 数据示例
@@ -1913,10 +1913,10 @@ print(fund_financial_fund_info_em_df)
 667  2023-03-22  1.0303  1.0963  0.00  限制大额申购  开放赎回
 ```
 
-(fund_graded_fund_daily_em)=
+(fund_graded_nav_em)=
 ### 分级基金-实时数据
 
-接口：fund_graded_fund_daily_em
+接口：fund_graded_nav_em
 
 目标地址：http://fund.eastmoney.com/fjjj.html#1_1__0__zdf,desc_1
 
@@ -1951,8 +1951,8 @@ print(fund_financial_fund_info_em_df)
 ```python
 import akshare as ak
 
-fund_graded_fund_daily_em_df = ak.fund_graded_fund_daily_em()
-print(fund_graded_fund_daily_em_df)
+fund_graded_nav_em_df = ak.fund_graded_nav_em()
+print(fund_graded_nav_em_df)
 ```
 
 数据示例
@@ -1972,10 +1972,10 @@ print(fund_graded_fund_daily_em_df)
 345  161825       银华中证800分级                  ...                         1.20%
 ```
 
-(fund_graded_fund_info_em)=
+(fund_graded_nav_hist_em)=
 ### 分级基金-历史数据
 
-接口：fund_graded_fund_info_em
+接口：fund_graded_nav_hist_em
 
 目标地址：http://fundf10.eastmoney.com/jjjz_004186.html
 
@@ -1987,7 +1987,7 @@ print(fund_graded_fund_daily_em_df)
 
 | 名称     | 类型  | 描述                                                                    |
 |--------|-----|-----------------------------------------------------------------------|
-| symbol | str | symbol="150232"；需要基金代码，可以通过调用 **ak.fund_graded_fund_daily_em()** 获取 |
+| symbol | str | symbol="150232"；需要基金代码，可以通过调用 **ak.fund_graded_nav_em()** 获取 |
 
 输出参数
 
@@ -2005,8 +2005,8 @@ print(fund_graded_fund_daily_em_df)
 ```python
 import akshare as ak
 
-fund_graded_fund_info_em_df = ak.fund_graded_fund_info_em(symbol="150232")
-print(fund_graded_fund_info_em_df)
+fund_graded_nav_hist_em_df = ak.fund_graded_nav_hist_em(symbol="150232")
+print(fund_graded_nav_hist_em_df)
 ```
 
 数据示例
@@ -2027,10 +2027,10 @@ print(fund_graded_fund_info_em_df)
 [1343 rows x 6 columns]
 ```
 
-(fund_etf_fund_daily_em)=
+(fund_exchange_nav_em)=
 ### 场内交易基金-实时数据
 
-接口：fund_etf_fund_daily_em
+接口：fund_exchange_nav_em
 
 目标地址：http://fund.eastmoney.com/cnjy_dwjz.html
 
@@ -2065,8 +2065,8 @@ print(fund_graded_fund_info_em_df)
 ```python
 import akshare as ak
 
-fund_etf_fund_daily_em_df = ak.fund_etf_fund_daily_em()
-print(fund_etf_fund_daily_em_df)
+fund_exchange_nav_em_df = ak.fund_exchange_nav_em()
+print(fund_exchange_nav_em_df)
 ```
 
 数据示例
@@ -2086,10 +2086,10 @@ print(fund_etf_fund_daily_em_df)
 478  515790  华泰柏瑞中证光伏产业ETF行情  ETF-场内  ...     ---     ---     ---
 ```
 
-(fund_etf_fund_info_em)=
+(fund_exchange_nav_hist_em)=
 ### 场内交易基金-历史数据
 
-接口：fund_etf_fund_info_em
+接口：fund_exchange_nav_hist_em
 
 目标地址：http://fundf10.eastmoney.com/jjjz_004186.html
 
@@ -2101,7 +2101,7 @@ print(fund_etf_fund_daily_em_df)
 
 | 名称         | 类型  | 描述                                                             |
 |------------|-----|----------------------------------------------------------------|
-| fund       | str | fund="511280"；基金代码，可以通过调用 **ak.fund_etf_fund_daily_em()** 获取 |
+| fund       | str | fund="511280"；基金代码，可以通过调用 **ak.fund_exchange_nav_em()** 获取 |
 | start_date | str | start_date="20000101"；开始时间                                    |
 | end_date   | str | end_date="20500101"；结束时间                                      |
 
@@ -2121,8 +2121,8 @@ print(fund_etf_fund_daily_em_df)
 ```python
 import akshare as ak
 
-fund_etf_fund_info_em_df = ak.fund_etf_fund_info_em(fund="511280", start_date="20000101", end_date="20500101")
-print(fund_etf_fund_info_em_df)
+fund_exchange_nav_hist_em_df = ak.fund_exchange_nav_hist_em(fund="511280", start_date="20000101", end_date="20500101")
+print(fund_exchange_nav_hist_em_df)
 ```
 
 数据示例

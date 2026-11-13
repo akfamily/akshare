@@ -1352,10 +1352,10 @@ print(bond_zh_cov_value_analysis_df)
 
 ## 质押式回购
 
-(bond_sh_buy_back_em)=
+(bond_repo_sh_em)=
 ### 上证质押式回购
 
-接口：bond_sh_buy_back_em
+接口：bond_repo_sh_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback
 
@@ -1391,8 +1391,8 @@ print(bond_zh_cov_value_analysis_df)
 ```python
 import akshare as ak
 
-bond_sh_buy_back_em_df = ak.bond_sh_buy_back_em()
-print(bond_sh_buy_back_em_df)
+bond_repo_sh_em_df = ak.bond_repo_sh_em()
+print(bond_repo_sh_em_df)
 ```
 
 数据示例
@@ -1411,10 +1411,10 @@ print(bond_sh_buy_back_em_df)
 [9 rows x 12 columns]
 ```
 
-(bond_sz_buy_back_em)=
+(bond_repo_sz_em)=
 ### 深证质押式回购
 
-接口：bond_sz_buy_back_em
+接口：bond_repo_sz_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#bond_sz_buyback
 
@@ -1450,8 +1450,8 @@ print(bond_sh_buy_back_em_df)
 ```python
 import akshare as ak
 
-bond_sz_buy_back_em_df = ak.bond_sz_buy_back_em()
-print(bond_sz_buy_back_em_df)
+bond_repo_sz_em_df = ak.bond_repo_sz_em()
+print(bond_repo_sz_em_df)
 ```
 
 数据示例
@@ -1470,10 +1470,10 @@ print(bond_sz_buy_back_em_df)
 [9 rows x 12 columns]
 ```
 
-(bond_buy_back_hist_em)=
+(bond_repo_hist_em)=
 ### 质押式回购历史数据
 
-接口：bond_buy_back_hist_em
+接口：bond_repo_hist_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback
 
@@ -1504,8 +1504,8 @@ print(bond_sz_buy_back_em_df)
 ```python
 import akshare as ak
 
-bond_buy_back_hist_em_df = ak.bond_buy_back_hist_em(symbol="204001")
-print(bond_buy_back_hist_em_df)
+bond_repo_hist_em_df = ak.bond_repo_hist_em(symbol="204001")
+print(bond_repo_hist_em_df)
 ```
 
 数据示例
@@ -1810,23 +1810,25 @@ print(bond_convert_adj_logs_jsl_df)
 2  洪涛转债  2019-11-20    9.97    8.00  2019-11-21  3.10
 ```
 
-(bond_china_close_return)=
+(bond_zh_close_yield_cm)=
 ## 收盘收益率曲线历史数据
 
-接口：bond_china_close_return
+接口：bond_zh_close_yield_cm
 
 目标地址：https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 
 描述：收盘收益率曲线历史数据，该接口只能获取近 3 个月的数据，且每次获取的数据不超过 1 个月
 
+限量：返回指定日期区间内的全部数据；日期超出近 3 个月时返回空表并给出告警
+
 输入参数
 
 | 名称         | 类型  | 描述                                                                       |
 |------------|-----|--------------------------------------------------------------------------|
-| symbol     | str | symbol="政策性金融债(进出口行)"；通过网页查询或调用 **ak.bond_china_close_return_map()** 获取 |
+| symbol     | str | symbol="政策性金融债(进出口行)"；通过网页查询或调用 **ak.bond_zh_close_yield_map_cm()** 获取 |
 | period     | str | period: str = "1"；期限间隔，choice of {'0.1', '0.5', '1'}                   |
-| start_date | str | start_date="20231101"；结束日期，结束日期和开始日期不要超过 1 个月                          |
-| end_date   | str | end_date="20231101"；结束日期，结束日期和开始日期不要超过 1 个月                            |
+| start_date | str | start_date="20261110"；开始日期，只能查询近 3 个月，结束日期和开始日期不要超过 1 个月           |
+| end_date   | str | end_date="20261110"；结束日期，只能查询近 3 个月，结束日期和开始日期不要超过 1 个月             |
 
 输出参数
 
@@ -1843,35 +1845,74 @@ print(bond_convert_adj_logs_jsl_df)
 ```python
 import akshare as ak
 
-bond_china_close_return_df = ak.bond_china_close_return(symbol="国债", period="1", start_date="20231101", end_date="20231101")
-print(bond_china_close_return_df)
+bond_zh_close_yield_cm_df = ak.bond_zh_close_yield_cm(symbol="国债", period="1", start_date="20261110", end_date="20261110")
+print(bond_zh_close_yield_cm_df)
 ```
 
 数据示例
 
 ```
-       日期       期限   到期收益率 即期收益率  远期收益率
-0   2023-11-01   0.083  1.7031  1.7031     NaN
-1   2023-11-01   0.250  2.3102  2.3102     NaN
-2   2023-11-01   0.500  2.3825  2.3825     NaN
-3   2023-11-01   0.750  2.2547  2.2547     NaN
-4   2023-11-01   1.000  2.2452  2.2452  2.5188
-5   2023-11-01   2.000  2.3803  2.3819  2.5649
-6   2023-11-01   3.000  2.4403  2.4429  2.6295
-7   2023-11-01   4.000  2.4858  2.4895  2.7256
-8   2023-11-01   5.000  2.5313  2.5367  3.0216
-9   2023-11-01   6.000  2.6076  2.6174  3.1898
-10  2023-11-01   7.000  2.6838  2.6989  2.6956
-11  2023-11-01   8.000  2.6851  2.6985  2.6986
-12  2023-11-01   9.000  2.6865  2.6985  2.7016
-13  2023-11-01  10.000  2.6878  2.6988  2.9891
-14  2023-11-01  11.000  2.7115  2.7252  3.0458
+            日期      期限   到期收益率   即期收益率   远期收益率
+0   2026-11-10   0.083  1.0606  1.0606     NaN
+1   2026-11-10   0.250  1.1625  1.1625     NaN
+2   2026-11-10   0.500  1.1650  1.1650     NaN
+3   2026-11-10   0.750  1.1651  1.1651     NaN
+4   2026-11-10   1.000  1.1757  1.1757  1.2663
+5   2026-11-10   2.000  1.2207  1.2210  1.2693
+6   2026-11-10   3.000  1.2367  1.2371  1.3928
+7   2026-11-10   4.000  1.2750  1.2760  1.4716
+8   2026-11-10   5.000  1.3132  1.3151  1.6359
+9   2026-11-10   6.000  1.3651  1.3685  1.7453
+10  2026-11-10   7.000  1.4169  1.4222  1.9225
+11  2026-11-10   8.000  1.4766  1.4846  2.0522
+12  2026-11-10   9.000  1.5362  1.5475  2.1841
+13  2026-11-10  10.000  1.5959  1.6110  2.2568
+14  2026-11-10  11.000  1.6505  1.6696  2.3817
+15  2026-11-10  12.000  1.7051  1.7287  2.5093
+16  2026-11-10  13.000  1.7597  1.7885  2.6397
+17  2026-11-10  14.000  1.8143  1.8491  2.7733
+18  2026-11-10  15.000  1.8689  1.9105  2.4478
+19  2026-11-10  16.000  1.8994  1.9440  2.5234
+20  2026-11-10  17.000  1.9299  1.9780  2.6006
+21  2026-11-10  18.000  1.9603  2.0125  2.6795
+22  2026-11-10  19.000  1.9908  2.0475  2.7603
+23  2026-11-10  20.000  2.0213  2.0830  2.0727
+24  2026-11-10  21.000  2.0232  2.0825  2.0776
+25  2026-11-10  22.000  2.0251  2.0823  2.0826
+26  2026-11-10  23.000  2.0271  2.0823  2.0876
+27  2026-11-10  24.000  2.0290  2.0825  2.0927
+28  2026-11-10  25.000  2.0309  2.0829  2.0979
+29  2026-11-10  26.000  2.0328  2.0835  2.1032
+30  2026-11-10  27.000  2.0347  2.0842  2.1085
+31  2026-11-10  28.000  2.0367  2.0851  2.1139
+32  2026-11-10  29.000  2.0386  2.0861  2.1193
+33  2026-11-10  30.000  2.0405  2.0872  2.2390
+34  2026-11-10  31.000  2.0450  2.0921  2.2525
+35  2026-11-10  32.000  2.0495  2.0971  2.2662
+36  2026-11-10  33.000  2.0540  2.1022  2.2802
+37  2026-11-10  34.000  2.0585  2.1074  2.2944
+38  2026-11-10  35.000  2.0631  2.1128  2.3088
+39  2026-11-10  36.000  2.0676  2.1182  2.3236
+40  2026-11-10  37.000  2.0721  2.1238  2.3386
+41  2026-11-10  38.000  2.0766  2.1294  2.3539
+42  2026-11-10  39.000  2.0811  2.1352  2.3694
+43  2026-11-10  40.000  2.0856  2.1410  2.5536
+44  2026-11-10  41.000  2.0926  2.1510  2.5797
+45  2026-11-10  42.000  2.0997  2.1612  2.6065
+46  2026-11-10  43.000  2.1067  2.1716  2.6339
+47  2026-11-10  44.000  2.1137  2.1821  2.6620
+48  2026-11-10  45.000  2.1208  2.1927  2.6908
+49  2026-11-10  46.000  2.1278  2.2035  2.7204
+50  2026-11-10  47.000  2.1348  2.2145  2.7507
+51  2026-11-10  48.000  2.1418  2.2256  2.7819
+52  2026-11-10  49.000  2.1489  2.2369  2.8140
+53  2026-11-10  50.000  2.1559  2.2484     NaN
 ```
 
-(bond_zh_us_rate)=
+(bond_zh_us_yield_em)=
 ## 中美国债收益率
 
-接口：bond_zh_us_rate
+接口：bond_zh_us_yield_em
 
 目标地址：https://data.eastmoney.com/cjsj/zmgzsyl.html
 
@@ -1908,8 +1949,8 @@ print(bond_china_close_return_df)
 ```python
 import akshare as ak
 
-bond_zh_us_rate_df = ak.bond_zh_us_rate(start_date="19901219")
-print(bond_zh_us_rate_df)
+bond_zh_us_yield_em_df = ak.bond_zh_us_yield_em(start_date="19901219")
+print(bond_zh_us_yield_em_df)
 ```
 
 数据示例
@@ -2042,10 +2083,10 @@ print(bond_gb_us_sina_df)
 
 ## 债券发行
 
-(bond_treasure_issue_cninfo)=
+(bond_treasury_issue_cninfo)=
 ### 国债发行
 
-接口：bond_treasure_issue_cninfo
+接口：bond_treasury_issue_cninfo
 
 目标地址：https://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -2083,8 +2124,8 @@ print(bond_gb_us_sina_df)
 ```python
 import akshare as ak
 
-bond_treasure_issue_cninfo_df = ak.bond_treasure_issue_cninfo(start_date="20210910", end_date="20211109")
-print(bond_treasure_issue_cninfo_df)
+bond_treasury_issue_cninfo_df = ak.bond_treasury_issue_cninfo(start_date="20210910", end_date="20211109")
+print(bond_treasury_issue_cninfo_df)
 ```
 
 数据示例

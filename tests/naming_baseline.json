@@ -1,0 +1,525 @@
+{
+  "air_city_table": [
+    "prefix"
+  ],
+  "air_quality_hebei": [
+    "prefix"
+  ],
+  "air_quality_hist": [
+    "prefix"
+  ],
+  "air_quality_rank": [
+    "prefix"
+  ],
+  "air_quality_watch_point": [
+    "prefix"
+  ],
+  "amac_aoin_info": [
+    "prefix"
+  ],
+  "amac_fund_abs": [
+    "prefix"
+  ],
+  "amac_fund_account_info": [
+    "prefix"
+  ],
+  "amac_fund_info": [
+    "prefix"
+  ],
+  "amac_fund_sub_info": [
+    "prefix"
+  ],
+  "amac_futures_info": [
+    "prefix"
+  ],
+  "amac_manager_cancelled_info": [
+    "prefix"
+  ],
+  "amac_manager_classify_info": [
+    "prefix"
+  ],
+  "amac_manager_info": [
+    "prefix"
+  ],
+  "amac_member_info": [
+    "prefix"
+  ],
+  "amac_member_sub_info": [
+    "prefix"
+  ],
+  "amac_person_bond_org_list": [
+    "prefix"
+  ],
+  "amac_person_fund_org_list": [
+    "prefix"
+  ],
+  "amac_securities_info": [
+    "prefix"
+  ],
+  "article_epu_index": [
+    "prefix"
+  ],
+  "article_ff_crr": [
+    "prefix"
+  ],
+  "article_rlab_rv": [
+    "prefix"
+  ],
+  "bond_cov_comparison": [
+    "token"
+  ],
+  "bond_cov_issue_cninfo": [
+    "token"
+  ],
+  "bond_cov_stock_issue_cninfo": [
+    "token"
+  ],
+  "bond_zh_cov": [
+    "token"
+  ],
+  "bond_zh_cov_info": [
+    "token"
+  ],
+  "bond_zh_cov_info_ths": [
+    "token"
+  ],
+  "bond_zh_cov_value_analysis": [
+    "token"
+  ],
+  "bond_zh_hs_cov_daily": [
+    "token"
+  ],
+  "bond_zh_hs_cov_min": [
+    "token"
+  ],
+  "bond_zh_hs_cov_pre_min": [
+    "token"
+  ],
+  "bond_zh_hs_cov_spot": [
+    "token"
+  ],
+  "business_value_artist": [
+    "prefix"
+  ],
+  "car_market_cate_cpca": [
+    "prefix"
+  ],
+  "car_market_country_cpca": [
+    "prefix"
+  ],
+  "car_market_fuel_cpca": [
+    "prefix"
+  ],
+  "car_market_man_rank_cpca": [
+    "prefix"
+  ],
+  "car_market_segment_cpca": [
+    "prefix"
+  ],
+  "car_market_total_cpca": [
+    "prefix"
+  ],
+  "crypto_js_spot": [
+    "source_position"
+  ],
+  "currency_boc_safe": [
+    "prefix"
+  ],
+  "currency_boc_sina": [
+    "prefix"
+  ],
+  "currency_pair_map": [
+    "prefix"
+  ],
+  "drewry_wci_index": [
+    "prefix"
+  ],
+  "forbes_rank": [
+    "prefix"
+  ],
+  "forex_hist_em": [
+    "prefix",
+    "token"
+  ],
+  "forex_spot_em": [
+    "prefix",
+    "token"
+  ],
+  "fortune_rank": [
+    "prefix"
+  ],
+  "fred_md": [
+    "prefix"
+  ],
+  "fred_qd": [
+    "prefix"
+  ],
+  "futures_comm_info": [
+    "token"
+  ],
+  "futures_comm_js": [
+    "token"
+  ],
+  "futures_dce_position_rank": [
+    "source_position"
+  ],
+  "futures_dce_position_rank_other": [
+    "source_position"
+  ],
+  "futures_gfex_position_rank": [
+    "source_position"
+  ],
+  "futures_gfex_warehouse_receipt": [
+    "source_position"
+  ],
+  "futures_shfe_warehouse_receipt": [
+    "source_position"
+  ],
+  "game_hot_rank_taptap": [
+    "prefix"
+  ],
+  "hf_sp_500": [
+    "prefix"
+  ],
+  "hurun_rank": [
+    "prefix"
+  ],
+  "index_bloomberg_billionaires": [
+    "prefix"
+  ],
+  "index_bloomberg_billionaires_hist": [
+    "prefix"
+  ],
+  "index_csindex_all": [
+    "source_position"
+  ],
+  "index_hog_spot_price": [
+    "prefix"
+  ],
+  "macro_australia_cpi_quarterly": [
+    "token"
+  ],
+  "macro_australia_cpi_yearly": [
+    "token"
+  ],
+  "macro_australia_ppi_quarterly": [
+    "token"
+  ],
+  "macro_australia_retail_rate_monthly": [
+    "token"
+  ],
+  "macro_bank_australia_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_brazil_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_china_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_english_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_euro_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_india_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_japan_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_newzealand_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_russia_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_switzerland_interest_rate": [
+    "prefix"
+  ],
+  "macro_bank_usa_interest_rate": [
+    "prefix"
+  ],
+  "macro_canada_core_cpi_monthly": [
+    "token"
+  ],
+  "macro_canada_core_cpi_yearly": [
+    "token"
+  ],
+  "macro_canada_cpi_monthly": [
+    "token"
+  ],
+  "macro_canada_cpi_yearly": [
+    "token"
+  ],
+  "macro_canada_gdp_monthly": [
+    "token"
+  ],
+  "macro_canada_retail_rate_monthly": [
+    "token"
+  ],
+  "macro_china_cpi_monthly": [
+    "token"
+  ],
+  "macro_china_cpi_yearly": [
+    "token"
+  ],
+  "macro_china_cx_pmi_yearly": [
+    "token"
+  ],
+  "macro_china_cx_services_pmi_yearly": [
+    "token"
+  ],
+  "macro_china_fx_reserves_yearly": [
+    "token"
+  ],
+  "macro_china_gdp_yearly": [
+    "token"
+  ],
+  "macro_china_m2_yearly": [
+    "token"
+  ],
+  "macro_china_pmi_yearly": [
+    "token"
+  ],
+  "macro_china_ppi_yearly": [
+    "token"
+  ],
+  "macro_fx_sentiment": [
+    "prefix"
+  ],
+  "macro_germany_cpi_monthly": [
+    "token"
+  ],
+  "macro_germany_cpi_yearly": [
+    "token"
+  ],
+  "macro_germany_retail_sale_monthly": [
+    "token"
+  ],
+  "macro_germany_retail_sale_yearly": [
+    "token"
+  ],
+  "macro_japan_core_cpi_yearly": [
+    "token"
+  ],
+  "macro_japan_cpi_yearly": [
+    "token"
+  ],
+  "macro_swiss_cpi_yearly": [
+    "token"
+  ],
+  "macro_swiss_gbd_yearly": [
+    "token"
+  ],
+  "macro_swiss_gdp_quarterly": [
+    "token"
+  ],
+  "macro_uk_core_cpi_monthly": [
+    "token"
+  ],
+  "macro_uk_core_cpi_yearly": [
+    "token"
+  ],
+  "macro_uk_cpi_monthly": [
+    "token"
+  ],
+  "macro_uk_cpi_yearly": [
+    "token"
+  ],
+  "macro_uk_gdp_quarterly": [
+    "token"
+  ],
+  "macro_uk_gdp_yearly": [
+    "token"
+  ],
+  "macro_uk_halifax_monthly": [
+    "token"
+  ],
+  "macro_uk_halifax_yearly": [
+    "token"
+  ],
+  "macro_uk_retail_monthly": [
+    "token"
+  ],
+  "macro_uk_retail_yearly": [
+    "token"
+  ],
+  "macro_uk_rightmove_monthly": [
+    "token"
+  ],
+  "macro_uk_rightmove_yearly": [
+    "token"
+  ],
+  "macro_usa_core_cpi_monthly": [
+    "token"
+  ],
+  "macro_usa_cpi_monthly": [
+    "token"
+  ],
+  "macro_usa_gdp_monthly": [
+    "token"
+  ],
+  "match_main_contract": [
+    "prefix"
+  ],
+  "movie_boxoffice_cinema_daily": [
+    "prefix"
+  ],
+  "movie_boxoffice_daily": [
+    "prefix"
+  ],
+  "movie_boxoffice_monthly": [
+    "prefix"
+  ],
+  "movie_boxoffice_realtime": [
+    "prefix"
+  ],
+  "movie_boxoffice_yearly": [
+    "prefix"
+  ],
+  "movie_boxoffice_yearly_first_week": [
+    "prefix"
+  ],
+  "news_cctv": [
+    "prefix"
+  ],
+  "online_value_artist": [
+    "prefix"
+  ],
+  "option_comm_info": [
+    "token"
+  ],
+  "option_comm_symbol": [
+    "token"
+  ],
+  "option_finance_sse_underlying": [
+    "source_position"
+  ],
+  "qdii_e_comm_jsl": [
+    "token"
+  ],
+  "rate_interbank": [
+    "prefix"
+  ],
+  "reits_hist_em": [
+    "prefix"
+  ],
+  "reits_hist_min_em": [
+    "prefix"
+  ],
+  "reits_realtime_em": [
+    "prefix"
+  ],
+  "repo_rate_hist": [
+    "prefix"
+  ],
+  "repo_rate_query": [
+    "prefix"
+  ],
+  "rv_from_futures_zh_minute_sina": [
+    "prefix"
+  ],
+  "rv_from_stock_zh_a_hist_min_em": [
+    "prefix"
+  ],
+  "spot_goods": [
+    "prefix"
+  ],
+  "stock_a_code_to_symbol": [
+    "prefix"
+  ],
+  "stock_hk_index_daily_em": [
+    "prefix"
+  ],
+  "stock_hk_index_daily_sina": [
+    "prefix"
+  ],
+  "stock_hk_index_spot_em": [
+    "prefix"
+  ],
+  "stock_hk_index_spot_sina": [
+    "prefix"
+  ],
+  "stock_js_weibo_nlp_time": [
+    "prefix",
+    "source_position"
+  ],
+  "stock_js_weibo_report": [
+    "prefix",
+    "source_position"
+  ],
+  "stock_sse_deal_daily": [
+    "source_position"
+  ],
+  "stock_sse_summary": [
+    "source_position"
+  ],
+  "stock_szse_area_summary": [
+    "source_position"
+  ],
+  "stock_szse_sector_summary": [
+    "source_position"
+  ],
+  "stock_szse_summary": [
+    "source_position"
+  ],
+  "stock_zh_a_tick_tx_js": [
+    "source_position"
+  ],
+  "stock_zh_index_daily": [
+    "prefix"
+  ],
+  "stock_zh_index_daily_em": [
+    "prefix"
+  ],
+  "stock_zh_index_daily_tx": [
+    "prefix"
+  ],
+  "stock_zh_index_hist_csindex": [
+    "prefix"
+  ],
+  "stock_zh_index_spot_em": [
+    "prefix"
+  ],
+  "stock_zh_index_spot_sina": [
+    "prefix"
+  ],
+  "stock_zh_index_value_csindex": [
+    "prefix"
+  ],
+  "sunrise_daily": [
+    "prefix"
+  ],
+  "sunrise_monthly": [
+    "prefix"
+  ],
+  "sw_index_first_info": [
+    "prefix"
+  ],
+  "sw_index_second_info": [
+    "prefix"
+  ],
+  "sw_index_third_cons": [
+    "prefix"
+  ],
+  "sw_index_third_info": [
+    "prefix"
+  ],
+  "tool_trade_date_hist_sina": [
+    "prefix"
+  ],
+  "video_tv": [
+    "prefix"
+  ],
+  "video_variety_show": [
+    "prefix"
+  ],
+  "volatility_yz_rv": [
+    "prefix"
+  ],
+  "xincaifu_rank": [
+    "prefix"
+  ]
+}

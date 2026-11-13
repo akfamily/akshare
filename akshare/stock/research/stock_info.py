@@ -18,7 +18,7 @@ from akshare.utils import http
 from akshare.utils.cons import headers
 
 
-def stock_info_cjzc_em() -> pd.DataFrame:
+def stock_news_cjzc_em() -> pd.DataFrame:
     """
     东方财富-财经早餐
     https://stock.eastmoney.com/a/czpnc.html
@@ -57,7 +57,7 @@ def stock_info_cjzc_em() -> pd.DataFrame:
     return big_df
 
 
-def stock_info_global_em() -> pd.DataFrame:
+def stock_news_global_em() -> pd.DataFrame:
     """
     东方财富-全球财经快讯
     https://kuaixun.eastmoney.com/7_24.html
@@ -91,7 +91,7 @@ def stock_info_global_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_global_sina() -> pd.DataFrame:
+def stock_news_global_sina() -> pd.DataFrame:
     """
     新浪财经-全球财经快讯
     https://finance.sina.com.cn/7x24
@@ -122,7 +122,7 @@ def stock_info_global_sina() -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_global_futu() -> pd.DataFrame:
+def stock_news_global_futu() -> pd.DataFrame:
     """
     富途牛牛-快讯
     https://news.futunn.com/main/live
@@ -156,7 +156,7 @@ def stock_info_global_futu() -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_global_ths() -> pd.DataFrame:
+def stock_news_global_ths() -> pd.DataFrame:
     """
     同花顺财经-全球财经直播
     https://news.10jqka.com.cn/realtimenews.html
@@ -188,7 +188,7 @@ def stock_info_global_ths() -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
+def stock_news_global_cls(symbol: str = "全部") -> pd.DataFrame:
     """
     财联社-电报
     https://www.cls.cn/telegraph
@@ -235,20 +235,20 @@ def stock_info_global_cls(symbol: str = "全部") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_info_cjzc_em_df = stock_info_cjzc_em()
-    print(stock_info_cjzc_em_df)
+    stock_news_cjzc_em_df = stock_news_cjzc_em()
+    print(stock_news_cjzc_em_df)
 
-    stock_info_global_em_df = stock_info_global_em()
-    print(stock_info_global_em_df)
+    stock_news_global_em_df = stock_news_global_em()
+    print(stock_news_global_em_df)
 
-    stock_info_global_sina_df = stock_info_global_sina()
-    print(stock_info_global_sina_df)
+    stock_news_global_sina_df = stock_news_global_sina()
+    print(stock_news_global_sina_df)
 
-    stock_info_global_futu_df = stock_info_global_futu()
-    print(stock_info_global_futu_df)
+    stock_news_global_futu_df = stock_news_global_futu()
+    print(stock_news_global_futu_df)
 
-    stock_info_global_ths_df = stock_info_global_ths()
-    print(stock_info_global_ths_df)
+    stock_news_global_ths_df = stock_news_global_ths()
+    print(stock_news_global_ths_df)
 
-    stock_info_global_cls_df = stock_info_global_cls(symbol="全部")
-    print(stock_info_global_cls_df)
+    stock_news_global_cls_df = stock_news_global_cls(symbol="全部")
+    print(stock_news_global_cls_df)

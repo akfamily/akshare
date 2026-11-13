@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2026/10/28
+Date: 2026/11/13
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
 
+import time
+import warnings
 from functools import lru_cache
+
 import pandas as pd
 
 from akshare.utils import http
@@ -89,7 +92,7 @@ def __bond_register_service() -> http.Session:
 
 
 @lru_cache()
-def bond_china_close_return_map() -> pd.DataFrame:
+def bond_zh_close_yield_map_cm() -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
     https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
@@ -123,7 +126,7 @@ def bond_china_close_return_map() -> pd.DataFrame:
     return temp_df
 
 
-def bond_china_close_return(
+def bond_zh_close_yield_cm(
     symbol: str = "国债",
     period: str = "1",
     start_date: str = "20231101",
@@ -143,7 +146,7 @@ def bond_china_close_return(
     :return: 收盘收益率曲线历史数据
     :rtype: pandas.DataFrame
     """
-    name_code_df = bond_china_close_return_map()
+    name_code_df = bond_zh_close_yield_map_cm()
     symbol_code = name_code_df[name_code_df["cnLabel"] == symbol]["value"].values[0]
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvHis"
     headers = {
@@ -160,26 +163,36 @@ def bond_china_close_return(
         "pageNum": "1",
         "pageSize": "50",
     }
-    r = http.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
-    del temp_df["newDateValue"]
-    temp_df.columns = [
-        "日期",
-        "期限",
-        "到期收益率",
-        "即期收益率",
-        "远期收益率",
-    ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "期限",
-            "到期收益率",
-            "即期收益率",
-            "远期收益率",
-        ]
-    ]
+    columns = ["日期", "期限", "到期收益率", "即期收益率", "远期收益率"]
+    records = []
+    page = 1
+    while True:
+        params["pageNum"] = str(page)
+        r = http.get(url, params=params, headers=headers)
+        data_json = r.json()
+        records.extend(data_json["records"])
+        if page >= int(data_json["data"]["pageTotal"]):
+            break
+        page += 1
+        time.sleep(1)  # 外汇交易中心对连续请求返回 403
+    if not records:
+        warnings.warn(
+            f"{start_date} 至 {end_date} 没有 {symbol} 的收盘收益率曲线数据；"
+            "该接口只能获取近 3 个月的数据，请检查日期",
+            stacklevel=2,
+        )
+        return pd.DataFrame(columns=columns)
+    temp_df = pd.DataFrame(records)
+    temp_df = temp_df.rename(
+        columns={
+            "newDateValueCN": "日期",
+            "yearTermStr": "期限",
+            "maturityYieldStr": "到期收益率",
+            "currentYieldStr": "即期收益率",
+            "futureYieldStr": "远期收益率",
+        }
+    )
+    temp_df = temp_df[columns]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["期限"] = pd.to_numeric(temp_df["期限"], errors="coerce")
     temp_df["到期收益率"] = pd.to_numeric(temp_df["到期收益率"], errors="coerce")
@@ -189,7 +202,7 @@ def bond_china_close_return(
 
 
 if __name__ == "__main__":
-    bond_china_close_return_df = bond_china_close_return(
-        symbol="同业存单(AAA)", period="1", start_date="20240607", end_date="20240607"
+    bond_zh_close_yield_cm_df = bond_zh_close_yield_cm(
+        symbol="同业存单(AAA)", period="1", start_date="20261110", end_date="20261110"
     )
-    print(bond_china_close_return_df)
+    print(bond_zh_close_yield_cm_df)

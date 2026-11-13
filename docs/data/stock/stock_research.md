@@ -692,10 +692,10 @@ print(stock_institute_recommend_detail_df)
 245  002709  天赐材料    NaN   买入  国海证券        代鹏举  化学制品  2017-09-04
 ```
 
-(stock_rank_forecast_cninfo)=
+(stock_rating_forecast_cninfo)=
 #### 投资评级
 
-接口：stock_rank_forecast_cninfo
+接口：stock_rating_forecast_cninfo
 
 目标地址：https://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -730,8 +730,8 @@ print(stock_institute_recommend_detail_df)
 ```python
 import akshare as ak
 
-stock_rank_forecast_cninfo_df = ak.stock_rank_forecast_cninfo(date="20230817")
-print(stock_rank_forecast_cninfo_df)
+stock_rating_forecast_cninfo_df = ak.stock_rating_forecast_cninfo(date="20230817")
+print(stock_rating_forecast_cninfo_df)
 ```
 
 数据示例
@@ -1233,10 +1233,10 @@ print(stock_hold_num_cninfo_df)
 [4208 rows x 9 columns]
 ```
 
-(stock_hold_change_cninfo)=
+(stock_share_change_all_cninfo)=
 #### 股本变动
 
-接口：stock_hold_change_cninfo
+接口：stock_share_change_all_cninfo
 
 目标地址：https://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -1270,8 +1270,8 @@ print(stock_hold_num_cninfo_df)
 ```python
 import akshare as ak
 
-stock_hold_change_cninfo_df = ak.stock_hold_change_cninfo(symbol="全部")
-print(stock_hold_change_cninfo_df)
+stock_share_change_all_cninfo_df = ak.stock_share_change_all_cninfo(symbol="全部")
+print(stock_share_change_all_cninfo_df)
 ```
 
 数据示例
@@ -1754,10 +1754,10 @@ print(stock_cg_equity_mortgage_cninfo_df)
 54  603661   恒林股份  ...  本公司持股5%以上股东安吉恒林商贸有限公司将持有的本公司1500000股流通A股质押给浙商证...
 ```
 
-(stock_price_js)=
+(stock_target_price_js)=
 ### 美港目标价
 
-接口：stock_price_js
+接口：stock_target_price_js
 
 目标地址：https://www.ushknews.com/report.html
 
@@ -1787,8 +1787,8 @@ print(stock_cg_equity_mortgage_cninfo_df)
 ```python
 import akshare as ak
 
-stock_price_js_df = ak.stock_price_js(symbol="us")
-print(stock_price_js_df)
+stock_target_price_js_df = ak.stock_target_price_js(symbol="us")
+print(stock_target_price_js_df)
 ```
 
 数据示例
@@ -2184,10 +2184,10 @@ print(stock_profit_forecast_ths_df)
 
 ## 资讯数据
 
-(stock_info_cjzc_em)=
+(stock_news_cjzc_em)=
 ### 财经早餐-东财财富
 
-接口：stock_info_cjzc_em
+接口：stock_news_cjzc_em
 
 目标地址：https://stock.eastmoney.com/a/czpnc.html
 
@@ -2215,8 +2215,8 @@ print(stock_profit_forecast_ths_df)
 ```python
 import akshare as ak
 
-stock_info_cjzc_em_df = ak.stock_info_cjzc_em()
-print(stock_info_cjzc_em_df)
+stock_news_cjzc_em_df = ak.stock_news_cjzc_em()
+print(stock_news_cjzc_em_df)
 ```
 
 数据示例
@@ -2237,10 +2237,10 @@ print(stock_info_cjzc_em_df)
 [343 rows x 4 columns]
 ```
 
-(stock_info_global_em)=
+(stock_news_global_em)=
 ### 全球财经快讯-东财财富
 
-接口：stock_info_global_em
+接口：stock_news_global_em
 
 目标地址：https://kuaixun.eastmoney.com/7_24.html
 
@@ -2268,8 +2268,8 @@ print(stock_info_cjzc_em_df)
 ```python
 import akshare as ak
 
-stock_info_global_em_df = ak.stock_info_global_em()
-print(stock_info_global_em_df)
+stock_news_global_em_df = ak.stock_news_global_em()
+print(stock_news_global_em_df)
 ```
 
 数据示例
@@ -2290,10 +2290,10 @@ print(stock_info_global_em_df)
 [200 rows x 4 columns]
 ```
 
-(stock_info_global_sina)=
+(stock_news_global_sina)=
 ### 全球财经快讯-新浪财经
 
-接口：stock_info_global_sina
+接口：stock_news_global_sina
 
 目标地址：https://finance.sina.com.cn/7x24
 
@@ -2319,8 +2319,8 @@ print(stock_info_global_em_df)
 ```python
 import akshare as ak
 
-stock_info_global_sina_df = ak.stock_info_global_sina()
-print(stock_info_global_sina_df)
+stock_news_global_sina_df = ak.stock_news_global_sina()
+print(stock_news_global_sina_df)
 ```
 
 数据示例
@@ -2349,10 +2349,10 @@ print(stock_info_global_sina_df)
 19  2024-03-13 16:04:07  【中国或将调查法国酒业是否与欧盟调查中国电车有关？外交部回应】外交部发言人汪文斌主持例行记者...
 ```
 
-(stock_info_global_futu)=
+(stock_news_global_futu)=
 ### 快讯-富途牛牛
 
-接口：stock_info_global_futu
+接口：stock_news_global_futu
 
 目标地址：https://news.futunn.com/main/live
 
@@ -2380,8 +2380,8 @@ print(stock_info_global_sina_df)
 ```python
 import akshare as ak
 
-stock_info_global_futu_df = ak.stock_info_global_futu()
-print(stock_info_global_futu_df)
+stock_news_global_futu_df = ak.stock_news_global_futu()
+print(stock_news_global_futu_df)
 ```
 
 数据示例
@@ -2441,10 +2441,10 @@ print(stock_info_global_futu_df)
 [50 rows x 4 columns]
 ```
 
-(stock_info_global_ths)=
+(stock_news_global_ths)=
 ### 全球财经直播-同花顺财经
 
-接口：stock_info_global_ths
+接口：stock_news_global_ths
 
 目标地址：https://news.10jqka.com.cn/realtimenews.html
 
@@ -2472,8 +2472,8 @@ print(stock_info_global_futu_df)
 ```python
 import akshare as ak
 
-stock_info_global_ths_df = ak.stock_info_global_ths()
-print(stock_info_global_ths_df)
+stock_news_global_ths_df = ak.stock_news_global_ths()
+print(stock_news_global_ths_df)
 ```
 
 数据示例
@@ -2503,10 +2503,10 @@ print(stock_info_global_ths_df)
 [20 rows x 4 columns]
 ```
 
-(stock_info_global_cls)=
+(stock_news_global_cls)=
 ### 电报-财联社
 
-接口：stock_info_global_cls
+接口：stock_news_global_cls
 
 目标地址：https://www.cls.cn/telegraph
 
@@ -2536,8 +2536,8 @@ print(stock_info_global_ths_df)
 ```python
 import akshare as ak
 
-stock_info_global_cls_df = ak.stock_info_global_cls(symbol="全部")
-print(stock_info_global_cls_df)
+stock_news_global_cls_df = ak.stock_news_global_cls(symbol="全部")
+print(stock_news_global_cls_df)
 ```
 
 数据示例
