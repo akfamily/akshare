@@ -28,6 +28,81 @@ WEIGHT_OUTPUT = 2.0
 BONUS_ALL_TOKENS = 1.5
 PENALTY_UNDOCUMENTED = 0.5
 
+# 同义词组：查询词命中组内任意一个词时，按整组去匹配。接口描述沿用数据源网站的
+# 栏目名，与用户的说法常常对不上——描述里写的是「日频率」「历史行情」，用户搜的是
+# 「日线」；只做字面匹配时，「期货 日线」的前几名里没有一个是日线行情。
+# 组内的英文词是接口名中以下划线分隔的片段，按整段匹配：us 只命中 stock_us_daily
+# 这样的名字，不会命中 industry。含下划线的词（如 fund_flow）要求各段连续出现。
+SYNONYM_GROUPS: Tuple[Tuple[str, ...], ...] = (
+    ("日线", "日k", "日k线", "日频", "历史行情", "daily", "hist"),
+    ("分时", "分钟", "分钟线", "minute", "min"),
+    ("实时", "实时行情", "行情快照", "spot", "realtime"),
+    ("a股", "沪深京a股", "沪深a股", "zh_a"),
+    ("港股", "hk"),
+    ("美股", "us"),
+    ("股票", "个股", "stock"),
+    ("指数", "index"),
+    ("基金", "fund"),
+    ("etf", "交易型开放式指数基金"),
+    ("期货", "futures"),
+    ("期权", "option"),
+    ("债券", "bond"),
+    ("可转债", "转债", "cov", "cb"),
+    ("外汇", "汇率", "forex", "fx", "currency"),
+    ("宏观", "macro"),
+    ("资金流", "资金流向", "fund_flow"),
+    ("龙虎榜", "lhb"),
+    ("北向资金", "北向", "沪深港通", "hsgt"),
+    ("财务报表", "财报", "资产负债表", "利润表", "现金流量表"),
+    ("交易日历", "交易日", "trade_date"),
+    ("行业板块", "board_industry"),
+    ("概念板块", "board_concept"),
+    ("涨停", "涨停板", "zt_pool"),
+    ("分红", "派息", "分红派息", "dividend", "fh", "fhps", "fhpx"),
+)
+
+_ASCII_WORD_RE = re.compile(r"[a-z0-9_]+")
+
+
+def _build_synonym_index() -> Dict[str, Tuple[str, ...]]:
+    index: Dict[str, Tuple[str, ...]] = {}
+    for group in SYNONYM_GROUPS:
+        for word in group:
+            index[word] = group
+    return index
+
+
+_SYNONYM_INDEX = _build_synonym_index()
+
+
+def _synonyms(norm_token: str) -> Tuple[str, ...]:
+    """
+    返回查询词所在同义词组中的其余词，不区分大小写；不在任何组内时返回空元组。
+
+    :param norm_token: 已压缩空白的查询词
+    :return: 同组的其他词
+    """
+    key = norm_token.lower()
+    group = _SYNONYM_INDEX.get(key, ())
+    return tuple(word for word in group if word != key)
+
+
+def _name_has_segments(name_segments: List[str], word: str) -> bool:
+    """
+    判断接口名中是否连续出现给定的片段，如 zh_a 命中 stock_zh_a_hist，
+    但不命中 stock_zh_ah_spot。
+
+    :param name_segments: 接口名按下划线切分后的片段
+    :param word: 英文同义词，可含下划线
+    :return: 是否命中
+    """
+    parts = word.split("_")
+    size = len(parts)
+    return any(
+        name_segments[start : start + size] == parts
+        for start in range(len(name_segments) - size + 1)
+    )
+
 
 def _load() -> Dict:
     """
@@ -114,16 +189,31 @@ def _score(
     if fields is None:
         fields = _prepare(record)
     norm_name, norm_desc, norm_category, norm_columns = fields
+    name_segments = norm_name.split("_")
+    lower_desc = norm_desc.lower()
     total = 0.0
     hit_count = 0
     for token in tokens:
         norm_token = _normalize(token)
+        # 同义词只用于接口名、描述与类目；输出列名是数据字段，不是对接口的描述，
+        # 用同义词去匹配会把含「日线」类列名的无关接口带进来
+        # 接口名全是小写，描述里的英文多为大写（ETF、LOF），比较时不区分大小写
+        lower_token = norm_token.lower()
+        in_name = lower_token in norm_name
+        in_desc = lower_token in lower_desc
+        in_category = norm_token in norm_category
+        for word in _synonyms(norm_token):
+            if _ASCII_WORD_RE.fullmatch(word):
+                in_name = in_name or _name_has_segments(name_segments, word)
+                in_category = in_category or word == norm_category
+            else:
+                in_desc = in_desc or word in lower_desc
         subtotal = 0.0
-        if norm_token in norm_name:
+        if in_name:
             subtotal += WEIGHT_NAME
-        if norm_token in norm_desc:
+        if in_desc:
             subtotal += WEIGHT_DESC
-        if norm_token in norm_category:
+        if in_category:
             subtotal += WEIGHT_CATEGORY
         if norm_token in norm_columns:
             subtotal += WEIGHT_OUTPUT

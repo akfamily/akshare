@@ -121,11 +121,19 @@ AKShare ships a small, bundled interface registry to help locate function
 names without manually grepping through `docs/data/`:
 
 - `ak.search(query)`: keyword search across interface names, descriptions,
-  categories, and output columns. Returns a ranked `pandas.DataFrame`.
+  categories, and output columns, with built-in synonyms for common terms
+  (`日线` = `日频`/`历史行情`/`daily`/`hist`, `分时` = `分钟`/`min`, `实时` =
+  `spot`, `A股` = `zh_a`, `港股` = `hk`, `美股` = `us`, `期货` = `futures`,
+  ...; since 1.20.39). Search by data type, not by security name. Returns a
+  ranked `pandas.DataFrame`.
 - `ak.interface_info(name)`: full metadata for one interface, including
   input parameters, output columns, an example snippet, and `rate_limit`
   (`"eastmoney_push2"` for interfaces on Eastmoney's IP-banning push2 quote
-  servers, else `None`; since 1.20.37).
+  servers, else `None`; since 1.20.37) and `alternatives` (hand-curated
+  names of same-data interfaces from other sources, e.g. `stock_zh_a_hist`
+  -> `stock_zh_a_daily`, `stock_zh_a_hist_tx`; since 1.20.39). Switch to an
+  alternative when a source is rate-limited; parameters and columns differ,
+  so read its `interface_info` first.
 - `ak.list_categories()`: lists all categories with interface counts.
 
 This registry is entirely offline: its data ships inside the package and

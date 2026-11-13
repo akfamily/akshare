@@ -1,0 +1,40 @@
+{
+  "groups": [
+    ["stock_zh_a_hist", "stock_zh_a_daily", "stock_zh_a_hist_tx"],
+    ["stock_zh_a_spot_em", "stock_zh_a_spot"],
+    ["stock_zh_a_hist_min_em", "stock_zh_a_minute"],
+    ["stock_intraday_em", "stock_intraday_sina"],
+    ["stock_zh_b_spot_em", "stock_zh_b_spot"],
+    ["index_zh_a_hist", "stock_zh_index_daily_em", "stock_zh_index_daily", "stock_zh_index_daily_tx"],
+    ["stock_zh_index_spot_em", "stock_zh_index_spot_sina"],
+    ["fund_etf_hist_em", "fund_etf_hist_sina"],
+    ["stock_hk_hist", "stock_hk_daily"],
+    ["stock_hk_spot_em", "stock_hk_spot"],
+    ["stock_hk_index_daily_em", "stock_hk_index_daily_sina"],
+    ["stock_hk_index_spot_em", "stock_hk_index_spot_sina"],
+    ["stock_us_hist", "stock_us_daily"],
+    ["stock_us_spot_em", "stock_us_spot"],
+    ["index_global_hist_em", "index_global_hist_sina"],
+    ["stock_board_industry_hist_em", "stock_board_industry_index_ths"],
+    ["stock_board_concept_hist_em", "stock_board_concept_index_ths"],
+    ["stock_individual_fund_flow_rank", "stock_fund_flow_individual"],
+    ["futures_hist_em", "futures_zh_daily_sina"],
+    ["futures_global_hist_em", "futures_foreign_hist"]
+  ],
+  "one_way": {
+    "stock_sh_a_spot_em": ["stock_zh_a_spot"],
+    "stock_sz_a_spot_em": ["stock_zh_a_spot"],
+    "stock_bj_a_spot_em": ["stock_zh_a_spot"],
+    "stock_cy_a_spot_em": ["stock_zh_a_spot"],
+    "stock_new_a_spot_em": ["stock_zh_a_spot"],
+    "stock_kc_a_spot_em": ["stock_zh_kcb_spot", "stock_zh_a_spot"],
+    "index_zh_a_hist_min_em": ["stock_zh_a_minute"],
+    "fund_etf_spot_em": ["fund_etf_category_sina"],
+    "fund_lof_spot_em": ["fund_etf_category_sina"],
+    "fund_lof_hist_em": ["fund_etf_hist_sina"],
+    "stock_hk_main_board_spot_em": ["stock_hk_spot"],
+    "stock_hk_famous_spot_em": ["stock_hk_spot"],
+    "stock_us_famous_spot_em": ["stock_us_spot"],
+    "stock_sector_fund_flow_rank": ["stock_fund_flow_industry", "stock_fund_flow_concept"]
+  }
+}

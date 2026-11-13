@@ -55,11 +55,11 @@ print(search_df)
 
 ```
                       接口名    类目                                                       描述  有无文档   匹配分
-0             bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  27.0
-1      bond_zh_hs_cov_min  bond                                           东方财富网-可转债-分时行情  True  20.0
-2  bond_zh_hs_cov_pre_min  bond                                      东方财富网-可转债-分时行情-盘前分时  True  20.0
-3     bond_cov_comparison  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  17.0
-4        fund_etf_spot_em  fund                                            东方财富-ETF 实时行情  True  17.0
+0     bond_zh_hs_cov_spot  bond                                            新浪财经-沪深可转债数据  True  37.5
+1             bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  37.0
+2      bond_zh_hs_cov_min  bond                                           东方财富网-可转债-分时行情  True  30.0
+3  bond_zh_hs_cov_pre_min  bond                                      东方财富网-可转债-分时行情-盘前分时  True  30.0
+4     bond_cov_comparison  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  27.0
 ```
 
 接口示例-限定类目
@@ -112,6 +112,7 @@ print(search_df)
 | params      | list | 输入参数列表，每项含 name/type/desc 三个键            |
 | outputs    | list | 输出字段列表，每项含 name/type/desc 三个键            |
 | example    | str  | 调用示例代码，未收录时为 None                        |
+| alternatives | list | 来自其他数据源的同类接口名，如 stock_zh_a_hist 的同类接口为 stock_zh_a_daily（新浪财经）与 stock_zh_a_hist_tx（腾讯）；人工维护，没有登记时为空列表。同类接口的参数写法与返回列通常不同，调用前请查看各自的说明 |
 | rate_limit | str  | 访问限制：请求东方财富 push2 行情服务器的接口为 "eastmoney_push2"，频繁访问会被临时限流（见{ref}`常见问题 <faq-eastmoney-ratelimit>`），其他接口为 None |
 
 接口示例
@@ -144,6 +145,7 @@ print(interface_info_dict)
   "params": [
     {"desc": "-", "name": "-", "type": "-"}
   ],
+  "alternatives": [],
   "rate_limit": null,
   "url": "https://www.bjets.com.cn/article/jyxx/"
 }
@@ -228,10 +230,18 @@ print(list_categories_df)
 为免误用，这里说明这一层能做什么，不能做什么。
 
 **这是关键词匹配，不是语义检索。** 匹配基于接口名，描述，类目与输出字段名上的
-子串比对，并对未打空格的查询做二元组降级召回。它不理解同义词，也不做语义推理：
-查询“历史行情”能匹配到描述中写有“历史行情”的接口，但匹配不到描述写作“历史数据”
-的接口，即使两者说的是同一件事。因此建议一次查询多试几个说法，或用
-`ak.list_categories()` 配合 `category` 参数缩小范围。
+子串比对，并对未打空格的查询做二元组降级召回。它不做语义推理，只认得一份内置的
+常用同义词：“日线”与“日频”“历史行情”，“分时”与“分钟”，“实时”与接口名中的
+spot，以及“A股”“港股”“美股”“期货”“基金”“指数”等品种与接口名中的 zh_a、hk、us、
+futures、fund、index 等片段，因此查询“期货 日线”能找到描述写作“日频数据”的
+futures_zh_daily_sina。不在这份同义词里的说法仍然只做字面匹配：查询“历史行情”
+匹配不到描述写作“历史数据”的接口。证券名称（如“贵州茅台”）不是接口的属性，
+请用数据类型来检索。建议一次查询多试几个说法，或用 `ak.list_categories()` 配合
+`category` 参数缩小范围。
+
+**同一类数据常有多个数据源。** `ak.interface_info` 返回的 `alternatives` 列出了
+人工登记的同类接口，某个数据源被限流或无法访问时可以改用；目前主要覆盖东方财富
+行情类接口（见 `rate_limit` 字段）在新浪财经、腾讯、同花顺的对应接口。
 
 **传入完整接口名时该接口一定排在第一位。** 这是本层最可靠的用法——半记得一个
 接口名时，用它确认全名并取回参数说明。尾随的逗号，顿号等标点不影响这一保证。

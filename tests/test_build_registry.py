@@ -669,3 +669,74 @@ def test_real_registry_marks_push2_interfaces():
     assert ak.interface_info("macro_china_cpi")["rate_limit"] is None
     assert ak.interface_info("stock_lhb_detail_em")["rate_limit"] is None
     assert ak.interface_info("stock_zh_a_daily")["rate_limit"] is None
+
+
+# ---- alternatives：人工维护的同类接口对照表 ----
+
+from build_registry import resolve_alternatives  # noqa: E402
+
+ALT_EXPORTS = {name: "akshare.x" for name in ("a_em", "a_sina", "a_tx", "b_em", "c")}
+
+
+def test_resolve_alternatives_groups_are_symmetric_and_keep_order():
+    mapping, problems = resolve_alternatives(
+        {"groups": [["a_em", "a_sina", "a_tx"]]}, ALT_EXPORTS
+    )
+    assert problems == []
+    assert mapping == {
+        "a_em": ["a_sina", "a_tx"],
+        "a_sina": ["a_em", "a_tx"],
+        "a_tx": ["a_em", "a_sina"],
+    }
+
+
+def test_resolve_alternatives_one_way_is_not_mirrored():
+    mapping, problems = resolve_alternatives(
+        {"groups": [["a_em", "a_sina"]], "one_way": {"b_em": ["a_sina"]}}, ALT_EXPORTS
+    )
+    assert problems == []
+    assert mapping["b_em"] == ["a_sina"]
+    assert mapping["a_sina"] == ["a_em"]
+
+
+def test_resolve_alternatives_reports_unknown_names_and_drops_them():
+    mapping, problems = resolve_alternatives(
+        {"groups": [["a_em", "removed_func"]], "one_way": {"gone": ["c"]}}, ALT_EXPORTS
+    )
+    assert mapping == {}
+    assert any("removed_func" in problem for problem in problems)
+    assert any("gone" in problem for problem in problems)
+
+
+def test_resolve_alternatives_rejects_self_duplicates_and_single_member():
+    _, problems = resolve_alternatives(
+        {"groups": [["a_em"], ["b_em", "b_em", "c"]], "one_way": {"c": ["c"]}},
+        ALT_EXPORTS,
+    )
+    text = "\n".join(problems)
+    assert "至少需要两个接口" in text
+    assert "重复" in text
+    assert "不能把自己列为同类接口" in text
+
+
+def test_merge_records_carries_alternatives():
+    exports = {"a_em": "akshare.stock.a", "c": "akshare.stock.c"}
+    records = merge_records(exports, {}, None, {"a_em": ["c"]})
+    assert {r["name"]: r["alternatives"] for r in records} == {"a_em": ["c"], "c": []}
+
+
+def test_real_alternatives_table_is_valid_and_useful():
+    import pathlib
+
+    import build_registry
+
+    repo_root = pathlib.Path(build_registry.__file__).resolve().parent.parent
+    exports = collect_exports(repo_root / "akshare" / "__init__.py")
+    mapping, problems = build_registry.load_alternatives(repo_root, exports)
+    assert problems == []
+    limits = collect_rate_limits(repo_root)
+    # 对照表的主要用途是东方财富行情接口被限流时换源：每个登记了同类接口的
+    # push2 接口，都至少要有一个不走 push2 的选择
+    for name, others in mapping.items():
+        if limits.get(name):
+            assert any(not limits.get(other) for other in others), name

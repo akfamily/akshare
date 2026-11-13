@@ -442,6 +442,85 @@ def collect_rate_limits(repo_root: pathlib.Path) -> Dict[str, Optional[str]]:
     }
 
 
+ALTERNATIVES_RELPATH = pathlib.Path("scripts") / "registry_alternatives.json"
+
+
+def resolve_alternatives(
+    config: Dict, exports: Dict[str, str]
+) -> Tuple[Dict[str, List[str]], List[str]]:
+    """
+    把人工维护的同类接口对照表展开为「接口名 -> 同类接口列表」。
+
+    对照表记录的是来自不同数据源、内容属于同一类的接口，例如 A 股日线的
+    stock_zh_a_hist（东方财富）、stock_zh_a_daily（新浪财经）与
+    stock_zh_a_hist_tx（腾讯）。它无法从源码或文档推断，只能人工维护：
+    按名称与描述猜测时，会把 ST 股票列表配给日线、把 B 股配给科创板。
+
+    groups 中同一组的接口互为同类；one_way 是单向关系，用于「分市场的实时行情
+    可改用全市场接口再自行筛选」这类不对称的情形。同类接口的参数写法与返回列
+    通常不同，调用方需要另行查看各自的说明。
+
+    :param config: registry_alternatives.json 的内容，含 groups 与 one_way
+    :param exports: 接口名 -> 模块路径，用于校验对照表中的接口名
+    :return: (接口名 -> 同类接口列表，问题说明列表)；未导出的接口名不进入结果
+    """
+    mapping: Dict[str, List[str]] = {}
+    problems: List[str] = []
+
+    def add(name: str, others: List[str], where: str) -> None:
+        for item in [name, *others]:
+            if item not in exports and f"{where}:{item}" not in seen_unknown:
+                seen_unknown.add(f"{where}:{item}")
+                problems.append(
+                    f"registry_alternatives.json 的 {where} 中的 {item} "
+                    "不是已导出的接口，请更正或移除"
+                )
+        if name not in exports:
+            return
+        target = mapping.setdefault(name, [])
+        for other in others:
+            if other == name:
+                problems.append(
+                    f"registry_alternatives.json 的 {where} 中 {name} 不能把自己列为同类接口"
+                )
+            elif other in exports and other not in target:
+                target.append(other)
+
+    seen_unknown: Set[str] = set()
+    for position, group in enumerate(config.get("groups", []), start=1):
+        if len(group) < 2:
+            problems.append(
+                f"registry_alternatives.json 的 groups 第 {position} 组至少需要两个接口"
+            )
+        if len(set(group)) != len(group):
+            problems.append(
+                f"registry_alternatives.json 的 groups 第 {position} 组有重复的接口"
+            )
+        for name in dict.fromkeys(group):
+            others = [item for item in dict.fromkeys(group) if item != name]
+            add(name, others, f"groups 第 {position} 组")
+    for name, others in config.get("one_way", {}).items():
+        add(name, list(others), f"one_way[{name}]")
+    return {name: items for name, items in mapping.items() if items}, problems
+
+
+def load_alternatives(
+    repo_root: pathlib.Path, exports: Dict[str, str]
+) -> Tuple[Dict[str, List[str]], List[str]]:
+    """
+    读取并展开同类接口对照表，文件不存在时视为空表。
+
+    :param repo_root: 仓库根目录
+    :param exports: 接口名 -> 模块路径
+    :return: 同 resolve_alternatives
+    """
+    path = repo_root / ALTERNATIVES_RELPATH
+    if not path.exists():
+        return {}, []
+    config = json.loads(path.read_text(encoding="utf-8"))
+    return resolve_alternatives(config, exports)
+
+
 SCHEMA_VERSION = 1
 
 
@@ -449,6 +528,7 @@ def merge_records(
     exports: Dict[str, str],
     docs: Dict[str, Dict],
     rate_limits: Optional[Dict[str, Optional[str]]] = None,
+    alternatives: Optional[Dict[str, List[str]]] = None,
 ) -> List[Dict]:
     """
     以导出表为主键集合合并文档信息。
@@ -459,9 +539,11 @@ def merge_records(
     :param exports: 接口名 -> 模块路径
     :param docs: 接口名 -> 文档元数据
     :param rate_limits: 接口名 -> 访问限制标识，见 collect_rate_limits
+    :param alternatives: 接口名 -> 同类接口列表，见 resolve_alternatives
     :return: 按 name 字典序排序的记录列表
     """
     rate_limits = rate_limits or {}
+    alternatives = alternatives or {}
     records = []
     for name in sorted(exports):
         module = exports[name]
@@ -479,6 +561,7 @@ def merge_records(
                 "outputs": (doc or {}).get("outputs") or [],
                 "example": (doc or {}).get("example"),
                 "rate_limit": rate_limits.get(name),
+                "alternatives": list(alternatives.get(name, [])),
             }
         )
     return records
@@ -530,7 +613,10 @@ def build(repo_root: pathlib.Path) -> str:
     """
     exports = collect_exports(repo_root / "akshare" / "__init__.py")
     docs = collect_doc_records(repo_root / "docs" / "data")
-    return serialize(merge_records(exports, docs, collect_rate_limits(repo_root)))
+    alternatives, _ = load_alternatives(repo_root, exports)
+    return serialize(
+        merge_records(exports, docs, collect_rate_limits(repo_root), alternatives)
+    )
 
 
 OUTPUT_RELPATH = pathlib.Path("akshare") / "data" / "interfaces.json"
@@ -576,12 +662,20 @@ def main() -> int:
     init_text = init_path.read_text(encoding="utf-8")
     all_block = render_all_block(collect_all_names(init_path))
     new_init_text = replace_all_block(init_text, all_block)
+    # 对照表里出现已删除或写错的接口名时，写入模式也要失败：否则 pre-commit 会
+    # 悄悄生成一份丢掉这些条目的 interfaces.json，过期的对照表永远不会被发现
+    _, alternative_problems = load_alternatives(repo_root, collect_exports(init_path))
+    if alternative_problems and not args.check:
+        for problem in alternative_problems:
+            print(f"[registry] {problem}")
+        return 1
     if args.check:
         baseline_path = repo_root / BASELINE_RELPATH
         baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
         exports = collect_exports(init_path)
         docs = collect_doc_records(repo_root / "docs" / "data")
         problems = diff_baseline(exports, docs, baseline)
+        problems.extend(alternative_problems)
         for name in find_missing_labels(repo_root / "docs" / "data"):
             problems.append(
                 f"接口 {name} 的文档条目缺少锚点标签，请在其标题前加一行 ({name})="
