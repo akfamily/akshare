@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-39)=
+### 1.20.39 feat: add synonyms to search and alternatives to the interface registry
+
+1. ak.search 支持常用同义词：“日线”与“日频”“历史行情”，“分时”与“分钟”，“实时”与接口名中的 spot，以及“A股”“港股”“美股”“期货”“基金”“指数”等品种与接口名中的 zh_a、hk、us、futures、fund、index 等片段。此前只做字面匹配，而接口描述沿用数据源网站的栏目名，“期货 日线”的前几名里没有一个是日线行情，“港股 日线”的前四名是财务指标与公司资料类接口；现在前几名依次是各数据源的日线接口。英文关键词不再区分大小写，“ETF”能匹配接口名中的 etf
+2. 接口元数据新增 alternatives 字段，列出来自其他数据源的同类接口，可通过 ak.interface_info 查看，如 stock_zh_a_hist 的同类接口为 stock_zh_a_daily（新浪财经）与 stock_zh_a_hist_tx（腾讯）。对照表由人工维护（scripts/registry_alternatives.json），目前登记了 57 个接口，覆盖 97 个东方财富 push2 行情接口中的 35 个，供被限流时换用；同类接口的参数写法与返回列通常不同
+
 (v1-20-38)=
 ### 1.20.38 fix: fix match_main_contract interface
 

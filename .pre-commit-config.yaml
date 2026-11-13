@@ -24,7 +24,7 @@ repos:
         name: build interface registry
         entry: python scripts/build_registry.py
         language: system
-        files: ^(docs/data/.*\.md|akshare/.*\.py)$
+        files: ^(docs/data/.*\.md|akshare/.*\.py|scripts/registry_alternatives\.json)$
         pass_filenames: false
         require_serial: true
       # ruff 版本的唯一来源是 pyproject.toml 的 lint 组（经 uv.lock 锁定），

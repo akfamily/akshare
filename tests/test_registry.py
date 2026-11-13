@@ -350,3 +350,48 @@ def test_search_empty_query_returns_empty_with_columns():
     df = registry.search("")
     assert df.empty
     assert list(df.columns) == ["接口名", "类目", "描述", "有无文档", "匹配分"]
+
+
+# ---- 同义词 ----
+
+from akshare.registry import _name_has_segments, _synonyms  # noqa: E402
+
+
+def test_synonyms_are_case_insensitive_and_exclude_the_token():
+    assert "daily" in _synonyms("日线")
+    assert "日线" not in _synonyms("日线")
+    assert "zh_a" in _synonyms("A股")
+    assert _synonyms("不存在的词") == ()
+
+
+def test_name_segments_match_whole_segments_only():
+    assert _name_has_segments("stock_us_daily".split("_"), "us")
+    # 整段匹配：us 不能命中 industry，zh_a 不能命中 zh_ah
+    assert not _name_has_segments("stock_board_industry_name_em".split("_"), "us")
+    assert _name_has_segments("stock_zh_a_hist".split("_"), "zh_a")
+    assert not _name_has_segments("stock_zh_ah_spot".split("_"), "zh_a")
+
+
+def test_score_hits_name_through_synonym():
+    # 描述里没有「日线」二字，靠同义词 hist 命中接口名、「日频」命中描述
+    record = dict(RECORD, desc="东方财富-沪深京 A 股日频率数据", outputs=[])
+    assert _score(["日线"], record) > 0
+    unrelated = dict(RECORD, name="stock_gbjg_em", desc="股本结构", outputs=[])
+    assert _score(["日线"], unrelated) == 0
+
+
+def test_score_synonym_does_not_match_output_columns():
+    record = dict(
+        RECORD,
+        name="stock_a_all_pb",
+        desc="全部 A 股市净率",
+        outputs=[{"name": "daily", "type": "object", "desc": "-"}],
+    )
+    assert _score(["日线"], record) == 0
+
+
+def test_score_english_token_is_case_insensitive():
+    record = dict(
+        RECORD, name="fund_etf_hist_sina", desc="新浪财经-基金行情", outputs=[]
+    )
+    assert _score(["ETF"], record) == _score(["etf"], record) > 0
