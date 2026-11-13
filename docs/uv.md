@@ -36,7 +36,7 @@ pip install uv -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ## 安装 Python
 
-AKShare 支持 Python 3.11 及以上版本，推荐使用 Python 3.13：
+AKShare 支持 Python 3.11.5 及以上版本，推荐使用 Python 3.13：
 
 ```
 uv python install 3.13
@@ -134,7 +134,7 @@ uv run jupyter lab
 
 ### 下载 Python 速度慢
 
-`uv python install` 默认从 GitHub 下载 Python，国内网络环境下可能较慢。可以通过 `--mirror` 参数指定镜像地址，也可以先从 [Python 官网](https://www.python.org/downloads/) 下载安装 Python 3.11 及以上版本，uv 会自动使用本机已安装的 Python。
+`uv python install` 默认从 GitHub 下载 Python，国内网络环境下可能较慢。可以通过 `--mirror` 参数指定镜像地址，也可以先从 [Python 官网](https://www.python.org/downloads/) 下载安装 Python 3.11.5 及以上版本，uv 会自动使用本机已安装的 Python。
 
 ### 每次都需要指定镜像源
 

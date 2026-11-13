@@ -3,7 +3,7 @@
 ## 重要提示
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用；
-2. 目前 AKShare 仅支持 [Python](https://www.python.org/) 3.11(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
+2. 目前 AKShare 仅支持 [Python](https://www.python.org/) 3.11.5(64 位) 及以上版本，这里推荐 [Python](https://www.python.org/) 3.13.x(64 位) 版本；
 3. Linux 需要 glibc 2.27 及以上（如 Ubuntu 18.04、Debian 10、CentOS 8 及更新的版本），可用 `ldd --version` 查看；CentOS 7 等更早的系统无法安装 AKShare 1.20.25 及以后的版本；
 4. AKShare 推荐使用 [uv](https://docs.astral.sh/uv/) 来安装 Python 和管理虚拟环境，详见 [AKShare uv 环境配置](uv.md)；如需在 R 语言或 MATLAB 中调用，请参考下文的“R 语言调用支持”和“MATLAB 调用支持”；
 5. 需要通过 HTTP 调用 AKShare 时，请使用 [AKTools](aktools.md) 部署 HTTP API 服务；
@@ -68,7 +68,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 
 ### 配置 Python 环境
 
-按 [AKShare uv 环境配置](uv.md) 中的“方式一：虚拟环境”，创建名为 `ak_test` 的工作目录和虚拟环境，并在其中安装 AKShare。Python 需为 3.11 及以上版本，推荐 3.13。
+按 [AKShare uv 环境配置](uv.md) 中的“方式一：虚拟环境”，创建名为 `ak_test` 的工作目录和虚拟环境，并在其中安装 AKShare。Python 需为 3.11.5 及以上版本，推荐 3.13。
 
 ### 安装 R 语言
 
@@ -142,7 +142,7 @@ head(stock_df)  # 查看数据
 
 按 [AKShare uv 环境配置](uv.md) 中的“方式一：虚拟环境”创建虚拟环境并安装 AKShare，其中 Python 的版本需要符合
 [Matlab 各版本对 Python 的支持](https://www.mathworks.com/support/requirements/python-compatibility.html?s_tid=srchtitle_site_search_1_python%20compatibility)
-，同时满足 AKShare 对 Python 3.11 及以上版本的要求。比如 `Matlab R2023b` 支持 `Python` 的 `3.9, 3.10, 3.11` 版本，只能选用 3.11；`Matlab R2024b` 至 `R2025b` 最高支持 3.12；`Matlab R2026a` 起支持推荐的 3.13。创建虚拟环境时用 `--python` 指定版本，例如 `uv venv --python 3.12`。
+，同时满足 AKShare 对 Python 3.11.5 及以上版本的要求。比如 `Matlab R2023b` 支持 `Python` 的 `3.9, 3.10, 3.11` 版本，只能选用 3.11；`Matlab R2024b` 至 `R2025b` 最高支持 3.12；`Matlab R2026a` 起支持推荐的 3.13。创建虚拟环境时用 `--python` 指定版本，例如 `uv venv --python 3.12`。
 
 ### 安装 MATLAB
 
@@ -388,5 +388,5 @@ Consider using the `--user` option or check the permissions.
 
 ### 3. 提示其他的错误
 
-- 方法一：确认并升级您已安装 64 位的 **Python 3.11** 及以上版本
+- 方法一：确认并升级您已安装 64 位的 **Python 3.11.5** 及以上版本
 - 方法二：使用虚拟环境来安装，推荐使用 uv，详见 [AKShare uv 环境配置](uv.md)
