@@ -12,7 +12,7 @@ from akshare.utils import http
 
 
 # 零售销售月率
-def macro_australia_retail_rate_monthly() -> pd.DataFrame:
+def macro_australia_retail_sales_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-零售销售月率
     https://data.eastmoney.com/cjsj/foreign_5_0.html
@@ -159,7 +159,7 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
 
 
 # 生产者物价指数季率
-def macro_australia_ppi_quarterly() -> pd.DataFrame:
+def macro_australia_ppi_qoq() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-生产者物价指数季率
     https://data.eastmoney.com/cjsj/foreign_5_3.html
@@ -208,7 +208,7 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
 
 
 # 消费者物价指数季率
-def macro_australia_cpi_quarterly() -> pd.DataFrame:
+def macro_australia_cpi_qoq() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-消费者物价指数季率
     https://data.eastmoney.com/cjsj/foreign_5_4.html
@@ -257,7 +257,7 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
 
 
 # 消费者物价指数年率
-def macro_australia_cpi_yearly() -> pd.DataFrame:
+def macro_australia_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_5_5.html
@@ -355,8 +355,8 @@ def macro_australia_bank_rate() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_australia_retail_rate_monthly_df = macro_australia_retail_rate_monthly()
-    print(macro_australia_retail_rate_monthly_df)
+    macro_australia_retail_sales_mom_df = macro_australia_retail_sales_mom()
+    print(macro_australia_retail_sales_mom_df)
 
     macro_australia_trade_df = macro_australia_trade()
     print(macro_australia_trade_df)
@@ -364,14 +364,14 @@ if __name__ == "__main__":
     macro_australia_unemployment_rate_df = macro_australia_unemployment_rate()
     print(macro_australia_unemployment_rate_df)
 
-    macro_australia_ppi_quarterly_df = macro_australia_ppi_quarterly()
-    print(macro_australia_ppi_quarterly_df)
+    macro_australia_ppi_qoq_df = macro_australia_ppi_qoq()
+    print(macro_australia_ppi_qoq_df)
 
-    macro_australia_cpi_quarterly_df = macro_australia_cpi_quarterly()
-    print(macro_australia_cpi_quarterly_df)
+    macro_australia_cpi_qoq_df = macro_australia_cpi_qoq()
+    print(macro_australia_cpi_qoq_df)
 
-    macro_australia_cpi_yearly_df = macro_australia_cpi_yearly()
-    print(macro_australia_cpi_yearly_df)
+    macro_australia_cpi_yoy_df = macro_australia_cpi_yoy()
+    print(macro_australia_cpi_yoy_df)
 
     macro_australia_bank_rate_df = macro_australia_bank_rate()
     print(macro_australia_bank_rate_df)

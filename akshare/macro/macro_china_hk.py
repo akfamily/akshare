@@ -77,7 +77,7 @@ def macro_china_hk_cpi() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_cpi_ratio() -> pd.DataFrame:
+def macro_china_hk_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_8_1.html
@@ -88,7 +88,7 @@ def macro_china_hk_cpi_ratio() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_rate_of_unemployment() -> pd.DataFrame:
+def macro_china_hk_unemployment_rate() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-失业率
     https://data.eastmoney.com/cjsj/foreign_8_2.html
@@ -99,7 +99,7 @@ def macro_china_hk_rate_of_unemployment() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_gbp() -> pd.DataFrame:
+def macro_china_hk_gdp() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-香港 GDP
     https://data.eastmoney.com/cjsj/foreign_8_3.html
@@ -110,7 +110,7 @@ def macro_china_hk_gbp() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_gbp_ratio() -> pd.DataFrame:
+def macro_china_hk_gdp_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-香港 GDP 同比
     https://data.eastmoney.com/cjsj/foreign_8_4.html
@@ -143,7 +143,7 @@ def macro_china_hk_building_amount() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_trade_diff_ratio() -> pd.DataFrame:
+def macro_china_hk_trade_balance_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-香港商品贸易差额年率
     https://data.eastmoney.com/cjsj/foreign_8_7.html
@@ -154,7 +154,7 @@ def macro_china_hk_trade_diff_ratio() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hk_ppi() -> pd.DataFrame:
+def macro_china_hk_ppi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国香港-香港制造业 PPI 年率
     https://data.eastmoney.com/cjsj/foreign_8_8.html
@@ -169,17 +169,17 @@ if __name__ == "__main__":
     macro_china_hk_cpi_df = macro_china_hk_cpi()
     print(macro_china_hk_cpi_df)
 
-    macro_china_hk_cpi_ratio_df = macro_china_hk_cpi_ratio()
-    print(macro_china_hk_cpi_ratio_df)
+    macro_china_hk_cpi_yoy_df = macro_china_hk_cpi_yoy()
+    print(macro_china_hk_cpi_yoy_df)
 
-    macro_china_hk_rate_of_unemployment_df = macro_china_hk_rate_of_unemployment()
-    print(macro_china_hk_rate_of_unemployment_df)
+    macro_china_hk_unemployment_rate_df = macro_china_hk_unemployment_rate()
+    print(macro_china_hk_unemployment_rate_df)
 
-    macro_china_hk_gbp_df = macro_china_hk_gbp()
-    print(macro_china_hk_gbp_df)
+    macro_china_hk_gdp_df = macro_china_hk_gdp()
+    print(macro_china_hk_gdp_df)
 
-    macro_china_hk_gbp_ratio_df = macro_china_hk_gbp_ratio()
-    print(macro_china_hk_gbp_ratio_df)
+    macro_china_hk_gdp_yoy_df = macro_china_hk_gdp_yoy()
+    print(macro_china_hk_gdp_yoy_df)
 
     marco_china_hk_building_volume_df = macro_china_hk_building_volume()
     print(marco_china_hk_building_volume_df)
@@ -187,8 +187,8 @@ if __name__ == "__main__":
     macro_china_hk_building_amount_df = macro_china_hk_building_amount()
     print(macro_china_hk_building_amount_df)
 
-    macro_china_hk_trade_diff_ratio_df = macro_china_hk_trade_diff_ratio()
-    print(macro_china_hk_trade_diff_ratio_df)
+    macro_china_hk_trade_balance_yoy_df = macro_china_hk_trade_balance_yoy()
+    print(macro_china_hk_trade_balance_yoy_df)
 
-    macro_china_hk_ppi_df = macro_china_hk_ppi()
-    print(macro_china_hk_ppi_df)
+    macro_china_hk_ppi_yoy_df = macro_china_hk_ppi_yoy()
+    print(macro_china_hk_ppi_yoy_df)

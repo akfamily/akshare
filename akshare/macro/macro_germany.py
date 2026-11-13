@@ -78,7 +78,7 @@ def macro_germany_ifo() -> pd.DataFrame:
 
 
 # 东方财富-德国-经济数据-消费者物价指数月率终值
-def macro_germany_cpi_monthly() -> pd.DataFrame:
+def macro_germany_cpi_mom() -> pd.DataFrame:
     """
     东方财富-数据中心-经济数据一览-德国-消费者物价指数月率终值
     https://data.eastmoney.com/cjsj/foreign_1_1.html
@@ -90,7 +90,7 @@ def macro_germany_cpi_monthly() -> pd.DataFrame:
 
 
 # 东方财富-德国-经济数据-消费者物价指数年率终值
-def macro_germany_cpi_yearly() -> pd.DataFrame:
+def macro_germany_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-数据中心-经济数据一览-德国-消费者物价指数年率终值
     https://data.eastmoney.com/cjsj/foreign_1_2.html
@@ -126,7 +126,7 @@ def macro_germany_gdp() -> pd.DataFrame:
 
 
 # 东方财富-德国-经济数据-实际零售销售月率
-def macro_germany_retail_sale_monthly() -> pd.DataFrame:
+def macro_germany_retail_sales_mom() -> pd.DataFrame:
     """
     东方财富-数据中心-经济数据一览-德国-实际零售销售月率
     https://data.eastmoney.com/cjsj/foreign_1_5.html
@@ -138,7 +138,7 @@ def macro_germany_retail_sale_monthly() -> pd.DataFrame:
 
 
 # 东方财富-德国-经济数据-实际零售销售年率
-def macro_germany_retail_sale_yearly() -> pd.DataFrame:
+def macro_germany_retail_sales_yoy() -> pd.DataFrame:
     """
     东方财富-数据中心-经济数据一览-德国-实际零售销售年率
     https://data.eastmoney.com/cjsj/foreign_1_6.html
@@ -165,11 +165,11 @@ if __name__ == "__main__":
     macro_germany_ifo_df = macro_germany_ifo()
     print(macro_germany_ifo_df)
 
-    macro_germany_cpi_monthly_df = macro_germany_cpi_monthly()
-    print(macro_germany_cpi_monthly_df)
+    macro_germany_cpi_mom_df = macro_germany_cpi_mom()
+    print(macro_germany_cpi_mom_df)
 
-    macro_germany_cpi_yearly_df = macro_germany_cpi_yearly()
-    print(macro_germany_cpi_yearly_df)
+    macro_germany_cpi_yoy_df = macro_germany_cpi_yoy()
+    print(macro_germany_cpi_yoy_df)
 
     macro_germany_trade_adjusted_df = macro_germany_trade_adjusted()
     print(macro_germany_trade_adjusted_df)
@@ -177,11 +177,11 @@ if __name__ == "__main__":
     macro_germany_gdp_df = macro_germany_gdp()
     print(macro_germany_gdp_df)
 
-    macro_germany_retail_sale_monthly_df = macro_germany_retail_sale_monthly()
-    print(macro_germany_retail_sale_monthly_df)
+    macro_germany_retail_sales_mom_df = macro_germany_retail_sales_mom()
+    print(macro_germany_retail_sales_mom_df)
 
-    macro_germany_retail_sale_yearly_df = macro_germany_retail_sale_yearly()
-    print(macro_germany_retail_sale_yearly_df)
+    macro_germany_retail_sales_yoy_df = macro_germany_retail_sales_yoy()
+    print(macro_germany_retail_sales_yoy_df)
 
     macro_germany_zew_df = macro_germany_zew()
     print(macro_germany_zew_df)

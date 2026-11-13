@@ -36,7 +36,7 @@ def __format_date(date: str) -> int:
     return int(datetime_obj.timestamp())
 
 
-def macro_info_ws(date: str = "20240514") -> pd.DataFrame:
+def macro_calendar_ws(date: str = "20240514") -> pd.DataFrame:
     """
     华尔街见闻-日历-宏观
     https://wallstreetcn.com/calendar
@@ -97,5 +97,5 @@ def macro_info_ws(date: str = "20240514") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_info_ws_df = macro_info_ws(date="20240514")
-    print(macro_info_ws_df)
+    macro_calendar_ws_df = macro_calendar_ws(date="20240514")
+    print(macro_calendar_ws_df)

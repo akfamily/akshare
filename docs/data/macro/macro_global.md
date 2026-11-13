@@ -2,10 +2,10 @@
 
 ## 重要机构
 
-(macro_cons_gold)=
+(macro_gold_etf_holding)=
 ### 全球最大黄金 ETF—SPDR Gold Trust 持仓报告
 
-接口：macro_cons_gold
+接口：macro_gold_etf_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_etf_gold
 
@@ -34,8 +34,8 @@
 ```python
 import akshare as ak
 
-macro_cons_gold_df = ak.macro_cons_gold()
-print(macro_cons_gold_df)
+macro_gold_etf_holding_df = ak.macro_gold_etf_holding()
+print(macro_gold_etf_holding_df)
 ```
 
 数据示例
@@ -56,10 +56,10 @@ print(macro_cons_gold_df)
 [2406 rows x 5 columns]
 ```
 
-(macro_cons_silver)=
+(macro_silver_etf_holding)=
 ### 全球最大白银ETF--iShares Silver Trust持仓报告
 
-接口：macro_cons_silver
+接口：macro_silver_etf_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_etf_sliver
 
@@ -88,8 +88,8 @@ print(macro_cons_gold_df)
 ```python
 import akshare as ak
 
-macro_cons_silver_df = ak.macro_cons_silver()
-print(macro_cons_silver_df)
+macro_silver_etf_holding_df = ak.macro_silver_etf_holding()
+print(macro_silver_etf_holding_df)
 ```
 
 数据示例
@@ -110,128 +110,12 @@ print(macro_cons_silver_df)
 [1188 rows x 5 columns]
 ```
 
-(macro_cons_opec_month)=
-### 欧佩克报告
-
-接口：macro_cons_opec_month
-
-目标地址：https://datacenter.jin10.com/reportType/dc_opec_report
-
-描述：欧佩克报告，数据区间从 20170118-至今
-
-限量：单次返回所有历史数据，以网页数据为准。
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称    | 类型      | 描述  |
-|-------|---------|-----|
-| 日期    | str     | -   |
-| 阿尔及利亚 | float64 | -   |
-| 安哥拉   | float64 | -   |
-| 厄瓜多尔  | float64 | -   |
-| 加蓬    | float64 | -   |
-| 伊朗    | float64 | -   |
-| 伊拉克   | float64 | -   |
-| 科威特   | float64 | -   |
-| 利比亚   | float64 | -   |
-| 尼日利亚  | float64 | -   |
-| 沙特    | float64 | -   |
-| 阿联酋   | float64 | -   |
-| 委内瑞拉  | float64 | -   |
-| 欧佩克产量 | float64 | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_cons_opec_month_df = ak.macro_cons_opec_month()
-print(macro_cons_opec_month_df)
-```
-
-数据示例
-
-```
-      日期  阿尔及利亚  安哥拉 加蓬  伊朗  ...   尼日利亚  沙特    阿联酋  委内瑞拉 欧佩克产量
-0   2016/12  108.7  167.4  20.9  372.5  ...  147.4  1044.3  309.0  203.4  3302.9
-1   2017/01  105.3  165.8  20.3  378.0  ...  153.3   980.9  295.8  200.7  3202.6
-2   2017/02  105.7  163.9  19.8  381.9  ...  156.4   995.2  293.3  199.8  3208.6
-3   2017/03  105.1  159.9  20.2  379.2  ...  145.6   990.5  290.9  198.2  3177.0
-4   2017/04  105.6  166.7  20.5  379.2  ...  149.6   993.4  290.6  196.7  3197.4
-..      ...    ...    ...   ...    ...  ...    ...     ...    ...    ...     ...
-70  2023/01  101.5  115.5  18.3  255.7  ...  133.6  1031.9  304.5   68.6  2887.6
-71  2023/02  101.7  108.4  19.6  257.1  ...  138.0  1036.1  304.2   70.0  2892.4
-72  2023/03  101.3  100.7  20.3  256.7  ...  135.4  1040.5  303.8   69.5  2879.7
-73  2023/04  100.5  108.5  20.5  263.0  ...  118.0  1050.0  302.8   72.4  2860.3
-74  2023/05   97.4  114.5  21.0  267.9  ...  126.9   997.7  289.4   73.5  2806.5
-[75 rows x 13 columns]
-```
-
 ### 伦敦金属交易所
 
-(macro_euro_lme_holding)=
-#### 持仓报告
-
-接口：macro_euro_lme_holding
-
-目标地址：https://datacenter.jin10.com/reportType/dc_lme_traders_report
-
-描述：伦敦金属交易所(LME)-持仓报告，数据区间从 20151022-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称     | 类型 | 描述  |
-|--------|----|-----|
-| 日期     | -  | -   |
-| 铜-多头仓位 | -  | -   |
-| ...    | -  | ... |
-| 铝-净仓位  | -  | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_lme_holding_df = ak.macro_euro_lme_holding()
-print(macro_euro_lme_holding_df)
-```
-
-数据示例
-
-```
-        日期     铜-多头仓位    铜-空头仓位  ...     铝-多头仓位     铝-空头仓位      铝-净仓位
-0    2015-10-22  107991.00 -84529.00  ...  327120.00 -304606.00  631726.00
-1    2015-10-23  107881.00 -85003.00  ...  326996.00 -304797.00  631793.00
-2    2015-10-26  108904.00 -84484.00  ...  327814.00 -305974.00  633788.00
-3    2015-10-27  108818.00 -83438.00  ...  331239.00 -305348.00  636587.00
-4    2015-10-28  109631.00 -84558.00  ...  331586.00 -302432.00  634018.00
-..          ...        ...       ...  ...        ...        ...        ...
-751  2021-08-06    8785.16  12656.84  ...   37711.94   42438.71   -4726.77
-752  2021-08-13    8872.87  12349.74  ...   37007.09   41819.17   -4812.08
-753  2021-08-20    7676.48  10610.98  ...   35348.31   41029.67   -5681.36
-754  2021-08-27    8262.28  11853.99  ...   36410.21   40359.70   -3949.49
-755  2021-09-03    7453.93  10574.36  ...   35312.19   42067.01   -6754.82
-[756 rows x 19 columns]
-```
-
-(macro_euro_lme_stock)=
+(macro_lme_inventory)=
 #### 库存报告
 
-接口：macro_euro_lme_stock
+接口：macro_lme_inventory
 
 目标地址：https://datacenter.jin10.com/reportType/dc_lme_report
 
@@ -259,8 +143,8 @@ print(macro_euro_lme_holding_df)
 ```python
 import akshare as ak
 
-macro_euro_lme_stock_df = ak.macro_euro_lme_stock()
-print(macro_euro_lme_stock_df)
+macro_lme_inventory_df = ak.macro_lme_inventory()
+print(macro_lme_inventory_df)
 ```
 
 数据示例
@@ -283,10 +167,10 @@ print(macro_euro_lme_stock_df)
 
 ### 美国商品期货交易委员会
 
-(macro_usa_cftc_nc_holding)=
+(macro_usa_cftc_currency_noncommercial_holding)=
 #### 外汇类非商业持仓报告
 
-接口：macro_usa_cftc_nc_holding
+接口：macro_usa_cftc_currency_noncommercial_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_cftc_nc_report
 
@@ -314,8 +198,8 @@ print(macro_euro_lme_stock_df)
 ```python
 import akshare as ak
 
-macro_usa_cftc_nc_holding_df = ak.macro_usa_cftc_nc_holding()
-print(macro_usa_cftc_nc_holding_df)
+macro_usa_cftc_currency_noncommercial_holding_df = ak.macro_usa_cftc_currency_noncommercial_holding()
+print(macro_usa_cftc_currency_noncommercial_holding_df)
 ```
 
 数据示例
@@ -336,10 +220,10 @@ print(macro_usa_cftc_nc_holding_df)
 [1807 rows x 28 columns]
 ```
 
-(macro_usa_cftc_c_holding)=
+(macro_usa_cftc_commodity_noncommercial_holding)=
 #### 商品类非商业持仓报告
 
-接口：macro_usa_cftc_c_holding
+接口：macro_usa_cftc_commodity_noncommercial_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_cftc_c_report
 
@@ -367,8 +251,8 @@ print(macro_usa_cftc_nc_holding_df)
 ```python
 import akshare as ak
 
-macro_usa_cftc_c_holding_df = ak.macro_usa_cftc_c_holding()
-print(macro_usa_cftc_c_holding_df)
+macro_usa_cftc_commodity_noncommercial_holding_df = ak.macro_usa_cftc_commodity_noncommercial_holding()
+print(macro_usa_cftc_commodity_noncommercial_holding_df)
 ```
 
 数据示例
@@ -389,10 +273,10 @@ print(macro_usa_cftc_c_holding_df)
 [1807 rows x 37 columns]
 ```
 
-(macro_usa_cftc_merchant_currency_holding)=
+(macro_usa_cftc_currency_commercial_holding)=
 #### 外汇类商业持仓报告
 
-接口：macro_usa_cftc_merchant_currency_holding
+接口：macro_usa_cftc_currency_commercial_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_cftc_merchant_currency
 
@@ -420,8 +304,8 @@ print(macro_usa_cftc_c_holding_df)
 ```python
 import akshare as ak
 
-macro_usa_cftc_merchant_currency_holding_df = ak.macro_usa_cftc_merchant_currency_holding()
-print(macro_usa_cftc_merchant_currency_holding_df)
+macro_usa_cftc_currency_commercial_holding_df = ak.macro_usa_cftc_currency_commercial_holding()
+print(macro_usa_cftc_currency_commercial_holding_df)
 ```
 
 数据示例
@@ -442,10 +326,10 @@ print(macro_usa_cftc_merchant_currency_holding_df)
 [1807 rows x 28 columns]
 ```
 
-(macro_usa_cftc_merchant_goods_holding)=
+(macro_usa_cftc_commodity_commercial_holding)=
 #### 商品类商业持仓报告
 
-接口：macro_usa_cftc_merchant_goods_holding
+接口：macro_usa_cftc_commodity_commercial_holding
 
 目标地址：https://datacenter.jin10.com/reportType/dc_cftc_merchant_goods
 
@@ -473,8 +357,8 @@ print(macro_usa_cftc_merchant_currency_holding_df)
 ```python
 import akshare as ak
 
-macro_usa_cftc_merchant_goods_holding_df = ak.macro_usa_cftc_merchant_goods_holding()
-print(macro_usa_cftc_merchant_goods_holding_df)
+macro_usa_cftc_commodity_commercial_holding_df = ak.macro_usa_cftc_commodity_commercial_holding()
+print(macro_usa_cftc_commodity_commercial_holding_df)
 ```
 
 数据示例
@@ -497,10 +381,10 @@ print(macro_usa_cftc_merchant_goods_holding_df)
 
 ### 芝加哥交易所
 
-(macro_usa_cme_merchant_goods_holding)=
+(macro_usa_cme_metal_volume)=
 #### 贵金属
 
-接口：macro_usa_cme_merchant_goods_holding
+接口：macro_usa_cme_metal_volume
 
 目标地址：https://datacenter.jin10.com/org
 
@@ -527,8 +411,8 @@ print(macro_usa_cftc_merchant_goods_holding_df)
 ```python
 import akshare as ak
 
-macro_usa_cme_merchant_goods_holding_df = ak.macro_usa_cme_merchant_goods_holding()
-print(macro_usa_cme_merchant_goods_holding_df)
+macro_usa_cme_metal_volume_df = ak.macro_usa_cme_metal_volume()
+print(macro_usa_cme_metal_volume_df)
 ```
 
 数据示例
@@ -551,10 +435,10 @@ print(macro_usa_cme_merchant_goods_holding_df)
 
 ## 全球宏观
 
-(macro_info_ws)=
+(macro_calendar_ws)=
 ### 宏观日历
 
-接口：macro_info_ws
+接口：macro_calendar_ws
 
 目标地址：https://wallstreetcn.com/calendar
 
@@ -586,8 +470,8 @@ print(macro_usa_cme_merchant_goods_holding_df)
 ```python
 import akshare as ak
 
-macro_info_ws_df = ak.macro_info_ws(date="20240514")
-print(macro_info_ws_df)
+macro_calendar_ws_df = ak.macro_calendar_ws(date="20240514")
+print(macro_calendar_ws_df)
 ```
 
 数据示例

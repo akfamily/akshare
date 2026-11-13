@@ -12,7 +12,7 @@ from akshare.utils import http
 
 
 # 新屋开工
-def macro_canada_new_house_rate() -> pd.DataFrame:
+def macro_canada_house_starts() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-新屋开工
     https://data.eastmoney.com/cjsj/foreign_7_0.html
@@ -156,7 +156,7 @@ def macro_canada_trade() -> pd.DataFrame:
 
 
 # 零售销售月率
-def macro_canada_retail_rate_monthly() -> pd.DataFrame:
+def macro_canada_retail_sales_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-零售销售月率
     https://data.eastmoney.com/cjsj/foreign_7_3.html
@@ -252,7 +252,7 @@ def macro_canada_bank_rate() -> pd.DataFrame:
 
 
 # 核心消费者物价指数年率
-def macro_canada_core_cpi_yearly() -> pd.DataFrame:
+def macro_canada_core_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-核心消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_7_5.html
@@ -300,7 +300,7 @@ def macro_canada_core_cpi_yearly() -> pd.DataFrame:
 
 
 # 核心消费者物价指数月率
-def macro_canada_core_cpi_monthly() -> pd.DataFrame:
+def macro_canada_core_cpi_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-核心消费者物价指数月率
     https://data.eastmoney.com/cjsj/foreign_7_6.html
@@ -348,7 +348,7 @@ def macro_canada_core_cpi_monthly() -> pd.DataFrame:
 
 
 # 消费者物价指数年率
-def macro_canada_cpi_yearly() -> pd.DataFrame:
+def macro_canada_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_7_7.html
@@ -396,7 +396,7 @@ def macro_canada_cpi_yearly() -> pd.DataFrame:
 
 
 # 消费者物价指数月率
-def macro_canada_cpi_monthly() -> pd.DataFrame:
+def macro_canada_cpi_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-消费者物价指数月率
     https://data.eastmoney.com/cjsj/foreign_7_8.html
@@ -444,7 +444,7 @@ def macro_canada_cpi_monthly() -> pd.DataFrame:
 
 
 # GDP 月率
-def macro_canada_gdp_monthly() -> pd.DataFrame:
+def macro_canada_gdp_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-GDP 月率
     https://data.eastmoney.com/cjsj/foreign_7_9.html
@@ -492,8 +492,8 @@ def macro_canada_gdp_monthly() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_canada_new_house_rate_df = macro_canada_new_house_rate()
-    print(macro_canada_new_house_rate_df)
+    macro_canada_house_starts_df = macro_canada_house_starts()
+    print(macro_canada_house_starts_df)
 
     macro_canada_unemployment_rate_df = macro_canada_unemployment_rate()
     print(macro_canada_unemployment_rate_df)
@@ -501,23 +501,23 @@ if __name__ == "__main__":
     macro_canada_trade_df = macro_canada_trade()
     print(macro_canada_trade_df)
 
-    macro_canada_retail_rate_monthly_df = macro_canada_retail_rate_monthly()
-    print(macro_canada_retail_rate_monthly_df)
+    macro_canada_retail_sales_mom_df = macro_canada_retail_sales_mom()
+    print(macro_canada_retail_sales_mom_df)
 
     macro_canada_bank_rate_df = macro_canada_bank_rate()
     print(macro_canada_bank_rate_df)
 
-    macro_canada_core_cpi_yearly_df = macro_canada_core_cpi_yearly()
-    print(macro_canada_core_cpi_yearly_df)
+    macro_canada_core_cpi_yoy_df = macro_canada_core_cpi_yoy()
+    print(macro_canada_core_cpi_yoy_df)
 
-    macro_canada_core_cpi_monthly_df = macro_canada_core_cpi_monthly()
-    print(macro_canada_core_cpi_monthly_df)
+    macro_canada_core_cpi_mom_df = macro_canada_core_cpi_mom()
+    print(macro_canada_core_cpi_mom_df)
 
-    macro_canada_cpi_yearly_df = macro_canada_cpi_yearly()
-    print(macro_canada_cpi_yearly_df)
+    macro_canada_cpi_yoy_df = macro_canada_cpi_yoy()
+    print(macro_canada_cpi_yoy_df)
 
-    macro_canada_cpi_monthly_df = macro_canada_cpi_monthly()
-    print(macro_canada_cpi_monthly_df)
+    macro_canada_cpi_mom_df = macro_canada_cpi_mom()
+    print(macro_canada_cpi_mom_df)
 
-    macro_canada_gdp_monthly_df = macro_canada_gdp_monthly()
-    print(macro_canada_gdp_monthly_df)
+    macro_canada_gdp_mom_df = macro_canada_gdp_mom()
+    print(macro_canada_gdp_mom_df)

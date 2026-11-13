@@ -91,7 +91,7 @@ def macro_swiss_trade():
 
 
 # 消费者物价指数年率
-def macro_swiss_cpi_yearly():
+def macro_swiss_cpi_yoy():
     """
     东方财富-经济数据-瑞士-消费者物价指数年率
     http://data.eastmoney.com/cjsj/foreign_2_2.html
@@ -103,7 +103,7 @@ def macro_swiss_cpi_yearly():
 
 
 # GDP季率
-def macro_swiss_gdp_quarterly():
+def macro_swiss_gdp_qoq():
     """
     东方财富-经济数据-瑞士-GDP季率
     http://data.eastmoney.com/cjsj/foreign_2_3.html
@@ -115,7 +115,7 @@ def macro_swiss_gdp_quarterly():
 
 
 # GDP年率
-def macro_swiss_gbd_yearly():
+def macro_swiss_gdp_yoy():
     """
     东方财富-经济数据-瑞士-GDP 年率
     http://data.eastmoney.com/cjsj/foreign_2_4.html
@@ -127,7 +127,7 @@ def macro_swiss_gbd_yearly():
 
 
 # 央行公布利率决议
-def macro_swiss_gbd_bank_rate():
+def macro_swiss_bank_rate():
     """
     东方财富-经济数据-瑞士-央行公布利率决议
     http://data.eastmoney.com/cjsj/foreign_2_5.html
@@ -145,14 +145,14 @@ if __name__ == "__main__":
     macro_swiss_trade_df = macro_swiss_trade()
     print(macro_swiss_trade_df)
 
-    macro_swiss_cpi_yearly_df = macro_swiss_cpi_yearly()
-    print(macro_swiss_cpi_yearly_df)
+    macro_swiss_cpi_yoy_df = macro_swiss_cpi_yoy()
+    print(macro_swiss_cpi_yoy_df)
 
-    macro_swiss_gdp_quarterly_df = macro_swiss_gdp_quarterly()
-    print(macro_swiss_gdp_quarterly_df)
+    macro_swiss_gdp_qoq_df = macro_swiss_gdp_qoq()
+    print(macro_swiss_gdp_qoq_df)
 
-    macro_swiss_gbd_yearly_df = macro_swiss_gbd_yearly()
-    print(macro_swiss_gbd_yearly_df)
+    macro_swiss_gdp_yoy_df = macro_swiss_gdp_yoy()
+    print(macro_swiss_gdp_yoy_df)
 
-    macro_swiss_gbd_bank_rate_df = macro_swiss_gbd_bank_rate()
-    print(macro_swiss_gbd_bank_rate_df)
+    macro_swiss_bank_rate_df = macro_swiss_bank_rate()
+    print(macro_swiss_bank_rate_df)

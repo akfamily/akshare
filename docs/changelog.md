@@ -8,6 +8,30 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-42)=
+### 1.20.42 fix!: remove 84 discontinued Jin10 macro interfaces and rename 66 macro interfaces
+
+**不兼容的改动：移除 84 个数据源已停止更新的金十数据宏观接口，66 个宏观接口因名称用词与金融含义不符而改名，旧名称不再保留，调用旧名称会报 AttributeError。**
+
+移除的接口：金十数据已把经济指标迁移到微信小程序“金十数据库”，原数据中心（datacenter.jin10.com）的经济指标报告自 2025 年 9 月起不再更新，网页也已无法打开；新站的网页端只提供目录，明细数据需在小程序内查看，无法继续采集（[#7287](https://github.com/akfamily/akshare/issues/7287)）。这些接口此前仍能调用，但只返回截至 2025 年 9 月前后的数据且不报错，容易被当作最新数据使用，因此移除：
+
+- 中国（14 个）：macro_china_gdp_yearly、macro_china_cpi_yearly、macro_china_cpi_monthly、macro_china_ppi_yearly、macro_china_exports_yoy、macro_china_imports_yoy、macro_china_trade_balance、macro_china_industrial_production_yoy、macro_china_pmi_yearly、macro_china_cx_pmi_yearly、macro_china_cx_services_pmi_yearly、macro_china_non_man_pmi、macro_china_fx_reserves_yearly、macro_china_m2_yearly
+- 美国（40 个）：macro_usa_gdp_monthly、macro_usa_cpi_monthly、macro_usa_core_cpi_monthly、macro_usa_personal_spending、macro_usa_retail_sales、macro_usa_import_price、macro_usa_export_price、macro_usa_lmci、macro_usa_unemployment_rate、macro_usa_job_cuts、macro_usa_non_farm、macro_usa_adp_employment、macro_usa_core_pce_price、macro_usa_real_consumer_spending、macro_usa_trade_balance、macro_usa_current_account、macro_usa_ppi、macro_usa_core_ppi、macro_usa_api_crude_stock、macro_usa_pmi、macro_usa_ism_pmi、macro_usa_industrial_production、macro_usa_durable_goods_orders、macro_usa_factory_orders、macro_usa_services_pmi、macro_usa_business_inventories、macro_usa_ism_non_pmi、macro_usa_nahb_house_market_index、macro_usa_house_starts、macro_usa_new_home_sales、macro_usa_building_permits、macro_usa_exist_home_sales、macro_usa_house_price_index、macro_usa_spcs20、macro_usa_pending_home_sales、macro_usa_cb_consumer_confidence、macro_usa_nfib_small_business、macro_usa_michigan_consumer_sentiment、macro_usa_eia_crude_rate、macro_usa_initial_jobless
+- 欧元区（14 个）：macro_euro_gdp_yoy、macro_euro_cpi_mom、macro_euro_cpi_yoy、macro_euro_ppi_mom、macro_euro_retail_sales_mom、macro_euro_employment_change_qoq、macro_euro_unemployment_rate_mom、macro_euro_trade_balance、macro_euro_current_account_mom、macro_euro_industrial_production_mom、macro_euro_manufacturing_pmi、macro_euro_services_pmi、macro_euro_zew_economic_sentiment、macro_euro_sentix_investor_confidence
+- 主要央行利率决议（11 个）：macro_bank_usa_interest_rate、macro_bank_euro_interest_rate、macro_bank_newzealand_interest_rate、macro_bank_china_interest_rate、macro_bank_switzerland_interest_rate、macro_bank_english_interest_rate、macro_bank_australia_interest_rate、macro_bank_japan_interest_rate、macro_bank_russia_interest_rate、macro_bank_india_interest_rate、macro_bank_brazil_interest_rate
+- 其他已停更的金十接口（5 个）：macro_euro_lme_holding（数据止于 2021 年 9 月）、macro_china_daily_energy（止于 2019 年 6 月）、macro_china_rmb（止于 2021 年 5 月）、macro_usa_rig_count（止于 2024 年 2 月）、macro_cons_opec_month（止于 2023 年 5 月）
+
+可改用的接口：中国的 CPI、PPI、GDP、PMI、货币供应量、外汇储备、进出口、工业增加值分别见东方财富的 macro_china_cpi、macro_china_ppi、macro_china_gdp、macro_china_pmi、macro_china_money_supply_em、macro_china_fx_gold_em、macro_china_customs_trade、macro_china_industrial_value_added；美国 CPI 年率见 macro_usa_cpi_yoy；英国、日本、澳大利亚、加拿大、瑞士的央行利率决议见 macro_uk_bank_rate、macro_japan_bank_rate、macro_australia_bank_rate、macro_canada_bank_rate、macro_swiss_bank_rate。美国、欧元区的其余指标暂无替代接口。金十的黄金与白银 ETF 持仓、CFTC 持仓、LME 库存、Shibor、Hibor、融资融券等接口仍在更新，予以保留。
+
+改名的接口对照见文末的{ref}`接口更名一览表 <changelog-rename>`：macro_australia_cpi_quarterly→macro_australia_cpi_qoq、macro_australia_cpi_yearly→macro_australia_cpi_yoy、macro_australia_ppi_quarterly→macro_australia_ppi_qoq、macro_australia_retail_rate_monthly→macro_australia_retail_sales_mom、macro_canada_core_cpi_monthly→macro_canada_core_cpi_mom、macro_canada_core_cpi_yearly→macro_canada_core_cpi_yoy、macro_canada_cpi_monthly→macro_canada_cpi_mom、macro_canada_cpi_yearly→macro_canada_cpi_yoy、macro_canada_gdp_monthly→macro_canada_gdp_mom、macro_canada_retail_rate_monthly→macro_canada_retail_sales_mom、macro_germany_cpi_monthly→macro_germany_cpi_mom、macro_germany_cpi_yearly→macro_germany_cpi_yoy、macro_germany_retail_sale_monthly→macro_germany_retail_sales_mom、macro_germany_retail_sale_yearly→macro_germany_retail_sales_yoy、macro_japan_core_cpi_yearly→macro_japan_core_cpi_yoy、macro_japan_cpi_yearly→macro_japan_cpi_yoy、macro_swiss_cpi_yearly→macro_swiss_cpi_yoy、macro_swiss_gbd_yearly→macro_swiss_gdp_yoy、macro_swiss_gdp_quarterly→macro_swiss_gdp_qoq、macro_uk_core_cpi_monthly→macro_uk_core_cpi_mom、macro_uk_core_cpi_yearly→macro_uk_core_cpi_yoy、macro_uk_cpi_monthly→macro_uk_cpi_mom、macro_uk_cpi_yearly→macro_uk_cpi_yoy、macro_uk_gdp_quarterly→macro_uk_gdp_qoq、macro_uk_gdp_yearly→macro_uk_gdp_yoy、macro_uk_halifax_monthly→macro_uk_halifax_mom、macro_uk_halifax_yearly→macro_uk_halifax_yoy、macro_uk_retail_monthly→macro_uk_retail_sales_mom、macro_uk_retail_yearly→macro_uk_retail_sales_yoy、macro_uk_rightmove_monthly→macro_uk_rightmove_mom、macro_uk_rightmove_yearly→macro_uk_rightmove_yoy、macro_china_hk_gbp→macro_china_hk_gdp、macro_china_hk_gbp_ratio→macro_china_hk_gdp_yoy、macro_china_hk_cpi_ratio→macro_china_hk_cpi_yoy、macro_china_hk_ppi→macro_china_hk_ppi_yoy、macro_china_hk_trade_diff_ratio→macro_china_hk_trade_balance_yoy、macro_china_hk_rate_of_unemployment→macro_china_hk_unemployment_rate、macro_china_hk_market_info→macro_china_hibor、macro_china_shibor_all→macro_china_shibor、macro_canada_new_house_rate→macro_canada_house_starts、macro_japan_head_indicator→macro_japan_leading_indicator、macro_usa_phs→macro_usa_pending_home_sales_em、macro_usa_crude_inner→macro_usa_crude_production、macro_euro_lme_stock→macro_lme_inventory、macro_cons_gold→macro_gold_etf_holding、macro_cons_silver→macro_silver_etf_holding、macro_usa_cftc_c_holding→macro_usa_cftc_commodity_noncommercial_holding、macro_usa_cftc_nc_holding→macro_usa_cftc_currency_noncommercial_holding、macro_usa_cftc_merchant_goods_holding→macro_usa_cftc_commodity_commercial_holding、macro_usa_cftc_merchant_currency_holding→macro_usa_cftc_currency_commercial_holding、macro_usa_cme_merchant_goods_holding→macro_usa_cme_metal_volume、macro_info_ws→macro_calendar_ws、macro_swiss_gbd_bank_rate→macro_swiss_bank_rate、macro_china_czsr→macro_china_fiscal_revenue、macro_china_gdzctz→macro_china_fixed_asset_investment、macro_china_gyzjz→macro_china_industrial_value_added、macro_china_hgjck→macro_china_customs_trade、macro_china_qyspjg→macro_china_cgpi、macro_china_shrzgm→macro_china_social_financing、macro_china_wbck→macro_china_deposit、macro_china_whxd→macro_china_fx_loan、macro_china_xfzxx→macro_china_consumer_confidence、macro_china_fx_gold→macro_china_fx_gold_em、macro_china_foreign_exchange_gold→macro_china_fx_gold_sina、macro_china_money_supply→macro_china_money_supply_em、macro_china_supply_of_money→macro_china_money_supply_sina。参数与返回结果均不变，请把代码中的旧名称替换为新名称。
+
+1. 东方财富各国宏观数据中表示年率、月率、季率的 yearly、monthly、quarterly 改为 yoy、mom、qoq：原后缀读起来像数据频率，实际是同比、环比；零售销售统一为 retail_sales
+2. 更正拼写与用词：香港和瑞士的 GDP 接口误写为 gbp（英镑）、gbd；香港的 ratio 实为年率，改为 yoy；新屋开工、领先指标、原油产量、LME 库存改用准确的名称；CFTC 持仓的 c、nc、merchant_goods、merchant_currency 写全为“商品类/外汇类”与“商业/非商业”；macro_usa_cme_merchant_goods_holding 返回的是 CME 贵金属成交量而不是持仓；华尔街见闻的宏观日历改为 macro_calendar_ws，与 macro_calendar_baidu 一致
+3. 9 个拼音首字母缩写的中国宏观接口改用英文名称：财政收入、固定资产投资、工业增加值、海关进出口、企业商品价格指数、社会融资规模、本外币存款、外汇贷款、消费者信心指数
+4. 外汇和黄金储备、货币供应量各有东方财富、新浪两个数据源，原先靠调换词序区分（如 macro_china_money_supply 与 macro_china_supply_of_money），改为同名加数据源后缀
+5. 本次只改名称、实现未变；66 个改名后的接口已按文档示例逐一调用，全部返回正常
+6. 数据字典“利率数据”中的“主要央行利率”一节随接口移除；接口总数由 1067 个变为 983 个
+
 (v1-20-41)=
 ### 1.20.41 fix!: rename 34 interfaces whose names used the wrong financial terms
 
@@ -373,6 +397,72 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.42      | macro_australia_cpi_quarterly               | macro_australia_cpi_qoq                     | 20261113 |
+| 1.20.42      | macro_australia_cpi_yearly                  | macro_australia_cpi_yoy                     | 20261113 |
+| 1.20.42      | macro_australia_ppi_quarterly               | macro_australia_ppi_qoq                     | 20261113 |
+| 1.20.42      | macro_australia_retail_rate_monthly         | macro_australia_retail_sales_mom            | 20261113 |
+| 1.20.42      | macro_canada_core_cpi_monthly               | macro_canada_core_cpi_mom                   | 20261113 |
+| 1.20.42      | macro_canada_core_cpi_yearly                | macro_canada_core_cpi_yoy                   | 20261113 |
+| 1.20.42      | macro_canada_cpi_monthly                    | macro_canada_cpi_mom                        | 20261113 |
+| 1.20.42      | macro_canada_cpi_yearly                     | macro_canada_cpi_yoy                        | 20261113 |
+| 1.20.42      | macro_canada_gdp_monthly                    | macro_canada_gdp_mom                        | 20261113 |
+| 1.20.42      | macro_canada_retail_rate_monthly            | macro_canada_retail_sales_mom               | 20261113 |
+| 1.20.42      | macro_germany_cpi_monthly                   | macro_germany_cpi_mom                       | 20261113 |
+| 1.20.42      | macro_germany_cpi_yearly                    | macro_germany_cpi_yoy                       | 20261113 |
+| 1.20.42      | macro_germany_retail_sale_monthly           | macro_germany_retail_sales_mom              | 20261113 |
+| 1.20.42      | macro_germany_retail_sale_yearly            | macro_germany_retail_sales_yoy              | 20261113 |
+| 1.20.42      | macro_japan_core_cpi_yearly                 | macro_japan_core_cpi_yoy                    | 20261113 |
+| 1.20.42      | macro_japan_cpi_yearly                      | macro_japan_cpi_yoy                         | 20261113 |
+| 1.20.42      | macro_swiss_cpi_yearly                      | macro_swiss_cpi_yoy                         | 20261113 |
+| 1.20.42      | macro_swiss_gbd_yearly                      | macro_swiss_gdp_yoy                         | 20261113 |
+| 1.20.42      | macro_swiss_gdp_quarterly                   | macro_swiss_gdp_qoq                         | 20261113 |
+| 1.20.42      | macro_uk_core_cpi_monthly                   | macro_uk_core_cpi_mom                       | 20261113 |
+| 1.20.42      | macro_uk_core_cpi_yearly                    | macro_uk_core_cpi_yoy                       | 20261113 |
+| 1.20.42      | macro_uk_cpi_monthly                        | macro_uk_cpi_mom                            | 20261113 |
+| 1.20.42      | macro_uk_cpi_yearly                         | macro_uk_cpi_yoy                            | 20261113 |
+| 1.20.42      | macro_uk_gdp_quarterly                      | macro_uk_gdp_qoq                            | 20261113 |
+| 1.20.42      | macro_uk_gdp_yearly                         | macro_uk_gdp_yoy                            | 20261113 |
+| 1.20.42      | macro_uk_halifax_monthly                    | macro_uk_halifax_mom                        | 20261113 |
+| 1.20.42      | macro_uk_halifax_yearly                     | macro_uk_halifax_yoy                        | 20261113 |
+| 1.20.42      | macro_uk_retail_monthly                     | macro_uk_retail_sales_mom                   | 20261113 |
+| 1.20.42      | macro_uk_retail_yearly                      | macro_uk_retail_sales_yoy                   | 20261113 |
+| 1.20.42      | macro_uk_rightmove_monthly                  | macro_uk_rightmove_mom                      | 20261113 |
+| 1.20.42      | macro_uk_rightmove_yearly                   | macro_uk_rightmove_yoy                      | 20261113 |
+| 1.20.42      | macro_china_hk_gbp                          | macro_china_hk_gdp                          | 20261113 |
+| 1.20.42      | macro_china_hk_gbp_ratio                    | macro_china_hk_gdp_yoy                      | 20261113 |
+| 1.20.42      | macro_china_hk_cpi_ratio                    | macro_china_hk_cpi_yoy                      | 20261113 |
+| 1.20.42      | macro_china_hk_ppi                          | macro_china_hk_ppi_yoy                      | 20261113 |
+| 1.20.42      | macro_china_hk_trade_diff_ratio             | macro_china_hk_trade_balance_yoy            | 20261113 |
+| 1.20.42      | macro_china_hk_rate_of_unemployment         | macro_china_hk_unemployment_rate            | 20261113 |
+| 1.20.42      | macro_china_hk_market_info                  | macro_china_hibor                           | 20261113 |
+| 1.20.42      | macro_china_shibor_all                      | macro_china_shibor                          | 20261113 |
+| 1.20.42      | macro_canada_new_house_rate                 | macro_canada_house_starts                   | 20261113 |
+| 1.20.42      | macro_japan_head_indicator                  | macro_japan_leading_indicator               | 20261113 |
+| 1.20.42      | macro_usa_phs                               | macro_usa_pending_home_sales_em             | 20261113 |
+| 1.20.42      | macro_usa_crude_inner                       | macro_usa_crude_production                  | 20261113 |
+| 1.20.42      | macro_euro_lme_stock                        | macro_lme_inventory                         | 20261113 |
+| 1.20.42      | macro_cons_gold                             | macro_gold_etf_holding                      | 20261113 |
+| 1.20.42      | macro_cons_silver                           | macro_silver_etf_holding                    | 20261113 |
+| 1.20.42      | macro_usa_cftc_c_holding                    | macro_usa_cftc_commodity_noncommercial_holding | 20261113 |
+| 1.20.42      | macro_usa_cftc_nc_holding                   | macro_usa_cftc_currency_noncommercial_holding | 20261113 |
+| 1.20.42      | macro_usa_cftc_merchant_goods_holding       | macro_usa_cftc_commodity_commercial_holding | 20261113 |
+| 1.20.42      | macro_usa_cftc_merchant_currency_holding    | macro_usa_cftc_currency_commercial_holding  | 20261113 |
+| 1.20.42      | macro_usa_cme_merchant_goods_holding        | macro_usa_cme_metal_volume                  | 20261113 |
+| 1.20.42      | macro_info_ws                               | macro_calendar_ws                           | 20261113 |
+| 1.20.42      | macro_swiss_gbd_bank_rate                   | macro_swiss_bank_rate                       | 20261113 |
+| 1.20.42      | macro_china_czsr                            | macro_china_fiscal_revenue                  | 20261113 |
+| 1.20.42      | macro_china_gdzctz                          | macro_china_fixed_asset_investment          | 20261113 |
+| 1.20.42      | macro_china_gyzjz                           | macro_china_industrial_value_added          | 20261113 |
+| 1.20.42      | macro_china_hgjck                           | macro_china_customs_trade                   | 20261113 |
+| 1.20.42      | macro_china_qyspjg                          | macro_china_cgpi                            | 20261113 |
+| 1.20.42      | macro_china_shrzgm                          | macro_china_social_financing                | 20261113 |
+| 1.20.42      | macro_china_wbck                            | macro_china_deposit                         | 20261113 |
+| 1.20.42      | macro_china_whxd                            | macro_china_fx_loan                         | 20261113 |
+| 1.20.42      | macro_china_xfzxx                           | macro_china_consumer_confidence             | 20261113 |
+| 1.20.42      | macro_china_fx_gold                         | macro_china_fx_gold_em                      | 20261113 |
+| 1.20.42      | macro_china_foreign_exchange_gold           | macro_china_fx_gold_sina                    | 20261113 |
+| 1.20.42      | macro_china_money_supply                    | macro_china_money_supply_em                 | 20261113 |
+| 1.20.42      | macro_china_supply_of_money                 | macro_china_money_supply_sina               | 20261113 |
 | 1.20.41      | stock_financial_debt_new_ths                | stock_balance_sheet_ths                     | 20261113 |
 | 1.20.41      | stock_financial_benefit_new_ths             | stock_profit_sheet_ths                      | 20261113 |
 | 1.20.41      | stock_financial_cash_new_ths                | stock_cash_flow_sheet_ths                   | 20261113 |

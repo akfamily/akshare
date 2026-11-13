@@ -67,7 +67,7 @@ def macro_uk_core(symbol: str = "EMG00010348") -> pd.DataFrame:
 
 
 # Halifax房价指数月率
-def macro_uk_halifax_monthly() -> pd.DataFrame:
+def macro_uk_halifax_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-Halifax 房价指数月率
     https://data.eastmoney.com/cjsj/foreign_4_0.html
@@ -79,7 +79,7 @@ def macro_uk_halifax_monthly() -> pd.DataFrame:
 
 
 # Halifax 房价指数年率
-def macro_uk_halifax_yearly() -> pd.DataFrame:
+def macro_uk_halifax_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-Halifax 房价指数年率
     https://data.eastmoney.com/cjsj/foreign_4_1.html
@@ -115,7 +115,7 @@ def macro_uk_bank_rate() -> pd.DataFrame:
 
 
 # 核心消费者物价指数年率
-def macro_uk_core_cpi_yearly() -> pd.DataFrame:
+def macro_uk_core_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-核心消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_4_4.html
@@ -127,7 +127,7 @@ def macro_uk_core_cpi_yearly() -> pd.DataFrame:
 
 
 # 核心消费者物价指数月率
-def macro_uk_core_cpi_monthly() -> pd.DataFrame:
+def macro_uk_core_cpi_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-核心消费者物价指数月率
     https://data.eastmoney.com/cjsj/foreign_4_5.html
@@ -139,7 +139,7 @@ def macro_uk_core_cpi_monthly() -> pd.DataFrame:
 
 
 # 消费者物价指数年率
-def macro_uk_cpi_yearly() -> pd.DataFrame:
+def macro_uk_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_4_6.html
@@ -151,7 +151,7 @@ def macro_uk_cpi_yearly() -> pd.DataFrame:
 
 
 # 消费者物价指数月率
-def macro_uk_cpi_monthly() -> pd.DataFrame:
+def macro_uk_cpi_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-消费者物价指数月率
     https://data.eastmoney.com/cjsj/foreign_4_7.html
@@ -163,7 +163,7 @@ def macro_uk_cpi_monthly() -> pd.DataFrame:
 
 
 # 零售销售月率
-def macro_uk_retail_monthly() -> pd.DataFrame:
+def macro_uk_retail_sales_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-零售销售月率
     https://data.eastmoney.com/cjsj/foreign_4_8.html
@@ -175,7 +175,7 @@ def macro_uk_retail_monthly() -> pd.DataFrame:
 
 
 # 零售销售年率
-def macro_uk_retail_yearly() -> pd.DataFrame:
+def macro_uk_retail_sales_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-零售销售年率
     https://data.eastmoney.com/cjsj/foreign_4_9.html
@@ -187,7 +187,7 @@ def macro_uk_retail_yearly() -> pd.DataFrame:
 
 
 # Rightmove 房价指数年率
-def macro_uk_rightmove_yearly() -> pd.DataFrame:
+def macro_uk_rightmove_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-Rightmove 房价指数年率
     https://data.eastmoney.com/cjsj/foreign_4_10.html
@@ -199,7 +199,7 @@ def macro_uk_rightmove_yearly() -> pd.DataFrame:
 
 
 # Rightmove 房价指数月率
-def macro_uk_rightmove_monthly() -> pd.DataFrame:
+def macro_uk_rightmove_mom() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-Rightmove 房价指数月率
     https://data.eastmoney.com/cjsj/foreign_4_11.html
@@ -211,7 +211,7 @@ def macro_uk_rightmove_monthly() -> pd.DataFrame:
 
 
 # GDP 季率初值
-def macro_uk_gdp_quarterly() -> pd.DataFrame:
+def macro_uk_gdp_qoq() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-GDP 季率初值
     https://data.eastmoney.com/cjsj/foreign_4_12.html
@@ -223,7 +223,7 @@ def macro_uk_gdp_quarterly() -> pd.DataFrame:
 
 
 # GDP 年率初值
-def macro_uk_gdp_yearly() -> pd.DataFrame:
+def macro_uk_gdp_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-英国-GDP 年率初值
     https://data.eastmoney.com/cjsj/foreign_4_13.html
@@ -247,11 +247,11 @@ def macro_uk_unemployment_rate() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_uk_halifax_monthly_df = macro_uk_halifax_monthly()
-    print(macro_uk_halifax_monthly_df)
+    macro_uk_halifax_mom_df = macro_uk_halifax_mom()
+    print(macro_uk_halifax_mom_df)
 
-    macro_uk_halifax_yearly_df = macro_uk_halifax_yearly()
-    print(macro_uk_halifax_yearly_df)
+    macro_uk_halifax_yoy_df = macro_uk_halifax_yoy()
+    print(macro_uk_halifax_yoy_df)
 
     macro_uk_trade_df = macro_uk_trade()
     print(macro_uk_trade_df)
@@ -259,35 +259,35 @@ if __name__ == "__main__":
     macro_uk_bank_rate_df = macro_uk_bank_rate()
     print(macro_uk_bank_rate_df)
 
-    macro_uk_core_cpi_yearly_df = macro_uk_core_cpi_yearly()
-    print(macro_uk_core_cpi_yearly_df)
+    macro_uk_core_cpi_yoy_df = macro_uk_core_cpi_yoy()
+    print(macro_uk_core_cpi_yoy_df)
 
-    macro_uk_core_cpi_monthly_df = macro_uk_core_cpi_monthly()
-    print(macro_uk_core_cpi_monthly_df)
+    macro_uk_core_cpi_mom_df = macro_uk_core_cpi_mom()
+    print(macro_uk_core_cpi_mom_df)
 
-    macro_uk_cpi_yearly_df = macro_uk_cpi_yearly()
-    print(macro_uk_cpi_yearly_df)
+    macro_uk_cpi_yoy_df = macro_uk_cpi_yoy()
+    print(macro_uk_cpi_yoy_df)
 
-    macro_uk_cpi_monthly_df = macro_uk_cpi_monthly()
-    print(macro_uk_cpi_monthly_df)
+    macro_uk_cpi_mom_df = macro_uk_cpi_mom()
+    print(macro_uk_cpi_mom_df)
 
-    macro_uk_retail_monthly_df = macro_uk_retail_monthly()
-    print(macro_uk_retail_monthly_df)
+    macro_uk_retail_sales_mom_df = macro_uk_retail_sales_mom()
+    print(macro_uk_retail_sales_mom_df)
 
-    macro_uk_retail_yearly_df = macro_uk_retail_yearly()
-    print(macro_uk_retail_yearly_df)
+    macro_uk_retail_sales_yoy_df = macro_uk_retail_sales_yoy()
+    print(macro_uk_retail_sales_yoy_df)
 
-    macro_uk_rightmove_yearly_df = macro_uk_rightmove_yearly()
-    print(macro_uk_rightmove_yearly_df)
+    macro_uk_rightmove_yoy_df = macro_uk_rightmove_yoy()
+    print(macro_uk_rightmove_yoy_df)
 
-    macro_uk_rightmove_monthly_df = macro_uk_rightmove_monthly()
-    print(macro_uk_rightmove_monthly_df)
+    macro_uk_rightmove_mom_df = macro_uk_rightmove_mom()
+    print(macro_uk_rightmove_mom_df)
 
-    macro_uk_gdp_quarterly_df = macro_uk_gdp_quarterly()
-    print(macro_uk_gdp_quarterly_df)
+    macro_uk_gdp_qoq_df = macro_uk_gdp_qoq()
+    print(macro_uk_gdp_qoq_df)
 
-    macro_uk_gdp_yearly_df = macro_uk_gdp_yearly()
-    print(macro_uk_gdp_yearly_df)
+    macro_uk_gdp_yoy_df = macro_uk_gdp_yoy()
+    print(macro_uk_gdp_yoy_df)
 
     macro_uk_unemployment_rate_df = macro_uk_unemployment_rate()
     print(macro_uk_unemployment_rate_df)

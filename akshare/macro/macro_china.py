@@ -5,8 +5,6 @@ Date: 2025/11/12 15:20
 Desc: 宏观数据-中国
 """
 
-import datetime
-import json
 import math
 import ssl
 import time
@@ -15,9 +13,6 @@ import pandas as pd
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 
-from akshare.macro.cons import (
-    JS_CHINA_ENERGY_DAILY_URL,
-)
 from akshare.utils import jsonish
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
@@ -41,70 +36,8 @@ class TLSAdapter(HTTPAdapter):
         )
 
 
-def __macro_china_base_func(symbol: str, params: dict) -> pd.DataFrame:
-    """
-    金十数据中心-经济指标-美国-基础函数
-    https://datacenter.jin10.com/economic
-    :return: 美国经济指标数据
-    :rtype: pandas.DataFrame
-    """
-    import warnings
-
-    warnings.filterwarnings(action="ignore", category=FutureWarning)
-    headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/107.0.0.0 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "x-csrf-token",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = params
-    big_df = pd.DataFrame()
-    while True:
-        r = http.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-    ]
-    big_df["商品"] = symbol
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
-    big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
-    big_df = big_df.sort_values(["日期"])
-    big_df = big_df.reset_index(drop=True)
-    return big_df
-
-
 # 企业商品价格指数
-def macro_china_qyspjg() -> pd.DataFrame:
+def macro_china_cgpi() -> pd.DataFrame:
     """
     东方财富-经济数据一览-中国-企业商品价格指数
     https://data.eastmoney.com/cjsj/qyspjg.html
@@ -254,7 +187,7 @@ def macro_china_fdi() -> pd.DataFrame:
 
 
 # 中国社会融资规模数据
-def macro_china_shrzgm() -> pd.DataFrame:
+def macro_china_social_financing() -> pd.DataFrame:
     """
     商务数据中心-国内贸易-社会融资规模增量统计
     https://data.mofcom.gov.cn/gnmy/shrzgm.shtml
@@ -378,283 +311,8 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
     return temp_df
 
 
-# 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
-def macro_china_gdp_yearly() -> pd.DataFrame:
-    """
-    金十数据中心-中国 GDP 年率报告，数据区间从 20110120-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
-    :return: 中国 GDP 年率报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "57",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国GDP年率报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
-def macro_china_cpi_yearly() -> pd.DataFrame:
-    """
-    中国年度 CPI 数据，数据区间从 19860201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
-    :return: 中国年度 CPI 数据
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "56",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国CPI年率报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
-def macro_china_cpi_monthly() -> pd.DataFrame:
-    """
-    中国月度 CPI 数据，数据区间从 19960201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
-    :return: 中国月度 CPI 数据
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "72",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国CPI月率报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
-def macro_china_ppi_yearly() -> pd.DataFrame:
-    """
-    中国年度 PPI 数据，数据区间从 19950801-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
-    :return: 中国年度 PPI 数据
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "60",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国PPI年率报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-贸易状况-以美元计算出口年率报告
-def macro_china_exports_yoy() -> pd.DataFrame:
-    """
-    中国以美元计算出口年率报告，数据区间从 19820201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_exports_yoy
-    :return: 中国以美元计算出口年率报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "66",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(
-        symbol="中国以美元计算出口年率报告", params=params
-    )
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
-def macro_china_imports_yoy() -> pd.DataFrame:
-    """
-    中国以美元计算进口年率报告，数据区间从 19960201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_imports_yoy
-    https://cdn.jin10.com/dc/reports/dc_chinese_imports_yoy_all.js?v=1578754588
-    :return: 中国以美元计算进口年率报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "77",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(
-        symbol="中国以美元计算进口年率报告", params=params
-    )
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐（亿美元）
-def macro_china_trade_balance() -> pd.DataFrame:
-    """
-    中国以美元计算贸易帐报告，数据区间从 19810201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_trade_balance
-    https://cdn.jin10.com/dc/reports/dc_chinese_trade_balance_all.js?v=1578754677
-    :return: 中国以美元计算贸易帐报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "61",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国以美元计算贸易帐报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-产业指标-规模以上工业增加值年率
-def macro_china_industrial_production_yoy() -> pd.DataFrame:
-    """
-    中国规模以上工业增加值年率报告，数据区间从19900301-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_industrial_production_yoy
-    https://cdn.jin10.com/dc/reports/dc_chinese_industrial_production_yoy_all.js?v=1578754779
-    :return: 中国规模以上工业增加值年率报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "58",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(
-        symbol="中国规模以上工业增加值年率报告", params=params
-    )
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
-def macro_china_pmi_yearly() -> pd.DataFrame:
-    """
-    中国年度 PMI 数据，数据区间从 20050201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
-    :return: 中国年度 PMI 数据
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "category": "ec",
-        "attr_id": "65",
-        "max_date": "",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国官方制造业PMI", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
-def macro_china_cx_pmi_yearly() -> pd.DataFrame:
-    """
-    中国年度财新 PMI 数据，数据区间从 20120120-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
-    :return: 中国年度财新 PMI 数据
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "73",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国财新制造业PMI终值报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
-def macro_china_cx_services_pmi_yearly() -> pd.DataFrame:
-    """
-    中国财新服务业PMI报告，数据区间从 20120405-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
-    https://cdn.jin10.com/dc/reports/dc_chinese_caixin_services_pmi_all.js?v=1578818109
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "67",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国财新服务业PMI报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
-def macro_china_non_man_pmi() -> pd.DataFrame:
-    """
-    中国官方非制造业 PMI，数据区间从 20160101-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
-    :return: 中国官方非制造业 PMI
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "75",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国官方非制造业PMI报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-金融指标-外汇储备（亿美元）
-def macro_china_fx_reserves_yearly() -> pd.DataFrame:
-    """
-    中国年度外汇储备数据，数据区间从 20140115-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
-    :return: 中国年度外汇储备数据
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "76",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国外汇储备报告", params=params)
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
-def macro_china_m2_yearly() -> pd.DataFrame:
-    """
-    中国年度 M2 数据，数据区间从 19980201-至今
-    https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
-    :return: 中国年度 M2 数据
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "59",
-        "_": str(int(round(t * 1000))),
-    }
-    temp_df = __macro_china_base_func(symbol="中国M2货币供应年率报告", params=params)
-    return temp_df
-
-
 # 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
-def macro_china_shibor_all() -> pd.DataFrame:
+def macro_china_shibor() -> pd.DataFrame:
     """
     上海银行业同业拆借报告，数据区间从20170317-至今
     https://datacenter.jin10.com/reportType/dc_shibor
@@ -700,7 +358,7 @@ def macro_china_shibor_all() -> pd.DataFrame:
 
 
 # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
-def macro_china_hk_market_info() -> pd.DataFrame:
+def macro_china_hibor() -> pd.DataFrame:
     """
     香港同业拆借报告，数据区间从 20170320-至今
     https://datacenter.jin10.com/reportType/dc_hk_market_info
@@ -740,144 +398,6 @@ def macro_china_hk_market_info() -> pd.DataFrame:
     for item in big_df.columns:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
     big_df = big_df.sort_index()
-    big_df = big_df.reset_index()
-    big_df = big_df.rename(columns={"index": "日期"})
-    return big_df
-
-
-# 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
-def macro_china_daily_energy() -> pd.DataFrame:
-    """
-    中国日度沿海六大电库存数据，数据区间从20160101-至今
-    https://datacenter.jin10.com/reportType/dc_qihuo_energy_report
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    res = http.get(
-        JS_CHINA_ENERGY_DAILY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [
-        item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]
-    ]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df[["沿海六大电库存", "日耗", "存煤可用天数"]]
-    temp_df.name = "energy"
-    temp_df = temp_df.astype(float)
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "日期"})
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
-def macro_china_rmb() -> pd.DataFrame:
-    """
-    中国人民币汇率中间价报告，数据区间从 20170103-至今
-    https://datacenter.jin10.com/reportType/dc_rmb_data
-    :return: 中国人民币汇率中间价报告
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    params = {"_": t}
-    res = http.get(
-        "https://cdn.jin10.com/data_center/reports/exchange_rate.json",
-        params=params,
-    )
-    json_data = res.json()
-    temp_df = pd.DataFrame(json_data["values"]).T
-    big_df = pd.DataFrame()
-    temp_df = temp_df.fillna(value="--")
-    big_df["美元/人民币_中间价"] = temp_df["美元/人民币"].apply(lambda x: x[0])
-    big_df["美元/人民币_涨跌幅"] = temp_df["美元/人民币"].apply(lambda x: x[1])
-    big_df["欧元/人民币_中间价"] = temp_df["欧元/人民币"].apply(lambda x: x[0])
-    big_df["欧元/人民币_涨跌幅"] = temp_df["欧元/人民币"].apply(lambda x: x[1])
-    big_df["100日元/人民币_中间价"] = temp_df["100日元/人民币"].apply(lambda x: x[0])
-    big_df["100日元/人民币_涨跌幅"] = temp_df["100日元/人民币"].apply(lambda x: x[1])
-    big_df["港元/人民币_中间价"] = temp_df["港元/人民币"].apply(lambda x: x[0])
-    big_df["港元/人民币_涨跌幅"] = temp_df["港元/人民币"].apply(lambda x: x[1])
-    big_df["英镑/人民币_中间价"] = temp_df["英镑/人民币"].apply(lambda x: x[0])
-    big_df["英镑/人民币_涨跌幅"] = temp_df["英镑/人民币"].apply(lambda x: x[1])
-    big_df["澳元/人民币_中间价"] = temp_df["澳元/人民币"].apply(lambda x: x[0])
-    big_df["澳元/人民币_涨跌幅"] = temp_df["澳元/人民币"].apply(lambda x: x[1])
-    big_df["新西兰元/人民币_中间价"] = temp_df["新西兰元/人民币"].apply(lambda x: x[0])
-    big_df["新西兰元/人民币_涨跌幅"] = temp_df["新西兰元/人民币"].apply(lambda x: x[1])
-    big_df["新加坡元/人民币_中间价"] = temp_df["新加坡元/人民币"].apply(lambda x: x[0])
-    big_df["新加坡元/人民币_涨跌幅"] = temp_df["新加坡元/人民币"].apply(lambda x: x[1])
-    big_df["瑞郎/人民币_中间价"] = temp_df["瑞郎/人民币"].apply(lambda x: x[0])
-    big_df["瑞郎/人民币_涨跌幅"] = temp_df["瑞郎/人民币"].apply(lambda x: x[1])
-    big_df["加元/人民币_中间价"] = temp_df["加元/人民币"].apply(lambda x: x[0])
-    big_df["加元/人民币_涨跌幅"] = temp_df["加元/人民币"].apply(lambda x: x[1])
-    big_df["人民币/马来西亚林吉特_中间价"] = temp_df["人民币/马来西亚林吉特"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/马来西亚林吉特_涨跌幅"] = temp_df["人民币/马来西亚林吉特"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/俄罗斯卢布_中间价"] = temp_df["人民币/俄罗斯卢布"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/俄罗斯卢布_涨跌幅"] = temp_df["人民币/俄罗斯卢布"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/南非兰特_中间价"] = temp_df["人民币/南非兰特"].apply(lambda x: x[0])
-    big_df["人民币/南非兰特_涨跌幅"] = temp_df["人民币/南非兰特"].apply(lambda x: x[1])
-    big_df["人民币/韩元_中间价"] = temp_df["人民币/韩元"].apply(lambda x: x[0])
-    big_df["人民币/韩元_涨跌幅"] = temp_df["人民币/韩元"].apply(lambda x: x[1])
-    big_df["人民币/阿联酋迪拉姆_中间价"] = temp_df["人民币/阿联酋迪拉姆"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/阿联酋迪拉姆_涨跌幅"] = temp_df["人民币/阿联酋迪拉姆"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/沙特里亚尔_中间价"] = temp_df["人民币/沙特里亚尔"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/沙特里亚尔_涨跌幅"] = temp_df["人民币/沙特里亚尔"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/匈牙利福林_中间价"] = temp_df["人民币/匈牙利福林"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/匈牙利福林_涨跌幅"] = temp_df["人民币/匈牙利福林"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/波兰兹罗提_中间价"] = temp_df["人民币/波兰兹罗提"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/波兰兹罗提_涨跌幅"] = temp_df["人民币/波兰兹罗提"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/丹麦克朗_中间价"] = temp_df["人民币/丹麦克朗"].apply(lambda x: x[0])
-    big_df["人民币/丹麦克朗_涨跌幅"] = temp_df["人民币/丹麦克朗"].apply(lambda x: x[1])
-    big_df["人民币/瑞典克朗_中间价"] = temp_df["人民币/瑞典克朗"].apply(lambda x: x[0])
-    big_df["人民币/瑞典克朗_涨跌幅"] = temp_df["人民币/瑞典克朗"].apply(lambda x: x[1])
-    big_df["人民币/挪威克朗_中间价"] = temp_df["人民币/挪威克朗"].apply(lambda x: x[0])
-    big_df["人民币/挪威克朗_涨跌幅"] = temp_df["人民币/挪威克朗"].apply(lambda x: x[1])
-    big_df["人民币/土耳其里拉_中间价"] = temp_df["人民币/土耳其里拉"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/土耳其里拉_涨跌幅"] = temp_df["人民币/土耳其里拉"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/墨西哥比索_中间价"] = temp_df["人民币/墨西哥比索"].apply(
-        lambda x: x[0]
-    )
-    big_df["人民币/墨西哥比索_涨跌幅"] = temp_df["人民币/墨西哥比索"].apply(
-        lambda x: x[1]
-    )
-    big_df["人民币/泰铢_定价"] = temp_df["人民币/泰铢"].apply(lambda x: x[0])
-    big_df["人民币/泰铢_涨跌幅"] = temp_df["人民币/泰铢"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
-    big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
-    big_df = big_df.sort_index()
-    big_df = big_df.fillna(0)
-    big_df = big_df.astype("float")
     big_df = big_df.reset_index()
     big_df = big_df.rename(columns={"index": "日期"})
     return big_df
@@ -2420,7 +1940,7 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_fx_gold() -> pd.DataFrame:
+def macro_china_fx_gold_em() -> pd.DataFrame:
     """
     东方财富-外汇和黄金储备
     https://data.eastmoney.com/cjsj/hjwh.html
@@ -2574,7 +2094,7 @@ def macro_china_stock_market_cap() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_money_supply() -> pd.DataFrame:
+def macro_china_money_supply_em() -> pd.DataFrame:
     """
     东方财富-货币供应量
     https://data.eastmoney.com/cjsj/hbgyl.html
@@ -2911,7 +2431,7 @@ def macro_china_pmi() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_gdzctz() -> pd.DataFrame:
+def macro_china_fixed_asset_investment() -> pd.DataFrame:
     """
     东方财富-中国城镇固定资产投资
     https://data.eastmoney.com/cjsj/gdzctz.html
@@ -2961,7 +2481,7 @@ def macro_china_gdzctz() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_hgjck() -> pd.DataFrame:
+def macro_china_customs_trade() -> pd.DataFrame:
     """
     东方财富-海关进出口增减情况一览表
     https://data.eastmoney.com/cjsj/hgjck.html
@@ -3051,7 +2571,7 @@ def macro_china_hgjck() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_czsr() -> pd.DataFrame:
+def macro_china_fiscal_revenue() -> pd.DataFrame:
     """
     东方财富-财政收入
     https://data.eastmoney.com/cjsj/czsr.html
@@ -3105,7 +2625,7 @@ def macro_china_czsr() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_whxd() -> pd.DataFrame:
+def macro_china_fx_loan() -> pd.DataFrame:
     """
     东方财富-外汇贷款数据
     https://data.eastmoney.com/cjsj/whxd.html
@@ -3156,7 +2676,7 @@ def macro_china_whxd() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_wbck() -> pd.DataFrame:
+def macro_china_deposit() -> pd.DataFrame:
     """
     东方财富-本外币存款
     https://data.eastmoney.com/cjsj/wbck.html
@@ -3206,7 +2726,7 @@ def macro_china_wbck() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_xfzxx() -> pd.DataFrame:
+def macro_china_consumer_confidence() -> pd.DataFrame:
     """
     东方财富网-经济数据一览-消费者信心指数
     https://data.eastmoney.com/cjsj/xfzxx.html
@@ -3292,7 +2812,7 @@ def macro_china_xfzxx() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_gyzjz() -> pd.DataFrame:
+def macro_china_industrial_value_added() -> pd.DataFrame:
     """
     东方财富网-经济数据-工业增加值增长
     https://data.eastmoney.com/cjsj/gyzjz.html
@@ -3704,38 +3224,6 @@ def macro_china_passenger_load_factor() -> pd.DataFrame:
     return big_df
 
 
-def _macro_china_freight_index() -> pd.DataFrame:
-    """
-    新浪财经-中国宏观经济数据-航贸运价指数
-    https://finance.sina.com.cn/mac/#industry-22-0-31-2
-    :return: 航贸运价指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
-    params = {
-        "cate": "industry",
-        "event": "22",
-        "from": "0",
-        "num": str(_SINA_MAC_PAGE_SIZE),
-        "condition": "",
-    }
-    r = http.get(url, params=params)
-    data_text = r.text
-    data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-    page_num = math.ceil(int(data_json["count"]) / _SINA_MAC_PAGE_SIZE)
-    big_df = pd.DataFrame(data_json["data"])
-    tqdm = get_tqdm()
-    for i in tqdm(range(1, page_num)):
-        params.update({"from": i * _SINA_MAC_PAGE_SIZE})
-        r = http.get(url, params=params)
-        data_text = r.text
-        data_json = jsonish.loads(data_text[data_text.find("{") : -3])
-        temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.columns = [item[1] for item in data_json["config"]["all"]]
-    return big_df
-
-
 def macro_china_freight_index() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-航贸运价指数
@@ -3849,7 +3337,7 @@ def macro_china_insurance() -> pd.DataFrame:
     return big_df
 
 
-def macro_china_supply_of_money() -> pd.DataFrame:
+def macro_china_money_supply_sina() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-货币供应量
     https://finance.sina.com.cn/mac/#fininfo-1-0-31-1
@@ -3883,7 +3371,7 @@ def macro_china_supply_of_money() -> pd.DataFrame:
     return big_df
 
 
-def macro_china_foreign_exchange_gold() -> pd.DataFrame:
+def macro_china_fx_gold_sina() -> pd.DataFrame:
     """
     央行黄金和外汇储备
     https://finance.sina.com.cn/mac/#fininfo-5-0-31-2
@@ -4029,92 +3517,60 @@ def macro_china_real_estate() -> pd.DataFrame:
 
 if __name__ == "__main__":
     # 企业商品价格指数
-    macro_china_qyspjg_df = macro_china_qyspjg()
-    print(macro_china_qyspjg_df)
+    macro_china_cgpi_df = macro_china_cgpi()
+    print(macro_china_cgpi_df)
 
     # 外商直接投资数据
     macro_china_fdi_df = macro_china_fdi()
     print(macro_china_fdi_df)
 
     # 社会融资规模增量
-    macro_china_shrzgm_df = macro_china_shrzgm()
-    print(macro_china_shrzgm_df)
+    macro_china_social_financing_df = macro_china_social_financing()
+    print(macro_china_social_financing_df)
 
     # 城镇调查失业率
     macro_china_urban_unemployment_df = macro_china_urban_unemployment()
     print(macro_china_urban_unemployment_df)
 
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
-    macro_china_gdp_yearly_df = macro_china_gdp_yearly()
-    print(macro_china_gdp_yearly_df)
 
     # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
-    macro_china_cpi_yearly_df = macro_china_cpi_yearly()
-    print(macro_china_cpi_yearly_df)
 
     # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
-    macro_china_cpi_monthly_df = macro_china_cpi_monthly()
-    print(macro_china_cpi_monthly_df)
 
     # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
-    macro_china_ppi_yearly_df = macro_china_ppi_yearly()
-    print(macro_china_ppi_yearly_df)
 
     # 金十数据中心-经济指标-中国-贸易状况-以美元计算出口年率报告
-    macro_china_exports_yoy_df = macro_china_exports_yoy()
-    print(macro_china_exports_yoy_df)
 
     # 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
-    macro_china_imports_yoy_df = macro_china_imports_yoy()
-    print(macro_china_imports_yoy_df)
 
     # 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐（亿美元）
-    macro_china_trade_balance_df = macro_china_trade_balance()
-    print(macro_china_trade_balance_df)
 
     # 金十数据中心-经济指标-中国-产业指标-规模以上工业增加值年率
-    macro_china_industrial_production_yoy_df = macro_china_industrial_production_yoy()
-    print(macro_china_industrial_production_yoy_df)
 
     # 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
-    macro_china_pmi_yearly_df = macro_china_pmi_yearly()
-    print(macro_china_pmi_yearly_df)
 
     # 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
-    macro_china_cx_pmi_yearly_df = macro_china_cx_pmi_yearly()
-    print(macro_china_cx_pmi_yearly_df)
 
     # 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
-    macro_china_cx_services_pmi_yearly_df = macro_china_cx_services_pmi_yearly()
-    print(macro_china_cx_services_pmi_yearly_df)
 
     # 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
-    macro_china_non_man_pmi_df = macro_china_non_man_pmi()
-    print(macro_china_non_man_pmi_df)
 
     # 金十数据中心-经济指标-中国-金融指标-外汇储备（亿美元）
-    macro_china_fx_reserves_yearly_df = macro_china_fx_reserves_yearly()
-    print(macro_china_fx_reserves_yearly_df)
 
     # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
-    macro_china_m2_yearly_df = macro_china_m2_yearly()
-    print(macro_china_m2_yearly_df)
 
     # 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
-    macro_china_shibor_all_df = macro_china_shibor_all()
-    print(macro_china_shibor_all_df)
+    macro_china_shibor_df = macro_china_shibor()
+    print(macro_china_shibor_df)
 
     # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
-    macro_china_hk_market_info_df = macro_china_hk_market_info()
-    print(macro_china_hk_market_info_df)
+    macro_china_hibor_df = macro_china_hibor()
+    print(macro_china_hibor_df)
 
     # 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
-    macro_china_daily_energy_df = macro_china_daily_energy()
-    print(macro_china_daily_energy_df)
 
     # 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
-    macro_china_rmb_df = macro_china_rmb()
-    print(macro_china_rmb_df)
 
     # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
     macro_china_market_margin_sz_df = macro_china_market_margin_sz()
@@ -4145,14 +3601,14 @@ if __name__ == "__main__":
     print(macro_china_new_financial_credit_df)
 
     # 中国-外汇和黄金储备
-    macro_china_fx_gold_df = macro_china_fx_gold()
-    print(macro_china_fx_gold_df)
+    macro_china_fx_gold_em_df = macro_china_fx_gold_em()
+    print(macro_china_fx_gold_em_df)
 
     macro_china_stock_market_cap_df = macro_china_stock_market_cap()
     print(macro_china_stock_market_cap_df)
 
-    macro_china_money_supply_df = macro_china_money_supply()
-    print(macro_china_money_supply_df)
+    macro_china_money_supply_em_df = macro_china_money_supply_em()
+    print(macro_china_money_supply_em_df)
 
     macro_china_cpi_df = macro_china_cpi()
     print(macro_china_cpi_df)
@@ -4166,26 +3622,26 @@ if __name__ == "__main__":
     macro_china_pmi_df = macro_china_pmi()
     print(macro_china_pmi_df)
 
-    macro_china_gdzctz_df = macro_china_gdzctz()
-    print(macro_china_gdzctz_df)
+    macro_china_fixed_asset_investment_df = macro_china_fixed_asset_investment()
+    print(macro_china_fixed_asset_investment_df)
 
-    macro_china_hgjck_df = macro_china_hgjck()
-    print(macro_china_hgjck_df)
+    macro_china_customs_trade_df = macro_china_customs_trade()
+    print(macro_china_customs_trade_df)
 
-    macro_china_czsr_df = macro_china_czsr()
-    print(macro_china_czsr_df)
+    macro_china_fiscal_revenue_df = macro_china_fiscal_revenue()
+    print(macro_china_fiscal_revenue_df)
 
-    macro_china_whxd_df = macro_china_whxd()
-    print(macro_china_whxd_df)
+    macro_china_fx_loan_df = macro_china_fx_loan()
+    print(macro_china_fx_loan_df)
 
-    macro_china_wbck_df = macro_china_wbck()
-    print(macro_china_wbck_df)
+    macro_china_deposit_df = macro_china_deposit()
+    print(macro_china_deposit_df)
 
-    macro_china_xfzxx_df = macro_china_xfzxx()
-    print(macro_china_xfzxx_df)
+    macro_china_consumer_confidence_df = macro_china_consumer_confidence()
+    print(macro_china_consumer_confidence_df)
 
-    macro_china_gyzjz_df = macro_china_gyzjz
-    print(macro_china_gyzjz_df)
+    macro_china_industrial_value_added_df = macro_china_industrial_value_added
+    print(macro_china_industrial_value_added_df)
 
     macro_china_reserve_requirement_ratio_df = macro_china_reserve_requirement_ratio()
     print(macro_china_reserve_requirement_ratio_df)
@@ -4217,11 +3673,11 @@ if __name__ == "__main__":
     macro_china_insurance_df = macro_china_insurance()
     print(macro_china_insurance_df)
 
-    macro_china_supply_of_money_df = macro_china_supply_of_money()
-    print(macro_china_supply_of_money_df)
+    macro_china_money_supply_sina_df = macro_china_money_supply_sina()
+    print(macro_china_money_supply_sina_df)
 
-    macro_china_foreign_exchange_gold_df = macro_china_foreign_exchange_gold()
-    print(macro_china_foreign_exchange_gold_df)
+    macro_china_fx_gold_sina_df = macro_china_fx_gold_sina()
+    print(macro_china_fx_gold_sina_df)
 
     macro_china_retail_price_index_df = macro_china_retail_price_index()
     print(macro_china_retail_price_index_df)

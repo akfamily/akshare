@@ -55,10 +55,10 @@ print(macro_china_hk_cpi_df)
 [172 rows x 4 columns]
 ```
 
-(macro_china_hk_cpi_ratio)=
+(macro_china_hk_cpi_yoy)=
 ### 消费者物价指数年率
 
-接口：macro_china_hk_cpi_ratio
+接口：macro_china_hk_cpi_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_1.html
 
@@ -86,8 +86,8 @@ print(macro_china_hk_cpi_df)
 ```python
 import akshare as ak
 
-macro_china_hk_cpi_ratio_df = ak.macro_china_hk_cpi_ratio()
-print(macro_china_hk_cpi_ratio_df)
+macro_china_hk_cpi_yoy_df = ak.macro_china_hk_cpi_yoy()
+print(macro_china_hk_cpi_yoy_df)
 ```
 
 数据示例
@@ -108,10 +108,10 @@ print(macro_china_hk_cpi_ratio_df)
 [172 rows x 4 columns]
 ```
 
-(macro_china_hk_rate_of_unemployment)=
+(macro_china_hk_unemployment_rate)=
 ### 失业率
 
-接口：macro_china_hk_rate_of_unemployment
+接口：macro_china_hk_unemployment_rate
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_2.html
 
@@ -139,8 +139,8 @@ print(macro_china_hk_cpi_ratio_df)
 ```python
 import akshare as ak
 
-macro_china_hk_rate_of_unemployment_df = ak.macro_china_hk_rate_of_unemployment()
-print(macro_china_hk_rate_of_unemployment_df)
+macro_china_hk_unemployment_rate_df = ak.macro_china_hk_unemployment_rate()
+print(macro_china_hk_unemployment_rate_df)
 ```
 
 数据示例
@@ -161,10 +161,10 @@ print(macro_china_hk_rate_of_unemployment_df)
 [195 rows x 4 columns]
 ```
 
-(macro_china_hk_gbp)=
+(macro_china_hk_gdp)=
 ### GDP
 
-接口：macro_china_hk_gbp
+接口：macro_china_hk_gdp
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_3.html
 
@@ -192,8 +192,8 @@ print(macro_china_hk_rate_of_unemployment_df)
 ```python
 import akshare as ak
 
-macro_china_hk_gbp_df = ak.macro_china_hk_gbp()
-print(macro_china_hk_gbp_df)
+macro_china_hk_gdp_df = ak.macro_china_hk_gdp()
+print(macro_china_hk_gdp_df)
 ```
 
 数据示例
@@ -213,10 +213,10 @@ print(macro_china_hk_gbp_df)
 64  2024第1季度  794640       NaN  2024-05-17
 ```
 
-(macro_china_hk_gbp_ratio)=
+(macro_china_hk_gdp_yoy)=
 ### GDP 同比
 
-接口：macro_china_hk_gbp_ratio
+接口：macro_china_hk_gdp_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_4.html
 
@@ -244,8 +244,8 @@ print(macro_china_hk_gbp_df)
 ```python
 import akshare as ak
 
-macro_china_hk_gbp_ratio_df = ak.macro_china_hk_gbp_ratio()
-print(macro_china_hk_gbp_ratio_df)
+macro_china_hk_gdp_yoy_df = ak.macro_china_hk_gdp_yoy()
+print(macro_china_hk_gdp_yoy_df)
 ```
 
 数据示例
@@ -372,10 +372,10 @@ print(macro_china_hk_building_amount_df)
 [195 rows x 4 columns]
 ```
 
-(macro_china_hk_trade_diff_ratio)=
+(macro_china_hk_trade_balance_yoy)=
 ### 香港商品贸易差额年率
 
-接口：macro_china_hk_trade_diff_ratio
+接口：macro_china_hk_trade_balance_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_7.html
 
@@ -403,8 +403,8 @@ print(macro_china_hk_building_amount_df)
 ```python
 import akshare as ak
 
-macro_china_hk_trade_diff_ratio_df = ak.macro_china_hk_trade_diff_ratio()
-print(macro_china_hk_trade_diff_ratio_df)
+macro_china_hk_trade_balance_yoy_df = ak.macro_china_hk_trade_balance_yoy()
+print(macro_china_hk_trade_balance_yoy_df)
 ```
 
 数据示例
@@ -425,10 +425,10 @@ print(macro_china_hk_trade_diff_ratio_df)
 [194 rows x 4 columns]
 ```
 
-(macro_china_hk_ppi)=
+(macro_china_hk_ppi_yoy)=
 ### 香港制造业 PPI 年率
 
-接口：macro_china_hk_ppi
+接口：macro_china_hk_ppi_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_8_8.html
 
@@ -456,8 +456,8 @@ print(macro_china_hk_trade_diff_ratio_df)
 ```python
 import akshare as ak
 
-macro_china_hk_ppi_df = ak.macro_china_hk_ppi()
-print(macro_china_hk_ppi_df)
+macro_china_hk_ppi_yoy_df = ak.macro_china_hk_ppi_yoy()
+print(macro_china_hk_ppi_yoy_df)
 ```
 
 数据示例
@@ -476,764 +476,6 @@ print(macro_china_hk_ppi_df)
 63  2023第4季度  3.0  2.7  2024-03-14
 64  2024第1季度  2.7  NaN  2024-06-14
 [65 rows x 4 columns]
-```
-
-## 欧元区宏观
-
-### 国民经济运行状况
-
-#### 经济状况
-
-(macro_euro_gdp_yoy)=
-##### 欧元区季度GDP年率报告
-
-接口：macro_euro_gdp_yoy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_gdp_yoy
-
-描述：欧元区季度 GDP 年率报告，数据区间从 20131114-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_gdp_yoy_df = ak.macro_euro_gdp_yoy()
-print(macro_euro_gdp_yoy_df)
-```
-
-数据示例
-
-```
-             商品          日期   今值  预测值   前值
-0    欧元区季度GDP年率  2013-11-14 -0.4 -0.3 -0.5
-1    欧元区季度GDP年率  2013-12-04 -0.4 -0.4 -0.4
-2    欧元区季度GDP年率  2014-01-10 -0.3 -0.4 -0.4
-3    欧元区季度GDP年率  2014-02-14  0.5  0.4 -0.3
-4    欧元区季度GDP年率  2014-03-05  0.5  0.5  0.5
-..          ...         ...  ...  ...  ...
-97   欧元区季度GDP年率  2022-07-29  4.0  3.4  5.4
-98   欧元区季度GDP年率  2022-08-17  3.9  4.0  4.0
-99   欧元区季度GDP年率  2022-09-07  4.1  3.9  5.4
-100  欧元区季度GDP年率  2022-10-31  2.1  NaN  4.3
-101  欧元区季度GDP年率  2022-11-15  NaN  4.0  2.1
-```
-
-#### 物价水平
-
-(macro_euro_cpi_mom)=
-##### 欧元区CPI月率报告
-
-接口：macro_euro_cpi_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_cpi_mom
-
-描述：欧元区 CPI 月率报告，数据区间从 19900301-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_cpi_mom_df = ak.macro_euro_cpi_mom()
-print(macro_euro_cpi_mom_df)
-```
-
-数据示例
-
-```
-          商品          日期   今值  预测值   前值
-0    欧元区CPI月率  1990-03-01  0.4  NaN  NaN
-1    欧元区CPI月率  1990-04-01  0.2  NaN  0.4
-2    欧元区CPI月率  1990-05-01  0.4  NaN  0.2
-3    欧元区CPI月率  1990-06-01  0.2  NaN  0.4
-4    欧元区CPI月率  1990-07-01  0.1  NaN  0.2
-..        ...         ...  ...  ...  ...
-421  欧元区CPI月率  2022-09-16  0.6  0.5  0.1
-422  欧元区CPI月率  2022-09-30  1.2  0.9  0.6
-423  欧元区CPI月率  2022-10-19  1.2  1.2  0.6
-424  欧元区CPI月率  2022-10-31  1.5  NaN  1.2
-425  欧元区CPI月率  2022-11-17  NaN  1.2  1.2
-```
-
-(macro_euro_cpi_yoy)=
-##### 欧元区CPI年率报告
-
-接口：macro_euro_cpi_yoy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_cpi_yoy
-
-描述：欧元区 CPI 年率报告，数据区间从 19910201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_cpi_yoy_df = ak.macro_euro_cpi_yoy()
-print(macro_euro_cpi_yoy_df)
-```
-
-数据示例
-
-```
-           商品          日期    今值   预测值    前值
-0    欧元区CPI年率  1991-02-01   0.0   NaN   NaN
-1    欧元区CPI年率  1991-03-01   4.1   NaN   3.9
-2    欧元区CPI年率  1991-04-01   3.9   NaN   4.1
-3    欧元区CPI年率  1991-05-01   3.9   NaN   3.9
-4    欧元区CPI年率  1991-06-01   4.1   NaN   3.9
-..        ...         ...   ...   ...   ...
-556  欧元区CPI年率  2022-09-16   9.1   9.1   9.1
-557  欧元区CPI年率  2022-09-30  10.0   9.7   9.1
-558  欧元区CPI年率  2022-10-19   9.9  10.0   9.1
-559  欧元区CPI年率  2022-10-31  10.7  10.2   9.9
-560  欧元区CPI年率  2022-11-17   NaN  10.0  10.7
-```
-
-(macro_euro_ppi_mom)=
-##### 欧元区PPI月率报告
-
-接口：macro_euro_ppi_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_ppi_mom
-
-描述：欧元区 PPI 月率报告，数据区间从 19810301-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_ppi_mom_df = ak.macro_euro_ppi_mom()
-print(macro_euro_ppi_mom_df)
-```
-
-数据示例
-
-```
-           商品          日期   今值  预测值   前值
-0    欧元区PPI月率  1981-03-01  1.0  NaN  NaN
-1    欧元区PPI月率  1981-04-01  0.7  NaN  1.0
-2    欧元区PPI月率  1981-05-01  1.5  NaN  0.7
-3    欧元区PPI月率  1981-06-01  0.7  NaN  1.5
-4    欧元区PPI月率  1981-07-01  0.6  NaN  0.7
-..        ...         ...  ...  ...  ...
-499  欧元区PPI月率  2022-07-04  0.7  1.0  1.2
-500  欧元区PPI月率  2022-08-03  1.1  1.0  0.5
-501  欧元区PPI月率  2022-09-02  4.0  2.5  1.3
-502  欧元区PPI月率  2022-10-04  5.0  4.9  4.0
-503  欧元区PPI月率  2022-11-04  NaN  1.7  5.0
-```
-
-(macro_euro_retail_sales_mom)=
-##### 欧元区零售销售月率报告
-
-接口：macro_euro_retail_sales_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_retail_sales_mom
-
-描述：欧元区零售销售月率报告，数据区间从 20000301-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_retail_sales_mom_df = ak.macro_euro_retail_sales_mom()
-print(macro_euro_retail_sales_mom_df)
-```
-
-数据示例
-
-```
-            商品          日期   今值  预测值   前值
-0    欧元区零售销售月率  2000-03-01  0.7  NaN  NaN
-1    欧元区零售销售月率  2000-04-01 -0.3  NaN  0.7
-2    欧元区零售销售月率  2000-05-01  0.7  NaN -0.3
-3    欧元区零售销售月率  2000-06-01  0.3  NaN  0.7
-4    欧元区零售销售月率  2000-07-01  0.1  NaN  0.3
-..         ...         ...  ...  ...  ...
-271  欧元区零售销售月率  2022-07-06  0.2  0.4 -1.4
-272  欧元区零售销售月率  2022-08-03 -1.2  0.1  0.4
-273  欧元区零售销售月率  2022-09-05  0.3  0.4 -1.0
-274  欧元区零售销售月率  2022-10-06 -0.3 -0.4 -0.4
-275  欧元区零售销售月率  2022-11-08  NaN -0.4 -0.3
-```
-
-#### 劳动力市场
-
-(macro_euro_employment_change_qoq)=
-##### 欧元区季调后就业人数季率报告
-
-接口：macro_euro_employment_change_qoq
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_employment_change_qoq
-
-描述：欧元区季调后就业人数季率报告，数据区间从 20083017-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_employment_change_qoq_df = ak.macro_euro_employment_change_qoq()
-print(macro_euro_employment_change_qoq_df)
-```
-
-数据示例
-
-```
-              商品          日期   今值  预测值   前值
-0   欧元区季调后就业人数季率  2008-03-17  0.2  0.0  0.3
-1   欧元区季调后就业人数季率  2008-06-13  0.3  0.0  0.2
-2   欧元区季调后就业人数季率  2008-09-12  0.2  NaN  0.3
-3   欧元区季调后就业人数季率  2008-12-16 -0.1  NaN  0.2
-4   欧元区季调后就业人数季率  2009-03-16 -0.3  NaN -0.1
-..           ...         ...  ...  ...  ...
-70  欧元区季调后就业人数季率  2022-03-08  0.5  0.5  0.9
-71  欧元区季调后就业人数季率  2022-05-17  0.5  NaN  0.4
-72  欧元区季调后就业人数季率  2022-06-08  0.6  0.5  0.4
-73  欧元区季调后就业人数季率  2022-08-17  0.3  NaN  0.6
-74  欧元区季调后就业人数季率  2022-09-07  0.4  0.3  0.7
-```
-
-(macro_euro_unemployment_rate_mom)=
-##### 欧元区失业率报告
-
-接口：macro_euro_unemployment_rate_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_unemployment_rate_mom
-
-描述：欧元区失业率报告，数据区间从 19980501-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_unemployment_rate_mom_df = ak.macro_euro_unemployment_rate_mom()
-print(macro_euro_unemployment_rate_mom_df)
-```
-
-数据示例
-
-```
-         商品          日期    今值  预测值    前值
-0    欧元区失业率  1998-05-01  10.6  NaN   NaN
-1    欧元区失业率  1998-06-01  10.5  NaN  10.6
-2    欧元区失业率  1998-07-01  10.5  NaN  10.5
-3    欧元区失业率  1998-08-01  10.4  NaN  10.5
-4    欧元区失业率  1998-09-01  10.4  NaN  10.4
-..      ...         ...   ...  ...   ...
-290  欧元区失业率  2022-06-30   6.6  6.8   6.7
-291  欧元区失业率  2022-08-01   6.6  6.6   6.6
-292  欧元区失业率  2022-09-01   6.6  6.6   6.7
-293  欧元区失业率  2022-09-30   6.6  6.6   6.6
-294  欧元区失业率  2022-11-03   6.6  6.6   6.7
-```
-
-### 贸易状况
-
-(macro_euro_trade_balance)=
-#### 欧元区未季调贸易帐报告
-
-接口：macro_euro_trade_balance
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_trade_balance_mom
-
-描述：欧元区未季调贸易帐报告，数据区间从 19990201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_trade_balance_df = ak.macro_euro_trade_balance()
-print(macro_euro_trade_balance_df)
-```
-
-数据示例
-
-```
-            商品          日期     今值    预测值     前值
-0    欧元区未季调贸易帐  1999-02-01  -27.0    NaN    NaN
-1    欧元区未季调贸易帐  1999-03-01   19.0    NaN  -27.0
-2    欧元区未季调贸易帐  1999-04-01   27.0    NaN   19.0
-3    欧元区未季调贸易帐  1999-05-01   21.0    NaN   27.0
-4    欧元区未季调贸易帐  1999-06-01   -9.0    NaN   21.0
-..         ...         ...    ...    ...    ...
-281  欧元区未季调贸易帐  2022-07-15 -263.0    NaN -328.0
-282  欧元区未季调贸易帐  2022-08-16 -246.0 -200.0 -284.0
-283  欧元区未季调贸易帐  2022-09-15 -340.0 -200.0 -254.0
-284  欧元区未季调贸易帐  2022-10-14 -509.0    NaN -339.0
-285  欧元区未季调贸易帐  2022-11-15    NaN    NaN -509.0
-```
-
-(macro_euro_current_account_mom)=
-#### 欧元区经常帐报告
-
-接口：macro_euro_current_account_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_current_account_mom
-
-描述：欧元区经常帐报告，数据区间从 20080221-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_current_account_mom_df = ak.macro_euro_current_account_mom()
-print(macro_euro_current_account_mom_df)
-```
-
-数据示例
-
-```
-         商品          日期     今值    预测值     前值
-0    欧元区经常帐  1999-02-01 -150.0    NaN    NaN
-1    欧元区经常帐  2003-07-01   10.0    NaN    0.0
-2    欧元区经常帐  2008-02-21 -103.0    2.0    7.0
-3    欧元区经常帐  2008-03-26 -106.0    0.0 -103.0
-4    欧元区经常帐  2008-04-24   43.0    0.0 -106.0
-..      ...         ...    ...    ...    ...
-175  欧元区经常帐  2022-07-20  -45.0    NaN  -58.0
-176  欧元区经常帐  2022-08-19   42.0    NaN  -45.0
-177  欧元区经常帐  2022-09-20 -199.0   53.0   42.0
-178  欧元区经常帐  2022-10-20 -263.0 -203.0 -199.0
-179  欧元区经常帐  2022-11-22    NaN    NaN -263.0
-```
-
-### 产业指标
-
-(macro_euro_industrial_production_mom)=
-#### 欧元区工业产出月率报告
-
-接口：macro_euro_industrial_production_mom
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_industrial_production_mom
-
-描述：欧元区工业产出月率报告，数据区间从 19910301-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_industrial_production_mom_df = ak.macro_euro_industrial_production_mom()
-print(macro_euro_industrial_production_mom_df)
-```
-
-数据示例
-
-```
-            商品          日期   今值  预测值   前值
-0    欧元区工业产出月率  1991-03-01 -1.1  NaN  NaN
-1    欧元区工业产出月率  1991-04-01 -1.0  NaN -1.1
-2    欧元区工业产出月率  1991-05-01 -0.5  NaN -1.0
-3    欧元区工业产出月率  1991-06-01 -0.1  NaN -0.5
-4    欧元区工业产出月率  1991-07-01  1.9  NaN -0.1
-..         ...         ...  ...  ...  ...
-380  欧元区工业产出月率  2022-07-13  0.8  0.3  0.5
-381  欧元区工业产出月率  2022-08-12  0.7  0.2  2.1
-382  欧元区工业产出月率  2022-09-14 -2.3 -1.0  1.1
-383  欧元区工业产出月率  2022-10-12  1.5  0.6 -2.3
-384  欧元区工业产出月率  2022-11-14  NaN  NaN  1.5
-```
-
-(macro_euro_manufacturing_pmi)=
-#### 欧元区制造业PMI初值报告
-
-接口：macro_euro_manufacturing_pmi
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_manufacturing_pmi
-
-描述：欧元区制造业 PMI 初值报告，数据区间从 20080222-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_manufacturing_pmi_df = ak.macro_euro_manufacturing_pmi()
-print(macro_euro_manufacturing_pmi_df)
-```
-
-数据示例
-
-```
-              商品          日期    今值   预测值    前值
-0    欧元区制造业PMI初值  2008-02-22  52.3  52.5  52.8
-1    欧元区制造业PMI初值  2008-03-03  52.3  52.3  52.3
-2    欧元区制造业PMI初值  2008-03-20  52.0  52.0  52.3
-3    欧元区制造业PMI初值  2008-04-01  52.0  52.0  52.0
-4    欧元区制造业PMI初值  2008-04-23  51.8  51.6  52.0
-..           ...         ...   ...   ...   ...
-353  欧元区制造业PMI初值  2022-09-23  48.5  48.7  49.6
-354  欧元区制造业PMI初值  2022-10-03  48.4  48.5  49.6
-355  欧元区制造业PMI初值  2022-10-24  46.6  47.8  48.4
-356  欧元区制造业PMI初值  2022-11-02  46.4  46.6  48.4
-357  欧元区制造业PMI初值  2022-11-23   NaN   NaN  46.4
-```
-
-(macro_euro_services_pmi)=
-#### 欧元区服务业PMI终值报告
-
-接口：macro_euro_services_pmi
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_services_pmi
-
-描述：欧元区服务业 PMI 终值报告，数据区间从 20080222-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_services_pmi_df = ak.macro_euro_services_pmi()
-print(macro_euro_services_pmi_df)
-```
-
-数据示例
-
-```
-              商品          日期    今值   预测值    前值
-0    欧元区服务业PMI终值  2008-02-22  52.3  51.0  50.6
-1    欧元区服务业PMI终值  2008-03-05  52.3  52.3  52.3
-2    欧元区服务业PMI终值  2008-04-03  51.6   0.0  51.7
-3    欧元区服务业PMI终值  2008-04-23  51.8  51.4  51.6
-4    欧元区服务业PMI终值  2008-05-06  52.0  51.8  51.8
-..           ...         ...   ...   ...   ...
-351  欧元区服务业PMI终值  2022-09-23  48.9  49.0  49.8
-352  欧元区服务业PMI终值  2022-10-05  48.8  48.9  49.8
-353  欧元区服务业PMI终值  2022-10-24  48.2  48.2  48.8
-354  欧元区服务业PMI终值  2022-11-04   NaN  48.2  48.2
-355  欧元区服务业PMI终值  2022-11-23   NaN  48.2  48.8
-```
-
-### 领先指标
-
-(macro_euro_zew_economic_sentiment)=
-#### 欧元区ZEW经济景气指数报告
-
-接口：macro_euro_zew_economic_sentiment
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_zew_economic_sentiment
-
-描述：欧元区 ZEW 经济景气指数报告，数据区间从 20080212-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_zew_economic_sentiment_df = ak.macro_euro_zew_economic_sentiment()
-print(macro_euro_zew_economic_sentiment_df)
-```
-
-数据示例
-
-```
-               商品          日期    今值   预测值    前值
-0    欧元区ZEW经济景气指数  2008-02-12 -41.4 -43.0 -41.7
-1    欧元区ZEW经济景气指数  2008-03-11 -35.0 -42.0 -41.4
-2    欧元区ZEW经济景气指数  2008-04-15 -44.8 -33.0 -35.0
-3    欧元区ZEW经济景气指数  2008-05-20 -43.6 -44.2 -44.8
-4    欧元区ZEW经济景气指数  2008-06-17 -52.7 -43.9 -43.6
-..            ...         ...   ...   ...   ...
-174  欧元区ZEW经济景气指数  2022-07-12  51.1   NaN -28.0
-175  欧元区ZEW经济景气指数  2022-08-16 -54.9 -57.0 -51.1
-176  欧元区ZEW经济景气指数  2022-09-13 -60.7 -58.3 -54.9
-177  欧元区ZEW经济景气指数  2022-10-18 -59.7 -61.2 -60.7
-178  欧元区ZEW经济景气指数  2022-11-15   NaN   NaN -59.7
-```
-
-(macro_euro_sentix_investor_confidence)=
-#### 欧元区Sentix投资者信心指数报告
-
-接口：macro_euro_sentix_investor_confidence
-
-目标地址：https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
-
-描述：欧元区 Sentix 投资者信心指数报告，数据区间从 20020801-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_euro_sentix_investor_confidence_df = ak.macro_euro_sentix_investor_confidence()
-print(macro_euro_sentix_investor_confidence_df)
-```
-
-数据示例
-
-```
-                   商品          日期    今值   预测值    前值
-0    欧元区Sentix投资者信心指数  2002-08-01  13.0   NaN   NaN
-1    欧元区Sentix投资者信心指数  2002-10-01  -8.5   NaN  13.0
-2    欧元区Sentix投资者信心指数  2003-02-01 -21.8   NaN  -8.5
-3    欧元区Sentix投资者信心指数  2003-03-01 -22.8   NaN -21.8
-4    欧元区Sentix投资者信心指数  2003-04-01 -19.4   NaN -22.8
-..                ...         ...   ...   ...   ...
-239  欧元区Sentix投资者信心指数  2022-07-04 -26.4 -19.9 -15.8
-240  欧元区Sentix投资者信心指数  2022-08-08 -25.2 -24.7 -26.4
-241  欧元区Sentix投资者信心指数  2022-09-05 -31.8 -27.5 -25.2
-242  欧元区Sentix投资者信心指数  2022-10-10 -38.3 -34.7 -31.8
-243  欧元区Sentix投资者信心指数  2022-11-07   NaN -34.7 -38.3
 ```
 
 ## 德国宏观
@@ -1290,10 +532,10 @@ print(macro_germany_ifo_df)
 177  2022年10月  84.4  84.3  2022-10-25
 ```
 
-(macro_germany_cpi_monthly)=
+(macro_germany_cpi_mom)=
 ### 消费者物价指数月率终值
 
-接口：macro_germany_cpi_monthly
+接口：macro_germany_cpi_mom
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_1_1.html
 
@@ -1321,8 +563,8 @@ print(macro_germany_ifo_df)
 ```python
 import akshare as ak
 
-macro_germany_cpi_monthly_df = ak.macro_germany_cpi_monthly()
-print(macro_germany_cpi_monthly_df)
+macro_germany_cpi_mom_df = ak.macro_germany_cpi_mom()
+print(macro_germany_cpi_mom_df)
 ```
 
 数据示例
@@ -1342,10 +584,10 @@ print(macro_germany_cpi_monthly_df)
 175  2022年09月  0.4  2.2  2022-10-19
 ```
 
-(macro_germany_cpi_yearly)=
+(macro_germany_cpi_yoy)=
 ### 消费者物价指数年率终值
 
-接口：macro_germany_cpi_yearly
+接口：macro_germany_cpi_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_1_2.html
 
@@ -1373,8 +615,8 @@ print(macro_germany_cpi_monthly_df)
 ```python
 import akshare as ak
 
-macro_germany_cpi_yearly_df = ak.macro_germany_cpi_yearly()
-print(macro_germany_cpi_yearly_df)
+macro_germany_cpi_yoy_df = ak.macro_germany_cpi_yoy()
+print(macro_germany_cpi_yoy_df)
 ```
 
 数据示例
@@ -1545,10 +787,10 @@ print(macro_germany_gdp_df)
 57  2022第2季度   8.602949   7.763706  2022-08-25
 ```
 
-(macro_germany_retail_sale_monthly)=
+(macro_germany_retail_sales_mom)=
 ### 实际零售销售月率
 
-接口：macro_germany_retail_sale_monthly
+接口：macro_germany_retail_sales_mom
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_1_5.html
 
@@ -1576,8 +818,8 @@ print(macro_germany_gdp_df)
 ```python
 import akshare as ak
 
-macro_germany_retail_sale_monthly_df = ak.macro_germany_retail_sale_monthly()
-print(macro_germany_retail_sale_monthly_df)
+macro_germany_retail_sales_mom_df = ak.macro_germany_retail_sales_mom()
+print(macro_germany_retail_sales_mom_df)
 ```
 
 数据示例
@@ -1597,10 +839,10 @@ print(macro_germany_retail_sale_monthly_df)
 177  2022年10月  14.1   NaN  2022-11-11
 ```
 
-(macro_germany_retail_sale_yearly)=
+(macro_germany_retail_sales_yoy)=
 ### 实际零售销售年率
 
-接口：macro_germany_retail_sale_yearly
+接口：macro_germany_retail_sales_yoy
 
 目标地址：https://data.eastmoney.com/cjsj/foreign_1_6.html
 
@@ -1628,8 +870,8 @@ print(macro_germany_retail_sale_monthly_df)
 ```python
 import akshare as ak
 
-macro_germany_retail_sale_yearly_df = ak.macro_germany_retail_sale_yearly()
-print(macro_germany_retail_sale_yearly_df)
+macro_germany_retail_sales_yoy_df = ak.macro_germany_retail_sales_yoy()
+print(macro_germany_retail_sales_yoy_df)
 ```
 
 数据示例
@@ -1860,10 +1102,10 @@ print(macro_swiss_trade_df)
 59  2022第3季度  38.030  40.030  2022-10-20
 ```
 
-(macro_swiss_cpi_yearly)=
+(macro_swiss_cpi_yoy)=
 ### 消费者物价指数年率
 
-接口：macro_swiss_cpi_yearly
+接口：macro_swiss_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_2_2.html
 
@@ -1891,8 +1133,8 @@ print(macro_swiss_trade_df)
 ```python
 import akshare as ak
 
-macro_swiss_cpi_yearly_df = ak.macro_swiss_cpi_yearly()
-print(macro_swiss_cpi_yearly_df)
+macro_swiss_cpi_yoy_df = ak.macro_swiss_cpi_yoy()
+print(macro_swiss_cpi_yoy_df)
 ```
 
 数据示例
@@ -1916,10 +1158,10 @@ print(macro_swiss_cpi_yearly_df)
 14  2021第4季度 -0.8  1.5  2022-01-04
 ```
 
-(macro_swiss_gdp_quarterly)=
+(macro_swiss_gdp_qoq)=
 ### GDP 季率
 
-接口：macro_swiss_gdp_quarterly
+接口：macro_swiss_gdp_qoq
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_2_3.html
 
@@ -1947,8 +1189,8 @@ print(macro_swiss_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_swiss_gdp_quarterly_df = ak.macro_swiss_gdp_quarterly()
-print(macro_swiss_gdp_quarterly_df)
+macro_swiss_gdp_qoq_df = ak.macro_swiss_gdp_qoq()
+print(macro_swiss_gdp_qoq_df)
 ```
 
 数据示例
@@ -2016,10 +1258,10 @@ print(macro_swiss_gdp_quarterly_df)
 58  2022年06月  0.5  0.3  2022-09-05
 ```
 
-(macro_swiss_gbd_yearly)=
+(macro_swiss_gdp_yoy)=
 ### GDP 年率
 
-接口：macro_swiss_gbd_yearly
+接口：macro_swiss_gdp_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_2_4.html
 
@@ -2047,8 +1289,8 @@ print(macro_swiss_gdp_quarterly_df)
 ```python
 import akshare as ak
 
-macro_swiss_gbd_yearly_df = ak.macro_swiss_gbd_yearly()
-print(macro_swiss_gbd_yearly_df)
+macro_swiss_gdp_yoy_df = ak.macro_swiss_gdp_yoy()
+print(macro_swiss_gdp_yoy_df)
 ```
 
 数据示例
@@ -2072,10 +1314,10 @@ print(macro_swiss_gbd_yearly_df)
 14  2021年12月 -1.6  3.7  2022-02-28
 ```
 
-(macro_swiss_gbd_bank_rate)=
+(macro_swiss_bank_rate)=
 ### 央行公布利率决议
 
-接口：macro_swiss_gbd_bank_rate
+接口：macro_swiss_bank_rate
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_2_5.html
 
@@ -2103,8 +1345,8 @@ print(macro_swiss_gbd_yearly_df)
 ```python
 import akshare as ak
 
-macro_swiss_gbd_bank_rate_df = ak.macro_swiss_gbd_bank_rate()
-print(macro_swiss_gbd_bank_rate_df)
+macro_swiss_bank_rate_df = ak.macro_swiss_bank_rate()
+print(macro_swiss_bank_rate_df)
 ```
 
 数据示例
@@ -2227,10 +1469,10 @@ print(macro_japan_bank_rate_df)
 152  2022年10月 -0.1 -0.1  2022-10-28
 ```
 
-(macro_japan_cpi_yearly)=
+(macro_japan_cpi_yoy)=
 ### 全国消费者物价指数年率
 
-接口：macro_japan_cpi_yearly
+接口：macro_japan_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_3_1.html
 
@@ -2258,8 +1500,8 @@ print(macro_japan_bank_rate_df)
 ```python
 import akshare as ak
 
-macro_japan_cpi_yearly_df = ak.macro_japan_cpi_yearly()
-print(macro_japan_cpi_yearly_df)
+macro_japan_cpi_yoy_df = ak.macro_japan_cpi_yoy()
+print(macro_japan_cpi_yoy_df)
 ```
 
 数据示例
@@ -2279,10 +1521,10 @@ print(macro_japan_cpi_yearly_df)
 177  2022年10月  3.0  NaN  2022-11-18
 ```
 
-(macro_japan_core_cpi_yearly)=
+(macro_japan_core_cpi_yoy)=
 ### 全国核心消费者物价指数年率
 
-接口：macro_japan_core_cpi_yearly
+接口：macro_japan_core_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_2_2.html
 
@@ -2310,8 +1552,8 @@ print(macro_japan_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_japan_core_cpi_yearly_df = ak.macro_japan_core_cpi_yearly()
-print(macro_japan_core_cpi_yearly_df)
+macro_japan_core_cpi_yoy_df = ak.macro_japan_core_cpi_yoy()
+print(macro_japan_core_cpi_yoy_df)
 ```
 
 数据示例
@@ -2383,10 +1625,10 @@ print(macro_japan_unemployment_rate_df)
 177  2022年10月  2.7  NaN  2022-11-29
 ```
 
-(macro_japan_head_indicator)=
+(macro_japan_leading_indicator)=
 ### 领先指标终值
 
-接口：macro_japan_head_indicator
+接口：macro_japan_leading_indicator
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_3_4.html
 
@@ -2414,8 +1656,8 @@ print(macro_japan_unemployment_rate_df)
 ```python
 import akshare as ak
 
-macro_japan_head_indicator_df = ak.macro_japan_head_indicator()
-print(macro_japan_head_indicator_df)
+macro_japan_leading_indicator_df = ak.macro_japan_leading_indicator()
+print(macro_japan_leading_indicator_df)
 ```
 
 数据示例
@@ -2437,10 +1679,10 @@ print(macro_japan_head_indicator_df)
 
 ## 英国宏观
 
-(macro_uk_halifax_monthly)=
+(macro_uk_halifax_mom)=
 ### Halifax 房价指数月率
 
-接口：macro_uk_halifax_monthly
+接口：macro_uk_halifax_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_0.html
 
@@ -2468,8 +1710,8 @@ print(macro_japan_head_indicator_df)
 ```python
 import akshare as ak
 
-macro_uk_halifax_monthly_df = ak.macro_uk_halifax_monthly()
-print(macro_uk_halifax_monthly_df)
+macro_uk_halifax_mom_df = ak.macro_uk_halifax_mom()
+print(macro_uk_halifax_mom_df)
 ```
 
 数据示例
@@ -2489,10 +1731,10 @@ print(macro_uk_halifax_monthly_df)
 178  2022年11月 -0.4  NaN  2022-12-07
 ```
 
-(macro_uk_halifax_yearly)=
+(macro_uk_halifax_yoy)=
 ### Halifax 房价指数年率
 
-接口：macro_uk_halifax_yearly
+接口：macro_uk_halifax_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_1.html
 
@@ -2520,8 +1762,8 @@ print(macro_uk_halifax_monthly_df)
 ```python
 import akshare as ak
 
-macro_uk_halifax_yearly_df = ak.macro_uk_halifax_yearly()
-print(macro_uk_halifax_yearly_df)
+macro_uk_halifax_yoy_df = ak.macro_uk_halifax_yoy()
+print(macro_uk_halifax_yoy_df)
 ```
 
 数据示例
@@ -2645,10 +1887,10 @@ print(macro_uk_bank_rate_df)
 154  2022年11月  2.25  3.00  2022-11-03
 ```
 
-(macro_uk_core_cpi_yearly)=
+(macro_uk_core_cpi_yoy)=
 ### 核心消费者物价指数年率
 
-接口：macro_uk_core_cpi_yearly
+接口：macro_uk_core_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_4.html
 
@@ -2676,8 +1918,8 @@ print(macro_uk_bank_rate_df)
 ```python
 import akshare as ak
 
-macro_uk_core_cpi_yearly_df = ak.macro_uk_core_cpi_yearly()
-print(macro_uk_core_cpi_yearly_df)
+macro_uk_core_cpi_yoy_df = ak.macro_uk_core_cpi_yoy()
+print(macro_uk_core_cpi_yoy_df)
 ```
 
 数据示例
@@ -2697,10 +1939,10 @@ print(macro_uk_core_cpi_yearly_df)
 176  2022年09月  6.3  6.5  2022-10-19
 ```
 
-(macro_uk_core_cpi_monthly)=
+(macro_uk_core_cpi_mom)=
 ### 核心消费者物价指数月率
 
-接口：macro_uk_core_cpi_monthly
+接口：macro_uk_core_cpi_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_7.html
 
@@ -2728,8 +1970,8 @@ print(macro_uk_core_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_uk_cpi_monthly_df = ak.macro_uk_cpi_monthly()
-print(macro_uk_cpi_monthly_df)
+macro_uk_cpi_mom_df = ak.macro_uk_cpi_mom()
+print(macro_uk_cpi_mom_df)
 ```
 
 数据示例
@@ -2749,10 +1991,10 @@ print(macro_uk_cpi_monthly_df)
 174  2022年09月  0.8  0.6  2022-10-19
 ```
 
-(macro_uk_cpi_yearly)=
+(macro_uk_cpi_yoy)=
 ### 消费者物价指数年率
 
-接口：macro_uk_cpi_yearly
+接口：macro_uk_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_6.html
 
@@ -2780,8 +2022,8 @@ print(macro_uk_cpi_monthly_df)
 ```python
 import akshare as ak
 
-macro_uk_cpi_yearly_df = ak.macro_uk_cpi_yearly()
-print(macro_uk_cpi_yearly_df)
+macro_uk_cpi_yoy_df = ak.macro_uk_cpi_yoy()
+print(macro_uk_cpi_yoy_df)
 ```
 
 数据示例
@@ -2801,10 +2043,10 @@ print(macro_uk_cpi_yearly_df)
 176  2022年09月   9.900000  10.100000  2022-10-19
 ```
 
-(macro_uk_cpi_monthly)=
+(macro_uk_cpi_mom)=
 ### 消费者物价指数月率
 
-接口：macro_uk_cpi_monthly
+接口：macro_uk_cpi_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_7.html
 
@@ -2832,8 +2074,8 @@ print(macro_uk_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_uk_cpi_monthly_df = ak.macro_uk_cpi_monthly()
-print(macro_uk_cpi_monthly_df)
+macro_uk_cpi_mom_df = ak.macro_uk_cpi_mom()
+print(macro_uk_cpi_mom_df)
 ```
 
 数据示例
@@ -2853,10 +2095,10 @@ print(macro_uk_cpi_monthly_df)
 174  2022年09月  0.8  0.6  2022-10-19
 ```
 
-(macro_uk_retail_monthly)=
+(macro_uk_retail_sales_mom)=
 ### 零售销售月率
 
-接口：macro_uk_retail_monthly
+接口：macro_uk_retail_sales_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_8.html
 
@@ -2884,8 +2126,8 @@ print(macro_uk_cpi_monthly_df)
 ```python
 import akshare as ak
 
-macro_uk_retail_monthly_df = ak.macro_uk_retail_monthly()
-print(macro_uk_retail_monthly_df)
+macro_uk_retail_sales_mom_df = ak.macro_uk_retail_sales_mom()
+print(macro_uk_retail_sales_mom_df)
 ```
 
 数据示例
@@ -2905,10 +2147,10 @@ print(macro_uk_retail_monthly_df)
 176  2022年10月 -1.5  NaN  2022-11-18
 ```
 
-(macro_uk_retail_yearly)=
+(macro_uk_retail_sales_yoy)=
 ### 零售销售年率
 
-接口：macro_uk_retail_yearly
+接口：macro_uk_retail_sales_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_9.html
 
@@ -2936,8 +2178,8 @@ print(macro_uk_retail_monthly_df)
 ```python
 import akshare as ak
 
-macro_uk_retail_yearly_df = ak.macro_uk_retail_yearly()
-print(macro_uk_retail_yearly_df)
+macro_uk_retail_sales_yoy_df = ak.macro_uk_retail_sales_yoy()
+print(macro_uk_retail_sales_yoy_df)
 ```
 
 数据示例
@@ -2957,10 +2199,10 @@ print(macro_uk_retail_yearly_df)
 174  2022年10月 -0.4  NaN  2022-11-18
 ```
 
-(macro_uk_rightmove_yearly)=
+(macro_uk_rightmove_yoy)=
 ### Rightmove 房价指数年率
 
-接口：macro_uk_rightmove_yearly
+接口：macro_uk_rightmove_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_10.html
 
@@ -2988,8 +2230,8 @@ print(macro_uk_retail_yearly_df)
 ```python
 import akshare as ak
 
-macro_uk_rightmove_yearly_df = ak.macro_uk_rightmove_yearly()
-print(macro_uk_rightmove_yearly_df)
+macro_uk_rightmove_yoy_df = ak.macro_uk_rightmove_yoy()
+print(macro_uk_rightmove_yoy_df)
 ```
 
 数据示例
@@ -3009,10 +2251,10 @@ print(macro_uk_rightmove_yearly_df)
 152  2022年09月   8.2   8.7  2022-09-26
 ```
 
-(macro_uk_rightmove_monthly)=
+(macro_uk_rightmove_mom)=
 ### Rightmove 房价指数月率
 
-接口：macro_uk_rightmove_monthly
+接口：macro_uk_rightmove_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_11.html
 
@@ -3040,8 +2282,8 @@ print(macro_uk_rightmove_yearly_df)
 ```python
 import akshare as ak
 
-macro_uk_rightmove_monthly_df = ak.macro_uk_rightmove_monthly()
-print(macro_uk_rightmove_monthly_df)
+macro_uk_rightmove_mom_df = ak.macro_uk_rightmove_mom()
+print(macro_uk_rightmove_mom_df)
 ```
 
 数据示例
@@ -3061,10 +2303,10 @@ print(macro_uk_rightmove_monthly_df)
 152  2022年09月 -1.3  0.7  2022-09-26
 ```
 
-(macro_uk_gdp_quarterly)=
+(macro_uk_gdp_qoq)=
 ### GDP 季率初值
 
-接口：macro_uk_gdp_quarterly
+接口：macro_uk_gdp_qoq
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_12.html
 
@@ -3092,8 +2334,8 @@ print(macro_uk_rightmove_monthly_df)
 ```python
 import akshare as ak
 
-macro_uk_gdp_quarterly_df = ak.macro_uk_gdp_quarterly()
-print(macro_uk_gdp_quarterly_df)
+macro_uk_gdp_qoq_df = ak.macro_uk_gdp_qoq()
+print(macro_uk_gdp_qoq_df)
 ```
 
 数据示例
@@ -3160,10 +2402,10 @@ print(macro_uk_gdp_quarterly_df)
 57  2022第3季度   0.2   NaN  2022-12-22
 ```
 
-(macro_uk_gdp_yearly)=
+(macro_uk_gdp_yoy)=
 ### GDP 年率初值
 
-接口：macro_uk_gdp_yearly
+接口：macro_uk_gdp_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_4_13.html
 
@@ -3191,8 +2433,8 @@ print(macro_uk_gdp_quarterly_df)
 ```python
 import akshare as ak
 
-macro_uk_gdp_yearly_df = ak.macro_uk_gdp_yearly()
-print(macro_uk_gdp_yearly_df)
+macro_uk_gdp_yoy_df = ak.macro_uk_gdp_yoy()
+print(macro_uk_gdp_yoy_df)
 ```
 
 数据示例
@@ -3268,10 +2510,10 @@ print(macro_uk_unemployment_rate_df)
 
 ## 澳大利亚宏观
 
-(macro_australia_retail_rate_monthly)=
+(macro_australia_retail_sales_mom)=
 ### 零售销售月率
 
-接口：macro_australia_retail_rate_monthly
+接口：macro_australia_retail_sales_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_5_0.html
 
@@ -3299,8 +2541,8 @@ print(macro_uk_unemployment_rate_df)
 ```python
 import akshare as ak
 
-macro_australia_retail_rate_monthly_df = ak.macro_australia_retail_rate_monthly()
-print(macro_australia_retail_rate_monthly_df)
+macro_australia_retail_sales_mom_df = ak.macro_australia_retail_sales_mom()
+print(macro_australia_retail_sales_mom_df)
 ```
 
 数据示例
@@ -3427,10 +2669,10 @@ print(macro_australia_unemployment_rate_df)
 [205 rows x 4 columns]
 ```
 
-(macro_australia_ppi_quarterly)=
+(macro_australia_ppi_qoq)=
 ### 生产者物价指数季率
 
-接口：macro_australia_ppi_quarterly
+接口：macro_australia_ppi_qoq
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_5_3.html
 
@@ -3458,8 +2700,8 @@ print(macro_australia_unemployment_rate_df)
 ```python
 import akshare as ak
 
-macro_australia_ppi_quarterly_df = ak.macro_australia_ppi_quarterly()
-print(macro_australia_ppi_quarterly_df)
+macro_australia_ppi_qoq_df = ak.macro_australia_ppi_qoq()
+print(macro_australia_ppi_qoq_df)
 ```
 
 数据示例
@@ -3480,10 +2722,10 @@ print(macro_australia_ppi_quarterly_df)
 [68 rows x 4 columns]
 ```
 
-(macro_australia_cpi_quarterly)=
+(macro_australia_cpi_qoq)=
 ### 消费者物价指数季率
 
-接口：macro_australia_cpi_quarterly
+接口：macro_australia_cpi_qoq
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_5_4.html
 
@@ -3511,8 +2753,8 @@ print(macro_australia_ppi_quarterly_df)
 ```python
 import akshare as ak
 
-macro_australia_cpi_quarterly_df = ak.macro_australia_cpi_quarterly()
-print(macro_australia_cpi_quarterly_df)
+macro_australia_cpi_qoq_df = ak.macro_australia_cpi_qoq()
+print(macro_australia_cpi_qoq_df)
 ```
 
 数据示例
@@ -3533,10 +2775,10 @@ print(macro_australia_cpi_quarterly_df)
 [68 rows x 4 columns]
 ```
 
-(macro_australia_cpi_yearly)=
+(macro_australia_cpi_yoy)=
 ### 消费者物价指数年率
 
-接口：macro_australia_cpi_yearly
+接口：macro_australia_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_5_5.html
 
@@ -3564,8 +2806,8 @@ print(macro_australia_cpi_quarterly_df)
 ```python
 import akshare as ak
 
-macro_australia_cpi_yearly_df = ak.macro_australia_cpi_yearly()
-print(macro_australia_cpi_yearly_df)
+macro_australia_cpi_yoy_df = ak.macro_australia_cpi_yoy()
+print(macro_australia_cpi_yoy_df)
 ```
 
 数据示例
@@ -3641,10 +2883,10 @@ print(macro_australia_bank_rate_df)
 
 ## 加拿大宏观
 
-(macro_canada_new_house_rate)=
+(macro_canada_house_starts)=
 ### 新屋开工
 
-接口：macro_canada_new_house_rate
+接口：macro_canada_house_starts
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_0.html
 
@@ -3672,8 +2914,8 @@ print(macro_australia_bank_rate_df)
 ```python
 import akshare as ak
 
-macro_canada_new_house_rate_df = ak.macro_canada_new_house_rate()
-print(macro_canada_new_house_rate_df)
+macro_canada_house_starts_df = ak.macro_canada_house_starts()
+print(macro_canada_house_starts_df)
 ```
 
 数据示例
@@ -3797,10 +3039,10 @@ print(macro_canada_trade_df)
 177  2008年01月  2350  3260.0  2008-03-07
 ```
 
-(macro_canada_retail_rate_monthly)=
+(macro_canada_retail_sales_mom)=
 ### 零售销售月率
 
-接口：macro_canada_retail_rate_monthly
+接口：macro_canada_retail_sales_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_3.html
 
@@ -3828,8 +3070,8 @@ print(macro_canada_trade_df)
 ```python
 import akshare as ak
 
-macro_canada_retail_rate_monthly_df = ak.macro_canada_retail_rate_monthly()
-print(macro_canada_retail_rate_monthly_df)
+macro_canada_retail_sales_mom_df = ak.macro_canada_retail_sales_mom()
+print(macro_canada_retail_sales_mom_df)
 ```
 
 数据示例
@@ -3901,10 +3143,10 @@ print(macro_canada_bank_rate_df)
 149  2008年01月   NaN  4.00  2008-01-15
 ```
 
-(macro_canada_core_cpi_yearly)=
+(macro_canada_core_cpi_yoy)=
 ### 核心消费者物价指数年率
 
-接口：macro_canada_core_cpi_yearly
+接口：macro_canada_core_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_5.html
 
@@ -3932,8 +3174,8 @@ print(macro_canada_bank_rate_df)
 ```python
 import akshare as ak
 
-macro_canada_core_cpi_yearly_df = ak.macro_canada_core_cpi_yearly()
-print(macro_canada_core_cpi_yearly_df)
+macro_canada_core_cpi_yoy_df = ak.macro_canada_core_cpi_yoy()
+print(macro_canada_core_cpi_yoy_df)
 ```
 
 数据示例
@@ -3953,10 +3195,10 @@ print(macro_canada_core_cpi_yearly_df)
 177  2008年01月  1.476015  1.381215  2008-02-21
 ```
 
-(macro_canada_core_cpi_monthly)=
+(macro_canada_core_cpi_mom)=
 ### 核心消费者物价指数月率
 
-接口：macro_canada_core_cpi_monthly
+接口：macro_canada_core_cpi_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_6.html
 
@@ -3984,8 +3226,8 @@ print(macro_canada_core_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_canada_core_cpi_monthly_df = ak.macro_canada_core_cpi_monthly()
-print(macro_canada_core_cpi_monthly_df)
+macro_canada_core_cpi_mom_df = ak.macro_canada_core_cpi_mom()
+print(macro_canada_core_cpi_mom_df)
 ```
 
 数据示例
@@ -4005,10 +3247,10 @@ print(macro_canada_core_cpi_monthly_df)
 177  2008年01月 -0.271985  0.090909  2008-02-21
 ```
 
-(macro_canada_cpi_yearly)=
+(macro_canada_cpi_yoy)=
 ### 消费者物价指数年率
 
-接口：macro_canada_cpi_yearly
+接口：macro_canada_cpi_yoy
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_7.html
 
@@ -4036,8 +3278,8 @@ print(macro_canada_core_cpi_monthly_df)
 ```python
 import akshare as ak
 
-macro_canada_cpi_yearly_df = ak.macro_canada_cpi_yearly()
-print(macro_canada_cpi_yearly_df)
+macro_canada_cpi_yoy_df = ak.macro_canada_cpi_yoy()
+print(macro_canada_cpi_yoy_df)
 ```
 
 数据示例
@@ -4057,10 +3299,10 @@ print(macro_canada_cpi_yearly_df)
 178  2008年01月  2.376600  2.193784  2008-02-20
 ```
 
-(macro_canada_cpi_monthly)=
+(macro_canada_cpi_mom)=
 ### 消费者物价指数月率
 
-接口：macro_canada_cpi_monthly
+接口：macro_canada_cpi_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_8.html
 
@@ -4088,8 +3330,8 @@ print(macro_canada_cpi_yearly_df)
 ```python
 import akshare as ak
 
-macro_canada_cpi_monthly_df = ak.macro_canada_cpi_monthly()
-print(macro_canada_cpi_monthly_df)
+macro_canada_cpi_mom_df = ak.macro_canada_cpi_mom()
+print(macro_canada_cpi_mom_df)
 ```
 
 数据示例
@@ -4109,10 +3351,10 @@ print(macro_canada_cpi_monthly_df)
 176  2008年01月  0.089366 -0.178571  2008-02-20
 ```
 
-(macro_canada_gdp_monthly)=
+(macro_canada_gdp_mom)=
 ### GDP 月率
 
-接口：macro_canada_gdp_monthly
+接口：macro_canada_gdp_mom
 
 目标地址：http://data.eastmoney.com/cjsj/foreign_7_9.html
 
@@ -4140,8 +3382,8 @@ print(macro_canada_cpi_monthly_df)
 ```python
 import akshare as ak
 
-macro_canada_gdp_monthly_df = ak.macro_canada_gdp_monthly()
-print(macro_canada_gdp_monthly_df)
+macro_canada_gdp_mom_df = ak.macro_canada_gdp_mom()
+print(macro_canada_gdp_mom_df)
 ```
 
 数据示例

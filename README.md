@@ -64,7 +64,7 @@ Claude Desktop, Cursor and other clients:
 
 [![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
 
-Instead of registering 1000+ tools, it exposes three generic ones that the
+Instead of registering nearly 1000 tools, it exposes three generic ones that the
 assistant chains together:
 
 | Tool | Purpose |

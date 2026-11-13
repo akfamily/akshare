@@ -10,12 +10,11 @@ import datetime
 import time
 
 import pandas as pd
-from tqdm import tqdm
 
 from akshare.utils import http
 
 
-def macro_cons_gold() -> pd.DataFrame:
+def macro_gold_etf_holding() -> pd.DataFrame:
     """
     全球最大黄金 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_gold
@@ -80,7 +79,7 @@ def macro_cons_gold() -> pd.DataFrame:
     return big_df
 
 
-def macro_cons_silver() -> pd.DataFrame:
+def macro_silver_etf_holding() -> pd.DataFrame:
     """
     全球最大白银 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_sliver
@@ -145,103 +144,9 @@ def macro_cons_silver() -> pd.DataFrame:
     return big_df
 
 
-def macro_cons_opec_month() -> pd.DataFrame:
-    """
-    欧佩克报告-月度，数据区间从 20170118-至今
-    这里返回的具体索引日期的数据为上一个月的数据，由于某些国家的数据有缺失
-    只选择有数据的国家返回
-    20200312:fix:由于 “厄瓜多尔” 已经有几个月没有更新数据，在这里加以剔除
-    https://datacenter.jin10.com/reportType/dc_opec_report
-    :return: 欧佩克报告-月度
-    :rtype: pandas.DataFrame
-    """
-    t = time.time()
-    big_df = pd.DataFrame()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "referer": "https://datacenter.jin10.com/reportType/dc_opec_report",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/79.0.3945.117 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    res = http.get(
-        url=f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
-        headers=headers,
-    )  # 日期序列
-    all_date_list = res.json()["data"]
-    bar = tqdm(reversed(all_date_list))
-    for item in bar:
-        bar.set_description(f"Please wait for a moment, now downloading {item}'s data")
-        res = http.get(
-            url=f"https://datacenter-api.jin10.com/reports/list?"
-            f"category=opec&date={item}&_={str(int(round(t * 1000)))}",
-            headers=headers,
-        )
-        temp_df = pd.DataFrame(
-            res.json()["data"]["values"],
-            columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist(),
-        ).T
-        temp_df.columns = temp_df.iloc[0, :]
-        temp_df = temp_df.iloc[1:, :]
-        try:
-            temp_df = temp_df[
-                [
-                    "阿尔及利亚",
-                    "安哥拉",
-                    "加蓬",
-                    "伊朗",
-                    "伊拉克",
-                    "科威特",
-                    "利比亚",
-                    "尼日利亚",
-                    "沙特",
-                    "阿联酋",
-                    "委内瑞拉",
-                    "欧佩克产量",
-                ]
-            ].iloc[-2, :]
-        except Exception:
-            temp_df = temp_df[
-                [
-                    "阿尔及利亚",
-                    "安哥拉",
-                    "加蓬",
-                    "伊朗",
-                    "伊拉克",
-                    "科威特",
-                    "利比亚",
-                    "尼日利亚",
-                    "沙特",
-                    "阿联酋",
-                    "委内瑞拉",
-                    "欧佩克产量",
-                ]
-            ].iloc[-1, :]
-        temp_df = temp_df.dropna()
-        big_df[temp_df.name] = temp_df
-    big_df = big_df.T
-    big_df = big_df.astype(float)
-    big_df = big_df.reset_index()
-    big_df = big_df.rename(columns={"index": "日期"})
-    big_df.columns.name = None
-    return big_df
-
-
 if __name__ == "__main__":
-    macro_cons_gold_df = macro_cons_gold()
-    print(macro_cons_gold_df)
+    macro_gold_etf_holding_df = macro_gold_etf_holding()
+    print(macro_gold_etf_holding_df)
 
-    macro_cons_silver_df = macro_cons_silver()
-    print(macro_cons_silver_df)
-
-    macro_cons_opec_month_df = macro_cons_opec_month()
-    print(macro_cons_opec_month_df)
+    macro_silver_etf_holding_df = macro_silver_etf_holding()
+    print(macro_silver_etf_holding_df)

@@ -79,7 +79,7 @@ def macro_japan_bank_rate() -> pd.DataFrame:
 
 
 # 全国消费者物价指数年率
-def macro_japan_cpi_yearly() -> pd.DataFrame:
+def macro_japan_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-全国消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_3_1.html
@@ -91,7 +91,7 @@ def macro_japan_cpi_yearly() -> pd.DataFrame:
 
 
 # 全国核心消费者物价指数年率
-def macro_japan_core_cpi_yearly() -> pd.DataFrame:
+def macro_japan_core_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-全国核心消费者物价指数年率
     https://data.eastmoney.com/cjsj/foreign_2_2.html
@@ -115,7 +115,7 @@ def macro_japan_unemployment_rate() -> pd.DataFrame:
 
 
 # 领先指标终值
-def macro_japan_head_indicator() -> pd.DataFrame:
+def macro_japan_leading_indicator() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-领先指标终值
     https://data.eastmoney.com/cjsj/foreign_3_4.html
@@ -130,14 +130,14 @@ if __name__ == "__main__":
     macro_japan_bank_rate_df = macro_japan_bank_rate()
     print(macro_japan_bank_rate_df)
 
-    macro_japan_cpi_yearly_df = macro_japan_cpi_yearly()
-    print(macro_japan_cpi_yearly_df)
+    macro_japan_cpi_yoy_df = macro_japan_cpi_yoy()
+    print(macro_japan_cpi_yoy_df)
 
-    macro_japan_core_cpi_yearly_df = macro_japan_core_cpi_yearly()
-    print(macro_japan_core_cpi_yearly_df)
+    macro_japan_core_cpi_yoy_df = macro_japan_core_cpi_yoy()
+    print(macro_japan_core_cpi_yoy_df)
 
     macro_japan_unemployment_rate_df = macro_japan_unemployment_rate()
     print(macro_japan_unemployment_rate_df)
 
-    macro_japan_head_indicator_df = macro_japan_head_indicator()
-    print(macro_japan_head_indicator_df)
+    macro_japan_leading_indicator_df = macro_japan_leading_indicator()
+    print(macro_japan_leading_indicator_df)

@@ -64,10 +64,10 @@ print(macro_cnbs_df)
 
 #### 经济状况
 
-(macro_china_qyspjg)=
+(macro_china_cgpi)=
 ##### 企业商品价格指数
 
-接口：macro_china_qyspjg
+接口：macro_china_cgpi
 
 目标地址：http://data.eastmoney.com/cjsj/qyspjg.html
 
@@ -104,8 +104,8 @@ print(macro_cnbs_df)
 ```python
 import akshare as ak
 
-macro_china_qyspjg_df = ak.macro_china_qyspjg()
-print(macro_china_qyspjg_df)
+macro_china_cgpi_df = ak.macro_china_cgpi()
+print(macro_china_cgpi_df)
 ```
 
 数据示例
@@ -286,10 +286,10 @@ print(macro_china_urban_unemployment_df)
 [288 rows x 3 columns]
 ```
 
-(macro_china_shrzgm)=
+(macro_china_social_financing)=
 ##### 社会融资规模增量统计
 
-接口：macro_china_shrzgm
+接口：macro_china_social_financing
 
 目标地址：http://data.mofcom.gov.cn/gnmy/shrzgm.shtml
 
@@ -322,8 +322,8 @@ print(macro_china_urban_unemployment_df)
 ```python
 import akshare as ak
 
-macro_china_shrzgm_df = ak.macro_china_shrzgm()
-print(macro_china_shrzgm_df)
+macro_china_social_financing_df = ak.macro_china_social_financing()
+print(macro_china_social_financing_df)
 ```
 
 数据示例
@@ -343,438 +343,12 @@ print(macro_china_shrzgm_df)
 86  202203     46531     32291  ...           287     3573           958.0
 ```
 
-(macro_china_gdp_yearly)=
-##### 中国 GDP 年率
-
-接口：macro_china_gdp_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
-
-描述：金十数据中心-中国 GDP 年率报告，数据区间从 20110120-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_gdp_yearly_df = ak.macro_china_gdp_yearly()
-print(macro_china_gdp_yearly_df)
-```
-
-数据示例
-
-```
-           商品          日期    今值   预测值    前值
-0   中国GDP年率报告  2011-01-20   9.8   9.5   9.6
-1   中国GDP年率报告  2011-04-15   9.7   9.4   9.8
-2   中国GDP年率报告  2011-07-13   9.5   9.5   9.7
-3   中国GDP年率报告  2011-10-18   9.1   9.2   9.5
-4   中国GDP年率报告  2012-01-17   8.9   8.8   9.1
-5   中国GDP年率报告  2012-04-13   8.1   8.3   8.9
-6   中国GDP年率报告  2012-07-13   7.6   7.6   8.1
-7   中国GDP年率报告  2012-10-18   7.4   7.4   7.6
-8   中国GDP年率报告  2013-01-18   7.9   7.8   7.4
-9   中国GDP年率报告  2013-04-15   7.7   8.0   7.9
-10  中国GDP年率报告  2013-07-15   7.5   7.5   7.7
-11  中国GDP年率报告  2013-10-18   7.8   7.8   7.5
-12  中国GDP年率报告  2014-01-20   7.7   7.6   7.8
-13  中国GDP年率报告  2014-04-16   7.4   7.3   7.7
-14  中国GDP年率报告  2014-07-16   7.5   7.4   7.4
-15  中国GDP年率报告  2014-10-21   7.3   7.2   7.5
-16  中国GDP年率报告  2015-01-20   7.3   7.2   7.3
-17  中国GDP年率报告  2015-04-15   7.0   7.0   7.3
-18  中国GDP年率报告  2015-07-15   7.0   6.9   7.0
-19  中国GDP年率报告  2015-10-19   6.9   6.8   7.0
-20  中国GDP年率报告  2016-01-19   6.8   6.8   6.9
-21  中国GDP年率报告  2016-04-15   6.7   6.7   6.8
-22  中国GDP年率报告  2016-07-15   6.7   6.6   6.7
-23  中国GDP年率报告  2016-10-19   6.7   6.7   6.7
-24  中国GDP年率报告  2017-01-20   6.8   6.7   6.7
-25  中国GDP年率报告  2017-04-17   6.9   6.8   6.8
-26  中国GDP年率报告  2017-07-17   6.9   6.8   6.9
-27  中国GDP年率报告  2017-10-19   6.8   6.8   6.9
-28  中国GDP年率报告  2018-01-18   6.8   6.7   6.8
-29  中国GDP年率报告  2018-04-17   6.8   6.8   6.8
-30  中国GDP年率报告  2018-07-16   6.7   6.7   6.8
-31  中国GDP年率报告  2018-10-19   6.5   6.6   6.7
-32  中国GDP年率报告  2019-01-21   6.4   6.4   6.5
-33  中国GDP年率报告  2019-04-17   6.4   6.3   6.4
-34  中国GDP年率报告  2019-07-15   6.2   6.2   6.4
-35  中国GDP年率报告  2019-10-18   6.0   6.1   6.2
-36  中国GDP年率报告  2020-01-17   6.0   6.0   6.0
-37  中国GDP年率报告  2020-04-17  -6.8  -6.5   6.0
-38  中国GDP年率报告  2020-07-16   3.2   2.5  -6.8
-39  中国GDP年率报告  2020-10-19   4.9   5.2   3.2
-40  中国GDP年率报告  2021-01-18   6.5   6.1   4.9
-41  中国GDP年率报告  2021-04-16  18.3  19.0   6.5
-42  中国GDP年率报告  2021-07-15   7.9   8.1  18.3
-43  中国GDP年率报告  2021-10-18   4.9   5.2   7.9
-44  中国GDP年率报告  2022-01-17   4.0   3.6   4.9
-45  中国GDP年率报告  2022-04-18   4.8   4.4   4.0
-46  中国GDP年率报告  2022-07-15   0.4   1.0   4.8
-47  中国GDP年率报告  2022-10-18   NaN   3.4   0.4
-48  中国GDP年率报告  2022-10-24   3.9   3.4   0.4
-49  中国GDP年率报告  2022-10-26   NaN   3.4   0.4
-50  中国GDP年率报告  2023-01-17   2.9   1.8   3.9
-51  中国GDP年率报告  2023-04-18   4.5   4.0   2.9
-52  中国GDP年率报告  2023-07-17   6.3   7.3   4.5
-53  中国GDP年率报告  2023-10-18   4.9   4.4   6.3
-54  中国GDP年率报告  2024-01-17   5.2   5.3   4.9
-55  中国GDP年率报告  2024-04-16   NaN   NaN   5.2
-```
-
-#### 物价水平
-
-(macro_china_cpi_yearly)=
-##### 中国 CPI 年率报告
-
-接口：macro_china_cpi_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
-
-描述：中国年度 CPI 数据，数据区间从 19860201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_cpi_yearly_df = ak.macro_china_cpi_yearly()
-print(macro_china_cpi_yearly_df)
-```
-
-数据示例
-
-```
-            商品          日期   今值  预测值   前值
-0    中国CPI年率报告  1986-02-01  7.1  NaN  NaN
-1    中国CPI年率报告  1986-03-01  7.1  NaN  7.1
-2    中国CPI年率报告  1986-04-01  7.1  NaN  7.1
-3    中国CPI年率报告  1986-05-01  7.1  NaN  7.1
-4    中国CPI年率报告  1986-06-01  7.1  NaN  7.1
-..         ...         ...  ...  ...  ...
-454  中国CPI年率报告  2023-12-09 -0.5 -0.1 -0.2
-455  中国CPI年率报告  2024-01-12 -0.3 -0.4 -0.5
-456  中国CPI年率报告  2024-02-08 -0.8 -0.5 -0.3
-457  中国CPI年率报告  2024-03-09  0.7  0.3 -0.8
-458  中国CPI年率报告  2024-04-11  NaN  NaN  0.7
-[459 rows x 5 columns]
-```
-
-(macro_china_cpi_monthly)=
-##### 中国 CPI 月率报告
-
-接口：macro_china_cpi_monthly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
-
-描述：中国月度 CPI 数据，数据区间从 19960201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_cpi_monthly_df = ak.macro_china_cpi_monthly()
-print(macro_china_cpi_monthly_df)
-```
-
-数据示例
-
-```
-            商品          日期   今值  预测值   前值
-0    中国CPI月率报告  1996-02-01  2.1  NaN  NaN
-1    中国CPI月率报告  1996-03-01  2.3  NaN  2.1
-2    中国CPI月率报告  1996-04-01  0.6  NaN  2.3
-3    中国CPI月率报告  1996-05-01  0.7  NaN  0.6
-4    中国CPI月率报告  1996-06-01 -0.5  NaN  0.7
-..         ...         ...  ...  ...  ...
-334  中国CPI月率报告  2023-12-09 -0.5 -0.1 -0.1
-335  中国CPI月率报告  2024-01-12  0.1  0.2 -0.5
-336  中国CPI月率报告  2024-02-08  0.3  0.4  0.1
-337  中国CPI月率报告  2024-03-09  1.0  0.7  0.3
-338  中国CPI月率报告  2024-04-11  NaN  NaN  1.0
-[339 rows x 5 columns]
-```
-
-(macro_china_ppi_yearly)=
-##### 中国 PPI 年率报告
-
-接口：macro_china_ppi_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
-
-描述：中国年度 PPI 数据，数据区间从 19950801-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_ppi_yearly_df = ak.macro_china_ppi_yearly()
-print(macro_china_ppi_yearly_df)
-```
-
-数据示例
-
-```
-            商品          日期    今值  预测值    前值
-0    中国PPI年率报告  1995-08-01  13.5  NaN   NaN
-1    中国PPI年率报告  1995-09-01  13.0  NaN  13.5
-2    中国PPI年率报告  1995-10-01  12.9  NaN  13.0
-3    中国PPI年率报告  1995-11-01  12.5  NaN  12.9
-4    中国PPI年率报告  1995-12-01  11.1  NaN  12.5
-..         ...         ...   ...  ...   ...
-340  中国PPI年率报告  2023-12-09  -3.0 -2.8  -2.6
-341  中国PPI年率报告  2024-01-12  -2.7 -2.6  -3.0
-342  中国PPI年率报告  2024-02-08  -2.5 -2.6  -2.7
-343  中国PPI年率报告  2024-03-09  -2.7 -2.5  -2.5
-344  中国PPI年率报告  2024-04-11   NaN  NaN  -2.7
-[345 rows x 5 columns]
-```
-
-### 贸易状况
-
-(macro_china_exports_yoy)=
-#### 以美元计算出口年率
-
-接口：macro_china_exports_yoy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_exports_yoy
-
-描述：中国以美元计算出口年率报告，数据区间从 19820201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_exports_yoy_df = ak.macro_china_exports_yoy()
-print(macro_china_exports_yoy_df)
-```
-
-数据示例
-
-```
-                商品          日期    今值  预测值    前值
-0    中国以美元计算出口年率报告  1982-02-01   8.7  NaN   NaN
-1    中国以美元计算出口年率报告  1982-03-01  23.2  NaN   8.7
-2    中国以美元计算出口年率报告  1982-04-01  12.2  NaN  23.2
-3    中国以美元计算出口年率报告  1982-05-01  -2.5  NaN  12.2
-4    中国以美元计算出口年率报告  1982-06-01  41.5  NaN  -2.5
-..             ...         ...   ...  ...   ...
-505  中国以美元计算出口年率报告  2023-12-07   0.5 -1.1  -6.4
-506  中国以美元计算出口年率报告  2024-01-12   2.3  1.7   0.5
-507  中国以美元计算出口年率报告  2024-01-13   NaN  NaN   0.5
-508  中国以美元计算出口年率报告  2024-03-07   7.1  1.9   2.3
-509  中国以美元计算出口年率报告  2024-04-12   NaN  NaN   7.1
-[510 rows x 5 columns]
-```
-
-(macro_china_imports_yoy)=
-#### 以美元计算进口年率
-
-接口：macro_china_imports_yoy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_imports_yoy
-
-描述：中国以美元计算进口年率报告，数据区间从 19960201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_imports_yoy_df = ak.macro_china_imports_yoy()
-print(macro_china_imports_yoy_df)
-```
-
-数据示例
-
-```
-                商品          日期    今值  预测值    前值
-0    中国以美元计算进口年率报告  1996-02-01  55.8  NaN   NaN
-1    中国以美元计算进口年率报告  1996-03-01  14.2  NaN  55.8
-2    中国以美元计算进口年率报告  1996-04-01   8.7  NaN  14.2
-3    中国以美元计算进口年率报告  1996-05-01   6.4  NaN   8.7
-4    中国以美元计算进口年率报告  1996-06-01   4.5  NaN   6.4
-..             ...         ...   ...  ...   ...
-343  中国以美元计算进口年率报告  2023-12-07  -0.6  3.3   3.0
-344  中国以美元计算进口年率报告  2024-01-12   0.2  0.3  -0.6
-345  中国以美元计算进口年率报告  2024-01-13   NaN  NaN  -0.6
-346  中国以美元计算进口年率报告  2024-03-07   3.5  1.5   0.2
-347  中国以美元计算进口年率报告  2024-04-12   NaN  NaN   3.5
-[348 rows x 5 columns]
-```
-
-(macro_china_trade_balance)=
-#### 以美元计算贸易帐（亿美元）
-
-接口：macro_china_trade_balance
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_trade_balance
-
-描述：中国以美元计算贸易帐报告，数据区间从19810201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述        |
-|-----|---------|-----------|
-| 商品  | str     | -         |
-| 日期  | object  | -         |
-| 今值  | float64 | 注意单位：亿美元 |
-| 预测值 | float64 | 注意单位：亿美元 |
-| 前值  | float64 | 注意单位：亿美元 |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_trade_balance_df = ak.macro_china_trade_balance()
-print(macro_china_trade_balance_df)
-```
-
-数据示例
-
-```
-               商品          日期      今值     预测值      前值
-0    中国以美元计算贸易帐报告  1981-02-01    -2.2     NaN     NaN
-1    中国以美元计算贸易帐报告  1981-03-01    -4.9     NaN    -2.2
-2    中国以美元计算贸易帐报告  1981-04-01    -7.4     NaN    -4.9
-3    中国以美元计算贸易帐报告  1981-05-01    -4.8     NaN    -7.4
-4    中国以美元计算贸易帐报告  1981-06-01    -5.4     NaN    -4.8
-..            ...         ...     ...     ...     ...
-528  中国以美元计算贸易帐报告  2023-12-07   683.9   580.0   565.3
-529  中国以美元计算贸易帐报告  2024-01-12   753.4   747.5   683.9
-530  中国以美元计算贸易帐报告  2024-01-13     NaN     NaN   683.9
-531  中国以美元计算贸易帐报告  2024-03-07  1251.6  1103.0   753.4
-532  中国以美元计算贸易帐报告  2024-04-12     NaN     NaN  1251.6
-[533 rows x 5 columns]
-```
-
 ### 产业指标
 
-(macro_china_gyzjz)=
+(macro_china_industrial_value_added)=
 #### 工业增加值增长
 
-接口：macro_china_gyzjz
+接口：macro_china_industrial_value_added
 
 目标地址：https://data.eastmoney.com/cjsj/gyzjz.html
 
@@ -802,8 +376,8 @@ print(macro_china_trade_balance_df)
 ```python
 import akshare as ak
 
-macro_china_gyzjz_df = ak.macro_china_gyzjz()
-print(macro_china_gyzjz_df)
+macro_china_industrial_value_added_df = ak.macro_china_industrial_value_added()
+print(macro_china_industrial_value_added_df)
 ```
 
 数据示例
@@ -824,385 +398,7 @@ print(macro_china_gyzjz_df)
 [170 rows x 4 columns]
 ```
 
-(macro_china_industrial_production_yoy)=
-#### 规模以上工业增加值年率
-
-接口：macro_china_industrial_production_yoy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_industrial_production_yoy
-
-描述：中国规模以上工业增加值年率报告，数据区间从 19900301-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_industrial_production_yoy_df = ak.macro_china_industrial_production_yoy()
-print(macro_china_industrial_production_yoy_df)
-```
-
-数据示例
-
-```
-                  商品          日期   今值  预测值   前值
-0    中国规模以上工业增加值年率报告  1990-03-01  5.0  NaN  NaN
-1    中国规模以上工业增加值年率报告  1990-04-01  0.8  NaN  5.0
-2    中国规模以上工业增加值年率报告  1990-05-01  1.7  NaN  0.8
-3    中国规模以上工业增加值年率报告  1990-06-01  3.3  NaN  1.7
-4    中国规模以上工业增加值年率报告  1990-07-01  5.0  NaN  3.3
-..               ...         ...  ...  ...  ...
-392  中国规模以上工业增加值年率报告  2023-11-15  4.6  4.4  4.5
-393  中国规模以上工业增加值年率报告  2023-12-15  6.6  5.6  4.6
-394  中国规模以上工业增加值年率报告  2024-01-17  6.8  6.6  6.6
-395  中国规模以上工业增加值年率报告  2024-03-18  7.0  5.3  6.8
-396  中国规模以上工业增加值年率报告  2024-04-16  NaN  NaN  7.0
-[397 rows x 5 columns]
-```
-
-(macro_china_pmi_yearly)=
-#### 官方制造业 PMI
-
-接口：macro_china_pmi_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
-
-描述：中国年度PMI数据，数据区间从 20050201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述 |
-|-----|---------|----|
-| 商品  | str     | -  |
-| 日期  | object  | -  |
-| 今值  | float64 | -  |
-| 预测值 | float64 | -  |
-| 前值  | float64 | -  |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_pmi_yearly_df = ak.macro_china_pmi_yearly()
-print(macro_china_pmi_yearly_df)
-```
-
-数据示例
-
-```
-             商品        日期      今值   预测值 前值
-0    中国官方制造业PMI  2005-02-01  54.7   NaN   NaN
-1    中国官方制造业PMI  2005-03-01  54.5   NaN  54.7
-2    中国官方制造业PMI  2005-04-01  57.9   NaN  54.5
-3    中国官方制造业PMI  2005-05-01  56.7   NaN  57.9
-4    中国官方制造业PMI  2005-06-01  52.9   NaN  56.7
-..          ...         ...   ...   ...   ...
-228  中国官方制造业PMI  2023-11-30  49.4  49.7  49.5
-229  中国官方制造业PMI  2023-12-31  49.0  49.5  49.4
-230  中国官方制造业PMI  2024-01-31  49.2  49.2  49.0
-231  中国官方制造业PMI  2024-03-01  49.1  49.1  49.2
-232  中国官方制造业PMI  2024-03-31  50.8  50.1  49.1
-[233 rows x 5 columns]
-```
-
-(macro_china_cx_pmi_yearly)=
-#### 财新制造业PMI终值
-
-接口：macro_china_cx_pmi_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
-
-描述：中国年度财新 PMI 数据，数据区间从 20120120-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述 |
-|-----|---------|----|
-| 商品  | str     | -  |
-| 日期  | object  | -  |
-| 今值  | float64 | -  |
-| 预测值 | float64 | -  |
-| 前值  | float64 | -  |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_cx_pmi_yearly_df = ak.macro_china_cx_pmi_yearly()
-print(macro_china_cx_pmi_yearly_df)
-```
-
-数据示例
-
-```
-                 商品          日期    今值   预测值    前值
-0    中国财新制造业PMI终值报告  2012-01-20  48.8   NaN  48.7
-1    中国财新制造业PMI终值报告  2012-02-22  49.7   NaN  48.8
-2    中国财新制造业PMI终值报告  2012-03-22  48.1   NaN  49.6
-3    中国财新制造业PMI终值报告  2012-04-23  49.1   NaN  48.3
-4    中国财新制造业PMI终值报告  2012-05-02  49.3   NaN  49.1
-..              ...         ...   ...   ...   ...
-196  中国财新制造业PMI终值报告  2023-12-01  50.7  49.3  49.5
-197  中国财新制造业PMI终值报告  2024-01-02  50.8  50.4  50.7
-198  中国财新制造业PMI终值报告  2024-02-01  50.8  50.8  50.8
-199  中国财新制造业PMI终值报告  2024-03-01  50.9  50.7  50.8
-200  中国财新制造业PMI终值报告  2024-04-01  51.1  51.0  50.9
-[201 rows x 5 columns]
-```
-
-(macro_china_cx_services_pmi_yearly)=
-#### 财新服务业PMI
-
-接口：macro_china_cx_services_pmi_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
-
-描述：中国财新服务业 PMI 报告，数据区间从 20120405-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述 |
-|-----|---------|----|
-| 商品  | str     | -  |
-| 日期  | object  | -  |
-| 今值  | float64 | -  |
-| 预测值 | float64 | -  |
-| 前值  | float64 | -  |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_cx_services_pmi_yearly_df = ak.macro_china_cx_services_pmi_yearly()
-print(macro_china_cx_services_pmi_yearly_df)
-```
-
-数据示例
-
-```
-               商品          日期    今值   预测值    前值
-0    中国财新服务业PMI报告  2012-04-05  53.3   NaN  53.9
-1    中国财新服务业PMI报告  2012-05-04  54.1   NaN  53.3
-2    中国财新服务业PMI报告  2012-06-05  54.7   NaN  54.1
-3    中国财新服务业PMI报告  2012-07-04  52.3   NaN  54.7
-4    中国财新服务业PMI报告  2012-08-03  53.1   NaN  52.3
-..            ...         ...   ...   ...   ...
-143  中国财新服务业PMI报告  2023-12-05  51.5  50.7  50.4
-144  中国财新服务业PMI报告  2024-01-04  52.9  51.6  51.5
-145  中国财新服务业PMI报告  2024-02-05  52.7  53.0  52.9
-146  中国财新服务业PMI报告  2024-03-05  52.5  52.9  52.7
-147  中国财新服务业PMI报告  2024-04-03  52.7  52.7  52.5
-[148 rows x 5 columns]
-```
-
-(macro_china_non_man_pmi)=
-#### 中国官方非制造业PMI
-
-接口：macro_china_non_man_pmi
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
-
-描述：中国官方非制造业 PMI，数据区间从 20160101-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_non_man_pmi_df = ak.macro_china_non_man_pmi()
-print(macro_china_non_man_pmi_df)
-```
-
-数据示例
-
-```
-                商品          日期    今值   预测值    前值
-0    中国官方非制造业PMI报告  2007-02-01  60.4   NaN   NaN
-1    中国官方非制造业PMI报告  2007-03-01  60.6   NaN  60.4
-2    中国官方非制造业PMI报告  2007-04-01  58.2   NaN  60.6
-3    中国官方非制造业PMI报告  2007-05-01  60.4   NaN  58.2
-4    中国官方非制造业PMI报告  2007-06-01  62.2   NaN  60.4
-..             ...         ...   ...   ...   ...
-204  中国官方非制造业PMI报告  2023-11-30  50.2  51.1  50.6
-205  中国官方非制造业PMI报告  2023-12-31  50.4  50.5  50.2
-206  中国官方非制造业PMI报告  2024-01-31  50.7  50.6  50.4
-207  中国官方非制造业PMI报告  2024-03-01  51.4  50.9  50.7
-208  中国官方非制造业PMI报告  2024-03-31  53.0  51.3  51.4
-[209 rows x 5 columns]
-```
-
 ### 金融指标
-
-(macro_china_fx_reserves_yearly)=
-#### 外汇储备（亿美元）
-
-接口：macro_china_fx_reserves_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
-
-描述：中国年度外汇储备数据，数据区间从 20140115-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述        |
-|-----|---------|-----------|
-| 商品  | str     | -         |
-| 日期  | object  | -         |
-| 今值  | float64 | 注意单位：亿美元 |
-| 预测值 | float64 | 注意单位：亿美元 |
-| 前值  | float64 | 注意单位：亿美元 |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_fx_reserves_yearly_df = ak.macro_china_fx_reserves_yearly()
-print(macro_china_fx_reserves_yearly_df)
-```
-
-数据示例
-
-```
-           商品          日期       今值      预测值     前值
-0    中国外汇储备报告  2014-01-15  38200.0  38000.0  36600
-1    中国外汇储备报告  2014-07-15  39900.0  39800.0  39500
-2    中国外汇储备报告  2015-01-15  38400.0  39000.0  39900
-3    中国外汇储备报告  2016-03-07  32000.0  31900.0  32300
-4    中国外汇储备报告  2016-04-07  32100.0  32100.0  32000
-..        ...         ...      ...      ...    ...
-106  中国外汇储备报告  2023-12-07  31720.0  31200.0  31010
-107  中国外汇储备报告  2024-01-07  32380.0  32000.0  31720
-108  中国外汇储备报告  2024-02-07  32190.0  32170.0  32380
-109  中国外汇储备报告  2024-03-07  32260.0  32050.0  32190
-110  中国外汇储备报告  2024-04-07      NaN      NaN  32260
-[111 rows x 5 columns]
-```
-
-(macro_china_m2_yearly)=
-#### M2货币供应年率
-
-接口：macro_china_m2_yearly
-
-目标地址：https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
-
-描述：中国年度 M2 数据，数据区间从 19980201-至今
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| 商品  | str     | -       |
-| 日期  | object  | -       |
-| 今值  | float64 | 注意单位：% |
-| 预测值 | float64 | 注意单位：% |
-| 前值  | float64 | 注意单位：% |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_m2_yearly_df = ak.macro_china_m2_yearly()
-print(macro_china_m2_yearly_df)
-```
-
-数据示例
-
-```
-               商品          日期    今值  预测值    前值
-0    中国M2货币供应年率报告  1998-02-01  17.4  NaN   NaN
-1    中国M2货币供应年率报告  1998-03-01  16.7  NaN  17.4
-2    中国M2货币供应年率报告  1998-04-01  15.4  NaN  16.7
-3    中国M2货币供应年率报告  1998-05-01  14.6  NaN  15.4
-4    中国M2货币供应年率报告  1998-06-01  15.5  NaN  14.6
-..            ...         ...   ...  ...   ...
-349  中国M2货币供应年率报告  2024-03-12   NaN  8.8   8.7
-350  中国M2货币供应年率报告  2024-03-13   NaN  8.8   8.7
-351  中国M2货币供应年率报告  2024-03-14   NaN  8.8   8.7
-352  中国M2货币供应年率报告  2024-03-15   8.7  8.8   8.7
-353  中国M2货币供应年率报告  2024-04-11   NaN  NaN   8.7
-[354 rows x 5 columns]
-```
 
 (macro_china_new_house_price)=
 #### 新房价指数
@@ -2711,10 +1907,10 @@ print(macro_china_pmi_df)
 177  2008年01月份    53.0 -3.811252     60.2  -0.331126
 ```
 
-(macro_china_gdzctz)=
+(macro_china_fixed_asset_investment)=
 #### 中国城镇固定资产投资
 
-接口：macro_china_gdzctz
+接口：macro_china_fixed_asset_investment
 
 目标地址：http://data.eastmoney.com/cjsj/gdzctz.html
 
@@ -2743,8 +1939,8 @@ print(macro_china_pmi_df)
 ```python
 import akshare as ak
 
-macro_china_gdzctz_df = ak.macro_china_gdzctz()
-print(macro_china_gdzctz_df)
+macro_china_fixed_asset_investment_df = ak.macro_china_fixed_asset_investment()
+print(macro_china_fixed_asset_investment_df)
 ```
 
 数据示例
@@ -2764,10 +1960,10 @@ print(macro_china_gdzctz_df)
 162  2008年02月份       NaN    NaN    NaN    8121.29
 ```
 
-(macro_china_hgjck)=
+(macro_china_customs_trade)=
 #### 海关进出口增减情况
 
-接口：macro_china_hgjck
+接口：macro_china_customs_trade
 
 目标地址：https://data.eastmoney.com/cjsj/hgjck.html
 
@@ -2802,8 +1998,8 @@ print(macro_china_gdzctz_df)
 ```python
 import akshare as ak
 
-macro_china_hgjck_df = ak.macro_china_hgjck()
-print(macro_china_hgjck_df)
+macro_china_customs_trade_df = ak.macro_china_customs_trade()
+print(macro_china_customs_trade_df)
 ```
 
 数据示例
@@ -2823,10 +2019,10 @@ print(macro_china_hgjck_df)
 177  2008年01月份  1.096400e+08        26.6  ...        26.6  9.017445e+07        27.6
 ```
 
-(macro_china_czsr)=
+(macro_china_fiscal_revenue)=
 #### 财政收入
 
-接口：macro_china_czsr
+接口：macro_china_fiscal_revenue
 
 目标地址：http://data.eastmoney.com/cjsj/czsr.html
 
@@ -2856,8 +2052,8 @@ print(macro_china_hgjck_df)
 ```python
 import akshare as ak
 
-macro_china_czsr_df = ak.macro_china_czsr()
-print(macro_china_czsr_df)
+macro_china_fiscal_revenue_df = ak.macro_china_fiscal_revenue()
+print(macro_china_fiscal_revenue_df)
 ```
 
 数据示例
@@ -2878,10 +2074,10 @@ print(macro_china_czsr_df)
 [206 rows x 6 columns]
 ```
 
-(macro_china_whxd)=
+(macro_china_fx_loan)=
 #### 外汇贷款数据
 
-接口：macro_china_whxd
+接口：macro_china_fx_loan
 
 目标地址：http://data.eastmoney.com/cjsj/whxd.html
 
@@ -2910,8 +2106,8 @@ print(macro_china_czsr_df)
 ```python
 import akshare as ak
 
-macro_china_whxd_df = ak.macro_china_whxd()
-print(macro_china_whxd_df)
+macro_china_fx_loan_df = ak.macro_china_fx_loan()
+print(macro_china_fx_loan_df)
 ```
 
 数据示例
@@ -2932,10 +2128,10 @@ print(macro_china_whxd_df)
 [213 rows x 5 columns]
 ```
 
-(macro_china_wbck)=
+(macro_china_deposit)=
 #### 本外币存款
 
-接口：macro_china_wbck
+接口：macro_china_deposit
 
 目标地址：http://data.eastmoney.com/cjsj/wbck.html
 
@@ -2964,8 +2160,8 @@ print(macro_china_whxd_df)
 ```python
 import akshare as ak
 
-macro_china_wbck_df = ak.macro_china_wbck()
-print(macro_china_wbck_df)
+macro_china_deposit_df = ak.macro_china_deposit()
+print(macro_china_deposit_df)
 ```
 
 数据示例
@@ -3042,10 +2238,10 @@ print(macro_china_bond_public_df)
 [381 rows x 8 columns]
 ```
 
-(macro_china_xfzxx)=
+(macro_china_consumer_confidence)=
 #### 消费者信心指数
 
-接口：macro_china_xfzxx
+接口：macro_china_consumer_confidence
 
 目标地址：https://data.eastmoney.com/cjsj/xfzxx.html
 
@@ -3079,8 +2275,8 @@ print(macro_china_bond_public_df)
 ```python
 import akshare as ak
 
-macro_china_xfzxx_df = ak.macro_china_xfzxx()
-print(macro_china_xfzxx_df)
+macro_china_consumer_confidence_df = ak.macro_china_consumer_confidence()
+print(macro_china_consumer_confidence_df)
 ```
 
 数据示例
@@ -3784,10 +2980,10 @@ print(macro_china_insurance_df)
 [310 rows x 21 columns]
 ```
 
-(macro_china_supply_of_money)=
+(macro_china_money_supply_sina)=
 #### 货币供应量
 
-接口：macro_china_supply_of_money
+接口：macro_china_money_supply_sina
 
 目标地址：http://finance.sina.com.cn/mac/#fininfo-1-0-31-1
 
@@ -3828,8 +3024,8 @@ print(macro_china_insurance_df)
 ```python
 import akshare as ak
 
-macro_china_supply_of_money_df = ak.macro_china_supply_of_money()
-print(macro_china_supply_of_money_df)
+macro_china_money_supply_sina_df = ak.macro_china_money_supply_sina()
+print(macro_china_money_supply_sina_df)
 ```
 
 数据示例
@@ -3914,10 +3110,10 @@ print(macro_china_swap_rate_df)
 [945 rows x 15 columns]
 ```
 
-(macro_china_foreign_exchange_gold)=
+(macro_china_fx_gold_sina)=
 #### 央行黄金和外汇储备
 
-接口：macro_china_foreign_exchange_gold
+接口：macro_china_fx_gold_sina
 
 目标地址：http://finance.sina.com.cn/mac/#fininfo-5-0-31-2
 
@@ -3944,8 +3140,8 @@ print(macro_china_swap_rate_df)
 ```python
 import akshare as ak
 
-macro_china_foreign_exchange_gold_df = ak.macro_china_foreign_exchange_gold()
-print(macro_china_foreign_exchange_gold_df)
+macro_china_fx_gold_sina_df = ak.macro_china_fx_gold_sina()
+print(macro_china_fx_gold_sina_df)
 ```
 
 数据示例
@@ -4073,10 +3269,10 @@ print(macro_china_real_estate_df)
 284  2022-07-01   95.26 -0.146751  ... -5.683168 -4.825657 -5.757816
 ```
 
-(macro_china_fx_gold)=
+(macro_china_fx_gold_em)=
 #### 外汇和黄金储备
 
-接口：macro_china_fx_gold
+接口：macro_china_fx_gold_em
 
 目标地址：http://data.eastmoney.com/cjsj/hjwh.html
 
@@ -4107,8 +3303,8 @@ print(macro_china_real_estate_df)
 ```python
 import akshare as ak
 
-macro_china_fx_gold_df = ak.macro_china_fx_gold()
-print(macro_china_fx_gold_df)
+macro_china_fx_gold_em_df = ak.macro_china_fx_gold_em()
+print(macro_china_fx_gold_em_df)
 ```
 
 数据示例
@@ -4128,10 +3324,10 @@ print(macro_china_fx_gold_df)
 174  2022年07月份  1098.39  -3.963383 -3.500171  31040.7100  -4.073655   1.067929
 ```
 
-(macro_china_money_supply)=
+(macro_china_money_supply_em)=
 #### 中国货币供应量
 
-接口：macro_china_money_supply
+接口：macro_china_money_supply_em
 
 目标地址：http://data.eastmoney.com/cjsj/hbgyl.html
 
@@ -4165,8 +3361,8 @@ print(macro_china_fx_gold_df)
 ```python
 import akshare as ak
 
-macro_china_money_supply_df = ak.macro_china_money_supply()
-print(macro_china_money_supply_df)
+macro_china_money_supply_em_df = ak.macro_china_money_supply_em()
+print(macro_china_money_supply_em_df)
 ```
 
 数据示例
@@ -4247,10 +3443,10 @@ print(macro_china_stock_market_cap_df)
 178  2008年01月份  14198.16  ...      4330.6970      1424.3500
 ```
 
-(macro_china_shibor_all)=
+(macro_china_shibor)=
 #### 上海银行业同业拆借报告
 
-接口：macro_china_shibor_all
+接口：macro_china_shibor
 
 目标地址：https://datacenter.jin10.com/reportType/dc_shibor
 
@@ -4295,8 +3491,8 @@ print(macro_china_stock_market_cap_df)
 ```python
 import akshare as ak
 
-macro_china_shibor_all_df = ak.macro_china_shibor_all()
-print(macro_china_shibor_all_df)
+macro_china_shibor_df = ak.macro_china_shibor()
+print(macro_china_shibor_df)
 ```
 
 数据示例
@@ -4317,10 +3513,10 @@ print(macro_china_shibor_all_df)
 [1758 rows x 17 columns]
 ```
 
-(macro_china_hk_market_info)=
+(macro_china_hibor)=
 #### 人民币香港银行同业拆息
 
-接口：macro_china_hk_market_info
+接口：macro_china_hibor
 
 目标地址：https://datacenter.jin10.com/reportType/dc_hk_market_info
 
@@ -4365,8 +3561,8 @@ print(macro_china_shibor_all_df)
 ```python
 import akshare as ak
 
-macro_china_hk_market_info_df = ak.macro_china_hk_market_info()
-print(macro_china_hk_market_info_df)
+macro_china_hibor_df = ak.macro_china_hibor()
+print(macro_china_hibor_df)
 ```
 
 数据示例
@@ -4388,158 +3584,6 @@ print(macro_china_hk_market_info_df)
 ```
 
 ### 其他指标
-
-(macro_china_daily_energy)=
-#### 中国日度沿海六大电库存
-
-接口：macro_china_daily_energy
-
-目标地址：https://datacenter.jin10.com/reportType/dc_qihuo_energy_report
-
-描述：中国日度沿海六大电库存数据，数据区间从20160101-至今，不再更新，只能获得历史数据
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称 | 类型 | 描述 |
-|----|----|----|
-| -  | -  | -  |
-
-输出参数
-
-| 名称      | 类型      | 描述 |
-|---------|---------|----|
-| 日期      | object  | -  |
-| 沿海六大电库存 | float64 | -  |
-| 日耗      | float64 | -  |
-| 存煤可用天数  | float64 | -  |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_daily_energy_df = ak.macro_china_daily_energy()
-print(macro_china_daily_energy_df)
-```
-
-数据示例
-
-```
-              日期  沿海六大电库存     日耗  存煤可用天数
-0     2016-01-01  1167.60  64.20   18.19
-1     2016-01-02  1162.90  63.40   18.34
-2     2016-01-03  1160.80  62.60   18.54
-3     2016-01-04  1185.30  57.60   20.58
-4     2016-01-05  1150.20  57.20   20.11
-          ...      ...    ...     ...
-1202  2019-05-17  1639.47  61.71   26.56
-1203  2019-05-21  1591.92  62.67   25.40
-1204  2019-05-22  1578.63  59.54   26.51
-1205  2019-05-24  1671.83  60.65   27.56
-1206  2019-06-21  1786.64  66.57   26.84
-[1207 rows x 4 columns]
-```
-
-(macro_china_rmb)=
-#### 人民币汇率中间价报告
-
-接口：macro_china_rmb
-
-目标地址：https://datacenter.jin10.com/reportType/dc_rmb_data
-
-描述：中国人民币汇率中间价报告，数据区间从 20170103-20210513
-
-限量：单次返回所有历史数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称              | 类型      | 描述     |
-|-----------------|---------|--------|
-| 日期              | str     | 日期     |
-| 美元/人民币_中间价      | float64 | -      |
-| 美元/人民币_涨跌幅      | float64 | 单位：点  |
-| 欧元/人民币_中间价      | float64 | -      |
-| 欧元/人民币_涨跌幅      | float64 | 单位：点  |
-| 100日元/人民币_中间价   | float64 | -      |
-| 100日元/人民币_涨跌幅   | float64 | 单位：点对 |
-| 港元/人民币_中间价      | float64 | -      |
-| 港元/人民币_涨跌幅      | float64 | 单位：点  |
-| 英镑/人民币_中间价      | float64 | -      |
-| 英镑/人民币_涨跌幅      | float64 | 单位：点  |
-| 澳元/人民币_中间价      | float64 | -      |
-| 澳元/人民币_涨跌幅      | float64 | 单位：点  |
-| 新西兰元/人民币_中间价    | float64 | -      |
-| 新西兰元/人民币_涨跌幅    | float64 | 单位：点  |
-| 新加坡元/人民币_中间价    | float64 | -      |
-| 新加坡元/人民币_涨跌幅    | float64 | 单位：点  |
-| 瑞郎/人民币_中间价      | float64 | -      |
-| 瑞郎/人民币_涨跌幅      | float64 | 单位：点  |
-| 加元/人民币_中间价      | float64 | -      |
-| 加元/人民币_涨跌幅      | float64 | 单位：点  |
-| 人民币/马来西亚林吉特_中间价 | float64 | -      |
-| 人民币/马来西亚林吉特_涨跌幅 | float64 | 单位：点  |
-| 人民币/俄罗斯卢布_中间价   | float64 | -      |
-| 人民币/俄罗斯卢布_涨跌幅   | float64 | 单位：点  |
-| 人民币/南非兰特_中间价    | float64 | -      |
-| 人民币/南非兰特_涨跌幅    | float64 | 单位：点  |
-| 人民币/韩元_中间价      | float64 | -      |
-| 人民币/韩元_涨跌幅      | float64 | 单位：点  |
-| 人民币/阿联酋迪拉姆_中间价  | float64 | -      |
-| 人民币/阿联酋迪拉姆_涨跌幅  | float64 | 单位：点  |
-| 人民币/沙特里亚尔_中间价   | float64 | -      |
-| 人民币/沙特里亚尔_涨跌幅   | float64 | 单位：点  |
-| 人民币/匈牙利福林_中间价   | float64 | -      |
-| 人民币/匈牙利福林_涨跌幅   | float64 | 单位：点  |
-| 人民币/波兰兹罗提_中间价   | float64 | -      |
-| 人民币/波兰兹罗提_涨跌幅   | float64 | 单位：点  |
-| 人民币/丹麦克朗_中间价    | float64 | -      |
-| 人民币/丹麦克朗_涨跌幅    | float64 | 单位：点  |
-| 人民币/瑞典克朗_中间价    | float64 | -      |
-| 人民币/瑞典克朗_涨跌幅    | float64 | 单位：点  |
-| 人民币/丹麦克朗_中间价    | float64 | -      |
-| 人民币/丹麦克朗_涨跌幅    | float64 | 单位：点  |
-| 人民币/挪威克朗_中间价    | float64 | -      |
-| 人民币/挪威克朗_涨跌幅    | float64 | 单位：点  |
-| 人民币/土耳其里拉_中间价   | float64 | -      |
-| 人民币/土耳其里拉_涨跌幅   | float64 | 单位：点  |
-| 人民币/墨西哥比索_中间价   | float64 | -      |
-| 人民币/墨西哥比索_涨跌幅   | float64 | 单位：点  |
-| 人民币/泰铢_中间价      | float64 | -      |
-| 人民币/泰铢_涨跌幅      | float64 | 单位：点  |
-
-接口示例
-
-```python
-import akshare as ak
-
-macro_china_rmb_df = ak.macro_china_rmb()
-print(macro_china_rmb_df)
-```
-
-数据示例
-
-```
-     日期  美元/人民币_中间价  美元/人民币_涨跌幅  ...  人民币/墨西哥比索_涨跌幅  人民币/泰铢_定价  人民币/泰铢_涨跌幅
-0    2018-02-06      6.3072         0.0  ...            0.0     5.0191         0.0
-1    2018-02-07      6.2882      -190.0  ...         -184.0     5.0178       -13.0
-2    2018-02-08      6.2822       -60.0  ...          286.0     5.0429       251.0
-3    2018-02-09      6.3194       372.0  ...          -64.0     5.0406       -23.0
-4    2018-02-12      6.3001      -193.0  ...         -146.0     5.0310       -96.0
-..          ...         ...         ...  ...            ...        ...         ...
-786  2021-05-07      6.4678      -217.0  ...         -118.0     4.8283       310.0
-787  2021-05-10      6.4425      -253.0  ...         -171.0     4.8333        50.0
-788  2021-05-11      6.4254      -171.0  ...           85.0     4.8434       101.0
-789  2021-05-12      6.4258         4.0  ...           65.0     4.8503        69.0
-790  2021-05-13      6.4612       354.0  ...          107.0     4.8427       -76.0
-```
 
 (macro_china_market_margin_sz)=
 #### 深圳融资融券报告
