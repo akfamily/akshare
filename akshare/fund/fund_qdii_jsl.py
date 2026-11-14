@@ -15,6 +15,8 @@ def fund_qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-欧美指数
     https://www.jisilu.cn/data/qdii/#qdiia
+    :param cookie: 集思录登录后的 cookie；默认为空，未登录时只返回部分数据
+    :type cookie: str
     :return: T+0 QDII-亚洲市场
     :rtype: pandas.DataFrame
     """
@@ -88,6 +90,8 @@ def fund_qdii_e_commodity_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-商品
     https://www.jisilu.cn/data/qdii/#qdiia
+    :param cookie: 集思录登录后的 cookie；默认为空，未登录时只返回部分数据
+    :type cookie: str
     :return: T+0 QDII-欧美市场-商品
     :rtype: pandas.DataFrame
     """
@@ -159,6 +163,8 @@ def fund_qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-亚洲市场-亚洲指数
     https://www.jisilu.cn/data/qdii/#qdiia
+    :param cookie: 集思录登录后的 cookie；默认为空，未登录时只返回部分数据
+    :type cookie: str
     :return: T+0 QDII-亚洲市场-亚洲指数
     :rtype: pandas.DataFrame
     """

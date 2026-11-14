@@ -511,15 +511,15 @@ print(futures_fee_js_df)
 ```
 
 (futures_trading_rule_gtja)=
-### 期货规则-交易日历表
+### 期货规则-交易参数表
 
 接口：futures_trading_rule_gtja
 
 目标地址：https://www.gtjaqh.com/pc/calendar.html
 
-描述：国泰君安期货-交易日历数据表
+描述：国泰君安期货-期货交易参数表，包含各品种的交易保证金比例、涨跌停板幅度、合约乘数、最小变动价位与限价单每笔最大下单手数
 
-限量：单次返回指定交易日所有合约的交易日历数据
+限量：单次返回指定交易日所有品种的交易参数
 
 输入参数
 
@@ -728,7 +728,7 @@ ak.futures_roll_yield(date="20180718", symbol="IF", symbol1="IF1812", symbol2="I
 
 接口：futures_roll_yield_bar
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：根据各交易所的日行情计算展期收益率；type_method 为 symbol 时返回指定交易日指定品种所有交割月合约的收盘价，为 var 时返回指定交易日所有品种主力与次主力合约的展期收益率，为 date 时返回指定品种在一段时间内每天的展期收益率
 
@@ -778,7 +778,7 @@ print(futures_roll_yield_bar_df)
 
 接口：futures_roll_yield
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：指定交易日指定品种主力与次主力合约的展期收益率；也可以用 symbol1、symbol2 指定任意两个合约
 
@@ -838,7 +838,7 @@ ak.futures_receipt(start_date="20180712", end_date="20180719", symbols="CU,NI")
 
 接口：futures_receipt
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：各交易所公布的注册仓单日数据，按品种汇总
 
@@ -1385,7 +1385,7 @@ print(futures_position_rank_gfex_df)
 
 接口：futures_rank_sum_daily
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：各交易所前 5、前 10、前 15、前 20 名会员的成交量、多单持仓、空单持仓及其变化量之和；上期所和中金所只公布合约排名，品种排名由各合约加总得到
 
@@ -1462,7 +1462,7 @@ print(futures_rank_sum_daily_df)
 
 接口：futures_rank_sum
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：指定交易日各交易所前 5、前 10、前 15、前 20 名会员的成交量、多单持仓、空单持仓及其变化量之和
 
@@ -3741,7 +3741,7 @@ print(futures_zh_daily_sina_df)
 
 接口：futures_daily
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：提供各交易所各品种的网站的历史行情数据，其中 20040625, 20070604, 20081226, 20090119 原网页数据缺失；其中 market="DCE"（大连商品交易所）目前因瑞数反爬虫验证无法获取数据（HTTP 412），详见[常见问题](https://akshare.akfamily.xyz/faq.html#faq-dce)
 
@@ -4219,7 +4219,7 @@ print(futures_daily_dce_df)
 
 接口：futures_settle
 
-目标地址：各交易所网站
+目标地址：http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
 描述：提供各交易所的结算参数数据，包括保证金、手续费、涨跌停板等参数
 

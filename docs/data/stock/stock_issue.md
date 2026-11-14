@@ -1727,7 +1727,7 @@ print(stock_restricted_release_stockholder_em_df)
 
 接口：stock_info_a_code_name
 
-目标地址：沪深京三个交易所
+目标地址：https://www.sse.com.cn/assortment/stock/list/share/
 
 描述：沪深京 A 股股票代码和股票简称数据
 

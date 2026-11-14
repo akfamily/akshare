@@ -393,8 +393,8 @@ def macro_china_new_house_price(
 # 中国-企业景气及企业家信心指数
 def macro_china_enterprise_boom_index() -> pd.DataFrame:
     """
-    https://data.eastmoney.com/cjsj/qyjqzs.html
     中国-企业景气及企业家信心指数
+    https://data.eastmoney.com/cjsj/qyjqzs.html
     :return: 企业景气及企业家信心指数
     :rtype: pandas.DataFrame
     """

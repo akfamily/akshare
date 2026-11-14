@@ -122,6 +122,59 @@ def missing_attribute_message(name: str) -> str:
 
 _TOKEN_SPLIT_RE = re.compile(r"[\s,，、;；/|]+")
 
+# 证券代码不是接口的属性：整个查询词是 5 位以上的数字（可带市场前缀）时不参与匹配，
+# 否则它的数字片段会命中描述里的年份、日期，带出上百个无关接口
+_SECURITY_CODE_RE = re.compile(r"(?:sh|sz|bj|hk)?\d{5,}(?:\.(?:sh|sz|bj|hk))?", re.I)
+# 连续字符片段只是没有按词命中时的兜底，分数打折，不让它盖过按词（含同义词）的命中
+FALLBACK_DISCOUNT = 0.5
+# 分数相同时的先后：先看类目，再看市场，再取名称更短（更通用）的接口
+_CATEGORY_ORDER = (
+    "stock",
+    "index",
+    "fund",
+    "futures",
+    "option",
+    "bond",
+    "fx",
+    "macro",
+    "interest_rate",
+    "spot",
+    "energy",
+    "crypto",
+    "calendar",
+    "research",
+    "alternative",
+)
+_HOME_SEGMENTS = frozenset({"zh", "china", "a"})
+_ABROAD_SEGMENTS = frozenset(
+    "hk us usa uk euro japan germany swiss canada australia global foreign".split()
+)
+
+
+def _tie_break(record: Dict) -> Tuple[int, int, int, str]:
+    """
+    分数相同时的排序依据：用户没有说明市场时，多数是在找股票与境内市场的数据。
+
+    :param record: registry 中的一条接口记录
+    :return: （类目先后，市场先后，名称长度，名称）
+    """
+    name = record["name"]
+    category = record.get("category") or ""
+    if category in _CATEGORY_ORDER:
+        category_rank = _CATEGORY_ORDER.index(category)
+    else:
+        category_rank = len(_CATEGORY_ORDER)
+    segments = set(name.split("_"))
+    # 先判断境外：macro_china_hk_gdp 这样的名称同时带有 china 与 hk
+    if segments & _ABROAD_SEGMENTS:
+        market_rank = 2
+    elif segments & _HOME_SEGMENTS:
+        market_rank = 0
+    else:
+        market_rank = 1
+    return category_rank, market_rank, len(name), name
+
+
 WEIGHT_NAME_EXACT = 100.0
 WEIGHT_NAME = 10.0
 WEIGHT_DESC = 5.0
@@ -161,6 +214,12 @@ SYNONYM_GROUPS: Tuple[Tuple[str, ...], ...] = (
     ("概念板块", "board_concept"),
     ("涨停", "涨停板", "zt_pool"),
     ("分红", "派息", "分红派息", "dividend", "fh", "fhps", "fhpx"),
+    ("cpi", "居民消费价格指数", "消费者物价指数"),
+    ("ppi", "工业品出厂价格指数", "生产者物价指数"),
+    ("gdp", "国内生产总值"),
+    ("pmi", "采购经理人指数", "采购经理指数"),
+    ("股票列表", "股票代码", "代码表", "代码和简称", "code_name", "name_code"),
+    ("成分股", "成份股", "成份", "成分", "cons"),
 )
 
 _ASCII_WORD_RE = re.compile(r"[a-z0-9_]+")
@@ -348,30 +407,38 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
     对候选记录打分排序。
 
     每条记录取「按空白/标点切分的主分」与「连续字符 2-gram 的降级分」两者中
-    的较大值，作为召回与常规排序依据。但排序优先级不完全依赖分数大小：
+    的较大值（降级分打折），作为召回与常规排序依据。但排序优先级不完全依赖分数大小：
     接口名与查询原文完全相等的记录一律置顶，不论其分数是否被 2-gram 降级
     分反超——因为 2-gram 分是按字符子串累加的，接口名越长该分数越容易超过
     精确命中的加成分，单纯比较数值大小无法保证精确匹配永远排第一。其余
-    记录按分数降序，同分再按接口名字典序排列。
+    记录按分数降序，同分时股票与境内市场在前、名称较短的在前（见 _tie_break）。
+    查询词是证券代码时不参与匹配，整个查询只有证券代码时没有结果。
 
     :param query: 查询字符串
     :param records: 候选记录
     :return: 含 _score 键并按「精确名置顶、分数降序、名字典序」排列的记录列表
     """
-    tokens = _tokenize(query)
-    fallback_tokens = _bigrams(query)
     stripped = query.strip()
+    words = _tokenize(query)
+    tokens = [word for word in words if not _SECURITY_CODE_RE.fullmatch(word)]
+    # 片段兜底只为没有打空格的中文查询准备；纯英文、数字的词按整词匹配即可，
+    # 拆成片段后 "CPI" 会按 "CP" 与 "PI" 各算一次分
+    fallback_tokens = _bigrams(
+        "".join(word for word in tokens if not _ASCII_WORD_RE.fullmatch(word.lower()))
+    )
     # 查询里出现已更名的旧接口名时，它现在的名称与精确名一样置顶：按片段打分时
     # 新名称往往排在名称更短的其他数据源之后
     renamed = _load_renames()["renamed"]
-    pinned = {renamed[word][0] for word in [stripped, *tokens] if word in renamed}
+    pinned = {renamed[word][0] for word in [stripped, *words] if word in renamed}
     scored = []
     for record in records:
         # 主分与降级分共用同一份归一化字段，每条记录只归一化一次。
         fields = _prepare(record)
         score = _score(tokens, record, fields)
         if fallback_tokens:
-            score = max(score, _score(fallback_tokens, record, fields))
+            score = max(
+                score, FALLBACK_DISCOUNT * _score(fallback_tokens, record, fields)
+            )
         if record["name"] in pinned:
             score = max(score, 1.0)
         if score > 0:
@@ -385,7 +452,7 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
                 or record["name"] in pinned
             )
             scored.append((record, score, is_exact))
-    scored.sort(key=lambda item: (not item[2], -item[1], item[0]["name"]))
+    scored.sort(key=lambda item: (not item[2], -item[1], _tie_break(item[0])))
     return [dict(record, _score=score) for record, score, _ in scored]
 
 
@@ -446,7 +513,10 @@ def interface_info(name: str) -> Dict:
     hint = renamed_hint(name)
     if hint:
         raise InvalidParameterError(hint)
-    candidates = [item["name"] for item in _rank(name, records)[:3]]
+    # 接口名写错多是个别字符之差，按字符相似度找；找不到再按检索结果给候选
+    candidates = difflib.get_close_matches(
+        name, [item["name"] for item in records], n=3, cutoff=0.6
+    ) or [item["name"] for item in _rank(name, records)[:3]]
     hint = "、".join(candidates) if candidates else "无"
     raise InvalidParameterError(f"未知接口 {name}，最接近的候选: {hint}")
 

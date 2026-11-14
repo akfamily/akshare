@@ -290,7 +290,7 @@ print(option_contract_info_ctp_df)
 
 接口：option_finance_board
 
-目标地址：
+目标地址：http://www.sse.com.cn/assortment/options/price/
 
 1. <http://www.sse.com.cn/assortment/options/price/>
 2. <http://www.szse.cn/market/derivative/derivative_list/index.html>

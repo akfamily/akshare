@@ -24,13 +24,19 @@ calendar = cons.get_calendar()
 def futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=None):
     """
     指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
-    Parameters
-    ------
-    date: string 某一天日期 format: YYYYMMDD
-    var: string 合约品种如 RB、AL 等
-    symbol1: string 合约 1 如 rb1810
-    symbol2: string 合约 2 如 rb1812
-    df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
+    http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+    :param date: 交易日，如 20261113；默认为空，取当天
+    :type date: str
+    :param symbol: 品种代码，如 RB、AL
+    :type symbol: str
+    :param symbol1: 合约 1，如 rb2701；与 symbol2 同时指定时计算这两个合约的展期收益率
+    :type symbol1: str
+    :param symbol2: 合约 2，如 rb2705
+    :type symbol2: str
+    :param df: 已取得的日行情数据；默认为空，由接口自行获取，传入可以减少重复请求
+    :type df: pandas.DataFrame
+    :return: 展期收益率、近月合约、远月合约；取不到行情时返回 None
+    :rtype: tuple
     """
     # date = "20100104"
     date = cons.convert_date(date) if date is not None else datetime.date.today()

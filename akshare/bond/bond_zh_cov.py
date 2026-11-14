@@ -543,8 +543,8 @@ def bond_cb_info_em(
     symbol: str = "123121", indicator: str = "基本信息"
 ) -> pd.DataFrame:
     """
-    https://data.eastmoney.com/kzz/detail/123121.html
     东方财富网-数据中心-新股数据-可转债详情
+    https://data.eastmoney.com/kzz/detail/123121.html
     :param symbol: 可转债代码
     :type symbol: str
     :param indicator: choice of {"基本信息", "中签号", "筹资用途", "重要日期"}
@@ -626,8 +626,8 @@ def bond_cb_info_em(
 
 def bond_cb_value_analysis_em(symbol: str = "113527") -> pd.DataFrame:
     """
-    https://data.eastmoney.com/kzz/detail/113527.html
     东方财富网-数据中心-新股数据-可转债数据-价值分析-溢价率分析
+    https://data.eastmoney.com/kzz/detail/113527.html
     :param symbol: 可转债代码
     :type symbol: str
     :return: 可转债价值分析

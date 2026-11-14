@@ -221,6 +221,7 @@ def stock_zh_scale_comparison_em(symbol: str = "SZ000895") -> pd.DataFrame:
     """
     东方财富-行情中心-同行比较-公司规模
     https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=000895&color=b#/thbj/gsgm
+    :param symbol: 带市场标识的股票代码，如 SZ000895
     :type symbol: str
     :return: 公司规模
     :rtype: pandas.DataFrame

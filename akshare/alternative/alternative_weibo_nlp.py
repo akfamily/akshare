@@ -20,6 +20,7 @@ from akshare.utils import http
 
 def alternative_weibo_stock_time_js() -> Dict:
     """
+    金十数据-微博舆情报告-可选的时间段
     https://datacenter.jin10.com/market
     :return: 特定时间表示的字典
     :rtype: dict

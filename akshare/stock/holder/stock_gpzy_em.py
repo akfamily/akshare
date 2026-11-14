@@ -279,10 +279,24 @@ def _stock_gpzy_pledge_ratio_detail_em(filter: str = None) -> pd.DataFrame:
 
 
 def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细
+    https://data.eastmoney.com/gpzy/pledgeDetail.aspx
+    :return: 重要股东股权质押明细
+    :rtype: pandas.DataFrame
+    """
     return _stock_gpzy_pledge_ratio_detail_em()
 
 
 def stock_gpzy_individual_pledge_ratio_detail_em(symbol: str) -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-股权质押-指定股票的重要股东股权质押明细
+    https://data.eastmoney.com/gpzy/pledgeDetail.aspx
+    :param symbol: 股票代码，如 603132
+    :type symbol: str
+    :return: 指定股票的重要股东股权质押明细
+    :rtype: pandas.DataFrame
+    """
     return _stock_gpzy_pledge_ratio_detail_em(filter=f'(SECURITY_CODE="{symbol}")')
 
 
