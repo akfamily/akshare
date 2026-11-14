@@ -1313,6 +1313,22 @@ from akshare.utils.context import (
 )
 from akshare.registry import search, interface_info, list_categories
 
+
+def __getattr__(name: str):
+    """
+    访问不存在的名称时给出线索：旧接口名提示新名称或移除的版本，拼写错误提示相近的接口
+
+    只在名称查找失败后才会调用，对正常的接口调用没有开销
+    :param name: 被访问的名称
+    :type name: str
+    """
+    if name.startswith("_"):
+        raise AttributeError(f"module 'akshare' has no attribute '{name}'")
+    from akshare.registry import missing_attribute_message
+
+    raise AttributeError(missing_attribute_message(name))
+
+
 # === __all__ 开始：由 scripts/build_registry.py 生成，请勿手工编辑 ===
 __all__ = [
     "APIError",

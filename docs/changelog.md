@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-55)=
+### 1.20.55 feat: tell the new name when a renamed or removed interface is called
+
+1. 调用已更名的旧接口名时，报错信息给出新名称与更名的版本，例如 `ak.stock_zh_a_hist(...)` 报 `AttributeError: stock_zh_a_hist 已在 1.20.46 更名为 stock_zh_a_hist_em，请改用 ak.stock_zh_a_hist_em`，不再只是 `module 'akshare' has no attribute 'stock_zh_a_hist'`。覆盖接口更名一览表中的 405 个旧名称，包括 1.20.31 改名的 get_ 系列等更早的记录；多次改名的旧名称直接指向现在的名称
+2. 调用已移除的接口时，报错信息给出移除的版本与对应的更新日志链接，原因与替代接口在该版本的更新日志里。覆盖 1.20.41 以来移除的 120 个名称
+3. 名称拼写错误时，报错信息列出相近的接口名
+4. `ak.interface_info` 传入旧名称时同样给出新名称或移除的版本，AKTools 的 MCP 服务通过它查询接口，因此 AI 助手使用旧名称时也能得到提示
+5. 仍然只是报错，不会把旧名称转到新接口：部分接口在改名的同时调整了参数或返回的列，自动转发会让错误更隐蔽。`from akshare import 旧名称` 这种写法由 Python 报 ImportError，其信息无法定制，可改用 `ak.旧名称` 查看提示
+6. 对照数据 akshare/data/renames.json 由 scripts/build_registry.py 根据接口更名一览表与 scripts/registry_removed.json 生成，并由 CI 校验是否同步；只在访问不存在的名称时读取，对正常调用没有开销
+
 (v1-20-54)=
 ### 1.20.54 fix!: fix 9 interfaces broken by upstream changes and remove 11 dead or duplicate interfaces
 

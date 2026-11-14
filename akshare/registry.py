@@ -6,17 +6,80 @@ Desc: 接口检索层，提供接口发现与元数据查询能力
 """
 
 import copy
+import difflib
 import json
 import re
 from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
-from akshare.datasets import get_registry_json
+from akshare.datasets import get_data_file, get_registry_json
 from akshare.exceptions import DataParsingError, InvalidParameterError
 from akshare.utils.params import to_bool, to_int
 
 _REGISTRY: Optional[Dict] = None
+_RENAMES: Optional[Dict] = None
+RENAME_TABLE_URL = "https://akshare.akfamily.xyz/changelog.html#changelog-rename"
+
+
+def renamed_hint(name: str) -> Optional[str]:
+    """
+    旧接口名的去向说明：已更名的给出新名称，已移除的给出移除的版本。
+
+    数据来自 akshare/data/renames.json，由 scripts/build_registry.py 根据更新日志的
+    接口更名一览表与 scripts/registry_removed.json 生成；只在访问不存在的名称时读取。
+
+    :param name: 接口名
+    :type name: str
+    :return: 说明文字；不是已知的旧接口名时返回 None
+    :rtype: str or None
+    """
+    global _RENAMES
+    if _RENAMES is None:
+        try:
+            path = get_data_file("renames.json")
+            _RENAMES = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            _RENAMES = {"renamed": {}, "removed": {}}
+    if name in _RENAMES["renamed"]:
+        new_name, version = _RENAMES["renamed"][name]
+        return (
+            f"{name} 已在 {version} 更名为 {new_name}，请改用 ak.{new_name}；"
+            f'参数与返回的列也可能有调整，用 ak.interface_info("{new_name}") 查看。'
+            f"完整对照见 {RENAME_TABLE_URL}"
+        )
+    if name in _RENAMES["removed"]:
+        version = _RENAMES["removed"][name]
+        anchor = "v" + version.replace(".", "-")
+        return (
+            f"{name} 已在 {version} 移除，原因与替代接口见更新日志 "
+            f"https://akshare.akfamily.xyz/changelog.html#{anchor}"
+        )
+    return None
+
+
+def missing_attribute_message(name: str) -> str:
+    """
+    访问 akshare 中不存在的名称时的报错信息：已知的旧接口名给出去向，否则给出相近的接口名。
+
+    :param name: 被访问的名称
+    :type name: str
+    :return: 报错信息
+    :rtype: str
+    """
+    hint = renamed_hint(name)
+    if hint:
+        return hint
+    message = f"module 'akshare' has no attribute '{name}'"
+    try:
+        names = [item["name"] for item in _load()["interfaces"]]
+    except DataParsingError:
+        return message
+    close = difflib.get_close_matches(name, names, n=3, cutoff=0.8)
+    if close:
+        message += "；相近的接口：" + "、".join(close)
+    return message + '。可用 ak.search("关键词") 查找接口'
+
 
 _TOKEN_SPLIT_RE = re.compile(r"[\s,，、;；/|]+")
 
@@ -333,6 +396,9 @@ def interface_info(name: str) -> Dict:
     for record in records:
         if record["name"] == name:
             return copy.deepcopy(record)
+    hint = renamed_hint(name)
+    if hint:
+        raise InvalidParameterError(hint)
     candidates = [item["name"] for item in _rank(name, records)[:3]]
     hint = "、".join(candidates) if candidates else "无"
     raise InvalidParameterError(f"未知接口 {name}，最接近的候选: {hint}")

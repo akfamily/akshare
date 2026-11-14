@@ -1,0 +1,1746 @@
+{
+"removed": {
+"business_value_artist": "1.20.45",
+"currency_convert": "1.20.52",
+"currency_currencies": "1.20.52",
+"currency_history": "1.20.52",
+"currency_latest": "1.20.52",
+"currency_time_series": "1.20.52",
+"energy_carbon_eu": "1.20.54",
+"energy_carbon_gz": "1.20.54",
+"energy_carbon_sz": "1.20.54",
+"futures_stock_shfe_js": "1.20.43",
+"fx_convert_currencyscoop": "1.20.52",
+"fx_currencies_currencyscoop": "1.20.52",
+"fx_hist_currencyscoop": "1.20.52",
+"fx_latest_currencyscoop": "1.20.52",
+"fx_time_series_currencyscoop": "1.20.52",
+"index_bloomberg_billionaires": "1.20.45",
+"index_eri": "1.20.54",
+"index_kq_fz": "1.20.54",
+"index_news_sentiment_scope": "1.20.54",
+"index_yw": "1.20.54",
+"macro_bank_australia_interest_rate": "1.20.42",
+"macro_bank_brazil_interest_rate": "1.20.42",
+"macro_bank_china_interest_rate": "1.20.42",
+"macro_bank_english_interest_rate": "1.20.42",
+"macro_bank_euro_interest_rate": "1.20.42",
+"macro_bank_india_interest_rate": "1.20.42",
+"macro_bank_japan_interest_rate": "1.20.42",
+"macro_bank_newzealand_interest_rate": "1.20.42",
+"macro_bank_russia_interest_rate": "1.20.42",
+"macro_bank_switzerland_interest_rate": "1.20.42",
+"macro_bank_usa_interest_rate": "1.20.42",
+"macro_china_bond_public": "1.20.48",
+"macro_china_cpi_monthly": "1.20.42",
+"macro_china_cpi_yearly": "1.20.42",
+"macro_china_cx_pmi_yearly": "1.20.42",
+"macro_china_cx_services_pmi_yearly": "1.20.42",
+"macro_china_daily_energy": "1.20.42",
+"macro_china_exports_yoy": "1.20.42",
+"macro_china_fx_reserves_yearly": "1.20.42",
+"macro_china_gdp_yearly": "1.20.42",
+"macro_china_imports_yoy": "1.20.42",
+"macro_china_industrial_production_yoy": "1.20.42",
+"macro_china_m2_yearly": "1.20.42",
+"macro_china_non_man_pmi": "1.20.42",
+"macro_china_pmi_yearly": "1.20.42",
+"macro_china_ppi_yearly": "1.20.42",
+"macro_china_rmb": "1.20.42",
+"macro_china_trade_balance": "1.20.42",
+"macro_cons_opec_month": "1.20.42",
+"macro_euro_cpi_mom": "1.20.42",
+"macro_euro_cpi_yoy": "1.20.42",
+"macro_euro_current_account_mom": "1.20.42",
+"macro_euro_employment_change_qoq": "1.20.42",
+"macro_euro_gdp_yoy": "1.20.42",
+"macro_euro_industrial_production_mom": "1.20.42",
+"macro_euro_lme_holding": "1.20.42",
+"macro_euro_lme_stock": "1.20.48",
+"macro_euro_manufacturing_pmi": "1.20.42",
+"macro_euro_ppi_mom": "1.20.42",
+"macro_euro_retail_sales_mom": "1.20.42",
+"macro_euro_sentix_investor_confidence": "1.20.42",
+"macro_euro_services_pmi": "1.20.42",
+"macro_euro_trade_balance": "1.20.42",
+"macro_euro_unemployment_rate_mom": "1.20.42",
+"macro_euro_zew_economic_sentiment": "1.20.42",
+"macro_lme_inventory": "1.20.48",
+"macro_usa_adp_employment": "1.20.42",
+"macro_usa_api_crude_stock": "1.20.42",
+"macro_usa_building_permits": "1.20.42",
+"macro_usa_business_inventories": "1.20.42",
+"macro_usa_cb_consumer_confidence": "1.20.42",
+"macro_usa_core_cpi_monthly": "1.20.42",
+"macro_usa_core_pce_price": "1.20.42",
+"macro_usa_core_ppi": "1.20.42",
+"macro_usa_cpi_monthly": "1.20.42",
+"macro_usa_current_account": "1.20.42",
+"macro_usa_durable_goods_orders": "1.20.42",
+"macro_usa_eia_crude_rate": "1.20.42",
+"macro_usa_exist_home_sales": "1.20.42",
+"macro_usa_export_price": "1.20.42",
+"macro_usa_factory_orders": "1.20.42",
+"macro_usa_gdp_monthly": "1.20.42",
+"macro_usa_house_price_index": "1.20.42",
+"macro_usa_house_starts": "1.20.42",
+"macro_usa_import_price": "1.20.42",
+"macro_usa_industrial_production": "1.20.42",
+"macro_usa_initial_jobless": "1.20.42",
+"macro_usa_ism_non_pmi": "1.20.42",
+"macro_usa_ism_pmi": "1.20.42",
+"macro_usa_job_cuts": "1.20.42",
+"macro_usa_lmci": "1.20.42",
+"macro_usa_michigan_consumer_sentiment": "1.20.42",
+"macro_usa_nahb_house_market_index": "1.20.42",
+"macro_usa_new_home_sales": "1.20.42",
+"macro_usa_nfib_small_business": "1.20.42",
+"macro_usa_non_farm": "1.20.42",
+"macro_usa_pending_home_sales": "1.20.42",
+"macro_usa_personal_spending": "1.20.42",
+"macro_usa_pmi": "1.20.42",
+"macro_usa_ppi": "1.20.42",
+"macro_usa_real_consumer_spending": "1.20.42",
+"macro_usa_retail_sales": "1.20.42",
+"macro_usa_rig_count": "1.20.42",
+"macro_usa_services_pmi": "1.20.42",
+"macro_usa_spcs20": "1.20.42",
+"macro_usa_trade_balance": "1.20.42",
+"macro_usa_unemployment_rate": "1.20.42",
+"online_value_artist": "1.20.45",
+"stock_concept_cons_futu": "1.20.54",
+"stock_esg_rate_sina": "1.20.41",
+"stock_financial_abstract_ths": "1.20.41",
+"stock_financial_benefit_ths": "1.20.41",
+"stock_financial_cash_ths": "1.20.41",
+"stock_financial_debt_ths": "1.20.41",
+"stock_hsgt_board_rank_em": "1.20.54",
+"stock_hsgt_hold_stock_em": "1.20.54",
+"stock_staq_net_stop": "1.20.54",
+"video_tv": "1.20.45",
+"video_variety_show": "1.20.45",
+"xincaifu_rank": "1.20.45"
+},
+"renamed": {
+"air_city_table": [
+"alternative_air_city_table_zhenqi",
+"1.20.45"
+],
+"air_quality_hebei": [
+"alternative_air_quality_hebei",
+"1.20.45"
+],
+"air_quality_hist": [
+"alternative_air_quality_hist_zhenqi",
+"1.20.45"
+],
+"air_quality_rank": [
+"alternative_air_quality_rank_zhenqi",
+"1.20.45"
+],
+"air_quality_watch_point": [
+"alternative_air_quality_watch_point_zhenqi",
+"1.20.45"
+],
+"amac_aoin_info": [
+"fund_aoin_info_amac",
+"1.20.45"
+],
+"amac_fund_abs": [
+"fund_abs_amac",
+"1.20.45"
+],
+"amac_fund_account_info": [
+"fund_account_info_amac",
+"1.20.45"
+],
+"amac_fund_info": [
+"fund_private_fund_info_amac",
+"1.20.45"
+],
+"amac_fund_sub_info": [
+"fund_private_sub_fund_info_amac",
+"1.20.45"
+],
+"amac_futures_info": [
+"fund_futures_info_amac",
+"1.20.45"
+],
+"amac_manager_cancelled_info": [
+"fund_manager_cancelled_info_amac",
+"1.20.45"
+],
+"amac_manager_classify_info": [
+"fund_manager_classify_info_amac",
+"1.20.45"
+],
+"amac_manager_info": [
+"fund_manager_info_amac",
+"1.20.45"
+],
+"amac_member_info": [
+"fund_member_info_amac",
+"1.20.45"
+],
+"amac_member_sub_info": [
+"fund_member_sub_info_amac",
+"1.20.45"
+],
+"amac_person_bond_org_list": [
+"fund_person_bond_org_list_amac",
+"1.20.45"
+],
+"amac_person_fund_org_list": [
+"fund_person_fund_org_list_amac",
+"1.20.45"
+],
+"amac_securities_info": [
+"fund_securities_info_amac",
+"1.20.45"
+],
+"article_epu_index": [
+"research_epu_index",
+"1.20.45"
+],
+"article_ff_crr": [
+"research_ff_crr",
+"1.20.45"
+],
+"article_rlab_rv": [
+"research_rv_rlab",
+"1.20.45"
+],
+"bank_fjcf_table_detail": [
+"alternative_bank_penalty_nfra",
+"1.20.48"
+],
+"bond_buy_back_hist_em": [
+"bond_repo_hist_em",
+"1.20.41"
+],
+"bond_china_close_return": [
+"bond_zh_close_yield_cm",
+"1.20.41"
+],
+"bond_china_close_return_map": [
+"bond_zh_close_yield_map_cm",
+"1.20.41"
+],
+"bond_conv_adj_logs_jsl": [
+"bond_cb_adj_logs_jsl",
+"1.5.94"
+],
+"bond_cov_comparison": [
+"bond_cb_comparison_em",
+"1.20.44"
+],
+"bond_cov_issue_cninfo": [
+"bond_cb_issue_cninfo",
+"1.20.44"
+],
+"bond_cov_jsl": [
+"bond_cb_jsl",
+"1.5.94"
+],
+"bond_cov_stock_issue_cninfo": [
+"bond_cb_conversion_cninfo",
+"1.20.44"
+],
+"bond_sh_buy_back_em": [
+"bond_repo_sh_em",
+"1.20.41"
+],
+"bond_sz_buy_back_em": [
+"bond_repo_sz_em",
+"1.20.41"
+],
+"bond_treasure_issue_cninfo": [
+"bond_treasury_issue_cninfo",
+"1.20.41"
+],
+"bond_zh_cov": [
+"bond_cb_list_em",
+"1.20.44"
+],
+"bond_zh_cov_info": [
+"bond_cb_info_em",
+"1.20.44"
+],
+"bond_zh_cov_info_ths": [
+"bond_cb_list_ths",
+"1.20.44"
+],
+"bond_zh_cov_value_analysis": [
+"bond_cb_value_analysis_em",
+"1.20.44"
+],
+"bond_zh_hs_cov_daily": [
+"bond_cb_daily_sina",
+"1.20.44"
+],
+"bond_zh_hs_cov_min": [
+"bond_cb_hist_min_em",
+"1.20.44"
+],
+"bond_zh_hs_cov_pre_min": [
+"bond_cb_pre_min_em",
+"1.20.44"
+],
+"bond_zh_hs_cov_spot": [
+"bond_cb_realtime_sina",
+"1.20.44"
+],
+"bond_zh_hs_daily": [
+"bond_zh_hs_daily_sina",
+"1.20.46"
+],
+"bond_zh_hs_spot": [
+"bond_zh_hs_realtime_sina",
+"1.20.44"
+],
+"bond_zh_us_rate": [
+"bond_zh_us_yield_em",
+"1.20.41"
+],
+"car_cpca_energy_sale": [
+"alternative_car_market_fuel_cpca",
+"1.10.50"
+],
+"car_energy_sale_cpca": [
+"alternative_car_market_fuel_cpca",
+"1.13.19"
+],
+"car_market_cate_cpca": [
+"alternative_car_market_cate_cpca",
+"1.20.45"
+],
+"car_market_country_cpca": [
+"alternative_car_market_country_cpca",
+"1.20.45"
+],
+"car_market_cpca": [
+"alternative_car_market_total_cpca",
+"1.13.15"
+],
+"car_market_fuel_cpca": [
+"alternative_car_market_fuel_cpca",
+"1.20.45"
+],
+"car_market_man_rank_cpca": [
+"alternative_car_market_man_rank_cpca",
+"1.20.45"
+],
+"car_market_segment_cpca": [
+"alternative_car_market_segment_cpca",
+"1.20.45"
+],
+"car_market_total_cpca": [
+"alternative_car_market_total_cpca",
+"1.20.45"
+],
+"crypto_js_spot": [
+"crypto_realtime_js",
+"1.20.44"
+],
+"currency_boc_safe": [
+"fx_central_parity_safe",
+"1.20.44"
+],
+"currency_boc_sina": [
+"fx_boc_rate_sina",
+"1.20.44"
+],
+"currency_pair_map": [
+"fx_pair_map_investing",
+"1.20.44"
+],
+"drewry_wci_index": [
+"index_wci_drewry",
+"1.20.45"
+],
+"forbes_rank": [
+"alternative_rank_forbes",
+"1.20.45"
+],
+"forex_hist_em": [
+"fx_hist_em",
+"1.20.44"
+],
+"forex_spot_em": [
+"fx_realtime_em",
+"1.20.44"
+],
+"fortune_rank": [
+"alternative_rank_fortune",
+"1.20.45"
+],
+"fred_md": [
+"research_fred_md",
+"1.20.45"
+],
+"fred_qd": [
+"research_fred_qd",
+"1.20.45"
+],
+"fund_em_aum": [
+"fund_aum_em",
+"1.4.86"
+],
+"fund_em_aum_hist": [
+"fund_aum_hist_em",
+"1.4.86"
+],
+"fund_em_aum_trend": [
+"fund_aum_trend_em",
+"1.4.86"
+],
+"fund_em_exchange_rank": [
+"fund_exchange_rank_em",
+"1.9.27"
+],
+"fund_em_hk_rank": [
+"fund_hk_rank_em",
+"1.9.27"
+],
+"fund_em_lcx_rank": [
+"fund_lcx_rank_em",
+"1.9.27"
+],
+"fund_em_money_rank": [
+"fund_money_rank_em",
+"1.9.27"
+],
+"fund_em_new_found": [
+"fund_new_found_em",
+"1.4.88"
+],
+"fund_em_open_fund_rank": [
+"fund_open_fund_rank_em",
+"1.5.18"
+],
+"fund_etf_fund_daily_em": [
+"fund_exchange_nav_em",
+"1.20.41"
+],
+"fund_etf_fund_info_em": [
+"fund_exchange_nav_hist_em",
+"1.20.41"
+],
+"fund_financial_fund_info_em": [
+"fund_financial_nav_hist_em",
+"1.20.41"
+],
+"fund_graded_fund_daily_em": [
+"fund_graded_nav_em",
+"1.20.41"
+],
+"fund_graded_fund_info_em": [
+"fund_graded_nav_hist_em",
+"1.20.41"
+],
+"fund_manager": [
+"fund_manager_em",
+"1.11.61"
+],
+"fund_money_fund_daily_em": [
+"fund_money_yield_em",
+"1.20.41"
+],
+"fund_money_fund_info_em": [
+"fund_money_yield_hist_em",
+"1.20.41"
+],
+"fund_open_fund_daily_em": [
+"fund_open_nav_em",
+"1.20.41"
+],
+"futures_comm_info": [
+"futures_fee_9qihuo",
+"1.20.44"
+],
+"futures_comm_js": [
+"futures_fee_js",
+"1.20.44"
+],
+"futures_czce_warehouse_receipt": [
+"futures_warehouse_receipt_czce",
+"1.17.81"
+],
+"futures_dce_position_rank": [
+"futures_position_rank_dce",
+"1.20.44"
+],
+"futures_dce_position_rank_other": [
+"futures_position_rank_other_dce",
+"1.20.44"
+],
+"futures_dce_warehouse_receipt": [
+"futures_warehouse_receipt_dce",
+"1.17.72"
+],
+"futures_fees_info": [
+"futures_fee_ctp",
+"1.20.44"
+],
+"futures_foreign_commodity_realtime": [
+"futures_foreign_realtime_sina",
+"1.20.44"
+],
+"futures_foreign_detail": [
+"futures_foreign_detail_sina",
+"1.20.46"
+],
+"futures_foreign_hist": [
+"futures_foreign_hist_sina",
+"1.20.46"
+],
+"futures_gfex_position_rank": [
+"futures_position_rank_gfex",
+"1.20.44"
+],
+"futures_gfex_warehouse_receipt": [
+"futures_warehouse_receipt_gfex",
+"1.20.44"
+],
+"futures_global_em": [
+"futures_global_realtime_em",
+"1.16.29"
+],
+"futures_global_spot_em": [
+"futures_global_realtime_em",
+"1.20.44"
+],
+"futures_hog_info": [
+"futures_hog_core",
+"1.12.95"
+],
+"futures_hog_rank": [
+"futures_hog_cost",
+"1.12.95"
+],
+"futures_pig_info": [
+"futures_hog_core",
+"1.7.23"
+],
+"futures_pig_rank": [
+"futures_hog_cost",
+"1.7.23"
+],
+"futures_rule": [
+"futures_trading_rule_gtja",
+"1.20.44"
+],
+"futures_sgx_daily": [
+"futures_settlement_price_sgx",
+"1.11.64"
+],
+"futures_shfe_warehouse_receipt": [
+"futures_warehouse_receipt_shfe",
+"1.20.44"
+],
+"futures_zh_minute_sina": [
+"futures_zh_min_sina",
+"1.20.45"
+],
+"futures_zh_realtime": [
+"futures_zh_realtime_sina",
+"1.20.44"
+],
+"futures_zh_spot": [
+"futures_zh_contract_realtime_sina",
+"1.20.44"
+],
+"game_hot_rank_taptap": [
+"alternative_game_hot_rank_taptap",
+"1.20.45"
+],
+"get_bond_bank": [
+"bond_debt_nafmii",
+"1.12.93"
+],
+"get_cffex_daily": [
+"futures_daily_cffex",
+"1.20.31"
+],
+"get_cffex_rank_table": [
+"futures_rank_table_cffex",
+"1.20.31"
+],
+"get_czce_daily": [
+"futures_daily_czce",
+"1.20.31"
+],
+"get_czce_rank_table": [
+"futures_rank_table_czce",
+"1.17.81"
+],
+"get_dce_daily": [
+"futures_daily_dce",
+"1.20.31"
+],
+"get_dce_rank_table": [
+"futures_rank_table_dce",
+"1.20.31"
+],
+"get_futures_daily": [
+"futures_daily",
+"1.20.31"
+],
+"get_gfex_daily": [
+"futures_daily_gfex",
+"1.20.31"
+],
+"get_ine_daily": [
+"futures_daily_ine",
+"1.20.31"
+],
+"get_rank_sum": [
+"futures_rank_sum",
+"1.20.31"
+],
+"get_rank_sum_daily": [
+"futures_rank_sum_daily",
+"1.20.31"
+],
+"get_rank_table_czce": [
+"futures_rank_table_czce",
+"1.20.31"
+],
+"get_receipt": [
+"futures_receipt",
+"1.20.31"
+],
+"get_roll_yield": [
+"futures_roll_yield",
+"1.20.31"
+],
+"get_roll_yield_bar": [
+"futures_roll_yield_bar",
+"1.20.31"
+],
+"get_shfe_daily": [
+"futures_daily_shfe",
+"1.20.31"
+],
+"get_shfe_rank_table": [
+"futures_rank_table_shfe",
+"1.20.31"
+],
+"get_us_stock_name": [
+"stock_us_name_sina",
+"1.20.31"
+],
+"hf_sp_500": [
+"index_us_sp500_min",
+"1.20.45"
+],
+"high_freq_sp500": [
+"index_us_sp500_min",
+"1.20.48"
+],
+"hurun_rank": [
+"alternative_rank_hurun",
+"1.20.45"
+],
+"index_ai_cx": [
+"macro_china_ai_cx",
+"1.20.48"
+],
+"index_analysis_sw": [
+"index_analysis_daily_sw",
+"1.7.82"
+],
+"index_awpr_cx": [
+"macro_china_awpr_cx",
+"1.20.48"
+],
+"index_bei_cx": [
+"macro_china_bei_cx",
+"1.20.48"
+],
+"index_bloomberg_billionaires_hist": [
+"alternative_billionaires_hist_bloomberg",
+"1.20.45"
+],
+"index_cci_cx": [
+"macro_china_cci_cx",
+"1.20.48"
+],
+"index_cflp_price": [
+"index_price_cflp",
+"1.13.88"
+],
+"index_cflp_volume": [
+"index_volume_cflp",
+"1.13.88"
+],
+"index_ci_cx": [
+"macro_china_ci_cx",
+"1.20.48"
+],
+"index_csindex_all": [
+"index_all_csindex",
+"1.20.44"
+],
+"index_hog_spot_price": [
+"futures_hog_spot_price",
+"1.20.45"
+],
+"index_inner_quote_sugar_msweet": [
+"index_inner_quota_sugar_msweet",
+"1.20.41"
+],
+"index_li_cx": [
+"macro_china_li_cx",
+"1.20.48"
+],
+"index_neaw_cx": [
+"macro_china_neaw_cx",
+"1.20.48"
+],
+"index_neei_cx": [
+"macro_china_neei_cx",
+"1.20.48"
+],
+"index_nei_cx": [
+"macro_china_nei_cx",
+"1.20.48"
+],
+"index_outer_quote_sugar_msweet": [
+"index_outer_quota_sugar_msweet",
+"1.20.41"
+],
+"index_pmi_com_cx": [
+"macro_china_pmi_composite_cx",
+"1.20.48"
+],
+"index_pmi_man_cx": [
+"macro_china_pmi_manufacturing_cx",
+"1.20.48"
+],
+"index_pmi_ser_cx": [
+"macro_china_pmi_services_cx",
+"1.20.48"
+],
+"index_qli_cx": [
+"macro_china_qli_cx",
+"1.20.48"
+],
+"index_realtime_fund_sw": [
+"index_spot_fund_sw",
+"1.20.44"
+],
+"index_realtime_sw": [
+"index_spot_sw",
+"1.20.44"
+],
+"index_ti_cx": [
+"macro_china_ti_cx",
+"1.20.48"
+],
+"index_us_stock_sina": [
+"index_us_daily_sina",
+"1.20.45"
+],
+"index_zh_a_hist": [
+"index_zh_hist_em",
+"1.20.44"
+],
+"index_zh_a_hist_min_em": [
+"index_zh_hist_min_em",
+"1.20.44"
+],
+"indicator_rv_input_futures_sina": [
+"research_rv_input_futures_sina",
+"1.20.48"
+],
+"indicator_rv_input_stock_em": [
+"research_rv_input_stock_em",
+"1.20.48"
+],
+"indicator_yz_rv": [
+"research_yz_rv",
+"1.20.48"
+],
+"macro_australia_cpi_quarterly": [
+"macro_australia_cpi_qoq",
+"1.20.42"
+],
+"macro_australia_cpi_yearly": [
+"macro_australia_cpi_yoy",
+"1.20.42"
+],
+"macro_australia_ppi_quarterly": [
+"macro_australia_ppi_qoq",
+"1.20.42"
+],
+"macro_australia_retail_rate_monthly": [
+"macro_australia_retail_sales_mom",
+"1.20.42"
+],
+"macro_canada_core_cpi_monthly": [
+"macro_canada_core_cpi_mom",
+"1.20.42"
+],
+"macro_canada_core_cpi_yearly": [
+"macro_canada_core_cpi_yoy",
+"1.20.42"
+],
+"macro_canada_cpi_monthly": [
+"macro_canada_cpi_mom",
+"1.20.42"
+],
+"macro_canada_cpi_yearly": [
+"macro_canada_cpi_yoy",
+"1.20.42"
+],
+"macro_canada_gdp_monthly": [
+"macro_canada_gdp_mom",
+"1.20.42"
+],
+"macro_canada_new_house_rate": [
+"macro_canada_house_starts",
+"1.20.42"
+],
+"macro_canada_retail_rate_monthly": [
+"macro_canada_retail_sales_mom",
+"1.20.42"
+],
+"macro_china_au_report": [
+"spot_sge_report_js",
+"1.20.48"
+],
+"macro_china_czsr": [
+"macro_china_fiscal_revenue",
+"1.20.42"
+],
+"macro_china_foreign_exchange_gold": [
+"macro_china_fx_gold_sina",
+"1.20.42"
+],
+"macro_china_fx_gold": [
+"macro_china_fx_gold_em",
+"1.20.42"
+],
+"macro_china_gdzctz": [
+"macro_china_fixed_asset_investment",
+"1.20.42"
+],
+"macro_china_gyzjz": [
+"macro_china_industrial_value_added",
+"1.20.42"
+],
+"macro_china_hgjck": [
+"macro_china_customs_trade",
+"1.20.42"
+],
+"macro_china_hibor": [
+"interest_rate_hibor_js",
+"1.20.48"
+],
+"macro_china_hk_cpi_ratio": [
+"macro_china_hk_cpi_yoy",
+"1.20.42"
+],
+"macro_china_hk_gbp": [
+"macro_china_hk_gdp",
+"1.20.42"
+],
+"macro_china_hk_gbp_ratio": [
+"macro_china_hk_gdp_yoy",
+"1.20.42"
+],
+"macro_china_hk_market_info": [
+"interest_rate_hibor_js",
+"1.20.42"
+],
+"macro_china_hk_ppi": [
+"macro_china_hk_ppi_yoy",
+"1.20.42"
+],
+"macro_china_hk_rate_of_unemployment": [
+"macro_china_hk_unemployment_rate",
+"1.20.42"
+],
+"macro_china_hk_trade_diff_ratio": [
+"macro_china_hk_trade_balance_yoy",
+"1.20.42"
+],
+"macro_china_lpr": [
+"interest_rate_lpr_em",
+"1.20.48"
+],
+"macro_china_market_margin_sh": [
+"stock_margin_sse_js",
+"1.20.48"
+],
+"macro_china_market_margin_sz": [
+"stock_margin_szse_js",
+"1.20.48"
+],
+"macro_china_money_supply": [
+"macro_china_money_supply_em",
+"1.20.42"
+],
+"macro_china_qyspjg": [
+"macro_china_cgpi",
+"1.20.42"
+],
+"macro_china_shibor": [
+"interest_rate_shibor_js",
+"1.20.48"
+],
+"macro_china_shibor_all": [
+"interest_rate_shibor_js",
+"1.20.42"
+],
+"macro_china_shrzgm": [
+"macro_china_social_financing",
+"1.20.42"
+],
+"macro_china_supply_of_money": [
+"macro_china_money_supply_sina",
+"1.20.42"
+],
+"macro_china_swap_rate": [
+"interest_rate_swap_cm",
+"1.20.48"
+],
+"macro_china_wbck": [
+"macro_china_deposit",
+"1.20.42"
+],
+"macro_china_whxd": [
+"macro_china_fx_loan",
+"1.20.42"
+],
+"macro_china_xfzxx": [
+"macro_china_consumer_confidence",
+"1.20.42"
+],
+"macro_cnbs": [
+"macro_china_leverage_nifd",
+"1.20.45"
+],
+"macro_cons_gold": [
+"fund_gold_etf_holding_js",
+"1.20.42"
+],
+"macro_cons_gold_amount": [
+"fund_gold_etf_holding_js",
+"1.8.38"
+],
+"macro_cons_gold_change": [
+"fund_gold_etf_holding_js",
+"1.8.38"
+],
+"macro_cons_gold_volume": [
+"fund_gold_etf_holding_js",
+"1.8.38"
+],
+"macro_cons_silver": [
+"fund_silver_etf_holding_js",
+"1.20.42"
+],
+"macro_cons_silver_amount": [
+"fund_silver_etf_holding_js",
+"1.8.38"
+],
+"macro_cons_silver_change": [
+"fund_silver_etf_holding_js",
+"1.8.38"
+],
+"macro_cons_silver_volume": [
+"fund_silver_etf_holding_js",
+"1.8.38"
+],
+"macro_fx_sentiment": [
+"fx_sentiment_js",
+"1.20.44"
+],
+"macro_germany_cpi_monthly": [
+"macro_germany_cpi_mom",
+"1.20.42"
+],
+"macro_germany_cpi_yearly": [
+"macro_germany_cpi_yoy",
+"1.20.42"
+],
+"macro_germany_retail_sale_monthly": [
+"macro_germany_retail_sales_mom",
+"1.20.42"
+],
+"macro_germany_retail_sale_yearly": [
+"macro_germany_retail_sales_yoy",
+"1.20.42"
+],
+"macro_global_sox_index": [
+"index_us_sox_em",
+"1.20.48"
+],
+"macro_gold_etf_holding": [
+"fund_gold_etf_holding_js",
+"1.20.48"
+],
+"macro_info_ws": [
+"macro_calendar_ws",
+"1.20.42"
+],
+"macro_japan_core_cpi_yearly": [
+"macro_japan_core_cpi_yoy",
+"1.20.42"
+],
+"macro_japan_cpi_yearly": [
+"macro_japan_cpi_yoy",
+"1.20.42"
+],
+"macro_japan_head_indicator": [
+"macro_japan_leading_indicator",
+"1.20.42"
+],
+"macro_rmb_deposit": [
+"macro_china_rmb_deposit_ths",
+"1.20.45"
+],
+"macro_rmb_loan": [
+"macro_china_rmb_loan_ths",
+"1.20.45"
+],
+"macro_silver_etf_holding": [
+"fund_silver_etf_holding_js",
+"1.20.48"
+],
+"macro_stock_finance": [
+"macro_china_stock_financing_ths",
+"1.20.45"
+],
+"macro_swiss_cpi_yearly": [
+"macro_swiss_cpi_yoy",
+"1.20.42"
+],
+"macro_swiss_gbd_bank_rate": [
+"macro_swiss_bank_rate",
+"1.20.42"
+],
+"macro_swiss_gbd_yearly": [
+"macro_swiss_gdp_yoy",
+"1.20.42"
+],
+"macro_swiss_gdp_quarterly": [
+"macro_swiss_gdp_qoq",
+"1.20.42"
+],
+"macro_uk_core_cpi_monthly": [
+"macro_uk_core_cpi_mom",
+"1.20.42"
+],
+"macro_uk_core_cpi_yearly": [
+"macro_uk_core_cpi_yoy",
+"1.20.42"
+],
+"macro_uk_cpi_monthly": [
+"macro_uk_cpi_mom",
+"1.20.42"
+],
+"macro_uk_cpi_yearly": [
+"macro_uk_cpi_yoy",
+"1.20.42"
+],
+"macro_uk_gdp_quarterly": [
+"macro_uk_gdp_qoq",
+"1.20.42"
+],
+"macro_uk_gdp_yearly": [
+"macro_uk_gdp_yoy",
+"1.20.42"
+],
+"macro_uk_halifax_monthly": [
+"macro_uk_halifax_mom",
+"1.20.42"
+],
+"macro_uk_halifax_yearly": [
+"macro_uk_halifax_yoy",
+"1.20.42"
+],
+"macro_uk_retail_monthly": [
+"macro_uk_retail_sales_mom",
+"1.20.42"
+],
+"macro_uk_retail_yearly": [
+"macro_uk_retail_sales_yoy",
+"1.20.42"
+],
+"macro_uk_rightmove_monthly": [
+"macro_uk_rightmove_mom",
+"1.20.42"
+],
+"macro_uk_rightmove_yearly": [
+"macro_uk_rightmove_yoy",
+"1.20.42"
+],
+"macro_usa_cftc_c_holding": [
+"futures_cftc_commodity_noncommercial_holding_js",
+"1.20.42"
+],
+"macro_usa_cftc_commodity_commercial_holding": [
+"futures_cftc_commodity_commercial_holding_js",
+"1.20.48"
+],
+"macro_usa_cftc_commodity_noncommercial_holding": [
+"futures_cftc_commodity_noncommercial_holding_js",
+"1.20.48"
+],
+"macro_usa_cftc_currency_commercial_holding": [
+"futures_cftc_currency_commercial_holding_js",
+"1.20.48"
+],
+"macro_usa_cftc_currency_noncommercial_holding": [
+"futures_cftc_currency_noncommercial_holding_js",
+"1.20.48"
+],
+"macro_usa_cftc_merchant_currency_holding": [
+"futures_cftc_currency_commercial_holding_js",
+"1.20.42"
+],
+"macro_usa_cftc_merchant_goods_holding": [
+"futures_cftc_commodity_commercial_holding_js",
+"1.20.42"
+],
+"macro_usa_cftc_nc_holding": [
+"futures_cftc_currency_noncommercial_holding_js",
+"1.20.42"
+],
+"macro_usa_cme_merchant_goods_holding": [
+"futures_cme_metal_volume_js",
+"1.20.42"
+],
+"macro_usa_cme_metal_volume": [
+"futures_cme_metal_volume_js",
+"1.20.48"
+],
+"macro_usa_crude_inner": [
+"macro_usa_crude_production",
+"1.20.42"
+],
+"macro_usa_phs": [
+"macro_usa_pending_home_sales_em",
+"1.20.42"
+],
+"match_main_contract": [
+"futures_main_contract_sina",
+"1.20.45"
+],
+"migration_area_baidu": [
+"alternative_migration_area_baidu",
+"1.20.48"
+],
+"migration_scale_baidu": [
+"alternative_migration_scale_baidu",
+"1.20.48"
+],
+"movie_boxoffice_cinema_daily": [
+"alternative_movie_boxoffice_cinema_daily_yien",
+"1.20.45"
+],
+"movie_boxoffice_daily": [
+"alternative_movie_boxoffice_daily_yien",
+"1.20.45"
+],
+"movie_boxoffice_monthly": [
+"alternative_movie_boxoffice_monthly_yien",
+"1.20.45"
+],
+"movie_boxoffice_realtime": [
+"alternative_movie_boxoffice_realtime_yien",
+"1.20.45"
+],
+"movie_boxoffice_yearly": [
+"alternative_movie_boxoffice_yearly_yien",
+"1.20.45"
+],
+"movie_boxoffice_yearly_first_week": [
+"alternative_movie_boxoffice_yearly_first_week_yien",
+"1.20.45"
+],
+"news_cctv": [
+"alternative_news_cctv",
+"1.20.45"
+],
+"news_economic_baidu": [
+"macro_calendar_baidu",
+"1.20.41"
+],
+"news_report_time_baidu": [
+"stock_calendar_report_baidu",
+"1.20.41"
+],
+"news_trade_notify_dividend_baidu": [
+"stock_calendar_dividend_baidu",
+"1.20.41"
+],
+"news_trade_notify_suspend_baidu": [
+"stock_calendar_suspend_baidu",
+"1.20.41"
+],
+"nlp_answer": [
+"alternative_nlp_answer",
+"1.20.48"
+],
+"option_300etf_min_qvix": [
+"index_option_300etf_min_qvix",
+"1.11.39"
+],
+"option_300etf_qvix": [
+"index_option_300etf_qvix",
+"1.11.39"
+],
+"option_50etf_min_qvix": [
+"index_option_50etf_min_qvix",
+"1.11.39"
+],
+"option_50etf_qvix": [
+"index_option_50etf_qvix",
+"1.11.39"
+],
+"option_cffex_hs300_spot_sina": [
+"option_cffex_hs300_realtime_sina",
+"1.20.44"
+],
+"option_cffex_sz50_spot_sina": [
+"option_cffex_sz50_realtime_sina",
+"1.20.44"
+],
+"option_cffex_zz1000_spot_sina": [
+"option_cffex_zz1000_realtime_sina",
+"1.20.44"
+],
+"option_comm_info": [
+"option_fee_9qihuo",
+"1.20.44"
+],
+"option_comm_symbol": [
+"option_fee_symbol_9qihuo",
+"1.20.44"
+],
+"option_current_em": [
+"option_realtime_em",
+"1.20.44"
+],
+"option_czce_daily": [
+"option_hist_czce",
+"1.17.68"
+],
+"option_czce_hist": [
+"option_hist_yearly_czce",
+"1.17.68"
+],
+"option_dce_daily": [
+"option_hist_dce",
+"1.17.68"
+],
+"option_finance_minute_sina": [
+"option_finance_min_sina",
+"1.20.45"
+],
+"option_finance_sse_underlying": [
+"option_finance_underlying_sse",
+"1.20.44"
+],
+"option_gfex_daily": [
+"option_hist_gfex",
+"1.17.68"
+],
+"option_gfex_vol_daily": [
+"option_vol_gfex",
+"1.17.68"
+],
+"option_minute_em": [
+"option_min_em",
+"1.20.45"
+],
+"option_shfe_daily": [
+"option_hist_shfe",
+"1.17.68"
+],
+"option_sse_minute_sina": [
+"option_sse_min_sina",
+"1.20.45"
+],
+"option_sse_spot_price_sina": [
+"option_sse_realtime_sina",
+"1.20.44"
+],
+"option_sse_underlying_spot_price_sina": [
+"option_sse_underlying_realtime_sina",
+"1.20.44"
+],
+"qdii_a_index_jsl": [
+"fund_qdii_a_index_jsl",
+"1.20.48"
+],
+"qdii_e_comm_jsl": [
+"fund_qdii_e_commodity_jsl",
+"1.20.44"
+],
+"qdii_e_commodity_jsl": [
+"fund_qdii_e_commodity_jsl",
+"1.20.48"
+],
+"qdii_e_index_jsl": [
+"fund_qdii_e_index_jsl",
+"1.20.48"
+],
+"rate_interbank": [
+"interest_rate_interbank_em",
+"1.20.45"
+],
+"reits_hist_em": [
+"fund_reits_hist_em",
+"1.20.44"
+],
+"reits_hist_min_em": [
+"fund_reits_hist_min_em",
+"1.20.44"
+],
+"reits_realtime_em": [
+"fund_reits_spot_em",
+"1.20.44"
+],
+"repo_rate_hist": [
+"interest_rate_repo_hist_cm",
+"1.20.45"
+],
+"repo_rate_query": [
+"interest_rate_repo_query_cm",
+"1.20.45"
+],
+"rv_from_futures_zh_minute_sina": [
+"research_rv_input_futures_sina",
+"1.20.45"
+],
+"rv_from_stock_zh_a_hist_min_em": [
+"research_rv_input_stock_em",
+"1.20.45"
+],
+"spot_goods": [
+"index_commodity_price_sina",
+"1.20.45"
+],
+"spot_quotations_sge": [
+"spot_realtime_sge",
+"1.20.44"
+],
+"stock_concept_fund_flow_hist": [
+"stock_fund_flow_concept_hist_em",
+"1.20.45"
+],
+"stock_em_analyst_detail": [
+"stock_analyst_detail_em",
+"1.5.25"
+],
+"stock_em_analyst_rank": [
+"stock_analyst_rank_em",
+"1.5.25"
+],
+"stock_em_comment": [
+"stock_comment_em",
+"1.5.26"
+],
+"stock_em_ggcg": [
+"stock_ggcg_em",
+"1.5.52"
+],
+"stock_em_gpzy_distribute_statistics_bank": [
+"stock_gpzy_distribute_statistics_bank_em",
+"1.6.86"
+],
+"stock_em_gpzy_distribute_statistics_company": [
+"stock_gpzy_distribute_statistics_company_em",
+"1.6.86"
+],
+"stock_em_gpzy_industry_data": [
+"stock_gpzy_industry_data_em",
+"1.5.34"
+],
+"stock_em_gpzy_pledge_ratio": [
+"stock_gpzy_pledge_ratio_em",
+"1.5.10"
+],
+"stock_em_gpzy_pledge_ratio_detail": [
+"stock_gpzy_pledge_ratio_detail_em",
+"1.5.12"
+],
+"stock_em_gpzy_profile": [
+"stock_gpzy_profile_em",
+"1.5.10"
+],
+"stock_em_lrb": [
+"stock_lrb_em",
+"1.5.53"
+],
+"stock_em_pg": [
+"stock_pg_em",
+"1.8.3"
+],
+"stock_em_qbzf": [
+"stock_qbzf_em",
+"1.8.3"
+],
+"stock_em_qsjy": [
+"stock_qsjy_em",
+"1.7.27"
+],
+"stock_em_sy_hy_list": [
+"stock_sy_hy_em",
+"1.10.36"
+],
+"stock_em_sy_jz_list": [
+"stock_sy_jz_em",
+"1.10.36"
+],
+"stock_em_sy_list": [
+"stock_sy_em",
+"1.10.36"
+],
+"stock_em_sy_profile": [
+"stock_sy_profile_em",
+"1.10.36"
+],
+"stock_em_sy_yq_list": [
+"stock_sy_yq_em",
+"1.10.36"
+],
+"stock_em_xjll": [
+"stock_xjll_em",
+"1.5.53"
+],
+"stock_em_yzxdr": [
+"stock_yzxdr_em",
+"1.5.46"
+],
+"stock_em_zcfz": [
+"stock_zcfz_em",
+"1.5.53"
+],
+"stock_financial_abstract_new_ths": [
+"stock_financial_key_indicator_ths",
+"1.20.41"
+],
+"stock_financial_benefit_new_ths": [
+"stock_profit_sheet_ths",
+"1.20.41"
+],
+"stock_financial_cash_new_ths": [
+"stock_cash_flow_sheet_ths",
+"1.20.41"
+],
+"stock_financial_debt_new_ths": [
+"stock_balance_sheet_ths",
+"1.20.41"
+],
+"stock_fund_flow_big_deal": [
+"stock_fund_flow_big_deal_ths",
+"1.20.45"
+],
+"stock_fund_flow_concept": [
+"stock_fund_flow_concept_ths",
+"1.20.45"
+],
+"stock_fund_flow_individual": [
+"stock_fund_flow_individual_ths",
+"1.20.45"
+],
+"stock_fund_flow_industry": [
+"stock_fund_flow_industry_ths",
+"1.20.45"
+],
+"stock_hk_daily": [
+"stock_hk_daily_sina",
+"1.20.46"
+],
+"stock_hk_eniu_indicator": [
+"stock_hk_indicator_eniu",
+"1.9.37"
+],
+"stock_hk_hist": [
+"stock_hk_hist_em",
+"1.20.46"
+],
+"stock_hk_index_daily_em": [
+"index_hk_daily_em",
+"1.20.44"
+],
+"stock_hk_index_daily_sina": [
+"index_hk_daily_sina",
+"1.20.44"
+],
+"stock_hk_index_spot_em": [
+"index_hk_spot_em",
+"1.20.44"
+],
+"stock_hk_index_spot_sina": [
+"index_hk_spot_sina",
+"1.20.44"
+],
+"stock_hk_spot": [
+"stock_hk_spot_sina",
+"1.20.46"
+],
+"stock_hold_change_cninfo": [
+"stock_share_change_all_cninfo",
+"1.20.41"
+],
+"stock_individual_fund_flow": [
+"stock_fund_flow_individual_hist_em",
+"1.20.45"
+],
+"stock_individual_fund_flow_rank": [
+"stock_fund_flow_individual_rank_em",
+"1.20.45"
+],
+"stock_info_cjzc_em": [
+"stock_news_cjzc_em",
+"1.20.41"
+],
+"stock_info_global_cls": [
+"stock_news_global_cls",
+"1.20.41"
+],
+"stock_info_global_em": [
+"stock_news_global_em",
+"1.20.41"
+],
+"stock_info_global_futu": [
+"stock_news_global_futu",
+"1.20.41"
+],
+"stock_info_global_sina": [
+"stock_news_global_sina",
+"1.20.41"
+],
+"stock_info_global_ths": [
+"stock_news_global_ths",
+"1.20.41"
+],
+"stock_js_weibo_nlp_time": [
+"alternative_weibo_stock_time_js",
+"1.20.45"
+],
+"stock_js_weibo_report": [
+"alternative_weibo_stock_report_js",
+"1.20.45"
+],
+"stock_main_fund_flow": [
+"stock_fund_flow_main_em",
+"1.20.45"
+],
+"stock_market_fund_flow": [
+"stock_fund_flow_market_em",
+"1.20.45"
+],
+"stock_price_js": [
+"stock_target_price_js",
+"1.20.41"
+],
+"stock_profit_forecast": [
+"stock_profit_forecast_em",
+"1.9.7"
+],
+"stock_rank_forecast_cninfo": [
+"stock_rating_forecast_cninfo",
+"1.20.41"
+],
+"stock_restricted_shares": [
+"stock_restricted_release_queue_sina",
+"1.8.23"
+],
+"stock_sector_fund_flow_hist": [
+"stock_fund_flow_sector_hist_em",
+"1.20.45"
+],
+"stock_sector_fund_flow_rank": [
+"stock_fund_flow_sector_rank_em",
+"1.20.45"
+],
+"stock_sector_fund_flow_summary": [
+"stock_fund_flow_sector_summary_em",
+"1.20.45"
+],
+"stock_sina_lhb_detail_daily": [
+"stock_lhb_detail_daily_sina",
+"1.7.99"
+],
+"stock_sina_lhb_ggtj": [
+"stock_lhb_ggtj_sina",
+"1.7.99"
+],
+"stock_sina_lhb_jgmx": [
+"stock_lhb_jgmx_sina",
+"1.7.99"
+],
+"stock_sina_lhb_jgzz": [
+"stock_lhb_jgzz_sina",
+"1.7.99"
+],
+"stock_sina_lhb_yytj": [
+"stock_lhb_yytj_sina",
+"1.7.99"
+],
+"stock_sse_deal_daily": [
+"stock_deal_daily_sse",
+"1.20.44"
+],
+"stock_sse_summary": [
+"stock_summary_sse",
+"1.20.44"
+],
+"stock_szse_area_summary": [
+"stock_area_summary_szse",
+"1.20.44"
+],
+"stock_szse_sector_summary": [
+"stock_sector_summary_szse",
+"1.20.44"
+],
+"stock_szse_summary": [
+"stock_summary_szse",
+"1.20.44"
+],
+"stock_telegraph_cls": [
+"stock_news_global_cls",
+"1.12.91"
+],
+"stock_us_daily": [
+"stock_us_daily_sina",
+"1.20.46"
+],
+"stock_us_hist": [
+"stock_us_hist_em",
+"1.20.46"
+],
+"stock_us_spot": [
+"stock_us_spot_sina",
+"1.20.46"
+],
+"stock_zh_a_cdr_daily": [
+"stock_zh_a_cdr_daily_sina",
+"1.20.46"
+],
+"stock_zh_a_daily": [
+"stock_zh_a_daily_sina",
+"1.20.46"
+],
+"stock_zh_a_hist": [
+"stock_zh_a_hist_em",
+"1.20.46"
+],
+"stock_zh_a_minute": [
+"stock_zh_a_hist_min_sina",
+"1.20.46"
+],
+"stock_zh_a_spot": [
+"stock_zh_a_spot_sina",
+"1.20.46"
+],
+"stock_zh_a_tick_tx_js": [
+"stock_zh_a_tick_tx",
+"1.20.44"
+],
+"stock_zh_ah_daily": [
+"stock_zh_ah_daily_tx",
+"1.20.46"
+],
+"stock_zh_ah_name": [
+"stock_zh_ah_name_tx",
+"1.20.46"
+],
+"stock_zh_ah_spot": [
+"stock_zh_ah_spot_tx",
+"1.20.46"
+],
+"stock_zh_b_daily": [
+"stock_zh_b_daily_sina",
+"1.20.46"
+],
+"stock_zh_b_minute": [
+"stock_zh_b_hist_min_sina",
+"1.20.46"
+],
+"stock_zh_b_spot": [
+"stock_zh_b_spot_sina",
+"1.20.46"
+],
+"stock_zh_index_daily": [
+"index_zh_daily_sina",
+"1.20.44"
+],
+"stock_zh_index_daily_em": [
+"index_zh_daily_em",
+"1.20.44"
+],
+"stock_zh_index_daily_tx": [
+"index_zh_daily_tx",
+"1.20.44"
+],
+"stock_zh_index_hist_csindex": [
+"index_hist_csindex",
+"1.20.44"
+],
+"stock_zh_index_spot": [
+"index_zh_spot_sina",
+"1.12.11"
+],
+"stock_zh_index_spot_em": [
+"index_zh_spot_em",
+"1.20.44"
+],
+"stock_zh_index_spot_sina": [
+"index_zh_spot_sina",
+"1.20.44"
+],
+"stock_zh_index_value_csindex": [
+"index_value_csindex",
+"1.20.44"
+],
+"stock_zh_kcb_daily": [
+"stock_zh_kcb_daily_sina",
+"1.20.46"
+],
+"stock_zh_kcb_spot": [
+"stock_zh_kcb_spot_sina",
+"1.20.46"
+],
+"sunrise_daily": [
+"alternative_sunrise_daily_tad",
+"1.20.45"
+],
+"sunrise_monthly": [
+"alternative_sunrise_monthly_tad",
+"1.20.45"
+],
+"sw_index_first_info": [
+"index_first_info_sw",
+"1.20.45"
+],
+"sw_index_second_info": [
+"index_second_info_sw",
+"1.20.45"
+],
+"sw_index_third_cons": [
+"index_third_cons_sw",
+"1.20.45"
+],
+"sw_index_third_info": [
+"index_third_info_sw",
+"1.20.45"
+],
+"tool_trade_date_hist_sina": [
+"calendar_trade_date_hist_sina",
+"1.20.45"
+],
+"volatility_yz_rv": [
+"research_yz_rv",
+"1.20.45"
+]
+}
+}

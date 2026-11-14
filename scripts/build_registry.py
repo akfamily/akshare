@@ -620,6 +620,83 @@ def build(repo_root: pathlib.Path) -> str:
 
 
 OUTPUT_RELPATH = pathlib.Path("akshare") / "data" / "interfaces.json"
+RENAMES_RELPATH = pathlib.Path("akshare") / "data" / "renames.json"
+REMOVED_RELPATH = pathlib.Path("scripts") / "registry_removed.json"
+RENAME_ROW_RE = re.compile(
+    r"^\| *(\d+\.\d+\.\d+) *\| *(\w+) *\| *(\w+) *\| *\d{8} *\|", re.M
+)
+
+
+def build_renames(
+    changelog_text: str, removed: Dict[str, str], exports: Dict[str, str]
+) -> Tuple[Dict, List[str]]:
+    """
+    由接口更名一览表与已移除名单生成“旧名 -> 去向”的对照，供旧名被调用时给出提示。
+
+    多次改名的旧名指向最终名称；改名后又被移除的归入 removed；最终名称既不存在
+    也不在已移除名单里的历史记录（一览表早年的条目）不收录，避免给出错误的提示。
+
+    :param changelog_text: docs/changelog.md 与 changelog_archive.md 的文本
+    :param removed: 接口名 -> 移除的版本
+    :param exports: 现有接口名 -> 模块路径
+    :return: (对照数据，问题列表)
+    """
+    problems = []
+    for name in sorted(set(removed) & set(exports)):
+        problems.append(f"registry_removed.json 中的 {name} 仍是现有接口")
+    steps: Dict[str, Tuple[str, str]] = {}
+    for version, old, new in RENAME_ROW_RE.findall(changelog_text):
+        key = tuple(int(part) for part in version.split("."))
+        if old not in steps or key > steps[old][2]:
+            steps[old] = (new, version, key)
+    renamed: Dict[str, List[str]] = {}
+    gone = dict(removed)
+    for old in sorted(steps):
+        if old in exports:
+            continue
+        target, version = steps[old][0], steps[old][1]
+        seen = {old}
+        while target in steps and target not in exports and target not in seen:
+            seen.add(target)
+            target = steps[target][0]
+        if target in exports:
+            renamed[old] = [target, version]
+        elif target in removed:
+            gone.setdefault(old, removed[target])
+    return {
+        "renamed": renamed,
+        "removed": {name: gone[name] for name in sorted(gone)},
+    }, problems
+
+
+def serialize_renames(data: Dict) -> str:
+    """
+    确定性序列化改名对照。
+
+    :param data: build_renames 的结果
+    :return: JSON 文本
+    """
+    return json.dumps(data, ensure_ascii=False, sort_keys=True, indent=0) + "\n"
+
+
+def load_renames(repo_root: pathlib.Path, exports: Dict[str, str]):
+    """
+    读取更新日志与已移除名单，生成改名对照的文本。
+
+    :param repo_root: 仓库根目录
+    :param exports: 现有接口名 -> 模块路径
+    :return: (JSON 文本，问题列表)
+    """
+    docs = repo_root / "docs"
+    text = (docs / "changelog.md").read_text(encoding="utf-8")
+    archive = docs / "changelog_archive.md"
+    if archive.exists():
+        text += archive.read_text(encoding="utf-8")
+    removed = json.loads((repo_root / REMOVED_RELPATH).read_text(encoding="utf-8"))
+    data, problems = build_renames(text, removed["removed"], exports)
+    return serialize_renames(data), problems
+
+
 BASELINE_RELPATH = pathlib.Path("scripts") / "registry_baseline.json"
 
 
@@ -665,6 +742,8 @@ def main() -> int:
     # 对照表里出现已删除或写错的接口名时，写入模式也要失败：否则 pre-commit 会
     # 悄悄生成一份丢掉这些条目的 interfaces.json，过期的对照表永远不会被发现
     _, alternative_problems = load_alternatives(repo_root, collect_exports(init_path))
+    renames_text, rename_problems = load_renames(repo_root, collect_exports(init_path))
+    alternative_problems = alternative_problems + rename_problems
     if alternative_problems and not args.check:
         for problem in alternative_problems:
             print(f"[registry] {problem}")
@@ -685,6 +764,15 @@ def main() -> int:
             problems.append(
                 "interfaces.json 与源不同步，请运行 python scripts/build_registry.py"
             )
+        renames_path = repo_root / RENAMES_RELPATH
+        if (
+            not renames_path.exists()
+            or renames_path.read_text(encoding="utf-8") != renames_text
+        ):
+            problems.append(
+                "renames.json 与更名一览表或 registry_removed.json 不同步，"
+                "请运行 python scripts/build_registry.py"
+            )
         if new_init_text != init_text:
             problems.append(
                 "__init__.py 的 __all__ 与导入表不同步，"
@@ -700,6 +788,8 @@ def main() -> int:
         print(f"已写入 {OUTPUT_RELPATH}")
     else:
         print(f"{OUTPUT_RELPATH} 无变化")
+    if write_if_changed(repo_root / RENAMES_RELPATH, renames_text):
+        print(f"已写入 {RENAMES_RELPATH}")
     if write_if_changed(init_path, new_init_text):
         print(
             f"已更新 {init_path.name} 的 __all__（{len(collect_all_names(init_path))} 项）"

@@ -56,7 +56,7 @@
 5. 国家和地区使用固定写法：zh（中国内地的证券市场）、china（中国宏观数据）、hk、us（美国证券市场）、usa（美国宏观数据）、uk、euro、japan、germany、swiss、canada、australia
 6. 有通行英文名称的概念使用英文，如财政收入、固定资产投资等宏观指标，不使用拼音首字母缩写。数据源网站的栏目名没有通行译名时（如龙虎榜 lhb、大宗交易 dzjy）沿用已有的拼音缩写，不再新造
 7. 不使用 new、v2 等过渡性的词；接口被替换时直接移除旧接口
-8. 接口更名需要在 `docs/changelog.md` 文末的“接口更名一览表”中登记
+8. 接口更名需要在 `docs/changelog.md` 文末的“接口更名一览表”中登记；移除接口需要在 `scripts/registry_removed.json` 中登记接口名与移除的版本。登记后运行 `python scripts/build_registry.py`，旧名称被调用时就会提示新名称或移除的版本
 
 ### 标点符号规范
 
