@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-50)=
+### 1.20.50 docs: sync the MCP pages with AKTools 0.1.8
+
+1. AKTools 0.1.8 已随 AKShare 1.20.41～1.20.48 的接口改名更新，并要求 AKShare 不低于 1.20.48；MCP 文档与 llms.txt 补充这一版本要求
+2. MCP 文档中 CSV 下载地址的示例仍是旧接口名 stock_zh_a_daily，改为 stock_zh_a_daily_sina。此前批量改名时跳过了以斜杠开头的接口名，这是唯一遗漏的一处，其余文档已复查
+
 (v1-20-49)=
 ### 1.20.49 feat: register stock_margin_sse and stock_margin_sse_js as equivalent interfaces
 

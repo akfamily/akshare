@@ -69,6 +69,9 @@ another source; other Eastmoney interfaces (macro, financial statements)
 are not limited. On a ban `get_data` returns a 429 error that says how long
 to wait and lists the registered same-data interfaces from other sources
 (the hand-curated `alternatives`; none are guessed; AKTools >= 0.1.6).
+AKTools >= 0.1.8 requires AKShare >= 1.20.48 and uses the interface names of
+that release (273 interfaces were renamed in 1.20.41-1.20.46 and 45 more in
+1.20.48; see the rename table at the end of docs/changelog.md).
 
 Search by data type (`港股 日线`, `期货 分钟`), not by security name or code.
 An empty search result carries a `hint`; an unknown interface name (typo,
