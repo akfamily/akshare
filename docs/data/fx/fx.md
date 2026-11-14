@@ -632,7 +632,7 @@ print(fx_sentiment_js_df)
 
 目标地址：https://gushitong.baidu.com/top/foreign-rmb
 
-描述：百度股市通-外汇-行情榜单
+描述：百度股市通-外汇-行情榜单；百度对该接口启用了风控校验，必须传入从浏览器复制的 acs-token，不传或 token 过期时抛出 APIError
 
 限量：单次返回指定 symbol 当前时点的行情报价
 

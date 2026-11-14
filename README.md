@@ -64,7 +64,7 @@ Claude Desktop, Cursor and other clients:
 
 [![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
 
-Instead of registering nearly 1000 tools, it exposes three generic ones that the
+Instead of registering some 950 tools, it exposes three generic ones that the
 assistant chains together:
 
 | Tool | Purpose |
@@ -156,12 +156,12 @@ print(interface_info_dict)
 Output:
 
 ```
-                      接口名    类目                                                       描述  有无文档   匹配分
-0             bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  27.0
-1      bond_cb_hist_min_em  bond                                           东方财富网-可转债-分时行情  True  20.0
-2  bond_cb_pre_min_em  bond                                      东方财富网-可转债-分时行情-盘前分时  True  20.0
-3     bond_cb_comparison_em  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  17.0
-4        fund_etf_spot_em  fund                                            东方财富-ETF 实时行情  True  17.0
+                     接口名    类目                                                       描述  有无文档   匹配分
+0  bond_cb_realtime_sina  bond                                             新浪财经-沪深可转债数据  True  34.5
+1            bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  28.5
+2        bond_cb_info_em  bond                                    东方财富网-数据中心-新股数据-可转债详情  True  15.0
+3        bond_cb_list_em  bond                                 东方财富网-数据中心-新股数据-可转债数据一览表  True  15.0
+4       bond_cb_list_ths  bond                                             同花顺-数据中心-可转债  True  15.0
 ```
 
 Passing a full interface name always ranks that interface first, which makes it
@@ -169,6 +169,40 @@ a reliable way to confirm a half-remembered name. Note this is keyword matching
 rather than semantic search — see the
 [interface search docs](https://akshare.akfamily.xyz/search.html) for what it
 can and cannot do.
+
+### Interface names
+
+Every interface name reads `<category>_<market or subject>_<topic>_<source>`, for
+example `stock_zh_a_hist_em`: category `stock`, market `zh_a`, topic `hist`
+(historical quotes), source `em` (Eastmoney). The first segment is always one of
+the 15 categories returned by `ak.list_categories()` — `stock`, `index`, `fund`,
+`futures`, `option`, `bond`, `fx`, `macro`, `interest_rate`, `spot`, `energy`,
+`crypto`, `calendar`, `research`, `alternative` — and the last segment is usually the
+data source (`em`, `sina`, `ths`, `tx`, `cninfo`, `sse`, `szse`, …), so the same
+data from another source differs only in its suffix.
+
+### Upgrading from a version before 1.20.41
+
+Releases 1.20.41 to 1.20.54 brought every interface under the naming rule above:
+about 320 interfaces were renamed (`stock_zh_a_hist` is now `stock_zh_a_hist_em`,
+`stock_zh_index_daily` is now `index_zh_daily_sina`), a few parameters were
+unified to `symbol` / `date` / `start_date` / `end_date`, and interfaces whose
+upstream source had shut down were removed. Old names are not kept as aliases,
+but they explain themselves:
+
+```python
+import akshare as ak
+
+ak.stock_zh_a_hist(symbol="000001")
+# AttributeError: stock_zh_a_hist 已在 1.20.46 更名为 stock_zh_a_hist_em，请改用 ak.stock_zh_a_hist_em；…
+
+ak.renamed_info("stock_zh_a_hist")
+# {'name': 'stock_zh_a_hist', 'status': 'renamed', 'new_name': 'stock_zh_a_hist_em', 'version': '1.20.46', 'url': '…'}
+```
+
+`ak.search("<old name>")` also ranks the current name first. The complete
+old-to-new table is at the end of the
+[changelog](https://akshare.akfamily.xyz/changelog.html#changelog-rename).
 
 ### Plot
 

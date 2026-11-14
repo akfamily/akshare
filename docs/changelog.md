@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-62)=
+### 1.20.62 fix: report Baidu risk control in fx_quote_baidu, register 6 more alternatives and update README
+
+1. fx_quote_baidu：百度股市通对该接口启用了风控校验，不带有效 acs-token 的请求被拒绝，接口此前不报错、只返回一个没有列的空表。现在抛出 APIError 并说明需要从浏览器复制 acs-token 传入；带有效 token 时的行为没有实测
+2. 同类接口对照表新增 6 组单向替代，东方财富行情接口被限流时可改用：fund_etf_hist_min_em、fund_lof_hist_min_em、fund_reits_hist_min_em→stock_zh_a_hist_min_sina；fund_reits_hist_em→fund_etf_hist_sina、stock_zh_a_daily_sina；bond_repo_hist_em→stock_zh_a_daily_sina；bond_cb_comparison_em→bond_cb_jsl。新浪的接口虽以 stock_zh_a 命名，实测传入带市场前缀的 ETF、LOF、REITs、质押式回购代码（如 sh510300、sh508097、sh204001）可以正常返回；列名为英文、代码需带市场前缀，与东方财富的接口用法不同。可转债的分时行情没有登记：新浪返回的可转债分钟数据停在 2025 年 1 月
+3. `ak.search`：多个查询词只命中其中一个时，命中第一个词（多为品种，如“可转债”）的接口排在命中后面的词（多为数据类型，如“实时行情”）的接口之前。例如“可转债 实时行情”的第三条起此前是生猪、黄金的实时行情，现在是其他可转债接口
+4. README 新增“Interface names”与“Upgrading from a version before 1.20.41”两节，说明接口命名规则、15 个类目、近期的接口改名以及旧名称如何查到新名称；搜索示例的输出按现在的结果更新
+
 (v1-20-61)=
 ### 1.20.61 fix: improve ak.search ranking and complete source URLs, parameter notes and titles
 

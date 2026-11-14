@@ -36,6 +36,12 @@
     "stock_hk_main_board_spot_em": ["stock_hk_spot_sina"],
     "stock_hk_famous_spot_em": ["stock_hk_spot_sina"],
     "stock_us_famous_spot_em": ["stock_us_spot_sina"],
-    "stock_fund_flow_sector_rank_em": ["stock_fund_flow_industry_ths", "stock_fund_flow_concept_ths"]
+    "stock_fund_flow_sector_rank_em": ["stock_fund_flow_industry_ths", "stock_fund_flow_concept_ths"],
+    "fund_etf_hist_min_em": ["stock_zh_a_hist_min_sina"],
+    "fund_lof_hist_min_em": ["stock_zh_a_hist_min_sina"],
+    "fund_reits_hist_min_em": ["stock_zh_a_hist_min_sina"],
+    "fund_reits_hist_em": ["fund_etf_hist_sina", "stock_zh_a_daily_sina"],
+    "bond_repo_hist_em": ["stock_zh_a_daily_sina"],
+    "bond_cb_comparison_em": ["bond_cb_jsl"]
   }
 }

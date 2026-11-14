@@ -55,11 +55,11 @@ print(search_df)
 
 ```
                      接口名    类目                                                       描述  有无文档   匹配分
-0  bond_cb_realtime_sina  bond                                             新浪财经-沪深可转债数据  True  37.5
-1            bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  37.0
-2    bond_cb_hist_min_em  bond                                           东方财富网-可转债-分时行情  True  30.0
-3     bond_cb_pre_min_em  bond                                      东方财富网-可转债-分时行情-盘前分时  True  30.0
-4  bond_cb_comparison_em  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  27.0
+0  bond_cb_realtime_sina  bond                                             新浪财经-沪深可转债数据  True  34.5
+1            bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  28.5
+2        bond_cb_info_em  bond                                    东方财富网-数据中心-新股数据-可转债详情  True  15.0
+3        bond_cb_list_em  bond                                 东方财富网-数据中心-新股数据-可转债数据一览表  True  15.0
+4       bond_cb_list_ths  bond                                             同花顺-数据中心-可转债  True  15.0
 ```
 
 接口示例-限定类目

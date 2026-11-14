@@ -10,6 +10,7 @@ import warnings
 
 import pandas as pd
 
+from akshare.exceptions import APIError
 from akshare.utils import http
 
 
@@ -47,6 +48,15 @@ def fx_quote_baidu(symbol: str = "人民币", token: str = "") -> pd.DataFrame:
         }
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
+        result = data_json.get("Result")
+        if isinstance(result, dict) and result.get("code") == 403:
+            # 被风控拦截时没有数据；放在返回码检查之前，否则只会得到一个空表
+            raise APIError(
+                "百度股市通拒绝了请求（风控校验，上游提示："
+                f"{result.get('msg')}）。该接口需要传入 token：在浏览器打开 "
+                "https://finance.baidu.com/top/foreign-rmb ，从请求头中复制 acs-token；"
+                "token 很快过期，失效后需要重新复制"
+            )
         # 显式检查返回码，便于调试
         if data_json.get("ResultCode") != "0":
             warnings.warn(f"[pn={num}] 接口返回异常: {data_json}")

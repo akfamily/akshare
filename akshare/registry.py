@@ -181,6 +181,7 @@ WEIGHT_DESC = 5.0
 WEIGHT_CATEGORY = 3.0
 WEIGHT_OUTPUT = 2.0
 BONUS_ALL_TOKENS = 1.5
+WEIGHT_LATER_TOKEN = 0.8
 PENALTY_UNDOCUMENTED = 0.5
 
 # 同义词组：查询词命中组内任意一个词时，按整组去匹配。接口描述沿用数据源网站的
@@ -354,7 +355,7 @@ def _score(
     lower_desc = norm_desc.lower()
     total = 0.0
     hit_count = 0
-    for token in tokens:
+    for position, token in enumerate(tokens):
         norm_token = _normalize(token)
         # 同义词只用于接口名、描述与类目；输出列名是数据字段，不是对接口的描述，
         # 用同义词去匹配会把含「日线」类列名的无关接口带进来
@@ -380,7 +381,9 @@ def _score(
             subtotal += WEIGHT_OUTPUT
         if subtotal:
             hit_count += 1
-        total += subtotal
+        # 第一个词多是品种（可转债、A股），后面的词多是数据类型（实时行情、日线）：
+        # 只命中其一时，命中品种的接口更可能是用户要找的
+        total += subtotal if position == 0 else subtotal * WEIGHT_LATER_TOKEN
     if total and hit_count == len(tokens):
         total *= BONUS_ALL_TOKENS
     if not record.get("documented", False):
