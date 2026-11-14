@@ -730,7 +730,7 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
     return data_df
 
 
-def option_sse_minute_sina(symbol: str = "10003720") -> pd.DataFrame:
+def option_sse_min_sina(symbol: str = "10003720") -> pd.DataFrame:
     """
     指定期权品种在当前交易日的分钟数据，只能获取当前交易日的数据，不能获取历史分钟数据
     https://stock.finance.sina.com.cn/option/quotes.html
@@ -814,7 +814,7 @@ def option_sse_daily_sina(symbol: str = "10003889") -> pd.DataFrame:
     return temp_df
 
 
-def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
+def option_finance_min_sina(symbol: str = "10002530") -> pd.DataFrame:
     """
     指定期权的分钟频率数据
     https://stock.finance.sina.com.cn/option/quotes.html
@@ -863,7 +863,7 @@ def __option_current_em() -> pd.DataFrame:
     return inner_option_current_em_df
 
 
-def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
+def option_min_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场-分时行情
     https://wap.eastmoney.com/quote/stock/151.cu2404P61000.html
@@ -970,17 +970,17 @@ if __name__ == "__main__":
     option_sse_greeks_sina_df = option_sse_greeks_sina(symbol="10004023")
     print(option_sse_greeks_sina_df)
 
-    option_sse_minute_sina_df = option_sse_minute_sina(symbol="10004023")
-    print(option_sse_minute_sina_df)
+    option_sse_min_sina_df = option_sse_min_sina(symbol="10004023")
+    print(option_sse_min_sina_df)
 
     option_sse_daily_sina_df = option_sse_daily_sina(symbol="10004023")
     print(option_sse_daily_sina_df)
 
-    option_finance_minute_sina_df = option_finance_minute_sina(symbol="10004023")
-    print(option_finance_minute_sina_df)
+    option_finance_min_sina_df = option_finance_min_sina(symbol="10004023")
+    print(option_finance_min_sina_df)
 
     option_realtime_em_df = option_realtime_em()
     print(option_realtime_em_df)
 
-    option_minute_em_df = option_minute_em(symbol="10008594")
-    print(option_minute_em_df)
+    option_min_em_df = option_min_em(symbol="10008594")
+    print(option_min_em_df)

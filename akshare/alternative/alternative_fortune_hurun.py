@@ -15,7 +15,9 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.DataFrame:
+def alternative_rank_hurun(
+    indicator: str = "胡润百富榜", year: str = "2023"
+) -> pd.DataFrame:
     """
     胡润排行榜
     https://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
@@ -304,26 +306,42 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.Dat
 
 
 if __name__ == "__main__":
-    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2023")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润百富榜", year="2023"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2023")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润全球富豪榜", year="2023"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2023")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润全球独角兽榜", year="2023"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润印度榜", year="2021")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润印度榜", year="2021"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="全球瞪羚企业榜", year="2021")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="全球瞪羚企业榜", year="2021"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润Under30s创业领袖榜", year="2021")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润Under30s创业领袖榜", year="2021"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润世界500强", year="2022")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润世界500强", year="2022"
+    )
+    print(alternative_rank_hurun_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润艺术榜", year="2023")
-    print(hurun_rank_df)
+    alternative_rank_hurun_df = alternative_rank_hurun(
+        indicator="胡润艺术榜", year="2023"
+    )
+    print(alternative_rank_hurun_df)

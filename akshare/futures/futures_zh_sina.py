@@ -184,7 +184,7 @@ def _pick_main_contract(data_df: pd.DataFrame) -> str | None:
     return real_df.loc[position.idxmax(), "symbol"]
 
 
-def match_main_contract(symbol: str = "cffex") -> str:
+def futures_main_contract_sina(symbol: str = "cffex") -> str:
     """
     新浪财经-期货-主力合约
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
@@ -636,11 +636,11 @@ def futures_zh_contract_realtime_sina(
             return data_df
 
 
-def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "1") -> pd.DataFrame:
+def futures_zh_min_sina(symbol: str = "IF2008", period: str = "1") -> pd.DataFrame:
     """
     中国各品种期货分钟频率数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取，或者访问网页获取
+    :param symbol: 可以通过 futures_main_contract_sina(symbol="cffex") 获取，或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
@@ -679,7 +679,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
-    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取，或者访问网页获取
+    :param symbol: 可以通过 futures_main_contract_sina(symbol="cffex") 获取，或者访问网页获取
     :type symbol: str
     :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
@@ -721,8 +721,8 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    match_main_contract_df = match_main_contract(symbol="gfex")
-    print(match_main_contract_df)
+    futures_main_contract_sina_df = futures_main_contract_sina(symbol="gfex")
+    print(futures_main_contract_sina_df)
 
     futures_zh_contract_realtime_sina_df = futures_zh_contract_realtime_sina(
         symbol="V2701,V2705", market="CF", adjust="0"
@@ -740,8 +740,8 @@ if __name__ == "__main__":
     futures_zh_realtime_sina_df = futures_zh_realtime_sina(symbol="工业硅")
     print(futures_zh_realtime_sina_df)
 
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="RB0", period="1")
-    print(futures_zh_minute_sina_df)
+    futures_zh_min_sina_df = futures_zh_min_sina(symbol="RB0", period="1")
+    print(futures_zh_min_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB0")
     print(futures_zh_daily_sina_df)
@@ -749,10 +749,10 @@ if __name__ == "__main__":
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB2410")
     print(futures_zh_daily_sina_df)
 
-    dce_text = match_main_contract(symbol="dce")
-    czce_text = match_main_contract(symbol="czce")
-    shfe_text = match_main_contract(symbol="shfe")
-    gfex_text = match_main_contract(symbol="gfex")
+    dce_text = futures_main_contract_sina(symbol="dce")
+    czce_text = futures_main_contract_sina(symbol="czce")
+    shfe_text = futures_main_contract_sina(symbol="shfe")
+    gfex_text = futures_main_contract_sina(symbol="gfex")
 
     while True:
         time.sleep(3)

@@ -18,7 +18,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def stock_js_weibo_nlp_time() -> Dict:
+def alternative_weibo_stock_time_js() -> Dict:
     """
     https://datacenter.jin10.com/market
     :return: 特定时间表示的字典
@@ -47,7 +47,7 @@ def stock_js_weibo_nlp_time() -> Dict:
     return r.json()["data"]["timescale"]
 
 
-def stock_js_weibo_report(time_period: str = "CNHOUR12") -> pd.DataFrame:
+def alternative_weibo_stock_report_js(time_period: str = "CNHOUR12") -> pd.DataFrame:
     """
     金十数据中心-实时监控-微博舆情报告
     https://datacenter.jin10.com/market
@@ -82,8 +82,8 @@ def stock_js_weibo_report(time_period: str = "CNHOUR12") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_js_weibo_nlp_time_map = stock_js_weibo_nlp_time()
+    stock_js_weibo_nlp_time_map = alternative_weibo_stock_time_js()
     print(stock_js_weibo_nlp_time_map)
 
-    get_news_df = stock_js_weibo_report(time_period="CNHOUR6")
+    get_news_df = alternative_weibo_stock_report_js(time_period="CNHOUR6")
     print(get_news_df)

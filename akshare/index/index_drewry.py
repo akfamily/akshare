@@ -14,7 +14,7 @@ from akshare.utils import jsonish
 from akshare.utils import http
 
 
-def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
+def index_wci_drewry(symbol: str = "composite") -> pd.DataFrame:
     """
     Drewry 集装箱指数
     https://infogram.com/world-container-index-1h17493095xl4zj
@@ -57,26 +57,26 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    drewry_wci_index_df = drewry_wci_index(symbol="composite")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="composite")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-rotterdam")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="shanghai-rotterdam")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="rotterdam-shanghai")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="rotterdam-shanghai")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-los angeles")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="shanghai-los angeles")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="los angeles-shanghai")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="los angeles-shanghai")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-genoa")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="shanghai-genoa")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="new york-rotterdam")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="new york-rotterdam")
+    print(index_wci_drewry_df)
 
-    drewry_wci_index_df = drewry_wci_index(symbol="rotterdam-new york")
-    print(drewry_wci_index_df)
+    index_wci_drewry_df = index_wci_drewry(symbol="rotterdam-new york")
+    print(index_wci_drewry_df)

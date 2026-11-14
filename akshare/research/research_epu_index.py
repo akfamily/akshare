@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def article_epu_index(symbol: str = "China") -> pd.DataFrame:
+def research_epu_index(symbol: str = "China") -> pd.DataFrame:
     """
     经济政策不确定性指数
     https://www.policyuncertainty.com/index.html
@@ -64,5 +64,5 @@ def article_epu_index(symbol: str = "China") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    article_epu_index_df = article_epu_index(symbol="China")
-    print(article_epu_index_df)
+    research_epu_index_df = research_epu_index(symbol="China")
+    print(research_epu_index_df)

@@ -682,10 +682,10 @@ print(index_zh_daily_em_df)
 
 ## 美股股票指数
 
-(index_us_stock_sina)=
+(index_us_daily_sina)=
 ### 指数行情
 
-接口：index_us_stock_sina
+接口：index_us_daily_sina
 
 目标地址：https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
 
@@ -714,8 +714,8 @@ print(index_zh_daily_em_df)
 ```python
 import akshare as ak
 
-index_us_stock_sina_df = ak.index_us_stock_sina(symbol=".INX")
-print(index_us_stock_sina_df)
+index_us_daily_sina_df = ak.index_us_daily_sina(symbol=".INX")
+print(index_us_daily_sina_df)
 ```
 
 数据示例
@@ -3101,10 +3101,10 @@ print(index_option_50index_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-(sw_index_first_info)=
+(index_first_info_sw)=
 ## 申万一级行业信息
 
-接口：sw_index_first_info
+接口：index_first_info_sw
 
 目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
@@ -3133,8 +3133,8 @@ print(index_option_50index_min_qvix_df)
 ```python
 import akshare as ak
 
-sw_index_first_info_df = ak.sw_index_first_info()
-print(sw_index_first_info_df)
+index_first_info_sw_df = ak.index_first_info_sw()
+print(index_first_info_sw_df)
 ```
 
 数据示例
@@ -3174,10 +3174,10 @@ print(sw_index_first_info_df)
 30  801980.SI  美容护理    28  40.38       41.16  5.36   0.78
 ```
 
-(sw_index_second_info)=
+(index_second_info_sw)=
 ## 申万二级行业信息
 
-接口：sw_index_second_info
+接口：index_second_info_sw
 
 目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
@@ -3207,8 +3207,8 @@ print(sw_index_first_info_df)
 ```python
 import akshare as ak
 
-sw_index_second_info_df = ak.sw_index_second_info()
-print(sw_index_second_info_df)
+index_second_info_sw_df = ak.index_second_info_sw()
+print(index_second_info_sw_df)
 ```
 
 数据示例
@@ -3229,10 +3229,10 @@ print(sw_index_second_info_df)
 [124 rows x 8 columns]
 ```
 
-(sw_index_third_info)=
+(index_third_info_sw)=
 ## 申万三级行业信息
 
-接口：sw_index_third_info
+接口：index_third_info_sw
 
 目标地址：https://legulegu.com/stockdata/sw-industry-overview#level1
 
@@ -3261,8 +3261,8 @@ print(sw_index_second_info_df)
 ```python
 import akshare as ak
 
-sw_index_third_info_df = ak.sw_index_third_info()
-print(sw_index_third_info_df)
+index_third_info_sw_df = ak.index_third_info_sw()
+print(index_third_info_sw_df)
 ```
 
 数据示例
@@ -3283,10 +3283,10 @@ print(sw_index_third_info_df)
 [258 rows x 8 columns]
 ```
 
-(sw_index_third_cons)=
+(index_third_cons_sw)=
 ## 申万三级行业成份
 
-接口：sw_index_third_cons
+接口：index_third_cons_sw
 
 目标地址：https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 
@@ -3298,7 +3298,7 @@ print(sw_index_third_info_df)
 
 | 名称     | 类型  | 描述                                                               |
 |--------|-----|------------------------------------------------------------------|
-| symbol | str | symbol="850111.SI"；行业代码；可以通过 ak.sw_index_third_info() 获取所有行业代码 |
+| symbol | str | symbol="850111.SI"；行业代码；可以通过 ak.index_third_info_sw() 获取所有行业代码 |
 
 输出参数
 
@@ -3328,8 +3328,8 @@ print(sw_index_third_info_df)
 ```python
 import akshare as ak
 
-sw_index_third_cons_df = ak.sw_index_third_cons(symbol="850111.SI")
-print(sw_index_third_cons_df)
+index_third_cons_sw_df = ak.index_third_cons_sw(symbol="850111.SI")
+print(index_third_cons_sw_df)
 ```
 
 数据示例
@@ -3346,10 +3346,10 @@ print(sw_index_third_cons_df)
 7   8  002041.SZ  登海种业  2004-06-29   种子   NaN  9.65   78.60   70.55  2.68    0.60  0.62   84.92               0.63               0.10               -9.05    -31.75   -25.14
 ```
 
-(spot_goods)=
+(index_commodity_price_sina)=
 ## 商品现货价格指数
 
-接口：spot_goods
+接口：index_commodity_price_sina
 
 目标地址：http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 
@@ -3383,8 +3383,8 @@ print(sw_index_third_cons_df)
 ```python
 import akshare as ak
 
-spot_goods_df = ak.spot_goods(symbol="波罗的海干散货指数")
-print(spot_goods_df)
+index_commodity_price_sina_df = ak.index_commodity_price_sina(symbol="波罗的海干散货指数")
+print(index_commodity_price_sina_df)
 ```
 
 数据示例
@@ -3982,10 +3982,10 @@ print(index_eri_df)
 [102 rows x 4 columns]
 ```
 
-(drewry_wci_index)=
+(index_wci_drewry)=
 ## 集装箱指数
 
-接口：drewry_wci_index
+接口：index_wci_drewry
 
 目标地址：https://infogram.com/world-container-index-1h17493095xl4zj
 
@@ -4011,8 +4011,8 @@ print(index_eri_df)
 ```python
 import akshare as ak
 
-drewry_wci_index_df = ak.drewry_wci_index(symbol="composite")
-print(drewry_wci_index_df)
+index_wci_drewry_df = ak.index_wci_drewry(symbol="composite")
+print(index_wci_drewry_df)
 ```
 
 数据示例

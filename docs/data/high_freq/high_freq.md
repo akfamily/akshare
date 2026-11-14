@@ -1,9 +1,9 @@
 # 高频数据
 
-(hf_sp_500)=
+(high_freq_sp500)=
 ## 标普 500 指数
 
-接口：hf_sp_500
+接口：high_freq_sp500
 
 目标地址：https://github.com/FutureSharks/financial-data
 
@@ -30,8 +30,8 @@
 ```python
 import akshare as ak
 
-hf_sp_500_df = ak.hf_sp_500(year="2017")
-print(hf_sp_500_df)
+high_freq_sp500_df = ak.high_freq_sp500(year="2017")
+print(high_freq_sp500_df)
 ```
 
 数据示例

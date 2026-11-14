@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
+def index_commodity_price_sina(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
     """
     新浪财经-商品现货价格指数
     https://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
@@ -44,5 +44,7 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    spot_goods_df = spot_goods(symbol="波罗的海干散货指数")
-    print(spot_goods_df)
+    index_commodity_price_sina_df = index_commodity_price_sina(
+        symbol="波罗的海干散货指数"
+    )
+    print(index_commodity_price_sina_df)

@@ -46,7 +46,7 @@ def _clean_content(content: str) -> str:
     return content.strip().replace("\n", " ")
 
 
-def news_cctv(date: str = "20240424") -> pd.DataFrame:
+def alternative_news_cctv(date: str = "20240424") -> pd.DataFrame:
     """
     新闻联播文字稿
     https://tv.cctv.com/lm/xwlb
@@ -185,5 +185,5 @@ def news_cctv(date: str = "20240424") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_cctv_df = news_cctv(date="20240424")
-    print(news_cctv_df)
+    alternative_news_cctv_df = alternative_news_cctv(date="20240424")
+    print(alternative_news_cctv_df)

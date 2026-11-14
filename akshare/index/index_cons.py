@@ -193,20 +193,6 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     return temp_df
 
 
-def stock_a_code_to_symbol(symbol: str = "000300") -> str:
-    """
-    输入股票代码判断股票市场
-    :param symbol: 股票代码
-    :type symbol: str
-    :return: 股票市场
-    :rtype: str
-    """
-    if symbol.startswith("6") or symbol.startswith("900"):
-        return f"sh{symbol}"
-    else:
-        return f"sz{symbol}"
-
-
 if __name__ == "__main__":
     index_stock_cons_csindex_df = index_stock_cons_csindex(symbol="000300")
     print(index_stock_cons_csindex_df)

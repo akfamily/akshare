@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def forbes_rank(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame:
+def alternative_rank_forbes(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame:
     """
     福布斯中国-榜单
     https://www.forbeschina.com/lists
@@ -45,5 +45,7 @@ def forbes_rank(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(symbol="2021福布斯中国香港富豪榜")
-    print(forbes_rank_df)
+    alternative_rank_forbes_df = alternative_rank_forbes(
+        symbol="2021福布斯中国香港富豪榜"
+    )
+    print(alternative_rank_forbes_df)

@@ -10,7 +10,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
+def interest_rate_repo_query_cm(symbol: str = "回购定盘利率") -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-回购定盘利率-历史数据
     https://www.chinamoney.com.cn/chinese/bkfrr/
@@ -43,7 +43,7 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
         return temp_df
 
 
-def repo_rate_hist(
+def interest_rate_repo_hist_cm(
     start_date: str = "20200930", end_date: str = "20201029"
 ) -> pd.DataFrame:
     """
@@ -94,8 +94,10 @@ def repo_rate_hist(
 
 
 if __name__ == "__main__":
-    repo_rate_query_df = repo_rate_query(symbol="回购定盘利率")
-    print(repo_rate_query_df)
+    interest_rate_repo_query_cm_df = interest_rate_repo_query_cm(symbol="回购定盘利率")
+    print(interest_rate_repo_query_cm_df)
 
-    repo_rate_hist_df = repo_rate_hist(start_date="20231001", end_date="20240101")
-    print(repo_rate_hist_df)
+    interest_rate_repo_hist_cm_df = interest_rate_repo_hist_cm(
+        start_date="20231001", end_date="20240101"
+    )
+    print(interest_rate_repo_hist_cm_df)

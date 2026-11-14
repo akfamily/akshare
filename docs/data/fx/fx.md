@@ -509,7 +509,7 @@ print(fx_pair_quote_df)
 
 目标地址：https://cn.investing.com/currencies/cny-jmd
 
-描述：指定币种的所有能够获取到的货币对信息，历史数据可以调用 **ak.currency_history()** 获取
+描述：指定币种的所有能够获取到的货币对信息
 
 限量：单次返回指定币种的所有能获取数据的货币对；英为财情在中国大陆通常无法直接访问，需先用 ak.set_proxies() 设置代理
 

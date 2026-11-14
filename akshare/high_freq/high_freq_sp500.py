@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def hf_sp_500(year: str = "2017") -> pd.DataFrame:
+def high_freq_sp500(year: str = "2017") -> pd.DataFrame:
     """
     S&P 500 minute data from 2012-2018
     :param year: from 2012-2018
@@ -34,5 +34,5 @@ def hf_sp_500(year: str = "2017") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    hf_sp_500_df = hf_sp_500(year="2017")
-    print(hf_sp_500_df)
+    high_freq_sp500_df = high_freq_sp500(year="2017")
+    print(high_freq_sp500_df)

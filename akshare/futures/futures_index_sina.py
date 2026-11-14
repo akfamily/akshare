@@ -49,7 +49,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
         return pd.DataFrame(data_json["gfex"])
 
 
-def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
+def futures_main_contract_sina(symbol: str = "shfe") -> pd.DataFrame:
     """
     指定交易所的所有可以提供数据的合约
     https://finance.sina.com.cn/futuremarket/index.shtml
@@ -93,7 +93,7 @@ def futures_display_main_sina() -> pd.DataFrame:
     """
     temp_df = pd.DataFrame()
     for item in ["dce", "czce", "shfe", "cffex", "gfex"]:
-        temp_df = pd.concat([temp_df, match_main_contract(symbol=item)])
+        temp_df = pd.concat([temp_df, futures_main_contract_sina(symbol=item)])
     temp_df = temp_df.reset_index(drop=True)
     return temp_df
 

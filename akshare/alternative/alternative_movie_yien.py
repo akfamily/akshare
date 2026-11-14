@@ -202,7 +202,7 @@ def _calc_first_week_days(value: object) -> object:
     return 7 - release_date.weekday()
 
 
-def movie_boxoffice_realtime() -> pd.DataFrame:
+def alternative_movie_boxoffice_realtime_yien() -> pd.DataFrame:
     """
     电影票房-实时票房
     https://ys.endata.cn/BoxOffice/Movie
@@ -263,7 +263,7 @@ def movie_boxoffice_realtime() -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_daily(date: str = "") -> pd.DataFrame:
+def alternative_movie_boxoffice_daily_yien(date: str = "") -> pd.DataFrame:
     """
     电影票房-单日票房
     https://www.endata.com.cn/BoxOffice/BO/Day/index.html
@@ -340,7 +340,7 @@ def movie_boxoffice_daily(date: str = "") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_monthly(date: str = "20240218") -> pd.DataFrame:
+def alternative_movie_boxoffice_monthly_yien(date: str = "20240218") -> pd.DataFrame:
     """
     电影票房-单月票房
     https://www.endata.com.cn/BoxOffice/BO/Month/oneMonth.html
@@ -438,7 +438,7 @@ def movie_boxoffice_monthly(date: str = "20240218") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_yearly(date: str = "20240218") -> pd.DataFrame:
+def alternative_movie_boxoffice_yearly_yien(date: str = "20240218") -> pd.DataFrame:
     """
     电影票房-年度票房
     https://www.endata.com.cn/BoxOffice/BO/Year/index.html
@@ -517,7 +517,9 @@ def movie_boxoffice_yearly(date: str = "20240218") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
+def alternative_movie_boxoffice_yearly_first_week_yien(
+    date: str = "20201018",
+) -> pd.DataFrame:
     """
     电影票房-年度票房-年度首周票房
     https://www.endata.com.cn/BoxOffice/BO/Year/firstWeek.html
@@ -610,7 +612,7 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_cinema_daily(date: str = "") -> pd.DataFrame:
+def alternative_movie_boxoffice_cinema_daily_yien(date: str = "") -> pd.DataFrame:
     """
     电影票房-影院票房-日票房排行
     https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
@@ -672,22 +674,30 @@ def movie_boxoffice_cinema_daily(date: str = "") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    movie_boxoffice_realtime_df = movie_boxoffice_realtime()
-    print(movie_boxoffice_realtime_df)
-
-    movie_boxoffice_daily_df = movie_boxoffice_daily()
-    print(movie_boxoffice_daily_df)
-
-    movie_boxoffice_monthly_df = movie_boxoffice_monthly(date="20240218")
-    print(movie_boxoffice_monthly_df)
-
-    movie_boxoffice_yearly_df = movie_boxoffice_yearly(date="20240218")
-    print(movie_boxoffice_yearly_df)
-
-    movie_boxoffice_yearly_first_week_df = movie_boxoffice_yearly_first_week(
-        date="20201018"
+    alternative_movie_boxoffice_realtime_yien_df = (
+        alternative_movie_boxoffice_realtime_yien()
     )
-    print(movie_boxoffice_yearly_first_week_df)
+    print(alternative_movie_boxoffice_realtime_yien_df)
 
-    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily()
-    print(movie_boxoffice_cinema_daily_df)
+    alternative_movie_boxoffice_daily_yien_df = alternative_movie_boxoffice_daily_yien()
+    print(alternative_movie_boxoffice_daily_yien_df)
+
+    alternative_movie_boxoffice_monthly_yien_df = (
+        alternative_movie_boxoffice_monthly_yien(date="20240218")
+    )
+    print(alternative_movie_boxoffice_monthly_yien_df)
+
+    alternative_movie_boxoffice_yearly_yien_df = (
+        alternative_movie_boxoffice_yearly_yien(date="20240218")
+    )
+    print(alternative_movie_boxoffice_yearly_yien_df)
+
+    alternative_movie_boxoffice_yearly_first_week_yien_df = (
+        alternative_movie_boxoffice_yearly_first_week_yien(date="20201018")
+    )
+    print(alternative_movie_boxoffice_yearly_first_week_yien_df)
+
+    alternative_movie_boxoffice_cinema_daily_yien_df = (
+        alternative_movie_boxoffice_cinema_daily_yien()
+    )
+    print(alternative_movie_boxoffice_cinema_daily_yien_df)

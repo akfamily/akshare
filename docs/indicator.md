@@ -4,7 +4,7 @@
 
 ### YZ 已实现波动率
 
-接口：volatility_yz_rv
+接口：indicator_yz_rv
 
 目标地址：https://github.com/hugogobato/Yang-Zhang-s-Realized-Volatility-Automated-Estimation-in-Python
 
@@ -30,15 +30,15 @@
 ```python
 import akshare as ak
 
-stock_df = ak.rv_from_stock_zh_a_hist_min_em(
+stock_df = ak.indicator_rv_input_stock_em(
     symbol="000001",
     start_date="2021-10-20 09:30:00",
     end_date="2024-11-01 15:00:00",
     period="5",
     adjust=""
 )
-volatility_yz_rv_df = ak.volatility_yz_rv(data=stock_df)
-print(volatility_yz_rv_df)
+indicator_yz_rv_df = ak.indicator_yz_rv(data=stock_df)
+print(indicator_yz_rv_df)
 ```
 
 数据示例

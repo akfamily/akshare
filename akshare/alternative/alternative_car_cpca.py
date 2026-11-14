@@ -81,7 +81,7 @@ def _cpca_year_table(
     return _cpca_table(rows, key, years, value_index, label)
 
 
-def car_market_total_cpca(
+def alternative_car_market_total_cpca(
     symbol: str = "狭义乘用车", indicator: str = "产量"
 ) -> pd.DataFrame:
     """
@@ -107,7 +107,7 @@ def car_market_total_cpca(
     )
 
 
-def car_market_man_rank_cpca(
+def alternative_car_market_man_rank_cpca(
     symbol: str = "狭义乘用车-累计", indicator: str = "批发"
 ) -> pd.DataFrame:
     """
@@ -142,7 +142,9 @@ def car_market_man_rank_cpca(
     )
 
 
-def car_market_cate_cpca(symbol: str = "轿车", indicator: str = "批发") -> pd.DataFrame:
+def alternative_car_market_cate_cpca(
+    symbol: str = "轿车", indicator: str = "批发"
+) -> pd.DataFrame:
     """
     乘联会-统计数据-车型大类
     http://data.cpcadata.com/CategoryMarket
@@ -171,7 +173,7 @@ def car_market_cate_cpca(symbol: str = "轿车", indicator: str = "批发") -> p
     )
 
 
-def car_market_country_cpca() -> pd.DataFrame:
+def alternative_car_market_country_cpca() -> pd.DataFrame:
     """
     乘联会-统计数据-国别细分市场
     http://data.cpcadata.com/CountryMarket
@@ -191,7 +193,7 @@ def car_market_country_cpca() -> pd.DataFrame:
     return temp_df
 
 
-def car_market_segment_cpca(symbol: str = "轿车") -> pd.DataFrame:
+def alternative_car_market_segment_cpca(symbol: str = "轿车") -> pd.DataFrame:
     """
     乘联会-统计数据-级别细分市场
     http://data.cpcadata.com/SegmentMarket
@@ -228,7 +230,7 @@ def car_market_segment_cpca(symbol: str = "轿车") -> pd.DataFrame:
     return temp_df
 
 
-def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
+def alternative_car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
     """
     乘联会-统计数据-新能源细分市场
     :param symbol: choice of {"整体市场", "销量占比-PHEV-BEV", "销量占比-ICE-NEV"}
@@ -260,127 +262,155 @@ def car_market_fuel_cpca(symbol: str = "整体市场") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="狭义乘用车", indicator="产量"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="广义乘用车", indicator="产量"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="狭义乘用车", indicator="批发"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="广义乘用车", indicator="批发"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="狭义乘用车", indicator="零售"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="广义乘用车", indicator="零售"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="狭义乘用车", indicator="出口"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_total_cpca_df = car_market_total_cpca(
+    alternative_car_market_total_cpca_df = alternative_car_market_total_cpca(
         symbol="广义乘用车", indicator="出口"
     )
-    print(car_market_total_cpca_df)
+    print(alternative_car_market_total_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="狭义乘用车-单月", indicator="批发"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="狭义乘用车-累计", indicator="批发"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="广义乘用车-单月", indicator="批发"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="广义乘用车-累计", indicator="批发"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="狭义乘用车-单月", indicator="零售"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="狭义乘用车-累计", indicator="零售"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="广义乘用车-单月", indicator="零售"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+    alternative_car_market_man_rank_cpca_df = alternative_car_market_man_rank_cpca(
         symbol="广义乘用车-累计", indicator="零售"
     )
-    print(car_market_man_rank_cpca_df)
+    print(alternative_car_market_man_rank_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="轿车", indicator="批发")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="轿车", indicator="批发"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="MPV", indicator="批发")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="MPV", indicator="批发"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="SUV", indicator="批发")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="SUV", indicator="批发"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="占比", indicator="批发")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="占比", indicator="批发"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="轿车", indicator="零售")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="轿车", indicator="零售"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="MPV", indicator="零售")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="MPV", indicator="零售"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="SUV", indicator="零售")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="SUV", indicator="零售"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_cate_cpca_df = car_market_cate_cpca(symbol="占比", indicator="零售")
-    print(car_market_cate_cpca_df)
+    alternative_car_market_cate_cpca_df = alternative_car_market_cate_cpca(
+        symbol="占比", indicator="零售"
+    )
+    print(alternative_car_market_cate_cpca_df)
 
-    car_market_country_cpca_df = car_market_country_cpca()
-    print(car_market_country_cpca_df)
+    alternative_car_market_country_cpca_df = alternative_car_market_country_cpca()
+    print(alternative_car_market_country_cpca_df)
 
-    car_market_segment_cpca_df = car_market_segment_cpca(symbol="轿车")
-    print(car_market_segment_cpca_df)
+    alternative_car_market_segment_cpca_df = alternative_car_market_segment_cpca(
+        symbol="轿车"
+    )
+    print(alternative_car_market_segment_cpca_df)
 
-    car_market_segment_cpca_df = car_market_segment_cpca(symbol="MPV")
-    print(car_market_segment_cpca_df)
+    alternative_car_market_segment_cpca_df = alternative_car_market_segment_cpca(
+        symbol="MPV"
+    )
+    print(alternative_car_market_segment_cpca_df)
 
-    car_market_segment_cpca_df = car_market_segment_cpca(symbol="SUV")
-    print(car_market_segment_cpca_df)
+    alternative_car_market_segment_cpca_df = alternative_car_market_segment_cpca(
+        symbol="SUV"
+    )
+    print(alternative_car_market_segment_cpca_df)
 
-    car_market_fuel_cpca_df = car_market_fuel_cpca(symbol="整体市场")
-    print(car_market_fuel_cpca_df)
+    alternative_car_market_fuel_cpca_df = alternative_car_market_fuel_cpca(
+        symbol="整体市场"
+    )
+    print(alternative_car_market_fuel_cpca_df)
 
-    car_market_fuel_cpca_df = car_market_fuel_cpca(symbol="销量占比-PHEV-BEV")
-    print(car_market_fuel_cpca_df)
+    alternative_car_market_fuel_cpca_df = alternative_car_market_fuel_cpca(
+        symbol="销量占比-PHEV-BEV"
+    )
+    print(alternative_car_market_fuel_cpca_df)
 
-    car_market_fuel_cpca_df = car_market_fuel_cpca(symbol="销量占比-ICE-NEV")
-    print(car_market_fuel_cpca_df)
+    alternative_car_market_fuel_cpca_df = alternative_car_market_fuel_cpca(
+        symbol="销量占比-ICE-NEV"
+    )
+    print(alternative_car_market_fuel_cpca_df)

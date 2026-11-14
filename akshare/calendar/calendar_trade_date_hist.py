@@ -16,7 +16,7 @@ from akshare.stock.cons import hk_js_decode
 from akshare.utils import http
 
 
-def tool_trade_date_hist_sina() -> pd.DataFrame:
+def calendar_trade_date_hist_sina() -> pd.DataFrame:
     """
     新浪财经-交易日历-历史数据
     https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
@@ -40,5 +40,5 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    tool_trade_date_hist_df = tool_trade_date_hist_sina()
+    tool_trade_date_hist_df = calendar_trade_date_hist_sina()
     print(tool_trade_date_hist_df)

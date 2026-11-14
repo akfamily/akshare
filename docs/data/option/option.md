@@ -2027,10 +2027,10 @@ print(option_sse_greeks_sina_df)
 12    理论价值             0.4591
 ```
 
-(option_sse_minute_sina)=
+(option_sse_min_sina)=
 #### 期权行情分钟数据
 
-接口：option_sse_minute_sina
+接口：option_sse_min_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
@@ -2060,8 +2060,8 @@ print(option_sse_greeks_sina_df)
 ```python
 import akshare as ak
 
-option_sse_minute_sina_df = ak.option_sse_minute_sina(symbol="10003720")
-print(option_sse_minute_sina_df)
+option_sse_min_sina_df = ak.option_sse_min_sina(symbol="10003720")
+print(option_sse_min_sina_df)
 ```
 
 数据示例
@@ -2138,10 +2138,10 @@ print(option_sse_daily_sina_df)
 13  2020-02-21  0.4550  0.4799  0.4477  0.4550   1892291
 ```
 
-(option_finance_minute_sina)=
+(option_finance_min_sina)=
 #### 期权行情分时数据-新浪
 
-接口：option_finance_minute_sina
+接口：option_finance_min_sina
 
 目标地址：https://stock.finance.sina.com.cn/option/quotes.html
 
@@ -2170,8 +2170,8 @@ print(option_sse_daily_sina_df)
 ```python
 import akshare as ak
 
-option_finance_minute_sina_df = ak.option_finance_minute_sina(symbol="10002415")
-print(option_finance_minute_sina_df)
+option_finance_min_sina_df = ak.option_finance_min_sina(symbol="10002415")
+print(option_finance_min_sina_df)
 ```
 
 数据示例
@@ -2191,10 +2191,10 @@ print(option_finance_minute_sina_df)
 1223  2020-07-17  15:00:00  1.3757        1.3679      1
 ```
 
-(option_minute_em)=
+(option_min_em)=
 #### 期权行情分时数据-东财
 
-接口：option_minute_em
+接口：option_min_em
 
 目标地址：https://wap.eastmoney.com/quote/stock/151.cu2404P61000.html
 
@@ -2224,8 +2224,8 @@ print(option_finance_minute_sina_df)
 ```python
 import akshare as ak
 
-option_minute_em_df = ak.option_minute_em(symbol="MO2402-C-5400")
-print(option_minute_em_df)
+option_min_em_df = ak.option_min_em(symbol="MO2402-C-5400")
+print(option_min_em_df)
 ```
 
 数据示例

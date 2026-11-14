@@ -1,9 +1,9 @@
 # 利率数据
 
-(rate_interbank)=
+(interest_rate_interbank_em)=
 ## 银行间拆借利率
 
-接口：rate_interbank
+接口：interest_rate_interbank_em
 
 目标地址：https://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
@@ -145,8 +145,8 @@
 ```python
 import akshare as ak
 
-rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月")
-print(rate_interbank_df)
+interest_rate_interbank_em_df = ak.interest_rate_interbank_em(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月")
+print(interest_rate_interbank_em_df)
 ```
 
 数据示例
@@ -167,10 +167,10 @@ print(rate_interbank_df)
 [4396 rows x 3 columns]
 ```
 
-(repo_rate_hist)=
+(interest_rate_repo_hist_cm)=
 ## 回购定盘利率-历史
 
-接口：repo_rate_hist
+接口：interest_rate_repo_hist_cm
 
 目标地址：https://www.chinamoney.com.cn/chinese/bkfrr/
 
@@ -202,8 +202,8 @@ print(rate_interbank_df)
 ```python
 import akshare as ak
 
-repo_rate_hist_df = ak.repo_rate_hist(start_date="20231001", end_date="20240101")
-print(repo_rate_hist_df)
+interest_rate_repo_hist_cm_df = ak.interest_rate_repo_hist_cm(start_date="20231001", end_date="20240101")
+print(interest_rate_repo_hist_cm_df)
 ```
 
 数据示例
@@ -224,10 +224,10 @@ print(repo_rate_hist_df)
 [62 rows x 7 columns]
 ```
 
-(repo_rate_query)=
+(interest_rate_repo_query_cm)=
 ## 回购定盘利率-近期
 
-接口：repo_rate_query
+接口：interest_rate_repo_query_cm
 
 目标地址：https://www.chinamoney.com.cn/chinese/bkfrr/
 
@@ -255,8 +255,8 @@ print(repo_rate_hist_df)
 ```python
 import akshare as ak
 
-repo_rate_query_df = ak.repo_rate_query(symbol="回购定盘利率")
-print(repo_rate_query_df)
+interest_rate_repo_query_cm_df = ak.interest_rate_repo_query_cm(symbol="回购定盘利率")
+print(interest_rate_repo_query_cm_df)
 ```
 
 数据示例

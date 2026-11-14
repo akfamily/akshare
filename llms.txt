@@ -247,7 +247,7 @@ Representative examples:
 - `ak.option_realtime_em()`
 - `ak.bond_cb_realtime_sina()`
 - `ak.macro_china_cpi()`
-- `ak.news_cctv()`
+- `ak.alternative_news_cctv()`
 - `ak.crypto_realtime_js()`
 
 ## Project Structure

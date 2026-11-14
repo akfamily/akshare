@@ -8,6 +8,31 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-45)=
+### 1.20.45 fix!: rename 83 interfaces to carry their category prefix and remove 6 dead interfaces
+
+**不兼容的改动：83 个接口因名称不以所属类目开头、数据源标记不在末尾或靠调换词序区分数据源而改名，6 个数据源已失效的接口移除，旧名称不再保留，调用旧名称会报 AttributeError。** 改名对照见文末的{ref}`接口更名一览表 <changelog-rename>`：air_city_table→alternative_air_city_table_zhenqi、air_quality_hist→alternative_air_quality_hist_zhenqi、air_quality_rank→alternative_air_quality_rank_zhenqi、air_quality_watch_point→alternative_air_quality_watch_point_zhenqi、air_quality_hebei→alternative_air_quality_hebei、car_market_cate_cpca→alternative_car_market_cate_cpca、car_market_country_cpca→alternative_car_market_country_cpca、car_market_fuel_cpca→alternative_car_market_fuel_cpca、car_market_man_rank_cpca→alternative_car_market_man_rank_cpca、car_market_segment_cpca→alternative_car_market_segment_cpca、car_market_total_cpca→alternative_car_market_total_cpca、forbes_rank→alternative_rank_forbes、fortune_rank→alternative_rank_fortune、hurun_rank→alternative_rank_hurun、index_bloomberg_billionaires_hist→alternative_billionaires_hist_bloomberg、game_hot_rank_taptap→alternative_game_hot_rank_taptap、movie_boxoffice_realtime→alternative_movie_boxoffice_realtime_yien、movie_boxoffice_daily→alternative_movie_boxoffice_daily_yien、movie_boxoffice_monthly→alternative_movie_boxoffice_monthly_yien、movie_boxoffice_yearly→alternative_movie_boxoffice_yearly_yien、movie_boxoffice_yearly_first_week→alternative_movie_boxoffice_yearly_first_week_yien、movie_boxoffice_cinema_daily→alternative_movie_boxoffice_cinema_daily_yien、news_cctv→alternative_news_cctv、sunrise_daily→alternative_sunrise_daily_tad、sunrise_monthly→alternative_sunrise_monthly_tad、stock_js_weibo_report→alternative_weibo_stock_report_js、stock_js_weibo_nlp_time→alternative_weibo_stock_time_js、amac_member_info→fund_member_info_amac、amac_member_sub_info→fund_member_sub_info_amac、amac_person_fund_org_list→fund_person_fund_org_list_amac、amac_person_bond_org_list→fund_person_bond_org_list_amac、amac_manager_info→fund_manager_info_amac、amac_manager_classify_info→fund_manager_classify_info_amac、amac_manager_cancelled_info→fund_manager_cancelled_info_amac、amac_fund_info→fund_private_fund_info_amac、amac_fund_sub_info→fund_private_sub_fund_info_amac、amac_securities_info→fund_securities_info_amac、amac_aoin_info→fund_aoin_info_amac、amac_fund_account_info→fund_account_info_amac、amac_fund_abs→fund_abs_amac、amac_futures_info→fund_futures_info_amac、sw_index_first_info→index_first_info_sw、sw_index_second_info→index_second_info_sw、sw_index_third_info→index_third_info_sw、sw_index_third_cons→index_third_cons_sw、drewry_wci_index→index_wci_drewry、spot_goods→index_commodity_price_sina、index_us_stock_sina→index_us_daily_sina、index_hog_spot_price→futures_hog_spot_price、match_main_contract→futures_main_contract_sina、tool_trade_date_hist_sina→calendar_trade_date_hist_sina、hf_sp_500→high_freq_sp500、rv_from_stock_zh_a_hist_min_em→indicator_rv_input_stock_em、rv_from_futures_zh_minute_sina→indicator_rv_input_futures_sina、volatility_yz_rv→indicator_yz_rv、rate_interbank→interest_rate_interbank_em、repo_rate_hist→interest_rate_repo_hist_cm、repo_rate_query→interest_rate_repo_query_cm、article_epu_index→research_epu_index、article_ff_crr→research_ff_crr、article_rlab_rv→research_rv_rlab、fred_md→research_fred_md、fred_qd→research_fred_qd、macro_rmb_deposit→macro_china_rmb_deposit_ths、macro_rmb_loan→macro_china_rmb_loan_ths、macro_stock_finance→macro_china_stock_financing_ths、macro_cnbs→macro_china_leverage_nifd、stock_individual_fund_flow→stock_fund_flow_individual_hist_em、stock_individual_fund_flow_rank→stock_fund_flow_individual_rank_em、stock_main_fund_flow→stock_fund_flow_main_em、stock_market_fund_flow→stock_fund_flow_market_em、stock_sector_fund_flow_rank→stock_fund_flow_sector_rank_em、stock_sector_fund_flow_summary→stock_fund_flow_sector_summary_em、stock_sector_fund_flow_hist→stock_fund_flow_sector_hist_em、stock_concept_fund_flow_hist→stock_fund_flow_concept_hist_em、stock_fund_flow_individual→stock_fund_flow_individual_ths、stock_fund_flow_concept→stock_fund_flow_concept_ths、stock_fund_flow_industry→stock_fund_flow_industry_ths、stock_fund_flow_big_deal→stock_fund_flow_big_deal_ths、futures_zh_minute_sina→futures_zh_min_sina、option_minute_em→option_min_em、option_finance_minute_sina→option_finance_min_sina、option_sse_minute_sina→option_sse_min_sina
+
+移除的接口（均为另类数据，上游已无法访问，没有替代接口）：
+
+- index_bloomberg_billionaires（彭博亿万富豪指数实时榜单）：彭博网站对程序访问一律返回人机验证页面。历史榜单 alternative_billionaires_hist_bloomberg 取自第三方站点，仍可使用
+- xincaifu_rank（新财富 500 富豪榜）：原数据接口返回 502，新财富网站改版后不再提供该榜单的数据接口
+- business_value_artist、online_value_artist（艺恩艺人商业价值、流量价值）与 video_tv、video_variety_show（艺恩电视剧集、综艺节目）：艺恩官网已改版，原数据接口返回 405。艺恩的电影票房接口不受影响
+
+1. 另类数据类目的 27 个接口补上 alternative_ 前缀，数据源放到末尾：空气质量（真气网 zhenqi）、电影票房（艺恩 yien）、日出日落（timeanddate，tad）、乘联会汽车销量、福布斯、财富、胡润榜单、TapTap 游戏榜、新闻联播文字稿、微博舆情报告。微博舆情报告来自金十数据，原名 stock_js_weibo_report 把数据源放在了中间
+2. 中国证券投资基金业协会的 14 个接口由 amac_* 改为 fund_*_amac；其中 amac_fund_info、amac_fund_sub_info 是私募基金产品公示，改为 fund_private_fund_info_amac、fund_private_sub_fund_info_amac
+3. 指数、期货、利率、研究等类目的 21 个接口改为以所属类目开头：申万行业分类 sw_index_* 改为 index_*_sw；spot_goods 是新浪的商品现货价格指数，属于指数类目，改为 index_commodity_price_sina；index_us_stock_sina 是美股指数日线，改为 index_us_daily_sina；index_hog_spot_price 在期货类目，改为 futures_hog_spot_price；match_main_contract 改为 futures_main_contract_sina；tool_trade_date_hist_sina 改为 calendar_trade_date_hist_sina；回购定盘利率与拆借利率改为 interest_rate_*；article_*、fred_* 改为 research_*；已实现波动率的 3 个接口改为 indicator_*
+4. 同花顺的 3 个宏观接口补上国家与数据源，改为 macro_china_rmb_deposit_ths、macro_china_rmb_loan_ths、macro_china_stock_financing_ths；macro_cnbs 是国家金融与发展实验室的宏观杠杆率，改为 macro_china_leverage_nifd
+5. 资金流向接口统一为 stock_fund_flow_<对象>_<数据源>：东方财富的 8 个接口与同花顺的 4 个接口原先靠调换词序区分（如 stock_individual_fund_flow_rank 与 stock_fund_flow_individual 是同一种数据），现在分别以 _em、_ths 结尾
+6. 分钟行情统一用 min，涉及 futures_zh_minute_sina、option_minute_em、option_finance_minute_sina、option_sse_minute_sina 改为 futures_zh_min_sina、option_min_em、option_finance_min_sina、option_sse_min_sina
+7. 修复 alternative_air_city_table_zhenqi、alternative_air_quality_rank_zhenqi（原 air_city_table、air_quality_rank）报 `ValueError: No tables found` 的问题：真气网对不带浏览器 User-Agent 的请求返回 403
+8. 修复 alternative_billionaires_hist_bloomberg（原 index_bloomberg_billionaires_hist）报 `IndexError` 的问题：数据所在的站点对不带浏览器 User-Agent 的请求返回拒绝访问页面
+9. 中国证券投资基金业协会的接口（fund_*_amac）需要翻几十到几百页，途中偶发的连接中断或非 JSON 响应原先会让整次调用报 `SSLError`、`ProxyError` 或 `JSONDecodeError`，现在统一经 http.request_with_retry 重试。实测加重试前串行调用 9 个接口只有 1 个成功，加重试后 fund_member_sub_info_amac、fund_manager_info_amac、fund_manager_classify_info_amac、fund_manager_cancelled_info_amac、fund_private_sub_fund_info_amac、fund_abs_amac 均返回正常；协会网站对短时间内的大量请求仍会限制访问，请避免并发调用
+10. stock_a_code_to_symbol 是为股票代码加市场前缀的工具函数，由指数模块移到 akshare/stock/other/stock_code_symbol.py，名称与用法不变
+11. fx_pair_map_investing 的文档去掉“历史数据可以调用 ak.currency_history() 获取”：currency_history 取自另一个数据源，与英为财情的货币对代码不对应
+12. 其余接口只改名称、实现未变。83 个改名后的接口中，9 个请求东方财富 push2 的接口（8 个资金流向接口与 option_min_em）为避免触发限流没有实测，indicator_rv_input_stock_em 实测时已被东方财富限流；fund_securities_info_amac、fund_account_info_amac 分别需要翻 2018 页、2415 页，8 分钟内没有跑完，未取得完整结果；其余接口已按文档示例逐一调用，返回正常。alternative_movie_boxoffice_daily_yien、alternative_movie_boxoffice_cinema_daily_yien 只能查询当天及前 2 天，按默认参数调用正常
+13. 命名规范的存量问题由 69 个降至 0 个，tests/naming_baseline.json 已清空；按位置赋列名的写法降至 467 处；接口总数由 982 个变为 976 个
+
 (v1-20-44)=
 ### 1.20.44 fix!: rename 68 interfaces with ambiguous or inconsistent terms
 
@@ -423,6 +448,89 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.45      | air_city_table                              | alternative_air_city_table_zhenqi           | 20261114 |
+| 1.20.45      | air_quality_hebei                           | alternative_air_quality_hebei               | 20261114 |
+| 1.20.45      | air_quality_hist                            | alternative_air_quality_hist_zhenqi         | 20261114 |
+| 1.20.45      | air_quality_rank                            | alternative_air_quality_rank_zhenqi         | 20261114 |
+| 1.20.45      | air_quality_watch_point                     | alternative_air_quality_watch_point_zhenqi  | 20261114 |
+| 1.20.45      | amac_aoin_info                              | fund_aoin_info_amac                         | 20261114 |
+| 1.20.45      | amac_fund_abs                               | fund_abs_amac                               | 20261114 |
+| 1.20.45      | amac_fund_account_info                      | fund_account_info_amac                      | 20261114 |
+| 1.20.45      | amac_fund_info                              | fund_private_fund_info_amac                 | 20261114 |
+| 1.20.45      | amac_fund_sub_info                          | fund_private_sub_fund_info_amac             | 20261114 |
+| 1.20.45      | amac_futures_info                           | fund_futures_info_amac                      | 20261114 |
+| 1.20.45      | amac_manager_cancelled_info                 | fund_manager_cancelled_info_amac            | 20261114 |
+| 1.20.45      | amac_manager_classify_info                  | fund_manager_classify_info_amac             | 20261114 |
+| 1.20.45      | amac_manager_info                           | fund_manager_info_amac                      | 20261114 |
+| 1.20.45      | amac_member_info                            | fund_member_info_amac                       | 20261114 |
+| 1.20.45      | amac_member_sub_info                        | fund_member_sub_info_amac                   | 20261114 |
+| 1.20.45      | amac_person_bond_org_list                   | fund_person_bond_org_list_amac              | 20261114 |
+| 1.20.45      | amac_person_fund_org_list                   | fund_person_fund_org_list_amac              | 20261114 |
+| 1.20.45      | amac_securities_info                        | fund_securities_info_amac                   | 20261114 |
+| 1.20.45      | article_epu_index                           | research_epu_index                          | 20261114 |
+| 1.20.45      | article_ff_crr                              | research_ff_crr                             | 20261114 |
+| 1.20.45      | article_rlab_rv                             | research_rv_rlab                            | 20261114 |
+| 1.20.45      | car_market_cate_cpca                        | alternative_car_market_cate_cpca            | 20261114 |
+| 1.20.45      | car_market_country_cpca                     | alternative_car_market_country_cpca         | 20261114 |
+| 1.20.45      | car_market_fuel_cpca                        | alternative_car_market_fuel_cpca            | 20261114 |
+| 1.20.45      | car_market_man_rank_cpca                    | alternative_car_market_man_rank_cpca        | 20261114 |
+| 1.20.45      | car_market_segment_cpca                     | alternative_car_market_segment_cpca         | 20261114 |
+| 1.20.45      | car_market_total_cpca                       | alternative_car_market_total_cpca           | 20261114 |
+| 1.20.45      | drewry_wci_index                            | index_wci_drewry                            | 20261114 |
+| 1.20.45      | forbes_rank                                 | alternative_rank_forbes                     | 20261114 |
+| 1.20.45      | fortune_rank                                | alternative_rank_fortune                    | 20261114 |
+| 1.20.45      | fred_md                                     | research_fred_md                            | 20261114 |
+| 1.20.45      | fred_qd                                     | research_fred_qd                            | 20261114 |
+| 1.20.45      | futures_zh_minute_sina                      | futures_zh_min_sina                         | 20261114 |
+| 1.20.45      | game_hot_rank_taptap                        | alternative_game_hot_rank_taptap            | 20261114 |
+| 1.20.45      | hf_sp_500                                   | high_freq_sp500                             | 20261114 |
+| 1.20.45      | hurun_rank                                  | alternative_rank_hurun                      | 20261114 |
+| 1.20.45      | index_bloomberg_billionaires_hist           | alternative_billionaires_hist_bloomberg     | 20261114 |
+| 1.20.45      | index_hog_spot_price                        | futures_hog_spot_price                      | 20261114 |
+| 1.20.45      | index_us_stock_sina                         | index_us_daily_sina                         | 20261114 |
+| 1.20.45      | macro_cnbs                                  | macro_china_leverage_nifd                   | 20261114 |
+| 1.20.45      | macro_rmb_deposit                           | macro_china_rmb_deposit_ths                 | 20261114 |
+| 1.20.45      | macro_rmb_loan                              | macro_china_rmb_loan_ths                    | 20261114 |
+| 1.20.45      | macro_stock_finance                         | macro_china_stock_financing_ths             | 20261114 |
+| 1.20.45      | match_main_contract                         | futures_main_contract_sina                  | 20261114 |
+| 1.20.45      | movie_boxoffice_cinema_daily                | alternative_movie_boxoffice_cinema_daily_yien | 20261114 |
+| 1.20.45      | movie_boxoffice_daily                       | alternative_movie_boxoffice_daily_yien      | 20261114 |
+| 1.20.45      | movie_boxoffice_monthly                     | alternative_movie_boxoffice_monthly_yien    | 20261114 |
+| 1.20.45      | movie_boxoffice_realtime                    | alternative_movie_boxoffice_realtime_yien   | 20261114 |
+| 1.20.45      | movie_boxoffice_yearly                      | alternative_movie_boxoffice_yearly_yien     | 20261114 |
+| 1.20.45      | movie_boxoffice_yearly_first_week           | alternative_movie_boxoffice_yearly_first_week_yien | 20261114 |
+| 1.20.45      | news_cctv                                   | alternative_news_cctv                       | 20261114 |
+| 1.20.45      | option_finance_minute_sina                  | option_finance_min_sina                     | 20261114 |
+| 1.20.45      | option_minute_em                            | option_min_em                               | 20261114 |
+| 1.20.45      | option_sse_minute_sina                      | option_sse_min_sina                         | 20261114 |
+| 1.20.45      | rate_interbank                              | interest_rate_interbank_em                  | 20261114 |
+| 1.20.45      | repo_rate_hist                              | interest_rate_repo_hist_cm                  | 20261114 |
+| 1.20.45      | repo_rate_query                             | interest_rate_repo_query_cm                 | 20261114 |
+| 1.20.45      | rv_from_futures_zh_minute_sina              | indicator_rv_input_futures_sina             | 20261114 |
+| 1.20.45      | rv_from_stock_zh_a_hist_min_em              | indicator_rv_input_stock_em                 | 20261114 |
+| 1.20.45      | spot_goods                                  | index_commodity_price_sina                  | 20261114 |
+| 1.20.45      | stock_concept_fund_flow_hist                | stock_fund_flow_concept_hist_em             | 20261114 |
+| 1.20.45      | stock_fund_flow_big_deal                    | stock_fund_flow_big_deal_ths                | 20261114 |
+| 1.20.45      | stock_fund_flow_concept                     | stock_fund_flow_concept_ths                 | 20261114 |
+| 1.20.45      | stock_fund_flow_individual                  | stock_fund_flow_individual_ths              | 20261114 |
+| 1.20.45      | stock_fund_flow_industry                    | stock_fund_flow_industry_ths                | 20261114 |
+| 1.20.45      | stock_individual_fund_flow                  | stock_fund_flow_individual_hist_em          | 20261114 |
+| 1.20.45      | stock_individual_fund_flow_rank             | stock_fund_flow_individual_rank_em          | 20261114 |
+| 1.20.45      | stock_js_weibo_nlp_time                     | alternative_weibo_stock_time_js             | 20261114 |
+| 1.20.45      | stock_js_weibo_report                       | alternative_weibo_stock_report_js           | 20261114 |
+| 1.20.45      | stock_main_fund_flow                        | stock_fund_flow_main_em                     | 20261114 |
+| 1.20.45      | stock_market_fund_flow                      | stock_fund_flow_market_em                   | 20261114 |
+| 1.20.45      | stock_sector_fund_flow_hist                 | stock_fund_flow_sector_hist_em              | 20261114 |
+| 1.20.45      | stock_sector_fund_flow_rank                 | stock_fund_flow_sector_rank_em              | 20261114 |
+| 1.20.45      | stock_sector_fund_flow_summary              | stock_fund_flow_sector_summary_em           | 20261114 |
+| 1.20.45      | sunrise_daily                               | alternative_sunrise_daily_tad               | 20261114 |
+| 1.20.45      | sunrise_monthly                             | alternative_sunrise_monthly_tad             | 20261114 |
+| 1.20.45      | sw_index_first_info                         | index_first_info_sw                         | 20261114 |
+| 1.20.45      | sw_index_second_info                        | index_second_info_sw                        | 20261114 |
+| 1.20.45      | sw_index_third_cons                         | index_third_cons_sw                         | 20261114 |
+| 1.20.45      | sw_index_third_info                         | index_third_info_sw                         | 20261114 |
+| 1.20.45      | tool_trade_date_hist_sina                   | calendar_trade_date_hist_sina               | 20261114 |
+| 1.20.45      | volatility_yz_rv                            | indicator_yz_rv                             | 20261114 |
 | 1.20.44      | bond_cov_comparison                         | bond_cb_comparison_em                       | 20261114 |
 | 1.20.44      | bond_cov_issue_cninfo                       | bond_cb_issue_cninfo                        | 20261114 |
 | 1.20.44      | bond_cov_stock_issue_cninfo                 | bond_cb_conversion_cninfo                   | 20261114 |

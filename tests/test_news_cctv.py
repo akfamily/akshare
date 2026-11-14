@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/10/30
-Desc: news_cctv 标题与正文清洗测试
+Desc: alternative_news_cctv 标题与正文清洗测试
 
 原先用 str.strip("[视频]") 与 str.strip("央视网消息（新闻联播）：") 去前缀。strip 的参数
 是字符集合而不是前缀：以“视频”结尾的标题会被截掉末尾两个字，正文若以“新”“央”等

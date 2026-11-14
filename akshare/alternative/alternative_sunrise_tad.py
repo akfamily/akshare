@@ -38,7 +38,9 @@ def sunrise_city_list() -> list:
     return city_list
 
 
-def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame:
+def alternative_sunrise_daily_tad(
+    date: str = "20240428", city: str = "beijing"
+) -> pd.DataFrame:
     """
     每日日出日落数据
     https://www.timeanddate.com/astronomy/china/shaoxing
@@ -69,7 +71,9 @@ def sunrise_daily(date: str = "20240428", city: str = "beijing") -> pd.DataFrame
         raise "请输入正确的城市名称"
 
 
-def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFrame:
+def alternative_sunrise_monthly_tad(
+    date: str = "20240428", city: str = "beijing"
+) -> pd.DataFrame:
     """
     每个指定 date 所在月份的每日日出日落数据，如果当前月份未到月底，则以预测值填充
     https://www.timeanddate.com/astronomy/china/shaoxing
@@ -101,8 +105,12 @@ def sunrise_monthly(date: str = "20240428", city: str = "beijing") -> pd.DataFra
 
 
 if __name__ == "__main__":
-    sunrise_daily_df = sunrise_daily(date="20240428", city="beijing")
-    print(sunrise_daily_df)
+    alternative_sunrise_daily_tad_df = alternative_sunrise_daily_tad(
+        date="20240428", city="beijing"
+    )
+    print(alternative_sunrise_daily_tad_df)
 
-    sunrise_monthly_df = sunrise_monthly(date="20240428", city="beijing")
-    print(sunrise_monthly_df)
+    alternative_sunrise_monthly_tad_df = alternative_sunrise_monthly_tad(
+        date="20240428", city="beijing"
+    )
+    print(alternative_sunrise_monthly_tad_df)

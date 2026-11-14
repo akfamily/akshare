@@ -1,4 +1,4 @@
-"""match_main_contract 的主力合约判定（离线）"""
+"""futures_main_contract_sina 的主力合约判定（离线）"""
 
 import pandas as pd
 

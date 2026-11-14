@@ -3,8 +3,8 @@
   "undocumented": [
     "bond_info_cm_query",
     "bond_zh_close_yield_map_cm",
-    "fred_md",
-    "fred_qd",
+    "research_fred_md",
+    "research_fred_qd",
     "futures_daily_cffex",
     "futures_daily_czce",
     "futures_daily_dce",
@@ -40,15 +40,15 @@
     "index_global_name_table",
     "index_stock_cons_sina",
     "index_stock_info",
-    "match_main_contract",
+    "futures_main_contract_sina",
     "option_fee_symbol_9qihuo",
     "option_finance_underlying_sse",
     "option_hist_yearly_czce",
     "option_margin_symbol",
     "option_vol_shfe",
     "fund_reits_hist_min_em",
-    "rv_from_futures_zh_minute_sina",
-    "rv_from_stock_zh_a_hist_min_em",
+    "indicator_rv_input_futures_sina",
+    "indicator_rv_input_stock_em",
     "spot_price_table_qh",
     "spot_symbol_table_sge",
     "stock_a_code_to_symbol",
@@ -57,11 +57,11 @@
     "stock_board_industry_info_ths",
     "stock_board_industry_name_ths",
     "stock_classify_sina",
-    "stock_js_weibo_nlp_time",
+    "alternative_weibo_stock_time_js",
     "stock_lhb_stock_detail_date_em",
     "stock_us_name_sina",
     "stock_zh_a_spot_tx",
     "stock_zh_a_tick_tx",
-    "volatility_yz_rv"
+    "indicator_yz_rv"
   ]
 }

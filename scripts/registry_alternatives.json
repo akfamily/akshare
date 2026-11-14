@@ -17,7 +17,7 @@
     ["index_global_hist_em", "index_global_hist_sina"],
     ["stock_board_industry_hist_em", "stock_board_industry_index_ths"],
     ["stock_board_concept_hist_em", "stock_board_concept_index_ths"],
-    ["stock_individual_fund_flow_rank", "stock_fund_flow_individual"],
+    ["stock_fund_flow_individual_rank_em", "stock_fund_flow_individual_ths"],
     ["futures_hist_em", "futures_zh_daily_sina"],
     ["futures_global_hist_em", "futures_foreign_hist"]
   ],
@@ -35,6 +35,6 @@
     "stock_hk_main_board_spot_em": ["stock_hk_spot"],
     "stock_hk_famous_spot_em": ["stock_hk_spot"],
     "stock_us_famous_spot_em": ["stock_us_spot"],
-    "stock_sector_fund_flow_rank": ["stock_fund_flow_industry", "stock_fund_flow_concept"]
+    "stock_fund_flow_sector_rank_em": ["stock_fund_flow_industry_ths", "stock_fund_flow_concept_ths"]
   }
 }

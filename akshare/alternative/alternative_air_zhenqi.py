@@ -61,7 +61,14 @@ def has_month_data(href):
     return href and re.compile("monthdata.php").search(href)
 
 
-def air_city_table() -> pd.DataFrame:
+# 真气网对不带浏览器 User-Agent 的请求返回 403
+_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+}
+
+
+def alternative_air_city_table_zhenqi() -> pd.DataFrame:
     """
     真气网-空气质量历史数据查询-全部城市列表
     https://www.zq12369.com/environment.php?date=2019-06-05&tab=rank&order=DESC&type=DAY#rank
@@ -78,7 +85,7 @@ def air_city_table() -> pd.DataFrame:
             "order": "DESC",
             "type": "DAY",
         }
-        r = http.get(url, params=params)
+        r = http.get(url, params=params, headers=_HEADERS)
         temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, :]
         del temp_df["降序"]
         temp_df = temp_df.reset_index()
@@ -96,14 +103,14 @@ def air_city_table() -> pd.DataFrame:
     return temp_df
 
 
-def air_quality_watch_point(
+def alternative_air_quality_watch_point_zhenqi(
     city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
     指定之间段之间的空气质量数据
     https://www.zq12369.com/
-    :param city: 调用 ak.air_city_table() 接口获取
+    :param city: 调用 ak.alternative_air_city_table_zhenqi() 接口获取
     :type city: str
     :param start_date: e.g., "20190327"
     :type start_date: str
@@ -161,7 +168,7 @@ def _zhenqi_page_keys() -> dict:
     return keys
 
 
-def air_quality_hist(
+def alternative_air_quality_hist_zhenqi(
     city: str = "杭州",
     period: str = "day",
     start_date: str = "20260901",
@@ -171,7 +178,7 @@ def air_quality_hist(
     真气网-空气历史数据
     https://www.zq12369.com/
     上游只提供最近约一年的数据，更早的日期返回空表
-    :param city: 调用 ak.air_city_table() 接口获取所有城市列表
+    :param city: 调用 ak.alternative_air_city_table_zhenqi() 接口获取所有城市列表
     :type city: str
     :param period: "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据，上游目前返回其他城市的数据，会报错
     :type period: str
@@ -232,7 +239,7 @@ def air_quality_hist(
     return temp_df
 
 
-def air_quality_rank(date: str = "") -> pd.DataFrame:
+def alternative_air_quality_rank_zhenqi(date: str = "") -> pd.DataFrame:
     """
     真气网-168 城市 AQI 排行榜
     https://www.zq12369.com/environment.php?date=2020-03-12&tab=rank&order=DESC&type=DAY#rank
@@ -259,7 +266,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "DAY",
         }
-        r = http.get(url, params=params)
+        r = http.get(url, params=params, headers=_HEADERS)
         return pd.read_html(StringIO(r.text))[1].iloc[1:, :]
     elif len(date.split("-")) == 2:
         params = {
@@ -268,7 +275,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "MONTH",
         }
-        r = http.get(url, params=params)
+        r = http.get(url, params=params, headers=_HEADERS)
         return pd.read_html(StringIO(r.text))[2].iloc[1:, :]
     elif len(date.split("-")) == 1 and date != "实时":
         params = {
@@ -277,7 +284,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "YEAR",
         }
-        r = http.get(url, params=params)
+        r = http.get(url, params=params, headers=_HEADERS)
         return pd.read_html(StringIO(r.text))[3].iloc[1:, :]
     if date == "实时":
         params = {
@@ -285,26 +292,28 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "MONTH",
         }
-        r = http.get(url, params=params)
+        r = http.get(url, params=params, headers=_HEADERS)
         return pd.read_html(StringIO(r.text))[0].iloc[1:, :]
 
 
 if __name__ == "__main__":
-    air_city_table_df = air_city_table()
-    print(air_city_table_df)
+    alternative_air_city_table_zhenqi_df = alternative_air_city_table_zhenqi()
+    print(alternative_air_city_table_zhenqi_df)
 
-    air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="20220408", end_date="20220409"
+    alternative_air_quality_watch_point_zhenqi_df = (
+        alternative_air_quality_watch_point_zhenqi(
+            city="杭州", start_date="20220408", end_date="20220409"
+        )
     )
-    print(air_quality_watch_point_df)
+    print(alternative_air_quality_watch_point_zhenqi_df)
 
-    air_quality_hist_df = air_quality_hist(
+    alternative_air_quality_hist_zhenqi_df = alternative_air_quality_hist_zhenqi(
         city="北京",
         period="day",
         start_date="20260901",
         end_date="20261028",
     )
-    print(air_quality_hist_df)
+    print(alternative_air_quality_hist_zhenqi_df)
 
-    air_quality_rank_df = air_quality_rank()
-    print(air_quality_rank_df)
+    alternative_air_quality_rank_zhenqi_df = alternative_air_quality_rank_zhenqi()
+    print(alternative_air_quality_rank_zhenqi_df)

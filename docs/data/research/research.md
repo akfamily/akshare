@@ -4,10 +4,10 @@
 
 ### 已实现波动率数据
 
-(article_rlab_rv)=
+(research_rv_rlab)=
 #### Risk-Lab
 
-接口：article_rlab_rv
+接口：research_rv_rlab
 
 目标地址：https://dachxiu.chicagobooth.edu/
 
@@ -19,7 +19,7 @@
 
 | 名称     | 类型  | 描述                                           |
 |--------|-----|----------------------------------------------|
-| symbol | str | symbol="39693"，某个具体指数 help(article_rlab_rv) |
+| symbol | str | symbol="39693"，某个具体指数 help(research_rv_rlab) |
 
 输出参数
 
@@ -35,8 +35,8 @@ Risk-Lab-已实现波动率数据
 ```python
 import akshare as ak
 
-article_rlab_rv_df = ak.article_rlab_rv(symbol="39693")
-print(article_rlab_rv_df)
+research_rv_rlab_df = ak.research_rv_rlab(symbol="39693")
+print(research_rv_rlab_df)
 ```
 
 数据示例
@@ -57,10 +57,10 @@ print(article_rlab_rv_df)
 
 ## AKShare 多因子数据
 
-(article_ff_crr)=
+(research_ff_crr)=
 ### Current Research Returns
 
-接口：article_ff_crr
+接口：research_ff_crr
 
 目标地址：https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
@@ -88,8 +88,8 @@ print(article_rlab_rv_df)
 ```python
 import akshare as ak
 
-article_ff_crr_df = ak.article_ff_crr()
-print(article_ff_crr_df)
+research_ff_crr_df = ak.research_ff_crr()
+print(research_ff_crr_df)
 ```
 
 数据示例
@@ -133,10 +133,10 @@ print(article_ff_crr_df)
 
 ## AKShare 政策不确定性数据
 
-(article_epu_index)=
+(research_epu_index)=
 ### 国家和地区指数
 
-接口：article_epu_index
+接口：research_epu_index
 
 目标地址：https://www.policyuncertainty.com/index.html
 
@@ -191,8 +191,8 @@ print(article_ff_crr_df)
 ```python
 import akshare as ak
 
-article_epu_index_df = ak.article_epu_index(symbol="China")  # 注意单词第一个字母大写
-print(article_epu_index_df)
+research_epu_index_df = ak.research_epu_index(symbol="China")  # 注意单词第一个字母大写
+print(research_epu_index_df)
 ```
 
 数据示例

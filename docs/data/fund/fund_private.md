@@ -4,10 +4,10 @@
 
 ### 会员信息
 
-(amac_member_info)=
+(fund_member_info_amac)=
 #### 会员机构综合查询
 
-接口：amac_member_info
+接口：fund_member_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
 
@@ -38,8 +38,8 @@
 ```python
 import akshare as ak
 
-amac_member_info_df = ak.amac_member_info()
-print(amac_member_info_df)
+fund_member_info_amac_df = ak.fund_member_info_amac()
+print(fund_member_info_amac_df)
 ```
 
 数据示例
@@ -62,10 +62,10 @@ print(amac_member_info_df)
 
 ### 从业人员信息
 
-(amac_person_fund_org_list)=
+(fund_person_fund_org_list_amac)=
 #### 基金从业人员资格注册信息
 
-接口：amac_person_fund_org_list
+接口：fund_person_fund_org_list_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
@@ -96,8 +96,8 @@ print(amac_member_info_df)
 ```python
 import akshare as ak
 
-amac_person_fund_org_list_df = ak.amac_person_fund_org_list(symbol="公募基金管理公司")
-print(amac_person_fund_org_list_df)
+fund_person_fund_org_list_amac_df = ak.fund_person_fund_org_list_amac(symbol="公募基金管理公司")
+print(fund_person_fund_org_list_amac_df)
 ```
 
 数据示例
@@ -119,10 +119,10 @@ print(amac_person_fund_org_list_df)
 [150 rows x 8 columns]
 ```
 
-(amac_person_bond_org_list)=
+(fund_person_bond_org_list_amac)=
 #### 债券投资交易相关人员公示
 
-接口：amac_person_bond_org_list
+接口：fund_person_bond_org_list_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
@@ -150,8 +150,8 @@ print(amac_person_fund_org_list_df)
 ```python
 import akshare as ak
 
-amac_person_bond_org_list_df = ak.amac_person_bond_org_list()
-print(amac_person_bond_org_list_df)
+fund_person_bond_org_list_amac_df = ak.fund_person_bond_org_list_amac()
+print(fund_person_bond_org_list_amac_df)
 ```
 
 数据示例
@@ -174,10 +174,10 @@ print(amac_person_bond_org_list_df)
 
 ### 私募基金管理人公示
 
-(amac_manager_info)=
+(fund_manager_info_amac)=
 #### 私募基金管理人综合查询
 
-接口：amac_manager_info
+接口：fund_manager_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
 
@@ -208,8 +208,8 @@ print(amac_person_bond_org_list_df)
 ```python
 import akshare as ak
 
-amac_manager_info_df = ak.amac_manager_info()
-print(amac_manager_info_df)
+fund_manager_info_amac_df = ak.fund_manager_info_amac()
+print(fund_manager_info_amac_df)
 ```
 
 数据示例
@@ -230,10 +230,10 @@ print(amac_manager_info_df)
 [21092 rows x 7 columns]
 ```
 
-(amac_manager_classify_info)=
+(fund_manager_classify_info_amac)=
 #### 私募基金管理人分类公示
 
-接口：amac_manager_classify_info
+接口：fund_manager_classify_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
 
@@ -269,8 +269,8 @@ print(amac_manager_info_df)
 ```python
 import akshare as ak
 
-amac_manager_classify_info_df = ak.amac_manager_classify_info()
-print(amac_manager_classify_info_df)
+fund_manager_classify_info_amac_df = ak.fund_manager_classify_info_amac()
+print(fund_manager_classify_info_amac_df)
 ```
 
 数据示例
@@ -291,10 +291,10 @@ print(amac_manager_classify_info_df)
 [21092 rows x 12 columns]
 ```
 
-(amac_member_sub_info)=
+(fund_member_sub_info_amac)=
 #### 证券公司私募基金子公司管理人信息公示
 
-接口：amac_member_sub_info
+接口：fund_member_sub_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
 
@@ -324,8 +324,8 @@ print(amac_manager_classify_info_df)
 ```python
 import akshare as ak
 
-amac_member_sub_info_df = ak.amac_member_sub_info()
-print(amac_member_sub_info_df)
+fund_member_sub_info_amac_df = ak.fund_member_sub_info_amac()
+print(fund_member_sub_info_amac_df)
 ```
 
 数据示例
@@ -348,10 +348,10 @@ print(amac_member_sub_info_df)
 
 ### 基金产品
 
-(amac_fund_info)=
+(fund_private_fund_info_amac)=
 #### 私募基金管理人基金产品
 
-接口：amac_fund_info
+接口：fund_private_fund_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
 
@@ -383,8 +383,8 @@ print(amac_member_sub_info_df)
 ```python
 import akshare as ak
 
-amac_fund_info_df = ak.amac_fund_info(start_page="1", end_page='100')
-print(amac_fund_info_df)
+fund_private_fund_info_amac_df = ak.fund_private_fund_info_amac(start_page="1", end_page='100')
+print(fund_private_fund_info_amac_df)
 ```
 
 数据示例
@@ -405,10 +405,10 @@ print(amac_fund_info_df)
 [10000 rows x 7 columns]
 ```
 
-(amac_securities_info)=
+(fund_securities_info_amac)=
 #### 证券公司集合资管产品公示
 
-接口：amac_securities_info
+接口：fund_securities_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
 
@@ -442,8 +442,8 @@ print(amac_fund_info_df)
 ```python
 import akshare as ak
 
-amac_securities_info_df = ak.amac_securities_info()
-print(amac_securities_info_df)
+fund_securities_info_amac_df = ak.fund_securities_info_amac()
+print(fund_securities_info_amac_df)
 ```
 
 数据示例
@@ -464,10 +464,10 @@ print(amac_securities_info_df)
 [20291 rows x 10 columns]
 ```
 
-(amac_aoin_info)=
+(fund_aoin_info_amac)=
 #### 证券公司直投基金
 
-接口：amac_aoin_info
+接口：fund_aoin_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
 
@@ -496,8 +496,8 @@ print(amac_securities_info_df)
 ```python
 import akshare as ak
 
-amac_aoin_info_df = ak.amac_aoin_info()
-print(amac_aoin_info_df)
+fund_aoin_info_amac_df = ak.fund_aoin_info_amac()
+print(fund_aoin_info_amac_df)
 ```
 
 数据示例
@@ -518,10 +518,10 @@ print(amac_aoin_info_df)
 [224 rows x 5 columns]
 ```
 
-(amac_fund_sub_info)=
+(fund_private_sub_fund_info_amac)=
 #### 证券公司私募投资基金
 
-接口：amac_fund_sub_info
+接口：fund_private_sub_fund_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
 
@@ -551,8 +551,8 @@ print(amac_aoin_info_df)
 ```python
 import akshare as ak
 
-amac_fund_sub_info_df = ak.amac_fund_sub_info()
-print(amac_fund_sub_info_df)
+fund_private_sub_fund_info_amac_df = ak.fund_private_sub_fund_info_amac()
+print(fund_private_sub_fund_info_amac_df)
 ```
 
 数据示例
@@ -573,10 +573,10 @@ print(amac_fund_sub_info_df)
 [1692 rows x 6 columns]
 ```
 
-(amac_fund_account_info)=
+(fund_account_info_amac)=
 #### 基金公司及子公司集合资管产品公示
 
-接口：amac_fund_account_info
+接口：fund_account_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
 
@@ -604,8 +604,8 @@ print(amac_fund_sub_info_df)
 ```python
 import akshare as ak
 
-amac_fund_account_info_df = ak.amac_fund_account_info()
-print(amac_fund_account_info_df)
+fund_account_info_amac_df = ak.fund_account_info_amac()
+print(fund_account_info_amac_df)
 ```
 
 数据示例
@@ -626,10 +626,10 @@ print(amac_fund_account_info_df)
 [38249 rows x 4 columns]
 ```
 
-(amac_fund_abs)=
+(fund_abs_amac)=
 #### 资产支持专项计划
 
-接口：amac_fund_abs
+接口：fund_abs_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
 
@@ -661,8 +661,8 @@ print(amac_fund_account_info_df)
 ```python
 import akshare as ak
 
-amac_fund_abs_df = ak.amac_fund_abs()
-print(amac_fund_abs_df)
+fund_abs_amac_df = ak.fund_abs_amac()
+print(fund_abs_amac_df)
 ```
 
 数据示例
@@ -683,10 +683,10 @@ print(amac_fund_abs_df)
 [8340 rows x 8 columns]
 ```
 
-(amac_futures_info)=
+(fund_futures_info_amac)=
 #### 期货公司集合资管产品公示
 
-接口：amac_futures_info
+接口：fund_futures_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
 
@@ -720,8 +720,8 @@ print(amac_fund_abs_df)
 ```python
 import akshare as ak
 
-amac_futures_info_df = ak.amac_futures_info()
-print(amac_futures_info_df)
+fund_futures_info_amac_df = ak.fund_futures_info_amac()
+print(fund_futures_info_amac_df)
 ```
 
 数据示例
@@ -744,10 +744,10 @@ print(amac_futures_info_df)
 
 ### 诚信信息
 
-(amac_manager_cancelled_info)=
+(fund_manager_cancelled_info_amac)=
 #### 已注销私募基金管理人名单
 
-接口：amac_manager_cancelled_info
+接口：fund_manager_cancelled_info_amac
 
 目标地址：https://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
 
@@ -776,8 +776,8 @@ print(amac_futures_info_df)
 ```python
 import akshare as ak
 
-amac_manager_cancelled_info_df = ak.amac_manager_cancelled_info()
-print(amac_manager_cancelled_info_df)
+fund_manager_cancelled_info_amac_df = ak.fund_manager_cancelled_info_amac()
+print(fund_manager_cancelled_info_amac_df)
 ```
 
 数据示例

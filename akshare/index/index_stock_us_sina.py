@@ -15,7 +15,7 @@ from akshare.stock.cons import (
 from akshare.utils import http
 
 
-def index_us_stock_sina(symbol: str = ".INX") -> pd.DataFrame:
+def index_us_daily_sina(symbol: str = ".INX") -> pd.DataFrame:
     """
     新浪财经-美股指数行情
     https://stock.finance.sina.com.cn/usstock/quotes/.IXIC.html
@@ -41,5 +41,5 @@ def index_us_stock_sina(symbol: str = ".INX") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_us_stock_sina_df = index_us_stock_sina(symbol=".INX")
-    print(index_us_stock_sina_df)
+    index_us_daily_sina_df = index_us_daily_sina(symbol=".INX")
+    print(index_us_daily_sina_df)

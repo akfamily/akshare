@@ -11,7 +11,7 @@ from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
-def rate_interbank(
+def interest_rate_interbank_em(
     market: str = "上海银行同业拆借市场",
     symbol: str = "Shibor人民币",
     indicator: str = "隔夜",
@@ -132,7 +132,7 @@ def rate_interbank(
 
 
 if __name__ == "__main__":
-    rate_interbank_shanghai_df = rate_interbank(
+    rate_interbank_shanghai_df = interest_rate_interbank_em(
         market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月"
     )
     print(rate_interbank_shanghai_df)

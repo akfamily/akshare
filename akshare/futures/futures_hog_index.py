@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def index_hog_spot_price() -> pd.DataFrame:
+def futures_hog_spot_price() -> pd.DataFrame:
     """
     行情宝-生猪市场价格指数
     https://hqb.nxin.com/pigindex/index.shtml
@@ -47,5 +47,5 @@ def index_hog_spot_price() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_hog_spot_price_df = index_hog_spot_price()
-    print(index_hog_spot_price_df)
+    futures_hog_spot_price_df = futures_hog_spot_price()
+    print(futures_hog_spot_price_df)

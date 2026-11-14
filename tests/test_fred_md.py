@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/10/30
-Desc: fred_md、fred_qd 的文件名识别测试
+Desc: research_fred_md、research_fred_qd 的文件名识别测试
 
 上游历史压缩包与当年各期 CSV 的文件名写法不统一，以下用例均取自真实文件名；
 识别错误会让对应年月的数据取不到，或被误报为“没有这一期”。全程不联网。

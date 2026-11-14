@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def air_quality_hebei() -> pd.DataFrame:
+def alternative_air_quality_hebei() -> pd.DataFrame:
     """
     河北省空气质量预报信息发布系统-空气质量预报，未来 6 天
     http://218.11.10.130:8080/#/application/home
@@ -104,5 +104,5 @@ def air_quality_hebei() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    air_quality_hebei_df = air_quality_hebei()
-    print(air_quality_hebei_df)
+    alternative_air_quality_hebei_df = alternative_air_quality_hebei()
+    print(alternative_air_quality_hebei_df)

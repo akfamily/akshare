@@ -2,10 +2,10 @@
 
 ## 中国宏观
 
-(macro_cnbs)=
+(macro_china_leverage_nifd)=
 ### 中国宏观杠杆率
 
-接口：macro_cnbs
+接口：macro_china_leverage_nifd
 
 目标地址：http://www.nifd.cn/cdata/
 
@@ -38,8 +38,8 @@
 ```python
 import akshare as ak
 
-macro_cnbs_df = ak.macro_cnbs()
-print(macro_cnbs_df)
+macro_china_leverage_nifd_df = ak.macro_china_leverage_nifd()
+print(macro_china_leverage_nifd_df)
 ```
 
 数据示例
@@ -3864,10 +3864,10 @@ region_income_df
 
 ### 金融市场
 
-(macro_stock_finance)=
+(macro_china_stock_financing_ths)=
 #### 股票筹资
 
-接口：macro_stock_finance
+接口：macro_china_stock_financing_ths
 
 目标地址：https://data.10jqka.com.cn/macro/finance/
 
@@ -3896,8 +3896,8 @@ region_income_df
 ```python
 import akshare as ak
 
-macro_stock_finance_df = ak.macro_stock_finance()
-print(macro_stock_finance_df)
+macro_china_stock_financing_ths_df = ak.macro_china_stock_financing_ths()
+print(macro_china_stock_financing_ths_df)
 ```
 
 数据示例
@@ -3936,10 +3936,10 @@ print(macro_stock_finance_df)
 29  2025-10   313.78  112.92   200.86     NaN
 ```
 
-(macro_rmb_loan)=
+(macro_china_rmb_loan_ths)=
 #### 新增人民币贷款
 
-接口：macro_rmb_loan
+接口：macro_china_rmb_loan_ths
 
 目标地址：https://data.10jqka.com.cn/macro/loan/
 
@@ -3969,8 +3969,8 @@ print(macro_stock_finance_df)
 ```python
 import akshare as ak
 
-macro_rmb_loan_df = ak.macro_rmb_loan()
-print(macro_rmb_loan_df)
+macro_china_rmb_loan_ths_df = ak.macro_china_rmb_loan_ths()
+print(macro_china_rmb_loan_ths_df)
 ```
 
 数据示例
@@ -4009,10 +4009,10 @@ print(macro_rmb_loan_df)
 29  2025-09     12900.0    -18.87%    118.64%  2703902.22      6.62%
 ```
 
-(macro_rmb_deposit)=
+(macro_china_rmb_deposit_ths)=
 #### 人民币存款余额
 
-接口：macro_rmb_deposit
+接口：macro_china_rmb_deposit_ths
 
 目标地址：https://data.10jqka.com.cn/macro/rmb/
 
@@ -4049,8 +4049,8 @@ print(macro_rmb_loan_df)
 ```python
 import akshare as ak
 
-macro_rmb_deposit_df = ak.macro_rmb_deposit()
-print(macro_rmb_deposit_df)
+macro_china_rmb_deposit_ths_df = ak.macro_china_rmb_deposit_ths()
+print(macro_china_rmb_deposit_ths_df)
 ```
 
 数据示例

@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def macro_stock_finance() -> pd.DataFrame:
+def macro_china_stock_financing_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-宏观数据-股票筹资
     https://data.10jqka.com.cn/macro/finance/
@@ -47,7 +47,7 @@ def macro_stock_finance() -> pd.DataFrame:
     return temp_df
 
 
-def macro_rmb_loan() -> pd.DataFrame:
+def macro_china_rmb_loan_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-宏观数据-新增人民币贷款
     https://data.10jqka.com.cn/macro/loan/
@@ -79,7 +79,7 @@ def macro_rmb_loan() -> pd.DataFrame:
     return temp_df
 
 
-def macro_rmb_deposit() -> pd.DataFrame:
+def macro_china_rmb_deposit_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-宏观数据-人民币存款余额
     https://data.10jqka.com.cn/macro/rmb/
@@ -126,11 +126,11 @@ def macro_rmb_deposit() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_stock_finance_df = macro_stock_finance()
-    print(macro_stock_finance_df)
+    macro_china_stock_financing_ths_df = macro_china_stock_financing_ths()
+    print(macro_china_stock_financing_ths_df)
 
-    macro_rmb_loan_df = macro_rmb_loan()
-    print(macro_rmb_loan_df)
+    macro_china_rmb_loan_ths_df = macro_china_rmb_loan_ths()
+    print(macro_china_rmb_loan_ths_df)
 
-    macro_rmb_deposit_df = macro_rmb_deposit()
-    print(macro_rmb_deposit_df)
+    macro_china_rmb_deposit_ths_df = macro_china_rmb_deposit_ths()
+    print(macro_china_rmb_deposit_ths_df)

@@ -17,7 +17,7 @@ from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_individual_fund_flow(
+def stock_fund_flow_individual_hist_em(
     stock: str = "600094", market: str = "sh"
 ) -> pd.DataFrame:
     """
@@ -119,7 +119,7 @@ def stock_individual_fund_flow(
     return temp_df
 
 
-def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
+def stock_fund_flow_individual_rank_em(indicator: str = "5日") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-排名
     https://data.eastmoney.com/zjlx/detail.html
@@ -344,7 +344,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     return temp_df
 
 
-def stock_market_fund_flow() -> pd.DataFrame:
+def stock_fund_flow_market_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-大盘
     https://data.eastmoney.com/zjlx/dpzjlx.html
@@ -444,7 +444,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sector_fund_flow_rank(
+def stock_fund_flow_sector_rank_em(
     indicator: str = "今日", sector_type: str = "行业资金流"
 ) -> pd.DataFrame:
     """
@@ -735,7 +735,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     return name_code_map
 
 
-def stock_sector_fund_flow_summary(
+def stock_fund_flow_sector_summary_em(
     symbol: str = "电源设备", indicator: str = "今日"
 ) -> pd.DataFrame:
     """
@@ -1018,7 +1018,7 @@ def stock_sector_fund_flow_summary(
         return pd.DataFrame()
 
 
-def stock_sector_fund_flow_hist(symbol: str = "汽车服务") -> pd.DataFrame:
+def stock_fund_flow_sector_hist_em(symbol: str = "汽车服务") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-行业资金流-行业历史资金流
     https://data.eastmoney.com/bkzj/BK1034.html
@@ -1130,7 +1130,7 @@ def _get_stock_concept_fund_flow_summary_code() -> dict:
     return name_code_map
 
 
-def stock_concept_fund_flow_hist(symbol: str = "数据要素") -> pd.DataFrame:
+def stock_fund_flow_concept_hist_em(symbol: str = "数据要素") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-概念资金流-概念历史资金流
     https://data.eastmoney.com/bkzj/BK0574.html
@@ -1217,7 +1217,7 @@ def stock_concept_fund_flow_hist(symbol: str = "数据要素") -> pd.DataFrame:
     return temp_df
 
 
-def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
+def stock_fund_flow_main_em(symbol: str = "全部股票") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-主力净流入排名
     https://data.eastmoney.com/zjlx/list.html
@@ -1318,59 +1318,63 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_individual_fund_flow_df = stock_individual_fund_flow(
+    stock_fund_flow_individual_hist_em_df = stock_fund_flow_individual_hist_em(
         stock="600094", market="sh"
     )
-    print(stock_individual_fund_flow_df)
+    print(stock_fund_flow_individual_hist_em_df)
 
-    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(
+    stock_fund_flow_individual_rank_em_df = stock_fund_flow_individual_rank_em(
         indicator="今日"
     )
-    print(stock_individual_fund_flow_rank_df)
+    print(stock_fund_flow_individual_rank_em_df)
 
-    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(
+    stock_fund_flow_individual_rank_em_df = stock_fund_flow_individual_rank_em(
         indicator="3日"
     )
-    print(stock_individual_fund_flow_rank_df)
+    print(stock_fund_flow_individual_rank_em_df)
 
-    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(
+    stock_fund_flow_individual_rank_em_df = stock_fund_flow_individual_rank_em(
         indicator="5日"
     )
-    print(stock_individual_fund_flow_rank_df)
+    print(stock_fund_flow_individual_rank_em_df)
 
-    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(
+    stock_fund_flow_individual_rank_em_df = stock_fund_flow_individual_rank_em(
         indicator="10日"
     )
-    print(stock_individual_fund_flow_rank_df)
+    print(stock_fund_flow_individual_rank_em_df)
 
-    stock_market_fund_flow_df = stock_market_fund_flow()
-    print(stock_market_fund_flow_df)
+    stock_fund_flow_market_em_df = stock_fund_flow_market_em()
+    print(stock_fund_flow_market_em_df)
 
-    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
+    stock_fund_flow_sector_rank_em_df = stock_fund_flow_sector_rank_em(
         indicator="今日", sector_type="地域资金流"
     )
-    print(stock_sector_fund_flow_rank_df)
+    print(stock_fund_flow_sector_rank_em_df)
 
-    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
+    stock_fund_flow_sector_rank_em_df = stock_fund_flow_sector_rank_em(
         indicator="今日", sector_type="行业资金流"
     )
-    print(stock_sector_fund_flow_rank_df)
+    print(stock_fund_flow_sector_rank_em_df)
 
-    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
+    stock_fund_flow_sector_rank_em_df = stock_fund_flow_sector_rank_em(
         indicator="今日", sector_type="概念资金流"
     )
-    print(stock_sector_fund_flow_rank_df)
+    print(stock_fund_flow_sector_rank_em_df)
 
-    stock_sector_fund_flow_summary_df = stock_sector_fund_flow_summary(
+    stock_fund_flow_sector_summary_em_df = stock_fund_flow_sector_summary_em(
         symbol="文化传媒", indicator="今日"
     )
-    print(stock_sector_fund_flow_summary_df)
+    print(stock_fund_flow_sector_summary_em_df)
 
-    stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="汽车服务")
-    print(stock_sector_fund_flow_hist_df)
+    stock_fund_flow_sector_hist_em_df = stock_fund_flow_sector_hist_em(
+        symbol="汽车服务"
+    )
+    print(stock_fund_flow_sector_hist_em_df)
 
-    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="半导体概念")
-    print(stock_concept_fund_flow_hist_df)
+    stock_fund_flow_concept_hist_em_df = stock_fund_flow_concept_hist_em(
+        symbol="半导体概念"
+    )
+    print(stock_fund_flow_concept_hist_em_df)
 
-    stock_main_fund_flow_df = stock_main_fund_flow(symbol="全部股票")
-    print(stock_main_fund_flow_df)
+    stock_fund_flow_main_em_df = stock_fund_flow_main_em(symbol="全部股票")
+    print(stock_fund_flow_main_em_df)

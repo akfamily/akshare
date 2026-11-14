@@ -1039,10 +1039,10 @@ print(stock_hsgt_individual_detail_em_df)
 
 ### 同花顺
 
-(stock_fund_flow_individual)=
+(stock_fund_flow_individual_ths)=
 #### 个股资金流
 
-接口：stock_fund_flow_individual
+接口：stock_fund_flow_individual_ths
 
 目标地址：https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
 
@@ -1076,8 +1076,8 @@ print(stock_hsgt_individual_detail_em_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_individual_df = ak.stock_fund_flow_individual(symbol="即时")
-print(stock_fund_flow_individual_df)
+stock_fund_flow_individual_ths_df = ak.stock_fund_flow_individual_ths(symbol="即时")
+print(stock_fund_flow_individual_ths_df)
 ```
 
 数据示例-即时
@@ -1115,8 +1115,8 @@ print(stock_fund_flow_individual_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_individual_df = ak.stock_fund_flow_individual(symbol="3日排行")
-print(stock_fund_flow_individual_df)
+stock_fund_flow_individual_ths_df = ak.stock_fund_flow_individual_ths(symbol="3日排行")
+print(stock_fund_flow_individual_ths_df)
 ```
 
 数据示例-3日、5日、10日和20日
@@ -1137,10 +1137,10 @@ print(stock_fund_flow_individual_df)
 [5089 rows x 7 columns]
 ```
 
-(stock_fund_flow_concept)=
+(stock_fund_flow_concept_ths)=
 #### 概念资金流
 
-接口：stock_fund_flow_concept
+接口：stock_fund_flow_concept_ths
 
 目标地址：https://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
 
@@ -1175,8 +1175,8 @@ print(stock_fund_flow_individual_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_concept_df = ak.stock_fund_flow_concept(symbol="即时")
-print(stock_fund_flow_concept_df)
+stock_fund_flow_concept_ths_df = ak.stock_fund_flow_concept_ths(symbol="即时")
+print(stock_fund_flow_concept_ths_df)
 ```
 
 数据示例-即时
@@ -1215,8 +1215,8 @@ print(stock_fund_flow_concept_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_concept_df = ak.stock_fund_flow_concept(symbol="3日排行")
-print(stock_fund_flow_concept_df)
+stock_fund_flow_concept_ths_df = ak.stock_fund_flow_concept_ths(symbol="3日排行")
+print(stock_fund_flow_concept_ths_df)
 ```
 
 数据示例-3日、5日、10日和20日
@@ -1237,10 +1237,10 @@ print(stock_fund_flow_concept_df)
 [399 rows x 8 columns]
 ```
 
-(stock_fund_flow_industry)=
+(stock_fund_flow_industry_ths)=
 #### 行业资金流
 
-接口：stock_fund_flow_industry
+接口：stock_fund_flow_industry_ths
 
 目标地址：http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
 
@@ -1275,8 +1275,8 @@ print(stock_fund_flow_concept_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_industry_df = ak.stock_fund_flow_industry(symbol="即时")
-print(stock_fund_flow_industry_df)
+stock_fund_flow_industry_ths_df = ak.stock_fund_flow_industry_ths(symbol="即时")
+print(stock_fund_flow_industry_ths_df)
 ```
 
 数据示例-即时
@@ -1315,8 +1315,8 @@ print(stock_fund_flow_industry_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_industry_df = ak.stock_fund_flow_industry(symbol="3日排行")
-print(stock_fund_flow_industry_df)
+stock_fund_flow_industry_ths_df = ak.stock_fund_flow_industry_ths(symbol="3日排行")
+print(stock_fund_flow_industry_ths_df)
 ```
 
 数据示例-3日、5日、10日和20日
@@ -1337,10 +1337,10 @@ print(stock_fund_flow_industry_df)
 [90 rows x 8 columns]
 ```
 
-(stock_fund_flow_big_deal)=
+(stock_fund_flow_big_deal_ths)=
 #### 大单追踪
 
-接口：stock_fund_flow_big_deal
+接口：stock_fund_flow_big_deal_ths
 
 目标地址：https://data.10jqka.com.cn/funds/ddzz
 
@@ -1373,8 +1373,8 @@ print(stock_fund_flow_industry_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_big_deal_df = ak.stock_fund_flow_big_deal()
-print(stock_fund_flow_big_deal_df)
+stock_fund_flow_big_deal_ths_df = ak.stock_fund_flow_big_deal_ths()
+print(stock_fund_flow_big_deal_ths_df)
 ```
 
 数据示例
@@ -1397,10 +1397,10 @@ print(stock_fund_flow_big_deal_df)
 
 ### 东方财富
 
-(stock_individual_fund_flow)=
+(stock_fund_flow_individual_hist_em)=
 #### 个股资金流
 
-接口：stock_individual_fund_flow
+接口：stock_fund_flow_individual_hist_em
 
 目标地址：https://data.eastmoney.com/zjlx/detail.html
 
@@ -1438,8 +1438,8 @@ print(stock_fund_flow_big_deal_df)
 ```python
 import akshare as ak
 
-stock_individual_fund_flow_df = ak.stock_individual_fund_flow(stock="600094", market="sh")
-print(stock_individual_fund_flow_df)
+stock_fund_flow_individual_hist_em_df = ak.stock_fund_flow_individual_hist_em(stock="600094", market="sh")
+print(stock_fund_flow_individual_hist_em_df)
 ```
 
 数据示例
@@ -1460,10 +1460,10 @@ print(stock_individual_fund_flow_df)
 [101 rows x 13 columns]
 ```
 
-(stock_individual_fund_flow_rank)=
+(stock_fund_flow_individual_rank_em)=
 #### 个股资金流排名
 
-接口：stock_individual_fund_flow_rank
+接口：stock_fund_flow_individual_rank_em
 
 目标地址：http://data.eastmoney.com/zjlx/detail.html
 
@@ -1502,8 +1502,8 @@ print(stock_individual_fund_flow_df)
 ```python
 import akshare as ak
 
-stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="今日")
-print(stock_individual_fund_flow_rank_df)
+stock_fund_flow_individual_rank_em_df = ak.stock_fund_flow_individual_rank_em(indicator="今日")
+print(stock_fund_flow_individual_rank_em_df)
 ```
 
 数据示例-今日
@@ -1558,8 +1558,8 @@ print(stock_individual_fund_flow_rank_df)
 ```python
 import akshare as ak
 
-stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="3日")
-print(stock_individual_fund_flow_rank_df)
+stock_fund_flow_individual_rank_em_df = ak.stock_fund_flow_individual_rank_em(indicator="3日")
+print(stock_fund_flow_individual_rank_em_df)
 ```
 
 数据示例-3日
@@ -1614,8 +1614,8 @@ print(stock_individual_fund_flow_rank_df)
 ```python
 import akshare as ak
 
-stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="5日")
-print(stock_individual_fund_flow_rank_df)
+stock_fund_flow_individual_rank_em_df = ak.stock_fund_flow_individual_rank_em(indicator="5日")
+print(stock_fund_flow_individual_rank_em_df)
 ```
 
 数据示例-5日
@@ -1670,8 +1670,8 @@ print(stock_individual_fund_flow_rank_df)
 ```python
 import akshare as ak
 
-stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="10日")
-print(stock_individual_fund_flow_rank_df)
+stock_fund_flow_individual_rank_em_df = ak.stock_fund_flow_individual_rank_em(indicator="10日")
+print(stock_fund_flow_individual_rank_em_df)
 ```
 
 数据示例-10日
@@ -1701,10 +1701,10 @@ print(stock_individual_fund_flow_rank_df)
 20  21  300347   泰格医药  ...         -4.72 -1.195595e+08         -1.08
 ```
 
-(stock_market_fund_flow)=
+(stock_fund_flow_market_em)=
 #### 大盘资金流
 
-接口：stock_market_fund_flow
+接口：stock_fund_flow_market_em
 
 目标地址：https://data.eastmoney.com/zjlx/dpzjlx.html
 
@@ -1743,8 +1743,8 @@ print(stock_individual_fund_flow_rank_df)
 ```python
 import akshare as ak
 
-stock_market_fund_flow_df = ak.stock_market_fund_flow()
-print(stock_market_fund_flow_df)
+stock_fund_flow_market_em_df = ak.stock_fund_flow_market_em()
+print(stock_fund_flow_market_em_df)
 ```
 
 数据示例
@@ -1765,10 +1765,10 @@ print(stock_market_fund_flow_df)
 [121 rows x 15 columns]
 ```
 
-(stock_sector_fund_flow_rank)=
+(stock_fund_flow_sector_rank_em)=
 #### 板块资金流排名
 
-接口：stock_sector_fund_flow_rank
+接口：stock_fund_flow_sector_rank_em
 
 目标地址：https://data.eastmoney.com/bkzj/hy.html
 
@@ -1809,8 +1809,8 @@ print(stock_market_fund_flow_df)
 ```python
 import akshare as ak
 
-stock_sector_fund_flow_rank_df = ak.stock_sector_fund_flow_rank(indicator="今日", sector_type="行业资金流")
-print(stock_sector_fund_flow_rank_df)
+stock_fund_flow_sector_rank_em_df = ak.stock_fund_flow_sector_rank_em(indicator="今日", sector_type="行业资金流")
+print(stock_fund_flow_sector_rank_em_df)
 ```
 
 数据示例-行业资金流-今日
@@ -1831,10 +1831,10 @@ print(stock_sector_fund_flow_rank_df)
 [86 rows x 14 columns]
 ```
 
-(stock_main_fund_flow)=
+(stock_fund_flow_main_em)=
 #### 主力净流入排名
 
-接口：stock_main_fund_flow
+接口：stock_fund_flow_main_em
 
 目标地址：https://data.eastmoney.com/zjlx/list.html
 
@@ -1873,8 +1873,8 @@ print(stock_sector_fund_flow_rank_df)
 ```python
 import akshare as ak
 
-stock_main_fund_flow_df = ak.stock_main_fund_flow(symbol="全部股票")
-print(stock_main_fund_flow_df)
+stock_fund_flow_main_em_df = ak.stock_fund_flow_main_em(symbol="全部股票")
+print(stock_fund_flow_main_em_df)
 ```
 
 数据示例
@@ -1895,10 +1895,10 @@ print(stock_main_fund_flow_df)
 [5203 rows x 14 columns]
 ```
 
-(stock_sector_fund_flow_summary)=
+(stock_fund_flow_sector_summary_em)=
 #### 行业个股资金流
 
-接口：stock_sector_fund_flow_summary
+接口：stock_fund_flow_sector_summary_em
 
 目标地址：https://data.eastmoney.com/bkzj/BK1034.html
 
@@ -1938,8 +1938,8 @@ print(stock_main_fund_flow_df)
 ```python
 import akshare as ak
 
-stock_sector_fund_flow_summary_df = ak.stock_sector_fund_flow_summary(symbol="电源设备", indicator="今日")
-print(stock_sector_fund_flow_summary_df)
+stock_fund_flow_sector_summary_em_df = ak.stock_fund_flow_sector_summary_em(symbol="电源设备", indicator="今日")
+print(stock_fund_flow_sector_summary_em_df)
 ```
 
 数据示例
@@ -1978,10 +1978,10 @@ print(stock_sector_fund_flow_summary_df)
 [29 rows x 15 columns]
 ```
 
-(stock_sector_fund_flow_hist)=
+(stock_fund_flow_sector_hist_em)=
 #### 行业历史资金流
 
-接口：stock_sector_fund_flow_hist
+接口：stock_fund_flow_sector_hist_em
 
 目标地址：https://data.eastmoney.com/bkzj/BK1034.html
 
@@ -2016,8 +2016,8 @@ print(stock_sector_fund_flow_summary_df)
 ```python
 import akshare as ak
 
-stock_sector_fund_flow_hist_df = ak.stock_sector_fund_flow_hist(symbol="汽车服务")
-print(stock_sector_fund_flow_hist_df)
+stock_fund_flow_sector_hist_em_df = ak.stock_fund_flow_sector_hist_em(symbol="汽车服务")
+print(stock_fund_flow_sector_hist_em_df)
 ```
 
 数据示例
@@ -2038,10 +2038,10 @@ print(stock_sector_fund_flow_hist_df)
 [121 rows x 11 columns]
 ```
 
-(stock_concept_fund_flow_hist)=
+(stock_fund_flow_concept_hist_em)=
 #### 概念历史资金流
 
-接口：stock_concept_fund_flow_hist
+接口：stock_fund_flow_concept_hist_em
 
 目标地址：https://data.eastmoney.com/bkzj/BK0574.html
 
@@ -2076,8 +2076,8 @@ print(stock_sector_fund_flow_hist_df)
 ```python
 import akshare as ak
 
-stock_concept_fund_flow_hist_df = ak.stock_concept_fund_flow_hist(symbol="数据要素")
-print(stock_concept_fund_flow_hist_df)
+stock_fund_flow_concept_hist_em_df = ak.stock_fund_flow_concept_hist_em(symbol="数据要素")
+print(stock_fund_flow_concept_hist_em_df)
 ```
 
 数据示例

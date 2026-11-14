@@ -14,7 +14,7 @@ from akshare.research.cons import ff_home_url
 from akshare.utils import http
 
 
-def article_ff_crr() -> pd.DataFrame:
+def research_ff_crr() -> pd.DataFrame:
     """
     FF多因子模型
     https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
@@ -162,5 +162,5 @@ def article_ff_crr() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    article_ff_crr_df = article_ff_crr()
-    print(article_ff_crr_df)
+    research_ff_crr_df = research_ff_crr()
+    print(research_ff_crr_df)

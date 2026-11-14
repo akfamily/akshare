@@ -119,7 +119,7 @@ def _fred_vintage(kind: str, date: str) -> pd.DataFrame:
     )
 
 
-def fred_md(date: str = "2020-01") -> pd.DataFrame:
+def research_fred_md(date: str = "2020-01") -> pd.DataFrame:
     """
     The accompanying paper shows that factors extracted from the FRED-MD dataset share the same predictive content as those based on the various vintages of the so-called Stock-Watson data. In addition, it suggests that diffusion indexes constructed as the partial sum of the factor estimates can potentially be useful for the study of business cycle chronology.
     首次获取当年以前的数据需下载约 36 MB 的历史压缩包，同一进程内再次调用不重复下载
@@ -131,7 +131,7 @@ def fred_md(date: str = "2020-01") -> pd.DataFrame:
     return _fred_vintage(kind="md", date=date)
 
 
-def fred_qd(date: str = "2020-01") -> pd.DataFrame:
+def research_fred_qd(date: str = "2020-01") -> pd.DataFrame:
     """
     FRED-QD is a quarterly frequency companion to FRED-MD. It is designed to emulate the dataset used in "Disentangling the Channels of the 2007-2009 Recession" by Stock and Watson (2012, NBER WP No. 18094) but also contains several additional series. Comments or suggestions are welcome.
     首次获取当年以前的数据需下载约 20 MB 的历史压缩包，同一进程内再次调用不重复下载
@@ -144,8 +144,8 @@ def fred_qd(date: str = "2020-01") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fred_md_df = fred_md(date="2023-03")
-    print(fred_md_df)
+    research_fred_md_df = research_fred_md(date="2023-03")
+    print(research_fred_md_df)
 
-    fred_qd_df = fred_qd(date="2023-03")
-    print(fred_qd_df)
+    research_fred_qd_df = research_fred_qd(date="2023-03")
+    print(research_fred_qd_df)

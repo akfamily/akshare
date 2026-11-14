@@ -2,10 +2,10 @@
 
 ## 汽车销量排行
 
-(car_market_total_cpca)=
+(alternative_car_market_total_cpca)=
 ### 乘联会-统计数据-总体市场
 
-接口：car_market_total_cpca
+接口：alternative_car_market_total_cpca
 
 目标地址：http://data.cpcadata.com/TotalMarket
 
@@ -33,8 +33,8 @@
 ```python
 import akshare as ak
 
-car_market_total_cpca_df = ak.car_market_total_cpca(symbol="狭义乘用车", indicator="产量")
-print(car_market_total_cpca_df)
+alternative_car_market_total_cpca_df = ak.alternative_car_market_total_cpca(symbol="狭义乘用车", indicator="产量")
+print(alternative_car_market_total_cpca_df)
 ```
 
 数据示例
@@ -55,10 +55,10 @@ print(car_market_total_cpca_df)
 11  12月  267.8423       NaN
 ```
 
-(car_market_man_rank_cpca)=
+(alternative_car_market_man_rank_cpca)=
 ### 乘联会-统计数据-厂商排名
 
-接口：car_market_man_rank_cpca
+接口：alternative_car_market_man_rank_cpca
 
 目标地址：http://data.cpcadata.com/ManRank
 
@@ -86,8 +86,8 @@ print(car_market_total_cpca_df)
 ```python
 import akshare as ak
 
-car_market_man_rank_cpca_df = ak.car_market_man_rank_cpca(symbol="狭义乘用车-单月", indicator="批发")
-print(car_market_man_rank_cpca_df)
+alternative_car_market_man_rank_cpca_df = ak.alternative_car_market_man_rank_cpca(symbol="狭义乘用车-单月", indicator="批发")
+print(alternative_car_market_man_rank_cpca_df)
 ```
 
 数据示例
@@ -106,10 +106,10 @@ print(car_market_man_rank_cpca_df)
 9    华晨宝马   5.2871   4.1604
 ```
 
-(car_market_cate_cpca)=
+(alternative_car_market_cate_cpca)=
 ### 乘联会-统计数据-车型大类
 
-接口：car_market_cate_cpca
+接口：alternative_car_market_cate_cpca
 
 目标地址：http://data.cpcadata.com/CategoryMarket
 
@@ -137,8 +137,8 @@ print(car_market_man_rank_cpca_df)
 ```python
 import akshare as ak
 
-car_market_cate_cpca_df = ak.car_market_cate_cpca(symbol="轿车", indicator="批发")
-print(car_market_cate_cpca_df)
+alternative_car_market_cate_cpca_df = ak.alternative_car_market_cate_cpca(symbol="轿车", indicator="批发")
+print(alternative_car_market_cate_cpca_df)
 ```
 
 数据示例
@@ -159,10 +159,10 @@ print(car_market_cate_cpca_df)
 11  12月  109.1863      NaN
 ```
 
-(car_market_country_cpca)=
+(alternative_car_market_country_cpca)=
 ### 乘联会-统计数据-国别细分市场
 
-接口：car_market_country_cpca
+接口：alternative_car_market_country_cpca
 
 目标地址：http://data.cpcadata.com/CountryMarket
 
@@ -194,8 +194,8 @@ print(car_market_cate_cpca_df)
 ```python
 import akshare as ak
 
-car_market_country_cpca_df = ak.car_market_country_cpca()
-print(car_market_country_cpca_df)
+alternative_car_market_country_cpca_df = ak.alternative_car_market_country_cpca()
+print(alternative_car_market_country_cpca_df)
 ```
 
 数据示例
@@ -217,10 +217,10 @@ print(car_market_country_cpca_df)
 [12 rows x 8 columns]
 ```
 
-(car_market_segment_cpca)=
+(alternative_car_market_segment_cpca)=
 ### 乘联会-统计数据-级别细分市场
 
-接口：car_market_segment_cpca
+接口：alternative_car_market_segment_cpca
 
 目标地址：http://data.cpcadata.com/SegmentMarket
 
@@ -250,8 +250,8 @@ print(car_market_country_cpca_df)
 ```python
 import akshare as ak
 
-car_market_segment_cpca_df = ak.car_market_segment_cpca(symbol="轿车")
-print(car_market_segment_cpca_df)
+alternative_car_market_segment_cpca_df = ak.alternative_car_market_segment_cpca(symbol="轿车")
+print(alternative_car_market_segment_cpca_df)
 ```
 
 数据示例
@@ -272,10 +272,10 @@ print(car_market_segment_cpca_df)
 11   2024-2月   7.976292   7.585693  36.759968  36.646090  11.031953
 ```
 
-(car_market_fuel_cpca)=
+(alternative_car_market_fuel_cpca)=
 ### 乘联会-统计数据-新能源细分市场
 
-接口：car_market_fuel_cpca
+接口：alternative_car_market_fuel_cpca
 
 目标地址：http://data.cpcadata.com/FuelMarket
 
@@ -302,8 +302,8 @@ print(car_market_segment_cpca_df)
 ```python
 import akshare as ak
 
-car_market_fuel_cpca_df = ak.car_market_fuel_cpca()
-print(car_market_fuel_cpca_df)
+alternative_car_market_fuel_cpca_df = ak.alternative_car_market_fuel_cpca()
+print(alternative_car_market_fuel_cpca_df)
 ```
 
 数据示例
@@ -324,10 +324,10 @@ print(car_market_fuel_cpca_df)
 11  12月  94.7347      NaN
 ```
 
-(news_cctv)=
+(alternative_news_cctv)=
 ## 新闻联播文字稿
 
-接口：news_cctv
+接口：alternative_news_cctv
 
 目标地址：https://tv.cctv.com/lm/xwlb
 
@@ -354,8 +354,8 @@ print(car_market_fuel_cpca_df)
 ```python
 import akshare as ak
 
-news_cctv_df = ak.news_cctv(date="20240424")
-print(news_cctv_df)
+alternative_news_cctv_df = ak.alternative_news_cctv(date="20240424")
+print(alternative_news_cctv_df)
 ```
 
 数据示例
@@ -379,10 +379,10 @@ print(news_cctv_df)
 
 ## 日出和日落
 
-(sunrise_daily)=
+(alternative_sunrise_daily_tad)=
 ### 日出和日落-天
 
-接口：sunrise_daily
+接口：alternative_sunrise_daily_tad
 
 目标地址：https://www.timeanddate.com/sun/china/
 
@@ -420,8 +420,8 @@ print(news_cctv_df)
 ```python
 import akshare as ak
 
-sunrise_daily_df = ak.sunrise_daily(date="20240428", city="beijing")
-print(sunrise_daily_df)
+alternative_sunrise_daily_tad_df = ak.alternative_sunrise_daily_tad(date="20240428", city="beijing")
+print(alternative_sunrise_daily_tad_df)
 ```
 
 数据示例
@@ -432,10 +432,10 @@ print(sunrise_daily_df)
 [1 rows x 14 columns]
 ```
 
-(sunrise_monthly)=
+(alternative_sunrise_monthly_tad)=
 ### 日出和日落-月
 
-接口：sunrise_monthly
+接口：alternative_sunrise_monthly_tad
 
 目标地址：https://www.timeanddate.com/sun/china/
 
@@ -474,8 +474,8 @@ print(sunrise_daily_df)
 ```python
 import akshare as ak
 
-sunrise_monthly_df = ak.sunrise_monthly(date="20240428", city="beijing")
-print(sunrise_monthly_df)
+alternative_sunrise_monthly_tad_df = ak.alternative_sunrise_monthly_tad(date="20240428", city="beijing")
+print(alternative_sunrise_monthly_tad_df)
 ```
 
 数据示例
@@ -517,10 +517,10 @@ print(sunrise_monthly_df)
 
 ## 空气质量-河北
 
-(air_quality_hebei)=
+(alternative_air_quality_hebei)=
 ### 近期空气质量
 
-接口：air_quality_hebei
+接口：alternative_air_quality_hebei
 
 目标地址：http://218.11.10.130:8080/#/application/home
 
@@ -567,8 +567,8 @@ print(sunrise_monthly_df)
 ```python
 import akshare as ak
 
-air_quality_hebei_df = ak.air_quality_hebei()
-print(air_quality_hebei_df)
+alternative_air_quality_hebei_df = ak.alternative_air_quality_hebei()
+print(alternative_air_quality_hebei_df)
 ```
 
 数据示例
@@ -591,10 +591,10 @@ print(air_quality_hebei_df)
 
 ## 空气质量-全国
 
-(air_city_table)=
+(alternative_air_city_table_zhenqi)=
 ### 城市列表
 
-接口：air_city_table
+接口：alternative_air_city_table_zhenqi
 
 目标地址：https://www.aqistudy.cn/
 
@@ -625,8 +625,8 @@ print(air_quality_hebei_df)
 ```python
 import akshare as ak
 
-air_city_table_df = ak.air_city_table()
-print(air_city_table_df)
+alternative_air_city_table_zhenqi_df = ak.alternative_air_city_table_zhenqi()
+print(alternative_air_city_table_zhenqi_df)
 ```
 
 数据示例
@@ -646,10 +646,10 @@ print(air_city_table_df)
 167  168  海南  海口   32.0     优   14 ug/m3   NaN
 ```
 
-(air_quality_hist)=
+(alternative_air_quality_hist_zhenqi)=
 ### 空气质量历史数据
 
-接口：air_quality_hist
+接口：alternative_air_quality_hist_zhenqi
 
 目标地址：https://www.zq12369.com/
 
@@ -661,7 +661,7 @@ print(air_city_table_df)
 
 | 名称         | 类型  | 描述                                                                             |
 |------------|-----|--------------------------------------------------------------------------------|
-| city       | str | city="北京"；调用 ak.air_city_table() 接口获取所有城市列表                                   |
+| city       | str | city="北京"；调用 ak.alternative_air_city_table_zhenqi() 接口获取所有城市列表                                   |
 | period     | str | period="day"; "hour": 每小时一个数据，由于数据量比较大，下载较慢；"day": 每天一个数据；"month": 每个月一个数据，上游目前返回其他城市的数据，会报错 |
 | start_date | str | start_date="20260901"；注意 **start_date** 和 **end_date** 跨度不宜过长                 |
 | end_date   | str | end_date="20261028"；注意 **start_date** 和 **end_date** 跨度不宜过长                   |
@@ -692,8 +692,8 @@ print(air_city_table_df)
 ```python
 import akshare as ak
 
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="hour", start_date="20261027", end_date="20261028")
-print(air_quality_hist_df)
+alternative_air_quality_hist_zhenqi_df = ak.alternative_air_quality_hist_zhenqi(city="北京", period="hour", start_date="20261027", end_date="20261028")
+print(alternative_air_quality_hist_zhenqi_df)
 ```
 
 数据示例-小时频率
@@ -721,8 +721,8 @@ time                                    ...
 ```python
 import akshare as ak
 
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="day", start_date="20260901", end_date="20261028")
-print(air_quality_hist_df)
+alternative_air_quality_hist_zhenqi_df = ak.alternative_air_quality_hist_zhenqi(city="北京", period="day", start_date="20260901", end_date="20261028")
+print(alternative_air_quality_hist_zhenqi_df)
 ```
 
 数据示例-天频率
@@ -745,10 +745,10 @@ time                             ...
 [58 rows x 15 columns]
 ```
 
-(air_quality_rank)=
+(alternative_air_quality_rank_zhenqi)=
 ### 空气质量排名
 
-接口：air_quality_rank
+接口：alternative_air_quality_rank_zhenqi
 
 目标地址：https://www.zq12369.com/environment.php
 
@@ -779,8 +779,8 @@ time                             ...
 ```python
 import akshare as ak
 
-air_quality_rank_df = ak.air_quality_rank(date="")
-print(air_quality_rank_df)
+alternative_air_quality_rank_zhenqi_df = ak.alternative_air_quality_rank_zhenqi(date="")
+print(alternative_air_quality_rank_zhenqi_df)
 ```
 
 数据示例-实时
@@ -804,8 +804,8 @@ print(air_quality_rank_df)
 
 ```python
 import akshare as ak
-air_quality_rank_df = ak.air_quality_rank(date="2020-03-20")
-print(air_quality_rank_df)
+alternative_air_quality_rank_zhenqi_df = ak.alternative_air_quality_rank_zhenqi(date="2020-03-20")
+print(alternative_air_quality_rank_zhenqi_df)
 ```
 
 数据示例-具体某天
@@ -829,8 +829,8 @@ print(air_quality_rank_df)
 
 ```python
 import akshare as ak
-air_quality_rank_df = ak.air_quality_rank(date="2020-03")
-print(air_quality_rank_df)
+alternative_air_quality_rank_zhenqi_df = ak.alternative_air_quality_rank_zhenqi(date="2020-03")
+print(alternative_air_quality_rank_zhenqi_df)
 ```
 
 数据示例-具体某月
@@ -854,8 +854,8 @@ print(air_quality_rank_df)
 
 ```python
 import akshare as ak
-air_quality_rank_df = ak.air_quality_rank(date="2019")
-print(air_quality_rank_df)
+alternative_air_quality_rank_zhenqi_df = ak.alternative_air_quality_rank_zhenqi(date="2019")
+print(alternative_air_quality_rank_zhenqi_df)
 ```
 
 数据示例-具体某年
@@ -875,10 +875,10 @@ print(air_quality_rank_df)
 168  168.0  西藏   拉萨  2.39  0.81     O3
 ```
 
-(air_quality_watch_point)=
+(alternative_air_quality_watch_point_zhenqi)=
 ### 监测点空气质量
 
-接口：air_quality_watch_point
+接口：alternative_air_quality_watch_point_zhenqi
 
 目标地址：https://www.zq12369.com/environment.php
 
@@ -890,7 +890,7 @@ print(air_quality_rank_df)
 
 | 名称         | 类型     | 描述                                           |
 |------------|--------|----------------------------------------------|
-| city       | object | city="杭州"；调用 ak.air_city_table() 接口获取所有城市列表 | |
+| city       | object | city="杭州"；调用 ak.alternative_air_city_table_zhenqi() 接口获取所有城市列表 | |
 | start_date | object | start_date="20261027"                        |
 | end_date   | object | end_date="20261028"                          |
 
@@ -912,8 +912,8 @@ print(air_quality_rank_df)
 ```python
 import akshare as ak
 
-air_quality_watch_point_df = ak.air_quality_watch_point(city="杭州", start_date="20261027", end_date="20261028")
-print(air_quality_watch_point_df)
+alternative_air_quality_watch_point_zhenqi_df = ak.alternative_air_quality_watch_point_zhenqi(city="杭州", start_date="20261027", end_date="20261028")
+print(alternative_air_quality_watch_point_zhenqi_df)
 ```
 
 数据示例
@@ -942,10 +942,10 @@ print(air_quality_watch_point_df)
 [18 rows x 8 columns]
 ```
 
-(forbes_rank)=
+(alternative_rank_forbes)=
 ## 福布斯中国榜单
 
-接口：forbes_rank
+接口：alternative_rank_forbes
 
 目标地址：https://www.forbeschina.com/lists
 
@@ -1063,8 +1063,8 @@ print(air_quality_watch_point_df)
 ```python
 import akshare as ak
 
-forbes_rank_df = ak.forbes_rank(symbol="2020福布斯中国400富豪榜")
-print(forbes_rank_df)
+alternative_rank_forbes_df = ak.alternative_rank_forbes(symbol="2020福布斯中国400富豪榜")
+print(alternative_rank_forbes_df)
 ```
 
 数据示例
@@ -1084,67 +1084,10 @@ print(forbes_rank_df)
 399  399    卢竑岩   103.4        吉比特  43   厦门
 ```
 
-(xincaifu_rank)=
-## 新财富富豪榜
-
-接口：xincaifu_rank
-
-目标地址：http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
-
-描述：新财富 500 富豪榜，从 2003 年至今
-
-限量：单次返回指定年份的富豪榜数据
-
-输入参数
-
-| 名称   | 类型  | 描述                      |
-|------|-----|-------------------------|
-| year | str | year="2020"；从 2003 年至今 |
-
-输出参数
-
-| 名称   | 类型      | 描述       |
-|------|---------|----------|
-| 排名   | int64   | -        |
-| 财富   | float64 | 注意单位：亿元 |
-| 姓名   | str     | -        |
-| 主要公司 | str     | -        |
-| 相关行业 | str     | -        |
-| 公司总部 | str     | -        |
-| 性别   | str     | -        |
-| 年龄   | str     | -        |
-| 年份   | int64   | -        |
-
-接口示例
-
-```python
-import akshare as ak
-
-xincaifu_rank_df = ak.xincaifu_rank(year="2022")
-print(xincaifu_rank_df)
-```
-
-数据示例
-
-```
-      排名      财富       姓名       主要公司        相关行业     公司总部   性别     年龄    年份
-0      1  4983.5      钟睒睒  农夫山泉/万泰生物  矿泉水饮料、医药生物  浙江杭州/北京    男     68  2022
-1      2  3348.2      曾毓群       宁德时代        动力电池     福建宁德    男     54  2022
-2      3  3010.8      马化腾       腾讯控股     互联网综合服务     广东深圳    男     51  2022
-3      4  2916.0      张一鸣       今日头条  推荐引擎产品、短视频       北京    男     39  2022
-4      5  1972.0       黄峥        拼多多          电商       上海    男     42  2022
-..   ...     ...      ...        ...         ...      ...  ...    ...   ...
-495  496    94.7      崔志祥     方圆有色金属     铜、金、银生产     山东东营    男     59  2022
-496  497    94.6    胡成中家族        德力西  低压电器、仪器仪表等     浙江温州    男     61  2022
-497  498    94.2  张宏亮/张秀根       曙光股份        汽车整车     辽宁丹东  男/男  38,61  2022
-498  499    94.0       金磊       长春高新        生长激素     吉林长春    男     57  2022
-499  500    93.7    赵轶/徐昕       长川科技    集成电路测试装备     浙江杭州  男/女  56,56  2022
-```
-
-(hurun_rank)=
+(alternative_rank_hurun)=
 ## 胡润排行榜
 
-接口：hurun_rank
+接口：alternative_rank_hurun
 
 目标地址：https://www.hurun.net/zh-CN/Rank/HsRankDetails?num=QWDD234E
 
@@ -1174,8 +1117,8 @@ print(xincaifu_rank_df)
 ```python
 import akshare as ak
 
-hurun_rank_df = ak.hurun_rank(indicator="胡润百富榜", year="2023")
-print(hurun_rank_df)
+alternative_rank_hurun_df = ak.alternative_rank_hurun(indicator="胡润百富榜", year="2023")
+print(alternative_rank_hurun_df)
 ```
 
 数据示例-胡润百富榜
@@ -1211,8 +1154,8 @@ print(hurun_rank_df)
 ```python
 import akshare as ak
 
-hurun_rank_df = ak.hurun_rank(indicator="胡润全球富豪榜", year="2023")
-print(hurun_rank_df)
+alternative_rank_hurun_df = ak.alternative_rank_hurun(indicator="胡润全球富豪榜", year="2023")
+print(alternative_rank_hurun_df)
 ```
 
 数据示例-胡润全球富豪榜
@@ -1248,8 +1191,8 @@ print(hurun_rank_df)
 ```python
 import akshare as ak
 
-hurun_rank_df = ak.hurun_rank(indicator="胡润全球独角兽榜", year="2023")
-print(hurun_rank_df)
+alternative_rank_hurun_df = ak.alternative_rank_hurun(indicator="胡润全球独角兽榜", year="2023")
+print(alternative_rank_hurun_df)
 ```
 
 数据示例-胡润全球独角兽榜
@@ -1286,8 +1229,8 @@ print(hurun_rank_df)
 ```python
 import akshare as ak
 
-hurun_rank_df = ak.hurun_rank(indicator="胡润世界500强", year="2022")
-print(hurun_rank_df)
+alternative_rank_hurun_df = ak.alternative_rank_hurun(indicator="胡润世界500强", year="2022")
+print(alternative_rank_hurun_df)
 ```
 
 数据示例-胡润世界500强
@@ -1324,8 +1267,8 @@ print(hurun_rank_df)
 ```python
 import akshare as ak
 
-hurun_rank_df = ak.hurun_rank(indicator="胡润艺术榜", year="2023")
-print(hurun_rank_df)
+alternative_rank_hurun_df = ak.alternative_rank_hurun(indicator="胡润艺术榜", year="2023")
+print(alternative_rank_hurun_df)
 ```
 
 数据示例-胡润艺术榜
@@ -1346,10 +1289,10 @@ print(hurun_rank_df)
 [100 rows x 6 columns]
 ```
 
-(fortune_rank)=
+(alternative_rank_fortune)=
 ## 财富世界 500 强
 
-接口：fortune_rank
+接口：alternative_rank_fortune
 
 目标地址：https://www.fortunechina.com/fortune500/index.htm
 
@@ -1382,8 +1325,8 @@ print(hurun_rank_df)
 ```python
 import akshare as ak
 
-fortune_rank_df = ak.fortune_rank(year="2025")
-print(fortune_rank_df)
+alternative_rank_fortune_df = ak.alternative_rank_fortune(year="2025")
+print(alternative_rank_fortune_df)
 ```
 
 数据示例
@@ -1407,10 +1350,10 @@ print(fortune_rank_df)
 
 ## 电影票房
 
-(movie_boxoffice_realtime)=
+(alternative_movie_boxoffice_realtime_yien)=
 ### 实时票房
 
-接口：movie_boxoffice_realtime
+接口：alternative_movie_boxoffice_realtime_yien
 
 目标地址：https://ys.endata.cn/BoxOffice/Movie
 
@@ -1442,8 +1385,8 @@ print(fortune_rank_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_realtime_df = ak.movie_boxoffice_realtime()
-print(movie_boxoffice_realtime_df)
+alternative_movie_boxoffice_realtime_yien_df = ak.alternative_movie_boxoffice_realtime_yien()
+print(alternative_movie_boxoffice_realtime_yien_df)
 ```
 
 数据示例
@@ -1463,10 +1406,10 @@ print(movie_boxoffice_realtime_df)
 10  11               其它    10.25   1.00     0       0.00
 ```
 
-(movie_boxoffice_daily)=
+(alternative_movie_boxoffice_daily_yien)=
 ### 单日票房
 
-接口：movie_boxoffice_daily
+接口：alternative_movie_boxoffice_daily_yien
 
 目标地址：https://www.endata.com.cn/BoxOffice/BO/Day/index.html
 
@@ -1501,8 +1444,8 @@ print(movie_boxoffice_realtime_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_daily_df = ak.movie_boxoffice_daily(date="20261104")
-print(movie_boxoffice_daily_df)
+alternative_movie_boxoffice_daily_yien_df = ak.alternative_movie_boxoffice_daily_yien(date="20261104")
+print(alternative_movie_boxoffice_daily_yien_df)
 ```
 
 数据示例
@@ -1524,10 +1467,10 @@ print(movie_boxoffice_daily_df)
 [131 rows x 9 columns]
 ```
 
-(movie_boxoffice_monthly)=
+(alternative_movie_boxoffice_monthly_yien)=
 ### 单月票房
 
-接口：movie_boxoffice_monthly
+接口：alternative_movie_boxoffice_monthly_yien
 
 目标地址：https://www.endata.com.cn/BoxOffice/BO/Month/oneMonth.html
 
@@ -1562,8 +1505,8 @@ print(movie_boxoffice_daily_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_monthly_df = ak.movie_boxoffice_monthly(date="20240218")
-print(movie_boxoffice_monthly_df)
+alternative_movie_boxoffice_monthly_yien_df = ak.alternative_movie_boxoffice_monthly_yien(date="20240218")
+print(alternative_movie_boxoffice_monthly_yien_df)
 ```
 
 数据示例
@@ -1583,10 +1526,10 @@ print(movie_boxoffice_monthly_df)
 10  999         其他   12222   1.3    38     2        None   NaN   NaN
 ```
 
-(movie_boxoffice_yearly)=
+(alternative_movie_boxoffice_yearly_yien)=
 ### 年度票房
 
-接口：movie_boxoffice_yearly
+接口：alternative_movie_boxoffice_yearly_yien
 
 目标地址：https://www.endata.com.cn/BoxOffice/BO/Year/index.html
 
@@ -1620,8 +1563,8 @@ print(movie_boxoffice_monthly_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_yearly_df = ak.movie_boxoffice_yearly(date="20240218")
-print(movie_boxoffice_yearly_df)
+alternative_movie_boxoffice_yearly_yien_df = ak.alternative_movie_boxoffice_yearly_yien(date="20240218")
+print(alternative_movie_boxoffice_yearly_yien_df)
 ```
 
 数据示例
@@ -1655,10 +1598,10 @@ print(movie_boxoffice_yearly_df)
 24  25         志愿军：雄兵出击   战争    1047    96  55.0       中国  2023-09-28
 ```
 
-(movie_boxoffice_yearly_first_week)=
+(alternative_movie_boxoffice_yearly_first_week_yien)=
 ### 年度首周票房
 
-接口：movie_boxoffice_yearly_first_week
+接口：alternative_movie_boxoffice_yearly_first_week_yien
 
 目标地址：https://www.endata.com.cn/BoxOffice/BO/Year/firstWeek.html
 
@@ -1693,8 +1636,8 @@ print(movie_boxoffice_yearly_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_yearly_first_week_df = ak.movie_boxoffice_yearly_first_week(date="20201018")
-print(movie_boxoffice_yearly_first_week_df)
+alternative_movie_boxoffice_yearly_first_week_yien_df = ak.alternative_movie_boxoffice_yearly_first_week_yien(date="20201018")
+print(alternative_movie_boxoffice_yearly_first_week_yien_df)
 ```
 
 数据示例
@@ -1711,10 +1654,10 @@ print(movie_boxoffice_yearly_first_week_df)
 7   8                格萨尔藏戏  剧情     0       0     1     中国  2020-08-21  -186
 ```
 
-(movie_boxoffice_cinema_daily)=
+(alternative_movie_boxoffice_cinema_daily_yien)=
 ### 影院票房-日票房排行
 
-接口：movie_boxoffice_cinema_daily
+接口：alternative_movie_boxoffice_cinema_daily_yien
 
 目标地址：https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
 
@@ -1747,8 +1690,8 @@ print(movie_boxoffice_yearly_first_week_df)
 ```python
 import akshare as ak
 
-movie_boxoffice_cinema_daily_df = ak.movie_boxoffice_cinema_daily(date="20261104")
-print(movie_boxoffice_cinema_daily_df)
+alternative_movie_boxoffice_cinema_daily_yien_df = ak.alternative_movie_boxoffice_cinema_daily_yien(date="20261104")
+print(alternative_movie_boxoffice_cinema_daily_yien_df)
 ```
 
 数据示例
@@ -1770,238 +1713,10 @@ print(movie_boxoffice_cinema_daily_df)
 [100 rows x 7 columns]
 ```
 
-## 视频播映
-
-(video_tv)=
-### 电视剧集
-
-接口：video_tv
-
-目标地址：https://www.endata.com.cn/Video/index.html
-
-描述：艺恩-视频放映-电视剧集
-
-限量：返回前一日的电视剧播映数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称   | 类型      | 描述  |
-|------|---------|-----|
-| 排序   | int64   | -   |
-| 名称   | object  | -   |
-| 类型   | str     | -   |
-| 播映指数 | float64 | -   |
-| 媒体热度 | float64 | -   |
-| 用户热度 | float64 | -   |
-| 好评度  | float64 | -   |
-| 观看度  | float64 | -   |
-| 统计日期 | float64 | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-video_tv_df = ak.video_tv()
-print(video_tv_df)
-```
-
-数据示例
-
-```
-   排序    名称     类型   播映指数   媒体热度  用户热度 好评度  观看度     统计日期
-0   1    在暴雪时分  爱情/都市  79.44  74.46  75.72  68.00  80.43  2024-02-18
-1   2     南来北往     爱情  78.67  76.24  75.63  53.39  83.90  2024-02-18
-2   3     烟火人家  剧情/爱情  72.98  72.04  71.43  52.47  74.73  2024-02-18
-3   4      莲花楼     古装  72.84  68.92  76.22  85.00  56.97  2024-02-18
-4   5       繁花  剧情/爱情  72.40  75.92  65.39  86.00  63.16  2024-02-18
-5   6     一念关山     古装  69.52  60.02  79.51  64.00  57.42  2024-02-18
-6   7     要久久爱     剧情  69.45  63.88  71.14  72.00  60.50  2024-02-18
-7   8   长相思第一季  爱情/奇幻  68.41  62.20  67.88  78.00  59.09  2024-02-18
-8   9   乡村爱情16  喜剧/乡村  67.16  65.22  62.70  52.07  70.66  2024-02-18
-9  10  繁花[沪语版]     剧情  66.96  75.93  65.39  51.32  63.16  2024-02-18
-```
-
-(video_variety_show)=
-### 综艺节目
-
-接口：video_variety_show
-
-目标地址：https://www.endata.com.cn/Video/index.html
-
-描述：艺恩-视频放映-综艺节目
-
-限量：返回前一日的综艺播映数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称   | 类型      | 描述  |
-|------|---------|-----|
-| 排序   | int64   | -   |
-| 名称   | object  | -   |
-| 类型   | str     | -   |
-| 播映指数 | float64 | -   |
-| 媒体热度 | float64 | -   |
-| 用户热度 | float64 | -   |
-| 好评度  | float64 | -   |
-| 观看度  | float64 | -   |
-| 统计日期 | float64 | -   |
-
-接口示例
-
-```python
-import akshare as ak
-
-video_variety_show_df = ak.video_variety_show()
-print(video_variety_show_df)
-```
-
-数据示例
-
-```
-   排序         名称      类型   播映指数   媒体热度   用户热度    好评度  观看度    统计日期
-0   1         声生不息家年华     真人秀  81.62  73.82  94.64  68.00  67.75  2024-02-18
-1   2       你好星期六2024     真人秀  71.46  66.35  78.16  51.66  66.63  2024-02-18
-2   3  声生不息·家年华 舞台纯享版  真人秀/衍生  71.35  73.82  94.64  49.75  47.48  2024-02-18
-3   4          奔跑吧第七季     真人秀  70.35  73.40  73.98  72.00  56.05  2024-02-18
-4   5        名侦探学院第七季     真人秀  64.80  73.86  68.72  50.51  55.14  2024-02-18
-5   6     花儿与少年丝路季第五季     真人秀  63.89  64.07  65.74  91.00  42.49  2024-02-18
-6   7         极限挑战第九季     真人秀  63.42  70.93  71.96  54.00  47.89  2024-02-18
-7   8             毛雪汪     真人秀  62.93  41.64  65.67  74.00  56.81  2024-02-18
-8   9        王牌对王牌第八季     真人秀  62.48  63.42  64.12  53.00  56.81  2024-02-18
-9  10      极限挑战宝藏行第四季     真人秀  62.34  56.96  67.96  50.64  56.37  2024-02-18
-```
-
-## 艺人
-
-(business_value_artist)=
-### 艺人商业价值
-
-接口：business_value_artist
-
-目标地址：https://www.endata.com.cn/Marketing/Artist/business.html
-
-描述：艺恩-艺人-艺人商业价值
-
-限量：返回当前的艺人商业价值数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称   | 类型      | 描述                                                                                                         |
-|------|---------|------------------------------------------------------------------------------------------------------------|
-| 排名   | int64   | -                                                                                                          |
-| 艺人   | str     | -                                                                                                          |
-| 商业价值 | float64 | 商业价值由专业度，关注度，预测热度加权汇总计算后得出，分值范围0~100，综合反映明星作品、代言表现、近期热度及舆情口碑。                                              |
-| 专业热度 | float64 | 艺人专业热度主要表现艺人历史作品及品牌代言的效果情况，参与计算的指标维度包括历史主演电影票房表现，历史主演视频节目播映热度，电影作品豆瓣评分，作品相关微博内容评论正负向，历史代言品牌数量，品牌热度，艺人获奖数量。 |
-| 关注热度 | float64 | 艺人关注热度主要表现艺人网络中的舆情声量，参与计算的指标维度包括百度搜索指数，百度新闻数量，今日头条新闻数，微博转发量，微博评论量，微博点赞量，微博粉丝数量，贴吧关注数量，微博话题数量。              |
-| 预测热度 | float64 | 预测热度的数值反映明星的未来发展潜力，包括粉丝增长规模，作品口碑以及未来作品预测。                                                                  |
-| 美誉度  | float64 | 根据艺人近三年参演电影、视频作品在豆瓣等平台的评分、微博正向评价，以及微博好评率等指标综合加权得出。                                                         |
-| 统计日期 | object  | -                                                                                                          |
-
-接口示例
-
-```python
-import akshare as ak
-
-business_value_artist_df = ak.business_value_artist()
-print(business_value_artist_df)
-```
-
-数据示例
-
-```
-     排名  艺人 商业价值 专业热度 关注热 预测热度  美誉度     统计日期
-0     1    杨幂  88.90  88.80  78.47  78.36  63.00  2021-11-16
-1     2   朱一龙  85.09  92.40  71.17  13.76  72.00  2021-11-16
-2     3  易烊千玺  84.65  85.73  75.19  57.26  65.67  2021-11-16
-3     4   黄晓明  82.81  88.81  66.14  48.59  59.00  2021-11-16
-4     5    刘涛  82.62  83.44  71.61  71.27  49.33  2021-11-16
-..  ...   ...    ...    ...    ...    ...    ...         ...
-95   96   张涵予  72.06  74.19  63.89  34.97  58.67  2021-11-16
-96   97   胡一天  72.02  73.85  59.71  67.64  53.33  2021-11-16
-97   98    徐峥  71.95  72.16  61.45  74.32  79.67  2021-11-16
-98   99    魏晨  71.91  75.15  63.19  25.54  73.00  2021-11-16
-99  100   钟楚曦  71.87  72.61  63.14  55.64  44.00  2021-11-16
-```
-
-(online_value_artist)=
-### 艺人流量价值
-
-接口：online_value_artist
-
-目标地址：https://www.endata.com.cn/Marketing/Artist/business.html
-
-描述：艺恩-艺人-艺人流量价值
-
-限量：返回当前的艺人流量价值数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称   | 类型      | 描述                                                                                                         |
-|------|---------|------------------------------------------------------------------------------------------------------------|
-| 排名   | int64   | -                                                                                                          |
-| 艺人   | str     | -                                                                                                          |
-| 流量价值 | float64 | 流量价值由专业度，关注度，预测热度，带货力加权汇总计算后得出，分值范围0~100，在商业价值的基础上增加了明星近期热度及带货力的权重。                                        |
-| 专业热度 | float64 | 艺人专业热度主要表现艺人历史作品及品牌代言的效果情况，参与计算的指标维度包括历史主演电影票房表现，历史主演视频节目播映热度，电影作品豆瓣评分，作品相关微博内容评论正负向，历史代言品牌数量，品牌热度，艺人获奖数量。 |
-| 关注热度 | float64 | 艺人关注热度主要表现艺人网络中的舆情声量，参与计算的指标维度包括百度搜索指数，百度新闻数量，今日头条新闻数，微博转发量，微博评论量，微博点赞量，微博粉丝数量，贴吧关注数量，微博话题数量。              |
-| 预测热度 | float64 | 预测热度的数值反映明星的未来发展潜力，包括粉丝增长规模，作品口碑以及未来作品预测。                                                                  |
-| 带货力  | float64 | 带货力的数值代表艺人的带货号召力，包括艺人的铁杆粉丝规模，超话粉丝规模。                                                                       |
-| 统计日期 | object  | -                                                                                                          |
-
-接口示例
-
-```python
-import akshare as ak
-
-online_value_artist_df = ak.online_value_artist()
-print(online_value_artist_df)
-```
-
-数据示例
-
-```
-     排名  艺人 流量价值 专业热度 关注热度 预测热度 带货力    统计日期
-0     1   杨紫  85.47  74.30  76.06  97.80  83.95  2021-11-16
-1     2   杨幂  85.15  88.80  78.47  78.36  89.24  2021-11-16
-2     3  王一博  82.18  81.34  71.35  87.57  94.60  2021-11-16
-3     4   龚俊  80.94  70.46  72.67  87.62  88.60  2021-11-16
-4     5  陈伟霆  79.42  80.35  74.84  73.49  77.83  2021-11-16
-..  ...  ...    ...    ...    ...    ...    ...         ...
-95   96  佟丽娅  67.11  81.30  60.15  57.87  73.44  2021-11-16
-96   97  郭麒麟  67.09  81.95  62.45  44.96  76.56  2021-11-16
-97   98   杨迪  67.06  65.26  63.42  55.52  73.07  2021-11-16
-98   99  钟楚曦  67.03  72.61  63.14  55.64  68.99  2021-11-16
-99  100  张子枫  67.02  74.36  65.76  41.24  71.71  2021-11-16
-```
-
-(stock_js_weibo_report)=
+(alternative_weibo_stock_report_js)=
 ## 微博舆情报告
 
-接口：stock_js_weibo_report
+接口：alternative_weibo_stock_report_js
 
 目标地址：https://datacenter.jin10.com/market
 
@@ -2013,7 +1728,7 @@ print(online_value_artist_df)
 
 | 名称          | 类型  | 描述                                                                                     |
 |-------------|-----|----------------------------------------------------------------------------------------|
-| time_period | str | time_period="CNHOUR12"；详见下表**time_period参数一览表**，可通过调用 **stock_js_weibo_nlp_time** 获取 |
+| time_period | str | time_period="CNHOUR12"；详见下表**time_period参数一览表**，可通过调用 **alternative_weibo_stock_time_js** 获取 |
 
 time_period 参数一览表
 
@@ -2038,8 +1753,8 @@ time_period 参数一览表
 ```python
 import akshare as ak
 
-stock_js_weibo_report_df = ak.stock_js_weibo_report(time_period="CNHOUR12")
-print(stock_js_weibo_report_df)
+alternative_weibo_stock_report_js_df = ak.alternative_weibo_stock_report_js(time_period="CNHOUR12")
+print(alternative_weibo_stock_report_js_df)
 ```
 
 数据示例
@@ -2100,65 +1815,10 @@ print(stock_js_weibo_report_df)
 
 ## 彭博亿万富豪指数
 
-(index_bloomberg_billionaires)=
-### 彭博实时亿万富豪指数
-
-接口：index_bloomberg_billionaires
-
-目标地址：https://www.bloomberg.com/billionaires/
-
-描述：彭博亿万富豪指数，全球前 500 名；该接口需要使用代理访问
-
-限量：单次返回所有数据彭博亿万富豪排名数据
-
-输入参数
-
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
-
-输出参数
-
-| 名称              | 类型  | 描述              |
-|-----------------|-----|-----------------|
-| rank            | str | Rank            |
-| name            | str | Name            |
-| total_net_worth | str | Total net worth |
-| last_change     | str | $ Last change   |
-| YTD_change      | str | $ YTD change    |
-| country         | str | Country         |
-| industry        | str | Industry        |
-
-接口示例
-
-```python
-import akshare as ak
-
-index_bloomberg_billionaires_df = ak.index_bloomberg_billionaires()
-print(index_bloomberg_billionaires_df)
-```
-
-数据示例
-
-```
-    rank                        name  ...             country     industry
-0      1                  Jeff Bezos  ...       United States   Technology
-1      2                  Bill Gates  ...       United States   Technology
-2      3             Mark Zuckerberg  ...       United States   Technology
-3      4             Bernard Arnault  ...              France     Consumer
-4      5               Steve Ballmer  ...       United States   Technology
-..   ...                         ...  ...                 ...          ...
-494  496                 Ira Rennert  ...       United States  Commodities
-495  497  Traudl Engelhorn-Vechiatto  ...         Switzerland  Diversified
-496  498            Sergey Galitskiy  ...  Russian Federation       Retail
-497  499                  Xu Jingren  ...               China  Health Care
-498  500                Shi Yonghong  ...           Singapore     Consumer
-```
-
-(index_bloomberg_billionaires_hist)=
+(alternative_billionaires_hist_bloomberg)=
 ### 历史彭博亿万富豪指数
 
-接口：index_bloomberg_billionaires_hist
+接口：alternative_billionaires_hist_bloomberg
 
 目标地址：https://stats.areppim.com/stats/links_billionairexlists.htm
 
@@ -2190,8 +1850,8 @@ print(index_bloomberg_billionaires_df)
 ```python
 import akshare as ak
 
-index_bloomberg_billionaires_hist_df=ak.index_bloomberg_billionaires_hist(year='2019')
-print(index_bloomberg_billionaires_hist_df)
+alternative_billionaires_hist_bloomberg_df=ak.alternative_billionaires_hist_bloomberg(year='2019')
+print(alternative_billionaires_hist_bloomberg_df)
 ```
 
 数据示例
@@ -2211,10 +1871,10 @@ print(index_bloomberg_billionaires_hist_df)
 498  500                Shi Yonghong  ...           Singapore     Consumer
 ```
 
-(game_hot_rank_taptap)=
+(alternative_game_hot_rank_taptap)=
 ### TapTap 游戏榜单
 
-接口：game_hot_rank_taptap
+接口：alternative_game_hot_rank_taptap
 
 目标地址：https://www.taptap.cn/top/played
 
@@ -2251,8 +1911,8 @@ print(index_bloomberg_billionaires_hist_df)
 ```python
 import akshare as ak
 
-game_hot_rank_taptap_df = ak.game_hot_rank_taptap(symbol="热玩榜")
-print(game_hot_rank_taptap_df)
+alternative_game_hot_rank_taptap_df = ak.alternative_game_hot_rank_taptap(symbol="热玩榜")
+print(alternative_game_hot_rank_taptap_df)
 ```
 
 数据示例

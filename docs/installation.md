@@ -228,7 +228,7 @@ ans =
 在 MATLAB 命令行窗口输入：
 
 ```
-py.akshare.macro_cnbs
+py.akshare.macro_china_leverage_nifd
 ```
 
 如返回：

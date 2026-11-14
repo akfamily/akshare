@@ -2583,10 +2583,10 @@ print(futures_zh_contract_realtime_sina_df)
 import time
 import akshare as ak
 
-dce_text = ak.match_main_contract(symbol="dce")
-czce_text = ak.match_main_contract(symbol="czce")
-shfe_text = ak.match_main_contract(symbol="shfe")
-gfex_text = ak.match_main_contract(symbol="gfex")
+dce_text = ak.futures_main_contract_sina(symbol="dce")
+czce_text = ak.futures_main_contract_sina(symbol="czce")
+shfe_text = ak.futures_main_contract_sina(symbol="shfe")
+gfex_text = ak.futures_main_contract_sina(symbol="gfex")
 
 while True:
     time.sleep(3)
@@ -2666,7 +2666,7 @@ while True:
 import time
 import akshare as ak
 
-cffex_text = ak.match_main_contract(symbol="cffex")
+cffex_text = ak.futures_main_contract_sina(symbol="cffex")
 
 while True:
     time.sleep(3)
@@ -2790,10 +2790,10 @@ print(big_df)
 569  TS2212    cffex    2年期国债期货2212  ...  0.0  0.0          100.92
 ```
 
-(futures_zh_minute_sina)=
+(futures_zh_min_sina)=
 ### 内盘-分时行情数据
 
-接口：futures_zh_minute_sina
+接口：futures_zh_min_sina
 
 目标地址：http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 
@@ -2805,7 +2805,7 @@ print(big_df)
 
 | 名称     | 类型  | 描述                                                                                              |
 |--------|-----|-------------------------------------------------------------------------------------------------|
-| symbol | str | symbol="IF2008"；具体合约（期货品种符号需要大写），可以通过调用 ak.match_main_contract(symbol="cffex") 接口获取，或者访问网页获取 |
+| symbol | str | symbol="IF2008"；具体合约（期货品种符号需要大写），可以通过调用 ak.futures_main_contract_sina(symbol="cffex") 接口获取，或者访问网页获取 |
 | period | str | period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}        |
 
 输出参数
@@ -2825,8 +2825,8 @@ print(big_df)
 ```python
 import akshare as ak
 
-futures_zh_minute_sina_df = ak.futures_zh_minute_sina(symbol="RB0", period="1")
-print(futures_zh_minute_sina_df)
+futures_zh_min_sina_df = ak.futures_zh_min_sina(symbol="RB0", period="1")
+print(futures_zh_min_sina_df)
 ```
 
 数据示例
@@ -2924,7 +2924,7 @@ print(futures_hist_em_df)
 
 | 名称     | 类型  | 描述                                                                    |
 |--------|-----|-----------------------------------------------------------------------|
-| symbol | str | symbol="RB0"；具体合约可以通过 ak.match_main_contract(symbol="shfe") 获取或者访问网页 |
+| symbol | str | symbol="RB0"；具体合约可以通过 ak.futures_main_contract_sina(symbol="shfe") 获取或者访问网页 |
 
 输出参数
 
@@ -4254,10 +4254,10 @@ print(futures_hog_supply_df)
 [90 rows x 2 columns]
 ```
 
-(index_hog_spot_price)=
+(futures_hog_spot_price)=
 ## 生猪市场价格指数
 
-接口：index_hog_spot_price
+接口：futures_hog_spot_price
 
 目标地址：https://hqb.nxin.com/pigindex/index.shtml
 
@@ -4289,8 +4289,8 @@ print(futures_hog_supply_df)
 ```python
 import akshare as ak
 
-index_hog_spot_price_df = ak.index_hog_spot_price()
-print(index_hog_spot_price_df)
+futures_hog_spot_price_df = ak.futures_hog_spot_price()
+print(futures_hog_spot_price_df)
 ```
 
 数据示例

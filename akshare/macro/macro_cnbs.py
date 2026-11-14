@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def macro_cnbs() -> pd.DataFrame:
+def macro_china_leverage_nifd() -> pd.DataFrame:
     """
     国家金融与发展实验室-中国宏观杠杆率数据
     http://www.nifd.cn/cdata/
@@ -70,5 +70,5 @@ def macro_cnbs() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_cnbs_df = macro_cnbs()
-    print(macro_cnbs_df)
+    macro_china_leverage_nifd_df = macro_china_leverage_nifd()
+    print(macro_china_leverage_nifd_df)

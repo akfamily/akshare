@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
+def research_rv_rlab(symbol: str = "39693") -> pd.DataFrame:
     """
     修大成主页-Risk Lab-Realized Volatility
     :param symbol: str 股票代码
@@ -80,5 +80,5 @@ def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    article_rlab_rv_df = article_rlab_rv(symbol="39693")
-    print(article_rlab_rv_df)
+    research_rv_rlab_df = research_rv_rlab(symbol="39693")
+    print(research_rv_rlab_df)

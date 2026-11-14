@@ -21,12 +21,39 @@ headers = {
 }
 
 
+def _is_not_json(response) -> bool:
+    """
+    响应内容是否不是 JSON
+    协会网站在连续翻页时偶尔以 200 状态码返回空内容或拦截页面
+    :param response: 响应对象
+    :type response: requests.Response
+    :return: 不是 JSON 时为 True
+    :rtype: bool
+    """
+    return not response.text.lstrip().startswith(("{", "["))
+
+
+def _post(url: str, **kwargs):
+    """
+    向协会网站发送 POST 请求
+    多数接口需要翻几十到几百页，途中偶发的连接中断或非 JSON 响应会让整次调用失败，
+    因此统一经 http.request_with_retry 重试
+    :param url: 请求地址
+    :type url: str
+    :return: 响应对象
+    :rtype: requests.Response
+    """
+    return http.request_with_retry(
+        "POST", url, max_retries=4, retry_if=_is_not_json, **kwargs
+    )
+
+
 def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
     暂时不使用本函数，直接可以获取所有数据
     """
-    res = http.post(url=url, json=payload, headers=headers)
+    res = _post(url=url, json=payload, headers=headers)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df["totalPages"]
@@ -36,7 +63,7 @@ def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
-    res = http.post(url=url, json=payload, headers=headers)
+    res = _post(url=url, json=payload, headers=headers)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df
@@ -44,7 +71,7 @@ def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-会员信息
 # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
-def amac_member_info() -> pd.DataFrame:
+def fund_member_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
     https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
@@ -57,14 +84,14 @@ def amac_member_info() -> pd.DataFrame:
         "page": "1",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -109,7 +136,7 @@ def amac_member_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-从业人员信息
 # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.DataFrame:
+def fund_person_fund_org_list_amac(symbol: str = "公募基金管理公司") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
@@ -155,7 +182,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
         "page": "1",
         "size": "20",
     }
-    r = http.post(
+    r = _post(
         url,
         params=params,
         json={"orgType": symbol_map[symbol], "page": "1"},
@@ -167,7 +194,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(
+        r = _post(
             url,
             params=params,
             json={"orgType": symbol_map[symbol], "page": "1"},
@@ -244,7 +271,7 @@ class _LegacySSLAdapter(HTTPAdapter):
 
 
 # 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
-def amac_person_bond_org_list() -> pd.DataFrame:
+def fund_person_bond_org_list_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
     https://human.amac.org.cn/web/org/personPublicity.html
@@ -280,7 +307,7 @@ def amac_person_bond_org_list() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
-def amac_manager_info() -> pd.DataFrame:
+def fund_manager_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
     https://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
@@ -293,14 +320,14 @@ def amac_manager_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -347,7 +374,7 @@ def amac_manager_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
-def amac_manager_classify_info() -> pd.DataFrame:
+def fund_manager_classify_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
     https://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
@@ -360,14 +387,14 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -436,7 +463,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
-def amac_member_sub_info() -> pd.DataFrame:
+def fund_member_sub_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
     https://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
@@ -449,14 +476,14 @@ def amac_member_sub_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -491,7 +518,9 @@ def amac_member_sub_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFrame:
+def fund_private_fund_info_amac(
+    start_page: str = "1", end_page: str = "2000"
+) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     https://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
@@ -508,7 +537,7 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
         "page": "1",
         "size": "100",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = int(data_json["totalPages"])
     if total_page > int(end_page):
@@ -519,7 +548,7 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
     tqdm = get_tqdm()
     for page in tqdm(range(int(start_page) - 1, real_end_page), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -565,7 +594,7 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
-def amac_securities_info() -> pd.DataFrame:
+def fund_securities_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
     https://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
@@ -578,14 +607,14 @@ def amac_securities_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -635,7 +664,7 @@ def amac_securities_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
-def amac_aoin_info() -> pd.DataFrame:
+def fund_aoin_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
     https://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
@@ -648,14 +677,14 @@ def amac_aoin_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -687,7 +716,7 @@ def amac_aoin_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
-def amac_fund_sub_info() -> pd.DataFrame:
+def fund_private_sub_fund_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
     https://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
@@ -700,14 +729,14 @@ def amac_fund_sub_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -751,7 +780,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
-def amac_fund_account_info() -> pd.DataFrame:
+def fund_account_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
     https://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -768,14 +797,14 @@ def amac_fund_account_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -805,7 +834,7 @@ def amac_fund_account_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-def amac_fund_abs() -> pd.DataFrame:
+def fund_abs_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划公示信息
     https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
@@ -818,14 +847,14 @@ def amac_fund_abs() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -876,7 +905,7 @@ def amac_fund_abs() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
-def amac_futures_info() -> pd.DataFrame:
+def fund_futures_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     https://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
@@ -889,14 +918,14 @@ def amac_futures_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -947,7 +976,7 @@ def amac_futures_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-诚信信息
 # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
-def amac_manager_cancelled_info() -> pd.DataFrame:
+def fund_manager_cancelled_info_amac() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
     https://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
@@ -963,14 +992,14 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
         "page": "0",
         "size": "20",
     }
-    r = http.post(url, params=params, json={}, headers=headers)
+    r = _post(url, params=params, json={}, headers=headers)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = http.post(url, params=params, json={}, headers=headers)
+        r = _post(url, params=params, json={}, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -1008,67 +1037,71 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
 if __name__ == "__main__":
     # 中国证券投资基金业协会-信息公示-会员信息
     # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
-    amac_member_info_df = amac_member_info()
-    print(amac_member_info_df)
+    fund_member_info_amac_df = fund_member_info_amac()
+    print(fund_member_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-从业人员信息
     # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-    amac_person_fund_org_list_df = amac_person_fund_org_list(symbol="公募基金管理公司")
-    print(amac_person_fund_org_list_df)
+    fund_person_fund_org_list_amac_df = fund_person_fund_org_list_amac(
+        symbol="公募基金管理公司"
+    )
+    print(fund_person_fund_org_list_amac_df)
 
     # 中国证券投资基金业协会-信息公示-从业人员信息
     # 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
-    amac_person_bond_org_list_df = amac_person_bond_org_list()
-    print(amac_person_bond_org_list_df)
+    fund_person_bond_org_list_amac_df = fund_person_bond_org_list_amac()
+    print(fund_person_bond_org_list_amac_df)
 
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
-    amac_manager_info_df = amac_manager_info()
-    print(amac_manager_info_df)
+    fund_manager_info_amac_df = fund_manager_info_amac()
+    print(fund_manager_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
-    amac_manager_classify_info_df = amac_manager_classify_info()
-    print(amac_manager_classify_info_df)
+    fund_manager_classify_info_amac_df = fund_manager_classify_info_amac()
+    print(fund_manager_classify_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
-    amac_member_sub_info_df = amac_member_sub_info()
-    print(amac_member_sub_info_df)
+    fund_member_sub_info_amac_df = fund_member_sub_info_amac()
+    print(fund_member_sub_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品
     # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-    amac_fund_info_df = amac_fund_info(start_page="1", end_page="100")
-    print(amac_fund_info_df)
+    fund_private_fund_info_amac_df = fund_private_fund_info_amac(
+        start_page="1", end_page="100"
+    )
+    print(fund_private_fund_info_amac_df)
 
-    example_df = amac_fund_info_df[
-        amac_fund_info_df["私募基金管理人名称"].str.contains("聚宽")
+    example_df = fund_private_fund_info_amac_df[
+        fund_private_fund_info_amac_df["私募基金管理人名称"].str.contains("聚宽")
     ]
     print(example_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
-    amac_securities_info_df = amac_securities_info()
-    print(amac_securities_info_df)
+    fund_securities_info_amac_df = fund_securities_info_amac()
+    print(fund_securities_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
-    amac_aoin_info_df = amac_aoin_info()
-    print(amac_aoin_info_df)
+    fund_aoin_info_amac_df = fund_aoin_info_amac()
+    print(fund_aoin_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
-    amac_fund_sub_info_df = amac_fund_sub_info()
-    print(amac_fund_sub_info_df)
+    fund_private_sub_fund_info_amac_df = fund_private_sub_fund_info_amac()
+    print(fund_private_sub_fund_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
-    amac_fund_account_info_df = amac_fund_account_info()
-    print(amac_fund_account_info_df)
+    fund_account_info_amac_df = fund_account_info_amac()
+    print(fund_account_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-    amac_fund_abs_df = amac_fund_abs()
-    print(amac_fund_abs_df)
+    fund_abs_amac_df = fund_abs_amac()
+    print(fund_abs_amac_df)
 
     # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
-    amac_futures_info_df = amac_futures_info()
-    print(amac_futures_info_df)
+    fund_futures_info_amac_df = fund_futures_info_amac()
+    print(fund_futures_info_amac_df)
 
     # 中国证券投资基金业协会-信息公示-诚信信息
     # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
-    amac_manager_cancelled_info_df = amac_manager_cancelled_info()
-    print(amac_manager_cancelled_info_df)
+    fund_manager_cancelled_info_amac_df = fund_manager_cancelled_info_amac()
+    print(fund_manager_cancelled_info_amac_df)

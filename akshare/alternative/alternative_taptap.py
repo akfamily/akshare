@@ -69,7 +69,7 @@ def _clean_html(text: Optional[str]) -> str:
     return re.sub(r"\n{3,}", "\n\n", text).strip()
 
 
-def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
+def alternative_game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
     """
     TapTap-游戏榜单
     https://www.taptap.cn/top/played
@@ -167,17 +167,27 @@ def game_hot_rank_taptap(symbol: str = "热玩榜") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    game_hot_rank_taptap_df = game_hot_rank_taptap(symbol="热玩榜")
-    print(game_hot_rank_taptap_df)
+    alternative_game_hot_rank_taptap_df = alternative_game_hot_rank_taptap(
+        symbol="热玩榜"
+    )
+    print(alternative_game_hot_rank_taptap_df)
 
-    game_hot_rank_taptap_df = game_hot_rank_taptap(symbol="热门榜")
-    print(game_hot_rank_taptap_df)
+    alternative_game_hot_rank_taptap_df = alternative_game_hot_rank_taptap(
+        symbol="热门榜"
+    )
+    print(alternative_game_hot_rank_taptap_df)
 
-    game_hot_rank_taptap_df = game_hot_rank_taptap(symbol="新品榜")
-    print(game_hot_rank_taptap_df)
+    alternative_game_hot_rank_taptap_df = alternative_game_hot_rank_taptap(
+        symbol="新品榜"
+    )
+    print(alternative_game_hot_rank_taptap_df)
 
-    game_hot_rank_taptap_df = game_hot_rank_taptap(symbol="预约榜")
-    print(game_hot_rank_taptap_df)
+    alternative_game_hot_rank_taptap_df = alternative_game_hot_rank_taptap(
+        symbol="预约榜"
+    )
+    print(alternative_game_hot_rank_taptap_df)
 
-    game_hot_rank_taptap_df = game_hot_rank_taptap(symbol="热卖榜")
-    print(game_hot_rank_taptap_df)
+    alternative_game_hot_rank_taptap_df = alternative_game_hot_rank_taptap(
+        symbol="热卖榜"
+    )
+    print(alternative_game_hot_rank_taptap_df)

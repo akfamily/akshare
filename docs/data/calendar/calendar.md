@@ -1,9 +1,9 @@
 # 交易日历
 
-(tool_trade_date_hist_sina)=
+(calendar_trade_date_hist_sina)=
 ## 交易日历
 
-接口：tool_trade_date_hist_sina
+接口：calendar_trade_date_hist_sina
 
 目标地址：https://finance.sina.com.cn
 
@@ -28,8 +28,8 @@
 ```python
 import akshare as ak
 
-tool_trade_date_hist_sina_df = ak.tool_trade_date_hist_sina()
-print(tool_trade_date_hist_sina_df)
+calendar_trade_date_hist_sina_df = ak.calendar_trade_date_hist_sina()
+print(calendar_trade_date_hist_sina_df)
 ```
 
 数据示例

@@ -35,7 +35,7 @@ def _clean_legulegu_table_headers(columns: List[str]) -> List[str]:
     return cleaned_columns
 
 
-def sw_index_first_info() -> pd.DataFrame:
+def index_first_info_sw() -> pd.DataFrame:
     """
     乐咕乐股-申万一级-分类
     https://legulegu.com/stockdata/sw-industry-overview#level1
@@ -93,7 +93,7 @@ def sw_index_first_info() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_second_info() -> pd.DataFrame:
+def index_second_info_sw() -> pd.DataFrame:
     """
     乐咕乐股-申万二级-分类
     https://legulegu.com/stockdata/sw-industry-overview#level1
@@ -155,7 +155,7 @@ def sw_index_second_info() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_third_info() -> pd.DataFrame:
+def index_third_info_sw() -> pd.DataFrame:
     """
     乐咕乐股-申万三级-分类
     https://legulegu.com/stockdata/sw-industry-overview#level1
@@ -217,7 +217,7 @@ def sw_index_third_info() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_third_cons(symbol: str = "801120.SI") -> pd.DataFrame:
+def index_third_cons_sw(symbol: str = "801120.SI") -> pd.DataFrame:
     """
     乐咕乐股-申万三级-行业成份
     https://legulegu.com/stockdata/index-composition?industryCode=801120.SI
@@ -245,14 +245,14 @@ def sw_index_third_cons(symbol: str = "801120.SI") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    sw_index_first_info_df = sw_index_first_info()
-    print(sw_index_first_info_df)
+    index_first_info_sw_df = index_first_info_sw()
+    print(index_first_info_sw_df)
 
-    sw_index_second_info_df = sw_index_second_info()
-    print(sw_index_second_info_df)
+    index_second_info_sw_df = index_second_info_sw()
+    print(index_second_info_sw_df)
 
-    sw_index_third_info_df = sw_index_third_info()
-    print(sw_index_third_info_df)
+    index_third_info_sw_df = index_third_info_sw()
+    print(index_third_info_sw_df)
 
-    sw_index_third_cons_df = sw_index_third_cons(symbol="850111.SI")
-    print(sw_index_third_cons_df)
+    index_third_cons_sw_df = index_third_cons_sw(symbol="850111.SI")
+    print(index_third_cons_sw_df)

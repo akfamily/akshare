@@ -100,7 +100,7 @@ def _fortune_read_table(html: str, header_in_first_row: bool) -> pd.DataFrame:
     return table
 
 
-def fortune_rank(year: str = "2025") -> pd.DataFrame:
+def alternative_rank_fortune(year: str = "2025") -> pd.DataFrame:
     """
     财富中文网-历年《财富》世界 500 强榜单
     https://www.fortunechina.com/fortune500/index.htm
@@ -153,8 +153,8 @@ def fortune_rank(year: str = "2025") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fortune_rank_df = fortune_rank(year="2025")
-    print(fortune_rank_df)
+    alternative_rank_fortune_df = alternative_rank_fortune(year="2025")
+    print(alternative_rank_fortune_df)
 
-    fortune_rank_df = fortune_rank(year="2005")
-    print(fortune_rank_df)
+    alternative_rank_fortune_df = alternative_rank_fortune(year="2005")
+    print(alternative_rank_fortune_df)
