@@ -8,6 +8,28 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-48)=
+### 1.20.48 fix!: merge small categories and move 45 interfaces to the category they belong to
+
+**不兼容的改动：接口类目由 22 个合并为 15 个，45 个接口随所属类目改名，2 个数据源已失效的接口移除，旧名称不再保留，调用旧名称会报 AttributeError；`ak.search(category=...)` 中已合并的类目名不再有结果。** 改名对照见文末的{ref}`接口更名一览表 <changelog-rename>`：qdii_a_index_jsl→fund_qdii_a_index_jsl、qdii_e_index_jsl→fund_qdii_e_index_jsl、qdii_e_commodity_jsl→fund_qdii_e_commodity_jsl、currency_convert→fx_convert_currencyscoop、currency_currencies→fx_currencies_currencyscoop、currency_latest→fx_latest_currencyscoop、currency_history→fx_hist_currencyscoop、currency_time_series→fx_time_series_currencyscoop、high_freq_sp500→index_us_sp500_min、migration_area_baidu→alternative_migration_area_baidu、migration_scale_baidu→alternative_migration_scale_baidu、bank_fjcf_table_detail→alternative_bank_penalty_nfra、nlp_answer→alternative_nlp_answer、indicator_rv_input_stock_em→research_rv_input_stock_em、indicator_rv_input_futures_sina→research_rv_input_futures_sina、indicator_yz_rv→research_yz_rv、macro_china_lpr→interest_rate_lpr_em、macro_china_shibor→interest_rate_shibor_js、macro_china_hibor→interest_rate_hibor_js、macro_china_swap_rate→interest_rate_swap_cm、macro_china_au_report→spot_sge_report_js、macro_usa_cme_metal_volume→futures_cme_metal_volume_js、macro_usa_cftc_commodity_commercial_holding→futures_cftc_commodity_commercial_holding_js、macro_usa_cftc_commodity_noncommercial_holding→futures_cftc_commodity_noncommercial_holding_js、macro_usa_cftc_currency_commercial_holding→futures_cftc_currency_commercial_holding_js、macro_usa_cftc_currency_noncommercial_holding→futures_cftc_currency_noncommercial_holding_js、macro_gold_etf_holding→fund_gold_etf_holding_js、macro_silver_etf_holding→fund_silver_etf_holding_js、macro_china_market_margin_sh→stock_margin_sse_js、macro_china_market_margin_sz→stock_margin_szse_js、macro_global_sox_index→index_us_sox_em、index_pmi_com_cx→macro_china_pmi_composite_cx、index_pmi_man_cx→macro_china_pmi_manufacturing_cx、index_pmi_ser_cx→macro_china_pmi_services_cx、index_nei_cx→macro_china_nei_cx、index_neei_cx→macro_china_neei_cx、index_bei_cx→macro_china_bei_cx、index_ci_cx→macro_china_ci_cx、index_li_cx→macro_china_li_cx、index_ti_cx→macro_china_ti_cx、index_qli_cx→macro_china_qli_cx、index_ai_cx→macro_china_ai_cx、index_cci_cx→macro_china_cci_cx、index_awpr_cx→macro_china_awpr_cx、index_neaw_cx→macro_china_neaw_cx
+
+类目的变化（即 `ak.search`、`ak.list_categories` 中的类目与数据字典的页面）：
+
+- qdii 并入 fund，currency 并入 fx，high_freq 并入 index，migration、bank、nlp 并入 alternative，indicator 并入 research；原数据字典页面的网址自动跳转到新页面
+- 现有 15 个类目：stock、macro、fund、futures、index、option、bond、alternative、spot、fx、interest_rate、research、energy、crypto、calendar
+
+1. 合并只有几个接口的类目（16 个接口改名）：集思录的 QDII 接口改为 fund_qdii_*_jsl；CurrencyScoop 的汇率换算接口改为 fx_*_currencyscoop，其中 currency_history 按命名规范改为 fx_hist_currencyscoop；high_freq_sp500 改为 index_us_sp500_min；百度迁徙、金融监管行政处罚（原 bank_fjcf_table_detail，fjcf 是拼音缩写，改为 alternative_bank_penalty_nfra）、智能问答归入另类数据；已实现波动率的 3 个接口归入 research
+2. 原先放在宏观类目里的市场数据归到对应类目（15 个接口改名）：LPR、Shibor、Hibor、FR007 利率互换曲线归入 interest_rate；上海黄金交易所报告归入 spot；CFTC 持仓报告与 CME 贵金属成交量归入 futures；黄金、白银 ETF 持仓归入 fund；沪深融资融券报告归入 stock，改为 stock_margin_sse_js、stock_margin_szse_js；费城半导体指数归入 index。这些接口多来自金十数据的“报告”，原先因数据源相同被放在宏观里。各国央行利率决议与经济日历仍在宏观类目
+3. 财新指数的 14 个接口（标普中国 PMI、新经济指数等）是宏观景气指标，由 index_*_cx 改为 macro_china_*_cx，其中 PMI 的 com、man、ser 写全为 composite、manufacturing、services。期权波动率指数（QVIX）仍在指数类目
+4. 代码模块随类目移动，按子模块路径导入的代码需要修改：akshare.qdii.qdii_jsl→akshare.fund.fund_qdii_jsl、akshare.currency.currency→akshare.fx.fx_currencyscoop、akshare.high_freq.high_freq_sp500→akshare.index.index_sp500_min、akshare.migration.migration_baidu→akshare.alternative.alternative_migration_baidu、akshare.bank.bank_cbirc_2020→akshare.alternative.alternative_bank_nfra、akshare.nlp.nlp_interface→akshare.alternative.alternative_nlp、akshare.indicator.indicator_rv→akshare.research.research_rv、akshare.index.index_cx→akshare.macro.macro_china_cx、akshare.macro.macro_constitute→akshare.fund.fund_etf_holding_js；从 macro_china、macro_usa、macro_china_money 中移出的接口分别放在 interest_rate_lpr_em、interest_rate_ibor_js、interest_rate_swap_cm、stock_margin_js、spot_sge_js、index_sox_em、futures_cftc_js 模块。通过 `ak.<接口名>` 调用不受模块位置影响
+5. 移除 macro_lme_inventory（金十数据-伦敦金属交易所库存报告）：金十数据该报告的数据停在 2026 年 7 月 17 日，此后不再更新，接口不报错但只返回旧数据
+6. 移除 macro_china_bond_public（中国外汇交易中心-新债发行）：原数据接口返回 404，所在页面也已禁止访问
+7. 修复 interest_rate_swap_cm（原 macro_china_swap_rate）报 `Length mismatch` 的问题：上游不再接受“全部”报价时刻，改为请求收盘曲线；改为按上游字段名映射列名；上游返回错误时抛出 APIError，没有数据时返回空表；默认日期与文档示例改为近期日期
+8. 修复 alternative_migration_area_baidu（原 migration_area_baidu）报 `KeyError: 'value'` 的问题：百度迁徙只提供近几年且滞后 2～3 天的数据，原默认日期已查不到。现在 date 默认为空，自动取最近一个有数据的日期；指定的日期没有数据时抛出 InvalidParameterError
+9. 指数数据页的章节按“股票指数、行业指数、波动率指数、情绪指数、商品与运价指数”重新排序，接口的锚点不变
+10. 其余接口只改名称与位置、实现未变。45 个改名后的接口中，39 个按文档示例调用返回正常；fx_*_currencyscoop 需要 CurrencyScoop 的 API 密钥，没有实测；research_rv_input_stock_em 请求东方财富 push2 时被限流，没有取得结果；research_yz_rv 以 research_rv_input_futures_sina 的结果为输入，计算正常
+11. 接口总数由 976 个变为 974 个；按位置赋列名的写法降至 464 处
+
 (v1-20-47)=
 ### 1.20.47 docs: document 30 futures interfaces that had no data dictionary entry
 
@@ -466,6 +488,51 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.48      | bank_fjcf_table_detail                      | alternative_bank_penalty_nfra               | 20261114 |
+| 1.20.48      | currency_convert                            | fx_convert_currencyscoop                    | 20261114 |
+| 1.20.48      | currency_currencies                         | fx_currencies_currencyscoop                 | 20261114 |
+| 1.20.48      | currency_history                            | fx_hist_currencyscoop                       | 20261114 |
+| 1.20.48      | currency_latest                             | fx_latest_currencyscoop                     | 20261114 |
+| 1.20.48      | currency_time_series                        | fx_time_series_currencyscoop                | 20261114 |
+| 1.20.48      | high_freq_sp500                             | index_us_sp500_min                          | 20261114 |
+| 1.20.48      | index_ai_cx                                 | macro_china_ai_cx                           | 20261114 |
+| 1.20.48      | index_awpr_cx                               | macro_china_awpr_cx                         | 20261114 |
+| 1.20.48      | index_bei_cx                                | macro_china_bei_cx                          | 20261114 |
+| 1.20.48      | index_cci_cx                                | macro_china_cci_cx                          | 20261114 |
+| 1.20.48      | index_ci_cx                                 | macro_china_ci_cx                           | 20261114 |
+| 1.20.48      | index_li_cx                                 | macro_china_li_cx                           | 20261114 |
+| 1.20.48      | index_neaw_cx                               | macro_china_neaw_cx                         | 20261114 |
+| 1.20.48      | index_neei_cx                               | macro_china_neei_cx                         | 20261114 |
+| 1.20.48      | index_nei_cx                                | macro_china_nei_cx                          | 20261114 |
+| 1.20.48      | index_pmi_com_cx                            | macro_china_pmi_composite_cx                | 20261114 |
+| 1.20.48      | index_pmi_man_cx                            | macro_china_pmi_manufacturing_cx            | 20261114 |
+| 1.20.48      | index_pmi_ser_cx                            | macro_china_pmi_services_cx                 | 20261114 |
+| 1.20.48      | index_qli_cx                                | macro_china_qli_cx                          | 20261114 |
+| 1.20.48      | index_ti_cx                                 | macro_china_ti_cx                           | 20261114 |
+| 1.20.48      | indicator_rv_input_futures_sina             | research_rv_input_futures_sina              | 20261114 |
+| 1.20.48      | indicator_rv_input_stock_em                 | research_rv_input_stock_em                  | 20261114 |
+| 1.20.48      | indicator_yz_rv                             | research_yz_rv                              | 20261114 |
+| 1.20.48      | macro_china_au_report                       | spot_sge_report_js                          | 20261114 |
+| 1.20.48      | macro_china_hibor                           | interest_rate_hibor_js                      | 20261114 |
+| 1.20.48      | macro_china_lpr                             | interest_rate_lpr_em                        | 20261114 |
+| 1.20.48      | macro_china_market_margin_sh                | stock_margin_sse_js                         | 20261114 |
+| 1.20.48      | macro_china_market_margin_sz                | stock_margin_szse_js                        | 20261114 |
+| 1.20.48      | macro_china_shibor                          | interest_rate_shibor_js                     | 20261114 |
+| 1.20.48      | macro_china_swap_rate                       | interest_rate_swap_cm                       | 20261114 |
+| 1.20.48      | macro_global_sox_index                      | index_us_sox_em                             | 20261114 |
+| 1.20.48      | macro_gold_etf_holding                      | fund_gold_etf_holding_js                    | 20261114 |
+| 1.20.48      | macro_silver_etf_holding                    | fund_silver_etf_holding_js                  | 20261114 |
+| 1.20.48      | macro_usa_cftc_commodity_commercial_holding | futures_cftc_commodity_commercial_holding_js | 20261114 |
+| 1.20.48      | macro_usa_cftc_commodity_noncommercial_holding | futures_cftc_commodity_noncommercial_holding_js | 20261114 |
+| 1.20.48      | macro_usa_cftc_currency_commercial_holding  | futures_cftc_currency_commercial_holding_js | 20261114 |
+| 1.20.48      | macro_usa_cftc_currency_noncommercial_holding | futures_cftc_currency_noncommercial_holding_js | 20261114 |
+| 1.20.48      | macro_usa_cme_metal_volume                  | futures_cme_metal_volume_js                 | 20261114 |
+| 1.20.48      | migration_area_baidu                        | alternative_migration_area_baidu            | 20261114 |
+| 1.20.48      | migration_scale_baidu                       | alternative_migration_scale_baidu           | 20261114 |
+| 1.20.48      | nlp_answer                                  | alternative_nlp_answer                      | 20261114 |
+| 1.20.48      | qdii_a_index_jsl                            | fund_qdii_a_index_jsl                       | 20261114 |
+| 1.20.48      | qdii_e_commodity_jsl                        | fund_qdii_e_commodity_jsl                   | 20261114 |
+| 1.20.48      | qdii_e_index_jsl                            | fund_qdii_e_index_jsl                       | 20261114 |
 | 1.20.46      | bond_zh_hs_daily                            | bond_zh_hs_daily_sina                       | 20261114 |
 | 1.20.46      | futures_foreign_detail                      | futures_foreign_detail_sina                 | 20261114 |
 | 1.20.46      | futures_foreign_hist                        | futures_foreign_hist_sina                   | 20261114 |

@@ -7,7 +7,6 @@ Desc: 宏观数据-中国
 
 import math
 import ssl
-import time
 
 import pandas as pd
 from requests.adapters import HTTPAdapter
@@ -309,269 +308,6 @@ def macro_china_urban_unemployment() -> pd.DataFrame:
     temp_df = temp_df.sort_values(by=["date"], ascending=True)
     temp_df = temp_df.reset_index(drop=True)
     return temp_df
-
-
-# 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
-def macro_china_shibor() -> pd.DataFrame:
-    """
-    上海银行业同业拆借报告，数据区间从20170317-至今
-    https://datacenter.jin10.com/reportType/dc_shibor
-    https://cdn.jin10.com/dc/reports/dc_shibor_all.js?v=1578755058
-    :return: 上海银行业同业拆借报告-今值(%)
-    :rtype: pandas.DataFrame
-    """
-    import numpy as np
-
-    t = time.time()
-    params = {"_": t}
-    res = http.get(
-        url="https://cdn.jin10.com/data_center/reports/il_1.json", params=params
-    )
-    json_data = res.json()
-    temp_df = pd.DataFrame(json_data["values"]).T
-    big_df = pd.DataFrame()
-    temp_df = temp_df.fillna(value="--")
-    big_df["O/N-定价"] = temp_df["O/N"].apply(lambda x: x[0])
-    big_df["O/N-涨跌幅"] = temp_df["O/N"].apply(lambda x: x[1])
-    big_df["1W-定价"] = temp_df["1W"].apply(lambda x: x[0])
-    big_df["1W-涨跌幅"] = temp_df["1W"].apply(lambda x: x[1])
-    big_df["2W-定价"] = temp_df["2W"].apply(lambda x: x[0])
-    big_df["2W-涨跌幅"] = temp_df["2W"].apply(lambda x: x[1])
-    big_df["1M-定价"] = temp_df["1M"].apply(lambda x: x[0])
-    big_df["1M-涨跌幅"] = temp_df["1M"].apply(lambda x: x[1])
-    big_df["3M-定价"] = temp_df["3M"].apply(lambda x: x[0])
-    big_df["3M-涨跌幅"] = temp_df["3M"].apply(lambda x: x[1])
-    big_df["6M-定价"] = temp_df["6M"].apply(lambda x: x[0])
-    big_df["6M-涨跌幅"] = temp_df["6M"].apply(lambda x: x[1])
-    big_df["9M-定价"] = temp_df["9M"].apply(lambda x: x[0])
-    big_df["9M-涨跌幅"] = temp_df["9M"].apply(lambda x: x[1])
-    big_df["1Y-定价"] = temp_df["1Y"].apply(lambda x: x[0])
-    big_df["1Y-涨跌幅"] = temp_df["1Y"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
-    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
-    for item in big_df.columns:
-        big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
-    big_df = big_df.sort_index()
-    big_df = big_df.reset_index()
-    big_df = big_df.rename(columns={"index": "日期"})
-    return big_df
-
-
-# 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
-def macro_china_hibor() -> pd.DataFrame:
-    """
-    香港同业拆借报告，数据区间从 20170320-至今
-    https://datacenter.jin10.com/reportType/dc_hk_market_info
-    https://cdn.jin10.com/dc/reports/dc_hk_market_info_all.js?v=1578755471
-    :return: 香港同业拆借报告-今值(%)
-    :rtype: pandas.DataFrame
-    """
-    import numpy as np
-
-    t = time.time()
-    params = {"_": t}
-    res = http.get(
-        url="https://cdn.jin10.com/data_center/reports/il_2.json", params=params
-    )
-    json_data = res.json()
-    temp_df = pd.DataFrame(json_data["values"]).T
-    big_df = pd.DataFrame()
-    temp_df = temp_df.fillna(value="--")
-    big_df["1W-定价"] = temp_df["1W"].apply(lambda x: x[0])
-    big_df["1W-涨跌幅"] = temp_df["1W"].apply(lambda x: x[1])
-    big_df["2W-定价"] = temp_df["2W"].apply(lambda x: x[0])
-    big_df["2W-涨跌幅"] = temp_df["2W"].apply(lambda x: x[1])
-    big_df["1M-定价"] = temp_df["1M"].apply(lambda x: x[0])
-    big_df["1M-涨跌幅"] = temp_df["1M"].apply(lambda x: x[1])
-    big_df["3M-定价"] = temp_df["3M"].apply(lambda x: x[0])
-    big_df["3M-涨跌幅"] = temp_df["3M"].apply(lambda x: x[1])
-    big_df["6M-定价"] = temp_df["6M"].apply(lambda x: x[0])
-    big_df["6M-涨跌幅"] = temp_df["6M"].apply(lambda x: x[1])
-    big_df["1Y-定价"] = temp_df["1Y"].apply(lambda x: x[0])
-    big_df["1Y-涨跌幅"] = temp_df["1Y"].apply(lambda x: x[1])
-    big_df["ON-定价"] = temp_df["ON"].apply(lambda x: x[0])
-    big_df["ON-涨跌幅"] = temp_df["ON"].apply(lambda x: x[1])
-    big_df["2M-定价"] = temp_df["2M"].apply(lambda x: x[0])
-    big_df["2M-涨跌幅"] = temp_df["2M"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
-    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
-    for item in big_df.columns:
-        big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
-    big_df = big_df.sort_index()
-    big_df = big_df.reset_index()
-    big_df = big_df.rename(columns={"index": "日期"})
-    return big_df
-
-
-# 金十数据中心-经济指标-中国-其他-深圳融资融券报告
-def macro_china_market_margin_sz() -> pd.DataFrame:
-    """
-    深圳融资融券报告，数据区间从20100331-至今
-    https://datacenter.jin10.com/reportType/dc_market_margin_sz
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {"_": t}
-    res = http.get(
-        url="https://cdn.jin10.com/data_center/reports/fs_2.json", params=params
-    )
-    json_data = res.json()
-    temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.columns = [
-        "融资买入额",
-        "融资余额",
-        "融券卖出量",
-        "融券余量",
-        "融券余额",
-        "融资融券余额",
-    ]
-    temp_df = temp_df.sort_index()
-    temp_df.index = pd.to_datetime(temp_df.index)
-    temp_df = temp_df.astype("float")
-    temp_df = temp_df.reset_index()
-    temp_df = temp_df.rename(columns={"index": "日期"})
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-其他-上海融资融券报告
-def macro_china_market_margin_sh() -> pd.DataFrame:
-    """
-    上海融资融券报告，数据区间从 20100331-至今
-    https://datacenter.jin10.com/reportType/dc_market_margin_sse
-    :return: pandas.DataFrame
-    """
-    url = "https://cdn.jin10.com/data_center/reports/fs_1.json"
-    t = time.time()
-    params = {"_": t}
-    r = http.get(url, params=params)
-    json_data = r.json()
-    temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df = temp_df.reset_index()
-    temp_df.columns = [
-        "日期",
-        "融资买入额",
-        "融资余额",
-        "融券卖出量",
-        "融券余量",
-        "融券余额",
-        "融资融券余额",
-    ]
-    temp_df = temp_df.sort_values(by=["日期"], ignore_index=True)
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-    temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
-    temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
-    temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
-    temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
-    temp_df["融券余额"] = pd.to_numeric(temp_df["融券余额"], errors="coerce")
-    temp_df["融资融券余额"] = pd.to_numeric(temp_df["融资融券余额"], errors="coerce")
-    return temp_df
-
-
-# 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
-def macro_china_au_report() -> pd.DataFrame:
-    """
-    上海黄金交易所报告，数据区间从20100331-至今
-    https://datacenter.jin10.com/reportType/dc_sge_report
-    :return: pandas.DataFrame
-    """
-    t = time.time()
-    params = {"_": t}
-    res = http.get(
-        url="https://cdn.jin10.com/data_center/reports/sge.json", params=params
-    )
-    json_data = res.json()
-    big_df = pd.DataFrame()
-    for item in json_data["values"].keys():
-        temp_df = pd.DataFrame(json_data["values"][item])
-        temp_df["date"] = item
-        temp_df.columns = [
-            "商品",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "收盘价",
-            "涨跌",
-            "涨跌幅",
-            "加权平均价",
-            "成交量",
-            "成交金额",
-            "持仓量",
-            "交收方向",
-            "交收量",
-            "日期",
-        ]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df = big_df[
-        [
-            "日期",
-            "商品",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "收盘价",
-            "涨跌",
-            "涨跌幅",
-            "加权平均价",
-            "成交量",
-            "成交金额",
-            "持仓量",
-            "交收方向",
-            "交收量",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df = big_df.sort_values(["日期"], ignore_index=True)
-    big_df["持仓量"] = pd.to_numeric(big_df["持仓量"], errors="coerce")
-    big_df["交收量"] = pd.to_numeric(big_df["交收量"], errors="coerce")
-    return big_df
-
-
-# 中国-利率-贷款报价利率
-def macro_china_lpr() -> pd.DataFrame:
-    """
-    LPR品种详细数据
-    https://data.eastmoney.com/cjsj/globalRateLPR.html
-    :return: LPR品种详细数据
-    :rtype: pandas.DataFrame
-    """
-    import warnings
-
-    warnings.filterwarnings(action="ignore", category=FutureWarning)
-
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-    params = {
-        "reportName": "RPTA_WEB_RATE",
-        "columns": "ALL",
-        "sortColumns": "TRADE_DATE",
-        "sortTypes": "-1",
-        "token": "894050c76af8597a853f5b408b759f5d",
-        "pageNumber": "1",
-        "pageSize": "500",
-        "p": "1",
-        "pageNo": "1",
-        "pageNum": "1",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    total_page = data_json["result"]["pages"]
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update({"pageNumber": page})
-        r = http.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df["TRADE_DATE"] = pd.to_datetime(big_df["TRADE_DATE"], errors="coerce").dt.date
-    big_df["LPR1Y"] = pd.to_numeric(big_df["LPR1Y"], errors="coerce")
-    big_df["LPR5Y"] = pd.to_numeric(big_df["LPR5Y"], errors="coerce")
-    big_df["RATE_1"] = pd.to_numeric(big_df["RATE_1"], errors="coerce")
-    big_df["RATE_2"] = pd.to_numeric(big_df["RATE_2"], errors="coerce")
-    big_df = big_df.sort_values(by=["TRADE_DATE"])
-    big_df = big_df.reset_index(drop=True)
-    return big_df
 
 
 # 中国-新房价指数
@@ -1240,75 +976,6 @@ def macro_china_commodity_price_index() -> pd.DataFrame:
         "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
         "CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00662535")',
-        "source": "WEB",
-        "client": "WEB",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    total_page = data_json["result"]["pages"]
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update({"pageNumber": page})
-        r = http.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df = big_df.drop_duplicates()
-    big_df = big_df.rename(
-        columns={
-            "REPORT_DATE": "日期",
-            "INDICATOR_VALUE": "最新值",
-            "CHANGE_RATE": "涨跌幅",
-            "CHANGERATE_3M": "近3月涨跌幅",
-            "CHANGERATE_6M": "近6月涨跌幅",
-            "CHANGERATE_1Y": "近1年涨跌幅",
-            "CHANGERATE_2Y": "近2年涨跌幅",
-            "CHANGERATE_3Y": "近3年涨跌幅",
-        }
-    )
-    big_df = big_df[
-        [
-            "日期",
-            "最新值",
-            "涨跌幅",
-            "近3月涨跌幅",
-            "近6月涨跌幅",
-            "近1年涨跌幅",
-            "近2年涨跌幅",
-            "近3年涨跌幅",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["最新值"] = pd.to_numeric(big_df["最新值"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"])
-    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"])
-    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"])
-    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"])
-    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"])
-    big_df = big_df.sort_values(["日期"])
-    big_df = big_df.reset_index(drop=True)
-    return big_df
-
-
-def macro_global_sox_index() -> pd.DataFrame:
-    """
-    费城半导体指数
-    https://data.eastmoney.com/cjsj/hyzs_list_EMI00055562.html
-    :return: 费城半导体指数
-    :rtype: pandas.DataFrame
-    """
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-    params = {
-        "sortColumns": "REPORT_DATE",
-        "sortTypes": "-1",
-        "pageSize": "500",
-        "pageNumber": "1",
-        "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,"
-        "CHANGERATE_2Y,CHANGERATE_3Y",
-        "filter": '(INDICATOR_ID="EMI00055562")',
         "source": "WEB",
         "client": "WEB",
     }
@@ -3561,28 +3228,18 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
 
     # 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
-    macro_china_shibor_df = macro_china_shibor()
-    print(macro_china_shibor_df)
 
     # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
-    macro_china_hibor_df = macro_china_hibor()
-    print(macro_china_hibor_df)
 
     # 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
 
     # 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
 
     # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
-    macro_china_market_margin_sz_df = macro_china_market_margin_sz()
-    print(macro_china_market_margin_sz_df)
 
     # 金十数据中心-经济指标-中国-其他-上海融资融券报告
-    macro_china_market_margin_sh_df = macro_china_market_margin_sh()
-    print(macro_china_market_margin_sh_df)
 
     # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
-    macro_china_au_report_df = macro_china_au_report()
-    print(macro_china_au_report_df)
 
     # 中国-新房价指数
     macro_china_new_house_price_df = macro_china_new_house_price()

@@ -229,6 +229,10 @@ from akshare.stock.flow.stock_margin_szse import (
     stock_margin_szse,
     stock_margin_underlying_info_szse,
 )
+from akshare.stock.flow.stock_margin_js import (
+    stock_margin_sse_js,
+    stock_margin_szse_js,
+)
 
 # ---- 股票-股东与机构（akshare/stock/holder） ----
 from akshare.stock.holder.stock_fund_hold import (
@@ -656,6 +660,13 @@ from akshare.futures.futures_zh_sina import (
     futures_zh_min_sina,
     futures_zh_realtime_sina,
 )
+from akshare.futures.futures_cftc_js import (
+    futures_cftc_commodity_commercial_holding_js,
+    futures_cftc_commodity_noncommercial_holding_js,
+    futures_cftc_currency_commercial_holding_js,
+    futures_cftc_currency_noncommercial_holding_js,
+    futures_cme_metal_volume_js,
+)
 
 # ---- 期权（akshare/option） ----
 from akshare.option.option_comm_qihuo import option_fee_9qihuo, option_fee_symbol_9qihuo
@@ -881,6 +892,15 @@ from akshare.fund.fund_xq import (
     fund_individual_detail_info_xq,
     fund_individual_profit_probability_xq,
 )
+from akshare.fund.fund_etf_holding_js import (
+    fund_gold_etf_holding_js,
+    fund_silver_etf_holding_js,
+)
+from akshare.fund.fund_qdii_jsl import (
+    fund_qdii_a_index_jsl,
+    fund_qdii_e_commodity_jsl,
+    fund_qdii_e_index_jsl,
+)
 
 # ---- 指数（akshare/index） ----
 from akshare.index.index_cflp import index_price_cflp, index_volume_cflp
@@ -899,22 +919,6 @@ from akshare.index.index_cons import (
     index_stock_info,
 )
 from akshare.index.index_csindex import index_all_csindex
-from akshare.index.index_cx import (
-    index_ai_cx,
-    index_awpr_cx,
-    index_bei_cx,
-    index_cci_cx,
-    index_ci_cx,
-    index_li_cx,
-    index_neaw_cx,
-    index_neei_cx,
-    index_nei_cx,
-    index_pmi_com_cx,
-    index_pmi_man_cx,
-    index_pmi_ser_cx,
-    index_qli_cx,
-    index_ti_cx,
-)
 from akshare.index.index_drewry import index_wci_drewry
 from akshare.index.index_eri import index_eri
 from akshare.index.index_global_em import index_global_hist_em, index_global_spot_em
@@ -995,6 +999,12 @@ from akshare.index.index_zh_em import (
     index_zh_hist_em,
     index_zh_hist_min_em,
 )
+from akshare.index.index_sox_em import (
+    index_us_sox_em,
+)
+from akshare.index.index_sp500_min import (
+    index_us_sp500_min,
+)
 
 # ---- 宏观（akshare/macro） ----
 from akshare.macro.macro_australia import (
@@ -1021,7 +1031,6 @@ from akshare.macro.macro_canada import (
 from akshare.macro.macro_china import (
     macro_china_agricultural_index,
     macro_china_agricultural_product,
-    macro_china_au_report,
     macro_china_bank_financing,
     macro_china_bdti_index,
     macro_china_bsi_index,
@@ -1045,15 +1054,11 @@ from akshare.macro.macro_china import (
     macro_china_fx_gold_sina,
     macro_china_fx_loan,
     macro_china_gdp,
-    macro_china_hibor,
     macro_china_industrial_value_added,
     macro_china_insurance,
     macro_china_insurance_income,
     macro_china_international_tourism_fx,
     macro_china_lpi_index,
-    macro_china_lpr,
-    macro_china_market_margin_sh,
-    macro_china_market_margin_sz,
     macro_china_mobile_number,
     macro_china_money_supply_em,
     macro_china_money_supply_sina,
@@ -1067,7 +1072,6 @@ from akshare.macro.macro_china import (
     macro_china_real_estate,
     macro_china_reserve_requirement_ratio,
     macro_china_retail_price_index,
-    macro_china_shibor,
     macro_china_social_financing,
     macro_china_society_electricity,
     macro_china_society_traffic_volume,
@@ -1075,7 +1079,6 @@ from akshare.macro.macro_china import (
     macro_china_urban_unemployment,
     macro_china_vegetable_basket,
     macro_china_yw_electronic_index,
-    macro_global_sox_index,
     macro_shipping_bci,
     macro_shipping_bcti,
     macro_shipping_bdi,
@@ -1092,19 +1095,8 @@ from akshare.macro.macro_china_hk import (
     macro_china_hk_trade_balance_yoy,
     macro_china_hk_unemployment_rate,
 )
-from akshare.macro.macro_china_money import (
-    macro_china_bond_public,
-    macro_china_swap_rate,
-)
 from akshare.macro.macro_china_nbs import macro_china_nbs_nation, macro_china_nbs_region
 from akshare.macro.macro_cnbs import macro_china_leverage_nifd
-from akshare.macro.macro_constitute import (
-    macro_gold_etf_holding,
-    macro_silver_etf_holding,
-)
-from akshare.macro.macro_euro import (
-    macro_lme_inventory,
-)
 from akshare.macro.macro_finance_ths import (
     macro_china_rmb_deposit_ths,
     macro_china_rmb_loan_ths,
@@ -1155,14 +1147,25 @@ from akshare.macro.macro_uk import (
     macro_uk_unemployment_rate,
 )
 from akshare.macro.macro_usa import (
-    macro_usa_cftc_commodity_commercial_holding,
-    macro_usa_cftc_commodity_noncommercial_holding,
-    macro_usa_cftc_currency_commercial_holding,
-    macro_usa_cftc_currency_noncommercial_holding,
-    macro_usa_cme_metal_volume,
     macro_usa_cpi_yoy,
     macro_usa_crude_production,
     macro_usa_pending_home_sales_em,
+)
+from akshare.macro.macro_china_cx import (
+    macro_china_ai_cx,
+    macro_china_awpr_cx,
+    macro_china_bei_cx,
+    macro_china_cci_cx,
+    macro_china_ci_cx,
+    macro_china_li_cx,
+    macro_china_neaw_cx,
+    macro_china_neei_cx,
+    macro_china_nei_cx,
+    macro_china_pmi_composite_cx,
+    macro_china_pmi_manufacturing_cx,
+    macro_china_pmi_services_cx,
+    macro_china_qli_cx,
+    macro_china_ti_cx,
 )
 
 # ---- 外汇（akshare/fx） ----
@@ -1174,21 +1177,30 @@ from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 from akshare.fx.fx_quote_baidu import fx_quote_baidu
 from akshare.fx.fx_safe import fx_central_parity_safe
 from akshare.fx.fx_sentiment_jin10 import fx_sentiment_js
-
-# ---- 汇率换算（akshare/currency） ----
-from akshare.currency.currency import (
-    currency_convert,
-    currency_currencies,
-    currency_history,
-    currency_latest,
-    currency_time_series,
+from akshare.fx.fx_currencyscoop import (
+    fx_convert_currencyscoop,
+    fx_currencies_currencyscoop,
+    fx_hist_currencyscoop,
+    fx_latest_currencyscoop,
+    fx_time_series_currencyscoop,
 )
+
 
 # ---- 利率（akshare/interest_rate） ----
 from akshare.interest_rate.interest_rate_interbank_em import interest_rate_interbank_em
 from akshare.interest_rate.interest_rate_repo import (
     interest_rate_repo_hist_cm,
     interest_rate_repo_query_cm,
+)
+from akshare.interest_rate.interest_rate_ibor_js import (
+    interest_rate_hibor_js,
+    interest_rate_shibor_js,
+)
+from akshare.interest_rate.interest_rate_lpr_em import (
+    interest_rate_lpr_em,
+)
+from akshare.interest_rate.interest_rate_swap_cm import (
+    interest_rate_swap_cm,
 )
 
 # ---- 现货（akshare/spot） ----
@@ -1210,6 +1222,9 @@ from akshare.spot.spot_sge import (
     spot_silver_benchmark_sge,
     spot_symbol_table_sge,
 )
+from akshare.spot.spot_sge_js import (
+    spot_sge_report_js,
+)
 
 # ---- 能源（akshare/energy） ----
 from akshare.energy.energy_carbon import (
@@ -1226,15 +1241,6 @@ from akshare.crypto.crypto_bitcoin_cme import crypto_bitcoin_cme
 from akshare.crypto.crypto_hold import crypto_bitcoin_hold_report
 from akshare.crypto.crypto_js_spot import crypto_realtime_js
 
-# ---- QDII（akshare/qdii） ----
-from akshare.qdii.qdii_jsl import (
-    qdii_a_index_jsl,
-    qdii_e_commodity_jsl,
-    qdii_e_index_jsl,
-)
-
-# ---- 银行监管（akshare/bank） ----
-from akshare.bank.bank_cbirc_2020 import bank_fjcf_table_detail
 
 # ---- 另类数据（akshare/alternative） ----
 from akshare.alternative.alternative_air_hebei import alternative_air_quality_hebei
@@ -1276,6 +1282,16 @@ from akshare.alternative.alternative_weibo_nlp import (
     alternative_weibo_stock_report_js,
     alternative_weibo_stock_time_js,
 )
+from akshare.alternative.alternative_bank_nfra import (
+    alternative_bank_penalty_nfra,
+)
+from akshare.alternative.alternative_migration_baidu import (
+    alternative_migration_area_baidu,
+    alternative_migration_scale_baidu,
+)
+from akshare.alternative.alternative_nlp import (
+    alternative_nlp_answer,
+)
 
 # ---- 学术研究（akshare/research） ----
 from akshare.research.research_epu_index import research_epu_index
@@ -1284,28 +1300,16 @@ from akshare.research.research_fred_md import research_fred_md, research_fred_qd
 from akshare.research.research_risk_rv import (
     research_rv_rlab,
 )
-
-# ---- 量化指标（akshare/indicator） ----
-from akshare.indicator.indicator_rv import (
-    indicator_rv_input_futures_sina,
-    indicator_rv_input_stock_em,
-    indicator_yz_rv,
+from akshare.research.research_rv import (
+    research_rv_input_futures_sina,
+    research_rv_input_stock_em,
+    research_yz_rv,
 )
 
-# ---- 人口迁徙（akshare/migration） ----
-from akshare.migration.migration_baidu import (
-    migration_area_baidu,
-    migration_scale_baidu,
-)
-
-# ---- 高频数据（akshare/high_freq） ----
-from akshare.high_freq.high_freq_sp500 import high_freq_sp500
 
 # ---- 交易日历（akshare/calendar） ----
 from akshare.calendar.calendar_trade_date_hist import calendar_trade_date_hist_sina
 
-# ---- 自然语言处理（akshare/nlp） ----
-from akshare.nlp.nlp_interface import nlp_answer
 
 # ---- 公共 API：账户、网络配置、接口检索与异常 ----
 from .exceptions import (
@@ -1341,6 +1345,7 @@ __all__ = [
     "alternative_air_quality_hist_zhenqi",
     "alternative_air_quality_rank_zhenqi",
     "alternative_air_quality_watch_point_zhenqi",
+    "alternative_bank_penalty_nfra",
     "alternative_billionaires_hist_bloomberg",
     "alternative_car_market_cate_cpca",
     "alternative_car_market_country_cpca",
@@ -1349,6 +1354,8 @@ __all__ = [
     "alternative_car_market_segment_cpca",
     "alternative_car_market_total_cpca",
     "alternative_game_hot_rank_taptap",
+    "alternative_migration_area_baidu",
+    "alternative_migration_scale_baidu",
     "alternative_movie_boxoffice_cinema_daily_yien",
     "alternative_movie_boxoffice_daily_yien",
     "alternative_movie_boxoffice_monthly_yien",
@@ -1356,6 +1363,7 @@ __all__ = [
     "alternative_movie_boxoffice_yearly_first_week_yien",
     "alternative_movie_boxoffice_yearly_yien",
     "alternative_news_cctv",
+    "alternative_nlp_answer",
     "alternative_rank_forbes",
     "alternative_rank_fortune",
     "alternative_rank_hurun",
@@ -1363,7 +1371,6 @@ __all__ = [
     "alternative_sunrise_monthly_tad",
     "alternative_weibo_stock_report_js",
     "alternative_weibo_stock_time_js",
-    "bank_fjcf_table_detail",
     "bond_available_index_cbond",
     "bond_cash_summary_sse",
     "bond_cb_adj_logs_jsl",
@@ -1412,11 +1419,6 @@ __all__ = [
     "crypto_bitcoin_cme",
     "crypto_bitcoin_hold_report",
     "crypto_realtime_js",
-    "currency_convert",
-    "currency_currencies",
-    "currency_history",
-    "currency_latest",
-    "currency_time_series",
     "energy_carbon_bj",
     "energy_carbon_eu",
     "energy_carbon_gz",
@@ -1455,6 +1457,7 @@ __all__ = [
     "fund_fh_rank_em",
     "fund_financial_nav_hist_em",
     "fund_futures_info_amac",
+    "fund_gold_etf_holding_js",
     "fund_graded_nav_em",
     "fund_graded_nav_hist_em",
     "fund_hk_fund_hist_em",
@@ -1498,6 +1501,9 @@ __all__ = [
     "fund_private_fund_info_amac",
     "fund_private_sub_fund_info_amac",
     "fund_purchase_em",
+    "fund_qdii_a_index_jsl",
+    "fund_qdii_e_commodity_jsl",
+    "fund_qdii_e_index_jsl",
     "fund_rating_all",
     "fund_rating_ja",
     "fund_rating_sh",
@@ -1514,8 +1520,14 @@ __all__ = [
     "fund_scale_open_sina",
     "fund_scale_structured_sina",
     "fund_securities_info_amac",
+    "fund_silver_etf_holding_js",
     "fund_stock_position_lg",
     "fund_value_estimation_em",
+    "futures_cftc_commodity_commercial_holding_js",
+    "futures_cftc_commodity_noncommercial_holding_js",
+    "futures_cftc_currency_commercial_holding_js",
+    "futures_cftc_currency_noncommercial_holding_js",
+    "futures_cme_metal_volume_js",
     "futures_comex_inventory",
     "futures_contract_detail",
     "futures_contract_detail_em",
@@ -1602,7 +1614,11 @@ __all__ = [
     "fx_boc_rate_sina",
     "fx_c_swap_cm",
     "fx_central_parity_safe",
+    "fx_convert_currencyscoop",
+    "fx_currencies_currencyscoop",
+    "fx_hist_currencyscoop",
     "fx_hist_em",
+    "fx_latest_currencyscoop",
     "fx_pair_map_investing",
     "fx_pair_quote",
     "fx_quote_baidu",
@@ -1610,21 +1626,16 @@ __all__ = [
     "fx_sentiment_js",
     "fx_spot_quote",
     "fx_swap_quote",
+    "fx_time_series_currencyscoop",
     "get_proxies",
     "get_timeout",
     "get_token",
-    "high_freq_sp500",
-    "index_ai_cx",
     "index_all_cni",
     "index_all_csindex",
     "index_analysis_daily_sw",
     "index_analysis_monthly_sw",
     "index_analysis_week_month_sw",
     "index_analysis_weekly_sw",
-    "index_awpr_cx",
-    "index_bei_cx",
-    "index_cci_cx",
-    "index_ci_cx",
     "index_code_id_map_em",
     "index_commodity_price_sina",
     "index_component_sw",
@@ -1648,11 +1659,7 @@ __all__ = [
     "index_inner_quota_sugar_msweet",
     "index_kq_fashion",
     "index_kq_fz",
-    "index_li_cx",
     "index_min_sw",
-    "index_neaw_cx",
-    "index_neei_cx",
-    "index_nei_cx",
     "index_news_sentiment_scope",
     "index_option_1000index_min_qvix",
     "index_option_1000index_qvix",
@@ -1673,11 +1680,7 @@ __all__ = [
     "index_option_kcb_min_qvix",
     "index_option_kcb_qvix",
     "index_outer_quota_sugar_msweet",
-    "index_pmi_com_cx",
-    "index_pmi_man_cx",
-    "index_pmi_ser_cx",
     "index_price_cflp",
-    "index_qli_cx",
     "index_second_info_sw",
     "index_spot_fund_sw",
     "index_spot_sw",
@@ -1689,8 +1692,9 @@ __all__ = [
     "index_sugar_msweet",
     "index_third_cons_sw",
     "index_third_info_sw",
-    "index_ti_cx",
     "index_us_daily_sina",
+    "index_us_sox_em",
+    "index_us_sp500_min",
     "index_value_csindex",
     "index_volume_cflp",
     "index_wci_drewry",
@@ -1702,12 +1706,13 @@ __all__ = [
     "index_zh_hist_min_em",
     "index_zh_spot_em",
     "index_zh_spot_sina",
-    "indicator_rv_input_futures_sina",
-    "indicator_rv_input_stock_em",
-    "indicator_yz_rv",
+    "interest_rate_hibor_js",
     "interest_rate_interbank_em",
+    "interest_rate_lpr_em",
     "interest_rate_repo_hist_cm",
     "interest_rate_repo_query_cm",
+    "interest_rate_shibor_js",
+    "interest_rate_swap_cm",
     "interface_info",
     "list_categories",
     "macro_australia_bank_rate",
@@ -1731,13 +1736,16 @@ __all__ = [
     "macro_canada_unemployment_rate",
     "macro_china_agricultural_index",
     "macro_china_agricultural_product",
-    "macro_china_au_report",
+    "macro_china_ai_cx",
+    "macro_china_awpr_cx",
     "macro_china_bank_financing",
     "macro_china_bdti_index",
-    "macro_china_bond_public",
+    "macro_china_bei_cx",
     "macro_china_bsi_index",
+    "macro_china_cci_cx",
     "macro_china_central_bank_balance",
     "macro_china_cgpi",
+    "macro_china_ci_cx",
     "macro_china_commodity_price_index",
     "macro_china_construction_index",
     "macro_china_construction_price_index",
@@ -1756,7 +1764,6 @@ __all__ = [
     "macro_china_fx_gold_sina",
     "macro_china_fx_loan",
     "macro_china_gdp",
-    "macro_china_hibor",
     "macro_china_hk_building_amount",
     "macro_china_hk_building_volume",
     "macro_china_hk_cpi",
@@ -1771,34 +1778,38 @@ __all__ = [
     "macro_china_insurance_income",
     "macro_china_international_tourism_fx",
     "macro_china_leverage_nifd",
+    "macro_china_li_cx",
     "macro_china_lpi_index",
-    "macro_china_lpr",
-    "macro_china_market_margin_sh",
-    "macro_china_market_margin_sz",
     "macro_china_mobile_number",
     "macro_china_money_supply_em",
     "macro_china_money_supply_sina",
     "macro_china_national_tax_receipts",
     "macro_china_nbs_nation",
     "macro_china_nbs_region",
+    "macro_china_neaw_cx",
+    "macro_china_neei_cx",
+    "macro_china_nei_cx",
     "macro_china_new_financial_credit",
     "macro_china_new_house_price",
     "macro_china_passenger_load_factor",
     "macro_china_pmi",
+    "macro_china_pmi_composite_cx",
+    "macro_china_pmi_manufacturing_cx",
+    "macro_china_pmi_services_cx",
     "macro_china_postal_telecommunicational",
     "macro_china_ppi",
+    "macro_china_qli_cx",
     "macro_china_real_estate",
     "macro_china_reserve_requirement_ratio",
     "macro_china_retail_price_index",
     "macro_china_rmb_deposit_ths",
     "macro_china_rmb_loan_ths",
-    "macro_china_shibor",
     "macro_china_social_financing",
     "macro_china_society_electricity",
     "macro_china_society_traffic_volume",
     "macro_china_stock_financing_ths",
     "macro_china_stock_market_cap",
-    "macro_china_swap_rate",
+    "macro_china_ti_cx",
     "macro_china_urban_unemployment",
     "macro_china_vegetable_basket",
     "macro_china_yw_electronic_index",
@@ -1810,19 +1821,15 @@ __all__ = [
     "macro_germany_retail_sales_yoy",
     "macro_germany_trade_adjusted",
     "macro_germany_zew",
-    "macro_global_sox_index",
-    "macro_gold_etf_holding",
     "macro_japan_bank_rate",
     "macro_japan_core_cpi_yoy",
     "macro_japan_cpi_yoy",
     "macro_japan_leading_indicator",
     "macro_japan_unemployment_rate",
-    "macro_lme_inventory",
     "macro_shipping_bci",
     "macro_shipping_bcti",
     "macro_shipping_bdi",
     "macro_shipping_bpi",
-    "macro_silver_etf_holding",
     "macro_swiss_bank_rate",
     "macro_swiss_cpi_yoy",
     "macro_swiss_gdp_qoq",
@@ -1844,17 +1851,9 @@ __all__ = [
     "macro_uk_rightmove_yoy",
     "macro_uk_trade",
     "macro_uk_unemployment_rate",
-    "macro_usa_cftc_commodity_commercial_holding",
-    "macro_usa_cftc_commodity_noncommercial_holding",
-    "macro_usa_cftc_currency_commercial_holding",
-    "macro_usa_cftc_currency_noncommercial_holding",
-    "macro_usa_cme_metal_volume",
     "macro_usa_cpi_yoy",
     "macro_usa_crude_production",
     "macro_usa_pending_home_sales_em",
-    "migration_area_baidu",
-    "migration_scale_baidu",
-    "nlp_answer",
     "option_cffex_hs300_daily_sina",
     "option_cffex_hs300_list_sina",
     "option_cffex_hs300_realtime_sina",
@@ -1902,14 +1901,14 @@ __all__ = [
     "option_vol_gfex",
     "option_vol_shfe",
     "pro_api",
-    "qdii_a_index_jsl",
-    "qdii_e_commodity_jsl",
-    "qdii_e_index_jsl",
     "research_epu_index",
     "research_ff_crr",
     "research_fred_md",
     "research_fred_qd",
+    "research_rv_input_futures_sina",
+    "research_rv_input_stock_em",
     "research_rv_rlab",
+    "research_yz_rv",
     "search",
     "set_proxies",
     "set_timeout",
@@ -1926,6 +1925,7 @@ __all__ = [
     "spot_price_qh",
     "spot_price_table_qh",
     "spot_realtime_sge",
+    "spot_sge_report_js",
     "spot_silver_benchmark_sge",
     "spot_soybean_price_soozhu",
     "spot_symbol_table_sge",
@@ -2171,7 +2171,9 @@ __all__ = [
     "stock_margin_detail_szse",
     "stock_margin_ratio_pa",
     "stock_margin_sse",
+    "stock_margin_sse_js",
     "stock_margin_szse",
+    "stock_margin_szse_js",
     "stock_margin_underlying_info_bse",
     "stock_margin_underlying_info_szse",
     "stock_market_activity_legu",

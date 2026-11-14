@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.request import make_request_with_retry_json
 
 
-def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
+def fund_qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-欧美指数
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -84,7 +84,7 @@ def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     return temp_df
 
 
-def qdii_e_commodity_jsl(cookie: str = "") -> pd.DataFrame:
+def fund_qdii_e_commodity_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-商品
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -155,7 +155,7 @@ def qdii_e_commodity_jsl(cookie: str = "") -> pd.DataFrame:
     return temp_df
 
 
-def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
+def fund_qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-亚洲市场-亚洲指数
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -225,11 +225,11 @@ def qdii_a_index_jsl(cookie: str = "") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    qdii_e_index_jsl_df = qdii_e_index_jsl()
-    print(qdii_e_index_jsl_df)
+    fund_qdii_e_index_jsl_df = fund_qdii_e_index_jsl()
+    print(fund_qdii_e_index_jsl_df)
 
-    qdii_e_commodity_jsl_df = qdii_e_commodity_jsl()
-    print(qdii_e_commodity_jsl_df)
+    fund_qdii_e_commodity_jsl_df = fund_qdii_e_commodity_jsl()
+    print(fund_qdii_e_commodity_jsl_df)
 
-    qdii_a_index_jsl_df = qdii_a_index_jsl()
-    print(qdii_a_index_jsl_df)
+    fund_qdii_a_index_jsl_df = fund_qdii_a_index_jsl()
+    print(fund_qdii_a_index_jsl_df)

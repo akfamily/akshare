@@ -17,8 +17,8 @@
     "option_margin_symbol",
     "option_vol_shfe",
     "fund_reits_hist_min_em",
-    "indicator_rv_input_futures_sina",
-    "indicator_rv_input_stock_em",
+    "research_rv_input_futures_sina",
+    "research_rv_input_stock_em",
     "spot_price_table_qh",
     "spot_symbol_table_sge",
     "stock_a_code_to_symbol",
@@ -32,6 +32,6 @@
     "stock_us_name_sina",
     "stock_zh_a_spot_tx",
     "stock_zh_a_tick_tx",
-    "indicator_yz_rv"
+    "research_yz_rv"
   ]
 }

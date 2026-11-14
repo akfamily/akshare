@@ -1932,3 +1932,217 @@ print(alternative_game_hot_rank_taptap_df)
 149  150  ...  你说得对，但是《星落》是一款探险队沿途对抗大魔王的异世界冒险扫荡RPG。（绝赞发行中^^）\...
 [150 rows x 13 columns]
 ```
+
+## 人口迁徙-百度
+
+(alternative_migration_area_baidu)=
+### 迁入与迁出地详情
+
+接口：alternative_migration_area_baidu
+
+目标地址：https://qianxi.baidu.com/?from=shoubai#city=0
+
+描述：百度-百度地图慧眼-百度迁徙-迁入/迁出地数据接口
+
+限量：单次返回前 100 个城市的数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                          |
+|-----------|-----|-------------------------------------------------------------|
+| area      | str | area="乌鲁木齐市"，输入需要查询的省份或者城市，都需要用全称，比如："浙江省", "乌鲁木齐市"     |
+| indicator | str | indicator="move_in"，返回迁入地详情，indicator="move_out"，返回迁出地详情 |
+| date      | str | date="20261110"；默认为空，取最近一个有数据的日期；百度通常滞后 2～3 天，过早的日期也已不提供 |
+
+输出参数
+
+| 名称            | 类型      | 描述       |
+|---------------|---------|----------|
+| city_name     | str     | 城市名称     |
+| province_name | str     | 所属省份     |
+| value         | float64 | 迁徙规模，比例 |
+
+接口示例
+
+```python
+import akshare as ak
+
+alternative_migration_area_baidu_df = ak.alternative_migration_area_baidu(area="重庆市", indicator="move_in", date="20261110")
+print(alternative_migration_area_baidu_df)
+```
+
+数据示例
+
+```
+   city_name province_name  value
+0        成都市           四川省  12.01
+1        广安市           四川省   8.08
+2        达州市           四川省   5.44
+3        泸州市           四川省   5.02
+4        遵义市           贵州省   4.87
+..       ...           ...    ...
+95     呼和浩特市        内蒙古自治区   0.12
+96       银川市       宁夏回族自治区   0.12
+97       芜湖市           安徽省   0.12
+98       渭南市           陕西省   0.12
+99       北海市       广西壮族自治区   0.11
+[100 rows x 3 columns]
+```
+
+(alternative_migration_scale_baidu)=
+### 迁徙规模
+
+接口：alternative_migration_scale_baidu
+
+目标地址：https://qianxi.baidu.com/?from=shoubai#city=0
+
+描述：百度-百度地图慧眼-百度迁徙-迁徙规模
+
+- 迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比
+- 城市迁徙边界采用该城市行政区划，包含该城市管辖的区、县、乡、村
+
+限量：单次返回所有迁徙规模数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                          |
+|-----------|-----|-------------------------------------------------------------|
+| area      | str | area="广州市"，输入需要查询的省份或者城市，都需要用全称，比如："浙江省", "乌鲁木齐市"       |
+| indicator | str | indicator="move_in"，返回迁入地详情，indicator="move_out"，返回迁出地详情 |
+
+输出参数
+
+| 名称     | 类型      | 描述     |
+|--------|---------|--------|
+| 日期     | object  | -      |
+| 迁徙规模指数 | float64 | 定义参见百度 |
+
+接口示例
+
+```python
+import akshare as ak
+
+alternative_migration_scale_baidu_df = ak.alternative_migration_scale_baidu(area="广州市", indicator="move_in")
+print(alternative_migration_scale_baidu_df)
+```
+
+数据示例
+
+```
+         日期     迁徙规模指数
+0     2019-01-12   8.413535
+1     2019-01-13   7.877218
+2     2019-01-14   8.920660
+3     2019-01-15   7.426858
+4     2019-01-16   7.339183
+          ...        ...
+1100  2023-09-18  13.620539
+1101  2023-09-19   9.761666
+1102  2023-09-20   9.755867
+1103  2023-09-21  10.397938
+1104  2023-09-22  10.492319
+[1105 rows x 2 columns]
+```
+
+## 金融监管行政处罚
+
+(alternative_bank_penalty_nfra)=
+### 银保监分局本级行政处罚
+
+接口：alternative_bank_penalty_nfra
+
+目标地址：https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=881574&itemId=4115&generaltype=9
+
+描述：首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表，是信息公开表不是处罚决定书书
+
+限量：单次返回银保监分局本级行政处罚中的指定页数的所有表格数据
+
+输入参数
+
+| 名称    | 类型  | 描述                                          |
+|-------|-----|---------------------------------------------|
+| page  | int | page=5；获取前 5 页数据，并返回处理好后的数据框              |
+| item  | int | item="分局本级"; choice of {"机关", "本级", "分局本级"} |
+| begin | int | begin=1；开始页面                               |
+
+输出参数-分局本级
+
+| 名称           | 类型 | 描述 |
+|--------------|----|----|
+| 行政处罚决定书文号    | -  | -  |
+| 姓名           | -  | -  |
+| 单位           | -  | -  |
+| 单位名称         | -  | -  |
+| 主要负责人姓名      | -  | -  |
+| 主要违法违规事实（案由） | -  | -  |
+| 行政处罚依据       | -  | -  |
+| 行政处罚决定       | -  | -  |
+| 作出处罚决定的机关名称  | -  | -  |
+| 作出处罚决定的日期    | -  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+alternative_bank_penalty_nfra_df = ak.alternative_bank_penalty_nfra(page=5, item="分局本级")
+print(alternative_bank_penalty_nfra_df)
+```
+
+数据示例
+
+```
+      行政处罚决定书文号  ...             处罚公布日期
+0    楚金罚决字〔2024〕9号  ...  2024-02-08 18:38:00
+1    楚金罚决字〔2024〕8号  ...  2024-02-08 18:28:00
+2    楚金罚决字〔2024〕7号  ...  2024-02-08 18:18:00
+3    遵金罚决字〔2024〕4号  ...  2024-02-08 17:04:00
+4    遵金罚决字〔2024〕3号  ...  2024-02-08 17:03:00
+..             ...  ...                  ...
+85  吉金监罚决字〔2024〕9号  ...  2024-02-02 12:19:02
+86  吉金监罚决字〔2024〕8号  ...  2024-02-02 12:18:30
+87  吉金监罚决字〔2024〕7号  ...  2024-02-02 12:17:47
+88  吉金监罚决字〔2024〕6号  ...  2024-02-02 12:17:08
+89  吉金监罚决字〔2024〕5号  ...  2024-02-02 11:47:50
+[90 rows x 12 columns]
+```
+
+## 智能问答
+
+(alternative_nlp_answer)=
+### 智能问答
+
+接口：alternative_nlp_answer
+
+目标地址：https://ownthink.com/robot.html
+
+描述：思知-对话机器人的接口，以此来进行智能问答
+
+限量：单次返回查询的数据结果
+
+输入参数
+
+| 名称       | 类型  | 描述               |
+|----------|-----|------------------|
+| question | str | question="姚明的身高" |
+
+输出参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | str | 答案  |
+
+接口示例
+
+```python
+import akshare as ak
+
+alternative_nlp_answer_df = ak.alternative_nlp_answer(question="姚明的身高")
+print(alternative_nlp_answer_df)
+```
+
+数据示例
+
+```
+姚明的身高是226厘米
+```

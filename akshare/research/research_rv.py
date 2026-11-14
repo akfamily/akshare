@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 
-def indicator_rv_input_stock_em(
+def research_rv_input_stock_em(
     symbol="000001",
     start_date="2021-10-20 09:30:00",
     end_date="2024-11-01 15:00:00",
@@ -57,7 +57,7 @@ def indicator_rv_input_stock_em(
     return temp_df
 
 
-def indicator_rv_input_futures_sina(
+def research_rv_input_futures_sina(
     symbol: str = "IF2008", period: str = "5"
 ) -> pd.DataFrame:
     """
@@ -87,7 +87,7 @@ def indicator_rv_input_futures_sina(
     return temp_df
 
 
-def indicator_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
+def research_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
     (
         """
     波动率-已实现波动率-Yang-Zhang 已实现波动率(Yang-Zhang Realized Volatility)
@@ -156,16 +156,16 @@ def indicator_yz_rv(data: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_df = indicator_rv_input_futures_sina(symbol="IF2008", period="1")
-    indicator_yz_rv_df = indicator_yz_rv(data=futures_df)
-    print(indicator_yz_rv_df)
+    futures_df = research_rv_input_futures_sina(symbol="IF2008", period="1")
+    research_yz_rv_df = research_yz_rv(data=futures_df)
+    print(research_yz_rv_df)
 
-    stock_df = indicator_rv_input_stock_em(
+    stock_df = research_rv_input_stock_em(
         symbol="000001",
         start_date="2021-10-20 09:30:00",
         end_date="2024-11-01 15:00:00",
         period="5",
         adjust="",
     )
-    indicator_yz_rv_df = indicator_yz_rv(data=stock_df)
-    print(indicator_yz_rv_df)
+    research_yz_rv_df = research_yz_rv(data=stock_df)
+    print(research_yz_rv_df)

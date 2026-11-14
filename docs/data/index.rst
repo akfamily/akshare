@@ -11,7 +11,6 @@
     bond/bond
     option/option
     fx/fx
-    currency/currency
     spot/spot
     interest_rate/interest_rate
     fund/fund_private
@@ -19,12 +18,7 @@
     index/index
     macro/macro
     crypto/crypto
-    bank/bank
     research/research
     energy/energy
-    migration/migration
-    high_freq/high_freq
-    nlp/nlp
-    qdii/qdii
     alternative/alternative
     calendar/calendar

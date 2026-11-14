@@ -14,7 +14,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def macro_gold_etf_holding() -> pd.DataFrame:
+def fund_gold_etf_holding_js() -> pd.DataFrame:
     """
     全球最大黄金 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_gold
@@ -79,7 +79,7 @@ def macro_gold_etf_holding() -> pd.DataFrame:
     return big_df
 
 
-def macro_silver_etf_holding() -> pd.DataFrame:
+def fund_silver_etf_holding_js() -> pd.DataFrame:
     """
     全球最大白银 ETF—SPDR Gold Trust 持仓报告，数据区间从 20041118-至今
     https://datacenter.jin10.com/reportType/dc_etf_sliver
@@ -145,8 +145,8 @@ def macro_silver_etf_holding() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    macro_gold_etf_holding_df = macro_gold_etf_holding()
-    print(macro_gold_etf_holding_df)
+    fund_gold_etf_holding_js_df = fund_gold_etf_holding_js()
+    print(fund_gold_etf_holding_js_df)
 
-    macro_silver_etf_holding_df = macro_silver_etf_holding()
-    print(macro_silver_etf_holding_df)
+    fund_silver_etf_holding_js_df = fund_silver_etf_holding_js()
+    print(fund_silver_etf_holding_js_df)

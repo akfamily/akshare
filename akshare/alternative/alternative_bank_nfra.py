@@ -15,7 +15,7 @@ from io import StringIO
 import pandas as pd
 from tqdm import tqdm
 
-from akshare.bank.cons import cbirc_headers_without_cookie_2020
+from akshare.alternative.alternative_bank_cons import cbirc_headers_without_cookie_2020
 from akshare.utils import http
 from akshare.utils.params import to_int
 
@@ -111,7 +111,7 @@ def bank_fjcf_page_url(
     ]
 
 
-def bank_fjcf_table_detail(
+def alternative_bank_penalty_nfra(
     page: int = 5, item: str = "分局本级", begin: int = 1
 ) -> pd.DataFrame:
     """
@@ -188,5 +188,7 @@ def bank_fjcf_table_detail(
 
 
 if __name__ == "__main__":
-    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=1, item="机关", begin=1)
-    print(bank_fjcf_table_detail_df)
+    alternative_bank_penalty_nfra_df = alternative_bank_penalty_nfra(
+        page=1, item="机关", begin=1
+    )
+    print(alternative_bank_penalty_nfra_df)

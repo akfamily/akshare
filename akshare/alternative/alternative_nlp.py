@@ -9,7 +9,7 @@ https://ownthink.com/robot.html
 from akshare.utils import http
 
 
-def nlp_answer(question: str = "人工智能") -> str:
+def alternative_nlp_answer(question: str = "人工智能") -> str:
     """
     思知-智能问答
     https://ownthink.com/robot.html
@@ -27,5 +27,5 @@ def nlp_answer(question: str = "人工智能") -> str:
 
 
 if __name__ == "__main__":
-    nlp_answer_df = nlp_answer(question="姚明的身高")
-    print(nlp_answer_df)
+    alternative_nlp_answer_df = alternative_nlp_answer(question="姚明的身高")
+    print(alternative_nlp_answer_df)

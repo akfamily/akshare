@@ -201,28 +201,21 @@ print(list_categories_df)
 
 ```
                类目  接口数
-0     alternative   34
-1            bank    1
-2            bond   44
-3        calendar    1
-4          crypto    3
-5        currency    5
-6          energy    8
-7            fund   91
-8         futures   84
-9              fx   11
-10      high_freq    1
-11          index   94
-12      indicator    3
-13  interest_rate   14
-14          macro  215
-15      migration    2
-16            nlp    1
-17         option   46
-18           qdii    3
-19       research    7
-20           spot   15
-21          stock  398
+0     alternative   31
+1            bond   44
+2        calendar    1
+3          crypto    3
+4          energy    7
+5            fund   97
+6         futures   88
+7              fx   16
+8           index   76
+9   interest_rate    7
+10          macro  139
+11         option   46
+12       research    8
+13           spot   16
+14          stock  395
 ```
 
 ## 能力边界

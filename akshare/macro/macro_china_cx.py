@@ -79,7 +79,7 @@ def _cx_investment_index(index: str, name: str, change_name: str) -> pd.DataFram
     return temp_df
 
 
-def index_pmi_com_cx() -> pd.DataFrame:
+def macro_china_pmi_composite_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-综合 PMI
     https://yun.ccxe.com.cn/dataindices/indices
@@ -89,7 +89,7 @@ def index_pmi_com_cx() -> pd.DataFrame:
     return _cx_macro_index("pmi", "COM", "综合PMI", "change")
 
 
-def index_pmi_man_cx() -> pd.DataFrame:
+def macro_china_pmi_manufacturing_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-制造业 PMI
     https://yun.ccxe.com.cn/dataindices/indices
@@ -99,7 +99,7 @@ def index_pmi_man_cx() -> pd.DataFrame:
     return _cx_macro_index("pmi", "MAN", "制造业PMI", "change")
 
 
-def index_pmi_ser_cx() -> pd.DataFrame:
+def macro_china_pmi_services_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-标普中国 PMI（原财新中国 PMI）-服务业 PMI
     https://yun.ccxe.com.cn/dataindices/indices
@@ -109,7 +109,7 @@ def index_pmi_ser_cx() -> pd.DataFrame:
     return _cx_macro_index("pmi", "SER", "服务业PMI", "change")
 
 
-def index_nei_cx() -> pd.DataFrame:
+def macro_china_nei_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -119,7 +119,7 @@ def index_nei_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "NEI", "中国新经济指数", "changeData")
 
 
-def index_li_cx() -> pd.DataFrame:
+def macro_china_li_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数-劳动力投入指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -129,7 +129,7 @@ def index_li_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "LI", "劳动力投入指数", "changeData")
 
 
-def index_ci_cx() -> pd.DataFrame:
+def macro_china_ci_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数-资本投入指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -139,7 +139,7 @@ def index_ci_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "CI", "资本投入指数", "changeData")
 
 
-def index_ti_cx() -> pd.DataFrame:
+def macro_china_ti_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数-科技投入指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -149,7 +149,7 @@ def index_ti_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "TI", "科技投入指数", "changeData")
 
 
-def index_neaw_cx() -> pd.DataFrame:
+def macro_china_neaw_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数-新经济行业入职平均工资水平
     https://yun.ccxe.com.cn/dataindices/indices
@@ -159,7 +159,7 @@ def index_neaw_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "NEAW", "新经济行业入职平均工资水平", "changeData")
 
 
-def index_awpr_cx() -> pd.DataFrame:
+def macro_china_awpr_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-中国新经济指数-新经济入职工资溢价水平
     https://yun.ccxe.com.cn/dataindices/indices
@@ -169,7 +169,7 @@ def index_awpr_cx() -> pd.DataFrame:
     return _cx_macro_index("nei", "AWPR", "新经济入职工资溢价水平", "changeData")
 
 
-def index_cci_cx() -> pd.DataFrame:
+def macro_china_cci_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-大宗商品指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -179,7 +179,7 @@ def index_cci_cx() -> pd.DataFrame:
     return _cx_investment_index("cci", "大宗商品指数", "变化值")
 
 
-def index_qli_cx() -> pd.DataFrame:
+def macro_china_qli_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-高质量因子指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -189,7 +189,7 @@ def index_qli_cx() -> pd.DataFrame:
     return _cx_investment_index("qli", "高质量因子指数", "变化幅度")
 
 
-def index_ai_cx() -> pd.DataFrame:
+def macro_china_ai_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-AI策略指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -199,7 +199,7 @@ def index_ai_cx() -> pd.DataFrame:
     return _cx_investment_index("ai", "AI策略指数", "变化幅度")
 
 
-def index_bei_cx() -> pd.DataFrame:
+def macro_china_bei_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-基石经济指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -209,7 +209,7 @@ def index_bei_cx() -> pd.DataFrame:
     return _cx_investment_index("ind", "基石经济指数", "变化幅度")
 
 
-def index_neei_cx() -> pd.DataFrame:
+def macro_china_neei_cx() -> pd.DataFrame:
     """
     财新数据-财新指数-新动能指数
     https://yun.ccxe.com.cn/dataindices/indices
@@ -220,44 +220,44 @@ def index_neei_cx() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_pmi_com_cx_df = index_pmi_com_cx()
-    print(index_pmi_com_cx_df)
+    macro_china_pmi_composite_cx_df = macro_china_pmi_composite_cx()
+    print(macro_china_pmi_composite_cx_df)
 
-    index_pmi_man_cx_df = index_pmi_man_cx()
-    print(index_pmi_man_cx_df)
+    macro_china_pmi_manufacturing_cx_df = macro_china_pmi_manufacturing_cx()
+    print(macro_china_pmi_manufacturing_cx_df)
 
-    index_pmi_ser_cx_df = index_pmi_ser_cx()
-    print(index_pmi_ser_cx_df)
+    macro_china_pmi_services_cx_df = macro_china_pmi_services_cx()
+    print(macro_china_pmi_services_cx_df)
 
-    index_nei_cx_df = index_nei_cx()
-    print(index_nei_cx_df)
+    macro_china_nei_cx_df = macro_china_nei_cx()
+    print(macro_china_nei_cx_df)
 
-    index_li_cx_df = index_li_cx()
-    print(index_li_cx_df)
+    macro_china_li_cx_df = macro_china_li_cx()
+    print(macro_china_li_cx_df)
 
-    index_ci_cx_df = index_ci_cx()
-    print(index_ci_cx_df)
+    macro_china_ci_cx_df = macro_china_ci_cx()
+    print(macro_china_ci_cx_df)
 
-    index_ti_cx_df = index_ti_cx()
-    print(index_ti_cx_df)
+    macro_china_ti_cx_df = macro_china_ti_cx()
+    print(macro_china_ti_cx_df)
 
-    index_neaw_cx_df = index_neaw_cx()
-    print(index_neaw_cx_df)
+    macro_china_neaw_cx_df = macro_china_neaw_cx()
+    print(macro_china_neaw_cx_df)
 
-    index_awpr_cx_df = index_awpr_cx()
-    print(index_awpr_cx_df)
+    macro_china_awpr_cx_df = macro_china_awpr_cx()
+    print(macro_china_awpr_cx_df)
 
-    index_cci_cx_df = index_cci_cx()
-    print(index_cci_cx_df)
+    macro_china_cci_cx_df = macro_china_cci_cx()
+    print(macro_china_cci_cx_df)
 
-    index_qli_cx_df = index_qli_cx()
-    print(index_qli_cx_df)
+    macro_china_qli_cx_df = macro_china_qli_cx()
+    print(macro_china_qli_cx_df)
 
-    index_ai_cx_df = index_ai_cx()
-    print(index_ai_cx_df)
+    macro_china_ai_cx_df = macro_china_ai_cx()
+    print(macro_china_ai_cx_df)
 
-    index_bei_cx_df = index_bei_cx()
-    print(index_bei_cx_df)
+    macro_china_bei_cx_df = macro_china_bei_cx()
+    print(macro_china_bei_cx_df)
 
-    index_neei_cx_df = index_neei_cx()
-    print(index_neei_cx_df)
+    macro_china_neei_cx_df = macro_china_neei_cx()
+    print(macro_china_neei_cx_df)

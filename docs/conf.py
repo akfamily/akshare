@@ -81,11 +81,18 @@ redirects = {
     "dependency": "contributing.html",
     # 1.19.7 数据字典类目目录改名
     "data/dc/dc": "../crypto/crypto.html",
-    "data/event/event": "../migration/migration.html",
+    "data/event/event": "../alternative/alternative.html",
     "data/article/article": "../research/research.html",
     "data/others/others": "../alternative/alternative.html",
     "data/tool/tool": "../calendar/calendar.html",
-    "data/hf/hf": "../high_freq/high_freq.html",
+    "data/hf/hf": "../index/index.html",
+    # 1.20.48 合并只有几个接口的类目
+    "data/qdii/qdii": "../fund/fund_public.html",
+    "data/currency/currency": "../fx/fx.html",
+    "data/high_freq/high_freq": "../index/index.html",
+    "data/migration/migration": "../alternative/alternative.html",
+    "data/bank/bank": "../alternative/alternative.html",
+    "data/nlp/nlp": "../alternative/alternative.html",
 }
 
 # 复制时去掉交互式提示符，粘贴后可以直接运行
