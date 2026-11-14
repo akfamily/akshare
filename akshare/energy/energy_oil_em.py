@@ -102,6 +102,22 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
     temp_df["QE_92"] = pd.to_numeric(temp_df["QE_92"], errors="coerce")
     temp_df["QE_95"] = pd.to_numeric(temp_df["QE_95"], errors="coerce")
     temp_df["QE_89"] = pd.to_numeric(temp_df["QE_89"], errors="coerce")
+    temp_df = temp_df.rename(
+        columns={
+            "V_0": "0号柴油",
+            "V_92": "92号汽油",
+            "V_95": "95号汽油",
+            "V_89": "89号汽油",
+            "ZDE_0": "0号柴油涨跌",
+            "ZDE_92": "92号汽油涨跌",
+            "ZDE_95": "95号汽油涨跌",
+            "ZDE_89": "89号汽油涨跌",
+            "QE_0": "0号柴油调整前价格",
+            "QE_92": "92号汽油调整前价格",
+            "QE_95": "95号汽油调整前价格",
+            "QE_89": "89号汽油调整前价格",
+        }
+    )
     return temp_df
 
 

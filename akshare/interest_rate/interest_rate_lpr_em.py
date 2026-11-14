@@ -54,6 +54,15 @@ def interest_rate_lpr_em() -> pd.DataFrame:
     big_df["RATE_2"] = pd.to_numeric(big_df["RATE_2"], errors="coerce")
     big_df = big_df.sort_values(by=["TRADE_DATE"])
     big_df = big_df.reset_index(drop=True)
+    big_df = big_df.rename(
+        columns={
+            "TRADE_DATE": "日期",
+            "LPR1Y": "1年期LPR",
+            "LPR5Y": "5年期以上LPR",
+            "RATE_1": "短期贷款利率",
+            "RATE_2": "中长期贷款利率",
+        }
+    )
     return big_df
 
 

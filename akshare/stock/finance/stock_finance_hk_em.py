@@ -113,6 +113,21 @@ def stock_financial_hk_report_em(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
+        temp_df = temp_df.rename(
+            columns={
+                "SECUCODE": "证券代码",
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME_ABBR": "股票简称",
+                "ORG_CODE": "机构代码",
+                "REPORT_DATE": "报告期",
+                "DATE_TYPE_CODE": "报告期类型代码",
+                "FISCAL_YEAR": "财年截止日",
+                "STD_ITEM_CODE": "项目代码",
+                "STD_ITEM_NAME": "项目名称",
+                "AMOUNT": "金额",
+                "STD_REPORT_DATE": "标准报告期",
+            }
+        )
         return temp_df
     elif indicator == "利润表":
         params = {
@@ -132,6 +147,21 @@ def stock_financial_hk_report_em(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
+        temp_df = temp_df.rename(
+            columns={
+                "SECUCODE": "证券代码",
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME_ABBR": "股票简称",
+                "ORG_CODE": "机构代码",
+                "REPORT_DATE": "报告期",
+                "DATE_TYPE_CODE": "报告期类型代码",
+                "FISCAL_YEAR": "财年截止日",
+                "STD_ITEM_CODE": "项目代码",
+                "STD_ITEM_NAME": "项目名称",
+                "AMOUNT": "金额",
+                "STD_REPORT_DATE": "标准报告期",
+            }
+        )
         return temp_df
     elif indicator == "现金流量表":
         params = {
@@ -151,6 +181,21 @@ def stock_financial_hk_report_em(
         r = http.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
+        temp_df = temp_df.rename(
+            columns={
+                "SECUCODE": "证券代码",
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME_ABBR": "股票简称",
+                "ORG_CODE": "机构代码",
+                "REPORT_DATE": "报告期",
+                "DATE_TYPE_CODE": "报告期类型代码",
+                "FISCAL_YEAR": "财年截止日",
+                "STD_ITEM_CODE": "项目代码",
+                "STD_ITEM_NAME": "项目名称",
+                "AMOUNT": "金额",
+                "STD_REPORT_DATE": "标准报告期",
+            }
+        )
         return temp_df
     else:
         return pd.DataFrame()

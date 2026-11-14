@@ -8,6 +8,34 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-53)=
+### 1.20.53 fix!: return a table instead of a dict from 9 futures interfaces and translate upstream field names of 5 interfaces
+
+**不兼容的改动：9 个期货接口的返回值由字典改为表格，5 个接口的列名由上游的英文字段改为中文。按键取值或按旧列名取列的代码需要修改。**
+
+返回值由“以合约或品种为键、表格为值的字典”改为一张表（pandas.DataFrame）：
+
+- 会员成交持仓排名 futures_rank_table_cffex、futures_rank_table_czce、futures_rank_table_shfe、futures_rank_table_dce、futures_position_rank_dce、futures_position_rank_gfex：各合约的排名纵向合并，每行是一个合约的一个名次，合约代码在 symbol 列、品种代码在 variety 列，原来的字典键即 symbol 列的取值。6 个接口统一为相同的 12 列和列顺序；原先需要 `result["IF2611"]` 的地方改为 `df[df["symbol"] == "IF2611"]`
+- 仓单日报 futures_warehouse_receipt_czce、futures_warehouse_receipt_shfe、futures_warehouse_receipt_gfex：各品种的仓单合并为一张表，品种在“品种”列。郑州商品交易所各品种公布的栏目不同（年度、等级、品牌、产地、提货地点等），返回各品种栏目的并集，某品种没有的栏目为空值
+
+列名改为中文：
+
+| 接口 | 旧列名 | 新列名 |
+| ---- | ------ | ------ |
+| interest_rate_lpr_em | TRADE_DATE、LPR1Y、LPR5Y、RATE_1、RATE_2 | 日期、1年期LPR、5年期以上LPR、短期贷款利率、中长期贷款利率 |
+| option_risk_indicator_sse | TRADE_DATE、SECURITY_ID、CONTRACT_ID、CONTRACT_SYMBOL、DELTA_VALUE、THETA_VALUE、GAMMA_VALUE、VEGA_VALUE、RHO_VALUE、IMPLC_VOLATLTY | 交易日期、合约编码、合约交易代码、合约简称、Delta、Theta、Gamma、Vega、Rho、隐含波动率 |
+| energy_oil_detail | V_0、V_92、V_95、V_89；ZDE_*；QE_* | 0号柴油、92号汽油、95号汽油、89号汽油；后接“涨跌”；后接“调整前价格” |
+| stock_financial_hk_report_em | SECUCODE、SECURITY_CODE、SECURITY_NAME_ABBR、ORG_CODE、REPORT_DATE、DATE_TYPE_CODE、FISCAL_YEAR、STD_ITEM_CODE、STD_ITEM_NAME、AMOUNT、STD_REPORT_DATE | 证券代码、股票代码、股票简称、机构代码、报告期、报告期类型代码、财年截止日、项目代码、项目名称、金额、标准报告期 |
+| stock_financial_us_report_em | SECUCODE、SECURITY_CODE、SECURITY_NAME_ABBR、REPORT_DATE、REPORT_TYPE、REPORT、STD_ITEM_CODE、AMOUNT、ITEM_NAME | 证券代码、股票代码、股票简称、报告期、报告类型、报告期名称、项目代码、金额、项目名称 |
+| futures_warehouse_receipt_shfe | VARNAME、REGNAME、WHABBRNAME、WRTWGHTS、WRTCHANGE、ROWSTATUS | 品种、地区、仓库、期货仓单、增减、行类型 |
+
+1. 字典不是表格，经 AKTools 的 HTTP 接口与 MCP 服务无法返回；现在全库的数据接口只剩工具类接口（主力合约代码、到期月份列表等）返回字符串或列表
+2. futures_rank_table_czce 的成交量、持仓量等列此前是带千分位逗号的文本，现在转换为数值
+3. futures_warehouse_receipt_shfe 的“行类型”列取值为明细、合计、总计，对应原 ROWSTATUS 的 0、1、2
+4. futures_rank_sum、futures_rank_sum_daily 在内部使用排名明细，结果不受影响，已实测
+5. stock_financial_analysis_indicator_em、stock_financial_hk_analysis_indicator_em、stock_financial_us_analysis_indicator_em 的列名没有改：A 股的接口返回 141 列，其中约 95 列是银行、保险、券商的专项指标，文档没有对应的中文说明，只翻译一部分会造成中英文混杂，因此三个接口都保留东方财富的原始字段名，字段含义见各自的文档
+6. 除被反爬虫拦截的大连商品交易所 2 个接口外，其余 12 个接口已按新的文档示例实测，输出参数与数据示例已按实测结果重写；futures_warehouse_receipt_shfe 另测了 2020 年的旧数据格式，futures_rank_table_cffex 测了非交易日返回空表
+
 (v1-20-52)=
 ### 1.20.52 fix!: unify parameter names across 31 interfaces and remove the 5 CurrencyScoop interfaces
 

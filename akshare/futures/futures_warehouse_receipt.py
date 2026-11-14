@@ -19,10 +19,11 @@ from io import BytesIO, StringIO
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from akshare.futures import cons
 from akshare.utils import http
 
 
-def futures_warehouse_receipt_czce(date: str = "20251103") -> dict:
+def _futures_warehouse_receipt_czce_dict(date: str = "20251103") -> dict:
     """
     郑州商品交易所-交易数据-仓单日报
     http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
@@ -194,7 +195,7 @@ def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
     return big_dict
 
 
-def futures_warehouse_receipt_shfe(date: str = "20260924") -> dict:
+def _futures_warehouse_receipt_shfe_dict(date: str = "20260924") -> dict:
     """
     上海期货交易所指定交割仓库期货仓单日报
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
@@ -251,7 +252,7 @@ def futures_warehouse_receipt_shfe(date: str = "20260924") -> dict:
     return big_dict
 
 
-def futures_warehouse_receipt_gfex(date: str = "20240122") -> dict:
+def _futures_warehouse_receipt_gfex_dict(date: str = "20240122") -> dict:
     """
     广州期货交易所-行情数据-仓单日报
     http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
@@ -321,6 +322,61 @@ def futures_warehouse_receipt_gfex(date: str = "20240122") -> dict:
         inner_temp_df = inner_temp_df.reset_index(drop=True)
         big_dict[symbol] = inner_temp_df
     return big_dict
+
+
+def futures_warehouse_receipt_czce(date: str = "20251103") -> pd.DataFrame:
+    """
+    郑州商品交易所-交易数据-仓单日报
+    http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
+    各品种公布的栏目不同（如年度、等级、品牌、产地、提货地点），返回各品种栏目的并集，
+    某品种没有的栏目为空值
+    :param date: 交易日
+    :type date: str
+    :return: 全部品种的仓单日报，“品种”列为品种代码，含各品种的小计与总计行
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(_futures_warehouse_receipt_czce_dict(date), "品种")
+
+
+def futures_warehouse_receipt_shfe(date: str = "20260924") -> pd.DataFrame:
+    """
+    上海期货交易所指定交割仓库期货仓单日报
+    https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+    :param date: 交易日，e.g., "20260924"
+    :type date: str
+    :return: 全部品种的仓单日报，含各地区的合计行与各品种的总计行
+    :rtype: pandas.DataFrame
+    """
+    big_df = cons.dict_to_frame(_futures_warehouse_receipt_shfe_dict(date), "品种")
+    if "VARNAME" in big_df.columns:
+        big_df = big_df.drop(columns=["品种"]).rename(
+            columns={
+                "VARNAME": "品种",
+                "REGNAME": "地区",
+                "WHABBRNAME": "仓库",
+                "WRTWGHTS": "期货仓单",
+                "WRTCHANGE": "增减",
+                "ROWSTATUS": "行类型",
+            }
+        )
+        row_type = big_df["行类型"].astype("str")
+        big_df["行类型"] = row_type.map({"0": "明细", "1": "合计", "2": "总计"}).fillna(
+            row_type
+        )
+        big_df = big_df[["品种", "地区", "仓库", "期货仓单", "增减", "行类型"]]
+    return big_df
+
+
+def futures_warehouse_receipt_gfex(date: str = "20240122") -> pd.DataFrame:
+    """
+    广州期货交易所-行情数据-仓单日报
+    http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
+    :param date: 交易日
+    :type date: str
+    :return: 全部品种的仓单日报
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(_futures_warehouse_receipt_gfex_dict(date), "品种")
 
 
 if __name__ == "__main__":

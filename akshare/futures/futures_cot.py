@@ -142,27 +142,27 @@ def futures_rank_sum(date: str = "20210525", symbols: str = ""):
     gfex_var = [i for i in symbols if i in cons.market_exchange_symbols["gfex"]]
     big_dict = {}
     if len(dce_var) > 0:
-        data = futures_position_rank_dce(date, dce_var)
+        data = _futures_position_rank_dce_dict(date, dce_var)
         if data is False:
             return False
         big_dict.update(data)
     if len(shfe_var) > 0:
-        data = futures_rank_table_shfe(date, shfe_var)
+        data = _futures_rank_table_shfe_dict(date, shfe_var)
         if data is False:
             return False
         big_dict.update(data)
     if len(czce_var) > 0:
-        data = futures_rank_table_czce(date)
+        data = _futures_rank_table_czce_dict(date)
         if data is False:
             return False
         big_dict.update(data)
     if len(cffex_var) > 0:
-        data = futures_rank_table_cffex(date, cffex_var)
+        data = _futures_rank_table_cffex_dict(date, cffex_var)
         if data is False:
             return False
         big_dict.update(data)
     if len(gfex_var) > 0:
-        data = futures_position_rank_gfex(date, gfex_var)
+        data = _futures_position_rank_gfex_dict(date, gfex_var)
         if data is False:
             return False
         big_dict.update(data)
@@ -274,7 +274,7 @@ def futures_rank_sum(date: str = "20210525", symbols: str = ""):
     return records.reset_index(drop=True)
 
 
-def futures_rank_table_shfe(date: str = None, symbols: str = "") -> dict:
+def _futures_rank_table_shfe_dict(date: str = None, symbols: str = "") -> dict:
     """
     上海期货交易所会员成交及持仓排名表
     https://www.shfe.com.cn/
@@ -401,7 +401,7 @@ def _czce_df_read(url, skip_rows, encoding="utf-8", header=0):
     return data
 
 
-def futures_rank_table_czce(date: str = "20251103") -> dict:
+def _futures_rank_table_czce_dict(date: str = "20251103") -> dict:
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     https://www.czce.com.cn/cn/jysj/ccpm/H077003004index_1.htm
@@ -555,7 +555,7 @@ def _get_dce_contract_list(date, var):
     return contract_list
 
 
-def futures_rank_table_dce(date: str = "20230706", symbols: str = "") -> dict:
+def _futures_rank_table_dce_dict(date: str = "20230706", symbols: str = "") -> dict:
     """
     大连商品交易所前 20 会员持仓排名数据明细，由于交易所网站问题，需要 20200720 之后才有数据
     注：该交易所只公布标的合约排名
@@ -706,7 +706,7 @@ def futures_rank_table_dce(date: str = "20230706", symbols: str = "") -> dict:
     return big_dict
 
 
-def futures_rank_table_cffex(date: str = "20190805", symbols: str = ""):
+def _futures_rank_table_cffex_dict(date: str = "20190805", symbols: str = ""):
     """
     中国金融期货交易所前 20 会员持仓排名数据明细
     http://www.cffex.com.cn/ccpm/
@@ -809,7 +809,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_position_rank_dce(date: str = "20160919", symbols: str = "") -> dict:
+def _futures_position_rank_dce_dict(date: str = "20160919", symbols: str = "") -> dict:
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -1280,7 +1280,7 @@ def __futures_gfex_contract_data(
     return big_df
 
 
-def futures_position_rank_gfex(date: str = "20231113", symbols: str = ""):
+def _futures_position_rank_gfex_dict(date: str = "20231113", symbols: str = ""):
     """
     广州期货交易所-日成交持仓排名
     http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
@@ -1320,6 +1320,115 @@ def futures_position_rank_gfex(date: str = "20231113", symbols: str = ""):
     return big_dict
 
 
+def futures_rank_table_shfe(date: str = None, symbols: str = "") -> pd.DataFrame:
+    """
+    上海期货交易所会员成交及持仓排名表
+    https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+    :param date: 交易日，如 "20261113"；默认为空，取最近的交易日
+    :type date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "RB,CU"；默认为空，即全部品种
+    :type symbols: str
+    :return: 各合约前 20 名会员的成交量、持买单量、持卖单量排名，每行是一个合约的一个名次
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(
+        _futures_rank_table_shfe_dict(date, symbols), "symbol", cons.RANK_TABLE_COLUMNS
+    )
+
+
+def futures_rank_table_czce(date: str = "20251103") -> pd.DataFrame:
+    """
+    郑州商品交易所会员成交及持仓排名表，包含品种排名与合约排名
+    https://www.czce.com.cn/cn/jysj/ccpm/H077003004index_1.htm
+    :param date: 交易日
+    :type date: str
+    :return: 各品种、合约前 20 名会员的成交量、持买仓量、持卖仓量排名，每行是一个名次
+    :rtype: pandas.DataFrame
+    """
+    big_df = cons.dict_to_frame(
+        _futures_rank_table_czce_dict(date), "symbol", cons.RANK_TABLE_COLUMNS
+    )
+    for item in cons.RANK_TABLE_COLUMNS:
+        if item.endswith("_party_name") or item in ("symbol", "variety", "rank"):
+            continue
+        big_df[item] = pd.to_numeric(
+            big_df[item].astype("str").str.replace(",", ""), errors="coerce"
+        )
+    return big_df
+
+
+def futures_rank_table_dce(date: str = "20230706", symbols: str = "") -> pd.DataFrame:
+    """
+    大连商品交易所会员成交及持仓排名表
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+    :param date: 交易日
+    :type date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "M,Y"；默认为空，即全部品种
+    :type symbols: str
+    :return: 各合约前 20 名会员的成交量、持买单量、持卖单量排名，每行是一个合约的一个名次
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(
+        _futures_rank_table_dce_dict(date, symbols), "symbol", cons.RANK_TABLE_COLUMNS
+    )
+
+
+def futures_rank_table_cffex(date: str = "20190805", symbols: str = "") -> pd.DataFrame:
+    """
+    中国金融期货交易所会员成交及持仓排名表
+    http://www.cffex.com.cn/ccpm/
+    :param date: 交易日
+    :type date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "IF,IC"；默认为空，即全部品种
+    :type symbols: str
+    :return: 各合约前 20 名会员的成交量、持买单量、持卖单量排名，每行是一个合约的一个名次
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(
+        _futures_rank_table_cffex_dict(date, symbols), "symbol", cons.RANK_TABLE_COLUMNS
+    )
+
+
+def futures_position_rank_dce(
+    date: str = "20160919", symbols: str = ""
+) -> pd.DataFrame:
+    """
+    大连商品交易所-每日持仓排名-具体合约
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+    :param date: 交易日
+    :type date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "M,Y"；默认为空，即全部品种
+    :type symbols: str
+    :return: 各合约的持仓排名，每行是一个合约的一个名次
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(
+        _futures_position_rank_dce_dict(date, symbols),
+        "symbol",
+        cons.RANK_TABLE_COLUMNS,
+    )
+
+
+def futures_position_rank_gfex(
+    date: str = "20231113", symbols: str = ""
+) -> pd.DataFrame:
+    """
+    广州期货交易所-日成交持仓排名
+    http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
+    :param date: 交易日
+    :type date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "SI,LC"；默认为空，即全部品种
+    :type symbols: str
+    :return: 各合约的成交持仓排名，每行是一个合约的一个名次
+    :rtype: pandas.DataFrame
+    """
+    return cons.dict_to_frame(
+        _futures_position_rank_gfex_dict(date, symbols),
+        "symbol",
+        cons.RANK_TABLE_COLUMNS,
+    )
+
+
 if __name__ == "__main__":
     # 郑州商品交易所
     futures_rank_table_czce_df = futures_rank_table_czce(date="20230109")
@@ -1355,8 +1464,8 @@ if __name__ == "__main__":
     print(futures_rank_table_dce_fourth_df)
 
     # 大连商品交易所-新接口
-    futures_dce_detail_dict = futures_position_rank_dce(date="20240517")
-    print(futures_dce_detail_dict)
+    futures_position_rank_dce_df = futures_position_rank_dce(date="20240517")
+    print(futures_position_rank_dce_df)
 
     futures_position_rank_other_dce_df = futures_position_rank_other_dce(
         date="20200727"

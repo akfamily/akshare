@@ -66,6 +66,20 @@ def option_risk_indicator_sse(date: str = "20240626") -> pd.DataFrame:
     temp_df["IMPLC_VOLATLTY"] = pd.to_numeric(
         temp_df["IMPLC_VOLATLTY"], errors="coerce"
     )
+    temp_df = temp_df.rename(
+        columns={
+            "TRADE_DATE": "交易日期",
+            "SECURITY_ID": "合约编码",
+            "CONTRACT_ID": "合约交易代码",
+            "CONTRACT_SYMBOL": "合约简称",
+            "DELTA_VALUE": "Delta",
+            "THETA_VALUE": "Theta",
+            "GAMMA_VALUE": "Gamma",
+            "VEGA_VALUE": "Vega",
+            "RHO_VALUE": "Rho",
+            "IMPLC_VOLATLTY": "隐含波动率",
+        }
+    )
     return temp_df
 
 

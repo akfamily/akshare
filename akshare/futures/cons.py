@@ -7,6 +7,8 @@ Desc: 期货配置文件
 
 from akshare.datasets import get_data_file
 import datetime
+
+import pandas as pd
 import json
 import re
 import warnings
@@ -484,6 +486,48 @@ DCE_MAP = {
     "聚丙烯月均价": "PPF",
     "聚乙烯月均价": "LF",
 }
+
+
+RANK_TABLE_COLUMNS = [
+    "symbol",
+    "variety",
+    "rank",
+    "vol_party_name",
+    "vol",
+    "vol_chg",
+    "long_party_name",
+    "long_open_interest",
+    "long_open_interest_chg",
+    "short_party_name",
+    "short_open_interest",
+    "short_open_interest_chg",
+]
+
+
+def dict_to_frame(data: dict, key_name: str, columns: list = None) -> pd.DataFrame:
+    """
+    把“以合约或品种为键、表格为值”的字典纵向合并为一张表
+    :param data: 以合约或品种为键、pandas.DataFrame 为值的字典
+    :type data: dict
+    :param key_name: 存放键的列名；各表已有同名列时不重复添加
+    :type key_name: str
+    :param columns: 固定的输出列及顺序；为空时取各表列的并集，缺少的列为空值
+    :type columns: list
+    :return: 合并后的表格，没有数据时返回空表
+    :rtype: pandas.DataFrame
+    """
+    frames = []
+    for key, value in (data or {}).items():
+        temp_df = value.copy()
+        if key_name not in temp_df.columns:
+            temp_df.insert(0, key_name, key)
+        frames.append(temp_df)
+    if not frames:
+        return pd.DataFrame(columns=columns or [key_name])
+    big_df = pd.concat(objs=frames, ignore_index=True)
+    if columns:
+        big_df = big_df.reindex(columns=columns)
+    return big_df
 
 
 def parse_symbols(symbols=None, default=None) -> list:

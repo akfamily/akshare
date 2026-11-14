@@ -159,6 +159,19 @@ def stock_financial_us_report_em(
     r = http.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df = temp_df.rename(
+        columns={
+            "SECUCODE": "证券代码",
+            "SECURITY_CODE": "股票代码",
+            "SECURITY_NAME_ABBR": "股票简称",
+            "REPORT_DATE": "报告期",
+            "REPORT_TYPE": "报告类型",
+            "REPORT": "报告期名称",
+            "STD_ITEM_CODE": "项目代码",
+            "AMOUNT": "金额",
+            "ITEM_NAME": "项目名称",
+        }
+    )
     return temp_df
 
 

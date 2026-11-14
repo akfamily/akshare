@@ -1275,7 +1275,7 @@ print(futures_rank_table_czce_df)
 
 描述：大连商品交易所指定交易日的具体合约的持仓排名；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法使用，详见[常见问题](https://akshare.akfamily.xyz/faq.html#faq-dce)
 
-限量：单次返回所有合约的持仓排名数据，返回以合约名字为键，具体排名数据为值的字典
+限量：单次返回所有合约的持仓排名数据，每行是一个合约的一个名次
 
 输入参数
 
@@ -1286,50 +1286,36 @@ print(futures_rank_table_czce_df)
 
 P.S. **futures_position_rank_other_dce** 函数只返回页面显示的活跃合约，返回格式同 **futures_position_rank_dce**
 
-输出参数-字典
+输出参数
 
-P.S. 这里仅列出值(pandas.DataFrame)的字段信息
-
-| 名称                      | 类型      | 描述      |
-|-------------------------|---------|---------|
-| long_open_interest      | object  | 持买单量    |
-| long_open_interest_chg  | float64 | 持买单量-增减 |
-| long_party_name         | str     | 会员简称    |
-| rank                    | float64 | 名次      |
-| short_open_interest     | float64 | 持卖单量    |
-| short_open_interest_chg | float64 | 持买单量-增减 |
-| short_party_name        | str     | 会员简称    |
-| vol                     | float64 | 成交量     |
-| vol_chg                 | float64 | 成交量-增减  |
-| vol_party_name          | str     | 会员简称    |
-| symbol                  | str     | 具体合约    |
-| variety                 | str     | 品种      |
+| 名称                      | 类型    | 描述          |
+|-------------------------|-------|-------------|
+| symbol                  | str   | 合约代码        |
+| variety                 | str   | 品种代码        |
+| rank                    | int64 | 名次          |
+| vol_party_name          | str   | 成交量排名的会员简称  |
+| vol                     | int64 | 该会员成交量      |
+| vol_chg                 | int64 | 该会员成交量变化量   |
+| long_party_name         | str   | 持买单量排名的会员简称 |
+| long_open_interest      | int64 | 该会员持买单量     |
+| long_open_interest_chg  | int64 | 该会员持买单量变化量  |
+| short_party_name        | str   | 持卖单量排名的会员简称 |
+| short_open_interest     | int64 | 该会员持卖单量     |
+| short_open_interest_chg | int64 | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_dce_detail_dict = ak.futures_position_rank_dce(date="20200513")
-print(futures_dce_detail_dict)
+futures_position_rank_dce_df = ak.futures_position_rank_dce(date="20200513")
+print(futures_position_rank_dce_df)
 ```
 
-数据示例-字典
+数据示例
 
 ```
-{'jm2009':    long_open_interest long_open_interest_chg  ...  symbol  variety
-0               9,063                   -253  ...  jm2009       JM
-1               8,255                     65  ...  jm2009       JM
-2               5,954                   -216  ...  jm2009       JM
-3               3,691                   -127  ...  jm2009       JM
-4               3,387                    115  ...  jm2009       JM
-..                ...                    ...  ...     ...      ...
-15              1,539                   -120  ...  jm2009       JM
-16              1,457                    158  ...  jm2009       JM
-17              1,391                     92  ...  jm2009       JM
-18              1,377                    -60  ...  jm2009       JM
-19              1,343                    -40  ...  jm2009       JM
-}
+大连商品交易所网站目前启用了瑞数反爬虫验证，暂时无法获取数据
 ```
 
 (futures_position_rank_gfex)=
@@ -1341,7 +1327,7 @@ print(futures_dce_detail_dict)
 
 描述：广州期货交易所-日成交持仓排名
 
-限量：单次返回所有合约的日成交持仓排名数据，返回以合约名字为键，具体排名数据为值的字典
+限量：单次返回所有合约的日成交持仓排名数据，每行是一个合约的一个名次
 
 输入参数
 
@@ -1350,122 +1336,48 @@ print(futures_dce_detail_dict)
 | date      | str  | date="20231113"；指定交易日，该数据接口可以获取从 20231110 开始的日成交持仓排名数据 |
 | symbols | str  | symbols="SI,LC"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
-输出参数-字典
+输出参数
 
-P.S. 这里仅列出值(pandas.DataFrame)的字段信息
-
-| 名称                      | 类型     | 描述      |
-|-------------------------|--------|---------|
-| rank                    | int64  | 名次      |
-| vol_party_name          | str    | 会员简称    |
-| vol                     | int64  | 成交量     |
-| vol_chg                 | int64  | 成交量-增减  |
-| long_party_name         | str    | 会员简称    |
-| long_open_interest      | int64  | 持买单量    |
-| long_open_interest_chg  | int64  | 持买单量-增减 |
-| short_party_name        | str    | 会员简称    |
-| short_open_interest     | int64  | 持卖单量    |
-| short_open_interest_chg | int64  | 持卖单量-增减 |
-| symbol                  | str    | 具体合约    |
-| variety                 | str    | 品种      |
+| 名称                      | 类型    | 描述          |
+|-------------------------|-------|-------------|
+| symbol                  | str   | 合约代码        |
+| variety                 | str   | 品种代码        |
+| rank                    | int64 | 名次          |
+| vol_party_name          | str   | 成交量排名的会员简称  |
+| vol                     | int64 | 该会员成交量      |
+| vol_chg                 | int64 | 该会员成交量变化量   |
+| long_party_name         | str   | 持买单量排名的会员简称 |
+| long_open_interest      | int64 | 该会员持买单量     |
+| long_open_interest_chg  | int64 | 该会员持买单量变化量  |
+| short_party_name        | str   | 持卖单量排名的会员简称 |
+| short_open_interest     | int64 | 该会员持卖单量     |
+| short_open_interest_chg | int64 | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_gfex_position_rank_dict = ak.futures_position_rank_gfex(date="20231113")
-print(futures_gfex_position_rank_dict)
+futures_position_rank_gfex_df = ak.futures_position_rank_gfex(date="20261113", symbols="SI")
+print(futures_position_rank_gfex_df)
 ```
 
-数据示例-字典
+数据示例
 
 ```
-{'si2312':     rank vol_party_name   vol  ...  short_open_interest_chg  symbol  variety
-0      1           中信期货  2940  ...                       50  SI2312       SI
-1      2           国海良时  1013  ...                        1  SI2312       SI
-2      3           永安期货   956  ...                     -376  SI2312       SI
-3      4           宝城期货   901  ...                      120  SI2312       SI
-4      5           浙商期货   648  ...                      -10  SI2312       SI
-5      6         国投安信期货   640  ...                     -460  SI2312       SI
-6      7         国泰君安期货   620  ...                      -94  SI2312       SI
-7      8           东证期货   515  ...                        1  SI2312       SI
-8      9           广发期货   352  ...                       52  SI2312       SI
-9     10           南华期货   294  ...                      895  SI2312       SI
-10    11         物产中大期货   275  ...                      -90  SI2312       SI
-11    12           华金期货   263  ...                       24  SI2312       SI
-12    13           广州期货   211  ...                       -4  SI2312       SI
-13    14           华泰期货   205  ...                        0  SI2312       SI
-14    15           国贸期货   185  ...                        0  SI2312       SI
-15    16           中粮期货   178  ...                        2  SI2312       SI
-16    17           申银万国   128  ...                        0  SI2312       SI
-17    18           中原期货   118  ...                      -20  SI2312       SI
-18    19           海证期货   113  ...                      -10  SI2312       SI
-19    20           兴证期货   108  ...                      -22  SI2312       SI
-[20 rows x 12 columns], 'si2401':     rank vol_party_name    vol  ...  short_open_interest_chg  symbol  variety
-0      1           中信期货  11711  ...                     -195  SI2401       SI
-1      2           广州期货   8079  ...                       96  SI2401       SI
-2      3           中信建投   7222  ...                      535  SI2401       SI
-3      4           广发期货   4361  ...                     1045  SI2401       SI
-4      5           华泰期货   3014  ...                       97  SI2401       SI
-5      6           东证期货   2252  ...                       89  SI2401       SI
-6      7         国投安信期货   1897  ...                      -70  SI2401       SI
-7      8           永安期货   1757  ...                       25  SI2401       SI
-8      9           海通期货   1723  ...                      -27  SI2401       SI
-9     10         国泰君安期货   1514  ...                       16  SI2401       SI
-10    11           国海良时   1456  ...                      611  SI2401       SI
-11    12           长安期货   1441  ...                      418  SI2401       SI
-12    13           华闻期货   1307  ...                    -1199  SI2401       SI
-13    14           方正中期   1247  ...                       20  SI2401       SI
-14    15           宝城期货   1158  ...                      317  SI2401       SI
-15    16           华金期货   1052  ...                       35  SI2401       SI
-16    17           信达期货    924  ...                      -45  SI2401       SI
-17    18           兴证期货    866  ...                        2  SI2401       SI
-18    19           浙商期货    777  ...                       19  SI2401       SI
-19    20           徽商期货    761  ...                        5  SI2401       SI
-[20 rows x 12 columns], 'lc2401':     rank vol_party_name     vol  ...  short_open_interest_chg  symbol  variety
-0      1           中信期货  164523  ...                    -1741  LC2401       LC
-1      2           华闻期货   50941  ...                     -284  LC2401       LC
-2      3           海通期货   47107  ...                     -822  LC2401       LC
-3      4           徽商期货   23884  ...                     1523  LC2401       LC
-4      5         东方财富期货   22906  ...                      205  LC2401       LC
-5      6         国泰君安期货   21530  ...                     -277  LC2401       LC
-6      7           中信建投   21033  ...                      541  LC2401       LC
-7      8           渤海期货   20804  ...                     -146  LC2401       LC
-8      9           宝城期货   18449  ...                      568  LC2401       LC
-9     10           东证期货   16656  ...                      -76  LC2401       LC
-10    11           华泰期货   16101  ...                      325  LC2401       LC
-11    12           广发期货   15262  ...                      146  LC2401       LC
-12    13           方正中期   15198  ...                     1664  LC2401       LC
-13    14           银河期货   11187  ...                      863  LC2401       LC
-14    15           东吴期货   10747  ...                      723  LC2401       LC
-15    16           平安期货    9572  ...                      -54  LC2401       LC
-16    17           华安期货    9340  ...                      296  LC2401       LC
-17    18           国信期货    9284  ...                      -44  LC2401       LC
-18    19           民生期货    9213  ...                      -91  LC2401       LC
-19    20           国富期货    9171  ...                     -174  LC2401       LC
-[20 rows x 12 columns], 'lc2407':     rank vol_party_name    vol  ...  short_open_interest_chg  symbol  variety
-0      1           中信期货  36637  ...                      244  LC2407       LC
-1      2           海通期货   4366  ...                       30  LC2407       LC
-2      3           中信建投   3499  ...                       10  LC2407       LC
-3      4         国泰君安期货   3314  ...                      308  LC2407       LC
-4      5           广发期货   3123  ...                       43  LC2407       LC
-5      6         东方财富期货   2976  ...                       82  LC2407       LC
-6      7           东证期货   2782  ...                     -133  LC2407       LC
-7      8           徽商期货   2716  ...                      411  LC2407       LC
-8      9           永安期货   2269  ...                       -7  LC2407       LC
-9     10           华泰期货   2076  ...                       23  LC2407       LC
-10    11           平安期货   2065  ...                       -7  LC2407       LC
-11    12           方正中期   1991  ...                      301  LC2407       LC
-12    13           华闻期货   1956  ...                       -3  LC2407       LC
-13    14           华安期货   1766  ...                       76  LC2407       LC
-14    15           安粮期货   1758  ...                     -190  LC2407       LC
-15    16           申银万国   1481  ...                       19  LC2407       LC
-16    17           东吴期货   1398  ...                       18  LC2407       LC
-17    18           中泰期货   1175  ...                      -93  LC2407       LC
-18    19           先锋期货   1144  ...                      -19  LC2407       LC
-19    20           银河期货   1100  ...                     -218  LC2407       LC
-[20 rows x 12 columns]}
+    symbol variety  ...  short_open_interest  short_open_interest_chg
+0   SI2612      SI  ...                21966                     -961
+1   SI2612      SI  ...                15004                     -956
+2   SI2612      SI  ...                 8757                     -674
+3   SI2612      SI  ...                 5692                      128
+4   SI2612      SI  ...                 4739                     -464
+..     ...     ...  ...                  ...                      ...
+75  SI2703      SI  ...                   88                      -22
+76  SI2703      SI  ...                   80                       40
+77  SI2703      SI  ...                   71                       12
+78  SI2703      SI  ...                   20                        0
+79  SI2703      SI  ...                   17                       -1
+[80 rows x 12 columns]
 ```
 
 (futures_rank_sum_daily)=
@@ -1630,7 +1542,7 @@ print(futures_rank_sum_df)
 
 描述：中国金融期货交易所前 20 名会员的成交量、持买单量、持卖单量排名明细
 
-限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典；数据从 20100416 开始
+限量：单次返回指定交易日指定品种的排名明细，每行是一个合约的一个名次；数据从 20100416 开始
 
 输入参数
 
@@ -1643,44 +1555,44 @@ print(futures_rank_sum_df)
 
 | 名称                      | 类型     | 描述          |
 |-------------------------|--------|-------------|
-| long_open_interest      | int64  | 该会员持买单量     |
-| long_open_interest_chg  | int64  | 该会员持买单量变化量  |
-| long_party_name         | object | 持买单量排名的会员简称 |
-| rank                    | int64  | 名次          |
-| short_open_interest     | int64  | 该会员持卖单量     |
-| short_open_interest_chg | int64  | 该会员持卖单量变化量  |
-| short_party_name        | object | 持卖单量排名的会员简称 |
 | symbol                  | str    | 合约代码        |
+| variety                 | str    | 品种代码        |
+| rank                    | int64  | 名次          |
+| vol_party_name          | object | 成交量排名的会员简称  |
 | vol                     | int64  | 该会员成交量      |
 | vol_chg                 | int64  | 该会员成交量变化量   |
-| vol_party_name          | object | 成交量排名的会员简称  |
-| variety                 | str    | 品种代码        |
+| long_party_name         | object | 持买单量排名的会员简称 |
+| long_open_interest      | int64  | 该会员持买单量     |
+| long_open_interest_chg  | int64  | 该会员持买单量变化量  |
+| short_party_name        | object | 持卖单量排名的会员简称 |
+| short_open_interest     | int64  | 该会员持卖单量     |
+| short_open_interest_chg | int64  | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_rank_table_cffex_dict = ak.futures_rank_table_cffex(date="20261113", symbols="IF")
-print(futures_rank_table_cffex_dict)
+futures_rank_table_cffex_df = ak.futures_rank_table_cffex(date="20261113", symbols="IF")
+print(futures_rank_table_cffex_df)
 ```
 
-数据示例（共 4 个键，以下为键 IF2611 对应的数据）
+数据示例
 
 ```
-    long_open_interest  long_open_interest_chg  ... vol_party_name variety
-0                 6382                     209  ...       中信期货(代客)      IF
-1                 5861                    -517  ...       国泰君安(代客)      IF
-2                 3427                      99  ...       海通期货(代客)      IF
-3                 3170                      56  ...       东证期货(代客)      IF
-4                 2689                     -53  ...       国信期货(代客)      IF
-..    ...
-16                 526                    -121  ...       平安期货(代客)      IF
-17                 493                     -91  ...       招商期货(代客)      IF
-18                 450                      41  ...       兴证期货(代客)      IF
-19                 425                     245  ...       国投期货(代客)      IF
-20               35885                    -219  ...           None      IF
-[21 rows x 12 columns]
+    symbol variety  ...  short_open_interest  short_open_interest_chg
+0   IF2611      IF  ...                 7589                      919
+1   IF2611      IF  ...                 6587                     -132
+2   IF2611      IF  ...                 3949                     -461
+3   IF2611      IF  ...                 3128                      244
+4   IF2611      IF  ...                 2102                     -315
+..     ...     ...  ...                  ...                      ...
+79  IF2706      IF  ...                  405                      168
+80  IF2706      IF  ...                  340                       -1
+81  IF2706      IF  ...                  292                       -1
+82  IF2706      IF  ...                  260                       11
+83  IF2706      IF  ...                26271                      949
+[84 rows x 12 columns]
 ```
 
 (futures_rank_table_czce)=
@@ -1692,7 +1604,7 @@ print(futures_rank_table_cffex_dict)
 
 描述：郑州商品交易所前 20 名会员的成交量、持买仓量、持卖仓量排名明细，包含品种排名与合约排名
 
-限量：单次返回指定交易日的排名明细，返回以品种或合约代码为键、排名数据为值的字典
+限量：单次返回指定交易日的排名明细，每行是一个品种或合约的一个名次
 
 输入参数
 
@@ -1702,46 +1614,46 @@ print(futures_rank_table_cffex_dict)
 
 输出参数
 
-| 名称                      | 类型     | 描述          |
-|-------------------------|--------|-------------|
-| rank                    | object | 名次          |
-| vol_party_name          | str    | 成交量排名的会员简称  |
-| vol                     | str    | 该会员成交量      |
-| vol_chg                 | str    | 该会员成交量变化量   |
-| long_party_name         | str    | 持买单量排名的会员简称 |
-| long_open_interest      | str    | 该会员持买单量     |
-| long_open_interest_chg  | str    | 该会员持买单量变化量  |
-| short_party_name        | str    | 持卖单量排名的会员简称 |
-| short_open_interest     | str    | 该会员持卖单量     |
-| short_open_interest_chg | str    | 该会员持卖单量变化量  |
-| symbol                  | str    | 合约代码        |
-| variety                 | str    | 品种代码        |
+| 名称                      | 类型      | 描述          |
+|-------------------------|---------|-------------|
+| symbol                  | str     | 品种代码或合约代码   |
+| variety                 | str     | 品种代码        |
+| rank                    | object  | 名次          |
+| vol_party_name          | str     | 成交量排名的会员简称  |
+| vol                     | int64   | 该会员成交量      |
+| vol_chg                 | int64   | 该会员成交量变化量   |
+| long_party_name         | str     | 持买单量排名的会员简称 |
+| long_open_interest      | float64 | 该会员持买单量     |
+| long_open_interest_chg  | float64 | 该会员持买单量变化量  |
+| short_party_name        | str     | 持卖单量排名的会员简称 |
+| short_open_interest     | float64 | 该会员持卖单量     |
+| short_open_interest_chg | float64 | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_rank_table_czce_dict = ak.futures_rank_table_czce(date="20261113")
-print(futures_rank_table_czce_dict)
+futures_rank_table_czce_df = ak.futures_rank_table_czce(date="20261113")
+print(futures_rank_table_czce_df)
 ```
 
-数据示例（共 128 个键，以下为键 AP 对应的数据）
+数据示例
 
 ```
-   rank vol_party_name     vol  ... short_open_interest_chg symbol variety
-0     1       中信期货（代客）  92,513  ...                   1,123     AP      AP
-1     2       国泰君安（代客）  79,936  ...                   1,405     AP      AP
-2     3       东证期货（代客）  64,458  ...                  -1,612     AP      AP
-3     4       海通期货（代客）  36,622  ...                    -252     AP      AP
-4     5       东方财富（代客）  29,403  ...                  -1,906     AP      AP
-..    ...
-15   16       国信期货（代客）  10,499  ...                    -411     AP      AP
-16   17       申银万国（代客）  10,415  ...                     407     AP      AP
-17   18       宏源期货（代客）  10,279  ...                     -92     AP      AP
-18   19       五矿期货（代客）   9,136  ...                     -30     AP      AP
-19   20       东吴期货（代客）   8,966  ...                     337     AP      AP
-[20 rows x 12 columns]
+     symbol variety  ...  short_open_interest  short_open_interest_chg
+0        AP      AP  ...              17631.0                   1123.0
+1        AP      AP  ...              15881.0                   1405.0
+2        AP      AP  ...              14561.0                  -1612.0
+3        AP      AP  ...              10179.0                   -252.0
+4        AP      AP  ...               9015.0                  -1906.0
+...     ...     ...  ...                  ...                      ...
+2555  UR705      UR  ...                964.0                    -91.0
+2556  UR705      UR  ...                947.0                     30.0
+2557  UR705      UR  ...                910.0                     14.0
+2558  UR705      UR  ...                904.0                      0.0
+2559  UR705      UR  ...                707.0                   -193.0
+[2560 rows x 12 columns]
 ```
 
 (futures_rank_table_shfe)=
@@ -1753,7 +1665,7 @@ print(futures_rank_table_czce_dict)
 
 描述：上海期货交易所会员成交及持仓排名表；只公布合约排名
 
-限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典；数据从 20020107 开始
+限量：单次返回指定交易日指定品种的排名明细，每行是一个合约的一个名次；数据从 20020107 开始
 
 输入参数
 
@@ -1767,41 +1679,43 @@ print(futures_rank_table_czce_dict)
 | 名称                      | 类型      | 描述          |
 |-------------------------|---------|-------------|
 | symbol                  | str     | 合约代码        |
-| short_party_name        | str     | 持卖单量排名的会员简称 |
-| long_party_name         | str     | 持买单量排名的会员简称 |
+| variety                 | str     | 品种代码        |
 | rank                    | int64   | 名次          |
 | vol_party_name          | str     | 成交量排名的会员简称  |
-| long_open_interest      | float64 | 该会员持买单量     |
 | vol                     | float64 | 该会员成交量      |
 | vol_chg                 | float64 | 该会员成交量变化量   |
-| short_open_interest_chg | float64 | 该会员持卖单量变化量  |
-| short_open_interest     | float64 | 该会员持卖单量     |
+| long_party_name         | str     | 持买单量排名的会员简称 |
+| long_open_interest      | float64 | 该会员持买单量     |
 | long_open_interest_chg  | float64 | 该会员持买单量变化量  |
-| variety                 | str     | 品种代码        |
+| short_party_name        | str     | 持卖单量排名的会员简称 |
+| short_open_interest     | float64 | 该会员持卖单量     |
+| short_open_interest_chg | float64 | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_rank_table_shfe_dict = ak.futures_rank_table_shfe(date="20261113", symbols="RB")
-print(futures_rank_table_shfe_dict)
+futures_rank_table_shfe_df = ak.futures_rank_table_shfe(date="20261113", symbols="RB")
+print(futures_rank_table_shfe_df)
 ```
 
-数据示例（共 4 个键，以下为键 rb2611 对应的数据）
+数据示例
 
 ```
-   symbol short_party_name  ...  long_open_interest_chg variety
-0  RB2611             中泰期货  ...                     0.0      RB
-1  RB2611             光大期货  ...                     0.0      RB
-2  RB2611             物产中大  ...                     0.0      RB
-3  RB2611             中信期货  ...                     NaN      RB
-4  RB2611             东证期货  ...                     NaN      RB
-5  RB2611             一德期货  ...                     NaN      RB
-6  RB2611             上海中期  ...                     NaN      RB
-7  RB2611             国泰君安  ...                     NaN      RB
-8  RB2611              NaN  ...                     0.0      RB
-[9 rows x 12 columns]
+    symbol variety  ...  short_open_interest  short_open_interest_chg
+0   RB2611      RB  ...                360.0                      0.0
+1   RB2611      RB  ...                240.0                      0.0
+2   RB2611      RB  ...                240.0                      0.0
+3   RB2611      RB  ...                240.0                      0.0
+4   RB2611      RB  ...                240.0                      0.0
+..     ...     ...  ...                  ...                      ...
+67  RB2705      RB  ...               9187.0                    -64.0
+68  RB2705      RB  ...               8642.0                   1532.0
+69  RB2705      RB  ...               8284.0                   1965.0
+70  RB2705      RB  ...               7852.0                     43.0
+71  RB2705      RB  ...             407616.0                  20575.0
+[72 rows x 12 columns]
 ```
 
 (futures_rank_table_dce)=
@@ -1813,7 +1727,7 @@ print(futures_rank_table_shfe_dict)
 
 描述：大连商品交易所前 20 名会员的成交量、持买单量、持卖单量排名明细；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
 
-限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典
+限量：单次返回指定交易日指定品种的排名明细，每行是一个合约的一个名次
 
 输入参数
 
@@ -1824,28 +1738,28 @@ print(futures_rank_table_shfe_dict)
 
 输出参数
 
-| 名称                      | 类型     | 描述          |
-|-------------------------|--------|-------------|
-| long_open_interest      | int64  | 该会员持买单量     |
-| long_open_interest_chg  | int64  | 该会员持买单量变化量  |
-| long_party_name         | object | 持买单量排名的会员简称 |
-| rank                    | int64  | 名次          |
-| short_open_interest     | int64  | 该会员持卖单量     |
-| short_open_interest_chg | int64  | 该会员持卖单量变化量  |
-| short_party_name        | object | 持卖单量排名的会员简称 |
-| symbol                  | str    | 合约代码        |
-| vol                     | int64  | 该会员成交量      |
-| vol_chg                 | int64  | 该会员成交量变化量   |
-| vol_party_name          | object | 成交量排名的会员简称  |
-| variety                 | str    | 品种代码        |
+| 名称                      | 类型    | 描述          |
+|-------------------------|-------|-------------|
+| symbol                  | str   | 合约代码        |
+| variety                 | str   | 品种代码        |
+| rank                    | int64 | 名次          |
+| vol_party_name          | str   | 成交量排名的会员简称  |
+| vol                     | int64 | 该会员成交量      |
+| vol_chg                 | int64 | 该会员成交量变化量   |
+| long_party_name         | str   | 持买单量排名的会员简称 |
+| long_open_interest      | int64 | 该会员持买单量     |
+| long_open_interest_chg  | int64 | 该会员持买单量变化量  |
+| short_party_name        | str   | 持卖单量排名的会员简称 |
+| short_open_interest     | int64 | 该会员持卖单量     |
+| short_open_interest_chg | int64 | 该会员持卖单量变化量  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_rank_table_dce_dict = ak.futures_rank_table_dce(date="20230706", symbols="M")
-print(futures_rank_table_dce_dict)
+futures_rank_table_dce_df = ak.futures_rank_table_dce(date="20230706", symbols="M")
+print(futures_rank_table_dce_df)
 ```
 
 数据示例
@@ -1903,7 +1817,7 @@ print(futures_position_rank_other_dce_list)
 
 描述：郑州商品交易所-交易数据-仓单日报
 
-限量：单次返回当前交易日的所有仓单日报数据
+限量：单次返回指定交易日全部品种的仓单日报；各品种公布的栏目不同，返回各品种栏目的并集，某品种没有的栏目为空值
 
 输入参数
 
@@ -1913,75 +1827,42 @@ print(futures_position_rank_other_dce_list)
 
 输出参数
 
-| 名称    | 类型   | 描述                                     |
-|-------|------|----------------------------------------|
-| 键值对字典 | dict | 键值对，键为品种代码，值为 pandas.DataFrame 格式的数据 |
+| 名称   | 类型     | 描述                                                   |
+|------|--------|------------------------------------------------------|
+| 品种   | str    | 品种代码                                                 |
+| 仓库编号 | str    | 含各品种的“小计”“总计”行                                       |
+| 仓库简称 | str    | -                                                    |
+| 仓单数量 | object | -                                                    |
+| 当日增减 | object | -                                                    |
+| 有效预报 | object | -                                                    |
+| 升贴水  | str    | -                                                    |
+| 其他栏目 | object | 年度、等级、品牌、产地、类别、提货点等约 20 个栏目，因品种而异；某品种没有的栏目为空值 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_warehouse_receipt_czce_df = ak.futures_warehouse_receipt_czce(date="20200702")
+futures_warehouse_receipt_czce_df = ak.futures_warehouse_receipt_czce(date="20261113")
 print(futures_warehouse_receipt_czce_df)
 ```
 
 数据示例
 
 ```
-{'SR':     仓库编号       仓库简称    年度   等级   品牌   仓单数量 当日增减 有效预报   升贴水
-0   0103       藁城永安   NaN  NaN  NaN      0    0  NaN   100
-1   0112       津军粮城   NaN  NaN  NaN      0    0  NaN    80
-2   0201      南京铁心桥   NaN  NaN  NaN      0    0  NaN   200
-3   0404       荣桂钦州   NaN  NaN  NaN      0    0  NaN     0
-4   0407       柳州桂糖   NaN  NaN  NaN      0    0  NaN     0
-5   0409       云南广大  1920    1   康白    180    0  NaN  -170
-6    NaN        NaN  1920    1  黎山雪     80    0  NaN   NaN
-7    NaN        NaN  1920    1  三菁山     20    0  NaN   NaN
-8    NaN        NaN  1920    1  仙人山     50    0  NaN   NaN
-9     小计        NaN   NaN  NaN  NaN    330    0    0   NaN
-10  0411       佛山华商   NaN  NaN  NaN      0    0  NaN    80
-11  0415       营口港务   NaN  NaN  NaN      0    0  NaN    50
-12  0417       中糖湖北  1920    1   绿原    407    0  NaN   240
-13   NaN        NaN  1920    1   西沁    363    0  NaN   NaN
-14    小计        NaN   NaN  NaN  NaN    770    0  230   NaN
-15  0428      郑州南阳寨  1920    1   中糖   1431    0  NaN   140
-16    小计        NaN   NaN  NaN  NaN   1431    0   79   NaN
-17  0433       荣桂来宾   NaN  NaN  NaN      0    0  NaN     0
-18  0434       广西贵港   NaN  NaN  NaN      0    0  NaN     0
-19  0435       广西弘信   NaN  NaN  NaN      0    0  NaN     0
-20  0436       营口北方   NaN  NaN  NaN      0    0  NaN    50
-21  0437  日照凌云海(厂库)  1920    1  ALL    440  -50  NaN    50
-22    小计        NaN   NaN  NaN  NaN    440  -50    0   NaN
-23  0438      广东北部湾  1920    1   甘岭   1640    0  NaN     0
-24    小计        NaN   NaN  NaN  NaN   1640    0    0   NaN
-25  0440      中粮曹妃甸   NaN  NaN  NaN      0    0  NaN    50
-26  0441       弘信扶绥   NaN  NaN  NaN      0    0  NaN     0
-27  0444       中糖南通   NaN  NaN  NaN      0    0  NaN   180
-28  0445   中粮屯河(厂库)  1920    1  ALL   5000    0  NaN    50
-29    小计        NaN   NaN  NaN  NaN   5000    0    0   NaN
-30  0447   星光糖业(厂库)   NaN  NaN  NaN      0    0  NaN   100
-31  0449       陕西咸阳  1920    1   晶菱     50    0  NaN    80
-32   NaN        NaN  1920    1   中糖   1490    0  NaN   NaN
-33    小计        NaN   NaN  NaN  NaN   1540    0    0   NaN
-34  0450       冀盛物流   NaN  NaN  NaN      0    0  NaN    50
-35  0451       中糖北京   NaN  NaN  NaN      0    0  NaN    50
-36  0452       云南陆航  1920    1  大湾江     40   40  NaN  -100
-37    小计        NaN   NaN  NaN  NaN     40   40    0   NaN
-38  0454       云鸥物流   NaN  NaN  NaN      0    0  NaN     0
-39  0508       平湖华瑞   NaN  NaN  NaN      0    0  NaN   180
-40    总计        NaN   NaN  NaN  NaN  11191  -10  309   NaN, 'CF':      仓库编号  仓库简称    年度    等级   产地   仓单数量  当日增减  有效预报
-0    0301  河南国储  1920  1128   新疆      1     0   NaN
-1     NaN   NaN  1920  1129   新疆      1     0   NaN
-2     NaN   NaN  1920  1228   新疆      7     0   NaN
-3     NaN   NaN  1920  1229   新疆      5     0   NaN
-4     NaN   NaN  1920  2127   新疆      2     0   NaN
-..    ...   ...   ...   ...  ...    ...   ...   ...
-368   NaN   NaN  1920  3129   新疆     41     0   NaN
-369   NaN   NaN  1920  3130   新疆      8     0   NaN
-370   NaN   NaN  1920  4129   新疆      5     0   NaN
-371    小计   NaN   NaN   NaN  NaN     86     0     1
-372    总计   NaN   NaN   NaN  NaN  20641  -261  2203}
+      品种  仓库编号        仓库简称    年度   等级  ... 厂库简称 仓单数量(完税) 仓单数量(保税) 提货地点   牌号
+0     SR  0103        藁城永安  2526    1  ...  NaN      NaN      NaN  NaN  NaN
+1     SR    小计         NaN   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+2     SR  0407        柳州桂糖   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+3     SR    小计         NaN   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+4     SR  0409        云南广大  2526    1  ...  NaN      NaN      NaN  NaN  NaN
+...   ..   ...         ...   ...  ...  ...  ...      ...      ...  ...  ...
+1351  PL  2714  天津澳佳永利（厂库）   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+1352  PL    小计         NaN   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+1353  PL  2715    万华蓬莱（厂库）   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+1354  PL    小计         NaN   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+1355  PL    总计         NaN   NaN  NaN  ...  NaN      NaN      NaN  NaN  NaN
+[1356 rows x 28 columns]
 ```
 
 (futures_warehouse_receipt_dce)=
@@ -2052,7 +1933,7 @@ print(futures_warehouse_receipt_dce_df)
 
 描述：提供上海期货交易所指定交割仓库期货仓单日报；2025-11-18 起交易所改为网页版日报（原数据文件不再提供），接口自动切换数据源，此后日期的 DataFrame 仅包含 VARNAME、REGNAME、WHABBRNAME、WRTWGHTS、WRTCHANGE、ROWSTATUS 六列，不再有 VARID、WHTYPE 等编码列
 
-限量：单次返回当前交易日的所有仓单日报数据
+限量：单次返回指定交易日全部品种的仓单日报；20140519 之前的日期返回交易所网页表格的原始栏目
 
 输入参数
 
@@ -2062,40 +1943,40 @@ print(futures_warehouse_receipt_dce_df)
 
 输出参数
 
-| 名称    | 类型   | 描述                                                                                                                                  |
-|-------|------|-------------------------------------------------------------------------------------------------------------------------------------|
-| 键值对字典 | dict | 键值对，键为品种名称（如 "螺纹钢仓库"、"铜"），值为 pandas.DataFrame 格式的数据；ROWSTATUS 为 "0" 表示仓库，"1" 表示合计（地区合计或同一厂库跨地区的合计），"2" 表示总计 |
+| 名称   | 类型    | 描述                    |
+|------|-------|-----------------------|
+| 品种   | str   | 品种名称                  |
+| 地区   | str   | -                     |
+| 仓库   | str   | 地区合计行为“合计”，品种总计行为“总计” |
+| 期货仓单 | int64 | 注意单位：各品种的交易单位         |
+| 增减   | int64 | -                     |
+| 行类型  | str   | 明细、合计（地区）或总计（品种）      |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_warehouse_receipt_shfe_df = ak.futures_warehouse_receipt_shfe(date="20260924")
-print(futures_warehouse_receipt_shfe_df["螺纹钢仓库"])
+futures_warehouse_receipt_shfe_df = ak.futures_warehouse_receipt_shfe(date="20261113")
+print(futures_warehouse_receipt_shfe_df)
 ```
 
 数据示例
 
 ```
-   VARNAME REGNAME WHABBRNAME  WRTWGHTS  WRTCHANGE ROWSTATUS
-0    螺纹钢仓库      上海     上港物流共青         0          0         0
-1    螺纹钢仓库      广东       五矿东莞         0          0         0
-2    螺纹钢仓库      广东       广物物流         0          0         0
-3    螺纹钢仓库      广东      广州港物流         0          0         0
-4    螺纹钢仓库      广东         合计         0          0         1
-5    螺纹钢仓库      江苏       中储无锡         0          0         0
-6    螺纹钢仓库      江苏        惠龙港     62420      12396         0
-7    螺纹钢仓库      江苏     中储股份南京         0          0         0
-8    螺纹钢仓库      江苏       中储南京     23393          0         0
-9    螺纹钢仓库      江苏       玖隆物流         0          0         0
-10   螺纹钢仓库      江苏         合计     85813      12396         1
-11   螺纹钢仓库      浙江       中拓湖州         0          0         0
-12   螺纹钢仓库      天津     中储股份陆通         0          0         0
-13   螺纹钢仓库      天津       中储塘沽         0          0         0
-14   螺纹钢仓库      天津       中储陆通         0          0         0
-15   螺纹钢仓库      天津         合计         0          0         1
-16   螺纹钢仓库                 总计     85813      12396         2
+        品种  地区     仓库  期货仓单   增减 行类型
+0        铜  上海   国储天威     0    0  明细
+1        铜  上海  国储外高桥     0    0  明细
+2        铜  上海   中储吴淞   374 -174  明细
+3        铜  上海   裕强闵行    25    0  明细
+4        铜  上海   中储大场   150    0  明细
+..     ...  ..    ...   ...  ...  ..
+529  铜(BC)  广东  亨睿保广州     0    0  明细
+530  铜(BC)  广东   炬申广州   302    0  明细
+531  铜(BC)  广东  世天威广州   275    0  明细
+532  铜(BC)  广东     合计   577    0  合计
+533  铜(BC)         总计  1154    0  总计
+[534 rows x 6 columns]
 ```
 
 (futures_warehouse_receipt_gfex)=
@@ -2107,7 +1988,7 @@ print(futures_warehouse_receipt_shfe_df["螺纹钢仓库"])
 
 描述：广州期货交易所-行情数据-仓单日报
 
-限量：单次返回当前交易日的所有仓单日报数据
+限量：单次返回指定交易日全部品种的仓单日报
 
 输入参数
 
@@ -2117,63 +1998,39 @@ print(futures_warehouse_receipt_shfe_df["螺纹钢仓库"])
 
 输出参数
 
-| 名称    | 类型   | 描述                                     |
-|-------|------|----------------------------------------|
-| 键值对字典 | dict | 键值对，键为品种代码，值为 pandas.DataFrame 格式的数据 |
+| 名称    | 类型    | 描述   |
+|-------|-------|------|
+| 品种    | str   | 品种名称 |
+| 仓库/分库 | str   | -    |
+| 昨日仓单量 | int64 | -    |
+| 今日仓单量 | int64 | -    |
+| 增减    | int64 | -    |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_warehouse_receipt_gfex_df = ak.futures_warehouse_receipt_gfex(date="20240122")
+futures_warehouse_receipt_gfex_df = ak.futures_warehouse_receipt_gfex(date="20261113")
 print(futures_warehouse_receipt_gfex_df)
 ```
 
 数据示例
 
 ```
-{'LC':      品种       仓库/分库  昨日仓单量  今日仓单量   增减
-0   碳酸锂      象屿速传上海   1954   2054  100
-1   碳酸锂       外运龙泉驿    561    561    0
-2   碳酸锂        中储临港    120    120    0
-3   碳酸锂        建发上海    619    665   46
-4   碳酸锂      中远海运镇江   1161   1151  -10
-5   碳酸锂        五矿无锡   1346   1346    0
-6   碳酸锂      江苏奔牛港务     67     67    0
-7   碳酸锂        遂宁天诚     87     87    0
-8   碳酸锂  九岭锂业（宜春奉新）   1500   1500    0
-9   碳酸锂        永兴特钢    280    280    0
-10  碳酸锂    盛新锂能（遂宁）    970    970    0
-11  碳酸锂      中远海运南昌   3389   3399   10
-12  碳酸锂  九岭锂业（宜春宜丰）   1500   1500    0, 'SI':      品种         仓库/分库  昨日仓单量  今日仓单量   增减
-0   工业硅          中储吴淞    696    696    0
-1   工业硅       中储大场137    732    732    0
-2   工业硅       中储大场310   3192   3204   12
-3   工业硅        中远海运宝山    828    828    0
-4   工业硅        象屿速传上海   3144   3144    0
-5   工业硅          中储无锡    240    240    0
-6   工业硅       中物流（常州）   2870   2906   36
-7   工业硅         尖峰供应链    958   1210  252
-8   工业硅    广州港物流（已取消）    204    204    0
-9   工业硅         国储830   2483   2483    0
-10  工业硅     建发东莞（已取消）   2096   2096    0
-11  工业硅          广东炬申   1116   1116    0
-12  工业硅        中储成都天一   1330   1330    0
-13  工业硅       中物流（四川）    500    500    0
-14  工业硅          外运新都   1297   1297    0
-15  工业硅         外运龙泉驿   1284   1320   36
-16  工业硅          中储新港   1632   1668   36
-17  工业硅        外运天津滨海   1116   1164   48
-18  工业硅        中远海运滨海    952    952    0
-19  工业硅        建发天津滨海   1968   2004   36
-20  工业硅          外运昆明   3383   3323  -60
-21  工业硅         青岛港物流   2924   2924    0
-22  工业硅   国贸泰达昆明（已取消）    648    828  180
-23  工业硅          云铝物流   4741   4729  -12
-24  工业硅   厦门国贸（青岛港物流）   1200   1200    0
-25  工业硅    厦门国贸（国贸泰达）    840    840    0
-26  工业硅  厦门国贸（外运天津滨海）    660    660    0}
+     品种           仓库/分库  昨日仓单量  今日仓单量   增减
+0   碳酸锂          象屿速传上海    774    774    0
+1   碳酸锂           外运龙泉驿   2997   2354 -643
+2   碳酸锂            中储临港     90     90    0
+3   碳酸锂            建发上海    330    330    0
+4   碳酸锂          中远海运临港    170    170    0
+..  ...             ...    ...    ...  ...
+82  工业硅  国贸有色矿产（外运天津滨海）    300    300    0
+83  工业硅  国贸有色矿产（中远海运滨海）    300    300    0
+84  工业硅     浙江四邦（青岛港物流）    600    600    0
+85  工业硅      浙江四邦（外运昆明）    300    300    0
+86  工业硅      浙商中拓（外运昆明）    450    450    0
+[87 rows x 5 columns]
 ```
 
 (futures_to_spot_dce)=
