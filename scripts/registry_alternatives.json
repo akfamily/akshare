@@ -19,7 +19,8 @@
     ["stock_board_concept_hist_em", "stock_board_concept_index_ths"],
     ["stock_fund_flow_individual_rank_em", "stock_fund_flow_individual_ths"],
     ["futures_hist_em", "futures_zh_daily_sina"],
-    ["futures_global_hist_em", "futures_foreign_hist_sina"]
+    ["futures_global_hist_em", "futures_foreign_hist_sina"],
+    ["stock_margin_sse", "stock_margin_sse_js"]
   ],
   "one_way": {
     "stock_sh_a_spot_em": ["stock_zh_a_spot_sina"],

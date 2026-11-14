@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-49)=
+### 1.20.49 feat: register stock_margin_sse and stock_margin_sse_js as equivalent interfaces
+
+1. 同类接口对照表新增一组：stock_margin_sse（上海证券交易所）与 stock_margin_sse_js（金十数据）。两者都是上交所融资融券汇总数据，实测列的含义与单位一致、数值相同；`ak.interface_info` 的 alternatives 字段和 AKTools 的 MCP 服务会把它们互相列为备选
+2. 1.20.48 中调整了类目的其余接口逐一比对了描述与输出列，没有可以互相替代的：深交所的 stock_margin_szse 以亿元为单位、只返回单日数据，stock_margin_szse_js 以元为单位且不含融券卖出量与融券余量，不登记；Shibor、Hibor、LPR、上金所报告、CFTC 持仓、财新 PMI 等与现有接口的口径或字段都不相同
+
 (v1-20-48)=
 ### 1.20.48 fix!: merge small categories and move 45 interfaces to the category they belong to
 
