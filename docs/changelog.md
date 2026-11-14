@@ -8,6 +8,12 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-60)=
+### 1.20.60 fix: fix index_hist_csindex interface
+
+1. 修复 index_hist_csindex（1.20.44 之前名为 stock_zh_index_hist_csindex）在查询区间内没有数据时报 `ValueError: Length mismatch: Expected axis has 0 elements, new values have 16 elements` 的问题，现在返回带列名的空表（[#7501](https://github.com/akfamily/akshare/issues/7501)）。中证指数网站的这份数据通常滞后一到两个交易日，只查询最近一个交易日时常常没有数据，可改为查询一段区间后取最后一行
+2. 该接口改为按上游字段名映射列名，上游增加字段时不再错列；end_date 的默认值改为近期日期
+
 (v1-20-59)=
 ### 1.20.59 docs: sync the MCP pages with AKTools 0.1.9
 

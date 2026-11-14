@@ -14,7 +14,7 @@ from akshare.utils import http
 def index_hist_csindex(
     symbol: str = "000928",
     start_date: str = "20180526",
-    end_date: str = "20240604",
+    end_date: str = "20261111",
 ) -> pd.DataFrame:
     """
     中证指数-具体指数-历史行情数据
@@ -37,25 +37,29 @@ def index_hist_csindex(
     }
     r = http.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = [
-        "日期",
-        "指数代码",
-        "指数中文全称",
-        "指数中文简称",
-        "指数英文全称",
-        "指数英文简称",
-        "开盘",
-        "最高",
-        "最低",
-        "收盘",
-        "涨跌",
-        "涨跌幅",
-        "成交量",
-        "成交金额",
-        "样本数量",
-        "滚动市盈率",
-    ]
+    columns = {
+        "tradeDate": "日期",
+        "indexCode": "指数代码",
+        "indexNameCnAll": "指数中文全称",
+        "indexNameCn": "指数中文简称",
+        "indexNameEnAll": "指数英文全称",
+        "indexNameEn": "指数英文简称",
+        "open": "开盘",
+        "high": "最高",
+        "low": "最低",
+        "close": "收盘",
+        "change": "涨跌",
+        "changePct": "涨跌幅",
+        "tradingVol": "成交量",
+        "tradingValue": "成交金额",
+        "consNumber": "样本数量",
+        "peg": "滚动市盈率",
+    }
+    if not data_json["data"]:
+        # 查询区间内没有数据：非交易日，或中证指数网站尚未发布（通常滞后一到两个交易日）
+        return pd.DataFrame(columns=list(columns.values()))
+    temp_df = pd.DataFrame(data_json["data"]).rename(columns=columns)
+    temp_df = temp_df[list(columns.values())]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")

@@ -64,7 +64,7 @@
  "akshare/index/index_spot.py": 1,
  "akshare/index/index_stock_hk.py": 2,
  "akshare/index/index_stock_zh.py": 2,
- "akshare/index/index_stock_zh_csindex.py": 2,
+ "akshare/index/index_stock_zh_csindex.py": 1,
  "akshare/index/index_sw.py": 3,
  "akshare/index/index_zh_em.py": 3,
  "akshare/interest_rate/interest_rate_interbank_em.py": 1,

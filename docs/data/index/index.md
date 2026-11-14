@@ -2213,7 +2213,7 @@ print(index_stock_cons_weight_csindex_df)
 
 描述：中证指数日频率的数据
 
-限量：该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据
+限量：该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据；中证指数网站的数据通常滞后一到两个交易日，查询区间内没有数据时返回空表
 
 输入参数
 
