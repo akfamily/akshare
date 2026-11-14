@@ -39,10 +39,10 @@ def futures_contract_detail(symbol: str = "AP2101") -> pd.DataFrame:
     return temp_df
 
 
-def futures_contract_detail_em(symbol: str = "v2602F") -> pd.DataFrame:
+def futures_contract_detail_em(symbol: str = "v2701F") -> pd.DataFrame:
     """
     查询期货合约详情
-    https://quote.eastmoney.com/qihuo/v2602F.html
+    https://quote.eastmoney.com/qihuo/v2701F.html
     :param symbol: 合约
     :type symbol: str
     :return: 期货合约详情

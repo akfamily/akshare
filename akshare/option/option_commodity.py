@@ -560,27 +560,27 @@ def option_hist_gfex(
             "volumn": "成交量",
         },
     )
-    temp_df = temp_df[
-        [
-            "商品名称",
-            "合约名称",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "收盘价",
-            "前结算价",
-            "结算价",
-            "涨跌",
-            "涨跌1",
-            "Delta",
-            "成交量",
-            "持仓量",
-            "持仓量变化",
-            "成交额",
-            "行权量",
-            "隐含波动率",
-        ]
+    columns = [
+        "商品名称",
+        "合约名称",
+        "开盘价",
+        "最高价",
+        "最低价",
+        "收盘价",
+        "前结算价",
+        "结算价",
+        "涨跌",
+        "涨跌1",
+        "Delta",
+        "成交量",
+        "持仓量",
+        "持仓量变化",
+        "成交额",
+        "行权量",
+        "隐含波动率",
     ]
+    # 广期所已不再返回隐含波动率，上游没有该字段时不输出这一列
+    temp_df = temp_df[[item for item in columns if item in temp_df.columns]]
     temp_df = temp_df[temp_df["商品名称"].str.contains(symbol)]
     temp_df = temp_df.reset_index(drop=True)
     return temp_df

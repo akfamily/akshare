@@ -11,7 +11,7 @@ from akshare.futures.cons import futures_inventory_em_symbol_dict
 from akshare.utils import http
 
 
-def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
+def futures_inventory_em(symbol: str = "A") -> pd.DataFrame:
     """
     东方财富网-数据中心-期货库存数据
     https://data.eastmoney.com/ifdata/kcsj.html
@@ -36,8 +36,9 @@ def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
     symbol_dict = dict(zip(temp_df["TRADE_TYPE"], temp_df["TRADE_CODE"]))
     if symbol in symbol_dict.keys():
         product_id = symbol_dict[symbol]
-    elif symbol in futures_inventory_em_symbol_dict.keys():  # 如果输入的是代码
-        product_id = futures_inventory_em_symbol_dict[symbol]
+    elif symbol.lower() in futures_inventory_em_symbol_dict.keys():
+        # 输入的是品种代码，不区分大小写
+        product_id = futures_inventory_em_symbol_dict[symbol.lower()]
     else:
         raise ValueError(f"请输入正确的 symbol, 可选项为: {symbol_dict}")
     params = {
@@ -65,5 +66,5 @@ def futures_inventory_em(symbol: str = "a") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_inventory_em_df = futures_inventory_em(symbol="a")
+    futures_inventory_em_df = futures_inventory_em(symbol="A")
     print(futures_inventory_em_df)

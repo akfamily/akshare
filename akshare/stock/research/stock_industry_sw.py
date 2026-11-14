@@ -10,7 +10,7 @@ import io
 
 import pandas as pd
 
-from akshare.utils import http
+from akshare.index.index_research_sw import _sw_session
 from akshare.utils.cons import headers
 
 
@@ -22,7 +22,7 @@ def stock_industry_clf_hist_sw() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls"  # 此处为 https
-    r = http.get(url, headers=headers)
+    r = _sw_session().get(url, headers=headers)
     temp_df = pd.read_excel(
         io.BytesIO(r.content), dtype={"股票代码": "str", "行业代码": "str"}
     )

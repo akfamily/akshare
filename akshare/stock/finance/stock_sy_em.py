@@ -12,8 +12,24 @@ Desc: 东方财富网-数据中心-特色数据-商誉
 
 import pandas as pd
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
+
+
+def _check_result(data_json: dict, date: str) -> None:
+    """
+    东方财富没有返回数据时抛出明确的错误
+    :param data_json: 上游返回的内容
+    :type data_json: dict
+    :param date: 查询的报告期
+    :type date: str
+    """
+    if not data_json.get("result"):
+        raise InvalidParameterError(
+            f"东方财富没有 {date} 的商誉数据（上游提示：{data_json.get('message')}），"
+            "请检查报告期是否为季末日期，过早或尚未披露的报告期没有数据"
+        )
 
 
 def stock_sy_profile_em() -> pd.DataFrame:
@@ -81,7 +97,7 @@ def stock_sy_profile_em() -> pd.DataFrame:
     return data_df
 
 
-def stock_sy_yq_em(date: str = "20240630") -> pd.DataFrame:
+def stock_sy_yq_em(date: str = "20251231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-商誉减值预期明细
     https://data.eastmoney.com/sy/yqlist.html
@@ -104,6 +120,7 @@ def stock_sy_yq_em(date: str = "20240630") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
+    _check_result(data_json, date)
     total_page = int(data_json["result"]["pages"])
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -189,7 +206,7 @@ def stock_sy_yq_em(date: str = "20240630") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_jz_em(date: str = "20240630") -> pd.DataFrame:
+def stock_sy_jz_em(date: str = "20251231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉减值明细
     https://data.eastmoney.com/sy/jzlist.html
@@ -212,6 +229,7 @@ def stock_sy_jz_em(date: str = "20240630") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
+    _check_result(data_json, date)
     total_page = int(data_json["result"]["pages"])
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -289,7 +307,7 @@ def stock_sy_jz_em(date: str = "20240630") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
+def stock_sy_em(date: str = "20251231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉明细
     https://data.eastmoney.com/sy/list.html
@@ -312,6 +330,7 @@ def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
+    _check_result(data_json, date)
     total_page = int(data_json["result"]["pages"])
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -380,7 +399,7 @@ def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_hy_em(date: str = "20240930") -> pd.DataFrame:
+def stock_sy_hy_em(date: str = "20251231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-行业商誉
     https://data.eastmoney.com/sy/hylist.html
@@ -403,6 +422,7 @@ def stock_sy_hy_em(date: str = "20240930") -> pd.DataFrame:
     r = http.get(url, params=params)
     data_json = r.json()
     big_df = pd.DataFrame()
+    _check_result(data_json, date)
     total_page = int(data_json["result"]["pages"])
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):

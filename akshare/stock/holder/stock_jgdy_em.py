@@ -11,10 +11,11 @@ http://data.eastmoney.com/jgdy/
 import pandas as pd
 from tqdm import tqdm
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
-def stock_jgdy_tj_em(date: str = "20220101") -> pd.DataFrame:
+def stock_jgdy_tj_em(date: str = "20261101") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研统计
     https://data.eastmoney.com/jgdy/tj.html
@@ -38,6 +39,11 @@ def stock_jgdy_tj_em(date: str = "20220101") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_json = r.json()
+    if not data_json.get("result"):
+        raise InvalidParameterError(
+            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{data_json.get('message')}），"
+            "上游只保留近期的数据，请改用更近的日期"
+        )
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -106,7 +112,7 @@ def stock_jgdy_tj_em(date: str = "20220101") -> pd.DataFrame:
     return big_df
 
 
-def stock_jgdy_detail_em(date: str = "20241211") -> pd.DataFrame:
+def stock_jgdy_detail_em(date: str = "20261112") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研详细
     https://data.eastmoney.com/jgdy/xx.html
@@ -132,6 +138,11 @@ def stock_jgdy_detail_em(date: str = "20241211") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_json = r.json()
+    if not data_json.get("result"):
+        raise InvalidParameterError(
+            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{data_json.get('message')}），"
+            "上游只保留近期的数据，请改用更近的日期"
+        )
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):

@@ -7,6 +7,7 @@ https://fund.szse.cn/marketdata/fundslist/index.html
 """
 
 import warnings
+from io import BytesIO
 
 import pandas as pd
 
@@ -35,7 +36,9 @@ def fund_etf_scale_szse() -> pd.DataFrame:
     r = http.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(r.content, engine="openpyxl", dtype={"基金代码": str})
+        temp_df = pd.read_excel(
+            BytesIO(r.content), engine="openpyxl", dtype={"基金代码": str}
+        )
     temp_df = temp_df.rename(
         columns={
             "当前规模(份)": "基金份额",

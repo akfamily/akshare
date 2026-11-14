@@ -8,6 +8,19 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-51)=
+### 1.20.51 fix: fix 17 interfaces found broken by a full run of the documented examples
+
+对全部接口按文档示例做了一次实测（848 个，不含东方财富 push2、大连商品交易所、基金业协会与需要密钥的接口），本版本修复其中原因明确的一批：
+
+1. 修复 fund_etf_scale_szse、stock_sgt_reference_exchange_rate_szse、stock_sgt_settlement_exchange_rate_szse 报 `TypeError: Expected file path name or file-like object, got <class 'bytes'> type` 的问题：新版 pandas 的 read_excel 不再接受字节串
+2. 修复 futures_to_spot_shfe、futures_delivery_shfe 连接失败的问题：上海期货交易所的旧域名 tsite.shfe.com.cn 已无法解析，改用 www.shfe.com.cn 下的新地址；新地址返回的字段顺序与原来不同，改为按字段名映射列名；默认月份与文档示例改为近期月份
+3. 修复 option_hist_gfex 报 `KeyError: "['隐含波动率'] not in index"` 的问题：广州期货交易所已不再返回隐含波动率，该列随之取消，其余 16 列不变
+4. 修复 stock_industry_clf_hist_sw 报 `SSLError` 的问题：申万宏源研究所的服务器不发送中间证书，该接口此前没有使用申万其他接口共用的会话
+5. stock_sy_em、stock_sy_hy_em、stock_sy_jz_em、stock_sy_yq_em（商誉）与 stock_jgdy_detail_em、stock_jgdy_tj_em（机构调研）：东方财富只保留近期的数据，原默认日期与文档示例已查不到，报 `TypeError: 'NoneType' object is not subscriptable`。默认日期与示例改为近期日期；查不到数据时抛出 InvalidParameterError 并给出上游的提示
+6. stock_intraday_sina、option_sse_codes_sina、futures_contract_detail_em 的文档示例使用了已过期的日期、到期月份或合约，按示例调用会报错，已换成可用的参数并更新数据示例；futures_contract_detail_em 的默认合约改为 v2701F。futures_inventory_em 此前只接受小写的品种代码，文档示例的 `symbol="A"` 会报 `ValueError`，现在品种代码不区分大小写
+7. 实测中另有约 20 个接口因上游改版或下线而报错，尚在逐个排查，将在后续版本修复或移除
+
 (v1-20-50)=
 ### 1.20.50 docs: sync the MCP pages with AKTools 0.1.8
 

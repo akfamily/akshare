@@ -10,6 +10,7 @@ Desc: 参考汇率和结算汇率
 
 import warnings
 from datetime import datetime
+from io import BytesIO
 
 import pandas as pd
 
@@ -33,7 +34,7 @@ def stock_sgt_settlement_exchange_rate_szse() -> pd.DataFrame:
     r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(r.content, engine="openpyxl")
+        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["买入结算汇兑比率"] = pd.to_numeric(
@@ -62,7 +63,7 @@ def stock_sgt_reference_exchange_rate_szse() -> pd.DataFrame:
     r = http.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(r.content, engine="openpyxl")
+        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     temp_df = temp_df.sort_values(by="适用日期", ignore_index=True)
     temp_df["适用日期"] = pd.to_datetime(temp_df["适用日期"], errors="coerce").dt.date
     temp_df["参考汇率买入价"] = pd.to_numeric(

@@ -12,10 +12,10 @@ import pandas as pd
 from akshare.utils import http
 
 
-def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
+def futures_to_spot_shfe(date: str = "202610") -> pd.DataFrame:
     """
     上海期货交易所-期转现
-    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://www.shfe.com.cn/reports/tradedata/monthlyandannualdata/
     1、铜、铜(BC)、铝、锌、铅、镍、锡、螺纹钢、线材、热轧卷板、天然橡胶、20号胶、低硫燃料油、燃料油、石油沥青、纸浆、不锈钢的数量单位为：吨；黄金的数量单位为：克；白银的数量单位为：千克；原油的数量单位为：桶。
     2、交割量、期转现量为单向计算。
     :param date: 年月
@@ -23,7 +23,7 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     :return: 上海期货交易所期转现
     :rtype: pandas.DataFrame
     """
-    url = f"https://tsite.shfe.com.cn/data/instrument/ExchangeDelivery{date}.dat"
+    url = f"https://www.shfe.com.cn/data/tradedata/future/monthdata/ExchangeDelivery{date}.dat"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/100.0.4896.127 Safari/537.36",
@@ -31,16 +31,14 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     r = http.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["ExchangeDelivery"])
-    temp_df.columns = [
-        "_",
-        "日期",
-        "交割量",
-        "_",
-        "期转现量",
-        "合约",
-        "_",
-        "_",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "DELIVERYDAY": "日期",
+            "INSTRUMENTID": "合约",
+            "DELIVERYVOLUME": "交割量",
+            "EXCHANGE_DELIVERYVOLUME": "期转现量",
+        }
+    )
     temp_df = temp_df[
         [
             "日期",
@@ -55,7 +53,7 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     return temp_df
 
 
-def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
+def futures_delivery_dce(date: str = "202610") -> pd.DataFrame:
     """
     大连商品交易所-交割统计
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
@@ -95,7 +93,7 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
     return temp_df
 
 
-def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
+def futures_to_spot_dce(date: str = "202610") -> pd.DataFrame:
     """
     大连商品交易所-期转现
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
@@ -267,17 +265,17 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     return temp_df
 
 
-def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
+def futures_delivery_shfe(date: str = "202610") -> pd.DataFrame:
     """
     上海期货交易所-交割情况表
-    https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
+    https://www.shfe.com.cn/reports/tradedata/monthlyandannualdata/
     注意：日期 -> 月度统计 -> 下拉到交割情况表
     :param date: 年月日
     :type date: str
     :return: 上海期货交易所-交割情况表
     :rtype: pandas.DataFrame
     """
-    url = f"https://tsite.shfe.com.cn/data/dailydata/{date}monthvarietystatistics.dat"
+    url = f"https://www.shfe.com.cn/data/tradedata/future/monthdata/{date}monthvarietystatistics.dat"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/100.0.4896.127 Safari/537.36",
@@ -286,15 +284,15 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
     r.encoding = "utf-8"
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["o_curdelivery"])
-    temp_df.columns = [
-        "品种",
-        "品种代码",
-        "_",
-        "交割量-本月",
-        "交割量-比重",
-        "交割量-本年累计",
-        "交割量-累计同比",
-    ]
+    temp_df = temp_df.rename(
+        columns={
+            "PRODUCTNAME": "品种",
+            "DELIVERYVOLUME": "交割量-本月",
+            "ACCOUNTS": "交割量-比重",
+            "YEARDELIVERYVOLUME": "交割量-本年累计",
+            "YOYCHANGE": "交割量-累计同比",
+        }
+    )
     temp_df = temp_df[
         [
             "品种",
