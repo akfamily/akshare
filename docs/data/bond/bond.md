@@ -562,10 +562,10 @@ print(bond_zh_hs_realtime_sina_df)
 [400 rows x 13 columns]
 ```
 
-(bond_zh_hs_daily)=
+(bond_zh_hs_daily_sina)=
 ### 历史行情数据
 
-接口：bond_zh_hs_daily
+接口：bond_zh_hs_daily_sina
 
 目标地址：https://money.finance.sina.com.cn/bond/quotes/sh019315.html
 
@@ -595,8 +595,8 @@ print(bond_zh_hs_realtime_sina_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_daily_df = ak.bond_zh_hs_daily(symbol="sh010107")
-print(bond_zh_hs_daily_df)
+bond_zh_hs_daily_sina_df = ak.bond_zh_hs_daily_sina(symbol="sh010107")
+print(bond_zh_hs_daily_sina_df)
 ```
 
 数据示例

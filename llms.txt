@@ -59,7 +59,7 @@ It exposes three generic tools rather than one tool per interface:
   of date-ascending data.
 
 The same data often has several sources (A-share daily bars:
-`stock_zh_a_hist` from Eastmoney, `stock_zh_a_daily` from Sina,
+`stock_zh_a_hist_em` from Eastmoney, `stock_zh_a_daily_sina` from Sina,
 `stock_zh_a_hist_tx` from Tencent). Interfaces with `rate_limit:
 "eastmoney_push2"` (source `东方财富·行情（频繁访问易限流）`, about 100
 quote, K-line, board and fund-flow interfaces) hit Eastmoney's push2 quote
@@ -136,8 +136,8 @@ names without manually grepping through `docs/data/`:
   input parameters, output columns, an example snippet, and `rate_limit`
   (`"eastmoney_push2"` for interfaces on Eastmoney's IP-banning push2 quote
   servers, else `None`; since 1.20.37) and `alternatives` (hand-curated
-  names of same-data interfaces from other sources, e.g. `stock_zh_a_hist`
-  -> `stock_zh_a_daily`, `stock_zh_a_hist_tx`; since 1.20.39). Switch to an
+  names of same-data interfaces from other sources, e.g. `stock_zh_a_hist_em`
+  -> `stock_zh_a_daily_sina`, `stock_zh_a_hist_tx`; since 1.20.39). Switch to an
   alternative when a source is rate-limited; parameters and columns differ,
   so read its `interface_info` first.
 - `ak.list_categories()`: lists all categories with interface counts.
@@ -155,7 +155,7 @@ language intent.
 import akshare as ak
 
 ak.search("A股 历史行情")
-ak.interface_info("stock_zh_a_hist")
+ak.interface_info("stock_zh_a_hist_em")
 ```
 
 ## Core Usage Pattern
@@ -220,7 +220,7 @@ When helping users with AKShare:
   the AKTools MCP server (`uvx --from aktools aktools-mcp`) — see
   "MCP Server For AI Assistants" above.
 - Prefer documented public functions over internal helpers.
-- Prefer top-level calls such as `ak.stock_zh_a_hist(...)` instead of submodule
+- Prefer top-level calls such as `ak.stock_zh_a_hist_em(...)` instead of submodule
   imports.
 - Check `docs/data/` before guessing interface names.
 - Many interfaces depend on upstream public websites and may break when
@@ -240,7 +240,7 @@ When helping users with AKShare:
 Representative examples:
 
 - `ak.stock_zh_a_spot_em()`
-- `ak.stock_zh_a_hist(...)`
+- `ak.stock_zh_a_hist_em(...)`
 - `ak.stock_individual_info_em(...)`
 - `ak.fund_open_fund_info_em(...)`
 - `ak.futures_zh_contract_realtime_sina()`

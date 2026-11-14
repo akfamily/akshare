@@ -117,7 +117,7 @@ macOS 上的 `use_python("/Users/用户名/ak_test/.venv/bin/python")`，其中�
 library(reticulate)  # 导入 reticulate 包
 use_virtualenv("~/ak_test/.venv", required = TRUE)  # 使用 uv 创建的虚拟环境
 ak <- import("akshare")  # 类似于 import akshare as ak
-stock_df <- ak$stock_zh_a_hist()  # 类似于 ak.stock_zh_a_hist()
+stock_df <- ak$stock_zh_a_hist_em()  # 类似于 ak.stock_zh_a_hist_em()
 head(stock_df)  # 查看数据
 ```
 
@@ -176,7 +176,7 @@ pyenv
 在 MATLAB 命令行窗口输入：
 
 ```
-py.akshare.stock_zh_a_hist
+py.akshare.stock_zh_a_hist_em
 ```
 
 如返回：
@@ -279,7 +279,7 @@ ans =
 
 ```
 % 注意其中的传参方式，从左到右，依次传递参数，形参（及其‘=’）都不需要，参数必须按顺序传递
-py.akshare.stock_zh_a_hist("000001", "daily", "20170301", '20210907', "")
+py.akshare.stock_zh_a_hist_em("000001", "daily", "20170301", '20210907', "")
 ```
 
 如返回：
@@ -332,7 +332,7 @@ ans =
 % 导入 AKShare 库
 ak = py.importlib.import_module('akshare');
 % 调用 AKShare 数据接口
-temp_df = ak.stock_zh_a_hist();
+temp_df = ak.stock_zh_a_hist_em();
 % 将 pandas.DataFrame 转换为 MATLAB 表格，需要 MATLAB R2024a 及以上版本
 df = table(temp_df);
 % 展示获取到本地的数据

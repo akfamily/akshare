@@ -125,7 +125,7 @@ def stock_us_name_sina() -> pd.DataFrame:
     return big_df[["name", "cname", "symbol"]]
 
 
-def stock_us_spot() -> pd.DataFrame:
+def stock_us_spot_sina() -> pd.DataFrame:
     """
     新浪财经-所有美股的数据，注意延迟 15 分钟
     https://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -135,7 +135,7 @@ def stock_us_spot() -> pd.DataFrame:
     return _us_list_all()
 
 
-def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
+def stock_us_daily_sina(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
     https://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -224,14 +224,16 @@ if __name__ == "__main__":
     stock_us_stock_name_df = stock_us_name_sina()
     print(stock_us_stock_name_df)
 
-    stock_us_spot_df = stock_us_spot()
-    print(stock_us_spot_df)
+    stock_us_spot_sina_df = stock_us_spot_sina()
+    print(stock_us_spot_sina_df)
 
-    stock_us_daily_df = stock_us_daily(symbol=".DJI", adjust="")
-    print(stock_us_daily_df)
+    stock_us_daily_sina_df = stock_us_daily_sina(symbol=".DJI", adjust="")
+    print(stock_us_daily_sina_df)
 
-    stock_us_daily_qfq_df = stock_us_daily(symbol="WOLF", adjust="qfq")
+    stock_us_daily_qfq_df = stock_us_daily_sina(symbol="WOLF", adjust="qfq")
     print(stock_us_daily_qfq_df)
 
-    stock_us_daily_qfq_factor_df = stock_us_daily(symbol="AAPL", adjust="qfq-factor")
+    stock_us_daily_qfq_factor_df = stock_us_daily_sina(
+        symbol="AAPL", adjust="qfq-factor"
+    )
     print(stock_us_daily_qfq_factor_df)

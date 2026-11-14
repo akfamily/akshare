@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2026/10/30
-Desc: stock_zh_a_daily 对已退市与不存在代码的处理测试
+Desc: stock_zh_a_daily_sina 对已退市与不存在代码的处理测试
 
 已退市的股票（如 sh600001）新浪仍有历史行情，但股本接口返回 (null)，原先直接解析空文本，
 报出与原因无关的 JSONDecodeError；不存在的代码行情接口返回 404，原先报 KeyError: 'date'。
@@ -75,7 +75,7 @@ def fake_sina(monkeypatch):
 
 def test_normal_symbol(fake_sina):
     fake_sina()
-    df = stock_zh_a_sina.stock_zh_a_daily(
+    df = stock_zh_a_sina.stock_zh_a_daily_sina(
         symbol="sh600000", start_date="20240101", end_date="20240110"
     )
     assert len(df) == 2
@@ -87,7 +87,7 @@ def test_delisted_symbol_returns_prices_without_share_data(fake_sina):
     fake_sina(amount_text=AMOUNT_NULL)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        df = stock_zh_a_sina.stock_zh_a_daily(
+        df = stock_zh_a_sina.stock_zh_a_daily_sina(
             symbol="sh600001", start_date="20240101", end_date="20240110"
         )
     assert len(df) == 2
@@ -99,12 +99,12 @@ def test_delisted_symbol_returns_prices_without_share_data(fake_sina):
 def test_unknown_symbol_raises_clear_error(fake_sina):
     fake_sina(hist_status=404, amount_text=AMOUNT_NULL)
     with pytest.raises(InvalidParameterError, match="sh609999"):
-        stock_zh_a_sina.stock_zh_a_daily(symbol="sh609999")
+        stock_zh_a_sina.stock_zh_a_daily_sina(symbol="sh609999")
 
 
 def test_result_columns_unchanged(fake_sina):
     fake_sina()
-    df = stock_zh_a_sina.stock_zh_a_daily(
+    df = stock_zh_a_sina.stock_zh_a_daily_sina(
         symbol="sh600000", start_date="20240101", end_date="20240110"
     )
     assert list(df.columns) == [

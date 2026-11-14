@@ -112,7 +112,7 @@ print(search_df)
 | params      | list | 输入参数列表，每项含 name/type/desc 三个键            |
 | outputs    | list | 输出字段列表，每项含 name/type/desc 三个键            |
 | example    | str  | 调用示例代码，未收录时为 None                        |
-| alternatives | list | 来自其他数据源的同类接口名，如 stock_zh_a_hist 的同类接口为 stock_zh_a_daily（新浪财经）与 stock_zh_a_hist_tx（腾讯）；人工维护，没有登记时为空列表。同类接口的参数写法与返回列通常不同，调用前请查看各自的说明 |
+| alternatives | list | 来自其他数据源的同类接口名，如 stock_zh_a_hist_em 的同类接口为 stock_zh_a_daily_sina（新浪财经）与 stock_zh_a_hist_tx（腾讯）；人工维护，没有登记时为空列表。同类接口的参数写法与返回列通常不同，调用前请查看各自的说明 |
 | rate_limit | str  | 访问限制：请求东方财富 push2 行情服务器的接口为 "eastmoney_push2"，频繁访问会被临时限流（见{ref}`常见问题 <faq-eastmoney-ratelimit>`），其他接口为 None |
 
 接口示例
@@ -164,7 +164,7 @@ except Exception as e:
 ```
 
 ```
-未知接口 stock_zh_a_hisr，最接近的候选: stock_zh_a_daily、stock_zh_a_hist、stock_zh_a_hist_min_em
+未知接口 stock_zh_a_hisr，最接近的候选: stock_zh_a_daily_sina、stock_zh_a_hist_min_sina、stock_zh_a_hist_em
 ```
 
 ## 类目列表

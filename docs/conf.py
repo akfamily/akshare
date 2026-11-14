@@ -184,7 +184,7 @@ master_doc = "index"
 # 而全库 46 个 md 文件中没有任何一个含该小节，属于从未生效的死配置。
 #
 # myst_parser 默认只启用 CommonMark 加表格。本文档正文中大量出现
-# 未转义的下划线与星号（接口名如 stock_zh_a_hist），因此刻意不开启
+# 未转义的下划线与星号（接口名如 stock_zh_a_hist_em），因此刻意不开启
 # 额外的行内语法扩展，避免把接口名误解析为强调。
 myst_heading_anchors = 3
 

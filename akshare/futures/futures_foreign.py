@@ -17,7 +17,7 @@ from akshare.futures.futures_hq_sina import (
 from akshare.utils import http
 
 
-def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
+def futures_foreign_hist_sina(symbol: str = "ZSD") -> pd.DataFrame:
     """
     外盘期货-历史行情数据-日频率
     https://finance.sina.com.cn/money/future/hf.html
@@ -42,7 +42,7 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     return data_df
 
 
-def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
+def futures_foreign_detail_sina(symbol: str = "ZSD") -> pd.DataFrame:
     """
     foreign futures contract detail data
     :param symbol: futures symbol, you can get it from ak.futures_hq_subscribe_exchange_symbol function
@@ -59,15 +59,15 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_foreign_hist_df = futures_foreign_hist(symbol="JY")
-    print(futures_foreign_hist_df)
+    futures_foreign_hist_sina_df = futures_foreign_hist_sina(symbol="JY")
+    print(futures_foreign_hist_sina_df)
 
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
 
     for item in subscribes:
-        futures_foreign_detail_df = futures_foreign_detail(symbol=item)
-        print(futures_foreign_detail_df)
+        futures_foreign_detail_sina_df = futures_foreign_detail_sina(symbol=item)
+        print(futures_foreign_detail_sina_df)
 
     for item in subscribes:
-        futures_foreign_hist_df = futures_foreign_hist(symbol=item)
-        print(futures_foreign_hist_df)
+        futures_foreign_hist_sina_df = futures_foreign_hist_sina(symbol=item)
+        print(futures_foreign_hist_sina_df)

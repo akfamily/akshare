@@ -138,7 +138,7 @@ ak.set_timeout(30)  # 单位为秒；也可传 (连接超时, 读取超时)，�
 ak.set_timeout(None)  # 不限时
 
 with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}):
-    stock_zh_a_daily_df = ak.stock_zh_a_daily(symbol="sh600000")  # 仅此代码块内使用该代理
+    stock_zh_a_daily_sina_df = ak.stock_zh_a_daily_sina(symbol="sh600000")  # 仅此代码块内使用该代理
 ```
 
 - 未调用 `ak.set_proxies` 时，沿用 `HTTP_PROXY`、`HTTPS_PROXY` 环境变量和系统代理设置
@@ -207,7 +207,7 @@ print(index_zh_daily_sina_df)
 
 以下记录数据源本身存在的异常，使用相关数据时请注意。
 
-### stock_zh_a_hist 后复权价格出现负值
+### stock_zh_a_hist_em 后复权价格出现负值
 
 问题描述：股票 `600734` 后复权数据的开高低收字段出现负值。
 
@@ -216,14 +216,14 @@ print(index_zh_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(
+stock_zh_a_hist_em_df = ak.stock_zh_a_hist_em(
     symbol="600734",
     period="daily",
     start_date="20050501",
     end_date="20050520",
     adjust="hfq",
 )
-print(stock_zh_a_hist_df)
+print(stock_zh_a_hist_em_df)
 ```
 
 结果复现：

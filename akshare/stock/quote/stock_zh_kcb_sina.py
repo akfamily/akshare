@@ -40,7 +40,7 @@ def get_zh_kcb_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_zh_kcb_spot() -> pd.DataFrame:
+def stock_zh_kcb_spot_sina() -> pd.DataFrame:
     """
     新浪财经-科创板实时行情数据，大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#kcb
@@ -121,7 +121,7 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFrame:
+def stock_zh_kcb_daily_sina(symbol: str = "sh688399", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-科创板股票的历史行情数据，大量抓取容易封IP
     https://finance.sina.com.cn/realstock/company/sh688005/nc.shtml
@@ -244,14 +244,16 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
 
 
 if __name__ == "__main__":
-    stock_zh_kcb_daily_qfq_df = stock_zh_kcb_daily(symbol="sh688399", adjust="qfq")
+    stock_zh_kcb_daily_qfq_df = stock_zh_kcb_daily_sina(symbol="sh688399", adjust="qfq")
     print(stock_zh_kcb_daily_qfq_df)
 
-    stock_zh_kcb_daily_hfq_df = stock_zh_kcb_daily(symbol="sh688399", adjust="hfq")
+    stock_zh_kcb_daily_hfq_df = stock_zh_kcb_daily_sina(symbol="sh688399", adjust="hfq")
     print(stock_zh_kcb_daily_hfq_df)
 
-    stock_zh_kcb_daily_df = stock_zh_kcb_daily(symbol="sh688399", adjust="qfq-factor")
-    print(stock_zh_kcb_daily_df)
+    stock_zh_kcb_daily_sina_df = stock_zh_kcb_daily_sina(
+        symbol="sh688399", adjust="qfq-factor"
+    )
+    print(stock_zh_kcb_daily_sina_df)
 
-    stock_zh_kcb_spot_df = stock_zh_kcb_spot()
-    print(stock_zh_kcb_spot_df)
+    stock_zh_kcb_spot_sina_df = stock_zh_kcb_spot_sina()
+    print(stock_zh_kcb_spot_sina_df)

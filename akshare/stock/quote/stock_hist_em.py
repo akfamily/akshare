@@ -949,7 +949,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_zh_a_hist(
+def stock_zh_a_hist_em(
     symbol: str = "000001",
     period: str = "daily",
     start_date: str = "19700101",
@@ -1389,7 +1389,7 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_hk_hist(
+def stock_hk_hist_em(
     symbol: str = "00593",
     period: str = "daily",
     start_date: str = "19700101",
@@ -1682,7 +1682,7 @@ def stock_us_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_us_hist(
+def stock_us_hist_em(
     symbol: str = "105.MSFT",
     period: str = "daily",
     start_date: str = "19700101",
@@ -1837,14 +1837,14 @@ if __name__ == "__main__":
     stock_hk_main_board_spot_em_df = stock_hk_main_board_spot_em()
     print(stock_hk_main_board_spot_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(
+    stock_zh_a_hist_em_df = stock_zh_a_hist_em(
         symbol="600734",
         period="daily",
         start_date="20050501",
         end_date="20250304",
         adjust="hfq",
     )
-    print(stock_zh_a_hist_df)
+    print(stock_zh_a_hist_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="603777", period="1")
     print(stock_zh_a_hist_min_em_df)
@@ -1852,16 +1852,16 @@ if __name__ == "__main__":
     stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
     print(stock_zh_a_hist_pre_min_em_df)
 
-    stock_hk_hist_df = stock_hk_hist(
+    stock_hk_hist_em_df = stock_hk_hist_em(
         symbol="00593",
         period="daily",
         start_date="19700101",
         end_date="22220101",
         adjust="",
     )
-    print(stock_hk_hist_df)
+    print(stock_hk_hist_em_df)
 
-    stock_hk_hist_qfq_df = stock_hk_hist(
+    stock_hk_hist_qfq_df = stock_hk_hist_em(
         symbol="00593",
         period="daily",
         start_date="19700101",
@@ -1870,7 +1870,7 @@ if __name__ == "__main__":
     )
     print(stock_hk_hist_qfq_df)
 
-    stock_hk_hist_hfq_df = stock_hk_hist(
+    stock_hk_hist_hfq_df = stock_hk_hist_em(
         symbol="00593",
         period="daily",
         start_date="19700101",
@@ -1882,14 +1882,14 @@ if __name__ == "__main__":
     stock_us_spot_em_df = stock_us_spot_em()
     print(stock_us_spot_em_df)
 
-    stock_us_hist_df = stock_us_hist(
+    stock_us_hist_em_df = stock_us_hist_em(
         symbol="106.TTE",
         period="daily",
         start_date="20200101",
         end_date="20240414",
         adjust="qfq",
     )
-    print(stock_us_hist_df)
+    print(stock_us_hist_em_df)
 
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)
@@ -1915,14 +1915,14 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(
+    stock_zh_a_hist_em_df = stock_zh_a_hist_em(
         symbol="833454",
         period="daily",
         start_date="20170301",
         end_date="20241115",
         adjust="hfq",
     )
-    print(stock_zh_a_hist_df)
+    print(stock_zh_a_hist_em_df)
 
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(
         symbol="01611",

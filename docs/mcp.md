@@ -15,7 +15,7 @@
 
 - “帮我查一下贵州茅台 2024 年 10 月 8 日到 11 日的前复权日线行情”
 - “AKShare 里有哪些和可转债相关的接口？”
-- “stock_zh_a_hist 这个接口有哪些参数，复权方式怎么填？”
+- “stock_zh_a_hist_em 这个接口有哪些参数，复权方式怎么填？”
 
 助手每次最多取回 1000 行数据（默认 100 行），适合查看具体某段时间、某只证券的数据。需要完整的大表格时，请让助手给出 CSV 下载地址（HTTP 方式），或改用 {doc}`HTTP API <aktools>` 下载。
 
@@ -132,13 +132,13 @@ AKShare 有一千多个接口，如果逐个注册成工具，会占满助手的
 (mcp-source)=
 ### 数据来源与限流
 
-同一类数据常有多个来源，例如 A 股日线既有东方财富的 `stock_zh_a_hist`，也有新浪财经的 `stock_zh_a_daily` 和腾讯的 `stock_zh_a_hist_tx`。`search_interfaces` 与 `describe_interface` 的结果都带有 `source` 字段，用中文标明数据来源。
+同一类数据常有多个来源，例如 A 股日线既有东方财富的 `stock_zh_a_hist_em`，也有新浪财经的 `stock_zh_a_daily_sina` 和腾讯的 `stock_zh_a_hist_tx`。`search_interfaces` 与 `describe_interface` 的结果都带有 `source` 字段，用中文标明数据来源。
 
 东方财富的行情类接口（实时行情、历史 K 线、板块、资金流等，约 100 个）使用的服务器在短时间内请求较多时，会临时封禁来源 IP，所有东方财富行情接口约 5 分钟以上无法使用，详见{ref}`常见问题 <faq-eastmoney-ratelimit>`。这类接口的来源标为“东方财富·行情（频繁访问易限流）”。东方财富的宏观、财务报表、龙虎榜等接口使用其他服务器，不受影响，来源只标“东方财富”。
 
 AKTools 在发给助手的使用说明中要求：需要连续获取多只证券或大量行情数据时，优先选用其他来源的同类接口；遇到限流时不要立即重试。被限流时，`get_data` 的报错会说明需要等待多久，并列出 AKShare 登记的其他来源的同类接口供助手改用。
 
-同类接口取自 AKShare 人工维护的对照表，`describe_interface` 的 `alternatives` 字段也会列出，因此助手在取数之前就能选择其他来源。对照表目前覆盖 A 股、指数、ETF、港股、美股、板块与期货的日线和实时行情等常用接口；没有登记的接口不会给出候选，AKTools 不自行猜测。同类接口的参数写法和返回列可能不同，例如新浪财经的 `stock_zh_a_daily` 要把 `symbol` 写成 `sh600519`，助手会先用 `describe_interface` 查看再调用。
+同类接口取自 AKShare 人工维护的对照表，`describe_interface` 的 `alternatives` 字段也会列出，因此助手在取数之前就能选择其他来源。对照表目前覆盖 A 股、指数、ETF、港股、美股、板块与期货的日线和实时行情等常用接口；没有登记的接口不会给出候选，AKTools 不自行猜测。同类接口的参数写法和返回列可能不同，例如新浪财经的 `stock_zh_a_daily_sina` 要把 `symbol` 写成 `sh600519`，助手会先用 `describe_interface` 查看再调用。
 
 限流标记与同类接口分别取自 AKShare 接口元数据的 `rate_limit` 与 `alternatives` 字段（见{doc}`接口检索 <search>`），需要 AKShare 1.20.39 与 AKTools 0.1.6 及以上版本。
 

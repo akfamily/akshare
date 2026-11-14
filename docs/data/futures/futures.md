@@ -3421,10 +3421,10 @@ print(futures_global_hist_em_df)
 [3485 rows x 11 columns]
 ```
 
-(futures_foreign_hist)=
+(futures_foreign_hist_sina)=
 ### 外盘-历史行情数据-新浪
 
-接口：futures_foreign_hist
+接口：futures_foreign_hist_sina
 
 目标地址：https://finance.sina.com.cn/futuremarket/
 
@@ -3454,8 +3454,8 @@ print(futures_global_hist_em_df)
 ```python
 import akshare as ak
 
-futures_foreign_hist_df = ak.futures_foreign_hist(symbol="ZSD")
-print(futures_foreign_hist_df)
+futures_foreign_hist_sina_df = ak.futures_foreign_hist_sina(symbol="ZSD")
+print(futures_foreign_hist_sina_df)
 ```
 
 数据示例
@@ -3476,10 +3476,10 @@ print(futures_foreign_hist_df)
 [2546 rows x 8 columns]
 ```
 
-(futures_foreign_detail)=
+(futures_foreign_detail_sina)=
 ### 外盘-合约详情
 
-接口：futures_foreign_detail
+接口：futures_foreign_detail_sina
 
 目标地址：https://finance.sina.com.cn/futuremarket/
 
@@ -3514,8 +3514,8 @@ print(futures_foreign_hist_df)
 
 ```python
 import akshare as ak
-futures_foreign_detail_df = ak.futures_foreign_detail(symbol="ZSD")
-print(futures_foreign_detail_df)
+futures_foreign_detail_sina_df = ak.futures_foreign_detail_sina(symbol="ZSD")
+print(futures_foreign_detail_sina_df)
 ```
 
 数据示例

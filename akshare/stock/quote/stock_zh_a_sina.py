@@ -46,7 +46,7 @@ def _get_zh_a_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_zh_a_spot() -> pd.DataFrame:
+def stock_zh_a_spot_sina() -> pd.DataFrame:
     """
     新浪财经-所有 A 股的实时行情数据；重复运行本函数会被新浪暂时封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_a
@@ -131,7 +131,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily(
+def stock_zh_a_daily_sina(
     symbol: str = "sh603843",
     start_date: str = "19900101",
     end_date: str = "21000118",
@@ -315,7 +315,7 @@ def stock_zh_a_daily(
     return pd.DataFrame()
 
 
-def stock_zh_a_cdr_daily(
+def stock_zh_a_cdr_daily_sina(
     symbol: str = "sh689009",
     start_date: str = "19900101",
     end_date: str = "22201116",
@@ -352,7 +352,7 @@ def stock_zh_a_cdr_daily(
     return temp_df
 
 
-def stock_zh_a_minute(
+def stock_zh_a_hist_min_sina(
     symbol: str = "sh600519", period: str = "1", adjust: str = ""
 ) -> pd.DataFrame:
     """
@@ -403,7 +403,7 @@ def stock_zh_a_minute(
     # 只在需要复权时取一次对应口径的日线；原先无论 adjust 为何都先多取一次前复权日线，
     # 白白多发 3 个请求并新建一个解密用的 V8 实例（#7478）
     try:
-        daily_df = stock_zh_a_daily(symbol=symbol, adjust=adjust)
+        daily_df = stock_zh_a_daily_sina(symbol=symbol, adjust=adjust)
     except Exception as e:
         # 指数等没有复权数据的品种取不到复权日线，此时照旧返回不复权的分钟数据
         warnings.warn(f"{symbol} 没有复权日线数据（{e}），返回不复权的分钟数据")
@@ -434,7 +434,7 @@ def stock_zh_a_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily_sina(
         symbol="sz000002",
         start_date="19910403",
         end_date="20260109",
@@ -442,7 +442,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_daily_hfq_df_one)
 
-    stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(
+    stock_zh_a_daily_hfq_df_three = stock_zh_a_daily_sina(
         symbol="sz000001",
         start_date="19900103",
         end_date="20210118",
@@ -450,49 +450,51 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_daily_hfq_df_three)
 
-    stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(
+    stock_zh_a_daily_hfq_df_two = stock_zh_a_daily_sina(
         symbol="sh000001", start_date="20101103", end_date="20210510"
     )
     print(stock_zh_a_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_a_daily_sina(symbol="sz000002", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_a_daily_sina(symbol="sz000002", adjust="hfq-factor")
     print(hfq_factor_df)
 
-    stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily(
+    stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily_sina(
         symbol="sz000002", adjust="hfq-factor"
     )
     print(stock_zh_a_daily_hfq_factor_df)
 
-    stock_zh_a_daily_df = stock_zh_a_daily(
+    stock_zh_a_daily_sina_df = stock_zh_a_daily_sina(
         symbol="sz300798", start_date="20200601", end_date="20231101", adjust="hfq"
     )
-    print(stock_zh_a_daily_df)
+    print(stock_zh_a_daily_sina_df)
 
-    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(
+    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_daily_sina(
         symbol="sh689009", start_date="20201103", end_date="20201116"
     )
-    print(stock_zh_a_cdr_daily_df)
+    print(stock_zh_a_cdr_daily_sina_df)
 
-    stock_zh_a_spot_df = stock_zh_a_spot()
-    print(stock_zh_a_spot_df)
+    stock_zh_a_spot_sina_df = stock_zh_a_spot_sina()
+    print(stock_zh_a_spot_sina_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(
+    stock_zh_a_hist_min_sina_df = stock_zh_a_hist_min_sina(
         symbol="sh600751", period="1", adjust="qfq"
     )
-    print(stock_zh_a_minute_df)
+    print(stock_zh_a_hist_min_sina_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(
+    stock_zh_a_hist_min_sina_df = stock_zh_a_hist_min_sina(
         symbol="sh600519", period="1", adjust="hfq"
     )
-    print(stock_zh_a_minute_df)
+    print(stock_zh_a_hist_min_sina_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="")
-    print(stock_zh_a_minute_df)
+    stock_zh_a_hist_min_sina_df = stock_zh_a_hist_min_sina(
+        symbol="sh600751", period="1", adjust=""
+    )
+    print(stock_zh_a_hist_min_sina_df)
 
-    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(
+    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_daily_sina(
         symbol="sh689009", start_date="19900101", end_date="22201116"
     )
-    print(stock_zh_a_cdr_daily_df)
+    print(stock_zh_a_cdr_daily_sina_df)

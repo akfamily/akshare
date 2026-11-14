@@ -6,7 +6,7 @@ from akshare import registry
 from akshare.registry import _bigrams, _normalize, _prepare, _score, _tokenize
 
 RECORD = {
-    "name": "stock_zh_a_hist",
+    "name": "stock_zh_a_hist_em",
     "category": "stock",
     "documented": True,
     "desc": "东方财富-沪深京 A 股历史行情数据",
@@ -25,7 +25,7 @@ def test_tokenize_drops_empty():
 
 
 def test_score_exact_name_match_dominates():
-    assert _score(["stock_zh_a_hist"], RECORD) >= 100
+    assert _score(["stock_zh_a_hist_em"], RECORD) >= 100
 
 
 def test_score_desc_hit_lower_than_name_hit():
@@ -128,7 +128,7 @@ FIXTURE = {
     "schema_version": 1,
     "interfaces": [
         {
-            "name": "stock_zh_a_hist",
+            "name": "stock_zh_a_hist_em",
             "module": "akshare.stock.a",
             "category": "stock",
             "documented": True,
@@ -164,7 +164,7 @@ FIXTURE = {
             "example": None,
         },
         {
-            "name": "bond_zh_hs_daily",
+            "name": "bond_zh_hs_daily_sina",
             "module": "akshare.bond.a",
             "category": "bond",
             "documented": True,
@@ -202,7 +202,7 @@ def test_search_returns_dataframe_with_expected_columns():
     df = registry.search("历史行情")
     assert isinstance(df, pd.DataFrame)
     assert list(df.columns) == ["接口名", "类目", "描述", "有无文档", "匹配分"]
-    assert df.iloc[0]["接口名"] == "stock_zh_a_hist"
+    assert df.iloc[0]["接口名"] == "stock_zh_a_hist_em"
 
 
 def test_search_empty_result_keeps_columns():
@@ -223,11 +223,11 @@ def test_search_filters_by_category():
 def test_search_documented_only_excludes_undocumented():
     df = registry.search("stock", documented_only=True)
     assert "stock_no_doc" not in set(df["接口名"])
-    assert "stock_zh_a_hist" in set(df["接口名"])
+    assert "stock_zh_a_hist_em" in set(df["接口名"])
 
 
 def test_interface_info_returns_full_record():
-    info = registry.interface_info("stock_zh_a_hist")
+    info = registry.interface_info("stock_zh_a_hist_em")
     assert info["module"] == "akshare.stock.a"
     assert info["desc"] == "东方财富-沪深京 A 股历史行情数据"
 
@@ -235,7 +235,7 @@ def test_interface_info_returns_full_record():
 def test_interface_info_unknown_name_suggests_candidates():
     with pytest.raises(InvalidParameterError) as exc:
         registry.interface_info("stock_zh_a_hisr")
-    assert "stock_zh_a_hist" in str(exc.value)
+    assert "stock_zh_a_hist_em" in str(exc.value)
 
 
 def test_interface_info_deepcopy_isolates_nested_structures(monkeypatch):
@@ -291,12 +291,12 @@ def test_bigrams_compresses_whitespace_before_splitting():
 
 
 def test_search_exact_name_is_ranked_first():
-    # bond_zh_hs_daily 与 bond_cb_daily_sina 是近似名字（后者是前者插入了
+    # bond_zh_hs_daily_sina 与 bond_cb_daily_sina 是近似名字（后者是前者插入了
     # "cov_"），2-gram 降级分几乎相同，字典序上 cov 版本更靠前。如果降级路径
     # 覆盖了精确命中接口名的主分（而不是与主分取最大值），精确查询就会被
     # 挤到第二位，这条测试用来钉住这个回归。
-    df = registry.search("bond_zh_hs_daily")
-    assert df.iloc[0]["接口名"] == "bond_zh_hs_daily"
+    df = registry.search("bond_zh_hs_daily_sina")
+    assert df.iloc[0]["接口名"] == "bond_zh_hs_daily_sina"
 
 
 # decoy 与目标共享目标接口名作为前缀，且额外的输出列名把目标全部命中的
@@ -306,7 +306,7 @@ def test_search_exact_name_is_ranked_first():
 # 会让 decoy 反而排到目标前面；is_exact 判定与 _score 的精确名捷径口径一致
 # 后，目标应该无条件置顶，不受分数大小影响。
 EXACT_PUNCTUATION_TARGET = {
-    "name": "stock_zh_a_hist",
+    "name": "stock_zh_a_hist_em",
     "category": "stock",
     "documented": True,
     "desc": "东方财富-沪深京 A 股历史行情数据",
@@ -328,8 +328,8 @@ EXACT_PUNCTUATION_FIXTURE = {
 @pytest.mark.parametrize("suffix", [",", "，", "、"])
 def test_search_exact_name_survives_trailing_punctuation(suffix, monkeypatch):
     monkeypatch.setattr(registry, "_REGISTRY", EXACT_PUNCTUATION_FIXTURE)
-    df = registry.search("stock_zh_a_hist" + suffix)
-    assert df.iloc[0]["接口名"] == "stock_zh_a_hist"
+    df = registry.search("stock_zh_a_hist_em" + suffix)
+    assert df.iloc[0]["接口名"] == "stock_zh_a_hist_em"
 
 
 def test_search_unspaced_query_recalls_via_bigram_fallback():
@@ -338,7 +338,7 @@ def test_search_unspaced_query_recalls_via_bigram_fallback():
     # 用来验证 2-gram 降级召回在 search 上确实生效，而不只是在
     # interface_info 的错名提示路径里被间接测到。
     df = registry.search("行情历史")
-    assert "stock_zh_a_hist" in set(df["接口名"])
+    assert "stock_zh_a_hist_em" in set(df["接口名"])
 
 
 def test_search_negative_limit_raises():
@@ -365,11 +365,11 @@ def test_synonyms_are_case_insensitive_and_exclude_the_token():
 
 
 def test_name_segments_match_whole_segments_only():
-    assert _name_has_segments("stock_us_daily".split("_"), "us")
+    assert _name_has_segments("stock_us_daily_sina".split("_"), "us")
     # 整段匹配：us 不能命中 industry，zh_a 不能命中 zh_ah
     assert not _name_has_segments("stock_board_industry_name_em".split("_"), "us")
-    assert _name_has_segments("stock_zh_a_hist".split("_"), "zh_a")
-    assert not _name_has_segments("stock_zh_ah_spot".split("_"), "zh_a")
+    assert _name_has_segments("stock_zh_a_hist_em".split("_"), "zh_a")
+    assert not _name_has_segments("stock_zh_ah_spot_tx".split("_"), "zh_a")
 
 
 def test_score_hits_name_through_synonym():

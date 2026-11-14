@@ -118,7 +118,7 @@ def bond_zh_hs_realtime_sina(
     return big_df
 
 
-def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
+def bond_zh_hs_daily_sina(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深债券-历史行情数据，大量抓取容易封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -150,5 +150,5 @@ if __name__ == "__main__":
     bond_zh_hs_realtime_sina_df = bond_zh_hs_realtime_sina(start_page="1", end_page="5")
     print(bond_zh_hs_realtime_sina_df)
 
-    bond_zh_hs_daily_df = bond_zh_hs_daily(symbol="sh010107")
-    print(bond_zh_hs_daily_df)
+    bond_zh_hs_daily_sina_df = bond_zh_hs_daily_sina(symbol="sh010107")
+    print(bond_zh_hs_daily_sina_df)

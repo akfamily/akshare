@@ -1143,10 +1143,10 @@ print(stock_zh_ab_comparison_em_df)
 [73 rows x 10 columns]
 ```
 
-(stock_zh_a_spot)=
+(stock_zh_a_spot_sina)=
 #### 实时行情数据-新浪
 
-接口：stock_zh_a_spot
+接口：stock_zh_a_spot_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#hs_a
 
@@ -1184,8 +1184,8 @@ print(stock_zh_ab_comparison_em_df)
 ```python
 import akshare as ak
 
-stock_zh_a_spot_df = ak.stock_zh_a_spot()
-print(stock_zh_a_spot_df)
+stock_zh_a_spot_sina_df = ak.stock_zh_a_spot_sina()
+print(stock_zh_a_spot_sina_df)
 ```
 
 数据示例
@@ -1285,10 +1285,10 @@ print(stock_individual_spot_xq_df)
 
 ### 历史行情数据
 
-(stock_zh_a_hist)=
+(stock_zh_a_hist_em)=
 #### 历史行情数据-东财
 
-接口：stock_zh_a_hist
+接口：stock_zh_a_hist_em
 
 目标地址：https://quote.eastmoney.com/concept/sh603777.html?from=classic(示例)
 
@@ -1349,8 +1349,8 @@ print(stock_individual_spot_xq_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="")
-print(stock_zh_a_hist_df)
+stock_zh_a_hist_em_df = ak.stock_zh_a_hist_em(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="")
+print(stock_zh_a_hist_em_df)
 ```
 
 数据示例-历史行情数据-不复权
@@ -1376,8 +1376,8 @@ print(stock_zh_a_hist_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="qfq")
-print(stock_zh_a_hist_df)
+stock_zh_a_hist_em_df = ak.stock_zh_a_hist_em(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="qfq")
+print(stock_zh_a_hist_em_df)
 ```
 
 数据示例-历史行情数据-前复权
@@ -1403,8 +1403,8 @@ print(stock_zh_a_hist_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="hfq")
-print(stock_zh_a_hist_df)
+stock_zh_a_hist_em_df = ak.stock_zh_a_hist_em(symbol="000001", period="daily", start_date="20170301", end_date='20240528', adjust="hfq")
+print(stock_zh_a_hist_em_df)
 ```
 
 数据示例-历史行情数据-后复权
@@ -1425,16 +1425,16 @@ print(stock_zh_a_hist_df)
 [1760 rows x 12 columns]
 ```
 
-(stock_zh_a_daily)=
+(stock_zh_a_daily_sina)=
 #### 历史行情数据-新浪
 
-接口：stock_zh_a_daily
+接口：stock_zh_a_daily_sina
 
-P.S. 建议切换为 stock_zh_a_hist 接口使用（该接口数据质量高，访问无限制）
+P.S. 建议切换为 stock_zh_a_hist_em 接口使用（该接口数据质量高，访问无限制）
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
-描述：新浪财经-沪深京 A 股的数据，历史数据按日频率更新；注意其中的 **sh689009** 为 CDR，请 通过 **ak.stock_zh_a_cdr_daily** 接口获取
+描述：新浪财经-沪深京 A 股的数据，历史数据按日频率更新；注意其中的 **sh689009** 为 CDR，请 通过 **ak.stock_zh_a_cdr_daily_sina** 接口获取
 
 限量：单次返回指定沪深京 A 股上市公司指定日期间的历史行情日频率数据，多次获取容易封禁 IP
 
@@ -1442,7 +1442,7 @@ P.S. 建议切换为 stock_zh_a_hist 接口使用（该接口数据质量高，�
 
 | 名称         | 类型  | 描述                                                                                   |
 |------------|-----|--------------------------------------------------------------------------------------|
-| symbol     | str | symbol='sh600000'；股票代码可以在 **ak.stock_zh_a_spot()** 中获取                              |
+| symbol     | str | symbol='sh600000'；股票代码可以在 **ak.stock_zh_a_spot_sina()** 中获取                              |
 | start_date | str | start_date='20201103'；开始查询的日期                                                       |
 | end_date   | str | end_date='20201116'；结束查询的日期                                                         |
 | adjust     | str | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子 |
@@ -1487,7 +1487,7 @@ P.S. 建议切换为 stock_zh_a_hist 接口使用（该接口数据质量高，�
 ```python
 import akshare as ak
 
-stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="qfq")
+stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="qfq")
 print(stock_zh_a_daily_qfq_df)
 ```
 
@@ -1514,7 +1514,7 @@ print(stock_zh_a_daily_qfq_df)
 ```python
 import akshare as ak
 
-stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="hfq")
+stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="hfq")
 print(stock_zh_a_daily_hfq_df)
 ```
 
@@ -1541,7 +1541,7 @@ print(stock_zh_a_daily_hfq_df)
 ```python
 import akshare as ak
 
-qfq_factor_df = ak.stock_zh_a_daily(symbol="sz000002", adjust="qfq-factor")
+qfq_factor_df = ak.stock_zh_a_daily_sina(symbol="sz000002", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
 
@@ -1593,7 +1593,7 @@ print(qfq_factor_df)
 ```python
 import akshare as ak
 
-hfq_factor_df = ak.stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
+hfq_factor_df = ak.stock_zh_a_daily_sina(symbol="sz000002", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
 
@@ -1763,10 +1763,10 @@ print(stock_zh_a_hist_tx_df)
 [5 rows x 8 columns]
 ```
 
-(stock_zh_a_minute)=
+(stock_zh_a_hist_min_sina)=
 #### 分时数据-新浪
 
-接口：stock_zh_a_minute
+接口：stock_zh_a_hist_min_sina
 
 目标地址：http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
 
@@ -1799,8 +1799,8 @@ print(stock_zh_a_hist_tx_df)
 ```python
 import akshare as ak
 
-stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sh600751', period='1', adjust="qfq")
-print(stock_zh_a_minute_df)
+stock_zh_a_hist_min_sina_df = ak.stock_zh_a_hist_min_sina(symbol='sh600751', period='1', adjust="qfq")
+print(stock_zh_a_hist_min_sina_df)
 ```
 
 数据示例
@@ -2384,16 +2384,16 @@ print(stock_zh_scale_comparison_em_df)
 
 ## A股-CDR
 
-(stock_zh_a_cdr_daily)=
+(stock_zh_a_cdr_daily_sina)=
 ### 历史行情数据
 
-接口：stock_zh_a_cdr_daily
+接口：stock_zh_a_cdr_daily_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 
 描述：上海证券交易所-科创板-CDR
 
-限量：单次返回指定 CDR 的日频率数据，分钟历史行情数据可以通过 stock_zh_a_minute 获取
+限量：单次返回指定 CDR 的日频率数据，分钟历史行情数据可以通过 stock_zh_a_hist_min_sina 获取
 
 名词解释：
 
@@ -2424,8 +2424,8 @@ print(stock_zh_scale_comparison_em_df)
 ```python
 import akshare as ak
 
-stock_zh_a_cdr_daily_df = ak.stock_zh_a_cdr_daily(symbol='sh689009', start_date='20201103', end_date='20201116')
-print(stock_zh_a_cdr_daily_df)
+stock_zh_a_cdr_daily_sina_df = ak.stock_zh_a_cdr_daily_sina(symbol='sh689009', start_date='20201103', end_date='20201116')
+print(stock_zh_a_cdr_daily_sina_df)
 ```
 
 数据示例
@@ -2520,10 +2520,10 @@ print(stock_zh_b_spot_em_df)
 113  114  900948   伊泰Ｂ股  1.465  ... -0.61   0.14   47.38    67.81
 ```
 
-(stock_zh_b_spot)=
+(stock_zh_b_spot_sina)=
 #### 实时行情数据-新浪
 
-接口：stock_zh_b_spot
+接口：stock_zh_b_spot_sina
 
 目标地址：http://vip.stock.finance.sina.com.cn/mkt/#hs_b
 
@@ -2560,8 +2560,8 @@ print(stock_zh_b_spot_em_df)
 ```python
 import akshare as ak
 
-stock_zh_b_spot_df = ak.stock_zh_b_spot()
-print(stock_zh_b_spot_df)
+stock_zh_b_spot_sina_df = ak.stock_zh_b_spot_sina()
+print(stock_zh_b_spot_sina_df)
 ```
 
 数据示例-实时行情数据
@@ -2583,10 +2583,10 @@ print(stock_zh_b_spot_df)
 
 ### 历史行情数据
 
-(stock_zh_b_daily)=
+(stock_zh_b_daily_sina)=
 #### 历史行情数据
 
-接口：stock_zh_b_daily
+接口：stock_zh_b_daily_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
 
@@ -2598,7 +2598,7 @@ print(stock_zh_b_spot_df)
 
 | 名称         | 类型  | 描述                                                                                   |
 |------------|-----|--------------------------------------------------------------------------------------|
-| symbol     | str | symbol='sh900901'；股票代码可以在 **ak.stock_zh_b_spot()** 中获取                              |
+| symbol     | str | symbol='sh900901'；股票代码可以在 **ak.stock_zh_b_spot_sina()** 中获取                              |
 | start_date | str | start_date='20201103'；开始查询的日期                                                       |
 | end_date   | str | end_date='20201116'；结束查询的日期                                                         |
 | adjust     | str | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子 |
@@ -2642,7 +2642,7 @@ print(stock_zh_b_spot_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="qfq")
+stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="qfq")
 print(stock_zh_b_daily_qfq_df)
 ```
 
@@ -2669,7 +2669,7 @@ print(stock_zh_b_daily_qfq_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq")
+stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq")
 print(stock_zh_b_daily_hfq_df)
 ```
 
@@ -2696,7 +2696,7 @@ print(stock_zh_b_daily_hfq_df)
 ```python
 import akshare as ak
 
-qfq_factor_df = ak.stock_zh_b_daily(symbol="sh900901", adjust="qfq-factor")
+qfq_factor_df = ak.stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
 
@@ -2736,7 +2736,7 @@ print(qfq_factor_df)
 ```python
 import akshare as ak
 
-hfq_factor_df = ak.stock_zh_b_daily(symbol="sh900901", adjust="hfq-factor")
+hfq_factor_df = ak.stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
 
@@ -2771,10 +2771,10 @@ print(hfq_factor_df)
 24 1900-01-01    1.0000000000000000
 ```
 
-(stock_zh_b_minute)=
+(stock_zh_b_hist_min_sina)=
 #### 分时数据
 
-接口：stock_zh_b_minute
+接口：stock_zh_b_hist_min_sina
 
 目标地址：http://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
 
@@ -2806,8 +2806,8 @@ print(hfq_factor_df)
 ```python
 import akshare as ak
 
-stock_zh_b_minute_df = ak.stock_zh_b_minute(symbol='sh900901', period='1', adjust="qfq")
-print(stock_zh_b_minute_df)
+stock_zh_b_hist_min_sina_df = ak.stock_zh_b_hist_min_sina(symbol='sh900901', period='1', adjust="qfq")
+print(stock_zh_b_hist_min_sina_df)
 ```
 
 数据示例
@@ -3204,10 +3204,10 @@ print(stock_zh_a_stop_em_df)
 
 ## 科创板
 
-(stock_zh_kcb_spot)=
+(stock_zh_kcb_spot_sina)=
 ### 实时行情数据
 
-接口：stock_zh_kcb_spot
+接口：stock_zh_kcb_spot_sina
 
 目标地址：http://vip.stock.finance.sina.com.cn/mkt/#kcb
 
@@ -3250,8 +3250,8 @@ print(stock_zh_a_stop_em_df)
 ```python
 import akshare as ak
 
-stock_zh_kcb_spot_df = ak.stock_zh_kcb_spot()
-print(stock_zh_kcb_spot_df)
+stock_zh_kcb_spot_sina_df = ak.stock_zh_kcb_spot_sina()
+print(stock_zh_kcb_spot_sina_df)
 ```
 
 数据示例
@@ -3271,10 +3271,10 @@ print(stock_zh_kcb_spot_df)
 390  sh689009  九号公司   54.75 -0.91  ...   0.927  3.875682e+06  2.425397e+06  0.29878
 ```
 
-(stock_zh_kcb_daily)=
+(stock_zh_kcb_daily_sina)=
 ### 历史行情数据
 
-接口：stock_zh_kcb_daily
+接口：stock_zh_kcb_daily_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh688001/nc.shtml(示例)
 
@@ -3309,8 +3309,8 @@ print(stock_zh_kcb_spot_df)
 ```python
 import akshare as ak
 
-stock_zh_kcb_daily_df = ak.stock_zh_kcb_daily(symbol="sh688399", adjust="hfq")
-print(stock_zh_kcb_daily_df)
+stock_zh_kcb_daily_sina_df = ak.stock_zh_kcb_daily_sina(symbol="sh688399", adjust="hfq")
+print(stock_zh_kcb_daily_sina_df)
 ```
 
 数据示例-历史行情数据（后复权）
@@ -3463,10 +3463,10 @@ print(stock_zh_ah_spot_em_df)
 [150 rows x 10 columns]
 ```
 
-(stock_zh_ah_spot)=
+(stock_zh_ah_spot_tx)=
 ### 实时行情数据-腾讯
 
-接口：stock_zh_ah_spot
+接口：stock_zh_ah_spot_tx
 
 目标地址：https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -3503,8 +3503,8 @@ print(stock_zh_ah_spot_em_df)
 ```python
 import akshare as ak
 
-stock_zh_ah_spot_df = ak.stock_zh_ah_spot()
-print(stock_zh_ah_spot_df)
+stock_zh_ah_spot_tx_df = ak.stock_zh_ah_spot_tx()
+print(stock_zh_ah_spot_tx_df)
 ```
 
 数据示例
@@ -3525,10 +3525,10 @@ print(stock_zh_ah_spot_df)
 [160 rows x 13 columns]
 ```
 
-(stock_zh_ah_daily)=
+(stock_zh_ah_daily_tx)=
 ### 历史行情数据
 
-接口：stock_zh_ah_daily
+接口：stock_zh_ah_daily_tx
 
 目标地址：https://gu.qq.com/hk02359/gp
 
@@ -3540,7 +3540,7 @@ print(stock_zh_ah_spot_df)
 
 | 名称         | 类型  | 描述                                                          |
 |------------|-----|-------------------------------------------------------------|
-| symbol     | str | symbol="02318"；港股股票代码，可以通过 **ak.stock_zh_ah_name()** 函数获取 |
+| symbol     | str | symbol="02318"；港股股票代码，可以通过 **ak.stock_zh_ah_name_tx()** 函数获取 |
 | start_year | str | start_year="2000"；开始年份                                     |
 | end_year   | str | end_year="2019"；结束年份                                       |
 | adjust     | str | adjust=""；默认为空不复权；'qfq': 前复权，'hfq': 后复权                  |
@@ -3561,8 +3561,8 @@ print(stock_zh_ah_spot_df)
 ```python
 import akshare as ak
 
-stock_zh_ah_daily_df = ak.stock_zh_ah_daily(symbol="02318", start_year="2022", end_year="2024", adjust="")
-print(stock_zh_ah_daily_df)
+stock_zh_ah_daily_tx_df = ak.stock_zh_ah_daily_tx(symbol="02318", start_year="2022", end_year="2024", adjust="")
+print(stock_zh_ah_daily_tx_df)
 ```
 
 数据示例
@@ -3583,10 +3583,10 @@ print(stock_zh_ah_daily_df)
 [758 rows x 6 columns]
 ```
 
-(stock_zh_ah_name)=
+(stock_zh_ah_name_tx)=
 ### A+H股票字典
 
-接口：stock_zh_ah_name
+接口：stock_zh_ah_name_tx
 
 目标地址：https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -3612,8 +3612,8 @@ print(stock_zh_ah_daily_df)
 ```python
 import akshare as ak
 
-stock_zh_ah_name_df = ak.stock_zh_ah_name()
-print(stock_zh_ah_name_df)
+stock_zh_ah_name_tx_df = ak.stock_zh_ah_name_tx()
+print(stock_zh_ah_name_tx_df)
 ```
 
 数据示例
@@ -3701,10 +3701,10 @@ print(stock_us_spot_em_df)
 [11621 rows x 16 columns]
 ```
 
-(stock_us_spot)=
+(stock_us_spot_sina)=
 ### 实时行情数据-新浪
 
-接口：stock_us_spot
+接口：stock_us_spot_sina
 
 目标地址：https://finance.sina.com.cn/stock/usstock/sector.shtml
 
@@ -3729,7 +3729,7 @@ print(stock_us_spot_em_df)
 ```python
 import akshare as ak
 
-us_stock_current_df = ak.stock_us_spot()
+us_stock_current_df = ak.stock_us_spot_sina()
 print(us_stock_current_df)
 ```
 
@@ -3786,10 +3786,10 @@ print(us_stock_current_df)
 79   3089789   120621698914   15.65011561    NYSE         750
 ```
 
-(stock_us_hist)=
+(stock_us_hist_em)=
 ### 历史行情数据-东财
 
-接口：stock_us_hist
+接口：stock_us_hist_em
 
 目标地址：https://quote.eastmoney.com/us/ENTX.html#fullScreenChart
 
@@ -3828,8 +3828,8 @@ print(us_stock_current_df)
 ```python
 import akshare as ak
 
-stock_us_hist_df = ak.stock_us_hist(symbol='106.TTE', period="daily", start_date="20200101", end_date="20240214", adjust="qfq")
-print(stock_us_hist_df)
+stock_us_hist_em_df = ak.stock_us_hist_em(symbol='106.TTE', period="daily", start_date="20200101", end_date="20240214", adjust="qfq")
+print(stock_us_hist_em_df)
 ```
 
 数据示例
@@ -3984,10 +3984,10 @@ print(stock_us_hist_min_em_df)
 1954  2021-09-04 04:00:00  6.70  6.70  6.70  6.67    243168    1549848.0  6.478
 ```
 
-(stock_us_daily)=
+(stock_us_daily_sina)=
 ### 历史行情数据-新浪
 
-接口：stock_us_daily
+接口：stock_us_daily_sina
 
 目标地址：http://finance.sina.com.cn/stock/usstock/sector.shtml
 
@@ -4033,8 +4033,8 @@ P.S. "CIEN" 股票的新浪美股数据由于复权因子错误，暂不返回�
 ```python
 import akshare as ak
 
-stock_us_daily_df = ak.stock_us_daily(symbol="AAPL", adjust="")
-print(stock_us_daily_df)
+stock_us_daily_sina_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="")
+print(stock_us_daily_sina_df)
 ```
 
 数据示例-未复权数据
@@ -4059,8 +4059,8 @@ print(stock_us_daily_df)
 ```python
 import akshare as ak
 
-stock_us_daily_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq")
-print(stock_us_daily_df)
+stock_us_daily_sina_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="qfq")
+print(stock_us_daily_sina_df)
 ```
 
 数据示例-前复权调整后的数据
@@ -4085,7 +4085,7 @@ print(stock_us_daily_df)
 ```python
 import akshare as ak
 
-qfq_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq-factor")
+qfq_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="qfq-factor")
 print(qfq_df)
 ```
 
@@ -4371,10 +4371,10 @@ print(stock_hk_main_board_spot_em_df)
 2282  2283  01160        金石资本集团  ...   0.750    1600000.0     747500.0
 ```
 
-(stock_hk_spot)=
+(stock_hk_spot_sina)=
 ### 实时行情数据-新浪
 
-接口：stock_hk_spot
+接口：stock_hk_spot_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
 
@@ -4414,8 +4414,8 @@ print(stock_hk_main_board_spot_em_df)
 ```python
 import akshare as ak
 
-stock_hk_spot_df = ak.stock_hk_spot()
-print(stock_hk_spot_df)
+stock_hk_spot_sina_df = ak.stock_hk_spot_sina()
+print(stock_hk_spot_sina_df)
 ```
 
 数据示例
@@ -4604,10 +4604,10 @@ print(stock_hk_hist_min_em_df)
 329  2021-09-07 16:00:00  14.09  14.15  14.15  ...  47500   669150.0  0.42  0.02
 ```
 
-(stock_hk_hist)=
+(stock_hk_hist_em)=
 ### 历史行情数据-东财
 
-接口：stock_hk_hist
+接口：stock_hk_hist_em
 
 目标地址：https://quote.eastmoney.com/hk/08367.html
 
@@ -4646,8 +4646,8 @@ print(stock_hk_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="")
-print(stock_hk_hist_df)
+stock_hk_hist_em_df = ak.stock_hk_hist_em(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="")
+print(stock_hk_hist_em_df)
 ```
 
 数据示例-未复权
@@ -4689,7 +4689,7 @@ print(stock_hk_hist_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
+stock_hk_hist_qfq_df = ak.stock_hk_hist_em(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_hk_hist_qfq_df)
 ```
 
@@ -4732,7 +4732,7 @@ print(stock_hk_hist_qfq_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_hfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="hfq")
+stock_hk_hist_hfq_df = ak.stock_hk_hist_em(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="hfq")
 print(stock_hk_hist_hfq_df)
 ```
 
@@ -4754,10 +4754,10 @@ print(stock_hk_hist_hfq_df)
 [4775 rows x 11 columns]
 ```
 
-(stock_hk_daily)=
+(stock_hk_daily_sina)=
 ### 历史行情数据-新浪
 
-接口：stock_hk_daily
+接口：stock_hk_daily_sina
 
 目标地址：http://stock.finance.sina.com.cn/hkstock/quotes/01336.html(个例)
 
@@ -4770,7 +4770,7 @@ print(stock_hk_hist_hfq_df)
 
 | 名称     | 类型  | 描述                                                                                             |
 |--------|-----|------------------------------------------------------------------------------------------------|
-| symbol | str | 港股代码，可以通过 **ak.stock_hk_spot()** 函数返回所有港股代码                                                    |
+| symbol | str | 港股代码，可以通过 **ak.stock_hk_spot_sina()** 函数返回所有港股代码                                                    |
 | adjust | str | "": 返回未复权的数据 ; qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；qfq-factor: 返回前复权因子和调整；hfq-factor: 返回后复权因子和调整；|
 
 输出参数-历史行情数据（后复权）
@@ -4789,7 +4789,7 @@ print(stock_hk_hist_hfq_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_hfq_df = ak.stock_hk_daily(symbol="00700", adjust="hfq")
+stock_hk_daily_hfq_df = ak.stock_hk_daily_sina(symbol="00700", adjust="hfq")
 print(stock_hk_daily_hfq_df)
 ```
 
@@ -4826,8 +4826,8 @@ print(stock_hk_daily_hfq_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_df = ak.stock_hk_daily(symbol="00700", adjust="")
-print(stock_hk_daily_df)
+stock_hk_daily_sina_df = ak.stock_hk_daily_sina(symbol="00700", adjust="")
+print(stock_hk_daily_sina_df)
 ```
 
 数据示例-历史行情数据（未复权）
@@ -4860,7 +4860,7 @@ print(stock_hk_daily_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_hfq_factor_df = ak.stock_hk_daily(symbol="00700", adjust="hfq-factor")
+stock_hk_daily_hfq_factor_df = ak.stock_hk_daily_sina(symbol="00700", adjust="hfq-factor")
 print(stock_hk_daily_hfq_factor_df)
 ```
 

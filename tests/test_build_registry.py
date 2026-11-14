@@ -663,12 +663,12 @@ def test_merge_records_carries_rate_limit():
 def test_real_registry_marks_push2_interfaces():
     import akshare as ak
 
-    assert ak.interface_info("stock_zh_a_hist")["rate_limit"] == "eastmoney_push2"
+    assert ak.interface_info("stock_zh_a_hist_em")["rate_limit"] == "eastmoney_push2"
     assert ak.interface_info("stock_zh_a_spot_em")["rate_limit"] == "eastmoney_push2"
     # 东方财富数据中心（宏观、龙虎榜）与其他数据源不受 push2 限流影响
     assert ak.interface_info("macro_china_cpi")["rate_limit"] is None
     assert ak.interface_info("stock_lhb_detail_em")["rate_limit"] is None
-    assert ak.interface_info("stock_zh_a_daily")["rate_limit"] is None
+    assert ak.interface_info("stock_zh_a_daily_sina")["rate_limit"] is None
 
 
 # ---- alternatives：人工维护的同类接口对照表 ----

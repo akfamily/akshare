@@ -31,7 +31,7 @@ PENALTY_UNDOCUMENTED = 0.5
 # 同义词组：查询词命中组内任意一个词时，按整组去匹配。接口描述沿用数据源网站的
 # 栏目名，与用户的说法常常对不上——描述里写的是「日频率」「历史行情」，用户搜的是
 # 「日线」；只做字面匹配时，「期货 日线」的前几名里没有一个是日线行情。
-# 组内的英文词是接口名中以下划线分隔的片段，按整段匹配：us 只命中 stock_us_daily
+# 组内的英文词是接口名中以下划线分隔的片段，按整段匹配：us 只命中 stock_us_daily_sina
 # 这样的名字，不会命中 industry。含下划线的词（如 fund_flow）要求各段连续出现。
 SYNONYM_GROUPS: Tuple[Tuple[str, ...], ...] = (
     ("日线", "日k", "日k线", "日频", "历史行情", "daily", "hist"),
@@ -89,8 +89,8 @@ def _synonyms(norm_token: str) -> Tuple[str, ...]:
 
 def _name_has_segments(name_segments: List[str], word: str) -> bool:
     """
-    判断接口名中是否连续出现给定的片段，如 zh_a 命中 stock_zh_a_hist，
-    但不命中 stock_zh_ah_spot。
+    判断接口名中是否连续出现给定的片段，如 zh_a 命中 stock_zh_a_hist_em，
+    但不命中 stock_zh_ah_spot_tx。
 
     :param name_segments: 接口名按下划线切分后的片段
     :param word: 英文同义词，可含下划线
@@ -269,7 +269,7 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
         if score > 0:
             # 与 _score 的精确名捷径判定保持一致：tokenize 会剥掉
             # ",，、;；/|" 等标点，若这里仍用未剥标点的原始 stripped 比较，
-            # 带尾随标点的精确名查询（如 "stock_zh_a_hist,"）会被判定为
+            # 带尾随标点的精确名查询（如 "stock_zh_a_hist_em,"）会被判定为
             # 非精确，从而失去置顶保证。
             is_exact = (len(tokens) == 1 and tokens[0] == record["name"]) or (
                 record["name"] == stripped
@@ -325,7 +325,7 @@ def interface_info(name: str) -> Dict:
     """
     返回单个接口的完整元数据。
 
-    :param name: 接口名，如 "stock_zh_a_hist"
+    :param name: 接口名，如 "stock_zh_a_hist_em"
     :return: 完整元数据
     :rtype: dict
     """

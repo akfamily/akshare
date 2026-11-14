@@ -52,16 +52,20 @@ def _names(query, limit=5):
 
 def test_search_daily_bars_rank_first_for_colloquial_query():
     """「日线」是用户的说法，接口描述写的是「日频率」「历史行情」"""
-    assert set(_names("A股 日线", 4)) >= {
-        "stock_zh_a_hist",
-        "stock_zh_a_daily",
+    # 新浪的分钟接口（stock_zh_a_hist_min_sina）与腾讯日线同分，取前五
+    assert set(_names("A股 日线", 5)) >= {
+        "stock_zh_a_hist_em",
+        "stock_zh_a_daily_sina",
         "stock_zh_a_hist_tx",
     }
     # 港股指数的日线接口（index_hk_daily_sina）与个股日线同分，取前三
-    assert set(_names("港股 日线", 3)) >= {"stock_hk_daily", "stock_hk_hist"}
+    assert set(_names("港股 日线", 3)) >= {"stock_hk_daily_sina", "stock_hk_hist_em"}
     assert set(_names("期货 日线", 5)) >= {"futures_zh_daily_sina", "futures_hist_em"}
     assert _names("期货 分钟", 1) == ["futures_zh_min_sina"]
-    assert set(_names("A股 实时行情", 2)) == {"stock_zh_a_spot_em", "stock_zh_a_spot"}
+    assert set(_names("A股 实时行情", 2)) == {
+        "stock_zh_a_spot_em",
+        "stock_zh_a_spot_sina",
+    }
 
 
 def test_search_unknown_word_still_returns_matches_for_known_word():
@@ -70,14 +74,14 @@ def test_search_unknown_word_still_returns_matches_for_known_word():
 
 
 def test_interface_info_carries_alternatives():
-    info = registry.interface_info("stock_zh_a_hist")
-    assert info["alternatives"] == ["stock_zh_a_daily", "stock_zh_a_hist_tx"]
+    info = registry.interface_info("stock_zh_a_hist_em")
+    assert info["alternatives"] == ["stock_zh_a_daily_sina", "stock_zh_a_hist_tx"]
     # 单向关系：分市场的实时行情可改用全市场接口，反过来不成立
     assert registry.interface_info("stock_sh_a_spot_em")["alternatives"] == [
-        "stock_zh_a_spot"
+        "stock_zh_a_spot_sina"
     ]
     assert (
         "stock_sh_a_spot_em"
-        not in registry.interface_info("stock_zh_a_spot")["alternatives"]
+        not in registry.interface_info("stock_zh_a_spot_sina")["alternatives"]
     )
     assert registry.interface_info("macro_china_cpi")["alternatives"] == []

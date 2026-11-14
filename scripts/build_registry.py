@@ -452,7 +452,7 @@ def resolve_alternatives(
     把人工维护的同类接口对照表展开为「接口名 -> 同类接口列表」。
 
     对照表记录的是来自不同数据源、内容属于同一类的接口，例如 A 股日线的
-    stock_zh_a_hist（东方财富）、stock_zh_a_daily（新浪财经）与
+    stock_zh_a_hist_em（东方财富）、stock_zh_a_daily_sina（新浪财经）与
     stock_zh_a_hist_tx（腾讯）。它无法从源码或文档推断，只能人工维护：
     按名称与描述猜测时，会把 ST 股票列表配给日线、把 B 股配给科创板。
 

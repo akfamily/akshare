@@ -37,7 +37,7 @@ def _get_zh_stock_ah_page_count() -> int:
     return page_count
 
 
-def stock_zh_ah_spot() -> pd.DataFrame:
+def stock_zh_ah_spot_tx() -> pd.DataFrame:
     """
     腾讯财经-港股-AH-实时行情
     https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
@@ -107,7 +107,7 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_ah_name() -> pd.DataFrame:
+def stock_zh_ah_name_tx() -> pd.DataFrame:
     """
     腾讯财经-港股-AH-股票名称
     https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
@@ -154,7 +154,7 @@ def stock_zh_ah_name() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_ah_daily(
+def stock_zh_ah_daily_tx(
     symbol: str = "02318",
     start_year: str = "2000",
     end_year: str = "2019",
@@ -260,13 +260,13 @@ def stock_zh_ah_daily(
 
 
 if __name__ == "__main__":
-    stock_zh_ah_spot_df = stock_zh_ah_spot()
-    print(stock_zh_ah_spot_df)
+    stock_zh_ah_spot_tx_df = stock_zh_ah_spot_tx()
+    print(stock_zh_ah_spot_tx_df)
 
-    stock_zh_ah_name_df = stock_zh_ah_name()
-    print(stock_zh_ah_name_df)
+    stock_zh_ah_name_tx_df = stock_zh_ah_name_tx()
+    print(stock_zh_ah_name_tx_df)
 
-    stock_zh_ah_daily_df = stock_zh_ah_daily(
+    stock_zh_ah_daily_tx_df = stock_zh_ah_daily_tx(
         symbol="02318", start_year="2022", end_year="2024", adjust=""
     )
-    print(stock_zh_ah_daily_df)
+    print(stock_zh_ah_daily_tx_df)

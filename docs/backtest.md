@@ -33,7 +33,7 @@ from akquant import Strategy
 
 # 1. 准备数据
 # 使用 akshare 获取 A 股历史数据 (需安装: pip install akshare)
-df = ak.stock_zh_a_daily(symbol="sh600000", start_date="20230101", end_date="20231231")
+df = ak.stock_zh_a_daily_sina(symbol="sh600000", start_date="20230101", end_date="20231231")
 
 
 class MyStrategy(Strategy):
@@ -274,7 +274,7 @@ plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
 # 利用 AKShare 获取股票的后复权数据，这里只获取前 7 列
-stock_hfq_df = ak.stock_zh_a_hist(symbol="000001", adjust="hfq").iloc[:, :7]
+stock_hfq_df = ak.stock_zh_a_hist_em(symbol="000001", adjust="hfq").iloc[:, :7]
 # 删除 `股票代码` 列
 del stock_hfq_df['股票代码']
 # 处理字段命名，以符合 Backtrader 的要求
@@ -475,7 +475,7 @@ def main(code="600070", start_cash=1000000, stake=100, commission_fee=0.001):
     cerebro = bt.Cerebro()  # 创建主控制器
     cerebro.optstrategy(MyStrategy, maperiod=range(3, 31))  # 导入策略参数寻优
     # 利用 AKShare 获取股票的后复权数据，这里只获取前 7 列
-    stock_hfq_df = ak.stock_zh_a_hist(symbol=code, adjust="hfq", start_date='20000101', end_date='20210617').iloc[:, :7]
+    stock_hfq_df = ak.stock_zh_a_hist_em(symbol=code, adjust="hfq", start_date='20000101', end_date='20210617').iloc[:, :7]
     # 删除 `股票代码` 列
     del stock_hfq_df['股票代码']
     # 处理字段命名，以符合 Backtrader 的要求

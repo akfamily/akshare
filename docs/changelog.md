@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-46)=
+### 1.20.46 fix!: add the data source suffix to 22 quote interfaces, including stock_zh_a_hist
+
+**不兼容的改动：22 个行情接口补上数据源后缀，其中包括调用量最大的 stock_zh_a_hist（改为 stock_zh_a_hist_em），旧名称不再保留，调用旧名称会报 AttributeError，升级后请按下面的对照修改代码。** 完整对照同时登记在文末的{ref}`接口更名一览表 <changelog-rename>`：stock_zh_a_hist→stock_zh_a_hist_em、stock_zh_a_daily→stock_zh_a_daily_sina、stock_zh_a_spot→stock_zh_a_spot_sina、stock_zh_a_minute→stock_zh_a_hist_min_sina、stock_zh_a_cdr_daily→stock_zh_a_cdr_daily_sina、stock_zh_b_daily→stock_zh_b_daily_sina、stock_zh_b_spot→stock_zh_b_spot_sina、stock_zh_b_minute→stock_zh_b_hist_min_sina、stock_zh_kcb_daily→stock_zh_kcb_daily_sina、stock_zh_kcb_spot→stock_zh_kcb_spot_sina、stock_zh_ah_spot→stock_zh_ah_spot_tx、stock_zh_ah_daily→stock_zh_ah_daily_tx、stock_zh_ah_name→stock_zh_ah_name_tx、stock_hk_hist→stock_hk_hist_em、stock_hk_daily→stock_hk_daily_sina、stock_hk_spot→stock_hk_spot_sina、stock_us_hist→stock_us_hist_em、stock_us_daily→stock_us_daily_sina、stock_us_spot→stock_us_spot_sina、bond_zh_hs_daily→bond_zh_hs_daily_sina、futures_foreign_hist→futures_foreign_hist_sina、futures_foreign_detail→futures_foreign_detail_sina
+
+1. 同一种行情往往有多个数据源，原先只有一部分接口带数据源后缀（如 stock_zh_a_hist_tx、stock_zh_a_spot_em），不带后缀的接口从名称上看不出来源：stock_zh_a_hist 来自东方财富，stock_zh_a_daily 来自新浪财经。现在所有接口都以数据源结尾：东方财富的 stock_zh_a_hist、stock_hk_hist、stock_us_hist 加 _em；新浪财经的 A 股、B 股、科创板、CDR、港股、美股的 daily 与 spot 接口，以及 bond_zh_hs_daily、futures_foreign_hist、futures_foreign_detail 加 _sina；腾讯的 A+H 股接口加 _tx
+2. 新浪财经的分钟行情 stock_zh_a_minute、stock_zh_b_minute 改为 stock_zh_a_hist_min_sina、stock_zh_b_hist_min_sina，与东方财富的 stock_zh_a_hist_min_em 写法一致
+3. 只改名称，参数、返回的列与实现均未变。除 3 个请求东方财富 push2 的接口（stock_zh_a_hist_em、stock_hk_hist_em、stock_us_hist_em）为避免触发限流没有实测，以及 stock_us_spot_sina 需翻 900 多页、170 秒内没有跑完外，其余 18 个接口已按文档示例逐一调用，返回正常
+4. 至此接口命名整改全部完成：1.20.41～1.20.46 共改名 273 个接口，全部接口均以所属类目开头、以数据源结尾
+
 (v1-20-45)=
 ### 1.20.45 fix!: rename 83 interfaces to carry their category prefix and remove 6 dead interfaces
 
@@ -448,6 +458,28 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.46      | bond_zh_hs_daily                            | bond_zh_hs_daily_sina                       | 20261114 |
+| 1.20.46      | futures_foreign_detail                      | futures_foreign_detail_sina                 | 20261114 |
+| 1.20.46      | futures_foreign_hist                        | futures_foreign_hist_sina                   | 20261114 |
+| 1.20.46      | stock_hk_daily                              | stock_hk_daily_sina                         | 20261114 |
+| 1.20.46      | stock_hk_hist                               | stock_hk_hist_em                            | 20261114 |
+| 1.20.46      | stock_hk_spot                               | stock_hk_spot_sina                          | 20261114 |
+| 1.20.46      | stock_us_daily                              | stock_us_daily_sina                         | 20261114 |
+| 1.20.46      | stock_us_hist                               | stock_us_hist_em                            | 20261114 |
+| 1.20.46      | stock_us_spot                               | stock_us_spot_sina                          | 20261114 |
+| 1.20.46      | stock_zh_a_cdr_daily                        | stock_zh_a_cdr_daily_sina                   | 20261114 |
+| 1.20.46      | stock_zh_a_daily                            | stock_zh_a_daily_sina                       | 20261114 |
+| 1.20.46      | stock_zh_a_hist                             | stock_zh_a_hist_em                          | 20261114 |
+| 1.20.46      | stock_zh_a_minute                           | stock_zh_a_hist_min_sina                    | 20261114 |
+| 1.20.46      | stock_zh_a_spot                             | stock_zh_a_spot_sina                        | 20261114 |
+| 1.20.46      | stock_zh_ah_daily                           | stock_zh_ah_daily_tx                        | 20261114 |
+| 1.20.46      | stock_zh_ah_name                            | stock_zh_ah_name_tx                         | 20261114 |
+| 1.20.46      | stock_zh_ah_spot                            | stock_zh_ah_spot_tx                         | 20261114 |
+| 1.20.46      | stock_zh_b_daily                            | stock_zh_b_daily_sina                       | 20261114 |
+| 1.20.46      | stock_zh_b_minute                           | stock_zh_b_hist_min_sina                    | 20261114 |
+| 1.20.46      | stock_zh_b_spot                             | stock_zh_b_spot_sina                        | 20261114 |
+| 1.20.46      | stock_zh_kcb_daily                          | stock_zh_kcb_daily_sina                     | 20261114 |
+| 1.20.46      | stock_zh_kcb_spot                           | stock_zh_kcb_spot_sina                      | 20261114 |
 | 1.20.45      | air_city_table                              | alternative_air_city_table_zhenqi           | 20261114 |
 | 1.20.45      | air_quality_hebei                           | alternative_air_quality_hebei               | 20261114 |
 | 1.20.45      | air_quality_hist                            | alternative_air_quality_hist_zhenqi         | 20261114 |

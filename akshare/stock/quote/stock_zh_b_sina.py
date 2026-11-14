@@ -48,7 +48,7 @@ def _get_zh_b_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_zh_b_spot() -> pd.DataFrame:
+def stock_zh_b_spot_sina() -> pd.DataFrame:
     """
     新浪财经-所有 B 股的实时行情数据；重复运行本函数会被新浪暂时封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_b
@@ -124,7 +124,7 @@ def stock_zh_b_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_b_daily(
+def stock_zh_b_daily_sina(
     symbol: str = "sh900901",
     start_date: str = "19900101",
     end_date: str = "21000118",
@@ -274,7 +274,7 @@ def stock_zh_b_daily(
         return temp_df
 
 
-def stock_zh_b_minute(
+def stock_zh_b_hist_min_sina(
     symbol: str = "sh900901", period: str = "1", adjust: str = ""
 ) -> pd.DataFrame:
     """
@@ -307,7 +307,7 @@ def stock_zh_b_minute(
         return pd.DataFrame()
     # 只在需要复权时取一次对应口径的日线；原先无论 adjust 为何都先多取一次前复权日线（#7478）
     try:
-        daily_df = stock_zh_b_daily(symbol=symbol, adjust=adjust)
+        daily_df = stock_zh_b_daily_sina(symbol=symbol, adjust=adjust)
     except Exception as e:
         warnings.warn(f"{symbol} 没有复权日线数据（{e}），返回不复权的分钟数据")
         return temp_df
@@ -337,61 +337,65 @@ def stock_zh_b_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_b_daily_hfq_df_one = stock_zh_b_daily(
+    stock_zh_b_daily_hfq_df_one = stock_zh_b_daily_sina(
         symbol="sh900901", start_date="20071103", end_date="20240916", adjust=""
     )
     print(stock_zh_b_daily_hfq_df_one)
 
-    stock_zh_b_daily_hfq_df_three = stock_zh_b_daily(
+    stock_zh_b_daily_hfq_df_three = stock_zh_b_daily_sina(
         symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq"
     )
     print(stock_zh_b_daily_hfq_df_three)
 
-    stock_zh_b_daily_hfq_df_two = stock_zh_b_daily(
+    stock_zh_b_daily_hfq_df_two = stock_zh_b_daily_sina(
         symbol="sh900901", start_date="20101103", end_date="20210510"
     )
     print(stock_zh_b_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_b_daily(symbol="sh900901", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_b_daily(symbol="sh900901", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
     print(hfq_factor_df)
 
-    stock_zh_b_daily_hfq_factor_df = stock_zh_b_daily(
+    stock_zh_b_daily_hfq_factor_df = stock_zh_b_daily_sina(
         symbol="sh900901", adjust="hfq-factor"
     )
     print(stock_zh_b_daily_hfq_factor_df)
 
-    stock_zh_b_daily_df = stock_zh_b_daily(symbol="sh900901")
-    print(stock_zh_b_daily_df)
+    stock_zh_b_daily_sina_df = stock_zh_b_daily_sina(symbol="sh900901")
+    print(stock_zh_b_daily_sina_df)
 
-    stock_zh_b_spot_df = stock_zh_b_spot()
-    print(stock_zh_b_spot_df)
+    stock_zh_b_spot_sina_df = stock_zh_b_spot_sina()
+    print(stock_zh_b_spot_sina_df)
 
-    stock_zh_b_minute_df = stock_zh_b_minute(symbol="sh900901", period="5", adjust="")
-    print(stock_zh_b_minute_df)
+    stock_zh_b_hist_min_sina_df = stock_zh_b_hist_min_sina(
+        symbol="sh900901", period="5", adjust=""
+    )
+    print(stock_zh_b_hist_min_sina_df)
 
-    stock_zh_b_minute_df = stock_zh_b_minute(symbol="sh900901", period="1", adjust="")
-    print(stock_zh_b_minute_df)
+    stock_zh_b_hist_min_sina_df = stock_zh_b_hist_min_sina(
+        symbol="sh900901", period="1", adjust=""
+    )
+    print(stock_zh_b_hist_min_sina_df)
 
-    stock_zh_b_daily_qfq_df = stock_zh_b_daily(
+    stock_zh_b_daily_qfq_df = stock_zh_b_daily_sina(
         symbol="sh900901", start_date="20101103", end_date="20201116", adjust="qfq"
     )
     print(stock_zh_b_daily_qfq_df)
 
-    stock_zh_b_daily_hfq_df = stock_zh_b_daily(
+    stock_zh_b_daily_hfq_df = stock_zh_b_daily_sina(
         symbol="sh900901", start_date="20201103", end_date="20201116", adjust="hfq"
     )
     print(stock_zh_b_daily_hfq_df)
 
-    qfq_factor_df = stock_zh_b_daily(symbol="sh900901", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_b_daily(symbol="sh900901", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
     print(hfq_factor_df)
 
-    stock_zh_b_minute_df = stock_zh_b_minute(
+    stock_zh_b_hist_min_sina_df = stock_zh_b_hist_min_sina(
         symbol="sh900901", period="1", adjust="qfq"
     )
-    print(stock_zh_b_minute_df)
+    print(stock_zh_b_hist_min_sina_df)

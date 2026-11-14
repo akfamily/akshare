@@ -8,7 +8,7 @@ Desc: 接口参数类型转换测试
 接口的参数要求数字或布尔值：fund_fh_em(page="-1") 不等于 -1，
 search(documented_only="false") 作为布尔值为真。这些参数现在同时接受原生类型与文本。
 
-原先 13 个接口另有 timeout 参数，stock_zh_a_hist?timeout=5 会报
+原先 13 个接口另有 timeout 参数，stock_zh_a_hist_em?timeout=5 会报
 Timeout value … must be an int, float or None，且默认 None 等于不设超时、绕过
 ak.set_timeout。1.20.13 起删除这些参数，超时统一由 ak.set_timeout 设置。全程不联网。
 """
@@ -83,9 +83,9 @@ def sent(monkeypatch):
 
 def test_stock_zh_a_hist_uses_global_timeout(sent, monkeypatch):
     """接口不再提供 timeout 参数，请求使用 ak.set_timeout 设置的全局超时"""
-    ak.stock_zh_a_hist(symbol="000001", start_date="20240101", end_date="20240110")
+    ak.stock_zh_a_hist_em(symbol="000001", start_date="20240101", end_date="20240110")
     monkeypatch.setattr(config, "timeout", 7)
-    ak.stock_zh_a_hist(symbol="000001", start_date="20240101", end_date="20240110")
+    ak.stock_zh_a_hist_em(symbol="000001", start_date="20240101", end_date="20240110")
     assert sent == [DEFAULT_TIMEOUT, 7]
 
 

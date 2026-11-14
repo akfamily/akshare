@@ -80,7 +80,7 @@
 
 1. 在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新；
 2. 接口文档位于 `docs/data/类目/` 目录下，一般每个类目一个 Markdown 文件，例如期货接口在 `docs/data/futures/futures.md`；股票和宏观数据按主题拆分为多个文件，例如股票行情接口在 `docs/data/stock/stock_quote.md`，请放到主题对应的文件中；目录名就是 `ak.search()` 中的类目名，不能修改；
-3. 每个接口使用三级标题（`###`），放在对应的二级标题（`##`）分类下面，标题层级不能跳级；标题前一行写 `(接口名)=` 作为固定锚点，例如 `(stock_zh_a_minute)=`，缺少时 CI 会报错；
+3. 每个接口使用三级标题（`###`），放在对应的二级标题（`##`）分类下面，标题层级不能跳级；标题前一行写 `(接口名)=` 作为固定锚点，例如 `(stock_zh_a_hist_min_sina)=`，缺少时 CI 会报错；
 4. 以股票分时数据接口文档为例：
    1. 主要包含以下部分内容：
       1. 接口：填写具体的接口名称
@@ -95,10 +95,10 @@
    2. 示例如下：
 
 ````markdown
-(stock_zh_a_minute)=
+(stock_zh_a_hist_min_sina)=
 ### 分时数据-新浪
 
-接口：stock_zh_a_minute
+接口：stock_zh_a_hist_min_sina
 
 目标地址：http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
 
@@ -131,8 +131,8 @@
 ```python
 import akshare as ak
 
-stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sh600751', period='1', adjust="qfq")
-print(stock_zh_a_minute_df)
+stock_zh_a_hist_min_sina_df = ak.stock_zh_a_hist_min_sina(symbol='sh600751', period='1', adjust="qfq")
+print(stock_zh_a_hist_min_sina_df)
 ```
 
 数据示例
