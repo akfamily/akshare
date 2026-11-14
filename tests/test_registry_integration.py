@@ -60,7 +60,9 @@ def test_search_daily_bars_rank_first_for_colloquial_query():
     }
     # 港股指数的日线接口（index_hk_daily_sina）与个股日线同分，取前三
     assert set(_names("港股 日线", 3)) >= {"stock_hk_daily_sina", "stock_hk_hist_em"}
-    assert set(_names("期货 日线", 5)) >= {"futures_zh_daily_sina", "futures_hist_em"}
+    assert "futures_zh_daily_sina" in _names("期货 日线", 3)
+    # 各交易所的日行情接口（futures_daily_cffex 等）补文档后与 futures_hist_em 同分
+    assert "futures_hist_em" in _names("期货 日线", 12)
     assert _names("期货 分钟", 1) == ["futures_zh_min_sina"]
     assert set(_names("A股 实时行情", 2)) == {
         "stock_zh_a_spot_em",

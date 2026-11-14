@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-47)=
+### 1.20.47 docs: document 30 futures interfaces that had no data dictionary entry
+
+1. 期货类目此前有 30 个接口只有函数、没有数据字典条目，在 `ak.search`、`ak.interface_info` 和 AKTools 的 MCP 服务里只有名称，没有描述、参数与返回字段。现已全部补上，条目放在期货数据页对应的小节下：展期收益率（futures_roll_yield、futures_roll_yield_bar）、注册仓单（futures_receipt）、现货价格和基差（futures_spot_price、futures_spot_price_previous、futures_spot_price_daily）、会员持仓排名（futures_rank_sum、futures_rank_sum_daily、futures_rank_table_cffex、futures_rank_table_czce、futures_rank_table_shfe、futures_rank_table_dce、futures_position_rank_other_dce）、各交易所日行情（futures_daily_cffex、futures_hist_daily_cffex、futures_daily_czce、futures_daily_shfe、futures_daily_ine、futures_daily_gfex、futures_daily_dce）、各交易所结算参数（futures_settle_cffex、futures_settle_czce、futures_settle_shfe、futures_settle_ine、futures_settle_gfex），以及 futures_hist_table_em、futures_foreign_commodity_subscribe_exchange_symbol、futures_main_contract_sina、futures_symbol_mark、futures_display_main_sina
+2. 输出参数与数据示例取自 2026-11-14 的实测结果。大连商品交易所的 3 个接口（futures_rank_table_dce、futures_position_rank_other_dce、futures_daily_dce）因交易所的反爬虫验证无法获取数据，没有数据示例，输出参数参照同类接口填写
+3. futures_settle_cffex 的文档注明：中金所只在结算参数调整的当日发布文件，其他日期返回空表
+4. 本次只补文档，接口的代码、名称与返回值均未改动
+
 (v1-20-46)=
 ### 1.20.46 fix!: add the data source suffix to 22 quote interfaces, including stock_zh_a_hist
 

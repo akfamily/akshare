@@ -723,6 +723,98 @@ ak.futures_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF18
 主力合约和次主力合约的定义，是由该日的各交割月合约持仓量由大到小排序得到。
 ```
 
+(futures_roll_yield_bar)=
+#### 展期收益率-序列
+
+接口：futures_roll_yield_bar
+
+目标地址：各交易所网站
+
+描述：根据各交易所的日行情计算展期收益率；type_method 为 symbol 时返回指定交易日指定品种所有交割月合约的收盘价，为 var 时返回指定交易日所有品种主力与次主力合约的展期收益率，为 date 时返回指定品种在一段时间内每天的展期收益率
+
+限量：单次返回指定条件下的展期收益率数据；需在收盘后调用
+
+输入参数
+
+| 名称          | 类型  | 描述                                                     |
+|-------------|-----|--------------------------------------------------------|
+| type_method | str | type_method="date"；choice of {"symbol", "var", "date"} |
+| var         | str | var="RB"；品种代码                                          |
+| date        | str | date="20201030"；交易日                                    |
+| start_day   | str | start_day="20261109"；开始日期                              |
+| end_day     | str | end_day="20261113"；结束日期                                |
+
+输出参数
+
+| 名称         | 类型      | 描述                           |
+|------------|---------|------------------------------|
+| （索引）       | object  | 交易日；type_method 为 var 时为品种代码 |
+| roll_yield | float64 | 展期收益率                        |
+| near_by    | str     | 近月合约                         |
+| deferred   | str     | 远月合约                         |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_roll_yield_bar_df = ak.futures_roll_yield_bar(type_method="date", var="RB", start_day="20261109", end_day="20261113")
+print(futures_roll_yield_bar_df)
+```
+
+数据示例
+
+```
+            roll_yield near_by deferred
+2026-11-09    0.009886  RB2701   RB2703
+2026-11-10    0.015831  RB2701   RB2703
+2026-11-11   -0.000985  RB2701   RB2705
+2026-11-12   -0.003966  RB2701   RB2705
+2026-11-13   -0.001976  RB2701   RB2705
+```
+
+(futures_roll_yield)=
+#### 展期收益率-单日
+
+接口：futures_roll_yield
+
+目标地址：各交易所网站
+
+描述：指定交易日指定品种主力与次主力合约的展期收益率；也可以用 symbol1、symbol2 指定任意两个合约
+
+限量：单次返回指定交易日的展期收益率
+
+输入参数
+
+| 名称      | 类型               | 描述                                             |
+|---------|------------------|------------------------------------------------|
+| date    | str              | date="20261113"；交易日                            |
+| var     | str              | var="RB"；品种代码                                  |
+| symbol1 | str              | symbol1=None；合约 1，与 symbol2 同时指定时计算这两个合约的展期收益率 |
+| symbol2 | str              | symbol2=None；合约 2                              |
+| df      | pandas.DataFrame | df=None；已获取的日行情数据，默认为 None，由接口自行获取             |
+
+输出参数
+
+| 名称 | 类型    | 描述                 |
+|----|-------|--------------------|
+| -  | tuple | 依次为展期收益率、近月合约、远月合约 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_roll_yield_tuple = ak.futures_roll_yield(date="20261113", var="RB")
+print(futures_roll_yield_tuple)
+```
+
+数据示例
+
+```
+(-0.001976284656450491, 'RB2701', 'RB2705')
+```
+
 ### 注册仓单
 
 注册仓单是由各交易所的公布的日级数据，在一定程度上可以反映市场的库存变化。调用例子如下：
@@ -739,6 +831,53 @@ ak.futures_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", 
 2. 在研究仓单的方向变化时，需要考虑一些品种的年度周期性，如农产品的收割季、工业品的开工季等；
 
 3. 需考虑到交割日的仓单变化。
+```
+
+(futures_receipt)=
+#### 注册仓单-汇总
+
+接口：futures_receipt
+
+目标地址：各交易所网站
+
+描述：各交易所公布的注册仓单日数据，按品种汇总
+
+限量：单次返回指定时间段指定品种的注册仓单数据；大连商品交易所的品种暂时无法获取
+
+输入参数
+
+| 名称         | 类型   | 描述                                    |
+|------------|------|---------------------------------------|
+| start_date | str  | start_date="20261112"；开始日期            |
+| end_date   | str  | end_date="20261113"；结束日期              |
+| vars_list  | list | vars_list=["CU", "NI"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称          | 类型    | 描述      |
+|-------------|-------|---------|
+| var         | str   | 品种代码    |
+| receipt     | int64 | 注册仓单量   |
+| receipt_chg | int64 | 注册仓单变化量 |
+| date        | str   | 交易日     |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_receipt_df = ak.futures_receipt(start_date="20261112", end_date="20261113", vars_list=["CU", "NI"])
+print(futures_receipt_df)
+```
+
+数据示例
+
+```
+  var  receipt  receipt_chg      date
+0  CU     2444          -76  20261112
+1  NI    88422          667  20261112
+2  CU     2270         -174  20261113
+3  NI    88596          174  20261113
 ```
 
 ### 现货价格和基差
@@ -901,6 +1040,186 @@ print(futures_spot_price_daily_df)
 
 ```{note}
 现货价格是从生意社网站采集的，仅支持从 2011 年至今每个交易日数据。
+```
+
+(futures_spot_price)=
+#### 现货价格和基差-单日
+
+接口：futures_spot_price
+
+目标地址：https://www.100ppi.com/sf/
+
+描述：生意社-指定交易日大宗商品的现货价格及相应基差
+
+限量：单次返回指定交易日指定品种的现货价格和基差；只能获取近期的数据，更早的日期使用 futures_spot_price_previous
+
+输入参数
+
+| 名称        | 类型   | 描述                                    |
+|-----------|------|---------------------------------------|
+| date      | str  | date="20261113"；交易日                   |
+| vars_list | list | vars_list=["CU", "RB"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                      | 类型      | 描述             |
+|-------------------------|---------|----------------|
+| date                    | str     | 交易日            |
+| symbol                  | str     | 合约代码           |
+| spot_price              | float64 | 现货价格           |
+| near_contract           | str     | 临近交割合约         |
+| near_contract_price     | float64 | 临近交割合约结算价      |
+| dominant_contract       | str     | 主力合约           |
+| dominant_contract_price | float64 | 主力合约结算价        |
+| near_month              | str     | 临近交割合约的交割月     |
+| dominant_month          | str     | 主力合约的交割月       |
+| near_basis              | float64 | 临近交割合约相对现货的基差  |
+| dom_basis               | float64 | 主力合约相对现货的基差    |
+| near_basis_rate         | float64 | 临近交割合约相对现货的基差率 |
+| dom_basis_rate          | float64 | 主力合约相对现货的基差率   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_spot_price_df = ak.futures_spot_price(date="20261113")
+print(futures_spot_price_df)
+```
+
+数据示例
+
+```
+        date symbol  ...  near_basis_rate  dom_basis_rate
+0   20261113      C  ...        -0.020457       -0.003584
+1   20261113      A  ...         0.017878        0.020629
+2   20261113      M  ...        -0.028427       -0.006001
+3   20261113      Y  ...         0.001804       -0.008681
+4   20261113      P  ...         0.004251        0.002349
+..    ...
+49  20261113     SS  ...        -0.022183       -0.018310
+50  20261113     BR  ...         0.002430       -0.026731
+51  20261113     SI  ...        -0.127883       -0.095912
+52  20261113     LC  ...        -0.002198       -0.004615
+53  20261113     PS  ...        -0.211744       -0.213721
+[54 rows x 13 columns]
+```
+
+(futures_spot_price_previous)=
+#### 现货价格和基差-历史
+
+接口：futures_spot_price_previous
+
+目标地址：https://www.100ppi.com/sf/day-2017-09-12.html
+
+描述：生意社-历史交易日大宗商品的现货价格及相应基差
+
+限量：单次返回指定历史交易日所有品种的现货价格和基差
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20240430"；交易日 |
+
+输出参数
+
+| 名称          | 类型      | 描述 |
+|-------------|---------|----|
+| 商品          | str     | -  |
+| 现货价格        | str     | -  |
+| 主力合约代码      | str     | -  |
+| 主力合约价格      | str     | -  |
+| 主力合约基差      | float64 | -  |
+| 主力合约变动百分比   | str     | -  |
+| 180日内主力基差最高 | str     | -  |
+| 180日内主力基差最低 | str     | -  |
+| 180日内主力基差平均 | str     | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_spot_price_previous_df = ak.futures_spot_price_previous(date="20240430")
+print(futures_spot_price_previous_df)
+```
+
+数据示例
+
+```
+       商品     现货价格 主力合约代码  ... 180日内主力基差最高 180日内主力基差最低 180日内主力基差平均
+0       铜  81593.3   2406  ...     1203.33    -1901.67       49.49
+1     螺纹钢  3586.22   2410  ...      121.89     -167.78      -14.55
+2       锌    23378   2406  ...      304.00     -450.00       -0.10
+3       铝    20540   2406  ...      268.33     -301.67       10.40
+4      黄金   547.64   2408  ...        6.84       -8.35       -1.26
+..    ...
+46    苯乙烯     9530   2406  ...      506.00     -293.00       53.58
+47  液化石油气     5052   2406  ...      857.00     -102.00      315.51
+48     生猪    14.85   2409  ...     2065.00    -3415.00     -431.58
+49    工业硅    13660   2406  ...     2160.00      810.00     1622.46
+50    碳酸锂   115400   2407  ...    33650.00   -18000.00     6675.42
+[51 rows x 9 columns]
+```
+
+(futures_spot_price_daily)=
+#### 现货价格和基差-时间段
+
+接口：futures_spot_price_daily
+
+目标地址：https://www.100ppi.com/sf/
+
+描述：生意社-指定时间段内大宗商品的现货价格及相应基差
+
+限量：单次返回指定时间段指定品种的现货价格和基差；逐日请求，时间段不宜过长
+
+输入参数
+
+| 名称        | 类型   | 描述                                    |
+|-----------|------|---------------------------------------|
+| start_day | str  | start_day="20261111"；开始日期             |
+| end_day   | str  | end_day="20261113"；结束日期               |
+| vars_list | list | vars_list=["CU", "RB"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                      | 类型      | 描述             |
+|-------------------------|---------|----------------|
+| date                    | str     | 交易日            |
+| symbol                  | str     | 合约代码           |
+| spot_price              | float64 | 现货价格           |
+| near_contract           | str     | 临近交割合约         |
+| near_contract_price     | float64 | 临近交割合约结算价      |
+| dominant_contract       | str     | 主力合约           |
+| dominant_contract_price | float64 | 主力合约结算价        |
+| near_month              | str     | 临近交割合约的交割月     |
+| dominant_month          | str     | 主力合约的交割月       |
+| near_basis              | float64 | 临近交割合约相对现货的基差  |
+| dom_basis               | float64 | 主力合约相对现货的基差    |
+| near_basis_rate         | float64 | 临近交割合约相对现货的基差率 |
+| dom_basis_rate          | float64 | 主力合约相对现货的基差率   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_spot_price_daily_df = ak.futures_spot_price_daily(start_day="20261111", end_day="20261113", vars_list=["CU", "RB"])
+print(futures_spot_price_daily_df)
+```
+
+数据示例
+
+```
+       date symbol  spot_price  ...  dom_basis  near_basis_rate  dom_basis_rate
+0  20261111     CU   108321.67  ...   -2501.67        -0.004816       -0.023095
+1  20261111     RB     3106.50  ...     -61.50        -0.031386       -0.019797
+2  20261112     CU   108715.00  ...   -3765.00        -0.007773       -0.034632
+3  20261112     RB     3104.00  ...     -80.00        -0.033505       -0.025773
+4  20261113     CU   109340.00  ...   -4190.00        -0.010609       -0.038321
+5  20261113     RB     3104.16  ...     -69.16        -0.033555       -0.022280
+[6 rows x 13 columns]
 ```
 
 ### 会员持仓排名
@@ -1147,6 +1466,430 @@ print(futures_gfex_position_rank_dict)
 18    19           先锋期货   1144  ...                      -19  LC2407       LC
 19    20           银河期货   1100  ...                     -218  LC2407       LC
 [20 rows x 12 columns]}
+```
+
+(futures_rank_sum_daily)=
+#### 会员持仓排名-汇总-时间段
+
+接口：futures_rank_sum_daily
+
+目标地址：各交易所网站
+
+描述：各交易所前 5、前 10、前 15、前 20 名会员的成交量、多单持仓、空单持仓及其变化量之和；上期所和中金所只公布合约排名，品种排名由各合约加总得到
+
+限量：单次返回指定时间段指定品种的会员持仓排名汇总数据；大连商品交易所的品种暂时无法获取
+
+输入参数
+
+| 名称        | 类型   | 描述                                    |
+|-----------|------|---------------------------------------|
+| start_day | str  | start_day="20261113"；开始日期             |
+| end_day   | str  | end_day="20261113"；结束日期               |
+| vars_list | list | vars_list=["IF", "RB"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                            | 类型     | 描述                 |
+|-------------------------------|--------|--------------------|
+| symbol                        | object | 合约代码               |
+| variety                       | object | 品种代码               |
+| vol_top5                      | object | 前 5 名会员的成交量之和      |
+| vol_chg_top5                  | object | 前 5 名会员的成交量变化量之和   |
+| long_open_interest_top5       | object | 前 5 名会员的持买单量之和     |
+| long_open_interest_chg_top5   | object | 前 5 名会员的持买单量变化量之和  |
+| short_open_interest_top5      | object | 前 5 名会员的持卖单量之和     |
+| short_open_interest_chg_top5  | object | 前 5 名会员的持卖单量变化量之和  |
+| vol_top10                     | object | 前 10 名会员的成交量之和     |
+| vol_chg_top10                 | object | 前 10 名会员的成交量变化量之和  |
+| long_open_interest_top10      | object | 前 10 名会员的持买单量之和    |
+| long_open_interest_chg_top10  | object | 前 10 名会员的持买单量变化量之和 |
+| short_open_interest_top10     | object | 前 10 名会员的持卖单量之和    |
+| short_open_interest_chg_top10 | object | 前 10 名会员的持卖单量变化量之和 |
+| vol_top15                     | object | 前 15 名会员的成交量之和     |
+| vol_chg_top15                 | object | 前 15 名会员的成交量变化量之和  |
+| long_open_interest_top15      | object | 前 15 名会员的持买单量之和    |
+| long_open_interest_chg_top15  | object | 前 15 名会员的持买单量变化量之和 |
+| short_open_interest_top15     | object | 前 15 名会员的持卖单量之和    |
+| short_open_interest_chg_top15 | object | 前 15 名会员的持卖单量变化量之和 |
+| vol_top20                     | object | 前 20 名会员的成交量之和     |
+| vol_chg_top20                 | object | 前 20 名会员的成交量变化量之和  |
+| long_open_interest_top20      | object | 前 20 名会员的持买单量之和    |
+| long_open_interest_chg_top20  | object | 前 20 名会员的持买单量变化量之和 |
+| short_open_interest_top20     | object | 前 20 名会员的持卖单量之和    |
+| short_open_interest_chg_top20 | object | 前 20 名会员的持卖单量变化量之和 |
+| date                          | str    | 交易日                |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_day="20261113", end_day="20261113", vars_list=["IF", "RB"])
+print(futures_rank_sum_daily_df)
+```
+
+数据示例
+
+```
+   symbol variety  ... short_open_interest_chg_top20      date
+0  RB2611      RB  ...                           0.0  20261113
+1  RB2701      RB  ...                      -48724.0  20261113
+2  RB2703      RB  ...                       -4428.0  20261113
+3  RB2705      RB  ...                       20575.0  20261113
+4  IF2611      IF  ...                         898.0  20261113
+5  IF2612      IF  ...                       -1454.0  20261113
+6  IF2703      IF  ...                         189.0  20261113
+7  IF2706      IF  ...                         949.0  20261113
+8      RB      RB  ...                      -32577.0  20261113
+9      IF      IF  ...                         582.0  20261113
+[10 rows x 27 columns]
+```
+
+(futures_rank_sum)=
+#### 会员持仓排名-汇总-单日
+
+接口：futures_rank_sum
+
+目标地址：各交易所网站
+
+描述：指定交易日各交易所前 5、前 10、前 15、前 20 名会员的成交量、多单持仓、空单持仓及其变化量之和
+
+限量：单次返回指定交易日指定品种的会员持仓排名汇总数据；大连商品交易所的品种暂时无法获取
+
+输入参数
+
+| 名称        | 类型   | 描述                                    |
+|-----------|------|---------------------------------------|
+| date      | str  | date="20261113"；交易日                   |
+| vars_list | list | vars_list=["IF", "RB"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                            | 类型     | 描述                 |
+|-------------------------------|--------|--------------------|
+| symbol                        | object | 合约代码               |
+| variety                       | object | 品种代码               |
+| vol_top5                      | object | 前 5 名会员的成交量之和      |
+| vol_chg_top5                  | object | 前 5 名会员的成交量变化量之和   |
+| long_open_interest_top5       | object | 前 5 名会员的持买单量之和     |
+| long_open_interest_chg_top5   | object | 前 5 名会员的持买单量变化量之和  |
+| short_open_interest_top5      | object | 前 5 名会员的持卖单量之和     |
+| short_open_interest_chg_top5  | object | 前 5 名会员的持卖单量变化量之和  |
+| vol_top10                     | object | 前 10 名会员的成交量之和     |
+| vol_chg_top10                 | object | 前 10 名会员的成交量变化量之和  |
+| long_open_interest_top10      | object | 前 10 名会员的持买单量之和    |
+| long_open_interest_chg_top10  | object | 前 10 名会员的持买单量变化量之和 |
+| short_open_interest_top10     | object | 前 10 名会员的持卖单量之和    |
+| short_open_interest_chg_top10 | object | 前 10 名会员的持卖单量变化量之和 |
+| vol_top15                     | object | 前 15 名会员的成交量之和     |
+| vol_chg_top15                 | object | 前 15 名会员的成交量变化量之和  |
+| long_open_interest_top15      | object | 前 15 名会员的持买单量之和    |
+| long_open_interest_chg_top15  | object | 前 15 名会员的持买单量变化量之和 |
+| short_open_interest_top15     | object | 前 15 名会员的持卖单量之和    |
+| short_open_interest_chg_top15 | object | 前 15 名会员的持卖单量变化量之和 |
+| vol_top20                     | object | 前 20 名会员的成交量之和     |
+| vol_chg_top20                 | object | 前 20 名会员的成交量变化量之和  |
+| long_open_interest_top20      | object | 前 20 名会员的持买单量之和    |
+| long_open_interest_chg_top20  | object | 前 20 名会员的持买单量变化量之和 |
+| short_open_interest_top20     | object | 前 20 名会员的持卖单量之和    |
+| short_open_interest_chg_top20 | object | 前 20 名会员的持卖单量变化量之和 |
+| date                          | str    | 交易日                |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_sum_df = ak.futures_rank_sum(date="20261113", vars_list=["IF", "RB"])
+print(futures_rank_sum_df)
+```
+
+数据示例
+
+```
+   symbol variety  ... short_open_interest_chg_top20      date
+0  RB2611      RB  ...                           0.0  20261113
+1  RB2701      RB  ...                      -48724.0  20261113
+2  RB2703      RB  ...                       -4428.0  20261113
+3  RB2705      RB  ...                       20575.0  20261113
+4  IF2611      IF  ...                         898.0  20261113
+5  IF2612      IF  ...                       -1454.0  20261113
+6  IF2703      IF  ...                         189.0  20261113
+7  IF2706      IF  ...                         949.0  20261113
+8      RB      RB  ...                      -32577.0  20261113
+9      IF      IF  ...                         582.0  20261113
+[10 rows x 27 columns]
+```
+
+(futures_rank_table_cffex)=
+#### 会员持仓排名-明细-中金所
+
+接口：futures_rank_table_cffex
+
+目标地址：http://www.cffex.com.cn/ccpm/
+
+描述：中国金融期货交易所前 20 名会员的成交量、持买单量、持卖单量排名明细
+
+限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典；数据从 20100416 开始
+
+输入参数
+
+| 名称        | 类型   | 描述                              |
+|-----------|------|---------------------------------|
+| date      | str  | date="20261113"；交易日             |
+| vars_list | list | vars_list=["IF"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                      | 类型     | 描述          |
+|-------------------------|--------|-------------|
+| long_open_interest      | int64  | 该会员持买单量     |
+| long_open_interest_chg  | int64  | 该会员持买单量变化量  |
+| long_party_name         | object | 持买单量排名的会员简称 |
+| rank                    | int64  | 名次          |
+| short_open_interest     | int64  | 该会员持卖单量     |
+| short_open_interest_chg | int64  | 该会员持卖单量变化量  |
+| short_party_name        | object | 持卖单量排名的会员简称 |
+| symbol                  | str    | 合约代码        |
+| vol                     | int64  | 该会员成交量      |
+| vol_chg                 | int64  | 该会员成交量变化量   |
+| vol_party_name          | object | 成交量排名的会员简称  |
+| variety                 | str    | 品种代码        |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_table_cffex_dict = ak.futures_rank_table_cffex(date="20261113", vars_list=["IF"])
+print(futures_rank_table_cffex_dict)
+```
+
+数据示例（共 4 个键，以下为键 IF2611 对应的数据）
+
+```
+    long_open_interest  long_open_interest_chg  ... vol_party_name variety
+0                 6382                     209  ...       中信期货(代客)      IF
+1                 5861                    -517  ...       国泰君安(代客)      IF
+2                 3427                      99  ...       海通期货(代客)      IF
+3                 3170                      56  ...       东证期货(代客)      IF
+4                 2689                     -53  ...       国信期货(代客)      IF
+..    ...
+16                 526                    -121  ...       平安期货(代客)      IF
+17                 493                     -91  ...       招商期货(代客)      IF
+18                 450                      41  ...       兴证期货(代客)      IF
+19                 425                     245  ...       国投期货(代客)      IF
+20               35885                    -219  ...           None      IF
+[21 rows x 12 columns]
+```
+
+(futures_rank_table_czce)=
+#### 会员持仓排名-明细-郑商所
+
+接口：futures_rank_table_czce
+
+目标地址：https://www.czce.com.cn/cn/jysj/ccpm/H077003004index_1.htm
+
+描述：郑州商品交易所前 20 名会员的成交量、持买仓量、持卖仓量排名明细，包含品种排名与合约排名
+
+限量：单次返回指定交易日的排名明细，返回以品种或合约代码为键、排名数据为值的字典
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称                      | 类型     | 描述          |
+|-------------------------|--------|-------------|
+| rank                    | object | 名次          |
+| vol_party_name          | str    | 成交量排名的会员简称  |
+| vol                     | str    | 该会员成交量      |
+| vol_chg                 | str    | 该会员成交量变化量   |
+| long_party_name         | str    | 持买单量排名的会员简称 |
+| long_open_interest      | str    | 该会员持买单量     |
+| long_open_interest_chg  | str    | 该会员持买单量变化量  |
+| short_party_name        | str    | 持卖单量排名的会员简称 |
+| short_open_interest     | str    | 该会员持卖单量     |
+| short_open_interest_chg | str    | 该会员持卖单量变化量  |
+| symbol                  | str    | 合约代码        |
+| variety                 | str    | 品种代码        |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_table_czce_dict = ak.futures_rank_table_czce(date="20261113")
+print(futures_rank_table_czce_dict)
+```
+
+数据示例（共 128 个键，以下为键 AP 对应的数据）
+
+```
+   rank vol_party_name     vol  ... short_open_interest_chg symbol variety
+0     1       中信期货（代客）  92,513  ...                   1,123     AP      AP
+1     2       国泰君安（代客）  79,936  ...                   1,405     AP      AP
+2     3       东证期货（代客）  64,458  ...                  -1,612     AP      AP
+3     4       海通期货（代客）  36,622  ...                    -252     AP      AP
+4     5       东方财富（代客）  29,403  ...                  -1,906     AP      AP
+..    ...
+15   16       国信期货（代客）  10,499  ...                    -411     AP      AP
+16   17       申银万国（代客）  10,415  ...                     407     AP      AP
+17   18       宏源期货（代客）  10,279  ...                     -92     AP      AP
+18   19       五矿期货（代客）   9,136  ...                     -30     AP      AP
+19   20       东吴期货（代客）   8,966  ...                     337     AP      AP
+[20 rows x 12 columns]
+```
+
+(futures_rank_table_shfe)=
+#### 会员持仓排名-明细-上期所
+
+接口：futures_rank_table_shfe
+
+目标地址：https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
+
+描述：上海期货交易所会员成交及持仓排名表；只公布合约排名
+
+限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典；数据从 20020107 开始
+
+输入参数
+
+| 名称        | 类型   | 描述                              |
+|-----------|------|---------------------------------|
+| date      | str  | date="20261113"；交易日             |
+| vars_list | list | vars_list=["RB"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                      | 类型      | 描述          |
+|-------------------------|---------|-------------|
+| symbol                  | str     | 合约代码        |
+| short_party_name        | str     | 持卖单量排名的会员简称 |
+| long_party_name         | str     | 持买单量排名的会员简称 |
+| rank                    | int64   | 名次          |
+| vol_party_name          | str     | 成交量排名的会员简称  |
+| long_open_interest      | float64 | 该会员持买单量     |
+| vol                     | float64 | 该会员成交量      |
+| vol_chg                 | float64 | 该会员成交量变化量   |
+| short_open_interest_chg | float64 | 该会员持卖单量变化量  |
+| short_open_interest     | float64 | 该会员持卖单量     |
+| long_open_interest_chg  | float64 | 该会员持买单量变化量  |
+| variety                 | str     | 品种代码        |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_table_shfe_dict = ak.futures_rank_table_shfe(date="20261113", vars_list=["RB"])
+print(futures_rank_table_shfe_dict)
+```
+
+数据示例（共 4 个键，以下为键 rb2611 对应的数据）
+
+```
+   symbol short_party_name  ...  long_open_interest_chg variety
+0  RB2611             中泰期货  ...                     0.0      RB
+1  RB2611             光大期货  ...                     0.0      RB
+2  RB2611             物产中大  ...                     0.0      RB
+3  RB2611             中信期货  ...                     NaN      RB
+4  RB2611             东证期货  ...                     NaN      RB
+5  RB2611             一德期货  ...                     NaN      RB
+6  RB2611             上海中期  ...                     NaN      RB
+7  RB2611             国泰君安  ...                     NaN      RB
+8  RB2611              NaN  ...                     0.0      RB
+[9 rows x 12 columns]
+```
+
+(futures_rank_table_dce)=
+#### 会员持仓排名-明细-大商所
+
+接口：futures_rank_table_dce
+
+目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+
+描述：大连商品交易所前 20 名会员的成交量、持买单量、持卖单量排名明细；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
+
+限量：单次返回指定交易日指定品种的排名明细，返回以合约代码为键、排名数据为值的字典
+
+输入参数
+
+| 名称        | 类型   | 描述                             |
+|-----------|------|--------------------------------|
+| date      | str  | date="20230706"；交易日            |
+| vars_list | list | vars_list=["M"]；品种代码列表，默认为全部品种 |
+
+输出参数
+
+| 名称                      | 类型     | 描述          |
+|-------------------------|--------|-------------|
+| long_open_interest      | int64  | 该会员持买单量     |
+| long_open_interest_chg  | int64  | 该会员持买单量变化量  |
+| long_party_name         | object | 持买单量排名的会员简称 |
+| rank                    | int64  | 名次          |
+| short_open_interest     | int64  | 该会员持卖单量     |
+| short_open_interest_chg | int64  | 该会员持卖单量变化量  |
+| short_party_name        | object | 持卖单量排名的会员简称 |
+| symbol                  | str    | 合约代码        |
+| vol                     | int64  | 该会员成交量      |
+| vol_chg                 | int64  | 该会员成交量变化量   |
+| vol_party_name          | object | 成交量排名的会员简称  |
+| variety                 | str    | 品种代码        |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_rank_table_dce_dict = ak.futures_rank_table_dce(date="20230706", vars_list=["M"])
+print(futures_rank_table_dce_dict)
+```
+
+数据示例
+
+```
+大连商品交易所网站目前启用了瑞数反爬虫验证，暂时无法获取数据
+```
+
+(futures_position_rank_other_dce)=
+#### 会员持仓排名-合约列表-大商所
+
+接口：futures_position_rank_other_dce
+
+目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+
+描述：大连商品交易所指定交易日有持仓排名数据的品种及其合约列表；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
+
+限量：单次返回指定交易日的品种与合约列表
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20160104"；交易日 |
+
+输出参数
+
+| 名称 | 类型   | 描述              |
+|----|------|-----------------|
+| -  | list | 每个元素为一个品种及其合约列表 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_position_rank_other_dce_list = ak.futures_position_rank_other_dce(date="20160104")
+print(futures_position_rank_other_dce_list)
+```
+
+数据示例
+
+```
+大连商品交易所网站目前启用了瑞数反爬虫验证，暂时无法获取数据
 ```
 
 ### 仓单日报
@@ -2689,6 +3432,96 @@ while True:
 3  113365.000  73086  353463074.600
 ```
 
+(futures_main_contract_sina)=
+#### 内盘-主力合约代码
+
+接口：futures_main_contract_sina
+
+目标地址：https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+
+描述：新浪财经-指定交易所当前各品种的主力合约代码，以英文逗号连接成字符串，可直接作为 futures_zh_contract_realtime_sina 的 symbol 参数
+
+限量：单次返回指定交易所所有品种的主力合约代码
+
+输入参数
+
+| 名称     | 类型  | 描述                                                               |
+|--------|-----|------------------------------------------------------------------|
+| symbol | str | symbol="shfe"；choice of {"czce", "dce", "shfe", "cffex", "gfex"} |
+
+输出参数
+
+| 名称 | 类型  | 描述             |
+|----|-----|----------------|
+| -  | str | 以英文逗号连接的主力合约代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_main_contract_sina_str = ak.futures_main_contract_sina(symbol="shfe")
+print(futures_main_contract_sina_str)
+```
+
+数据示例
+
+```
+FU2701,SC2701,AL2701,RU2701,ZN2701,CU2612,AU2702,RB2701,WR2701,PB2701,AG2702,BU2701,HC2701,SN2612,NI2701,SP2701,NR2701,SS2701,LU2701,BC2612,AO2701,BR2701,EC2612,AD2701,OP2701
+```
+
+(futures_symbol_mark)=
+#### 内盘-品种与代码映射
+
+接口：futures_symbol_mark
+
+目标地址：https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js
+
+描述：新浪财经-内盘期货品种名称、所属交易所与新浪品种标识的映射表
+
+限量：单次返回所有内盘期货品种的映射
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称       | 类型  | 描述     |
+|----------|-----|--------|
+| exchange | str | 交易所    |
+| symbol   | str | 合约代码   |
+| mark     | str | 新浪品种标识 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_symbol_mark_df = ak.futures_symbol_mark()
+print(futures_symbol_mark_df)
+```
+
+数据示例
+
+```
+   exchange symbol    mark
+0   郑州商品交易所    PTA  pta_qh
+1   郑州商品交易所     菜油  czy_qh
+2   郑州商品交易所     菜籽  ycz_qh
+3   郑州商品交易所     菜粕  czp_qh
+4   郑州商品交易所    动力煤  dlm_qh
+..      ...    ...     ...
+82  广州期货交易所    工业硅   si_qh
+83  广州期货交易所    碳酸锂   lc_qh
+84  广州期货交易所    多晶硅   ps_qh
+85  广州期货交易所      铂   pt_qh
+86  广州期货交易所      钯   pd_qh
+[87 rows x 3 columns]
+```
+
 (futures_zh_realtime_sina)=
 ### 内盘-实时行情数据（品种）
 
@@ -2909,6 +3742,58 @@ print(futures_hist_em_df)
 [2641 rows x 10 columns]
 ```
 
+(futures_hist_table_em)=
+#### 东财-交易所品种对照表
+
+接口：futures_hist_table_em
+
+目标地址：https://quote.eastmoney.com/qihuo/al2505.html
+
+描述：东方财富网-期货行情-交易所品种对照表，用于查询 futures_hist_em 可用的品种与合约代码
+
+限量：单次返回所有交易所的品种对照表
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称     | 类型  | 描述 |
+|--------|-----|----|
+| 市场简称   | str | -  |
+| 合约中文代码 | str | -  |
+| 合约代码   | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_hist_table_em_df = ak.futures_hist_table_em()
+print(futures_hist_table_em_df)
+```
+
+数据示例
+
+```
+     市场简称  合约中文代码    合约代码
+0     上期所  沪铜2611  cu2611
+1     上期所  沪铜2612  cu2612
+2     上期所  沪铜2701  cu2701
+3     上期所  沪铜2702  cu2702
+4     上期所  沪铜2703  cu2703
+...   ...     ...     ...
+1073  广期所   钯2706  pd2706
+1074  广期所   钯2708  pd2708
+1075  广期所   钯2710  pd2710
+1076  广期所     钯主连     pdm
+1077  广期所    钯次主连     pds
+[1078 rows x 3 columns]
+```
+
 (futures_zh_daily_sina)=
 ### 内盘-历史行情数据-新浪
 
@@ -3059,6 +3944,422 @@ print(futures_daily_df)
 2753   JM99  20200716  1193.58  ...  1195.49    1197.92      JM
 ```
 
+(futures_daily_cffex)=
+#### 中金所-日行情
+
+接口：futures_daily_cffex
+
+目标地址：http://www.cffex.com.cn/rtj/
+
+描述：中国金融期货交易所指定交易日所有合约的日行情数据
+
+限量：单次返回指定交易日的所有合约行情；数据从 20100416 开始
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | str     | 合约代码 |
+| date          | str     | 交易日  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| close         | float64 | 收盘价  |
+| volume        | int64   | 成交量  |
+| open_interest | int64   | 持仓量  |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
+| variety       | str     | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_cffex_df = ak.futures_daily_cffex(date="20261113")
+print(futures_daily_cffex_df)
+```
+
+数据示例
+
+```
+    symbol      date      open  ...    settle  pre_settle variety
+0   IC2611  20261113  6620.000  ...  6444.200    6602.200      IC
+1   IC2612  20261113  6598.000  ...  6390.400    6553.800      IC
+2   IC2703  20261113  6439.800  ...  6244.600    6411.800      IC
+3   IC2706  20261113  6279.400  ...  6076.200    6247.000      IC
+4   IF2611  20261113  4044.800  ...  3998.000    4035.200      IF
+..    ...
+23  TL2703  20261113   117.710  ...   117.120     117.630      TL
+24  TL2706  20261113   117.400  ...   116.780     117.250      TL
+25  TS2612  20261113   102.658  ...   102.642     102.652      TS
+26  TS2703  20261113   102.672  ...   102.644     102.670      TS
+27  TS2706  20261113   102.620  ...   102.618     102.616      TS
+[28 rows x 12 columns]
+```
+
+(futures_hist_daily_cffex)=
+#### 中金所-日统计
+
+接口：futures_hist_daily_cffex
+
+目标地址：http://www.cffex.com.cn/cn/rtj.html
+
+描述：中国金融期货交易所指定交易日的日统计数据，字段为交易所公布的原始中文列名
+
+限量：单次返回指定交易日的所有合约数据
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | str     | 合约代码 |
+| date          | str     | 交易日  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| close         | float64 | 收盘价  |
+| volume        | int64   | 成交量  |
+| open_interest | int64   | 持仓量  |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
+| variety       | str     | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_hist_daily_cffex_df = ak.futures_hist_daily_cffex(date="20261113")
+print(futures_hist_daily_cffex_df)
+```
+
+数据示例
+
+```
+    symbol      date      open  ...    settle  pre_settle variety
+0   IC2611  20261113  6620.000  ...  6444.200    6602.200      IC
+1   IC2612  20261113  6598.000  ...  6390.400    6553.800      IC
+2   IC2703  20261113  6439.800  ...  6244.600    6411.800      IC
+3   IC2706  20261113  6279.400  ...  6076.200    6247.000      IC
+4   IF2611  20261113  4044.800  ...  3998.000    4035.200      IF
+..    ...
+23  TL2703  20261113   117.710  ...   117.120     117.630      TL
+24  TL2706  20261113   117.400  ...   116.780     117.250      TL
+25  TS2612  20261113   102.658  ...   102.642     102.652      TS
+26  TS2703  20261113   102.672  ...   102.644     102.670      TS
+27  TS2706  20261113   102.620  ...   102.618     102.616      TS
+[28 rows x 12 columns]
+```
+
+(futures_daily_czce)=
+#### 郑商所-日行情
+
+接口：futures_daily_czce
+
+目标地址：http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
+
+描述：郑州商品交易所指定交易日所有合约的日行情数据
+
+限量：单次返回指定交易日的所有合约行情；日期需晚于 20100824
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | str     | 合约代码 |
+| date          | int64   | 交易日  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| close         | float64 | 收盘价  |
+| volume        | int64   | 成交量  |
+| open_interest | int64   | 持仓量  |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
+| variety       | str     | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_czce_df = ak.futures_daily_czce(date="20261113")
+print(futures_daily_czce_df)
+```
+
+数据示例
+
+```
+    symbol      date    open  ...  settle  pre_settle variety
+0    AP611  20261113  7300.0  ...  7300.0      7300.0      AP
+1    AP612  20261113  6850.0  ...  6834.0      6770.0      AP
+2    AP701  20261113  6226.0  ...  6240.0      6111.0      AP
+3    AP703  20261113  5927.0  ...  5927.0      5790.0      AP
+4    AP704  20261113  5763.0  ...  5797.0      5643.0      AP
+..     ...       ...     ...  ...     ...         ...     ...
+242  ZC707  20261113     0.0  ...   801.4       801.4      ZC
+243  ZC708  20261113     0.0  ...   801.4       801.4      ZC
+244  ZC709  20261113     0.0  ...   801.4       801.4      ZC
+245  ZC710  20261113     0.0  ...   801.4       801.4      ZC
+246  ZC711  20261113     0.0  ...   801.4       801.4      ZC
+[247 rows x 12 columns]
+```
+
+(futures_daily_shfe)=
+#### 上期所-日行情
+
+接口：futures_daily_shfe
+
+目标地址：https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
+
+描述：上海期货交易所指定交易日所有合约的日行情数据
+
+限量：单次返回指定交易日的所有合约行情
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述      |
+|---------------|---------|---------|
+| index         | int64   | 交易所原始序号 |
+| symbol        | str     | 合约代码    |
+| date          | str     | 交易日     |
+| open          | object  | 开盘价     |
+| high          | object  | 最高价     |
+| low           | object  | 最低价     |
+| close         | float64 | 收盘价     |
+| volume        | int64   | 成交量     |
+| open_interest | object  | 持仓量     |
+| turnover      | float64 | 成交额     |
+| settle        | object  | 结算价     |
+| pre_settle    | object  | 前结算价    |
+| variety       | str     | 品种代码    |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_shfe_df = ak.futures_daily_shfe(date="20261113")
+print(futures_daily_shfe_df)
+```
+
+数据示例
+
+```
+     index      symbol      date  ...  settle pre_settle variety
+0        0      CU2611  20261113  ...  108320     107740      CU
+1        1      CU2612  20261113  ...  105040     105140      CU
+2        2      CU2701  20261113  ...  102910     103690      CU
+3        3      CU2702  20261113  ...  102050     102930      CU
+4        4      CU2703  20261113  ...  101820     102760      CU
+..     ...         ...       ...  ...     ...        ...     ...
+300    300      EC2709  20261113  ...  1702.5     1659.5      EC
+301    301  SC_TAS2612  20261113  ...                     SC_TAS
+302    302  SC_TAS2701  20261113  ...                     SC_TAS
+303    303  SC_TAS2702  20261113  ...                     SC_TAS
+304    304  SC_TAS2703  20261113  ...                     SC_TAS
+[305 rows x 13 columns]
+```
+
+(futures_daily_ine)=
+#### 上期能源-日行情
+
+接口：futures_daily_ine
+
+目标地址：https://www.ine.cn/statements/daily/?paramid=kx
+
+描述：上海国际能源交易中心指定交易日所有合约的日行情数据
+
+限量：单次返回指定交易日的所有合约行情；原油期货自 20180326 上市
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型     | 描述   |
+|---------------|--------|------|
+| symbol        | str    | 合约代码 |
+| date          | str    | 交易日  |
+| open          | object | 开盘价  |
+| high          | object | 最高价  |
+| low           | object | 最低价  |
+| close         | object | 收盘价  |
+| volume        | object | 成交量  |
+| open_interest | object | 持仓量  |
+| turnover      | object | 成交额  |
+| settle        | object | 结算价  |
+| pre_settle    | object | 前结算价 |
+| variety       | str    | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_ine_df = ak.futures_daily_ine(date="20261113")
+print(futures_daily_ine_df)
+```
+
+数据示例
+
+```
+        symbol      date   open  ...  settle pre_settle variety
+0       SC2612  20261113  606.8  ...   615.2      607.9      SC
+1       SC2701  20261113  594.9  ...   607.1      595.9      SC
+2       SC2702  20261113  585.9  ...   598.9      585.3      SC
+3       SC2703  20261113    570  ...   586.3        571      SC
+4       SC2704  20261113  558.4  ...   576.8      558.4      SC
+..         ...       ...    ...  ...     ...        ...     ...
+66      EC2709  20261113   1713  ...  1702.5     1659.5      EC
+69  SC_TAS2612  20261113         ...                     SC_TAS
+70  SC_TAS2701  20261113         ...                     SC_TAS
+71  SC_TAS2702  20261113         ...                     SC_TAS
+72  SC_TAS2703  20261113         ...                     SC_TAS
+[67 rows x 12 columns]
+```
+
+(futures_daily_gfex)=
+#### 广期所-日行情
+
+接口：futures_daily_gfex
+
+目标地址：http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
+
+描述：广州期货交易所指定交易日所有合约的日行情数据
+
+限量：单次返回指定交易日的所有合约行情；工业硅期货自 20221222 上市
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | str     | 合约代码 |
+| date          | str     | 交易日  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| close         | float64 | 收盘价  |
+| volume        | int64   | 成交量  |
+| open_interest | int64   | 持仓量  |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
+| variety       | str     | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_gfex_df = ak.futures_daily_gfex(date="20261113")
+print(futures_daily_gfex_df)
+```
+
+数据示例
+
+```
+    symbol      date      open  ...    settle  pre_settle variety
+0   PS2611  20261113  33895.00  ...  32300.00    32895.00      PS
+1   PS2612  20261113  34400.00  ...  34410.00    34575.00      PS
+2   PS2701  20261113  33760.00  ...  33880.00    33935.00      PS
+3   PS2702  20261113  33780.00  ...  33740.00    33865.00      PS
+4   PS2703  20261113  33690.00  ...  33700.00    33720.00      PS
+..    ...
+48  PT2702  20261113    370.05  ...    372.75      375.45      PT
+49  PT2704  20261113    373.50  ...    373.70      375.95      PT
+50  PT2706  20261113    373.70  ...    374.60      377.40      PT
+51  PT2708  20261113    373.95  ...    376.50      378.30      PT
+52  PT2710  20261113    377.95  ...    377.30      381.05      PT
+[48 rows x 12 columns]
+```
+
+(futures_daily_dce)=
+#### 大商所-日行情
+
+接口：futures_daily_dce
+
+目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
+
+描述：大连商品交易所指定交易日所有合约的日行情数据；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
+
+限量：单次返回指定交易日的所有合约行情
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20251027"；交易日 |
+
+输出参数
+
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | str     | 合约代码 |
+| date          | int64   | 交易日  |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| close         | float64 | 收盘价  |
+| volume        | int64   | 成交量  |
+| open_interest | int64   | 持仓量  |
+| turnover      | float64 | 成交额  |
+| settle        | float64 | 结算价  |
+| pre_settle    | float64 | 前结算价 |
+| variety       | str     | 品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_daily_dce_df = ak.futures_daily_dce(date="20251027")
+print(futures_daily_dce_df)
+```
+
+数据示例
+
+```
+大连商品交易所网站目前启用了瑞数反爬虫验证，暂时无法获取数据
+```
+
 (futures_settle)=
 ### 内盘-结算参数数据
 
@@ -3127,6 +4428,308 @@ print(futures_settle_df)
 60  20260119  ec2610      ec  ...         None            None            None
 61  20260119  ec2612      ec  ...         None            None            None
 [62 rows x 20 columns]
+```
+
+(futures_settle_cffex)=
+#### 中金所-结算参数
+
+接口：futures_settle_cffex
+
+目标地址：http://www.cffex.com.cn/jscs/
+
+描述：中国金融期货交易所指定交易日的结算参数
+
+限量：单次返回指定交易日所有合约的结算参数；中金所只在结算参数调整的当日发布，其他日期返回空表，可发布的日期见目标地址
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261019"；交易日 |
+
+输出参数
+
+| 名称                    | 类型  | 描述       |
+|-----------------------|-----|----------|
+| date                  | str | 交易日      |
+| symbol                | str | 合约代码     |
+| variety               | str | 品种代码     |
+| long_margin_ratio     | str | 多头保证金标准  |
+| short_margin_ratio    | str | 空头保证金标准  |
+| trade_fee_ratio       | str | 交易手续费标准  |
+| delivery_fee_ratio    | str | 交割手续费标准  |
+| close_today_fee_ratio | str | 平今仓手续费标准 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_settle_cffex_df = ak.futures_settle_cffex(date="20261019")
+print(futures_settle_cffex_df)
+```
+
+数据示例
+
+```
+        date  symbol  ... delivery_fee_ratio close_today_fee_ratio
+0   20261019  IC2611  ...             万分之0.5                 1000%
+1   20261019  IC2612  ...             万分之0.5                 1000%
+2   20261019  IC2703  ...             万分之1.0                 1000%
+3   20261019  IC2706  ...             万分之1.0                 1000%
+4   20261019  IF2611  ...             万分之0.5                 1000%
+..    ...
+43  20261019  MO2612  ...               1元/手                  100%
+44  20261019  MO2701  ...               2元/手                  100%
+45  20261019  MO2703  ...               2元/手                  100%
+46  20261019  MO2706  ...               2元/手                  100%
+47  20261019  MO2709  ...               2元/手                  100%
+[46 rows x 8 columns]
+```
+
+(futures_settle_czce)=
+#### 郑商所-结算参数
+
+接口：futures_settle_czce
+
+目标地址：http://www.czce.com.cn/cn/jysj/jscs/H077003003index_1.htm
+
+描述：郑州商品交易所指定交易日的结算参数
+
+限量：单次返回指定交易日所有合约的结算参数
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称                 | 类型  | 描述         |
+|--------------------|-----|------------|
+| date               | str | 交易日        |
+| symbol             | str | 合约代码       |
+| variety            | str | 品种代码       |
+| settle_price       | str | 结算价        |
+| is_single_market   | str | 是否单边市      |
+| single_market_days | str | 连续单边市天数    |
+| margin_ratio       | str | 交易保证金率     |
+| limit_ratio        | str | 涨跌停板幅度     |
+| trade_fee          | str | 交易手续费      |
+| fee_type           | str | 手续费收取方式    |
+| delivery_fee       | str | 交割手续费      |
+| close_today_fee    | str | 日内平今仓交易手续费 |
+| position_limit     | str | 限仓         |
+| trade_limit        | str | 日持仓限额      |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_settle_czce_df = ak.futures_settle_czce(date="20261113")
+print(futures_settle_czce_df)
+```
+
+数据示例
+
+```
+         date symbol variety  ... close_today_fee position_limit trade_limit
+0    20261113  AP611      AP  ...           10.00              0
+1    20261113  AP612      AP  ...           10.00             40
+2    20261113  AP701      AP  ...           10.00           1000
+3    20261113  AP703      AP  ...           10.00           1000
+4    20261113  AP704      AP  ...           10.00           1000
+..        ...    ...     ...  ...             ...            ...         ...
+242  20261113  ZC707      ZC  ...          150.00           2000          20
+243  20261113  ZC708      ZC  ...          150.00           2000          20
+244  20261113  ZC709      ZC  ...          150.00           2000          20
+245  20261113  ZC710      ZC  ...          150.00           2000          20
+246  20261113  ZC711      ZC  ...          150.00           2000          20
+[247 rows x 14 columns]
+```
+
+(futures_settle_shfe)=
+#### 上期所-结算参数
+
+接口：futures_settle_shfe
+
+目标地址：https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+
+描述：上海期货交易所指定交易日的结算参数
+
+限量：单次返回指定交易日所有合约的结算参数
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称                       | 类型      | 描述         |
+|--------------------------|---------|------------|
+| date                     | str     | 交易日        |
+| symbol                   | str     | 合约代码       |
+| variety                  | str     | 品种代码       |
+| settle_price             | float64 | 结算价        |
+| spec_long_margin_ratio   | float64 | 投机买保证金率    |
+| hedge_long_margin_ratio  | float64 | 套保买保证金率    |
+| spec_short_margin_ratio  | float64 | 投机卖保证金率    |
+| hedge_short_margin_ratio | float64 | 套保卖保证金率    |
+| trade_fee_ratio          | float64 | 交易手续费标准    |
+| close_today_fee_ratio    | float64 | 平今仓手续费标准   |
+| is_close_today           | int64   | 是否收取平今仓手续费 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_settle_shfe_df = ak.futures_settle_shfe(date="20261113")
+print(futures_settle_shfe_df)
+```
+
+数据示例
+
+```
+         date  symbol  ...  close_today_fee_ratio  is_close_today
+0    20261113  cu2611  ...                  0.025               0
+1    20261113  cu2612  ...                  0.025               0
+2    20261113  cu2701  ...                  0.025               0
+3    20261113  cu2702  ...                  0.025               0
+4    20261113  cu2703  ...                  0.025               0
+..        ...     ...  ...                    ...             ...
+296  20261113  ec2701  ...                  0.300               0
+297  20261113  ec2703  ...                  0.300               0
+298  20261113  ec2704  ...                  0.300               0
+299  20261113  ec2706  ...                  0.300               0
+300  20261113  ec2709  ...                  0.300               0
+[301 rows x 11 columns]
+```
+
+(futures_settle_ine)=
+#### 上期能源-结算参数
+
+接口：futures_settle_ine
+
+目标地址：https://www.ine.cn/reports/businessdata/prmsummary/
+
+描述：上海国际能源交易中心指定交易日的结算参数
+
+限量：单次返回指定交易日所有合约的结算参数
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称                       | 类型      | 描述         |
+|--------------------------|---------|------------|
+| date                     | str     | 交易日        |
+| symbol                   | str     | 合约代码       |
+| variety                  | str     | 品种代码       |
+| settle_price             | float64 | 结算价        |
+| spec_long_margin_ratio   | float64 | 投机买保证金率    |
+| hedge_long_margin_ratio  | float64 | 套保买保证金率    |
+| spec_short_margin_ratio  | float64 | 投机卖保证金率    |
+| hedge_short_margin_ratio | float64 | 套保卖保证金率    |
+| trade_fee_ratio          | float64 | 交易手续费标准    |
+| close_today_fee_ratio    | float64 | 平今仓手续费标准   |
+| is_close_today           | int64   | 是否收取平今仓手续费 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_settle_ine_df = ak.futures_settle_ine(date="20261113")
+print(futures_settle_ine_df)
+```
+
+数据示例
+
+```
+        date  symbol  ...  close_today_fee_ratio  is_close_today
+0   20261113  sc2612  ...                    0.0               0
+1   20261113  sc2701  ...                    0.0               0
+2   20261113  sc2702  ...                    0.0               0
+3   20261113  sc2703  ...                    0.0               0
+4   20261113  sc2704  ...                    0.0               0
+..       ...     ...  ...                    ...             ...
+58  20261113  ec2701  ...                    0.3               0
+59  20261113  ec2703  ...                    0.3               0
+60  20261113  ec2704  ...                    0.3               0
+61  20261113  ec2706  ...                    0.3               0
+62  20261113  ec2709  ...                    0.3               0
+[63 rows x 11 columns]
+```
+
+(futures_settle_gfex)=
+#### 广期所-结算参数
+
+接口：futures_settle_gfex
+
+目标地址：http://www.gfex.com.cn/gfex/rjycs/ywcs.shtml
+
+描述：广州期货交易所指定交易日的结算参数
+
+限量：单次返回指定交易日所有合约的结算参数
+
+输入参数
+
+| 名称   | 类型  | 描述                  |
+|------|-----|---------------------|
+| date | str | date="20261113"；交易日 |
+
+输出参数
+
+| 名称                       | 类型      | 描述          |
+|--------------------------|---------|-------------|
+| date                     | str     | 交易日         |
+| symbol                   | str     | 合约代码        |
+| variety                  | str     | 品种代码        |
+| spec_buy_rate            | float64 | 投机买保证金率     |
+| spec_buy                 | float64 | 投机买保证金      |
+| hedge_buy_rate           | float64 | 套保买保证金率     |
+| hedge_buy                | float64 | 套保买保证金      |
+| rise_limit_rate          | float64 | 涨跌停板幅度      |
+| rise_limit               | float64 | 涨停板价位       |
+| fall_limit               | float64 | 跌停板价位       |
+| agent_tot_buy_posi_quota | float64 | 期货公司会员持仓限额  |
+| self_tot_buy_posi_quota  | float64 | 非期货公司会员持仓限额 |
+| client_buy_posi_quota    | float64 | 客户持仓限额      |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_settle_gfex_df = ak.futures_settle_gfex(date="20261113")
+print(futures_settle_gfex_df)
+```
+
+数据示例
+
+```
+        date  symbol  ...  self_tot_buy_posi_quota  client_buy_posi_quota
+0   20261113  lc2611  ...                      NaN                    NaN
+1   20261113  lc2612  ...                      NaN                    NaN
+2   20261113  lc2701  ...                      NaN                    NaN
+3   20261113  lc2702  ...                      NaN                    NaN
+4   20261113  lc2703  ...                      NaN                    NaN
+..    ...
+43  20261113  si2706  ...                      NaN                    NaN
+44  20261113  si2707  ...                      NaN                    NaN
+45  20261113  si2708  ...                      NaN                    NaN
+46  20261113  si2709  ...                      NaN                    NaN
+47  20261113  si2710  ...                      NaN                    NaN
+[48 rows x 13 columns]
 ```
 
 (futures_hq_subscribe_exchange_symbol)=
@@ -3296,6 +4899,44 @@ while True:
 28      伦敦钯金    961.400  2.192067e+02  ...    962.500  04:58:04  2024-08-31
 29     欧洲碳排放     70.185  4.977520e+02  ...     70.260  00:00:00  2024-08-31
 [29 rows x 14 columns]
+```
+
+(futures_foreign_commodity_subscribe_exchange_symbol)=
+#### 外盘-可订阅的品种代码
+
+接口：futures_foreign_commodity_subscribe_exchange_symbol
+
+目标地址：https://finance.sina.com.cn/money/future/hf.html
+
+描述：新浪财经-外盘期货可以订阅实时行情的品种代码列表，可作为 futures_foreign_realtime_sina 的 symbol 参数
+
+限量：单次返回所有可订阅的外盘品种代码
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称 | 类型   | 描述       |
+|----|------|----------|
+| -  | list | 外盘期货品种代码 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_foreign_commodity_subscribe_exchange_symbol_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()
+print(futures_foreign_commodity_subscribe_exchange_symbol_list)
+```
+
+数据示例
+
+```
+['FEF', 'FCPO', 'RSS3', 'RS', 'BTC', 'CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD', 'EUA']
 ```
 
 (futures_global_realtime_em)=
@@ -3743,6 +5384,58 @@ print(futures_display_main_sina_df)
 60    IH0    cffex   上证50指数期货连续
 61    IC0    cffex  中证500指数期货连续
 62    TS0    cffex    2年期国债期货连续
+```
+
+(futures_display_main_sina)=
+### 主力连续合约品种一览表
+
+接口：futures_display_main_sina
+
+目标地址：https://finance.sina.com.cn/futuremarket/index.shtml
+
+描述：新浪财经-主力连续合约的品种一览表，symbol 列可作为 futures_main_sina 的 symbol 参数
+
+限量：单次返回所有主力连续合约的品种
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称       | 类型  | 描述   |
+|----------|-----|------|
+| symbol   | str | 合约代码 |
+| exchange | str | 交易所  |
+| name     | str | 品种名称 |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_display_main_sina_df = ak.futures_display_main_sina()
+print(futures_display_main_sina_df)
+```
+
+数据示例
+
+```
+   symbol exchange   name
+0      V0      dce  PVC连续
+1      P0      dce  棕榈油连续
+2      B0      dce   豆二连续
+3      M0      dce   豆粕连续
+4      I0      dce  铁矿石连续
+..    ...      ...    ...
+78    SI0     gfex  工业硅连续
+79    LC0     gfex  碳酸锂连续
+80    PS0     gfex  多晶硅连续
+81    PT0     gfex    铂连续
+82    PD0     gfex    钯连续
+[83 rows x 3 columns]
 ```
 
 (futures_contract_detail)=
