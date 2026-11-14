@@ -4570,6 +4570,50 @@ print(fund_reits_hist_em_df)
 [76 rows x 9 columns]
 ```
 
+(fund_reits_hist_min_em)=
+### REITs-分时行情
+
+接口：fund_reits_hist_min_em
+
+目标地址：https://quote.eastmoney.com/sh508097.html
+
+描述：东方财富网-行情中心-REITs-沪深 REITs-分时行情；该接口请求东方财富的行情服务器，短时间内多次调用会被临时限流
+
+限量：单次返回指定 REITs 最近一个交易日的 1 分钟行情
+
+输入参数
+
+| 名称     | 类型  | 描述                       |
+|--------|-----|--------------------------|
+| symbol | str | symbol="508097"；REITs 代码 |
+
+输出参数
+
+| 名称  | 类型      | 描述 |
+|-----|---------|----|
+| 时间  | str     | -  |
+| 最新价 | float64 | -  |
+| 最高  | float64 | -  |
+| 最低  | float64 | -  |
+| 成交量 | float64 | -  |
+| 成交额 | float64 | -  |
+| 昨收  | str     | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+fund_reits_hist_min_em_df = ak.fund_reits_hist_min_em(symbol="508097")
+print(fund_reits_hist_min_em_df)
+```
+
+数据示例
+
+```
+因请求限流或耗时过长，暂无数据示例
+```
+
 ## 基金报告
 
 (fund_report_stock_cninfo)=

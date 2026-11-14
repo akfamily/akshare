@@ -8,6 +8,14 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-56)=
+### 1.20.56 docs: document the last 32 undocumented interfaces and expose output fields of 52 more
+
+1. 为最后 32 个没有数据字典条目的接口补充文档，至此全部 958 个接口都有描述、输入参数、输出参数与示例。其中 27 个的输出参数与数据示例取自 2026-11-14 的实测；fund_reits_hist_min_em、index_code_id_map_em、research_rv_input_stock_em 请求东方财富 push2，stock_classify_sina、stock_us_name_sina 需翻页数分钟，这 5 个没有实测，输出参数按代码填写，没有数据示例
+2. 52 个接口的文档按入参分别列出多张输出参数表（如“输出参数-A股”“输出参数-1分钟数据”），或在标题与表格之间夹有说明文字，接口元数据因此取不到它们的返回字段，`ak.interface_info` 与 AKTools 的 MCP 服务里这些接口的 outputs 为空，其中包括 stock_zh_a_hist_em、stock_zh_a_daily_sina。现在多张表按出现顺序合并；现有接口的 outputs 全部不为空
+3. option_hist_czce 的文档把列名 `成交量(手)`、`成交额(万元)` 写成了全角括号，与实际返回的列名不符，已更正。数据字典里含半角括号的列名用行内代码书写
+4. 本次只改文档与接口元数据的生成脚本，接口代码未改动
+
 (v1-20-55)=
 ### 1.20.55 feat: tell the new name when a renamed or removed interface is called
 

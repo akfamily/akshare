@@ -54,6 +54,75 @@ print(bond_info_cm_df)
 2  19万林投资CP001  041900126  重庆万林投资发展有限公司  短期融资券  2019-03-25    A-1  695327xh9n
 ```
 
+(bond_info_cm_query)=
+### 信息查询-查询条件
+
+接口：bond_info_cm_query
+
+目标地址：https://www.chinamoney.com.cn/chinese/scsjzqxx/
+
+描述：中国外汇交易中心-债券信息查询可用的查询条件及其代码，用于填写 bond_info_cm 的参数
+
+限量：单次返回指定条件的全部可选值
+
+输入参数
+
+| 名称     | 类型  | 描述                                                       |
+|--------|-----|----------------------------------------------------------|
+| symbol | str | symbol="债券类型"；choice of {"主承销商", "债券类型", "息票类型", "发行年份"} |
+
+输出参数
+
+| 名称   | 类型  | 描述 |
+|------|-----|----|
+| name | str | -  |
+| code | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+bond_info_cm_query_df = ak.bond_info_cm_query(symbol="债券类型")
+print(bond_info_cm_query_df)
+```
+
+数据示例
+
+```
+           name    code
+0            国债  100001
+1        政策性金融债  100003
+2           企业债  100004
+3           次级债  100005
+4         短期融资券  100006
+5         普通金融债  100007
+6       国际开发机构债  100008
+7         混合资本债  100009
+8          中期票据  100010
+9         地方政府债  100011
+10    证券公司短期融资券  100024
+11         集合票据  100025
+12     政府支持机构债券  100027
+13       超短期融资券  100029
+14         同业存单  100041
+15       二级资本工具  100054
+16       项目收益票据  100055
+17    保险公司资本补充债  100056
+18       项目收益债券  100057
+19         大额存单  100058
+20     信用风险缓释凭证  100060
+21  外国主权政府人民币债券  100061
+22  外国地方政府人民币债券  100062
+23       资产支持票据  100072
+24     绿色债务融资工具  100073
+25    无固定期限资本债券  100083
+26        标准化票据  100084
+27       资产支持证券  999999
+28       信用联结票据  100081
+29    TLAC非资本债券  100086
+```
+
 (bond_info_detail_cm)=
 ### 债券基础信息
 
@@ -1907,6 +1976,58 @@ print(bond_zh_close_yield_cm_df)
 51  2026-11-10  48.000  2.1418  2.2256  2.7819
 52  2026-11-10  49.000  2.1489  2.2369  2.8140
 53  2026-11-10  50.000  2.1559  2.2484     NaN
+```
+
+(bond_zh_close_yield_map_cm)=
+## 收盘收益率曲线-曲线名称
+
+接口：bond_zh_close_yield_map_cm
+
+目标地址：https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
+
+描述：中国外汇交易中心-收盘收益率曲线的名称与代码对照表，名称可作为 bond_zh_close_yield_cm 的 symbol 参数
+
+限量：单次返回全部曲线
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称      | 类型  | 描述 |
+|---------|-----|----|
+| value   | str | -  |
+| cnLabel | str | -  |
+| enLabel | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+bond_zh_close_yield_map_cm_df = ak.bond_zh_close_yield_map_cm()
+print(bond_zh_close_yield_map_cm_df)
+```
+
+数据示例
+
+```
+      value       cnLabel                      enLabel
+0   CYCC000            国债                Treasury Bond
+1   CYCC010          央行票据            Central Bank Bill
+2   CYCC021    政策性金融债(国开)        Policy bank Bond(CDB)
+3   CYCC024  政策性金融债(进出口行)  Policy Financial Bond(EIBC)
+4   CYCC023   政策性金融债(农发行)  Policy Financial Bond(ADBC)
+..      ...           ...                          ...
+70  CYCC508   非公开发行债(AAA)                     PPN(AAA)
+71  CYCC509  非公开发行债(AAA-)                    PPN(AAA-)
+72  CYCC510   非公开发行债(AA+)                     PPN(AA+)
+73  CYCC511    非公开发行债(AA)                      PPN(AA)
+74  CYCC512   非公开发行债(AA-)                     PPN(AA-)
+[75 rows x 3 columns]
 ```
 
 (bond_zh_us_yield_em)=

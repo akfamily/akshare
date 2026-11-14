@@ -1206,6 +1206,83 @@ print(stock_zh_a_spot_sina_df)
 [5316 rows x 14 columns]
 ```
 
+(stock_zh_a_spot_tx)=
+#### 实时行情数据-腾讯
+
+接口：stock_zh_a_spot_tx
+
+目标地址：https://stockapp.finance.qq.com/mstats/#mod=list&id=hs_hsj&module=hs&type=hsj&sort=2&page=1&max=20
+
+描述：腾讯证券-沪深京 A 股的实时行情数据
+
+限量：单次返回全部沪深京 A 股的实时行情
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称         | 类型  | 描述 |
+|------------|-----|----|
+| code       | str | -  |
+| hsl        | str | -  |
+| lb         | str | -  |
+| ltsz       | str | -  |
+| name       | str | -  |
+| pe_ttm     | str | -  |
+| pn         | str | -  |
+| speed      | str | -  |
+| state      | str | -  |
+| stock_type | str | -  |
+| turnover   | str | -  |
+| volume     | str | -  |
+| zd         | str | -  |
+| zdf        | str | -  |
+| zdf_d10    | str | -  |
+| zdf_d20    | str | -  |
+| zdf_d5     | str | -  |
+| zdf_d60    | str | -  |
+| zdf_w52    | str | -  |
+| zdf_y      | str | -  |
+| zf         | str | -  |
+| zljlr      | str | -  |
+| zllc       | str | -  |
+| zllc_d5    | str | -  |
+| zllr       | str | -  |
+| zllr_d5    | str | -  |
+| zsz        | str | -  |
+| zxj        | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_a_spot_tx_df = ak.stock_zh_a_spot_tx()
+print(stock_zh_a_spot_tx_df)
+```
+
+数据示例
+
+```
+          code    hsl    lb  ...     zllr_d5       zsz      zxj
+0     sh600519   0.33  1.28  ...  1261532.17  17941.92  1435.26
+1     sh688256   2.55  1.24  ...  4974636.15   6155.73   978.88
+2     sh688808  15.15  1.13  ...   981625.65   1091.05   718.05
+3     sh688836  13.58  0.63  ...  1534140.61   2815.07   696.00
+4     sh688498   8.26  1.19  ...  2002415.33    838.01   673.10
+...        ...    ...   ...  ...         ...       ...      ...
+5574  sz002129   0.00  0.00  ...        0.00    379.24     9.38
+5575  sh600185   0.00  0.00  ...        0.00     80.68     4.28
+5576  sh688496   0.00  0.00  ...        0.00      2.61     0.58
+5577  sz002717   0.00  0.00  ...        0.00      8.19     0.45
+5578  sh688121   0.00  0.00  ...        0.00      0.93     0.40
+[5579 rows x 28 columns]
+```
+
 (stock_individual_spot_xq)=
 #### 实时行情数据-雪球
 
@@ -2073,6 +2150,61 @@ print(stock_intraday_sina_df)
 [2212 rows x 7 columns]
 ```
 
+(stock_zh_a_tick_tx)=
+#### 分笔数据-腾讯
+
+接口：stock_zh_a_tick_tx
+
+目标地址：https://gu.qq.com/sz300494/gp/detail
+
+描述：腾讯财经-指定股票最近一个交易日的分笔成交数据
+
+限量：单次返回指定股票最近一个交易日的全部分笔数据
+
+输入参数
+
+| 名称     | 类型  | 描述                     |
+|--------|-----|------------------------|
+| symbol | str | symbol="sz000001"；股票代码 |
+
+输出参数
+
+| 名称   | 类型      | 描述 |
+|------|---------|----|
+| 成交时间 | str     | -  |
+| 成交价格 | float64 | -  |
+| 价格变动 | float64 | -  |
+| 成交量  | int64   | -  |
+| 成交金额 | int64   | -  |
+| 性质   | str     | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_a_tick_tx_df = ak.stock_zh_a_tick_tx(symbol="sz000001")
+print(stock_zh_a_tick_tx_df)
+```
+
+数据示例
+
+```
+          成交时间   成交价格  价格变动   成交量     成交金额  性质
+0     09:25:00  11.76 -0.02  4159  4890984  卖盘
+1     09:30:00  11.76  0.00   772   907155  买盘
+2     09:30:03  11.74 -0.02  8158  9585488  卖盘
+3     09:30:06  11.73 -0.01  2182  2559981  卖盘
+4     09:30:09  11.72 -0.01  2028  2377217  卖盘
+...        ...    ...   ...   ...      ...  ..
+4674  15:12:00  12.07  0.00    43    51901  买盘
+4675  15:13:30  12.07  0.00    20    24140  买盘
+4676  15:13:45  12.07  0.00    10    12070  买盘
+4677  15:14:45  12.07  0.00     3     3621  买盘
+4678  15:15:00  12.07  0.00    25    30175  买盘
+[4679 rows x 6 columns]
+```
+
 (stock_zh_a_hist_pre_min_em)=
 #### 盘前数据
 
@@ -2308,7 +2440,6 @@ print(stock_zh_valuation_comparison_em_df)
 | 权益乘数-23A    | float64 | -  |
 | 权益乘数-24A    | float64 | -  |
 | ROE-3年平均排名  | float64 | -  |
-
 
 接口示例
 
@@ -3784,6 +3915,46 @@ print(us_stock_current_df)
 77  13356251   121302156830   29.94505474    NYSE         700
 78         0   121175090554          None    AMEX        None
 79   3089789   120621698914   15.65011561    NYSE         750
+```
+
+(stock_us_name_sina)=
+### 美股-代码与名称
+
+接口：stock_us_name_sina
+
+目标地址：https://finance.sina.com.cn/stock/usstock/sector.shtml
+
+描述：新浪财经-美股的英文名称、中文名称与代码，代码可作为 stock_us_daily_sina 的 symbol 参数
+
+限量：单次返回全部美股，需翻 900 多页，耗时数分钟
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称     | 类型  | 描述 |
+|--------|-----|----|
+| name   | str | -  |
+| cname  | str | -  |
+| symbol | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_us_name_sina_df = ak.stock_us_name_sina()
+print(stock_us_name_sina_df)
+```
+
+数据示例
+
+```
+因请求限流或耗时过长，暂无数据示例
 ```
 
 (stock_us_hist_em)=

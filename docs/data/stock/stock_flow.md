@@ -2100,6 +2100,58 @@ print(stock_lhb_detail_em_df)
 634  635  900915  中路B股  2023-04-03  ...  5.807365   3.824363  12.039660  3.399433
 ```
 
+(stock_lhb_stock_detail_date_em)=
+##### 个股龙虎榜上榜日期
+
+接口：stock_lhb_stock_detail_date_em
+
+目标地址：https://data.eastmoney.com/stock/tradedetail.html
+
+描述：东方财富网-数据中心-龙虎榜单-指定股票历次登上龙虎榜的日期，可作为 stock_lhb_stock_detail_em 的 date 参数
+
+限量：单次返回指定股票的全部上榜日期
+
+输入参数
+
+| 名称     | 类型  | 描述                   |
+|--------|-----|----------------------|
+| symbol | str | symbol="600077"；股票代码 |
+
+输出参数
+
+| 名称   | 类型     | 描述 |
+|------|--------|----|
+| 序号   | int64  | -  |
+| 股票代码 | str    | -  |
+| 交易日  | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_lhb_stock_detail_date_em_df = ak.stock_lhb_stock_detail_date_em(symbol="600077")
+print(stock_lhb_stock_detail_date_em_df)
+```
+
+数据示例
+
+```
+    序号    股票代码         交易日
+0    1  600077  2023-06-13
+1    2  600077  2023-06-08
+2    3  600077  2023-06-05
+3    4  600077  2023-05-31
+4    5  600077  2023-05-26
+..  ..     ...         ...
+68  69  600077  2007-08-20
+69  70  600077  2007-06-01
+70  71  600077  2007-04-16
+71  72  600077  2006-12-15
+72  73  600077  2006-09-20
+[73 rows x 3 columns]
+```
+
 (stock_lhb_stock_statistic_em)=
 ##### 个股上榜统计
 

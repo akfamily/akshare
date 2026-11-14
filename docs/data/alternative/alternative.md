@@ -1813,6 +1813,44 @@ print(alternative_weibo_stock_report_js_df)
 49  四维图新   8.76
 ```
 
+(alternative_weibo_stock_time_js)=
+## 微博舆情报告-时间段
+
+接口：alternative_weibo_stock_time_js
+
+目标地址：https://datacenter.jin10.com/market
+
+描述：金十数据-微博舆情报告可选的时间段，键可作为 alternative_weibo_stock_report_js 的 time_period 参数
+
+限量：单次返回全部时间段
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称 | 类型   | 描述    |
+|----|------|-------|
+| -  | dict | 见数据示例 |
+
+接口示例
+
+```python
+import akshare as ak
+
+alternative_weibo_stock_time_js_dict = ak.alternative_weibo_stock_time_js()
+print(alternative_weibo_stock_time_js_dict)
+```
+
+数据示例
+
+```
+{'CNHOUR2': '2小时', 'CNHOUR6': '6小时', 'CNHOUR12': '12小时', 'CNHOUR24': '1天', 'CNDAY7': '1周', 'CNDAY30': '1月'}
+```
+
 ## 彭博亿万富豪指数
 
 (alternative_billionaires_hist_bloomberg)=

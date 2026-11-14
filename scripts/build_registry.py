@@ -42,6 +42,10 @@ def parse_table(segment: str, header: str) -> List[Dict[str, Optional[str]]]:
         cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
         # 实测数据行以 3 列为主，另有极少数 2 列或 4 列，统一取前 3 列并补齐
         cells = (cells + [None, None, None])[:3]
+        # 名称写成行内代码时去掉反引号。列名里带半角括号的单位时必须写成行内代码，
+        # 否则标点检查会把括号改成全角，文档就与真实列名不符
+        if cells[0]:
+            cells[0] = cells[0].strip("`")
         if not cells[0]:
             continue
         result.append({"name": cells[0], "type": cells[1], "desc": cells[2]})
@@ -62,6 +66,33 @@ def _field(segment: str, key: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
+VARIANT_HEADER_RE = re.compile(r"^(输出参数[-－—].+?)\s*$", re.M)
+
+
+def parse_outputs(segment: str) -> List[Dict[str, Optional[str]]]:
+    """
+    提取输出参数表。
+
+    多数条目只有一张以“输出参数”为标题的表；按入参返回不同字段的接口会写成
+    “输出参数-A股”“输出参数-1分钟数据”这样的多张表，此时按出现顺序合并，
+    同名字段只保留第一次出现的那一行。
+
+    :param segment: 单个接口条目的文本片段
+    :return: 每行一个 dict，含 name/type/desc 三个键
+    """
+    rows = parse_table(segment, "输出参数")
+    if rows:
+        return rows
+    merged: List[Dict[str, Optional[str]]] = []
+    seen = set()
+    for header in VARIANT_HEADER_RE.findall(segment):
+        for row in parse_table(segment, header):
+            if row["name"] not in seen:
+                seen.add(row["name"])
+                merged.append(row)
+    return merged
+
+
 def parse_segment(segment: str) -> Dict:
     """
     解析单个接口条目的正文。
@@ -75,7 +106,7 @@ def parse_segment(segment: str) -> Dict:
         "url": _field(segment, "目标地址"),
         "limit_desc": _field(segment, "限量"),
         "params": parse_table(segment, "输入参数"),
-        "outputs": parse_table(segment, "输出参数"),
+        "outputs": parse_outputs(segment),
         "example": example_match.group(1).strip() if example_match else None,
     }
 

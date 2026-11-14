@@ -868,7 +868,6 @@ print(stock_esg_rft_sina_df)
 | 治理总评   | str    | -  |
 | 评分日期   | object | -  |
 
-
 接口示例
 
 ```python
@@ -955,4 +954,42 @@ print(stock_esg_hz_sina_df)
 5162  2023-04-30  688086.SH   cn  *ST紫晶  57.11  ...   CC  63.37   CC  47.49      C
 5163  2023-04-30  000038.SZ   cn  *ST大通  56.95  ...   CC  65.05  CCC  49.79      C
 [5164 rows x 12 columns]
+```
+
+(stock_a_code_to_symbol)=
+### 股票代码加市场前缀
+
+接口：stock_a_code_to_symbol
+
+目标地址：https://akshare.akfamily.xyz
+
+描述：为沪深股票代码加上市场前缀：以 6 或 900 开头的返回 sh 前缀，其余返回 sz 前缀；本接口不联网，是配合新浪、腾讯接口使用的工具函数
+
+限量：单次返回一个带前缀的代码
+
+输入参数
+
+| 名称     | 类型  | 描述                   |
+|--------|-----|----------------------|
+| symbol | str | symbol="600000"；股票代码 |
+
+输出参数
+
+| 名称 | 类型  | 描述    |
+|----|-----|-------|
+| -  | str | 见数据示例 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_a_code_to_symbol_str = ak.stock_a_code_to_symbol(symbol="600000")
+print(stock_a_code_to_symbol_str)
+```
+
+数据示例
+
+```
+sh600000
 ```

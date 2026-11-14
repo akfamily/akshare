@@ -52,6 +52,57 @@ print(spot_price_qh_df)
 [2471 rows x 3 columns]
 ```
 
+(spot_price_table_qh)=
+## 现货走势-品种对照表
+
+接口：spot_price_table_qh
+
+目标地址：https://www.99qh.com/data/spotTrend
+
+描述：99 期货-数据-期现-交易所与品种的对照表，品种名称可作为 spot_price_qh 的 symbol 参数
+
+限量：单次返回全部品种
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称    | 类型  | 描述 |
+|-------|-----|----|
+| 交易所名称 | str | -  |
+| 品种名称  | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+spot_price_table_qh_df = ak.spot_price_table_qh()
+print(spot_price_table_qh_df)
+```
+
+数据示例
+
+```
+      交易所名称   品种名称
+0   上海期货交易所      铜
+1   上海期货交易所  铜(BC)
+2   上海期货交易所      铝
+3   上海期货交易所      锌
+4   上海期货交易所      铅
+..      ...    ...
+77  广州期货交易所    碳酸锂
+78  广州期货交易所    工业硅
+79  广州期货交易所    多晶硅
+80  广州期货交易所      铂
+81  广州期货交易所      钯
+[82 rows x 2 columns]
+```
+
 ## 上海黄金交易所
 
 (spot_hist_sge)=
@@ -106,6 +157,62 @@ print(spot_hist_sge_df)
 1778  2024-04-18  566.30  563.37  558.80  568.00
 1779  2024-04-19  562.80  565.55  561.00  573.96
 [1780 rows x 5 columns]
+```
+
+(spot_symbol_table_sge)=
+### 上海黄金交易所-品种表
+
+接口：spot_symbol_table_sge
+
+目标地址：https://www.sge.com.cn/sjzx/mrhq
+
+描述：上海黄金交易所-数据资讯-行情走势-可查询的品种，可作为 spot_hist_sge、spot_realtime_sge 的 symbol 参数
+
+限量：单次返回全部品种
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称 | 类型    | 描述 |
+|----|-------|----|
+| 序号 | int64 | -  |
+| 品种 | str   | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+spot_symbol_table_sge_df = ak.spot_symbol_table_sge()
+print(spot_symbol_table_sge_df)
+```
+
+数据示例
+
+```
+    序号        品种
+0    1   Au99.99
+1    2   Au99.95
+2    3    Au100g
+3    4   Pt99.95
+4    5   Ag(T+D)
+5    6   Au(T+D)
+6    7  mAu(T+D)
+7    8  Au(T+N1)
+8    9  Au(T+N2)
+9   10   Ag99.99
+10  11  iAu99.99
+11  12    Au99.5
+12  13   iAu100g
+13  14   iAu99.5
+14  15    PGC30g
+15  16  NYAuTN06
+16  17  NYAuTN12
 ```
 
 (spot_realtime_sge)=

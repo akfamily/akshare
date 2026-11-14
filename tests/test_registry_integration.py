@@ -64,7 +64,8 @@ def test_search_daily_bars_rank_first_for_colloquial_query():
     # 各交易所的日行情接口（futures_daily_cffex 等）补文档后与 futures_hist_em 同分
     assert "futures_hist_em" in _names("期货 日线", 12)
     assert _names("期货 分钟", 1) == ["futures_zh_min_sina"]
-    assert set(_names("A股 实时行情", 2)) == {
+    # 腾讯的实时行情接口（stock_zh_a_spot_tx）补文档后与新浪同分，取前三
+    assert set(_names("A股 实时行情", 3)) >= {
         "stock_zh_a_spot_em",
         "stock_zh_a_spot_sina",
     }

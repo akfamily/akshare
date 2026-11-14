@@ -422,6 +422,44 @@ print(index_zh_hist_min_em_df)
 [241 rows x 8 columns]
 ```
 
+(index_code_id_map_em)=
+### 股票与市场代码对照
+
+接口：index_code_id_map_em
+
+目标地址：https://quote.eastmoney.com/center/gridlist.html#hs_a_board
+
+描述：东方财富-沪深京 A 股的股票代码与市场代码的对照，返回以股票代码为键、市场代码（1 为上海，0 为深圳和北京）为值的字典；该接口请求东方财富的行情服务器，短时间内多次调用会被临时限流
+
+限量：单次返回全部 A 股，需翻页获取，耗时较长
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称 | 类型   | 描述    |
+|----|------|-------|
+| -  | dict | 见数据示例 |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_code_id_map_em_dict = ak.index_code_id_map_em()
+print(index_code_id_map_em_dict)
+```
+
+数据示例
+
+```
+{'000001': 0, '000002': 0, ..., '600000': 1, ...}
+```
+
 ## 港股股票指数
 
 (index_hk_spot_sina)=
@@ -1059,6 +1097,65 @@ print(index_global_hist_sina_df)
 998  2025-03-06  13090.73  13105.02  12928.22  13056.91  36533732
 999  2025-03-07  12959.80  12965.30  12888.30  12904.70   4468362
 [1000 rows x 6 columns]
+```
+
+(index_global_name_table)=
+### 全球指数-名称代码映射表
+
+接口：index_global_name_table
+
+目标地址：https://finance.sina.com.cn/stock/globalindex/quotes/UKX
+
+描述：新浪财经-行情中心-环球市场-指数名称与代码的映射表，指数名称可作为 index_global_hist_sina 的 symbol 参数
+
+限量：单次返回全部指数
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称   | 类型  | 描述 |
+|------|-----|----|
+| 指数名称 | str | -  |
+| 代码   | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_global_name_table_df = ak.index_global_name_table()
+print(index_global_name_table_df)
+```
+
+数据示例
+
+```
+              指数名称       代码
+0        英国富时100指数      UKX
+1    德国DAX 30种股价指数      DAX
+2       俄罗斯MICEX指数  INDEXCF
+3         法CAC40指数      CAC
+4           瑞士股票指数    SWI20
+5       富时意大利MIB指数  FTSEMIB
+6        荷兰AEX综合指数      AEX
+7        西班牙IBEX指数     IBEX
+8      欧洲Stoxx50指数     SX5E
+9   加拿大S&P/TSX综合指数   GSPTSE
+10      墨西哥BOLSA指数      MXX
+11   巴西BOVESPA股票指数     IBOV
+12        中国台湾加权指数     TWJQ
+13         日经225指数      NKY
+14          首尔综合指数    KOSPI
+15    印度尼西亚雅加达综合指数      JCI
+16    印度孟买SENSEX指数   SENSEX
+17   澳大利亚标准普尔200指数     AS51
+18    新西兰NZSE 50指数    NZ250
+19     埃及CASE 30指数     CASE
 ```
 
 ## 中国股票指数成份
@@ -1873,6 +1970,127 @@ print(index_stock_cons_df)
 [40 rows x 4 columns]
 ```
 
+(index_stock_info)=
+### 指数列表-聚宽
+
+接口：index_stock_info
+
+目标地址：https://www.joinquant.com/data/dict/indexData
+
+描述：聚宽-指数数据-指数列表，包含指数代码、名称与发布日期
+
+限量：单次返回全部指数
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称           | 类型  | 描述 |
+|--------------|-----|----|
+| index_code   | str | -  |
+| display_name | str | -  |
+| publish_date | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_stock_info_df = ak.index_stock_info()
+print(index_stock_info_df)
+```
+
+数据示例
+
+```
+    index_code display_name publish_date
+0       000001         上证指数   1991-07-15
+1       000002         A股指数   1992-02-21
+2       000003         B股指数   1992-02-21
+3       000004         工业指数   1993-05-03
+4       000005         商业指数   1993-05-03
+..         ...          ...          ...
+727     399994   中证信息安全主题指数   2015-03-12
+728     399995     中证基建工程指数   2015-03-12
+729     399996     中证智能家居指数   2014-09-17
+730     399997       中证白酒指数   2015-01-21
+731     399998       中证煤炭指数   2015-02-13
+[732 rows x 3 columns]
+```
+
+(index_stock_cons_sina)=
+### 指数成份-新浪新版
+
+接口：index_stock_cons_sina
+
+目标地址：https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000040
+
+描述：新浪财经新版页面的指数成份股及其实时行情；可查询的指数较少
+
+限量：单次返回指定指数的全部成份股
+
+输入参数
+
+| 名称     | 类型  | 描述                   |
+|--------|-----|----------------------|
+| symbol | str | symbol="000300"；指数代码 |
+
+输出参数
+
+| 名称            | 类型      | 描述 |
+|---------------|---------|----|
+| symbol        | str     | -  |
+| code          | str     | -  |
+| name          | str     | -  |
+| trade         | str     | -  |
+| pricechange   | object  | -  |
+| changepercent | object  | -  |
+| buy           | str     | -  |
+| sell          | str     | -  |
+| settlement    | str     | -  |
+| open          | str     | -  |
+| high          | str     | -  |
+| low           | str     | -  |
+| volume        | int64   | -  |
+| amount        | int64   | -  |
+| ticktime      | str     | -  |
+| per           | float64 | -  |
+| pb            | float64 | -  |
+| mktcap        | float64 | -  |
+| nmc           | float64 | -  |
+| turnoverratio | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_stock_cons_sina_df = ak.index_stock_cons_sina(symbol="000300")
+print(index_stock_cons_sina_df)
+```
+
+数据示例
+
+```
+       symbol    code  name  ...        mktcap           nmc  turnoverratio
+0    sh600000  600000  浦发银行  ...  3.463807e+07  3.463807e+07        0.22866
+1    sh600009  600009  上海机场  ...  6.086414e+06  6.074306e+06        0.53937
+2    sh600010  600010  包钢股份  ...  8.909528e+06  6.169688e+06        0.80747
+3    sh600011  600011  华能国际  ...  1.222881e+07  8.567216e+06        0.84726
+4    sh600015  600015  华夏银行  ...  1.059934e+07  1.024789e+07        0.45260
+..        ...     ...   ...  ...           ...           ...            ...
+295  sz300919  300919  中伟新材  ...  3.249334e+06  2.846048e+06        1.31380
+296  sz300957  300957   贝泰妮  ...  1.155157e+06  1.155157e+06        1.68655
+297  sz300979  300979  华利集团  ...  4.307397e+06  4.307397e+06        0.49432
+298  sz300999  300999   金龙鱼  ...  1.370036e+07  1.371269e+06        0.99602
+299  sz301269  301269  华大九天  ...  5.025106e+06  5.025090e+06        2.24356
+[300 rows x 20 columns]
+```
+
 (index_stock_cons_csindex)=
 ### 中证指数成份股
 
@@ -2051,6 +2269,72 @@ print(index_hist_csindex_df)
 2854  2024-06-03  000928  中证能源指数  800能源  ...  1294.04  115.08  24.0  12.41
 2855  2024-06-04  000928  中证能源指数  800能源  ...  1169.28  127.39  24.0  12.20
 [2856 rows x 16 columns]
+```
+
+(index_all_csindex)=
+## 中证指数列表
+
+接口：index_all_csindex
+
+目标地址：https://www.csindex.com.cn/#/indices/family/list?index_series=1
+
+描述：中证指数网站-全部指数的列表及基本信息
+
+限量：单次返回全部指数
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称      | 类型      | 描述 |
+|---------|---------|----|
+| 指数代码    | str     | -  |
+| 指数简称    | str     | -  |
+| 指数全称    | str     | -  |
+| 基日      | object  | -  |
+| 基点      | float64 | -  |
+| 指数系列    | str     | -  |
+| 样本数量    | float64 | -  |
+| 最新收盘    | float64 | -  |
+| 近一个月收益率 | float64 | -  |
+| 资产类别    | str     | -  |
+| 指数热点    | str     | -  |
+| 指数币种    | str     | -  |
+| 合作指数    | str     | -  |
+| 跟踪产品    | str     | -  |
+| 指数合规    | str     | -  |
+| 指数类别    | str     | -  |
+| 发布时间    | object  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_all_csindex_df = ak.index_all_csindex()
+print(index_all_csindex_df)
+```
+
+数据示例
+
+```
+        指数代码       指数简称             指数全称  ...   指数合规 指数类别        发布时间
+0     000300      沪深300          沪深300指数  ...  IOSCO   规模  2005-04-08
+1     000510     中证A500         中证A500指数  ...      无   规模  2024-09-23
+2     000802      500沪市        中证500沪市指数  ...      无   主题  2011-11-08
+3     000814       细分医药     中证细分医药产业主题指数  ...      无   主题  2012-04-11
+4     000819       有色金属       中证申万有色金属指数  ...      无   行业  2012-05-09
+...      ...        ...              ...  ...    ...  ...         ...
+2384  L11643    300证券公司      沪深300证券公司指数  ...  IOSCO   行业  2009-06-16
+2385  L11644  300保险(三级)  沪深300保险(三级行业)指数  ...  IOSCO   行业  2009-06-16
+2386  L11649      300电脑        沪深300电脑指数  ...  IOSCO   行业  2009-06-16
+2387  L11655      300电力        沪深300电力指数  ...  IOSCO   行业  2009-06-16
+2388  SHHKSI       沪港精明   中证恒生沪港通AH股精明指数  ...      无   策略  2014-11-17
+[2389 rows x 17 columns]
 ```
 
 ## 国证指数
@@ -2920,6 +3204,56 @@ print(index_analysis_monthly_sw_df)
 7  801280     申万服务  2024-09-30  2489.15  ...   39.48  110978.29    82.63  2.33
 8  801300  申万300指数  2024-09-30  2889.29  ...   35.97  170126.42   567.09  2.39
 [9 rows x 14 columns]
+```
+
+(index_analysis_week_month_sw)=
+### 指数分析-周报表与月报表的日期
+
+接口：index_analysis_week_month_sw
+
+目标地址：https://www.swsresearch.com/institute_sw/allIndex/analysisIndex
+
+描述：申万宏源研究-指数分析-周报表、月报表可查询的日期序列，用于填写 index_analysis_weekly_sw、index_analysis_monthly_sw 的 date 参数
+
+限量：单次返回全部可查询的日期
+
+输入参数
+
+| 名称     | 类型  | 描述                                         |
+|--------|-----|--------------------------------------------|
+| symbol | str | symbol="month"；choice of {"week", "month"} |
+
+输出参数
+
+| 名称   | 类型     | 描述 |
+|------|--------|----|
+| date | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+index_analysis_week_month_sw_df = ak.index_analysis_week_month_sw(symbol="month")
+print(index_analysis_week_month_sw_df)
+```
+
+数据示例
+
+```
+           date
+0    2000-01-28
+1    2000-02-29
+2    2000-03-31
+3    2000-04-28
+4    2000-05-31
+..          ...
+317  2026-06-30
+318  2026-07-31
+319  2026-08-31
+320  2026-09-30
+321  2026-10-30
+[322 rows x 1 columns]
 ```
 
 (index_first_info_sw)=

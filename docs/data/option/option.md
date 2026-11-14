@@ -313,8 +313,6 @@ P.S. 可以通过调用 ak.option_finance_underlying_sse(symbol="华夏上证50E
 
 输出参数
 
-华夏上证 50ETF 期权
-
 | 名称     | 类型      | 描述       |
 |--------|---------|----------|
 | 日期     | str     | 日期时间     |
@@ -854,6 +852,54 @@ print(option_finance_board_df)
 49  HO2306-P-3200        58       0  ...        1   684.0        1
 ```
 
+(option_finance_underlying_sse)=
+### 金融期权标的行情
+
+接口：option_finance_underlying_sse
+
+目标地址：http://www.sse.com.cn/assortment/options/price/
+
+描述：上海证券交易所-股票期权标的的当日行情
+
+限量：单次返回指定期权标的的当日行情
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                                                              |
+|--------|-----|-----------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="华夏科创50ETF期权"；choice of {"华夏上证50ETF期权", "华泰柏瑞沪深300ETF期权", "南方中证500ETF期权", "华夏科创50ETF期权", "易方达科创50ETF期权"} |
+
+输出参数
+
+| 名称     | 类型             | 描述 |
+|--------|----------------|----|
+| 代码     | str            | -  |
+| 名称     | str            | -  |
+| 当前价    | float64        | -  |
+| 涨跌     | float64        | -  |
+| 涨跌幅    | float64        | -  |
+| 振幅     | float64        | -  |
+| `成交量(份)` | int64          | -  |
+| `成交额(元)` | int64          | -  |
+| 更新日期   | datetime64[us] | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_finance_underlying_sse_df = ak.option_finance_underlying_sse(symbol="华夏科创50ETF期权")
+print(option_finance_underlying_sse_df)
+```
+
+数据示例
+
+```
+       代码    名称    当前价  ...      成交量(份)       成交额(元)                更新日期
+0  588000  科创50  1.354  ...  8274682139  11387523250 2026-11-13 16:29:01
+[1 rows x 9 columns]
+```
+
 (option_risk_indicator_sse)=
 ### 风险指标-上海证券交易所
 
@@ -1136,7 +1182,6 @@ print(option_daily_stats_sse_df)
 | 未平仓认购合约数 | int64   | 注意单位：张 |
 | 未平仓认沽合约数 | int64   | 注意单位：张 |
 | 交易日      | object  | -       |
-
 
 接口示例
 
@@ -2802,6 +2847,57 @@ print(option_fee_9qihuo_df)
 [308 rows x 17 columns]
 ```
 
+(option_fee_symbol_9qihuo)=
+### 商品期权手续费-品种列表
+
+接口：option_fee_symbol_9qihuo
+
+目标地址：https://www.9qihuo.com/qiquanshouxufei
+
+描述：九期网-商品期权手续费页面的品种列表，品种名称可作为 option_fee_9qihuo 的 symbol 参数
+
+限量：单次返回全部品种
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称   | 类型  | 描述 |
+|------|-----|----|
+| 品种名称 | str | -  |
+| 品种代码 | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_fee_symbol_9qihuo_df = ak.option_fee_symbol_9qihuo()
+print(option_fee_symbol_9qihuo_df)
+```
+
+数据示例
+
+```
+     品种名称  品种代码
+0    黄金期权  au_o
+1    白银期权  ag_o
+2     锡期权  sn_o
+3     铜期权  cu_o
+4     铝期权  al_o
+..    ...   ...
+85  碳酸锂期权  lc_o
+86  多晶硅卖权  ps_o
+87  工业硅期权  si_o
+88    铂卖权  pd_o
+89    铂买权  pt_o
+[90 rows x 2 columns]
+```
+
 (option_margin)=
 ### 商品期权保证金
 
@@ -2863,6 +2959,57 @@ print(option_margin_df)
 [106 rows x 12 columns]
 ```
 
+(option_margin_symbol)=
+### 期权保证金-品种列表
+
+接口：option_margin_symbol
+
+目标地址：https://www.iweiai.com/qiquan/yuanyou
+
+描述：唯爱期货-期权保证金页面的品种代码与名称，可作为 option_margin 的 symbol 参数
+
+限量：单次返回全部品种
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
+
+输出参数
+
+| 名称     | 类型  | 描述 |
+|--------|-----|----|
+| symbol | str | -  |
+| url    | str | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_margin_symbol_df = ak.option_margin_symbol()
+print(option_margin_symbol_df)
+```
+
+数据示例
+
+```
+     symbol                                            url
+0      原油期权          https://www.iweiai.com/qiquan/yuanyou
+1    20号胶期权        https://www.iweiai.com/qiquan/20haojiao
+2     国际铜期权        https://www.iweiai.com/qiquan/guojitong
+3   低硫燃料油期权  https://www.iweiai.com/qiquan/diliuranliaoyou
+4      沪铜期权           https://www.iweiai.com/qiquan/hutong
+..      ...                                            ...
+63    工业硅期权        https://www.iweiai.com/qiquan/gongyegui
+64    碳酸锂期权        https://www.iweiai.com/qiquan/tansuanli
+65    多晶硅期权       https://www.iweiai.com/qiquan/duojinggui
+66      铂期权               https://www.iweiai.com/qiquan/bo
+67      钯期权               https://www.iweiai.com/qiquan/ba
+[68 rows x 2 columns]
+```
+
 (option_hist_shfe)=
 ### 上海期货交易所
 
@@ -2882,8 +3029,6 @@ print(option_margin_df)
 | date | str | date="20191017"                                                                                                           |
 
 输出参数
-
-Part-1: 上海期货交易所期权合约行情
 
 | 名称    | 类型      | 描述    |
 |-------|---------|-------|
@@ -2964,6 +3109,58 @@ part_2: 上海期货交易所隐含波动参考值
 14  al2101                             0    66      0    0.0000   0  0.150241
 ```
 
+(option_vol_shfe)=
+### 商品期权-上海期货交易所-隐含波动率
+
+接口：option_vol_shfe
+
+目标地址：https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+
+描述：上海期货交易所-期权-各合约系列的成交量、持仓量与隐含波动率
+
+限量：单次返回指定品种指定交易日的数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                                          |
+|--------|-----|---------------------------------------------------------------------------------------------|
+| symbol | str | symbol="铝期权"；choice of {'原油期权', '铜期权', '铝期权', '锌期权', '铅期权', '螺纹钢期权', '镍期权', '锡期权', '氧化铝期权', |
+| date   | str | date="20261113"；交易日                                                                         |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| 合约系列  | str     | -  |
+| 成交量   | int64   | -  |
+| 持仓量   | int64   | -  |
+| 持仓量变化 | int64   | -  |
+| 成交额   | float64 | -  |
+| 行权量   | int64   | -  |
+| 隐含波动率 | object  | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_vol_shfe_df = ak.option_vol_shfe(symbol="铝期权", date="20261113")
+print(option_vol_shfe_df)
+```
+
+数据示例
+
+```
+     合约系列     成交量     持仓量  持仓量变化         成交额  行权量     隐含波动率
+0  al2612  150223  112769  -2540   8948.4640    0    0.1613
+1  al2701   32134   55581   2868   3397.4925    0  0.158033
+2  al2702      68    2774    -21     10.1370    0  0.151998
+3  al2703     532    2036    410     60.8695    0  0.147961
+4  al2704      84     638      0     16.7600    0  0.144159
+5  al2705     124     587    -15     24.9995    0  0.142465
+6      小计  183165  174385    702  12458.7225    0
+```
+
 (option_hist_dce)=
 ### 大连商品交易所
 
@@ -2987,8 +3184,6 @@ part_2: 上海期货交易所隐含波动参考值
 | date | str | date="20251016"                                                                                                                                                                 |
 
 输出参数
-
-Part-1: 大连商品交易所期权合约行情
 
 | 名称       | 类型      | 描述 |
 |----------|---------|----|
@@ -3068,8 +3263,6 @@ print(option_hist_dce_df)
 
 输出参数
 
-郑州商品交易所-期权合约行情
-
 | 名称      | 类型      | 描述  |
 |---------|---------|-----|
 | 品种代码    | str     |     |
@@ -3081,10 +3274,10 @@ print(option_hist_dce_df)
 | 今结算     | float64 |     |
 | 涨跌1     | float64 |     |
 | 涨跌2     | float64 |     |
-| 成交量（手）  | float64 |     |
+| `成交量(手)` | float64 |     |
 | 空盘量     | float64 |     |
 | 增减量     | float64 |     |
-| 成交额（万元） | float64 |     |
+| `成交额(万元)` | float64 |     |
 | DELTA   | float64 |     |
 | 隐含波动率   | float64 |     |
 | 行权量     | float64 |     |
@@ -3126,6 +3319,73 @@ print(option_hist_czce_df)
 [182 rows x 16 columns]
 ```
 
+(option_hist_yearly_czce)=
+### 商品期权-郑州商品交易所-年度历史行情
+
+接口：option_hist_yearly_czce
+
+目标地址：http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
+
+描述：郑州商品交易所-交易数据-历史行情下载-期权历史行情，按年度返回指定品种全部合约的日行情
+
+限量：单次返回指定品种指定年度的全部数据，数据量较大
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                                   |
+|--------|-----|--------------------------------------------------------------------------------------|
+| symbol | str | symbol="SR"；choice of {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM", |
+| year   | str | year="2021"；需要获取数据的年份，注意品种的上市时间                                                      |
+
+输出参数
+
+| 名称         | 类型      | 描述 |
+|------------|---------|----|
+| 交易日期       | str     | -  |
+| 合约代码       | str     | -  |
+| 昨结算        | str     | -  |
+| 今开盘        | str     | -  |
+| 最高价        | str     | -  |
+| 最低价        | str     | -  |
+| 今收盘        | str     | -  |
+| 今结算        | str     | -  |
+| 涨跌1        | float64 | -  |
+| 涨跌2        | float64 | -  |
+| `成交量(手)` | str     | -  |
+| 持仓量        | str     | -  |
+| 增减量        | str     | -  |
+| `成交额(万元)` | str     | -  |
+| DELTA      | float64 | -  |
+| 隐含波动率      | float64 | -  |
+| 行权量        | str     | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_hist_yearly_czce_df = ak.option_hist_yearly_czce(symbol="SR", year="2021")
+print(option_hist_yearly_czce_df)
+```
+
+数据示例
+
+```
+           交易日期       合约代码     ...  隐含波动率                              行权量
+0      2021-01-04  SR103C4300  ...  30.98  0
+1      2021-01-04  SR103C4400  ...  28.52  0
+2      2021-01-04  SR103C4500  ...  25.95  0
+3      2021-01-04  SR103C4600  ...  23.25  0
+4      2021-01-04  SR103C4700  ...  20.48  0
+...           ...         ...  ...    ...                              ...
+28565  2021-12-31  SR209P6300  ...  14.63  0
+28566  2021-12-31  SR209P6400  ...  14.98  0
+28567  2021-12-31  SR209P6500  ...  15.34  0
+28568  2021-12-31  SR209P6600  ...  15.70  0
+28569  2021-12-31  SR209P6700  ...  16.07  0
+[28570 rows x 17 columns]
+```
+
 (option_hist_gfex)=
 ### 广州期货交易所
 
@@ -3145,8 +3405,6 @@ print(option_hist_czce_df)
 | date | str | date="20261113"；交易日             |
 
 输出参数
-
-广州期货交易所期权合约行情
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
@@ -3223,8 +3481,6 @@ print(option_hist_gfex_df)
 | date | str | date="20230724"                  |
 
 输出参数
-
-广州期货交易所-隐含波动参考值
 
 | 名称    | 类型      | 描述 |
 |-------|---------|----|
