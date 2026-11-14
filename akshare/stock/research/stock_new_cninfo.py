@@ -57,8 +57,7 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
     }
     r = http.post(url, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
-    temp_df.columns = [
+    columns = [
         "公司名称",
         "上会日期",
         "审核类型",
@@ -66,6 +65,11 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
         "审核结果",
         "审核公告日",
     ]
+    if not data_json["records"]:
+        # 近期没有新股过会记录时上游返回空列表
+        return pd.DataFrame(columns=columns)
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.columns = columns
     temp_df["上会日期"] = pd.to_datetime(temp_df["上会日期"], errors="coerce").dt.date
     temp_df["审核公告日"] = pd.to_datetime(
         temp_df["审核公告日"], errors="coerce"

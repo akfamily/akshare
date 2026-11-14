@@ -22,7 +22,8 @@ def __get_sys_spot_futures_dict() -> dict:
     :rtype: dict
     """
     url = "https://www.100ppi.com/sf/792.html"
-    res = http.get(url)
+    # 生意社对程序请求先返回一段设置 cookie 的脚本，以浏览器指纹请求可直接拿到页面
+    res = http.curl_get(url, impersonate="chrome")
     soup = BeautifulSoup(res.text, features="lxml")
     temp_item = soup.find(name="div", attrs={"class": "q8"}).find_all("li")
     name_url_dict = dict(
@@ -47,7 +48,7 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     """
     name_url_dict = __get_sys_spot_futures_dict()
     url = name_url_dict[symbol]
-    r = http.get("https://www.100ppi.com" + url)
+    r = http.curl_get("https://www.100ppi.com" + url, impersonate="chrome")
     if indicator == "市场价格":
         table_df_one = pd.read_html(StringIO(r.text), header=0, index_col=0)[1].T
         table_df_one["现货价格"] = pd.to_numeric(

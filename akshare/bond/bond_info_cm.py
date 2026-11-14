@@ -18,11 +18,11 @@ from akshare.utils.tqdm import get_tqdm
 
 
 @functools.lru_cache()
-def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
+def bond_info_cm_query(symbol: str = "债券类型") -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-查询相关指标的参数
     https://www.chinamoney.com.cn/chinese/scsjzqxx/
-    :param symbol: choice of {"主承销商", "债券类型", "息票类型", "发行年份", "评级等级"}
+    :param symbol: choice of {"主承销商", "债券类型", "息票类型", "发行年份"}
     :type symbol: str
     :return: 查询相关指标的参数
     :rtype: pandas.DataFrame
@@ -45,7 +45,6 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
             "债券类型": "bondType",
             "息票类型": "couponType",
             "发行年份": "issueYear",
-            "评级等级": "bondRtngShrt",
         }
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/BondBaseInfoSearchCondition"
         headers = {

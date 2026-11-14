@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 
 from akshare.exceptions import APIError, NetworkError
-from akshare.utils import http
+from akshare.stock.board.stock_hot_xq import xq_session
 
 
 def _get_xq_inner_trade_data() -> dict[str, Any]:
@@ -30,27 +30,8 @@ def _get_xq_inner_trade_data() -> dict[str, Any]:
         "page": "1",
         "extend": "true",
     }
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "xueqiu.com",
-        "Pragma": "no-cache",
-        "Referer": "https://xueqiu.com/hq",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
     try:
-        r = http.get(url, params=params, headers=headers)
+        r = xq_session().get(url, params=params)
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(

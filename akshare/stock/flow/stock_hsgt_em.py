@@ -8,8 +8,8 @@ https://data.eastmoney.com/hsgtcg/
 """
 
 import pandas as pd
-from bs4 import BeautifulSoup
 
+from akshare.exceptions import APIError
 from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
@@ -168,173 +168,8 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_hsgt_hold_stock_em(
-    market: str = "沪股通", indicator: str = "5日排行"
-) -> pd.DataFrame:
-    """
-    东方财富-数据中心-沪深港通持股-个股排行
-    https://data.eastmoney.com/hsgtcg/list.html
-    :param market: choice of {"北向", "沪股通", "深股通"}
-    :type market: str
-    :param indicator: choice of {"今日排行", "3日排行", "5日排行", "10日排行", "月排行", "季排行", "年排行"}
-    :type indicator: str
-    :return: 指定 sector 和 indicator 的数据
-    :rtype: pandas.DataFrame
-    """
-    url = "https://data.eastmoney.com/hsgtcg/list.html"
-    r = http.get(url)
-    soup = BeautifulSoup(r.text, features="lxml")
-    date = (
-        soup.find(name="div", attrs={"class": "title"})
-        .find("span")
-        .text.strip("（")
-        .strip("）")
-    )
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-    indicator_type = ""
-    filter_str = ""
-    if indicator == "今日排行":
-        indicator_type = "1"
-    if indicator == "3日排行":
-        indicator_type = "3"
-    if indicator == "5日排行":
-        indicator_type = "5"
-    if indicator == "10日排行":
-        indicator_type = "10"
-    if indicator == "月排行":
-        indicator_type = "M"
-    if indicator == "季排行":
-        indicator_type = "Q"
-    if indicator == "年排行":
-        indicator_type = "Y"
-    if market == "北向":
-        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")"""
-    elif market == "沪股通":
-        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
-    elif market == "深股通":
-        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="003")"""
-    params = {
-        "sortColumns": "ADD_MARKET_CAP",
-        "sortTypes": "-1",
-        "pageSize": "50000",
-        "pageNumber": "1",
-        "reportName": "RPT_MUTUAL_STOCK_NORTHSTA",
-        "columns": "ALL",
-        "source": "WEB",
-        "client": "WEB",
-        "filter": filter_str,
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    page_num = data_json["result"]["pages"]
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, page_num + 1), leave=False):
-        params.update({"pageNumber": page})
-        r = http.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-
-    big_df = big_df.reset_index()
-    big_df["index"] = range(1, len(big_df) + 1)
-    big_df.columns = [
-        "序号",
-        "_",
-        "_",
-        "日期",
-        "_",
-        "名称",
-        "_",
-        "_",
-        "代码",
-        "_",
-        "_",
-        "_",
-        "_",
-        "今日持股-股数",
-        "今日持股-市值",
-        "今日持股-占流通股比",
-        "今日持股-占总股本比",
-        "今日收盘价",
-        "今日涨跌幅",
-        "_",
-        "所属板块",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        f"{indicator.split('排')[0]}增持估计-市值",
-        f"{indicator.split('排')[0]}增持估计-股数",
-        f"{indicator.split('排')[0]}增持估计-市值增幅",
-        f"{indicator.split('排')[0]}增持估计-占流通股比",
-        f"{indicator.split('排')[0]}增持估计-占总股本比",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    big_df = big_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "今日收盘价",
-            "今日涨跌幅",
-            "今日持股-股数",
-            "今日持股-市值",
-            "今日持股-占流通股比",
-            "今日持股-占总股本比",
-            f"{indicator.split('排')[0]}增持估计-股数",
-            f"{indicator.split('排')[0]}增持估计-市值",
-            f"{indicator.split('排')[0]}增持估计-市值增幅",
-            f"{indicator.split('排')[0]}增持估计-占流通股比",
-            f"{indicator.split('排')[0]}增持估计-占总股本比",
-            "所属板块",
-            "日期",
-        ]
-    ]
-    big_df["今日收盘价"] = pd.to_numeric(big_df["今日收盘价"], errors="coerce")
-    big_df["今日涨跌幅"] = pd.to_numeric(big_df["今日涨跌幅"], errors="coerce")
-    big_df["今日持股-股数"] = pd.to_numeric(big_df["今日持股-股数"], errors="coerce")
-    big_df["今日持股-市值"] = pd.to_numeric(big_df["今日持股-市值"], errors="coerce")
-    big_df["今日持股-占流通股比"] = pd.to_numeric(
-        big_df["今日持股-占流通股比"], errors="coerce"
-    )
-    big_df["今日持股-占总股本比"] = pd.to_numeric(
-        big_df["今日持股-占总股本比"], errors="coerce"
-    )
-    big_df[f"{indicator.split('排')[0]}增持估计-股数"] = pd.to_numeric(
-        big_df[f"{indicator.split('排')[0]}增持估计-股数"], errors="coerce"
-    )
-    big_df[f"{indicator.split('排')[0]}增持估计-市值"] = pd.to_numeric(
-        big_df[f"{indicator.split('排')[0]}增持估计-市值"], errors="coerce"
-    )
-    big_df[f"{indicator.split('排')[0]}增持估计-市值增幅"] = pd.to_numeric(
-        big_df[f"{indicator.split('排')[0]}增持估计-市值增幅"], errors="coerce"
-    )
-    big_df[f"{indicator.split('排')[0]}增持估计-占流通股比"] = pd.to_numeric(
-        big_df[f"{indicator.split('排')[0]}增持估计-占流通股比"], errors="coerce"
-    )
-    big_df[f"{indicator.split('排')[0]}增持估计-占总股本比"] = pd.to_numeric(
-        big_df[f"{indicator.split('排')[0]}增持估计-占总股本比"], errors="coerce"
-    )
-    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
-    return big_df
-
-
 def stock_hsgt_stock_statistics_em(
-    symbol: str = "北向持股",
+    symbol: str = "南向持股",
     start_date: str = "20240110",
     end_date: str = "20240110",
 ):
@@ -375,6 +210,12 @@ def stock_hsgt_stock_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params)
         data_json = r.json()
+        if not data_json.get("result"):
+            raise APIError(
+                f"东方财富没有返回 {symbol} 在 {start_date} 至 {end_date} 的数据"
+                f"（上游提示：{data_json.get('message')}）。北向资金自 2024-08-19 起"
+                "不再披露每日持股，对应的报表已停止服务；南向持股不受影响"
+            )
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -470,6 +311,12 @@ def stock_hsgt_stock_statistics_em(
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params)
         data_json = r.json()
+        if not data_json.get("result"):
+            raise APIError(
+                f"东方财富没有返回 {symbol} 在 {start_date} 至 {end_date} 的数据"
+                f"（上游提示：{data_json.get('message')}）。北向资金自 2024-08-19 起"
+                "不再披露每日持股，对应的报表已停止服务；南向持股不受影响"
+            )
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -578,6 +425,12 @@ def stock_hsgt_stock_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params)
         data_json = r.json()
+        if not data_json.get("result"):
+            raise APIError(
+                f"东方财富没有返回 {symbol} 在 {start_date} 至 {end_date} 的数据"
+                f"（上游提示：{data_json.get('message')}）。北向资金自 2024-08-19 起"
+                "不再披露每日持股，对应的报表已停止服务；南向持股不受影响"
+            )
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -686,6 +539,12 @@ def stock_hsgt_stock_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params)
         data_json = r.json()
+        if not data_json.get("result"):
+            raise APIError(
+                f"东方财富没有返回 {symbol} 在 {start_date} 至 {end_date} 的数据"
+                f"（上游提示：{data_json.get('message')}）。北向资金自 2024-08-19 起"
+                "不再披露每日持股，对应的报表已停止服务；南向持股不受影响"
+            )
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -1186,146 +1045,6 @@ def stock_hsgt_hist_em(symbol: str = "北向资金") -> pd.DataFrame:
     return big_df
 
 
-def stock_hsgt_board_rank_em(
-    symbol: str = "北向资金增持行业板块排行", indicator: str = "今日"
-) -> pd.DataFrame:
-    """
-    东方财富网-数据中心-沪深港通持股-行业板块排行-北向资金增持行业板块排行
-    https://data.eastmoney.com/hsgtcg/bk.html
-    :param symbol: choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"}
-    :type symbol: str
-    :param indicator: choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}
-    :type indicator: str
-    :return: 北向资金增持行业板块排行
-    :rtype: pandas.DataFrame
-    """
-    url = "https://data.eastmoney.com/hsgtcg/hy.html"
-    r = http.get(url)
-    soup = BeautifulSoup(r.text, features="lxml")
-    current_date = soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
-    symbol_map = {
-        "北向资金增持行业板块排行": "5",
-        "北向资金增持概念板块排行": "4",
-        "北向资金增持地域板块排行": "3",
-    }
-    indicator_map = {
-        "今日": "1",
-        "3日": "3",
-        "5日": "5",
-        "10日": "10",
-        "1月": "M",
-        "1季": "Q",
-        "1年": "Y",
-    }
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
-    params = {
-        "sortColumns": "ADD_MARKET_CAP",
-        "sortTypes": "-1",
-        "pageSize": "500",
-        "pageNumber": "1",
-        "reportName": "RPT_MUTUAL_BOARD_HOLDRANK_WEB",
-        "columns": "ALL",
-        "quoteColumns": "f3~05~SECURITY_CODE~INDEX_CHANGE_RATIO",
-        "source": "WEB",
-        "client": "WEB",
-        "filter": f"""(BOARD_TYPE="{symbol_map[symbol]}")(TRADE_DATE='{current_date}')(INTERVAL_TYPE="{indicator_map[indicator]}")""",
-    }
-    r = http.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df = temp_df.reset_index()
-    temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "_",
-        "_",
-        "名称",
-        "_",
-        "最新涨跌幅",
-        "报告时间",
-        "_",
-        "_",
-        "北向资金今日增持估计-股票只数",
-        "北向资金今日持股-股票只数",
-        "北向资金今日增持估计-市值",
-        "北向资金今日增持估计-市值增幅",
-        "-",
-        "北向资金今日增持估计-占板块比",
-        "北向资金今日增持估计-占北向资金比",
-        "北向资金今日持股-市值",
-        "北向资金今日持股-占北向资金比",
-        "北向资金今日持股-占板块比",
-        "_",
-        "_",
-        "今日增持最大股-市值",
-        "_",
-        "_",
-        "今日减持最大股-市值",
-        "今日增持最大股-占总市值比",
-        "_",
-        "_",
-        "今日减持最大股-占总市值比",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    temp_df = temp_df[
-        [
-            "序号",
-            "名称",
-            "最新涨跌幅",
-            "北向资金今日持股-股票只数",
-            "北向资金今日持股-市值",
-            "北向资金今日持股-占板块比",
-            "北向资金今日持股-占北向资金比",
-            "北向资金今日增持估计-股票只数",
-            "北向资金今日增持估计-市值",
-            "北向资金今日增持估计-市值增幅",
-            "北向资金今日增持估计-占板块比",
-            "北向资金今日增持估计-占北向资金比",
-            "今日增持最大股-市值",
-            "今日增持最大股-占总市值比",
-            "今日减持最大股-市值",
-            "今日减持最大股-占总市值比",
-            "报告时间",
-        ]
-    ]
-    temp_df["最新涨跌幅"] = pd.to_numeric(temp_df["最新涨跌幅"], errors="coerce")
-    temp_df["北向资金今日持股-股票只数"] = pd.to_numeric(
-        temp_df["北向资金今日持股-股票只数"], errors="coerce"
-    )
-    temp_df["北向资金今日持股-市值"] = pd.to_numeric(
-        temp_df["北向资金今日持股-市值"], errors="coerce"
-    )
-    temp_df["北向资金今日持股-占板块比"] = pd.to_numeric(
-        temp_df["北向资金今日持股-占板块比"], errors="coerce"
-    )
-    temp_df["北向资金今日持股-占北向资金比"] = pd.to_numeric(
-        temp_df["北向资金今日持股-占北向资金比"], errors="coerce"
-    )
-    temp_df["北向资金今日增持估计-股票只数"] = pd.to_numeric(
-        temp_df["北向资金今日增持估计-股票只数"], errors="coerce"
-    )
-    temp_df["北向资金今日增持估计-市值"] = pd.to_numeric(
-        temp_df["北向资金今日增持估计-市值"], errors="coerce"
-    )
-    temp_df["北向资金今日增持估计-市值增幅"] = pd.to_numeric(
-        temp_df["北向资金今日增持估计-市值增幅"], errors="coerce"
-    )
-    temp_df["北向资金今日增持估计-占板块比"] = pd.to_numeric(
-        temp_df["北向资金今日增持估计-占板块比"], errors="coerce"
-    )
-    temp_df["北向资金今日增持估计-占北向资金比"] = pd.to_numeric(
-        temp_df["北向资金今日增持估计-占北向资金比"], errors="coerce"
-    )
-    temp_df["报告时间"] = pd.to_datetime(temp_df["报告时间"], errors="coerce").dt.date
-    return temp_df
-
-
 def __stock_hsgt_individual_zh_hk_em(symbol: str = "00700") -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票
@@ -1637,26 +1356,6 @@ if __name__ == "__main__":
     stock_hk_ggt_components_em_df = stock_hk_ggt_components_em()
     print(stock_hk_ggt_components_em_df)
 
-    stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
-        market="北向", indicator="今日排行"
-    )
-    print(stock_hsgt_hold_stock_em_df)
-
-    stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
-        market="沪股通", indicator="5日排行"
-    )
-    print(stock_hsgt_hold_stock_em_df)
-
-    stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
-        market="深股通", indicator="5日排行"
-    )
-    print(stock_hsgt_hold_stock_em_df)
-
-    stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
-        market="沪股通", indicator="10日排行"
-    )
-    print(stock_hsgt_hold_stock_em_df)
-
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
         symbol="北向持股", start_date="20240110", end_date="20240110"
     )
@@ -1699,11 +1398,6 @@ if __name__ == "__main__":
 
     stock_hsgt_hist_em_df = stock_hsgt_hist_em(symbol="港股通沪")
     print(stock_hsgt_hist_em_df)
-
-    stock_hsgt_board_rank_em_df = stock_hsgt_board_rank_em(
-        symbol="北向资金增持行业板块排行", indicator="今日"
-    )
-    print(stock_hsgt_board_rank_em_df)
 
     stock_hsgt_individual_em_df = stock_hsgt_individual_em(symbol="00700")
     print(stock_hsgt_individual_em_df)

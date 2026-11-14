@@ -33,7 +33,15 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
         "rows": 50,
     }
     payload.update({"page": page})
-    r = http.post(url, data=payload)
+    # 协会网站的防火墙会拦截不带页面来源的请求
+    headers = {
+        "Origin": "http://zhuce.nafmii.org.cn",
+        "Referer": "http://zhuce.nafmii.org.cn/fans/publicQuery/manager",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    r = http.post(url, data=payload, headers=headers)
     data_json = r.json()  # 数据类型为 json 格式
     temp_df = pd.DataFrame(data_json["rows"])
     temp_df = temp_df.rename(

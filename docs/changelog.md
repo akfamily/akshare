@@ -8,6 +8,35 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-54)=
+### 1.20.54 fix!: fix 9 interfaces broken by upstream changes and remove 11 dead or duplicate interfaces
+
+**不兼容的改动：移除 11 个数据源已下线、停更或重复的接口，调用会报 AttributeError。**
+
+移除的接口：
+
+- stock_hsgt_hold_stock_em（沪深港通持股-个股排行）：东方财富对应的报表对任何市场、任何日期都返回“服务器繁忙”，已停止服务
+- stock_hsgt_board_rank_em（沪深港通持股-板块排行）：北向资金自 2024-08-19 起不再披露每日持股，该报表的数据停在 2024-08-16
+- energy_carbon_sz、energy_carbon_eu（深圳碳排放交易所的国内碳情、国际碳情）：网站连接超时，HTTPS 证书也已失效
+- energy_carbon_gz（广州碳排放权交易中心）：网站启用了防火墙，程序请求一律被拦截。碳排放数据可改用 energy_carbon_bj、energy_carbon_hb
+- index_yw（义乌小商品指数）：周价格指数返回空数据，月价格指数与景气指数停在 2025 年 5 月
+- index_kq_fz（柯桥纺织品指数）：网站改版后数据需要登录才能查看。柯桥时尚指数 index_kq_fashion 不受影响
+- index_eri（浙江省排污权交易指数）：网站域名已无法解析
+- index_news_sentiment_scope（数库 A 股新闻情绪指数）：网站证书失效且请求超时
+- stock_concept_cons_futu（富途牛牛概念板块成份股）：接口改为需要页面脚本计算的签名，程序请求返回网页而不是数据
+- stock_staq_net_stop（两网及退市）：与 stock_zh_a_stop_em 请求的是东方财富的同一个板块，且只返回其中的代码与名称两列，请改用 stock_zh_a_stop_em
+
+修复的接口：
+
+1. stock_hot_deal_xq、stock_hot_follow_xq、stock_hot_tweet_xq、stock_inner_trade_xq 报“returned invalid JSON”：雪球的数据接口要求带有访问首页时下发的匿名 cookie，现在先用同一个会话访问首页
+2. bond_debt_nafmii 报 `JSONDecodeError`：交易商协会网站的防火墙拦截不带页面来源的请求，补上请求头
+3. futures_spot_sys 报 `AttributeError: 'NoneType' object has no attribute 'find_all'`：生意社对程序请求先返回一段设置 cookie 的脚本，改为以浏览器指纹请求
+4. stock_new_gh_cninfo 报 `Length mismatch`：近期没有新股过会记录时上游返回空列表，现在返回带列名的空表
+5. bond_info_cm_query 按默认参数报 `KeyError: 'bondRtngShrt'`：中国货币网的查询条件里已没有“评级等级”，该选项取消，默认改为“债券类型”
+6. stock_hsgt_stock_statistics_em：北向、沪股通、深股通持股的报表已停止服务，原先报 `TypeError: 'NoneType' object is not subscriptable`，现在抛出 APIError 并说明原因；南向持股正常，默认参数与文档示例改为南向持股
+7. 以上 9 个接口均已实测；至此 1.20.51 起对全部接口做的实测中发现的问题都已处理，没有覆盖的是请求东方财富 push2 的 97 个接口、大连商品交易所的接口（被反爬虫拦截）和基金业协会的接口
+8. 接口总数由 969 个变为 958 个；按位置赋列名的写法降至 451 处
+
 (v1-20-53)=
 ### 1.20.53 fix!: return a table instead of a dict from 9 futures interfaces and translate upstream field names of 5 interfaces
 

@@ -25,24 +25,26 @@ def _get_xq_hot_headers() -> dict[str, str]:
     :rtype: dict[str, str]
     """
     return {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "xueqiu.com",
-        "Pragma": "no-cache",
         "Referer": "https://xueqiu.com/hq",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
+
+
+def xq_session() -> http.Session:
+    """
+    带匿名登录态的雪球会话
+    雪球的数据接口要求请求带有访问首页时下发的 xq_a_token 等 cookie，否则返回非 JSON 内容，
+    因此先用同一个会话访问一次首页
+
+    :return: 已取得 cookie 的会话
+    :rtype: akshare.utils.http.Session
+    """
+    session = http.Session()
+    session.headers.update(_get_xq_hot_headers())
+    session.get("https://xueqiu.com/")
+    return session
 
 
 def _request_xq_hot_data(url: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -59,7 +61,7 @@ def _request_xq_hot_data(url: str, params: dict[str, Any]) -> dict[str, Any]:
     :raises APIError: 上游接口返回异常
     """
     try:
-        r = http.get(url, params=params, headers=_get_xq_hot_headers())
+        r = xq_session().get(url, params=params)
         data_json = r.json()
     except requests.RequestException as err:
         raise NetworkError(

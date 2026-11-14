@@ -50,7 +50,6 @@ from akshare.stock.board.stock_comment_em import (
     stock_comment_detail_zlkp_jgcyd_em,
     stock_comment_em,
 )
-from akshare.stock.board.stock_concept_futu import stock_concept_cons_futu
 from akshare.stock.board.stock_hk_hot_rank_em import (
     stock_hk_hot_rank_detail_em,
     stock_hk_hot_rank_detail_realtime_em,
@@ -173,10 +172,8 @@ from akshare.stock.flow.stock_fund_flow import (
 )
 from akshare.stock.flow.stock_hsgt_em import (
     stock_hk_ggt_components_em,
-    stock_hsgt_board_rank_em,
     stock_hsgt_fund_flow_summary_em,
     stock_hsgt_hist_em,
-    stock_hsgt_hold_stock_em,
     stock_hsgt_individual_detail_em,
     stock_hsgt_individual_em,
     stock_hsgt_institution_statistics_em,
@@ -328,7 +325,6 @@ from akshare.stock.issue.stock_restricted_em import (
     stock_restricted_release_stockholder_em,
     stock_restricted_release_summary_em,
 )
-from akshare.stock.issue.stock_stop import stock_staq_net_stop
 from akshare.stock.issue.stock_tfp_em import stock_tfp_em
 from akshare.stock.issue.stock_zf_pg import stock_pg_em, stock_qbzf_em
 
@@ -920,13 +916,11 @@ from akshare.index.index_cons import (
 )
 from akshare.index.index_csindex import index_all_csindex
 from akshare.index.index_drewry import index_wci_drewry
-from akshare.index.index_eri import index_eri
 from akshare.index.index_global_em import index_global_hist_em, index_global_spot_em
 from akshare.index.index_global_sina import (
     index_global_hist_sina,
     index_global_name_table,
 )
-from akshare.index.index_kq_fz import index_kq_fz
 from akshare.index.index_kq_ss import index_kq_fashion
 from akshare.index.index_option_qvix import (
     index_option_1000index_min_qvix,
@@ -992,8 +986,6 @@ from akshare.index.index_sw import (
     index_third_cons_sw,
     index_third_info_sw,
 )
-from akshare.index.index_yw import index_yw
-from akshare.index.index_zh_a_scope import index_news_sentiment_scope
 from akshare.index.index_zh_em import (
     index_code_id_map_em,
     index_zh_hist_em,
@@ -1222,10 +1214,7 @@ from akshare.spot.spot_sge_js import (
 # ---- 能源（akshare/energy） ----
 from akshare.energy.energy_carbon import (
     energy_carbon_bj,
-    energy_carbon_eu,
-    energy_carbon_gz,
     energy_carbon_hb,
-    energy_carbon_sz,
 )
 from akshare.energy.energy_oil_em import energy_oil_detail, energy_oil_hist
 
@@ -1413,10 +1402,7 @@ __all__ = [
     "crypto_bitcoin_hold_report",
     "crypto_realtime_js",
     "energy_carbon_bj",
-    "energy_carbon_eu",
-    "energy_carbon_gz",
     "energy_carbon_hb",
-    "energy_carbon_sz",
     "energy_oil_detail",
     "energy_oil_hist",
     "fund_abs_amac",
@@ -1630,7 +1616,6 @@ __all__ = [
     "index_detail_cni",
     "index_detail_hist_adjust_cni",
     "index_detail_hist_cni",
-    "index_eri",
     "index_first_info_sw",
     "index_global_hist_em",
     "index_global_hist_sina",
@@ -1646,9 +1631,7 @@ __all__ = [
     "index_hk_spot_sina",
     "index_inner_quota_sugar_msweet",
     "index_kq_fashion",
-    "index_kq_fz",
     "index_min_sw",
-    "index_news_sentiment_scope",
     "index_option_1000index_min_qvix",
     "index_option_1000index_qvix",
     "index_option_100etf_min_qvix",
@@ -1686,7 +1669,6 @@ __all__ = [
     "index_value_csindex",
     "index_volume_cflp",
     "index_wci_drewry",
-    "index_yw",
     "index_zh_daily_em",
     "index_zh_daily_sina",
     "index_zh_daily_tx",
@@ -1975,7 +1957,6 @@ __all__ = [
     "stock_comment_detail_zhpj_lspf_em",
     "stock_comment_detail_zlkp_jgcyd_em",
     "stock_comment_em",
-    "stock_concept_cons_futu",
     "stock_cy_a_spot_em",
     "stock_cyq_em",
     "stock_deal_daily_sse",
@@ -2081,11 +2062,9 @@ __all__ = [
     "stock_hot_search_baidu",
     "stock_hot_tweet_xq",
     "stock_hot_up_em",
-    "stock_hsgt_board_rank_em",
     "stock_hsgt_fund_flow_summary_em",
     "stock_hsgt_fund_min_em",
     "stock_hsgt_hist_em",
-    "stock_hsgt_hold_stock_em",
     "stock_hsgt_individual_detail_em",
     "stock_hsgt_individual_em",
     "stock_hsgt_institution_statistics_em",
@@ -2234,7 +2213,6 @@ __all__ = [
     "stock_share_hold_change_szse",
     "stock_shareholder_change_ths",
     "stock_sns_sseinfo",
-    "stock_staq_net_stop",
     "stock_summary_sse",
     "stock_summary_szse",
     "stock_sy_em",

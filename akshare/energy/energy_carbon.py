@@ -88,70 +88,6 @@ def energy_carbon_bj() -> pd.DataFrame:
     return temp_df
 
 
-def energy_carbon_sz() -> pd.DataFrame:
-    """
-    深圳碳排放交易所-国内碳情
-    http://www.cerx.cn/dailynewsCN/index.htm
-    :return: 国内碳情每日行情数据
-    :rtype: pandas.DataFrame
-    """
-    url = "http://www.cerx.cn/dailynewsCN/index.htm"
-    r = http.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
-    big_df = pd.read_html(StringIO(r.text), header=0)[0]
-    for page in tqdm(
-        range(2, page_num + 1), desc="Please wait for a moment", leave=False
-    ):
-        url = f"http://www.cerx.cn/dailynewsCN/index_{page}.htm"
-        r = http.get(url, headers=headers)
-        temp_df = pd.read_html(StringIO(r.text), header=0)[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
-    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
-    big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
-    big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
-    big_df["成交均价"] = pd.to_numeric(big_df["成交均价"], errors="coerce")
-    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
-    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df = big_df.sort_values(by="交易日期")
-    big_df = big_df.reset_index(drop=True)
-    return big_df
-
-
-def energy_carbon_eu() -> pd.DataFrame:
-    """
-    深圳碳排放交易所-国际碳情
-    http://www.cerx.cn/dailynewsOuter/index.htm
-    :return: 国际碳情每日行情数据
-    :rtype: pandas.DataFrame
-    """
-    url = "http://www.cerx.cn/dailynewsOuter/index.htm"
-    r = http.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, features="lxml")
-    page_num = int(soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text)
-    big_df = pd.read_html(StringIO(r.text), header=0)[0]
-    for page in tqdm(
-        range(2, page_num + 1), desc="Please wait for a moment", leave=False
-    ):
-        url = f"http://www.cerx.cn/dailynewsOuter/index_{page}.htm"
-        r = http.get(url)
-        temp_df = pd.read_html(StringIO(r.text), header=0)[0]
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
-    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
-    big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
-    big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
-    big_df["成交均价"] = pd.to_numeric(big_df["成交均价"], errors="coerce")
-    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
-    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
-    big_df = big_df.sort_values(by="交易日期")
-    big_df = big_df.reset_index(drop=True)
-    return big_df
-
-
 def energy_carbon_hb() -> pd.DataFrame:
     """
     湖北碳排放权交易中心-现货交易数据-配额-每日概况
@@ -195,62 +131,9 @@ def energy_carbon_hb() -> pd.DataFrame:
     return temp_df
 
 
-def energy_carbon_gz() -> pd.DataFrame:
-    """
-    广州碳排放权交易中心-行情信息
-    http://www.cnemission.com/article/hqxx/
-    :return: 行情信息数据
-    :rtype: pandas.DataFrame
-    """
-    url = "http://ets.cnemission.com/carbon/portalIndex/markethistory"
-    params = {
-        "Top": "1",
-        "beginTime": "2010-01-01",
-        "endTime": "2030-09-12",
-    }
-    r = http.get(url, params=params)
-    temp_df = pd.read_html(StringIO(r.text), header=0)[1]
-    temp_df.columns = [
-        "日期",
-        "品种",
-        "开盘价",
-        "收盘价",
-        "最高价",
-        "最低价",
-        "涨跌",
-        "涨跌幅",
-        "成交数量",
-        "成交金额",
-    ]
-    temp_df["日期"] = pd.to_datetime(
-        temp_df["日期"], format="%Y%m%d", errors="coerce"
-    ).dt.date
-    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
-    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
-    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
-    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
-    temp_df["涨跌"] = pd.to_numeric(temp_df["涨跌"], errors="coerce")
-    temp_df["涨跌幅"] = temp_df["涨跌幅"].str.strip("%")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["成交数量"] = pd.to_numeric(temp_df["成交数量"], errors="coerce")
-    temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
-    temp_df = temp_df.sort_values(by="日期")
-    temp_df = temp_df.reset_index(drop=True)
-    return temp_df
-
-
 if __name__ == "__main__":
     energy_carbon_bj_df = energy_carbon_bj()
     print(energy_carbon_bj_df)
 
-    energy_carbon_sz_df = energy_carbon_sz()
-    print(energy_carbon_sz_df)
-
-    energy_carbon_eu_df = energy_carbon_eu()
-    print(energy_carbon_eu_df)
-
     energy_carbon_hb_df = energy_carbon_hb()
     print(energy_carbon_hb_df)
-
-    energy_carbon_gz_df = energy_carbon_gz()
-    print(energy_carbon_gz_df)
