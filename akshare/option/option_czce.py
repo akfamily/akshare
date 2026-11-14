@@ -35,7 +35,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def option_hist_yearly_czce(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
+def option_hist_yearly_czce(symbol: str = "SR", year: str = "2025") -> pd.DataFrame:
     """
     郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
     http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm

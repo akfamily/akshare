@@ -15,7 +15,7 @@ from tqdm import tqdm
 from akshare.utils import http
 
 
-def stock_yjkb_em(date: str = "20211231") -> pd.DataFrame:
+def stock_yjkb_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报
     https://data.eastmoney.com/bbsj/202003/yjkb.html
@@ -133,7 +133,7 @@ def stock_yjkb_em(date: str = "20211231") -> pd.DataFrame:
     return big_df
 
 
-def stock_yjyg_em(date: str = "20200331") -> pd.DataFrame:
+def stock_yjyg_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩预告
     https://data.eastmoney.com/bbsj/202003/yjyg.html
@@ -221,7 +221,7 @@ def stock_yjyg_em(date: str = "20200331") -> pd.DataFrame:
     return big_df
 
 
-def stock_yysj_em(symbol: str = "沪深A股", date: str = "20200331") -> pd.DataFrame:
+def stock_yysj_em(symbol: str = "沪深A股", date: str = "20260930") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-预约披露时间
     https://data.eastmoney.com/bbsj/202003/yysj.html

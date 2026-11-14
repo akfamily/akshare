@@ -28,7 +28,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 
 
 def stock_cg_guarantee_cninfo(
-    symbol: str = "全部", start_date: str = "20180630", end_date: str = "20210927"
+    symbol: str = "全部", start_date: str = "20251108", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-对外担保

@@ -27,7 +27,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
+def stock_cg_equity_mortgage_cninfo(date: str = "20260930") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-公司治理-股权质押
     https://webapi.cninfo.com.cn/#/thematicStatistics

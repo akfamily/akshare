@@ -28,7 +28,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 
 
 def stock_industry_pe_ratio_cninfo(
-    symbol: str = "证监会行业分类", date: str = "20210910"
+    symbol: str = "证监会行业分类", date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-行业分析-行业市盈率

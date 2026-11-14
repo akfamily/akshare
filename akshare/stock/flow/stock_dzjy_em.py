@@ -86,7 +86,7 @@ def stock_dzjy_sctj() -> pd.DataFrame:
 
 
 def stock_dzjy_mrmx(
-    symbol: str = "基金", start_date: str = "20220104", end_date: str = "20220104"
+    symbol: str = "基金", start_date: str = "20261113", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-每日明细
@@ -231,7 +231,7 @@ def stock_dzjy_mrmx(
 
 
 def stock_dzjy_mrtj(
-    start_date: str = "20220105", end_date: str = "20220105"
+    start_date: str = "20261113", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-每日统计

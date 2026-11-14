@@ -142,7 +142,7 @@ def _stock_notice_report(
     return big_df
 
 
-def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.DataFrame:
+def stock_notice_report(symbol: str = "全部", date: str = "20261113") -> pd.DataFrame:
     """
     东方财富网-数据中心-公告大全-沪深京 A 股公告
     https://data.eastmoney.com/notices/hsa/5.html

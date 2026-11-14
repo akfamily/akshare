@@ -107,7 +107,7 @@ def _futures_daily_czce(
     return temp_df
 
 
-def futures_daily_cffex(date: str = "20100416") -> pd.DataFrame:
+def futures_daily_cffex(date: str = "20261113") -> pd.DataFrame:
     """
     中国金融期货交易所-日频率交易数据
     http://www.cffex.com.cn/rtj/
@@ -198,7 +198,7 @@ def futures_daily_cffex(date: str = "20100416") -> pd.DataFrame:
     return data_df
 
 
-def futures_daily_gfex(date: str = "20221223") -> pd.DataFrame:
+def futures_daily_gfex(date: str = "20261113") -> pd.DataFrame:
     """
     广州期货交易所-日频率-量价数据
     广州期货交易所：工业硅（上市时间：20221222）
@@ -340,7 +340,7 @@ def futures_daily_ine(date: str = "20241129") -> pd.DataFrame:
     return result_df
 
 
-def futures_daily_czce(date: str = "20050525") -> pd.DataFrame:
+def futures_daily_czce(date: str = "20261113") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
     http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
@@ -452,7 +452,7 @@ def futures_daily_czce(date: str = "20050525") -> pd.DataFrame:
         return _futures_daily_czce_df
 
 
-def futures_daily_shfe(date: str = "20220415") -> pd.DataFrame:
+def futures_daily_shfe(date: str = "20261113") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     https://tsite.shfe.com.cn/statements/dataview.html?paramid=kx
@@ -635,8 +635,8 @@ def futures_daily_dce(date: str = "20251027") -> pd.DataFrame:
 
 
 def futures_daily(
-    start_date: str = "20220208",
-    end_date: str = "20220208",
+    start_date: str = "20261113",
+    end_date: str = "20261113",
     market: str = "CFFEX",
 ) -> pd.DataFrame:
     """

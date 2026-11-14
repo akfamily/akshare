@@ -332,8 +332,8 @@ def index_spot_sw(symbol: str = "二级行业") -> pd.DataFrame:
 
 def index_analysis_daily_sw(
     symbol: str = "市场表征",
-    start_date: str = "20221103",
-    end_date: str = "20221103",
+    start_date: str = "20261113",
+    end_date: str = "20261113",
 ) -> pd.DataFrame:
     """
     申万宏源研究-指数分析
@@ -436,7 +436,7 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
 
 def index_analysis_weekly_sw(
     symbol: str = "市场表征",
-    date: str = "20221104",
+    date: str = "20261113",
 ) -> pd.DataFrame:
     """
     申万宏源研究-指数分析-周报告

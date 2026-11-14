@@ -46,7 +46,7 @@ def energy_oil_hist() -> pd.DataFrame:
     return temp_df
 
 
-def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
+def energy_oil_detail(date: str = "20261113") -> pd.DataFrame:
     """
     全国各地区的汽油和柴油油价
     https://data.eastmoney.com/cjsj/oil_default.html

@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
+def stock_margin_underlying_info_szse(date: str = "20261113") -> pd.DataFrame:
     """
     深圳证券交易所-融资融券数据-标的证券信息
     https://www.szse.cn/disclosure/margin/object/index.html

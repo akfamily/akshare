@@ -13,7 +13,7 @@ from akshare.utils.tqdm import get_tqdm
 
 
 def stock_gdfx_free_holding_statistics_em(
-    date: str = "20210630",
+    date: str = "20260930",
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股统计-十大流通股东
@@ -115,7 +115,7 @@ def stock_gdfx_free_holding_statistics_em(
     return big_df
 
 
-def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
+def stock_gdfx_holding_statistics_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股统计-十大股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html
@@ -217,7 +217,7 @@ def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
     return big_df
 
 
-def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
+def stock_gdfx_free_holding_change_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股变动统计-十大流通股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html
@@ -299,7 +299,7 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
     return big_df
 
 
-def stock_gdfx_holding_change_em(date: str = "20210930") -> pd.DataFrame:
+def stock_gdfx_holding_change_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股变动统计-十大股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html
@@ -429,7 +429,7 @@ def stock_gdfx_free_top_10_em(
 
 
 def stock_gdfx_top_10_em(
-    symbol: str = "sh688686", date: str = "20210630"
+    symbol: str = "sh688686", date: str = "20260930"
 ) -> pd.DataFrame:
     """
     东方财富网-个股-十大股东
@@ -479,7 +479,7 @@ def stock_gdfx_top_10_em(
     return temp_df
 
 
-def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
+def stock_gdfx_free_holding_detail_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股明细-十大流通股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html

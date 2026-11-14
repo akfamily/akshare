@@ -440,7 +440,7 @@ def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[
 
 
 def option_sse_expire_day_sina(
-    trade_date: str = "202102", symbol: str = "50ETF", exchange: str = "null"
+    trade_date: str = "202610", symbol: str = "50ETF", exchange: str = "null"
 ) -> Tuple[str, int]:
     """
     指定到期月份指定品种的剩余到期时间
@@ -477,7 +477,7 @@ def option_sse_expire_day_sina(
 
 def option_sse_codes_sina(
     symbol: str = "看涨期权",
-    trade_date: str = "202202",
+    trade_date: str = "202610",
     underlying: str = "510050",
 ) -> pd.DataFrame:
     """

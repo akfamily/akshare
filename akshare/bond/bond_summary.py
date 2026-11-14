@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def bond_cash_summary_sse(date: str = "20210111") -> pd.DataFrame:
+def bond_cash_summary_sse(date: str = "20261113") -> pd.DataFrame:
     """
     上登债券信息网-市场数据-市场统计-市场概览-债券现券市场概览
     http://bond.sse.com.cn/data/statistics/overview/bondow/
@@ -48,7 +48,7 @@ def bond_cash_summary_sse(date: str = "20210111") -> pd.DataFrame:
     return temp_df
 
 
-def bond_deal_summary_sse(date: str = "20210104") -> pd.DataFrame:
+def bond_deal_summary_sse(date: str = "20261113") -> pd.DataFrame:
     """
     上登债券信息网-市场数据-市场统计-市场概览-债券成交概览
     http://bond.sse.com.cn/data/statistics/overview/turnover/

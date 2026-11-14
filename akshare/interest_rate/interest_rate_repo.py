@@ -44,7 +44,7 @@ def interest_rate_repo_query_cm(symbol: str = "回购定盘利率") -> pd.DataFr
 
 
 def interest_rate_repo_hist_cm(
-    start_date: str = "20200930", end_date: str = "20201029"
+    start_date: str = "20261015", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-回购定盘利率-历史数据

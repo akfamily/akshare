@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def alternative_billionaires_hist_bloomberg(year: str = "2021") -> pd.DataFrame:
+def alternative_billionaires_hist_bloomberg(year: str = "2025") -> pd.DataFrame:
     """
     Bloomberg Billionaires Index
     https://stats.areppim.com/stats/links_billionairexlists.htm

@@ -27,7 +27,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
+def stock_hold_num_cninfo(date: str = "20260930") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
     https://webapi.cninfo.com.cn/#/thematicStatistics

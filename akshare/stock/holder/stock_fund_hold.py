@@ -34,7 +34,7 @@ _STOCK_REPORT_FUND_HOLD_RENAME_MAP: dict[str, str] = {
 
 
 def stock_report_fund_hold(
-    symbol: str = "基金持仓", date: str = "20210331"
+    symbol: str = "基金持仓", date: str = "20260930"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓
@@ -108,7 +108,7 @@ def stock_report_fund_hold(
 
 
 def stock_report_fund_hold_detail(
-    symbol: str = "008286", date: str = "20220331"
+    symbol: str = "008286", date: str = "20260930"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓-明细

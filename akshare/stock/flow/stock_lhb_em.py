@@ -418,7 +418,7 @@ def stock_lhb_jgstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
 
 
 def stock_lhb_hyyyb_em(
-    start_date: str = "20220324", end_date: str = "20220324"
+    start_date: str = "20261113", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-每日活跃营业部

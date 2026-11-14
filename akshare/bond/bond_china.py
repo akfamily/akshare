@@ -140,7 +140,7 @@ def bond_spot_deal() -> pd.DataFrame:
 
 
 def bond_china_yield(
-    start_date: str = "20200204", end_date: str = "20210124"
+    start_date: str = "20251123", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     中国债券信息网-国债及其他债券收益率曲线

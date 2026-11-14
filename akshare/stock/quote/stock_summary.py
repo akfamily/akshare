@@ -58,7 +58,7 @@ def stock_summary_szse(date: str = "20240830") -> pd.DataFrame:
     return temp_df
 
 
-def stock_area_summary_szse(date: str = "202203") -> pd.DataFrame:
+def stock_area_summary_szse(date: str = "202610") -> pd.DataFrame:
     """
     深圳证券交易所-总貌-地区交易排序
     https://www.szse.cn/market/overview/index.html

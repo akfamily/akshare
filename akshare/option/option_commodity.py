@@ -181,7 +181,7 @@ def __option_czce_daily_convert_numeric_columns(df):
     return df_copy
 
 
-def option_hist_czce(symbol: str = "白糖期权", date: str = "20191017") -> pd.DataFrame:
+def option_hist_czce(symbol: str = "白糖期权", date: str = "20261113") -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
     http://www.czce.com.cn/cn/sspz/dejbqhqq/H770227index_1.htm#tabs-2

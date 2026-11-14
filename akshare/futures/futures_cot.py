@@ -1373,7 +1373,7 @@ def futures_rank_table_dce(date: str = "20230706", symbols: str = "") -> pd.Data
     )
 
 
-def futures_rank_table_cffex(date: str = "20190805", symbols: str = "") -> pd.DataFrame:
+def futures_rank_table_cffex(date: str = "20261113", symbols: str = "") -> pd.DataFrame:
     """
     中国金融期货交易所会员成交及持仓排名表
     http://www.cffex.com.cn/ccpm/

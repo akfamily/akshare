@@ -28,7 +28,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
 
 
 def bond_treasury_issue_cninfo(
-    start_date: str = "20210910", end_date: str = "20211109"
+    start_date: str = "20260914", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-国债发行
@@ -123,7 +123,7 @@ def bond_treasury_issue_cninfo(
 
 
 def bond_local_government_issue_cninfo(
-    start_date: str = "20210911", end_date: str = "20211110"
+    start_date: str = "20260914", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-地方债发行
@@ -218,7 +218,7 @@ def bond_local_government_issue_cninfo(
 
 
 def bond_corporate_issue_cninfo(
-    start_date: str = "20210911", end_date: str = "20211110"
+    start_date: str = "20260914", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-企业债发行
@@ -317,7 +317,7 @@ def bond_corporate_issue_cninfo(
 
 
 def bond_cb_issue_cninfo(
-    start_date: str = "20210913", end_date: str = "20211112"
+    start_date: str = "20260914", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-可转债发行

@@ -104,7 +104,7 @@ def alternative_air_city_table_zhenqi() -> pd.DataFrame:
 
 
 def alternative_air_quality_watch_point_zhenqi(
-    city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
+    city: str = "杭州", start_date: str = "20261112", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点

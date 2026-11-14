@@ -518,7 +518,7 @@ def alternative_movie_boxoffice_yearly_yien(date: str = "20240218") -> pd.DataFr
 
 
 def alternative_movie_boxoffice_yearly_first_week_yien(
-    date: str = "20201018",
+    date: str = "20261113",
 ) -> pd.DataFrame:
     """
     电影票房-年度票房-年度首周票房

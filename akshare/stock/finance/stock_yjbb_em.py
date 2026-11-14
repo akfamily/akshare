@@ -13,7 +13,7 @@ from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
-def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
+def stock_yjbb_em(date: str = "20260930") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-业绩报表
     https://data.eastmoney.com/bbsj/202003/yjbb.html

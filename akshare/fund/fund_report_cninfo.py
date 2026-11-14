@@ -27,7 +27,7 @@ def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
+def fund_report_stock_cninfo(date: str = "20260930") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金重仓股
     https://webapi.cninfo.com.cn/#/thematicStatistics
@@ -93,7 +93,7 @@ def fund_report_stock_cninfo(date: str = "20210630") -> pd.DataFrame:
     return temp_df
 
 
-def fund_report_industry_allocation_cninfo(date: str = "20210630") -> pd.DataFrame:
+def fund_report_industry_allocation_cninfo(date: str = "20260930") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-基金报表-基金行业配置
     https://webapi.cninfo.com.cn/#/thematicStatistics

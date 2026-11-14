@@ -13,7 +13,7 @@ from akshare.utils import http
 
 
 def stock_restricted_release_summary_em(
-    symbol: str = "全部股票", start_date: str = "20221101", end_date: str = "20221209"
+    symbol: str = "全部股票", start_date: str = "20261006", end_date: str = "20261113"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-限售股解禁
