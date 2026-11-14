@@ -4,8 +4,8 @@ AKShare 目前提供近 1000 个数据接口，靠翻阅文档逐个查找并不
 由大模型（LLM）驱动的程序中，需要先从一句自然语言描述定位到可调用的接口名，
 再去查它的参数与返回字段。
 
-为此 AKShare 内置了一层接口检索能力，提供 `ak.search`、`ak.interface_info`
-和 `ak.list_categories` 三个函数。
+为此 AKShare 内置了一层接口检索能力，提供 `ak.search`、`ak.interface_info`、
+`ak.list_categories` 和 `ak.renamed_info` 四个函数。
 
 ```{tip}
 如果是在 Claude、Cursor 等 AI 助手中使用，可以直接接入 AKTools 的 MCP 服务，助手会自己检索接口、查看参数并取回数据，详见 [AI 助手（MCP）](mcp.md)。
@@ -217,6 +217,49 @@ print(list_categories_df)
 13           spot   16
 14          stock  395
 ```
+
+## 旧接口名查询
+
+接口：renamed_info
+
+描述：查询一个已更名或已移除的旧接口名的去向。接口改名后旧名称不再保留，调用旧名称时报错信息里已经带有同样的提示，本函数以数据的形式返回，便于程序处理
+
+限量：单次返回一个名称的去向
+
+输入参数
+
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| name | str | name="stock_zh_a_hist" |
+
+输出参数
+
+| 名称       | 类型  | 描述                                   |
+|----------|-----|--------------------------------------|
+| name     | str | 传入的名称                                |
+| status   | str | renamed 表示已更名，removed 表示已移除          |
+| new_name | str | 现在的接口名；只在已更名时返回，多次改名的直接给出最终名称      |
+| version  | str | 更名或移除的版本                             |
+| url      | str | 接口更名一览表的地址；已移除时为该版本更新日志的地址，其中写有原因与替代接口 |
+
+不是已知的旧接口名（包括现有的接口名）时返回 None。
+
+接口示例
+
+```python
+import akshare as ak
+
+renamed_info_dict = ak.renamed_info("stock_zh_a_hist")
+print(renamed_info_dict)
+```
+
+数据示例
+
+```
+{'name': 'stock_zh_a_hist', 'status': 'renamed', 'new_name': 'stock_zh_a_hist_em', 'version': '1.20.46', 'url': 'https://akshare.akfamily.xyz/changelog.html#changelog-rename'}
+```
+
+用旧接口名调用 `ak.search` 时，它现在的名称排在结果的第一位，例如 `ak.search("stock_zh_a_hist")` 的第一条是 stock_zh_a_hist_em。
 
 ## 能力边界
 

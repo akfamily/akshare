@@ -144,6 +144,11 @@ names without manually grepping through `docs/data/`:
   alternative when a source is rate-limited; parameters and columns differ,
   so read its `interface_info` first.
 - `ak.list_categories()`: lists all categories with interface counts.
+- `ak.renamed_info(name)`: where an old interface name went (since 1.20.58).
+  Returns `{name, status, new_name, version, url}` with status `renamed` or
+  `removed`, or `None` for a name that was never renamed. Calling an old name
+  raises an AttributeError carrying the same hint, and `ak.search("<old name>")`
+  ranks the current name first.
 
 This registry is entirely offline: its data ships inside the package and
 no network request is made, so it is safe to call before deciding whether

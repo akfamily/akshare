@@ -22,17 +22,12 @@ _RENAMES: Optional[Dict] = None
 RENAME_TABLE_URL = "https://akshare.akfamily.xyz/changelog.html#changelog-rename"
 
 
-def renamed_hint(name: str) -> Optional[str]:
+def _load_renames() -> Dict:
     """
-    旧接口名的去向说明：已更名的给出新名称，已移除的给出移除的版本。
+    懒加载改名对照 akshare/data/renames.json，读取失败时视为没有记录。
 
-    数据来自 akshare/data/renames.json，由 scripts/build_registry.py 根据更新日志的
-    接口更名一览表与 scripts/registry_removed.json 生成；只在访问不存在的名称时读取。
-
-    :param name: 接口名
-    :type name: str
-    :return: 说明文字；不是已知的旧接口名时返回 None
-    :rtype: str or None
+    :return: 含 renamed（旧名 -> [新名，版本]）与 removed（旧名 -> 版本）的字典
+    :rtype: dict
     """
     global _RENAMES
     if _RENAMES is None:
@@ -41,21 +36,65 @@ def renamed_hint(name: str) -> Optional[str]:
             _RENAMES = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             _RENAMES = {"renamed": {}, "removed": {}}
-    if name in _RENAMES["renamed"]:
-        new_name, version = _RENAMES["renamed"][name]
-        return (
-            f"{name} 已在 {version} 更名为 {new_name}，请改用 ak.{new_name}；"
-            f'参数与返回的列也可能有调整，用 ak.interface_info("{new_name}") 查看。'
-            f"完整对照见 {RENAME_TABLE_URL}"
-        )
-    if name in _RENAMES["removed"]:
-        version = _RENAMES["removed"][name]
+    return _RENAMES
+
+
+def renamed_info(name: str) -> Optional[Dict]:
+    """
+    旧接口名的去向，以数据的形式返回，供 AKTools 等上层按自己的场景组织提示。
+
+    数据由 scripts/build_registry.py 根据更新日志的接口更名一览表与
+    scripts/registry_removed.json 生成；多次改名的旧名称直接指向现在的名称。
+
+    :param name: 接口名
+    :type name: str
+    :return: 不是已知的旧接口名时返回 None；否则返回字典：name 为传入的名称，
+        status 为 "renamed" 或 "removed"，version 为更名或移除的版本，
+        url 为接口更名一览表或该版本更新日志的地址，更名时另有 new_name
+    :rtype: dict or None
+    """
+    renames = _load_renames()
+    if name in renames["renamed"]:
+        new_name, version = renames["renamed"][name]
+        return {
+            "name": name,
+            "status": "renamed",
+            "new_name": new_name,
+            "version": version,
+            "url": RENAME_TABLE_URL,
+        }
+    if name in renames["removed"]:
+        version = renames["removed"][name]
         anchor = "v" + version.replace(".", "-")
-        return (
-            f"{name} 已在 {version} 移除，原因与替代接口见更新日志 "
-            f"https://akshare.akfamily.xyz/changelog.html#{anchor}"
-        )
+        return {
+            "name": name,
+            "status": "removed",
+            "version": version,
+            "url": f"https://akshare.akfamily.xyz/changelog.html#{anchor}",
+        }
     return None
+
+
+def renamed_hint(name: str) -> Optional[str]:
+    """
+    旧接口名的去向说明：已更名的给出新名称，已移除的给出移除的版本。
+
+    :param name: 接口名
+    :type name: str
+    :return: 说明文字；不是已知的旧接口名时返回 None
+    :rtype: str or None
+    """
+    info = renamed_info(name)
+    if info is None:
+        return None
+    if info["status"] == "renamed":
+        new_name = info["new_name"]
+        return (
+            f"{name} 已在 {info['version']} 更名为 {new_name}，请改用 ak.{new_name}；"
+            f'参数与返回的列也可能有调整，用 ak.interface_info("{new_name}") 查看。'
+            f"完整对照见 {info['url']}"
+        )
+    return f"{name} 已在 {info['version']} 移除，原因与替代接口见更新日志 {info['url']}"
 
 
 def missing_attribute_message(name: str) -> str:
@@ -322,6 +361,10 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
     tokens = _tokenize(query)
     fallback_tokens = _bigrams(query)
     stripped = query.strip()
+    # 查询里出现已更名的旧接口名时，它现在的名称与精确名一样置顶：按片段打分时
+    # 新名称往往排在名称更短的其他数据源之后
+    renamed = _load_renames()["renamed"]
+    pinned = {renamed[word][0] for word in [stripped, *tokens] if word in renamed}
     scored = []
     for record in records:
         # 主分与降级分共用同一份归一化字段，每条记录只归一化一次。
@@ -329,13 +372,17 @@ def _rank(query: str, records: List[Dict]) -> List[Dict]:
         score = _score(tokens, record, fields)
         if fallback_tokens:
             score = max(score, _score(fallback_tokens, record, fields))
+        if record["name"] in pinned:
+            score = max(score, 1.0)
         if score > 0:
             # 与 _score 的精确名捷径判定保持一致：tokenize 会剥掉
             # ",，、;；/|" 等标点，若这里仍用未剥标点的原始 stripped 比较，
             # 带尾随标点的精确名查询（如 "stock_zh_a_hist_em,"）会被判定为
             # 非精确，从而失去置顶保证。
-            is_exact = (len(tokens) == 1 and tokens[0] == record["name"]) or (
-                record["name"] == stripped
+            is_exact = (
+                (len(tokens) == 1 and tokens[0] == record["name"])
+                or record["name"] == stripped
+                or record["name"] in pinned
             )
             scored.append((record, score, is_exact))
     scored.sort(key=lambda item: (not item[2], -item[1], item[0]["name"]))

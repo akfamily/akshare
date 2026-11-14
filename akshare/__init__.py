@@ -1311,7 +1311,12 @@ from akshare.utils.context import (
     set_proxies,
     set_timeout,
 )
-from akshare.registry import search, interface_info, list_categories
+from akshare.registry import (
+    search,
+    interface_info,
+    list_categories,
+    renamed_info,
+)
 
 
 def __getattr__(name: str):
@@ -1887,6 +1892,7 @@ __all__ = [
     "option_vol_gfex",
     "option_vol_shfe",
     "pro_api",
+    "renamed_info",
     "research_epu_index",
     "research_ff_crr",
     "research_fred_md",

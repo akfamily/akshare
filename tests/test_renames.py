@@ -96,3 +96,37 @@ def test_every_rename_target_is_a_real_interface():
     assert all(new in names for new, _ in renamed.values())
     assert not set(renamed) & names
     assert not set(registry._RENAMES["removed"]) & names
+
+
+def test_renamed_info_returns_structured_data():
+    info = ak.renamed_info("stock_zh_a_hist")
+    assert info == {
+        "name": "stock_zh_a_hist",
+        "status": "renamed",
+        "new_name": "stock_zh_a_hist_em",
+        "version": "1.20.46",
+        "url": registry.RENAME_TABLE_URL,
+    }
+    removed = ak.renamed_info("index_yw")
+    assert removed["status"] == "removed" and removed["version"] == "1.20.54"
+    assert removed["url"].endswith("#v1-20-54") and "new_name" not in removed
+    assert ak.renamed_info("stock_zh_a_hist_em") is None
+
+
+def test_search_puts_the_new_name_first_for_an_old_name():
+    assert list(ak.search("stock_zh_a_hist", limit=1)["接口名"]) == [
+        "stock_zh_a_hist_em"
+    ]
+    # 旧名称与其他词一起出现时同样置顶
+    assert list(ak.search("stock_zh_a_daily 复权", limit=1)["接口名"]) == [
+        "stock_zh_a_daily_sina"
+    ]
+    # 新名称与旧名称没有共同片段时也能找到
+    assert list(ak.search("macro_china_shibor_all", limit=1)["接口名"]) == [
+        "interest_rate_shibor_js"
+    ]
+
+
+def test_search_respects_category_filter_for_an_old_name():
+    result = ak.search("stock_zh_a_hist", category="futures", limit=5)
+    assert "stock_zh_a_hist_em" not in list(result["接口名"])

@@ -8,6 +8,13 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-58)=
+### 1.20.58 feat: expose rename data as ak.renamed_info and rank the new name first when searching an old name
+
+1. 新增 `ak.renamed_info(name)`：以字典返回旧接口名的去向，包含状态（renamed 或 removed）、现在的名称、更名或移除的版本与对应的文档地址；不是旧接口名时返回 None。1.20.55 加入的报错提示是成句的文字，面向 Python 调用；AKTools 的 HTTP 接口与 MCP 服务需要按各自的场景组织提示，因此把同一份数据公开出来
+2. `ak.search` 的查询里出现已更名的旧接口名时，它现在的名称排在第一位。此前按名称片段打分，`ak.search("stock_zh_a_hist")` 的前两条是新浪的分钟接口和腾讯的日线接口，stock_zh_a_hist_em 排在第三；新旧名称没有共同片段时（如 macro_china_shibor_all 改为 interest_rate_shibor_js）则完全搜不到
+3. 接口检索文档新增“旧接口名查询”一节
+
 (v1-20-57)=
 ### 1.20.57 fix: refresh the stale default dates of 53 interfaces
 

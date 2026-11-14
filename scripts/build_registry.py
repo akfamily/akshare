@@ -186,6 +186,7 @@ EXCLUDE = {
     "search",
     "interface_info",
     "list_categories",
+    "renamed_info",
 }
 
 # EXCLUDE 的成员被排除在 registry 之外，但除 dunder 以外它们仍是公开 API，
