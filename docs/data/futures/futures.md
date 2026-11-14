@@ -692,7 +692,7 @@ print(futures_inventory_em_df)
 ```python
 import akshare as ak
 
-ak.futures_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030")  # 需要收盘收运行
+ak.futures_roll_yield_bar(type_method="date", symbol="RB", start_date="20191009", end_date="20191030")  # 需要收盘收运行
 ```
 
 其中 "symbol" 类型，调用方法例子为：
@@ -700,7 +700,7 @@ ak.futures_roll_yield_bar(type_method="date", var="RB", start_day="20191009", en
 ```python
 import akshare as ak
 
-ak.futures_roll_yield_bar(type_method="symbol", var="RB", date="20191008")  # 需要收盘收运行
+ak.futures_roll_yield_bar(type_method="symbol", symbol="RB", date="20191008")  # 需要收盘收运行
 ```
 
 其中 "var" 类型，调用方法例子为：
@@ -716,7 +716,7 @@ ak.futures_roll_yield_bar(type_method="var", date="20191008")  # 需要收盘收
 ```python
 import akshare as ak
 
-ak.futures_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")  # 需要收盘收运行
+ak.futures_roll_yield(date="20180718", symbol="IF", symbol1="IF1812", symbol2="IF1811")  # 需要收盘收运行
 ```
 
 ```{note}
@@ -739,10 +739,10 @@ ak.futures_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF18
 | 名称          | 类型  | 描述                                                     |
 |-------------|-----|--------------------------------------------------------|
 | type_method | str | type_method="date"；choice of {"symbol", "var", "date"} |
-| var         | str | var="RB"；品种代码                                          |
+| symbol         | str | symbol="RB"；品种代码                                          |
 | date        | str | date="20201030"；交易日                                    |
-| start_day   | str | start_day="20261109"；开始日期                              |
-| end_day     | str | end_day="20261113"；结束日期                                |
+| start_date   | str | start_date="20261109"；开始日期                              |
+| end_date     | str | end_date="20261113"；结束日期                                |
 
 输出参数
 
@@ -758,7 +758,7 @@ ak.futures_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF18
 ```python
 import akshare as ak
 
-futures_roll_yield_bar_df = ak.futures_roll_yield_bar(type_method="date", var="RB", start_day="20261109", end_day="20261113")
+futures_roll_yield_bar_df = ak.futures_roll_yield_bar(type_method="date", symbol="RB", start_date="20261109", end_date="20261113")
 print(futures_roll_yield_bar_df)
 ```
 
@@ -789,7 +789,7 @@ print(futures_roll_yield_bar_df)
 | 名称      | 类型               | 描述                                             |
 |---------|------------------|------------------------------------------------|
 | date    | str              | date="20261113"；交易日                            |
-| var     | str              | var="RB"；品种代码                                  |
+| symbol     | str              | symbol="RB"；品种代码                                  |
 | symbol1 | str              | symbol1=None；合约 1，与 symbol2 同时指定时计算这两个合约的展期收益率 |
 | symbol2 | str              | symbol2=None；合约 2                              |
 | df      | pandas.DataFrame | df=None；已获取的日行情数据，默认为 None，由接口自行获取             |
@@ -805,7 +805,7 @@ print(futures_roll_yield_bar_df)
 ```python
 import akshare as ak
 
-futures_roll_yield_tuple = ak.futures_roll_yield(date="20261113", var="RB")
+futures_roll_yield_tuple = ak.futures_roll_yield(date="20261113", symbol="RB")
 print(futures_roll_yield_tuple)
 ```
 
@@ -822,7 +822,7 @@ print(futures_roll_yield_tuple)
 ```python
 import akshare as ak
 
-ak.futures_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", "NI"])
+ak.futures_receipt(start_date="20180712", end_date="20180719", symbols="CU,NI")
 ```
 
 ```{note}
@@ -850,7 +850,7 @@ ak.futures_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", 
 |------------|------|---------------------------------------|
 | start_date | str  | start_date="20261112"；开始日期            |
 | end_date   | str  | end_date="20261113"；结束日期              |
-| vars_list  | list | vars_list=["CU", "NI"]；品种代码列表，默认为全部品种 |
+| symbols  | str  | symbols="CU,NI"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -866,7 +866,7 @@ ak.futures_receipt(start_date="20180712", end_date="20180719", vars_list=["CU", 
 ```python
 import akshare as ak
 
-futures_receipt_df = ak.futures_receipt(start_date="20261112", end_date="20261113", vars_list=["CU", "NI"])
+futures_receipt_df = ak.futures_receipt(start_date="20261112", end_date="20261113", symbols="CU,NI")
 print(futures_receipt_df)
 ```
 
@@ -1021,7 +1021,7 @@ print(futures_spot_price_previous_df)
 ```python
 import akshare as ak
 
-futures_spot_price_daily_df = ak.futures_spot_price_daily(start_day="20240415", end_day="20240418", vars_list=["CU", "RB"])
+futures_spot_price_daily_df = ak.futures_spot_price_daily(start_date="20240415", end_date="20240418", symbols="CU,RB")
 print(futures_spot_price_daily_df)
 ```
 
@@ -1058,7 +1058,7 @@ print(futures_spot_price_daily_df)
 | 名称        | 类型   | 描述                                    |
 |-----------|------|---------------------------------------|
 | date      | str  | date="20261113"；交易日                   |
-| vars_list | list | vars_list=["CU", "RB"]；品种代码列表，默认为全部品种 |
+| symbols | str  | symbols="CU,RB"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1178,9 +1178,9 @@ print(futures_spot_price_previous_df)
 
 | 名称        | 类型   | 描述                                    |
 |-----------|------|---------------------------------------|
-| start_day | str  | start_day="20261111"；开始日期             |
-| end_day   | str  | end_day="20261113"；结束日期               |
-| vars_list | list | vars_list=["CU", "RB"]；品种代码列表，默认为全部品种 |
+| start_date | str  | start_date="20261111"；开始日期             |
+| end_date   | str  | end_date="20261113"；结束日期               |
+| symbols | str  | symbols="CU,RB"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1205,7 +1205,7 @@ print(futures_spot_price_previous_df)
 ```python
 import akshare as ak
 
-futures_spot_price_daily_df = ak.futures_spot_price_daily(start_day="20261111", end_day="20261113", vars_list=["CU", "RB"])
+futures_spot_price_daily_df = ak.futures_spot_price_daily(start_date="20261111", end_date="20261113", symbols="CU,RB")
 print(futures_spot_price_daily_df)
 ```
 
@@ -1230,7 +1230,7 @@ print(futures_spot_price_daily_df)
 ```python
 import akshare as ak
 
-futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
+futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_date="20180718", end_date="20180719", symbols="IF,C")
 print(futures_rank_sum_daily_df)
 ```
 
@@ -1282,7 +1282,7 @@ print(futures_rank_table_czce_df)
 | 名称        | 类型   | 描述                                                                                                                    |
 |-----------|------|-----------------------------------------------------------------------------------------------------------------------|
 | date      | str  | date="20200511"；指定交易日，该数据接口可以获取从 2000 年开始的数据，20160104 由于交易所数据问题，返回为空可以调用 **futures_position_rank_other_dce** 来返回数据 |
-| vars_list | list | vars_list=cons.contract_symbols；指定品种，比如：["C", "CS"]                                                                  |
+| symbols | str  | symbols="C,CS"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 P.S. **futures_position_rank_other_dce** 函数只返回页面显示的活跃合约，返回格式同 **futures_position_rank_dce**
 
@@ -1348,7 +1348,7 @@ print(futures_dce_detail_dict)
 | 名称        | 类型   | 描述                                                       |
 |-----------|------|----------------------------------------------------------|
 | date      | str  | date="20231113"；指定交易日，该数据接口可以获取从 20231110 开始的日成交持仓排名数据 |
-| vars_list | list | vars_list=None；指定品种，比如：['SI', 'LC']                     |
+| symbols | str  | symbols="SI,LC"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数-字典
 
@@ -1483,9 +1483,9 @@ print(futures_gfex_position_rank_dict)
 
 | 名称        | 类型   | 描述                                    |
 |-----------|------|---------------------------------------|
-| start_day | str  | start_day="20261113"；开始日期             |
-| end_day   | str  | end_day="20261113"；结束日期               |
-| vars_list | list | vars_list=["IF", "RB"]；品种代码列表，默认为全部品种 |
+| start_date | str  | start_date="20261113"；开始日期             |
+| end_date   | str  | end_date="20261113"；结束日期               |
+| symbols | str  | symbols="IF,RB"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1524,7 +1524,7 @@ print(futures_gfex_position_rank_dict)
 ```python
 import akshare as ak
 
-futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_day="20261113", end_day="20261113", vars_list=["IF", "RB"])
+futures_rank_sum_daily_df = ak.futures_rank_sum_daily(start_date="20261113", end_date="20261113", symbols="IF,RB")
 print(futures_rank_sum_daily_df)
 ```
 
@@ -1561,7 +1561,7 @@ print(futures_rank_sum_daily_df)
 | 名称        | 类型   | 描述                                    |
 |-----------|------|---------------------------------------|
 | date      | str  | date="20261113"；交易日                   |
-| vars_list | list | vars_list=["IF", "RB"]；品种代码列表，默认为全部品种 |
+| symbols | str  | symbols="IF,RB"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1600,7 +1600,7 @@ print(futures_rank_sum_daily_df)
 ```python
 import akshare as ak
 
-futures_rank_sum_df = ak.futures_rank_sum(date="20261113", vars_list=["IF", "RB"])
+futures_rank_sum_df = ak.futures_rank_sum(date="20261113", symbols="IF,RB")
 print(futures_rank_sum_df)
 ```
 
@@ -1637,7 +1637,7 @@ print(futures_rank_sum_df)
 | 名称        | 类型   | 描述                              |
 |-----------|------|---------------------------------|
 | date      | str  | date="20261113"；交易日             |
-| vars_list | list | vars_list=["IF"]；品种代码列表，默认为全部品种 |
+| symbols | str  | symbols="IF"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1661,7 +1661,7 @@ print(futures_rank_sum_df)
 ```python
 import akshare as ak
 
-futures_rank_table_cffex_dict = ak.futures_rank_table_cffex(date="20261113", vars_list=["IF"])
+futures_rank_table_cffex_dict = ak.futures_rank_table_cffex(date="20261113", symbols="IF")
 print(futures_rank_table_cffex_dict)
 ```
 
@@ -1760,7 +1760,7 @@ print(futures_rank_table_czce_dict)
 | 名称        | 类型   | 描述                              |
 |-----------|------|---------------------------------|
 | date      | str  | date="20261113"；交易日             |
-| vars_list | list | vars_list=["RB"]；品种代码列表，默认为全部品种 |
+| symbols | str  | symbols="RB"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1784,7 +1784,7 @@ print(futures_rank_table_czce_dict)
 ```python
 import akshare as ak
 
-futures_rank_table_shfe_dict = ak.futures_rank_table_shfe(date="20261113", vars_list=["RB"])
+futures_rank_table_shfe_dict = ak.futures_rank_table_shfe(date="20261113", symbols="RB")
 print(futures_rank_table_shfe_dict)
 ```
 
@@ -1820,7 +1820,7 @@ print(futures_rank_table_shfe_dict)
 | 名称        | 类型   | 描述                             |
 |-----------|------|--------------------------------|
 | date      | str  | date="20230706"；交易日            |
-| vars_list | list | vars_list=["M"]；品种代码列表，默认为全部品种 |
+| symbols | str  | symbols="M"；品种代码，多个品种用英文逗号分隔；默认为空，即全部品种 |
 
 输出参数
 
@@ -1844,7 +1844,7 @@ print(futures_rank_table_shfe_dict)
 ```python
 import akshare as ak
 
-futures_rank_table_dce_dict = ak.futures_rank_table_dce(date="20230706", vars_list=["M"])
+futures_rank_table_dce_dict = ak.futures_rank_table_dce(date="20230706", symbols="M")
 print(futures_rank_table_dce_dict)
 ```
 

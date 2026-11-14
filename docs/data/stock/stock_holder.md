@@ -1865,7 +1865,7 @@ print(stock_fund_stock_holder_df)
 
 | 名称    | 类型  | 描述                   |
 |-------|-----|----------------------|
-| stock | str | stock="600004"；股票代码 |
+| symbol | str | symbol="600004"；股票代码 |
 
 输出参数
 
@@ -1887,7 +1887,7 @@ print(stock_fund_stock_holder_df)
 ```python
 import akshare as ak
 
-stock_main_stock_holder_df = ak.stock_main_stock_holder(stock="600004")
+stock_main_stock_holder_df = ak.stock_main_stock_holder(symbol="600004")
 print(stock_main_stock_holder_df)
 ```
 
@@ -1983,7 +1983,7 @@ print(stock_institute_hold_df)
 
 | 名称      | 类型  | 描述                                                                                                               |
 |---------|-----|------------------------------------------------------------------------------------------------------------------|
-| stock   | str | stock="300003"；股票代码                                                                                             |
+| symbol   | str | symbol="300003"；股票代码                                                                                             |
 | quarter | str | quarter="20201"；从 2005 年开始，{"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191"，其中的 1 表示一季报；"20193"，其中的 3 表示三季报；|
 
 输出参数
@@ -2008,7 +2008,7 @@ print(stock_institute_hold_df)
 ```python
 import akshare as ak
 
-stock_institute_hold_detail_df = ak.stock_institute_hold_detail(stock="300003", quarter="20201")
+stock_institute_hold_detail_df = ak.stock_institute_hold_detail(symbol="300003", quarter="20201")
 print(stock_institute_hold_detail_df)
 ```
 

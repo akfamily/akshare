@@ -52,7 +52,6 @@
  "akshare/futures/futures_spot_stock_em.py": 1,
  "akshare/futures/futures_to_spot.py": 3,
  "akshare/futures/futures_zh_sina.py": 6,
- "akshare/fx/fx_currencyscoop.py": 1,
  "akshare/fx/fx_forex_em.py": 1,
  "akshare/fx/fx_quote_baidu.py": 1,
  "akshare/index/index_cflp.py": 2,

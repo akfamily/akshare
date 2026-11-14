@@ -66,8 +66,6 @@
 
 感谢[思知网站](https://www.ownthink.com/)提供的相关数据；
 
-感谢[Currencyscoop 网站](https://currencyscoop.com/)提供的相关数据；
-
 感谢[新加坡交易所](https://www.sgx.com/zh-hans/research-education/derivatives)提供的相关数据；
 
 ## 声明

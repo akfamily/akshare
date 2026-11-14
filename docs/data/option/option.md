@@ -2323,7 +2323,7 @@ print(option_realtime_em_df)
 |------------|-----|-----------------------------------------------------------------------------------------------------|
 | symbol     | str | symbol="510050"; choice of {"510050", "510300", "159919"}                                           |
 | indicator  | str | indicator="期权交易情况-认沽交易量"; choice of {"期权交易情况-认沽交易量","期权持仓情况-认沽持仓量", "期权交易情况-认购交易量", "期权持仓情况-认购持仓量"} |
-| trade_date | str | trade_date="20220121"                                                                               |
+| date | str | date="20220121"                                                                               |
 
 输出参数
 
@@ -2345,7 +2345,7 @@ print(option_realtime_em_df)
 ```python
 import akshare as ak
 
-option_lhb_em_df = ak.option_lhb_em(symbol="510300", indicator="期权持仓情况-认沽持仓量", trade_date="20220121")
+option_lhb_em_df = ak.option_lhb_em(symbol="510300", indicator="期权持仓情况-认沽持仓量", date="20220121")
 print(option_lhb_em_df)
 ```
 
@@ -2879,7 +2879,7 @@ print(option_margin_df)
 | 名称         | 类型  | 描述                                                                                                                              |
 |------------|-----|---------------------------------------------------------------------------------------------------------------------------------|
 | symbol     | str | symbol="铜期权"; choice of {'原油期权', '铜期权', '铝期权', '锌期权', '铅期权', '螺纹钢期权', '镍期权', '锡期权', '氧化铝期权', '黄金期权', '白银期权', '丁二烯橡胶期权', '天胶期权'} |
-| trade_date | str | trade_date="20191017"                                                                                                           |
+| date | str | date="20191017"                                                                                                           |
 
 输出参数
 
@@ -2928,10 +2928,10 @@ Part-2: 上海期货交易所隐含波动参考值
 ```python
 import akshare as ak
 
-option_hist_shfe_df = ak.option_hist_shfe(symbol="铝期权", trade_date="20200827")
+option_hist_shfe_df = ak.option_hist_shfe(symbol="铝期权", date="20200827")
 print(option_hist_shfe_df)
 
-option_vol_shfe_df = ak.option_vol_shfe(symbol="天胶期权", trade_date="20250418")
+option_vol_shfe_df = ak.option_vol_shfe(symbol="天胶期权", date="20250418")
 print(option_vol_shfe_df)
 ```
 
@@ -2984,7 +2984,7 @@ part_2: 上海期货交易所隐含波动参考值
 | 名称         | 类型  | 描述                                                                                                                                                                                    |
 |------------|-----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | symbol     | str | symbol="聚丙烯期权"; choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权", "鸡蛋期权", "玉米淀粉期权", "生猪期权", "原木期权"} |
-| trade_date | str | trade_date="20251016"                                                                                                                                                                 |
+| date | str | date="20251016"                                                                                                                                                                 |
 
 输出参数
 
@@ -3026,7 +3026,7 @@ Part-1: 大连商品交易所期权合约行情
 ```python
 import akshare as ak
 
-option_hist_dce_df = ak.option_hist_dce(symbol="聚丙烯期权", trade_date="20251016")
+option_hist_dce_df = ak.option_hist_dce(symbol="聚丙烯期权", date="20251016")
 print(option_hist_dce_df)
 ```
 
@@ -3064,7 +3064,7 @@ print(option_hist_dce_df)
 | 名称         | 类型  | 描述                                              |
 |------------|-----|-------------------------------------------------|
 | symbol     | str | symbol="白糖期权"；交易所上市的期权品种，最早上市的为 20170419 的白糖期权 |
-| trade_date | str | trade_date="20191017"                           |
+| date | str | date="20191017"                           |
 
 输出参数
 
@@ -3104,7 +3104,7 @@ print(option_hist_dce_df)
 ```python
 import akshare as ak
 
-option_hist_czce_df = ak.option_hist_czce(symbol="白糖期权", trade_date="20240711")
+option_hist_czce_df = ak.option_hist_czce(symbol="白糖期权", date="20240711")
 print(option_hist_czce_df)
 ```
 
@@ -3142,7 +3142,7 @@ print(option_hist_czce_df)
 | 名称         | 类型  | 描述                                     |
 |------------|-----|----------------------------------------|
 | symbol     | str | symbol="工业硅"; choice of {"工业硅", "碳酸锂"} |
-| trade_date | str | trade_date="20261113"；交易日             |
+| date | str | date="20261113"；交易日             |
 
 输出参数
 
@@ -3182,7 +3182,7 @@ print(option_hist_czce_df)
 ```python
 import akshare as ak
 
-option_hist_gfex_df = ak.option_hist_gfex(symbol="工业硅", trade_date="20261113")
+option_hist_gfex_df = ak.option_hist_gfex(symbol="工业硅", date="20261113")
 print(option_hist_gfex_df)
 ```
 
@@ -3220,7 +3220,7 @@ print(option_hist_gfex_df)
 | 名称         | 类型  | 描述                                     |
 |------------|-----|----------------------------------------|
 | symbol     | str | symbol="工业硅"; choice of {"工业硅", "碳酸锂"} |
-| trade_date | str | trade_date="20230724"                  |
+| date | str | date="20230724"                  |
 
 输出参数
 
@@ -3246,7 +3246,7 @@ print(option_hist_gfex_df)
 ```python
 import akshare as ak
 
-option_vol_gfex_df = ak.option_vol_gfex(symbol="工业硅", trade_date="20230418")
+option_vol_gfex_df = ak.option_vol_gfex(symbol="工业硅", date="20230418")
 print(option_vol_gfex_df)
 ```
 

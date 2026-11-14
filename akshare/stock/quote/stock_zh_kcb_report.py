@@ -37,25 +37,25 @@ def _stock_zh_kcb_report_em_page() -> int:
     return page_num
 
 
-def stock_zh_kcb_report_em(from_page: int = 1, to_page: int = 100) -> pd.DataFrame:
+def stock_zh_kcb_report_em(start_page: int = 1, end_page: int = 100) -> pd.DataFrame:
     """
     科创板报告内容
     https://data.eastmoney.com/notices/kcb.html
-    :param from_page: 开始获取的页码
-    :type from_page: int
-    :param to_page: 结束获取的页码
-    :type to_page: int
+    :param start_page: 开始获取的页码
+    :type start_page: int
+    :param end_page: 结束获取的页码
+    :type end_page: int
     :return: 科创板报告内容
     :rtype: pandas.DataFrame
     """
-    from_page = int(from_page)
-    to_page = int(to_page)
+    start_page = int(start_page)
+    end_page = int(end_page)
     url = "https://np-anotice-stock.eastmoney.com/api/security/ann"
     total_page = _stock_zh_kcb_report_em_page()
     big_df = pd.DataFrame()
-    if to_page >= total_page:
-        to_page = total_page
-    for i in tqdm(range(from_page, to_page + 1), leave=False):
+    if end_page >= total_page:
+        end_page = total_page
+    for i in tqdm(range(start_page, end_page + 1), leave=False):
         params = {
             "sr": "-1",
             "page_size": "100",
@@ -90,5 +90,5 @@ def stock_zh_kcb_report_em(from_page: int = 1, to_page: int = 100) -> pd.DataFra
 
 
 if __name__ == "__main__":
-    stock_zh_kcb_report_em_df = stock_zh_kcb_report_em(from_page=1, to_page=100)
+    stock_zh_kcb_report_em_df = stock_zh_kcb_report_em(start_page=1, end_page=100)
     print(stock_zh_kcb_report_em_df)

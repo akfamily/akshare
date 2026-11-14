@@ -575,7 +575,7 @@ def get_gfex_receipt(
 def futures_receipt(
     start_date: str = None,
     end_date: str = None,
-    vars_list: List = cons.contract_symbols,
+    symbols: str = "",
 ):
     """
     大宗商品-注册仓单数据
@@ -583,12 +583,13 @@ def futures_receipt(
     :type start_date: str
     :param end_date: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
     :type end_date: str
-    :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品
-    :type vars_list: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return: 注册仓单数据
     :rtype: pandas.DataFrame
     """
-    if not isinstance(vars_list, list):
+    symbols = cons.parse_symbols(symbols)
+    if not isinstance(symbols, list):
         return warnings.warn("vars_list: 必须是列表")
     start_date = (
         cons.convert_date(start_date)
@@ -663,7 +664,7 @@ def futures_receipt(
                         warnings.warn(
                             "20080303 起，郑州商品交易所每个交易日更新仓单数据"
                         )
-                get_vars = [var for var in vars_list if var in market_vars]
+                get_vars = [var for var in symbols if var in market_vars]
                 if market != "cffex" and get_vars != []:
                     if f is not None:
                         records = pd.concat([records, f(start_date, get_vars)])
@@ -676,6 +677,6 @@ def futures_receipt(
 
 if __name__ == "__main__":
     futures_receipt_df = futures_receipt(
-        start_date="20260130", end_date="20260130", vars_list=["RB"]
+        start_date="20260130", end_date="20260130", symbols="RB"
     )
     print(futures_receipt_df)

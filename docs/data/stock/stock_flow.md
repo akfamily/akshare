@@ -1412,7 +1412,7 @@ print(stock_fund_flow_big_deal_ths_df)
 
 | 名称     | 类型  | 描述                                                 |
 |--------|-----|----------------------------------------------------|
-| stock  | str | stock="000425"；股票代码                               |
+| symbol  | str | symbol="000425"；股票代码                               |
 | market | str | market="sh"；上海证券交易所：sh，深圳证券交易所：sz，北京证券交易所：bj |
 
 输出参数
@@ -1438,7 +1438,7 @@ print(stock_fund_flow_big_deal_ths_df)
 ```python
 import akshare as ak
 
-stock_fund_flow_individual_hist_em_df = ak.stock_fund_flow_individual_hist_em(stock="600094", market="sh")
+stock_fund_flow_individual_hist_em_df = ak.stock_fund_flow_individual_hist_em(symbol="600094", market="sh")
 print(stock_fund_flow_individual_hist_em_df)
 ```
 

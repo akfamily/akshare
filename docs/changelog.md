@@ -8,6 +8,35 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-52)=
+### 1.20.52 fix!: unify parameter names across 31 interfaces and remove the 5 CurrencyScoop interfaces
+
+**不兼容的改动：31 个接口的参数改名，其中 5 个接口的 symbol 含义改变；5 个需要付费密钥的 CurrencyScoop 接口移除。按旧参数名以关键字方式调用会报 TypeError，请按下面的对照修改。**
+
+参数改名（左为旧参数，右为新参数）：
+
+| 接口 | 旧参数 | 新参数 |
+| ---- | ------ | ------ |
+| stock_fund_flow_individual_hist_em、stock_institute_hold_detail、stock_ipo_info、stock_main_stock_holder | stock | symbol |
+| futures_rank_sum_daily、futures_spot_price_daily、futures_roll_yield_bar | start_day、end_day | start_date、end_date |
+| futures_roll_yield、futures_roll_yield_bar | var | symbol |
+| option_hist_czce、option_hist_dce、option_hist_gfex、option_hist_shfe、option_vol_gfex、option_vol_shfe、option_lhb_em | trade_date | date |
+| stock_zh_kcb_report_em | from_page、to_page | start_page、end_page |
+| fund_cf_em、fund_fh_em | typ | fund_type |
+| futures_rank_sum、futures_rank_sum_daily、futures_rank_table_cffex、futures_rank_table_dce、futures_rank_table_shfe、futures_position_rank_dce、futures_position_rank_gfex、futures_receipt、futures_spot_price、futures_spot_price_daily | vars_list | symbols |
+| stock_financial_report_sina | stock、symbol | symbol、indicator |
+| stock_financial_hk_report_em、stock_financial_us_report_em | stock、symbol、indicator | symbol、indicator、period |
+| fund_hk_fund_hist_em | code、symbol | symbol、indicator |
+| stock_individual_notice_report | security、symbol、begin_date | symbol、indicator、start_date |
+
+1. 全库约定 symbol 表示证券或品种代码、date 表示交易日、start_date 与 end_date 表示起止日期、start_page 与 end_page 表示起止页，上表前 6 行的接口此前各用各的写法，现在统一
+2. 期货的品种参数由 vars_list 改为 symbols，并由列表改为文本：多个品种用英文逗号分隔，如 `symbols="CU,NI"`，不区分大小写，默认为空表示全部品种；为兼容旧代码仍接受列表。此前这个参数只能传列表，经 AKTools 的 HTTP 接口无法传入
+3. 上表后 4 行的 5 个接口原先用 symbol 表示报表类型、公告类型或数据类型，代码另用 stock、code、security，与全库的约定相反。现在 symbol 为代码，类型改用 indicator；港股与美股财报原来的 indicator（年度、报告期等）改为 period。**旧代码如果写的是 `symbol="资产负债表"`，升级后不会因参数名报错**，为避免把它当成代码发给上游，这 5 个接口在 symbol 是报表类型等旧取值时抛出 InvalidParameterError 并给出新的写法
+4. stock_individual_notice_report 的 symbol 此前没有默认值，现在默认为 "300237"
+5. 移除 currency_latest、currency_history、currency_time_series、currency_currencies、currency_convert（1.20.48 起名为 fx_latest_currencyscoop、fx_hist_currencyscoop、fx_time_series_currencyscoop、fx_currencies_currencyscoop、fx_convert_currencyscoop）：数据来自 CurrencyScoop，必须自备付费的 API 密钥才能调用，本项目无法验证也无法保证可用。汇率数据可改用 fx_realtime_em、fx_hist_em、fx_boc_rate_sina、fx_central_parity_safe
+6. 除请求东方财富 push2 的 stock_fund_flow_individual_hist_em 与被反爬虫拦截的 3 个大连商品交易所接口（option_hist_dce、futures_rank_table_dce、futures_position_rank_dce）外，其余 27 个改了参数的接口已按新的文档示例逐一调用，返回正常；期货品种参数的文本、列表、小写、带空格等写法，以及 5 个接口对旧用法的报错也已验证
+7. 接口总数由 974 个变为 969 个；按位置赋列名的写法降至 461 处
+
 (v1-20-51)=
 ### 1.20.51 fix: fix 17 interfaces found broken by a full run of the documented examples
 

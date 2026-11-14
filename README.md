@@ -326,6 +326,4 @@ Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?f
 
 Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 
-Thanks for the data provided by [Currencyscoop 网站](https://currencyscoop.com/);
-
 Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);

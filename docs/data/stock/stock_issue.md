@@ -1223,7 +1223,7 @@ print(stock_dividend_cninfo_df)
 
 | 名称    | 类型  | 描述                   |
 |-------|-----|----------------------|
-| stock | str | stock="600004"；股票代码 |
+| symbol | str | symbol="600004"；股票代码 |
 
 输出参数
 
@@ -1237,7 +1237,7 @@ print(stock_dividend_cninfo_df)
 ```python
 import akshare as ak
 
-stock_ipo_info_df = ak.stock_ipo_info(stock="600004")
+stock_ipo_info_df = ak.stock_ipo_info(symbol="600004")
 print(stock_ipo_info_df)
 ```
 

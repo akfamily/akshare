@@ -1611,8 +1611,8 @@ print(stock_xjll_em_df)
 
 | 名称     | 类型  | 描述                                                  |
 |--------|-----|-----------------------------------------------------|
-| stock  | str | stock="sh600600"；带市场标识的股票代码                        |
-| symbol | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
+| symbol  | str | symbol="sh600600"；带市场标识的股票代码                        |
+| indicator | str | indicator="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
 
 输出参数
 
@@ -1629,7 +1629,7 @@ print(stock_xjll_em_df)
 ```python
 import akshare as ak
 
-stock_financial_report_sina_df = ak.stock_financial_report_sina(stock="sh600600", symbol="资产负债表")
+stock_financial_report_sina_df = ak.stock_financial_report_sina(symbol="sh600600", indicator="资产负债表")
 print(stock_financial_report_sina_df)
 ```
 
@@ -2504,9 +2504,9 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 
 | 名称        | 类型  | 描述                                                  |
 |-----------|-----|-----------------------------------------------------|
-| stock     | str | stock="00700"；股票代码                                 |
-| symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
-| indicator | str | indicator="年度"; choice of {"年度", "报告期"}             |
+| symbol     | str | symbol="00700"；股票代码                                 |
+| indicator    | str | indicator="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
+| period | str | period="年度"; choice of {"年度", "报告期"}             |
 
 输出参数
 
@@ -2527,7 +2527,7 @@ print(stock_cash_flow_sheet_by_report_delisted_em_df)
 ```python
 import akshare as ak
 
-stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(stock="00700", symbol="资产负债表", indicator="年度")
+stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(symbol="00700", indicator="资产负债表", period="年度")
 print(stock_financial_hk_report_em_df)
 ```
 
@@ -2564,9 +2564,9 @@ print(stock_financial_hk_report_em_df)
 
 | 名称        | 类型  | 描述                                                    |
 |-----------|-----|-------------------------------------------------------|
-| stock     | str | stock="TSLA"；股票代码，比如 BRK.A 需修改为 BRK_A 再获取           |
-| symbol    | str | symbol="资产负债表"; choice of {"资产负债表", "综合损益表", "现金流量表"} |
-| indicator | str | indicator="年报"; choice of {"年报", "单季报", "累计季报"}       |
+| symbol     | str | symbol="TSLA"；股票代码，比如 BRK.A 需修改为 BRK_A 再获取           |
+| indicator    | str | indicator="资产负债表"; choice of {"资产负债表", "综合损益表", "现金流量表"} |
+| period | str | period="年报"; choice of {"年报", "单季报", "累计季报"}       |
 
 输出参数
 
@@ -2586,7 +2586,7 @@ print(stock_financial_hk_report_em_df)
 ```python
 import akshare as ak
 
-stock_financial_us_report_em_df = ak.stock_financial_us_report_em(stock="TSLA", symbol="资产负债表", indicator="年报")
+stock_financial_us_report_em_df = ak.stock_financial_us_report_em(symbol="TSLA", indicator="资产负债表", period="年报")
 print(stock_financial_us_report_em_df)
 ```
 

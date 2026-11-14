@@ -56,13 +56,13 @@ def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
 
 
 def stock_institute_hold_detail(
-    stock: str = "600433", quarter: str = "20201"
+    symbol: str = "600433", quarter: str = "20201"
 ) -> pd.DataFrame:
     """
     新浪财经-股票-机构持股详情
     https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :param quarter: 从 2005 年开始，{"一季报":1, "中报":2 "三季报":3 "年报":4}, e.g., "20191"，其中的 1 表示一季报；"20193"，其中的 3 表示三季报；
     :type quarter: str
     :return: 指定股票和财报时间的机构持股数据
@@ -70,7 +70,7 @@ def stock_institute_hold_detail(
     """
     url = "https://vip.stock.finance.sina.com.cn/q/api/jsonp.php/var%20details=/ComStockHoldService.getJGCGDetail"
     params = {
-        "symbol": stock,
+        "symbol": symbol,
         "quarter": quarter,
     }
     r = http.get(url, params=params)
@@ -128,6 +128,6 @@ if __name__ == "__main__":
     print(stock_institute_hold_df)
 
     stock_institute_hold_detail_df = stock_institute_hold_detail(
-        stock="300003", quarter="20201"
+        symbol="300003", quarter="20201"
     )
     print(stock_institute_hold_detail_df)

@@ -486,6 +486,24 @@ DCE_MAP = {
 }
 
 
+def parse_symbols(symbols=None, default=None) -> list:
+    """
+    把品种参数统一成品种代码列表
+    接口的参数都是文本，品种代码用英文逗号分隔，如 "CU,NI"；为兼容旧用法也接受列表
+    :param symbols: 以英文逗号分隔的品种代码，或品种代码列表；为空时取 default
+    :type symbols: str or list
+    :param default: symbols 为空时返回的列表，默认为全部品种 contract_symbols
+    :type default: list
+    :return: 大写的品种代码列表
+    :rtype: list
+    """
+    if symbols is None or (isinstance(symbols, str) and not symbols.strip()):
+        return list(contract_symbols) if default is None else default
+    if isinstance(symbols, str):
+        symbols = symbols.replace("，", ",").split(",")
+    return [str(item).strip().upper() for item in symbols if str(item).strip()]
+
+
 def convert_date(date):
     """
     transform a date string to datetime.date object

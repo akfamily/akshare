@@ -53,21 +53,21 @@ intColumns = [
 
 
 def futures_rank_sum_daily(
-    start_day: str = "20210510",
-    end_day: str = "20210510",
-    vars_list: list = cons.contract_symbols,
+    start_date: str = "20210510",
+    end_date: str = "20210510",
+    symbols: str = "",
 ):
     """
     采集四个期货交易所前 5、前 10、前 15、前 20 会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
         所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
     注2：大商所只公布了品种排名，未公布标的排名
-    :param start_day: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :type start_day: str
-    :param end_day: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :type end_day: str
-    :param vars_list: 合约品种如 ['RB'、'AL'] 等列表为空时为所有商品
-    :type vars_list: list
+    :param start_date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type start_date: str
+    :param end_date: 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type end_date: str
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return:  会员持仓排名数据
     :rtype: pandas.DataFrame
     symbol                           标的合约                     string
@@ -80,32 +80,35 @@ def futures_rank_sum_daily(
     short_open_interest_chg_top5     持空单前5会员持空单变化总和      int
     vol_top10                        成交量前10会员成交量总和        int
     """
-    start_day = (
-        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    symbols = cons.parse_symbols(symbols)
+    start_date = (
+        cons.convert_date(start_date)
+        if start_date is not None
+        else datetime.date.today()
     )
-    end_day = (
-        cons.convert_date(end_day)
-        if end_day is not None
+    end_date = (
+        cons.convert_date(end_date)
+        if end_date is not None
         else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
     )
     records = pd.DataFrame()
-    while start_day <= end_day:
-        if start_day.strftime("%Y%m%d") in calendar:
-            data = futures_rank_sum(start_day, vars_list)
+    while start_date <= end_date:
+        if start_date.strftime("%Y%m%d") in calendar:
+            data = futures_rank_sum(start_date, symbols)
             if data is False:
                 warnings.warn(
-                    f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
+                    f"{start_date.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
             records = pd.concat(objs=[records, data], ignore_index=True)
         else:
-            warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
-        start_day += datetime.timedelta(days=1)
+            warnings.warn(f"{start_date.strftime('%Y%m%d')}非交易日")
+        start_date += datetime.timedelta(days=1)
 
     return records.reset_index(drop=True)
 
 
-def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols):
+def futures_rank_sum(date: str = "20210525", symbols: str = ""):
     """
     采集五个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
@@ -113,8 +116,8 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
     注2：大商所只公布了品种排名，未公布标的排名
     :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: date
-    :param vars_list: 合约品种如 ['RB', 'AL'] 等列表为空时为所有商品
-    :type vars_list: list
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return: 持仓排名数据
     :rtype: pandas.DataFrame
     symbol                           标的合约                     string
@@ -127,15 +130,16 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
     short_open_interest_chg_top5     持空单前5会员持空单变化总和      int
     vol_top10                        成交量前10会员成交量总和        int
     """
+    symbols = cons.parse_symbols(symbols)
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return None
-    dce_var = [i for i in vars_list if i in cons.market_exchange_symbols["dce"]]
-    shfe_var = [i for i in vars_list if i in cons.market_exchange_symbols["shfe"]]
-    czce_var = [i for i in vars_list if i in cons.market_exchange_symbols["czce"]]
-    cffex_var = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
-    gfex_var = [i for i in vars_list if i in cons.market_exchange_symbols["gfex"]]
+    dce_var = [i for i in symbols if i in cons.market_exchange_symbols["dce"]]
+    shfe_var = [i for i in symbols if i in cons.market_exchange_symbols["shfe"]]
+    czce_var = [i for i in symbols if i in cons.market_exchange_symbols["czce"]]
+    cffex_var = [i for i in symbols if i in cons.market_exchange_symbols["cffex"]]
+    gfex_var = [i for i in symbols if i in cons.market_exchange_symbols["gfex"]]
     big_dict = {}
     if len(dce_var) > 0:
         data = futures_position_rank_dce(date, dce_var)
@@ -168,7 +172,7 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
         table = table.map(lambda x: 0 if x == "" else x)
         for symbol_inner in dict.fromkeys(table["symbol"]):
             var = symbol_varieties(symbol_inner)
-            if var in vars_list:
+            if var in symbols:
                 if var in czce_var:
                     for col in [
                         item
@@ -270,9 +274,7 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
     return records.reset_index(drop=True)
 
 
-def futures_rank_table_shfe(
-    date: str = None, vars_list: list = cons.contract_symbols
-) -> dict:
+def futures_rank_table_shfe(date: str = None, symbols: str = "") -> dict:
     """
     上海期货交易所会员成交及持仓排名表
     https://www.shfe.com.cn/
@@ -281,8 +283,8 @@ def futures_rank_table_shfe(
     数据从 20020107 开始，每交易日 16:30 左右更新数据
     :param date: 交易日
     :type date: str
-    :param vars_list: 合约品种如 RB、AL等列表；为空时为所有商品
-    :type vars_list: list
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return: 上海期货交易所会员成交及持仓排名表
     :rtype: dict
     rank                        排名                        int
@@ -299,6 +301,7 @@ def futures_rank_table_shfe(
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
+    symbols = cons.parse_symbols(symbols)
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(year=2002, month=1, day=7):
         warnings.warn("shfe数据源开始日期为 20020107，跳过")
@@ -349,7 +352,7 @@ def futures_rank_table_shfe(
             del df[col]
         except Exception:
             pass
-    get_vars = [var for var in vars_list if var in df["variety"].tolist()]
+    get_vars = [var for var in symbols if var in df["variety"].tolist()]
     big_dict = {}
     for var in get_vars:
         df_var = df[df["variety"] == var]
@@ -552,14 +555,12 @@ def _get_dce_contract_list(date, var):
     return contract_list
 
 
-def futures_rank_table_dce(
-    date: str = "20230706", vars_list=cons.contract_symbols
-) -> dict:
+def futures_rank_table_dce(date: str = "20230706", symbols: str = "") -> dict:
     """
     大连商品交易所前 20 会员持仓排名数据明细，由于交易所网站问题，需要 20200720 之后才有数据
     注：该交易所只公布标的合约排名
     :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象，为空时为当天
-    :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品，数据从 20060104 开始，每交易日 16:30 左右更新数据
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
     :return: 持仓排名
     :rtype: pandas.DataFrame
 
@@ -578,6 +579,7 @@ def futures_rank_table_dce(
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
+    symbols = cons.parse_symbols(symbols)
     warnings.warn("如果本接口不可用，请使用 ak.futures_position_rank_dce() 接口")
     date_string = date
     date = cons.convert_date(date) if date is not None else datetime.date.today()
@@ -587,9 +589,9 @@ def futures_rank_table_dce(
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["dce"]]
+    symbols = [i for i in symbols if i in cons.market_exchange_symbols["dce"]]
     big_dict = {}
-    for var in vars_list:
+    for var in symbols:
         # var = 'V'
         symbol_list = _get_dce_contract_list(date, var)
         for symbol in symbol_list:
@@ -704,13 +706,13 @@ def futures_rank_table_dce(
     return big_dict
 
 
-def futures_rank_table_cffex(date: str = "20190805", vars_list=cons.contract_symbols):
+def futures_rank_table_cffex(date: str = "20190805", symbols: str = ""):
     """
     中国金融期货交易所前 20 会员持仓排名数据明细
     http://www.cffex.com.cn/ccpm/
     注：该交易所既公布品种排名，也公布标的排名
     :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品，数据从20100416开始，每交易日16:30左右更新数据
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
     :return: 持仓排名
     :rtype: pandas.DataFrame
     :rfield:
@@ -729,7 +731,8 @@ def futures_rank_table_cffex(date: str = "20190805", vars_list=cons.contract_sym
     date                        日期                        string YYYYMMDD
 
     """
-    vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
+    symbols = cons.parse_symbols(symbols)
+    symbols = [i for i in symbols if i in cons.market_exchange_symbols["cffex"]]
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2010, 4, 16):
         warnings.warn("CFFEX 数据源开始日期为 20100416，跳过")
@@ -742,7 +745,7 @@ def futures_rank_table_cffex(date: str = "20190805", vars_list=cons.contract_sym
         "Chrome/81.0.4044.138 Safari/537.36",
     }
     big_dict = {}
-    for var in vars_list:
+    for var in symbols:
         # print(var)
         # var = "IF"
         url = cons.CFFEX_VOL_RANK_URL % (
@@ -806,19 +809,18 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_position_rank_dce(
-    date: str = "20160919", vars_list=cons.contract_symbols
-) -> dict:
+def futures_position_rank_dce(date: str = "20160919", symbols: str = "") -> dict:
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
     :param date: 指定交易日；e.g., "20200511"
     :type date: str
-    :param vars_list: 品种列表
-    :type vars_list: list
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return: 指定日期的持仓排名数据
     :rtype: pandas.DataFrame
     """
+    symbols = cons.parse_symbols(symbols)
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -1034,7 +1036,7 @@ def futures_position_rank_dce(
     dict_keys = list(big_dict.keys())
     for item in dict_keys:
         result = re.sub(r"\d", "", item)
-        if result.upper() not in vars_list:
+        if result.upper() not in symbols:
             del big_dict[item]
     filtered_dict = {k: v for k, v in big_dict.items() if len(v) > 1}
     return filtered_dict
@@ -1278,28 +1280,29 @@ def __futures_gfex_contract_data(
     return big_df
 
 
-def futures_position_rank_gfex(date: str = "20231113", vars_list: list = None):
+def futures_position_rank_gfex(date: str = "20231113", symbols: str = ""):
     """
     广州期货交易所-日成交持仓排名
     http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
     :param date: 开始日期；广州期货交易所的日成交持仓排名从 20231110 开始
     :type date: str
-    :param vars_list: 商品代码列表
-    :type vars_list: list
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
     :return: 日成交持仓排名
     :rtype: pandas.DataFrame
     """
+    symbols = cons.parse_symbols(symbols, default=[]) or None
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
     date = date.strftime("%Y%m%d")
-    if vars_list is None:
-        vars_list = __futures_gfex_vars_list()
+    if symbols is None:
+        symbols = __futures_gfex_vars_list()
     else:
-        vars_list = [item.lower() for item in vars_list]
+        symbols = [item.lower() for item in symbols]
     big_dict = {}
-    for item in vars_list:
+    for item in symbols:
         try:
             futures_contract_list = __futures_gfex_contract_list(
                 symbol=item.lower(), date=date
@@ -1347,7 +1350,7 @@ if __name__ == "__main__":
     print(futures_rank_table_dce_third_df)
 
     futures_rank_table_dce_fourth_df = futures_rank_table_dce(
-        date="20210517", vars_list=["V"]
+        date="20210517", symbols="V"
     )
     print(futures_rank_table_dce_fourth_df)
 
@@ -1366,7 +1369,7 @@ if __name__ == "__main__":
 
     # 总接口
     futures_rank_sum_daily_df = futures_rank_sum_daily(
-        start_day="20251031",
-        end_day="20251103",
+        start_date="20251031",
+        end_date="20251103",
     )
     print(futures_rank_sum_daily_df)

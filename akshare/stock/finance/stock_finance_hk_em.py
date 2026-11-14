@@ -12,6 +12,7 @@ import pandas as pd
 
 from akshare.exceptions import APIError
 from akshare.utils import http
+from akshare.utils.params import reject_old_symbol_usage
 
 
 def _get_hk_financial_report_list(stock: str) -> pd.DataFrame:
@@ -67,34 +68,40 @@ def _get_hk_financial_currency_map(stock: str) -> Dict[pd.Timestamp, str]:
 
 
 def stock_financial_hk_report_em(
-    stock: str = "00700", symbol: str = "资产负债表", indicator: str = "年度"
+    symbol: str = "00700", indicator: str = "资产负债表", period: str = "年度"
 ) -> pd.DataFrame:
     """
     东方财富-港股-财务报表-三大报表
     https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
-    :param stock: 股票代码
-    :type stock: str
-    :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
+    :param symbol: 股票代码
     :type symbol: str
-    :param indicator: choice of {"年度", "报告期"}
+    :param indicator: choice of {"资产负债表", "利润表", "现金流量表"}
     :type indicator: str
+    :param period: choice of {"年度", "报告期"}
+    :type period: str
     :return: 东方财富-港股-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
+    reject_old_symbol_usage(
+        symbol,
+        ("资产负债表", "利润表", "现金流量表"),
+        "stock_financial_hk_report_em",
+        'symbol="00700", indicator="资产负债表", period="年度"',
+    )
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
-    temp_df = _get_hk_financial_report_list(stock=stock)
-    if indicator == "年度":
+    temp_df = _get_hk_financial_report_list(stock=symbol)
+    if period == "年度":
         temp_df = temp_df[temp_df["REPORT_TYPE"] == "年报"]
     else:
         temp_df = temp_df
     year_list = [item.split(" ")[0] for item in temp_df["REPORT_DATE"]]
-    if symbol == "资产负债表":
+    if indicator == "资产负债表":
         params = {
             "reportName": "RPT_HKF10_FN_BALANCE_PC",
             "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
             "FISCAL_YEAR,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT,STD_REPORT_DATE",
             "quoteColumns": "",
-            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "filter": f"""(SECUCODE="{symbol}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
             "pageSize": "",
             "sortTypes": "-1,1",
@@ -107,13 +114,13 @@ def stock_financial_hk_report_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
-    elif symbol == "利润表":
+    elif indicator == "利润表":
         params = {
             "reportName": "RPT_HKF10_FN_INCOME_PC",
             "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
             "FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
             "quoteColumns": "",
-            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "filter": f"""(SECUCODE="{symbol}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
             "pageSize": "",
             "sortTypes": "-1,1",
@@ -126,13 +133,13 @@ def stock_financial_hk_report_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         return temp_df
-    elif symbol == "现金流量表":
+    elif indicator == "现金流量表":
         params = {
             "reportName": "RPT_HKF10_FN_CASHFLOW_PC",
             "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,"
             "FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
             "quoteColumns": "",
-            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "filter": f"""(SECUCODE="{symbol}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
             "pageNumber": "1",
             "pageSize": "",
             "sortTypes": "-1,1",
@@ -211,31 +218,31 @@ if __name__ == "__main__":
     print(stock_financial_hk_analysis_indicator_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="01742", symbol="资产负债表", indicator="年度"
+        symbol="01742", indicator="资产负债表", period="年度"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="01742", symbol="资产负债表", indicator="报告期"
+        symbol="01742", indicator="资产负债表", period="报告期"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="利润表", indicator="年度"
+        symbol="00700", indicator="利润表", period="年度"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="利润表", indicator="报告期"
+        symbol="00700", indicator="利润表", period="报告期"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="现金流量表", indicator="年度"
+        symbol="00700", indicator="现金流量表", period="年度"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="现金流量表", indicator="报告期"
+        symbol="00700", indicator="现金流量表", period="报告期"
     )
     print(stock_financial_hk_report_em_df)

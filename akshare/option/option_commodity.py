@@ -29,14 +29,12 @@ from akshare.option.cons import (
 from akshare.utils import http
 
 
-def option_hist_dce(
-    symbol: str = "聚丙烯期权", trade_date: str = "20251016"
-) -> pd.DataFrame:
+def option_hist_dce(symbol: str = "聚丙烯期权", date: str = "20251016") -> pd.DataFrame:
     """
     大连商品交易所-期权-日频行情数据
     http://www.dce.com.cn/
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权",
     "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权",
     "鸡蛋期权", "玉米淀粉期权", "生猪期权", "原木期权"}
@@ -64,7 +62,7 @@ def option_hist_dce(
         "原木期权": "lg",
     }
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
@@ -74,7 +72,7 @@ def option_hist_dce(
         "lang": "zh",
         "optionSeries": "",
         "statisticsType": 0,
-        "tradeDate": f"{trade_date}",
+        "tradeDate": f"{date}",
         "tradeType": "2",
         "varietyId": f"{option_code_map[symbol]}",
     }
@@ -183,14 +181,12 @@ def __option_czce_daily_convert_numeric_columns(df):
     return df_copy
 
 
-def option_hist_czce(
-    symbol: str = "白糖期权", trade_date: str = "20191017"
-) -> pd.DataFrame:
+def option_hist_czce(symbol: str = "白糖期权", date: str = "20191017") -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
     http://www.czce.com.cn/cn/sspz/dejbqhqq/H770227index_1.htm#tabs-2
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权", "动力煤期权", "菜籽粕期权", "菜籽油期权",
     "花生期权", "对二甲苯期权", "烧碱期权", "纯碱期权", "短纤期权", "锰硅期权", "硅铁期权", "尿素期权", "苹果期权", "红枣期权",
     "玻璃期权", "瓶片期权", "丙烯期货"}
@@ -199,7 +195,7 @@ def option_hist_czce(
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("{}非交易日".format(day.strftime("%Y%m%d")))
         return pd.DataFrame()
@@ -361,14 +357,12 @@ def option_hist_czce(
         return pd.DataFrame()
 
 
-def option_hist_shfe(
-    symbol: str = "铝期权", trade_date: str = "20250418"
-) -> pd.DataFrame:
+def option_hist_shfe(symbol: str = "铝期权", date: str = "20250418") -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :param symbol: choice of {'原油期权', '铜期权', '铝期权', '锌期权', '铅期权', '螺纹钢期权', '镍期权', '锡期权', '氧化铝期权',
     '黄金期权', '白银期权', '丁二烯橡胶期权', '天胶期权'}
     :type symbol: str
@@ -376,7 +370,7 @@ def option_hist_shfe(
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
@@ -440,14 +434,12 @@ def option_hist_shfe(
         return pd.DataFrame()
 
 
-def option_vol_shfe(
-    symbol: str = "铝期权", trade_date: str = "20250418"
-) -> pd.DataFrame:
+def option_vol_shfe(symbol: str = "铝期权", date: str = "20250418") -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :param symbol: choice of {'原油期权', '铜期权', '铝期权', '锌期权', '铅期权', '螺纹钢期权', '镍期权', '锡期权', '氧化铝期权',
     '黄金期权', '白银期权', '丁二烯橡胶期权', '天胶期权'}
     :type symbol: str
@@ -455,7 +447,7 @@ def option_vol_shfe(
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
@@ -498,21 +490,19 @@ def option_vol_shfe(
         return pd.DataFrame()
 
 
-def option_hist_gfex(
-    symbol: str = "工业硅", trade_date: str = "20230724"
-) -> pd.DataFrame:
+def option_hist_gfex(symbol: str = "工业硅", date: str = "20230724") -> pd.DataFrame:
     """
     广州期货交易所-日频率-量价数据
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :param symbol: choice of {"工业硅", "碳酸锂"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return pd.DataFrame()
@@ -586,14 +576,14 @@ def option_hist_gfex(
     return temp_df
 
 
-def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
+def option_vol_gfex(symbol: str = "碳酸锂", date: str = "20230724"):
     """
     广州期货交易所-日频率-合约隐含波动率
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
     :param symbol: choice of choice of {"工业硅", "碳酸锂"}
     :type symbol: str
-    :param trade_date: 交易日
-    :type trade_date: str
+    :param date: 交易日
+    :type date: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
     """
@@ -603,7 +593,7 @@ def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
         "多晶硅": "ps",
     }
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return
@@ -648,20 +638,20 @@ def option_vol_gfex(symbol: str = "碳酸锂", trade_date: str = "20230724"):
 
 
 if __name__ == "__main__":
-    option_hist_czce_df = option_hist_czce(symbol="白糖期权", trade_date="20250812")
+    option_hist_czce_df = option_hist_czce(symbol="白糖期权", date="20250812")
     print(option_hist_czce_df)
 
-    option_hist_dce_df = option_hist_dce(symbol="聚丙烯期权", trade_date="20250812")
+    option_hist_dce_df = option_hist_dce(symbol="聚丙烯期权", date="20250812")
     print(option_hist_dce_df)
 
-    option_hist_shfe_df = option_hist_shfe(symbol="天胶期权", trade_date="20250418")
+    option_hist_shfe_df = option_hist_shfe(symbol="天胶期权", date="20250418")
     print(option_hist_shfe_df)
 
-    option_vol_shfe_df = option_vol_shfe(symbol="天胶期权", trade_date="20250418")
+    option_vol_shfe_df = option_vol_shfe(symbol="天胶期权", date="20250418")
     print(option_vol_shfe_df)
 
-    option_hist_gfex_df = option_hist_gfex(symbol="工业硅", trade_date="20250801")
+    option_hist_gfex_df = option_hist_gfex(symbol="工业硅", date="20250801")
     print(option_hist_gfex_df)
 
-    option_vol_gfex_df = option_vol_gfex(symbol="多晶硅", trade_date="20250123")
+    option_vol_gfex_df = option_vol_gfex(symbol="多晶硅", date="20250123")
     print(option_vol_gfex_df)

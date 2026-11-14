@@ -18,13 +18,13 @@ from akshare.utils.tqdm import get_tqdm
 
 
 def stock_fund_flow_individual_hist_em(
-    stock: str = "600094", market: str = "sh"
+    symbol: str = "600094", market: str = "sh"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-个股
     https://data.eastmoney.com/zjlx/detail.html
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :param market: 股票市场；上海证券交易所：sh，深圳证券交易所：sz，北京证券交易所：bj;
     :type market: str
     :return: 近期个股的资金流数据
@@ -39,7 +39,7 @@ def stock_fund_flow_individual_hist_em(
     params = {
         "lmt": "0",
         "klt": "101",
-        "secid": f"{market_map[market]}.{stock}",
+        "secid": f"{market_map[market]}.{symbol}",
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
@@ -1319,7 +1319,7 @@ def stock_fund_flow_main_em(symbol: str = "全部股票") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_fund_flow_individual_hist_em_df = stock_fund_flow_individual_hist_em(
-        stock="600094", market="sh"
+        symbol="600094", market="sh"
     )
     print(stock_fund_flow_individual_hist_em_df)
 

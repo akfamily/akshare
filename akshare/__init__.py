@@ -1177,13 +1177,6 @@ from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 from akshare.fx.fx_quote_baidu import fx_quote_baidu
 from akshare.fx.fx_safe import fx_central_parity_safe
 from akshare.fx.fx_sentiment_jin10 import fx_sentiment_js
-from akshare.fx.fx_currencyscoop import (
-    fx_convert_currencyscoop,
-    fx_currencies_currencyscoop,
-    fx_hist_currencyscoop,
-    fx_latest_currencyscoop,
-    fx_time_series_currencyscoop,
-)
 
 
 # ---- 利率（akshare/interest_rate） ----
@@ -1614,11 +1607,7 @@ __all__ = [
     "fx_boc_rate_sina",
     "fx_c_swap_cm",
     "fx_central_parity_safe",
-    "fx_convert_currencyscoop",
-    "fx_currencies_currencyscoop",
-    "fx_hist_currencyscoop",
     "fx_hist_em",
-    "fx_latest_currencyscoop",
     "fx_pair_map_investing",
     "fx_pair_quote",
     "fx_quote_baidu",
@@ -1626,7 +1615,6 @@ __all__ = [
     "fx_sentiment_js",
     "fx_spot_quote",
     "fx_swap_quote",
-    "fx_time_series_currencyscoop",
     "get_proxies",
     "get_timeout",
     "get_token",

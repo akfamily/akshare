@@ -11,7 +11,20 @@ import math
 import pandas as pd
 
 from akshare.utils import http
+from akshare.utils.params import reject_old_symbol_usage
 from akshare.utils.tqdm import get_tqdm
+
+
+_NOTICE_TYPES = (
+    "全部",
+    "财务报告",
+    "融资公告",
+    "风险提示",
+    "信息变更",
+    "重大事项",
+    "资产重组",
+    "持股变动",
+)
 
 
 def _stock_notice_report(
@@ -148,30 +161,42 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
 
 
 def stock_individual_notice_report(
-    security: str, symbol: str = "全部", begin_date: str = None, end_date: str = None
+    symbol: str = "300237",
+    indicator: str = "全部",
+    start_date: str = None,
+    end_date: str = None,
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-公告大全-个股
     https://data.eastmoney.com/notices/stock/300237.html
-    :param security: 股票代码
-    :type security: str
-    :param symbol: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :param symbol: 股票代码
     :type symbol: str
-    :param begin_date: 开始日期
-    :type begin_date: str
+    :param indicator: 报告类型；choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type indicator: str
+    :param start_date: 开始日期
+    :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
     :return: 个股公告
     :rtype: pandas.DataFrame
     """
+    reject_old_symbol_usage(
+        symbol,
+        _NOTICE_TYPES,
+        "stock_individual_notice_report",
+        'symbol="300237", indicator="财务报告"',
+    )
     return _stock_notice_report(
-        security=security, symbol=symbol, begin_date=begin_date, end_date=end_date
+        security=symbol, symbol=indicator, begin_date=start_date, end_date=end_date
     )
 
 
 if __name__ == "__main__":
     stock_individual_notice_report_df = stock_individual_notice_report(
-        security="300237", symbol="财务报告", begin_date="20250101", end_date="20260101"
+        symbol="300237",
+        indicator="财务报告",
+        start_date="20250101",
+        end_date="20260101",
     )
     print(stock_individual_notice_report_df)
 

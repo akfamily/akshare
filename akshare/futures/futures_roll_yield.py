@@ -21,7 +21,7 @@ from akshare.futures.symbol_var import symbol_market, symbol_varieties
 calendar = cons.get_calendar()
 
 
-def futures_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
+def futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=None):
     """
     指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
     Parameters
@@ -38,15 +38,17 @@ def futures_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None)
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return None
     if symbol1:
-        var = symbol_varieties(symbol1)
+        symbol = symbol_varieties(symbol1)
     if not isinstance(df, pd.DataFrame):
-        market = symbol_market(var)
+        market = symbol_market(symbol)
         df = futures_daily(start_date=date, end_date=date, market=market)
-    if var:
+    if symbol:
         df = df[
             ~df["symbol"].str.contains("efp")
         ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
-        df = df[df["variety"] == var].sort_values(by=["open_interest"], ascending=False)
+        df = df[df["variety"] == symbol].sort_values(
+            by=["open_interest"], ascending=False
+        )
         # df["close"] = df["close"].astype("float")
         df["close"] = pd.to_numeric(df["close"])
         if len(df["close"]) < 2:
@@ -74,36 +76,38 @@ def futures_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None)
 
 def futures_roll_yield_bar(
     type_method: str = "var",
-    var: str = "RB",
+    symbol: str = "RB",
     date: str = "20201030",
-    start_day: str = None,
-    end_day: str = None,
+    start_date: str = None,
+    end_date: str = None,
 ):
     """
     展期收益率
     :param type_method: 'symbol': 获取指定交易日指定品种所有交割月合约的收盘价；'var': 获取指定交易日所有品种两个主力合约的展期收益率（展期收益率横截面）；'date': 获取指定品种每天的两个主力合约的展期收益率（展期收益率时间序列）
-    :param var: 合约品种如 "RB", "AL" 等
+    :param symbol: 合约品种如 "RB", "AL" 等
     :param date: 指定交易日 format: YYYYMMDD
-    :param start_day: 开始日期 format: YYYYMMDD
-    :param end_day: 结束日期 format: YYYYMMDD
+    :param start_date: 开始日期 format: YYYYMMDD
+    :param end_date: 结束日期 format: YYYYMMDD
     :return: pandas.DataFrame
     展期收益率数据(DataFrame)
     ry      展期收益率
     index   日期或品种
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
-    start_day = (
-        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    start_date = (
+        cons.convert_date(start_date)
+        if start_date is not None
+        else datetime.date.today()
     )
-    end_day = (
-        cons.convert_date(end_day)
-        if end_day is not None
+    end_date = (
+        cons.convert_date(end_date)
+        if end_date is not None
         else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
     )
 
     if type_method == "symbol":
-        df = futures_daily(start_date=date, end_date=date, market=symbol_market(var))
-        df = df[df["variety"] == var]
+        df = futures_daily(start_date=date, end_date=date, market=symbol_market(symbol))
+        df = df[df["variety"] == symbol]
         return df
 
     if type_method == "var":
@@ -120,15 +124,15 @@ def futures_roll_yield_bar(
             if i_remove in var_list:
                 var_list.remove(i_remove)
         df_l = pd.DataFrame()
-        for var in var_list:
-            ry = futures_roll_yield(date, var, df=df)
+        for symbol in var_list:
+            ry = futures_roll_yield(date, symbol, df=df)
             if ry:
                 df_l = pd.concat(
                     [
                         df_l,
                         pd.DataFrame(
                             [ry],
-                            index=[var],
+                            index=[symbol],
                             columns=["roll_yield", "near_by", "deferred"],
                         ),
                     ]
@@ -139,16 +143,16 @@ def futures_roll_yield_bar(
 
     if type_method == "date":
         df_l = pd.DataFrame()
-        while start_day <= end_day:
+        while start_date <= end_date:
             try:
-                ry = futures_roll_yield(start_day, var)
+                ry = futures_roll_yield(start_date, symbol)
                 if ry:
                     df_l = pd.concat(
                         [
                             df_l,
                             pd.DataFrame(
                                 [ry],
-                                index=[start_day],
+                                index=[start_date],
                                 columns=["roll_yield", "near_by", "deferred"],
                             ),
                         ]
@@ -158,16 +162,16 @@ def futures_roll_yield_bar(
                 raise
             except Exception:
                 pass
-            start_day += datetime.timedelta(days=1)
+            start_date += datetime.timedelta(days=1)
         return df_l
 
 
 if __name__ == "__main__":
     futures_roll_yield_bar_range_df = futures_roll_yield_bar(
         type_method="date",
-        var="RB",
-        start_day="20230801",
-        end_day="20230810",
+        symbol="RB",
+        start_date="20230801",
+        end_date="20230810",
     )
     print(futures_roll_yield_bar_range_df)
 

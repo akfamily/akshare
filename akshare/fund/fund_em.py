@@ -27,6 +27,7 @@ from bs4 import BeautifulSoup
 
 from akshare.utils import jsonish
 from akshare.utils import http
+from akshare.utils.params import reject_old_symbol_usage
 from akshare.utils.cons import headers
 from akshare.utils.tqdm import get_tqdm
 
@@ -1174,24 +1175,30 @@ def fund_value_estimation_em(symbol: str = "全部") -> pd.DataFrame:
 
 
 def fund_hk_fund_hist_em(
-    code: str = "1002200683", symbol: str = "历史净值明细"
+    symbol: str = "1002200683", indicator: str = "历史净值明细"
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-香港基金-历史净值明细（分红送配详情）
     https://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
-    :param code: 通过 ak.fund_em_hk_rank() 获取
-    :type code: str
-    :param symbol: choice of {"历史净值明细", "分红送配详情"}
+    :param symbol: 通过 ak.fund_em_hk_rank() 获取
     :type symbol: str
+    :param indicator: choice of {"历史净值明细", "分红送配详情"}
+    :type indicator: str
     :return: 香港基金-历史净值明细（分红送配详情）
     :rtype: pandas.DataFrame
     """
+    reject_old_symbol_usage(
+        symbol,
+        ("历史净值明细", "分红送配详情"),
+        "fund_hk_fund_hist_em",
+        'symbol="1002200683", indicator="历史净值明细"',
+    )
     url = "https://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
-    if symbol == "历史净值明细":
+    if indicator == "历史净值明细":
         params = {
             "api": "HKFDApi",
             "m": "MethodJZ",
-            "hkfcode": f"{code}",
+            "hkfcode": f"{symbol}",
             "action": "2",
             "pageindex": "0",
             "pagesize": "1000",
@@ -1230,7 +1237,7 @@ def fund_hk_fund_hist_em(
         params = {
             "api": "HKFDApi",
             "m": "MethodJZ",
-            "hkfcode": f"{code}",
+            "hkfcode": f"{symbol}",
             "action": "3",
             "pageindex": "0",
             "pagesize": "1000",
@@ -1359,11 +1366,11 @@ if __name__ == "__main__":
     print(fund_value_estimation_em_df)
 
     fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(
-        code="1002200683", symbol="历史净值明细"
+        symbol="1002200683", indicator="历史净值明细"
     )
     print(fund_hk_fund_hist_em_df)
 
     fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(
-        code="1002200683", symbol="分红送配详情"
+        symbol="1002200683", indicator="分红送配详情"
     )
     print(fund_hk_fund_hist_em_df)

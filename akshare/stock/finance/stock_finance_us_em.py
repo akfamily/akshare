@@ -9,6 +9,7 @@ https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w
 import pandas as pd
 
 from akshare.utils import http
+from akshare.utils.params import reject_old_symbol_usage
 from akshare.utils.cons import headers
 
 
@@ -108,30 +109,36 @@ def __stock_financial_us_report_em(
 
 
 def stock_financial_us_report_em(
-    stock: str = "TSLA", symbol: str = "资产负债表", indicator: str = "年报"
+    symbol: str = "TSLA", indicator: str = "资产负债表", period: str = "年报"
 ) -> pd.DataFrame:
     """
     东方财富-美股-财务分析-三大报表
     https://emweb.eastmoney.com/PC_USF10/pages/index.html?code=TSLA&type=web&color=w#/cwfx
-    :param stock: 股票代码
-    :type stock: str
-    :param symbol: choice of {"资产负债表", "综合损益表", "现金流量表"}
+    :param symbol: 股票代码
     :type symbol: str
-    :param indicator: choice of {"年报", "单季报", "累计季报"}
+    :param indicator: choice of {"资产负债表", "综合损益表", "现金流量表"}
     :type indicator: str
+    :param period: choice of {"年报", "单季报", "累计季报"}
+    :type period: str
     :return: 东方财富-美股-财务分析-三大报表
     :rtype: pandas.DataFrame
     """
+    reject_old_symbol_usage(
+        symbol,
+        ("资产负债表", "综合损益表", "现金流量表"),
+        "stock_financial_us_report_em",
+        'symbol="TSLA", indicator="资产负债表", period="年报"',
+    )
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
     date_str = __stock_financial_us_report_em(
-        stock=stock, symbol=symbol, indicator=indicator
+        stock=symbol, symbol=indicator, indicator=period
     )
-    stock = __stock_financial_us_report_query_market_em(stock)
-    if symbol == "资产负债表":
+    symbol = __stock_financial_us_report_query_market_em(symbol)
+    if indicator == "资产负债表":
         report_name = "RPT_USF10_FN_BALANCE"
-    elif symbol == "综合损益表":
+    elif indicator == "综合损益表":
         report_name = "RPT_USF10_FN_INCOME"
-    elif symbol == "现金流量表":
+    elif indicator == "现金流量表":
         report_name = "RPT_USSK_FN_CASHFLOW"
     else:
         raise ValueError("请输入正确的 symbol 参数")
@@ -140,7 +147,7 @@ def stock_financial_us_report_em(
         "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,REPORT_DATE,REPORT_TYPE,REPORT,"
         "STD_ITEM_CODE,AMOUNT,ITEM_NAME",
         "quoteColumns": "",
-        "filter": f'(SECUCODE="{stock}")(REPORT in ' + date_str + ")",
+        "filter": f'(SECUCODE="{symbol}")(REPORT in ' + date_str + ")",
         "pageNumber": "",
         "pageSize": "",
         "sortTypes": "1,-1",
@@ -229,46 +236,46 @@ if __name__ == "__main__":
     print(stock_financial_us_analysis_indicator_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="BRK", symbol="资产负债表", indicator="年报"
+        symbol="BRK", indicator="资产负债表", period="年报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="资产负债表", indicator="单季报"
+        symbol="TSLA", indicator="资产负债表", period="单季报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="资产负债表", indicator="累计季报"
+        symbol="TSLA", indicator="资产负债表", period="累计季报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="综合损益表", indicator="年报"
+        symbol="TSLA", indicator="综合损益表", period="年报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="综合损益表", indicator="单季报"
+        symbol="TSLA", indicator="综合损益表", period="单季报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="综合损益表", indicator="累计季报"
+        symbol="TSLA", indicator="综合损益表", period="累计季报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="现金流量表", indicator="年报"
+        symbol="TSLA", indicator="现金流量表", period="年报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="现金流量表", indicator="单季报"
+        symbol="TSLA", indicator="现金流量表", period="单季报"
     )
     print(stock_financial_us_report_em_df)
 
     stock_financial_us_report_em_df = stock_financial_us_report_em(
-        stock="TSLA", symbol="现金流量表", indicator="累计季报"
+        symbol="TSLA", indicator="现金流量表", period="累计季报"
     )
     print(stock_financial_us_report_em_df)

@@ -29,16 +29,16 @@ calendar = cons.get_calendar()
 
 
 def futures_spot_price_daily(
-    start_day: str = "20210201",
-    end_day: str = "20210208",
-    vars_list: list = cons.contract_symbols,
+    start_date: str = "20210201",
+    end_date: str = "20210208",
+    symbols: str = "",
 ):
     """
     指定时间段内大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/
-    :param start_day: str 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
-    :param end_day: str 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
-    :param vars_list: list 合约品种如 [RB, AL]；默认参数为所有商品
+    :param start_date: str 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
+    :param end_date: str 结束数据 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象；默认为当天
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
     :return: 基差
     :rtype: pandas.DataFrame
     展期收益率数据：
@@ -54,36 +54,37 @@ def futures_spot_price_daily(
     dom_basis_rate    主力合约相对现货的基差率        float
     date              日期                          string YYYYMMDD
     """
-    start_day = (
-        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    symbols = cons.parse_symbols(symbols)
+    start_date = (
+        cons.convert_date(start_date)
+        if start_date is not None
+        else datetime.date.today()
     )
-    end_day = (
-        cons.convert_date(end_day)
-        if end_day is not None
+    end_date = (
+        cons.convert_date(end_date)
+        if end_date is not None
         else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
     )
     df_list = []
-    while start_day <= end_day:
-        temp_df = futures_spot_price(start_day, vars_list)
+    while start_date <= end_date:
+        temp_df = futures_spot_price(start_date, symbols)
         if temp_df is False:
             return pd.concat(df_list).reset_index(drop=True)
         elif temp_df is not None:
             df_list.append(temp_df)
-        start_day += datetime.timedelta(days=1)
+        start_date += datetime.timedelta(days=1)
     if len(df_list) > 0:
         temp_df = pd.concat(df_list)
         temp_df = temp_df.reset_index(drop=True)
         return temp_df
 
 
-def futures_spot_price(
-    date: str = "20240430", vars_list: list = cons.contract_symbols
-) -> pd.DataFrame:
+def futures_spot_price(date: str = "20240430", symbols: str = "") -> pd.DataFrame:
     """
     指定交易日大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/day-2017-09-12.html
     :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象；为空时为当天
-    :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
     :return: pandas.DataFrame
     展期收益率数据：
     var              商品品种                     string
@@ -98,6 +99,7 @@ def futures_spot_price(
     dom_basis_rate   主力合约相对现货的基差率       float
     date             日期                         string YYYYMMDD
     """
+    symbols = cons.parse_symbols(symbols)
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2011, 1, 4):
         raise Exception(
@@ -123,7 +125,7 @@ def futures_spot_price(
                 if news[3:11] == date.strftime("%Y%m%d"):
                     records = _check_information(r[1], date)
                     records.index = records["symbol"]
-                    var_list_in_market = [i for i in vars_list if i in records.index]
+                    var_list_in_market = [i for i in symbols if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
                     temp_df = temp_df.reset_index(drop=True)
                     return temp_df
@@ -379,7 +381,7 @@ def futures_spot_price_previous(date: str = "20240430") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20260303", end_day="20260303", vars_list=["PL"]
+        start_date="20260303", end_date="20260303", symbols="PL"
     )
     print(futures_spot_price_daily_df)
 

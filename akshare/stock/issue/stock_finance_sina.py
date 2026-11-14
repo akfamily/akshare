@@ -18,27 +18,34 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 from akshare.utils import http
+from akshare.utils.params import reject_old_symbol_usage
 from akshare.utils.tqdm import get_tqdm
 
 
 def stock_financial_report_sina(
-    stock: str = "sh600600", symbol: str = "资产负债表"
+    symbol: str = "sh600600", indicator: str = "资产负债表"
 ) -> pd.DataFrame:
     """
     新浪财经-财务报表-三大报表
     https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600600/displaytype/4.phtml?source=fzb&qq-pf-to=pcqq.group
-    :param stock: 股票代码
-    :type stock: str
-    :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
+    :param symbol: 股票代码
     :type symbol: str
+    :param indicator: choice of {"资产负债表", "利润表", "现金流量表"}
+    :type indicator: str
     :return: 新浪财经-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
     symbol_map = {"资产负债表": "fzb", "利润表": "lrb", "现金流量表": "llb"}
+    reject_old_symbol_usage(
+        symbol,
+        symbol_map,
+        "stock_financial_report_sina",
+        'symbol="sh600600", indicator="资产负债表"',
+    )
     url = "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022"
     params = {
-        "paperCode": f"{stock}",
-        "source": symbol_map[symbol],
+        "paperCode": f"{symbol}",
+        "source": symbol_map[indicator],
         "type": "0",
         "page": "1",
         "num": "1000",
@@ -508,16 +515,16 @@ def stock_history_dividend_detail(
             return temp_df
 
 
-def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
+def stock_ipo_info(symbol: str = "600004") -> pd.DataFrame:
     """
     新浪财经-发行与分配-新股发行
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/600004.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 返回新股发行详情
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/{stock}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/{symbol}.phtml"
     r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[12]
     temp_df.columns = ["item", "value"]
@@ -729,17 +736,17 @@ def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
     return big_df
 
 
-def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
+def stock_main_stock_holder(symbol: str = "600004") -> pd.DataFrame:
     """
     新浪财经-股本股东-主要股东
     P.S. 特定股票特定时间只有前 5 个；e.g., 000002
     https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/600004.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 新浪财经-股本股东-主要股东
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/{stock}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/{symbol}.phtml"
     r = http.get(url)
     temp_df = pd.read_html(StringIO(r.text))[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
@@ -793,17 +800,17 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_financial_report_sina_df = stock_financial_report_sina(
-        stock="sh600600", symbol="现金流量表"
+        symbol="sh600600", indicator="现金流量表"
     )
     print(stock_financial_report_sina_df)
 
     stock_financial_report_sina_df = stock_financial_report_sina(
-        stock="sh600600", symbol="资产负债表"
+        symbol="sh600600", indicator="资产负债表"
     )
     print(stock_financial_report_sina_df)
 
     stock_financial_report_sina_df = stock_financial_report_sina(
-        stock="sh600600", symbol="利润表"
+        symbol="sh600600", indicator="利润表"
     )
     print(stock_financial_report_sina_df)
 
@@ -838,7 +845,7 @@ if __name__ == "__main__":
     )
     print(stock_history_dividend_detail_df)
 
-    stock_ipo_info_df = stock_ipo_info(stock="600004")
+    stock_ipo_info_df = stock_ipo_info(symbol="600004")
     print(stock_ipo_info_df)
 
     stock_add_stock_df = stock_add_stock(symbol="600004")
@@ -855,7 +862,7 @@ if __name__ == "__main__":
     stock_fund_stock_holder_df = stock_fund_stock_holder(symbol="601318")
     print(stock_fund_stock_holder_df)
 
-    stock_main_stock_holder_df = stock_main_stock_holder(stock="600000")
+    stock_main_stock_holder_df = stock_main_stock_holder(symbol="600000")
     print(stock_main_stock_holder_df)
 
     stock_financial_analysis_indicator_em_df = stock_financial_analysis_indicator_em(

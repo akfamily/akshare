@@ -312,7 +312,7 @@ def test_get_roll_yield_bar_reraises_dce_block(monkeypatch):
     monkeypatch.setattr(futures_roll_yield, "futures_roll_yield", blocked)
     with pytest.raises(http.DceBlockedError):
         futures_roll_yield.futures_roll_yield_bar(
-            type_method="date", var="M", start_day="20261103", end_day="20261104"
+            type_method="date", symbol="M", start_date="20261103", end_date="20261104"
         )
 
 

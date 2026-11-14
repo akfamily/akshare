@@ -3361,8 +3361,8 @@ print(stock_zh_kcb_daily_sina_df)
 
 | 名称        | 类型  | 描述                   |
 |-----------|-----|----------------------|
-| from_page | int | from_page=1；始获取的页码  |
-| to_page   | int | to_page=100；结束获取的页码 |
+| start_page | int | start_page=1；始获取的页码  |
+| end_page   | int | end_page=100；结束获取的页码 |
 
 输出参数
 
@@ -3380,7 +3380,7 @@ print(stock_zh_kcb_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_zh_kcb_report_em_df = ak.stock_zh_kcb_report_em(from_page=1, to_page=100)
+stock_zh_kcb_report_em_df = ak.stock_zh_kcb_report_em(start_page=1, end_page=100)
 print(stock_zh_kcb_report_em_df)
 ```
 

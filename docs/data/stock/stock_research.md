@@ -529,9 +529,9 @@ print(stock_notice_report_df)
 
 | 名称         | 类型  | 描述                                                                                      |
 |------------|-----|-----------------------------------------------------------------------------------------|
-| security   | str | security="300237"；股票代码                                                                 |
-| symbol     | str | symbol='财务报告'; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"} |
-| begin_date | str | date="20250408"；指定开始日期；默认为空即不限制开始日期                                                   |
+| symbol   | str | symbol="300237"；股票代码                                                                 |
+| indicator     | str | indicator='财务报告'; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"} |
+| start_date | str | date="20250408"；指定开始日期；默认为空即不限制开始日期                                                   |
 | end_date   | str | date="20260408"；指定结束日期；默认为空即不限制结束日期                                                   |
 
 输出参数
@@ -550,7 +550,7 @@ print(stock_notice_report_df)
 ```python
 import akshare as ak
 
-stock_individual_notice_report_df = ak.stock_individual_notice_report(security="300237", symbol="财务报告", begin_date="20250401", end_date="20260101")
+stock_individual_notice_report_df = ak.stock_individual_notice_report(symbol="300237", indicator="财务报告", start_date="20250401", end_date="20260101")
 print(stock_individual_notice_report_df)
 ```
 

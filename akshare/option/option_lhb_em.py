@@ -14,7 +14,7 @@ from akshare.utils import http
 def option_lhb_em(
     symbol: str = "510050",
     indicator: str = "期权交易情况-认沽交易量",
-    trade_date: str = "20220121",
+    date: str = "20220121",
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-期货期权-期权龙虎榜单
@@ -23,8 +23,8 @@ def option_lhb_em(
     :type symbol: str
     :param indicator: 需要获取的指标；choice of {"期权交易情况-认沽交易量","期权持仓情况-认沽持仓量", "期权交易情况-认购交易量", "期权持仓情况-认购持仓量"}
     :type indicator: str
-    :param trade_date: 交易日期
-    :type trade_date: str
+    :param date: 交易日期
+    :type date: str
     :return: 期权龙虎榜单
     :rtype: pandas.DataFrame
     """
@@ -33,7 +33,7 @@ def option_lhb_em(
         "type": "RPT_IF_BILLBOARD_TD",
         "sty": "ALL",
         "filter": f"""(SECURITY_CODE="{symbol}")(TRADE_DATE='{
-            "-".join([trade_date[:4], trade_date[4:6], trade_date[6:]])
+            "-".join([date[:4], date[4:6], date[6:]])
         }')""",
         "p": "1",
         "pss": "200",
@@ -255,21 +255,21 @@ def option_lhb_em(
 
 if __name__ == "__main__":
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权交易情况-认购交易量", trade_date="20220124"
+        symbol="510300", indicator="期权交易情况-认购交易量", date="20220124"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权交易情况-认沽交易量", trade_date="20220124"
+        symbol="510300", indicator="期权交易情况-认沽交易量", date="20220124"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="159919", indicator="期权持仓情况-认购持仓量", trade_date="20240712"
+        symbol="159919", indicator="期权持仓情况-认购持仓量", date="20240712"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权持仓情况-认沽持仓量", trade_date="20220124"
+        symbol="510300", indicator="期权持仓情况-认沽持仓量", date="20220124"
     )
     print(option_lhb_em_df)

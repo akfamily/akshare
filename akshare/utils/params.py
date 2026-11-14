@@ -59,3 +59,22 @@ def to_bool(value: Any, name: str) -> bool:
     if text in _FALSE:
         return False
     raise InvalidParameterError(f"参数 {name} 应为 true 或 false，收到 {value!r}")
+
+
+def reject_old_symbol_usage(symbol: str, choices, name: str, example: str) -> None:
+    """
+    参数含义调整后的保护：旧代码把报表类型传给 symbol 时给出明确的报错
+    :param symbol: 调用方传入的 symbol
+    :type symbol: str
+    :param choices: 现在应传给 indicator 的取值
+    :type choices: Iterable[str]
+    :param name: 接口名
+    :type name: str
+    :param example: 正确写法的示例
+    :type example: str
+    """
+    if symbol in choices:
+        raise InvalidParameterError(
+            f"{name} 的参数自 1.20.52 起调整：symbol 为代码，"
+            f"{symbol} 这类取值改用 indicator 传入，如 {example}"
+        )
