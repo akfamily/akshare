@@ -108,7 +108,7 @@ ak.futures_hold_pos_sina(symbol="多单持仓", contract="M2701", date="20261104
 
 受影响的接口：
 
-- 期货：futures_contract_info_dce、futures_dce_position_rank、futures_dce_position_rank_other、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、futures_daily_dce、futures_rank_table_dce、futures_receipt、futures_roll_yield、futures_roll_yield_bar
+- 期货：futures_contract_info_dce、futures_position_rank_dce、futures_position_rank_other_dce、futures_delivery_dce、futures_delivery_match_dce、futures_to_spot_dce、futures_warehouse_receipt_dce、futures_daily_dce、futures_rank_table_dce、futures_receipt、futures_roll_yield、futures_roll_yield_bar
 - 期权：option_hist_dce
 - 部分受影响：futures_daily、futures_rank_sum、futures_rank_sum_daily 中涉及大连商品交易所的部分
 
@@ -173,11 +173,11 @@ with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.
 import akshare as ak
 import pandas as pd
 
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sh000300")
-stock_zh_index_daily_df["date"] = pd.to_datetime(stock_zh_index_daily_df["date"])
-result_df = stock_zh_index_daily_df[
-    (stock_zh_index_daily_df["date"] >= "2024-01-01")
-    & (stock_zh_index_daily_df["date"] <= "2024-03-31")
+index_zh_daily_sina_df = ak.index_zh_daily_sina(symbol="sh000300")
+index_zh_daily_sina_df["date"] = pd.to_datetime(index_zh_daily_sina_df["date"])
+result_df = index_zh_daily_sina_df[
+    (index_zh_daily_sina_df["date"] >= "2024-01-01")
+    & (index_zh_daily_sina_df["date"] <= "2024-03-31")
 ]
 print(result_df)
 ```
@@ -198,8 +198,8 @@ pd.set_option("display.max_columns", None)
 # 显示所有行
 pd.set_option("display.max_rows", None)
 
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
-print(stock_zh_index_daily_df)
+index_zh_daily_sina_df = ak.index_zh_daily_sina(symbol="sz399552")
+print(index_zh_daily_sina_df)
 ```
 
 (known-data-issues)=

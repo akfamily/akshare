@@ -43,7 +43,7 @@ def _get_zh_bond_hs_cov_page_count() -> int:
         return int(page_count) + 1
 
 
-def bond_zh_hs_cov_spot() -> pd.DataFrame:
+def bond_cb_realtime_sina() -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的实时行情数据；大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -62,7 +62,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     return big_df
 
 
-def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
+def bond_cb_daily_sina(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的历史行情数据，大量抓取容易封 IP
     https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -128,7 +128,7 @@ def _code_id_map() -> dict:
     return code_id_dict
 
 
-def bond_zh_hs_cov_min(
+def bond_cb_hist_min_em(
     symbol: str = "sz128039",
     period: str = "15",
     adjust: str = "",
@@ -261,7 +261,7 @@ def bond_zh_hs_cov_min(
         return temp_df
 
 
-def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
+def bond_cb_pre_min_em(symbol: str = "sh113570") -> pd.DataFrame:
     """
     东方财富网-可转债-分时行情-盘前
     https://quote.eastmoney.com/concept/sz128039.html
@@ -306,7 +306,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
     return temp_df
 
 
-def bond_zh_cov() -> pd.DataFrame:
+def bond_cb_list_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-可转债数据
     https://data.eastmoney.com/kzz/default.html
@@ -462,7 +462,7 @@ def bond_zh_cov() -> pd.DataFrame:
     return big_df
 
 
-def bond_cov_comparison() -> pd.DataFrame:
+def bond_cb_comparison_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-可转债比价表
     https://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
@@ -539,7 +539,7 @@ def bond_cov_comparison() -> pd.DataFrame:
     return temp_df
 
 
-def bond_zh_cov_info(
+def bond_cb_info_em(
     symbol: str = "123121", indicator: str = "基本信息"
 ) -> pd.DataFrame:
     """
@@ -624,7 +624,7 @@ def bond_zh_cov_info(
         return pd.DataFrame()
 
 
-def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
+def bond_cb_value_analysis_em(symbol: str = "113527") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/113527.html
     东方财富网-数据中心-新股数据-可转债数据-价值分析-溢价率分析
@@ -678,32 +678,32 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_zh_hs_cov_min_df = bond_zh_hs_cov_min(
+    bond_cb_hist_min_em_df = bond_cb_hist_min_em(
         symbol="sz128039",
         period="1",
         adjust="hfq",
         start_date="1979-09-01 09:32:00",
         end_date="2222-01-01 09:32:00",
     )
-    print(bond_zh_hs_cov_min_df)
+    print(bond_cb_hist_min_em_df)
 
-    bond_zh_hs_cov_pre_min_df = bond_zh_hs_cov_pre_min(symbol="sz128039")
-    print(bond_zh_hs_cov_pre_min_df)
+    bond_cb_pre_min_em_df = bond_cb_pre_min_em(symbol="sz128039")
+    print(bond_cb_pre_min_em_df)
 
-    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz128039")
-    print(bond_zh_hs_cov_daily_df)
+    bond_cb_daily_sina_df = bond_cb_daily_sina(symbol="sz128039")
+    print(bond_cb_daily_sina_df)
 
-    bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()
-    print(bond_zh_hs_cov_spot_df)
+    bond_cb_realtime_sina_df = bond_cb_realtime_sina()
+    print(bond_cb_realtime_sina_df)
 
-    bond_zh_cov_df = bond_zh_cov()
-    print(bond_zh_cov_df)
+    bond_cb_list_em_df = bond_cb_list_em()
+    print(bond_cb_list_em_df)
 
-    bond_cov_comparison_df = bond_cov_comparison()
-    print(bond_cov_comparison_df)
+    bond_cb_comparison_em_df = bond_cb_comparison_em()
+    print(bond_cb_comparison_em_df)
 
-    bond_zh_cov_info_df = bond_zh_cov_info(symbol="123121", indicator="基本信息")
-    print(bond_zh_cov_info_df)
+    bond_cb_info_em_df = bond_cb_info_em(symbol="123121", indicator="基本信息")
+    print(bond_cb_info_em_df)
 
-    bond_zh_cov_value_analysis_df = bond_zh_cov_value_analysis(symbol="113527")
-    print(bond_zh_cov_value_analysis_df)
+    bond_cb_value_analysis_em_df = bond_cb_value_analysis_em(symbol="113527")
+    print(bond_cb_value_analysis_em_df)

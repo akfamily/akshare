@@ -109,10 +109,10 @@ print(qdii_e_index_jsl_df)
 [51 rows x 18 columns]
 ```
 
-(qdii_e_comm_jsl)=
+(qdii_e_commodity_jsl)=
 ### 欧美商品
 
-接口：qdii_e_comm_jsl
+接口：qdii_e_commodity_jsl
 
 目标地址：https://www.jisilu.cn/data/qdii/#qdiia
 
@@ -154,8 +154,8 @@ print(qdii_e_index_jsl_df)
 ```python
 import akshare as ak
 
-qdii_e_comm_jsl_df = ak.qdii_e_comm_jsl()
-print(qdii_e_comm_jsl_df)
+qdii_e_commodity_jsl_df = ak.qdii_e_commodity_jsl()
+print(qdii_e_commodity_jsl_df)
 ```
 
 数据示例

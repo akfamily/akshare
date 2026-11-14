@@ -288,10 +288,10 @@
 
 ## 期货基础数据
 
-(futures_fees_info)=
+(futures_fee_ctp)=
 ### 期货交易费用参照表
 
-接口：futures_fees_info
+接口：futures_fee_ctp
 
 目标地址：http://openctp.cn/fees.html
 
@@ -351,8 +351,8 @@
 ```python
 import akshare as ak
 
-futures_fees_info_df = ak.futures_fees_info()
-print(futures_fees_info_df)
+futures_fee_ctp_df = ak.futures_fee_ctp()
+print(futures_fee_ctp_df)
 ```
 
 数据示例
@@ -373,10 +373,10 @@ print(futures_fees_info_df)
 [769 rows x 36 columns]
 ```
 
-(futures_comm_info)=
+(futures_fee_9qihuo)=
 ### 期货手续费与保证金
 
-接口：futures_comm_info
+接口：futures_fee_9qihuo
 
 目标地址：https://www.9qihuo.com/qihuoshouxufei
 
@@ -421,8 +421,8 @@ print(futures_fees_info_df)
 ```python
 import akshare as ak
 
-futures_comm_info_df = ak.futures_comm_info(symbol="所有")
-print(futures_comm_info_df)
+futures_fee_9qihuo_df = ak.futures_fee_9qihuo(symbol="所有")
+print(futures_fee_9qihuo_df)
 ```
 
 数据示例
@@ -443,10 +443,10 @@ print(futures_comm_info_df)
 [700 rows x 21 columns]
 ```
 
-(futures_comm_js)=
+(futures_fee_js)=
 #### 金十数据
 
-接口：futures_comm_js
+接口：futures_fee_js
 
 目标地址：https://www.jin10.com/
 
@@ -488,8 +488,8 @@ print(futures_comm_info_df)
 ```python
 import akshare as ak
 
-futures_comm_js_df = ak.futures_comm_js(date="20260213")
-print(futures_comm_js_df)
+futures_fee_js_df = ak.futures_fee_js(date="20260213")
+print(futures_fee_js_df)
 ```
 
 数据示例
@@ -510,10 +510,10 @@ print(futures_comm_js_df)
 [90 rows x 18 columns]
 ```
 
-(futures_rule)=
+(futures_trading_rule_gtja)=
 ### 期货规则-交易日历表
 
-接口：futures_rule
+接口：futures_trading_rule_gtja
 
 目标地址：https://www.gtjaqh.com/pc/calendar.html
 
@@ -547,8 +547,8 @@ print(futures_comm_js_df)
 ```python
 import akshare as ak
 
-futures_rule_df = ak.futures_rule(date="20231205")
-print(futures_rule_df)
+futures_trading_rule_gtja_df = ak.futures_trading_rule_gtja(date="20231205")
+print(futures_trading_rule_gtja_df)
 ```
 
 数据示例
@@ -943,14 +943,14 @@ print(futures_rank_table_czce_df)
 3. 因此这里的品种排名和是各合约加总计算得来；郑州交易所公布了各合约排名和品种排名，因此这里都是交易所原始数据。
 ```
 
-(futures_dce_position_rank)=
+(futures_position_rank_dce)=
 #### 大连商品交易所
 
 ```{warning}
 大连商品交易所网站目前启用了瑞数反爬虫验证，该接口暂时无法获取数据，详见{ref}`AKShare 常见问题 <faq-dce>`。
 ```
 
-接口：futures_dce_position_rank
+接口：futures_position_rank_dce
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
 
@@ -962,10 +962,10 @@ print(futures_rank_table_czce_df)
 
 | 名称        | 类型   | 描述                                                                                                                    |
 |-----------|------|-----------------------------------------------------------------------------------------------------------------------|
-| date      | str  | date="20200511"；指定交易日，该数据接口可以获取从 2000 年开始的数据，20160104 由于交易所数据问题，返回为空可以调用 **futures_dce_position_rank_other** 来返回数据 |
+| date      | str  | date="20200511"；指定交易日，该数据接口可以获取从 2000 年开始的数据，20160104 由于交易所数据问题，返回为空可以调用 **futures_position_rank_other_dce** 来返回数据 |
 | vars_list | list | vars_list=cons.contract_symbols；指定品种，比如：["C", "CS"]                                                                  |
 
-P.S. **futures_dce_position_rank_other** 函数只返回页面显示的活跃合约，返回格式同 **futures_dce_position_rank**
+P.S. **futures_position_rank_other_dce** 函数只返回页面显示的活跃合约，返回格式同 **futures_position_rank_dce**
 
 输出参数-字典
 
@@ -991,7 +991,7 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 ```python
 import akshare as ak
 
-futures_dce_detail_dict = ak.futures_dce_position_rank(date="20200513")
+futures_dce_detail_dict = ak.futures_position_rank_dce(date="20200513")
 print(futures_dce_detail_dict)
 ```
 
@@ -1013,10 +1013,10 @@ print(futures_dce_detail_dict)
 }
 ```
 
-(futures_gfex_position_rank)=
+(futures_position_rank_gfex)=
 #### 广州期货交易所
 
-接口：futures_gfex_position_rank
+接口：futures_position_rank_gfex
 
 目标地址：http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
 
@@ -1055,7 +1055,7 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 ```python
 import akshare as ak
 
-futures_gfex_position_rank_dict = ak.futures_gfex_position_rank(date="20231113")
+futures_gfex_position_rank_dict = ak.futures_position_rank_gfex(date="20231113")
 print(futures_gfex_position_rank_dict)
 ```
 
@@ -1300,10 +1300,10 @@ print(futures_warehouse_receipt_dce_df)
 190  None    总计    None         None    315072    314394   -678
 ```
 
-(futures_shfe_warehouse_receipt)=
+(futures_warehouse_receipt_shfe)=
 #### 仓单日报-上海期货交易所
 
-接口：futures_shfe_warehouse_receipt
+接口：futures_warehouse_receipt_shfe
 
 目标地址：https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
 
@@ -1328,8 +1328,8 @@ print(futures_warehouse_receipt_dce_df)
 ```python
 import akshare as ak
 
-futures_shfe_warehouse_receipt_df = ak.futures_shfe_warehouse_receipt(date="20260924")
-print(futures_shfe_warehouse_receipt_df["螺纹钢仓库"])
+futures_warehouse_receipt_shfe_df = ak.futures_warehouse_receipt_shfe(date="20260924")
+print(futures_warehouse_receipt_shfe_df["螺纹钢仓库"])
 ```
 
 数据示例
@@ -1355,10 +1355,10 @@ print(futures_shfe_warehouse_receipt_df["螺纹钢仓库"])
 16   螺纹钢仓库                 总计     85813      12396         2
 ```
 
-(futures_gfex_warehouse_receipt)=
+(futures_warehouse_receipt_gfex)=
 #### 仓单日报-广州期货交易所
 
-接口：futures_gfex_warehouse_receipt
+接口：futures_warehouse_receipt_gfex
 
 目标地址：http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
 
@@ -1383,8 +1383,8 @@ print(futures_shfe_warehouse_receipt_df["螺纹钢仓库"])
 ```python
 import akshare as ak
 
-futures_gfex_warehouse_receipt_df = ak.futures_gfex_warehouse_receipt(date="20240122")
-print(futures_gfex_warehouse_receipt_df)
+futures_warehouse_receipt_gfex_df = ak.futures_warehouse_receipt_gfex(date="20240122")
+print(futures_warehouse_receipt_gfex_df)
 ```
 
 数据示例
@@ -2500,10 +2500,10 @@ print(futures_contract_info_cffex_df)
 
 ## 期货行情数据
 
-(futures_zh_spot)=
+(futures_zh_contract_realtime_sina)=
 ### 内盘-实时行情数据
 
-接口：futures_zh_spot
+接口：futures_zh_contract_realtime_sina
 
 目标地址：https://finance.sina.com.cn/futuremarket/
 
@@ -2515,7 +2515,7 @@ print(futures_contract_info_cffex_df)
 
 | 名称             | 类型  | 描述                                                    |
 |----------------|-----|-------------------------------------------------------|
-| symbol         | str | symbol="V2309"；合约代码，多个合约用英文逗号分隔，如 "V2205, P2205"    |
+| symbol         | str | symbol="V2701"；合约代码，多个合约用英文逗号分隔，如 "V2701, P2701"    |
 | market         | str | market="CF"; market="CF": 商品期货，market="FF": 金融期货     |
 | adjust         | str | adjust='0'; adjust='1': 返回合约、交易所和最小变动单位的实时数据，返回数据会变慢 |
 
@@ -2544,15 +2544,16 @@ print(futures_contract_info_cffex_df)
 ```python
 import akshare as ak
 
-futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205', market="CF", adjust='0')
-print(futures_zh_spot_df)
+futures_zh_contract_realtime_sina_df = ak.futures_zh_contract_realtime_sina(symbol='V2701', market="CF", adjust='0')
+print(futures_zh_contract_realtime_sina_df)
 ```
 
 数据示例-单品种获取
 
 ```
     symbol    time    open  ...  avg_price  last_close  last_settle_price
-0  PVC2205  151039  8280.0  ...     8449.0      8423.0             8397.0
+0  PVC2701  230000  5069.0  ...        0.0         0.0             4986.0
+[1 rows x 15 columns]
 ```
 
 接口示例-多品种获取
@@ -2561,18 +2562,19 @@ print(futures_zh_spot_df)
 import akshare as ak
 
 # 此处的合约需要是近期的合约, 否则会报错
-futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205, P2205, B2201, M2205', market="CF", adjust='0')
-print(futures_zh_spot_df)
+futures_zh_contract_realtime_sina_df = ak.futures_zh_contract_realtime_sina(symbol='V2701, P2701, B2701, M2701', market="CF", adjust='0')
+print(futures_zh_contract_realtime_sina_df)
 ```
 
 数据示例-多品种获取
 
 ```
     symbol    time    open  ...  avg_price  last_close  last_settle_price
-0  PVC2205  151039  8280.0  ...     8449.0      8423.0             8397.0
-1  棕榈油2205  151039  7690.0  ...     7844.0      7926.0             7848.0
-2   豆二2201  151039  4165.0  ...     4193.0      4203.0             4203.0
-3   豆粕2205  151039  3151.0  ...     3164.0      3153.0             3159.0
+0  PVC2701  230000  5069.0  ...        0.0         0.0             4986.0
+1  棕榈油2701  230000  9000.0  ...        0.0         0.0             8985.0
+2   豆二2701  230000  3915.0  ...        0.0         0.0             3884.0
+3   豆粕2701  230000  3160.0  ...        0.0         0.0             3129.0
+[4 rows x 15 columns]
 ```
 
 接口示例-订阅所有商品期货（大商所，上期所，郑商所主力合约）
@@ -2588,11 +2590,11 @@ gfex_text = ak.match_main_contract(symbol="gfex")
 
 while True:
     time.sleep(3)
-    futures_zh_spot_df = ak.futures_zh_spot(
+    futures_zh_contract_realtime_sina_df = ak.futures_zh_contract_realtime_sina(
         symbol=",".join([dce_text, czce_text, shfe_text, gfex_text]),
         market="CF",
         adjust='0')
-    print(futures_zh_spot_df)
+    print(futures_zh_contract_realtime_sina_df)
 ```
 
 数据示例-商品期货
@@ -2668,8 +2670,8 @@ cffex_text = ak.match_main_contract(symbol="cffex")
 
 while True:
     time.sleep(3)
-    futures_zh_spot_df = ak.futures_zh_spot(symbol=cffex_text, market="FF", adjust='0')
-    print(futures_zh_spot_df)
+    futures_zh_contract_realtime_sina_df = ak.futures_zh_contract_realtime_sina(symbol=cffex_text, market="FF", adjust='0')
+    print(futures_zh_contract_realtime_sina_df)
 ```
 
 数据示例-金融期货
@@ -2687,10 +2689,10 @@ while True:
 3  113365.000  73086  353463074.600
 ```
 
-(futures_zh_realtime)=
+(futures_zh_realtime_sina)=
 ### 内盘-实时行情数据（品种）
 
-接口：futures_zh_realtime
+接口：futures_zh_realtime_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
 
@@ -2737,8 +2739,8 @@ while True:
 ```python
 import akshare as ak
 
-futures_zh_realtime_df = ak.futures_zh_realtime(symbol="白糖")
-print(futures_zh_realtime_df)
+futures_zh_realtime_sina_df = ak.futures_zh_realtime_sina(symbol="白糖")
+print(futures_zh_realtime_sina_df)
 ```
 
 数据示例
@@ -2765,8 +2767,8 @@ futures_symbol_mark_df = ak.futures_symbol_mark()
 big_df = pd.DataFrame()
 for item in futures_symbol_mark_df['symbol']:
     print(item)
-    futures_zh_realtime_df = ak.futures_zh_realtime(symbol=item)
-    big_df = pd.concat([big_df, futures_zh_realtime_df], ignore_index=True)
+    futures_zh_realtime_sina_df = ak.futures_zh_realtime_sina(symbol=item)
+    big_df = pd.concat([big_df, futures_zh_realtime_sina_df], ignore_index=True)
 
 print(big_df)
 ```
@@ -3192,10 +3194,10 @@ print(futures_hq_subscribe_exchange_symbol_df)
 25     欧洲碳排放   EUA
 ```
 
-(futures_foreign_commodity_realtime)=
+(futures_foreign_realtime_sina)=
 ### 外盘-实时行情数据
 
-接口：futures_foreign_commodity_realtime
+接口：futures_foreign_realtime_sina
 
 目标地址：https://finance.sina.com.cn/money/future/hf.html
 
@@ -3233,8 +3235,8 @@ print(futures_hq_subscribe_exchange_symbol_df)
 ```python
 import akshare as ak
 
-futures_foreign_commodity_realtime_df = ak.futures_foreign_commodity_realtime(symbol='CT,NID')
-print(futures_foreign_commodity_realtime_df)
+futures_foreign_realtime_sina_df = ak.futures_foreign_realtime_sina(symbol='CT,NID')
+print(futures_foreign_realtime_sina_df)
 ```
 
 数据示例-传入字符串
@@ -3256,8 +3258,8 @@ print("开始接收实时行情, 每 3 秒刷新一次")
 subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()  # 其中 subscribe_list 为列表
 while True:
     time.sleep(3)
-    futures_foreign_commodity_realtime_df = ak.futures_foreign_commodity_realtime(symbol=subscribe_list)
-    print(futures_foreign_commodity_realtime_df)
+    futures_foreign_realtime_sina_df = ak.futures_foreign_realtime_sina(symbol=subscribe_list)
+    print(futures_foreign_realtime_sina_df)
 ```
 
 数据示例-传入列表
@@ -3296,10 +3298,10 @@ while True:
 [29 rows x 14 columns]
 ```
 
-(futures_global_spot_em)=
+(futures_global_realtime_em)=
 ### 外盘-实时行情数据-东财
 
-接口：futures_global_spot_em
+接口：futures_global_realtime_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#futures_global
 
@@ -3337,8 +3339,8 @@ while True:
 ```python
 import akshare as ak
 
-futures_global_spot_em_df = ak.futures_global_spot_em()
-print(futures_global_spot_em_df)
+futures_global_realtime_em_df = ak.futures_global_realtime_em()
+print(futures_global_realtime_em_df)
 ```
 
 数据示例
@@ -3374,7 +3376,7 @@ print(futures_global_spot_em_df)
 
 | 名称     | 类型  | 描述                                                                        |
 |--------|-----|---------------------------------------------------------------------------|
-| symbol | str | symbol="HG00Y"；品种代码；可以通过 ak.futures_global_spot_em() 来获取所有可获取历史行情数据的品种代码 |
+| symbol | str | symbol="HG00Y"；品种代码；可以通过 ak.futures_global_realtime_em() 来获取所有可获取历史行情数据的品种代码 |
 
 输出参数
 

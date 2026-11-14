@@ -1,9 +1,9 @@
 # 外汇数据
 
-(forex_spot_em)=
+(fx_realtime_em)=
 ## 实时行情数据
 
-接口：forex_spot_em
+接口：fx_realtime_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#forex_all
 
@@ -37,8 +37,8 @@
 ```python
 import akshare as ak
 
-forex_spot_em_df = ak.forex_spot_em()
-print(forex_spot_em_df)
+fx_realtime_em_df = ak.fx_realtime_em()
+print(fx_realtime_em_df)
 ```
 
 数据示例
@@ -59,10 +59,10 @@ print(forex_spot_em_df)
 [190 rows x 10 columns]
 ```
 
-(forex_hist_em)=
+(fx_hist_em)=
 ## 历史行情数据
 
-接口：forex_hist_em
+接口：fx_hist_em
 
 目标地址：https://quote.eastmoney.com/cnyrate/EURCNYC.html
 
@@ -74,7 +74,7 @@ print(forex_spot_em_df)
 
 | 名称     | 类型  | 描述                                                                |
 |--------|-----|-------------------------------------------------------------------|
-| symbol | str | symbol="USDCNH"；品种代码；可以通过 ak.forex_spot_em() 来获取所有可获取历史行情数据的品种代码 |
+| symbol | str | symbol="USDCNH"；品种代码；可以通过 ak.fx_realtime_em() 来获取所有可获取历史行情数据的品种代码 |
 
 输出参数
 
@@ -96,8 +96,8 @@ print(forex_spot_em_df)
 ```python
 import akshare as ak
 
-forex_hist_em_df = ak.forex_hist_em(symbol="USDCNH")
-print(forex_hist_em_df)
+fx_hist_em_df = ak.fx_hist_em(symbol="USDCNH")
+print(fx_hist_em_df)
 ```
 
 数据示例
@@ -118,10 +118,10 @@ print(forex_hist_em_df)
 [3781 rows x 8 columns]
 ```
 
-(currency_boc_sina)=
+(fx_boc_rate_sina)=
 ## 人民币牌价数据
 
-接口：currency_boc_sina
+接口：fx_boc_rate_sina
 
 目标地址：https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
 
@@ -152,8 +152,8 @@ print(forex_hist_em_df)
 ```python
 import akshare as ak
 
-currency_boc_sina_df = ak.currency_boc_sina(symbol="美元", start_date="20230304", end_date="20231110")
-print(currency_boc_sina_df)
+fx_boc_rate_sina_df = ak.fx_boc_rate_sina(symbol="美元", start_date="20230304", end_date="20231110")
+print(fx_boc_rate_sina_df)
 ```
 
 数据示例
@@ -174,10 +174,10 @@ print(currency_boc_sina_df)
 [180 rows x 5 columns]
 ```
 
-(currency_boc_safe)=
+(fx_central_parity_safe)=
 ## 人民币汇率中间价
 
-接口：currency_boc_safe
+接口：fx_central_parity_safe
 
 目标地址：https://www.safe.gov.cn/safe/rmbhlzjj/index.html
 
@@ -228,8 +228,8 @@ P.S. 人民币对马来西亚林吉特、俄罗斯卢布、南非兰特、韩元
 ```python
 import akshare as ak
 
-currency_boc_safe_df = ak.currency_boc_safe()
-print(currency_boc_safe_df)
+fx_central_parity_safe_df = ak.fx_central_parity_safe()
+print(fx_central_parity_safe_df)
 ```
 
 数据示例
@@ -502,16 +502,16 @@ print(fx_pair_quote_df)
 10  EUR/GBP    0.86308    0.86308
 ```
 
-(currency_pair_map)=
+(fx_pair_map_investing)=
 ## 指定币种的所有货币对
 
-接口：currency_pair_map
+接口：fx_pair_map_investing
 
 目标地址：https://cn.investing.com/currencies/cny-jmd
 
 描述：指定币种的所有能够获取到的货币对信息，历史数据可以调用 **ak.currency_history()** 获取
 
-限量：单次返回指定币种的所有能获取数据的货币对
+限量：单次返回指定币种的所有能获取数据的货币对；英为财情在中国大陆通常无法直接访问，需先用 ak.set_proxies() 设置代理
 
 输入参数
 
@@ -524,39 +524,39 @@ print(fx_pair_quote_df)
 | 名称   | 类型      | 描述      |
 |------|---------|---------|
 | name | str     | 货币对中文简称 |
-| code | float64 | 货币对代码   |
+| code | str     | 货币对代码   |
 
 接口示例
 
 ```python
 import akshare as ak
 
-currency_pair_map_df = ak.currency_pair_map(symbol="人民币")
-print(currency_pair_map_df)
+fx_pair_map_investing_df = ak.fx_pair_map_investing(symbol="人民币")
+print(fx_pair_map_investing_df)
 ```
 
 数据示例
 
 ```
-         name     code
+          name     code
 0     人民币-丹麦克朗  cny-dkk
 1     丹麦克朗-人民币  dkk-cny
 2     人民币-瑞士法郎  cny-chf
 3     瑞士法郎-人民币  chf-cny
 4     人民币-捷克克朗  cny-czk
 ..         ...      ...
-85   人民币-澳大利亚元  cny-aud
-86   澳大利亚元-人民币  aud-cny
-87    人民币-新西兰元  cny-nzd
-88    新西兰元-人民币  nzd-cny
-89  人民币-巴拿马巴波亚  cny-pab
-[90 rows x 2 columns]
+87   人民币-澳大利亚元  cny-aud
+88   澳大利亚元-人民币  aud-cny
+89    人民币-新西兰元  cny-nzd
+90    新西兰元-人民币  nzd-cny
+91  人民币-巴拿马巴波亚  cny-pab
+[92 rows x 2 columns]
 ```
 
-(macro_fx_sentiment)=
+(fx_sentiment_js)=
 ## 货币对-投机情绪报告
 
-接口：macro_fx_sentiment
+接口：fx_sentiment_js
 
 目标地址：https://datacenter.jin10.com/reportType/dc_ssi_trends
 
@@ -607,8 +607,8 @@ print(currency_pair_map_df)
 ```python
 import akshare as ak
 
-macro_fx_sentiment_df = ak.macro_fx_sentiment(start_date="20261112", end_date="20261112")
-print(macro_fx_sentiment_df)
+fx_sentiment_js_df = ak.fx_sentiment_js(start_date="20261112", end_date="20261112")
+print(fx_sentiment_js_df)
 ```
 
 数据示例

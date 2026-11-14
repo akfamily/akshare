@@ -41,7 +41,7 @@ def _option_comm_page(params: dict = None) -> str:
 
 
 @lru_cache()
-def option_comm_symbol() -> pd.DataFrame:
+def option_fee_symbol_9qihuo() -> pd.DataFrame:
     """
     九期网-商品期权手续费-品种列表
     https://www.9qihuo.com/qiquanshouxufei
@@ -62,7 +62,7 @@ def option_comm_symbol() -> pd.DataFrame:
     return temp_df
 
 
-def option_comm_info(symbol: str = "工业硅期权") -> pd.DataFrame:
+def option_fee_9qihuo(symbol: str = "工业硅期权") -> pd.DataFrame:
     """
     九期网-商品期权手续费
     https://www.9qihuo.com/qiquanshouxufei
@@ -72,11 +72,11 @@ def option_comm_info(symbol: str = "工业硅期权") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
 
-    symbol_df = option_comm_symbol()
+    symbol_df = option_fee_symbol_9qihuo()
     matched = symbol_df[symbol_df["品种名称"].str.contains(symbol, regex=False)]
     if matched.empty:
         raise InvalidParameterError(
-            f"九期网没有品种 {symbol}，可选品种请通过 ak.option_comm_symbol() 获取"
+            f"九期网没有品种 {symbol}，可选品种请通过 ak.option_fee_symbol_9qihuo() 获取"
         )
     html = _option_comm_page({"heyue": matched["品种代码"].values[0]})
     temp_df = pd.read_html(StringIO(html))[0]
@@ -104,8 +104,8 @@ def option_comm_info(symbol: str = "工业硅期权") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    option_comm_symbol_df = option_comm_symbol()
-    print(option_comm_symbol_df)
+    option_fee_symbol_9qihuo_df = option_fee_symbol_9qihuo()
+    print(option_fee_symbol_9qihuo_df)
 
-    option_comm_info_df = option_comm_info(symbol="工业硅期权")
-    print(option_comm_info_df)
+    option_fee_9qihuo_df = option_fee_9qihuo(symbol="工业硅期权")
+    print(option_fee_9qihuo_df)

@@ -98,11 +98,11 @@ def test_option_comm_info_parses_update_times(monkeypatch):
         "<tr><td>工业硅期权</td><td>1</td><td>114</td><td>5</td><td>2.9</td></tr></table>"
     )
     symbols = pd.DataFrame({"品种名称": ["工业硅期权"], "品种代码": ["si_o"]})
-    monkeypatch.setattr(option_comm_qihuo, "option_comm_symbol", lambda: symbols)
+    monkeypatch.setattr(option_comm_qihuo, "option_fee_symbol_9qihuo", lambda: symbols)
     monkeypatch.setattr(
         option_comm_qihuo, "_option_comm_page", lambda params=None: html
     )
-    df = option_comm_qihuo.option_comm_info(symbol="工业硅期权")
+    df = option_comm_qihuo.option_fee_9qihuo(symbol="工业硅期权")
     assert df["手续费更新时间"].iloc[0] == "2026-10-30 00:50:17.461"
     assert df["价格更新时间"].iloc[0] == "2026-10-30 15:00:06.774"
     assert df["交易所"].iloc[0] == "广州期货交易所"

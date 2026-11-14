@@ -43,7 +43,7 @@ def __reits_code_market_map() -> Dict:
     return temp_dict
 
 
-def reits_realtime_em() -> pd.DataFrame:
+def fund_reits_spot_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-REITs-沪深 REITs
     https://quote.eastmoney.com/center/gridlist.html#fund_reits_all
@@ -113,7 +113,7 @@ def reits_realtime_em() -> pd.DataFrame:
     return temp_df
 
 
-def reits_hist_em(symbol: str = "508097") -> pd.DataFrame:
+def fund_reits_hist_em(symbol: str = "508097") -> pd.DataFrame:
     """
     东方财富网-行情中心-REITs-沪深 REITs-历史行情
     https://quote.eastmoney.com/sh508097.html
@@ -170,7 +170,7 @@ def reits_hist_em(symbol: str = "508097") -> pd.DataFrame:
     return temp_df
 
 
-def reits_hist_min_em(symbol: str = "508097") -> pd.DataFrame:
+def fund_reits_hist_min_em(symbol: str = "508097") -> pd.DataFrame:
     """
     东方财富网-行情中心-REITs-沪深 REITs-历史行情
     https://quote.eastmoney.com/sh508097.html
@@ -212,11 +212,11 @@ def reits_hist_min_em(symbol: str = "508097") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    reits_realtime_em_df = reits_realtime_em()
-    print(reits_realtime_em_df)
+    fund_reits_spot_em_df = fund_reits_spot_em()
+    print(fund_reits_spot_em_df)
 
-    reits_hist_em_df = reits_hist_em(symbol="508097")
-    print(reits_hist_em_df)
+    fund_reits_hist_em_df = fund_reits_hist_em(symbol="508097")
+    print(fund_reits_hist_em_df)
 
-    reits_hist_min_em_df = reits_hist_min_em(symbol="508097")
-    print(reits_hist_min_em_df)
+    fund_reits_hist_min_em_df = fund_reits_hist_min_em(symbol="508097")
+    print(fund_reits_hist_min_em_df)

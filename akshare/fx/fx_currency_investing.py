@@ -9,11 +9,13 @@ https://cn.investing.com/currencies/eur-usd-historical-data
 
 import pandas as pd
 from bs4 import BeautifulSoup
+
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
 
-def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
+def fx_pair_map_investing(symbol: str = "美元") -> pd.DataFrame:
     """
     指定货币的所有可获取货币对的数据
     https://cn.investing.com/currencies/cny-jmd
@@ -24,19 +26,10 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
     """
     region_code = []
     region_name = []
+    # 英为财情按 TLS 指纹拦截程序访问，requests 与 Chrome 指纹均返回 403，
+    # 因此经 curl_cffi 以 Safari 指纹请求，且不自行设置 User-Agent
     headers = {
-        "Accept": "application/json, text/javascript, */*; q=0.01",
-        # "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "cn.investing.com",
-        "Pragma": "no-cache",
         "Referer": "https://cn.investing.com/currencies/single-currency-crosses",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
 
@@ -48,7 +41,8 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         url = "https://cn.investing.com/currencies/Service/region"
         params = {"region_ID": region_id, "currency_ID": "false"}
 
-        r = http.get(url, params=params, headers=headers)
+        r = http.curl_get(url, params=params, headers=headers, impersonate="safari")
+        r.raise_for_status()
         soup = BeautifulSoup(r.text, features="lxml")
         region_code.extend(
             [
@@ -61,12 +55,17 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         )
 
     name_id_map = dict(zip(region_name, region_code))
+    if symbol not in name_id_map:
+        raise InvalidParameterError(
+            f"英为财情没有币种 {symbol}，请使用网页上的中文币种名称，如 人民币、美元"
+        )
     url = "https://cn.investing.com/currencies/Service/currency"
     params = {
         "region_ID": name_id_map[symbol].split("-")[1],
         "currency_ID": name_id_map[symbol].split("-")[0],
     }
-    r = http.get(url, params=params, headers=headers)
+    r = http.curl_get(url, params=params, headers=headers, impersonate="safari")
+    r.raise_for_status()
     soup = BeautifulSoup(r.text, features="lxml")
 
     temp_code = [item["href"].split("/")[-1] for item in soup.find_all("a")]  # need
@@ -76,5 +75,5 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    currency_pair_map_df = currency_pair_map(symbol="人民币")
-    print(currency_pair_map_df)
+    fx_pair_map_investing_df = fx_pair_map_investing(symbol="人民币")
+    print(fx_pair_map_investing_df)

@@ -100,7 +100,7 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
     return temp_df
 
 
-def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.DataFrame:
+def futures_foreign_realtime_sina(symbol: Union[str, List[str]]) -> pd.DataFrame:
     """
     新浪-外盘期货-行情数据
     https://finance.sina.com.cn/money/future/hf.html
@@ -280,19 +280,15 @@ if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
 
-    futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
-        symbol="CT,NID"
-    )
-    print(futures_foreign_commodity_realtime_df)
+    futures_foreign_realtime_sina_df = futures_foreign_realtime_sina(symbol="CT,NID")
+    print(futures_foreign_realtime_sina_df)
 
-    futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
-        symbol=["XAU"]
-    )
-    print(futures_foreign_commodity_realtime_df)
+    futures_foreign_realtime_sina_df = futures_foreign_realtime_sina(symbol=["XAU"])
+    print(futures_foreign_realtime_sina_df)
 
     while True:
-        futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
+        futures_foreign_realtime_sina_df = futures_foreign_realtime_sina(
             symbol=subscribes
         )
-        print(futures_foreign_commodity_realtime_df)
+        print(futures_foreign_realtime_sina_df)
         time.sleep(3)

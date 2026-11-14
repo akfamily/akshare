@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def crypto_js_spot() -> pd.DataFrame:
+def crypto_realtime_js() -> pd.DataFrame:
     """
     主流加密货币的实时行情数据，一次请求返回具体某一时刻行情数据
     https://datacenter.jin10.com/reportType/dc_bitcoin_current
@@ -51,5 +51,5 @@ def crypto_js_spot() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    crypto_js_spot_df = crypto_js_spot()
-    print(crypto_js_spot_df)
+    crypto_realtime_js_df = crypto_realtime_js()
+    print(crypto_realtime_js_df)

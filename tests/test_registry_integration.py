@@ -57,7 +57,8 @@ def test_search_daily_bars_rank_first_for_colloquial_query():
         "stock_zh_a_daily",
         "stock_zh_a_hist_tx",
     }
-    assert set(_names("港股 日线", 2)) == {"stock_hk_daily", "stock_hk_hist"}
+    # 港股指数的日线接口（index_hk_daily_sina）与个股日线同分，取前三
+    assert set(_names("港股 日线", 3)) >= {"stock_hk_daily", "stock_hk_hist"}
     assert set(_names("期货 日线", 5)) >= {"futures_zh_daily_sina", "futures_hist_em"}
     assert _names("期货 分钟", 1) == ["futures_zh_minute_sina"]
     assert set(_names("A股 实时行情", 2)) == {"stock_zh_a_spot_em", "stock_zh_a_spot"}

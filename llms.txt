@@ -243,12 +243,12 @@ Representative examples:
 - `ak.stock_zh_a_hist(...)`
 - `ak.stock_individual_info_em(...)`
 - `ak.fund_open_fund_info_em(...)`
-- `ak.futures_zh_spot()`
-- `ak.option_current_em()`
-- `ak.bond_zh_hs_cov_spot()`
+- `ak.futures_zh_contract_realtime_sina()`
+- `ak.option_realtime_em()`
+- `ak.bond_cb_realtime_sina()`
 - `ak.macro_china_cpi()`
 - `ak.news_cctv()`
-- `ak.crypto_js_spot()`
+- `ak.crypto_realtime_js()`
 
 ## Project Structure
 

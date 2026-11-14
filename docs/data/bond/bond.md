@@ -499,10 +499,10 @@ print(bond_china_yield_df)
 
 ## 沪深债券
 
-(bond_zh_hs_spot)=
+(bond_zh_hs_realtime_sina)=
 ### 实时行情数据
 
-接口：bond_zh_hs_spot
+接口：bond_zh_hs_realtime_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#hs_z
 
@@ -540,25 +540,25 @@ print(bond_china_yield_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_spot_df = ak.bond_zh_hs_spot(start_page="1", end_page="5")
-print(bond_zh_hs_spot_df)
+bond_zh_hs_realtime_sina_df = ak.bond_zh_hs_realtime_sina(start_page="1", end_page="5")
+print(bond_zh_hs_realtime_sina_df)
 ```
 
 数据示例
 
 ```
-      代码      名称      最新价   涨跌额  ...   最高       最低    成交量   成交额
-0    sh010107   21国债⑺  100.010  0.00  ...    0.000    0.000      0        0
-1    sh010303   03国债⑶  100.010  0.00  ...    0.000    0.000      0        0
-2    sh010504   05国债⑷  102.396  0.05  ...  102.397  102.395  10390  1063895
-3    sh010512   05国债⑿  100.050  0.00  ...    0.000    0.000      0        0
-4    sh010609   06国债⑼  100.000  0.00  ...    0.000    0.000      0        0
-..        ...     ...      ...   ...  ...      ...      ...    ...      ...
-395  sh020418  21贴债21   99.550  0.00  ...    0.000    0.000      0        0
-396  sh020419  21贴债22   99.560  0.00  ...    0.000    0.000      0        0
-397  sh020420  21贴债23   99.570  0.00  ...    0.000    0.000      0        0
-398  sh020421  21贴债24   99.560  0.00  ...    0.000    0.000      0        0
-399  sh020422  21贴债25   99.030  0.00  ...    0.000    0.000      0        0
+           代码      名称     最新价  涨跌额  涨跌幅  ...   今开   最高   最低  成交量  成交额
+0    bj810011    优机定转    0.00  0.0  0.0  ...  0.0  0.0  0.0    0    0
+1    bj810013    万通定转    0.00  0.0  0.0  ...  0.0  0.0  0.0    0    0
+2    bj810014    莱特定转    0.00  0.0  0.0  ...  0.0  0.0  0.0    0    0
+3    sh010107   21国债⑺  100.01  0.0  0.0  ...  0.0  0.0  0.0    0    0
+4    sh010303   03国债⑶  100.01  0.0  0.0  ...  0.0  0.0  0.0    0    0
+..        ...     ...     ...  ...  ...  ...  ...  ...  ...  ...  ...
+395  sh020320  19贴债43   98.80  0.0  0.0  ...  0.0  0.0  0.0    0    0
+396  sh020325  19贴债48   98.74  0.0  0.0  ...  0.0  0.0  0.0    0    0
+397  sh020331  19贴债54   98.79  0.0  0.0  ...  0.0  0.0  0.0    0    0
+398  sh020334  20贴债01   99.53  0.0  0.0  ...  0.0  0.0  0.0    0    0
+399  sh020335  20贴债02   99.01  0.0  0.0  ...  0.0  0.0  0.0    0    0
 [400 rows x 13 columns]
 ```
 
@@ -737,10 +737,10 @@ print(bond_cb_summary_sina_df)
 14        凸性          --
 ```
 
-(bond_zh_hs_cov_spot)=
+(bond_cb_realtime_sina)=
 ### 实时行情数据
 
-接口：bond_zh_hs_cov_spot
+接口：bond_cb_realtime_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 
@@ -765,8 +765,8 @@ print(bond_cb_summary_sina_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_cov_spot_df = ak.bond_zh_hs_cov_spot()
-print(bond_zh_hs_cov_spot_df)
+bond_cb_realtime_sina_df = ak.bond_cb_realtime_sina()
+print(bond_cb_realtime_sina_df)
 ```
 
 数据示例
@@ -787,10 +787,10 @@ print(bond_zh_hs_cov_spot_df)
 [560 rows x 15 columns]
 ```
 
-(bond_zh_hs_cov_daily)=
+(bond_cb_daily_sina)=
 ### 历史行情数据-日频
 
-接口：bond_zh_hs_cov_daily
+接口：bond_cb_daily_sina
 
 目标地址：https://biz.finance.sina.com.cn/suggest/lookup_n.php?q=sh110048
 
@@ -820,8 +820,8 @@ print(bond_zh_hs_cov_spot_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_cov_daily_df = ak.bond_zh_hs_cov_daily(symbol="sz128039")
-print(bond_zh_hs_cov_daily_df)
+bond_cb_daily_sina_df = ak.bond_cb_daily_sina(symbol="sz128039")
+print(bond_cb_daily_sina_df)
 ```
 
 数据示例
@@ -842,10 +842,10 @@ print(bond_zh_hs_cov_daily_df)
 [1375 rows x 6 columns]
 ```
 
-(bond_zh_hs_cov_min)=
+(bond_cb_hist_min_em)=
 ### 历史行情数据-分时
 
-接口：bond_zh_hs_cov_min
+接口：bond_cb_hist_min_em
 
 目标地址：https://quote.eastmoney.com/concept/sz128039.html
 
@@ -881,8 +881,8 @@ print(bond_zh_hs_cov_daily_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_cov_min_df = ak.bond_zh_hs_cov_min(symbol="sz123124", period='1', adjust='', start_date="1979-09-01 09:32:00", end_date="2222-01-01 09:32:00")
-print(bond_zh_hs_cov_min_df)
+bond_cb_hist_min_em_df = ak.bond_cb_hist_min_em(symbol="sz123124", period='1', adjust='', start_date="1979-09-01 09:32:00", end_date="2222-01-01 09:32:00")
+print(bond_cb_hist_min_em_df)
 ```
 
 数据示例-1分钟数据
@@ -923,8 +923,8 @@ print(bond_zh_hs_cov_min_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_cov_min_df = ak.bond_zh_hs_cov_min(symbol="sz123124", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
-print(bond_zh_hs_cov_min_df)
+bond_cb_hist_min_em_df = ak.bond_cb_hist_min_em(symbol="sz123124", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+print(bond_cb_hist_min_em_df)
 ```
 
 数据示例-其他
@@ -944,10 +944,10 @@ print(bond_zh_hs_cov_min_df)
 1487  2021-11-02 15:00:00  120.018  120.099  ...    764406.0  0.10  0.12
 ```
 
-(bond_zh_hs_cov_pre_min)=
+(bond_cb_pre_min_em)=
 ### 历史行情数据-盘前分时
 
-接口：bond_zh_hs_cov_pre_min
+接口：bond_cb_pre_min_em
 
 目标地址：https://quote.eastmoney.com/concept/sz128039.html
 
@@ -979,8 +979,8 @@ print(bond_zh_hs_cov_min_df)
 ```python
 import akshare as ak
 
-bond_zh_hs_cov_pre_min_df = ak.bond_zh_hs_cov_pre_min(symbol="sh113570")
-print(bond_zh_hs_cov_pre_min_df)
+bond_cb_pre_min_em_df = ak.bond_cb_pre_min_em(symbol="sh113570")
+print(bond_cb_pre_min_em_df)
 ```
 
 数据示例
@@ -1000,10 +1000,10 @@ print(bond_zh_hs_cov_pre_min_df)
 135  2022-07-27 11:30:00  128.81  128.78  ...    7    9016.0  128.4235
 ```
 
-(bond_zh_cov)=
+(bond_cb_list_em)=
 ### 可转债数据一览表
 
-接口：bond_zh_cov
+接口：bond_cb_list_em
 
 目标地址：https://data.eastmoney.com/kzz/default.html
 
@@ -1046,8 +1046,8 @@ print(bond_zh_hs_cov_pre_min_df)
 ```python
 import akshare as ak
 
-bond_zh_cov_df = ak.bond_zh_cov()
-print(bond_zh_cov_df)
+bond_cb_list_em_df = ak.bond_cb_list_em()
+print(bond_cb_list_em_df)
 ```
 
 数据示例
@@ -1068,10 +1068,10 @@ print(bond_zh_cov_df)
 [920 rows x 19 columns]
 ```
 
-(bond_zh_cov_info)=
+(bond_cb_info_em)=
 ### 可转债详情
 
-接口：bond_zh_cov_info
+接口：bond_cb_info_em
 
 目标地址：https://data.eastmoney.com/kzz/detail/123121.html
 
@@ -1097,8 +1097,8 @@ print(bond_zh_cov_df)
 ```python
 import akshare as ak
 
-bond_zh_cov_info_df = ak.bond_zh_cov_info(symbol="123121", indicator="基本信息")
-print(bond_zh_cov_info_df)
+bond_cb_info_em_df = ak.bond_cb_info_em(symbol="123121", indicator="基本信息")
+print(bond_cb_info_em_df)
 ```
 
 数据示例
@@ -1108,10 +1108,10 @@ print(bond_zh_cov_info_df)
 0        123121  123121.SZ       CNSESZ  ...                是         是           是
 ```
 
-(bond_zh_cov_info_ths)=
+(bond_cb_list_ths)=
 ### 可转债详情-同花顺
 
-接口：bond_zh_cov_info_ths
+接口：bond_cb_list_ths
 
 目标地址：https://data.10jqka.com.cn/ipo/bond/
 
@@ -1151,8 +1151,8 @@ print(bond_zh_cov_info_df)
 ```python
 import akshare as ak
 
-bond_zh_cov_info_ths_df = ak.bond_zh_cov_info_ths()
-print(bond_zh_cov_info_ths_df)
+bond_cb_list_ths_df = ak.bond_cb_list_ths()
+print(bond_cb_list_ths_df)
 ```
 
 数据示例
@@ -1173,10 +1173,10 @@ print(bond_zh_cov_info_ths_df)
 [849 rows x 16 columns]
 ```
 
-(bond_cov_comparison)=
+(bond_cb_comparison_em)=
 ### 可转债比价表
 
-接口：bond_cov_comparison
+接口：bond_cb_comparison_em
 
 目标地址：https://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
 
@@ -1220,8 +1220,8 @@ print(bond_zh_cov_info_ths_df)
 ```python
 import akshare as ak
 
-bond_cov_comparison_df = ak.bond_cov_comparison()
-print(bond_cov_comparison_df)
+bond_cb_comparison_em_df = ak.bond_cb_comparison_em()
+print(bond_cb_comparison_em_df)
 ```
 
 数据示例
@@ -1242,10 +1242,10 @@ print(bond_cov_comparison_df)
 [550 rows x 20 columns]
 ```
 
-(bond_zh_cov_value_analysis)=
+(bond_cb_value_analysis_em)=
 ### 可转债价值分析
 
-接口：bond_zh_cov_value_analysis
+接口：bond_cb_value_analysis_em
 
 目标地址：https://data.eastmoney.com/kzz/detail/113527.html
 
@@ -1275,8 +1275,8 @@ print(bond_cov_comparison_df)
 ```python
 import akshare as ak
 
-bond_zh_cov_value_analysis_df = ak.bond_zh_cov_value_analysis(symbol="113527")
-print(bond_zh_cov_value_analysis_df)
+bond_cb_value_analysis_em_df = ak.bond_cb_value_analysis_em(symbol="113527")
+print(bond_cb_value_analysis_em_df)
 ```
 
 数据示例
@@ -1299,13 +1299,13 @@ print(bond_zh_cov_value_analysis_df)
 
 ### 可转债溢价率分析
 
-接口：bond_zh_cov_value_analysis
+接口：bond_cb_value_analysis_em
 
 目标地址：https://data.eastmoney.com/kzz/detail/113527.html
 
 描述：东方财富网-行情中心-新股数据-可转债数据-可转债溢价率分析
 
-限量：单次返回所有可转债溢价率分析数据；此接口同 bond_zh_cov_value_analysis
+限量：单次返回所有可转债溢价率分析数据；此接口同 bond_cb_value_analysis_em
 
 输入参数
 
@@ -1329,8 +1329,8 @@ print(bond_zh_cov_value_analysis_df)
 ```python
 import akshare as ak
 
-bond_zh_cov_value_analysis_df = ak.bond_zh_cov_value_analysis(symbol="113527")
-print(bond_zh_cov_value_analysis_df)
+bond_cb_value_analysis_em_df = ak.bond_cb_value_analysis_em(symbol="113527")
+print(bond_cb_value_analysis_em_df)
 ```
 
 数据示例
@@ -2274,10 +2274,10 @@ print(bond_corporate_issue_cninfo_df)
 [434 rows x 17 columns]
 ```
 
-(bond_cov_issue_cninfo)=
+(bond_cb_issue_cninfo)=
 ### 可转债发行
 
-接口：bond_cov_issue_cninfo
+接口：bond_cb_issue_cninfo
 
 目标地址：https://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -2331,8 +2331,8 @@ print(bond_corporate_issue_cninfo_df)
 ```python
 import akshare as ak
 
-bond_cov_issue_cninfo_df = ak.bond_cov_issue_cninfo(start_date="20210913", end_date="20211112")
-print(bond_cov_issue_cninfo_df)
+bond_cb_issue_cninfo_df = ak.bond_cb_issue_cninfo(start_date="20210913", end_date="20211112")
+print(bond_cb_issue_cninfo_df)
 ```
 
 数据示例
@@ -2357,10 +2357,10 @@ print(bond_cov_issue_cninfo_df)
 [15 rows x 31 columns]
 ```
 
-(bond_cov_stock_issue_cninfo)=
+(bond_cb_conversion_cninfo)=
 ### 可转债转股
 
-接口：bond_cov_stock_issue_cninfo
+接口：bond_cb_conversion_cninfo
 
 目标地址：https://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -2392,8 +2392,8 @@ print(bond_cov_issue_cninfo_df)
 ```python
 import akshare as ak
 
-bond_cov_stock_issue_cninfo_df = ak.bond_cov_stock_issue_cninfo()
-print(bond_cov_stock_issue_cninfo_df)
+bond_cb_conversion_cninfo_df = ak.bond_cb_conversion_cninfo()
+print(bond_cb_conversion_cninfo_df)
 ```
 
 数据示例

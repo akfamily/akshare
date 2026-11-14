@@ -176,7 +176,7 @@ FIXTURE = {
             "example": None,
         },
         {
-            "name": "bond_zh_hs_cov_daily",
+            "name": "bond_cb_daily_sina",
             "module": "akshare.bond.b",
             "category": "bond",
             "documented": True,
@@ -291,7 +291,7 @@ def test_bigrams_compresses_whitespace_before_splitting():
 
 
 def test_search_exact_name_is_ranked_first():
-    # bond_zh_hs_daily 与 bond_zh_hs_cov_daily 是近似名字（后者是前者插入了
+    # bond_zh_hs_daily 与 bond_cb_daily_sina 是近似名字（后者是前者插入了
     # "cov_"），2-gram 降级分几乎相同，字典序上 cov 版本更靠前。如果降级路径
     # 覆盖了精确命中接口名的主分（而不是与主分取最大值），精确查询就会被
     # 挤到第二位，这条测试用来钉住这个回归。

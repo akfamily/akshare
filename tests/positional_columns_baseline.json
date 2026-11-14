@@ -13,7 +13,6 @@
  "akshare/bond/bond_info_cm.py": 4,
  "akshare/bond/bond_summary.py": 2,
  "akshare/bond/bond_zh_cov.py": 5,
- "akshare/bond/bond_zh_sina.py": 1,
  "akshare/calendar/calendar_trade_date_hist.py": 1,
  "akshare/crypto/crypto_hold.py": 1,
  "akshare/crypto/crypto_js_spot.py": 1,

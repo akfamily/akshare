@@ -399,11 +399,11 @@ from akshare.stock.quote.stock_profile_em import (
     stock_hk_security_profile_em,
 )
 from akshare.stock.quote.stock_summary import (
-    stock_sse_deal_daily,
-    stock_sse_summary,
-    stock_szse_area_summary,
-    stock_szse_sector_summary,
-    stock_szse_summary,
+    stock_area_summary_szse,
+    stock_deal_daily_sse,
+    stock_sector_summary_szse,
+    stock_summary_sse,
+    stock_summary_szse,
 )
 from akshare.stock.quote.stock_us_famous import stock_us_famous_spot_em
 from akshare.stock.quote.stock_us_pink import stock_us_pink_spot_em
@@ -425,7 +425,7 @@ from akshare.stock.quote.stock_zh_a_special import (
     stock_zh_a_st_em,
     stock_zh_a_stop_em,
 )
-from akshare.stock.quote.stock_zh_a_tick_tx import stock_zh_a_tick_tx_js
+from akshare.stock.quote.stock_zh_a_tick_tx import stock_zh_a_tick_tx
 from akshare.stock.quote.stock_zh_a_tx import stock_zh_a_spot_tx
 from akshare.stock.quote.stock_zh_ah_tx import (
     stock_zh_ah_daily,
@@ -548,9 +548,9 @@ from akshare.futures.futures_basis import (
     futures_spot_price_previous,
 )
 from akshare.futures.futures_comex_em import futures_comex_inventory
-from akshare.futures.futures_comm_ctp import futures_fees_info
-from akshare.futures.futures_comm_js import futures_comm_js
-from akshare.futures.futures_comm_qihuo import futures_comm_info
+from akshare.futures.futures_comm_ctp import futures_fee_ctp
+from akshare.futures.futures_comm_js import futures_fee_js
+from akshare.futures.futures_comm_qihuo import futures_fee_9qihuo
 from akshare.futures.futures_contract_detail import (
     futures_contract_detail,
     futures_contract_detail_em,
@@ -562,9 +562,9 @@ from akshare.futures.futures_contract_info_gfex import futures_contract_info_gfe
 from akshare.futures.futures_contract_info_ine import futures_contract_info_ine
 from akshare.futures.futures_contract_info_shfe import futures_contract_info_shfe
 from akshare.futures.futures_cot import (
-    futures_dce_position_rank,
-    futures_dce_position_rank_other,
-    futures_gfex_position_rank,
+    futures_position_rank_dce,
+    futures_position_rank_gfex,
+    futures_position_rank_other_dce,
     futures_rank_sum,
     futures_rank_sum_daily,
     futures_rank_table_cffex,
@@ -584,7 +584,10 @@ from akshare.futures.futures_daily_bar import (
     futures_hist_daily_cffex,
 )
 from akshare.futures.futures_foreign import futures_foreign_detail, futures_foreign_hist
-from akshare.futures.futures_hf_em import futures_global_hist_em, futures_global_spot_em
+from akshare.futures.futures_hf_em import (
+    futures_global_hist_em,
+    futures_global_realtime_em,
+)
 from akshare.futures.futures_hist_em import futures_hist_em, futures_hist_table_em
 from akshare.futures.futures_hog import (
     futures_hog_core,
@@ -593,8 +596,8 @@ from akshare.futures.futures_hog import (
 )
 from akshare.futures.futures_hog_index import index_hog_spot_price
 from akshare.futures.futures_hq_sina import (
-    futures_foreign_commodity_realtime,
     futures_foreign_commodity_subscribe_exchange_symbol,
+    futures_foreign_realtime_sina,
     futures_hq_subscribe_exchange_symbol,
 )
 from akshare.futures.futures_index_ccidx import futures_index_ccidx
@@ -610,7 +613,7 @@ from akshare.futures.futures_roll_yield import (
     futures_roll_yield,
     futures_roll_yield_bar,
 )
-from akshare.futures.futures_rule import futures_rule
+from akshare.futures.futures_rule import futures_trading_rule_gtja
 from akshare.futures.futures_settle import (
     futures_settle,
     futures_settle_cffex,
@@ -633,22 +636,22 @@ from akshare.futures.futures_to_spot import (
     futures_to_spot_shfe,
 )
 from akshare.futures.futures_warehouse_receipt import (
-    futures_gfex_warehouse_receipt,
-    futures_shfe_warehouse_receipt,
     futures_warehouse_receipt_czce,
     futures_warehouse_receipt_dce,
+    futures_warehouse_receipt_gfex,
+    futures_warehouse_receipt_shfe,
 )
 from akshare.futures.futures_zh_sina import (
     futures_symbol_mark,
+    futures_zh_contract_realtime_sina,
     futures_zh_daily_sina,
     futures_zh_minute_sina,
-    futures_zh_realtime,
-    futures_zh_spot,
+    futures_zh_realtime_sina,
     match_main_contract,
 )
 
 # ---- 期权（akshare/option） ----
-from akshare.option.option_comm_qihuo import option_comm_info, option_comm_symbol
+from akshare.option.option_comm_qihuo import option_fee_9qihuo, option_fee_symbol_9qihuo
 from akshare.option.option_commodity import (
     option_hist_czce,
     option_hist_dce,
@@ -670,21 +673,21 @@ from akshare.option.option_daily_stats_sse_szse import (
     option_daily_stats_sse,
     option_daily_stats_szse,
 )
-from akshare.option.option_em import option_current_em
+from akshare.option.option_em import option_realtime_em
 from akshare.option.option_finance import (
     option_finance_board,
-    option_finance_sse_underlying,
+    option_finance_underlying_sse,
 )
 from akshare.option.option_finance_sina import (
     option_cffex_hs300_daily_sina,
     option_cffex_hs300_list_sina,
-    option_cffex_hs300_spot_sina,
+    option_cffex_hs300_realtime_sina,
     option_cffex_sz50_daily_sina,
     option_cffex_sz50_list_sina,
-    option_cffex_sz50_spot_sina,
+    option_cffex_sz50_realtime_sina,
     option_cffex_zz1000_daily_sina,
     option_cffex_zz1000_list_sina,
-    option_cffex_zz1000_spot_sina,
+    option_cffex_zz1000_realtime_sina,
     option_finance_minute_sina,
     option_minute_em,
     option_sse_codes_sina,
@@ -693,8 +696,8 @@ from akshare.option.option_finance_sina import (
     option_sse_greeks_sina,
     option_sse_list_sina,
     option_sse_minute_sina,
-    option_sse_spot_price_sina,
-    option_sse_underlying_spot_price_sina,
+    option_sse_realtime_sina,
+    option_sse_underlying_realtime_sina,
 )
 from akshare.option.option_lhb_em import option_lhb_em
 from akshare.option.option_margin import option_margin, option_margin_symbol
@@ -710,7 +713,7 @@ from akshare.bond.bond_buy_back_em import (
     bond_repo_sz_em,
 )
 from akshare.bond.bond_cb_sina import bond_cb_profile_sina, bond_cb_summary_sina
-from akshare.bond.bond_cb_ths import bond_zh_cov_info_ths
+from akshare.bond.bond_cb_ths import bond_cb_list_ths
 from akshare.bond.bond_cbond import (
     bond_available_index_cbond,
     bond_composite_index_cbond,
@@ -737,25 +740,25 @@ from akshare.bond.bond_info_cm import (
     bond_info_detail_cm,
 )
 from akshare.bond.bond_issue_cninfo import (
+    bond_cb_conversion_cninfo,
+    bond_cb_issue_cninfo,
     bond_corporate_issue_cninfo,
-    bond_cov_issue_cninfo,
-    bond_cov_stock_issue_cninfo,
     bond_local_government_issue_cninfo,
     bond_treasury_issue_cninfo,
 )
 from akshare.bond.bond_nafmii import bond_debt_nafmii
 from akshare.bond.bond_summary import bond_cash_summary_sse, bond_deal_summary_sse
 from akshare.bond.bond_zh_cov import (
-    bond_cov_comparison,
-    bond_zh_cov,
-    bond_zh_cov_info,
-    bond_zh_cov_value_analysis,
-    bond_zh_hs_cov_daily,
-    bond_zh_hs_cov_min,
-    bond_zh_hs_cov_pre_min,
-    bond_zh_hs_cov_spot,
+    bond_cb_comparison_em,
+    bond_cb_daily_sina,
+    bond_cb_hist_min_em,
+    bond_cb_info_em,
+    bond_cb_list_em,
+    bond_cb_pre_min_em,
+    bond_cb_realtime_sina,
+    bond_cb_value_analysis_em,
 )
-from akshare.bond.bond_zh_sina import bond_zh_hs_daily, bond_zh_hs_spot
+from akshare.bond.bond_zh_sina import bond_zh_hs_daily, bond_zh_hs_realtime_sina
 
 # ---- 基金（akshare/fund） ----
 from akshare.fund.fund_amac import (
@@ -846,7 +849,11 @@ from akshare.fund.fund_rating import (
     fund_rating_sh,
     fund_rating_zs,
 )
-from akshare.fund.fund_reits import reits_hist_em, reits_hist_min_em, reits_realtime_em
+from akshare.fund.fund_reits import (
+    fund_reits_hist_em,
+    fund_reits_hist_min_em,
+    fund_reits_spot_em,
+)
 from akshare.fund.fund_report_cninfo import (
     fund_report_asset_allocation_cninfo,
     fund_report_industry_allocation_cninfo,
@@ -885,7 +892,7 @@ from akshare.index.index_cons import (
     index_stock_info,
     stock_a_code_to_symbol,
 )
-from akshare.index.index_csindex import index_csindex_all
+from akshare.index.index_csindex import index_all_csindex
 from akshare.index.index_cx import (
     index_ai_cx,
     index_awpr_cx,
@@ -933,7 +940,7 @@ from akshare.index.index_option_qvix import (
 )
 from akshare.index.index_research_fund_sw import (
     index_hist_fund_sw,
-    index_realtime_fund_sw,
+    index_spot_fund_sw,
 )
 from akshare.index.index_research_sw import (
     index_analysis_daily_sw,
@@ -943,26 +950,26 @@ from akshare.index.index_research_sw import (
     index_component_sw,
     index_hist_sw,
     index_min_sw,
-    index_realtime_sw,
+    index_spot_sw,
 )
 from akshare.index.index_spot import spot_goods
 from akshare.index.index_stock_hk import (
-    stock_hk_index_daily_em,
-    stock_hk_index_daily_sina,
-    stock_hk_index_spot_em,
-    stock_hk_index_spot_sina,
+    index_hk_daily_em,
+    index_hk_daily_sina,
+    index_hk_spot_em,
+    index_hk_spot_sina,
 )
 from akshare.index.index_stock_us_sina import index_us_stock_sina
 from akshare.index.index_stock_zh import (
-    stock_zh_index_daily,
-    stock_zh_index_daily_em,
-    stock_zh_index_daily_tx,
-    stock_zh_index_spot_em,
-    stock_zh_index_spot_sina,
+    index_zh_daily_em,
+    index_zh_daily_sina,
+    index_zh_daily_tx,
+    index_zh_spot_em,
+    index_zh_spot_sina,
 )
 from akshare.index.index_stock_zh_csindex import (
-    stock_zh_index_hist_csindex,
-    stock_zh_index_value_csindex,
+    index_hist_csindex,
+    index_value_csindex,
 )
 from akshare.index.index_sugar import (
     index_inner_quota_sugar_msweet,
@@ -979,8 +986,8 @@ from akshare.index.index_yw import index_yw
 from akshare.index.index_zh_a_scope import index_news_sentiment_scope
 from akshare.index.index_zh_em import (
     index_code_id_map_em,
-    index_zh_a_hist,
-    index_zh_a_hist_min_em,
+    index_zh_hist_em,
+    index_zh_hist_min_em,
 )
 
 # ---- 宏观（akshare/macro） ----
@@ -1154,13 +1161,13 @@ from akshare.macro.macro_usa import (
 
 # ---- 外汇（akshare/fx） ----
 from akshare.fx.fx_c_swap_cm import fx_c_swap_cm
-from akshare.fx.fx_china_bank_sina import currency_boc_sina
-from akshare.fx.fx_currency_investing import currency_pair_map
-from akshare.fx.fx_forex_em import forex_hist_em, forex_spot_em
+from akshare.fx.fx_china_bank_sina import fx_boc_rate_sina
+from akshare.fx.fx_currency_investing import fx_pair_map_investing
+from akshare.fx.fx_forex_em import fx_hist_em, fx_realtime_em
 from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 from akshare.fx.fx_quote_baidu import fx_quote_baidu
-from akshare.fx.fx_safe import currency_boc_safe
-from akshare.fx.fx_sentiment_jin10 import macro_fx_sentiment
+from akshare.fx.fx_safe import fx_central_parity_safe
+from akshare.fx.fx_sentiment_jin10 import fx_sentiment_js
 
 # ---- 汇率换算（akshare/currency） ----
 from akshare.currency.currency import (
@@ -1190,7 +1197,7 @@ from akshare.spot.spot_price_qh import spot_price_qh, spot_price_table_qh
 from akshare.spot.spot_sge import (
     spot_golden_benchmark_sge,
     spot_hist_sge,
-    spot_quotations_sge,
+    spot_realtime_sge,
     spot_silver_benchmark_sge,
     spot_symbol_table_sge,
 )
@@ -1208,10 +1215,14 @@ from akshare.energy.energy_oil_em import energy_oil_detail, energy_oil_hist
 # ---- 加密货币（akshare/crypto） ----
 from akshare.crypto.crypto_bitcoin_cme import crypto_bitcoin_cme
 from akshare.crypto.crypto_hold import crypto_bitcoin_hold_report
-from akshare.crypto.crypto_js_spot import crypto_js_spot
+from akshare.crypto.crypto_js_spot import crypto_realtime_js
 
 # ---- QDII（akshare/qdii） ----
-from akshare.qdii.qdii_jsl import qdii_a_index_jsl, qdii_e_comm_jsl, qdii_e_index_jsl
+from akshare.qdii.qdii_jsl import (
+    qdii_a_index_jsl,
+    qdii_e_commodity_jsl,
+    qdii_e_index_jsl,
+)
 
 # ---- 银行监管（akshare/bank） ----
 from akshare.bank.bank_cbirc_2020 import bank_fjcf_table_detail
@@ -1346,17 +1357,25 @@ __all__ = [
     "bond_available_index_cbond",
     "bond_cash_summary_sse",
     "bond_cb_adj_logs_jsl",
+    "bond_cb_comparison_em",
+    "bond_cb_conversion_cninfo",
+    "bond_cb_daily_sina",
+    "bond_cb_hist_min_em",
     "bond_cb_index_jsl",
+    "bond_cb_info_em",
+    "bond_cb_issue_cninfo",
     "bond_cb_jsl",
+    "bond_cb_list_em",
+    "bond_cb_list_ths",
+    "bond_cb_pre_min_em",
     "bond_cb_profile_sina",
+    "bond_cb_realtime_sina",
     "bond_cb_redeem_jsl",
     "bond_cb_summary_sina",
+    "bond_cb_value_analysis_em",
     "bond_china_yield",
     "bond_composite_index_cbond",
     "bond_corporate_issue_cninfo",
-    "bond_cov_comparison",
-    "bond_cov_issue_cninfo",
-    "bond_cov_stock_issue_cninfo",
     "bond_deal_summary_sse",
     "bond_debt_nafmii",
     "bond_gb_us_sina",
@@ -1376,16 +1395,8 @@ __all__ = [
     "bond_treasury_issue_cninfo",
     "bond_zh_close_yield_cm",
     "bond_zh_close_yield_map_cm",
-    "bond_zh_cov",
-    "bond_zh_cov_info",
-    "bond_zh_cov_info_ths",
-    "bond_zh_cov_value_analysis",
-    "bond_zh_hs_cov_daily",
-    "bond_zh_hs_cov_min",
-    "bond_zh_hs_cov_pre_min",
-    "bond_zh_hs_cov_spot",
     "bond_zh_hs_daily",
-    "bond_zh_hs_spot",
+    "bond_zh_hs_realtime_sina",
     "bond_zh_us_yield_em",
     "business_value_artist",
     "car_market_cate_cpca",
@@ -1396,14 +1407,11 @@ __all__ = [
     "car_market_total_cpca",
     "crypto_bitcoin_cme",
     "crypto_bitcoin_hold_report",
-    "crypto_js_spot",
-    "currency_boc_safe",
-    "currency_boc_sina",
+    "crypto_realtime_js",
     "currency_convert",
     "currency_currencies",
     "currency_history",
     "currency_latest",
-    "currency_pair_map",
     "currency_time_series",
     "drewry_wci_index",
     "energy_carbon_bj",
@@ -1414,8 +1422,6 @@ __all__ = [
     "energy_oil_detail",
     "energy_oil_hist",
     "forbes_rank",
-    "forex_hist_em",
-    "forex_spot_em",
     "fortune_rank",
     "fred_md",
     "fred_qd",
@@ -1484,6 +1490,9 @@ __all__ = [
     "fund_rating_ja",
     "fund_rating_sh",
     "fund_rating_zs",
+    "fund_reits_hist_em",
+    "fund_reits_hist_min_em",
+    "fund_reits_spot_em",
     "fund_report_asset_allocation_cninfo",
     "fund_report_industry_allocation_cninfo",
     "fund_report_stock_cninfo",
@@ -1495,8 +1504,6 @@ __all__ = [
     "fund_stock_position_lg",
     "fund_value_estimation_em",
     "futures_comex_inventory",
-    "futures_comm_info",
-    "futures_comm_js",
     "futures_contract_detail",
     "futures_contract_detail_em",
     "futures_contract_info_cffex",
@@ -1512,23 +1519,21 @@ __all__ = [
     "futures_daily_gfex",
     "futures_daily_ine",
     "futures_daily_shfe",
-    "futures_dce_position_rank",
-    "futures_dce_position_rank_other",
     "futures_delivery_czce",
     "futures_delivery_dce",
     "futures_delivery_match_czce",
     "futures_delivery_match_dce",
     "futures_delivery_shfe",
     "futures_display_main_sina",
-    "futures_fees_info",
-    "futures_foreign_commodity_realtime",
+    "futures_fee_9qihuo",
+    "futures_fee_ctp",
+    "futures_fee_js",
     "futures_foreign_commodity_subscribe_exchange_symbol",
     "futures_foreign_detail",
     "futures_foreign_hist",
-    "futures_gfex_position_rank",
-    "futures_gfex_warehouse_receipt",
+    "futures_foreign_realtime_sina",
     "futures_global_hist_em",
-    "futures_global_spot_em",
+    "futures_global_realtime_em",
     "futures_hist_daily_cffex",
     "futures_hist_em",
     "futures_hist_table_em",
@@ -1542,6 +1547,9 @@ __all__ = [
     "futures_inventory_em",
     "futures_main_sina",
     "futures_news_shmet",
+    "futures_position_rank_dce",
+    "futures_position_rank_gfex",
+    "futures_position_rank_other_dce",
     "futures_rank_sum",
     "futures_rank_sum_daily",
     "futures_rank_table_cffex",
@@ -1551,7 +1559,6 @@ __all__ = [
     "futures_receipt",
     "futures_roll_yield",
     "futures_roll_yield_bar",
-    "futures_rule",
     "futures_settle",
     "futures_settle_cffex",
     "futures_settle_czce",
@@ -1559,7 +1566,6 @@ __all__ = [
     "futures_settle_ine",
     "futures_settle_shfe",
     "futures_settlement_price_sgx",
-    "futures_shfe_warehouse_receipt",
     "futures_spot_price",
     "futures_spot_price_daily",
     "futures_spot_price_previous",
@@ -1569,15 +1575,24 @@ __all__ = [
     "futures_to_spot_czce",
     "futures_to_spot_dce",
     "futures_to_spot_shfe",
+    "futures_trading_rule_gtja",
     "futures_warehouse_receipt_czce",
     "futures_warehouse_receipt_dce",
+    "futures_warehouse_receipt_gfex",
+    "futures_warehouse_receipt_shfe",
+    "futures_zh_contract_realtime_sina",
     "futures_zh_daily_sina",
     "futures_zh_minute_sina",
-    "futures_zh_realtime",
-    "futures_zh_spot",
+    "futures_zh_realtime_sina",
+    "fx_boc_rate_sina",
     "fx_c_swap_cm",
+    "fx_central_parity_safe",
+    "fx_hist_em",
+    "fx_pair_map_investing",
     "fx_pair_quote",
     "fx_quote_baidu",
+    "fx_realtime_em",
+    "fx_sentiment_js",
     "fx_spot_quote",
     "fx_swap_quote",
     "game_hot_rank_taptap",
@@ -1588,6 +1603,7 @@ __all__ = [
     "hurun_rank",
     "index_ai_cx",
     "index_all_cni",
+    "index_all_csindex",
     "index_analysis_daily_sw",
     "index_analysis_monthly_sw",
     "index_analysis_week_month_sw",
@@ -1600,7 +1616,6 @@ __all__ = [
     "index_ci_cx",
     "index_code_id_map_em",
     "index_component_sw",
-    "index_csindex_all",
     "index_detail_cni",
     "index_detail_hist_adjust_cni",
     "index_detail_hist_cni",
@@ -1610,8 +1625,13 @@ __all__ = [
     "index_global_name_table",
     "index_global_spot_em",
     "index_hist_cni",
+    "index_hist_csindex",
     "index_hist_fund_sw",
     "index_hist_sw",
+    "index_hk_daily_em",
+    "index_hk_daily_sina",
+    "index_hk_spot_em",
+    "index_hk_spot_sina",
     "index_hog_spot_price",
     "index_inner_quota_sugar_msweet",
     "index_kq_fashion",
@@ -1646,8 +1666,8 @@ __all__ = [
     "index_pmi_ser_cx",
     "index_price_cflp",
     "index_qli_cx",
-    "index_realtime_fund_sw",
-    "index_realtime_sw",
+    "index_spot_fund_sw",
+    "index_spot_sw",
     "index_stock_cons",
     "index_stock_cons_csindex",
     "index_stock_cons_sina",
@@ -1656,10 +1676,16 @@ __all__ = [
     "index_sugar_msweet",
     "index_ti_cx",
     "index_us_stock_sina",
+    "index_value_csindex",
     "index_volume_cflp",
     "index_yw",
-    "index_zh_a_hist",
-    "index_zh_a_hist_min_em",
+    "index_zh_daily_em",
+    "index_zh_daily_sina",
+    "index_zh_daily_tx",
+    "index_zh_hist_em",
+    "index_zh_hist_min_em",
+    "index_zh_spot_em",
+    "index_zh_spot_sina",
     "interface_info",
     "list_categories",
     "macro_australia_bank_rate",
@@ -1751,7 +1777,6 @@ __all__ = [
     "macro_china_vegetable_basket",
     "macro_china_yw_electronic_index",
     "macro_cnbs",
-    "macro_fx_sentiment",
     "macro_germany_cpi_mom",
     "macro_germany_cpi_yoy",
     "macro_germany_gdp",
@@ -1819,27 +1844,26 @@ __all__ = [
     "online_value_artist",
     "option_cffex_hs300_daily_sina",
     "option_cffex_hs300_list_sina",
-    "option_cffex_hs300_spot_sina",
+    "option_cffex_hs300_realtime_sina",
     "option_cffex_sz50_daily_sina",
     "option_cffex_sz50_list_sina",
-    "option_cffex_sz50_spot_sina",
+    "option_cffex_sz50_realtime_sina",
     "option_cffex_zz1000_daily_sina",
     "option_cffex_zz1000_list_sina",
-    "option_cffex_zz1000_spot_sina",
-    "option_comm_info",
-    "option_comm_symbol",
+    "option_cffex_zz1000_realtime_sina",
     "option_commodity_contract_sina",
     "option_commodity_contract_table_sina",
     "option_commodity_hist_sina",
     "option_contract_info_ctp",
     "option_current_day_sse",
     "option_current_day_szse",
-    "option_current_em",
     "option_daily_stats_sse",
     "option_daily_stats_szse",
+    "option_fee_9qihuo",
+    "option_fee_symbol_9qihuo",
     "option_finance_board",
     "option_finance_minute_sina",
-    "option_finance_sse_underlying",
+    "option_finance_underlying_sse",
     "option_hist_czce",
     "option_hist_dce",
     "option_hist_gfex",
@@ -1850,6 +1874,7 @@ __all__ = [
     "option_margin_symbol",
     "option_minute_em",
     "option_premium_analysis_em",
+    "option_realtime_em",
     "option_risk_analysis_em",
     "option_risk_indicator_sse",
     "option_sse_codes_sina",
@@ -1858,19 +1883,16 @@ __all__ = [
     "option_sse_greeks_sina",
     "option_sse_list_sina",
     "option_sse_minute_sina",
-    "option_sse_spot_price_sina",
-    "option_sse_underlying_spot_price_sina",
+    "option_sse_realtime_sina",
+    "option_sse_underlying_realtime_sina",
     "option_value_analysis_em",
     "option_vol_gfex",
     "option_vol_shfe",
     "pro_api",
     "qdii_a_index_jsl",
-    "qdii_e_comm_jsl",
+    "qdii_e_commodity_jsl",
     "qdii_e_index_jsl",
     "rate_interbank",
-    "reits_hist_em",
-    "reits_hist_min_em",
-    "reits_realtime_em",
     "repo_rate_hist",
     "repo_rate_query",
     "rv_from_futures_zh_minute_sina",
@@ -1891,7 +1913,7 @@ __all__ = [
     "spot_mixed_feed_soozhu",
     "spot_price_qh",
     "spot_price_table_qh",
-    "spot_quotations_sge",
+    "spot_realtime_sge",
     "spot_silver_benchmark_sge",
     "spot_soybean_price_soozhu",
     "spot_symbol_table_sge",
@@ -1907,6 +1929,7 @@ __all__ = [
     "stock_allotment_cninfo",
     "stock_analyst_detail_em",
     "stock_analyst_rank_em",
+    "stock_area_summary_szse",
     "stock_balance_sheet_by_report_delisted_em",
     "stock_balance_sheet_by_report_em",
     "stock_balance_sheet_by_yearly_em",
@@ -1956,6 +1979,7 @@ __all__ = [
     "stock_concept_fund_flow_hist",
     "stock_cy_a_spot_em",
     "stock_cyq_em",
+    "stock_deal_daily_sse",
     "stock_dividend_cninfo",
     "stock_dxsyl_em",
     "stock_dzjy_hygtj",
@@ -2025,10 +2049,6 @@ __all__ = [
     "stock_hk_hot_rank_detail_realtime_em",
     "stock_hk_hot_rank_em",
     "stock_hk_hot_rank_latest_em",
-    "stock_hk_index_daily_em",
-    "stock_hk_index_daily_sina",
-    "stock_hk_index_spot_em",
-    "stock_hk_index_spot_sina",
     "stock_hk_indicator_eniu",
     "stock_hk_main_board_spot_em",
     "stock_hk_profit_forecast_et",
@@ -2201,6 +2221,7 @@ __all__ = [
     "stock_sector_fund_flow_rank",
     "stock_sector_fund_flow_summary",
     "stock_sector_spot",
+    "stock_sector_summary_szse",
     "stock_sgt_reference_exchange_rate_sse",
     "stock_sgt_reference_exchange_rate_szse",
     "stock_sgt_settlement_exchange_rate_sse",
@@ -2213,18 +2234,15 @@ __all__ = [
     "stock_share_hold_change_szse",
     "stock_shareholder_change_ths",
     "stock_sns_sseinfo",
-    "stock_sse_deal_daily",
-    "stock_sse_summary",
     "stock_staq_net_stop",
+    "stock_summary_sse",
+    "stock_summary_szse",
     "stock_sy_em",
     "stock_sy_hy_em",
     "stock_sy_jz_em",
     "stock_sy_profile_em",
     "stock_sy_yq_em",
     "stock_sz_a_spot_em",
-    "stock_szse_area_summary",
-    "stock_szse_sector_summary",
-    "stock_szse_summary",
     "stock_target_price_js",
     "stock_tfp_em",
     "stock_us_daily",
@@ -2267,7 +2285,7 @@ __all__ = [
     "stock_zh_a_spot_tx",
     "stock_zh_a_st_em",
     "stock_zh_a_stop_em",
-    "stock_zh_a_tick_tx_js",
+    "stock_zh_a_tick_tx",
     "stock_zh_ab_comparison_em",
     "stock_zh_ah_daily",
     "stock_zh_ah_name",
@@ -2279,13 +2297,6 @@ __all__ = [
     "stock_zh_b_spot_em",
     "stock_zh_dupont_comparison_em",
     "stock_zh_growth_comparison_em",
-    "stock_zh_index_daily",
-    "stock_zh_index_daily_em",
-    "stock_zh_index_daily_tx",
-    "stock_zh_index_hist_csindex",
-    "stock_zh_index_spot_em",
-    "stock_zh_index_spot_sina",
-    "stock_zh_index_value_csindex",
     "stock_zh_kcb_daily",
     "stock_zh_kcb_report_em",
     "stock_zh_kcb_spot",

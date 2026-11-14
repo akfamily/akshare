@@ -31,7 +31,7 @@ from akshare.option.cons import (
 from akshare.utils import http
 
 
-def option_finance_sse_underlying(symbol: str = "华夏科创50ETF期权") -> pd.DataFrame:
+def option_finance_underlying_sse(symbol: str = "华夏科创50ETF期权") -> pd.DataFrame:
     """
     期权标的当日行情
     http://www.sse.com.cn/assortment/options/price/
@@ -341,10 +341,10 @@ def option_finance_board(
 
 
 if __name__ == "__main__":
-    option_finance_sse_underlying_df = option_finance_sse_underlying(
+    option_finance_underlying_sse_df = option_finance_underlying_sse(
         symbol="华夏科创50ETF期权"
     )
-    print(option_finance_sse_underlying_df)
+    print(option_finance_underlying_sse_df)
 
     option_finance_board_df = option_finance_board(
         symbol="华夏上证50ETF期权", end_month="2612"

@@ -194,7 +194,7 @@ def __futures_shfe_warehouse_receipt_html(date: str, headers: dict) -> dict:
     return big_dict
 
 
-def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
+def futures_warehouse_receipt_shfe(date: str = "20260924") -> dict:
     """
     上海期货交易所指定交割仓库期货仓单日报
     https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
@@ -251,7 +251,7 @@ def futures_shfe_warehouse_receipt(date: str = "20260924") -> dict:
     return big_dict
 
 
-def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
+def futures_warehouse_receipt_gfex(date: str = "20240122") -> dict:
     """
     广州期货交易所-行情数据-仓单日报
     http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
@@ -327,20 +327,20 @@ if __name__ == "__main__":
     futures_warehouse_receipt_czce_df = futures_warehouse_receipt_czce(date="20251014")
     print(futures_warehouse_receipt_czce_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20260924")
-    print(futures_shfe_warehouse_receipt_df)
+    futures_warehouse_receipt_shfe_df = futures_warehouse_receipt_shfe(date="20260924")
+    print(futures_warehouse_receipt_shfe_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20200702")
-    print(futures_shfe_warehouse_receipt_df)
+    futures_warehouse_receipt_shfe_df = futures_warehouse_receipt_shfe(date="20200702")
+    print(futures_warehouse_receipt_shfe_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20140516")
-    print(futures_shfe_warehouse_receipt_df)
+    futures_warehouse_receipt_shfe_df = futures_warehouse_receipt_shfe(date="20140516")
+    print(futures_warehouse_receipt_shfe_df)
 
-    futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20240122")
-    print(futures_gfex_warehouse_receipt_df)
+    futures_warehouse_receipt_gfex_df = futures_warehouse_receipt_gfex(date="20240122")
+    print(futures_warehouse_receipt_gfex_df)
 
-    futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20260226")
-    print(futures_gfex_warehouse_receipt_df)
+    futures_warehouse_receipt_gfex_df = futures_warehouse_receipt_gfex(date="20260226")
+    print(futures_warehouse_receipt_gfex_df)
 
     futures_warehouse_receipt_dce_df = futures_warehouse_receipt_dce(date="20251014")
     print(futures_warehouse_receipt_dce_df)

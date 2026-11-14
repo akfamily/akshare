@@ -301,7 +301,7 @@ print(option_contract_info_ctp_df)
 
 限量：单次返回当前交易日指定合约期权行情数据
 
-P.S. 可以通过调用 ak.option_finance_sse_underlying(symbol="华夏上证50ETF期权") 来获取上海证券交易所
+P.S. 可以通过调用 ak.option_finance_underlying_sse(symbol="华夏上证50ETF期权") 来获取上海证券交易所
 金融期权标的物当日行情数据
 
 输入参数
@@ -1276,10 +1276,10 @@ print(option_cffex_zz1000_list_sina_df)
 {'中证1000指数': ['mo2208', 'mo2209', 'mo2212', 'mo2210', 'mo2306', 'mo2303']}
 ```
 
-(option_cffex_sz50_spot_sina)=
+(option_cffex_sz50_realtime_sina)=
 #### 实时行情-上证50指数
 
-接口：option_cffex_sz50_spot_sina
+接口：option_cffex_sz50_realtime_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex
 
@@ -1320,8 +1320,8 @@ print(option_cffex_zz1000_list_sina_df)
 ```python
 import akshare as ak
 
-option_cffex_sz50_spot_sina_df = ak.option_cffex_sz50_spot_sina(symbol="ho2303")
-print(option_cffex_sz50_spot_sina_df)
+option_cffex_sz50_realtime_sina_df = ak.option_cffex_sz50_realtime_sina(symbol="ho2303")
+print(option_cffex_sz50_realtime_sina_df)
 ```
 
 数据示例
@@ -1348,10 +1348,10 @@ print(option_cffex_sz50_spot_sina_df)
 17        6     10.0      10.4  ...         6    15.58  ho2303P3000
 ```
 
-(option_cffex_hs300_spot_sina)=
+(option_cffex_hs300_realtime_sina)=
 #### 实时行情-沪深300指数
 
-接口：option_cffex_hs300_spot_sina
+接口：option_cffex_hs300_realtime_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
@@ -1392,8 +1392,8 @@ print(option_cffex_sz50_spot_sina_df)
 ```python
 import akshare as ak
 
-option_cffex_hs300_spot_sina_df = ak.option_cffex_hs300_spot_sina(symbol="io2104")
-print(option_cffex_hs300_spot_sina_df)
+option_cffex_hs300_realtime_sina_df = ak.option_cffex_hs300_realtime_sina(symbol="io2104")
+print(option_cffex_hs300_realtime_sina_df)
 ```
 
 数据示例
@@ -1424,10 +1424,10 @@ print(option_cffex_hs300_spot_sina_df)
 21       2    1.600    1.800    2.000  ...       1      196     5.18  io2202P5600
 ```
 
-(option_cffex_zz1000_spot_sina)=
+(option_cffex_zz1000_realtime_sina)=
 #### 实时行情-中证1000指数
 
-接口：option_cffex_zz1000_spot_sina
+接口：option_cffex_zz1000_realtime_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
@@ -1468,8 +1468,8 @@ print(option_cffex_hs300_spot_sina_df)
 ```python
 import akshare as ak
 
-option_cffex_zz1000_spot_sina_df = ak.option_cffex_zz1000_spot_sina(symbol="mo2208")
-print(option_cffex_zz1000_spot_sina_df)
+option_cffex_zz1000_realtime_sina_df = ak.option_cffex_zz1000_realtime_sina(symbol="mo2208")
+print(option_cffex_zz1000_realtime_sina_df)
 ```
 
 数据示例
@@ -1511,7 +1511,7 @@ print(option_cffex_zz1000_spot_sina_df)
 
 | 名称     | 类型  | 描述                                                                                         |
 |--------|-----|--------------------------------------------------------------------------------------------|
-| symbol | str | symbol="ho2303P2350"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取 |
+| symbol | str | symbol="ho2303P2350"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_sz50_realtime_sina 中的 call-标识 获取 |
 
 输出参数
 
@@ -1563,7 +1563,7 @@ print(option_cffex_sz50_daily_sina_df)
 
 | 名称     | 类型  | 描述                                                                                          |
 |--------|-----|---------------------------------------------------------------------------------------------|
-| symbol | str | symbol="io2202P4350"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取 |
+| symbol | str | symbol="io2202P4350"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_hs300_realtime_sina 中的 call-标识 获取 |
 
 输出参数
 
@@ -1645,7 +1645,7 @@ print(option_cffex_hs300_daily_sina_df)
 
 | 名称     | 类型  | 描述                                                                                           |
 |--------|-----|----------------------------------------------------------------------------------------------|
-| symbol | str | symbol="mo2208P6200"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取 |
+| symbol | str | symbol="mo2208P6200"；具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_zz1000_realtime_sina 中的 call-标识 获取 |
 
 输出参数
 
@@ -1821,10 +1821,10 @@ print(option_sse_codes_sina_df)
 20  21  10003829
 ```
 
-(option_sse_spot_price_sina)=
+(option_sse_realtime_sina)=
 #### 实时数据
 
-接口：option_sse_spot_price_sina
+接口：option_sse_realtime_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
@@ -1850,8 +1850,8 @@ print(option_sse_codes_sina_df)
 ```python
 import akshare as ak
 
-option_sse_spot_price_sina_df = ak.option_sse_spot_price_sina(symbol="10002273")
-print(option_sse_spot_price_sina_df)
+option_sse_realtime_sina_df = ak.option_sse_realtime_sina(symbol="10002273")
+print(option_sse_realtime_sina_df)
 ```
 
 数据示例
@@ -1903,10 +1903,10 @@ print(option_sse_spot_price_sina_df)
 42     成交额           2851394.00
 ```
 
-(option_sse_underlying_spot_price_sina)=
+(option_sse_underlying_realtime_sina)=
 #### 期权标的物的实时数据
 
-接口：option_sse_underlying_spot_price_sina
+接口：option_sse_underlying_realtime_sina
 
 目标地址：https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
@@ -1932,8 +1932,8 @@ print(option_sse_spot_price_sina_df)
 ```python
 import akshare as ak
 
-option_sse_underlying_spot_price_sina_df = ak.option_sse_underlying_spot_price_sina(symbol="sh510300")
-print(option_sse_underlying_spot_price_sina_df)
+option_sse_underlying_realtime_sina_df = ak.option_sse_underlying_realtime_sina(symbol="sh510300")
+print(option_sse_underlying_realtime_sina_df)
 ```
 
 数据示例
@@ -2206,7 +2206,7 @@ print(option_finance_minute_sina_df)
 
 | 名称     | 类型  | 描述                                                       |
 |--------|-----|----------------------------------------------------------|
-| symbol | str | symbol="MO2402-C-5400"；通过 **ak.option_current_em()** 获取 |
+| symbol | str | symbol="MO2402-C-5400"；通过 **ak.option_realtime_em()** 获取 |
 
 输出参数
 
@@ -2246,10 +2246,10 @@ print(option_minute_em_df)
 [241 rows x 6 columns]
 ```
 
-(option_current_em)=
+(option_realtime_em)=
 ## 期权实时行情-东方财富
 
-接口：option_current_em
+接口：option_realtime_em
 
 目标地址：https://quote.eastmoney.com/center/qqsc.html
 
@@ -2287,8 +2287,8 @@ print(option_minute_em_df)
 ```python
 import akshare as ak
 
-option_current_em_df = ak.option_current_em()
-print(option_current_em_df)
+option_realtime_em_df = ak.option_realtime_em()
+print(option_realtime_em_df)
 ```
 
 数据示例
@@ -2739,10 +2739,10 @@ print(option_commodity_hist_sina_df)
 
 ## 商品期权
 
-(option_comm_info)=
+(option_fee_9qihuo)=
 ### 商品期权手续费
 
-接口：option_comm_info
+接口：option_fee_9qihuo
 
 目标地址：https://www.9qihuo.com/qiquanshouxufei
 
@@ -2754,7 +2754,7 @@ print(option_commodity_hist_sina_df)
 
 | 名称     | 类型  | 描述                                                     |
 |--------|-----|--------------------------------------------------------|
-| symbol | str | symbol="工业硅期权"；可以通过 ak.option_comm_symbol() 所有 symbol |
+| symbol | str | symbol="工业硅期权"；可以通过 ak.option_fee_symbol_9qihuo() 所有 symbol |
 
 输出参数
 
@@ -2783,8 +2783,8 @@ print(option_commodity_hist_sina_df)
 ```python
 import akshare as ak
 
-option_comm_info_df = ak.option_comm_info(symbol="工业硅期权")
-print(option_comm_info_df)
+option_fee_9qihuo_df = ak.option_fee_9qihuo(symbol="工业硅期权")
+print(option_fee_9qihuo_df)
 ```
 
 数据示例

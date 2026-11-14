@@ -56,7 +56,7 @@ def get_zh_index_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_zh_index_spot_sina() -> pd.DataFrame:
+def index_zh_spot_sina() -> pd.DataFrame:
     """
     新浪财经-行情中心首页-A股-分类-所有指数
     大量采集会被目标网站服务器封禁 IP，如果被封禁 IP，请 10 分钟后再试
@@ -205,7 +205,7 @@ def __stock_zh_main_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
+def index_zh_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深京指数
     https://quote.eastmoney.com/center/gridlist.html#index_sz
@@ -289,7 +289,7 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
+def index_zh_daily_sina(symbol: str = "sh000922") -> pd.DataFrame:
     """
     新浪财经-指数-历史行情数据，大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
@@ -419,14 +419,14 @@ def get_tx_start_year(symbol: str = "sh000919") -> str:
     return trend_data[0][0]
 
 
-def stock_zh_index_daily_tx(
+def index_zh_daily_tx(
     symbol: str = "sz980017",
     start_date: str = "",
     end_date: str = "",
 ) -> pd.DataFrame:
     """
     腾讯证券-日频-股票或者指数历史数据（支持自定义时间范围）
-    作为 ak.stock_zh_index_daily() 的补充，因为在新浪中有部分指数数据缺失
+    作为 ak.index_zh_daily_sina() 的补充，因为在新浪中有部分指数数据缺失
     注意都是：前复权，不同网站复权方式不同，不可混用数据
     https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
@@ -503,7 +503,7 @@ def stock_zh_index_daily_tx(
     return temp_df
 
 
-def stock_zh_index_daily_em(
+def index_zh_daily_em(
     symbol: str = "csi931151",
     start_date: str = "19900101",
     end_date: str = "20500101",
@@ -558,31 +558,31 @@ def stock_zh_index_daily_em(
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000510")
-    print(stock_zh_index_daily_df)
+    index_zh_daily_sina_df = index_zh_daily_sina(symbol="sh000510")
+    print(index_zh_daily_sina_df)
 
-    stock_zh_index_spot_sina_df = stock_zh_index_spot_sina()
-    print(stock_zh_index_spot_sina_df)
+    index_zh_spot_sina_df = index_zh_spot_sina()
+    print(index_zh_spot_sina_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="沪深重要指数")
-    print(stock_zh_index_spot_em_df)
+    index_zh_spot_em_df = index_zh_spot_em(symbol="沪深重要指数")
+    print(index_zh_spot_em_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="上证系列指数")
-    print(stock_zh_index_spot_em_df)
+    index_zh_spot_em_df = index_zh_spot_em(symbol="上证系列指数")
+    print(index_zh_spot_em_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="深证系列指数")
-    print(stock_zh_index_spot_em_df)
+    index_zh_spot_em_df = index_zh_spot_em(symbol="深证系列指数")
+    print(index_zh_spot_em_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="指数成份")
-    print(stock_zh_index_spot_em_df)
+    index_zh_spot_em_df = index_zh_spot_em(symbol="指数成份")
+    print(index_zh_spot_em_df)
 
-    stock_zh_index_spot_em_df = stock_zh_index_spot_em(symbol="中证系列指数")
-    print(stock_zh_index_spot_em_df)
+    index_zh_spot_em_df = index_zh_spot_em(symbol="中证系列指数")
+    print(index_zh_spot_em_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(
+    index_zh_daily_tx_df = index_zh_daily_tx(
         symbol="sh000919", start_date="20260101", end_date="20260429"
     )
-    print(stock_zh_index_daily_tx_df)
+    print(index_zh_daily_tx_df)
 
-    stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="bj899050")
-    print(stock_zh_index_daily_em_df)
+    index_zh_daily_em_df = index_zh_daily_em(symbol="bj899050")
+    print(index_zh_daily_em_df)

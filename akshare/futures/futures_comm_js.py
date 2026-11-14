@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
+def futures_fee_js(date: str = "20260213") -> pd.DataFrame:
     """
     金十财经-期货手续费
     https://www.jin10.com/
@@ -87,5 +87,5 @@ def futures_comm_js(date: str = "20260213") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_comm_js_df = futures_comm_js(date="20260213")
-    print(futures_comm_js_df)
+    futures_fee_js_df = futures_fee_js(date="20260213")
+    print(futures_fee_js_df)

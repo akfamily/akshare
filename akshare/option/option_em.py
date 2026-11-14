@@ -11,7 +11,7 @@ from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
-def option_current_em() -> pd.DataFrame:
+def option_realtime_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场
     https://quote.eastmoney.com/center/qqsc.html
@@ -180,8 +180,8 @@ def option_current_cffex_em() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    option_current_em_df = option_current_em()
-    print(option_current_em_df)
+    option_realtime_em_df = option_realtime_em()
+    print(option_realtime_em_df)
 
     option_current_cffex_em_df = option_current_cffex_em()
     print(option_current_cffex_em_df)

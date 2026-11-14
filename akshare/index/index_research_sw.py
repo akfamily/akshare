@@ -250,7 +250,7 @@ def __index_realtime_sw(symbol: str = "大类风格指数") -> pd.DataFrame:
     return temp_df
 
 
-def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
+def index_spot_sw(symbol: str = "二级行业") -> pd.DataFrame:
     """
     申万宏源研究-指数系列
     https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
@@ -591,8 +591,8 @@ if __name__ == "__main__":
     index_component_sw_df = index_component_sw(symbol="801001")
     print(index_component_sw_df)
 
-    index_realtime_sw_df = index_realtime_sw(symbol="市场表征")
-    print(index_realtime_sw_df)
+    index_spot_sw_df = index_spot_sw(symbol="市场表征")
+    print(index_spot_sw_df)
 
     index_analysis_daily_sw_df = index_analysis_daily_sw(
         symbol="市场表征", start_date="20241025", end_date="20241025"

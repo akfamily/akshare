@@ -158,9 +158,9 @@ Output:
 ```
                       接口名    类目                                                       描述  有无文档   匹配分
 0             bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  27.0
-1      bond_zh_hs_cov_min  bond                                           东方财富网-可转债-分时行情  True  20.0
-2  bond_zh_hs_cov_pre_min  bond                                      东方财富网-可转债-分时行情-盘前分时  True  20.0
-3     bond_cov_comparison  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  17.0
+1      bond_cb_hist_min_em  bond                                           东方财富网-可转债-分时行情  True  20.0
+2  bond_cb_pre_min_em  bond                                      东方财富网-可转债-分时行情-盘前分时  True  20.0
+3     bond_cb_comparison_em  bond                                   东方财富网-行情中心-债券市场-可转债比价表  True  17.0
 4        fund_etf_spot_em  fund                                            东方财富-ETF 实时行情  True  17.0
 ```
 

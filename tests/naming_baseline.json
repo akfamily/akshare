@@ -65,39 +65,6 @@
   "article_rlab_rv": [
     "prefix"
   ],
-  "bond_cov_comparison": [
-    "token"
-  ],
-  "bond_cov_issue_cninfo": [
-    "token"
-  ],
-  "bond_cov_stock_issue_cninfo": [
-    "token"
-  ],
-  "bond_zh_cov": [
-    "token"
-  ],
-  "bond_zh_cov_info": [
-    "token"
-  ],
-  "bond_zh_cov_info_ths": [
-    "token"
-  ],
-  "bond_zh_cov_value_analysis": [
-    "token"
-  ],
-  "bond_zh_hs_cov_daily": [
-    "token"
-  ],
-  "bond_zh_hs_cov_min": [
-    "token"
-  ],
-  "bond_zh_hs_cov_pre_min": [
-    "token"
-  ],
-  "bond_zh_hs_cov_spot": [
-    "token"
-  ],
   "business_value_artist": [
     "prefix"
   ],
@@ -119,31 +86,11 @@
   "car_market_total_cpca": [
     "prefix"
   ],
-  "crypto_js_spot": [
-    "source_position"
-  ],
-  "currency_boc_safe": [
-    "prefix"
-  ],
-  "currency_boc_sina": [
-    "prefix"
-  ],
-  "currency_pair_map": [
-    "prefix"
-  ],
   "drewry_wci_index": [
     "prefix"
   ],
   "forbes_rank": [
     "prefix"
-  ],
-  "forex_hist_em": [
-    "prefix",
-    "token"
-  ],
-  "forex_spot_em": [
-    "prefix",
-    "token"
   ],
   "fortune_rank": [
     "prefix"
@@ -153,27 +100,6 @@
   ],
   "fred_qd": [
     "prefix"
-  ],
-  "futures_comm_info": [
-    "token"
-  ],
-  "futures_comm_js": [
-    "token"
-  ],
-  "futures_dce_position_rank": [
-    "source_position"
-  ],
-  "futures_dce_position_rank_other": [
-    "source_position"
-  ],
-  "futures_gfex_position_rank": [
-    "source_position"
-  ],
-  "futures_gfex_warehouse_receipt": [
-    "source_position"
-  ],
-  "futures_shfe_warehouse_receipt": [
-    "source_position"
   ],
   "game_hot_rank_taptap": [
     "prefix"
@@ -190,13 +116,7 @@
   "index_bloomberg_billionaires_hist": [
     "prefix"
   ],
-  "index_csindex_all": [
-    "source_position"
-  ],
   "index_hog_spot_price": [
-    "prefix"
-  ],
-  "macro_fx_sentiment": [
     "prefix"
   ],
   "match_main_contract": [
@@ -226,28 +146,7 @@
   "online_value_artist": [
     "prefix"
   ],
-  "option_comm_info": [
-    "token"
-  ],
-  "option_comm_symbol": [
-    "token"
-  ],
-  "option_finance_sse_underlying": [
-    "source_position"
-  ],
-  "qdii_e_comm_jsl": [
-    "token"
-  ],
   "rate_interbank": [
-    "prefix"
-  ],
-  "reits_hist_em": [
-    "prefix"
-  ],
-  "reits_hist_min_em": [
-    "prefix"
-  ],
-  "reits_realtime_em": [
     "prefix"
   ],
   "repo_rate_hist": [
@@ -268,18 +167,6 @@
   "stock_a_code_to_symbol": [
     "prefix"
   ],
-  "stock_hk_index_daily_em": [
-    "prefix"
-  ],
-  "stock_hk_index_daily_sina": [
-    "prefix"
-  ],
-  "stock_hk_index_spot_em": [
-    "prefix"
-  ],
-  "stock_hk_index_spot_sina": [
-    "prefix"
-  ],
   "stock_js_weibo_nlp_time": [
     "prefix",
     "source_position"
@@ -287,45 +174,6 @@
   "stock_js_weibo_report": [
     "prefix",
     "source_position"
-  ],
-  "stock_sse_deal_daily": [
-    "source_position"
-  ],
-  "stock_sse_summary": [
-    "source_position"
-  ],
-  "stock_szse_area_summary": [
-    "source_position"
-  ],
-  "stock_szse_sector_summary": [
-    "source_position"
-  ],
-  "stock_szse_summary": [
-    "source_position"
-  ],
-  "stock_zh_a_tick_tx_js": [
-    "source_position"
-  ],
-  "stock_zh_index_daily": [
-    "prefix"
-  ],
-  "stock_zh_index_daily_em": [
-    "prefix"
-  ],
-  "stock_zh_index_daily_tx": [
-    "prefix"
-  ],
-  "stock_zh_index_hist_csindex": [
-    "prefix"
-  ],
-  "stock_zh_index_spot_em": [
-    "prefix"
-  ],
-  "stock_zh_index_spot_sina": [
-    "prefix"
-  ],
-  "stock_zh_index_value_csindex": [
-    "prefix"
   ],
   "sunrise_daily": [
     "prefix"

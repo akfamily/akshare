@@ -13,7 +13,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def futures_rule(date: str = "20231205") -> pd.DataFrame:
+def futures_trading_rule_gtja(date: str = "20231205") -> pd.DataFrame:
     """
     国泰君安期货-交易日历数据表
     https://www.gtjaqh.com/pc/calendar.html
@@ -40,5 +40,5 @@ def futures_rule(date: str = "20231205") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_rule_df = futures_rule(date="20250328")
-    print(futures_rule_df)
+    futures_trading_rule_gtja_df = futures_trading_rule_gtja(date="20250328")
+    print(futures_trading_rule_gtja_df)

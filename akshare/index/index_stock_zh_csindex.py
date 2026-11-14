@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def stock_zh_index_hist_csindex(
+def index_hist_csindex(
     symbol: str = "000928",
     start_date: str = "20180526",
     end_date: str = "20240604",
@@ -70,7 +70,7 @@ def stock_zh_index_hist_csindex(
     return temp_df
 
 
-def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
+def index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     """
     中证指数-指数估值数据
     https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
@@ -107,10 +107,10 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
+    index_hist_csindex_df = index_hist_csindex(
         symbol="000928", start_date="20100101", end_date="20240604"
     )
-    print(stock_zh_index_hist_csindex_df)
+    print(index_hist_csindex_df)
 
-    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
-    print(stock_zh_index_value_csindex_df)
+    index_value_csindex_df = index_value_csindex(symbol="H30374")
+    print(index_value_csindex_df)

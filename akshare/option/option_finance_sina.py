@@ -20,7 +20,7 @@ from typing import Dict, List, Tuple
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.option.option_em import option_current_em
+from akshare.option.option_em import option_realtime_em
 from akshare.utils import http
 from akshare.utils.func import set_df_columns
 
@@ -75,7 +75,7 @@ def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     return {symbol: contract}
 
 
-def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
+def option_cffex_sz50_realtime_sina(symbol: str = "ho2303") -> pd.DataFrame:
     """
     中金所-上证 50 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex
@@ -148,7 +148,7 @@ def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
     return data_df
 
 
-def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
+def option_cffex_hs300_realtime_sina(symbol: str = "io2204") -> pd.DataFrame:
     """
     中金所-沪深 300 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
@@ -221,7 +221,7 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
     return data_df
 
 
-def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
+def option_cffex_zz1000_realtime_sina(symbol: str = "mo2208") -> pd.DataFrame:
     """
     中金所-中证 1000 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
@@ -297,7 +297,7 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
 def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
     """
     新浪财经-中金所-上证 50 指数-指定合约-日频行情
-    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_sz50_realtime_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -338,7 +338,7 @@ def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
 def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
     """
     新浪财经-中金所-沪深300指数-指定合约-日频行情
-    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_hs300_realtime_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -381,7 +381,7 @@ def option_cffex_zz1000_daily_sina(
 ) -> pd.DataFrame:
     """
     新浪财经-中金所-中证 1000 指数-指定合约-日频行情
-    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取
+    :param symbol: 具体合约代码（包括看涨和看跌标识），可以通过 ak.option_cffex_zz1000_realtime_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pandas.DataFrame
@@ -540,7 +540,7 @@ def option_sse_codes_sina(
     return temp_df
 
 
-def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
+def option_sse_realtime_sina(symbol: str = "10003720") -> pd.DataFrame:
     """
     新浪财经-期权-期权实时数据
     :param symbol: 期权代码
@@ -619,7 +619,7 @@ def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
     return data_df
 
 
-def option_sse_underlying_spot_price_sina(
+def option_sse_underlying_realtime_sina(
     symbol: str = "sh510300",
 ) -> pd.DataFrame:
     """
@@ -859,7 +859,7 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
 
 @lru_cache()
 def __option_current_em() -> pd.DataFrame:
-    inner_option_current_em_df = option_current_em()
+    inner_option_current_em_df = option_realtime_em()
     return inner_option_current_em_df
 
 
@@ -867,7 +867,7 @@ def option_minute_em(symbol: str = "MO2404-P-4450") -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场-分时行情
     https://wap.eastmoney.com/quote/stock/151.cu2404P61000.html
-    :param symbol: 期权代码；通过调用 ak.option_current_em() 获取
+    :param symbol: 期权代码；通过调用 ak.option_realtime_em() 获取
     :type symbol: str
     :return: 指定期权的分钟频率数据
     :rtype: pandas.DataFrame
@@ -917,14 +917,20 @@ if __name__ == "__main__":
     option_cffex_zz1000_list_sina_df = option_cffex_zz1000_list_sina()
     print(option_cffex_zz1000_list_sina_df)
 
-    option_cffex_sz50_spot_sina_df = option_cffex_sz50_spot_sina(symbol="ho2303")
-    print(option_cffex_sz50_spot_sina_df)
+    option_cffex_sz50_realtime_sina_df = option_cffex_sz50_realtime_sina(
+        symbol="ho2303"
+    )
+    print(option_cffex_sz50_realtime_sina_df)
 
-    option_cffex_hs300_spot_sina_df = option_cffex_hs300_spot_sina(symbol="io2209")
-    print(option_cffex_hs300_spot_sina_df)
+    option_cffex_hs300_realtime_sina_df = option_cffex_hs300_realtime_sina(
+        symbol="io2209"
+    )
+    print(option_cffex_hs300_realtime_sina_df)
 
-    option_cffex_zz1000_spot_sina_df = option_cffex_zz1000_spot_sina(symbol="mo2209")
-    print(option_cffex_zz1000_spot_sina_df)
+    option_cffex_zz1000_realtime_sina_df = option_cffex_zz1000_realtime_sina(
+        symbol="mo2209"
+    )
+    print(option_cffex_zz1000_realtime_sina_df)
 
     option_cffex_sz50_daily_sina_df = option_cffex_sz50_daily_sina(symbol="ho2303P2350")
     print(option_cffex_sz50_daily_sina_df)
@@ -953,13 +959,13 @@ if __name__ == "__main__":
     )
     print(option_sse_codes_sina_df)
 
-    option_sse_spot_price_sina_df = option_sse_spot_price_sina(symbol="10003686")
-    print(option_sse_spot_price_sina_df)
+    option_sse_realtime_sina_df = option_sse_realtime_sina(symbol="10003686")
+    print(option_sse_realtime_sina_df)
 
-    option_sse_underlying_spot_price_sina_df = option_sse_underlying_spot_price_sina(
+    option_sse_underlying_realtime_sina_df = option_sse_underlying_realtime_sina(
         symbol="sh510300"
     )
-    print(option_sse_underlying_spot_price_sina_df)
+    print(option_sse_underlying_realtime_sina_df)
 
     option_sse_greeks_sina_df = option_sse_greeks_sina(symbol="10004023")
     print(option_sse_greeks_sina_df)
@@ -973,8 +979,8 @@ if __name__ == "__main__":
     option_finance_minute_sina_df = option_finance_minute_sina(symbol="10004023")
     print(option_finance_minute_sina_df)
 
-    option_current_em_df = option_current_em()
-    print(option_current_em_df)
+    option_realtime_em_df = option_realtime_em()
+    print(option_realtime_em_df)
 
     option_minute_em_df = option_minute_em(symbol="10008594")
     print(option_minute_em_df)

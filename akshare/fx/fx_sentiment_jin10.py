@@ -14,7 +14,7 @@ from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
-def macro_fx_sentiment(start_date: str = "", end_date: str = "") -> pd.DataFrame:
+def fx_sentiment_js(start_date: str = "", end_date: str = "") -> pd.DataFrame:
     """
     金十数据-外汇-投机情绪报告
     外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
@@ -75,5 +75,5 @@ def macro_fx_sentiment(start_date: str = "", end_date: str = "") -> pd.DataFrame
 
 if __name__ == "__main__":
     test_date = datetime.now().date().isoformat().replace("-", "")
-    macro_fx_sentiment_df = macro_fx_sentiment(start_date=test_date, end_date=test_date)
-    print(macro_fx_sentiment_df)
+    fx_sentiment_js_df = fx_sentiment_js(start_date=test_date, end_date=test_date)
+    print(fx_sentiment_js_df)

@@ -14,7 +14,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def index_csindex_all() -> pd.DataFrame:
+def index_all_csindex() -> pd.DataFrame:
     """
     中证指数网站-指数列表
     https://www.csindex.com.cn/#/indices/family/list?index_series=1
@@ -60,5 +60,5 @@ def index_csindex_all() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_csindex_all_df = index_csindex_all()
-    print(index_csindex_all_df)
+    index_all_csindex_df = index_all_csindex()
+    print(index_all_csindex_df)

@@ -316,7 +316,7 @@ def bond_corporate_issue_cninfo(
     return temp_df
 
 
-def bond_cov_issue_cninfo(
+def bond_cb_issue_cninfo(
     start_date: str = "20210913", end_date: str = "20211112"
 ) -> pd.DataFrame:
     """
@@ -474,7 +474,7 @@ def bond_cov_issue_cninfo(
     return temp_df
 
 
-def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
+def bond_cb_conversion_cninfo() -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-可转债转股
     http://webapi.cninfo.com.cn/#/thematicStatistics
@@ -560,10 +560,10 @@ if __name__ == "__main__":
     )
     print(bond_corporate_issue_cninfo_df)
 
-    bond_cov_issue_cninfo_df = bond_cov_issue_cninfo(
+    bond_cb_issue_cninfo_df = bond_cb_issue_cninfo(
         start_date="20210913", end_date="20211112"
     )
-    print(bond_cov_issue_cninfo_df)
+    print(bond_cb_issue_cninfo_df)
 
-    bond_cov_stock_issue_cninfo_df = bond_cov_stock_issue_cninfo()
-    print(bond_cov_stock_issue_cninfo_df)
+    bond_cb_conversion_cninfo_df = bond_cb_conversion_cninfo()
+    print(bond_cb_conversion_cninfo_df)

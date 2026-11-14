@@ -76,7 +76,7 @@ import akshare as ak
 print(ak.search("可转债 实时行情", limit=5))
 
 # 查看单个接口的输入参数、输出字段与调用示例
-print(ak.interface_info("bond_zh_hs_cov_min"))
+print(ak.interface_info("bond_cb_hist_min_em"))
 
 # 列出全部类目，可用于缩小检索范围
 print(ak.list_categories())

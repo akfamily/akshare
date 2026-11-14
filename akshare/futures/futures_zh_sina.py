@@ -90,7 +90,7 @@ def futures_symbol_mark() -> pd.DataFrame:
     return temp_df
 
 
-def futures_zh_realtime(symbol: str = "PTA") -> pd.DataFrame:
+def futures_zh_realtime_sina(symbol: str = "PTA") -> pd.DataFrame:
     """
     期货品种当前时刻所有可交易的合约实时数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
@@ -221,8 +221,8 @@ def match_main_contract(symbol: str = "cffex") -> str:
     return ",".join(subscribe_exchange_list)
 
 
-def futures_zh_spot(
-    symbol: str = "V2309",
+def futures_zh_contract_realtime_sina(
+    symbol: str = "V2701",
     market: str = "CF",
     adjust: str = "0",
 ) -> pd.DataFrame:
@@ -724,17 +724,21 @@ if __name__ == "__main__":
     match_main_contract_df = match_main_contract(symbol="gfex")
     print(match_main_contract_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="V2701,V2705", market="CF", adjust="0")
-    print(futures_zh_spot_df)
+    futures_zh_contract_realtime_sina_df = futures_zh_contract_realtime_sina(
+        symbol="V2701,V2705", market="CF", adjust="0"
+    )
+    print(futures_zh_contract_realtime_sina_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="V2701", market="CF", adjust="0")
-    print(futures_zh_spot_df)
+    futures_zh_contract_realtime_sina_df = futures_zh_contract_realtime_sina(
+        symbol="V2701", market="CF", adjust="0"
+    )
+    print(futures_zh_contract_realtime_sina_df)
 
     futures_symbol_mark_df = futures_symbol_mark()
     print(futures_symbol_mark_df)
 
-    futures_zh_realtime_df = futures_zh_realtime(symbol="工业硅")
-    print(futures_zh_realtime_df)
+    futures_zh_realtime_sina_df = futures_zh_realtime_sina(symbol="工业硅")
+    print(futures_zh_realtime_sina_df)
 
     futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="RB0", period="1")
     print(futures_zh_minute_sina_df)
@@ -752,9 +756,9 @@ if __name__ == "__main__":
 
     while True:
         time.sleep(3)
-        futures_zh_spot_df = futures_zh_spot(
+        futures_zh_contract_realtime_sina_df = futures_zh_contract_realtime_sina(
             symbol=",".join([dce_text, czce_text, shfe_text, gfex_text]),
             market="CF",
             adjust="0",
         )
-        print(futures_zh_spot_df)
+        print(futures_zh_contract_realtime_sina_df)

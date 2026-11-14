@@ -84,7 +84,7 @@ def qdii_e_index_jsl(cookie: str = "") -> pd.DataFrame:
     return temp_df
 
 
-def qdii_e_comm_jsl(cookie: str = "") -> pd.DataFrame:
+def qdii_e_commodity_jsl(cookie: str = "") -> pd.DataFrame:
     """
     集思录-T+0 QDII-欧美市场-商品
     https://www.jisilu.cn/data/qdii/#qdiia
@@ -228,8 +228,8 @@ if __name__ == "__main__":
     qdii_e_index_jsl_df = qdii_e_index_jsl()
     print(qdii_e_index_jsl_df)
 
-    qdii_e_comm_jsl_df = qdii_e_comm_jsl()
-    print(qdii_e_comm_jsl_df)
+    qdii_e_commodity_jsl_df = qdii_e_commodity_jsl()
+    print(qdii_e_commodity_jsl_df)
 
     qdii_a_index_jsl_df = qdii_a_index_jsl()
     print(qdii_a_index_jsl_df)

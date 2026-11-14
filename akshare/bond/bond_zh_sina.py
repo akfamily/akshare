@@ -42,7 +42,9 @@ def get_zh_bond_hs_page_count() -> int:
         return int(page_count) + 1
 
 
-def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame:
+def bond_zh_hs_realtime_sina(
+    start_page: str = "1", end_page: str = "10"
+) -> pd.DataFrame:
     """
     新浪财经-债券-沪深债券-实时行情数据，大量抓取容易封IP
     https://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -57,18 +59,8 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
     page_count = int(page_count)
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_payload.copy()
     tqdm = get_tqdm()
-    big_df = pd.DataFrame()
-    start_page = int(start_page)
-    end_page = int(end_page) + 1 if int(end_page) + 1 <= page_count else page_count
-    for page in tqdm(range(start_page, end_page), leave=False):
-        zh_sina_bond_hs_payload_copy.update({"page": page})
-        r = http.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
-        data_json = jsonish.loads(r.text)
-        temp_df = pd.DataFrame(data_json)
-        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
-    big_df.columns = [
+    columns = [
         "代码",
-        "-",
         "名称",
         "最新价",
         "涨跌额",
@@ -81,30 +73,41 @@ def bond_zh_hs_spot(start_page: str = "1", end_page: str = "10") -> pd.DataFrame
         "最低",
         "成交量",
         "成交额",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
     ]
-    big_df = big_df[
-        [
-            "代码",
-            "名称",
-            "最新价",
-            "涨跌额",
-            "涨跌幅",
-            "买入",
-            "卖出",
-            "昨收",
-            "今开",
-            "最高",
-            "最低",
-            "成交量",
-            "成交额",
-        ]
-    ]
+    temp_list = []
+    start_page = int(start_page)
+    end_page = min(int(end_page), page_count)
+    for page in tqdm(range(start_page, end_page + 1), leave=False):
+        zh_sina_bond_hs_payload_copy.update({"page": page})
+        r = http.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
+        data_json = jsonish.loads(r.text)
+        if not data_json:
+            # 新浪的总数接口会多报，实际数据在此之前已经取完
+            break
+        temp_list.append(pd.DataFrame(data_json))
+    if not temp_list:
+        return pd.DataFrame(columns=columns)
+    big_df = pd.concat(objs=temp_list, ignore_index=True)
+    big_df = big_df.rename(
+        columns={
+            "symbol": "代码",
+            "name": "名称",
+            "trade": "最新价",
+            "pricechange": "涨跌额",
+            "changepercent": "涨跌幅",
+            "buy": "买入",
+            "sell": "卖出",
+            "settlement": "昨收",
+            "open": "今开",
+            "high": "最高",
+            "low": "最低",
+            "volume": "成交量",
+            "amount": "成交额",
+        }
+    )
+    big_df = big_df[columns]
+    big_df["涨跌额"] = pd.to_numeric(big_df["涨跌额"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["买入"] = pd.to_numeric(big_df["买入"], errors="coerce")
     big_df["卖出"] = pd.to_numeric(big_df["卖出"], errors="coerce")
     big_df["昨收"] = pd.to_numeric(big_df["昨收"], errors="coerce")
@@ -144,8 +147,8 @@ def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_zh_hs_spot_df = bond_zh_hs_spot(start_page="1", end_page="5")
-    print(bond_zh_hs_spot_df)
+    bond_zh_hs_realtime_sina_df = bond_zh_hs_realtime_sina(start_page="1", end_page="5")
+    print(bond_zh_hs_realtime_sina_df)
 
     bond_zh_hs_daily_df = bond_zh_hs_daily(symbol="sh010107")
     print(bond_zh_hs_daily_df)

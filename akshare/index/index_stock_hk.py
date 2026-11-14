@@ -51,7 +51,7 @@ def get_hk_index_page_count() -> int:
         return int(page_count) + 1
 
 
-def stock_hk_index_spot_sina() -> pd.DataFrame:
+def index_hk_spot_sina() -> pd.DataFrame:
     """
     新浪财经-行情中心-港股指数
     大量采集会被目标网站服务器封禁 IP，如果被封禁 IP，请 10 分钟后再试
@@ -118,7 +118,7 @@ def stock_hk_index_spot_sina() -> pd.DataFrame:
     return temp_df
 
 
-def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
+def index_hk_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     """
     新浪财经-港股指数-历史行情数据
     https://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
@@ -145,7 +145,7 @@ def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     return temp_df
 
 
-def stock_hk_index_spot_em() -> pd.DataFrame:
+def index_hk_spot_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-港股-指数实时行情
     https://quote.eastmoney.com/center/gridlist.html#hk_index
@@ -217,12 +217,12 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
 @lru_cache()
 def _symbol_code_dict() -> dict:
     """
-    缓存 ak.stock_hk_index_spot_em() 接口中的代码与内部编号
+    缓存 ak.index_hk_spot_em() 接口中的代码与内部编号
     https://quote.eastmoney.com/center/gridlist.html#hk_index
     :return: 代码与内部编号
     :rtype: dict
     """
-    __stock_hk_index_spot_em_df = stock_hk_index_spot_em()
+    __stock_hk_index_spot_em_df = index_hk_spot_em()
     symbol_code_dict = dict(
         zip(
             __stock_hk_index_spot_em_df["代码"], __stock_hk_index_spot_em_df["内部编号"]
@@ -231,11 +231,11 @@ def _symbol_code_dict() -> dict:
     return symbol_code_dict
 
 
-def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
+def index_hk_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
     """
     东方财富网-港股-股票指数数据
     https://quote.eastmoney.com/gb/zsHSTECF2L.html
-    :param symbol: 港股指数代码；可以通过 ak.stock_hk_index_spot_em() 获取
+    :param symbol: 港股指数代码；可以通过 ak.index_hk_spot_em() 获取
     :type symbol: str
     :return: 指数数据
     :rtype: pandas.DataFrame
@@ -288,14 +288,14 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hk_index_spot_sina_df = stock_hk_index_spot_sina()
-    print(stock_hk_index_spot_sina_df)
+    index_hk_spot_sina_df = index_hk_spot_sina()
+    print(index_hk_spot_sina_df)
 
-    stock_hk_index_daily_sina_df = stock_hk_index_daily_sina(symbol="CES100")
-    print(stock_hk_index_daily_sina_df)
+    index_hk_daily_sina_df = index_hk_daily_sina(symbol="CES100")
+    print(index_hk_daily_sina_df)
 
-    stock_hk_index_spot_em_df = stock_hk_index_spot_em()
-    print(stock_hk_index_spot_em_df)
+    index_hk_spot_em_df = index_hk_spot_em()
+    print(index_hk_spot_em_df)
 
-    stock_hk_index_daily_em_df = stock_hk_index_daily_em(symbol="HSTECH")
-    print(stock_hk_index_daily_em_df)
+    index_hk_daily_em_df = index_hk_daily_em(symbol="HSTECH")
+    print(index_hk_daily_em_df)

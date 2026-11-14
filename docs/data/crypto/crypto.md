@@ -1,9 +1,9 @@
 # 加密货币数据
 
-(crypto_js_spot)=
+(crypto_realtime_js)=
 ## 实时数据
 
-接口：crypto_js_spot
+接口：crypto_realtime_js
 
 目标地址：https://datacenter.jin10.com/reportType/dc_bitcoin_current
 
@@ -36,8 +36,8 @@
 ```python
 import akshare as ak
 
-crypto_js_spot_df = ak.crypto_js_spot()
-print(crypto_js_spot_df)
+crypto_realtime_js_df = ak.crypto_realtime_js()
+print(crypto_realtime_js_df)
 ```
 
 数据示例

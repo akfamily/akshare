@@ -19,7 +19,7 @@ from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
-def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
+def stock_summary_szse(date: str = "20240830") -> pd.DataFrame:
     """
     深圳证券交易所-总貌-证券类别统计
     https://www.szse.cn/market/overview/index.html
@@ -58,7 +58,7 @@ def stock_szse_summary(date: str = "20240830") -> pd.DataFrame:
     return temp_df
 
 
-def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
+def stock_area_summary_szse(date: str = "202203") -> pd.DataFrame:
     """
     深圳证券交易所-总貌-地区交易排序
     https://www.szse.cn/market/overview/index.html
@@ -115,7 +115,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     return temp_df
 
 
-def stock_szse_sector_summary(
+def stock_sector_summary_szse(
     symbol: str = "当月", date: str = "202501"
 ) -> pd.DataFrame:
     """
@@ -212,7 +212,7 @@ def stock_szse_sector_summary(
     return temp_df
 
 
-def stock_sse_summary() -> pd.DataFrame:
+def stock_summary_sse() -> pd.DataFrame:
     """
     上海证券交易所-总貌
     https://www.sse.com.cn/market/stockdata/statistic/
@@ -256,7 +256,7 @@ def stock_sse_summary() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
+def stock_deal_daily_sse(date: str = "20241216") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
     https://www.sse.com.cn/market/stockdata/overview/day/
@@ -362,22 +362,22 @@ def stock_sse_deal_daily(date: str = "20241216") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20200619")
-    print(stock_szse_summary_df)
+    stock_summary_szse_df = stock_summary_szse(date="20200619")
+    print(stock_summary_szse_df)
 
-    stock_szse_area_summary_df = stock_szse_area_summary(date="202412")
-    print(stock_szse_area_summary_df)
+    stock_area_summary_szse_df = stock_area_summary_szse(date="202412")
+    print(stock_area_summary_szse_df)
 
-    stock_szse_area_summary_df = stock_szse_area_summary(date="202502")
-    print(stock_szse_area_summary_df)
+    stock_area_summary_szse_df = stock_area_summary_szse(date="202502")
+    print(stock_area_summary_szse_df)
 
-    stock_szse_sector_summary_df = stock_szse_sector_summary(
+    stock_sector_summary_szse_df = stock_sector_summary_szse(
         symbol="当月", date="202501"
     )
-    print(stock_szse_sector_summary_df)
+    print(stock_sector_summary_szse_df)
 
-    stock_sse_summary_df = stock_sse_summary()
-    print(stock_sse_summary_df)
+    stock_summary_sse_df = stock_summary_sse()
+    print(stock_summary_sse_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20250228")
-    print(stock_sse_deal_daily_df)
+    stock_deal_daily_sse_df = stock_deal_daily_sse(date="20250228")
+    print(stock_deal_daily_sse_df)

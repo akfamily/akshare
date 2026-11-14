@@ -15,7 +15,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
+def stock_zh_a_tick_tx(symbol: str = "sz000001") -> pd.DataFrame:
     """
     腾讯财经-历史分笔数据
     https://gu.qq.com/sz300494/gp/detail
@@ -80,5 +80,5 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(symbol="sz000001")
-    print(stock_zh_a_tick_tx_js_df)
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(symbol="sz000001")
+    print(stock_zh_a_tick_tx_df)

@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def futures_fees_info() -> pd.DataFrame:
+def futures_fee_ctp() -> pd.DataFrame:
     """
     openctp 期货交易费用参照表
     http://openctp.cn/fees.html
@@ -34,5 +34,5 @@ def futures_fees_info() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_fees_info_df = futures_fees_info()
-    print(futures_fees_info_df)
+    futures_fee_ctp_df = futures_fee_ctp()
+    print(futures_fee_ctp_df)

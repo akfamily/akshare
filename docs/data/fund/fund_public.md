@@ -4451,10 +4451,10 @@ print(fund_aum_hist_em_df)
 
 ## REITs
 
-(reits_realtime_em)=
+(fund_reits_spot_em)=
 ### REITs-实时行情
 
-接口：reits_realtime_em
+接口：fund_reits_spot_em
 
 目标地址：http://quote.eastmoney.com/center/gridlist.html#fund_reits_all
 
@@ -4490,8 +4490,8 @@ print(fund_aum_hist_em_df)
 ```python
 import akshare as ak
 
-reits_realtime_em_df = ak.reits_realtime_em()
-print(reits_realtime_em_df)
+fund_reits_spot_em_df = ak.fund_reits_spot_em()
+print(fund_reits_spot_em_df)
 ```
 
 数据示例
@@ -4512,10 +4512,10 @@ print(reits_realtime_em_df)
 [63 rows x 12 columns]
 ```
 
-(reits_hist_em)=
+(fund_reits_hist_em)=
 ### REITs-历史行情
 
-接口：reits_hist_em
+接口：fund_reits_hist_em
 
 目标地址：https://quote.eastmoney.com/sh508097.html
 
@@ -4548,8 +4548,8 @@ print(reits_realtime_em_df)
 ```python
 import akshare as ak
 
-reits_hist_em_df = ak.reits_hist_em(symbol="508097")
-print(reits_hist_em_df)
+fund_reits_hist_em_df = ak.fund_reits_hist_em(symbol="508097")
+print(fund_reits_hist_em_df)
 ```
 
 数据示例

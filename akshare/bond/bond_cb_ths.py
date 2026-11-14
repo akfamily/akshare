@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def bond_zh_cov_info_ths() -> pd.DataFrame:
+def bond_cb_list_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-可转债
     https://data.10jqka.com.cn/ipo/bond/
@@ -89,5 +89,5 @@ def bond_zh_cov_info_ths() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_zh_cov_info_ths_df = bond_zh_cov_info_ths()
-    print(bond_zh_cov_info_ths_df)
+    bond_cb_list_ths_df = bond_cb_list_ths()
+    print(bond_cb_list_ths_df)

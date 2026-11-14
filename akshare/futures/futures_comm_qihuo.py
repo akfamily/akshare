@@ -208,7 +208,7 @@ def _futures_comm_qihuo_process(
     return common_temp_df
 
 
-def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
+def futures_fee_9qihuo(symbol: str = "所有") -> pd.DataFrame:
     """
     九期网-期货手续费
     https://www.9qihuo.com/qihuoshouxufei
@@ -340,5 +340,5 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_comm_info_df = futures_comm_info(symbol="所有")
-    print(futures_comm_info_df)
+    futures_fee_9qihuo_df = futures_fee_9qihuo(symbol="所有")
+    print(futures_fee_9qihuo_df)

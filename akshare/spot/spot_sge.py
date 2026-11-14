@@ -47,7 +47,7 @@ def spot_symbol_table_sge() -> pd.DataFrame:
     return temp_df
 
 
-def spot_quotations_sge(symbol: str = "Au99.99") -> pd.DataFrame:
+def spot_realtime_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     """
     上海黄金交易所-实时行情数据
     https://www.sge.com.cn/
@@ -239,5 +239,5 @@ if __name__ == "__main__":
         spot_hist_sge_df = spot_hist_sge(symbol=spot)
         print(spot_hist_sge_df)
 
-    spot_quotations_sge_df = spot_quotations_sge(symbol="Au99.99")
-    print(spot_quotations_sge_df)
+    spot_realtime_sge_df = spot_realtime_sge(symbol="Au99.99")
+    print(spot_realtime_sge_df)

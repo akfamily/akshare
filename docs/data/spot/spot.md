@@ -108,10 +108,10 @@ print(spot_hist_sge_df)
 [1780 rows x 5 columns]
 ```
 
-(spot_quotations_sge)=
+(spot_realtime_sge)=
 ### 实时行情数据
 
-接口：spot_quotations_sge
+接口：spot_realtime_sge
 
 目标地址：https://www.sge.com.cn/
 
@@ -139,8 +139,8 @@ print(spot_hist_sge_df)
 ```python
 import akshare as ak
 
-spot_quotations_sge_df = ak.spot_quotations_sge(symbol="Au99.99")
-print(spot_quotations_sge_df)
+spot_realtime_sge_df = ak.spot_realtime_sge(symbol="Au99.99")
+print(spot_realtime_sge_df)
 ```
 
 数据示例

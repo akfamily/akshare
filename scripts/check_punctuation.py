@@ -496,8 +496,8 @@ CASES: List[Tuple[str, str, str, bool]] = [
     ("模块头键", "Desc: 国证指数", "Desc: 国证指数", False),
     (
         "函数调用",
-        "请使用 ak.futures_dce_position_rank() 接口",
-        "请使用 ak.futures_dce_position_rank() 接口",
+        "请使用 ak.futures_position_rank_dce() 接口",
+        "请使用 ak.futures_position_rank_dce() 接口",
         False,
     ),
     ("小数", "百分比大于 0.5, 小于 1", "百分比大于 0.5，小于 1", False),

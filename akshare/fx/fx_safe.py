@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 from akshare.utils import http
 
 
-def currency_boc_safe() -> pd.DataFrame:
+def fx_central_parity_safe() -> pd.DataFrame:
     """
     人民币汇率中间价
     https://www.safe.gov.cn/safe/rmbhlzjj/index.html
@@ -57,5 +57,5 @@ def currency_boc_safe() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    currency_boc_safe_df = currency_boc_safe()
-    print(currency_boc_safe_df)
+    fx_central_parity_safe_df = fx_central_parity_safe()
+    print(fx_central_parity_safe_df)

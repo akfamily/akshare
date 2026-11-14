@@ -2,10 +2,10 @@
 
 ## A股股票指数
 
-(stock_zh_index_spot_em)=
+(index_zh_spot_em)=
 ### 实时行情数据-东财
 
-接口：stock_zh_index_spot_em
+接口：index_zh_spot_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#index_sz
 
@@ -43,8 +43,8 @@
 ```python
 import akshare as ak
 
-stock_zh_index_spot_em_df = ak.stock_zh_index_spot_em(symbol="上证系列指数")
-print(stock_zh_index_spot_em_df)
+index_zh_spot_em_df = ak.index_zh_spot_em(symbol="上证系列指数")
+print(index_zh_spot_em_df)
 ```
 
 数据示例
@@ -65,10 +65,10 @@ print(stock_zh_index_spot_em_df)
 [179 rows x 14 columns]
 ```
 
-(stock_zh_index_spot_sina)=
+(index_zh_spot_sina)=
 ### 实时行情数据-新浪
 
-接口：stock_zh_index_spot_sina
+接口：index_zh_spot_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
@@ -103,8 +103,8 @@ print(stock_zh_index_spot_em_df)
 ```python
 import akshare as ak
 
-stock_zh_index_spot_sina_df = ak.stock_zh_index_spot_sina()
-print(stock_zh_index_spot_sina_df)
+index_zh_spot_sina_df = ak.index_zh_spot_sina()
+print(index_zh_spot_sina_df)
 ```
 
 数据示例
@@ -127,10 +127,10 @@ print(stock_zh_index_spot_sina_df)
 
 ### 历史行情数据
 
-(stock_zh_index_daily)=
+(index_zh_daily_sina)=
 #### 历史行情数据-新浪
 
-接口：stock_zh_index_daily
+接口：index_zh_daily_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)
 
@@ -160,8 +160,8 @@ print(stock_zh_index_spot_sina_df)
 ```python
 import akshare as ak
 
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
-print(stock_zh_index_daily_df)
+index_zh_daily_sina_df = ak.index_zh_daily_sina(symbol="sz399552")
+print(index_zh_daily_sina_df)
 ```
 
 数据示例-历史行情数据
@@ -182,10 +182,10 @@ print(stock_zh_index_daily_df)
 [4571 rows x 6 columns]
 ```
 
-(stock_zh_index_daily_tx)=
+(index_zh_daily_tx)=
 #### 历史行情数据-腾讯
 
-接口：stock_zh_index_daily_tx
+接口：index_zh_daily_tx
 
 目标地址：https://gu.qq.com/sh000919/zs
 
@@ -219,8 +219,8 @@ print(stock_zh_index_daily_df)
 ```python
 import akshare as ak
 
-stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000001", start_date="20260101", end_date="20260429")
-print(stock_zh_index_daily_tx_df)
+index_zh_daily_tx_df = ak.index_zh_daily_tx(symbol="sh000001", start_date="20260101", end_date="20260429")
+print(index_zh_daily_tx_df)
 ```
 
 数据示例
@@ -242,10 +242,10 @@ print(stock_zh_index_daily_tx_df)
 [76 rows x 8 columns]
 ```
 
-(stock_zh_index_daily_em)=
+(index_zh_daily_em)=
 #### 历史行情数据-东方财富
 
-接口：stock_zh_index_daily_em
+接口：index_zh_daily_em
 
 目标地址：http://quote.eastmoney.com/center/hszs.html
 
@@ -278,8 +278,8 @@ print(stock_zh_index_daily_tx_df)
 ```python
 import akshare as ak
 
-stock_zh_index_daily_em_df = ak.stock_zh_index_daily_em(symbol="sz399812")
-print(stock_zh_index_daily_em_df)
+index_zh_daily_em_df = ak.index_zh_daily_em(symbol="sz399812")
+print(index_zh_daily_em_df)
 ```
 
 数据示例
@@ -300,10 +300,10 @@ print(stock_zh_index_daily_em_df)
 [4571 rows x 7 columns]
 ```
 
-(index_zh_a_hist)=
+(index_zh_hist_em)=
 #### 历史行情数据-通用
 
-接口：index_zh_a_hist
+接口：index_zh_hist_em
 
 目标地址：http://quote.eastmoney.com/center/hszs.html
 
@@ -341,8 +341,8 @@ print(stock_zh_index_daily_em_df)
 ```python
 import akshare as ak
 
-index_zh_a_hist_df = ak.index_zh_a_hist(symbol="000016", period="daily", start_date="19700101", end_date="22220101")
-print(index_zh_a_hist_df)
+index_zh_hist_em_df = ak.index_zh_hist_em(symbol="000016", period="daily", start_date="19700101", end_date="22220101")
+print(index_zh_hist_em_df)
 ```
 
 数据示例
@@ -362,10 +362,10 @@ print(index_zh_a_hist_df)
 4404  2022-02-21  3155.32  3144.86  3155.88  ...  0.86 -0.57 -17.96  0.21
 ```
 
-(index_zh_a_hist_min_em)=
+(index_zh_hist_min_em)=
 ### 分时行情数据
 
-接口：index_zh_a_hist_min_em
+接口：index_zh_hist_min_em
 
 目标地址：https://quote.eastmoney.com/center/hszs.html
 
@@ -400,8 +400,8 @@ print(index_zh_a_hist_df)
 ```python
 import akshare as ak
 
-index_zh_a_hist_min_em_df = ak.index_zh_a_hist_min_em(symbol="000001", period="1", start_date="2023-12-11 09:30:00", end_date="2023-12-11 19:00:00")
-print(index_zh_a_hist_min_em_df)
+index_zh_hist_min_em_df = ak.index_zh_hist_min_em(symbol="000001", period="1", start_date="2023-12-11 09:30:00", end_date="2023-12-11 19:00:00")
+print(index_zh_hist_min_em_df)
 ```
 
 数据示例
@@ -424,10 +424,10 @@ print(index_zh_a_hist_min_em_df)
 
 ## 港股股票指数
 
-(stock_hk_index_spot_sina)=
+(index_hk_spot_sina)=
 ### 实时行情数据-新浪
 
-接口：stock_hk_index_spot_sina
+接口：index_hk_spot_sina
 
 目标地址：https://vip.stock.finance.sina.com.cn/mkt/#zs_hk
 
@@ -460,8 +460,8 @@ print(index_zh_a_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_hk_index_spot_sina_df = ak.stock_hk_index_spot_sina()
-print(stock_hk_index_spot_sina_df)
+index_hk_spot_sina_df = ak.index_hk_spot_sina()
+print(index_hk_spot_sina_df)
 ```
 
 数据示例
@@ -509,10 +509,10 @@ print(stock_hk_index_spot_sina_df)
 [38 rows x 9 columns]
 ```
 
-(stock_hk_index_daily_sina)=
+(index_hk_daily_sina)=
 ### 历史行情数据-新浪
 
-接口：stock_hk_index_daily_sina
+接口：index_hk_daily_sina
 
 目标地址：https://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
 
@@ -542,8 +542,8 @@ print(stock_hk_index_spot_sina_df)
 ```python
 import akshare as ak
 
-stock_hk_index_daily_sina_df = ak.stock_hk_index_daily_sina(symbol="CES100")
-print(stock_hk_index_daily_sina_df)
+index_hk_daily_sina_df = ak.index_hk_daily_sina(symbol="CES100")
+print(index_hk_daily_sina_df)
 ```
 
 数据示例
@@ -564,10 +564,10 @@ print(stock_hk_index_daily_sina_df)
 [2298 rows x 6 columns]
 ```
 
-(stock_hk_index_spot_em)=
+(index_hk_spot_em)=
 ### 实时行情数据-东财
 
-接口：stock_hk_index_spot_em
+接口：index_hk_spot_em
 
 目标地址：https://quote.eastmoney.com/center/gridlist.html#hk_index
 
@@ -604,8 +604,8 @@ print(stock_hk_index_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_hk_index_spot_em_df = ak.stock_hk_index_spot_em()
-print(stock_hk_index_spot_em_df)
+index_hk_spot_em_df = ak.index_hk_spot_em()
+print(index_hk_spot_em_df)
 ```
 
 数据示例
@@ -626,10 +626,10 @@ print(stock_hk_index_spot_em_df)
 [359 rows x 13 columns]
 ```
 
-(stock_hk_index_daily_em)=
+(index_hk_daily_em)=
 ### 历史行情数据-东财
 
-接口：stock_hk_index_daily_em
+接口：index_hk_daily_em
 
 目标地址：https://quote.eastmoney.com/gb/zsHSTECF2L.html
 
@@ -641,7 +641,7 @@ print(stock_hk_index_spot_em_df)
 
 | 名称     | 类型  | 描述                                                     |
 |--------|-----|--------------------------------------------------------|
-| symbol | str | symbol="HSTECF2L"；可以通过 ak.stock_hk_index_spot_em() 获取 |
+| symbol | str | symbol="HSTECF2L"；可以通过 ak.index_hk_spot_em() 获取 |
 
 输出参数
 
@@ -658,8 +658,8 @@ print(stock_hk_index_spot_em_df)
 ```python
 import akshare as ak
 
-stock_zh_index_daily_em_df = ak.stock_hk_index_daily_em(symbol="HSTECF2L")
-print(stock_zh_index_daily_em_df)
+index_zh_daily_em_df = ak.index_hk_daily_em(symbol="HSTECF2L")
+print(index_zh_daily_em_df)
 ```
 
 数据示例
@@ -1771,7 +1771,7 @@ print(index_stock_cons_df)
 
 目标地址：http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
 
-描述：中证指数网站-成份股目录，可以通过 ak.index_csindex_all() 获取所有指数
+描述：中证指数网站-成份股目录，可以通过 ak.index_all_csindex() 获取所有指数
 
 输入参数
 
@@ -4180,10 +4180,10 @@ print(index_volume_cflp_df)
 54  2020-08-31   56.95   58.97  108.56
 ```
 
-(stock_zh_index_hist_csindex)=
+(index_hist_csindex)=
 ## 中证指数
 
-接口：stock_zh_index_hist_csindex
+接口：index_hist_csindex
 
 目标地址：https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
 
@@ -4225,8 +4225,8 @@ print(index_volume_cflp_df)
 ```python
 import akshare as ak
 
-stock_zh_index_hist_csindex_df = ak.stock_zh_index_hist_csindex(symbol="000928", start_date="20100101", end_date="20240604")
-print(stock_zh_index_hist_csindex_df)
+index_hist_csindex_df = ak.index_hist_csindex(symbol="000928", start_date="20100101", end_date="20240604")
+print(index_hist_csindex_df)
 ```
 
 数据示例
@@ -4993,10 +4993,10 @@ print(index_neei_cx_df)
 
 ## 指数估值
 
-(stock_zh_index_value_csindex)=
+(index_value_csindex)=
 ### 指数估值-中证
 
-接口：stock_zh_index_value_csindex
+接口：index_value_csindex
 
 目标地址：https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
 
@@ -5030,8 +5030,8 @@ print(index_neei_cx_df)
 ```python
 import akshare as ak
 
-stock_zh_index_value_csindex_df = ak.stock_zh_index_value_csindex(symbol="H30374")
-print(stock_zh_index_value_csindex_df)
+index_value_csindex_df = ak.index_value_csindex(symbol="H30374")
+print(index_value_csindex_df)
 ```
 
 数据示例
@@ -5063,10 +5063,10 @@ print(stock_zh_index_value_csindex_df)
 
 ## 申万宏源研究
 
-(index_realtime_fund_sw)=
+(index_spot_fund_sw)=
 ### 基金指数实时行情
 
-接口：index_realtime_fund_sw
+接口：index_spot_fund_sw
 
 目标地址：https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
@@ -5095,21 +5095,21 @@ print(stock_zh_index_value_csindex_df)
 ```python
 import akshare as ak
 
-index_realtime_fund_sw_df = ak.index_realtime_fund_sw(symbol="基础一级")
-print(index_realtime_fund_sw_df)
+index_spot_fund_sw_df = ak.index_spot_fund_sw(symbol="基础一级")
+print(index_spot_fund_sw_df)
 ```
 
 数据示例
 
 ```
      指数代码          指数名称      昨收盘  日涨跌幅  年涨跌幅
-0  807100    申万宏源权益基金指数   770.47 -0.39 -1.40
-1  807200    申万宏源债券基金指数  1043.30  0.04  1.24
-2  807300    申万宏源混合基金指数   947.76 -0.04  0.70
-3  807400    申万宏源货币基金指数  1031.48  0.01  0.50
-4  807500    申万宏源另类基金指数  1119.82  0.09  4.45
-5  807600    申万宏源组合基金指数   874.51  0.46 -0.98
-6  807700  申万宏源QDII基金指数  1063.01  0.03  1.78
+0  807100    申万宏源权益基金指数  1001.50 -1.14 -8.11
+1  807200    申万宏源债券基金指数  1119.33 -0.10  1.93
+2  807300    申万宏源混合基金指数  1073.76 -0.44 -1.69
+3  807400    申万宏源货币基金指数  1065.22  0.00  0.90
+4  807500    申万宏源另类基金指数  1347.70 -0.88 -3.89
+5  807600    申万宏源组合基金指数  1025.46  0.24 -2.93
+6  807700  申万宏源QDII基金指数  1445.67  0.59 -1.97
 ```
 
 (index_hist_fund_sw)=
@@ -5168,10 +5168,10 @@ print(index_hist_fund_sw_df)
 [4435 rows x 6 columns]
 ```
 
-(index_realtime_sw)=
+(index_spot_sw)=
 ### 申万指数实时行情
 
-接口：index_realtime_sw
+接口：index_spot_sw
 
 目标地址：https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
@@ -5210,8 +5210,8 @@ print(index_hist_fund_sw_df)
 ```python
 import akshare as ak
 
-index_realtime_sw_df = ak.index_realtime_sw(symbol="市场表征")
-print(index_realtime_sw_df)
+index_spot_sw_df = ak.index_spot_sw(symbol="市场表征")
+print(index_spot_sw_df)
 ```
 
 数据示例

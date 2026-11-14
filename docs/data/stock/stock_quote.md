@@ -4,10 +4,10 @@
 
 ### 股票市场总貌
 
-(stock_sse_summary)=
+(stock_summary_sse)=
 #### 上海证券交易所
 
-接口：stock_sse_summary
+接口：stock_summary_sse
 
 目标地址：http://www.sse.com.cn/market/stockdata/statistic/
 
@@ -35,8 +35,8 @@
 ```python
 import akshare as ak
 
-stock_sse_summary_df = ak.stock_sse_summary()
-print(stock_sse_summary_df)
+stock_summary_sse_df = ak.stock_summary_sse()
+print(stock_summary_sse_df)
 ```
 
 数据示例
@@ -55,10 +55,10 @@ print(stock_sse_summary_df)
 
 #### 深圳证券交易所
 
-(stock_szse_summary)=
+(stock_summary_szse)=
 ##### 证券类别统计
 
-接口：stock_szse_summary
+接口：stock_summary_szse
 
 目标地址：http://www.szse.cn/market/overview/index.html
 
@@ -87,8 +87,8 @@ print(stock_sse_summary_df)
 ```python
 import akshare as ak
 
-stock_szse_summary_df = ak.stock_szse_summary(date="20200619")
-print(stock_szse_summary_df)
+stock_summary_szse_df = ak.stock_summary_szse(date="20200619")
+print(stock_summary_szse_df)
 ```
 
 数据示例
@@ -112,10 +112,10 @@ print(stock_szse_summary_df)
 14     期权   108  2.441560e+08           NaN           NaN
 ```
 
-(stock_szse_area_summary)=
+(stock_area_summary_szse)=
 ##### 地区交易排序
 
-接口：stock_szse_area_summary
+接口：stock_area_summary_szse
 
 目标地址：http://www.szse.cn/market/overview/index.html
 
@@ -159,8 +159,8 @@ print(stock_szse_summary_df)
 ```python
 import akshare as ak
 
-stock_szse_area_summary_df = ak.stock_szse_area_summary(date="202412")
-print(stock_szse_area_summary_df)
+stock_area_summary_szse_df = ak.stock_area_summary_szse(date="202412")
+print(stock_area_summary_szse_df)
 ```
 
 数据示例
@@ -206,8 +206,8 @@ print(stock_szse_area_summary_df)
 ```python
 import akshare as ak
 
-stock_szse_area_summary_df = ak.stock_szse_area_summary(date="202508")
-print(stock_szse_area_summary_df)
+stock_area_summary_szse_df = ak.stock_area_summary_szse(date="202508")
+print(stock_area_summary_szse_df)
 ```
 
 ```
@@ -250,10 +250,10 @@ print(stock_szse_area_summary_df)
 
 ######
 
-(stock_szse_sector_summary)=
+(stock_sector_summary_szse)=
 ##### 股票行业成交
 
-接口：stock_szse_sector_summary
+接口：stock_sector_summary_szse
 
 目标地址：http://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
 
@@ -289,8 +289,8 @@ print(stock_szse_area_summary_df)
 ```python
 import akshare as ak
 
-stock_szse_sector_summary_df = ak.stock_szse_sector_summary(symbol="当年", date="202501")
-print(stock_szse_sector_summary_df)
+stock_sector_summary_szse_df = ak.stock_sector_summary_szse(symbol="当年", date="202501")
+print(stock_sector_summary_szse_df)
 ```
 
 数据示例
@@ -320,10 +320,10 @@ print(stock_szse_sector_summary_df)
 [20 rows x 9 columns]
 ```
 
-(stock_sse_deal_daily)=
+(stock_deal_daily_sse)=
 #### 上海证券交易所-每日概况
 
-接口：stock_sse_deal_daily
+接口：stock_deal_daily_sse
 
 目标地址：http://www.sse.com.cn/market/stockdata/overview/day/
 
@@ -353,8 +353,8 @@ print(stock_szse_sector_summary_df)
 ```python
 import akshare as ak
 
-stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date="20250221")
-print(stock_sse_deal_daily_df)
+stock_deal_daily_sse_df = ak.stock_deal_daily_sse(date="20250221")
+print(stock_deal_daily_sse_df)
 ```
 
 数据示例

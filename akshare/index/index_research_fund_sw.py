@@ -8,11 +8,11 @@ https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
 import pandas as pd
 
-from akshare.utils import http
+from akshare.index.index_research_sw import _sw_session
 from akshare.utils.cons import headers
 
 
-def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
+def index_spot_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
     """
     申万宏源研究-申万指数-指数发布-基金指数-实时行情
     https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
@@ -30,7 +30,7 @@ def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
         "rule": "",
         "indexType": 1,
     }
-    r = http.post(url, json=payload, headers=headers)
+    r = _sw_session().post(url, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df = temp_df.rename(
@@ -75,7 +75,7 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
     }
     url = "https://www.swsresearch.com/insWechatSw/fundIndex/getFundKChartData"
     payload = {"swIndexCode": symbol, "type": period_map[period]}
-    r = http.post(url, json=payload, headers=headers)
+    r = _sw_session().post(url, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df = temp_df.rename(
@@ -110,17 +110,17 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
 
 
 if __name__ == "__main__":
-    index_realtime_fund_sw_df = index_realtime_fund_sw(symbol="基础一级")
-    print(index_realtime_fund_sw_df)
+    index_spot_fund_sw_df = index_spot_fund_sw(symbol="基础一级")
+    print(index_spot_fund_sw_df)
 
-    index_realtime_fund_sw_df = index_realtime_fund_sw(symbol="基础二级")
-    print(index_realtime_fund_sw_df)
+    index_spot_fund_sw_df = index_spot_fund_sw(symbol="基础二级")
+    print(index_spot_fund_sw_df)
 
-    index_realtime_fund_sw_df = index_realtime_fund_sw(symbol="基础三级")
-    print(index_realtime_fund_sw_df)
+    index_spot_fund_sw_df = index_spot_fund_sw(symbol="基础三级")
+    print(index_spot_fund_sw_df)
 
-    index_realtime_fund_sw_df = index_realtime_fund_sw(symbol="特色指数")
-    print(index_realtime_fund_sw_df)
+    index_spot_fund_sw_df = index_spot_fund_sw(symbol="特色指数")
+    print(index_spot_fund_sw_df)
 
     index_hist_fund_sw_df = index_hist_fund_sw(symbol="807200", period="day")
     print(index_hist_fund_sw_df)

@@ -373,7 +373,7 @@ zh_sina_bond_hs_cov_payload = {
 }
 
 # bond-sina
-zh_sina_bond_hs_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
+zh_sina_bond_hs_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
 zh_sina_bond_hs_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
 zh_sina_bond_hs_hist_url = (
     "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js?d={}"

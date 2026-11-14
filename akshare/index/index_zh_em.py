@@ -39,7 +39,7 @@ def index_code_id_map_em() -> dict:
     return code_id_dict
 
 
-def index_zh_a_hist(
+def index_zh_hist_em(
     symbol: str = "000859",
     period: str = "daily",
     start_date: str = "19700101",
@@ -175,7 +175,7 @@ def index_zh_a_hist(
     return temp_df
 
 
-def index_zh_a_hist_min_em(
+def index_zh_hist_min_em(
     symbol: str = "399006",
     period: str = "1",
     start_date: str = "1979-09-01 09:32:00",
@@ -362,18 +362,18 @@ def index_zh_a_hist_min_em(
 
 
 if __name__ == "__main__":
-    index_zh_a_hist_df = index_zh_a_hist(
+    index_zh_hist_em_df = index_zh_hist_em(
         symbol="932000",
         period="daily",
         start_date="19700101",
         end_date="22220101",
     )
-    print(index_zh_a_hist_df)
+    print(index_zh_hist_em_df)
 
-    index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
+    index_zh_hist_min_em_df = index_zh_hist_min_em(
         symbol="000003",
         period="1",
         start_date="2025-03-17 09:30:00",
         end_date="2025-03-17 19:00:00",
     )
-    print(index_zh_a_hist_min_em_df)
+    print(index_zh_hist_min_em_df)

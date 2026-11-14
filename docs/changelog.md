@@ -8,6 +8,25 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-44)=
+### 1.20.44 fix!: rename 68 interfaces with ambiguous or inconsistent terms
+
+**不兼容的改动：68 个接口因名称用词有歧义、同一概念写法不一或类目前缀不符而改名，旧名称不再保留，调用旧名称会报 AttributeError。** 改名对照见文末的{ref}`接口更名一览表 <changelog-rename>`：futures_zh_spot→futures_zh_contract_realtime_sina、futures_zh_realtime→futures_zh_realtime_sina、futures_foreign_commodity_realtime→futures_foreign_realtime_sina、futures_global_spot_em→futures_global_realtime_em、bond_zh_hs_spot→bond_zh_hs_realtime_sina、forex_spot_em→fx_realtime_em、forex_hist_em→fx_hist_em、crypto_js_spot→crypto_realtime_js、option_cffex_hs300_spot_sina→option_cffex_hs300_realtime_sina、option_cffex_sz50_spot_sina→option_cffex_sz50_realtime_sina、option_cffex_zz1000_spot_sina→option_cffex_zz1000_realtime_sina、option_sse_spot_price_sina→option_sse_realtime_sina、option_sse_underlying_spot_price_sina→option_sse_underlying_realtime_sina、option_current_em→option_realtime_em、spot_quotations_sge→spot_realtime_sge、index_realtime_sw→index_spot_sw、index_realtime_fund_sw→index_spot_fund_sw、reits_realtime_em→fund_reits_spot_em、reits_hist_em→fund_reits_hist_em、reits_hist_min_em→fund_reits_hist_min_em、bond_zh_cov→bond_cb_list_em、bond_zh_cov_info→bond_cb_info_em、bond_zh_cov_info_ths→bond_cb_list_ths、bond_zh_cov_value_analysis→bond_cb_value_analysis_em、bond_cov_comparison→bond_cb_comparison_em、bond_cov_issue_cninfo→bond_cb_issue_cninfo、bond_cov_stock_issue_cninfo→bond_cb_conversion_cninfo、bond_zh_hs_cov_daily→bond_cb_daily_sina、bond_zh_hs_cov_min→bond_cb_hist_min_em、bond_zh_hs_cov_pre_min→bond_cb_pre_min_em、bond_zh_hs_cov_spot→bond_cb_realtime_sina、stock_zh_index_daily→index_zh_daily_sina、stock_zh_index_daily_em→index_zh_daily_em、stock_zh_index_daily_tx→index_zh_daily_tx、stock_zh_index_hist_csindex→index_hist_csindex、stock_zh_index_value_csindex→index_value_csindex、stock_zh_index_spot_em→index_zh_spot_em、stock_zh_index_spot_sina→index_zh_spot_sina、stock_hk_index_daily_em→index_hk_daily_em、stock_hk_index_daily_sina→index_hk_daily_sina、stock_hk_index_spot_em→index_hk_spot_em、stock_hk_index_spot_sina→index_hk_spot_sina、index_zh_a_hist→index_zh_hist_em、index_zh_a_hist_min_em→index_zh_hist_min_em、index_csindex_all→index_all_csindex、currency_boc_safe→fx_central_parity_safe、currency_boc_sina→fx_boc_rate_sina、currency_pair_map→fx_pair_map_investing、macro_fx_sentiment→fx_sentiment_js、futures_dce_position_rank→futures_position_rank_dce、futures_dce_position_rank_other→futures_position_rank_other_dce、futures_gfex_position_rank→futures_position_rank_gfex、futures_gfex_warehouse_receipt→futures_warehouse_receipt_gfex、futures_shfe_warehouse_receipt→futures_warehouse_receipt_shfe、stock_sse_summary→stock_summary_sse、stock_sse_deal_daily→stock_deal_daily_sse、stock_szse_summary→stock_summary_szse、stock_szse_area_summary→stock_area_summary_szse、stock_szse_sector_summary→stock_sector_summary_szse、option_finance_sse_underlying→option_finance_underlying_sse、stock_zh_a_tick_tx_js→stock_zh_a_tick_tx、futures_comm_info→futures_fee_9qihuo、futures_comm_js→futures_fee_js、futures_fees_info→futures_fee_ctp、option_comm_info→option_fee_9qihuo、option_comm_symbol→option_fee_symbol_9qihuo、qdii_e_comm_jsl→qdii_e_commodity_jsl、futures_rule→futures_trading_rule_gtja
+
+1. 期货、期权、债券、外汇、现货、加密货币的实时行情统一用 realtime：在这些类目里 spot 另指现货、即期、现券（如 futures_spot_price、fx_spot_quote、bond_spot_deal，这些接口不变），原先 futures_zh_spot、bond_zh_hs_spot、forex_spot_em 等用 spot 表示实时行情容易误读；option_current_em、spot_quotations_sge 也一并改为 realtime。新浪内盘期货的两个实时行情接口同源，按入参区分为 futures_zh_realtime_sina（某品种的全部合约）和 futures_zh_contract_realtime_sina（指定合约）
+2. 股票、基金、指数没有现货的概念，实时行情统一用 spot：申万指数的 index_realtime_sw、index_realtime_fund_sw 改为 index_spot_sw、index_spot_fund_sw；REITs 属于基金类目，3 个接口补上 fund_ 前缀
+3. 可转债由 cov 统一为 cb（convertible bond），并补上数据源后缀。其中 bond_zh_cov_info_ths 返回的是可转债列表而不是单只详情，改为 bond_cb_list_ths；bond_cov_stock_issue_cninfo 是可转债转股而不是股票发行，改为 bond_cb_conversion_cninfo
+4. 指数行情接口由 stock_zh_index_*、stock_hk_index_* 改为 index_zh_*、index_hk_*，与所在的指数类目一致；index_zh_a_hist 去掉 a（指数不是 A 股）并补上数据源，改为 index_zh_hist_em；中证指数的接口去掉 zh，与 index_hist_cni、index_hist_sw 的写法一致
+5. 外汇类目的前缀统一为 fx_：forex_spot_em、forex_hist_em、currency_pair_map、macro_fx_sentiment 分别改为 fx_realtime_em、fx_hist_em、fx_pair_map_investing、fx_sentiment_js；currency_boc_safe 是外汇管理局公布的人民币汇率中间价，原名中的 boc（中国银行）有误，改为 fx_central_parity_safe；中国银行牌价 currency_boc_sina 改为 fx_boc_rate_sina
+6. 交易所标记后置：期货的成交持仓排名、仓单日报改为 futures_position_rank_dce、futures_warehouse_receipt_shfe 等，与已有的 futures_warehouse_receipt_czce、futures_warehouse_receipt_dce 一致；上交所、深交所的市场总貌等 6 个接口同样把 sse、szse 移到末尾。stock_zh_a_tick_tx_js 末尾的 js 指 JavaScript 而不是金十数据，去掉
+7. comm 既像手续费（commission）又像商品（commodity）：期货、期权手续费接口改用 fee 并标明数据源（futures_fee_9qihuo、futures_fee_js、futures_fee_ctp、option_fee_9qihuo、option_fee_symbol_9qihuo），欧美商品 QDII 改为 qdii_e_commodity_jsl；futures_rule 改为 futures_trading_rule_gtja（国泰君安期货的保证金、涨跌停板、合约乘数等交易参数）
+8. 修复 bond_zh_hs_realtime_sina（原 bond_zh_hs_spot）报 `DataParsingError` 的问题：新浪原端点约八成的请求返回 HTTP 500 和空内容，改用同站的另一个端点，两者返回的债券相同。新浪的总数接口比实际多报约 17 页，请求超出实际页数时原先报 `KeyError`，现在返回已取到的数据，没有数据时返回空表；涨跌额、涨跌幅两列由字符串改为数值，与文档一致；改为按上游字段名映射列名
+9. 修复 index_spot_fund_sw、index_hist_fund_sw（申万基金指数）报 `SSLError` 的问题：申万宏源研究所的服务器不发送中间证书，这个模块此前没有使用申万其他接口共用的会话
+10. 修复 fx_pair_map_investing（原 currency_pair_map）报 `KeyError: '人民币'` 的问题：英为财情按 TLS 指纹拦截程序访问，原请求返回 403，改为经 curl_cffi 以浏览器指纹请求；币种名称不存在时抛出 InvalidParameterError。英为财情在中国大陆通常无法直接访问，需先用 ak.set_proxies() 设置代理
+11. futures_zh_contract_realtime_sina 的默认合约 V2309 和文档示例的 V2205 早已到期，按默认参数或文档示例调用必然报错，改为 V2701
+12. 其余接口只改名称、实现未变。68 个接口中，15 个请求东方财富 push2 的接口（外汇、REITs、可转债分时与比价、东方财富的指数行情、期权实时行情）为避免触发限流没有实测；futures_position_rank_dce、futures_position_rank_other_dce 因大连商品交易所的反爬虫验证无法获取数据，与改名无关；其余 51 个已按文档示例逐一调用，返回正常
+13. 命名规范的存量问题由 119 个降至 69 个；按位置赋列名的写法降至 472 处
+
 (v1-20-43)=
 ### 1.20.43 fix!: fix macro_fx_sentiment and remove futures_stock_shfe_js
 
@@ -404,6 +423,74 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.44      | bond_cov_comparison                         | bond_cb_comparison_em                       | 20261114 |
+| 1.20.44      | bond_cov_issue_cninfo                       | bond_cb_issue_cninfo                        | 20261114 |
+| 1.20.44      | bond_cov_stock_issue_cninfo                 | bond_cb_conversion_cninfo                   | 20261114 |
+| 1.20.44      | bond_zh_cov                                 | bond_cb_list_em                             | 20261114 |
+| 1.20.44      | bond_zh_cov_info                            | bond_cb_info_em                             | 20261114 |
+| 1.20.44      | bond_zh_cov_info_ths                        | bond_cb_list_ths                            | 20261114 |
+| 1.20.44      | bond_zh_cov_value_analysis                  | bond_cb_value_analysis_em                   | 20261114 |
+| 1.20.44      | bond_zh_hs_cov_daily                        | bond_cb_daily_sina                          | 20261114 |
+| 1.20.44      | bond_zh_hs_cov_min                          | bond_cb_hist_min_em                         | 20261114 |
+| 1.20.44      | bond_zh_hs_cov_pre_min                      | bond_cb_pre_min_em                          | 20261114 |
+| 1.20.44      | bond_zh_hs_cov_spot                         | bond_cb_realtime_sina                       | 20261114 |
+| 1.20.44      | bond_zh_hs_spot                             | bond_zh_hs_realtime_sina                    | 20261114 |
+| 1.20.44      | crypto_js_spot                              | crypto_realtime_js                          | 20261114 |
+| 1.20.44      | currency_boc_safe                           | fx_central_parity_safe                      | 20261114 |
+| 1.20.44      | currency_boc_sina                           | fx_boc_rate_sina                            | 20261114 |
+| 1.20.44      | currency_pair_map                           | fx_pair_map_investing                       | 20261114 |
+| 1.20.44      | forex_hist_em                               | fx_hist_em                                  | 20261114 |
+| 1.20.44      | forex_spot_em                               | fx_realtime_em                              | 20261114 |
+| 1.20.44      | futures_comm_info                           | futures_fee_9qihuo                          | 20261114 |
+| 1.20.44      | futures_comm_js                             | futures_fee_js                              | 20261114 |
+| 1.20.44      | futures_dce_position_rank                   | futures_position_rank_dce                   | 20261114 |
+| 1.20.44      | futures_dce_position_rank_other             | futures_position_rank_other_dce             | 20261114 |
+| 1.20.44      | futures_fees_info                           | futures_fee_ctp                             | 20261114 |
+| 1.20.44      | futures_foreign_commodity_realtime          | futures_foreign_realtime_sina               | 20261114 |
+| 1.20.44      | futures_gfex_position_rank                  | futures_position_rank_gfex                  | 20261114 |
+| 1.20.44      | futures_gfex_warehouse_receipt              | futures_warehouse_receipt_gfex              | 20261114 |
+| 1.20.44      | futures_global_spot_em                      | futures_global_realtime_em                  | 20261114 |
+| 1.20.44      | futures_rule                                | futures_trading_rule_gtja                   | 20261114 |
+| 1.20.44      | futures_shfe_warehouse_receipt              | futures_warehouse_receipt_shfe              | 20261114 |
+| 1.20.44      | futures_zh_realtime                         | futures_zh_realtime_sina                    | 20261114 |
+| 1.20.44      | futures_zh_spot                             | futures_zh_contract_realtime_sina           | 20261114 |
+| 1.20.44      | index_csindex_all                           | index_all_csindex                           | 20261114 |
+| 1.20.44      | index_realtime_fund_sw                      | index_spot_fund_sw                          | 20261114 |
+| 1.20.44      | index_realtime_sw                           | index_spot_sw                               | 20261114 |
+| 1.20.44      | index_zh_a_hist                             | index_zh_hist_em                            | 20261114 |
+| 1.20.44      | index_zh_a_hist_min_em                      | index_zh_hist_min_em                        | 20261114 |
+| 1.20.44      | macro_fx_sentiment                          | fx_sentiment_js                             | 20261114 |
+| 1.20.44      | option_cffex_hs300_spot_sina                | option_cffex_hs300_realtime_sina            | 20261114 |
+| 1.20.44      | option_cffex_sz50_spot_sina                 | option_cffex_sz50_realtime_sina             | 20261114 |
+| 1.20.44      | option_cffex_zz1000_spot_sina               | option_cffex_zz1000_realtime_sina           | 20261114 |
+| 1.20.44      | option_comm_info                            | option_fee_9qihuo                           | 20261114 |
+| 1.20.44      | option_comm_symbol                          | option_fee_symbol_9qihuo                    | 20261114 |
+| 1.20.44      | option_current_em                           | option_realtime_em                          | 20261114 |
+| 1.20.44      | option_finance_sse_underlying               | option_finance_underlying_sse               | 20261114 |
+| 1.20.44      | option_sse_spot_price_sina                  | option_sse_realtime_sina                    | 20261114 |
+| 1.20.44      | option_sse_underlying_spot_price_sina       | option_sse_underlying_realtime_sina         | 20261114 |
+| 1.20.44      | qdii_e_comm_jsl                             | qdii_e_commodity_jsl                        | 20261114 |
+| 1.20.44      | reits_hist_em                               | fund_reits_hist_em                          | 20261114 |
+| 1.20.44      | reits_hist_min_em                           | fund_reits_hist_min_em                      | 20261114 |
+| 1.20.44      | reits_realtime_em                           | fund_reits_spot_em                          | 20261114 |
+| 1.20.44      | spot_quotations_sge                         | spot_realtime_sge                           | 20261114 |
+| 1.20.44      | stock_hk_index_daily_em                     | index_hk_daily_em                           | 20261114 |
+| 1.20.44      | stock_hk_index_daily_sina                   | index_hk_daily_sina                         | 20261114 |
+| 1.20.44      | stock_hk_index_spot_em                      | index_hk_spot_em                            | 20261114 |
+| 1.20.44      | stock_hk_index_spot_sina                    | index_hk_spot_sina                          | 20261114 |
+| 1.20.44      | stock_sse_deal_daily                        | stock_deal_daily_sse                        | 20261114 |
+| 1.20.44      | stock_sse_summary                           | stock_summary_sse                           | 20261114 |
+| 1.20.44      | stock_szse_area_summary                     | stock_area_summary_szse                     | 20261114 |
+| 1.20.44      | stock_szse_sector_summary                   | stock_sector_summary_szse                   | 20261114 |
+| 1.20.44      | stock_szse_summary                          | stock_summary_szse                          | 20261114 |
+| 1.20.44      | stock_zh_a_tick_tx_js                       | stock_zh_a_tick_tx                          | 20261114 |
+| 1.20.44      | stock_zh_index_daily                        | index_zh_daily_sina                         | 20261114 |
+| 1.20.44      | stock_zh_index_daily_em                     | index_zh_daily_em                           | 20261114 |
+| 1.20.44      | stock_zh_index_daily_tx                     | index_zh_daily_tx                           | 20261114 |
+| 1.20.44      | stock_zh_index_hist_csindex                 | index_hist_csindex                          | 20261114 |
+| 1.20.44      | stock_zh_index_spot_em                      | index_zh_spot_em                            | 20261114 |
+| 1.20.44      | stock_zh_index_spot_sina                    | index_zh_spot_sina                          | 20261114 |
+| 1.20.44      | stock_zh_index_value_csindex                | index_value_csindex                         | 20261114 |
 | 1.20.42      | macro_australia_cpi_quarterly               | macro_australia_cpi_qoq                     | 20261113 |
 | 1.20.42      | macro_australia_cpi_yearly                  | macro_australia_cpi_yoy                     | 20261113 |
 | 1.20.42      | macro_australia_ppi_quarterly               | macro_australia_ppi_qoq                     | 20261113 |

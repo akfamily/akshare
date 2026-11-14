@@ -7,7 +7,7 @@ Desc: 期货-中国-交易所-会员持仓数据接口
 采集前 20 会员持仓数据；
 建议下午 16:30 以后采集当天数据，避免交易所数据更新不稳定；
 郑州商品交易所格式分为三类
-大连商品交易所有具体合约的持仓排名，通过 futures_dce_position_rank 获取
+大连商品交易所有具体合约的持仓排名，通过 futures_position_rank_dce 获取
 20171228
 http://www.czce.com.cn/cn/DFSStaticFiles/Future/2020/20200727/FutureDataHolding.txt
 20100825
@@ -138,7 +138,7 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
     gfex_var = [i for i in vars_list if i in cons.market_exchange_symbols["gfex"]]
     big_dict = {}
     if len(dce_var) > 0:
-        data = futures_dce_position_rank(date, dce_var)
+        data = futures_position_rank_dce(date, dce_var)
         if data is False:
             return False
         big_dict.update(data)
@@ -158,7 +158,7 @@ def futures_rank_sum(date: str = "20210525", vars_list: list = cons.contract_sym
             return False
         big_dict.update(data)
     if len(gfex_var) > 0:
-        data = futures_gfex_position_rank(date, gfex_var)
+        data = futures_position_rank_gfex(date, gfex_var)
         if data is False:
             return False
         big_dict.update(data)
@@ -578,7 +578,7 @@ def futures_rank_table_dce(
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    warnings.warn("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
+    warnings.warn("如果本接口不可用，请使用 ak.futures_position_rank_dce() 接口")
     date_string = date
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
@@ -806,7 +806,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_dce_position_rank(
+def futures_position_rank_dce(
     date: str = "20160919", vars_list=cons.contract_symbols
 ) -> dict:
     """
@@ -1040,7 +1040,7 @@ def futures_dce_position_rank(
     return filtered_dict
 
 
-def futures_dce_position_rank_other(date: str = "20160104"):
+def futures_position_rank_other_dce(date: str = "20160104"):
     """
     大连商品交易所-每日持仓排名-具体合约-补充
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -1278,7 +1278,7 @@ def __futures_gfex_contract_data(
     return big_df
 
 
-def futures_gfex_position_rank(date: str = "20231113", vars_list: list = None):
+def futures_position_rank_gfex(date: str = "20231113", vars_list: list = None):
     """
     广州期货交易所-日成交持仓排名
     http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
@@ -1352,17 +1352,17 @@ if __name__ == "__main__":
     print(futures_rank_table_dce_fourth_df)
 
     # 大连商品交易所-新接口
-    futures_dce_detail_dict = futures_dce_position_rank(date="20240517")
+    futures_dce_detail_dict = futures_position_rank_dce(date="20240517")
     print(futures_dce_detail_dict)
 
-    futures_dce_position_rank_other_df = futures_dce_position_rank_other(
+    futures_position_rank_other_dce_df = futures_position_rank_other_dce(
         date="20200727"
     )
-    print(futures_dce_position_rank_other_df)
+    print(futures_position_rank_other_dce_df)
 
     # 广州期货交易所
-    futures_gfex_position_rank_df = futures_gfex_position_rank(date="20250718")
-    print(futures_gfex_position_rank_df)
+    futures_position_rank_gfex_df = futures_position_rank_gfex(date="20250718")
+    print(futures_position_rank_gfex_df)
 
     # 总接口
     futures_rank_sum_daily_df = futures_rank_sum_daily(

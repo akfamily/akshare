@@ -5,7 +5,7 @@ Date: 2026/11/08
 Desc: akshare.index.index_stock_zh 中腾讯接口的离线测试
 
 北交所股票的 weekTrends 返回空数据，get_tx_start_year 改为从日 K 线向前翻页，
-直到某页不足 640 条，取最早的交易日。stock_zh_index_daily_tx 的原始数组依次为
+直到某页不足 640 条，取最早的交易日。index_zh_daily_tx 的原始数组依次为
 日期、开、收、高、低、成交量、占位、换手率（%）、成交额（万元）、占位、占位，
 输出 volume 统一为股、turnover 为小数、amount 统一为元。
 此处用假响应固定这些行为，全程不联网。
@@ -168,7 +168,7 @@ def test_daily_tx_columns_and_units(
 ) -> None:
     rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
     _install_daily(monkeypatch, symbol, rows)
-    df = index_stock_zh.stock_zh_index_daily_tx(
+    df = index_stock_zh.index_zh_daily_tx(
         symbol=symbol, start_date="20261105", end_date="20261106"
     )
     assert list(df.columns) == index_stock_zh._TX_COLUMNS
@@ -182,7 +182,7 @@ def test_daily_tx_columns_and_units(
 def test_daily_tx_reads_qfqday_key(monkeypatch: pytest.MonkeyPatch) -> None:
     rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
     _install_daily(monkeypatch, "sh000300", rows, key="qfqday")
-    df = index_stock_zh.stock_zh_index_daily_tx(
+    df = index_stock_zh.index_zh_daily_tx(
         symbol="sh000300", start_date="20261105", end_date="20261106"
     )
     assert len(df) == 2
@@ -191,7 +191,7 @@ def test_daily_tx_reads_qfqday_key(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_daily_tx_filters_date_range(monkeypatch: pytest.MonkeyPatch) -> None:
     rows = [_daily_row("2026-11-05"), _daily_row("2026-11-06")]
     _install_daily(monkeypatch, "sh000300", rows)
-    df = index_stock_zh.stock_zh_index_daily_tx(
+    df = index_stock_zh.index_zh_daily_tx(
         symbol="sh000300", start_date="20261106", end_date="20261106"
     )
     assert [str(d) for d in df["date"]] == ["2026-11-06"]
@@ -200,7 +200,7 @@ def test_daily_tx_filters_date_range(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_daily_tx_short_rows_raise(monkeypatch: pytest.MonkeyPatch) -> None:
     _install_daily(monkeypatch, "sh000300", [_daily_row("2026-11-06")[:6]])
     with pytest.raises(DataParsingError, match="6 个字段"):
-        index_stock_zh.stock_zh_index_daily_tx(
+        index_stock_zh.index_zh_daily_tx(
             symbol="sh000300", start_date="20261106", end_date="20261106"
         )
 
@@ -209,7 +209,7 @@ def test_daily_tx_without_rows_returns_empty_frame(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     _install_daily(monkeypatch, "sh000300", [])
-    df = index_stock_zh.stock_zh_index_daily_tx(
+    df = index_stock_zh.index_zh_daily_tx(
         symbol="sh000300", start_date="20261106", end_date="20261106"
     )
     assert df.empty

@@ -13,7 +13,7 @@ from akshare.utils import http
 from akshare.utils.func import fetch_paginated_data
 
 
-def forex_spot_em() -> pd.DataFrame:
+def fx_realtime_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-外汇市场-所有汇率-实时行情数据
     https://quote.eastmoney.com/center/gridlist.html#forex_all
@@ -73,11 +73,11 @@ def forex_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def forex_hist_em(symbol: str = "USDCNH") -> pd.DataFrame:
+def fx_hist_em(symbol: str = "USDCNH") -> pd.DataFrame:
     """
     东方财富网-行情中心-外汇市场-所有汇率-历史行情数据
     https://quote.eastmoney.com/cnyrate/EURCNYC.html
-    :param symbol: 品种代码；可以通过 ak.forex_spot_em() 来获取所有可获取历史行情数据的品种代码
+    :param symbol: 品种代码；可以通过 ak.fx_realtime_em() 来获取所有可获取历史行情数据的品种代码
     :type symbol: str
     :return: 历史行情数据
     :rtype: pandas.DataFrame
@@ -141,8 +141,8 @@ def forex_hist_em(symbol: str = "USDCNH") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    forex_spot_em_df = forex_spot_em()
-    print(forex_spot_em_df)
+    fx_realtime_em_df = fx_realtime_em()
+    print(fx_realtime_em_df)
 
-    forex_hist_em_df = forex_hist_em(symbol="USDCNH")
-    print(forex_hist_em_df)
+    fx_hist_em_df = fx_hist_em(symbol="USDCNH")
+    print(fx_hist_em_df)

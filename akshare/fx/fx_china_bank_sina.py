@@ -55,7 +55,7 @@ def _currency_boc_sina_map(
     return data_dict
 
 
-def currency_boc_sina(
+def fx_boc_rate_sina(
     symbol: str = "美元", start_date: str = "20230304", end_date: str = "20231110"
 ) -> pd.DataFrame:
     """
@@ -120,7 +120,7 @@ def currency_boc_sina(
 
 
 if __name__ == "__main__":
-    currency_boc_sina_df = currency_boc_sina(
+    fx_boc_rate_sina_df = fx_boc_rate_sina(
         symbol="美元", start_date="20230304", end_date="20231110"
     )
-    print(currency_boc_sina_df)
+    print(fx_boc_rate_sina_df)
