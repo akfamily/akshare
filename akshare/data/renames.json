@@ -9,13 +9,17 @@
 "energy_carbon_eu": "1.20.54",
 "energy_carbon_gz": "1.20.54",
 "energy_carbon_sz": "1.20.54",
+"fund_em_lcx_rank": "1.20.63",
+"fund_lcx_rank_em": "1.20.63",
 "futures_stock_shfe_js": "1.20.43",
 "fx_convert_currencyscoop": "1.20.52",
 "fx_currencies_currencyscoop": "1.20.52",
 "fx_hist_currencyscoop": "1.20.52",
 "fx_latest_currencyscoop": "1.20.52",
 "fx_time_series_currencyscoop": "1.20.52",
+"get_token": "1.20.63",
 "index_bloomberg_billionaires": "1.20.45",
+"index_detail_hist_adjust_cni": "1.20.63",
 "index_eri": "1.20.54",
 "index_kq_fz": "1.20.54",
 "index_news_sentiment_scope": "1.20.54",
@@ -108,6 +112,8 @@
 "macro_usa_trade_balance": "1.20.42",
 "macro_usa_unemployment_rate": "1.20.42",
 "online_value_artist": "1.20.45",
+"pro_api": "1.20.63",
+"set_token": "1.20.63",
 "stock_concept_cons_futu": "1.20.54",
 "stock_esg_rate_sina": "1.20.41",
 "stock_financial_abstract_ths": "1.20.41",
@@ -400,10 +406,6 @@
 ],
 "fund_em_hk_rank": [
 "fund_hk_rank_em",
-"1.9.27"
-],
-"fund_em_lcx_rank": [
-"fund_lcx_rank_em",
 "1.9.27"
 ],
 "fund_em_money_rank": [

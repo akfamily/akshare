@@ -8,6 +8,25 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-63)=
+### 1.20.63 fix!: remove the qhkch client and 2 dead interfaces, fix interfaces that silently returned an empty table
+
+**不兼容的改动：移除 pro_api、set_token、get_token 与 2 个上游已没有数据的接口，调用会报 AttributeError。**
+
+移除的内容：
+
+- pro_api、set_token、get_token：这三个函数是第三方付费期货数据服务“奇货可查”（qhkch.com）的客户端，与 AKShare 的公开数据接口无关，文档中也从未介绍；set_token 把令牌以明文保存在用户主目录的 tk.csv 中。仍需使用该服务的用户请直接按其接口文档用 requests 调用；已保存的 tk.csv 不会被自动删除，可自行删除
+- fund_lcx_rank_em（理财型基金排行）：天天基金已没有理财型基金的数据，接口一直返回空表
+- index_detail_hist_adjust_cni（国证指数历史调样）：国证指数网站对所有指数都返回“样本历史调样文件不存在”
+
+修复与说明（均为全量实测中“没有报错但返回空表”的接口）：
+
+1. fund_fee_em：默认的 indicator="认购费率" 落入了未处理的分支，返回空表。现在按网页上的栏目名取表，“认购费率”“申购费率”等都能返回；各基金公布的栏目不同，传入该基金没有的栏目时抛出 InvalidParameterError 并列出可选的栏目
+2. stock_institute_recommend：默认的 symbol="投资评级选股" 对应的是一个需要先填写筛选条件的页面，不带条件时只有表头。默认值改为“最新投资评级”，“投资评级选股”不再是可选值，传入时抛出 InvalidParameterError
+3. option_sse_min_sina、stock_sns_sseinfo、alternative_air_quality_hist_zhenqi 的接口本身正常，是文档示例的参数取不到数据：期权合约已到期、该公司近一个月没有回复、小时数据只保留约两周。示例换成可用的参数，并在“限量”中写明何时返回空表
+4. stock_ipo_benefit_ths 返回空表是因为同花顺的页面目前本身没有数据，接口未改动；fund_value_estimation_em 在非交易日排查，按类型筛选时上游返回“暂无数据”，未能确认是否正常，接口未改动
+5. 接口总数由 958 个变为 956 个
+
 (v1-20-62)=
 ### 1.20.62 fix: report Baidu risk control in fx_quote_baidu, register 6 more alternatives and update README
 

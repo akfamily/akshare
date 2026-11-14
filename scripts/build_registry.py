@@ -158,7 +158,7 @@ def find_missing_labels(docs_dir: pathlib.Path) -> List[str]:
 
 # 非数据接口，必须显式排除。不可依赖「category 能否推断」判定：
 # 实测 1100 个顶层导出中 6 个不可推断 category，而这 6 个恰好只是异常类
-# （相对导入 from .exceptions）；__version__ / pro_api / set_token / get_token
+# （相对导入 from .exceptions）；__version__ / set_proxies / set_timeout 等
 # 均可推断 category，若按「不可推断即排除」实现会被错误收录。
 #
 # 检索层（akshare/registry.py）自身对外暴露的 search / interface_info /
@@ -169,9 +169,6 @@ def find_missing_labels(docs_dir: pathlib.Path) -> List[str]:
 # 数据接口）时，同样应加入这里，而不是指望 category 推断把它们过滤掉。
 EXCLUDE = {
     "__version__",
-    "pro_api",
-    "set_token",
-    "get_token",
     "set_proxies",
     "get_proxies",
     "ProxyContext",

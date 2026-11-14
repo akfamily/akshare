@@ -6,7 +6,6 @@ Desc: 国证指数
 https://www.cnindex.com.cn/index.html
 """
 
-import zipfile
 from io import BytesIO
 
 import pandas as pd
@@ -187,30 +186,6 @@ def index_detail_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     return temp_df
 
 
-def index_detail_hist_adjust_cni(symbol: str = "399005") -> pd.DataFrame:
-    """
-    国证指数-样本详情-历史调样
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399005
-    :param symbol: 指数代码
-    :type symbol: str
-    :return: 历史调样
-    :rtype: pandas.DataFrame
-    """
-    url = "http://www.cnindex.com.cn/sample-detail/download-adjustment"
-    params = {"indexcode": symbol}
-    r = http.get(url, params=params)
-    try:
-        import warnings
-
-        with warnings.catch_warnings():
-            warnings.simplefilter(action="ignore", category=UserWarning)
-            temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
-    except zipfile.BadZipFile:
-        return pd.DataFrame()
-    temp_df["样本代码"] = temp_df["样本代码"].astype(str).str.zfill(6)
-    return temp_df
-
-
 if __name__ == "__main__":
     index_all_cni_df = index_all_cni()
     print(index_all_cni_df)
@@ -225,6 +200,3 @@ if __name__ == "__main__":
 
     index_detail_hist_cni_df = index_detail_hist_cni(symbol="399101")
     print(index_detail_hist_cni_df)
-
-    index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol="399005")
-    print(index_detail_hist_adjust_cni_df)

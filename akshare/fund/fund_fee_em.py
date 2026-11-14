@@ -13,6 +13,7 @@ import warnings
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
@@ -35,6 +36,8 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
     for title_elem in title_elements:
         title_text = title_elem.get_text(strip=True)
         title_text = re.sub(r"\s+", " ", title_text).strip()
+        # 部分标题后面带有以 ◆ 开头的说明文字
+        title_text = title_text.split("◆")[0].strip()
         if title_text == "申购与赎回金额":
             next_table = title_elem.find_all_next("table")[0]
             next_next_table = title_elem.find_all_next("table")[1]
@@ -58,6 +61,12 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 warnings.warn(f"Error: {e}")
                 continue
 
+    if indicator not in tables_dict:
+        # 各基金公布的栏目不同（如没有认购期的基金没有认购费率），栏目名也必须与网页一致
+        raise InvalidParameterError(
+            f"基金 {symbol} 的购买信息里没有“{indicator}”，"
+            f"可选的 indicator 有：{'、'.join(tables_dict) or '无'}"
+        )
     if indicator == "交易状态":
         temp_df = tables_dict[indicator]
     elif indicator == "申购与赎回金额":
@@ -117,7 +126,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
             ].str.split("|", expand=True)
             del temp_df["原费率|天天基金优惠费率"]
     else:
-        temp_df = pd.DataFrame([])
+        temp_df = tables_dict[indicator]
     return temp_df
 
 

@@ -335,87 +335,6 @@ def fund_money_rank_em() -> pd.DataFrame:
     return temp_df
 
 
-def fund_lcx_rank_em() -> pd.DataFrame:
-    """
-    东方财富网-数据中心-理财基金排行
-    # 该接口暂时没有数据
-    https://fund.eastmoney.com/data/lcxfundranking.html#t;c0;r;sSYL_Z;ddesc;pn50;f;os1;
-    :return: 理财基金排行
-    :rtype: pandas.DataFrame
-    """
-    url = "https://api.fund.eastmoney.com/FundRank/GetLcRankList"
-    params = {
-        "intCompany": "0",
-        "MinsgType": "undefined",
-        "IsSale": "1",
-        "strSortCol": "SYL_Z",
-        "orderType": "desc",
-        "pageIndex": "1",
-        "pageSize": "50",
-        "FBQ": "",
-        "callback": "jQuery18303264654966943197_1603867158043",
-    }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
-    }
-    r = http.get(url, params=params, headers=headers)
-    try:
-        data_json = r.json()
-    except Exception:
-        return pd.DataFrame()
-    temp_df = pd.DataFrame(data_json["Data"])
-    temp_df = temp_df.reset_index()
-    temp_df["index"] = list(range(1, len(temp_df) + 1))
-    temp_df.columns = [
-        "序号",
-        "近1周",
-        "基金代码",
-        "基金简称",
-        "日期",
-        "万份收益",
-        "年化收益率-7日",
-        "_",
-        "年化收益率-14日",
-        "年化收益率-28日",
-        "近1月",
-        "近3月",
-        "近6月",
-        "今年来",
-        "成立来",
-        "可购买",
-        "手续费",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    temp_df = temp_df[
-        [
-            "序号",
-            "基金代码",
-            "基金简称",
-            "日期",
-            "万份收益",
-            "年化收益率-7日",
-            "年化收益率-14日",
-            "年化收益率-28日",
-            "近1周",
-            "近1月",
-            "近3月",
-            "近6月",
-            "今年来",
-            "成立来",
-            "可购买",
-            "手续费",
-        ]
-    ]
-    return temp_df
-
-
 def fund_hk_rank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-香港基金排行
@@ -538,9 +457,6 @@ if __name__ == "__main__":
 
     fund_money_rank_em_df = fund_money_rank_em()
     print(fund_money_rank_em_df)
-
-    fund_lcx_rank_em_df = fund_lcx_rank_em()
-    print(fund_lcx_rank_em_df)
 
     fund_hk_rank_em_df = fund_hk_rank_em()
     print(fund_hk_rank_em_df)

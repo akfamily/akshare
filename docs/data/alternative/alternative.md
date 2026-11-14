@@ -655,7 +655,7 @@ print(alternative_air_city_table_zhenqi_df)
 
 描述：指定城市和数据频率下并且在指定时间段内的空气质量数据
 
-限量：单次返回所有的数据；上游只提供最近约一年的数据，更早的日期返回空表；提取小时频率数据时时间跨度不宜过长
+限量：单次返回所有的数据；上游的日频率数据只提供最近约一年，小时频率数据只提供最近约两周，更早的日期返回空表；提取小时频率数据时时间跨度不宜过长
 
 输入参数
 
@@ -692,7 +692,7 @@ print(alternative_air_city_table_zhenqi_df)
 ```python
 import akshare as ak
 
-alternative_air_quality_hist_zhenqi_df = ak.alternative_air_quality_hist_zhenqi(city="北京", period="hour", start_date="20261027", end_date="20261028")
+alternative_air_quality_hist_zhenqi_df = ak.alternative_air_quality_hist_zhenqi(city="北京", period="hour", start_date="20261112", end_date="20261113")
 print(alternative_air_quality_hist_zhenqi_df)
 ```
 

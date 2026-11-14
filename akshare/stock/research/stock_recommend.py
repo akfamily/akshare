@@ -11,6 +11,7 @@ from io import StringIO
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 
 
@@ -26,11 +27,11 @@ def _read_sina_recommend_table(html_text: str) -> pd.DataFrame:
     return pd.read_html(StringIO(html_text), header=0)[0]
 
 
-def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFrame:
+def stock_institute_recommend(symbol: str = "最新投资评级") -> pd.DataFrame:
     """
     新浪财经-机构推荐池-最新投资评级
     http://stock.finance.sina.com.cn/stock/go.php/vIR_RatingNewest/index.phtml
-    :param symbol: choice of {'最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股'}
+    :param symbol: choice of {'最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度'}
     :type symbol: str
     :return: 最新投资评级数据
     :rtype: pandas.DataFrame
@@ -46,6 +47,12 @@ def stock_institute_recommend(symbol: str = "投资评级选股") -> pd.DataFram
         item.find("a").text: item.find("a")["href"]
         for item in soup.find(attrs={"id": "leftMenu"}).find_all("dd")[1].find_all("li")
     }
+    # “投资评级选股”是一个需要先填写筛选条件的页面，不带条件时只有表头
+    indicator_map.pop("投资评级选股", None)
+    if symbol not in indicator_map:
+        raise InvalidParameterError(
+            f"symbol 不能是 {symbol}，可选值：{'、'.join(indicator_map)}"
+        )
     url = indicator_map[symbol]
     params = {
         "num": "10000",
