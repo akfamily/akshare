@@ -8,6 +8,11 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-59)=
+### 1.20.59 docs: sync the MCP pages with AKTools 0.1.9
+
+1. AKTools 0.1.9 已发布：使用已更名或已移除的旧接口名时，HTTP 接口的 404 给出新的请求地址，MCP 的 describe_interface 与 get_data 给出现在的接口名，search_interfaces 把现在的名称排在第一位；它要求 AKShare 不低于 1.20.58。MCP 文档与 llms.txt 补充这一说明
+
 (v1-20-58)=
 ### 1.20.58 feat: expose rename data as ak.renamed_info and rank the new name first when searching an old name
 
