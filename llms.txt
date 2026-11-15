@@ -57,6 +57,12 @@ It exposes three generic tools rather than one tool per interface:
   to `max_rows` rows (default 100, max 1000) plus the total row count.
   A negative `offset` counts from the end, e.g. `-20` for the latest 20 rows
   of date-ascending data.
+- `save_data(name, params)` (stdio only, AKTools >= 0.1.12): writes the
+  complete table, with no 1000-row limit, to a CSV file under
+  `~/.aktools/data` (or `AKTOOLS_DATA_DIR`) and returns its absolute `path`,
+  `total_rows`, per-column descriptions with units and the first 5 rows. It
+  is not read-only, so clients usually ask for confirmation. Use it to hand
+  data to another program such as AKQuant.
 
 The same data often has several sources (A-share daily bars:
 `stock_zh_a_hist_em` from Eastmoney, `stock_zh_a_hist_sina` from Sina,
@@ -93,7 +99,11 @@ its own official MCP server, registered as `io.github.akfamily/akquant`
 (`uvx --from "akquant[mcp]" akquant-mcp --root <project dir>`). For a
 request such as "install the official MCP servers of AKShare and AKQuant",
 configure both AKTools and AKQuant; see
-`https://akquant.akfamily.xyz/llms.txt`.
+`https://akquant.akfamily.xyz/llms.txt`. To backtest data other than
+A-share daily bars, call AKTools `save_data` and pass the returned `path`
+to AKQuant's `prepare_data` as `{"source": "file", "path": ..., "symbol":
+...}`; point `AKTOOLS_DATA_DIR` inside AKQuant's `--root` and use an
+interface with English OHLC columns (names ending in `_sina` or `_tx`).
 
 ## Python Entry Point
 
