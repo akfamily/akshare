@@ -129,6 +129,13 @@ AKShare 有近千个接口，如果逐个注册成工具，会占满助手的上
 
 按日期升序排列的数据，最新的行在末尾。问“最近”的数据时，助手可以用 `offset=-20` 这样的负数直接取最后 20 行，不必从头翻页。三个工具都标注为只读（`readOnlyHint`）。
 
+(mcp-save-data)=
+### 把完整数据保存为文件：save_data
+
+stdio 方式下还有第 4 个工具 `save_data`（AKTools 0.1.12 起），参数与 `get_data` 相同。它把接口返回的完整数据保存为本机的 CSV 文件，不受 1000 行的限制，返回文件路径、总行数、各列的说明（含单位）和前 5 行，适合把数据交给其他程序，或需要超过 1000 行的完整表格时使用。
+
+文件保存在用户目录下的 `.aktools/data`，可以在 MCP 配置的 `env` 中用 `AKTOOLS_DATA_DIR` 修改，助手不能指定保存路径；相同的请求覆盖同一个文件，超过 7 天的文件会在保存时自动清理。这个工具会写文件，没有标注为只读，多数客户端在调用前会请你确认。HTTP 方式下不提供，完整数据请用 `get_data` 返回的 CSV 下载地址。
+
 (mcp-source)=
 ### 数据来源与限流
 
@@ -178,6 +185,8 @@ python -m aktools --host 0.0.0.0
 > 安装 AKShare 和 AKQuant 各自的官方 MCP，运行一个示例策略并报告结果
 
 助手会自己完成安装。手动配置方法见 [AKQuant 的 MCP 文档](https://akquant.akfamily.xyz/guide/mcp/)。
+
+AKQuant 自己只能取 A 股个股的日线。配合 AKTools 的 `save_data`，指数、ETF、期货、港股、美股的行情也可以用来回测：助手先用 `save_data` 把数据保存为 CSV，再把文件路径交给 AKQuant 的 `prepare_data`。目前需要把 `AKTOOLS_DATA_DIR` 设在 AKQuant 的项目目录内，并使用列名为英文的接口（新浪财经、腾讯），配置方法见 [AKTools 文档](https://aktools.akfamily.xyz/guide/mcp/#akquant-data)。
 
 ```{warning}
 AKQuant 会在本机直接运行策略代码，没有沙箱隔离。回测结果与改进建议由 AI 生成，仅供学习和研究，不构成投资建议。
