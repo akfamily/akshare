@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def fx_c_swap_cm():
+def fx_c_swap_cm() -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-基准-外汇市场-外汇掉期曲线-外汇掉期 C-Swap 定盘曲线
     https://www.chinamoney.com.cn/chinese/bkcurvfsw

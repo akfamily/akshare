@@ -782,7 +782,7 @@ print(futures_roll_yield_bar_df)
 
 描述：指定交易日指定品种主力与次主力合约的展期收益率；也可以用 symbol1、symbol2 指定任意两个合约
 
-限量：单次返回指定交易日的展期收益率
+限量：单次返回指定交易日的展期收益率；非交易日或该品种不足两个合约时返回只有列名的空表
 
 输入参数
 
@@ -796,23 +796,26 @@ print(futures_roll_yield_bar_df)
 
 输出参数
 
-| 名称 | 类型    | 描述                 |
-|----|-------|--------------------|
-| -  | tuple | 依次为展期收益率、近月合约、远月合约 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| roll_yield | float64 | 展期收益率 |
+| near_by | object | 近月合约 |
+| deferred | object | 远月合约 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_roll_yield_tuple = ak.futures_roll_yield(date="20261113", symbol="RB")
-print(futures_roll_yield_tuple)
+futures_roll_yield_df = ak.futures_roll_yield(date="20261113", symbol="RB")
+print(futures_roll_yield_df)
 ```
 
 数据示例
 
 ```
-(-0.001976284656450491, 'RB2701', 'RB2705')
+   roll_yield near_by deferred
+0   -0.001976  RB2701   RB2705
 ```
 
 ### 注册仓单
@@ -1466,7 +1469,7 @@ print(futures_rank_sum_daily_df)
 
 描述：指定交易日各交易所前 5、前 10、前 15、前 20 名会员的成交量、多单持仓、空单持仓及其变化量之和
 
-限量：单次返回指定交易日指定品种的会员持仓排名汇总数据；大连商品交易所的品种暂时无法获取
+限量：单次返回指定交易日指定品种的会员持仓排名汇总数据；大连商品交易所的品种暂时无法获取；非交易日返回只有列名的空表，交易所取数失败时抛出 APIError
 
 输入参数
 
@@ -1775,9 +1778,9 @@ print(futures_rank_table_dce_df)
 
 目标地址：http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
 
-描述：大连商品交易所指定交易日有持仓排名数据的品种及其合约列表；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
+描述：大连商品交易所指定交易日各品种各合约的会员持仓排名，所有合约合并为一张表；大连商品交易所网站目前启用了瑞数反爬虫验证，程序请求会被拒绝（HTTP 412），该接口暂时无法获取数据
 
-限量：单次返回指定交易日的品种与合约列表
+限量：单次返回指定交易日的品种与合约列表；非交易日返回只有列名的空表
 
 输入参数
 
@@ -1787,17 +1790,28 @@ print(futures_rank_table_dce_df)
 
 输出参数
 
-| 名称 | 类型   | 描述              |
-|----|------|-----------------|
-| -  | list | 每个元素为一个品种及其合约列表 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| symbol | object | 合约代码 |
+| variety | object | 品种代码 |
+| rank | object | 名次 |
+| vol_party_name | object | 成交量排序的会员简称 |
+| vol | object | 成交量 |
+| vol_chg | object | 成交量增减 |
+| long_party_name | object | 持买单量排序的会员简称 |
+| long_open_interest | object | 持买单量 |
+| long_open_interest_chg | object | 持买单量增减 |
+| short_party_name | object | 持卖单量排序的会员简称 |
+| short_open_interest | object | 持卖单量 |
+| short_open_interest_chg | object | 持卖单量增减 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_position_rank_other_dce_list = ak.futures_position_rank_other_dce(date="20160104")
-print(futures_position_rank_other_dce_list)
+futures_position_rank_other_dce_df = ak.futures_position_rank_other_dce(date="20160104")
+print(futures_position_rank_other_dce_df)
 ```
 
 数据示例
@@ -3180,10 +3194,10 @@ print(futures_zh_contract_realtime_sina_df)
 import time
 import akshare as ak
 
-dce_text = ak.futures_main_contract_sina(symbol="dce")
-czce_text = ak.futures_main_contract_sina(symbol="czce")
-shfe_text = ak.futures_main_contract_sina(symbol="shfe")
-gfex_text = ak.futures_main_contract_sina(symbol="gfex")
+dce_text = ",".join(ak.futures_main_contract_sina(symbol="dce")["合约"])
+czce_text = ",".join(ak.futures_main_contract_sina(symbol="czce")["合约"])
+shfe_text = ",".join(ak.futures_main_contract_sina(symbol="shfe")["合约"])
+gfex_text = ",".join(ak.futures_main_contract_sina(symbol="gfex")["合约"])
 
 while True:
     time.sleep(3)
@@ -3263,7 +3277,7 @@ while True:
 import time
 import akshare as ak
 
-cffex_text = ak.futures_main_contract_sina(symbol="cffex")
+cffex_text = ",".join(ak.futures_main_contract_sina(symbol="cffex")["合约"])
 
 while True:
     time.sleep(3)
@@ -3293,7 +3307,7 @@ while True:
 
 目标地址：https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
 
-描述：新浪财经-指定交易所当前各品种的主力合约代码，以英文逗号连接成字符串，可直接作为 futures_zh_contract_realtime_sina 的 symbol 参数
+描述：新浪财经-指定交易所当前各品种的主力合约代码，每行一个合约；用 `",".join(df["合约"])` 以英文逗号连接后可作为 futures_zh_contract_realtime_sina 的 symbol 参数
 
 限量：单次返回指定交易所所有品种的主力合约代码
 
@@ -3305,23 +3319,48 @@ while True:
 
 输出参数
 
-| 名称 | 类型  | 描述             |
-|----|-----|----------------|
-| -  | str | 以英文逗号连接的主力合约代码 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 合约 | object | 主力合约代码 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_main_contract_sina_str = ak.futures_main_contract_sina(symbol="shfe")
-print(futures_main_contract_sina_str)
+futures_main_contract_sina_df = ak.futures_main_contract_sina(symbol="shfe")
+print(futures_main_contract_sina_df)
 ```
 
 数据示例
 
 ```
-FU2701,SC2701,AL2701,RU2701,ZN2701,CU2612,AU2702,RB2701,WR2701,PB2701,AG2702,BU2701,HC2701,SN2612,NI2701,SP2701,NR2701,SS2701,LU2701,BC2612,AO2701,BR2701,EC2612,AD2701,OP2701
+        合约
+0   FU2701
+1   SC2701
+2   AL2701
+3   RU2701
+4   ZN2701
+5   CU2612
+6   AU2702
+7   RB2701
+8   WR2701
+9   PB2701
+10  AG2702
+11  BU2701
+12  HC2701
+13  SN2612
+14  NI2701
+15  SP2701
+16  NR2701
+17  SS2701
+18  LU2701
+19  BC2612
+20  AO2701
+21  BR2701
+22  EC2612
+23  AD2701
+24  OP2701
 ```
 
 (futures_symbol_mark)=
@@ -4712,7 +4751,7 @@ import time
 import akshare as ak
 
 print("开始接收实时行情, 每 3 秒刷新一次")
-subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()  # 其中 subscribe_list 为列表
+subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()["代码"].tolist()  # 其中 subscribe_list 为列表
 while True:
     time.sleep(3)
     futures_foreign_realtime_sina_df = ak.futures_foreign_realtime_sina(symbol=subscribe_list)
@@ -4774,23 +4813,53 @@ while True:
 
 输出参数
 
-| 名称 | 类型   | 描述       |
-|----|------|----------|
-| -  | list | 外盘期货品种代码 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 代码 | object | 外盘期货品种代码 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-futures_foreign_commodity_subscribe_exchange_symbol_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()
-print(futures_foreign_commodity_subscribe_exchange_symbol_list)
+futures_foreign_commodity_subscribe_exchange_symbol_df = ak.futures_foreign_commodity_subscribe_exchange_symbol()
+print(futures_foreign_commodity_subscribe_exchange_symbol_df)
 ```
 
 数据示例
 
 ```
-['FEF', 'FCPO', 'RSS3', 'RS', 'BTC', 'CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD', 'EUA']
+      代码
+0    FEF
+1   FCPO
+2   RSS3
+3     RS
+4    BTC
+5     CT
+6    NID
+7    PBD
+8    SND
+9    ZSD
+10   AHD
+11   CAD
+12     S
+13     W
+14     C
+15    BO
+16    SM
+17   TRB
+18    HG
+19    NG
+20    CL
+21    SI
+22    GC
+23   LHC
+24   OIL
+25   XAU
+26   XAG
+27   XPT
+28   XPD
+29   EUA
 ```
 
 (futures_global_realtime_em)=

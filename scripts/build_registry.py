@@ -184,6 +184,8 @@ EXCLUDE = {
     "interface_info",
     "list_categories",
     "renamed_info",
+    # 本地的工具函数：给股票代码加市场前缀，返回字符串，常用于 Series.apply
+    "stock_a_code_to_symbol",
 }
 
 # EXCLUDE 的成员被排除在 registry 之外，但除 dunder 以外它们仍是公开 API，

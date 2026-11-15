@@ -132,7 +132,7 @@ def futures_cftc_commodity_commercial_holding_js() -> pd.DataFrame:
     return big_df
 
 
-def futures_cme_metal_volume_js():
+def futures_cme_metal_volume_js() -> pd.DataFrame:
     """
     CME-贵金属，数据区间从 20180405-至今
     https://datacenter.jin10.com/org

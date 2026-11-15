@@ -959,11 +959,11 @@ print(stock_esg_hz_sina_df)
 (stock_a_code_to_symbol)=
 ### 股票代码加市场前缀
 
-接口：stock_a_code_to_symbol
+函数：stock_a_code_to_symbol
 
 目标地址：https://akshare.akfamily.xyz
 
-描述：为沪深股票代码加上市场前缀：以 6 或 900 开头的返回 sh 前缀，其余返回 sz 前缀；本接口不联网，是配合新浪、腾讯接口使用的工具函数
+描述：为沪深京股票代码加上市场前缀：以 6 或 900 开头的返回 sh 前缀，以 4、8、92 开头的返回 bj 前缀，其余返回 sz 前缀；本函数不联网，是配合新浪、腾讯接口使用的工具函数，返回字符串，不属于数据接口
 
 限量：单次返回一个带前缀的代码
 

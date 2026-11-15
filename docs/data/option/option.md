@@ -1226,9 +1226,10 @@ print(option_daily_stats_szse_df)
 
 输出参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 品种 | object | 指数名称 |
+| 合约 | object | 合约代码，第一行为主力合约 |
 
 接口示例
 
@@ -1242,7 +1243,13 @@ print(option_cffex_sz50_list_sina_df)
 数据示例
 
 ```
-{'上证50指数': ['ho2301', 'ho2303', 'ho2302', 'ho2306', 'ho2312', 'ho2309']}
+       品种      合约
+0  上证50指数  ho2611
+1  上证50指数  ho2612
+2  上证50指数  ho2703
+3  上证50指数  ho2709
+4  上证50指数  ho2706
+5  上证50指数  ho2701
 ```
 
 (option_cffex_hs300_list_sina)=
@@ -1264,9 +1271,10 @@ print(option_cffex_sz50_list_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 品种 | object | 指数名称 |
+| 合约 | object | 合约代码，第一行为主力合约 |
 
 接口示例
 
@@ -1280,7 +1288,13 @@ print(option_cffex_hs300_list_sina_df)
 数据示例
 
 ```
-{'沪深300指数': ['io2003', 'io2002', 'io2004', 'io2006', 'io2012', 'io2009']}
+        品种      合约
+0  沪深300指数  io2611
+1  沪深300指数  io2612
+2  沪深300指数  io2703
+3  沪深300指数  io2701
+4  沪深300指数  io2709
+5  沪深300指数  io2706
 ```
 
 (option_cffex_zz1000_list_sina)=
@@ -1302,9 +1316,10 @@ print(option_cffex_hs300_list_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 品种 | object | 指数名称 |
+| 合约 | object | 合约代码，第一行为主力合约 |
 
 接口示例
 
@@ -1318,7 +1333,13 @@ print(option_cffex_zz1000_list_sina_df)
 数据示例
 
 ```
-{'中证1000指数': ['mo2208', 'mo2209', 'mo2212', 'mo2210', 'mo2306', 'mo2303']}
+         品种      合约
+0  中证1000指数  mo2611
+1  中证1000指数  mo2612
+2  中证1000指数  mo2703
+3  中证1000指数  mo2706
+4  中证1000指数  mo2701
+5  中证1000指数  mo2709
 ```
 
 (option_cffex_sz50_realtime_sina)=
@@ -1745,9 +1766,9 @@ print(option_cffex_zz1000_daily_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 到期月份 | object | 合约到期月份，如 202612 |
 
 接口示例
 
@@ -1761,7 +1782,11 @@ print(option_sse_list_sina_df)
 数据示例
 
 ```
-['202002', '202003', '202006', '202009']
+     到期月份
+0  202611
+1  202612
+2  202703
+3  202706
 ```
 
 (option_sse_expire_day_sina)=
@@ -1785,23 +1810,25 @@ print(option_sse_list_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 到期日 | object | - |
+| 剩余天数 | int64 | 距到期日的自然日天数 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-option_sse_expire_day_sina_df = ak.option_sse_expire_day_sina(trade_date="202002", symbol="50ETF", exchange="null")
+option_sse_expire_day_sina_df = ak.option_sse_expire_day_sina(trade_date="202612", symbol="50ETF", exchange="null")
 print(option_sse_expire_day_sina_df)
 ```
 
 数据示例
 
 ```
-('2020-02-26', 3)
+          到期日  剩余天数
+0  2026-12-23    38
 ```
 
 (option_sse_codes_sina)=
@@ -3472,7 +3499,7 @@ print(option_hist_gfex_df)
 
 描述：广州期货交易所-商品期权数据-隐含波动参考值
 
-限量：单次返回指定 symbol 和 trade_date 的期权行情数据
+限量：单次返回指定 symbol 和 trade_date 的期权行情数据；非交易日返回只有列名的空表
 
 输入参数
 

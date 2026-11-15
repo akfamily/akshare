@@ -25,6 +25,7 @@ from io import StringIO
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from akshare.exceptions import APIError
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
 from akshare.futures.symbol_var import symbol_varieties
@@ -56,7 +57,7 @@ def futures_rank_sum_daily(
     start_date: str = "20210510",
     end_date: str = "20210510",
     symbols: str = "",
-):
+) -> pd.DataFrame:
     """
     采集四个期货交易所前 5、前 10、前 15、前 20 会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
@@ -94,7 +95,7 @@ def futures_rank_sum_daily(
     records = pd.DataFrame()
     while start_date <= end_date:
         if start_date.strftime("%Y%m%d") in calendar:
-            data = futures_rank_sum(start_date, symbols)
+            data = _futures_rank_sum(start_date, symbols)
             if data is False:
                 warnings.warn(
                     f"{start_date.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
@@ -108,7 +109,7 @@ def futures_rank_sum_daily(
     return records.reset_index(drop=True)
 
 
-def futures_rank_sum(date: str = "20210525", symbols: str = ""):
+def _futures_rank_sum(date: str = "20210525", symbols: str = ""):
     """
     采集五个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
@@ -118,7 +119,7 @@ def futures_rank_sum(date: str = "20210525", symbols: str = ""):
     :type date: date
     :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
     :type symbols: str
-    :return: 持仓排名数据
+    :return: 持仓排名数据；非交易日返回 None，交易所取数失败返回 False
     :rtype: pandas.DataFrame
     symbol                           标的合约                     string
     var                              商品品种                     string
@@ -272,6 +273,45 @@ def futures_rank_sum(date: str = "20210525", symbols: str = ""):
             records = pd.concat([records, var_record], ignore_index=True)
 
     return records.reset_index(drop=True)
+
+
+RANK_SUM_COLUMNS = (
+    ["symbol", "variety"]
+    + [
+        f"{field}_top{top}"
+        for top in (5, 10, 15, 20)
+        for field in (
+            "vol",
+            "vol_chg",
+            "long_open_interest",
+            "long_open_interest_chg",
+            "short_open_interest",
+            "short_open_interest_chg",
+        )
+    ]
+    + ["date"]
+)
+
+
+def futures_rank_sum(date: str = "20210525", symbols: str = "") -> pd.DataFrame:
+    """
+    采集五个期货交易所前5、前10、前15、前20会员持仓排名数据
+    注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名；
+        所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
+    注2：大商所只公布了品种排名，未公布标的排名
+    :param date: 日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type date: date
+    :param symbols: 品种代码，多个品种用英文逗号分隔，如 "CU,NI"；默认为空，即全部品种
+    :type symbols: str
+    :return: 持仓排名数据；非交易日返回空表
+    :rtype: pandas.DataFrame
+    """
+    data = _futures_rank_sum(date=date, symbols=symbols)
+    if data is False:
+        raise APIError(f"{date} 的会员持仓排名数据获取失败，交易所没有返回数据")
+    if data is None or data.empty:
+        return pd.DataFrame(columns=RANK_SUM_COLUMNS)
+    return data
 
 
 def _futures_rank_table_shfe_dict(date: str = None, symbols: str = "") -> dict:
@@ -1042,19 +1082,19 @@ def _futures_position_rank_dce_dict(date: str = "20160919", symbols: str = "") -
     return filtered_dict
 
 
-def futures_position_rank_other_dce(date: str = "20160104"):
+def futures_position_rank_other_dce(date: str = "20160104") -> pd.DataFrame:
     """
     大连商品交易所-每日持仓排名-具体合约-补充
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
     :param date: 交易日
     :type date: str
-    :return: 合约具体名称列表
-    :rtype: list
+    :return: 各合约的会员持仓排名；非交易日返回空表
+    :rtype: pandas.DataFrame
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
-        return {}
+        return cons.dict_to_frame({}, "symbol", cons.RANK_TABLE_COLUMNS)
     url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
     payload = {
         "memberDealPosiQuotes.variety": "c",
@@ -1139,7 +1179,7 @@ def futures_position_rank_other_dce(date: str = "20160104"):
                         ]
                     ]
                     big_df[contract] = temp_df
-    return big_df
+    return cons.dict_to_frame(big_df, "symbol", cons.RANK_TABLE_COLUMNS)
 
 
 def __futures_gfex_vars_list() -> list:

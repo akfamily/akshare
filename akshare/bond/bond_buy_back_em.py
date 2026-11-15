@@ -153,7 +153,7 @@ def bond_repo_sz_em() -> pd.DataFrame:
     return temp_df
 
 
-def bond_repo_hist_em(symbol: str = "204001"):
+def bond_repo_hist_em(symbol: str = "204001") -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-质押式回购-历史数据
     https://quote.eastmoney.com/center/gridlist.html#bond_sh_buyback

@@ -11,7 +11,7 @@ from akshare.bond.cons import INDEX_MAPPING, PERIOD_MAPPING, INDICATOR_MAPPING
 from akshare.utils import http
 
 
-def bond_available_index_cbond():
+def bond_available_index_cbond() -> pd.DataFrame:
     """
     中国债券信息网-中债指数-中债指数族系 当中，非指定期限部分
     https://yield.chinabond.com.cn/cbweb-mn/indices/singleIndexQueryResult
@@ -27,7 +27,7 @@ def bond_available_index_cbond():
 
 def bond_index_general_cbond(
     index_category: str = "新综合指数", indicator: str = "全价", period: str = "总值"
-):
+) -> pd.DataFrame:
     """
     中国债券信息网-中债指数-中债指数族系
     https://yield.chinabond.com.cn/cbweb-mn/indices/singleIndexQueryResult

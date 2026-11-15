@@ -15,7 +15,6 @@ import ast
 import datetime
 import json
 from functools import lru_cache
-from typing import Dict, List, Tuple
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -26,12 +25,12 @@ from akshare.utils.func import set_df_columns
 
 
 # 期权-中金所-上证50指数
-def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
+def option_cffex_sz50_list_sina() -> pd.DataFrame:
     """
     新浪财经-中金所-上证 50 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有上证 50 指数，沪深 300 指数和中证 1000 指数
     :return: 中金所-上证 50 指数-所有合约
-    :rtype: dict
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex"
     r = http.get(url)
@@ -39,16 +38,16 @@ def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[0].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
-    return {symbol: contract}
+    return pd.DataFrame({"品种": symbol, "合约": contract})
 
 
 # 期权-中金所-沪深300指数
-def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
+def option_cffex_hs300_list_sina() -> pd.DataFrame:
     """
     新浪财经-中金所-沪深 300 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
     :return: 中金所-沪深300指数-所有合约
-    :rtype: dict
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php"
     r = http.get(url)
@@ -56,15 +55,15 @@ def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[1].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
-    return {symbol: contract}
+    return pd.DataFrame({"品种": symbol, "合约": contract})
 
 
-def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
+def option_cffex_zz1000_list_sina() -> pd.DataFrame:
     """
     新浪财经-中金所-中证 1000 指数-所有合约，返回的第一个合约为主力合约
     目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
     :return: 中金所-中证 1000 指数-所有合约
-    :rtype: dict
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/mo/cffex"
     r = http.get(url)
@@ -72,7 +71,7 @@ def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[2].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
-    return {symbol: contract}
+    return pd.DataFrame({"品种": symbol, "合约": contract})
 
 
 def option_cffex_sz50_realtime_sina(symbol: str = "ho2303") -> pd.DataFrame:
@@ -420,7 +419,7 @@ def option_cffex_zz1000_daily_sina(
 
 
 # 期权-上交所-50ETF
-def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[str]:
+def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> pd.DataFrame:
     """
     新浪财经-期权-上交所-50ETF-合约到期月份列表
     https://stock.finance.sina.com.cn/option/quotes.html
@@ -429,19 +428,19 @@ def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[
     :param exchange: null
     :type exchange: str
     :return: 合约到期时间
-    :rtype: list
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName"
     params = {"exchange": f"{exchange}", "cate": f"{symbol}"}
     r = http.get(url, params=params)
     data_json = r.json()
     date_list = data_json["result"]["data"]["contractMonth"]
-    return ["".join(i.split("-")) for i in date_list][1:]
+    return pd.DataFrame({"到期月份": ["".join(i.split("-")) for i in date_list][1:]})
 
 
 def option_sse_expire_day_sina(
     trade_date: str = "202610", symbol: str = "50ETF", exchange: str = "null"
-) -> Tuple[str, int]:
+) -> pd.DataFrame:
     """
     指定到期月份指定品种的剩余到期时间
     :param trade_date: 到期月份：202002, 20203, 20206, 20209
@@ -450,8 +449,8 @@ def option_sse_expire_day_sina(
     :type symbol: str
     :param exchange: null
     :type exchange: str
-    :return: (到期时间，剩余时间)
-    :rtype: tuple
+    :return: 到期日与剩余天数
+    :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay"
     params = {
@@ -472,7 +471,9 @@ def option_sse_expire_day_sina(
         r = http.get(url, params=params)
         data_json = r.json()
         data = data_json["result"]["data"]
-    return data["expireDay"], int(data["remainderDays"])
+    return pd.DataFrame(
+        {"到期日": [data["expireDay"]], "剩余天数": [int(data["remainderDays"])]}
+    )
 
 
 def option_sse_codes_sina(

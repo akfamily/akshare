@@ -14,6 +14,7 @@ from typing import List
 
 import pandas as pd
 
+from akshare.exceptions import InvalidParameterError
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link, pandas_read_html_link
 from akshare.futures.symbol_var import chinese_to_english
@@ -576,7 +577,7 @@ def futures_receipt(
     start_date: str = None,
     end_date: str = None,
     symbols: str = "",
-):
+) -> pd.DataFrame:
     """
     大宗商品-注册仓单数据
     :param start_date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
@@ -590,7 +591,7 @@ def futures_receipt(
     """
     symbols = cons.parse_symbols(symbols)
     if not isinstance(symbols, list):
-        return warnings.warn("vars_list: 必须是列表")
+        raise InvalidParameterError("symbols 应为以英文逗号分隔的品种代码")
     start_date = (
         cons.convert_date(start_date)
         if start_date is not None

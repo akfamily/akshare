@@ -12,7 +12,7 @@ from io import StringIO
 import pandas as pd
 
 from akshare.futures.futures_hq_sina import (
-    futures_foreign_commodity_subscribe_exchange_symbol,
+    _futures_foreign_commodity_symbols,
 )
 from akshare.utils import http
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     futures_foreign_hist_sina_df = futures_foreign_hist_sina(symbol="JY")
     print(futures_foreign_hist_sina_df)
 
-    subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
+    subscribes = _futures_foreign_commodity_symbols()
 
     for item in subscribes:
         futures_foreign_detail_sina_df = futures_foreign_detail_sina(symbol=item)

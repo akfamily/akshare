@@ -67,7 +67,7 @@ def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
 
 
 # SVME采购经理人指数
-def macro_swiss_svme():
+def macro_swiss_svme() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-SVME采购经理人指数
     http://data.eastmoney.com/cjsj/foreign_2_0.html
@@ -79,7 +79,7 @@ def macro_swiss_svme():
 
 
 # 贸易帐
-def macro_swiss_trade():
+def macro_swiss_trade() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-贸易帐
     http://data.eastmoney.com/cjsj/foreign_2_1.html
@@ -91,7 +91,7 @@ def macro_swiss_trade():
 
 
 # 消费者物价指数年率
-def macro_swiss_cpi_yoy():
+def macro_swiss_cpi_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-消费者物价指数年率
     http://data.eastmoney.com/cjsj/foreign_2_2.html
@@ -103,7 +103,7 @@ def macro_swiss_cpi_yoy():
 
 
 # GDP季率
-def macro_swiss_gdp_qoq():
+def macro_swiss_gdp_qoq() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-GDP季率
     http://data.eastmoney.com/cjsj/foreign_2_3.html
@@ -115,7 +115,7 @@ def macro_swiss_gdp_qoq():
 
 
 # GDP年率
-def macro_swiss_gdp_yoy():
+def macro_swiss_gdp_yoy() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-GDP 年率
     http://data.eastmoney.com/cjsj/foreign_2_4.html
@@ -127,7 +127,7 @@ def macro_swiss_gdp_yoy():
 
 
 # 央行公布利率决议
-def macro_swiss_bank_rate():
+def macro_swiss_bank_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-瑞士-央行公布利率决议
     http://data.eastmoney.com/cjsj/foreign_2_5.html

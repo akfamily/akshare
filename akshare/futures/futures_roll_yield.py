@@ -21,9 +21,9 @@ from akshare.futures.symbol_var import symbol_market, symbol_varieties
 calendar = cons.get_calendar()
 
 
-def futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=None):
+def _futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=None):
     """
-    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
+    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率，供库内使用
     http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
     :param date: 交易日，如 20261113；默认为空，取当天
     :type date: str
@@ -35,7 +35,7 @@ def futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=No
     :type symbol2: str
     :param df: 已取得的日行情数据；默认为空，由接口自行获取，传入可以减少重复请求
     :type df: pandas.DataFrame
-    :return: 展期收益率、近月合约、远月合约；取不到行情时返回 None
+    :return: 展期收益率、近月合约、远月合约；非交易日或合约不足两个时返回 None，收盘价为 0 时返回 False
     :rtype: tuple
     """
     # date = "20100104"
@@ -80,13 +80,45 @@ def futures_roll_yield(date=None, symbol="BB", symbol1=None, symbol2=None, df=No
         return math.log(close2 / close1) / c * 12, symbol1, symbol2
 
 
+def futures_roll_yield(
+    date: str = None,
+    symbol: str = "BB",
+    symbol1: str = None,
+    symbol2: str = None,
+    df: pd.DataFrame = None,
+) -> pd.DataFrame:
+    """
+    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
+    http://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/
+    :param date: 交易日，如 20261113；默认为空，取当天
+    :type date: str
+    :param symbol: 品种代码，如 RB、AL
+    :type symbol: str
+    :param symbol1: 合约 1，如 rb2701；与 symbol2 同时指定时计算这两个合约的展期收益率
+    :type symbol1: str
+    :param symbol2: 合约 2，如 rb2705
+    :type symbol2: str
+    :param df: 已取得的日行情数据；默认为空，由接口自行获取，传入可以减少重复请求
+    :type df: pandas.DataFrame
+    :return: 展期收益率、近月合约、远月合约；非交易日或取不到行情时返回空表
+    :rtype: pandas.DataFrame
+    """
+    columns = ["roll_yield", "near_by", "deferred"]
+    ry = _futures_roll_yield(
+        date=date, symbol=symbol, symbol1=symbol1, symbol2=symbol2, df=df
+    )
+    if not ry:
+        return pd.DataFrame(columns=columns)
+    return pd.DataFrame([ry], columns=columns)
+
+
 def futures_roll_yield_bar(
     type_method: str = "var",
     symbol: str = "RB",
     date: str = "20201030",
     start_date: str = None,
     end_date: str = None,
-):
+) -> pd.DataFrame:
     """
     展期收益率
     :param type_method: 'symbol': 获取指定交易日指定品种所有交割月合约的收盘价；'var': 获取指定交易日所有品种两个主力合约的展期收益率（展期收益率横截面）；'date': 获取指定品种每天的两个主力合约的展期收益率（展期收益率时间序列）
@@ -131,7 +163,7 @@ def futures_roll_yield_bar(
                 var_list.remove(i_remove)
         df_l = pd.DataFrame()
         for symbol in var_list:
-            ry = futures_roll_yield(date, symbol, df=df)
+            ry = _futures_roll_yield(date, symbol, df=df)
             if ry:
                 df_l = pd.concat(
                     [
@@ -151,7 +183,7 @@ def futures_roll_yield_bar(
         df_l = pd.DataFrame()
         while start_date <= end_date:
             try:
-                ry = futures_roll_yield(start_date, symbol)
+                ry = _futures_roll_yield(start_date, symbol)
                 if ry:
                     df_l = pd.concat(
                         [

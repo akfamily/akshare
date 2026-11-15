@@ -15,7 +15,7 @@ from akshare.utils import http
 
 def stock_hot_search_baidu(
     symbol: str = "A股", date: str = "20250616", time: str = "今日"
-):
+) -> pd.DataFrame:
     """
     百度股市通-热搜股票
     https://gushitong.baidu.com/hotlist?mainTab=hotSearch&market=all

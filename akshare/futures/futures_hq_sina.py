@@ -35,7 +35,7 @@ def _get_real_name_list() -> list:
     return name_list
 
 
-def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
+def _futures_foreign_commodity_symbols() -> list:
     """
     需要订阅的行情的代码
     https://finance.sina.com.cn/money/future/hf.html
@@ -53,6 +53,16 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     )
     code_list = list(data_json.keys())
     return code_list
+
+
+def futures_foreign_commodity_subscribe_exchange_symbol() -> pd.DataFrame:
+    """
+    新浪财经-外盘期货-可以订阅实时行情的品种代码
+    https://finance.sina.com.cn/money/future/hf.html
+    :return: 外盘期货的品种代码
+    :rtype: pandas.DataFrame
+    """
+    return pd.DataFrame({"代码": _futures_foreign_commodity_symbols()})
 
 
 def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
@@ -278,7 +288,7 @@ if __name__ == "__main__":
     print(futures_hq_subscribe_exchange_symbol_df)
 
     print("开始接收实时行情, 每秒刷新一次")
-    subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
+    subscribes = _futures_foreign_commodity_symbols()
 
     futures_foreign_realtime_sina_df = futures_foreign_realtime_sina(symbol="CT,NID")
     print(futures_foreign_realtime_sina_df)

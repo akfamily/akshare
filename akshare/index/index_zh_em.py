@@ -14,7 +14,7 @@ from akshare.utils.func import fetch_paginated_data
 
 
 @lru_cache()
-def index_code_id_map_em() -> dict:
+def _index_code_id_map() -> dict:
     """
     东方财富-股票和市场代码
     https://quote.eastmoney.com/center/gridlist.html#hs_a_board
@@ -39,6 +39,19 @@ def index_code_id_map_em() -> dict:
     return code_id_dict
 
 
+def index_code_id_map_em() -> pd.DataFrame:
+    """
+    东方财富-股票和市场代码
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    :return: 股票代码与市场代码的对照
+    :rtype: pandas.DataFrame
+    """
+    code_id_dict = _index_code_id_map()
+    return pd.DataFrame(
+        {"代码": list(code_id_dict.keys()), "市场代码": list(code_id_dict.values())}
+    )
+
+
 def index_zh_hist_em(
     symbol: str = "000859",
     period: str = "daily",
@@ -59,7 +72,7 @@ def index_zh_hist_em(
     :return: 行情数据
     :rtype: pandas.DataFrame
     """
-    code_id_dict = index_code_id_map_em()
+    code_id_dict = _index_code_id_map()
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     try:
@@ -195,7 +208,7 @@ def index_zh_hist_min_em(
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = index_code_id_map_em()
+    code_id_dict = _index_code_id_map()
     if period == "1":
         url = "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
         try:

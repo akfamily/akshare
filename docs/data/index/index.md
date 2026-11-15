@@ -431,7 +431,7 @@ print(index_zh_hist_min_em_df)
 
 描述：东方财富-沪深京 A 股的股票代码与市场代码的对照，返回以股票代码为键、市场代码（1 为上海，0 为深圳和北京）为值的字典；该接口请求东方财富的行情服务器，短时间内多次调用会被临时限流
 
-限量：单次返回全部 A 股，需翻页获取，耗时较长
+限量：单次返回全部 A 股，需翻页获取，耗时较长；数据示例为示意
 
 输入参数
 
@@ -441,23 +441,29 @@ print(index_zh_hist_min_em_df)
 
 输出参数
 
-| 名称 | 类型   | 描述    |
-|----|------|-------|
-| -  | dict | 见数据示例 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| 代码 | object | 股票代码 |
+| 市场代码 | int64 | 1: 上海；0: 深圳与北京 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-index_code_id_map_em_dict = ak.index_code_id_map_em()
-print(index_code_id_map_em_dict)
+index_code_id_map_em_df = ak.index_code_id_map_em()
+print(index_code_id_map_em_df)
 ```
 
 数据示例
 
 ```
-{'000001': 0, '000002': 0, ..., '600000': 1, ...}
+          代码  市场代码
+0     000001     0
+1     000002     0
+...      ...   ...
+      600000     1
+...      ...   ...
 ```
 
 ## 港股股票指数

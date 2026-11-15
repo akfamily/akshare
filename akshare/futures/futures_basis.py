@@ -32,7 +32,7 @@ def futures_spot_price_daily(
     start_date: str = "20261106",
     end_date: str = "20261113",
     symbols: str = "",
-):
+) -> pd.DataFrame:
     """
     指定时间段内大宗商品现货价格及相应基差
     https://www.100ppi.com/sf/

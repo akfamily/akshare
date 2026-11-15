@@ -184,9 +184,9 @@ def _pick_main_contract(data_df: pd.DataFrame) -> str | None:
     return real_df.loc[position.idxmax(), "symbol"]
 
 
-def futures_main_contract_sina(symbol: str = "cffex") -> str:
+def _futures_main_contract_text(symbol: str = "cffex") -> str:
     """
-    新浪财经-期货-主力合约
+    新浪财经-期货-主力合约，以英文逗号连接成字符串，供库内的实时行情接口使用
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
@@ -219,6 +219,19 @@ def futures_main_contract_sina(symbol: str = "cffex") -> str:
             continue
         subscribe_exchange_list.append(main_contract)
     return ",".join(subscribe_exchange_list)
+
+
+def futures_main_contract_sina(symbol: str = "cffex") -> pd.DataFrame:
+    """
+    新浪财经-期货-主力合约
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
+    :type symbol: str
+    :return: 指定交易所各品种的主力合约代码
+    :rtype: pandas.DataFrame
+    """
+    text = _futures_main_contract_text(symbol=symbol)
+    return pd.DataFrame({"合约": text.split(",") if text else []})
 
 
 def futures_zh_contract_realtime_sina(
@@ -640,7 +653,7 @@ def futures_zh_min_sina(symbol: str = "IF2008", period: str = "1") -> pd.DataFra
     """
     中国各品种期货分钟频率数据
     https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-    :param symbol: 可以通过 futures_main_contract_sina(symbol="cffex") 获取，或者访问网页获取
+    :param symbol: 多个合约用英文逗号分隔；可以用 ",".join(futures_main_contract_sina(symbol="cffex")["合约"]) 获取，或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
@@ -679,7 +692,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
-    :param symbol: 可以通过 futures_main_contract_sina(symbol="cffex") 获取，或者访问网页获取
+    :param symbol: 多个合约用英文逗号分隔；可以用 ",".join(futures_main_contract_sina(symbol="cffex")["合约"]) 获取，或者访问网页获取
     :type symbol: str
     :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
@@ -749,10 +762,10 @@ if __name__ == "__main__":
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB2410")
     print(futures_zh_daily_sina_df)
 
-    dce_text = futures_main_contract_sina(symbol="dce")
-    czce_text = futures_main_contract_sina(symbol="czce")
-    shfe_text = futures_main_contract_sina(symbol="shfe")
-    gfex_text = futures_main_contract_sina(symbol="gfex")
+    dce_text = _futures_main_contract_text(symbol="dce")
+    czce_text = _futures_main_contract_text(symbol="czce")
+    shfe_text = _futures_main_contract_text(symbol="shfe")
+    gfex_text = _futures_main_contract_text(symbol="gfex")
 
     while True:
         time.sleep(3)

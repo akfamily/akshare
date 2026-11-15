@@ -172,7 +172,7 @@ def stock_hsgt_stock_statistics_em(
     symbol: str = "南向持股",
     start_date: str = "20240110",
     end_date: str = "20240110",
-):
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
     https://data.eastmoney.com/hsgtcg/StockStatistics.aspx
@@ -638,7 +638,7 @@ def stock_hsgt_institution_statistics_em(
     market: str = "北向持股",
     start_date: str = "20220601",
     end_date: str = "20220609",
-):
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
     https://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx

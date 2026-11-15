@@ -8,16 +8,19 @@ Desc: 股票代码工具-为沪深股票代码加上市场前缀
 
 def stock_a_code_to_symbol(symbol: str = "000300") -> str:
     """
-    输入股票代码判断股票市场
+    按股票代码的开头判断所属市场，返回带市场标识的代码；本地计算，不联网
     :param symbol: 股票代码
     :type symbol: str
-    :return: 股票市场
+    :return: 带市场标识的代码，如 sh600000
     :rtype: str
     """
     if symbol.startswith("6") or symbol.startswith("900"):
-        return f"sh{symbol}"
+        market = "sh"
+    elif symbol.startswith(("4", "8", "92")):
+        market = "bj"
     else:
-        return f"sz{symbol}"
+        market = "sz"
+    return f"{market}{symbol}"
 
 
 if __name__ == "__main__":

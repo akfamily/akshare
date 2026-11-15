@@ -8,6 +8,32 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-65)=
+### 1.20.65 fix!: every data interface now returns a pandas.DataFrame
+
+**不兼容的改动：12 个原先返回字符串、列表、元组或字典的接口改为返回 pandas.DataFrame，接口名与参数不变，使用返回值的代码需要调整。** 至此全部 955 个数据接口的返回值都是表格，AKTools 的 HTTP 与 MCP 服务可以统一处理。
+
+返回值的变化：
+
+| 接口 | 原返回值 | 现在的列 |
+| --- | --- | --- |
+| option_sse_list_sina | list | 到期月份 |
+| option_sse_expire_day_sina | tuple | 到期日、剩余天数（一行） |
+| option_cffex_hs300_list_sina、option_cffex_sz50_list_sina、option_cffex_zz1000_list_sina | dict | 品种、合约（每个合约一行，第一行为主力合约） |
+| alternative_weibo_stock_time_js | dict | 代码、名称 |
+| alternative_nlp_answer | str | 问题、回答（一行） |
+| futures_main_contract_sina | str | 合约（每个合约一行） |
+| futures_foreign_commodity_subscribe_exchange_symbol | list | 代码 |
+| index_code_id_map_em | dict | 代码、市场代码 |
+| futures_roll_yield | tuple | roll_yield、near_by、deferred（一行） |
+| futures_position_rank_other_dce | dict | 与其他持仓排名接口相同的 12 列，所有合约合并为一张表 |
+
+1. futures_main_contract_sina 原先返回以英文逗号连接的字符串，可直接传给 futures_zh_contract_realtime_sina；现在请用 `",".join(df["合约"])` 连接后再传入
+2. 4 个接口在特定情况下返回的不是表格，现在统一：futures_roll_yield、futures_rank_sum、option_vol_gfex、futures_position_rank_other_dce 在非交易日原先返回 None 或空字典，现在返回只有列名的空表；futures_rank_sum 在交易所取数失败时原先返回 False，现在抛出 APIError；futures_receipt 的 symbols 无法解析时原先返回 None，现在抛出 InvalidParameterError
+3. stock_a_code_to_symbol 是给股票代码加市场前缀的本地工具函数，常用于 `Series.apply`，仍返回字符串；它不再登记为数据接口（`ak.search`、`ak.interface_info` 与 AKTools 中不再出现），`ak.stock_a_code_to_symbol` 的调用方式不变。原先把北交所的股票代码（以 4、8、92 开头）加上 sz 前缀，现在加 bj 前缀
+4. 18 个接口补上了缺失的返回值注解；新增测试，要求每个数据接口的返回值注解都是 pandas.DataFrame，今后新增的接口不能再返回其他类型
+5. index_code_id_map_em 走东方财富的行情服务器且需要翻页，futures_position_rank_other_dce 走大连商品交易所（网站启用了反爬虫验证），这两个接口没有联网实测，只做了离线测试
+
 (v1-20-64)=
 ### 1.20.64 feat!: add period to the 6 Sina daily quote interfaces and rename them to *_hist_sina
 

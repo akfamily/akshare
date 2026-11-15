@@ -11,7 +11,7 @@ import pandas as pd
 from akshare.utils import http
 
 
-def crypto_bitcoin_hold_report():
+def crypto_bitcoin_hold_report() -> pd.DataFrame:
     """
     金十数据-比特币持仓报告
     https://datacenter.jin10.com/dc_report?name=bitcoint

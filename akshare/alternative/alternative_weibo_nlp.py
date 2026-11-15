@@ -11,19 +11,18 @@ https://datacenter.jin10.com/market
 """
 
 import time
-from typing import Dict
 
 import pandas as pd
 
 from akshare.utils import http
 
 
-def alternative_weibo_stock_time_js() -> Dict:
+def alternative_weibo_stock_time_js() -> pd.DataFrame:
     """
     金十数据-微博舆情报告-可选的时间段
     https://datacenter.jin10.com/market
-    :return: 特定时间表示的字典
-    :rtype: dict
+    :return: 时间段的代码与名称
+    :rtype: pandas.DataFrame
     """
     url = "https://datacenter-api.jin10.com/weibo/config"
     payload = {"_": int(time.time() * 1000)}
@@ -45,7 +44,10 @@ def alternative_weibo_stock_time_js() -> Dict:
     }
 
     r = http.get(url, headers=headers, data=payload)
-    return r.json()["data"]["timescale"]
+    data_dict = r.json()["data"]["timescale"]
+    return pd.DataFrame(
+        {"代码": list(data_dict.keys()), "名称": list(data_dict.values())}
+    )
 
 
 def alternative_weibo_stock_report_js(time_period: str = "CNHOUR12") -> pd.DataFrame:

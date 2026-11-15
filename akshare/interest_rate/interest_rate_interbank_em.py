@@ -15,7 +15,7 @@ def interest_rate_interbank_em(
     market: str = "上海银行同业拆借市场",
     symbol: str = "Shibor人民币",
     indicator: str = "隔夜",
-):
+) -> pd.DataFrame:
     """
     东方财富-拆借利率一览-具体市场的具体品种的具体指标的拆借利率数据
     具体 market 和 symbol 参见：https://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79

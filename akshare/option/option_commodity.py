@@ -576,7 +576,7 @@ def option_hist_gfex(symbol: str = "工业硅", date: str = "20230724") -> pd.Da
     return temp_df
 
 
-def option_vol_gfex(symbol: str = "碳酸锂", date: str = "20230724"):
+def option_vol_gfex(symbol: str = "碳酸锂", date: str = "20230724") -> pd.DataFrame:
     """
     广州期货交易所-日频率-合约隐含波动率
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
@@ -584,7 +584,7 @@ def option_vol_gfex(symbol: str = "碳酸锂", date: str = "20230724"):
     :type symbol: str
     :param date: 交易日
     :type date: str
-    :return: 日频行情数据
+    :return: 日频行情数据；非交易日返回空表
     :rtype: pandas.DataFrame
     """
     symbol_code_map = {
@@ -596,7 +596,7 @@ def option_vol_gfex(symbol: str = "碳酸锂", date: str = "20230724"):
     day = convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return
+        return pd.DataFrame(columns=["合约系列", "隐含波动率"])
     url = "http://www.gfex.com.cn/u/interfacesWebTiDayQuotes/loadListOptVolatility"
     payload = {"trade_date": day.strftime("%Y%m%d")}
     headers = {
