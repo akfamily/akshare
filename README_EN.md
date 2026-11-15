@@ -1,0 +1,355 @@
+[简体中文](https://github.com/akfamily/akshare/blob/main/README.md) | **English**
+
+**资源分享**：对于想了解更多财经数据与量化投研的小伙伴，推荐一个专注于财经数据和量化研究的知识社区。
+该社区提供相关文档和视频学习资源，汇集了各类财经数据源和量化投研工具的使用经验。
+有兴趣深入学习的朋友可点此[了解更多](https://t.zsxq.com/ZCxUG)，也推荐大家关注微信公众号【数据科学实战】。
+
+**重磅推荐**：AKQuant 是一款专为 **量化投研 (Quantitative Research)** 打造的高性能量化回测框架。它以 Rust 铸造极速撮合内核，
+以 Python 链接数据与 AI 生态，旨在为量化投资者提供可靠高效的量化投研解决方案。参见[AKQuant](https://github.com/akfamily/akquant)
+
+**工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
+如需了解更多信息可访问[期魔方](https://qmfquant.com)。
+
+![AKShare Logo](https://raw.githubusercontent.com/akfamily/akshare/main/assets/images/akshare_logo.jpg)
+
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
+[![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/akshare?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/akshare)
+[![Documentation Status](https://img.shields.io/readthedocs/akshare/latest)](https://akshare.akfamily.xyz/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+[![Checks Status](https://github.com/akfamily/akshare/actions/workflows/main_dev_check.yml/badge.svg)](https://github.com/akfamily/akshare/actions/workflows/main_dev_check.yml)
+[![Release Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml)
+[![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/main/LICENSE)
+[![](https://img.shields.io/github/forks/akfamily/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/stars/akfamily/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/issues/akfamily/akshare)](https://github.com/akfamily/akshare)
+
+## Overview
+
+[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.11.5 or higher and
+aims to simplify the process of fetching financial data.
+
+**Write less, get more!**
+
+- Documentation: [中文文档](https://akshare.akfamily.xyz/)
+- **MCP server for AI assistants**: [AKTools](https://github.com/akfamily/aktools) lets Claude, Cursor and other MCP clients fetch AKShare data in natural language — see [AI Assistants (MCP)](#ai-assistants-mcp)
+- HTTP API: [AKTools](https://aktools.akfamily.xyz/) also serves AKShare over HTTP for other programming languages
+
+## AI Assistants (MCP)
+
+AKShare is a Python library and does not run an MCP server itself. Its companion
+project [AKTools](https://github.com/akfamily/aktools) ships one — registered in
+the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.akfamily/aktools)
+as `io.github.akfamily/aktools` — so AI assistants such as Claude Code, Claude
+Desktop and Cursor can look up and call every AKShare interface from a
+natural-language question, e.g. *"贵州茅台 2024 年 10 月 8 日到 11 日的前复权日线行情"*.
+
+No separate install is needed beyond [uv](https://docs.astral.sh/uv/):
+
+```shell
+claude mcp add aktools -- uvx --from aktools aktools-mcp
+```
+
+Claude Desktop, Cursor and other clients:
+
+```json
+{
+  "mcpServers": {
+    "aktools": {
+      "command": "uvx",
+      "args": ["--from", "aktools", "aktools-mcp"]
+    }
+  }
+}
+```
+
+[![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
+
+Instead of registering some 950 tools, it exposes three generic ones that the
+assistant chains together:
+
+| Tool | Purpose |
+| --- | --- |
+| `search_interfaces` | Find interface names by keyword |
+| `describe_interface` | Show an interface's parameters, defaults and description |
+| `get_data` | Call an interface and return up to `max_rows` rows (default 100, max 1000) |
+
+A running `python -m aktools` server also exposes the same tools over Streamable
+HTTP at `http://127.0.0.1:8080/mcp`. See the
+[MCP guide](https://akshare.akfamily.xyz/mcp.html) (中文) for HTTP mode, proxies,
+access tokens and LAN access.
+
+## Installation
+
+### uv (Recommended)
+
+```shell
+uv pip install akshare --upgrade
+```
+
+See the [uv environment guide](https://akshare.akfamily.xyz/uv.html) for installing uv and creating a virtual environment.
+
+### pip
+
+```shell
+pip install akshare --upgrade
+```
+
+### China
+
+```shell
+uv pip install akshare --upgrade --default-index https://pypi.tuna.tsinghua.edu.cn/simple
+# or
+pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+## Usage
+
+### Data
+
+Code:
+
+```python
+import akshare as ak
+
+stock_zh_a_hist_sina_df = ak.stock_zh_a_hist_sina(symbol="sz000001", period="daily", start_date="20170301", end_date="20231022", adjust="")
+print(stock_zh_a_hist_sina_df)
+```
+
+Output:
+
+```
+            date   open   high  ...        amount  outstanding_share  turnover
+0     2017-03-01   9.49   9.55  ...  3.301580e+08       1.691799e+10  0.002051
+1     2017-03-02   9.51   9.54  ...  3.823959e+08       1.691799e+10  0.002386
+2     2017-03-03   9.41   9.43  ...  3.219525e+08       1.691799e+10  0.002025
+3     2017-03-06   9.40   9.46  ...  3.812123e+08       1.691799e+10  0.002391
+4     2017-03-07   9.44   9.46  ...  2.777474e+08       1.691799e+10  0.001742
+...          ...    ...    ...  ...           ...                ...       ...
+1610  2023-10-16  11.00  11.03  ...  5.509887e+08       1.940555e+10  0.002585
+1611  2023-10-17  11.01  11.05  ...  5.431709e+08       1.940555e+10  0.002543
+1612  2023-10-18  10.99  11.02  ...  7.139799e+08       1.940555e+10  0.003359
+1613  2023-10-19  10.91  10.92  ...  1.271915e+09       1.940555e+10  0.006127
+1614  2023-10-20  10.55  10.67  ...  5.576186e+08       1.940555e+10  0.002711
+
+[1615 rows x 9 columns]
+```
+
+### Search
+
+AKShare ships an offline interface registry, so you can look up an interface by
+keyword without leaving Python and without any network request. This is
+especially handy for LLM-driven programs that need to resolve a description into
+a callable interface name.
+
+Code:
+
+```python
+import akshare as ak
+
+search_df = ak.search("可转债 实时行情", limit=5)
+print(search_df)
+
+# full metadata of a single interface: params, output columns and a usage example
+interface_info_dict = ak.interface_info("bond_cb_jsl")
+print(interface_info_dict)
+```
+
+Output:
+
+```
+                     接口名    类目                                                       描述  有无文档   匹配分
+0  bond_cb_realtime_sina  bond                                             新浪财经-沪深可转债数据  True  34.5
+1            bond_cb_jsl  bond  集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）  True  28.5
+2        bond_cb_info_em  bond                                    东方财富网-数据中心-新股数据-可转债详情  True  15.0
+3        bond_cb_list_em  bond                                 东方财富网-数据中心-新股数据-可转债数据一览表  True  15.0
+4       bond_cb_list_ths  bond                                             同花顺-数据中心-可转债  True  15.0
+```
+
+Passing a full interface name always ranks that interface first, which makes it
+a reliable way to confirm a half-remembered name. Note this is keyword matching
+rather than semantic search — see the
+[interface search docs](https://akshare.akfamily.xyz/search.html) for what it
+can and cannot do.
+
+### Interface names
+
+Every interface name reads `<category>_<market or subject>_<topic>_<source>`, for
+example `stock_zh_a_hist_em`: category `stock`, market `zh_a`, topic `hist`
+(historical quotes), source `em` (Eastmoney). The first segment is always one of
+the 15 categories returned by `ak.list_categories()` — `stock`, `index`, `fund`,
+`futures`, `option`, `bond`, `fx`, `macro`, `interest_rate`, `spot`, `energy`,
+`crypto`, `calendar`, `research`, `alternative` — and the last segment is usually the
+data source (`em`, `sina`, `ths`, `tx`, `cninfo`, `sse`, `szse`, …), so the same
+data from another source differs only in its suffix. Among quote interfaces,
+`daily` in a name means daily bars only, while an interface that takes a
+`period` argument (`daily`, `weekly`, `monthly`) is named `hist`, such as
+`stock_zh_a_hist_em` and `stock_zh_a_hist_sina`.
+
+### Upgrading from a version before 1.20.41
+
+Releases 1.20.41 to 1.20.54 brought every interface under the naming rule above:
+about 320 interfaces were renamed (`stock_zh_a_hist` is now `stock_zh_a_hist_em`,
+`stock_zh_index_daily` is now `index_zh_daily_sina`), a few parameters were
+unified to `symbol` / `date` / `start_date` / `end_date`, and interfaces whose
+upstream source had shut down were removed. Old names are not kept as aliases,
+but they explain themselves:
+
+```python
+import akshare as ak
+
+ak.stock_zh_a_hist(symbol="000001")
+# AttributeError: stock_zh_a_hist 已在 1.20.46 更名为 stock_zh_a_hist_em，请改用 ak.stock_zh_a_hist_em；…
+
+ak.renamed_info("stock_zh_a_hist")
+# {'name': 'stock_zh_a_hist', 'status': 'renamed', 'new_name': 'stock_zh_a_hist_em', 'version': '1.20.46', 'url': '…'}
+```
+
+`ak.search("<old name>")` also ranks the current name first. The complete
+old-to-new table is at the end of the
+[changelog](https://akshare.akfamily.xyz/changelog.html#changelog-rename).
+
+## Features
+
+- **Ease of use**: Just one line code to fetch the data;
+- **Extensible**: Easy to customize your own code with other application;
+- **Powerful**: Python ecosystem.
+
+## Tutorials
+
+1. [Overview](https://akshare.akfamily.xyz/introduction.html)
+2. [Installation](https://akshare.akfamily.xyz/installation.html)
+3. [Interface Search](https://akshare.akfamily.xyz/search.html)
+4. [AI Assistants (MCP)](https://akshare.akfamily.xyz/mcp.html)
+5. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
+6. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
+7. [Indicator](https://akshare.akfamily.xyz/indicator.html)
+8. [FAQ](https://akshare.akfamily.xyz/faq.html)
+9. [Trade](https://akshare.akfamily.xyz/trade.html)
+
+## Contribution
+
+[AKShare](https://github.com/akfamily/akshare) is still under development, feel free to open issues and pull requests:
+
+- Report or fix bugs
+- Require or publish interface
+- Write or fix documentation
+- Add test cases
+
+See the [contributing guide](https://akshare.akfamily.xyz/contributing.html) before
+opening a pull request.
+
+> Notice: We use [Ruff](https://github.com/astral-sh/ruff) to format the code
+
+## Statement
+
+1. All data provided by [AKShare](https://github.com/akfamily/akshare) is just for academic research purpose;
+2. The data provided by [AKShare](https://github.com/akfamily/akshare) is for reference only and does not constitute any investment proposal;
+3. Any investor based on [AKShare](https://github.com/akfamily/akshare) research should pay more attention to data risk;
+4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
+5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
+7. Provide HTTP API and MCP server for other programming languages and AI assistants: [AKTools](https://aktools.akfamily.xyz/).
+
+## Show your style
+
+Use the badge in your project's README.md:
+
+```markdown
+[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+```
+
+Using the badge in README.rst:
+
+```
+.. image:: https://img.shields.io/badge/Data%20Science-AKShare-green
+    :target: https://github.com/akfamily/akshare
+```
+
+Looks like this:
+
+[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+
+## Citation
+
+Please use this **bibtex** if you want to cite this repository in your publications:
+
+```markdown
+@misc{akshare,
+    author = {Albert King and Yaojie Zhang},
+    title = {AKShare},
+    year = {2022},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/akfamily/akshare}},
+}
+```
+
+## Acknowledgement
+
+Special thanks [FuShare](https://github.com/LowinLi/fushare) for the opportunity of learning from the project;
+
+Special thanks [TuShare](https://github.com/waditu/tushare) for the opportunity of learning from the project;
+
+Thanks for the data provided by [东方财富网站](http://data.eastmoney.com);
+
+Thanks for the data provided by [新浪财经网站](https://finance.sina.com.cn);
+
+Thanks for the data provided by [金十数据网站](https://www.jin10.com/);
+
+Thanks for the data provided by [生意社网站](http://www.100ppi.com/);
+
+Thanks for the data provided by [中国银行间市场交易商协会网站](http://www.nafmii.org.cn/);
+
+Thanks for the data provided by [99期货网站](http://www.99qh.com/);
+
+Thanks for the data provided by [中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/);
+
+Thanks for the data provided by [和讯财经网站](http://www.hexun.com/);
+
+Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagobooth.edu/);
+
+Thanks for the data provided by [上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
+
+Thanks for the data provided by [深圳证券交易所网站](http://www.szse.cn/);
+
+Thanks for the data provided by [北京证券交易所网站](http://www.bse.cn/);
+
+Thanks for the data provided by [中国金融期货交易所网站](http://www.cffex.com.cn/);
+
+Thanks for the data provided by [上海期货交易所网站](http://www.shfe.com.cn/);
+
+Thanks for the data provided by [大连商品交易所网站](http://www.dce.com.cn/);
+
+Thanks for the data provided by [郑州商品交易所网站](http://www.czce.com.cn/);
+
+Thanks for the data provided by [上海国际能源交易中心网站](http://www.ine.com.cn/);
+
+Thanks for the data provided by [Timeanddate 网站](https://www.timeanddate.com/);
+
+Thanks for the data provided by [河北省空气质量预报信息发布系统网站](http://218.11.10.130:8080/);
+
+Thanks for the data provided by [Economic Policy Uncertainty 网站](https://www.policyuncertainty.com/);
+
+Thanks for the data provided by 申万指数网站；
+
+Thanks for the data provided by [真气网网站](https://www.zq12369.com/);
+
+Thanks for the data provided by [财富网站](http://www.fortunechina.com/);
+
+Thanks for the data provided by [中国证券投资基金业协会网站](http://gs.amac.org.cn/);
+
+Thanks for the data provided by [Expatistan 网站](https://www.expatistan.com/cost-of-living);
+
+Thanks for the data provided by [北京市碳排放权电子交易平台网站](https://www.bjets.com.cn/article/jyxx/);
+
+Thanks for the data provided by [国家金融与发展实验室网站](http://www.nifd.cn/);
+
+Thanks for the data provided by [义乌小商品指数网站](https://www.ywindex.com/);
+
+Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
+
+Thanks for the data provided by [思知网站](https://www.ownthink.com/);
+
+Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);

@@ -117,7 +117,7 @@ AKShare internals.
 
 Main entry points:
 
-- `README.md`
+- `README.md` (Chinese) and `README_EN.md` (English)
 - `docs/tutorial.md`
 - `docs/data/`
 - Online docs: `https://akshare.akfamily.xyz/`
