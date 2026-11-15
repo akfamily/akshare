@@ -119,7 +119,7 @@ Cursor 则在 `mcp.json` 的 `aktools` 下加上 `"headers": {"Authorization": "
 (mcp-tools)=
 ## 提供的工具
 
-AKShare 有一千多个接口，如果逐个注册成工具，会占满助手的上下文。因此 AKTools 只提供 3 个通用工具，由助手分步使用：
+AKShare 有近千个接口，如果逐个注册成工具，会占满助手的上下文。因此 AKTools 只提供 3 个通用工具，由助手分步使用：
 
 | 工具 | 作用 |
 | --- | --- |
