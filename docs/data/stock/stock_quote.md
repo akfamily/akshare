@@ -1502,24 +1502,23 @@ print(stock_zh_a_hist_em_df)
 [1760 rows x 12 columns]
 ```
 
-(stock_zh_a_daily_sina)=
+(stock_zh_a_hist_sina)=
 #### 历史行情数据-新浪
 
-接口：stock_zh_a_daily_sina
-
-P.S. 建议切换为 stock_zh_a_hist_em 接口使用（该接口数据质量高，访问无限制）
+接口：stock_zh_a_hist_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
-描述：新浪财经-沪深京 A 股的数据，历史数据按日频率更新；注意其中的 **sh689009** 为 CDR，请 通过 **ak.stock_zh_a_cdr_daily_sina** 接口获取
+描述：新浪财经-沪深京 A 股的数据，历史数据按日频率更新；注意其中的 **sh689009** 为 CDR，请 通过 **ak.stock_zh_a_cdr_hist_sina** 接口获取；period 可选日线、周线、月线
 
-限量：单次返回指定沪深京 A 股上市公司指定日期间的历史行情日频率数据，多次获取容易封禁 IP
+限量：单次返回指定沪深京 A 股上市公司指定日期间的历史行情日频率数据，多次获取容易封禁 IP；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，其余列取最后一个交易日的值；复权因子（adjust 以 -factor 结尾）只能与 period='daily' 一起使用
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                                   |
 |------------|-----|--------------------------------------------------------------------------------------|
 | symbol     | str | symbol='sh600000'；股票代码可以在 **ak.stock_zh_a_spot_sina()** 中获取                              |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | start_date | str | start_date='20201103'；开始查询的日期                                                       |
 | end_date   | str | end_date='20201116'；结束查询的日期                                                         |
 | adjust     | str | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子 |
@@ -1564,7 +1563,7 @@ P.S. 建议切换为 stock_zh_a_hist_em 接口使用（该接口数据质量高�
 ```python
 import akshare as ak
 
-stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="qfq")
+stock_zh_a_daily_qfq_df = ak.stock_zh_a_hist_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="qfq")
 print(stock_zh_a_daily_qfq_df)
 ```
 
@@ -1586,12 +1585,40 @@ print(stock_zh_a_daily_qfq_df)
 [7735 rows x 9 columns]
 ```
 
+接口示例-周线（前复权）
+
+```python
+import akshare as ak
+
+stock_zh_a_hist_sina_df = ak.stock_zh_a_hist_sina(symbol="sz000001", period="weekly", start_date="20250101", end_date="20261113", adjust="qfq")
+print(stock_zh_a_hist_sina_df)
+```
+
+数据示例-周线（前复权）
+
+```
+          date   open   high  ...        amount  outstanding_share  turnover
+0   2025-01-03  10.60  10.79  ...  6.781578e+09       1.940557e+10  0.029896
+1   2025-01-10  10.24  10.46  ...  5.079075e+09       1.940557e+10  0.022908
+2   2025-01-17  10.12  10.43  ...  4.963696e+09       1.940557e+10  0.022437
+3   2025-01-24  10.35  10.36  ...  6.267862e+09       1.940557e+10  0.028554
+4   2025-01-27  10.24  10.39  ...  1.324271e+09       1.940557e+10  0.005936
+..         ...    ...    ...  ...           ...                ...       ...
+92  2026-10-16  11.62  11.83  ...  6.524418e+09       1.940568e+10  0.029096
+93  2026-10-23  11.48  11.68  ...  6.923529e+09       1.940568e+10  0.031294
+94  2026-10-30  11.15  11.67  ...  9.584245e+09       1.940568e+10  0.043272
+95  2026-11-06  11.60  11.86  ...  9.384938e+09       1.940568e+10  0.041437
+96  2026-11-13  11.78  12.10  ...  7.450034e+09       1.940568e+10  0.032346
+
+[97 rows x 9 columns]
+```
+
 接口示例-历史行情数据（后复权）
 
 ```python
 import akshare as ak
 
-stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="hfq")
+stock_zh_a_daily_hfq_df = ak.stock_zh_a_hist_sina(symbol="sz000001", start_date="19910403", end_date="20231027", adjust="hfq")
 print(stock_zh_a_daily_hfq_df)
 ```
 
@@ -1618,7 +1645,7 @@ print(stock_zh_a_daily_hfq_df)
 ```python
 import akshare as ak
 
-qfq_factor_df = ak.stock_zh_a_daily_sina(symbol="sz000002", adjust="qfq-factor")
+qfq_factor_df = ak.stock_zh_a_hist_sina(symbol="sz000002", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
 
@@ -1670,7 +1697,7 @@ print(qfq_factor_df)
 ```python
 import akshare as ak
 
-hfq_factor_df = ak.stock_zh_a_daily_sina(symbol="sz000002", adjust="hfq-factor")
+hfq_factor_df = ak.stock_zh_a_hist_sina(symbol="sz000002", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
 
@@ -2515,16 +2542,16 @@ print(stock_zh_scale_comparison_em_df)
 
 ## A股-CDR
 
-(stock_zh_a_cdr_daily_sina)=
+(stock_zh_a_cdr_hist_sina)=
 ### 历史行情数据
 
-接口：stock_zh_a_cdr_daily_sina
+接口：stock_zh_a_cdr_hist_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 
-描述：上海证券交易所-科创板-CDR
+描述：上海证券交易所-科创板-CDR；period 可选日线、周线、月线
 
-限量：单次返回指定 CDR 的日频率数据，分钟历史行情数据可以通过 stock_zh_a_hist_min_sina 获取
+限量：单次返回指定 CDR 的日频率数据，分钟历史行情数据可以通过 stock_zh_a_hist_min_sina 获取；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额为周期内之和
 
 名词解释：
 
@@ -2536,6 +2563,7 @@ print(stock_zh_scale_comparison_em_df)
 | 名称         | 类型  | 描述                          |
 |------------|-----|-----------------------------|
 | symbol     | str | symbol='sh689009'; CDR 股票代码 |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | start_date | str | start_date='20201103'       |
 | end_date   | str | end_date='20201116'         |
 
@@ -2555,8 +2583,8 @@ print(stock_zh_scale_comparison_em_df)
 ```python
 import akshare as ak
 
-stock_zh_a_cdr_daily_sina_df = ak.stock_zh_a_cdr_daily_sina(symbol='sh689009', start_date='20201103', end_date='20201116')
-print(stock_zh_a_cdr_daily_sina_df)
+stock_zh_a_cdr_hist_sina_df = ak.stock_zh_a_cdr_hist_sina(symbol='sh689009', start_date='20201103', end_date='20201116')
+print(stock_zh_a_cdr_hist_sina_df)
 ```
 
 数据示例
@@ -2714,22 +2742,23 @@ print(stock_zh_b_spot_sina_df)
 
 ### 历史行情数据
 
-(stock_zh_b_daily_sina)=
+(stock_zh_b_hist_sina)=
 #### 历史行情数据
 
-接口：stock_zh_b_daily_sina
+接口：stock_zh_b_hist_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
 
-描述：B 股数据是从新浪财经获取的数据，历史数据按日频率更新
+描述：B 股数据是从新浪财经获取的数据，历史数据按日频率更新；period 可选日线、周线、月线
 
-限量：单次返回指定 B 股上市公司指定日期间的历史行情日频率数据
+限量：单次返回指定 B 股上市公司指定日期间的历史行情日频率数据；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，其余列取最后一个交易日的值；复权因子（adjust 以 -factor 结尾）只能与 period='daily' 一起使用
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                                   |
 |------------|-----|--------------------------------------------------------------------------------------|
 | symbol     | str | symbol='sh900901'；股票代码可以在 **ak.stock_zh_b_spot_sina()** 中获取                              |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | start_date | str | start_date='20201103'；开始查询的日期                                                       |
 | end_date   | str | end_date='20201116'；结束查询的日期                                                         |
 | adjust     | str | 默认返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子 |
@@ -2773,7 +2802,7 @@ print(stock_zh_b_spot_sina_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="qfq")
+stock_zh_b_daily_qfq_df = ak.stock_zh_b_hist_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="qfq")
 print(stock_zh_b_daily_qfq_df)
 ```
 
@@ -2800,7 +2829,7 @@ print(stock_zh_b_daily_qfq_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq")
+stock_zh_b_daily_hfq_df = ak.stock_zh_b_hist_sina(symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq")
 print(stock_zh_b_daily_hfq_df)
 ```
 
@@ -2827,7 +2856,7 @@ print(stock_zh_b_daily_hfq_df)
 ```python
 import akshare as ak
 
-qfq_factor_df = ak.stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
+qfq_factor_df = ak.stock_zh_b_hist_sina(symbol="sh900901", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
 
@@ -2867,7 +2896,7 @@ print(qfq_factor_df)
 ```python
 import akshare as ak
 
-hfq_factor_df = ak.stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
+hfq_factor_df = ak.stock_zh_b_hist_sina(symbol="sh900901", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
 
@@ -3402,22 +3431,23 @@ print(stock_zh_kcb_spot_sina_df)
 390  sh689009  九号公司   54.75 -0.91  ...   0.927  3.875682e+06  2.425397e+06  0.29878
 ```
 
-(stock_zh_kcb_daily_sina)=
+(stock_zh_kcb_hist_sina)=
 ### 历史行情数据
 
-接口：stock_zh_kcb_daily_sina
+接口：stock_zh_kcb_hist_sina
 
 目标地址：https://finance.sina.com.cn/realstock/company/sh688001/nc.shtml(示例)
 
-描述：新浪财经-科创板股票历史行情数据
+描述：新浪财经-科创板股票历史行情数据；period 可选日线、周线、月线
 
-限量：单次返回指定 symbol 和 adjust 的所有历史行情数据；请控制采集的频率，大量抓取容易封IP
+限量：单次返回指定 symbol 和 adjust 的所有历史行情数据；请控制采集的频率，大量抓取容易封IP；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，其余列取最后一个交易日的值；复权因子（adjust 以 -factor 结尾）只能与 period='daily' 一起使用
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                                 |
 |--------|-----|------------------------------------------------------------------------------------|
 | symbol | str | symbol="sh688008"；带市场标识的股票代码                                                      |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | adjust | str | 默认不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子 |
 
 输出参数
@@ -3440,8 +3470,8 @@ print(stock_zh_kcb_spot_sina_df)
 ```python
 import akshare as ak
 
-stock_zh_kcb_daily_sina_df = ak.stock_zh_kcb_daily_sina(symbol="sh688399", adjust="hfq")
-print(stock_zh_kcb_daily_sina_df)
+stock_zh_kcb_hist_sina_df = ak.stock_zh_kcb_hist_sina(symbol="sh688399", adjust="hfq")
+print(stock_zh_kcb_hist_sina_df)
 ```
 
 数据示例-历史行情数据（后复权）
@@ -3924,7 +3954,7 @@ print(us_stock_current_df)
 
 目标地址：https://finance.sina.com.cn/stock/usstock/sector.shtml
 
-描述：新浪财经-美股的英文名称、中文名称与代码，代码可作为 stock_us_daily_sina 的 symbol 参数
+描述：新浪财经-美股的英文名称、中文名称与代码，代码可作为 stock_us_hist_sina 的 symbol 参数
 
 限量：单次返回全部美股，需翻 900 多页，耗时数分钟
 
@@ -4155,22 +4185,23 @@ print(stock_us_hist_min_em_df)
 1954  2021-09-04 04:00:00  6.70  6.70  6.70  6.67    243168    1549848.0  6.478
 ```
 
-(stock_us_daily_sina)=
+(stock_us_hist_sina)=
 ### 历史行情数据-新浪
 
-接口：stock_us_daily_sina
+接口：stock_us_hist_sina
 
 目标地址：http://finance.sina.com.cn/stock/usstock/sector.shtml
 
-描述：美股历史行情数据，设定 adjust="qfq" 则返回前复权后的数据，默认 adjust=""，则返回未复权的数据，历史数据按日频率更新
+描述：美股历史行情数据，设定 adjust="qfq" 则返回前复权后的数据，默认 adjust=""，则返回未复权的数据，历史数据按日频率更新；period 可选日线、周线、月线
 
-限量：单次返回指定上市公司的指定 adjust 后的所有历史行情数据
+限量：单次返回指定上市公司的指定 adjust 后的所有历史行情数据；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，其余列取最后一个交易日的值；复权因子（adjust 以 -factor 结尾）只能与 period='daily' 一起使用
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                  |
 |--------|-----|---------------------------------------------------------------------|
 | symbol | str | 美股代码，可以通过 **ak.stock_us_name_sina()** 函数返回所有美股代码，由于美股数据量大，建议按需要获取 |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | adjust | str | adjust="qfq" 则返回前复权后的数据，默认 adjust=""，则返回未复权的数据                     |
 
 **ak.stock_us_name_sina()**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use
@@ -4204,8 +4235,8 @@ P.S. "CIEN" 股票的新浪美股数据由于复权因子错误，暂不返回�
 ```python
 import akshare as ak
 
-stock_us_daily_sina_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="")
-print(stock_us_daily_sina_df)
+stock_us_hist_sina_df = ak.stock_us_hist_sina(symbol="AAPL", adjust="")
+print(stock_us_hist_sina_df)
 ```
 
 数据示例-未复权数据
@@ -4230,8 +4261,8 @@ print(stock_us_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_us_daily_sina_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="qfq")
-print(stock_us_daily_sina_df)
+stock_us_hist_sina_df = ak.stock_us_hist_sina(symbol="AAPL", adjust="qfq")
+print(stock_us_hist_sina_df)
 ```
 
 数据示例-前复权调整后的数据
@@ -4256,7 +4287,7 @@ print(stock_us_daily_sina_df)
 ```python
 import akshare as ak
 
-qfq_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="qfq-factor")
+qfq_df = ak.stock_us_hist_sina(symbol="AAPL", adjust="qfq-factor")
 print(qfq_df)
 ```
 
@@ -4925,23 +4956,24 @@ print(stock_hk_hist_hfq_df)
 [4775 rows x 11 columns]
 ```
 
-(stock_hk_daily_sina)=
+(stock_hk_hist_sina)=
 ### 历史行情数据-新浪
 
-接口：stock_hk_daily_sina
+接口：stock_hk_hist_sina
 
 目标地址：http://stock.finance.sina.com.cn/hkstock/quotes/01336.html(个例)
 
-描述：港股-历史行情数据，可以选择返回复权后数据，更新频率为日频
+描述：港股-历史行情数据，可以选择返回复权后数据，更新频率为日频；period 可选日线、周线、月线
 
 限量：单次返回指定上市公司的历史行情数据（包括前后复权因子），提供新浪财经拥有的该股票的所有数据(
-并不等于该股票从上市至今的数据)
+并不等于该股票从上市至今的数据)；period 取 weekly 或 monthly 时返回由日线合成的周线或月线：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，其余列取最后一个交易日的值；复权因子（adjust 以 -factor 结尾）只能与 period='daily' 一起使用
 
 输入参数
 
 | 名称     | 类型  | 描述                                                                                             |
 |--------|-----|------------------------------------------------------------------------------------------------|
 | symbol | str | 港股代码，可以通过 **ak.stock_hk_spot_sina()** 函数返回所有港股代码                                                    |
+| period | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}；周线、月线由日线合成，日期为周期内最后一个交易日 |
 | adjust | str | "": 返回未复权的数据 ; qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；qfq-factor: 返回前复权因子和调整；hfq-factor: 返回后复权因子和调整；|
 
 输出参数-历史行情数据（后复权）
@@ -4960,7 +4992,7 @@ print(stock_hk_hist_hfq_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_hfq_df = ak.stock_hk_daily_sina(symbol="00700", adjust="hfq")
+stock_hk_daily_hfq_df = ak.stock_hk_hist_sina(symbol="00700", adjust="hfq")
 print(stock_hk_daily_hfq_df)
 ```
 
@@ -4997,8 +5029,8 @@ print(stock_hk_daily_hfq_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_sina_df = ak.stock_hk_daily_sina(symbol="00700", adjust="")
-print(stock_hk_daily_sina_df)
+stock_hk_hist_sina_df = ak.stock_hk_hist_sina(symbol="00700", adjust="")
+print(stock_hk_hist_sina_df)
 ```
 
 数据示例-历史行情数据（未复权）
@@ -5031,7 +5063,7 @@ print(stock_hk_daily_sina_df)
 ```python
 import akshare as ak
 
-stock_hk_daily_hfq_factor_df = ak.stock_hk_daily_sina(symbol="00700", adjust="hfq-factor")
+stock_hk_daily_hfq_factor_df = ak.stock_hk_hist_sina(symbol="00700", adjust="hfq-factor")
 print(stock_hk_daily_hfq_factor_df)
 ```
 

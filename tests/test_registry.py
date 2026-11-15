@@ -365,7 +365,7 @@ def test_synonyms_are_case_insensitive_and_exclude_the_token():
 
 
 def test_name_segments_match_whole_segments_only():
-    assert _name_has_segments("stock_us_daily_sina".split("_"), "us")
+    assert _name_has_segments("stock_us_hist_sina".split("_"), "us")
     # 整段匹配：us 不能命中 industry，zh_a 不能命中 zh_ah
     assert not _name_has_segments("stock_board_industry_name_em".split("_"), "us")
     assert _name_has_segments("stock_zh_a_hist_em".split("_"), "zh_a")

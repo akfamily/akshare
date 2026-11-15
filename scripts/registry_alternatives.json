@@ -1,6 +1,6 @@
 {
   "groups": [
-    ["stock_zh_a_hist_em", "stock_zh_a_daily_sina", "stock_zh_a_hist_tx"],
+    ["stock_zh_a_hist_em", "stock_zh_a_hist_sina", "stock_zh_a_hist_tx"],
     ["stock_zh_a_spot_em", "stock_zh_a_spot_sina"],
     ["stock_zh_a_hist_min_em", "stock_zh_a_hist_min_sina"],
     ["stock_intraday_em", "stock_intraday_sina"],
@@ -8,11 +8,11 @@
     ["index_zh_hist_em", "index_zh_daily_em", "index_zh_daily_sina", "index_zh_daily_tx"],
     ["index_zh_spot_em", "index_zh_spot_sina"],
     ["fund_etf_hist_em", "fund_etf_hist_sina"],
-    ["stock_hk_hist_em", "stock_hk_daily_sina"],
+    ["stock_hk_hist_em", "stock_hk_hist_sina"],
     ["stock_hk_spot_em", "stock_hk_spot_sina"],
     ["index_hk_daily_em", "index_hk_daily_sina"],
     ["index_hk_spot_em", "index_hk_spot_sina"],
-    ["stock_us_hist_em", "stock_us_daily_sina"],
+    ["stock_us_hist_em", "stock_us_hist_sina"],
     ["stock_us_spot_em", "stock_us_spot_sina"],
     ["index_global_hist_em", "index_global_hist_sina"],
     ["stock_board_industry_hist_em", "stock_board_industry_index_ths"],
@@ -40,8 +40,8 @@
     "fund_etf_hist_min_em": ["stock_zh_a_hist_min_sina"],
     "fund_lof_hist_min_em": ["stock_zh_a_hist_min_sina"],
     "fund_reits_hist_min_em": ["stock_zh_a_hist_min_sina"],
-    "fund_reits_hist_em": ["fund_etf_hist_sina", "stock_zh_a_daily_sina"],
-    "bond_repo_hist_em": ["stock_zh_a_daily_sina"],
+    "fund_reits_hist_em": ["fund_etf_hist_sina", "stock_zh_a_hist_sina"],
+    "bond_repo_hist_em": ["stock_zh_a_hist_sina"],
     "bond_cb_comparison_em": ["bond_cb_jsl"]
   }
 }

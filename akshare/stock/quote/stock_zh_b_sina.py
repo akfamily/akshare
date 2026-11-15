@@ -25,7 +25,11 @@ from akshare.stock.cons import (
 )
 from akshare.utils import jsonish
 from akshare.utils import http
-from akshare.utils.func import ffill_to_index
+from akshare.utils.func import (
+    check_kline_period,
+    ffill_to_index,
+    resample_kline,
+)
 
 
 @lru_cache()
@@ -124,7 +128,7 @@ def stock_zh_b_spot_sina() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_b_daily_sina(
+def _stock_zh_b_daily_sina(
     symbol: str = "sh900901",
     start_date: str = "19900101",
     end_date: str = "21000118",
@@ -274,6 +278,38 @@ def stock_zh_b_daily_sina(
         return temp_df
 
 
+def stock_zh_b_hist_sina(
+    symbol: str = "sh900901",
+    period: str = "daily",
+    start_date: str = "19900101",
+    end_date: str = "21000118",
+    adjust: str = "",
+) -> pd.DataFrame:
+    """
+    新浪财经-B 股-个股的历史行情数据，大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
+    :param symbol: sh900901
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param start_date: 20201103；开始日期
+    :type start_date: str
+    :param end_date: 20201103；结束日期
+    :type end_date: str
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: 行情数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period, adjust)
+    if period == "daily":
+        return _stock_zh_b_daily_sina(
+            symbol=symbol, start_date=start_date, end_date=end_date, adjust=adjust
+        )
+    temp_df = _stock_zh_b_daily_sina(symbol=symbol, adjust=adjust)
+    return resample_kline(temp_df, period, start_date, end_date)
+
+
 def stock_zh_b_hist_min_sina(
     symbol: str = "sh900901", period: str = "1", adjust: str = ""
 ) -> pd.DataFrame:
@@ -307,7 +343,7 @@ def stock_zh_b_hist_min_sina(
         return pd.DataFrame()
     # 只在需要复权时取一次对应口径的日线；原先无论 adjust 为何都先多取一次前复权日线（#7478）
     try:
-        daily_df = stock_zh_b_daily_sina(symbol=symbol, adjust=adjust)
+        daily_df = stock_zh_b_hist_sina(symbol=symbol, adjust=adjust)
     except Exception as e:
         warnings.warn(f"{symbol} 没有复权日线数据（{e}），返回不复权的分钟数据")
         return temp_df
@@ -337,33 +373,33 @@ def stock_zh_b_hist_min_sina(
 
 
 if __name__ == "__main__":
-    stock_zh_b_daily_hfq_df_one = stock_zh_b_daily_sina(
+    stock_zh_b_daily_hfq_df_one = stock_zh_b_hist_sina(
         symbol="sh900901", start_date="20071103", end_date="20240916", adjust=""
     )
     print(stock_zh_b_daily_hfq_df_one)
 
-    stock_zh_b_daily_hfq_df_three = stock_zh_b_daily_sina(
+    stock_zh_b_daily_hfq_df_three = stock_zh_b_hist_sina(
         symbol="sh900901", start_date="19900103", end_date="20240722", adjust="hfq"
     )
     print(stock_zh_b_daily_hfq_df_three)
 
-    stock_zh_b_daily_hfq_df_two = stock_zh_b_daily_sina(
+    stock_zh_b_daily_hfq_df_two = stock_zh_b_hist_sina(
         symbol="sh900901", start_date="20101103", end_date="20210510"
     )
     print(stock_zh_b_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_b_hist_sina(symbol="sh900901", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_b_hist_sina(symbol="sh900901", adjust="hfq-factor")
     print(hfq_factor_df)
 
-    stock_zh_b_daily_hfq_factor_df = stock_zh_b_daily_sina(
+    stock_zh_b_daily_hfq_factor_df = stock_zh_b_hist_sina(
         symbol="sh900901", adjust="hfq-factor"
     )
     print(stock_zh_b_daily_hfq_factor_df)
 
-    stock_zh_b_daily_sina_df = stock_zh_b_daily_sina(symbol="sh900901")
+    stock_zh_b_daily_sina_df = stock_zh_b_hist_sina(symbol="sh900901")
     print(stock_zh_b_daily_sina_df)
 
     stock_zh_b_spot_sina_df = stock_zh_b_spot_sina()
@@ -379,20 +415,20 @@ if __name__ == "__main__":
     )
     print(stock_zh_b_hist_min_sina_df)
 
-    stock_zh_b_daily_qfq_df = stock_zh_b_daily_sina(
+    stock_zh_b_daily_qfq_df = stock_zh_b_hist_sina(
         symbol="sh900901", start_date="20101103", end_date="20201116", adjust="qfq"
     )
     print(stock_zh_b_daily_qfq_df)
 
-    stock_zh_b_daily_hfq_df = stock_zh_b_daily_sina(
+    stock_zh_b_daily_hfq_df = stock_zh_b_hist_sina(
         symbol="sh900901", start_date="20201103", end_date="20201116", adjust="hfq"
     )
     print(stock_zh_b_daily_hfq_df)
 
-    qfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_b_hist_sina(symbol="sh900901", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_b_daily_sina(symbol="sh900901", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_b_hist_sina(symbol="sh900901", adjust="hfq-factor")
     print(hfq_factor_df)
 
     stock_zh_b_hist_min_sina_df = stock_zh_b_hist_min_sina(

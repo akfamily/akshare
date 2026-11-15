@@ -85,7 +85,7 @@ def test_hasattr_and_private_names_keep_working():
 def test_interface_info_reports_rename():
     with pytest.raises(InvalidParameterError) as error:
         ak.interface_info("stock_zh_a_daily")
-    assert "stock_zh_a_daily_sina" in str(error.value)
+    assert "stock_zh_a_hist_sina" in str(error.value)
 
 
 def test_every_rename_target_is_a_real_interface():
@@ -119,7 +119,7 @@ def test_search_puts_the_new_name_first_for_an_old_name():
     ]
     # 旧名称与其他词一起出现时同样置顶
     assert list(ak.search("stock_zh_a_daily 复权", limit=1)["接口名"]) == [
-        "stock_zh_a_daily_sina"
+        "stock_zh_a_hist_sina"
     ]
     # 新名称与旧名称没有共同片段时也能找到
     assert list(ak.search("macro_china_shibor_all", limit=1)["接口名"]) == [

@@ -1457,8 +1457,12 @@
 "1.20.45"
 ],
 "stock_hk_daily": [
-"stock_hk_daily_sina",
+"stock_hk_hist_sina",
 "1.20.46"
+],
+"stock_hk_daily_sina": [
+"stock_hk_hist_sina",
+"1.20.64"
 ],
 "stock_hk_eniu_indicator": [
 "stock_hk_indicator_eniu",
@@ -1613,8 +1617,12 @@
 "1.12.91"
 ],
 "stock_us_daily": [
-"stock_us_daily_sina",
+"stock_us_hist_sina",
 "1.20.46"
+],
+"stock_us_daily_sina": [
+"stock_us_hist_sina",
+"1.20.64"
 ],
 "stock_us_hist": [
 "stock_us_hist_em",
@@ -1625,12 +1633,20 @@
 "1.20.46"
 ],
 "stock_zh_a_cdr_daily": [
-"stock_zh_a_cdr_daily_sina",
+"stock_zh_a_cdr_hist_sina",
 "1.20.46"
 ],
+"stock_zh_a_cdr_daily_sina": [
+"stock_zh_a_cdr_hist_sina",
+"1.20.64"
+],
 "stock_zh_a_daily": [
-"stock_zh_a_daily_sina",
+"stock_zh_a_hist_sina",
 "1.20.46"
+],
+"stock_zh_a_daily_sina": [
+"stock_zh_a_hist_sina",
+"1.20.64"
 ],
 "stock_zh_a_hist": [
 "stock_zh_a_hist_em",
@@ -1661,8 +1677,12 @@
 "1.20.46"
 ],
 "stock_zh_b_daily": [
-"stock_zh_b_daily_sina",
+"stock_zh_b_hist_sina",
 "1.20.46"
+],
+"stock_zh_b_daily_sina": [
+"stock_zh_b_hist_sina",
+"1.20.64"
 ],
 "stock_zh_b_minute": [
 "stock_zh_b_hist_min_sina",
@@ -1705,8 +1725,12 @@
 "1.20.44"
 ],
 "stock_zh_kcb_daily": [
-"stock_zh_kcb_daily_sina",
+"stock_zh_kcb_hist_sina",
 "1.20.46"
+],
+"stock_zh_kcb_daily_sina": [
+"stock_zh_kcb_hist_sina",
+"1.20.64"
 ],
 "stock_zh_kcb_spot": [
 "stock_zh_kcb_spot_sina",

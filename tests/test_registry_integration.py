@@ -55,11 +55,11 @@ def test_search_daily_bars_rank_first_for_colloquial_query():
     # 新浪的分钟接口（stock_zh_a_hist_min_sina）与腾讯日线同分，取前五
     assert set(_names("A股 日线", 5)) >= {
         "stock_zh_a_hist_em",
-        "stock_zh_a_daily_sina",
+        "stock_zh_a_hist_sina",
         "stock_zh_a_hist_tx",
     }
     # 港股指数的日线接口（index_hk_daily_sina）与个股日线同分，取前三
-    assert set(_names("港股 日线", 3)) >= {"stock_hk_daily_sina", "stock_hk_hist_em"}
+    assert set(_names("港股 日线", 3)) >= {"stock_hk_hist_sina", "stock_hk_hist_em"}
     assert "futures_zh_daily_sina" in _names("期货 日线", 3)
     # 各交易所的日行情接口（futures_daily_cffex 等）补文档后与 futures_hist_em 同分
     assert "futures_hist_em" in _names("期货 日线", 12)
@@ -78,7 +78,7 @@ def test_search_unknown_word_still_returns_matches_for_known_word():
 
 def test_interface_info_carries_alternatives():
     info = registry.interface_info("stock_zh_a_hist_em")
-    assert info["alternatives"] == ["stock_zh_a_daily_sina", "stock_zh_a_hist_tx"]
+    assert info["alternatives"] == ["stock_zh_a_hist_sina", "stock_zh_a_hist_tx"]
     # 单向关系：分市场的实时行情可改用全市场接口，反过来不成立
     assert registry.interface_info("stock_sh_a_spot_em")["alternatives"] == [
         "stock_zh_a_spot_sina"

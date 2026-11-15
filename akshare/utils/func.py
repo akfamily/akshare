@@ -11,6 +11,7 @@ from typing import List, Dict
 
 import pandas as pd
 
+from akshare.exceptions import InvalidParameterError
 from akshare.utils import http
 from akshare.utils.tqdm import get_tqdm
 
@@ -83,6 +84,90 @@ def ffill_to_index(df: pd.DataFrame, index: pd.Index) -> pd.DataFrame:
     """
     df = df[~df.index.duplicated(keep="last")].sort_index()
     return df.reindex(df.index.union(index)).ffill().reindex(index)
+
+
+# K 线周期 -> pandas 的周期频率；周线按自然周（周一至周日），月线按自然月
+KLINE_PERIODS = {"daily": None, "weekly": "W", "monthly": "M"}
+# 合成周线、月线时各列的取法，未列出的列（如 outstanding_share）取周期内最后一个交易日的值
+_KLINE_FIRST = {"open", "prevclose"}
+_KLINE_MAX = {"high"}
+_KLINE_MIN = {"low"}
+_KLINE_SUM = {
+    "volume",
+    "amount",
+    "turnover",
+    "after_volume",
+    "after_amount",
+    "postVol",
+    "postAmt",
+}
+
+
+def check_kline_period(period: str, adjust: str = "") -> None:
+    """
+    检查 K 线周期；复权因子不是行情，不能与周线、月线一起使用
+    :param period: daily、weekly 或 monthly
+    :type period: str
+    :param adjust: 复权方式
+    :type adjust: str
+    """
+    if period not in KLINE_PERIODS:
+        raise InvalidParameterError(
+            f"period 不能是 {period}，可选值：{'、'.join(KLINE_PERIODS)}"
+        )
+    if period != "daily" and adjust.endswith("-factor"):
+        raise InvalidParameterError(
+            f'adjust="{adjust}" 返回的是复权因子，只能与 period="daily" 一起使用'
+        )
+
+
+def resample_kline(
+    df: pd.DataFrame, period: str, start_date: str = "", end_date: str = ""
+) -> pd.DataFrame:
+    """
+    把日线合成为周线或月线：开盘取第一个交易日，最高、最低取极值，收盘取最后一个交易日，
+    成交量、成交额、换手率求和，其余列取最后一个交易日的值；日期为周期内最后一个交易日。
+    应传入完整的日线再用 start_date、end_date 筛选，这样首尾两根 K 线不会因为日期范围
+    从周期中间开始而只含部分交易日
+    :param df: 含 date 列、按日期升序的日线
+    :type df: pandas.DataFrame
+    :param period: daily、weekly 或 monthly；daily 时原样返回
+    :type period: str
+    :param start_date: 开始日期，按合成后的日期筛选，为空时不筛选
+    :type start_date: str
+    :param end_date: 结束日期，按合成后的日期筛选，为空时不筛选
+    :type end_date: str
+    :return: 列与 df 相同的周线或月线
+    :rtype: pandas.DataFrame
+    """
+    freq = KLINE_PERIODS[period]
+    if freq is None or df.empty:
+        return df
+    dates = pd.to_datetime(df["date"])
+    df = df.iloc[dates.argsort(kind="stable").to_numpy()]
+    key = pd.to_datetime(df["date"]).dt.to_period(freq).rename(None)
+    how = {}
+    for col in df.columns:
+        if col in _KLINE_FIRST:
+            how[col] = "first"
+        elif col in _KLINE_MAX:
+            how[col] = "max"
+        elif col in _KLINE_MIN:
+            how[col] = "min"
+        elif col in _KLINE_SUM:
+            # 整个周期都没有数据时保持为空，而不是 0
+            how[col] = lambda x: x.sum(min_count=1)
+        else:
+            how[col] = "last"
+    temp_df = df.groupby(key, sort=True).agg(how).reset_index(drop=True)
+    temp_df = temp_df[list(df.columns)]
+    bar_dates = pd.to_datetime(temp_df["date"])
+    mask = pd.Series(True, index=temp_df.index)
+    if start_date:
+        mask &= bar_dates >= pd.to_datetime(start_date)
+    if end_date:
+        mask &= bar_dates <= pd.to_datetime(end_date)
+    return temp_df[mask].reset_index(drop=True)
 
 
 def set_df_columns(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:

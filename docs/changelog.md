@@ -8,6 +8,18 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-64)=
+### 1.20.64 feat!: add period to the 6 Sina daily quote interfaces and rename them to *_hist_sina
+
+**不兼容的改动：新浪财经的 6 个股票日线接口新增 period 参数并改名，旧名称不再保留，调用旧名称会报 AttributeError。** 改名对照同时登记在文末的{ref}`接口更名一览表 <changelog-rename>`：stock_zh_a_daily_sina→stock_zh_a_hist_sina、stock_zh_a_cdr_daily_sina→stock_zh_a_cdr_hist_sina、stock_zh_b_daily_sina→stock_zh_b_hist_sina、stock_zh_kcb_daily_sina→stock_zh_kcb_hist_sina、stock_hk_daily_sina→stock_hk_hist_sina、stock_us_daily_sina→stock_us_hist_sina。
+
+1. 6 个接口新增 period 参数，可选 daily（默认）、weekly、monthly，与 stock_zh_a_hist_em 的写法一致。新浪的数据源只有日线，周线、月线由日线合成：开盘价取第一个交易日，最高价、最低价取极值，收盘价取最后一个交易日，成交量、成交额、换手率为周期内之和，股本等其余列取最后一个交易日的值，日期为周期内最后一个交易日；复权时先对日线复权再合成。以 sh600000（周线 1358 根、月线 324 根）和 sh900901（周线 1705 根、月线 409 根）与新浪自己的周线、月线逐根对比，开高低收与成交量全部一致
+2. 改名的原因：接口名中的 daily 表示只有日线，带 period 参数的行情接口统一叫 hist；改名后同一数据的三个来源为 stock_zh_a_hist_em、stock_zh_a_hist_sina、stock_zh_a_hist_tx
+3. **参数顺序有变化**：period 排在 symbol 之后，与东方财富的接口相同。stock_zh_a_hist_sina、stock_zh_b_hist_sina、stock_zh_a_cdr_hist_sina 按位置传 start_date、end_date 的代码需要调整，按关键字传参的代码只需改接口名；period 不是可选值时抛出 InvalidParameterError，不会被当成日期悄悄执行
+4. period 不为 daily 时，start_date、end_date 按合成后的日期筛选，首尾两根 K 线仍包含所在周期的全部交易日；adjust 为 qfq-factor、hfq-factor（返回复权因子）时只能使用 period="daily"，否则抛出 InvalidParameterError
+5. period="daily" 时返回结果与改名前相同
+6. README 与 llms.txt 的示例改用 stock_zh_a_hist_sina；数据字典中“建议切换为 stock_zh_a_hist_em（访问无限制）”的说法已过时（东方财富的行情接口有访问频率限制），删除
+
 (v1-20-63)=
 ### 1.20.63 fix!: remove the qhkch client and 2 dead interfaces, fix interfaces that silently returned an empty table
 
@@ -682,6 +694,12 @@ tocdepth: 2
 
 | AKShare 版本 | 旧接口名称                                  | 新接口名称                                  | 修改日期 |
 | ------------ | ------------------------------------------- | ------------------------------------------- | -------- |
+| 1.20.64      | stock_hk_daily_sina                         | stock_hk_hist_sina                          | 20261115 |
+| 1.20.64      | stock_us_daily_sina                         | stock_us_hist_sina                          | 20261115 |
+| 1.20.64      | stock_zh_a_daily_sina                       | stock_zh_a_hist_sina                        | 20261115 |
+| 1.20.64      | stock_zh_a_cdr_daily_sina                   | stock_zh_a_cdr_hist_sina                    | 20261115 |
+| 1.20.64      | stock_zh_b_daily_sina                       | stock_zh_b_hist_sina                        | 20261115 |
+| 1.20.64      | stock_zh_kcb_daily_sina                     | stock_zh_kcb_hist_sina                      | 20261115 |
 | 1.20.48      | bank_fjcf_table_detail                      | alternative_bank_penalty_nfra               | 20261114 |
 | 1.20.48      | currency_convert                            | fx_convert_currencyscoop                    | 20261114 |
 | 1.20.48      | currency_currencies                         | fx_currencies_currencyscoop                 | 20261114 |

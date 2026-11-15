@@ -27,7 +27,11 @@ from akshare.stock.cons import (
 from akshare.exceptions import InvalidParameterError
 from akshare.utils import jsonish
 from akshare.utils import http
-from akshare.utils.func import ffill_to_index
+from akshare.utils.func import (
+    check_kline_period,
+    ffill_to_index,
+    resample_kline,
+)
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -131,7 +135,7 @@ def stock_zh_a_spot_sina() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily_sina(
+def _stock_zh_a_daily_sina(
     symbol: str = "sh603843",
     start_date: str = "19900101",
     end_date: str = "21000118",
@@ -315,7 +319,39 @@ def stock_zh_a_daily_sina(
     return pd.DataFrame()
 
 
-def stock_zh_a_cdr_daily_sina(
+def stock_zh_a_hist_sina(
+    symbol: str = "sh603843",
+    period: str = "daily",
+    start_date: str = "19900101",
+    end_date: str = "21000118",
+    adjust: str = "",
+) -> pd.DataFrame:
+    """
+    新浪财经-A 股-个股的历史行情数据，大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh603843/nc.shtml
+    :param symbol: sh600000
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param start_date: 20201103；开始日期
+    :type start_date: str
+    :param end_date: 20201103；结束日期
+    :type end_date: str
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: 行情数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period, adjust)
+    if period == "daily":
+        return _stock_zh_a_daily_sina(
+            symbol=symbol, start_date=start_date, end_date=end_date, adjust=adjust
+        )
+    temp_df = _stock_zh_a_daily_sina(symbol=symbol, adjust=adjust)
+    return resample_kline(temp_df, period, start_date, end_date)
+
+
+def _stock_zh_a_cdr_daily_sina(
     symbol: str = "sh689009",
     start_date: str = "19900101",
     end_date: str = "22201116",
@@ -350,6 +386,35 @@ def stock_zh_a_cdr_daily_sina(
     temp_df = temp_df.reset_index()
     temp_df["date"] = temp_df["date"].dt.date
     return temp_df
+
+
+def stock_zh_a_cdr_hist_sina(
+    symbol: str = "sh689009",
+    period: str = "daily",
+    start_date: str = "19900101",
+    end_date: str = "22201116",
+) -> pd.DataFrame:
+    """
+    新浪财经-A股-CDR个股的历史行情数据，大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    :param symbol: sh689009
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param start_date: 20201103；开始日期
+    :type start_date: str
+    :param end_date: 20201103；结束日期
+    :type end_date: str
+    :return: 行情数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period)
+    if period == "daily":
+        return _stock_zh_a_cdr_daily_sina(
+            symbol=symbol, start_date=start_date, end_date=end_date
+        )
+    temp_df = _stock_zh_a_cdr_daily_sina(symbol=symbol)
+    return resample_kline(temp_df, period, start_date, end_date)
 
 
 def stock_zh_a_hist_min_sina(
@@ -403,7 +468,7 @@ def stock_zh_a_hist_min_sina(
     # 只在需要复权时取一次对应口径的日线；原先无论 adjust 为何都先多取一次前复权日线，
     # 白白多发 3 个请求并新建一个解密用的 V8 实例（#7478）
     try:
-        daily_df = stock_zh_a_daily_sina(symbol=symbol, adjust=adjust)
+        daily_df = stock_zh_a_hist_sina(symbol=symbol, adjust=adjust)
     except Exception as e:
         # 指数等没有复权数据的品种取不到复权日线，此时照旧返回不复权的分钟数据
         warnings.warn(f"{symbol} 没有复权日线数据（{e}），返回不复权的分钟数据")
@@ -434,7 +499,7 @@ def stock_zh_a_hist_min_sina(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily_sina(
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_hist_sina(
         symbol="sz000002",
         start_date="19910403",
         end_date="20260109",
@@ -442,7 +507,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_daily_hfq_df_one)
 
-    stock_zh_a_daily_hfq_df_three = stock_zh_a_daily_sina(
+    stock_zh_a_daily_hfq_df_three = stock_zh_a_hist_sina(
         symbol="sz000001",
         start_date="19900103",
         end_date="20210118",
@@ -450,28 +515,28 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_daily_hfq_df_three)
 
-    stock_zh_a_daily_hfq_df_two = stock_zh_a_daily_sina(
+    stock_zh_a_daily_hfq_df_two = stock_zh_a_hist_sina(
         symbol="sh000001", start_date="20101103", end_date="20210510"
     )
     print(stock_zh_a_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_a_daily_sina(symbol="sz000002", adjust="qfq-factor")
+    qfq_factor_df = stock_zh_a_hist_sina(symbol="sz000002", adjust="qfq-factor")
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_a_daily_sina(symbol="sz000002", adjust="hfq-factor")
+    hfq_factor_df = stock_zh_a_hist_sina(symbol="sz000002", adjust="hfq-factor")
     print(hfq_factor_df)
 
-    stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily_sina(
+    stock_zh_a_daily_hfq_factor_df = stock_zh_a_hist_sina(
         symbol="sz000002", adjust="hfq-factor"
     )
     print(stock_zh_a_daily_hfq_factor_df)
 
-    stock_zh_a_daily_sina_df = stock_zh_a_daily_sina(
+    stock_zh_a_daily_sina_df = stock_zh_a_hist_sina(
         symbol="sz300798", start_date="20200601", end_date="20231101", adjust="hfq"
     )
     print(stock_zh_a_daily_sina_df)
 
-    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_daily_sina(
+    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_hist_sina(
         symbol="sh689009", start_date="20201103", end_date="20201116"
     )
     print(stock_zh_a_cdr_daily_sina_df)
@@ -494,7 +559,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_hist_min_sina_df)
 
-    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_daily_sina(
+    stock_zh_a_cdr_daily_sina_df = stock_zh_a_cdr_hist_sina(
         symbol="sh689009", start_date="19900101", end_date="22201116"
     )
     print(stock_zh_a_cdr_daily_sina_df)

@@ -33,7 +33,7 @@ from akquant import Strategy
 
 # 1. 准备数据
 # 使用 akshare 获取 A 股历史数据 (需安装: pip install akshare)
-df = ak.stock_zh_a_daily_sina(symbol="sh600000", start_date="20230101", end_date="20231231")
+df = ak.stock_zh_a_hist_sina(symbol="sh600000", start_date="20230101", end_date="20231231")
 
 
 class MyStrategy(Strategy):

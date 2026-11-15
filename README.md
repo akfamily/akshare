@@ -111,26 +111,27 @@ Code:
 ```python
 import akshare as ak
 
-stock_zh_a_hist_em_df = ak.stock_zh_a_hist_em(symbol="000001", period="daily", start_date="20170301", end_date="20231022", adjust="")
-print(stock_zh_a_hist_em_df)
+stock_zh_a_hist_sina_df = ak.stock_zh_a_hist_sina(symbol="sz000001", period="daily", start_date="20170301", end_date="20231022", adjust="")
+print(stock_zh_a_hist_sina_df)
 ```
 
 Output:
 
 ```
-      日期          开盘   收盘    最高  ...  振幅   涨跌幅  涨跌额  换手率
-0     2017-03-01   9.49   9.49   9.55  ...  0.84  0.11  0.01  0.21
-1     2017-03-02   9.51   9.43   9.54  ...  1.26 -0.63 -0.06  0.24
-2     2017-03-03   9.41   9.40   9.43  ...  0.74 -0.32 -0.03  0.20
-3     2017-03-06   9.40   9.45   9.46  ...  0.74  0.53  0.05  0.24
-4     2017-03-07   9.44   9.45   9.46  ...  0.63  0.00  0.00  0.17
-          ...    ...    ...    ...  ...   ...   ...   ...   ...
-1610  2023-10-16  11.00  11.01  11.03  ...  0.73  0.09  0.01  0.26
-1611  2023-10-17  11.01  11.02  11.05  ...  0.82  0.09  0.01  0.25
-1612  2023-10-18  10.99  10.95  11.02  ...  1.00 -0.64 -0.07  0.34
-1613  2023-10-19  10.91  10.60  10.92  ...  3.01 -3.20 -0.35  0.61
-1614  2023-10-20  10.55  10.60  10.67  ...  1.51  0.00  0.00  0.27
-[1615 rows x 11 columns]
+            date   open   high  ...        amount  outstanding_share  turnover
+0     2017-03-01   9.49   9.55  ...  3.301580e+08       1.691799e+10  0.002051
+1     2017-03-02   9.51   9.54  ...  3.823959e+08       1.691799e+10  0.002386
+2     2017-03-03   9.41   9.43  ...  3.219525e+08       1.691799e+10  0.002025
+3     2017-03-06   9.40   9.46  ...  3.812123e+08       1.691799e+10  0.002391
+4     2017-03-07   9.44   9.46  ...  2.777474e+08       1.691799e+10  0.001742
+...          ...    ...    ...  ...           ...                ...       ...
+1610  2023-10-16  11.00  11.03  ...  5.509887e+08       1.940555e+10  0.002585
+1611  2023-10-17  11.01  11.05  ...  5.431709e+08       1.940555e+10  0.002543
+1612  2023-10-18  10.99  11.02  ...  7.139799e+08       1.940555e+10  0.003359
+1613  2023-10-19  10.91  10.92  ...  1.271915e+09       1.940555e+10  0.006127
+1614  2023-10-20  10.55  10.67  ...  5.576186e+08       1.940555e+10  0.002711
+
+[1615 rows x 9 columns]
 ```
 
 ### Search
@@ -179,7 +180,10 @@ the 15 categories returned by `ak.list_categories()` — `stock`, `index`, `fund
 `futures`, `option`, `bond`, `fx`, `macro`, `interest_rate`, `spot`, `energy`,
 `crypto`, `calendar`, `research`, `alternative` — and the last segment is usually the
 data source (`em`, `sina`, `ths`, `tx`, `cninfo`, `sse`, `szse`, …), so the same
-data from another source differs only in its suffix.
+data from another source differs only in its suffix. Among quote interfaces,
+`daily` in a name means daily bars only, while an interface that takes a
+`period` argument (`daily`, `weekly`, `monthly`) is named `hist`, such as
+`stock_zh_a_hist_em` and `stock_zh_a_hist_sina`.
 
 ### Upgrading from a version before 1.20.41
 
@@ -212,10 +216,10 @@ Code:
 import akshare as ak
 import mplfinance as mpf  # Please install mplfinance as follows: pip install mplfinance
 
-stock_us_daily_sina_df = ak.stock_us_daily_sina(symbol="AAPL", adjust="qfq")
-stock_us_daily_sina_df = stock_us_daily_sina_df.set_index(["date"])
-stock_us_daily_sina_df = stock_us_daily_sina_df["2020-04-01": "2020-04-29"]
-mpf.plot(stock_us_daily_sina_df, type="candle", mav=(3, 6, 9), volume=True, show_nontrading=False)
+stock_us_hist_sina_df = ak.stock_us_hist_sina(symbol="AAPL", adjust="qfq")
+stock_us_hist_sina_df = stock_us_hist_sina_df.set_index(["date"])
+stock_us_hist_sina_df = stock_us_hist_sina_df["2020-04-01": "2020-04-29"]
+mpf.plot(stock_us_hist_sina_df, type="candle", mav=(3, 6, 9), volume=True, show_nontrading=False)
 ```
 
 ## Features

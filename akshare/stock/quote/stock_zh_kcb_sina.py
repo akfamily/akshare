@@ -23,6 +23,7 @@ from akshare.stock.cons import (
     zh_sina_kcb_stock_amount_url,
 )
 from akshare.utils import http
+from akshare.utils.func import check_kline_period, resample_kline
 
 
 def get_zh_kcb_page_count() -> int:
@@ -121,7 +122,9 @@ def stock_zh_kcb_spot_sina() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_kcb_daily_sina(symbol: str = "sh688399", adjust: str = "") -> pd.DataFrame:
+def _stock_zh_kcb_daily_sina(
+    symbol: str = "sh688399", adjust: str = ""
+) -> pd.DataFrame:
     """
     新浪财经-科创板股票的历史行情数据，大量抓取容易封IP
     https://finance.sina.com.cn/realstock/company/sh688005/nc.shtml
@@ -243,14 +246,34 @@ def stock_zh_kcb_daily_sina(symbol: str = "sh688399", adjust: str = "") -> pd.Da
         return qfq_factor_df
 
 
+def stock_zh_kcb_hist_sina(
+    symbol: str = "sh688399", period: str = "daily", adjust: str = ""
+) -> pd.DataFrame:
+    """
+    新浪财经-科创板股票的历史行情数据，大量抓取容易封IP
+    https://finance.sina.com.cn/realstock/company/sh688005/nc.shtml
+    :param symbol: 股票代码；带市场标识的股票代码
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param adjust: 默认不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: 科创板股票的历史行情数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period, adjust)
+    temp_df = _stock_zh_kcb_daily_sina(symbol=symbol, adjust=adjust)
+    return resample_kline(temp_df, period)
+
+
 if __name__ == "__main__":
-    stock_zh_kcb_daily_qfq_df = stock_zh_kcb_daily_sina(symbol="sh688399", adjust="qfq")
+    stock_zh_kcb_daily_qfq_df = stock_zh_kcb_hist_sina(symbol="sh688399", adjust="qfq")
     print(stock_zh_kcb_daily_qfq_df)
 
-    stock_zh_kcb_daily_hfq_df = stock_zh_kcb_daily_sina(symbol="sh688399", adjust="hfq")
+    stock_zh_kcb_daily_hfq_df = stock_zh_kcb_hist_sina(symbol="sh688399", adjust="hfq")
     print(stock_zh_kcb_daily_hfq_df)
 
-    stock_zh_kcb_daily_sina_df = stock_zh_kcb_daily_sina(
+    stock_zh_kcb_daily_sina_df = stock_zh_kcb_hist_sina(
         symbol="sh688399", adjust="qfq-factor"
     )
     print(stock_zh_kcb_daily_sina_df)

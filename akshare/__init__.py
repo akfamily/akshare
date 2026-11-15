@@ -385,7 +385,7 @@ from akshare.stock.quote.stock_hk_comparison_em import (
     stock_hk_valuation_comparison_em,
 )
 from akshare.stock.quote.stock_hk_famous import stock_hk_famous_spot_em
-from akshare.stock.quote.stock_hk_sina import stock_hk_daily_sina, stock_hk_spot_sina
+from akshare.stock.quote.stock_hk_sina import stock_hk_hist_sina, stock_hk_spot_sina
 from akshare.stock.quote.stock_hsgt_spot_em import (
     stock_hsgt_sh_hk_spot_em,
     stock_zh_ah_spot_em,
@@ -409,14 +409,14 @@ from akshare.stock.quote.stock_summary import (
 from akshare.stock.quote.stock_us_famous import stock_us_famous_spot_em
 from akshare.stock.quote.stock_us_pink import stock_us_pink_spot_em
 from akshare.stock.quote.stock_us_sina import (
-    stock_us_daily_sina,
+    stock_us_hist_sina,
     stock_us_name_sina,
     stock_us_spot_sina,
 )
 from akshare.stock.quote.stock_xq import stock_individual_spot_xq
 from akshare.stock.quote.stock_zh_a_sina import (
-    stock_zh_a_cdr_daily_sina,
-    stock_zh_a_daily_sina,
+    stock_zh_a_cdr_hist_sina,
+    stock_zh_a_hist_sina,
     stock_zh_a_hist_min_sina,
     stock_zh_a_spot_sina,
 )
@@ -434,7 +434,7 @@ from akshare.stock.quote.stock_zh_ah_tx import (
     stock_zh_ah_spot_tx,
 )
 from akshare.stock.quote.stock_zh_b_sina import (
-    stock_zh_b_daily_sina,
+    stock_zh_b_hist_sina,
     stock_zh_b_hist_min_sina,
     stock_zh_b_spot_sina,
 )
@@ -446,7 +446,7 @@ from akshare.stock.quote.stock_zh_comparison_em import (
 )
 from akshare.stock.quote.stock_zh_kcb_report import stock_zh_kcb_report_em
 from akshare.stock.quote.stock_zh_kcb_sina import (
-    stock_zh_kcb_daily_sina,
+    stock_zh_kcb_hist_sina,
     stock_zh_kcb_spot_sina,
 )
 from akshare.stock.quote.stock_ztb_em import (
@@ -2036,7 +2036,6 @@ __all__ = [
     "stock_history_dividend",
     "stock_history_dividend_detail",
     "stock_hk_company_profile_em",
-    "stock_hk_daily_sina",
     "stock_hk_dividend_payout_em",
     "stock_hk_famous_spot_em",
     "stock_hk_fhpx_detail_ths",
@@ -2046,6 +2045,7 @@ __all__ = [
     "stock_hk_gxl_lg",
     "stock_hk_hist_em",
     "stock_hk_hist_min_em",
+    "stock_hk_hist_sina",
     "stock_hk_hot_rank_detail_em",
     "stock_hk_hot_rank_detail_realtime_em",
     "stock_hk_hot_rank_em",
@@ -2236,10 +2236,10 @@ __all__ = [
     "stock_sz_a_spot_em",
     "stock_target_price_js",
     "stock_tfp_em",
-    "stock_us_daily_sina",
     "stock_us_famous_spot_em",
     "stock_us_hist_em",
     "stock_us_hist_min_em",
+    "stock_us_hist_sina",
     "stock_us_name_sina",
     "stock_us_pink_spot_em",
     "stock_us_spot_em",
@@ -2257,8 +2257,7 @@ __all__ = [
     "stock_zcfz_bj_em",
     "stock_zcfz_em",
     "stock_zdhtmx_em",
-    "stock_zh_a_cdr_daily_sina",
-    "stock_zh_a_daily_sina",
+    "stock_zh_a_cdr_hist_sina",
     "stock_zh_a_disclosure_relation_cninfo",
     "stock_zh_a_disclosure_report_cninfo",
     "stock_zh_a_gbjg_em",
@@ -2268,6 +2267,7 @@ __all__ = [
     "stock_zh_a_hist_min_em",
     "stock_zh_a_hist_min_sina",
     "stock_zh_a_hist_pre_min_em",
+    "stock_zh_a_hist_sina",
     "stock_zh_a_hist_tx",
     "stock_zh_a_new",
     "stock_zh_a_new_em",
@@ -2282,13 +2282,13 @@ __all__ = [
     "stock_zh_ah_name_tx",
     "stock_zh_ah_spot_em",
     "stock_zh_ah_spot_tx",
-    "stock_zh_b_daily_sina",
     "stock_zh_b_hist_min_sina",
+    "stock_zh_b_hist_sina",
     "stock_zh_b_spot_em",
     "stock_zh_b_spot_sina",
     "stock_zh_dupont_comparison_em",
     "stock_zh_growth_comparison_em",
-    "stock_zh_kcb_daily_sina",
+    "stock_zh_kcb_hist_sina",
     "stock_zh_kcb_report_em",
     "stock_zh_kcb_spot_sina",
     "stock_zh_scale_comparison_em",

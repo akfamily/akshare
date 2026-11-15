@@ -18,7 +18,11 @@ from akshare.stock.cons import (
     hk_sina_stock_hist_qfq_url,
 )
 from akshare.utils import http
-from akshare.utils.func import ffill_to_index
+from akshare.utils.func import (
+    check_kline_period,
+    ffill_to_index,
+    resample_kline,
+)
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -109,7 +113,7 @@ def stock_hk_spot_sina() -> pd.DataFrame:
     return big_df
 
 
-def stock_hk_daily_sina(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
+def _stock_hk_daily_sina(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-港股-个股的历史行情数据
     https://stock.finance.sina.com.cn/hkstock/quotes/02912.html
@@ -235,23 +239,43 @@ def stock_hk_daily_sina(symbol: str = "00981", adjust: str = "") -> pd.DataFrame
         return pd.DataFrame()
 
 
+def stock_hk_hist_sina(
+    symbol: str = "00981", period: str = "daily", adjust: str = ""
+) -> pd.DataFrame:
+    """
+    新浪财经-港股-个股的历史行情数据
+    https://stock.finance.sina.com.cn/hkstock/quotes/02912.html
+    :param symbol: 可以使用 ak.stock_hk_spot_sina() 获取
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；hfq: 返回后复权后的数据；hfq-factor: 返回后复权因子；qfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: 指定 adjust 的数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period, adjust)
+    temp_df = _stock_hk_daily_sina(symbol=symbol, adjust=adjust)
+    return resample_kline(temp_df, period)
+
+
 if __name__ == "__main__":
-    stock_hk_daily_hfq_df = stock_hk_daily_sina(symbol="00700", adjust="")
+    stock_hk_daily_hfq_df = stock_hk_hist_sina(symbol="00700", adjust="")
     print(stock_hk_daily_hfq_df)
 
-    stock_hk_daily_hfq_df = stock_hk_daily_sina(symbol="00700", adjust="hfq")
+    stock_hk_daily_hfq_df = stock_hk_hist_sina(symbol="00700", adjust="hfq")
     print(stock_hk_daily_hfq_df)
 
-    stock_hk_daily_hfq_df = stock_hk_daily_sina(symbol="01591", adjust="hfq")
+    stock_hk_daily_hfq_df = stock_hk_hist_sina(symbol="01591", adjust="hfq")
     print(stock_hk_daily_hfq_df)
 
-    stock_hk_daily_hfq_df = stock_hk_daily_sina(symbol="00700", adjust="qfq")
+    stock_hk_daily_hfq_df = stock_hk_hist_sina(symbol="00700", adjust="qfq")
     print(stock_hk_daily_hfq_df)
 
-    stock_hk_daily_sina_df = stock_hk_daily_sina(symbol="01302", adjust="qfq")
+    stock_hk_daily_sina_df = stock_hk_hist_sina(symbol="01302", adjust="qfq")
     print(stock_hk_daily_sina_df)
 
-    stock_hk_daily_hfq_factor_df = stock_hk_daily_sina(
+    stock_hk_daily_hfq_factor_df = stock_hk_hist_sina(
         symbol="00700", adjust="hfq-factor"
     )
     print(stock_hk_daily_hfq_factor_df)

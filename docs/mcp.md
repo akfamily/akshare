@@ -132,13 +132,13 @@ AKShare 有一千多个接口，如果逐个注册成工具，会占满助手的
 (mcp-source)=
 ### 数据来源与限流
 
-同一类数据常有多个来源，例如 A 股日线既有东方财富的 `stock_zh_a_hist_em`，也有新浪财经的 `stock_zh_a_daily_sina` 和腾讯的 `stock_zh_a_hist_tx`。`search_interfaces` 与 `describe_interface` 的结果都带有 `source` 字段，用中文标明数据来源。
+同一类数据常有多个来源，例如 A 股日线既有东方财富的 `stock_zh_a_hist_em`，也有新浪财经的 `stock_zh_a_hist_sina` 和腾讯的 `stock_zh_a_hist_tx`。`search_interfaces` 与 `describe_interface` 的结果都带有 `source` 字段，用中文标明数据来源。
 
 东方财富的行情类接口（实时行情、历史 K 线、板块、资金流等，约 100 个）使用的服务器在短时间内请求较多时，会临时封禁来源 IP，所有东方财富行情接口约 5 分钟以上无法使用，详见{ref}`常见问题 <faq-eastmoney-ratelimit>`。这类接口的来源标为“东方财富·行情（频繁访问易限流）”。东方财富的宏观、财务报表、龙虎榜等接口使用其他服务器，不受影响，来源只标“东方财富”。
 
 AKTools 在发给助手的使用说明中要求：需要连续获取多只证券或大量行情数据时，优先选用其他来源的同类接口；遇到限流时不要立即重试。被限流时，`get_data` 的报错会说明需要等待多久，并列出 AKShare 登记的其他来源的同类接口供助手改用。
 
-同类接口取自 AKShare 人工维护的对照表，`describe_interface` 的 `alternatives` 字段也会列出，因此助手在取数之前就能选择其他来源。对照表目前覆盖 A 股、指数、ETF、港股、美股、板块与期货的日线和实时行情等常用接口；没有登记的接口不会给出候选，AKTools 不自行猜测。同类接口的参数写法和返回列可能不同，例如新浪财经的 `stock_zh_a_daily_sina` 要把 `symbol` 写成 `sh600519`，助手会先用 `describe_interface` 查看再调用。
+同类接口取自 AKShare 人工维护的对照表，`describe_interface` 的 `alternatives` 字段也会列出，因此助手在取数之前就能选择其他来源。对照表目前覆盖 A 股、指数、ETF、港股、美股、板块与期货的日线和实时行情等常用接口；没有登记的接口不会给出候选，AKTools 不自行猜测。同类接口的参数写法和返回列可能不同，例如新浪财经的 `stock_zh_a_hist_sina` 要把 `symbol` 写成 `sh600519`，助手会先用 `describe_interface` 查看再调用。
 
 限流标记与同类接口分别取自 AKShare 接口元数据的 `rate_limit` 与 `alternatives` 字段（见{doc}`接口检索 <search>`），需要 AKShare 1.20.39 与 AKTools 0.1.6 及以上版本。AKTools 0.1.8 起要求 AKShare 不低于 1.20.48，接口名以该版本为准；更早的 AKTools 搭配新版 AKShare 时，文档与提示中的接口名可能仍是旧名称。AKTools 0.1.9 起要求 AKShare 不低于 1.20.58：使用已更名或已移除的旧接口名时，`describe_interface` 与 `get_data` 的报错会给出现在的名称或移除的版本，`search_interfaces` 会把现在的名称排在第一位并在 `hint` 中说明。
 
@@ -149,7 +149,7 @@ AKTools 在发给助手的使用说明中要求：需要连续获取多只证券
 
 接口名写错，或者用了已经更名的旧接口名（如 `get_futures_daily`，现为 `futures_daily`）时，报错中会列出名称相近的接口。
 
-数据超过返回行数时，`get_data` 会给出总行数。HTTP 方式下还会给出完整数据的 CSV 下载地址，例如 `/api/public/stock_zh_a_daily_sina?symbol=sh600519&_format=csv`，在地址前加上服务地址即可下载；stdio 方式没有 HTTP 服务，因此不提供下载地址。
+数据超过返回行数时，`get_data` 会给出总行数。HTTP 方式下还会给出完整数据的 CSV 下载地址，例如 `/api/public/stock_zh_a_hist_sina?symbol=sh600519&_format=csv`，在地址前加上服务地址即可下载；stdio 方式没有 HTTP 服务，因此不提供下载地址。
 
 `get_data` 与 HTTP API 的 `/api/public` 使用同一套逻辑，同样经过[数据缓存](https://aktools.akfamily.xyz/guide/usage/#cache)，出错时的说明也相同。参数值一律按文本传给 AKShare，日期通常写成 `20240101` 的形式。
 

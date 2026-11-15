@@ -24,6 +24,7 @@ from akshare.stock.cons import (
 )
 from akshare.exceptions import APIError
 from akshare.utils import http
+from akshare.utils.func import check_kline_period, resample_kline
 
 
 def _us_list_error(response) -> bool:
@@ -135,7 +136,7 @@ def stock_us_spot_sina() -> pd.DataFrame:
     return _us_list_all()
 
 
-def stock_us_daily_sina(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
+def _stock_us_daily_sina(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
     https://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -220,6 +221,26 @@ def stock_us_daily_sina(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         return data_df
 
 
+def stock_us_hist_sina(
+    symbol: str = "FB", period: str = "daily", adjust: str = ""
+) -> pd.DataFrame:
+    """
+    新浪财经-美股-个股的历史行情数据
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
+    :param symbol: 可以使用 stock_us_name_sina 获取
+    :type symbol: str
+    :param period: daily: 日线；weekly: 周线；monthly: 月线。周线、月线由日线合成，日期为周期内最后一个交易日
+    :type period: str
+    :param adjust: 默认为空：返回不复权的数据；qfq: 返回前复权后的数据；qfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: 指定 adjust 的数据
+    :rtype: pandas.DataFrame
+    """
+    check_kline_period(period, adjust)
+    temp_df = _stock_us_daily_sina(symbol=symbol, adjust=adjust)
+    return resample_kline(temp_df, period)
+
+
 if __name__ == "__main__":
     stock_us_stock_name_df = stock_us_name_sina()
     print(stock_us_stock_name_df)
@@ -227,13 +248,13 @@ if __name__ == "__main__":
     stock_us_spot_sina_df = stock_us_spot_sina()
     print(stock_us_spot_sina_df)
 
-    stock_us_daily_sina_df = stock_us_daily_sina(symbol=".DJI", adjust="")
+    stock_us_daily_sina_df = stock_us_hist_sina(symbol=".DJI", adjust="")
     print(stock_us_daily_sina_df)
 
-    stock_us_daily_qfq_df = stock_us_daily_sina(symbol="WOLF", adjust="qfq")
+    stock_us_daily_qfq_df = stock_us_hist_sina(symbol="WOLF", adjust="qfq")
     print(stock_us_daily_qfq_df)
 
-    stock_us_daily_qfq_factor_df = stock_us_daily_sina(
+    stock_us_daily_qfq_factor_df = stock_us_hist_sina(
         symbol="AAPL", adjust="qfq-factor"
     )
     print(stock_us_daily_qfq_factor_df)

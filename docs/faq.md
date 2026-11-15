@@ -138,7 +138,7 @@ ak.set_timeout(30)  # 单位为秒；也可传 (连接超时, 读取超时)，�
 ak.set_timeout(None)  # 不限时
 
 with ak.ProxyContext({"http": "http://127.0.0.1:7890", "https": "http://127.0.0.1:7890"}):
-    stock_zh_a_daily_sina_df = ak.stock_zh_a_daily_sina(symbol="sh600000")  # 仅此代码块内使用该代理
+    stock_zh_a_hist_sina_df = ak.stock_zh_a_hist_sina(symbol="sh600000")  # 仅此代码块内使用该代理
 ```
 
 - 未调用 `ak.set_proxies` 时，沿用 `HTTP_PROXY`、`HTTPS_PROXY` 环境变量和系统代理设置
