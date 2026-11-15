@@ -186,7 +186,7 @@ python -m aktools --host 0.0.0.0
 
 助手会自己完成安装。手动配置方法见 [AKQuant 的 MCP 文档](https://akquant.akfamily.xyz/guide/mcp/)。
 
-AKQuant 自己只能取 A 股个股的日线。配合 AKTools 的 `save_data`，指数、ETF、期货、港股、美股的行情也可以用来回测：助手先用 `save_data` 把数据保存为 CSV，再把文件路径交给 AKQuant 的 `prepare_data`。目前需要把 `AKTOOLS_DATA_DIR` 设在 AKQuant 的项目目录内，并使用列名为英文的接口（新浪财经、腾讯），配置方法见 [AKTools 文档](https://aktools.akfamily.xyz/guide/mcp/#akquant-data)。
+AKQuant 的 MCP 服务自己不取行情（0.3.90 起），真实行情由 AKTools 提供：助手先用 AKTools 的 `save_data` 把数据保存为 CSV，再把文件路径和标的代码交给 AKQuant 的 `prepare_data`，A 股、指数、ETF、期货、港股、美股的行情都可以这样回测。需要 AKTools 0.1.12 与 AKQuant 0.3.90 及以上版本；数据目录不用配置，两边默认都是用户目录下的 `.aktools/data`。建议优先用新浪财经、腾讯的接口：东方财富行情接口的成交量单位是手，AKQuant 不做换算。详见 [AKTools 文档](https://aktools.akfamily.xyz/guide/mcp/#akquant-data)。
 
 ```{warning}
 AKQuant 会在本机直接运行策略代码，没有沙箱隔离。回测结果与改进建议由 AI 生成，仅供学习和研究，不构成投资建议。
