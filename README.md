@@ -208,20 +208,6 @@ ak.renamed_info("stock_zh_a_hist")
 old-to-new table is at the end of the
 [changelog](https://akshare.akfamily.xyz/changelog.html#changelog-rename).
 
-### Plot
-
-Code:
-
-```python
-import akshare as ak
-import mplfinance as mpf  # Please install mplfinance as follows: pip install mplfinance
-
-stock_us_hist_sina_df = ak.stock_us_hist_sina(symbol="AAPL", adjust="qfq")
-stock_us_hist_sina_df = stock_us_hist_sina_df.set_index(["date"])
-stock_us_hist_sina_df = stock_us_hist_sina_df["2020-04-01": "2020-04-29"]
-mpf.plot(stock_us_hist_sina_df, type="candle", mav=(3, 6, 9), volume=True, show_nontrading=False)
-```
-
 ## Features
 
 - **Ease of use**: Just one line code to fetch the data;

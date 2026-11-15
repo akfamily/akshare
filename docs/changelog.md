@@ -19,6 +19,7 @@ tocdepth: 2
 4. period 不为 daily 时，start_date、end_date 按合成后的日期筛选，首尾两根 K 线仍包含所在周期的全部交易日；adjust 为 qfq-factor、hfq-factor（返回复权因子）时只能使用 period="daily"，否则抛出 InvalidParameterError
 5. period="daily" 时返回结果与改名前相同
 6. README 与 llms.txt 的示例改用 stock_zh_a_hist_sina；数据字典中“建议切换为 stock_zh_a_hist_em（访问无限制）”的说法已过时（东方财富的行情接口有访问频率限制），删除
+7. README 移除 Plot 一节的 mplfinance 绘图示例
 
 (v1-20-63)=
 ### 1.20.63 fix!: remove the qhkch client and 2 dead interfaces, fix interfaces that silently returned an empty table
