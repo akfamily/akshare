@@ -98,6 +98,6 @@ AKShare 从各网站实时采集数据，接口报错大多与数据源有关，
 ## 下一步
 
 - [AKShare 数据字典](data/index.rst)：全部接口的详细说明
-- [AKShare 策略回测](backtest.md)：结合 AKQuant、Backtrader 等框架的回测案例
+- [AKShare 策略回测](backtest.md)：结合 AKQuant、PyBroker 等框架的回测案例
 - [AI 助手（MCP）](mcp.md)：在 Claude、Cursor 等 AI 助手中用自然语言获取数据
 - [AKShare HTTP API（AKTools）](aktools.md)：在 Python 以外的语言中使用 AKShare
