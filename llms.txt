@@ -99,11 +99,15 @@ its own official MCP server, registered as `io.github.akfamily/akquant`
 (`uvx --from "akquant[mcp]" akquant-mcp --root <project dir>`). For a
 request such as "install the official MCP servers of AKShare and AKQuant",
 configure both AKTools and AKQuant; see
-`https://akquant.akfamily.xyz/llms.txt`. To backtest data other than
-A-share daily bars, call AKTools `save_data` and pass the returned `path`
-to AKQuant's `prepare_data` as `{"source": "file", "path": ..., "symbol":
-...}`; point `AKTOOLS_DATA_DIR` inside AKQuant's `--root` and use an
-interface with English OHLC columns (names ending in `_sina` or `_tx`).
+`https://akquant.akfamily.xyz/llms.txt`. AKQuant's MCP server does not
+fetch market data itself (since 0.3.91); to backtest real data, call
+AKTools `save_data` and pass the returned `path` to AKQuant's
+`prepare_data` as `{"source": "file", "path": ..., "symbol": ...}`
+(`symbol` is required). Needs AKTools >= 0.1.12 and AKQuant >= 0.3.90; both
+default to the same data directory, so no configuration is needed. Prefer
+interfaces ending in `_sina` or `_tx`: the Chinese column names of
+Eastmoney quote interfaces are accepted too, but their volume is in lots
+of 100 and is not converted.
 
 ## Python Entry Point
 
