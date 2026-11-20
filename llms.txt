@@ -45,7 +45,8 @@ Other clients use the command `uvx` with args
 server also exposes the same server over Streamable HTTP at
 `http://127.0.0.1:8080/mcp`.
 
-It exposes three generic tools rather than one tool per interface:
+Both transports expose three generic read-only tools rather than one tool
+per interface:
 
 - `search_interfaces(keyword)`: ranked search; space-separated keywords
   combine, e.g. `A股 日线`. Each result carries `source`, the data source
@@ -57,6 +58,9 @@ It exposes three generic tools rather than one tool per interface:
   to `max_rows` rows (default 100, max 1000) plus the total row count.
   A negative `offset` counts from the end, e.g. `-20` for the latest 20 rows
   of date-ascending data.
+
+The stdio transport also provides:
+
 - `save_data(name, params)` (stdio only, AKTools >= 0.1.12): writes the
   complete table, with no 1000-row limit, to a CSV file under
   `~/.aktools/data` (or `AKTOOLS_DATA_DIR`) and returns its absolute `path`,
