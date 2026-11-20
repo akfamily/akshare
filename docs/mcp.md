@@ -17,7 +17,7 @@
 - “AKShare 里有哪些和可转债相关的接口？”
 - “stock_zh_a_hist_em 这个接口有哪些参数，复权方式怎么填？”
 
-助手每次最多取回 1000 行数据（默认 100 行），适合查看具体某段时间、某只证券的数据。需要完整的大表格时，请让助手给出 CSV 下载地址（HTTP 方式），或改用 {doc}`HTTP API <aktools>` 下载。
+`get_data` 每次最多取回 1000 行数据（默认 100 行），适合查看具体某段时间、某只证券的数据。需要完整的大表格时，stdio 方式可用 {ref}`save_data <mcp-save-data>` 保存为本机 CSV 文件；HTTP 方式可让助手给出 CSV 下载地址，或改用 {doc}`HTTP API <aktools>` 下载。
 
 (mcp-modes)=
 ## 两种接入方式
@@ -27,7 +27,7 @@
 | stdio（推荐） | 由 AI 助手自动启动 `aktools-mcp` 命令，不需要先运行服务 | 个人在自己电脑上使用 |
 | HTTP | 先运行 `python -m aktools`，助手连接 `http://127.0.0.1:8080/mcp` | 多人或多台电脑共用一个服务 |
 
-两种方式提供的工具完全相同。
+两种方式均提供 3 个只读查询工具；stdio 方式还提供 {ref}`save_data <mcp-save-data>`，用于把完整数据保存为本机 CSV 文件。
 
 (mcp-stdio)=
 ## stdio 方式
@@ -119,7 +119,7 @@ Cursor 则在 `mcp.json` 的 `aktools` 下加上 `"headers": {"Authorization": "
 (mcp-tools)=
 ## 提供的工具
 
-AKShare 有近千个接口，如果逐个注册成工具，会占满助手的上下文。因此 AKTools 只提供 3 个通用工具，由助手分步使用：
+AKShare 有近千个接口，如果逐个注册成工具，会占满助手的上下文。因此两种接入方式均提供以下 3 个通用只读工具，由助手分步使用：
 
 | 工具 | 作用 |
 | --- | --- |

@@ -60,7 +60,7 @@ Claude Desktop、Cursor 等客户端的配置：
 
 [![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
 
-AKTools 没有把约 950 个接口逐个登记为工具，而是提供 3 个通用工具，由 AI 助手依次调用：
+AKTools 没有把约 950 个接口逐个登记为工具，而是提供 3 个通用只读工具，由 AI 助手依次调用：
 
 | 工具 | 用途 |
 | --- | --- |
@@ -68,7 +68,9 @@ AKTools 没有把约 950 个接口逐个登记为工具，而是提供 3 个通�
 | `describe_interface` | 查看接口的参数、默认值与说明 |
 | `get_data` | 调用接口，最多返回 `max_rows` 行（默认 100，最大 1000） |
 
-用 `python -m aktools` 启动的服务同时在 `http://127.0.0.1:8080/mcp` 以 Streamable HTTP 方式提供这 3 个工具。HTTP 方式、代理、访问令牌与局域网访问的设置见 [MCP 使用指南](https://akshare.akfamily.xyz/mcp.html)。
+stdio 方式下还有第 4 个工具 `save_data`（AKTools 0.1.12 起），可以把完整数据保存为本机 CSV 文件，不受 `get_data` 的 1000 行限制；它会写文件，没有标注为只读。
+
+用 `python -m aktools` 启动的服务在 `http://127.0.0.1:8080/mcp` 以 Streamable HTTP 方式提供上述 3 个只读工具，不提供 `save_data`；完整数据可通过 `get_data` 返回的 CSV 下载地址获取。HTTP 方式、代理、访问令牌与局域网访问的设置见 [MCP 使用指南](https://akshare.akfamily.xyz/mcp.html)。
 
 ## 安装
 
