@@ -66,8 +66,8 @@ Claude Desktop, Cursor and other clients:
 
 [![Add AKTools MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=aktools&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyItLWZyb20iLCJha3Rvb2xzIiwiYWt0b29scy1tY3AiXX0%3D)
 
-Instead of registering some 950 tools, both transports expose three generic
-read-only tools that the assistant chains together:
+Instead of registering some 950 tools, it exposes three generic ones that the
+assistant chains together:
 
 | Tool | Purpose |
 | --- | --- |
@@ -75,13 +75,8 @@ read-only tools that the assistant chains together:
 | `describe_interface` | Show an interface's parameters, defaults and description |
 | `get_data` | Call an interface and return up to `max_rows` rows (default 100, max 1000) |
 
-The stdio transport also provides `save_data` (AKTools >= 0.1.12), which saves
-the complete table to a local CSV file without `get_data`'s 1000-row limit.
-It writes files and is not marked read-only.
-
-A running `python -m aktools` server exposes the three read-only tools over
-Streamable HTTP at `http://127.0.0.1:8080/mcp`, but not `save_data`; use the
-CSV download URL returned by `get_data` for the complete table. See the
+A running `python -m aktools` server also exposes the same tools over Streamable
+HTTP at `http://127.0.0.1:8080/mcp`. See the
 [MCP guide](https://akshare.akfamily.xyz/mcp.html) (中文) for HTTP mode, proxies,
 access tokens and LAN access.
 
