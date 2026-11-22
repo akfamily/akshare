@@ -291,33 +291,12 @@ def index_zh_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
 
 def index_zh_daily_sina(symbol: str = "sh000922") -> pd.DataFrame:
     """
-    Sina Finance - Index Historical Daily Data
-
-    Fetches daily OHLCV data for Chinese stock indices from Sina Finance.
-    Excessive requests may result in IP bans; add delays between bulk fetches.
-
-    Parameters
-    ----------
-    symbol : str
-        Index code with exchange prefix. Common examples:
-        - sh000300 : CSI 300
-        - sh000016 : SSE 50
-        - sz399001 : SZSE Component Index
-        - sz399006 : ChiNext Index
-        - sh000905 : CSI 500
-
-    Returns
-    -------
-    pandas.DataFrame
-        Columns: date, open, close, high, low, volume.
-
-    Examples
-    --------
-    >>> import akshare as ak
-    >>> df = ak.index_zh_daily_sina(symbol="sh000300")
-    >>> print(df.head())
-            date     open    close     high      low      volume
-    0  2021-04-07  5267.72  5267.72  5335.90  5241.47  1643092968
+    新浪财经-指数-历史行情数据，大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
+    :param symbol: 指定指数代码，例如 sh000300(沪深300)、sh000016(上证50)、sz399001(深证成指)、sz399006(创业板指)、sh000905(中证500)
+    :type symbol: str
+    :return: 历史行情数据，返回字段: date, open, high, low, close, volume
+    :rtype: pandas.DataFrame
     """
     params = {"d": "2020_2_4"}
     res = http.get(zh_sina_index_stock_hist_url.format(symbol), params=params)
