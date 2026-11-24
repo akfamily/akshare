@@ -293,9 +293,9 @@ def index_zh_daily_sina(symbol: str = "sh000922") -> pd.DataFrame:
     """
     新浪财经-指数-历史行情数据，大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
-    :param symbol: sz399998，指定指数代码
+    :param symbol: 指定指数代码，例如 sh000300(沪深300)、sh000016(上证50)、sz399001(深证成指)、sz399006(创业板指)、sh000905(中证500)
     :type symbol: str
-    :return: 历史行情数据
+    :return: 历史行情数据，返回字段：date, open, high, low, close, volume
     :rtype: pandas.DataFrame
     """
     params = {"d": "2020_2_4"}
