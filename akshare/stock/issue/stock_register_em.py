@@ -514,3 +514,9 @@ if __name__ == "__main__":
 
     stock_register_db_df = stock_register_db()
     print(stock_register_db_df)
+
+    stock_register_sh_df = stock_register_sh()
+    print(stock_register_sh_df)
+
+    stock_register_sz_df = stock_register_sz()
+    print(stock_register_sz_df)

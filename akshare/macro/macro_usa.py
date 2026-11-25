@@ -225,3 +225,6 @@ if __name__ == "__main__":
     # 金十数据中心-美国商品期货交易委员会CFTC商品类商业持仓报告
 
     # 金十数据中心-CME-贵金属
+
+    macro_usa_cpi_yoy_df = macro_usa_cpi_yoy()
+    print(macro_usa_cpi_yoy_df)

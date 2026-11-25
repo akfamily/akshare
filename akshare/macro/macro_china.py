@@ -3353,3 +3353,48 @@ if __name__ == "__main__":
 
     macro_shipping_bcti_df = macro_shipping_bcti()
     print(macro_shipping_bcti_df)
+
+    macro_china_bank_financing_df = macro_china_bank_financing()
+    print(macro_china_bank_financing_df)
+
+    macro_china_insurance_income_df = macro_china_insurance_income()
+    print(macro_china_insurance_income_df)
+
+    macro_china_mobile_number_df = macro_china_mobile_number()
+    print(macro_china_mobile_number_df)
+
+    macro_china_vegetable_basket_df = macro_china_vegetable_basket()
+    print(macro_china_vegetable_basket_df)
+
+    macro_china_agricultural_product_df = macro_china_agricultural_product()
+    print(macro_china_agricultural_product_df)
+
+    macro_china_agricultural_index_df = macro_china_agricultural_index()
+    print(macro_china_agricultural_index_df)
+
+    macro_china_energy_index_df = macro_china_energy_index()
+    print(macro_china_energy_index_df)
+
+    macro_china_commodity_price_index_df = macro_china_commodity_price_index()
+    print(macro_china_commodity_price_index_df)
+
+    macro_china_yw_electronic_index_df = macro_china_yw_electronic_index()
+    print(macro_china_yw_electronic_index_df)
+
+    macro_china_construction_index_df = macro_china_construction_index()
+    print(macro_china_construction_index_df)
+
+    macro_china_construction_price_index_df = macro_china_construction_price_index()
+    print(macro_china_construction_price_index_df)
+
+    macro_china_lpi_index_df = macro_china_lpi_index()
+    print(macro_china_lpi_index_df)
+
+    macro_china_bdti_index_df = macro_china_bdti_index()
+    print(macro_china_bdti_index_df)
+
+    macro_china_bsi_index_df = macro_china_bsi_index()
+    print(macro_china_bsi_index_df)
+
+    macro_china_industrial_value_added_df = macro_china_industrial_value_added()
+    print(macro_china_industrial_value_added_df)

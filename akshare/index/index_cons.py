@@ -207,3 +207,6 @@ if __name__ == "__main__":
 
     index_stock_cons_df = index_stock_cons(symbol="000300")
     print(index_stock_cons_df)
+
+    index_stock_info_df = index_stock_info()
+    print(index_stock_info_df)

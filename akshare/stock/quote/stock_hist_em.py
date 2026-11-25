@@ -1935,3 +1935,6 @@ if __name__ == "__main__":
 
     stock_zh_b_spot_em_df = stock_zh_b_spot_em()
     print(stock_zh_b_spot_em_df)
+
+    stock_zh_ab_comparison_em_df = stock_zh_ab_comparison_em()
+    print(stock_zh_ab_comparison_em_df)

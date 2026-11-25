@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-date: 2022/2/14 20:02
+date: 2026/11/25 20:02
 desc: 东方财富网-数据中心-特色数据-机构调研
 http://data.eastmoney.com/jgdy/
 东方财富网-数据中心-特色数据-机构调研-机构调研统计：http://data.eastmoney.com/jgdy/tj.html
@@ -11,8 +11,40 @@ http://data.eastmoney.com/jgdy/
 import pandas as pd
 from tqdm import tqdm
 
-from akshare.exceptions import InvalidParameterError
+from akshare.exceptions import APIError, InvalidParameterError
 from akshare.utils import http
+
+# datacenter-web 的业务状态码：查询条件下没有数据、服务器繁忙
+_CODE_EMPTY = 9201
+_CODE_BUSY = 9701
+
+
+def _require_survey_result(data_json: dict, date: str) -> None:
+    """
+    机构调研报表没有返回数据时，区分“没有数据”与“服务器繁忙”给出明确的报错
+    :param data_json: 上游返回的 JSON
+    :type data_json: dict
+    :param date: 查询的开始时间
+    :type date: str
+    """
+    if data_json.get("result"):
+        return
+    code = data_json.get("code")
+    message = data_json.get("message")
+    if code == _CODE_EMPTY:
+        raise InvalidParameterError(
+            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{message}），"
+            "上游只保留近期的数据，请改用更近的日期"
+        )
+    if code == _CODE_BUSY:
+        # 2026-11-25 实测：机构调研详细翻到约第 50 页以后，上游时常返回“服务器繁忙”，
+        # 放慢请求或隔几秒重试同一页都不能避免；每页条数大于 50 时则每次都返回它
+        raise APIError(
+            f"东方财富数据中心没有返回 {date} 以来的机构调研数据（上游提示：{message}）。"
+            "数据量较大、需要翻很多页时上游时常拒绝靠后的页，请改用更近的日期缩小范围，"
+            "或稍后重试"
+        )
+    raise APIError(f"东方财富没有返回机构调研数据（上游提示：{message}，代码：{code}）")
 
 
 def stock_jgdy_tj_em(date: str = "20261101") -> pd.DataFrame:
@@ -39,17 +71,14 @@ def stock_jgdy_tj_em(date: str = "20261101") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_json = r.json()
-    if not data_json.get("result"):
-        raise InvalidParameterError(
-            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{data_json.get('message')}），"
-            "上游只保留近期的数据，请改用更近的日期"
-        )
+    _require_survey_result(data_json, date)
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = http.get(url, params=params)
         data_json = r.json()
+        _require_survey_result(data_json, date)
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df])
     big_df = big_df.reset_index()
@@ -112,7 +141,7 @@ def stock_jgdy_tj_em(date: str = "20261101") -> pd.DataFrame:
     return big_df
 
 
-def stock_jgdy_detail_em(date: str = "20261112") -> pd.DataFrame:
+def stock_jgdy_detail_em(date: str = "20261118") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研详细
     https://data.eastmoney.com/jgdy/xx.html
@@ -138,17 +167,14 @@ def stock_jgdy_detail_em(date: str = "20261112") -> pd.DataFrame:
     }
     r = http.get(url, params=params)
     data_json = r.json()
-    if not data_json.get("result"):
-        raise InvalidParameterError(
-            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{data_json.get('message')}），"
-            "上游只保留近期的数据，请改用更近的日期"
-        )
+    _require_survey_result(data_json, date)
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = http.get(url, params=params)
         data_json = r.json()
+        _require_survey_result(data_json, date)
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df])
     big_df = big_df.reset_index()
@@ -194,8 +220,8 @@ def stock_jgdy_detail_em(date: str = "20261112") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_jgdy_tj_em_df = stock_jgdy_tj_em(date="20180928")
+    stock_jgdy_tj_em_df = stock_jgdy_tj_em(date="20261101")
     print(stock_jgdy_tj_em_df)
 
-    stock_jgdy_detail_em_df = stock_jgdy_detail_em(date="20210915")
+    stock_jgdy_detail_em_df = stock_jgdy_detail_em(date="20261118")
     print(stock_jgdy_detail_em_df)

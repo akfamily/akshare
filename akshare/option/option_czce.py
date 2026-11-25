@@ -75,6 +75,11 @@ def option_hist_yearly_czce(symbol: str = "SR", year: str = "2025") -> pd.DataFr
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Option/{year}/OptionDataAllHistory/{symbol}OPTIONS{year}.txt"
     r = http.get(url)
     option_df = pd.read_table(StringIO(r.text), skiprows=1, sep="|", low_memory=False)
+    # 上游是定宽文本：表头和单元格都用空格补齐，读进来要去掉
+    option_df.columns = option_df.columns.str.strip()
+    for column in option_df.columns:
+        if not pd.api.types.is_numeric_dtype(option_df[column]):
+            option_df[column] = option_df[column].str.strip()
     return option_df
 
 

@@ -63,7 +63,7 @@ def index_option_50etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -103,7 +103,7 @@ def index_option_300etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -143,7 +143,7 @@ def index_option_500etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -183,7 +183,7 @@ def index_option_cyb_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -223,7 +223,7 @@ def index_option_kcb_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -263,7 +263,7 @@ def index_option_100etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
-    temp_df.loc[:, "qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
+    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 

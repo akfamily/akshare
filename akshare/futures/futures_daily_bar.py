@@ -521,7 +521,7 @@ def futures_daily_shfe(date: str = "20261113") -> pd.DataFrame:
     df = df.rename(columns=cons.SHFE_COLUMNS)
     df = df[~df["symbol"].str.contains("efp")]
     df = df[cons.OUTPUT_COLUMNS]
-    df = df.reset_index()
+    df = df.reset_index(drop=True)
     return df
 
 

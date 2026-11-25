@@ -310,3 +310,6 @@ if __name__ == "__main__":
         indicator="财富", period="5Y"
     )
     print(bond_treasury_index_cbond_df)
+
+    bond_available_index_cbond_df = bond_available_index_cbond()
+    print(bond_available_index_cbond_df)

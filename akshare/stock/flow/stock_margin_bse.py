@@ -236,3 +236,16 @@ def stock_margin_underlying_info_bse(date: str = "20260722") -> pd.DataFrame:
     ]
     big_df["证券代码"] = big_df["证券代码"].astype(str).str.zfill(6)
     return big_df
+
+
+if __name__ == "__main__":
+    stock_margin_bse_df = stock_margin_bse(date="20260721")
+    print(stock_margin_bse_df)
+
+    stock_margin_detail_bse_df = stock_margin_detail_bse(date="20260721")
+    print(stock_margin_detail_bse_df)
+
+    stock_margin_underlying_info_bse_df = stock_margin_underlying_info_bse(
+        date="20260722"
+    )
+    print(stock_margin_underlying_info_bse_df)

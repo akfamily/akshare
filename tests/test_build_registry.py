@@ -144,6 +144,17 @@ def test_parse_segment_extracts_fields():
     assert "print(df)" in rec["example"]
 
 
+def test_parse_segment_reads_params_under_variant_header():
+    # index_zh_daily_tx 的文档把标题写成“输入参数-历史行情数据”，参数表曾因此
+    # 进不了 registry，AKTools 的 describe_interface 就看不到它的入参
+    segment = SEGMENT.replace("输入参数\n", "输入参数-历史行情数据\n").replace(
+        "输出参数\n", "输出参数-历史行情数据\n"
+    )
+    rec = parse_segment(segment)
+    assert rec["params"] == [{"name": "symbol", "type": "str", "desc": "-"}]
+    assert rec["outputs"] == [{"name": "指数代码", "type": "str", "desc": "-"}]
+
+
 def test_parse_segment_absent_limit_is_none():
     rec = parse_segment("描述: 某接口\n\n目标地址: https://x.com\n")
     assert rec["limit_desc"] is None
@@ -544,7 +555,7 @@ PUSH2_FAKE_INIT = """
 from akshare.quote.hist import quote_direct, quote_via_helper as quote_alias
 from akshare.quote.hist import quote_via_constant, quote_docstring_only
 from akshare.quote.hist import quote_via_relative_import, macro_datacenter
-from akshare.quote.hist import quote_too_deep
+from akshare.quote.hist import quote_too_deep, quote_via_local_import
 """
 
 PUSH2_FAKE_HIST = '''
@@ -604,11 +615,21 @@ def macro_datacenter():
 
 def quote_too_deep():
     return _level0()
+
+
+def quote_via_local_import():
+    from .helpers import local_only_helper
+
+    return local_only_helper()
 '''
 
 PUSH2_FAKE_HELPERS = """
 def remote_helper():
     return f"https://{82}.push2.eastmoney.com/api/qt/clist/get"
+
+
+def local_only_helper():
+    return "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
 """
 
 
@@ -639,6 +660,8 @@ def test_collect_rate_limits_traces_requested_servers(push2_repo):
         "quote_docstring_only": None,  # 文档字符串里的地址不是请求地址
         "macro_datacenter": None,  # 东方财富数据中心不限流
         "quote_too_deep": None,  # 超过 MAX_CALL_DEPTH 层的调用不再追踪
+        # 在函数体内 import 的辅助函数（research_rv_input_stock_em 的写法）
+        "quote_via_local_import": RATE_LIMIT_EASTMONEY_PUSH2,
     }
 
 

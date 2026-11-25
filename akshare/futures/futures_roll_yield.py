@@ -223,3 +223,6 @@ if __name__ == "__main__":
         type_method="var", date="20210201"
     )
     print(futures_roll_yield_bar_symbol)
+
+    futures_roll_yield_df = futures_roll_yield(date="20261113", symbol="RB")
+    print(futures_roll_yield_df)

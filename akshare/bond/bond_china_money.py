@@ -206,3 +206,6 @@ if __name__ == "__main__":
         symbol="同业存单(AAA)", period="1", start_date="20261110", end_date="20261110"
     )
     print(bond_zh_close_yield_cm_df)
+
+    bond_zh_close_yield_map_cm_df = bond_zh_close_yield_map_cm()
+    print(bond_zh_close_yield_map_cm_df)

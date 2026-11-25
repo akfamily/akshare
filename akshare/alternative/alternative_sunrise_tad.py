@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/29 16:00
+Date: 2026/11/25 16:00
 Desc: 日出和日落数据
 https://www.timeanddate.com
 """
@@ -10,7 +10,26 @@ from io import StringIO
 
 import pandas as pd
 
+from akshare.exceptions import APIError, InvalidParameterError
 from akshare.utils import http
+
+
+def _get_html(url: str) -> str:
+    """
+    请求 timeanddate.com 的页面；被 Cloudflare 质询拦截时给出明确的报错
+    :param url: 页面地址
+    :type url: str
+    :return: 页面源码
+    :rtype: str
+    """
+    r = http.get(url)
+    if r.status_code == 403 and "Just a moment" in r.text:
+        raise APIError(
+            "timeanddate.com 启用了 Cloudflare 人机验证，拒绝了本次程序访问，"
+            "日出日落数据暂时无法获取；可更换网络或通过 ak.set_proxies 设置代理后重试",
+            status_code=403,
+        )
+    return r.text
 
 
 def sunrise_city_list() -> list:
@@ -21,10 +40,10 @@ def sunrise_city_list() -> list:
     :rtype: list
     """
     url = "https://www.timeanddate.com/astronomy/china"
-    r = http.get(url)
+    text = _get_html(url)
     city_list = []
-    china_city_one_df = pd.read_html(StringIO(r.text))[1]
-    china_city_two_df = pd.read_html(StringIO(r.text))[2]
+    china_city_one_df = pd.read_html(StringIO(text))[1]
+    china_city_two_df = pd.read_html(StringIO(text))[2]
     city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 0].tolist()])
     city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 3].tolist()])
     city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 6].tolist()])
@@ -56,8 +75,7 @@ def alternative_sunrise_daily_tad(
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = http.get(url)
-        table = pd.read_html(StringIO(r.text), header=2)[1]
+        table = pd.read_html(StringIO(_get_html(url)), header=2)[1]
         month_df = table.iloc[:-1,]
         day_df = month_df[
             month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]
@@ -68,7 +86,10 @@ def alternative_sunrise_daily_tad(
         day_df["date"] = pd.to_datetime(day_df["date"]).dt.date
         return day_df
     else:
-        raise "请输入正确的城市名称"
+        raise InvalidParameterError(
+            f"没有城市 {city} 的日出日落数据，city 需为 timeanddate.com 上的英文小写"
+            '城市名，如 "beijing"、"shanghai"'
+        )
 
 
 def alternative_sunrise_monthly_tad(
@@ -89,8 +110,7 @@ def alternative_sunrise_monthly_tad(
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{city}?month={month}&year={year}"
-        r = http.get(url)
-        table = pd.read_html(StringIO(r.text), header=2)[1]
+        table = pd.read_html(StringIO(_get_html(url)), header=2)[1]
         month_df = table.iloc[:-1,].copy()
         month_df.index = [date[:-2]] * len(month_df)
         month_df = month_df.reset_index()
@@ -101,7 +121,10 @@ def alternative_sunrise_monthly_tad(
         )
         return month_df
     else:
-        raise "请输入正确的城市名称"
+        raise InvalidParameterError(
+            f"没有城市 {city} 的日出日落数据，city 需为 timeanddate.com 上的英文小写"
+            '城市名，如 "beijing"、"shanghai"'
+        )
 
 
 if __name__ == "__main__":

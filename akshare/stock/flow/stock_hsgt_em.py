@@ -15,6 +15,30 @@ from akshare.utils.func import fetch_paginated_data
 from akshare.utils.tqdm import get_tqdm
 
 
+def _require_hold_result(
+    data_json: dict, target: str, start_date: str, end_date: str
+) -> None:
+    """
+    沪深港通持股报表没有返回数据时给出明确的报错，而不是在取 result 时抛 TypeError
+    :param data_json: 上游返回的 JSON
+    :type data_json: dict
+    :param target: 查询对象，市场名称或股票代码
+    :type target: str
+    :param start_date: 查询的开始日期
+    :type start_date: str
+    :param end_date: 查询的结束日期
+    :type end_date: str
+    """
+    if data_json.get("result"):
+        return
+    raise APIError(
+        f"东方财富没有返回 {target} 在 {start_date} 至 {end_date} 的持股数据"
+        f"（上游提示：{data_json.get('message')}）。上游只保留一段时间内的数据；"
+        "北向资金（含沪股通、深股通）自 2024-08-19 起不再披露每日持股，"
+        "相关数据止于 2024-09-30，请调整日期范围"
+    )
+
+
 def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-沪深港通资金流向
@@ -636,8 +660,8 @@ def stock_hsgt_stock_statistics_em(
 
 def stock_hsgt_institution_statistics_em(
     market: str = "北向持股",
-    start_date: str = "20220601",
-    end_date: str = "20220609",
+    start_date: str = "20240812",
+    end_date: str = "20240816",
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
@@ -672,6 +696,7 @@ def stock_hsgt_institution_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
+        _require_hold_result(data_json, market, start_date, end_date)
         temp_df = pd.DataFrame(data_json["result"]["data"])
         temp_df.columns = [
             "持股日期",
@@ -735,6 +760,7 @@ def stock_hsgt_institution_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
+        _require_hold_result(data_json, market, start_date, end_date)
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -803,6 +829,7 @@ def stock_hsgt_institution_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
+        _require_hold_result(data_json, market, start_date, end_date)
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -871,6 +898,7 @@ def stock_hsgt_institution_statistics_em(
         url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
         r = http.get(url, params=params, headers=headers)
         data_json = r.json()
+        _require_hold_result(data_json, market, start_date, end_date)
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
         tqdm = get_tqdm()
@@ -1242,8 +1270,8 @@ def stock_hsgt_individual_em(symbol: str = "002008") -> pd.DataFrame:
 
 def stock_hsgt_individual_detail_em(
     symbol: str = "002008",
-    start_date: str = "20220130",
-    end_date: str = "20220330",
+    start_date: str = "20240801",
+    end_date: str = "20240816",
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
@@ -1285,6 +1313,7 @@ def stock_hsgt_individual_detail_em(
         )
         r = http.get(url, params=params)
         data_json = r.json()
+    _require_hold_result(data_json, symbol, start_date, end_date)
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
@@ -1382,7 +1411,7 @@ if __name__ == "__main__":
     print(stock_hsgt_institution_statistics_em_df)
 
     stock_hsgt_institution_statistics_em_df = stock_hsgt_institution_statistics_em(
-        market="南向持股", start_date="20240110", end_date="20240110"
+        market="南向持股", start_date="20261117", end_date="20261124"
     )
     print(stock_hsgt_institution_statistics_em_df)
 
@@ -1403,6 +1432,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        symbol="002008", start_date="20240110", end_date="20240110"
+        symbol="002008", start_date="20240801", end_date="20240816"
     )
     print(stock_hsgt_individual_detail_em_df)

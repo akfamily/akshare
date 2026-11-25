@@ -70,3 +70,6 @@ def option_margin(symbol: str = "原油期权") -> pd.DataFrame:
 if __name__ == "__main__":
     option_margin_df = option_margin(symbol="原油期权")
     print(option_margin_df)
+
+    option_margin_symbol_df = option_margin_symbol()
+    print(option_margin_symbol_df)

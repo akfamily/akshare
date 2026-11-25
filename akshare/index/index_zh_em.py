@@ -390,3 +390,6 @@ if __name__ == "__main__":
         end_date="2025-03-17 19:00:00",
     )
     print(index_zh_hist_min_em_df)
+
+    index_code_id_map_em_df = index_code_id_map_em()
+    print(index_code_id_map_em_df)

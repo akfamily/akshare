@@ -66,26 +66,26 @@ def _field(segment: str, key: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
-VARIANT_HEADER_RE = re.compile(r"^(输出参数[-－—].+?)\s*$", re.M)
-
-
-def parse_outputs(segment: str) -> List[Dict[str, Optional[str]]]:
+def parse_tables(segment: str, title: str) -> List[Dict[str, Optional[str]]]:
     """
-    提取输出参数表。
+    提取输入参数表或输出参数表。
 
-    多数条目只有一张以“输出参数”为标题的表；按入参返回不同字段的接口会写成
-    “输出参数-A股”“输出参数-1分钟数据”这样的多张表，此时按出现顺序合并，
-    同名字段只保留第一次出现的那一行。
+    多数条目只有一张以“输入参数”“输出参数”为标题的表；按入参返回不同字段的接口
+    会写成“输出参数-A股”“输出参数-1分钟数据”这样的多张表，个别条目的输入参数也
+    带后缀（“输入参数-历史行情数据”）。带后缀时按出现顺序合并，同名字段只保留
+    第一次出现的那一行。
 
     :param segment: 单个接口条目的文本片段
+    :param title: "输入参数" 或 "输出参数"
     :return: 每行一个 dict，含 name/type/desc 三个键
     """
-    rows = parse_table(segment, "输出参数")
+    rows = parse_table(segment, title)
     if rows:
         return rows
+    variant_header_re = re.compile(rf"^({re.escape(title)}[-－—].+?)\s*$", re.M)
     merged: List[Dict[str, Optional[str]]] = []
     seen = set()
-    for header in VARIANT_HEADER_RE.findall(segment):
+    for header in variant_header_re.findall(segment):
         for row in parse_table(segment, header):
             if row["name"] not in seen:
                 seen.add(row["name"])
@@ -105,8 +105,8 @@ def parse_segment(segment: str) -> Dict:
         "desc": _field(segment, "描述"),
         "url": _field(segment, "目标地址"),
         "limit_desc": _field(segment, "限量"),
-        "params": parse_table(segment, "输入参数"),
-        "outputs": parse_outputs(segment),
+        "params": parse_tables(segment, "输入参数"),
+        "outputs": parse_tables(segment, "输出参数"),
         "example": example_match.group(1).strip() if example_match else None,
     }
 
@@ -366,17 +366,6 @@ class ModuleIndex:
         for node in tree.body:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 functions[node.name] = node
-            elif isinstance(node, ast.ImportFrom):
-                if node.level:
-                    source = _resolve_relative(
-                        module, is_package, node.level, node.module or ""
-                    )
-                else:
-                    source = node.module or ""
-                if not source.startswith("akshare"):
-                    continue
-                for alias in node.names:
-                    imports[alias.asname or alias.name] = (source, alias.name)
             elif isinstance(node, (ast.Assign, ast.AnnAssign)) and node.value:
                 if isinstance(node, ast.Assign):
                     targets = node.targets
@@ -386,6 +375,22 @@ class ModuleIndex:
                     push2_constants.update(
                         t.id for t in targets if isinstance(t, ast.Name)
                     )
+        # 导入语句要遍历整棵语法树：为避开循环导入，有的接口在函数体内才 import
+        # 别的模块的接口（research_rv_input_stock_em 导入 stock_zh_a_hist_min_em），
+        # 只看模块顶层会漏掉它实际请求的服务器
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.ImportFrom):
+                continue
+            if node.level:
+                source = _resolve_relative(
+                    module, is_package, node.level, node.module or ""
+                )
+            else:
+                source = node.module or ""
+            if not source.startswith("akshare"):
+                continue
+            for alias in node.names:
+                imports[alias.asname or alias.name] = (source, alias.name)
         info = {
             "functions": functions,
             "imports": imports,

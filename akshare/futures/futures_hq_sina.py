@@ -302,3 +302,8 @@ if __name__ == "__main__":
         )
         print(futures_foreign_realtime_sina_df)
         time.sleep(3)
+
+    futures_foreign_commodity_subscribe_exchange_symbol_df = (
+        futures_foreign_commodity_subscribe_exchange_symbol()
+    )
+    print(futures_foreign_commodity_subscribe_exchange_symbol_df)

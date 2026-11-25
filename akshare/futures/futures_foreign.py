@@ -47,14 +47,21 @@ def futures_foreign_detail_sina(symbol: str = "ZSD") -> pd.DataFrame:
     foreign futures contract detail data
     :param symbol: futures symbol, you can get it from ak.futures_hq_subscribe_exchange_symbol function
     :type symbol: str
-    :return: contract detail
+    :return: contract detail, one row per item
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/futures/quotes/{symbol}.shtml"
     r = http.get(url)
     r.encoding = "gbk"
     data_text = r.text
-    data_df = pd.read_html(StringIO(data_text))[6]
+    # 页面上是每行三组“项目-内容”的表格，没有表头；整理成 item/value 两列
+    raw_df = pd.read_html(StringIO(data_text))[6]
+    pairs = [
+        raw_df.iloc[:, [i, i + 1]].set_axis(["item", "value"], axis=1)
+        for i in range(0, raw_df.shape[1] - 1, 2)
+    ]
+    data_df = pd.concat(pairs).sort_index(kind="stable").reset_index(drop=True)
+    data_df = data_df.dropna(subset=["item"]).reset_index(drop=True)
     return data_df
 
 

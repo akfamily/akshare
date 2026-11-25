@@ -298,3 +298,6 @@ if __name__ == "__main__":
 
     bond_info_detail_cm_df = bond_info_detail_cm(symbol="24国开10")
     print(bond_info_detail_cm_df)
+
+    bond_info_cm_query_df = bond_info_cm_query(symbol="债券类型")
+    print(bond_info_cm_query_df)

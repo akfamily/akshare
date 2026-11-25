@@ -8,6 +8,25 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-67)=
+### 1.20.67 fix!: fix 6 QVIX minute interfaces under pandas 3, report upstream refusals clearly and clean up malformed column names
+
+**不兼容的改动：4 个接口返回的列有变化，按旧列名取列的代码需要调整。**
+
+| 接口 | 变化 |
+| --- | --- |
+| futures_foreign_detail_sina | 原先返回页面上的原始表格（4 行 6 列，列名为 0～5），现在整理为 item、value 两列，每个项目一行 |
+| option_hist_yearly_czce | 列名和文本单元格不再带上游补齐用的尾随空格，如 `"交易日期  "` 改为 `"交易日期"` |
+| fund_graded_nav_em | 前一交易日的两列列名去掉多余的连字符，如 `2026-11-23--单位净值` 改为 `2026-11-23-单位净值` |
+| futures_daily_shfe | 去掉多出的 index 列（过滤后残留的行号），与其他交易所的 futures_daily_* 一样是 symbol 开头的 12 列；futures_daily(market="SHFE") 同步变化 |
+
+1. 修复 index_option_50etf_min_qvix、index_option_300etf_min_qvix、index_option_500etf_min_qvix、index_option_cyb_min_qvix、index_option_kcb_min_qvix、index_option_100etf_min_qvix 在 pandas 3 下的 TypeError：上游 CSV 里出现 `#NUM!` 一类的 Excel 错误值时整列被读成文本，原先往文本列里写数值会报错，现在错误值转为 NaN
+2. alternative_sunrise_daily_tad、alternative_sunrise_monthly_tad 的数据源 timeanddate.com 启用了 Cloudflare 人机验证：程序访问被拒绝时原先报 `No tables found`，现在抛出说明原因的 APIError；city 不在城市列表中时原先因 `raise` 了一个字符串而报 TypeError，现在抛出 InvalidParameterError。本机实测该网站目前拒绝程序访问，这两个接口暂时取不到数据
+3. stock_hsgt_institution_statistics_em、stock_hsgt_individual_detail_em：查询范围内上游没有数据时原先报 `'NoneType' object is not subscriptable`，现在抛出 APIError 并说明上游保留的日期范围（北向持股自 2024-08-19 起不再每日披露，数据止于 2024-09-30）；默认日期与文档示例改到仍有数据的范围
+4. stock_jgdy_tj_em、stock_jgdy_detail_em：翻页中途上游返回“服务器繁忙”时原先报 `'NoneType' object is not subscriptable`，首页返回“服务器繁忙”时被误报成“没有该日期以来的数据”，现在都抛出说明原因的 APIError。实测机构调研详细翻到约第 50 页以后上游时常拒绝，放慢请求或重试都不能避免，因此 stock_jgdy_detail_em 的默认日期与文档示例改为更近的 20261118，并在文档中写明这一限制
+5. 接口登记（`akshare/data/interfaces.json`，AKTools 的 MCP 服务据此向 AI 助手介绍接口）补上两处遗漏：research_rv_input_stock_em 在函数体内导入 stock_zh_a_hist_min_em，此前没有被标记为受东方财富 push2 限流；index_zh_daily_tx 的文档标题写作“输入参数-历史行情数据”，此前它的 3 个入参没有进入登记
+6. 32 个接口补进所在模块的 `__main__` 示例调用（macro_china.py 15 个，stock_margin_bse.py 原先没有 `__main__` 块）；实盘交易页的卡片页脚改用 sphinx-design 的新写法，消除文档构建的最后一条警告
+
 (v1-20-66)=
 ### 1.20.66 docs: add common index codes to index_zh_daily_sina and sync the MCP guide with AKTools
 

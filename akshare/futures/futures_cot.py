@@ -1522,3 +1522,6 @@ if __name__ == "__main__":
         end_date="20251103",
     )
     print(futures_rank_sum_daily_df)
+
+    futures_rank_sum_df = futures_rank_sum(date="20261113", symbols="IF,RB")
+    print(futures_rank_sum_df)
