@@ -8,6 +8,15 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-66)=
+### 1.20.66 docs: add common index codes to index_zh_daily_sina and sync the MCP guide with AKTools
+
+本版只有说明性的改动，接口的参数与返回结果均不变。
+
+1. index_zh_daily_sina 的参数说明补充 5 个常见指数代码：sh000300（沪深 300）、sh000016（上证 50）、sz399001（深证成指）、sz399006（创业板指）、sh000905（中证 500），并写明返回的列为 date、open、high、low、close、volume；`ak.interface_info("index_zh_daily_sina")` 与 AKTools 的接口说明中同步可见（#7509）
+2. MCP 使用指南、README 与 llms.txt 同步 AKTools 0.1.12 的 save_data 工具：以 stdio 方式接入时多一个把完整数据保存为本机 CSV 文件的工具，不受 get_data 一次最多 1000 行的限制；两种接入方式都提供 3 个只读工具，HTTP 方式不提供 save_data，完整数据通过 get_data 返回的 CSV 下载地址获取（#7503、#7506）
+3. “与 AKQuant 联用”的说明更新到 AKQuant 0.3.91: AKQuant 的 MCP 服务不再自己取行情，真实行情由 AKTools 的 save_data 保存后交给 AKQuant 回测；两边默认使用同一个数据目录，不需要配置（#7505）
+
 (v1-20-65)=
 ### 1.20.65 fix!: every data interface now returns a pandas.DataFrame
 
