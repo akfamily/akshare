@@ -18,7 +18,7 @@
  "akshare/energy/energy_oil_em.py": 2,
  "akshare/fund/fund_announcement_em.py": 3,
  "akshare/fund/fund_aum_em.py": 2,
- "akshare/fund/fund_em.py": 15,
+ "akshare/fund/fund_em.py": 14,
  "akshare/fund/fund_etf_em.py": 3,
  "akshare/fund/fund_etf_holding_js.py": 2,
  "akshare/fund/fund_etf_sina.py": 3,

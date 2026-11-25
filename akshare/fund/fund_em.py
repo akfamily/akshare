@@ -852,81 +852,11 @@ def fund_financial_nav_hist_em(symbol: str = "000134") -> pd.DataFrame:
     return temp_df
 
 
-def fund_graded_nav_em() -> pd.DataFrame:
-    """
-    东方财富网站-天天基金网-基金数据-分级基金净值
-    https://fund.eastmoney.com/fjjj.html#1_1__0__zdf,desc_1
-    :return: 当前交易日的所有分级基金净值
-    :rtype: pandas.DataFrame
-    """
-    url = "https://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": "https://fund.eastmoney.com/fjjj.html",
-    }
-    params = {
-        "t": "1",
-        "lx": "9",
-        "letter": "",
-        "gsid": "0",
-        "text": "",
-        "sort": "zdf,desc",
-        "page": "1,10000",
-        "dt": "1580914040623",
-        "atfc": "",
-    }
-    res = http.get(url, params=params, headers=headers)
-    text_data = res.text
-    data_json = jsonish.loads(text_data.strip("var db="))
-    temp_df = pd.DataFrame(data_json["datas"])
-    show_day = data_json["showday"]
-    temp_df.columns = [
-        "基金代码",
-        "基金简称",
-        "-",
-        f"{show_day[0]}-单位净值",
-        f"{show_day[0]}-累计净值",
-        f"{show_day[1]}-单位净值",
-        f"{show_day[1]}-累计净值",
-        "日增长值",
-        "日增长率",
-        "市价",
-        "折价率",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "手续费",
-        "-",
-    ]
-    data_df = temp_df[
-        [
-            "基金代码",
-            "基金简称",
-            f"{show_day[0]}-单位净值",
-            f"{show_day[0]}-累计净值",
-            f"{show_day[1]}-单位净值",
-            f"{show_day[1]}-累计净值",
-            "日增长值",
-            "日增长率",
-            "市价",
-            "折价率",
-            "手续费",
-        ]
-    ]
-    return data_df
-
-
 def fund_graded_nav_hist_em(symbol: str = "150232") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     https://fundf10.eastmoney.com/jjjz_150232.html
-    :param symbol: 分级基金代码，可以通过 ak.fund_money_yield_em() 来获取
+    :param symbol: 分级基金代码；分级基金已全部清退，只能查询历史净值
     :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-分级基金净值-历史净值明细
     :rtype: pandas.DataFrame
@@ -1347,9 +1277,6 @@ if __name__ == "__main__":
 
     fund_financial_nav_hist_em_df = fund_financial_nav_hist_em(symbol="000134")
     print(fund_financial_nav_hist_em_df)
-
-    fund_graded_nav_em_df = fund_graded_nav_em()
-    print(fund_graded_nav_em_df)
 
     fund_graded_nav_hist_em_df = fund_graded_nav_hist_em(symbol="150232")
     print(fund_graded_nav_hist_em_df)

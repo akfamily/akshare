@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-69)=
+### 1.20.69 fix!: remove fund_graded_nav_em, query stock_jgdy_detail_em day by day for long ranges and fix the columns of 2 interfaces
+
+**不兼容的改动：移除 fund_graded_nav_em；futures_index_ccidx 不再带出上游的英文字段。**
+
+1. 移除 fund_graded_nav_em（分级基金-实时数据）。分级基金已在 2020 年底全部清退，上游这个地址现在返回的是普通开放式基金：实测返回的 1 万只基金里没有一只分级基金，“市价”“折价率”两列里实际是申购状态和赎回状态。查询分级基金历史净值的 fund_graded_nav_hist_em 保留。调用旧名时会提示移除的版本
+2. stock_jgdy_detail_em 在数据超过 40 页时改为按调研日期逐天查询。上游对一次查询里靠后的页码时常返回“服务器繁忙”，1.20.67 只能把它报成明确的错误；按天查询后每次查询的页数都很少，实测 date="20261112"（原先 68 页里每次有 9～13 页被拒）现在能取回全部 3384 条。40 页以内仍是一次查询，返回的列与排序不变
+3. futures_index_ccidx 只返回文档列出的 6 列（日期、指数代码、收盘点位、结算点位、涨跌、涨跌幅）。上游后来增加了十多个字段，原先会连同 preSettlePrice、openingPrice 等 18 个英文字段名一起带出
+4. stock_register_db 由 2 列（序号、企业名称）恢复为 14 列，增加证券代码、证券简称、经营范围、最近年度、最近一年营业收入、最近一年净利润、最近两年累计净利润、最近三年累计营业收入、最近三年累计研发投入、最近三年研发投入占比、最近三年累计经营现金流、总市值。文档原先写的“近三年营业收入-2019”一类带年份的列早已不存在，已按现在的返回结果重写；各字段的含义用上游数据核对过（三年营业收入之和、两年净利润之和、研发投入占比在所有行上都对得上）
+
 (v1-20-68)=
 ### 1.20.68 docs: sync the output tables of 63 interfaces with the columns actually returned
 

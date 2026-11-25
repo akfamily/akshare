@@ -486,16 +486,40 @@ def stock_register_db() -> pd.DataFrame:
         columns={
             "index": "序号",
             "ORG_NAME": "企业名称",
+            "SECURITY_CODE": "证券代码",
+            "SECURITY_NAME_ABBR": "证券简称",
+            "BUSINESS_SCOPE": "经营范围",
+            "YEAR_1Y": "最近年度",
+            "OPERATE_INCOME_1Y": "最近一年营业收入",
+            "NETPROFIT_1Y": "最近一年净利润",
+            "ACCUM_NETPROFIT_2Y": "最近两年累计净利润",
+            "ACCUM_OPERATEINCOME_3Y": "最近三年累计营业收入",
+            "ACCUM_RESEARCH_3Y": "最近三年累计研发投入",
+            "RESEARCH_RATIO_3Y": "最近三年研发投入占比",
+            "ACCUM_CASHFLOW_3Y": "最近三年累计经营现金流",
+            "ZSZ": "总市值",
         },
     )
-
     big_df = big_df[
         [
             "序号",
             "企业名称",
+            "证券代码",
+            "证券简称",
+            "经营范围",
+            "最近年度",
+            "最近一年营业收入",
+            "最近一年净利润",
+            "最近两年累计净利润",
+            "最近三年累计营业收入",
+            "最近三年累计研发投入",
+            "最近三年研发投入占比",
+            "最近三年累计经营现金流",
+            "总市值",
         ]
     ]
-
+    for column in big_df.columns[6:]:
+        big_df[column] = pd.to_numeric(big_df[column], errors="coerce")
     return big_df
 
 

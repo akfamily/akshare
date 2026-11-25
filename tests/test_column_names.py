@@ -5,7 +5,6 @@ from types import SimpleNamespace
 
 import pandas as pd
 
-from akshare.fund import fund_em
 from akshare.futures import futures_foreign
 from akshare.option import option_czce
 
@@ -51,34 +50,6 @@ def test_option_hist_yearly_czce_strips_padding(monkeypatch):
     assert df["合约代码"].tolist() == ["RM503C1925", "RM503C2150"]
     # 带千分位的数量列仍是文本，但不再带补齐用的空格
     assert df["持仓量"].tolist() == ["2", "1,155"]
-
-
-FUND_TEXT = (
-    'var db={chars:["a"],datas:[["150232","示例分级A","SLFJA","1.0010","1.2010",'
-    '"1.0000","1.2000","0.0010","0.10","1.0050","0.40","1","","1","0","1","","0",'
-    '"","0.00%",""]],count:["1","0","0","0"],record:"1",pages:"1",curpage:"1",'
-    'indexsy:[0.27,0.14,-0.29],showday:["2026-11-24","2026-11-23"]}'
-)
-
-
-def test_fund_graded_nav_em_column_names_have_single_hyphen(monkeypatch):
-    monkeypatch.setattr(
-        fund_em.http, "get", lambda url, **kwargs: SimpleNamespace(text=FUND_TEXT)
-    )
-    df = fund_em.fund_graded_nav_em()
-    assert list(df.columns) == [
-        "基金代码",
-        "基金简称",
-        "2026-11-24-单位净值",
-        "2026-11-24-累计净值",
-        "2026-11-23-单位净值",
-        "2026-11-23-累计净值",
-        "日增长值",
-        "日增长率",
-        "市价",
-        "折价率",
-        "手续费",
-    ]
 
 
 def _table(rows):
@@ -165,3 +136,83 @@ def test_futures_daily_shfe_has_no_leaked_index_column(monkeypatch):
     assert list(df.columns) == cons.OUTPUT_COLUMNS
     assert df["symbol"].tolist() == ["CU2612", "CU2701"]
     assert df.index.tolist() == [0, 1]
+
+
+def test_futures_index_ccidx_selects_named_columns(monkeypatch):
+    # 上游在原有字段之外又加了十多个字段，过去会原样带出英文字段名
+    from akshare.futures import futures_index_ccidx as module
+
+    record = {
+        "tradeDate": "2026-11-24",
+        "indexId": "100001.CCI",
+        "closingPrice": 1500.5,
+        "settlePrice": 1499.0,
+        "dailyIncreaseAndDecrease": 3.2,
+        "dailyIncreaseAndDecreasePercentage": 0.21,
+        "openingPrice": 1498.0,
+        "highPrice": 1503.0,
+        "preSettlePrice": 1496.0,
+        "oneYearAnnualizedReturnPercentage": 5.1,
+    }
+    payload = {"data": {"dateLineJson": [record, dict(record, tradeDate="2026-11-23")]}}
+    monkeypatch.setattr(
+        module.http, "get", lambda url, **kwargs: SimpleNamespace(json=lambda: payload)
+    )
+    df = module.futures_index_ccidx(symbol="中证商品期货指数")
+    assert list(df.columns) == [
+        "日期",
+        "指数代码",
+        "收盘点位",
+        "结算点位",
+        "涨跌",
+        "涨跌幅",
+    ]
+    assert [str(x) for x in df["日期"]] == ["2026-11-23", "2026-11-24"]
+
+
+def test_stock_register_db_returns_financial_columns(monkeypatch):
+    # 2026-11-25 抓到的 RPT_KCB_IPO（三板达标企业）字段，节选
+    from akshare.stock.issue import stock_register_em as module
+
+    row = {
+        "ORG_NAME": "自贡东新电碳股份有限公司",
+        "SECURITY_CODE": "875295",
+        "SECURITY_NAME_ABBR": "自贡东碳",
+        "BUSINESS_SCOPE": "石墨及碳素制品制造",
+        "YEAR_1Y": "2025",
+        "OPERATE_INCOME_1Y": 112131990.87,
+        "NETPROFIT_1Y": 24353700,
+        "ACCUM_NETPROFIT_2Y": 25395500,
+        "ACCUM_OPERATEINCOME_3Y": 203909089.11,
+        "ACCUM_RESEARCH_3Y": None,
+        "RESEARCH_RATIO_3Y": None,
+        "ACCUM_CASHFLOW_3Y": -65335329.91,
+        "ZSZ": 1063651008,
+        "ORG_TYPE": "三板达标企业",
+        "LISTED": "0",
+    }
+    payload = {"result": {"pages": 1, "data": [row, dict(row, ORG_NAME="乙公司")]}}
+    monkeypatch.setattr(
+        module.http, "get", lambda url, **kwargs: SimpleNamespace(json=lambda: payload)
+    )
+    df = module.stock_register_db()
+    assert list(df.columns) == [
+        "序号",
+        "企业名称",
+        "证券代码",
+        "证券简称",
+        "经营范围",
+        "最近年度",
+        "最近一年营业收入",
+        "最近一年净利润",
+        "最近两年累计净利润",
+        "最近三年累计营业收入",
+        "最近三年累计研发投入",
+        "最近三年研发投入占比",
+        "最近三年累计经营现金流",
+        "总市值",
+    ]
+    assert df["序号"].tolist() == [1, 2]
+    assert df["证券代码"].tolist() == ["875295", "875295"]
+    assert df["最近一年营业收入"].iloc[0] == 112131990.87
+    assert pd.isna(df["最近三年累计研发投入"].iloc[0])

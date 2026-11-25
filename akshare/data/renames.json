@@ -10,6 +10,8 @@
 "energy_carbon_gz": "1.20.54",
 "energy_carbon_sz": "1.20.54",
 "fund_em_lcx_rank": "1.20.63",
+"fund_graded_fund_daily_em": "1.20.69",
+"fund_graded_nav_em": "1.20.69",
 "fund_lcx_rank_em": "1.20.63",
 "futures_stock_shfe_js": "1.20.43",
 "fx_convert_currencyscoop": "1.20.52",
@@ -430,10 +432,6 @@
 ],
 "fund_financial_fund_info_em": [
 "fund_financial_nav_hist_em",
-"1.20.41"
-],
-"fund_graded_fund_daily_em": [
-"fund_graded_nav_em",
 "1.20.41"
 ],
 "fund_graded_fund_info_em": [

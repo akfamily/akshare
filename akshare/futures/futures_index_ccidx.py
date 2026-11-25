@@ -39,7 +39,10 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
             "dailyIncreaseAndDecreasePercentage": "涨跌幅",
         },
     )
-
+    # 上游后来增加了十多个字段（开盘、最高、最低、各期限年化收益等），这里只取已命名的列
+    temp_df = temp_df[
+        ["日期", "指数代码", "收盘点位", "结算点位", "涨跌", "涨跌幅"]
+    ].copy()
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["收盘点位"] = pd.to_numeric(temp_df["收盘点位"], errors="coerce")
     temp_df["结算点位"] = pd.to_numeric(temp_df["结算点位"], errors="coerce")
