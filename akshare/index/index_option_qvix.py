@@ -290,23 +290,6 @@ def index_option_300index_qvix() -> pd.DataFrame:
     return temp_df
 
 
-def index_option_300index_min_qvix() -> pd.DataFrame:
-    """
-    中证300股指 期权波动率指数 QVIX-分时
-    http://1.optbbs.com/s/vix.shtml?Index
-    :return: 中证300股指 期权波动率指数 QVIX-分时
-    :rtype: pandas.DataFrame
-    """
-    url = "http://1.optbbs.com/d/csv/d/vixindex.csv"
-    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
-    temp_df.columns = [
-        "time",
-        "qvix",
-    ]
-    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
-    return temp_df
-
-
 def index_option_1000index_qvix() -> pd.DataFrame:
     """
     中证1000股指 期权波动率指数 QVIX
@@ -330,23 +313,6 @@ def index_option_1000index_qvix() -> pd.DataFrame:
     return temp_df
 
 
-def index_option_1000index_min_qvix() -> pd.DataFrame:
-    """
-    中证1000股指 期权波动率指数 QVIX-分时
-    http://1.optbbs.com/s/vix.shtml?Index1000
-    :return: 中证1000股指 期权波动率指数 QVIX-分时
-    :rtype: pandas.DataFrame
-    """
-    url = "http://1.optbbs.com/d/csv/d/vixindex1000.csv"
-    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
-    temp_df.columns = [
-        "time",
-        "qvix",
-    ]
-    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
-    return temp_df
-
-
 def index_option_50index_qvix() -> pd.DataFrame:
     """
     上证50股指 期权波动率指数 QVIX
@@ -367,23 +333,6 @@ def index_option_50index_qvix() -> pd.DataFrame:
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
     temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
     temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
-    return temp_df
-
-
-def index_option_50index_min_qvix() -> pd.DataFrame:
-    """
-    上证50股指 期权波动率指数 QVIX-分时
-    http://1.optbbs.com/s/vix.shtml?50index
-    :return: 上证50股指 期权波动率指数 QVIX-分时
-    :rtype: pandas.DataFrame
-    """
-    url = "http://1.optbbs.com/d/csv/d/vix50index.csv"
-    temp_df = pd.read_csv(http.get_buffer(url)).iloc[:, :2]
-    temp_df.columns = [
-        "time",
-        "qvix",
-    ]
-    temp_df["qvix"] = pd.to_numeric(temp_df["qvix"], errors="coerce")
     return temp_df
 
 
@@ -427,17 +376,8 @@ if __name__ == "__main__":
     index_option_300index_qvix_df = index_option_300index_qvix()
     print(index_option_300index_qvix_df)
 
-    index_option_300index_min_qvix_df = index_option_300index_min_qvix()
-    print(index_option_300index_min_qvix_df)
-
     index_option_1000index_qvix_df = index_option_1000index_qvix()
     print(index_option_1000index_qvix_df)
 
-    index_option_1000index_min_qvix_df = index_option_1000index_min_qvix()
-    print(index_option_1000index_min_qvix_df)
-
     index_option_50index_qvix_df = index_option_50index_qvix()
     print(index_option_50index_qvix_df)
-
-    index_option_50index_min_qvix_df = index_option_50index_min_qvix()
-    print(index_option_50index_min_qvix_df)

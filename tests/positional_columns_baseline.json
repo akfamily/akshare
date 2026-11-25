@@ -59,7 +59,7 @@
  "akshare/index/index_cons.py": 3,
  "akshare/index/index_drewry.py": 1,
  "akshare/index/index_global_em.py": 1,
- "akshare/index/index_option_qvix.py": 18,
+ "akshare/index/index_option_qvix.py": 15,
  "akshare/index/index_sp500_min.py": 1,
  "akshare/index/index_spot.py": 1,
  "akshare/index/index_stock_hk.py": 2,

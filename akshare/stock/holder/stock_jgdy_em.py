@@ -47,9 +47,11 @@ def _require_survey_result(data_json: dict, date: str) -> None:
     code = data_json.get("code")
     message = data_json.get("message")
     if code == _CODE_EMPTY:
+        # 2026-11-25 实测：只有 date 之后确实没有记录（如 date 是今天或未来）时
+        # 上游才返回这个代码；date 很早时上游照常返回它保留的全部数据
         raise InvalidParameterError(
-            f"东方财富没有 {date} 以来的机构调研数据（上游提示：{message}），"
-            "上游只保留近期的数据，请改用更近的日期"
+            f"东方财富没有 {date} 之后的机构调研数据（上游提示：{message}），"
+            "请改用更早的日期"
         )
     if code == _CODE_BUSY:
         # 2026-11-25 实测：机构调研详细翻到约第 50 页以后，上游时常返回“服务器繁忙”，

@@ -24,7 +24,8 @@ MIN_FUNCTIONS = [
 
 
 def test_all_min_functions_are_covered():
-    assert len(MIN_FUNCTIONS) == 9
+    # 3 个股指期权的分时接口在 1.20.70 移除（上游文件里不再有数据）
+    assert len(MIN_FUNCTIONS) == 6
 
 
 @pytest.mark.parametrize("name", MIN_FUNCTIONS)

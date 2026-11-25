@@ -8,6 +8,16 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-70)=
+### 1.20.70 fix!: remove 3 QVIX minute interfaces of index options that no longer have data
+
+**不兼容的改动：移除 index_option_300index_min_qvix、index_option_1000index_min_qvix、index_option_50index_min_qvix。**
+
+1. 移除 3 个股指期权波动率指数的分时接口 index_option_300index_min_qvix、index_option_1000index_min_qvix、index_option_50index_min_qvix：上游不再计算这三个指数，实测分时文件的 239 行里没有一个有效值（整列是 `#NAME?`）。调用旧名时会提示移除的版本
+2. 对应的 3 个日线接口 index_option_300index_qvix、index_option_1000index_qvix、index_option_50index_qvix 保留，仍可取到历史数据，文档中写明数据分别止于 2026-05-29、2026-03-13、2026-05-29，之后的行为 0 或空值；6 个 ETF 期权的 QVIX 日线与分时接口不受影响
+3. QVIX 日线接口的耗时说明按实测更正：数据文件约 1 MB，单独下载需要几秒到二十几秒，同时下载多份时明显变慢（4 份并发时最慢的一份用了 36 秒）；9 个日线接口共用这一个文件，同一进程内只下载一次
+4. stock_jgdy_tj_em、stock_jgdy_detail_em 在 date 之后没有数据时的报错原先提示“请改用更近的日期”，方向写反了，改为“请改用更早的日期”；文档中“过早的日期会报错”的说法也已更正。实测 stock_jgdy_tj_em 的上游只保留最近一年的数据（约 2.1 万条、43 页），完整翻页两遍没有一页被拒，因此不需要像 stock_jgdy_detail_em 那样分段查询
+
 (v1-20-69)=
 ### 1.20.69 fix!: remove fund_graded_nav_em, query stock_jgdy_detail_em day by day for long ranges and fix the columns of 2 interfaces
 
