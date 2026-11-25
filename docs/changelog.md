@@ -8,6 +8,19 @@ tocdepth: 2
 
 ## 1.20.x
 
+(v1-20-68)=
+### 1.20.68 docs: sync the output tables of 63 interfaces with the columns actually returned
+
+本版只改文档与接口登记（`akshare/data/interfaces.json`），接口的参数与返回结果均不变。
+
+按文档示例逐个调用接口，把返回的列名与文档的输出参数表对比后，同步了 63 个接口的输出参数表，同步后这些表与实际返回的列名、顺序完全一致：
+
+1. 13 个接口的列名里有半角括号或冒号，曾被标点检查改成全角，文档因此与真实列名不符，现改回并写成行内代码，如 macro_china_central_bank_balance 的 `其中:中央政府`、stock_ipo_review_em 的 `发行数量(股)`；涉及 fund_manager_info_amac、fund_manager_classify_info_amac、macro_china_central_bank_balance、macro_china_money_supply_em、macro_china_society_traffic_volume、option_current_day_szse、option_fee_9qihuo、option_margin、stock_allotment_cninfo、stock_financial_analysis_indicator、stock_hk_financial_indicator_em、stock_ipo_review_em、stock_zh_a_gbjg_em
+2. 20 个接口的个别列名与实际不符，改为实际的列名：stock_register_kcb、stock_register_cyb、stock_register_sh、stock_register_sz、stock_register_bj（“发行人全称、审核状态、证监会行业”实为“企业名称、最新状态、行业”），stock_hold_num_cninfo、stock_hold_control_cninfo、stock_hold_management_detail_cninfo、stock_cg_guarantee_cninfo（“证劵代码”实为“证券代码”），以及 energy_oil_hist、fund_overview_em、interest_rate_interbank_em、macro_china_money_supply_sina、macro_china_passenger_load_factor、option_hist_czce、option_sse_daily_sina、stock_comment_detail_zhpj_lspf_em、stock_dzjy_mrtj、stock_lhb_yybph_em、stock_management_change_ths
+3. 20 个接口补上实际返回而文档没有列出的列：bond_cb_index_jsl、fund_etf_hist_sina、fund_person_fund_org_list_amac、fund_rating_all、futures_foreign_hist_sina、fx_boc_rate_sina、fx_central_parity_safe、index_hk_daily_sina、index_third_info_sw、option_contract_info_ctp、option_daily_stats_sse、stock_financial_us_analysis_indicator_em、stock_gpzy_industry_data_em、stock_hk_company_profile_em、stock_info_sh_name_code、stock_ipo_tutor_em、stock_lhb_hyyyb_em、stock_lhb_stock_detail_em、stock_sy_jz_em、stock_zh_a_cdr_hist_sina
+4. 10 个接口的输出参数表按实际返回的列整张重写，去掉实际不返回的列并补上新增的列：futures_fee_ctp、index_detail_cni、index_detail_hist_cni、interest_rate_hibor_js、interest_rate_shibor_js、stock_calendar_report_baidu、stock_calendar_suspend_baidu、stock_dxsyl_em、stock_hk_security_profile_em、stock_yjkb_em
+5. 没有同步的条目：列名随日期、年份或入参变化而用占位符书写的，按入参分多张表或只写“不逐一列出”的，以及东方财富 push2 行情接口（易触发限流，未实测）
+
 (v1-20-67)=
 ### 1.20.67 fix!: fix 6 QVIX minute interfaces under pandas 3, report upstream refusals clearly and clean up malformed column names
 

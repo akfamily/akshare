@@ -250,18 +250,19 @@ print(stock_sy_yq_em_df)
 
 输出参数
 
-| 名称         | 类型      | 描述      |
-|------------|---------|---------|
-| 序号         | int64   | -       |
-| 股票代码       | str     | -       |
-| 股票简称       | str     | -       |
-| 商誉         | float64 | 注意单位：元 |
-| 商誉减值       | float64 | 注意单位：元 |
-| 商誉减值占净资产比例 | float64 | -       |
-| 净利润        | float64 | 注意单位：元 |
-| 商誉减值占净利润比例 | float64 | -       |
-| 公告日期       | object  | -       |
-| 交易市场       | str     | -       |
+| 名称                 | 类型    | 描述         |
+|----------------------|---------|--------------|
+| 序号                 | int64   | -            |
+| 股票代码             | str     | -            |
+| 股票简称             | str     | -            |
+| 商誉                 | float64 | 注意单位：元 |
+| 商誉减值             | float64 | 注意单位：元 |
+| 商誉占净资产比例     | float64 | -            |
+| 商誉减值占净资产比例 | float64 | -            |
+| 净利润               | float64 | 注意单位：元 |
+| 商誉减值占净利润比例 | float64 | -            |
+| 公告日期             | object  | -            |
+| 交易市场             | str     | -            |
 
 接口示例
 
@@ -424,12 +425,15 @@ print(stock_sy_hy_em_df)
 
 输出参数
 
-| 名称   | 类型     | 描述  |
-|------|--------|-----|
-| 股票代码 | str    |     |
-| 交易所  | str    |     |
-| 股票简称 | str    |     |
-| 财报期  | str    |     |
+| 名称     | 类型   | 描述 |
+|----------|--------|------|
+| 股票代码 | str    |      |
+| 股票简称 | str    |      |
+| 交易所   | str    |      |
+| 财报类型 | str    | -    |
+| 发布时间 | str    | -    |
+| 市值     | int64  | -    |
+| 发布日期 | object | -    |
 
 接口示例
 
@@ -544,26 +548,24 @@ print(stock_yjbb_em_df)
 
 输出参数
 
-| 名称          | 类型     | 描述  |
-|-------------|--------|-----|
-| 序号          | int64  | -   |
-| 股票代码        | str    | -   |
-| 股票简称        | str    | -   |
-| 每股收益        | float64| -   |
-| 营业收入-营业收入   | float64| -   |
-| 营业收入-去年同期   | float64| -   |
-| 营业收入-同比增长   | str    | -   |
-| 营业收入-季度环比增长 | float64| -   |
-| 净利润-净利润     | float64| -   |
-| 净利润-去年同期    | float64| -   |
-| 净利润-同比增长    | str    | -   |
-| 净利润-季度环比增长  | float64| -   |
-| 每股净资产       | float64| -   |
-| 净资产收益率      | float64| -   |
-| 所处行业        | str    | -   |
-| 公告日期        | object | -   |
-| 市场板块        | str    | -   |
-| 证券类型        | str    | -   |
+| 名称                  | 类型    | 描述 |
+|-----------------------|---------|------|
+| 序号                  | int64   | -    |
+| 股票代码              | str     | -    |
+| 股票简称              | str     | -    |
+| 每股收益              | float64 | -    |
+| 营业收入-营业收入     | float64 | -    |
+| 营业收入-去年同期     | float64 | -    |
+| 营业收入-同比增长     | str     | -    |
+| 营业收入-季度环比增长 | float64 | -    |
+| 净利润-净利润         | float64 | -    |
+| 净利润-去年同期       | float64 | -    |
+| 净利润-同比增长       | str     | -    |
+| 净利润-季度环比增长   | float64 | -    |
+| 每股净资产            | float64 | -    |
+| 净资产收益率          | float64 | -    |
+| 所处行业              | str     | -    |
+| 公告日期              | object  | -    |
 
 接口示例
 
@@ -1142,65 +1144,65 @@ print(stock_share_change_cninfo_df)
 
 输出参数
 
-| 名称           | 类型         | 描述  |
-|--------------|------------|-----|
-| 记录标识         | int64      | -   |
-| 证券简称         | str        | -   |
-| 停牌起始日        | object     | -   |
-| 上市公告日期       | object     | -   |
-| 配股缴款起始日      | object     | -   |
-| 可转配股数量       | float64    | -   |
-| 停牌截止日        | object     | -   |
-| 实际配股数量       | float64    | -   |
-| 配股价格         | float64    | -   |
-| 配股比例         | float64    | -   |
-| 配股前总股本       | float64    | -   |
-| 每股配权转让费（元）   | float64    | -   |
-| 法人股实配数量      | float64    | -   |
-| 实际募资净额       | float64    | -   |
-| 大股东认购方式      | str        | -   |
-| 其他配售简称       | object     | -   |
-| 发行方式         | str        | -   |
-| 配股失败，退还申购款日期 | object     | -   |
-| 除权基准日        | object     | -   |
-| 预计发行费用       | float64    | -   |
-| 配股发行结果公告日    | object     | -   |
-| 证券代码         | str        | -   |
-| 配股权证交易截止日    | datetime64 | -   |
-| 其他股份实配数量     | float64    | -   |
-| 国家股实配数量      | float64    | -   |
-| 委托单位         | object     | -   |
-| 公众获转配数量      | float64    | -   |
-| 其他配售代码       | object     | -   |
-| 配售对象         | str        | -   |
-| 配股权证交易起始日    | datetime64 | -   |
-| 资金到账日        | datetime64 | -   |
-| 机构名称         | str        | -   |
-| 股权登记日        | object     | -   |
-| 实际募资总额       | float64    | -   |
-| 预计募集资金       | float64    | -   |
-| 大股东认购数量      | float64    | -   |
-| 公众股实配数量      | float64    | -   |
-| 转配股实配数量      | float64    | -   |
-| 承销费用         | float64    | -   |
-| 法人获转配数量      | float64    | -   |
-| 配股后流通股本      | float64    | -   |
-| 股票类别         | str        | -   |
-| 公众配售简称       | str        | -   |
-| 发行方式编码       | str        | -   |
-| 承销方式         | str        | -   |
-| 公告日期         | object     | -   |
-| 配股上市日        | object     | -   |
-| 配股缴款截止日      | object     | -   |
-| 承销余额（股）      | float64    | -   |
-| 预计配股数量       | float64    | -   |
-| 配股后总股本       | float64    | -   |
-| 职工股实配数量      | float64    | -   |
-| 承销方式编码       | str        | -   |
-| 发行费用总额       | float64    | -   |
-| 配股前流通股本      | float64    | -   |
-| 股票类别编码       | str        | -   |
-| 公众配售代码       | str        | -   |
+| 名称                     | 类型       | 描述 |
+|--------------------------|------------|------|
+| 记录标识                 | int64      | -    |
+| 证券简称                 | str        | -    |
+| 停牌起始日               | object     | -    |
+| 上市公告日期             | object     | -    |
+| 配股缴款起始日           | object     | -    |
+| 可转配股数量             | float64    | -    |
+| 停牌截止日               | object     | -    |
+| 实际配股数量             | float64    | -    |
+| 配股价格                 | float64    | -    |
+| 配股比例                 | float64    | -    |
+| 配股前总股本             | float64    | -    |
+| `每股配权转让费(元)`     | float64    | -    |
+| 法人股实配数量           | float64    | -    |
+| 实际募资净额             | float64    | -    |
+| 大股东认购方式           | str        | -    |
+| 其他配售简称             | object     | -    |
+| 发行方式                 | str        | -    |
+| 配股失败，退还申购款日期 | object     | -    |
+| 除权基准日               | object     | -    |
+| 预计发行费用             | float64    | -    |
+| 配股发行结果公告日       | object     | -    |
+| 证券代码                 | str        | -    |
+| 配股权证交易截止日       | datetime64 | -    |
+| 其他股份实配数量         | float64    | -    |
+| 国家股实配数量           | float64    | -    |
+| 委托单位                 | object     | -    |
+| 公众获转配数量           | float64    | -    |
+| 其他配售代码             | object     | -    |
+| 配售对象                 | str        | -    |
+| 配股权证交易起始日       | datetime64 | -    |
+| 资金到账日               | datetime64 | -    |
+| 机构名称                 | str        | -    |
+| 股权登记日               | object     | -    |
+| 实际募资总额             | float64    | -    |
+| 预计募集资金             | float64    | -    |
+| 大股东认购数量           | float64    | -    |
+| 公众股实配数量           | float64    | -    |
+| 转配股实配数量           | float64    | -    |
+| 承销费用                 | float64    | -    |
+| 法人获转配数量           | float64    | -    |
+| 配股后流通股本           | float64    | -    |
+| 股票类别                 | str        | -    |
+| 公众配售简称             | str        | -    |
+| 发行方式编码             | str        | -    |
+| 承销方式                 | str        | -    |
+| 公告日期                 | object     | -    |
+| 配股上市日               | object     | -    |
+| 配股缴款截止日           | object     | -    |
+| `承销余额(股)`           | float64    | -    |
+| 预计配股数量             | float64    | -    |
+| 配股后总股本             | float64    | -    |
+| 职工股实配数量           | float64    | -    |
+| 承销方式编码             | str        | -    |
+| 发行费用总额             | float64    | -    |
+| 配股前流通股本           | float64    | -    |
+| 股票类别编码             | str        | -    |
+| 公众配售代码             | str        | -    |
 
 接口示例
 
@@ -2842,94 +2844,94 @@ print(stock_financial_analysis_indicator_em_df)
 
 输出参数
 
-| 名称                | 类型      | 描述 |
-|-------------------|---------|----|
-| 日期                | object  | -  |
-| 摊薄每股收益（元）         | float64 | -  |
-| 加权每股收益（元）         | float64 | -  |
-| 每股收益_调整后（元）       | float64 | -  |
-| 扣除非经常性损益后的每股收益（元） | float64 | -  |
-| 每股净资产_调整前（元）      | float64 | -  |
-| 每股净资产_调整后（元）      | float64 | -  |
-| 每股经营性现金流（元）       | float64 | -  |
-| 每股资本公积金（元）        | float64 | -  |
-| 每股未分配利润（元）        | float64 | -  |
-| 调整后的每股净资产（元）      | float64 | -  |
-| 总资产利润率(%)         | float64 | -  |
-| 主营业务利润率(%)        | float64 | -  |
-| 总资产净利润率(%)        | float64 | -  |
-| 成本费用利润率(%)        | float64 | -  |
-| 营业利润率(%)          | float64 | -  |
-| 主营业务成本率(%)        | float64 | -  |
-| 销售净利率(%)          | float64 | -  |
-| 股本报酬率(%)          | float64 | -  |
-| 净资产报酬率(%)         | float64 | -  |
-| 资产报酬率(%)          | float64 | -  |
-| 销售毛利率(%)          | float64 | -  |
-| 三项费用比重            | float64 | -  |
-| 非主营比重             | float64 | -  |
-| 主营利润比重            | float64 | -  |
-| 股息发放率(%)          | float64 | -  |
-| 投资收益率(%)          | float64 | -  |
-| 主营业务利润（元）         | float64 | -  |
-| 净资产收益率(%)         | float64 | -  |
-| 加权净资产收益率(%)       | float64 | -  |
-| 扣除非经常性损益后的净利润（元）  | float64 | -  |
-| 主营业务收入增长率(%)      | float64 | -  |
-| 净利润增长率(%)         | float64 | -  |
-| 净资产增长率(%)         | float64 | -  |
-| 总资产增长率(%)         | float64 | -  |
-| 应收账款周转率（次）        | float64 | -  |
-| 应收账款周转天数（天）       | float64 | -  |
-| 存货周转天数（天）         | float64 | -  |
-| 存货周转率（次）          | float64 | -  |
-| 固定资产周转率（次）        | float64 | -  |
-| 总资产周转率（次）         | float64 | -  |
-| 总资产周转天数（天）        | float64 | -  |
-| 流动资产周转率（次）        | float64 | -  |
-| 流动资产周转天数（天）       | float64 | -  |
-| 股东权益周转率（次）        | float64 | -  |
-| 流动比率              | float64 | -  |
-| 速动比率              | float64 | -  |
-| 现金比率(%)           | float64 | -  |
-| 利息支付倍数            | float64 | -  |
-| 长期债务与营运资金比率(%)    | float64 | -  |
-| 股东权益比率(%)         | float64 | -  |
-| 长期负债比率(%)         | float64 | -  |
-| 股东权益与固定资产比率(%)    | float64 | -  |
-| 负债与所有者权益比率(%)     | float64 | -  |
-| 长期资产与长期资金比率(%)    | float64 | -  |
-| 资本化比率(%)          | float64 | -  |
-| 固定资产净值率(%)        | float64 | -  |
-| 资本固定化比率(%)        | float64 | -  |
-| 产权比率(%)           | float64 | -  |
-| 清算价值比率(%)         | float64 | -  |
-| 固定资产比重(%)         | float64 | -  |
-| 资产负债率(%)          | float64 | -  |
-| 总资产（元）            | float64 | -  |
-| 经营现金净流量对销售收入比率(%) | float64 | -  |
-| 资产的经营现金流量回报率(%)   | float64 | -  |
-| 经营现金净流量与净利润的比率(%) | float64 | -  |
-| 经营现金净流量对负债比率(%)   | float64 | -  |
-| 现金流量比率(%)         | float64 | -  |
-| 短期股票投资（元）         | float64 | -  |
-| 短期债券投资（元）         | float64 | -  |
-| 短期其它经营性投资（元）      | float64 | -  |
-| 长期股票投资（元）         | float64 | -  |
-| 长期债券投资（元）         | float64 | -  |
-| 长期其它经营性投资（元）      | float64 | -  |
-| 1年以内应收帐款（元）       | float64 | -  |
-| 1-2年以内应收帐款（元）     | float64 | -  |
-| 2-3年以内应收帐款（元）     | float64 | -  |
-| 3年以内应收帐款（元）       | float64 | -  |
-| 1年以内预付货款（元）       | float64 | -  |
-| 1-2年以内预付货款（元）     | float64 | -  |
-| 2-3年以内预付货款（元）     | float64 | -  |
-| 3年以内预付货款（元）       | float64 | -  |
-| 1年以内其它应收款（元）      | float64 | -  |
-| 1-2年以内其它应收款（元）    | float64 | -  |
-| 2-3年以内其它应收款（元）    | float64 | -  |
-| 3年以内其它应收款（元）      | float64 | -  |
+| 名称                               | 类型    | 描述 |
+|------------------------------------|---------|------|
+| 日期                               | object  | -    |
+| `摊薄每股收益(元)`                 | float64 | -    |
+| `加权每股收益(元)`                 | float64 | -    |
+| `每股收益_调整后(元)`              | float64 | -    |
+| `扣除非经常性损益后的每股收益(元)` | float64 | -    |
+| `每股净资产_调整前(元)`            | float64 | -    |
+| `每股净资产_调整后(元)`            | float64 | -    |
+| `每股经营性现金流(元)`             | float64 | -    |
+| `每股资本公积金(元)`               | float64 | -    |
+| `每股未分配利润(元)`               | float64 | -    |
+| `调整后的每股净资产(元)`           | float64 | -    |
+| `总资产利润率(%)`                  | float64 | -    |
+| `主营业务利润率(%)`                | float64 | -    |
+| `总资产净利润率(%)`                | float64 | -    |
+| `成本费用利润率(%)`                | float64 | -    |
+| `营业利润率(%)`                    | float64 | -    |
+| `主营业务成本率(%)`                | float64 | -    |
+| `销售净利率(%)`                    | float64 | -    |
+| `股本报酬率(%)`                    | float64 | -    |
+| `净资产报酬率(%)`                  | float64 | -    |
+| `资产报酬率(%)`                    | float64 | -    |
+| `销售毛利率(%)`                    | float64 | -    |
+| 三项费用比重                       | float64 | -    |
+| 非主营比重                         | float64 | -    |
+| 主营利润比重                       | float64 | -    |
+| `股息发放率(%)`                    | float64 | -    |
+| `投资收益率(%)`                    | float64 | -    |
+| `主营业务利润(元)`                 | float64 | -    |
+| `净资产收益率(%)`                  | float64 | -    |
+| `加权净资产收益率(%)`              | float64 | -    |
+| `扣除非经常性损益后的净利润(元)`   | float64 | -    |
+| `主营业务收入增长率(%)`            | float64 | -    |
+| `净利润增长率(%)`                  | float64 | -    |
+| `净资产增长率(%)`                  | float64 | -    |
+| `总资产增长率(%)`                  | float64 | -    |
+| `应收账款周转率(次)`               | float64 | -    |
+| `应收账款周转天数(天)`             | float64 | -    |
+| `存货周转天数(天)`                 | float64 | -    |
+| `存货周转率(次)`                   | float64 | -    |
+| `固定资产周转率(次)`               | float64 | -    |
+| `总资产周转率(次)`                 | float64 | -    |
+| `总资产周转天数(天)`               | float64 | -    |
+| `流动资产周转率(次)`               | float64 | -    |
+| `流动资产周转天数(天)`             | float64 | -    |
+| `股东权益周转率(次)`               | float64 | -    |
+| 流动比率                           | float64 | -    |
+| 速动比率                           | float64 | -    |
+| `现金比率(%)`                      | float64 | -    |
+| 利息支付倍数                       | float64 | -    |
+| `长期债务与营运资金比率(%)`        | float64 | -    |
+| `股东权益比率(%)`                  | float64 | -    |
+| `长期负债比率(%)`                  | float64 | -    |
+| `股东权益与固定资产比率(%)`        | float64 | -    |
+| `负债与所有者权益比率(%)`          | float64 | -    |
+| `长期资产与长期资金比率(%)`        | float64 | -    |
+| `资本化比率(%)`                    | float64 | -    |
+| `固定资产净值率(%)`                | float64 | -    |
+| `资本固定化比率(%)`                | float64 | -    |
+| `产权比率(%)`                      | float64 | -    |
+| `清算价值比率(%)`                  | float64 | -    |
+| `固定资产比重(%)`                  | float64 | -    |
+| `资产负债率(%)`                    | float64 | -    |
+| `总资产(元)`                       | float64 | -    |
+| `经营现金净流量对销售收入比率(%)`  | float64 | -    |
+| `资产的经营现金流量回报率(%)`      | float64 | -    |
+| `经营现金净流量与净利润的比率(%)`  | float64 | -    |
+| `经营现金净流量对负债比率(%)`      | float64 | -    |
+| `现金流量比率(%)`                  | float64 | -    |
+| `短期股票投资(元)`                 | float64 | -    |
+| `短期债券投资(元)`                 | float64 | -    |
+| `短期其它经营性投资(元)`           | float64 | -    |
+| `长期股票投资(元)`                 | float64 | -    |
+| `长期债券投资(元)`                 | float64 | -    |
+| `长期其它经营性投资(元)`           | float64 | -    |
+| `1年以内应收帐款(元)`              | float64 | -    |
+| `1-2年以内应收帐款(元)`            | float64 | -    |
+| `2-3年以内应收帐款(元)`            | float64 | -    |
+| `3年以内应收帐款(元)`              | float64 | -    |
+| `1年以内预付货款(元)`              | float64 | -    |
+| `1-2年以内预付货款(元)`            | float64 | -    |
+| `2-3年以内预付货款(元)`            | float64 | -    |
+| `3年以内预付货款(元)`              | float64 | -    |
+| `1年以内其它应收款(元)`            | float64 | -    |
+| `1-2年以内其它应收款(元)`          | float64 | -    |
+| `2-3年以内其它应收款(元)`          | float64 | -    |
+| `3年以内其它应收款(元)`            | float64 | -    |
 
 接口示例
 
@@ -3068,56 +3070,57 @@ print(stock_financial_hk_analysis_indicator_em_df)
 
 输出参数
 
-| 名称                          | 类型      | 描述 |
-|-----------------------------|---------|----|
-| SECUCODE                    | str     | -  |
-| SECURITY_CODE               | str     | -  |
-| SECURITY_NAME_ABBR          | str     | -  |
-| ORG_CODE                    | str     | -  |
-| SECURITY_INNER_CODE         | str     | -  |
-| ACCOUNTING_STANDARDS        | str     | -  |
-| NOTICE_DATE                 | str     | -  |
-| START_DATE                  | str     | -  |
-| REPORT_DATE                 | str     | -  |
-| FINANCIAL_DATE              | str     | -  |
-| STD_REPORT_DATE             | str     | -  |
-| CURRENCY                    | str     | -  |
-| DATE_TYPE                   | str     | -  |
-| DATE_TYPE_CODE              | str     | -  |
-| REPORT_TYPE                 | str     | -  |
-| REPORT_DATA_TYPE            | str     | -  |
-| ORGTYPE                     | str     | -  |
-| OPERATE_INCOME              | float64 | -  |
-| OPERATE_INCOME_YOY          | float64 | -  |
-| GROSS_PROFIT                | float64 | -  |
-| GROSS_PROFIT_YOY            | float64 | -  |
-| PARENT_HOLDER_NETPROFIT     | int64   | -  |
-| PARENT_HOLDER_NETPROFIT_YOY | float64 | -  |
-| BASIC_EPS                   | float64 | -  |
-| DILUTED_EPS                 | float64 | -  |
-| GROSS_PROFIT_RATIO          | float64 | -  |
-| NET_PROFIT_RATIO            | float64 | -  |
-| ACCOUNTS_RECE_TR            | float64 | -  |
-| INVENTORY_TR                | float64 | -  |
-| TOTAL_ASSETS_TR             | float64 | -  |
-| ACCOUNTS_RECE_TDAYS         | float64 | -  |
-| INVENTORY_TDAYS             | float64 | -  |
-| TOTAL_ASSETS_TDAYS          | float64 | -  |
-| ROE_AVG                     | float64 | -  |
-| ROA                         | float64 | -  |
-| CURRENT_RATIO               | float64 | -  |
-| SPEED_RATIO                 | float64 | -  |
-| OCF_LIQDEBT                 | float64 | -  |
-| DEBT_ASSET_RATIO            | float64 | -  |
-| EQUITY_RATIO                | float64 | -  |
-| BASIC_EPS_YOY               | float64 | -  |
-| GROSS_PROFIT_RATIO_YOY      | float64 | -  |
-| NET_PROFIT_RATIO_YOY        | float64 | -  |
-| ROE_AVG_YOY                 | float64 | -  |
-| ROA_YOY                     | float64 | -  |
-| DEBT_ASSET_RATIO_YOY        | float64 | -  |
-| CURRENT_RATIO_YOY           | float64 | -  |
-| SPEED_RATIO_YOY             | float64 | -  |
+| 名称                        | 类型    | 描述 |
+|-----------------------------|---------|------|
+| SECUCODE                    | str     | -    |
+| SECURITY_CODE               | str     | -    |
+| SECURITY_NAME_ABBR          | str     | -    |
+| ORG_CODE                    | str     | -    |
+| SECURITY_INNER_CODE         | str     | -    |
+| ACCOUNTING_STANDARDS        | str     | -    |
+| NOTICE_DATE                 | str     | -    |
+| START_DATE                  | str     | -    |
+| REPORT_DATE                 | str     | -    |
+| FINANCIAL_DATE              | str     | -    |
+| STD_REPORT_DATE             | str     | -    |
+| CURRENCY                    | str     | -    |
+| DATE_TYPE                   | str     | -    |
+| DATE_TYPE_CODE              | str     | -    |
+| REPORT_TYPE                 | str     | -    |
+| REPORT_DATA_TYPE            | str     | -    |
+| ORGTYPE                     | str     | -    |
+| OPERATE_INCOME              | float64 | -    |
+| OPERATE_INCOME_YOY          | float64 | -    |
+| GROSS_PROFIT                | float64 | -    |
+| GROSS_PROFIT_YOY            | float64 | -    |
+| PARENT_HOLDER_NETPROFIT     | int64   | -    |
+| PARENT_HOLDER_NETPROFIT_YOY | float64 | -    |
+| BASIC_EPS                   | float64 | -    |
+| DILUTED_EPS                 | float64 | -    |
+| GROSS_PROFIT_RATIO          | float64 | -    |
+| NET_PROFIT_RATIO            | float64 | -    |
+| ACCOUNTS_RECE_TR            | float64 | -    |
+| INVENTORY_TR                | float64 | -    |
+| TOTAL_ASSETS_TR             | float64 | -    |
+| ACCOUNTS_RECE_TDAYS         | float64 | -    |
+| INVENTORY_TDAYS             | float64 | -    |
+| TOTAL_ASSETS_TDAYS          | float64 | -    |
+| ROE_AVG                     | float64 | -    |
+| ROA                         | float64 | -    |
+| CURRENT_RATIO               | float64 | -    |
+| SPEED_RATIO                 | float64 | -    |
+| OCF_LIQDEBT                 | float64 | -    |
+| DEBT_ASSET_RATIO            | float64 | -    |
+| EQUITY_RATIO                | float64 | -    |
+| BASIC_EPS_YOY               | float64 | -    |
+| GROSS_PROFIT_RATIO_YOY      | float64 | -    |
+| NET_PROFIT_RATIO_YOY        | float64 | -    |
+| ROE_AVG_YOY                 | float64 | -    |
+| ROA_YOY                     | float64 | -    |
+| DEBT_ASSET_RATIO_YOY        | float64 | -    |
+| CURRENT_RATIO_YOY           | float64 | -    |
+| SPEED_RATIO_YOY             | float64 | -    |
+| CURRENCY_ABBR               | str     | -    |
 
 接口示例
 
@@ -3173,17 +3176,17 @@ print(stock_financial_us_analysis_indicator_em_df)
 
 输出参数
 
-| 名称          | 类型      | 描述 |
-|-------------|---------|----|
-| 变更日期        | object  | -  |
-| 总股本         | int64   | -  |
-| 流通受限股份      | float64 | -  |
-| 其他内资持股（受限）  | float64 | -  |
-| 境内法人持股（受限）  | float64 | -  |
-| 境内自然人持股（受限） | float64 | -  |
-| 已流通股份       | float64 | -  |
-| 已上市流通A股     | int64   | -  |
-| 变动原因        | str     | -  |
+| 名称                   | 类型    | 描述 |
+|------------------------|---------|------|
+| 变更日期               | object  | -    |
+| 总股本                 | int64   | -    |
+| 流通受限股份           | float64 | -    |
+| `其他内资持股(受限)`   | float64 | -    |
+| `境内法人持股(受限)`   | float64 | -    |
+| `境内自然人持股(受限)` | float64 | -    |
+| 已流通股份             | float64 | -    |
+| 已上市流通A股          | int64   | -    |
+| 变动原因               | str     | -    |
 
 接口示例
 
