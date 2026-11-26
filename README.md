@@ -10,6 +10,9 @@
 **工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
 如需了解更多信息可访问[期魔方](https://qmfquant.com)。
 
+**工具推荐**：股神（GuShen）是一款基于 AKShare 的 Qoder 原生 A 股分析智能体，完全本地运行、无需 API key。内置四维分析框架、排雷闸门、盈亏比硬门槛与胜率自校准台账，所有数字实时抓取并带时间戳溯源，杜绝 LLM 幻觉。
+参见[股神 GuShen](https://github.com/DamonSundamingbai/gushen-agent)。
+
 ![AKShare Logo](https://raw.githubusercontent.com/akfamily/akshare/main/assets/images/akshare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
